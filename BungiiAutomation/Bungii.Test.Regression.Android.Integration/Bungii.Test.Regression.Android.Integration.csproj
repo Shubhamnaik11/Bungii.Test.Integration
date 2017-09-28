@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{06D7A932-85E4-4665-B35F-4469E111A78F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bungii.Test.Regression.Android.Integration</RootNamespace>
+    <AssemblyName>Bungii.Test.Regression.Android.Integration</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="appium-dotnet-driver, Version=3.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Bungii.Test.Integration.Framework">
+      <HintPath>..\Bungii.Test.Integration.Framework\bin\Debug\Bungii.Test.Integration.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\packages\SpecFlow.2.2.1\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver">
+      <HintPath>..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="WebDriver.Support">
+      <HintPath>..\packages\Selenium.Support.3.0.1\lib\net40\WebDriver.Support.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Data_Reusable_Customer.cs" />
+    <Compile Include="Data\Data_Validations_Customer.cs" />
+    <Compile Include="Features\Bungii\BungiiEstimates.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BungiiEstimates.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\LoginAndForgotPassword\CustomerLogin1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerLogin.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Menus\CustomerMenu.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerMenu.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Signup\CustomerSignup.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerSignup.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\LoginAndForgotPassword\CustomerForgotPassword.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Bungii\CameraPage.cs" />
+    <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
+    <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
+    <Compile Include="Pages\Bungii\CustomerHomePage.cs" />
+    <Compile Include="Pages\Bungii\EstimatePage.cs" />
+    <Compile Include="Pages\LoginSignupPages\LoginPage.cs" />
+    <Compile Include="Pages\MenuPages\MenuPage.cs" />
+    <Compile Include="Pages\Bungii\SearchingPage.cs" />
+    <Compile Include="Pages\MenuPages\PaymentPage.cs" />
+    <Compile Include="Pages\Bungii\HomePage.cs" />
+    <Compile Include="Pages\MenuPages\AccountPage.cs" />
+    <Compile Include="Pages\MenuPages\FAQPage.cs" />
+    <Compile Include="Pages\MenuPages\SupportPage.cs" />
+    <Compile Include="Pages\LoginSignupPages\SignupPage.cs" />
+    <Compile Include="Pages\LoginSignupPages\TermsPage.cs" />
+    <Compile Include="Hooks.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StepDefinitions\BungiiEstimatesSteps.cs" />
+    <Compile Include="StepDefinitions\CustomerForgotPasswordSteps.cs" />
+    <Compile Include="StepDefinitions\CustomerMenuSteps.cs" />
+    <Compile Include="StepDefinitions\CustomerSignupSteps.cs" />
+    <Compile Include="StepDefinitions\LoginSteps.cs" />
+    <Compile Include="Functions\UtilityFunctions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Features\Bungii\BungiiEstimates.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>BungiiEstimates.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\LoginAndForgotPassword\CustomerLogin.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CustomerLogin1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Menus\CustomerMenu.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CustomerMenu.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Signup\CustomerSignup.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CustomerSignup.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\LoginAndForgotPassword\CustomerForgotPassword.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CustomerForgotPassword.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

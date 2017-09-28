@@ -1,0 +1,78 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Configuration;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Remote;
+
+namespace Bungii.Test.Integration.Framework.Core
+{
+   public static class AndroidManager
+    {
+        public static AppiumDriver<AndroidElement> androiddriver = null;
+        
+        public static void InitializeDriver(string DeviceType, string package, string activity, string appPath)
+        {
+    string samsungDeviceName = ConfigurationManager.AppSettings["samsungDeviceName"];
+     string samsungVersion = ConfigurationManager.AppSettings["samsungVersion"];
+       string platform = ConfigurationManager.AppSettings["samsungPlatform"];
+        string browserName = ConfigurationManager.AppSettings["browserName"];
+      string listner = ConfigurationManager.AppSettings["ListnerURL"];
+   string timeout = ConfigurationManager.AppSettings["Timeout"];
+            switch (DeviceType)
+            {
+                case "Samsung":
+                    SamsungSetup(package, activity, appPath);
+                    break;
+                case "Motorola":
+                    MotorolaSetup(package, activity, appPath);
+                    break;
+                default :
+                    SamsungSetup(package, activity, appPath);
+                    break;
+
+            }
+        }
+        private static void SamsungSetup(string package, string activity, string appPath)
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
+            capabilities.SetCapability("deviceName", samsungDeviceName);
+            capabilities.SetCapability("platformVersion", samsungVersion);
+            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability("appPackage", package);
+            capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+       
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void MotorolaSetup(string package, string activity, string appPath)
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
+            capabilities.SetCapability("deviceName", samsungDeviceName);
+            capabilities.SetCapability("platformVersion", samsungVersion);
+            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability("appPackage", package);
+            capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void InitializeAndroidDriver(DesiredCapabilities capabilities)
+        {
+            androiddriver = new AndroidDriver<AndroidElement>(new Uri(listner), capabilities);
+        }
+
+        public static void Quit()
+        {
+            androiddriver.Close();
+        }
+    }
+}

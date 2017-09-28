@@ -1,0 +1,6 @@
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\bin\Debug\Bunji.Test.Integration.Framework.dll.config
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\bin\Debug\Bunji.Test.Integration.Framework.dll
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\bin\Debug\Bunji.Test.Integration.Framework.pdb
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\obj\Debug\Bunji.Test.Integration.Framework.csprojResolveAssemblyReference.cache
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\obj\Debug\Bunji.Test.Integration.Framework.dll
+F:\BunjiAutomation\Bunji.Test.Integration.Framework\obj\Debug\Bunji.Test.Integration.Framework.pdb

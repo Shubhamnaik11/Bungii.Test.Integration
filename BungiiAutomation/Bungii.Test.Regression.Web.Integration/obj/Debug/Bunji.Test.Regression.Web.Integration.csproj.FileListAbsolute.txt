@@ -1,0 +1,12 @@
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll.config
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.pdb
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\obj\Debug\Bunji.Test.Regression.Web.Integration.csprojResolveAssemblyReference.cache
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.dll
+F:\BunjiAutomation\Bunji.Android.Regression.Test.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.pdb
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll.config
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.dll
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\bin\Debug\Bunji.Android.Regression.Test.Integration.pdb
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\obj\Debug\Bunji.Test.Regression.Web.Integration.csprojResolveAssemblyReference.cache
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.dll
+F:\BunjiAutomation\Bunji.Test.Regression.Web.Integration\obj\Debug\Bunji.Android.Regression.Test.Integration.pdb

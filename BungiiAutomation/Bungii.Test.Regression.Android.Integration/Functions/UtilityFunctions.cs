@@ -1,0 +1,125 @@
+﻿using System;
+using System.Data.SqlClient;
+using System.Threading;
+using Bungii.Test.Regression.Android.Integration.Pages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Android;
+using OpenQA.Selenium.Appium.MultiTouch;
+using System.Configuration;
+using Bungii.Test.Integration.Framework.Core.Android;
+
+namespace Bungii.Test.Regression.Android.Integration.Functions
+{
+    public class UtilityFunctions
+    {
+        public AppiumDriver<AndroidElement> driver = AndroidManager.androiddriver;
+        LoginPage Page_Login = new LoginPage(AndroidManager.androiddriver);
+        SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
+        TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
+        CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
+        private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
+        public void LoginToCustomerApp(string phone, string password)
+        {
+            DriverAction.Click(Page_Signup.Link_Login);
+            DriverAction.SendKeys(Page_Login.TextField_PhoneNumber, phone);
+            DriverAction.SendKeys(Page_Login.TextField_Password, password);
+            DriverAction.Click(Page_Login.Button_Login);
+            if (DriverAction.isElementPresent(Page_CustTerms.Checkbox_Agree))
+            {
+                DriverAction.Click(Page_CustTerms.Checkbox_Agree);
+                DriverAction.Click(Page_CustTerms.Button_Continue);
+                if (DriverAction.isElementPresent(Page_CustTerms.Popup_PermissionsMessage))
+                {
+                    DriverAction.Click(Page_CustTerms.Button_PermissionsAllow);
+                }
+            }
+            AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
+            AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+        }
+
+        public string GetVerificationCode(string PhoneNumber)
+        {
+            string SMSCode = string.Empty;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = connection;
+                    conn.Open();
+                    // Creating the command
+                    SqlCommand command = new SqlCommand("SELECT SmsVerificationCode FROM Customer WHERE Phone = @Phone", conn);
+                    // Adding the parameters.
+                    command.Parameters.Add(new SqlParameter("Phone", PhoneNumber));
+                    // Creating new SqlDataReader object and read data from the command.
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // while there is another record present
+                        while (reader.Read())
+                        {
+                            SMSCode = reader["SmsVerificationCode"].ToString();
+                        }
+                    }
+                    conn.Close();
+                    return SMSCode;
+                }
+            }
+            catch(Exception)
+            {
+                Assert.Fail("Could not retrive Verification code");
+                return null;
+            }
+        }
+
+        public void ScrollToBottom()
+        {
+            var dimensions = driver.Manage().Window.Size;
+            Double screenHeightStart = dimensions.Height * 0.5;
+            int scrollstart = Convert.ToInt32(screenHeightStart);
+            Double screenHeightEnd = dimensions.Height * 0.2;
+            int scrollend = Convert.ToInt32(screenHeightEnd);
+            driver.Swipe(0, scrollstart, 0, scrollend, 1000);
+        }
+
+        public void ScrollToTop()
+        {
+            var dimensions = driver.Manage().Window.Size;
+            Double screenHeightStart = dimensions.Height * 0.2;
+            int scrollstart = Convert.ToInt32(screenHeightStart);
+            Double screenHeightEnd = dimensions.Height * 0.5;
+            int scrollend = Convert.ToInt32(screenHeightEnd);
+            driver.Swipe(0, scrollstart, 0, scrollend, 1000);
+        }
+
+        public string TrimString(string stringtext)
+        {
+            stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "");
+            return stringtext;
+        }
+
+        public void HideKeyboard()
+        {
+            try
+            {
+              driver.HideKeyboard();
+            }
+            catch(Exception)
+            {
+            }
+        }
+
+        public void SelectAddress(IWebElement element, string searchstring)
+        {
+            // element.Clear();
+            DriverAction.Clear(element);
+            Thread.Sleep(5000);
+            element.SendKeys(searchstring);
+            int x = element.Location.X;
+            int y = element.Location.Y;
+
+            new TouchAction(driver).Tap(x + 32, y + 176).Release().Perform();
+        }
+    }
+}
