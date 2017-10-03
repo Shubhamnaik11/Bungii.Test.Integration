@@ -73,8 +73,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
             capabilities.SetCapability("full-reset", "true");
-            capabilities.SetCapability("unicodeKeyboard", true);
-            capabilities.SetCapability("resetKeyboard", true);
+            //capabilities.SetCapability("unicodeKeyboard", false);
+            //capabilities.SetCapability("resetKeyboard", false);
             InitializeAndroidDriver(capabilities);
         }
 
@@ -91,8 +91,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
             capabilities.SetCapability("full-reset", "true");
-            capabilities.SetCapability("resetKeyboard", true);
-            capabilities.SetCapability("unicodeKeyboard", true);
+            //capabilities.SetCapability("resetKeyboard", true);
+            //capabilities.SetCapability("unicodeKeyboard", true);
             InitializeAndroidDriver(capabilities);
         }
 

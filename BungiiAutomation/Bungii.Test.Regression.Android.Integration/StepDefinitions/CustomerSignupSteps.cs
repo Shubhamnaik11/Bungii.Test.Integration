@@ -149,8 +149,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementTextEqual(Page_Signup.TextField_Email, Data_Customer.Email);
                 
                     var ExpectedPhoneNumber = DriverAction.GetValueFromFeatureContextVariable("CustomerPhoneNum");
-                    var ActualPhoneNumber = Page_Signup.TextField_Phonenumber.Text;
-                    ActualPhoneNumber = ActualPhoneNumber.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                    string ActualPhoneNumber = UtilFunctions.ConvertPhoneToString(Page_Signup.TextField_Phonenumber);
                     AssertionManager.CompareStrings(ExpectedPhoneNumber, ActualPhoneNumber);
 
                     AssertionManager.ElementNotEmpty(Page_Signup.TextField_Password);
@@ -174,7 +173,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.ValidPercentCode);
                     break;
                 case "invalid":
-                    DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.InvalidReferralCode);
+                    DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.InvalidCode);
                     break;
                 default: break;
             }

@@ -5,14 +5,19 @@ namespace Bungii.Test.Regression.Android.Integration.Data
     class Data_Reusable_Customer
     {
         //------Customer Login Details-------------------------------------------------------------------------
-        public string CustomerPhonenumber = "9999996408",
+        public string CustomerPhonenumber = "9999997923",
+                      CustPhn_NewlyRegistered = "9999991722",
+                      CustPhn_WithBungiis = "9999996101",
+                      CustPhn_HavingReferral = "9999992345",
                       CustomerPassword = "cci12345";
 
         //------Customer Sign up-------------------------------------------------------------------------------
         public string CustomerFirstName = "TestCustomer_AppleTest",
                       CustomerLastName = "Auto'Test",
                       Email = "seonad.fernandes@creativecapsule.com",
-                      ReferralCode = "",
+                      ReferralCode = "XX4ID",
+                      FirstTimePromo = "FTP",
+                      UsedOneOffCode = "U1OFF",
                       InvalidData = "a1"; 
 
         //------Invalid Customer Details-----------------------------------------------------------------------
@@ -20,7 +25,7 @@ namespace Bungii.Test.Regression.Android.Integration.Data
                       CustomerPhoneLessThan10 = "12345",
                       CustPasswordLessThan6 = "abc",
                       InvalidEmail = "ss@dd",
-                      InvalidReferralCode = "invalid",
+                      InvalidCode = "invalid",
                       ValidPercentCode = "BAT",
                       IncorrectVerificationCode = "000000";
 
@@ -28,6 +33,14 @@ namespace Bungii.Test.Regression.Android.Integration.Data
         public string currentlocation_verna = "Unnamed Road, Verna Industrial Estate, Verna, Goa, 403722",
                       currentlocation_US = "4 International Square, Kansas City, Missouri, 64153",
                       dropofflocation_US = "4 International Circle, KCMO, MO, United States";
+
+        //------Support Page--------------------------------------------------------------------------------------
+        public string Support_Text = "I have nothing but great things to say. I can't tell you how many times I've been out front of IKEA fanagling, unpacking, and trying to tie things to my roof. Now, I can simply tap a button and get it picked up and delivered.",
+                      BlankSpaces = "         ";
+
+        //------Save Money Page--------------------------------------------------------------------------------------
+        public string ValidPromo = "newp",
+                      ExpiredPromo = "EXPC";
 
         //------Generating random Tel No starting with 999999------------------------------------------------------------------------------
         static Random random = new Random();

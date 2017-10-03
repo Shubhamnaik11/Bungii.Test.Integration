@@ -17,6 +17,7 @@ Scenario: Cust_Menu_FAQ
 Scenario: Cust_Menu_Account
 	When I tap on "Menu" > "Account" link
 	Then "Account" page should be opened
+	And logged in Customer details should be displayed
 
 Scenario: Cust_Menu_Payment
 	When I tap on "Menu" > "Payment" link

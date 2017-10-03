@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
+namespace Bungii.Test.Regression.Android.Integration.Features.Menus
 {
     using TechTalk.SpecFlow;
     
@@ -18,14 +18,14 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class BungiiEstimatesFeature
+    public partial class Menu_SupportFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
-#line 1 "BungiiEstimates.feature"
+#line 1 "Menu_Support.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -44,7 +44,7 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BungiiEstimates", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Menu_Support", "\tTest scenarios related to Support page", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -59,9 +59,9 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "BungiiEstimates")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "Menu_Support")))
             {
-                global::Bungii.Test.Regression.Android.Integration.Features.Bungii.BungiiEstimatesFeature.FeatureSetup(null);
+                global::Bungii.Test.Regression.Android.Integration.Features.Menus.Menu_SupportFeature.FeatureSetup(null);
             }
         }
         
@@ -84,36 +84,50 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         
         public virtual void FeatureBackground()
         {
-#line 3
 #line 4
-testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 5
+ testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 6
+ testRunner.When("I tap on \"Menu\" > \"Support\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Verify Bungii Customer Estimates Bungii first time")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BungiiEstimates")]
-        public virtual void VerifyBungiiCustomerEstimatesBungiiFirstTime()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_Support_SendFeedback")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Menu_Support")]
+        public virtual void Menu_Support_SendFeedback()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Bungii Customer Estimates Bungii first time", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
-#line 3
-this.FeatureBackground();
-#line 7
- testRunner.When("I set correct \"pickup\" location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_Support_SendFeedback", ((string[])(null)));
 #line 8
- testRunner.And("I set correct \"drop off\" location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 4
+this.FeatureBackground();
 #line 9
- testRunner.When("I tap on the \"Get Estimate\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I enter \"valid\" text in Support field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.Then("the \"Get Estimate\" page should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I tap \"Send\" on Support page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.When("I Request a Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 12
- testRunner.And("I click on the \"cancel\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("The user should see \"snackbar validation\" on Support page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_Support_BlankField")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Menu_Support")]
+        public virtual void Menu_Support_BlankField()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_Support_BlankField", ((string[])(null)));
 #line 13
- testRunner.Then("Driver search should be cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 4
+this.FeatureBackground();
+#line 14
+ testRunner.When("I enter \"space\" text in Support field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+ testRunner.Then("The user should see \"Send button disabled\" on Support page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 16
+ testRunner.Then("The user should see \"validation message\" on Support page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

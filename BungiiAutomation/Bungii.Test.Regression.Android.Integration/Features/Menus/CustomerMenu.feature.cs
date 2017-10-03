@@ -140,6 +140,8 @@ this.FeatureBackground();
  testRunner.When("I tap on \"Menu\" > \"Account\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 19
  testRunner.Then("\"Account\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 20
+ testRunner.And("logged in Customer details should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -150,13 +152,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Payment()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Payment", ((string[])(null)));
-#line 21
+#line 22
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 22
- testRunner.When("I tap on \"Menu\" > \"Payment\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
+ testRunner.When("I tap on \"Menu\" > \"Payment\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
  testRunner.Then("\"Payment\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -168,13 +170,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Support()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Support", ((string[])(null)));
-#line 25
+#line 26
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 26
- testRunner.When("I tap on \"Menu\" > \"Support\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 27
+ testRunner.When("I tap on \"Menu\" > \"Support\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 28
  testRunner.Then("\"Support\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -186,13 +188,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_SaveMoney()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_SaveMoney", ((string[])(null)));
-#line 29
+#line 30
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 30
- testRunner.When("I tap on \"Menu\" > \"Save Money\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 31
+ testRunner.When("I tap on \"Menu\" > \"Save Money\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
  testRunner.Then("\"Save money\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -204,13 +206,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Logout()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Logout", ((string[])(null)));
-#line 33
+#line 34
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 34
- testRunner.When("I tap on \"Menu\" > \"Logout\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 35
+ testRunner.When("I tap on \"Menu\" > \"Logout\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 36
  testRunner.Then("Customer should be logged out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
