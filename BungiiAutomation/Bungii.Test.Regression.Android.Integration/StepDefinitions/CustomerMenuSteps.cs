@@ -131,5 +131,14 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 default: break;
             }
         }
+
+        [Then(@"logged in Customer details should be displayed")]
+        public void ThenLoggedInCustomerDetailsShouldBeDisplayed()
+        {
+            AssertionManager.ElementTextEqual(Page_Account.Account_Name, Data_Customer.CustomerFirstName + " " + Data_Customer.CustomerLastName);
+            string ActualPhone = UtilFunctions.ConvertPhoneToString(Page_Account.Account_Phone);
+            AssertionManager.CompareStrings(Data_Customer.CustomerPhonenumber, ActualPhone);
+            AssertionManager.ElementTextEqual(Page_Account.Account_Email, Data_Customer.Email);
+        }
     }
 }

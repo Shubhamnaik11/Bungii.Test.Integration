@@ -77,6 +77,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomerMenu.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Menus\Menu_Payment.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Menu_Payment.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Menus\Menu_SaveMoney.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Menu_SaveMoney.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Menus\Menu_Support.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Menu_Support.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Signup\CustomerSignup.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,6 +125,9 @@
     <Compile Include="StepDefinitions\CustomerSignupSteps.cs" />
     <Compile Include="StepDefinitions\LoginSteps.cs" />
     <Compile Include="Functions\UtilityFunctions.cs" />
+    <Compile Include="StepDefinitions\Menu_PaymentSteps.cs" />
+    <Compile Include="StepDefinitions\Menu_SaveMoneySteps.cs" />
+    <Compile Include="StepDefinitions\Menu_SupportSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -127,6 +145,18 @@
     <None Include="Features\Menus\CustomerMenu.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CustomerMenu.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Menus\Menu_Payment.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Menu_Payment.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Menus\Menu_SaveMoney.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Menu_SaveMoney.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Menus\Menu_Support.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Menu_Support.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Signup\CustomerSignup.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -146,4 +176,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+
 </Project>

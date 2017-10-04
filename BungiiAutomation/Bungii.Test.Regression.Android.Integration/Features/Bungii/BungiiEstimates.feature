@@ -1,7 +1,7 @@
 ﻿Feature: BungiiEstimates
 
 Background:
-Given I am logged in as a customer
+Given I am logged in as "existing" customer
 
 Scenario: Verify Bungii Customer Estimates Bungii first time
 	When I set correct "pickup" location

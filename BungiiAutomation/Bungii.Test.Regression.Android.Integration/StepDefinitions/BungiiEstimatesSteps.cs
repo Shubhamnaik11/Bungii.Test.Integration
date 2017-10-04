@@ -31,10 +31,28 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         UtilityFunctions UtilFunctions = new UtilityFunctions();
         private static string deviceType = ConfigurationManager.AppSettings["deviceType"];
 
-        [Given(@"I am logged in as a customer")]
-        public void GivenIAmLoggedInAsACustomer()
+        [Given(@"I am logged in as ""(.*)"" customer")]
+        public void GivenIAmLoggedInAsCustomer(string p0)
         {
-            UtilFunctions.LoginToCustomerApp(Data_Customer.CustomerPhonenumber, Data_Customer.CustomerPassword);
+            switch (p0)
+            {
+                case "existing":
+                    UtilFunctions.LoginToCustomerApp(Data_Customer.CustomerPhonenumber, Data_Customer.CustomerPassword);
+                    break;
+                case "newly registered":
+                    UtilFunctions.LoginToCustomerApp(Data_Customer.CustPhn_NewlyRegistered, Data_Customer.CustomerPassword);
+                    break;
+                case "already having bungiis":
+                    UtilFunctions.LoginToCustomerApp(Data_Customer.CustPhn_WithBungiis, Data_Customer.CustomerPassword);
+                    break;
+                case "having referral code":
+                    UtilFunctions.LoginToCustomerApp(Data_Customer.CustPhn_HavingReferral, Data_Customer.CustomerPassword);
+                    break;
+                case "my":
+                    UtilFunctions.LoginToCustomerApp("9999998185", Data_Customer.CustomerPassword);
+                    break;
+                default: break;
+            }
         }
         
         [When(@"I set correct ""(.*)"" location")]

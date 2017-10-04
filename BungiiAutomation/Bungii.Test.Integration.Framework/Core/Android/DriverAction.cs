@@ -10,26 +10,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
     [Binding]
     public class DriverAction : KeyManager
     {
-        #region Waits
-        public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
-        {
-            try
-            {
-                Thread.Sleep(PauseTimeMilliSeconds * 3);
-                WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 30));
-                wait.Until((driver => element.Displayed));
-            }
-            catch (Exception)
-            {
-                Assert.Fail("Following element is not displayed : " + element);
-            }
-        }
+        #region Waits        
 
         public static void WaitUntilSnackbarExistsAndDisplayed(IWebElement element)
         {
             try
             {
-                Thread.Sleep(PauseTimeMilliSeconds * 1);
                 WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 5));
                 wait.Until((driver => element.Displayed));
             }
@@ -90,6 +76,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             Clear(element);
             element.Click();
             element.SendKeys(text);
+            AndroidManager.androiddriver.HideKeyboard();
         }
 
         public static void Clear(IWebElement element)
@@ -108,6 +95,20 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void NavigateBack()
         {
             AndroidManager.androiddriver.Navigate().Back();
+        }
+
+        public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
+        {
+            try
+            {
+                Thread.Sleep(PauseTimeMilliSeconds * 3);
+                WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 30));
+                wait.Until((driver => element.Displayed));
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Following element is not displayed : " + element);
+            }
         }
     }
 }

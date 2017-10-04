@@ -9,6 +9,7 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.MultiTouch;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
+using OpenQA.Selenium.Appium.Interfaces;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -93,10 +94,32 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
         }
 
+        public void SwipeLeft(IWebElement row)
+        {
+            int xShift = Convert.ToInt32(row.Size.Width * 0.20);
+            int xStart = (row.Size.Width) - xShift;
+            int xEnd = xShift;
+
+            ITouchAction action = new TouchAction(driver)
+            .Press(row, xStart, (row.Size.Height / 2))
+            .Wait(1000)
+            .MoveTo(row, xEnd, (row.Size.Height / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
         public string TrimString(string stringtext)
         {
-            stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "");
+            stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "").Replace("\r", "");
             return stringtext;
+        }
+
+        public string ConvertPhoneToString(IWebElement actualphone)
+        {
+            string phone = actualphone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            return phone;
         }
 
         public void HideKeyboard()
