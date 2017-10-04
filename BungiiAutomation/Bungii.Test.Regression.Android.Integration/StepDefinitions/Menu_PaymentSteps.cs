@@ -4,7 +4,6 @@ using Bungii.Test.Regression.Android.Integration.Functions;
 using Bungii.Test.Regression.Android.Integration.Pages;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
@@ -50,6 +49,18 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.Click(Page_Payment.Button_Delete_Yes);
                     break;
 
+                case "Add":
+                    DriverAction.Click(Page_Payment.Button_Add);
+                    break;
+
+                case "Credit or Debit Card":
+                    DriverAction.Click(Page_Payment.Select_Method_Card);
+                    AssertionManager.ElementDisplayed(Page_Payment.Header_CardDetailsPage);
+                    break;
+
+                case "Add Card":                    
+                    DriverAction.Click(Page_Payment.Button_AddCard);
+                    break;
                 default: break;
             }
         }
@@ -76,6 +87,19 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "the card has been deleted":
                     AssertionManager.ElementNotDisplayed(Page_Payment.PaymentCard2);
                     break;
+
+                case "the card has been added":
+                    AssertionManager.ElementDisplayed(Page_Payment.PaymentCard1);
+                    AssertionManager.ElementDisplayed(Page_Payment.DefaultTick);
+                    string ExpectedLast4Digits = DriverAction.GetValueFromScenarioContextVariable("Last4Digits");
+                    string ActualLast4Digits = Page_Payment.PaymentCard1.Text.Replace("*", "").Replace(" ","");
+                    AssertionManager.CompareStrings(ExpectedLast4Digits, ActualLast4Digits);
+                    break;
+
+                case "invalid card error":
+                    AssertionManager.ElementTextEqual(Page_Payment.Error_CardNumber, Data_Valid_Customer.Error_InvalidCard);
+                    break;
+
                 default: break;
             }
         }
@@ -83,7 +107,37 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         [When(@"I swipe ""(.*)"" card on the payment page")]
         public void WhenISwipeCardOnThePaymentPage(string p0)
         {
-            UtilFunctions.SwipeLeft(Page_Payment.PaymentCard2);
+            switch (p0)
+            {
+                case "2nd":
+                    UtilFunctions.SwipeLeft(Page_Payment.PaymentCard2);
+                    break;
+                default: break;
+            }
+        }
+
+        [When(@"I enter ""(.*)"" on Card Details page")]
+        public void WhenIEnterOnCardDetailsPage(string p0)
+        {
+            switch (p0)
+            {
+                case "valid card number":
+                    Page_Payment.Textfield_CardNumber.SendKeys(Data_Customer.ValidCard_JCB);
+                    DriverAction.AddValueToScenarioContextVariable("Last4Digits", Data_Customer.ValidCard_JCB.Substring(Data_Customer.ValidCard_JCB.Length - 4));
+                    break;
+
+                case "invalid card number":
+                    Page_Payment.Textfield_CardNumber.SendKeys(Data_Customer.InvalidCard);
+                    break;
+
+                case "valid expiry date":
+                    DriverAction.Click(Page_Payment.Month_12);
+                    DriverAction.Click(Page_Payment.Year_2020);
+                    DriverAction.keyBoardEvent(4);
+                    break;
+
+                default: break;
+            }
         }
 
     }

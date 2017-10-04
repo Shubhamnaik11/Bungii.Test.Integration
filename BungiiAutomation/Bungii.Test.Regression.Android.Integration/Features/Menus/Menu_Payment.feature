@@ -20,3 +20,21 @@ Scenario: Cust_Menu_Payment_DeletePaymentMethod
 	When I swipe "2nd" card on the payment page
 	And I tap on "Delete" on Payment page
 	Then I should see "the card has been deleted" on Payment page
+
+Scenario: Cust_Menu_Payment_AddPaymentMethod_Valid
+	Given I am logged in as "newly registered" customer
+	When I tap on "Menu" > "Payment" link
+	When I tap on "Add" on Payment page
+	And I tap on "Credit or Debit Card" on Payment page
+	And I enter "valid card number" on Card Details page
+	And I enter "valid expiry date" on Card Details page
+	And I tap on "Add Card" on Payment page
+	Then I should see "the card has been added" on Payment page
+
+Scenario: Cust_Menu_Payment_AddPaymentMethod_Invalid
+	Given I am logged in as "newly registered" customer
+	When I tap on "Menu" > "Payment" link
+	When I tap on "Add" on Payment page
+	And I tap on "Credit or Debit Card" on Payment page
+	And I enter "invalid card number" on Card Details page
+	Then I should see "invalid card error" on Payment page

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>netlint</name>
+    </assembly>
+    <members>
+        <member name="T:netlint.framework.IFileGlobber">
+            <summary>
+            Used to add/ignore patterns of files using wildcards. If you want to add all 
+            files by default, you should add a pattern like "*" or "*.*". However, if you 
+            add this kind of pattern to the ignore list, it won't check any files.
+            </summary>
+        </member>
+        <member name="M:netlint.framework.IFileGlobber.AddPattern(System.String)">
+            <summary>
+            Add a pattern to include in your checks.
+            </summary>
+        </member>
+        <member name="M:netlint.framework.IFileGlobber.IgnorePattern(System.String)">
+            <summary>
+            Add an ignore pattern. Ignore patterns override regular patterns, so don't 
+            ignore greedy patterns (*.* or *)
+            </summary>
+        </member>
+        <member name="M:netlint.framework.IFileGlobber.ShouldCheckFile(System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:netlint.framework.IFileGlobber.IsDirIgnored(System.String)">
+            <summary></summary>
+        </member>
+        <member name="T:netlint.framework.NetLintException">
+            <summary>
+            Exception thrown when some files were found to be out of place. This includes a
+            friendly error message with plenty of information.
+            </summary>
+        </member>
+        <member name="P:netlint.framework.NetLintException.Missing">
+            <summary>
+            Indicates files that are missing from disk
+            </summary>
+        </member>
+        <member name="P:netlint.framework.NetLintException.Extra">
+            <summary>
+            Indicates files that were on disk but missing from the project file
+            </summary>
+        </member>
+        <member name="P:netlint.framework.NetLintException.Message">
+            <summary>
+            Friendly message describing what is missing and from where
+            </summary>
+        </member>
+        <member name="P:netlint.framework.NetLintException.ProjectFile">
+            <summary>
+            The project file that appears to not be consistent
+            </summary>
+        </member>
+        <member name="T:netlint.NetLint">
+            <summary>
+            Main access point for this whole utility
+            </summary>
+        </member>
+        <member name="M:netlint.NetLint.#ctor(System.String)">
+            <summary>
+            Creates an empty NetLint object using a specific project file to parse. No patterns
+            are added by default
+            </summary>
+            <param name="projName">relative or absolute path to the project file</param>
+        </member>
+        <member name="M:netlint.NetLint.Execute(System.Boolean)">
+            <summary>
+            Execute the checks and throw a NetLintExcetion if something failed
+            </summary>
+        </member>
+        <member name="M:netlint.NetLint.CheckWebProject(System.String,System.Action{netlint.framework.IFileGlobber},System.Boolean)">
+            <summary>
+            Check files you would be typically concerned about in a web project, like *.aspx,
+            *.html, *.js, *.css, images, *.cshtml, etc
+            </summary>
+            <param name="projName">relative or absolute path to the project file</param>
+            <param name="config">delegate to do extra configuration, like adding extra
+            patterns and ignores</param>
+            <param name="shouldLog"></param>
+        </member>
+        <member name="M:netlint.NetLint.CheckCoreFiles(System.String,System.Action{netlint.framework.IFileGlobber},System.Boolean)">
+            <summary>
+            Check compilable resources that are core to any kind of project like *.cs,
+            *.vb, *.dll, *.config, etc.
+            </summary>
+            <param name="projName">relative or absolute path to the project file</param>
+            <param name="config">delegate to do extra configuration, like adding extra
+            patterns and ignores</param>
+            <param name="shouldLog"></param>
+        </member>
+    </members>
+</doc>

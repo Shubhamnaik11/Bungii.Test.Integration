@@ -75,6 +75,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("full-reset", "true");
             //capabilities.SetCapability("unicodeKeyboard", false);
             //capabilities.SetCapability("resetKeyboard", false);
+            capabilities.SetCapability("autoWebView", "true");
             InitializeAndroidDriver(capabilities);
         }
 
@@ -93,6 +94,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("full-reset", "true");
             //capabilities.SetCapability("resetKeyboard", true);
             //capabilities.SetCapability("unicodeKeyboard", true);
+            capabilities.SetCapability("autoWebView", "true");
             InitializeAndroidDriver(capabilities);
         }
 

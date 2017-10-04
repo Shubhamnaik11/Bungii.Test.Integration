@@ -14,19 +14,22 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         {
            PageFactory.InitElements(driver, this);
         }
-
+        //------Header-------------------------------------------------------------------------------------------------------------
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='PAYMENT']")]
         public IWebElement Header_PaymentPage { get; set; }
 
+        //------New User Payment page---------------------------------------------------------------------------------------------
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/payment_methods_button_add")]
         public IWebElement Button_Add { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[2]")]
         public IWebElement Text_NoPaymentExists { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@resource-id='com.bungii.customer:id/bt_payment_method_type'][2]")]
+        //------Select Payment Method--------------------------------------------------------------------------------------------
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@resource-id='com.bungii.customer:id/bt_payment_method_type' and @instance='2']")]
         public IWebElement Select_Method_Card { get; set; }
 
+        //------Payment page where cards have been already added-----------------------------------------------------------------
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/payment_methods_textview_add_new_payment")]
         public IWebElement Link_AddNew { get; set; }
 
@@ -71,5 +74,27 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
 
         [FindsBy(How = How.Id, Using = "android:id/button2")]
         public IWebElement Button_Delete_No { get; set; }
+
+        //------Card Details Page---------------------------------------------------------------------------------------------
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='Card Details']")]
+        public IWebElement Header_CardDetailsPage { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/bt_card_form_card_number")]
+        public IWebElement Textfield_CardNumber { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/textinput_error")]
+        public IWebElement Error_CardNumber { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='12' and @instance ='12']")]
+        public IWebElement Month_12 { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='2020' and @instance='17']")]
+        public IWebElement Year_2020 { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.EditText[@resource-id='com.bungii.customer:id/bt_card_form_expiration']")]
+        public IWebElement Textfield_Expiration { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.Button[@resource-id='com.bungii.customer:id/bt_button' and @text='Add card']")]
+        public IWebElement Button_AddCard { get; set; }
     }
 }

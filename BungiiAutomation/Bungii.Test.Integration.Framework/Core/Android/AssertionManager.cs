@@ -73,7 +73,14 @@ namespace Bungii.Test.Integration.Framework.Core.Android
 
         public static void ElementNotDisplayed(IWebElement element)
         {
-            Assert.IsFalse(element.Displayed, "Element was Displayed");
+            try
+            {
+                IWebElement elementpresent = element;
+                Assert.Fail("Element was Displayed");
+            }
+            catch
+            {
+            }
         }
 
         public static void CompareMaxLength(IWebElement element, String value)

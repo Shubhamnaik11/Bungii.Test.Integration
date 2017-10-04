@@ -35,6 +35,7 @@
                       SaveMoney_Snackbar_FirsttimeOldUser = "Oops! Each account is only eligible for one new user coupon.";
 
         //------Payment Page---------------------------------------------------------------------
-        public string Payment_NoPaymentText = "Please click below, to add your first payment method";
+        public string Payment_NoPaymentText = "Please click below, to add your first payment method",
+                      Error_InvalidCard = "Card number is invalid";
     }
 }
