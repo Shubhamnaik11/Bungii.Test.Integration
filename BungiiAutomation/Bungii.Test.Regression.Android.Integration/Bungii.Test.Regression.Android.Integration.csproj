@@ -92,6 +92,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Menu_Support.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Menus\ReferralInvite.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReferralInvite.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Signup\CustomerSignup.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,6 +109,7 @@
     </Compile>
     <Compile Include="Pages\Bungii\CameraPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
+    <Compile Include="Pages\MenuPages\InvitePage.cs" />
     <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
     <Compile Include="Pages\Bungii\CustomerHomePage.cs" />
     <Compile Include="Pages\Bungii\EstimatePage.cs" />
@@ -128,6 +134,7 @@
     <Compile Include="StepDefinitions\Menu_PaymentSteps.cs" />
     <Compile Include="StepDefinitions\Menu_SaveMoneySteps.cs" />
     <Compile Include="StepDefinitions\Menu_SupportSteps.cs" />
+    <Compile Include="StepDefinitions\ReferralInviteSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
@@ -158,6 +165,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Menu_Support.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Menus\ReferralInvite.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ReferralInvite.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Signup\CustomerSignup.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CustomerSignup.feature.cs</LastGenOutput>
@@ -176,5 +187,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>

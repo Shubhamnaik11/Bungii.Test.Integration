@@ -50,7 +50,17 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         [When(@"I tap ""(.*)"" on Save Money page")]
         public void WhenITapOnSaveMoneyPage(string p0)
         {
-            DriverAction.Click(Page_SaveMoney.Button_Add);
+            switch (p0)
+            {
+                case "Add":
+                    DriverAction.Click(Page_SaveMoney.Button_Add);
+                    break;
+                case "Get More Money":
+                    DriverAction.Click(Page_SaveMoney.Button_GetMoreMoney);
+                    break;
+                default: break;
+            }
+            
         }
 
         [Then(@"I should see ""(.*)"" on Save Money page")]

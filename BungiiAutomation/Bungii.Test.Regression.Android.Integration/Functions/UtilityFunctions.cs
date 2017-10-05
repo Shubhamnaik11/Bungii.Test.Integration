@@ -10,6 +10,7 @@ using OpenQA.Selenium.Appium.MultiTouch;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -110,6 +111,14 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             Thread.Sleep(2000);
         }
 
+        public bool IsAlphanumeric(string stringtext)
+        {
+            Regex reg = new Regex("^[a-zA-Z0-9]*$");
+            if (reg.IsMatch(stringtext))
+                return true;
+            else return false;            
+        }
+
         public string TrimString(string stringtext)
         {
             stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "").Replace("\r", "");
@@ -120,6 +129,12 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         {
             string phone = actualphone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
             return phone;
+        }
+
+        public string GetStringLength(IWebElement textstring)
+        {
+            string length = Convert.ToString(textstring.Text.Length);
+            return length;
         }
 
         public void HideKeyboard()

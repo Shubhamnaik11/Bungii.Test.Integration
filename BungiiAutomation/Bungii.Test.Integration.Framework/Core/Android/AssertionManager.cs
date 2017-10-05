@@ -71,6 +71,11 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             Assert.IsTrue(element.Displayed, "Element was not Displayed");
         }
 
+        public static void IsAlphanumeric(bool value)
+        {
+            Assert.IsTrue(value, "Non alphanumeric value displayed");
+        }
+
         public static void ElementNotDisplayed(IWebElement element)
         {
             try
