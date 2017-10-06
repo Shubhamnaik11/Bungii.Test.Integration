@@ -151,11 +151,11 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             WaitUntilIsElementExistsAndDisplayed(element);
             new SelectElement(element).SelectByValue(value);
         }
+
         public void NavigateToUrl(string url)
         {
             WebManager.webdriver.Navigate().GoToUrl(url);
         }
-
 
         public string ExtractTextFromPdf(IWebDriver driver)
         {

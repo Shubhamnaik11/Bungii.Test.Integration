@@ -10,6 +10,7 @@ using OpenQA.Selenium.Appium.MultiTouch;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -20,6 +21,7 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
+        MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
         private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
 
         public void LoginToCustomerApp(string phone, string password)
@@ -39,6 +41,15 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             }
             AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
             AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+        }
+
+        public void LogoutCustomerApp()
+        {
+            if(DriverAction.isElementPresent(Page_CustHome.Link_Menu))
+            {
+                DriverAction.Click(Page_CustHome.Link_Menu);
+                DriverAction.Click(Page_Menu.Menu_Logout);
+            }
         }
 
         public string GetVerificationCode(string PhoneNumber)
@@ -110,6 +121,14 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             Thread.Sleep(2000);
         }
 
+        public bool IsAlphanumeric(string stringtext)
+        {
+            Regex reg = new Regex("^[a-zA-Z0-9]*$");
+            if (reg.IsMatch(stringtext))
+                return true;
+            else return false;            
+        }
+
         public string TrimString(string stringtext)
         {
             stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "").Replace("\r", "");
@@ -122,15 +141,10 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             return phone;
         }
 
-        public void HideKeyboard()
+        public string GetStringLength(IWebElement textstring)
         {
-            try
-            {
-              driver.HideKeyboard();
-            }
-            catch(Exception)
-            {
-            }
+            string length = Convert.ToString(textstring.Text.Length);
+            return length;
         }
 
         public void SelectAddress(IWebElement element, string searchstring)

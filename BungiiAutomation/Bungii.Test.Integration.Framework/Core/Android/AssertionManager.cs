@@ -12,6 +12,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             Assert.AreEqual(value, element.Text, "Values does not match");
         }
 
+        public static void ElementTextContains(IWebElement element, String value)
+        {
+            DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
+            Assert.IsTrue(element.Text.Contains(value), "Element does not contain required text");
+        }
+
         public static void SnackbarTextEqual(IWebElement element, String value)
         {
             DriverAction.WaitUntilSnackbarExistsAndDisplayed(element);
@@ -21,6 +27,11 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void CompareStrings(String value1, String value2)
         {
             Assert.AreEqual(value1, value2, "Values does not match");
+        }
+
+        public static void StringContainsText(String MainString, String SubString)
+        {
+            Assert.IsTrue(MainString.Contains(SubString), "Values does not match");
         }
 
         public static void ElementValueEquals(IWebElement element, String value)
@@ -69,6 +80,11 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
             Assert.IsTrue(element.Displayed, "Element was not Displayed");
+        }
+
+        public static void IsAlphanumeric(bool value)
+        {
+            Assert.IsTrue(value, "Non alphanumeric value displayed");
         }
 
         public static void ElementNotDisplayed(IWebElement element)

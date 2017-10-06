@@ -24,7 +24,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         SaveMoneyPage Page_SaveMoney = new SaveMoneyPage(AndroidManager.androiddriver);
         SupportPage Page_Support = new SupportPage(AndroidManager.androiddriver);
         PaymentPage Page_Payment = new PaymentPage(AndroidManager.androiddriver);
-        HomePage Page_Home = new HomePage(AndroidManager.androiddriver);
+        CustomerHomePage Page_Home = new CustomerHomePage(AndroidManager.androiddriver);
         FAQPage Page_FAQ = new FAQPage(AndroidManager.androiddriver);
         AccountPage Page_Account = new AccountPage(AndroidManager.androiddriver);
 
@@ -122,11 +122,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementPresent(Page_FAQ.FAQ_FirstAnswer);
                     UtilFunctions.ScrollToBottom();
                     Page_Menu.FAQ_TwitterLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
+                    DriverAction.NavigateBack();
                     Page_Menu.FAQ_InstagramLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
+                    DriverAction.NavigateBack();
                     Page_Menu.FAQ_FBLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
+                    DriverAction.NavigateBack();
                     break;
                 default: break;
             }

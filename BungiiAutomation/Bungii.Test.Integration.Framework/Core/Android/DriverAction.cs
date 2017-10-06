@@ -66,6 +66,11 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             return ScenarioContext.Current.Get<String>(VariableName);
         }
 
+        public static void AddValueToFeatureContextVariable(string VariableName, string value)
+        {
+            FeatureContext.Current.Add(VariableName, value);
+        }
+
         public static string GetValueFromFeatureContextVariable(string VariableName)
         {
             return FeatureContext.Current.Get<String>(VariableName);
@@ -95,6 +100,17 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void NavigateBack()
         {
             AndroidManager.androiddriver.Navigate().Back();
+        }
+
+        public static void HideKeyboard()
+        {
+            try
+            {
+                AndroidManager.androiddriver.HideKeyboard();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)

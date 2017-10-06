@@ -260,6 +260,34 @@ this.ScenarioSetup(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Menu_SaveMoney")]
+        public virtual void Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled", ((string[])(null)));
+#line 59
+this.ScenarioSetup(scenarioInfo);
+#line 60
+ testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 61
+ testRunner.When("I tap on \"Menu\" > \"Save Money\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 62
+ testRunner.And("I tap \"Get More Money\" on Save Money page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 63
+ testRunner.Then("I should see \"all elements\" on Invite Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 64
+ testRunner.When("I tap \"Share\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 65
+ testRunner.And("I tap \"Share on Facebook\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+ testRunner.And("I share on \"Facebook with app installed\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
+ testRunner.Then("I should see post \"on Facebook app\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
