@@ -55,3 +55,13 @@ Scenario: Menu_SaveMenu_FirstTimePromo_User already has referral code
 	When I add "first time" PromoCode
 	And I tap "Add" on Save Money page
 	Then I should see "snackbar message stating referral already exists" on Save Money page
+
+Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
+	Given I am logged in as "existing" customer
+	When I tap on "Menu" > "Save Money" link
+	And I tap "Get More Money" on Save Money page
+	Then I should see "all elements" on Invite Page
+	When I tap "Share" on Invite page
+	And I tap "Share on Facebook" on Invite page
+	And I share on "Facebook with app installed"
+	Then I should see post "on Facebook app"

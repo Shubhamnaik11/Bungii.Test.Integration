@@ -21,6 +21,7 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
+        MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
         private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
 
         public void LoginToCustomerApp(string phone, string password)
@@ -40,6 +41,15 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             }
             AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
             AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+        }
+
+        public void LogoutCustomerApp()
+        {
+            if(DriverAction.isElementPresent(Page_CustHome.Link_Menu))
+            {
+                DriverAction.Click(Page_CustHome.Link_Menu);
+                DriverAction.Click(Page_Menu.Menu_Logout);
+            }
         }
 
         public string GetVerificationCode(string PhoneNumber)
@@ -135,17 +145,6 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         {
             string length = Convert.ToString(textstring.Text.Length);
             return length;
-        }
-
-        public void HideKeyboard()
-        {
-            try
-            {
-              driver.HideKeyboard();
-            }
-            catch(Exception)
-            {
-            }
         }
 
         public void SelectAddress(IWebElement element, string searchstring)

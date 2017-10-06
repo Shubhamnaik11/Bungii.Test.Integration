@@ -7,6 +7,7 @@ using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using TechTalk.SpecFlow;
 using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 {
@@ -37,6 +38,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                     AssertionManager.ElementEnabled(Page_Invite.Button_Share);
                     break;
+
+                case "Referral Code":
+                    DriverAction.AddValueToScenarioContextVariable("ReferralCode", Page_Invite.Invite_Code.Text);
+                    break;
+
                 default: break;
             }
         }
@@ -86,7 +92,30 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         [Then(@"I should see post ""(.*)""")]
         public void ThenIShouldSeePost(string p0)
         {
-            ScenarioContext.Current.Pending();
+            string ReferralCode = DriverAction.GetValueFromScenarioContextVariable("ReferralCode");
+            switch (p0)
+            {
+                case "on text message app":
+                    DriverAction.HideKeyboard();
+                    AssertionManager.ElementTextContains(Page_Invite.Samsung_TextMsg_TextField, Data_Valid_Customer.Msg_ReferralShareText1 + ReferralCode + Data_Valid_Customer.Msg_ReferralShareText2);
+                    break;
+
+                case "on gmail app":
+                    DriverAction.HideKeyboard();
+                    AssertionManager.ElementTextEqual(Page_Invite.Gmail_Referral_Subject, Data_Valid_Customer.Email_Referral_Subject);
+                    AssertionManager.StringContainsText(UtilFunctions.TrimString(Page_Invite.Gmail_Referral_Body.Text), Data_Valid_Customer.Email_ReferralShareText1 + ReferralCode + Data_Valid_Customer.Email_ReferralShareText2);
+                    break;
+
+                case "on Twitter in browser":
+                    DriverAction.HideKeyboard();
+                    AssertionManager.StringContainsText(UtilFunctions.TrimString(Page_Invite.Twitter_Referral_Body.Text), Data_Valid_Customer.Twitter_ReferralShareText1 + ReferralCode + Data_Valid_Customer.Twitter_ReferralShareText2);
+                    break;
+
+                case "on Facebook app":
+                    break;
+
+                default: break;
+            }
         }
 
     }

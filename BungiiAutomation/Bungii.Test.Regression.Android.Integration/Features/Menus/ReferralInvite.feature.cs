@@ -82,46 +82,70 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Menus
             testRunner.CollectScenarioErrors();
         }
         
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
-        public virtual void Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled()
+        public virtual void FeatureBackground()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled", ((string[])(null)));
 #line 3
-this.ScenarioSetup(scenarioInfo);
 #line 4
  testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
- testRunner.When("I tap on \"Menu\" > \"Save Money\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I tap \"Referral Invite link\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 6
- testRunner.And("I tap \"Get More Money\" on Save Money page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see \"Referral Code\" on Invite Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 7
- testRunner.Then("I should see \"all elements\" on Invite Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 8
  testRunner.When("I tap \"Share\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_TextMessage")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
+        public virtual void Menu_ReferralInvite_TextMessage()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_TextMessage", ((string[])(null)));
 #line 9
- testRunner.And("I tap \"Share on Facebook\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
 #line 10
- testRunner.And("I share on \"Facebook with app installed\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I tap \"Share by Text Message\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
- testRunner.Then("I should see post \"Facebook\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see post \"on text message app\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_Facebook_AppInstalled")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_Email")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
-        public virtual void Menu_ReferralInvite_Facebook_AppInstalled()
+        public virtual void Menu_ReferralInvite_Email()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_Facebook_AppInstalled", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_Email", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
 #line 14
- testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("I tap \"Share by Email\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
- testRunner.When("I tap \"Referral Invite link\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("I should see post \"on gmail app\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_Twitter_AppNotInstalled")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
+        public virtual void Menu_ReferralInvite_Twitter_AppNotInstalled()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_Twitter_AppNotInstalled", ((string[])(null)));
+#line 17
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 18
+ testRunner.When("I tap \"Share on Twitter\" on Invite page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+ testRunner.Then("I should see post \"on Twitter in browser\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

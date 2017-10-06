@@ -54,5 +54,20 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.MenuPages
 
         [FindsBy(How = How.Id, Using = "com.facebook.katana:id/button_share")]
         public IWebElement FBApp_PostLink { get; set; }
+
+        //------Share - Samsung Msg App-------------------------------------------------------------
+        [FindsBy(How = How.Id, Using = "com.android.mms:id/edit_text_bottom")]
+        public IWebElement Samsung_TextMsg_TextField { get; set; }
+
+        //------Share - Gmail App-------------------------------------------------------------------
+        [FindsBy(How = How.Id, Using = "com.google.android.gm:id/subject")]
+        public IWebElement Gmail_Referral_Subject { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.google.android.gm:id/body")]
+        public IWebElement Gmail_Referral_Body { get; set; }
+
+        //------Share - Twitter App-----------------------------------------------------------------
+        [FindsBy(How = How.Id, Using = "status")]
+        public IWebElement Twitter_Referral_Body { get; set; }
     }
 }

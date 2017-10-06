@@ -39,5 +39,14 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
 
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/eta_bar_button_set")]
         public IWebElement Button_ETASet { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='BUNGII']")]
+        public IWebElement Header_HomePage { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/header_textview_username")]
+        public IWebElement Link_Slider { get; set; }
+
+        [FindsBy(How = How.ClassName, Using = "android.widget.ImageButton")]
+        public IWebElement Link_Menu { get; set; }
     }
 }
