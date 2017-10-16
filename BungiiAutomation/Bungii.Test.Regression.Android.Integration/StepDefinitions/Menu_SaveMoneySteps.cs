@@ -28,6 +28,9 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "valid":
                     DriverAction.SendKeys(Page_SaveMoney.Textfield_PromoCode, Data_Customer.ValidPromo);
                     break;
+                case "fixed valid":
+                    DriverAction.SendKeys(Page_SaveMoney.Textfield_PromoCode, Data_Customer.FixedValid);
+                    break;
                 case "invalid":
                     DriverAction.SendKeys(Page_SaveMoney.Textfield_PromoCode, Data_Customer.InvalidCode);
                     break;

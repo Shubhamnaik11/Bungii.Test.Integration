@@ -86,34 +86,42 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         {
 #line 3
 #line 4
-testRunner.Given("I am logged in as \"existing\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("I am logged in as \"my\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Verify Bungii Customer Estimates Bungii first time")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Bungii_Estimate_ExistingUser_FixedPromoCode")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BungiiEstimates")]
-        public virtual void VerifyBungiiCustomerEstimatesBungiiFirstTime()
+        public virtual void Bungii_Estimate_ExistingUser_FixedPromoCode()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Verify Bungii Customer Estimates Bungii first time", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Bungii_Estimate_ExistingUser_FixedPromoCode", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line 7
- testRunner.When("I set correct \"pickup\" location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I enter \"valid pickup and dropoff locations\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
- testRunner.And("I set correct \"drop off\" location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I tap on \"Get Estimate button\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.When("I tap on the \"Get Estimate\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I tap on \"Promo Code\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
- testRunner.Then("the \"Get Estimate\" page should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I add \"fixed valid\" PromoCode", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.When("I Request a Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I tap \"Add\" on Save Money page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.And("I click on the \"cancel\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I tap on \"desired Promo Code\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.Then("Driver search should be cancelled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see \"all elements\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 14
+ testRunner.When("I tap on \"Add photo\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 15
+ testRunner.And("I tap on \"Request Bungii\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.And("I tap on \"Cancel\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.Then("I should see \"driver cancelled\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -122,6 +122,18 @@ this.FeatureBackground();
  testRunner.When("I tap on \"Menu\" > \"FAQ\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.Then("\"FAQ\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 16
+ testRunner.When("I tap on \"first question\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+ testRunner.Then("I should see \"first answer dropdown open\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 18
+ testRunner.When("I tap on \"first question\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+ testRunner.Then("I should see \"first answer dropdown close\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 20
+ testRunner.Then("I should see \"last question\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 21
+ testRunner.Then("I should see \"social media links\" on FAQ page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -132,15 +144,15 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Account()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Account", ((string[])(null)));
-#line 17
+#line 23
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 18
+#line 24
  testRunner.When("I tap on \"Menu\" > \"Account\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 19
+#line 25
  testRunner.Then("\"Account\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 20
+#line 26
  testRunner.And("logged in Customer details should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -152,13 +164,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Payment()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Payment", ((string[])(null)));
-#line 22
+#line 28
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 23
+#line 29
  testRunner.When("I tap on \"Menu\" > \"Payment\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 24
+#line 30
  testRunner.Then("\"Payment\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -170,13 +182,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Support()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Support", ((string[])(null)));
-#line 26
+#line 32
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 27
+#line 33
  testRunner.When("I tap on \"Menu\" > \"Support\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 28
+#line 34
  testRunner.Then("\"Support\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -188,13 +200,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_SaveMoney()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_SaveMoney", ((string[])(null)));
-#line 30
+#line 36
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 31
+#line 37
  testRunner.When("I tap on \"Menu\" > \"Save Money\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 32
+#line 38
  testRunner.Then("\"Save money\" page should be opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -206,13 +218,13 @@ this.FeatureBackground();
         public virtual void Cust_Menu_Logout()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Logout", ((string[])(null)));
-#line 34
+#line 40
 this.ScenarioSetup(scenarioInfo);
 #line 6
 this.FeatureBackground();
-#line 35
+#line 41
  testRunner.When("I tap on \"Menu\" > \"Logout\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 36
+#line 42
  testRunner.Then("Customer should be logged out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

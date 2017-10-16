@@ -84,6 +84,13 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             AndroidManager.androiddriver.HideKeyboard();
         }
 
+        public static void SendKeys1(IWebElement element, string text)
+        {
+            Clear(element);
+            element.Click();
+            element.SendKeys(text);
+        }
+
         public static void Clear(IWebElement element)
         {
             WaitUntilIsElementExistsAndDisplayed(element);

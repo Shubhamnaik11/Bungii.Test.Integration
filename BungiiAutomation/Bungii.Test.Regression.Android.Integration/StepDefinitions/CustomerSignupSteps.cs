@@ -92,9 +92,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "No, Continue":
                     DriverAction.Click(Page_Signup.Button_NoReferralConfirm);
                     break;
-                case "Get Estimate":
-                    DriverAction.Click(Page_CustHome.Button_GetEstimate);
-                    break;
                 case "Yes":
                     DriverAction.Click(Page_Signup.Button_NoReferralYes);
                     break;

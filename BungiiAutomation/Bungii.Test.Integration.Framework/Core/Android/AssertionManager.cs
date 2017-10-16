@@ -15,7 +15,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void ElementTextContains(IWebElement element, String value)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.IsTrue(element.Text.Contains(value), "Element does not contain required text");
+            Assert.IsTrue(value.Contains(element.Text), "Element does not contain required text");
         }
 
         public static void SnackbarTextEqual(IWebElement element, String value)

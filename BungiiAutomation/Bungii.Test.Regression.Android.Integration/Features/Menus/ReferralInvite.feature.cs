@@ -97,11 +97,11 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Menus
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_TextMessage")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cust_Menu_ReferralInvite_TextMessage")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
-        public virtual void Menu_ReferralInvite_TextMessage()
+        public virtual void Cust_Menu_ReferralInvite_TextMessage()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_TextMessage", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_ReferralInvite_TextMessage", ((string[])(null)));
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -115,11 +115,11 @@ this.FeatureBackground();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_Email")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cust_Menu_ReferralInvite_Email")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
-        public virtual void Menu_ReferralInvite_Email()
+        public virtual void Cust_Menu_ReferralInvite_Email()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_Email", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_ReferralInvite_Email", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -133,11 +133,11 @@ this.FeatureBackground();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_ReferralInvite_Twitter_AppNotInstalled")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cust_Menu_ReferralInvite_Twitter_AppNotInstalled")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "ReferralInvite")]
-        public virtual void Menu_ReferralInvite_Twitter_AppNotInstalled()
+        public virtual void Cust_Menu_ReferralInvite_Twitter_AppNotInstalled()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_ReferralInvite_Twitter_AppNotInstalled", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_ReferralInvite_Twitter_AppNotInstalled", ((string[])(null)));
 #line 17
 this.ScenarioSetup(scenarioInfo);
 #line 3

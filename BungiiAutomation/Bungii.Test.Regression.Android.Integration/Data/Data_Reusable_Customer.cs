@@ -30,9 +30,12 @@ namespace Bungii.Test.Regression.Android.Integration.Data
                       IncorrectVerificationCode = "000000";
 
         //------Location--------------------------------------------------------------------------------------
-        public string currentlocation_verna = "Unnamed Road, Verna Industrial Estate, Verna, Goa, 403722",
-                      currentlocation_US = "4 International Square, Kansas City, Missouri, 64153",
-                      dropofflocation_US = "4 International Circle, KCMO, MO, United States";
+        public string CurrentLocation_verna = "Unnamed Road, Verna Industrial Estate, Verna, Goa, 403722",
+                      PickupLocation_US = "4 International Square, Kansas City, Missouri, 64153",
+                      DropoffLocation_US = "4 International Circle, KCMO, MO, United States",
+                      PickupLocation_OP = "6000 College Boulevard, Leawood, Kansas, 66211",
+                      DropoffLocation_OP = "Mission Road, Stilwell, Kansas, 66085";
+
 
         //------Support Page----------------------------------------------------------------------------------
         public string Support_Text = "I have nothing but great things to say. I can't tell you how many times I've been out front of IKEA fanagling, unpacking, and trying to tie things to my roof. Now, I can simply tap a button and get it picked up and delivered.",
@@ -40,7 +43,8 @@ namespace Bungii.Test.Regression.Android.Integration.Data
 
         //------Save Money Page-------------------------------------------------------------------------------
         public string ValidPromo = "newp",
-                      ExpiredPromo = "EXPC";
+                      ExpiredPromo = "EXPC",
+                      FixedValid = "NEW01";
 
         //------Payment Page----------------------------------------------------------------------------------
         public string ValidCard_Discover = "6011111111111117",

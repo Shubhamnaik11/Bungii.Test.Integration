@@ -95,6 +95,12 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
         }
 
+        public void ScrollUntilElementDisplayed(IWebElement element)
+        {
+            do ScrollToBottom();
+            while(IsElementDisplayed(element)==false);
+        }
+
         public void ScrollToTop()
         {
             var dimensions = driver.Manage().Window.Size;
@@ -149,14 +155,26 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
 
         public void SelectAddress(IWebElement element, string searchstring)
         {
-            // element.Clear();
             DriverAction.Clear(element);
-            Thread.Sleep(5000);
+            element.Click();
             element.SendKeys(searchstring);
             int x = element.Location.X;
             int y = element.Location.Y;
 
             new TouchAction(driver).Tap(x + 32, y + 176).Release().Perform();
+        }
+
+        public bool IsElementDisplayed(IWebElement element)
+        {
+            try
+            {
+                IWebElement elementpresent = element;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

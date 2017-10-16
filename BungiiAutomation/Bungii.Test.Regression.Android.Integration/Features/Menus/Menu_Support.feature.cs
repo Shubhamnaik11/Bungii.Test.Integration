@@ -93,11 +93,11 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Menus
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_Support_SendFeedback")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cust_Menu_Support_SendFeedback")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Menu_Support")]
-        public virtual void Menu_Support_SendFeedback()
+        public virtual void Cust_Menu_Support_SendFeedback()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_Support_SendFeedback", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Support_SendFeedback", ((string[])(null)));
 #line 8
 this.ScenarioSetup(scenarioInfo);
 #line 4
@@ -113,11 +113,11 @@ this.FeatureBackground();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Menu_Support_BlankField")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Cust_Menu_Support_BlankField")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Menu_Support")]
-        public virtual void Menu_Support_BlankField()
+        public virtual void Cust_Menu_Support_BlankField()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Menu_Support_BlankField", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cust_Menu_Support_BlankField", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 4

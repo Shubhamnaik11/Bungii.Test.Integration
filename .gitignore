@@ -62,6 +62,9 @@ freeline_project_description.json
 *.user
 *.userosscache
 *.sln.docstates
+*.cache
+*.pdb
+*.dll
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

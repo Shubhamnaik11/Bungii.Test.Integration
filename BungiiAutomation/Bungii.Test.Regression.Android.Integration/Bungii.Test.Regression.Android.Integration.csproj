@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
     </Compile>
+    <Compile Include="Functions\BungiiCalculations.cs" />
     <Compile Include="Pages\Bungii\CameraPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />
