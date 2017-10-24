@@ -49,8 +49,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow">
+    <Reference Include="TechTalk.SpecFlow, Version=2.2.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.2.2.1\lib\net45\TechTalk.SpecFlow.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebDriver">
       <HintPath>..\packages\Selenium.WebDriver.3.0.1\lib\net40\WebDriver.dll</HintPath>
@@ -108,7 +109,6 @@
       <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
     </Compile>
     <Compile Include="Functions\BungiiCalculations.cs" />
-    <Compile Include="Pages\Bungii\CameraPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />
     <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
@@ -177,7 +177,15 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>CustomerForgotPassword.feature.cs</LastGenOutput>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bungii.Test.Regression.Web.Integration\Bungii.Test.Regression.Web.Integration.csproj">
+      <Project>{58BA02D2-632A-4595-8633-C126E79B595B}</Project>
+      <Name>Bungii.Test.Regression.Web.Integration</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

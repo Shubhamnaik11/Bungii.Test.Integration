@@ -94,15 +94,17 @@
     <Compile Include="Core\Android\AssertionManager.cs" />
     <Compile Include="Core\Android\DriverAction.cs" />
     <Compile Include="Core\Android\KeyManager.cs" />
-    <Compile Include="Core\Web\AssertionManager.cs" />
-    <Compile Include="Core\Web\DriverAction.cs" />
-    <Compile Include="Core\Web\KeyManager.cs" />
+    <Compile Include="Core\Web\WebAssertionManager.cs" />
+    <Compile Include="Core\Web\WebDriverAction.cs" />
+    <Compile Include="Core\Web\WebKeyManager.cs" />
     <Compile Include="Core\Web\WebManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Packages.config" />
+    <None Include="Packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -113,5 +115,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>

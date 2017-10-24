@@ -11,6 +11,7 @@ using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
 using System.Text.RegularExpressions;
+using Bungii.Test.Integration.Framework.Core.Web;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -82,6 +83,42 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             {
                 Assert.Fail("Could not retrive Verification code");
                 return null;
+            }
+        }
+
+        public bool IsPhoneUnique(string PhoneNumber)
+        {
+            string Id = string.Empty;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = connection;
+                    conn.Open();
+                    // Creating the command
+                    SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE Phone = @Phone", conn);
+                    // Adding the parameters.
+                    command.Parameters.Add(new SqlParameter("Phone", PhoneNumber));
+                    // Creating new SqlDataReader object and read data from the command.
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // while there is another record present
+                        while (reader.Read())
+                        {
+                            Id = reader["Id"].ToString();
+                        }
+                    }
+                    conn.Close();
+
+                    if (Id == "")
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            catch (Exception)
+            {
+                return true;
             }
         }
 
@@ -175,6 +212,11 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             {
                 return false;
             }
+        }
+
+        public void initialiseweb()
+        {
+            WebManager.InitializeDriver();
         }
     }
 }

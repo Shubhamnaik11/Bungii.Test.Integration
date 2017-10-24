@@ -2,9 +2,10 @@
 	Sign up as a Customer on Bungii app
 	
 Background:
- Given I am on Sign up page
+	Given I am on Sign up page
 
-Scenario: Signup_NoPromo_Success
+Scenario: Signup_NoPromo_Success_ReferralSourceCount
+	Given I have existing details of "Referral Counts"
     When I enter "unique" customer phone number
 	And I enter "valid" data in mandatory fields
     And I tap on the "Sign Up" button
@@ -12,6 +13,7 @@ Scenario: Signup_NoPromo_Success
     When I enter "valid" Verification code
 	And I tap on the "Verification Continue" Link
 	Then The user should be logged in
+	And Admin portal should have updated value of "Referral Counts"
 
 Scenario: Signup_AllFieldsBlank
 	When I enter "blank" customer phone number

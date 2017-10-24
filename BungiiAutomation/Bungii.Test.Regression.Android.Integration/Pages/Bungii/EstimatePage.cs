@@ -70,6 +70,9 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         [FindsBy(How = How.Id, Using = "com.sec.android.app.camera:id/retry")] 
         public IWebElement Button_Camera_Retry { get; set; }
 
+        [FindsBy(How = How.Id, Using = "com.motorola.camera:id/review_approve")]
+        public IWebElement Button_Review { get; set; }
+
         //------Confirmations---------------------------------------------------------------------------
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/estimate_agree_disclaimer")]
         public IWebElement Checkbox_AgreeEstimate { get; set; }

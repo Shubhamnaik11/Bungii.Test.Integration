@@ -20,7 +20,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         TermsPage Page_Terms = new TermsPage(AndroidManager.androiddriver);
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
-        CameraPage Page_Camera = new CameraPage(AndroidManager.androiddriver);
         SaveMoneyPage Page_SaveMoney = new SaveMoneyPage(AndroidManager.androiddriver);
         SupportPage Page_Support = new SupportPage(AndroidManager.androiddriver);
         PaymentPage Page_Payment = new PaymentPage(AndroidManager.androiddriver);

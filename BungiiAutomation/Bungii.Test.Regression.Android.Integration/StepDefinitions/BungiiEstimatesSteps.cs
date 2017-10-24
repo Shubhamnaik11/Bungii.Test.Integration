@@ -19,7 +19,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         SearchingPage Page_DriverSearch = new SearchingPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
         EstimatePage Page_Estimate = new EstimatePage(AndroidManager.androiddriver);
-        CameraPage Page_Camera = new CameraPage(AndroidManager.androiddriver);
 
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
@@ -103,7 +102,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     if (deviceType.Equals("Motorola"))
                     {
                         driver.Tap(1, 100, 500, 1);
-                        DriverAction.Click(Page_Camera.Button_Review);
+                        DriverAction.Click(Page_Estimate.Button_Review);
                     }
                     if (deviceType.Equals("Samsung"))
                     {

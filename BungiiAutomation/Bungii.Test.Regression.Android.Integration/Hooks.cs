@@ -12,7 +12,7 @@ namespace Bungii.Test.Regression.Android.Integration
 
         [BeforeScenario]
         public static void Initialize()
-        {    
+        {
             AndroidManager.InitializeDriver();
         }
 

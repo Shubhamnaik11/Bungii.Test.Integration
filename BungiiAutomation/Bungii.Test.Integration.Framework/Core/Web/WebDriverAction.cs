@@ -1,29 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using OpenQA.Selenium.Support;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
-using System.Diagnostics;
 using OpenQA.Selenium.Interactions;
-using System.Collections.ObjectModel;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
-using ActiveUp.Net.Mail;
-using ActiveUp.Net.Imap4;
-using System.Text.RegularExpressions;
 
 namespace Bungii.Test.Integration.Framework.Core.Web
 {
     [Binding]
-    public class DriverAction : KeyManager
+    public class WebDriverAction : WebKeyManager
     {
-
         #region Waits
         public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
         {
@@ -32,14 +22,12 @@ namespace Bungii.Test.Integration.Framework.Core.Web
                 Thread.Sleep(PauseTimeMilliSeconds * 3);
                 WebDriverWait wait = new WebDriverWait(WebManager.webdriver, new TimeSpan(0, 0, 10));
                 wait.Until((driver => element.Displayed));
-
             }
             catch (Exception)
             {
                 Assert.Fail("Following element is not displayed : " + element);
             }
         }
-
 
         public static bool isElementPresent(IWebElement element)
         {
@@ -56,10 +44,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             }
         }
 
-
         #endregion
-
-
 
         public static void AddValueToScenarioContextVariable(string VariableName, string value)
         {
@@ -69,7 +54,16 @@ namespace Bungii.Test.Integration.Framework.Core.Web
         public static string GetValueFromScenarioContextVariable(string VariableName)
         {
             return ScenarioContext.Current.Get<String>(VariableName);
+        }
 
+        public static void AddValueToFeatureContextVariable(string VariableName, string value)
+        {
+            FeatureContext.Current.Add(VariableName, value);
+
+        }
+        public static string GetValueFromFeatureContextVariable(string VariableName)
+        {
+            return FeatureContext.Current.Get<String>(VariableName);
         }
 
         public static void SendKeys(IWebElement element, string text)
@@ -77,7 +71,6 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             Clear(element);
             element.Click();
             element.SendKeys(text);
-
         }
 
         public static void Clear(IWebElement element)
@@ -92,6 +85,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             WaitUntilIsElementExistsAndDisplayed(element);
             element.Click();
         }
+
         public void ClickByReference(IWebElement element, By ActionLocator)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
@@ -106,6 +100,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             actions.Click().Perform();
             actions.Release().Perform();
         }
+
         public void Hover(IWebElement element)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
@@ -113,10 +108,12 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             actions.MoveToElement(element);
             actions.Build().Perform();
         }
+
         public void JsExecutorClick(IWebElement element, string javascript)
         {
             ((IJavaScriptExecutor)WebManager.webdriver).ExecuteScript(javascript, element);
         }
+
         public void DismissAlert()
         {
             IAlert alert = WebManager.webdriver.SwitchTo().Alert();
@@ -128,6 +125,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             IAlert alert = WebManager.webdriver.SwitchTo().Alert();
             alert.Accept();
         }
+
         public Boolean isAlertPresent()
         {
             try
@@ -140,6 +138,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
                 return false;
             }
         }
+
         public void SelectElementByText(IWebElement element, string text)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
@@ -152,7 +151,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             new SelectElement(element).SelectByValue(value);
         }
 
-        public void NavigateToUrl(string url)
+        public static void NavigateToUrl(string url)
         {
             WebManager.webdriver.Navigate().GoToUrl(url);
         }
@@ -172,8 +171,6 @@ namespace Bungii.Test.Integration.Framework.Core.Web
                 return text.ToString();
             }
         }
-
-
     }
 }
 
