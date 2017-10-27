@@ -1,109 +1,86 @@
-﻿using Bungii.Android.Regression.Test.Integration.Data;
-using Bungii.Android.Regression.Test.Integration.Pages.Admin;
+﻿using AutoItX3Lib;
+using Bungii.Android.Regression.Test.Integration.Data;
+using Bungii.Android.Regression.Test.Integration.Pages.Driver;
 using Bungii.Test.Integration.Framework.Core.Web;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Configuration;
-using TechTalk.SpecFlow;
+using System.Data.SqlClient;
+using System.Threading;
 
 namespace Bungii.Android.Regression.Test.Integration.Functions
 {
     public class WebUtilityFunctions
     {
-        public IWebDriver webdriver = null;
-        Admin_LoginPage Page_AdminLogin = null;
-        Admin_MenuLinksPage Page_AdminMenu = null;
-        Admin_ReferralSourcePage Page_AdminReferralSource = null;
-        Data_Reusable_Admin Data_Admin = null;
+        Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage(WebManager.webdriver);
 
-        public WebUtilityFunctions()
+        public void DriverLogin(string Phone, string Password)
         {
-            WebManager.InitializeDriver();
-            webdriver = WebManager.webdriver;
-            Page_AdminLogin = new Admin_LoginPage(WebManager.webdriver);
-            Page_AdminMenu = new Admin_MenuLinksPage(WebManager.webdriver);
-            Page_AdminReferralSource = new Admin_ReferralSourcePage(WebManager.webdriver);
-            Data_Admin = new Data_Reusable_Admin();
+            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
+            WebDriverAction.Click(Page_Driver_Reg.Tab_LogIn);
+            WebDriverAction.SendKeys(Page_Driver_Reg.TextBox_Phone, Phone);
+            WebDriverAction.SendKeys(Page_Driver_Reg.TextBox_Password, Password);
+            WebDriverAction.Click(Page_Driver_Reg.Button_Login);
         }
 
-        public void RefreshWebPage()
+        private static string connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+        public string GetVerificationCode_Driver(string PhoneNumber)
         {
-            webdriver.Navigate().Refresh();
-        }
-
-        public void Quit()
-        {
-            WebManager.Quit(ScenarioContext.Current);
-        }
-
-        public void AdminLogin()
-        {
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_QA"]);
-            WebDriverAction.SendKeys(Page_AdminLogin.TextBox_Phone, Data_Admin.AdminPhonenumber);
-            WebDriverAction.SendKeys(Page_AdminLogin.TextBox_Password, Data_Admin.AdminPassword);
-            WebDriverAction.Click(Page_AdminLogin.Button_AdminLogin);
-        }
-
-        public Tuple<int, double> GetReferralSourceCount(string referralsource)
-        {
-            WebDriverAction.Click(Page_AdminMenu.Menu_Marketing);
-            WebDriverAction.Click(Page_AdminMenu.Menu_Marketing_ReferralSource);
-            var tuple = new Tuple<int, double>(0, 0.00);
-            int AccCreated_Count = 0;
-            double AccCreated_Percent = 0.0;
-            switch (referralsource)
+            string SMSCode = string.Empty;
+            try
             {
-                case "Other":
-                    AccCreated_Count = Convert.ToInt32(Page_AdminReferralSource.Other_AccCreated.Text);
-                    AccCreated_Percent = Convert.ToDouble(Page_AdminReferralSource.Other_PercentAccCreated.Text);
-                    tuple = new Tuple<int, double>(AccCreated_Count, AccCreated_Percent);
-                    break;
-
-                case "Event":
-                    AccCreated_Count = Convert.ToInt32(Page_AdminReferralSource.Event_AccCreated.Text);
-                    AccCreated_Percent = Convert.ToDouble(Page_AdminReferralSource.Event_PercentAccCreated.Text);
-                    tuple = new Tuple<int, double>(AccCreated_Count, AccCreated_Percent);
-                    break;
-
-                default:
-                    tuple = new Tuple<int, double>(0, 0.00);
-                    break;
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = connection;
+                    conn.Open();
+                    // Creating the command
+                    SqlCommand command = new SqlCommand("SELECT SmsVerificationCode FROM Driver WHERE Phone = @Phone", conn);
+                    // Adding the parameters.
+                    command.Parameters.Add(new SqlParameter("Phone", PhoneNumber));
+                    // Creating new SqlDataReader object and read data from the command.
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        // while there is another record present
+                        while (reader.Read())
+                        {
+                            SMSCode = reader["SmsVerificationCode"].ToString();
+                        }
+                    }
+                    conn.Close();
+                    return SMSCode;
+                }
             }
-            return tuple;
+            catch (Exception)
+            {
+                Assert.Fail("Could not retrive Verification code");
+                return null;
+            }
         }
 
-        public double CalculatePercentValue(string referralsource)
+        //Auto IT - Upload Image
+        AutoItX3 autoit = new AutoItX3();
+        public void ImageUpload(string ImagePath, string Images)
         {
-            int AptComplex = Convert.ToInt32(Page_AdminReferralSource.AptComplex_AccCreated.Text);
-            int Blimp = Convert.ToInt32(Page_AdminReferralSource.Blimp_AccCreated.Text);
-            int Craigslist = Convert.ToInt32(Page_AdminReferralSource.Craigslist_AccCreated.Text);
-            int EstateSale = Convert.ToInt32(Page_AdminReferralSource.EstateSale_AccCreated.Text);
-            int Event = Convert.ToInt32(Page_AdminReferralSource.Event_AccCreated.Text);
-            int Facebook = Convert.ToInt32(Page_AdminReferralSource.Facebook_AccCreated.Text);
-            int Google = Convert.ToInt32(Page_AdminReferralSource.Google_AccCreated.Text);
-            int NewsStory = Convert.ToInt32(Page_AdminReferralSource.NewsStory_AccCreated.Text);
-            int Other = Convert.ToInt32(Page_AdminReferralSource.Other_AccCreated.Text);
-            int Store = Convert.ToInt32(Page_AdminReferralSource.Store_AccCreated.Text);
-            int WordOfMouth = Convert.ToInt32(Page_AdminReferralSource.WordOfMouth_AccCreated.Text);
-            int Sum_Referral = AptComplex + Blimp + Craigslist + EstateSale + Event + Facebook + Google + NewsStory + Other + Store + WordOfMouth;
+            Thread.Sleep(5000);
+            autoit.ControlFocus("Open", "", "Edit1");
+            Thread.Sleep(5000);
+            autoit.ControlSetText("Open", "", "Edit1", ImagePath);
+            autoit.ControlClick("Open", "", "Button1");
+            Thread.Sleep(1000);
+            autoit.ControlSetText("Open", "", "Edit1", Images);
+            autoit.ControlClick("Open", "", "Button1");
+            Thread.Sleep(5000);
+        }
 
-            double Expected_Other_PercentAccCreated;
-            switch (referralsource)
-            {
-                case "Other":
-                    Expected_Other_PercentAccCreated = 
-                        Math.Round
-                        (
-                        Convert.ToDouble(Page_AdminReferralSource.Other_AccCreated.Text) * 100 /
-                        Convert.ToDouble(Sum_Referral),
-                        2);
-                    break;
-
-                default:
-                    Expected_Other_PercentAccCreated = 0.00;
-                    break;
-            }
-            return Expected_Other_PercentAccCreated;
+        //Select Random Dropdown value
+        Random random = new Random();
+        public void SelectRandomDropdown(IWebElement DropdownField)
+        {
+            SelectElement s = new SelectElement(DropdownField);
+            int itemCount = s.Options.Count; // get the count of elements in ddlWebElement
+            s.SelectByIndex(random.Next(0, itemCount));
         }
     }
 }

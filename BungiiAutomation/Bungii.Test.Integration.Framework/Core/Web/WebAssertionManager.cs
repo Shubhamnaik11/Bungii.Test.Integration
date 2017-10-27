@@ -17,13 +17,18 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             Assert.AreEqual(value1, value2, "Values does not match");
         }
 
+        public static void StringsNotEqual(String value1, String value2)
+        {
+            Assert.AreNotEqual(value1, value2, "Values were equal");
+        }
+
         public static void ElementValueEquals(IWebElement element, String value)
         {
             WebDriverAction.WaitUntilIsElementExistsAndDisplayed(element);
             Assert.AreEqual(value, element.GetAttribute("value"), "Values does not match");
         }
 
-        public static void ElementValueNotEquasl(IWebElement element, String value)
+        public static void ElementValueNotEqual(IWebElement element, String value)
         {
             WebDriverAction.WaitUntilIsElementExistsAndDisplayed(element);
             Assert.AreNotEqual(value, element.Text, "Values were equal");

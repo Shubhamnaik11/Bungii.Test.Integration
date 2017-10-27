@@ -49,8 +49,8 @@ namespace Bungii.Test.Integration.Framework.Core.Web
         public static void AddValueToScenarioContextVariable(string VariableName, string value)
         {
             ScenarioContext.Current.Add(VariableName, value);
-
         }
+
         public static string GetValueFromScenarioContextVariable(string VariableName)
         {
             return ScenarioContext.Current.Get<String>(VariableName);
@@ -59,8 +59,8 @@ namespace Bungii.Test.Integration.Framework.Core.Web
         public static void AddValueToFeatureContextVariable(string VariableName, string value)
         {
             FeatureContext.Current.Add(VariableName, value);
-
         }
+
         public static string GetValueFromFeatureContextVariable(string VariableName)
         {
             return FeatureContext.Current.Get<String>(VariableName);
@@ -86,13 +86,13 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             element.Click();
         }
 
-        public void ClickByReference(IWebElement element, By ActionLocator)
+        public static void ClickByReference(IWebElement element, By ActionLocator)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             element.FindElement(ActionLocator).Click();
         }
 
-        public void HoverAndClick(IWebElement element)
+        public static void HoverAndClick(IWebElement element)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             Actions actions = new Actions(WebManager.webdriver);
@@ -101,7 +101,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             actions.Release().Perform();
         }
 
-        public void Hover(IWebElement element)
+        public static void Hover(IWebElement element)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             Actions actions = new Actions(WebManager.webdriver);
@@ -109,24 +109,24 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             actions.Build().Perform();
         }
 
-        public void JsExecutorClick(IWebElement element, string javascript)
+        public static void JsExecutorClick(IWebElement element, string javascript)
         {
             ((IJavaScriptExecutor)WebManager.webdriver).ExecuteScript(javascript, element);
         }
 
-        public void DismissAlert()
+        public static void DismissAlert()
         {
             IAlert alert = WebManager.webdriver.SwitchTo().Alert();
             alert.Dismiss();
         }
 
-        public void AcceptAlert()
+        public static void AcceptAlert()
         {
             IAlert alert = WebManager.webdriver.SwitchTo().Alert();
             alert.Accept();
         }
 
-        public Boolean isAlertPresent()
+        public static Boolean isAlertPresent()
         {
             try
             {
@@ -139,13 +139,13 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             }
         }
 
-        public void SelectElementByText(IWebElement element, string text)
+        public static void SelectElementByText(IWebElement element, string text)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             new SelectElement(element).SelectByText(text);
         }
 
-        public void SelectElementByValue(IWebElement element, string value)
+        public static void SelectElementByValue(IWebElement element, string value)
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             new SelectElement(element).SelectByValue(value);
@@ -156,7 +156,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             WebManager.webdriver.Navigate().GoToUrl(url);
         }
 
-        public string ExtractTextFromPdf(IWebDriver driver)
+        public static string ExtractTextFromPdf(IWebDriver driver)
         {
             WebDriverWait wait = new WebDriverWait(WebManager.webdriver, new TimeSpan(0, 0, WebDriverExplictTimeoutSeconds));
 
