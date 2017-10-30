@@ -98,6 +98,7 @@
     <Compile Include="Core\Web\WebDriverAction.cs" />
     <Compile Include="Core\Web\WebKeyManager.cs" />
     <Compile Include="Core\Web\WebManager.cs" />
+    <Compile Include="GeneralUtilityFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +107,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -53,33 +53,5 @@ namespace Bungii.Test.Regression.Android.Integration.Data
                       ValidCard_MasterCard = "2223000048400011",
                       ValidCard_JCB = "3530111333300000",
                       InvalidCard = "1111111111111111111";
-
-        //------Generating random Tel No starting with 999999-------------------------------------------------
-        static Random random = new Random();
-
-        public string RandomPhoneNum()
-        {
-            string CustomerPhoneNum = "999999" + random.Next(1000, 9999).ToString();
-            return CustomerPhoneNum;
-        }
-
-        //------Generating random Tel No----------------------------------------------------------------------
-        public string GetRandomTelNo()
-        {
-            string telNo = null;
-            int number;
-            for (int i = 0; i < 3; i++)
-            {
-                number = random.Next(0, 8); // digit between 0 (incl) and 8 (excl)
-                telNo = telNo + number.ToString();
-            }
-            //  telNo = telNo + "-";
-            number = random.Next(0, 743); // number between 0 (incl) and 743 (excl)
-            telNo = telNo + String.Format("{0:D3}", number);
-            // telNo = telNo + "-";
-            number = random.Next(0, 10000); // number between 0 (incl) and 10000 (excl)
-            telNo = telNo + String.Format("{0:D4}", number);
-            return telNo.ToString();
-        }
     }
 }

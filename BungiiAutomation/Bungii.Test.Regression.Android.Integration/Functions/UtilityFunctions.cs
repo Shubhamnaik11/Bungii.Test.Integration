@@ -86,42 +86,6 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             }
         }
 
-        public bool IsPhoneUnique(string PhoneNumber)
-        {
-            string Id = string.Empty;
-            try
-            {
-                using (SqlConnection conn = new SqlConnection())
-                {
-                    conn.ConnectionString = connection;
-                    conn.Open();
-                    // Creating the command
-                    SqlCommand command = new SqlCommand("SELECT Id FROM Customer WHERE Phone = @Phone", conn);
-                    // Adding the parameters.
-                    command.Parameters.Add(new SqlParameter("Phone", PhoneNumber));
-                    // Creating new SqlDataReader object and read data from the command.
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // while there is another record present
-                        while (reader.Read())
-                        {
-                            Id = reader["Id"].ToString();
-                        }
-                    }
-                    conn.Close();
-
-                    if (Id == "")
-                        return true;
-                    else
-                        return false;
-                }
-            }
-            catch (Exception)
-            {
-                return true;
-            }
-        }
-
         public void ScrollToBottom()
         {
             var dimensions = driver.Manage().Window.Size;

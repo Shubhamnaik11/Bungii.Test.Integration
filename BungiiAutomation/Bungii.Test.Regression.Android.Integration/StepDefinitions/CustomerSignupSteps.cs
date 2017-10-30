@@ -3,12 +3,12 @@ using Bungii.Test.Integration.Framework.Core.Web;
 using Bungii.Test.Regression.Android.Integration.Data;
 using Bungii.Test.Regression.Android.Integration.Functions;
 using Bungii.Test.Regression.Android.Integration.Pages;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using TechTalk.SpecFlow;
 using Bungii.Android.Regression.Test.Integration.Functions;
 using System;
+using Bungii.Test.Integration.Framework;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 {
@@ -26,8 +26,9 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
 
+        GeneralUtilityFunctions Functions = new GeneralUtilityFunctions();
         UtilityFunctions UtilFunctions = new UtilityFunctions();
-        WebUtilityFunctions WebUtils = new WebUtilityFunctions();
+        AndroidWebUtilityFunctions WebUtils = new AndroidWebUtilityFunctions();
 
         [When(@"I enter ""(.*)"" data in mandatory fields")]
         public void WhenIEnterDataInMandatoryFields(string p0)
@@ -69,8 +70,8 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "unique":
                     string CustomerPhone;
                     do
-                        CustomerPhone = Data_Customer.RandomPhoneNum();
-                    while (UtilFunctions.IsPhoneUnique(CustomerPhone)==false);  
+                        CustomerPhone = Functions.RandomPhoneNum();
+                    while (Functions.IsPhoneUnique(CustomerPhone)==false);  
                                       
                     FeatureContext.Current.Add("CustomerPhoneNum", CustomerPhone);
                     DriverAction.SendKeys(Page_Signup.TextField_Phonenumber, CustomerPhone);
