@@ -10,10 +10,6 @@ namespace Bungii.Android.Regression.Test.Integration.Pages.Driver
             PageFactory.InitElements(webdriver, this);
         }
 
-        //Documentation - Header
-        [FindsBy(How = How.XPath, Using = "//div[@id='tab-title']/h3")]
-        public IWebElement Header_Documentation { get; set; }
-
         //Pickup Information - Blank field validation
         [FindsBy(How = How.Id, Using = "summary3")]
         public IWebElement Err_Documentation_AllBlank { get; set; }

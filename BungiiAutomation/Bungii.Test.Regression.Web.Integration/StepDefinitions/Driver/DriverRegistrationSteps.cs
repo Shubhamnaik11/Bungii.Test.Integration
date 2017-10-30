@@ -20,6 +20,10 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
         Driver_PickUpInfoPage Page_Driver_Pickup = new Driver_PickUpInfoPage(WebManager.webdriver);
         Driver_DocumentationPage Page_Driver_Documentation = new Driver_DocumentationPage(WebManager.webdriver);
         Driver_BankDetailsPage Page_Driver_BankDetails = new Driver_BankDetailsPage(WebManager.webdriver);
+        Driver_TermsPage Page_Driver_Terms = new Driver_TermsPage(WebManager.webdriver);
+        Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage(WebManager.webdriver);
+        Driver_FinishPage Page_Driver_Finish = new Driver_FinishPage(WebManager.webdriver);
+        Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage(WebManager.webdriver);
 
         Data_Reusable_Driver Data_Driver = new Data_Reusable_Driver();
         Data_Validation_Driver Data_valid_Driver = new Data_Validation_Driver();
@@ -61,16 +65,31 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
                     WebAssertionManager.ElementTextEqual(Page_Driver_Reg.Header_VerificationSuccess, Data_valid_Driver.SMSVerifSuccess);
                     break;
                 case "Driver Details page":
-                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.Header_DriverDetails, Data_valid_Driver.DriverDetailsHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.DriverDetailsHeader);
                     break;
                 case "Pickup Info page":
-                    WebAssertionManager.ElementTextEqual(Page_Driver_Pickup.Header_PickupInfo, Data_valid_Driver.PickupInfoHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.PickupInfoHeader);
                     break;
                 case "Documentation page":
-                    WebAssertionManager.ElementTextEqual(Page_Driver_Documentation.Header_Documentation, Data_valid_Driver.DocHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.DocHeader);
                     break;
                 case "Bank Details page":
-                    WebAssertionManager.ElementTextEqual(Page_Driver_BankDetails.Header_BankPage, Data_valid_Driver.BankDetHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.BankDetHeader);
+                    break;
+                case "Terms & Conditions":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.TermsHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Terms.Terms_H5, Data_valid_Driver.TermsSubHeader);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Terms.Text_Terms, Data_valid_Driver.TermsText);
+                    break;
+                case "Video Training":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.VideoHeader);
+                    WebAssertionManager.ElementDisplayed(Page_Driver_Video.Screen_Video);
+                    break;
+                case "Finish":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Details.DriverReg_AllPagesHeader, Data_valid_Driver.FinishHeader);
+                    break;
+                case "Dashboard":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Dashboard.Header_Dashboard, Data_valid_Driver.DriverDashboardHeader);
                     break;
                 default: break;
             }
@@ -144,6 +163,17 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
                     break;
                 case "Continue Registration":
                     WebDriverAction.Click(Page_Driver_Reg.Button_ContinueReg);
+                    break;
+                case "I agree to the Terms and Conditions":
+                    if (Page_Driver_Terms.CheckBox_Agree.Selected == false)
+                        WebDriverAction.Click(Page_Driver_Terms.CheckBox_Agree_Click);
+                    break;
+                case "I have viewed the entire video":
+                    if (Page_Driver_Video.CheckBox_Viewed.Selected == false)
+                        WebDriverAction.Click(Page_Driver_Video.CheckBox_Viewed_Click);
+                    break;
+                case "Continue on Finish page":
+                    WebDriverAction.Click(Page_Driver_Finish.Button_FinishContinue);
                     break;
                 default: break;
             }

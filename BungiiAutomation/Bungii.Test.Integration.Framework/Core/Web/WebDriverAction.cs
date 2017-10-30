@@ -86,6 +86,12 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             element.Click();
         }
 
+        public static void Scroll(IWebElement element)
+        {
+            Actions actions = new Actions(WebManager.webdriver);
+            actions.MoveToElement(element).Build().Perform();
+        }
+
         public static void ClickByReference(IWebElement element, By ActionLocator)
         {
             WaitUntilIsElementExistsAndDisplayed(element);

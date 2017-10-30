@@ -19,6 +19,9 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
         Driver_DetailsPage Page_Driver_Details = new Driver_DetailsPage(WebManager.webdriver);
         Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage(WebManager.webdriver);
         Driver_DocumentationPage Page_Driver_Doc = new Driver_DocumentationPage(WebManager.webdriver);
+        Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage(WebManager.webdriver);
+        Driver_TermsPage Page_Driver_Terms = new Driver_TermsPage(WebManager.webdriver);
+        Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage(WebManager.webdriver);
 
         Data_Reusable_Driver Data_Driver = new Data_Reusable_Driver();
         Data_Validation_Driver Data_valid_Driver = new Data_Validation_Driver();
@@ -98,6 +101,15 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
                 case "Documentation":
                     WebDriverAction.Click(Page_Driver_Doc.Button_DocNext);
                     break;
+                case "Bank Details":
+                    WebDriverAction.Click(Page_Driver_Bank.Button_BankNext);
+                    break;
+                case "Terms & Conditions":
+                    WebDriverAction.Click(Page_Driver_Terms.Button_TermsNext);
+                    break;
+                case "Video Training":
+                    WebDriverAction.Click(Page_Driver_Video.Button_VideoNext);
+                    break;
                 default: break;
             }
         }
@@ -115,6 +127,15 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
                     break;
                 case "Documentation":
                     WebAssertionManager.ElementTextEqual(Page_Driver_Doc.Err_Documentation_AllBlank, Data_valid_Driver.Err_Pages_BlankFields);
+                    break;
+                case "Bank Details":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Bank.Err_BankDetails_AllBlank, Data_valid_Driver.Err_Pages_BlankFields);
+                    break;
+                case "Terms & Conditions":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Terms.Err_Terms, Data_valid_Driver.Err_Pages_BlankFields);
+                    break;
+                case "Video Training":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Video.Err_Video, Data_valid_Driver.Err_Pages_BlankFields);
                     break;
                 default: break;
             }
@@ -150,6 +171,15 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
                     WebAssertionManager.ElementTextEqual(Page_Driver_Doc.Err_LicenseNumber, Data_valid_Driver.Err_LicenseNumber);
                     WebAssertionManager.ElementTextEqual(Page_Driver_Doc.Err_LicenseExpiry, Data_valid_Driver.Err_InvalidLicenseExpiryDate);
                     WebAssertionManager.ElementTextEqual(Page_Driver_Doc.Err_InsuranceExpiry, Data_valid_Driver.Err_InvalidInsuranceExpiryDate);
+                    break;
+
+                case "bank account on Bank Details":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Bank.Err_BankAccNumber, Data_valid_Driver.Err_ShortBankAccount);
+                    break;
+
+                case "Bank Details":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Bank.Err_RoutingNumber, Data_valid_Driver.Err_InvalidRoutingNumber);
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Bank.Err_BankAccNumber, Data_valid_Driver.Err_InvalidBankAccount);
                     break;
 
                 default: break;

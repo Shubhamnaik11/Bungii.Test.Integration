@@ -39,23 +39,27 @@ namespace Bungii.Android.Regression.Test.Integration.Data
                       Date_2015 = "12/12/2015",
                       Date_Invalid = "24/24/2424",
 
-                      //Pickup Information
+        //Pickup Information
         PickupMake = "Toyota",
                       PickupModel = "Tacoma",
                       PickupYear = "2017",
-                      PickupLicenseNo = "KIP-1010",
+                      PickupLicenseNo = "KIP-1010", //unique
                       All3PickupImages = "\"tacoma1.png\" \"tacoma2.png\" \"tacoma3.png\"",
-                      
+
                       //Documentation
                       DriverLicenseImage = "License.png",
-                      DriverLicenseNumber = "ABCDE878",
+                      DriverLicenseNumber = "ABCDE878", //unique
                       ExpirationDate = "12/12/2019",
                       DriverInsuranceImage = "Insurance.png",
                       //---Invalid Documentation
-                      DriverLicenseNumber_Existing = "7898789F",
+                      DriverLicenseNumber_Existing = "7898789F", //unique
 
                       //Banking Details
-                      DriverRoutingNumber = "122100024";
+                      DriverRoutingNumber = "122100024",
+                      DriverBankAccNumber = "4598909012", //unique
+                      //---Invalid Bank Details
+                      InvalidValue = "a$",
+                      DriverBankAccNumber_Invalid = "as$%%^&*";
         //--------------------------------------------------------------------------------------------------------
 
         //Driver Registration Details 2

@@ -27,9 +27,10 @@ namespace Bungii.Android.Regression.Test.Integration.Data
                       PickupInfoHeader = "Pickup Information", //"Pickup Information" Header
                       DocHeader = "Documentation", //Documentation Header        
                       BankDetHeader = "Bank Details", //Bank Details Header        
-                      TermsHeader = "Terms & Conditions", //Terms & Conditions Header        
+                      TermsHeader = "Terms & Conditions", //Terms & Conditions Header    
+                      TermsSubHeader = "Bungii™ Driver Agreement",
                       TermsText = "$ 0.30 per transaction plus 2.9% of transaction amount", //Terms & Conditions text        
-                      VideoHeader = "Welcome Video", //Video Training Header        
+                      VideoHeader = "Welcome Video", //Video Training Header   
                       FinishHeader = "Done", //Finish Header       
                       DriverDashboardHeader = "Dashboard"; // Driver Dashboard Header
 
@@ -44,7 +45,10 @@ namespace Bungii.Android.Regression.Test.Integration.Data
                       Err_LicenseNumber = "Oops! It looks like the driver license you entered is already associated with an existing Bungii driver account. Please try again.",
                       Err_InvalidDate = "Please enter a valid date.",
                       Err_InvalidLicenseExpiryDate = "Please enter a valid license expiry.",
-                      Err_InvalidInsuranceExpiryDate = "Please enter a valid insurance expiry.";
+                      Err_InvalidInsuranceExpiryDate = "Please enter a valid insurance expiry.",
+                      Err_InvalidRoutingNumber = "Please enter a valid routing number.",
+                      Err_InvalidBankAccount = "Please enter a valid account number.",
+                      Err_ShortBankAccount = "Please enter at least 7 characters.";
 
         //----------Admin Dashboard----------------------------------------------------------------------
         public string AdminName = "Bungii Admin",//Admin Dashboard - Name        

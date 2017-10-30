@@ -17,6 +17,7 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
 
         Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage(WebManager.webdriver);
         Driver_DocumentationPage Page_Driver_Doc = new Driver_DocumentationPage(WebManager.webdriver);
+        Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage(WebManager.webdriver);
 
         Data_Reusable_Driver Data_Driver = new Data_Reusable_Driver();
         Data_Validation_Driver Data_valid_Driver = new Data_Validation_Driver();
@@ -88,6 +89,26 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
                     WebDriverAction.SendKeys(Page_Driver_Doc.TextBox_LicenseNumber, Data_Driver.DriverLicenseNumber_Existing);
                     WebDriverAction.SendKeys(Page_Driver_Doc.TextBox_LicenseExpiry, Data_Driver.Date_2015);
                     WebDriverAction.SendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry, Data_Driver.Date_2015);
+                    break;
+                default: break;
+            }
+        }
+
+        [When(@"I enter ""(.*)"" data on Bank Details page")]
+        public void WhenIEnterDataOnBankDetailsPage(string p0)
+        {
+            switch (p0)
+            {
+                case "valid":
+                    WebDriverAction.SendKeys(Page_Driver_Bank.TextBox_RoutingNumber, Data_Driver.DriverRoutingNumber);
+                    WebDriverAction.SendKeys(Page_Driver_Bank.TextBox_BankAccNumber, Data_Driver.DriverBankAccNumber);
+                    break;
+                case "short bank account":
+                    WebDriverAction.SendKeys(Page_Driver_Bank.TextBox_BankAccNumber, Data_Driver.InvalidValue);
+                    break;
+                case "invalid":
+                    WebDriverAction.SendKeys(Page_Driver_Bank.TextBox_RoutingNumber, Data_Driver.InvalidValue);
+                    WebDriverAction.SendKeys(Page_Driver_Bank.TextBox_BankAccNumber, Data_Driver.DriverBankAccNumber_Invalid);
                     break;
                 default: break;
             }
