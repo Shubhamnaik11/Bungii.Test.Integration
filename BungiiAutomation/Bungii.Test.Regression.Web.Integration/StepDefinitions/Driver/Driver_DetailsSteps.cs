@@ -15,7 +15,10 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
     public class Driver_DetailsSteps
     {
         public IWebDriver webdriver = WebManager.webdriver;
-        
+
+        Driver_ForgotPasswordPage Page_ForgotPassword = new Driver_ForgotPasswordPage(WebManager.webdriver);
+        Driver_VerifyPhonePage Page_VerifyPhone = new Driver_VerifyPhonePage(WebManager.webdriver);
+        Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage(WebManager.webdriver);
         Driver_DetailsPage Page_Driver_Details = new Driver_DetailsPage(WebManager.webdriver);
         Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage(WebManager.webdriver);
         Driver_DocumentationPage Page_Driver_Doc = new Driver_DocumentationPage(WebManager.webdriver);
@@ -119,6 +122,12 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions
         {
             switch (p0)
             {
+                case "Forgot Password":
+                    WebAssertionManager.ElementTextEqual(Page_ForgotPassword.Err_ForgotPass_BlankField, Data_valid_Driver.Err_Pages_BlankFields);
+                    break;
+                case "Verify your phone":
+                    WebAssertionManager.ElementTextEqual(Page_VerifyPhone.Err_VerifyPhone_BlankField, Data_valid_Driver.Err_Pages_BlankFields);
+                    break;
                 case "Driver Details":
                     WebAssertionManager.ElementTextEqual(Page_Driver_Details.Err_DriverDetails_AllBlank, Data_valid_Driver.Err_Pages_BlankFields);
                     break;

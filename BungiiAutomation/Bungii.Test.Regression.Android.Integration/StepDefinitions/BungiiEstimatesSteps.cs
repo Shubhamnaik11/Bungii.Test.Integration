@@ -137,8 +137,8 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             {
                 case "all elements":
                     AssertionManager.ElementDisplayed(Page_Estimate.Header_Estimate);
-                    AssertionManager.ElementTextContains(Page_Estimate.Text_PickupLocation, Data_Customer.PickupLocation_OP);
-                    AssertionManager.ElementTextContains(Page_Estimate.Text_DropOffLocation, Data_Customer.DropoffLocation_OP);
+                    AssertionManager.ElementTextEqual(Page_Estimate.Text_PickupLocation, Data_Customer.PickupLocation_OP);
+                    AssertionManager.ElementTextEqual(Page_Estimate.Text_DropOffLocation, Data_Customer.DropoffLocation_OP);
 
                     double ExpectedTotalEstimate = Calc.TotalEstimate(Page_Estimate.Text_TripTime.Text, Page_Estimate.Text_TripDistance.Text, Page_Estimate.Link_Promo.Text);
                     double ActualTotalEstimate = Convert.ToDouble(Page_Estimate.Text_TotalEstimate.Text.Replace("$", ""));

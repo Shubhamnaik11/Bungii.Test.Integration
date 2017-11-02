@@ -77,7 +77,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
         {
             WaitUntilIsElementExistsAndDisplayed(element);
             element.Clear();
-            Thread.Sleep(PauseTimeLongerMilliSeconds * 2);
+            Thread.Sleep(PauseTimeLongerMilliSeconds * 1);
         }
 
         public static void Click(IWebElement element)

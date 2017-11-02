@@ -85,6 +85,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Driver_Documentation.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Driver\Driver_ForgotPassword.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Driver_ForgotPassword.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Driver\Driver_ForgotPassword_VerifyPhone.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Driver_ForgotPassword_VerifyPhone.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Driver\Driver_Login.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Driver_Login.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Driver\Driver_PickUpInfo.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -110,15 +125,20 @@
     <Compile Include="Pages\Driver\Driver_DetailsPage.cs" />
     <Compile Include="Pages\Driver\Driver_DocumentationPage.cs" />
     <Compile Include="Pages\Driver\Driver_FinishPage.cs" />
+    <Compile Include="Pages\Driver\Driver_ForgotPasswordPage.cs" />
+    <Compile Include="Pages\Driver\Driver_LoginPagecs.cs" />
     <Compile Include="Pages\Driver\Driver_PickUpInfoPage.cs" />
     <Compile Include="Pages\Driver\Driver_RegistrationPage.cs" />
     <Compile Include="Hooks.cs" />
     <Compile Include="Pages\Driver\Driver_TermsPage.cs" />
+    <Compile Include="Pages\Driver\Driver_VerifyPhonePage.cs" />
     <Compile Include="Pages\Driver\Driver_VideoTrainingPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\Driver\DriverRegistrationSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_DetailsSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_CompleteRegistrationSteps.cs" />
+    <Compile Include="StepDefinitions\Driver\Driver_LoginSteps.cs" />
+    <Compile Include="StepDefinitions\Driver_ForgotPasswordSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Admin\" />
@@ -141,6 +161,18 @@
     <None Include="Features\Driver\Driver_Documentation.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Driver_Documentation.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Driver\Driver_ForgotPassword.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Driver_ForgotPassword.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Driver\Driver_ForgotPassword_VerifyPhone.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Driver_ForgotPassword_VerifyPhone.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Driver\Driver_Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Driver_Login.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Driver\Driver_PickUpInfo.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

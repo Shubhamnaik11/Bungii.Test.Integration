@@ -15,6 +15,9 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
     {
         public IWebDriver webdriver = WebManager.webdriver;
 
+        Driver_LoginPagecs Page_Driver_Login = new Driver_LoginPagecs(WebManager.webdriver);
+        Driver_ForgotPasswordPage Page_ForgotPassword = new Driver_ForgotPasswordPage(WebManager.webdriver);
+        Driver_VerifyPhonePage Page_VerifyPhone = new Driver_VerifyPhonePage(WebManager.webdriver);
         Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage(WebManager.webdriver);
         Driver_DetailsPage Page_Driver_Details = new Driver_DetailsPage(WebManager.webdriver);
         Driver_PickUpInfoPage Page_Driver_Pickup = new Driver_PickUpInfoPage(WebManager.webdriver);
@@ -37,7 +40,6 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
             WebUtils.DriverLogin(Data_Driver.DriverPhoneNumber, Data_Driver.DriverPassword);
         }
 
-
         [Given(@"I navigate to ""(.*)""")]
         public void GivenINavigateTo(string p0)
         {
@@ -57,6 +59,15 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
             {
                 case "signup tab":
                     WebAssertionManager.ElementTextEqual(Page_Driver_Reg.Header_DriverRegistration, Data_valid_Driver.DriverRegistrationHeader);
+                    break;
+                case "LOG IN tab":
+                    WebAssertionManager.ElementTextEqual(Page_Driver_Login.Header_DriverLogin, Data_valid_Driver.DriverLoginHeader);
+                    break;
+                case "Forgot Password tab":
+                    WebAssertionManager.ElementTextEqual(Page_ForgotPassword.Header_ForgotPassword, Data_valid_Driver.DriverForgotPasswordHeader);
+                    break;
+                case "Verify Your Phone tab":
+                    WebAssertionManager.ElementTextEqual(Page_VerifyPhone.Header_VerifyPhone, Data_valid_Driver.DriverVerifyPhoneHeader);
                     break;
                 case "phone verification page":
                     WebAssertionManager.ElementTextEqual(Page_Driver_Reg.Text_Verification, Data_valid_Driver.RegSuccess);
@@ -149,6 +160,29 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
         {
             switch (p0)
             {
+                case "LOG IN link":
+                    WebDriverAction.Click(Page_Driver_Login.Tab_LogIn);
+                    break;
+                case "LOG IN button":
+                    WebDriverAction.Click(Page_Driver_Login.Button_DriverLogin);
+                    break;
+                case "Forgot Password":
+                    WebDriverAction.Click(Page_ForgotPassword.Link_ForgotPassword);
+                    break;
+                case "Back to Login":
+                    WebDriverAction.Click(Page_ForgotPassword.Link_BackToLogin);
+                    break;
+                case "Send Verification Code":
+                    WebDriverAction.Click(Page_ForgotPassword.Button_SendVerifCode);
+                    break;
+                case "Resend Code on Verify your phone page":
+                    string Code_Initial = WebUtils.GetVerificationCode_Driver(Data_Driver.DriverPhoneNumber);
+                    WebDriverAction.AddValueToScenarioContextVariable("Code_Initial", Code_Initial);
+                    WebDriverAction.Click(Page_VerifyPhone.Button_ResendCode);
+                    break;
+                case "Reset Password":
+                    WebDriverAction.Click(Page_VerifyPhone.Button_ResetPassword);
+                    break;
                 case "Signup button":
                     WebDriverAction.Click(Page_Driver_Reg.Button_SignUp);
                     break;
@@ -241,6 +275,5 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
                 default: break;
             }
         }
-
     }
 }

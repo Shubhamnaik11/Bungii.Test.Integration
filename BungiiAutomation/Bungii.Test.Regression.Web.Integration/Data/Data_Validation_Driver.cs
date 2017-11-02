@@ -4,6 +4,11 @@ namespace Bungii.Android.Regression.Test.Integration.Data
 {
     public class Data_Validation_Driver
     {
+        //----------Driver Login Page--------------------------------------------------------------------
+        public string DriverLoginHeader = "Driver Login",
+                      DriverForgotPasswordHeader = "Forgot Password",
+                      DriverVerifyPhoneHeader = "Verify your phone";
+
         //----------Driver Registration Page-------------------------------------------------------------
         public string DriverRegistrationHeader = "Driver Registration",
                       DReg_FirstName_Invalid = "Oops! The first name is invalid",
@@ -36,6 +41,8 @@ namespace Bungii.Android.Regression.Test.Integration.Data
 
         //----------Errors-------------------------------------------------------------------------------
         public string Err_Pages_BlankFields = "Oops! It looks like you missed something. Please fill out all fields before proceeding.",
+                      Err_DriverLogin_IncorrectCredentials = "Incorrect phone number or password",
+                      Err_DriverLogin_Phone = "Oops! The phone number is invalid.",
                       Err_DriverDetails_ZipCode = "Please enter a valid Zip code.",
                       Err_DriverDetails_Other = "Please enter availability to continue.",
                       Err_DriverDetails_Birthday = "Please enter a valid date of birth.",
@@ -49,6 +56,11 @@ namespace Bungii.Android.Regression.Test.Integration.Data
                       Err_InvalidRoutingNumber = "Please enter a valid routing number.",
                       Err_InvalidBankAccount = "Please enter a valid account number.",
                       Err_ShortBankAccount = "Please enter at least 7 characters.";
+
+        //----------Verify your phone----------------------------------------------------------------------
+        public string Msg_PasswordResetSuccess = "Your password has been reset successfully.",
+                      VerifyPhoneText1 = "Verification code has been sent to your phone number ending ",
+                      VerifyPhoneText2 = ". Enter the code in the below field to complete your verification.";
 
         //----------Admin Dashboard----------------------------------------------------------------------
         public string AdminName = "Bungii Admin",//Admin Dashboard - Name        

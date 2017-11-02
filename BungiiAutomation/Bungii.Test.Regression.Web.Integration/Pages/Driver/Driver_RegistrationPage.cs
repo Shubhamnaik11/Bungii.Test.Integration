@@ -8,24 +8,7 @@ namespace Bungii.Android.Regression.Test.Integration.Pages.Driver
         public Driver_RegistrationPage(IWebDriver webdriver)
         {
             PageFactory.InitElements(webdriver, this);
-        }        
-        //------------------------------Log In Tab-------------------------------------------------------------------------
-        //Log In tab
-        [FindsBy(How = How.Id, Using = "tablogin")]
-        public IWebElement Tab_LogIn { get; set; }
-
-        //Driver Login - Phone Field
-        [FindsBy(How = How.XPath, Using = "//div[@id='login']/form/div/input[@id='phone']")]
-        public IWebElement TextBox_Phone { get; set; }
-
-        //Driver Login - Password Field
-        [FindsBy(How = How.XPath, Using = "//div[@id='login']/form/div/input[@id='password']")]
-        public IWebElement TextBox_Password { get; set; }
-
-        //Driver Login - Login Button
-        [FindsBy(How = How.XPath, Using = "//form[@id='Login']/button[contains(text(), 'LOG')]")]
-        public IWebElement Button_Login { get; set; }
-
+        }    
         //------------------------------Driver Registration---------------------------------------------------------------
         //Driver Registration - Header
         [FindsBy(How = How.XPath, Using = "//div[@id='signup']/h2")]
