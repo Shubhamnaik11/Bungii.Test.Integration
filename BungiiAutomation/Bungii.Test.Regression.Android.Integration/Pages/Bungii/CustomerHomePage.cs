@@ -10,10 +10,10 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
            PageFactory.InitElements(driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/places_autocomplete_pickup_location")]   //com.bungii.customer:id/autocomplete_textview  from inspector   
-        public IWebElement Textfield_PickupLocation { get; set; }                              //places_autocomplete_pickup_location is actual id 
+        [FindsBy(How = How.XPath, Using = "//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview' and @instance='0']")]   
+        public IWebElement Textfield_PickupLocation { get; set; }                             
 
-        [FindsBy(How = How.XPath, Using = "//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/places_autocomplete_dropoff_location']/android.widget.RelativeLayout/android.widget.EditText")]   //same id as above comment in inspector  //places_autocomplete_dropoff_location actual id
+        [FindsBy(How = How.XPath, Using = "//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview' and @instance='1']")]   //same id as above comment in inspector  //places_autocomplete_dropoff_location actual id
         public IWebElement Textfield_DropoffLocation { get; set; }
 
         [FindsBy(How = How.Id, Using = "places_autocomplete_dropoff_location")]   //same id as above comment in inspector  //places_autocomplete_dropoff_location actual id

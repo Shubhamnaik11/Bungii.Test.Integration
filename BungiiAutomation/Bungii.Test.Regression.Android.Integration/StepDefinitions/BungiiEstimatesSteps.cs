@@ -8,6 +8,7 @@ using TechTalk.SpecFlow;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
 using System;
+using Bungii.Test.Integration.Framework.Core.Web;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 {
@@ -47,6 +48,9 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "my":
                     UtilFunctions.LoginToCustomerApp("9999998181", Data_Customer.CustomerPassword);
                     break;
+                case "stage":
+                    UtilFunctions.LoginToCustomerApp("9999999991", "Cci12345");
+                    break;
                 default: break;
             }
         }
@@ -60,6 +64,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     UtilFunctions.SelectAddress(Page_CustHome.Textfield_PickupLocation, Data_Customer.PickupLocation_OP);
                     Thread.Sleep(2000);
                     UtilFunctions.SelectAddress(Page_CustHome.Textfield_DropoffLocation, Data_Customer.DropoffLocation_OP);
+                    break;
+                case "Atlanta pickup and dropoff locations":
+                    UtilFunctions.SelectAddress(Page_CustHome.Textfield_PickupLocation, Data_Customer.PickupLocation_AT);
+                    Thread.Sleep(2000);
+                    UtilFunctions.SelectAddress(Page_CustHome.Textfield_DropoffLocation, Data_Customer.DropoffLocation_AT);
                     break;
                 default: break;
             }
@@ -104,7 +113,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                         driver.Tap(1, 100, 500, 1);
                         DriverAction.Click(Page_Estimate.Button_Review);
                     }
-                    if (deviceType.Equals("Samsung"))
+                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
                     {
                         DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                         Thread.Sleep(2000);

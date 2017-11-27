@@ -14,8 +14,10 @@ namespace Bungii.Test.Integration.Framework.Core.Android
     {
         public static AppiumDriver<AndroidElement> androiddriver = null;
 
-        private static string samsungDeviceName = ConfigurationManager.AppSettings["samsungDeviceName"];
-        private static string samsungVersion = ConfigurationManager.AppSettings["samsungVersion"];
+        private static string samsungS6DeviceName = ConfigurationManager.AppSettings["samsungS6DeviceName"];
+        private static string samsungS6Version = ConfigurationManager.AppSettings["samsungS6Version"];
+        private static string samsungS5DeviceName = ConfigurationManager.AppSettings["samsungS5DeviceName"];
+        private static string samsungS5Version = ConfigurationManager.AppSettings["samsungS5Version"];
         private static string motorolaDeviceName = ConfigurationManager.AppSettings["motorolaDeviceName"];
         private static string motorolaVersion = ConfigurationManager.AppSettings["motorolaVersion"];
         private static string platform = ConfigurationManager.AppSettings["platform"];
@@ -34,14 +36,17 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             SetAppPath();
             switch (deviceType)
             {
-                case "Samsung":
-                    SamsungSetup();
+                case "SamsungS6":
+                    SamsungS6Setup();
+                    break;
+                case "SamsungS5":
+                    SamsungS5Setup();
                     break;
                 case "Motorola":
                     MotorolaSetup();
                     break;
                 default:
-                    SamsungSetup();
+                    SamsungS5Setup();
                     break;
             }
         }
@@ -60,12 +65,31 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                     break;
             }
         }
-        private static void SamsungSetup()
+        private static void SamsungS6Setup()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.SetCapability(CapabilityType.BrowserName, browserName);
-            capabilities.SetCapability("deviceName", samsungDeviceName);
-            capabilities.SetCapability("platformVersion", samsungVersion);
+            capabilities.SetCapability("deviceName", samsungS6DeviceName);
+            capabilities.SetCapability("platformVersion", samsungS6Version);
+            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability("appPackage", package);
+            capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
+            //capabilities.SetCapability("unicodeKeyboard", false);
+            //capabilities.SetCapability("resetKeyboard", false);
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void SamsungS5Setup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
+            capabilities.SetCapability("deviceName", samsungS5DeviceName);
+            capabilities.SetCapability("platformVersion", samsungS5Version);
             capabilities.SetCapability("platformName", platform);
             capabilities.SetCapability("appPackage", package);
             capabilities.SetCapability("appActivity", activity);

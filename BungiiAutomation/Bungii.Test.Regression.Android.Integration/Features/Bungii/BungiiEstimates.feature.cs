@@ -86,7 +86,7 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         {
 #line 3
 #line 4
-testRunner.Given("I am logged in as \"my\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+testRunner.Given("I am logged in as \"stage\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
         }
         
@@ -104,16 +104,6 @@ this.FeatureBackground();
  testRunner.When("I enter \"valid pickup and dropoff locations\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 8
  testRunner.When("I tap on \"Get Estimate button\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.When("I tap on \"Promo Code\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 10
- testRunner.And("I add \"fixed valid\" PromoCode", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 11
- testRunner.And("I tap \"Add\" on Save Money page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.And("I tap on \"desired Promo Code\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 13
- testRunner.Then("I should see \"all elements\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 14
  testRunner.When("I tap on \"Add photo\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
@@ -122,6 +112,42 @@ this.FeatureBackground();
  testRunner.And("I tap on \"Cancel\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
  testRunner.Then("I should see \"driver cancelled\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Bungii_Complete")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BungiiEstimates")]
+        public virtual void Bungii_Complete()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Bungii_Complete", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 20
+ testRunner.When("I enter \"Atlanta pickup and dropoff locations\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 21
+ testRunner.When("I tap on \"Get Estimate button\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.When("I tap on \"Add photo\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 23
+ testRunner.And("I tap on \"Request Bungii\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+ testRunner.When("simulator driver comes online", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+ testRunner.When("Simulator Bungii Driver \"accepts Bungii\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.When("Simulator Bungii Driver \"arrives at pickup location\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
+ testRunner.When("Simulator Bungii Driver \"starts loading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 28
+ testRunner.When("Simulator Bungii Driver \"starts driving to dropoff\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.When("Simulator Bungii Driver \"starts unloading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 30
+ testRunner.When("Simulator Bungii Driver \"completes Bungii\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
         }
