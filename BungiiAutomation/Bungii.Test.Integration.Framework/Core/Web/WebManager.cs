@@ -13,6 +13,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
     {
         public static IWebDriver webdriver = null;
         private static string browser = ConfigurationManager.AppSettings["Browser"];
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
         private static string SnapshotsDir = ConfigurationManager.AppSettings["SnapshotsDirectory"];
 
         public static void InitializeDriver()

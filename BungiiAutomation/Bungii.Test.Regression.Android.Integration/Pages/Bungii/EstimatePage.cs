@@ -43,7 +43,7 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         public IWebElement Select_PromoCode { get; set; }
 
         //------Photo--------------------------------------------------------------------------------
-        [FindsBy(How = How.XPath, Using = "//android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.TextView")]
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/imageview_row_image_add_item_photo")]
         public IWebElement Link_AddPhoto { get; set; }
 
         [FindsBy(How = How.Id, Using = "com.android.packageinstaller:id/permission_message")]

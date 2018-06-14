@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
 using System;
-using Bungii.Test.Integration.Framework.Core.Web;
+using Bungii.Test.Regression.Android.Integration.Pages.Bungii;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 {
@@ -20,6 +20,8 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         SearchingPage Page_DriverSearch = new SearchingPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
         EstimatePage Page_Estimate = new EstimatePage(AndroidManager.androiddriver);
+        BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage(AndroidManager.androiddriver);
+        Want_5Page Page_Want5 = new Want_5Page(AndroidManager.androiddriver);
 
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
@@ -46,7 +48,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     UtilFunctions.LoginToCustomerApp(Data_Customer.CustPhn_HavingReferral, Data_Customer.CustomerPassword);
                     break;
                 case "my":
-                    UtilFunctions.LoginToCustomerApp("9999998181", Data_Customer.CustomerPassword);
+                    UtilFunctions.LoginToCustomerApp("8888882021", Data_Customer.CustomerPassword);
                     break;
                 case "stage":
                     UtilFunctions.LoginToCustomerApp("9999999991", "Cci12345");
@@ -70,6 +72,13 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     Thread.Sleep(2000);
                     UtilFunctions.SelectAddress(Page_CustHome.Textfield_DropoffLocation, Data_Customer.DropoffLocation_AT);
                     break;
+                case "current location in pickup and dropoff fields":
+                    DriverAction.Click(Page_CustHome.Button_Locator);
+                    int ETA = Convert.ToInt32(Page_CustHome.Text_ETAvalue.Text.Replace(" MINS", ""));                        
+                    if (ETA <= 30)
+                        DriverAction.Click(Page_CustHome.Button_ETASet);
+                    DriverAction.Click(Page_CustHome.Button_ETASet);
+                    break;
                 default: break;
             }
         }
@@ -79,11 +88,15 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         {
             switch (p0)
             {
+                case "two drivers selector":
+                    DriverAction.Click(Page_CustHome.Selector_Duo);
+                    break;
+
                 case "Get Estimate button":
                     DriverAction.Click(Page_CustHome.Button_GetEstimate);
                     break;
 
-                case "Cancel":
+                case "Cancel during search":
                     DriverAction.Click(Page_DriverSearch.Link_CancelSearch);
                     DriverAction.Click(Page_DriverSearch.Button_CancelConfirm);
                     break;
@@ -108,7 +121,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                     DriverAction.Click(Page_Estimate.Option_Camera);
 
-                    if (deviceType.Equals("Motorola"))
+                    if (deviceType.Equals("MotoG"))
                     {
                         driver.Tap(1, 100, 500, 1);
                         DriverAction.Click(Page_Estimate.Button_Review);
@@ -130,9 +143,30 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     if (!DriverAction.isElementPresent(Page_Estimate.Button_RequestBungii))
                         UtilFunctions.ScrollToBottom();
                     DriverAction.Click(Page_Estimate.Button_RequestBungii);
+                    break;
 
+                case "Yes on HeadsUp pop up":
                     DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage);
                     DriverAction.Click(Page_Estimate.Button_RequestConfirm);
+                    break;
+
+                case "Cancel on HeadsUp pop up":
+                    DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage);
+                    DriverAction.Click(Page_Estimate.Button_RequestConfirmCancel);
+                    break;
+
+                case "X on complete":
+                    DriverAction.Click(Page_BungiiComplete.CloseRateTipPage);
+                    break;
+
+                case "No free money":
+                    DriverAction.Click(Page_Want5.Button_NoFreeMoney);
+                    break;
+
+                case "Done after requesting a Scheduled Bungii":
+                    if (!DriverAction.isElementPresent(Page_CustHome.Button_Done))
+                        UtilFunctions.ScrollToBottom();
+                    DriverAction.Click(Page_CustHome.Button_Done);
                     break;
 
                 default: break;
@@ -144,6 +178,12 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         {
             switch (p0)
             {
+                case "two drivers selected":
+                    AssertionManager.ElementTextEqual(Page_CustHome.Switch_SoloDuo, "2");
+                    //AssertionManager.ElementEnabled(Page_CustHome.Selector_Duo);
+                    //AssertionManager.ElementDisabled(Page_CustHome.Selector_Solo);
+                    break;
+
                 case "all elements":
                     AssertionManager.ElementDisplayed(Page_Estimate.Header_Estimate);
                     AssertionManager.ElementTextEqual(Page_Estimate.Text_PickupLocation, Data_Customer.PickupLocation_OP);
@@ -158,6 +198,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "driver cancelled":
                     AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
                     AssertionManager.ElementEnabled(Page_CustHome.Button_GetEstimate);
+                    break;
+
+                case "Bungii posted Success page":
+                    AssertionManager.ElementDisplayed(Page_CustHome.Title_Success);
+                    AssertionManager.ElementDisplayed(Page_CustHome.Image_Tick);
                     break;
 
                 default: break;

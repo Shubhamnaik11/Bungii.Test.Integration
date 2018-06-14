@@ -111,6 +111,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             Assert.IsTrue(element.Selected, "Element was not selected");
         }
 
+        public static void ElementNotSelected(IWebElement element)
+        {
+            DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
+            Assert.IsFalse(element.Selected, "Element was selected");
+        }
+
         public static void ElementNotEmpty(IWebElement element)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);

@@ -23,8 +23,10 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
-        MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);        
-        private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+        MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
+
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+        private static string connection;
         
         public void LoginToCustomerApp(string phone, string password)
         {
@@ -56,6 +58,11 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
 
         public string GetVerificationCode(string PhoneNumber)
         {
+            if (environment.Equals("Dev"))
+                connection = ConfigurationManager.AppSettings["Dev.Database.ConnectionUri"];
+            else if (environment.Equals("QA"))
+                connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
             string SMSCode = string.Empty;
             try
             {

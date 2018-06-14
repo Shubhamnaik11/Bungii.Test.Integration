@@ -49,5 +49,9 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.Simulator
         //Complete Button
         [FindsBy(How = How.Id, Using = "btnComplete")]
         public IWebElement DSim_Btn_Complete { get; set; }
+
+        //Click here to test again Link
+        [FindsBy(How = How.XPath, Using = "//div[@id='Driver-Actions-Complete']/div/h4/a[text()='here']")]
+        public IWebElement Link_Restart { get; set; }
     }
 }

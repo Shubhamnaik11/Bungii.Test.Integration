@@ -63,10 +63,15 @@
   <ItemGroup>
     <Compile Include="Data\Data_Reusable_Customer.cs" />
     <Compile Include="Data\Data_Validations_Customer.cs" />
-    <Compile Include="Features\Bungii\BungiiEstimates.feature.cs">
+    <Compile Include="Features\Bungii\Bungii.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BungiiEstimates.feature</DependentUpon>
+      <DependentUpon>Bungii.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Bungii\EstimateBungii.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EstimateBungii.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\LoginAndForgotPassword\CustomerLogin1.feature.cs">
       <AutoGen>True</AutoGen>
@@ -98,6 +103,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReferralInvite.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\ScheduleBungiis\DuoScheduled.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DuoScheduled.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\ScheduleBungiis\SoloScheduled.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SoloScheduled.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Signup\CustomerSignup.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +124,10 @@
       <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
     </Compile>
     <Compile Include="Functions\BungiiCalculations.cs" />
+    <Compile Include="Pages\Bungii\BungiiAcceptedPage.cs" />
+    <Compile Include="Pages\Bungii\BungiiCompletePage.cs" />
+    <Compile Include="Pages\Bungii\BungiiProgressPage.cs" />
+    <Compile Include="Pages\Bungii\Want%245Page.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />
     <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
@@ -120,6 +139,7 @@
     <Compile Include="Pages\MenuPages\PaymentPage.cs" />
     <Compile Include="Pages\MenuPages\AccountPage.cs" />
     <Compile Include="Pages\MenuPages\FAQPage.cs" />
+    <Compile Include="Pages\MenuPages\ScheduledBungiisPage.cs" />
     <Compile Include="Pages\MenuPages\SupportPage.cs" />
     <Compile Include="Pages\LoginSignupPages\SignupPage.cs" />
     <Compile Include="Pages\LoginSignupPages\TermsPage.cs" />
@@ -127,6 +147,7 @@
     <Compile Include="Pages\Simulator\SimulatorPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\BungiiEstimatesSteps.cs" />
+    <Compile Include="StepDefinitions\BungiiSteps.cs" />
     <Compile Include="StepDefinitions\CustomerForgotPasswordSteps.cs" />
     <Compile Include="StepDefinitions\CustomerMenuSteps.cs" />
     <Compile Include="StepDefinitions\CustomerSignupSteps.cs" />
@@ -136,16 +157,23 @@
     <Compile Include="StepDefinitions\Menu_SaveMoneySteps.cs" />
     <Compile Include="StepDefinitions\Menu_SupportSteps.cs" />
     <Compile Include="StepDefinitions\ReferralInviteSteps.cs" />
+    <Compile Include="StepDefinitions\ScheduledSteps.cs" />
     <Compile Include="StepDefinitions\SimulatorActionsSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Features\Bungii\BungiiEstimates.feature">
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Features\Bungii\Bungii.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>BungiiEstimates.feature.cs</LastGenOutput>
+      <LastGenOutput>Bungii.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Bungii\EstimateBungii.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>EstimateBungii.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LoginAndForgotPassword\CustomerLogin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -170,6 +198,14 @@
     <None Include="Features\Menus\ReferralInvite.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ReferralInvite.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ScheduleBungiis\DuoScheduled.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>DuoScheduled.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\ScheduleBungiis\SoloScheduled.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SoloScheduled.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Signup\CustomerSignup.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

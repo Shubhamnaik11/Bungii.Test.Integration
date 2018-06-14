@@ -34,6 +34,8 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
         WebUtilityFunctions WebUtils = new WebUtilityFunctions();
         GeneralUtilityFunctions Functions = new GeneralUtilityFunctions();
 
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+
         [Given(@"I am logged in as driver")]
         public void GivenIAmLoggedInAsDriver()
         {
@@ -46,7 +48,12 @@ namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver
             switch (p0)
             {
                 case "Bungii Driver URL":
-                    WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
+                    if (environment.Equals("Dev"))
+                        WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Dev"]);
+                    else if (environment.Equals("QA"))
+                        WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
+                    else if (environment.Equals("Stage"))
+                        WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Stage"]);
                     break;
                 default: break;
             }

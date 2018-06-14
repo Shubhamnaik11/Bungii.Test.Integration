@@ -15,6 +15,7 @@ namespace Bungii.Android.Regression.Test.Integration.Functions
         Admin_MenuLinksPage Page_AdminMenu = null;
         Admin_ReferralSourcePage Page_AdminReferralSource = null;
         Data_Reusable_Admin Data_Admin = null;
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
 
         public AndroidWebUtilityFunctions()
         {
@@ -38,7 +39,13 @@ namespace Bungii.Android.Regression.Test.Integration.Functions
 
         public void AdminLogin()
         {
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_QA"]);
+            if (environment.Equals("Dev"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_Dev"]);
+            else if (environment.Equals("QA"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_QA"]);
+            else if (environment.Equals("Stage"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_Stage"]);
+
             WebDriverAction.SendKeys(Page_AdminLogin.TextBox_Phone, Data_Admin.AdminPhonenumber);
             WebDriverAction.SendKeys(Page_AdminLogin.TextBox_Password, Data_Admin.AdminPassword);
             WebDriverAction.Click(Page_AdminLogin.Button_AdminLogin);

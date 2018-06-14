@@ -34,9 +34,15 @@ namespace Bungii.Test.Integration.Framework
             return telNo.ToString();
         }
 
-        private static string connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+        private static string connection;
         public bool IsPhoneUnique(string PhoneNumber)
         {
+            if (environment.Equals("Dev"))
+                connection = ConfigurationManager.AppSettings["Dev.Database.ConnectionUri"];
+            else if (environment.Equals("QA"))
+                connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
             string Id = string.Empty;
             try
             {

@@ -14,15 +14,19 @@ namespace Bungii.Test.Integration.Framework.Core.Android
     {
         public static AppiumDriver<AndroidElement> androiddriver = null;
 
-        private static string samsungS6DeviceName = ConfigurationManager.AppSettings["samsungS6DeviceName"];
-        private static string samsungS6Version = ConfigurationManager.AppSettings["samsungS6Version"];
-        private static string samsungS5DeviceName = ConfigurationManager.AppSettings["samsungS5DeviceName"];
-        private static string samsungS5Version = ConfigurationManager.AppSettings["samsungS5Version"];
-        private static string motorolaDeviceName = ConfigurationManager.AppSettings["motorolaDeviceName"];
-        private static string motorolaVersion = ConfigurationManager.AppSettings["motorolaVersion"];
-        private static string platform = ConfigurationManager.AppSettings["platform"];
-        private static string browserName = ConfigurationManager.AppSettings["browserName"];
-        private static string listner = ConfigurationManager.AppSettings["ListnerURL"];
+        private static string ApplicationDriverURL = ConfigurationManager.AppSettings["ApplicationDriverURL"];
+        private static string SamsungS6DeviceName = ConfigurationManager.AppSettings["SamsungS6DeviceName"];
+        private static string SamsungS6Version = ConfigurationManager.AppSettings["SamsungS6Version"];
+        private static string SamsungS5DeviceName = ConfigurationManager.AppSettings["SamsungS5DeviceName"];
+        private static string SamsungS5Version = ConfigurationManager.AppSettings["SamsungS5Version"];
+        private static string MotoG4DeviceName = ConfigurationManager.AppSettings["MotoG4DeviceName"];
+        private static string MotoG4Version = ConfigurationManager.AppSettings["MotoG4Version"];
+        private static string MotoGDeviceName = ConfigurationManager.AppSettings["MotoGDeviceName"];
+        private static string MotoGVersion = ConfigurationManager.AppSettings["MotoGVersion"];
+        private static string Platform = ConfigurationManager.AppSettings["Platform"];
+        private static string BrowserName = ConfigurationManager.AppSettings["BrowserName"];
+        private static string ApplicationCustomerUrl = ConfigurationManager.AppSettings["ApplicationCustomerUrl"];
+        private static string ApplicationDriverUrl = ConfigurationManager.AppSettings["ApplicationDriverUrl"];
         private static string timeout = ConfigurationManager.AppSettings["Timeout"];
         private static string package = ConfigurationManager.AppSettings["BungiiCustomerPackage"];
         private static string activity = ConfigurationManager.AppSettings["BungiiCustomerActivities"];
@@ -42,8 +46,11 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                 case "SamsungS5":
                     SamsungS5Setup();
                     break;
-                case "Motorola":
-                    MotorolaSetup();
+                case "MotoG4":
+                    MotoG4Setup();
+                    break;
+                case "MotoG":
+                    MotoGSetup();
                     break;
                 default:
                     SamsungS5Setup();
@@ -55,23 +62,24 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             switch (environment)
             {
                 case "QA":
-                    appPath = ConfigurationManager.AppSettings["app_QaPath"];
+                    appPath = ConfigurationManager.AppSettings["app_customerQaPath"];
                     break;
                 case "Stage":
-                    appPath = ConfigurationManager.AppSettings["app_StagePath"];
+                    appPath = ConfigurationManager.AppSettings["app_customerStagePath"];
                     break;
                 default:
-                    appPath = ConfigurationManager.AppSettings["app_QaPath"];
+                    appPath = ConfigurationManager.AppSettings["app_customerQaPath"];
                     break;
             }
         }
+
         private static void SamsungS6Setup()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
-            capabilities.SetCapability("deviceName", samsungS6DeviceName);
-            capabilities.SetCapability("platformVersion", samsungS6Version);
-            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", SamsungS6DeviceName);
+            capabilities.SetCapability("platformVersion", SamsungS6Version);
+            capabilities.SetCapability("platformName", Platform);
             capabilities.SetCapability("appPackage", package);
             capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
@@ -87,44 +95,57 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         private static void SamsungS5Setup()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
-            capabilities.SetCapability("deviceName", samsungS5DeviceName);
-            capabilities.SetCapability("platformVersion", samsungS5Version);
-            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", SamsungS5DeviceName);
+            capabilities.SetCapability("platformVersion", SamsungS5Version);
+            capabilities.SetCapability("platformName", Platform);
             capabilities.SetCapability("appPackage", package);
             capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
             capabilities.SetCapability("full-reset", "true");
-            //capabilities.SetCapability("unicodeKeyboard", false);
-            //capabilities.SetCapability("resetKeyboard", false);
             capabilities.SetCapability("autoWebView", "true");
             InitializeAndroidDriver(capabilities);
         }
 
-        private static void MotorolaSetup()
+        private static void MotoG4Setup()
         {
             DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.SetCapability(CapabilityType.BrowserName, browserName);
-            capabilities.SetCapability("deviceName", motorolaDeviceName);
-            capabilities.SetCapability("platformVersion", motorolaVersion);
-            capabilities.SetCapability("platformName", platform);
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", MotoG4DeviceName);
+            capabilities.SetCapability("platformVersion", MotoG4Version);
+            capabilities.SetCapability("platformName", Platform);
             capabilities.SetCapability("appPackage", package);
             capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
             capabilities.SetCapability("full-reset", "true");
-            //capabilities.SetCapability("resetKeyboard", true);
-            //capabilities.SetCapability("unicodeKeyboard", true);
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void MotoGSetup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", MotoGDeviceName);
+            capabilities.SetCapability("platformVersion", MotoGVersion);
+            capabilities.SetCapability("platformName", Platform);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
             capabilities.SetCapability("autoWebView", "true");
             InitializeAndroidDriver(capabilities);
         }
 
         private static void InitializeAndroidDriver(DesiredCapabilities capabilities)
         {
-            androiddriver = new AndroidDriver<AndroidElement>(new Uri(listner), capabilities);
+            androiddriver = new AndroidDriver<AndroidElement>(new Uri(ApplicationCustomerUrl), capabilities);
         }
 
         public static void Quit(ScenarioContext scenarioContext)

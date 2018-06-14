@@ -138,14 +138,16 @@
     <Compile Include="StepDefinitions\Driver\Driver_DetailsSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_CompleteRegistrationSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_LoginSteps.cs" />
-    <Compile Include="StepDefinitions\Driver_ForgotPasswordSteps.cs" />
+    <Compile Include="StepDefinitions\Driver\Driver_ForgotPasswordSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Admin\" />
     <Folder Include="StepDefinitions\Admin\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Features\Driver\DriverRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DriverRegistration.feature.cs</LastGenOutput>

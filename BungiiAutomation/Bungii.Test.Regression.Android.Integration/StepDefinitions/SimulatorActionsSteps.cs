@@ -20,11 +20,21 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             Page_Simulator = new SimulatorPage(WebManager.webdriver);
         }
 
-        [When(@"simulator driver comes online")]
-        public void WhenSimulatorDriverComesOnline()
-        {            
-            WebDriverAction.NavigateToUrl(Stage_Simulator);
-            WebDriverAction.Click(Page_Simulator.DSim_Btn_Start);
+        [When(@"simulator driver is ""(.*)""")]
+        public void WhenSimulatorDriverIs(string p0)
+        {
+            switch (p0)
+            {
+                case "online":
+                    WebDriverAction.NavigateToUrl(Stage_Simulator);
+                    WebDriverAction.Click(Page_Simulator.DSim_Btn_Start);
+                    break;
+                case "offline":
+                    WebDriverAction.Click(Page_Simulator.Link_Restart);
+                    Quit();
+                    break;
+                default: break;
+            }
         }
 
         [When(@"Simulator Bungii Driver ""(.*)""")]
