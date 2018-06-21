@@ -4,7 +4,7 @@ Background:
 	Given I am logged in as "stage" customer
 	When I enter "Atlanta pickup and dropoff locations" on Bungii estimate
 	When I tap on "Get Estimate button" on Bungii estimate
-	When I tap on "Add photo" on Bungii estimate
+	And I add "1" photos to the Bungii 
 	And I tap on "Request Bungii" on Bungii estimate
 
 Scenario: Bungii_CustomerCancelOnHeadsUp

@@ -31,7 +31,7 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/menu_invite")]
         public IWebElement Link_Invite { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//android.widget.ImageView[@content-desc = 'My Location' and @instance='1']")]
+        [FindsBy(How = How.XPath, Using = "//android.widget.ImageView[@content-desc='My Location']")]
         public IWebElement Button_Locator { get; set; }
         
         [FindsBy(How = How.Id, Using = "pickup_location_get_estimate_button")]

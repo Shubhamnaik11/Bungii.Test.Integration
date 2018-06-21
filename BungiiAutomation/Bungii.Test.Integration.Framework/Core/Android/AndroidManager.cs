@@ -23,6 +23,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         private static string MotoG4Version = ConfigurationManager.AppSettings["MotoG4Version"];
         private static string MotoGDeviceName = ConfigurationManager.AppSettings["MotoGDeviceName"];
         private static string MotoGVersion = ConfigurationManager.AppSettings["MotoGVersion"];
+        private static string NokiaDeviceName = ConfigurationManager.AppSettings["NokiaDeviceName"];
+        private static string NokiaVersion = ConfigurationManager.AppSettings["NokiaVersion"];
         private static string Platform = ConfigurationManager.AppSettings["Platform"];
         private static string BrowserName = ConfigurationManager.AppSettings["BrowserName"];
         private static string ApplicationCustomerUrl = ConfigurationManager.AppSettings["ApplicationCustomerUrl"];
@@ -52,6 +54,9 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                 case "MotoG":
                     MotoGSetup();
                     break;
+                case "Nokia6":
+                    Nokia6Setup();
+                    break;
                 default:
                     SamsungS5Setup();
                     break;
@@ -75,13 +80,14 @@ namespace Bungii.Test.Integration.Framework.Core.Android
 
         private static void SamsungS6Setup()
         {
-            DesiredCapabilities capabilities = new DesiredCapabilities();
+            DesiredCapabilities capabilities = new DesiredCapabilities();            
             capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("automationName", "UiAutomator2");
             capabilities.SetCapability("deviceName", SamsungS6DeviceName);
             capabilities.SetCapability("platformVersion", SamsungS6Version);
             capabilities.SetCapability("platformName", Platform);
-            capabilities.SetCapability("appPackage", package);
-            capabilities.SetCapability("appActivity", activity);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
@@ -99,8 +105,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("deviceName", SamsungS5DeviceName);
             capabilities.SetCapability("platformVersion", SamsungS5Version);
             capabilities.SetCapability("platformName", Platform);
-            capabilities.SetCapability("appPackage", package);
-            capabilities.SetCapability("appActivity", activity);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
@@ -116,8 +122,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("deviceName", MotoG4DeviceName);
             capabilities.SetCapability("platformVersion", MotoG4Version);
             capabilities.SetCapability("platformName", Platform);
-            capabilities.SetCapability("appPackage", package);
-            capabilities.SetCapability("appActivity", activity);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
             capabilities.SetCapability("app", appPath);
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
@@ -139,6 +145,25 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability("newCommandTimeout", timeout);
             capabilities.SetCapability("no-reset", "false");
             capabilities.SetCapability("full-reset", "true");
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void Nokia6Setup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", NokiaDeviceName);
+            capabilities.SetCapability("platformVersion", NokiaVersion);
+            capabilities.SetCapability("platformName", Platform);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
+            //capabilities.SetCapability("unicodeKeyboard", false);
+            //capabilities.SetCapability("resetKeyboard", false);
             capabilities.SetCapability("autoWebView", "true");
             InitializeAndroidDriver(capabilities);
         }

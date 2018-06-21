@@ -115,7 +115,7 @@ this.FeatureBackground();
 #line 13
  testRunner.Then("I should see \"all elements\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 14
- testRunner.When("I tap on \"Add photo\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add \"4\" photos to the Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.And("I tap on \"Request Bungii\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16

@@ -72,5 +72,8 @@
                       LocationTitleDropOff = "DROP OFF LOCATION",
                       ETAPickup = "13 minutes",
                       DriverTitle = "Driver";
+
+        //------Scheduled Bungiis Page--------------------------------------------------------------
+        public string Status_Contacting = "Contacting Drivers";
     }
 }

@@ -28,7 +28,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
         UtilityFunctions UtilFunctions = new UtilityFunctions();
         BungiiCalculations Calc = new BungiiCalculations();
-        private static string deviceType = ConfigurationManager.AppSettings["deviceType"];
+        private static string deviceType = ConfigurationManager.AppSettings["deviceType"];        
 
         [Given(@"I am logged in as ""(.*)"" customer")]
         public void GivenIAmLoggedInAsCustomer(string p0)
@@ -73,10 +73,16 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     UtilFunctions.SelectAddress(Page_CustHome.Textfield_DropoffLocation, Data_Customer.DropoffLocation_AT);
                     break;
                 case "current location in pickup and dropoff fields":
+                    //string a = driver.PageSource;
                     DriverAction.Click(Page_CustHome.Button_Locator);
-                    int ETA = Convert.ToInt32(Page_CustHome.Text_ETAvalue.Text.Replace(" MINS", ""));                        
-                    if (ETA <= 30)
-                        DriverAction.Click(Page_CustHome.Button_ETASet);
+                    Thread.Sleep(2500);
+                    if(DriverAction.isElementPresent(Page_CustHome.Text_ETAvalue))
+                        {
+                        int ETA = Convert.ToInt32(Page_CustHome.Text_ETAvalue.Text.Replace(" MINS", ""));
+                        if (ETA <= 30)
+                            DriverAction.Click(Page_CustHome.Button_ETASet);
+                        }                    
+                    DriverAction.Click(Page_CustHome.Button_Locator);
                     DriverAction.Click(Page_CustHome.Button_ETASet);
                     break;
                 default: break;
@@ -93,7 +99,10 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
 
                 case "Get Estimate button":
-                    DriverAction.Click(Page_CustHome.Button_GetEstimate);
+                    while (DriverAction.isElementPresent(Page_CustHome.Button_GetEstimate) == false)
+                        WhenIEnterOnBungiiEstimate("current location in pickup and dropoff fields");
+                    //if (DriverAction.isElementPresent(Page_CustHome.Button_GetEstimate))
+                        DriverAction.Click(Page_CustHome.Button_GetEstimate);
                     break;
 
                 case "Cancel during search":
@@ -113,28 +122,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.Click(Page_Estimate.Select_PaymentMode);
                     break;
 
-                case "Add photo":
-                    DriverAction.Click(Page_Estimate.Link_AddPhoto);
-
-                    if (DriverAction.isElementPresent(Page_Estimate.Message_CameraPermissions))
-                        DriverAction.Click(Page_Estimate.Permissions_CameraAllow);
-
-                    DriverAction.Click(Page_Estimate.Option_Camera);
-
-                    if (deviceType.Equals("MotoG"))
-                    {
-                        driver.Tap(1, 100, 500, 1);
-                        DriverAction.Click(Page_Estimate.Button_Review);
-                    }
-                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
-                    {
-                        DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
-                        Thread.Sleep(2000);
-                        DriverAction.Click(Page_Estimate.Button_Camera_OK);
-                    }
-                    Thread.Sleep(2000);
-                    break;
-
                 case "Request Bungii":
                     if (!DriverAction.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate))
                         UtilFunctions.ScrollToBottom();
@@ -148,6 +135,35 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "Yes on HeadsUp pop up":
                     DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage);
                     DriverAction.Click(Page_Estimate.Button_RequestConfirm);
+
+                    //If time has passed. *to be worked on*
+                    /*if (DriverAction.isElementPresent(Page_Estimate.Alert_DelayRequestingTrip))
+                    {
+                        if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                        {
+                            DriverAction.Click(Page_Estimate.Button_DelayRequestingTrip_OK);
+                            DriverAction.Click(Page_Estimate.Time);
+
+                            //choose current date
+                            DriverAction.Click(Page_Estimate.Samsung_CurrentSelectedDate);
+                            DriverAction.Click(Page_Estimate.Samsung_Date_OK);
+
+                            //set time with 15 mins delay
+                            DriverAction.Click(Page_Estimate.Samsung_SetTime_Min_Next);
+                            UtilFunctions.ScrollUp(Page_Estimate.Samsung_SetTime_Min_Next);
+                            if (Page_Estimate.Samsung_SetTime_Min_Current.Text == "00" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "15" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "30")
+                                DriverAction.Click(Page_Estimate.Samsung_SetTime_Hour_Next);
+
+                            DriverAction.Click(Page_Estimate.Button_RequestConfirm);
+                        }
+                        Thread.Sleep(2000);
+                    }*/
+                    break;
+
+                case "Done after requesting a Scheduled Bungii":
+                    if (!DriverAction.isElementPresent(Page_CustHome.Button_Done))
+                        UtilFunctions.ScrollToBottom();
+                    DriverAction.Click(Page_CustHome.Button_Done);
                     break;
 
                 case "Cancel on HeadsUp pop up":
@@ -163,15 +179,81 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.Click(Page_Want5.Button_NoFreeMoney);
                     break;
 
-                case "Done after requesting a Scheduled Bungii":
-                    if (!DriverAction.isElementPresent(Page_CustHome.Button_Done))
-                        UtilFunctions.ScrollToBottom();
-                    DriverAction.Click(Page_CustHome.Button_Done);
+                default: break;
+            }
+        }
+
+        int i = 0;
+        [When(@"I add ""(.*)"" photos to the Bungii")]
+        public void WhenIAddPhotosToTheBungii(int p0)
+        {
+            do
+            {
+                if (!DriverAction.isElementPresent(Page_Estimate.Link_AddPhoto))
+                    UtilFunctions.SwipeLeft(Page_Estimate.Row_Images);
+
+                DriverAction.Click(Page_Estimate.Link_AddPhoto);
+
+                if (DriverAction.isElementPresent(Page_Estimate.Message_CameraPermissions))
+                    DriverAction.Click(Page_Estimate.Permissions_CameraAllow);
+
+                DriverAction.Click(Page_Estimate.Option_Camera);
+
+                if (deviceType.Equals("MotoG"))
+                {
+                    driver.Tap(1, 100, 500, 1);
+                    DriverAction.Click(Page_Estimate.Button_Review);
+                }
+                if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                {
+                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
+                    Thread.Sleep(2000);
+                    DriverAction.Click(Page_Estimate.Button_Camera_OK);
+                }
+                Thread.Sleep(2000);
+                i++;
+            } while (i < p0);
+
+            if(DriverAction.isElementPresent(Page_Estimate.Text_PickupLocation))
+            {
+                //code to be added incase of invalid image error
+            }
+        }
+
+        [When(@"I add loading/unloading time of ""(.*)""")]
+        public void WhenIAddLoadingUnloadingTimeOf(string p0)
+        {
+            DriverAction.Click(Page_Estimate.Link_LoadingUnloadingTime);
+            switch (p0)
+            {
+                case "15 mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_15);
+                    break;
+
+                case "30 mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_30);
+                    break;
+
+                case "45 mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_45);
+                    break;
+
+                case "60 mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_60);
+                    break;
+
+                case "75 mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_75);
+                    break;
+
+                case "90+ mins":
+                    DriverAction.Click(Page_Estimate.LoadingUnloadingTime_90);
                     break;
 
                 default: break;
             }
         }
+
 
         [Then(@"I should see ""(.*)"" on Bungii estimate")]
         public void ThenIShouldSeeOnBungiiEstimate(string p0)
@@ -201,7 +283,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
 
                 case "Bungii posted Success page":
-                    AssertionManager.ElementDisplayed(Page_CustHome.Title_Success);
+                    //AssertionManager.ElementDisplayed(Page_CustHome.Title_Success);
                     AssertionManager.ElementDisplayed(Page_CustHome.Image_Tick);
                     break;
 

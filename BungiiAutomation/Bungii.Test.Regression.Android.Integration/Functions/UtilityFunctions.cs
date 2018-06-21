@@ -118,7 +118,7 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             Double screenHeightEnd = dimensions.Height * 0.5;
             int scrollend = Convert.ToInt32(screenHeightEnd);
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
-        }
+        }       
 
         public void SwipeLeft(IWebElement row)
         {
@@ -130,6 +130,22 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             .Press(row, xStart, (row.Size.Height / 2))
             .Wait(1000)
             .MoveTo(row, xEnd, (row.Size.Height / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
+        public void ScrollUp(IWebElement element)
+        {
+            int xShift = Convert.ToInt32(element.Size.Height * 0.20);
+            int xStart = (element.Size.Height) - xShift;
+            int xEnd = xShift;
+
+            ITouchAction action = new TouchAction(driver)
+            .Press(element, xStart, (element.Size.Width / 2))
+            .Wait(1000)
+            .MoveTo(element, xEnd, (element.Size.Width / 2))
             .Release();
 
             action.Perform();
