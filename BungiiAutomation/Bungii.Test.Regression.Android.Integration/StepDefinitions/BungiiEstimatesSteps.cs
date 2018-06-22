@@ -290,5 +290,12 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 default: break;
             }
         }
+
+        [Then(@"I tap on home icon on device")]
+        public void ThenITapOnHomeIconOnDevice()
+        {
+            DriverAction.keyBoardEvent(AndroidKeyCode.Home);
+            Thread.Sleep(2000);
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
     {
         public static AppiumDriver<AndroidElement> androiddriver = null;
 
-        private static string ApplicationDriverURL = ConfigurationManager.AppSettings["ApplicationDriverURL"];
+        private static string ApplicationCustomerUrl = ConfigurationManager.AppSettings["ApplicationCustomerUrl"];
         private static string SamsungS6DeviceName = ConfigurationManager.AppSettings["SamsungS6DeviceName"];
         private static string SamsungS6Version = ConfigurationManager.AppSettings["SamsungS6Version"];
         private static string SamsungS5DeviceName = ConfigurationManager.AppSettings["SamsungS5DeviceName"];
@@ -27,8 +27,6 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         private static string NokiaVersion = ConfigurationManager.AppSettings["NokiaVersion"];
         private static string Platform = ConfigurationManager.AppSettings["Platform"];
         private static string BrowserName = ConfigurationManager.AppSettings["BrowserName"];
-        private static string ApplicationCustomerUrl = ConfigurationManager.AppSettings["ApplicationCustomerUrl"];
-        private static string ApplicationDriverUrl = ConfigurationManager.AppSettings["ApplicationDriverUrl"];
         private static string timeout = ConfigurationManager.AppSettings["Timeout"];
         private static string package = ConfigurationManager.AppSettings["BungiiCustomerPackage"];
         private static string activity = ConfigurationManager.AppSettings["BungiiCustomerActivities"];

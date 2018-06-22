@@ -31,6 +31,10 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementTextEqual(Page_ScheduledBungiis.Text_BungiiStatus_01, Data_Valid_Customer.Status_Contacting);
                     break;
 
+                case "Bungii is accepted":
+                    AssertionManager.ElementTextEqual(Page_ScheduledBungiis.Text_BungiiStatus_01, "`$45.00");
+                    break;
+
                 default: break;
             }
         }

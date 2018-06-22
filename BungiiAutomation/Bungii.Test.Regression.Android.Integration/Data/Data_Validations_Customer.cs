@@ -74,6 +74,7 @@
                       DriverTitle = "Driver";
 
         //------Scheduled Bungiis Page--------------------------------------------------------------
-        public string Status_Contacting = "Contacting Drivers";
+        public string Status_Contacting = "Contacting Drivers",
+                      Status_Accepted = "Accepted";
     }
 }

@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Data_Driver.cs" />
     <Compile Include="Data\Data_Reusable_Customer.cs" />
     <Compile Include="Data\Data_Validations_Customer.cs" />
     <Compile Include="Features\Bungii\Bungii.feature.cs">
@@ -124,10 +125,14 @@
       <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
     </Compile>
     <Compile Include="Functions\BungiiCalculations.cs" />
+    <Compile Include="Functions\DriverAppFunctions.cs" />
     <Compile Include="Pages\Bungii\BungiiAcceptedPage.cs" />
     <Compile Include="Pages\Bungii\BungiiCompletePage.cs" />
     <Compile Include="Pages\Bungii\BungiiProgressPage.cs" />
     <Compile Include="Pages\Bungii\Want%245Page.cs" />
+    <Compile Include="Pages\DriverPages\Driver_AvailableTripsPage.cs" />
+    <Compile Include="Pages\DriverPages\Driver_HomePage.cs" />
+    <Compile Include="Pages\DriverPages\Driver_LoginPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />
     <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
@@ -151,6 +156,7 @@
     <Compile Include="StepDefinitions\CustomerForgotPasswordSteps.cs" />
     <Compile Include="StepDefinitions\CustomerMenuSteps.cs" />
     <Compile Include="StepDefinitions\CustomerSignupSteps.cs" />
+    <Compile Include="StepDefinitions\DriverActionsSteps.cs" />
     <Compile Include="StepDefinitions\LoginSteps.cs" />
     <Compile Include="Functions\UtilityFunctions.cs" />
     <Compile Include="StepDefinitions\Menu_PaymentSteps.cs" />
@@ -225,6 +231,7 @@
       <Name>Bungii.Test.Regression.Web.Integration</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
