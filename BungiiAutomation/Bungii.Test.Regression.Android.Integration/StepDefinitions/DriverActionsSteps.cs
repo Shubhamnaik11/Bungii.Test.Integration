@@ -1,7 +1,6 @@
 ﻿using Bungii.Test.Integration.Framework.Core.Android;
 using Bungii.Test.Integration.Framework.Core.AndroidDriver;
 using Bungii.Test.Regression.Android.Integration.Data;
-using Bungii.Test.Regression.Android.Integration.Functions;
 using Bungii.Test.Regression.Android.Integration.Pages.DriverPages;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
@@ -60,6 +59,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             switch (p0)
             {
                 case "Accept a Bungii":
+                    AssertionManager.ElementDisplayed(Page_AvailableTrips.Row_AvailableTrip_01);
                     DriverAction_DriverApp.Click(Page_AvailableTrips.Row_AvailableTrip_01);
                     DriverAction_DriverApp.Click(Page_AvailableTrips.Button_Accept);
                     break;
