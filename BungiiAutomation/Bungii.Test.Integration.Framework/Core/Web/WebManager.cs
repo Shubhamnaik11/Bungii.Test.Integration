@@ -13,6 +13,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
     {
         public static IWebDriver webdriver = null;
         private static string browser = ConfigurationManager.AppSettings["Browser"];
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
         private static string SnapshotsDir = ConfigurationManager.AppSettings["SnapshotsDirectory"];
 
         public static void InitializeDriver()
@@ -62,7 +63,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             webdriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(60));
-            webdriver.Manage().Window.Maximize();
+            //webdriver.Manage().Window.Maximize();
         }
 
         public static void Quit(ScenarioContext scenarioContext)

@@ -54,5 +54,27 @@
         //------Payment Page---------------------------------------------------------------------
         public string Payment_NoPaymentText = "Please click below, to add your first payment method",
                       Error_InvalidCard = "Card number is invalid";
+
+        //------Bungii Accepted Page--------------------------------------------------------------
+        public string BungiiAccepted = "Your Bungii has been accepted!",
+                      DriverEnRoute = "Your driver is en route.",
+                      DriverName = "TestDrivertywd_AppleNeha T";
+
+        //-------Page Titles--------------------------------------------------------------------
+        public string PageTitle_Enroute = "EN ROUTE",
+                      PageTitle_Arrived = "ARRIVED",
+                      PageTitle_Loading = "LOADING ITEM",
+                      PageTitle_Driving = "DRIVING TO DROP OFF",
+                      PageTitle_Unloading = "UNLOADING ITEM";
+
+        //------Bungii Enroute Page--------------------------------------------------------------
+        public string LocationTitlePickup = "PICKUP LOCATION",
+                      LocationTitleDropOff = "DROP OFF LOCATION",
+                      ETAPickup = "13 minutes",
+                      DriverTitle = "Driver";
+
+        //------Scheduled Bungiis Page--------------------------------------------------------------
+        public string Status_Contacting = "Contacting Drivers",
+                      Status_Accepted = "Accepted";
     }
 }

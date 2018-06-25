@@ -12,6 +12,7 @@ using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
 using System.Text.RegularExpressions;
 using Bungii.Test.Integration.Framework.Core.Web;
+using Bungii.Test.Regression.Android.Integration.Pages.Simulator;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -23,8 +24,10 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
         MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
-        private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
 
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+        private static string connection;
+        
         public void LoginToCustomerApp(string phone, string password)
         {
             DriverAction.Click(Page_Signup.Link_Login);
@@ -40,8 +43,8 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
                     DriverAction.Click(Page_CustTerms.Button_PermissionsAllow);
                 }
             }
-            AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
-            AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+            //AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
+            //AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
         }
 
         public void LogoutCustomerApp()
@@ -55,6 +58,11 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
 
         public string GetVerificationCode(string PhoneNumber)
         {
+            if (environment.Equals("Dev"))
+                connection = ConfigurationManager.AppSettings["Dev.Database.ConnectionUri"];
+            else if (environment.Equals("QA"))
+                connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
             string SMSCode = string.Empty;
             try
             {
@@ -110,7 +118,7 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             Double screenHeightEnd = dimensions.Height * 0.5;
             int scrollend = Convert.ToInt32(screenHeightEnd);
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
-        }
+        }       
 
         public void SwipeLeft(IWebElement row)
         {
@@ -122,6 +130,22 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             .Press(row, xStart, (row.Size.Height / 2))
             .Wait(1000)
             .MoveTo(row, xEnd, (row.Size.Height / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
+        public void ScrollUp(IWebElement element)
+        {
+            int xShift = Convert.ToInt32(element.Size.Height * 0.20);
+            int xStart = (element.Size.Height) - xShift;
+            int xEnd = xShift;
+
+            ITouchAction action = new TouchAction(driver)
+            .Press(element, xStart, (element.Size.Width / 2))
+            .Wait(1000)
+            .MoveTo(element, xEnd, (element.Size.Width / 2))
             .Release();
 
             action.Perform();

@@ -34,7 +34,9 @@ namespace Bungii.Test.Regression.Android.Integration.Data
                       PickupLocation_US = "4 International Square, Kansas City, Missouri, 64153",
                       DropoffLocation_US = "4 International Circle, KCMO, MO, United States",
                       PickupLocation_OP = "6000 College Boulevard, Leawood, Kansas, 66211",
-                      DropoffLocation_OP = "Mission Road, Stilwell, Kansas, 66085";
+                      DropoffLocation_OP = "Mission Road, Stilwell, Kansas, 66085",
+                      PickupLocation_AT = "Martin Luther King Junior Drive Southwest, Atlanta, Georgia, 30303",
+                      DropoffLocation_AT = "150 Garnett Street Southwest, Atlanta, Georgia, 30303";
 
 
         //------Support Page----------------------------------------------------------------------------------

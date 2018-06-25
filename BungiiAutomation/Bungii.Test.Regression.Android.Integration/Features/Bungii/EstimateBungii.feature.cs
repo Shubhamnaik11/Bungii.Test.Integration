@@ -18,14 +18,14 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class BungiiEstimatesFeature
+    public partial class EstimateBungiiFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
         private Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _testContext;
         
-#line 1 "BungiiEstimates.feature"
+#line 1 "EstimateBungii.feature"
 #line hidden
         
         public virtual Microsoft.VisualStudio.TestTools.UnitTesting.TestContext TestContext
@@ -44,7 +44,7 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner(null, 0);
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "BungiiEstimates", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "EstimateBungii", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -59,9 +59,9 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         public virtual void TestInitialize()
         {
             if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Title != "BungiiEstimates")))
+                        && (testRunner.FeatureContext.FeatureInfo.Title != "EstimateBungii")))
             {
-                global::Bungii.Test.Regression.Android.Integration.Features.Bungii.BungiiEstimatesFeature.FeatureSetup(null);
+                global::Bungii.Test.Regression.Android.Integration.Features.Bungii.EstimateBungiiFeature.FeatureSetup(null);
             }
         }
         
@@ -92,7 +92,7 @@ testRunner.Given("I am logged in as \"my\" customer", ((string)(null)), ((TechTa
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Bungii_Estimate_ExistingUser_FixedPromoCode")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "BungiiEstimates")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "EstimateBungii")]
         public virtual void Bungii_Estimate_ExistingUser_FixedPromoCode()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Bungii_Estimate_ExistingUser_FixedPromoCode", ((string[])(null)));
@@ -115,12 +115,14 @@ this.FeatureBackground();
 #line 13
  testRunner.Then("I should see \"all elements\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 14
- testRunner.When("I tap on \"Add photo\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add \"4\" photos to the Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 15
  testRunner.And("I tap on \"Request Bungii\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
- testRunner.And("I tap on \"Cancel\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I tap on \"Yes on HeadsUp pop up\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
+ testRunner.And("I tap on \"Cancel\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 18
  testRunner.Then("I should see \"driver cancelled\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

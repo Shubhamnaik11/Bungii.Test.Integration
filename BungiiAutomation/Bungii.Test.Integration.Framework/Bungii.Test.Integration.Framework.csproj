@@ -90,7 +90,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AndroidDriver\DriverAction_DriverApp.cs" />
+    <Compile Include="Core\AndroidDriver\KeyManager_DriverApp.cs" />
     <Compile Include="Core\Android\AndroidManager.cs" />
+    <Compile Include="Core\AndroidDriver\AndroidManager_DriverApp.cs" />
     <Compile Include="Core\Android\AssertionManager.cs" />
     <Compile Include="Core\Android\DriverAction.cs" />
     <Compile Include="Core\Android\KeyManager.cs" />

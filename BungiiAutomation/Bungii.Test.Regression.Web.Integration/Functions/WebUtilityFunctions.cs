@@ -1,5 +1,4 @@
 ﻿using AutoItX3Lib;
-using Bungii.Android.Regression.Test.Integration.Data;
 using Bungii.Android.Regression.Test.Integration.Pages.Driver;
 using Bungii.Test.Integration.Framework.Core.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,18 +16,31 @@ namespace Bungii.Android.Regression.Test.Integration.Functions
         Driver_LoginPagecs Page_Driver_Login = new Driver_LoginPagecs(WebManager.webdriver);
         Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage(WebManager.webdriver);
 
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+        private static string connection;
+
         public void DriverLogin(string Phone, string Password)
-        {
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
+        {            
+            if (environment.Equals("Dev"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Dev"]);
+            else if (environment.Equals("QA"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
+            else if (environment.Equals("Stage"))
+                WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Stage"]);
+
             WebDriverAction.Click(Page_Driver_Login.Tab_LogIn);
             WebDriverAction.SendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone, Phone);
             WebDriverAction.SendKeys(Page_Driver_Login.TextBox_DriverLogin_Password, Password);
             WebDriverAction.Click(Page_Driver_Login.Button_DriverLogin);
-        }
+        }        
 
-        private static string connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
         public string GetVerificationCode_Driver(string PhoneNumber)
         {
+            if (environment.Equals("Dev"))
+                connection = ConfigurationManager.AppSettings["Dev.Database.ConnectionUri"];
+            else if (environment.Equals("QA"))
+                connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
             string SMSCode = string.Empty;
             try
             {

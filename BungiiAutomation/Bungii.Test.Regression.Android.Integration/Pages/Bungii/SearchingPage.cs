@@ -20,6 +20,18 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         public IWebElement Button_CloseCancel { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='SEARCHING…']")]
-        public IWebElement Label_Searching { get; set; }
+        public IWebElement PageTitle_Searching { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/searching_view_progressbar")]
+        public IWebElement Loader { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/searching_view_subtitle")]
+        public IWebElement Text_MsgSearching { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/searching_view_horizontal_progressbar")]
+        public IWebElement ProgressBar { get; set; }
+
+        [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='DRIVER NOT AVAILABLE']")]
+        public IWebElement PageTitle_DriverNotAvailable { get; set; }
     }
 }

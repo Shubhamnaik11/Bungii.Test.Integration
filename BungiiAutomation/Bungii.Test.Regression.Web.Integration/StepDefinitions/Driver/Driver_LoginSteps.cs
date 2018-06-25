@@ -4,7 +4,6 @@ using Bungii.Android.Regression.Test.Integration.Pages.Driver;
 using Bungii.Test.Integration.Framework;
 using Bungii.Test.Integration.Framework.Core.Web;
 using OpenQA.Selenium;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Bungii.Android.Regression.Test.Integration.StepDefinitions.Driver

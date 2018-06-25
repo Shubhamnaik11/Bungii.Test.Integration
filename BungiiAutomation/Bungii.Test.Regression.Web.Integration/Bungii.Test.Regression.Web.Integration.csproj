@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="appium-dotnet-driver, Version=3.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Appium.WebDriver.3.0.0.2\lib\net45\appium-dotnet-driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoItX3.Assembly">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\AutoIt3\AutoItX\AutoItX3.Assembly.dll</HintPath>
     </Reference>
@@ -138,14 +142,16 @@
     <Compile Include="StepDefinitions\Driver\Driver_DetailsSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_CompleteRegistrationSteps.cs" />
     <Compile Include="StepDefinitions\Driver\Driver_LoginSteps.cs" />
-    <Compile Include="StepDefinitions\Driver_ForgotPasswordSteps.cs" />
+    <Compile Include="StepDefinitions\Driver\Driver_ForgotPasswordSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Admin\" />
     <Folder Include="StepDefinitions\Admin\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Features\Driver\DriverRegistration.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>DriverRegistration.feature.cs</LastGenOutput>
