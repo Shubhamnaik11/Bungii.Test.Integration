@@ -58,7 +58,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         {
             switch (p0)
             {
-                case "Accept a Bungii":
+                case "Accept Bungii":
                     AssertionManager.ElementDisplayed(Page_AvailableTrips.Row_AvailableTrip_01);
                     DriverAction_DriverApp.Click(Page_AvailableTrips.Row_AvailableTrip_01);
                     DriverAction_DriverApp.Click(Page_AvailableTrips.Button_Accept);

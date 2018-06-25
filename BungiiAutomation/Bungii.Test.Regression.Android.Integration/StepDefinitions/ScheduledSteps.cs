@@ -32,6 +32,8 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
 
                 case "Bungii is accepted":
+                    if (DriverAction.isElementPresent(Page_ScheduledBungiis.Alert_ScheduledTripAccepted))
+                        DriverAction.Click(Page_ScheduledBungiis.Button_OK);
                     AssertionManager.ElementTextEqual(Page_ScheduledBungiis.Text_BungiiStatus_01, "~$45.00");
                     break;
 

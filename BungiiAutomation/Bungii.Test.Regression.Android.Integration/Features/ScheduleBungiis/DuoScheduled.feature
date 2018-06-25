@@ -2,6 +2,7 @@
 
 Scenario: DuoScheduled_RequestSuccessfully
 	Given I am logged in as "my" customer
+	And I am logged in as "existing" driver
 	When I enter "current location in pickup and dropoff fields" on Bungii estimate
 	And I tap on "two drivers selector" on Bungii estimate
 	Then I should see "two drivers selected" on Bungii estimate
@@ -13,7 +14,6 @@ Scenario: DuoScheduled_RequestSuccessfully
 	#Then I should see "Bungii posted Success page" on Bungii estimate
 	When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 	Then I should see "Requested Bungii" on Scheduled List page
-	Given I am logged in as "existing" driver
 	When I tap on "Available Trips link" on Driver Home page
-	And I "Accept a Bungii" from Available Trips
+	And I "Accept Bungii" from Available Trips
 	Then I should see "Bungii is accepted" on Scheduled List page

@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using Bungii.Test.Integration.Framework.Core.Web;
-using System;
 using TechTalk.SpecFlow;
 using System.Configuration;
 using Bungii.Android.Regression.Test.Integration.Data;

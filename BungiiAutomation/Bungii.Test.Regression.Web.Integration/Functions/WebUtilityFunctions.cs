@@ -1,5 +1,4 @@
 ﻿using AutoItX3Lib;
-using Bungii.Android.Regression.Test.Integration.Data;
 using Bungii.Android.Regression.Test.Integration.Pages.Driver;
 using Bungii.Test.Integration.Framework.Core.Web;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

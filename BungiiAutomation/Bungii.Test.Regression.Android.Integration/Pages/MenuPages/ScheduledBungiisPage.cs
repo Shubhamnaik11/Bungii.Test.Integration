@@ -25,7 +25,13 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.MenuPages
 
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/fragment_scheduled_bungii_textview_hours")]
         public IWebElement Text_TimeToNextBungii { get; set; }
-       
+
+        [FindsBy(How = How.Id, Using = "android:id/message")]
+        public IWebElement Alert_ScheduledTripAccepted { get; set; }
+
+        [FindsBy(How = How.Id, Using = "android:id/button1")]
+        public IWebElement Button_OK { get; set; }
+
         //------Scheduled Bungii Details-------------------------------------------------------------
         [FindsBy(How = How.Id, Using = "com.bungii.customer:id/container_scheduled_trip_row")]
         public IWebElement ScheduledBungii_01 { get; set; }
