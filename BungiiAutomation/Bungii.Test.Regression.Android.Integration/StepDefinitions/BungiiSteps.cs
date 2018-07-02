@@ -54,7 +54,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
                     
-                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Bungii_Location, Data_Valid_Customer.ETAPickup);
+                    //AssertionManager.ElementTextEqual(Page_BungiiProgress.Bungii_Location, Data_Valid_Customer.ETAPickup);
                     break;
 
                 case "Arrived screen":
@@ -91,6 +91,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
 
                 case "Unloading Item screen":
+                    DriverAction.Click(Page_BungiiProgress.Button_Bungii_Driver_SMS);
                     AssertionManager.ElementTextEqual(Page_BungiiProgress.Bungii_Driver_Title, Data_Valid_Customer.PageTitle_Unloading);
 
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
@@ -129,11 +130,13 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             switch (p0)
             {
                 case "OK on Driver Accepted screen":
+                    DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_BungiiAccepted.Button_OK);
                     DriverAction.Click(Page_BungiiAccepted.Button_OK);
                     break;
-                case "Enroute screen":
 
+                case "Enroute screen":
                     break;
+
                 default: break;
             }
         }

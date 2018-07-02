@@ -86,7 +86,7 @@ namespace Bungii.Test.Regression.Android.Integration.Features.Bungii
         {
 #line 3
 #line 4
- testRunner.Given("I am logged in as \"seo\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am logged in as \"my\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
  testRunner.When("I enter \"current location in pickup and dropoff fields\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 6
@@ -191,56 +191,24 @@ this.FeatureBackground();
 #line 31
  testRunner.And("Bungii Driver \"accepts On Demand Bungii\" request", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
- testRunner.Then("for a Bungii I should see \"Bungii accepted\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 33
  testRunner.When("I tap \"OK on Driver Accepted screen\" during a Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+ testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 34
- testRunner.Then("for a Bungii I should see \"Enroute screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 35
- testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 36
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 37
  testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 38
- testRunner.Then("for a Bungii I should see \"Arrived screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I tap on \"OK on complete\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39
- testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 40
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 41
- testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 42
- testRunner.Then("for a Bungii I should see \"Loading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 43
- testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 44
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 45
- testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 46
- testRunner.Then("for a Bungii I should see \"Driving to DropOff screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 47
- testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 48
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 49
- testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 50
- testRunner.Then("for a Bungii I should see \"Unloading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 51
- testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 52
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 53
- testRunner.When("Bungii Driver \"slides to the next state\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 54
- testRunner.And("I tap on \"X on complete\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 55
  testRunner.And("I tap on \"No free money\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 56
+#line 40
  testRunner.And("Bungii Driver \"completes Bungii\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 57
+#line 41
  testRunner.And("Quit Bungii Driver app", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -252,63 +220,63 @@ this.FeatureBackground();
         public virtual void Bungii_Complete_Simulator()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Bungii_Complete_Simulator", ((string[])(null)));
-#line 59
+#line 43
 this.ScenarioSetup(scenarioInfo);
 #line 3
 this.FeatureBackground();
-#line 60
+#line 44
  testRunner.When("simulator driver is \"online\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 61
+#line 45
  testRunner.And("Simulator Bungii Driver \"accepts Bungii\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 62
+#line 46
  testRunner.Then("for a Bungii I should see \"Bungii accepted\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 63
+#line 47
  testRunner.When("I tap \"OK on Driver Accepted screen\" during a Bungii", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 64
+#line 48
  testRunner.Then("for a Bungii I should see \"Enroute screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 65
+#line 49
  testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
+ testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 51
+ testRunner.When("Simulator Bungii Driver \"arrives at pickup location\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
+ testRunner.Then("for a Bungii I should see \"Arrived screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 53
+ testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+ testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 55
+ testRunner.When("Simulator Bungii Driver \"starts loading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 56
+ testRunner.Then("for a Bungii I should see \"Loading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 57
+ testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 58
+ testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 59
+ testRunner.When("Simulator Bungii Driver \"starts driving to dropoff\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 60
+ testRunner.Then("for a Bungii I should see \"Driving to DropOff screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 61
+ testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 62
+ testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 63
+ testRunner.When("Simulator Bungii Driver \"starts unloading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 64
+ testRunner.Then("for a Bungii I should see \"Unloading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 65
+ testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 66
  testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 67
- testRunner.When("Simulator Bungii Driver \"arrives at pickup location\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 68
- testRunner.Then("for a Bungii I should see \"Arrived screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 69
- testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 70
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 71
- testRunner.When("Simulator Bungii Driver \"starts loading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 72
- testRunner.Then("for a Bungii I should see \"Loading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 73
- testRunner.And("for a Bungii I should see \"Pickup location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 74
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 75
- testRunner.When("Simulator Bungii Driver \"starts driving to dropoff\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 76
- testRunner.Then("for a Bungii I should see \"Driving to DropOff screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 77
- testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 78
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 79
- testRunner.When("Simulator Bungii Driver \"starts unloading items\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 80
- testRunner.Then("for a Bungii I should see \"Unloading Item screen\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 81
- testRunner.And("for a Bungii I should see \"Dropoff location details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 82
- testRunner.And("for a Bungii I should see \"Driver Details\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 83
  testRunner.When("Simulator Bungii Driver \"completes Bungii\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 84
+#line 68
  testRunner.And("I tap on \"X on complete\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 85
+#line 69
  testRunner.And("I tap on \"No free money\" on Bungii estimate", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 86
+#line 70
  testRunner.And("simulator driver is \"offline\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

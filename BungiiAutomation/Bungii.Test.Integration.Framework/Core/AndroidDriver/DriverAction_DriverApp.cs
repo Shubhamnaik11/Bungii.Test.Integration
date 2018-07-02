@@ -122,8 +122,8 @@ namespace Bungii.Test.Integration.Framework.Core.AndroidDriver
         public static void SwipeLeft(IWebElement row)
         {
             int xShift = Convert.ToInt32(row.Size.Width * 0.20);
-            int xStart = (row.Size.Width) - xShift;
-            int xEnd = xShift;
+            int xStart = xShift;
+            int xEnd = (row.Size.Width) - xShift;
 
             ITouchAction action = new TouchAction(AndroidManager_DriverApp.androiddriver_Driver)
             .Press(row, xStart, (row.Size.Height / 2))
@@ -153,7 +153,7 @@ namespace Bungii.Test.Integration.Framework.Core.AndroidDriver
         {
             try
             {
-                Thread.Sleep(PauseTimeLongerMilliSeconds * 10);
+                Thread.Sleep(PauseTimeLongerMilliSeconds * 80);
                 WebDriverWait wait = new WebDriverWait(AndroidManager_DriverApp.androiddriver_Driver, new TimeSpan(0, 8, 250));
                 wait.Until((driver => element.Displayed));
             }

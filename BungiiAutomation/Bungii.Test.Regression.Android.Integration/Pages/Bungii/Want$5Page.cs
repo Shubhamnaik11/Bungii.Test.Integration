@@ -10,7 +10,10 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.Bungii
             PageFactory.InitElements(driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "	com.bungii.customer:id/postTripShareNoFreeMoney")]
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/postTripShareAcceptButton")]
+        public IWebElement Button_Take5 { get; set; }
+
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/postTripShareNoFreeMoney")]
         public IWebElement Button_NoFreeMoney { get; set; }
     }
 }

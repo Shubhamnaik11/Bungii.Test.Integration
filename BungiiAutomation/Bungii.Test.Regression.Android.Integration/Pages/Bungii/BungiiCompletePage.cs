@@ -18,7 +18,7 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.Bungii
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text='BUNGII COMPLETE']")]
         public IWebElement PageTitle_BungiiComplete { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//android.view.ViewGroup[@id='com.bungii.customer:id/toolbar']/android.widget.ImageView")]
+        [FindsBy(How = How.XPath, Using = "//android.view.View[@id='com.bungii.customer:id/toolbar']/android.widget.ImageView")]
         public IWebElement CloseRateTipPage { get; set; }
 
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@text ='Rate Your Driver']")]
