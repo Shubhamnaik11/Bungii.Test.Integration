@@ -125,13 +125,15 @@
       <DependentUpon>CustomerForgotPassword.feature</DependentUpon>
     </Compile>
     <Compile Include="Functions\BungiiCalculations.cs" />
-    <Compile Include="Functions\DriverAppFunctions.cs" />
     <Compile Include="Pages\Bungii\BungiiAcceptedPage.cs" />
     <Compile Include="Pages\Bungii\BungiiCompletePage.cs" />
     <Compile Include="Pages\Bungii\BungiiProgressPage.cs" />
     <Compile Include="Pages\Bungii\Want%245Page.cs" />
+    <Compile Include="Pages\DriverPages\BungiiRequest.cs" />
     <Compile Include="Pages\DriverPages\Driver_AvailableTripsPage.cs" />
+    <Compile Include="Pages\DriverPages\Driver_BungiiCompletedPage.cs" />
     <Compile Include="Pages\DriverPages\Driver_HomePage.cs" />
+    <Compile Include="Pages\DriverPages\Driver_InProgressBungiiPages.cs" />
     <Compile Include="Pages\DriverPages\Driver_LoginPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />

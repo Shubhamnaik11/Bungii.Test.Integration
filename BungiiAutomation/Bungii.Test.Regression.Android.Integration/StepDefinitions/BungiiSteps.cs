@@ -4,7 +4,6 @@ using Bungii.Test.Regression.Android.Integration.Pages;
 using Bungii.Test.Regression.Android.Integration.Pages.Bungii;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions

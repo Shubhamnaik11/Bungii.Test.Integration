@@ -1,10 +1,11 @@
 ﻿Feature: Bungii
 
 Background:
-	Given I am logged in as "stage" customer
-	When I enter "Atlanta pickup and dropoff locations" on Bungii estimate
-	When I tap on "Get Estimate button" on Bungii estimate
+	Given I am logged in as "seo" customer
+	When I enter "current location in pickup and dropoff fields" on Bungii estimate
+	And I tap on "Get Estimate button" on Bungii estimate
 	And I add "1" photos to the Bungii 
+	And I add loading/unloading time of "30 mins"
 	And I tap on "Request Bungii" on Bungii estimate
 
 Scenario: Bungii_CustomerCancelOnHeadsUp
@@ -23,7 +24,39 @@ Scenario: Bungii_DriverRejects
 
 Scenario: Bungii_DriverAcceptsAndThenCancels
 
-Scenario: Bungii_Complete
+Scenario: Bungii_Complete_DriverApp	
+	Given I am logged in as "existing" driver
+	When I tap on "Online/Offline button" on Driver Home page
+	When I tap on "Yes on HeadsUp pop up" on Bungii estimate	
+	And Bungii Driver "accepts On Demand Bungii" request
+	Then for a Bungii I should see "Bungii accepted"
+	When I tap "OK on Driver Accepted screen" during a Bungii
+	Then for a Bungii I should see "Enroute screen"
+	And for a Bungii I should see "Pickup location details"
+	And for a Bungii I should see "Driver Details"
+	When Bungii Driver "slides to the next state"
+	Then for a Bungii I should see "Arrived screen"
+	And for a Bungii I should see "Pickup location details"
+	And for a Bungii I should see "Driver Details"
+	When Bungii Driver "slides to the next state"
+	Then for a Bungii I should see "Loading Item screen"
+	And for a Bungii I should see "Pickup location details"
+	And for a Bungii I should see "Driver Details"
+	When Bungii Driver "slides to the next state"
+	Then for a Bungii I should see "Driving to DropOff screen"
+	And for a Bungii I should see "Dropoff location details"
+	And for a Bungii I should see "Driver Details"
+	When Bungii Driver "slides to the next state"
+	Then for a Bungii I should see "Unloading Item screen"
+	And for a Bungii I should see "Dropoff location details"
+	And for a Bungii I should see "Driver Details"
+	When Bungii Driver "slides to the next state"
+	And I tap on "X on complete" on Bungii estimate
+	And I tap on "No free money" on Bungii estimate
+	And Bungii Driver "completes Bungii"
+	And Quit Bungii Driver app
+
+Scenario: Bungii_Complete_Simulator
 	When simulator driver is "online"
 	And Simulator Bungii Driver "accepts Bungii"
 	Then for a Bungii I should see "Bungii accepted"

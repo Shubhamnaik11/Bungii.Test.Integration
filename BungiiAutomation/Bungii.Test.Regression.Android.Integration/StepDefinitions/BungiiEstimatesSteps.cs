@@ -47,7 +47,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "having referral code":
                     UtilFunctions.LoginToCustomerApp(Data_Customer.CustPhn_HavingReferral, Data_Customer.CustomerPassword);
                     break;
-                case "my":
+                case "seo":
                     UtilFunctions.LoginToCustomerApp("8888882021", Data_Customer.CustomerPassword);
                     break;
                 case "stage":
@@ -206,6 +206,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 }
                 if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
                 {
+                    DriverAction.Click(Page_Estimate.Button_Camera_ClickAlternate);
                     DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                     Thread.Sleep(2000);
                     DriverAction.Click(Page_Estimate.Button_Camera_OK);
