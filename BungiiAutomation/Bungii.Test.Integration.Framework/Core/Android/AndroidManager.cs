@@ -15,6 +15,10 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static AppiumDriver<AndroidElement> androiddriver = null;
 
         private static string ApplicationCustomerUrl = ConfigurationManager.AppSettings["ApplicationCustomerUrl"];
+        private static string Emulator5_0DeviceName = ConfigurationManager.AppSettings["Emulator5_0DeviceName"];
+        private static string Emulator5_0Version = ConfigurationManager.AppSettings["Emulator5_0Version"];
+        private static string Emulator5_1DeviceName = ConfigurationManager.AppSettings["Emulator5_1DeviceName"];
+        private static string Emulator5_1Version = ConfigurationManager.AppSettings["Emulator5_1Version"];
         private static string SamsungS6DeviceName = ConfigurationManager.AppSettings["SamsungS6DeviceName"];
         private static string SamsungS6Version = ConfigurationManager.AppSettings["SamsungS6Version"];
         private static string SamsungS5DeviceName = ConfigurationManager.AppSettings["SamsungS5DeviceName"];
@@ -55,6 +59,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                 case "Nokia6":
                     Nokia6Setup();
                     break;
+                case "Emulator5_0":
+                    Emulator5_0Setup();
+                    break;
+                case "Emulator5_1":
+                    Emulator5_1Setup();
+                    break;
                 default:
                     SamsungS5Setup();
                     break;
@@ -74,6 +84,36 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                     appPath = ConfigurationManager.AppSettings["app_customerQaPath"];
                     break;
             }
+        }
+
+        private static void Emulator5_0Setup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", Emulator5_0DeviceName);
+            capabilities.SetCapability("platformVersion", Emulator5_1Version);
+            capabilities.SetCapability("platformName", Platform);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void Emulator5_1Setup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", Emulator5_1DeviceName);
+            capabilities.SetCapability("platformVersion", Emulator5_1Version);
+            capabilities.SetCapability("platformName", Platform);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
         }
 
         private static void SamsungS6Setup()

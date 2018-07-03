@@ -12,7 +12,6 @@ using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
 using System.Text.RegularExpressions;
 using Bungii.Test.Integration.Framework.Core.Web;
-using Bungii.Test.Regression.Android.Integration.Pages.Simulator;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {

@@ -9,7 +9,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void ElementTextEqual(IWebElement element, String value)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.AreEqual(value, element.Text, "Values does not match");
+            Assert.AreEqual(value, element.Text, "Values do not match");
         }
 
         public static void ElementTextContains(IWebElement element, String value)
@@ -21,23 +21,23 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void SnackbarTextEqual(IWebElement element, String value)
         {
             DriverAction.WaitUntilSnackbarExistsAndDisplayed(element);
-            Assert.AreEqual(value, element.Text, "Values does not match");
+            Assert.AreEqual(value, element.Text, "Values do not match");
         }
 
         public static void CompareStrings(String value1, String value2)
         {
-            Assert.AreEqual(value1, value2, "Values does not match");
+            Assert.AreEqual(value1, value2, "Values do not match");
         }
 
         public static void StringContainsText(String MainString, String SubString)
         {
-            Assert.IsTrue(MainString.Contains(SubString), "Values does not match");
+            Assert.IsTrue(MainString.Contains(SubString), "Values do not match");
         }
 
         public static void ElementValueEquals(IWebElement element, String value)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.AreEqual(value, element.GetAttribute("value"), "Values does not match");
+            Assert.AreEqual(value, element.GetAttribute("value"), "Values do not match");
         }
 
         public static void ElementValueNotEquasl(IWebElement element, String value)
@@ -61,7 +61,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void ElementChecked(IWebElement element)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.IsTrue(element.Selected, "Element was not Checked");
+            Assert.IsTrue(element.Selected, "Element was not checked");
         }
 
         public static void ElementUnChecked(IWebElement element)
@@ -73,13 +73,13 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void ElementDisabled(IWebElement element)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.IsFalse(element.Enabled, "Element was Enabled");
+            Assert.IsFalse(element.Enabled, "Element was enabled");
         }
 
         public static void ElementDisplayed(IWebElement element)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
-            Assert.IsTrue(element.Displayed, "Element was not Displayed");
+            Assert.IsTrue(element.Displayed, "Element was not displayed");
         }
 
         public static void IsAlphanumeric(bool value)
@@ -92,7 +92,7 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             try
             {
                 IWebElement elementpresent = element;
-                Assert.Fail("Element was Displayed");
+                Assert.Fail("Element was displayed");
             }
             catch
             {

@@ -135,8 +135,9 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 case "Yes on HeadsUp pop up":
                     DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage);
                     DriverAction.Click(Page_Estimate.Button_RequestConfirm);
-
-                    //If time has passed. *to be worked on*
+                    
+                    //--------*to be worked on*-------------
+                    //If time has passed
                     /*if (DriverAction.isElementPresent(Page_Estimate.Alert_DelayRequestingTrip))
                     {
                         if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
@@ -175,6 +176,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.Click(Page_BungiiComplete.CloseRateTipPage);
                     break;
 
+                case "OK on complete":
+                    DriverAction.WaitUntilIsElementExistsAndDisplayed(Page_BungiiComplete.Button_OK);
+                    DriverAction.Click(Page_BungiiComplete.Button_OK);
+                    break;
+
                 case "No free money":
                     DriverAction.Click(Page_Want5.Button_NoFreeMoney);
                     break;
@@ -206,6 +212,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                 }
                 if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
                 {
+                    DriverAction.Click(Page_Estimate.Button_Camera_ClickAlternate);
                     DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                     Thread.Sleep(2000);
                     DriverAction.Click(Page_Estimate.Button_Camera_OK);

@@ -129,6 +129,9 @@ namespace Bungii.Test.Regression.Android.Integration.Pages
         [FindsBy(How = How.XPath, Using = "//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']")]   
         public IWebElement Option_Gallery { get; set; }
 
+        [FindsBy(How = How.Id, Using = "com.sec.android.app.camera:id/camera_preview")]
+        public IWebElement Button_Camera_ClickAlternate { get; set; }
+
         [FindsBy(How = How.Id, Using = "com.sec.android.app.camera:id/okay")]
         public IWebElement Button_Camera_OK { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿Feature: DuoScheduled
 
 Scenario: DuoScheduled_RequestSuccessfully
-	Given I am logged in as "my" customer
-	And I am logged in as "existing" driver
+	Given I am logged in as "existing" driver
+	Given I am logged in as "my" customer	
 	When I enter "current location in pickup and dropoff fields" on Bungii estimate
 	And I tap on "two drivers selector" on Bungii estimate
 	Then I should see "two drivers selected" on Bungii estimate

@@ -1,6 +1,8 @@
 ﻿using Bungii.Test.Integration.Framework.Core.Android;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Interfaces;
+using OpenQA.Selenium.Appium.MultiTouch;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
@@ -117,6 +119,22 @@ namespace Bungii.Test.Integration.Framework.Core.AndroidDriver
             }
         }
 
+        public static void SwipeLeft(IWebElement row)
+        {
+            int xShift = Convert.ToInt32(row.Size.Width * 0.20);
+            int xStart = xShift;
+            int xEnd = (row.Size.Width) - xShift;
+
+            ITouchAction action = new TouchAction(AndroidManager_DriverApp.androiddriver_Driver)
+            .Press(row, xStart, (row.Size.Height / 2))
+            .Wait(1000)
+            .MoveTo(row, xEnd, (row.Size.Height / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
         public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
         {
             try
@@ -128,6 +146,20 @@ namespace Bungii.Test.Integration.Framework.Core.AndroidDriver
             catch (Exception)
             {
                 Assert.Fail("Following element is not displayed : " + element);
+            }
+        }
+
+        public static void WaitUntilAlertDisplayed(IWebElement element)
+        {
+            try
+            {
+                Thread.Sleep(PauseTimeLongerMilliSeconds * 80);
+                WebDriverWait wait = new WebDriverWait(AndroidManager_DriverApp.androiddriver_Driver, new TimeSpan(0, 8, 250));
+                wait.Until((driver => element.Displayed));
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Alert not received : " + element);
             }
         }
     }
