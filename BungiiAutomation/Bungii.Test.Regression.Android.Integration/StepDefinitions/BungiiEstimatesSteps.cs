@@ -207,6 +207,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                 if (deviceType.Equals("MotoG"))
                 {
+                    Thread.Sleep(2000);
                     driver.Tap(1, 100, 500, 1);
                     DriverAction.Click(Page_Estimate.Button_Review);
                 }

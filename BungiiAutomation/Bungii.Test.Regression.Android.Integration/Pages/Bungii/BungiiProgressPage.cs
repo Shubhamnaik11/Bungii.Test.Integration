@@ -11,7 +11,7 @@ namespace Bungii.Test.Regression.Android.Integration.Pages.Bungii
         }
 
         //------Page Titles--------------------------------------------------------------
-        [FindsBy(How = How.XPath, Using = "com.bungii.customer:id/toolbar_title")]
+        [FindsBy(How = How.Id, Using = "com.bungii.customer:id/toolbar_title")]
         public IWebElement PageTitle { get; set; }
 
         //------Bungii Statuses----------------------------------------------------------

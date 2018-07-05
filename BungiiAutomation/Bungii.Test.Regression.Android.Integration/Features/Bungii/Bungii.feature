@@ -24,16 +24,45 @@ Scenario: Bungii_DriverRejects
 
 Scenario: Bungii_DriverAcceptsAndThenCancels
 
+#Customer requests an On Demand Bungii. Driver accepts and completes the Bungii.
+#Verify call and SMS functionality on all pages on Customer and Driver app while the Bungii is in progress.
 Scenario: Bungii_Complete_DriverApp	
 	Given I am logged in as "existing" driver
 	When I tap on "Online/Offline button" on Driver Home page
 	When I tap on "Yes on HeadsUp pop up" on Bungii estimate	
 	And Bungii Driver "accepts On Demand Bungii" request
 	When I tap "OK on Driver Accepted screen" during a Bungii
+	When I tap "SMS for a solo driver" during a Bungii
+	Then correct details should be displayed on "SMS" app
+	When I tap "Call for a solo driver" during a Bungii
+	Then correct details should be displayed on "Calling" app
+
+	When Bungii Driver taps "SMS for a customer" during a Bungii
+	Then correct details should be displayed to driver on "SMS" app
+	When Bungii Driver taps "Call for a solo driver" during a Bungii
+	Then correct details should be displayed to driver on "Calling" app
+
+	Then for a Bungii I should see "Enroute screen"
 	When Bungii Driver "slides to the next state"
+	When I tap "SMS for a solo driver" during a Bungii
+	Then correct details should be displayed on "SMS" app
+	When I tap "Call for a solo driver" during a Bungii
+	Then correct details should be displayed on "Calling" app
 	When Bungii Driver "slides to the next state"
+	When I tap "SMS for a solo driver" during a Bungii
+	Then correct details should be displayed on "SMS" app
+	When I tap "Call for a solo driver" during a Bungii
+	Then correct details should be displayed on "Calling" app
 	When Bungii Driver "slides to the next state"
+	When I tap "SMS for a solo driver" during a Bungii
+	Then correct details should be displayed on "SMS" app
+	When I tap "Call for a solo driver" during a Bungii
+	Then correct details should be displayed on "Calling" app
 	When Bungii Driver "slides to the next state"
+	When I tap "SMS for a solo driver" during a Bungii
+	Then correct details should be displayed on "SMS" app
+	When I tap "Call for a solo driver" during a Bungii
+	Then correct details should be displayed on "Calling" app
 	When Bungii Driver "slides to the next state"
 	And I tap on "OK on complete" on Bungii estimate
 	And I tap on "No free money" on Bungii estimate

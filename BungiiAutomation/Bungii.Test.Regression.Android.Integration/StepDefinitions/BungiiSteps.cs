@@ -2,8 +2,10 @@
 using Bungii.Test.Regression.Android.Integration.Data;
 using Bungii.Test.Regression.Android.Integration.Pages;
 using Bungii.Test.Regression.Android.Integration.Pages.Bungii;
+using Bungii.Test.Regression.Android.Integration.Pages.OtherApps;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
+using System.Configuration;
 using TechTalk.SpecFlow;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
@@ -15,9 +17,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         SearchingPage Page_BungiiSearch = new SearchingPage(AndroidManager.androiddriver);
         BungiiAcceptedPage Page_BungiiAccepted = new BungiiAcceptedPage(AndroidManager.androiddriver);
         BungiiProgressPage Page_BungiiProgress = new BungiiProgressPage(AndroidManager.androiddriver);
+        OtherAppsPage Page_OtherApps = new OtherAppsPage(AndroidManager.androiddriver);
 
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
+        private static string deviceType = ConfigurationManager.AppSettings["deviceType"];
 
         [Then(@"for a Bungii I should see ""(.*)""")]
         public void ThenForABungiiIShouldSee(string p0)
@@ -47,7 +51,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                 case "Enroute screen":
                     AssertionManager.ElementTextEqual(Page_BungiiProgress.PageTitle, Data_Valid_Customer.PageTitle_Enroute);
-
                     AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_Enroute);
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);                    
@@ -134,11 +137,41 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.Click(Page_BungiiAccepted.Button_OK);
                     break;
 
-                case "Enroute screen":
+                case "SMS for a solo driver":
+                    DriverAction.Click(Page_BungiiProgress.Button_Bungii_Driver_SMS);
+                    break;
+
+                case "Call for a solo driver":
+                    DriverAction.Click(Page_BungiiProgress.Button_Bungii_Driver_Call);
                     break;
 
                 default: break;
             }
+        }
+
+        [Then(@"correct details should be displayed on ""(.*)"" app")]
+        public void ThenCorrectDetailsShouldBeDisplayedOnApp(string p0)
+        {
+            switch (p0)
+            {
+                case "SMS":
+                    if (deviceType.Equals("MotoG"))
+                        AssertionManager.PhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo, Data_Customer.Twilio_01);
+                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                        AssertionManager.PhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo, Data_Customer.Twilio_01);                    
+                    break;
+
+                case "Calling":
+                    if (deviceType.Equals("MotoG"))
+                        AssertionManager.PhoneNumbersEqual(Page_OtherApps.Call_Moto_Number, Data_Customer.Twilio_01);
+                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                        AssertionManager.PhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number, Data_Customer.Twilio_01);
+                    break;
+                    
+                default: break;
+            }
+            while(!DriverAction.isElementPresent(Page_BungiiProgress.PageTitle))
+                DriverAction.keyBoardEvent(AndroidKeyCode.Back);
         }
     }
 }

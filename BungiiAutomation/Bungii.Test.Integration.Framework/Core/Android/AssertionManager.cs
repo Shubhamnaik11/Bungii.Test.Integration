@@ -12,6 +12,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             Assert.AreEqual(value, element.Text, "Values do not match");
         }
 
+        public static void PhoneNumbersEqual(IWebElement element, String value)
+        {
+            DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
+            Assert.AreEqual(value, element.Text.Replace(" ","").Replace("-","").Replace(",",""), "Values do not match");
+        }
+
         public static void ElementTextContains(IWebElement element, String value)
         {
             DriverAction.WaitUntilIsElementExistsAndDisplayed(element);
