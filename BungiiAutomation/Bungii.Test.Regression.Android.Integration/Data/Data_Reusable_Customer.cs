@@ -55,5 +55,8 @@ namespace Bungii.Test.Regression.Android.Integration.Data
                       ValidCard_MasterCard = "2223000048400011",
                       ValidCard_JCB = "3530111333300000",
                       InvalidCard = "1111111111111111111";
+
+        //------Twilio Numbers--------------------------------------------------------------------------------
+        public string Twilio_01 = "+18162375070";
     }
 }

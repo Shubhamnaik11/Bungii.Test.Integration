@@ -207,13 +207,14 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                 if (deviceType.Equals("MotoG"))
                 {
+                    Thread.Sleep(2000);
                     driver.Tap(1, 100, 500, 1);
                     DriverAction.Click(Page_Estimate.Button_Review);
                 }
                 if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
                 {
                     DriverAction.Click(Page_Estimate.Button_Camera_ClickAlternate);
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
+                    //DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                     Thread.Sleep(2000);
                     DriverAction.Click(Page_Estimate.Button_Camera_OK);
                 }
@@ -223,7 +224,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
             if(DriverAction.isElementPresent(Page_Estimate.Text_PickupLocation))
             {
-                //code to be added incase of invalid image error
+                //code to be added incase of "Invalid Image error"
             }
         }
 
