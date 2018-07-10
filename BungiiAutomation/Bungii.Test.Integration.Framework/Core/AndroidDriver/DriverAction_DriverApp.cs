@@ -153,7 +153,7 @@ namespace Bungii.Test.Integration.Framework.Core.AndroidDriver
         {
             try
             {
-                Thread.Sleep(PauseTimeLongerMilliSeconds * 65);
+                Thread.Sleep(PauseTimeLongerMilliSeconds * 50);
                 WebDriverWait wait = new WebDriverWait(AndroidManager_DriverApp.androiddriver_Driver, new TimeSpan(0, 8, 250));
                 wait.Until((driver => element.Displayed));
             }

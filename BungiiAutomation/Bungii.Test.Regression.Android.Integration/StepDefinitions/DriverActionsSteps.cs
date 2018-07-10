@@ -23,8 +23,9 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         Driver_BungiiCompletedPage Page_BungiiComplete = null;
         OtherAppsPage Page_OtherApps = null;
         Data_Driver Data_Driver = new Data_Driver();
+        Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
-        private static string deviceType = ConfigurationManager.AppSettings["deviceType"];
+        private static string DriverAppdeviceType = ConfigurationManager.AppSettings["DriverAppdeviceType"];
 
         public DriverActionsSteps()
         {
@@ -127,6 +128,62 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             }
         }
 
+        [Then(@"Bungii driver should see ""(.*)""")]
+        public void ThenBungiiDriverShouldSee(string p0)
+        {
+            switch (p0)
+            {
+                case "Enroute screen":
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Enroute);
+                    AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_Enroute);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);                    
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
+                    break;
+
+                case "Arrived screen":
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Arrived);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
+                    AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_Arrived);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
+                    break;
+
+                case "Loading Item screen":
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Loading);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
+                    AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
+                    break;
+
+                case "Driving to DropOff screen":
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Driving);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);
+                    AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Bungii_Location, Data_Valid_Customer.ETAPickup);
+                    break;
+
+                case "Unloading Item screen":
+                    AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Unloading);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);
+                    AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_DrivingToDropOff);
+                    AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_UnloadingItem);
+                    break;
+
+                default: break;
+            }
+        }
+
+
         [When(@"Bungii Driver taps ""(.*)"" during a Bungii")]
         public void WhenBungiiDriverTapsDuringABungii(string p0)
         {
@@ -150,16 +207,16 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             switch (p0)
             {
                 case "SMS":
-                    if (deviceType.Equals("MotoG"))
+                    if (DriverAppdeviceType.Equals("MotoG"))
                         AssertionManager.PhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo, Data_Customer.Twilio_01);
-                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                    if (DriverAppdeviceType.Equals("SamsungS5") || DriverAppdeviceType.Equals("SamsungS6"))
                         AssertionManager.PhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo, Data_Customer.Twilio_01);
                     break;
 
                 case "Calling":
-                    if (deviceType.Equals("MotoG"))
+                    if (DriverAppdeviceType.Equals("MotoG"))
                         AssertionManager.PhoneNumbersEqual(Page_OtherApps.Call_Moto_Number, Data_Customer.Twilio_01);
-                    if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
+                    if (DriverAppdeviceType.Equals("SamsungS5") || DriverAppdeviceType.Equals("SamsungS6"))
                         AssertionManager.PhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number, Data_Customer.Twilio_01);
                     break;
 
@@ -168,7 +225,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             while (!DriverAction_DriverApp.isElementPresent(Page_BungiiProgress.Title_Status))
                 DriverAction_DriverApp.keyBoardEvent(AndroidKeyCode.Back);
         }
-
 
         [When(@"Quit Bungii Driver app")]
         public void WhenQuitBungiiDriverApp()

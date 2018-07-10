@@ -94,9 +94,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
 
                 case "Unloading Item screen":
-                    DriverAction.Click(Page_BungiiProgress.Button_Bungii_Driver_SMS);
                     AssertionManager.ElementTextEqual(Page_BungiiProgress.Bungii_Driver_Title, Data_Valid_Customer.PageTitle_Unloading);
-
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Enroute);
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_Arrived);
                     AssertionManager.ElementNotSelected(Page_BungiiProgress.BungiiStatus_LoadingItem);
