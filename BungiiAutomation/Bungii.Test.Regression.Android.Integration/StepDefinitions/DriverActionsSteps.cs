@@ -133,6 +133,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         {
             switch (p0)
             {
+                case "Home screen":
+                    AssertionManager.ElementTextEqual(Page_DriverHome.Title_Status, Data_Driver.Title_Online);
+                    AssertionManager.ElementTextEqual(Page_DriverHome.Button_OnlineOffline, Data_Driver.Button_GoOffline);
+                    break;
+
                 case "Enroute screen":
                     AssertionManager.ElementTextEqual(Page_BungiiProgress.Title_Status, Data_Valid_Customer.PageTitle_Enroute);
                     AssertionManager.ElementSelected(Page_BungiiProgress.BungiiStatus_Enroute);

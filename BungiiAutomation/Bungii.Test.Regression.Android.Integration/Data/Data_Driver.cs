@@ -7,5 +7,11 @@ namespace Bungii.Test.Regression.Android.Integration.Data
         //------Driver Login Details-------------------------------------------------------------------------------
         public string DriverPhoneNumber = "8888881010",
                       DriverPassword = "Cci12345";
+
+        //------Home Page------------------------------------------------------------------------------------------
+        public string Title_Online = "ONLINE",
+                      Title_Offline = "OFFLINE",
+                      Button_GoOnline = "GO ONLINE",
+                      Button_GoOffline = "GO OFFLINE";
     }
 }
