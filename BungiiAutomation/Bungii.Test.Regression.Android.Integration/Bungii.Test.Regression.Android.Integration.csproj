@@ -74,6 +74,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EstimateBungii.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Bungii\OnDemandBungii_DriverActions.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnDemandBungii_DriverActions.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\LoginAndForgotPassword\CustomerLogin1.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -183,6 +188,10 @@
     <None Include="Features\Bungii\EstimateBungii.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>EstimateBungii.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Bungii\OnDemandBungii_DriverActions.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>OnDemandBungii_DriverActions.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\LoginAndForgotPassword\CustomerLogin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
