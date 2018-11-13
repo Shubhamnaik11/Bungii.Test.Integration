@@ -12,6 +12,7 @@ using Bungii.Test.Integration.Framework.Core.Android;
 using OpenQA.Selenium.Appium.Interfaces;
 using System.Text.RegularExpressions;
 using Bungii.Test.Integration.Framework.Core.Web;
+using Bungii.Test.Regression.Android.Integration.Pages.LoginSignupPages;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -23,6 +24,7 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
         MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
+        PermissionsPage Page_Permissions = new PermissionsPage(AndroidManager.androiddriver);        
 
         private static string environment = ConfigurationManager.AppSettings["Environment"];
         private static string connection;
@@ -42,8 +44,12 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
                     DriverAction.Click(Page_CustTerms.Button_PermissionsAllow);
                 }
             }
-            //AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
-            //AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+            if (DriverAction.isElementPresent(Page_Permissions.Text_Location_text1))
+            {
+                AssertionManager.ElementDisplayed(Page_Permissions.Text_Location_text2);
+                DriverAction.Click(Page_Permissions.Button_Location_Sure);
+                DriverAction.Click(Page_Permissions.Button_Location_Allow);
+            }
         }
 
         public void LogoutCustomerApp()

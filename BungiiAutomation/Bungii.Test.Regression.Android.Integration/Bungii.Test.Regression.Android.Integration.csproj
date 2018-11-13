@@ -140,7 +140,9 @@
     <Compile Include="Pages\DriverPages\Driver_HomePage.cs" />
     <Compile Include="Pages\DriverPages\Driver_InProgressBungiiPages.cs" />
     <Compile Include="Pages\DriverPages\Driver_LoginPage.cs" />
+    <Compile Include="Pages\DriverPages\Driver_PermissionsPage.cs" />
     <Compile Include="Pages\LoginSignupPages\ForgotPasswordPage.cs" />
+    <Compile Include="Pages\LoginSignupPages\PermissionsPage.cs" />
     <Compile Include="Pages\MenuPages\InvitePage.cs" />
     <Compile Include="Pages\MenuPages\SaveMoneyPage.cs" />
     <Compile Include="Pages\Bungii\CustomerHomePage.cs" />

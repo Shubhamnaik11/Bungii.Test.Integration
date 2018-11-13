@@ -22,6 +22,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         Driver_InProgressBungiiPages Page_BungiiProgress = null;
         Driver_BungiiCompletedPage Page_BungiiComplete = null;
         OtherAppsPage Page_OtherApps = null;
+        Driver_PermissionsPage Page_Driver_Permissions = null;
         Data_Driver Data_Driver = new Data_Driver();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
@@ -38,6 +39,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             Page_BungiiProgress = new Driver_InProgressBungiiPages(AndroidManager_DriverApp.androiddriver_Driver);
             Page_BungiiComplete = new Driver_BungiiCompletedPage(AndroidManager_DriverApp.androiddriver_Driver);
             Page_OtherApps = new OtherAppsPage(AndroidManager_DriverApp.androiddriver_Driver);
+            Page_Driver_Permissions = new Driver_PermissionsPage(AndroidManager_DriverApp.androiddriver_Driver);
         }
 
         [Given(@"I am logged in as ""(.*)"" driver")]
@@ -49,6 +51,13 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction_DriverApp.SendKeys(Page_DriverLogin.TextField_PhoneNumber, Data_Driver.DriverPhoneNumber);
                     DriverAction_DriverApp.SendKeys(Page_DriverLogin.TextField_Password, Data_Driver.DriverPassword);
                     DriverAction_DriverApp.Click(Page_DriverLogin.Button_Login);
+                    if (DriverAction_DriverApp.isElementPresent(Page_Driver_Permissions.Text_Location_text1))
+                    {
+                        //AssertionManager.ElementDisplayed(Page_Driver_Permissions.Text_Location_text1);
+                        AssertionManager.ElementDisplayed(Page_Driver_Permissions.Text_Location_text2);
+                        DriverAction_DriverApp.Click(Page_Driver_Permissions.Button_Location_Sure);
+                        DriverAction_DriverApp.Click(Page_Driver_Permissions.Button_Location_Allow);
+                    }
                     break;
                 default: break;
             }

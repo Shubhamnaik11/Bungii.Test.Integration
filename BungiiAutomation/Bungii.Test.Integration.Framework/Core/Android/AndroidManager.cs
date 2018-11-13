@@ -31,6 +31,8 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         private static string MotoGVersion = ConfigurationManager.AppSettings["MotoGVersion"];
         private static string NokiaDeviceName = ConfigurationManager.AppSettings["NokiaDeviceName"];
         private static string NokiaVersion = ConfigurationManager.AppSettings["NokiaVersion"];
+        private static string RedmiNote4DeviceName = ConfigurationManager.AppSettings["RedmiNote4DeviceName"];
+        private static string RedmiNote4Version = ConfigurationManager.AppSettings["RedmiNote4Version"];
         private static string Platform = ConfigurationManager.AppSettings["Platform"];
         private static string BrowserName = ConfigurationManager.AppSettings["BrowserName"];
         private static string timeout = ConfigurationManager.AppSettings["Timeout"];
@@ -60,6 +62,9 @@ namespace Bungii.Test.Integration.Framework.Core.Android
                     break;
                 case "Nokia6":
                     Nokia6Setup();
+                    break;
+                case "RedmiNote4":
+                    RedmiNote4Setup();
                     break;
                 case "Emulator5_0":
                     Emulator5_0Setup();
@@ -213,6 +218,25 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
             capabilities.SetCapability("deviceName", NokiaDeviceName);
             capabilities.SetCapability("platformVersion", NokiaVersion);
+            capabilities.SetCapability("platformName", Platform);
+            //capabilities.SetCapability("appPackage", package);
+            //capabilities.SetCapability("appActivity", activity);
+            capabilities.SetCapability("app", appPath);
+            capabilities.SetCapability("newCommandTimeout", timeout);
+            capabilities.SetCapability("no-reset", "false");
+            capabilities.SetCapability("full-reset", "true");
+            //capabilities.SetCapability("unicodeKeyboard", false);
+            //capabilities.SetCapability("resetKeyboard", false);
+            capabilities.SetCapability("autoWebView", "true");
+            InitializeAndroidDriver(capabilities);
+        }
+
+        private static void RedmiNote4Setup()
+        {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.SetCapability(CapabilityType.BrowserName, BrowserName);
+            capabilities.SetCapability("deviceName", RedmiNote4DeviceName);
+            capabilities.SetCapability("platformVersion", RedmiNote4Version);
             capabilities.SetCapability("platformName", Platform);
             //capabilities.SetCapability("appPackage", package);
             //capabilities.SetCapability("appActivity", activity);

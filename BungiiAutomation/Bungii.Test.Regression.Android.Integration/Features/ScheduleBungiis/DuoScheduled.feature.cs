@@ -90,8 +90,6 @@ namespace Bungii.Test.Regression.Android.Integration.Features.ScheduleBungiis
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DuoScheduled_RequestSuccessfully", ((string[])(null)));
 #line 3
 this.ScenarioSetup(scenarioInfo);
-#line 4
- testRunner.Given("I am logged in as \"existing\" driver", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 5
  testRunner.Given("I am logged in as \"my\" customer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6

@@ -21,15 +21,13 @@ Scenario: OnDemand_DriverRejectsBungiiRequest
 Scenario: OnDemand_DriverCancelBungii_EnrouteState
 	When Bungii Driver "accepts On Demand Bungii" request
 	And I tap "OK on Driver Accepted screen" during a Bungii
-	And Bungii Driver "cancels Bungii"
-	 
+	And Bungii Driver "cancels Bungii"	 
 
 Scenario: OnDemand_DriverCancelBungii_ArrivedState
 	When Bungii Driver "accepts On Demand Bungii" request
 	And I tap "OK on Driver Accepted screen" during a Bungii
 	And Bungii Driver "slides to the next state"
 	And Bungii Driver "cancels Bungii"
-
 
 Scenario: OnDemand_DriverCompletesBungii
 	When Bungii Driver "accepts On Demand Bungii" request
