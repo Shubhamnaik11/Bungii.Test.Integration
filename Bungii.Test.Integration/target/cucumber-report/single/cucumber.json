@@ -1,0 +1,62 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 597500,
+              "status": "passed"
+            },
+            "match": {
+              "location": "CucumberHooks.beforeTest(Scenario)"
+            }
+          }
+        ],
+        "line": 6,
+        "name": "TESTNE WFRAMEWORK2",
+        "description": "",
+        "id": "promos;testne-wframework2",
+        "after": [
+          {
+            "result": {
+              "duration": 144800,
+              "status": "passed"
+            },
+            "match": {
+              "location": "CucumberHooks.afterTest(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 782475400,
+              "status": "passed"
+            },
+            "line": 8,
+            "name": "This is test statement",
+            "match": {
+              "location": "MyStepdefs.thisIsTestStatement()"
+            },
+            "keyword": "And "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@TEST_FRAMEWORK_NEW_5"
+          }
+        ]
+      }
+    ],
+    "name": "Promos",
+    "description": "",
+    "id": "promos",
+    "keyword": "Feature",
+    "uri": "target/test-classes/features/ios/Customer/test.feature",
+    "tags": []
+  }
+]

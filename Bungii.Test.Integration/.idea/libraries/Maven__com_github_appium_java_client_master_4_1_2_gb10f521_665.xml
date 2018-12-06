@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.appium:java-client:master-4.1.2-gb10f521-665">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/master-4.1.2-gb10f521-665/java-client-master-4.1.2-gb10f521-665.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/master-4.1.2-gb10f521-665/java-client-master-4.1.2-gb10f521-665-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/master-4.1.2-gb10f521-665/java-client-master-4.1.2-gb10f521-665-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

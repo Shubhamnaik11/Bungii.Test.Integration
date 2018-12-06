@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+    <line>
+      <![CDATA[<div "result">I enter valid 9403960188 and Cci12345 as per below table (PASSED : 26s)</div>]]>
+    </line>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="26555" started-at="2018-12-05T09:30:05Z" finished-at="2018-12-05T09:30:32Z">
+    <groups>
+      <group name="cucumber">
+        <method signature="AbstractTestNGCucumberTests.runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="runScenario" class="cucumber.api.testng.AbstractTestNGCucumberTests"/>
+      </group> <!-- cucumber -->
+    </groups>
+    <test name="Surefire test" duration-ms="26555" started-at="2018-12-05T09:30:05Z" finished-at="2018-12-05T09:30:32Z">
+      <class name="com.bungii.Parallel01IT">
+        <test-method status="PASS" signature="start(java.lang.String)[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="start" is-config="true" duration-ms="15548" started-at="2018-12-05T09:29:50Z" finished-at="2018-12-05T09:30:05Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[Executed on 2018_12_05_092945]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- start -->
+        <test-method status="PASS" signature="setUpClass()[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="setUpClass" is-config="true" duration-ms="171" started-at="2018-12-05T09:30:05Z" finished-at="2018-12-05T09:30:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpClass -->
+        <test-method status="PASS" signature="runScenario(cucumber.api.testng.PickleEventWrapper, cucumber.api.testng.CucumberFeatureWrapper)[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="runScenario" duration-ms="26306" started-at="2018-12-05T09:30:06Z" description="Runs Cucumber Scenarios" data-provider="scenarios" finished-at="2018-12-05T09:30:32Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA["As Bungii customer , I should able to login to application using valid password"]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA["Log In"]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+            <line>
+              <![CDATA[<div "result">I enter valid 9403960188 and Cci12345 as per below table (PASSED : 26s)</div>]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- runScenario -->
+        <test-method status="PASS" signature="tearDownClass()[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="tearDownClass" is-config="true" duration-ms="0" started-at="2018-12-05T09:30:32Z" finished-at="2018-12-05T09:30:32Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownClass -->
+        <test-method status="PASS" signature="afterSuite()[pri:0, instance:com.bungii.Parallel01IT@5ec0a365]" name="afterSuite" is-config="true" duration-ms="2201" started-at="2018-12-05T09:30:32Z" finished-at="2018-12-05T09:30:34Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterSuite -->
+      </class> <!-- com.bungii.Parallel01IT -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
