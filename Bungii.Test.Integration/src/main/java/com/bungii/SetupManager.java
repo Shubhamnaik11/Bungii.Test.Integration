@@ -1,5 +1,6 @@
 package com.bungii;
 
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
@@ -20,6 +21,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 public class SetupManager extends EventFiringWebDriver {
     private static LogUtility logger = new LogUtility(SetupManager.class);
@@ -41,13 +43,20 @@ public class SetupManager extends EventFiringWebDriver {
         if(TARGET_PLATFORM.equalsIgnoreCase("IOS")|| TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
-            if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
+            if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
                 driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID),APPIUM_SERVER_PORT);
+                if(getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
+                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","CUSTOMER");
+                else
+                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","DRIVER");
+
+            }
             else if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
                 driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID),APPIUM_SERVER_PORT);
         }
         else if(TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
 
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");

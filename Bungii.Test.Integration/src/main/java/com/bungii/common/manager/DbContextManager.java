@@ -18,7 +18,7 @@ public class DbContextManager {
 
 
     public static String getDataFromMsSqlServer(String queryString) {
-        String result=null;
+        String result="";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(MSSQL_URL, MSSQL_USER, MSSQL_PASSWORD);
@@ -39,7 +39,7 @@ public class DbContextManager {
     }
 
     public static String getDataFromMySqlServer(String queryString){
-        String result = null;
+        String result = "";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);

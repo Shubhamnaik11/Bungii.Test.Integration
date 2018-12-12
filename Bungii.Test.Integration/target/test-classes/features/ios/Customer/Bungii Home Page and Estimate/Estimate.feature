@@ -1,51 +1,37 @@
-@HOME_PAGE
+@ESTIMATE_IOS
 Feature: Customer	Referal Invite page
-  As a Bungii customer I Should able to share my referal code
+  As a Bungii customer
+  when I request for Bungii
+  I Should be navigated to Estimate screen
 
-  Background: 
 
-     Given I am on Customer logged in Home page
-  @HOME_PAGE_2
-  Scenario: Cancel on estimate
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on "Estimate" screen
-    When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      |       30 |           |             | Now  | Default     |
-    And I click "Cancel" button on "Estimate" screen
-    Then I should be navigated to "Home" screen
-    Then Trip Information should be correctly displayed on "CUSTOMER HOME" screen
+  Background:
 
-  @HOME_PAGE_3
-  Scenario: cancel on searching page
+    Given I am on Customer logged in Home page
+
+
+  Scenario: If I cancel on Bungii while it is in Searching driver  page , I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      |       30 |           |             | Now  | Default     |
+      | 30       |           |             | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on "CUSTOMER HOME" screen
-	
-	@DONE
-  @HOME_PAGE_1
-  Scenario: No Bungii
-    When I Switch to "customer" application on "same" devices
+
+  Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      |       30 |           |             | Now  | Default     |
+      | 30       |           |             | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     And I wait for SEARCHING screen to disappear
     Then I should be navigated to "DRIVER NOT AVAILABLE" screen
@@ -55,10 +41,9 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "Estimate" screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242          |      | CHECK               | ENABLED        |
+      | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242          |      | UNCHECK             | DISABLED       |
 
-  @HOME_PAGE_2
-  Scenario: Cancel on Heads up alert message
+  Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -66,10 +51,24 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      |       30 |           |             | Now  | Default     |
+      | 30       |           |             | Now  | Default     |
     And I click "REQUEST BUNGII" button on "Estimate" screen
     And I reject Alert message
     Then I should be navigated to "ESTIMATE" screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | 30 mins          | ADD        | {PREVIOUS VALUE} | x4242          | Now  | CHECK               | ENABLED        |
+
+  Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    Then Trip Information should be correctly displayed on "Estimate" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
+      | 30       |           |             | Now  | Default     |
+    And I click "Cancel" button on "Estimate" screen
+    Then I should be navigated to "Home" screen
+    Then Trip Information should be correctly displayed on "CUSTOMER HOME" screen

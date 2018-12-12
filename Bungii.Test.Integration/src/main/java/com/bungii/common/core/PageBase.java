@@ -1,11 +1,9 @@
 package com.bungii.common.core;
 
+import com.bungii.SetupManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -40,7 +38,10 @@ public class PageBase {
             // Assert.Fail("Following element is not displayed : " + locator);
         }
     }
-
+    public void waitForPageLoad() {
+        new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME).until(webDriver -> ((JavascriptExecutor) webDriver)
+                .executeScript("return document.readyState").equals("complete"));
+    }
     public List<WebElement> findElements(String identifier, LocatorType locatorType) {
         WebDriver driver = DriverManager.getObject().getDriver();
 
@@ -96,7 +97,6 @@ public class PageBase {
         WebDriver driver = DriverManager.getObject().getDriver();
 
         WebElement element = null;
-
         switch (locatorType) {
             case Id: {
                 WaitUntilElementIsDisplayed(By.id(identifier));
@@ -139,6 +139,7 @@ public class PageBase {
                 break;
             }
         }
+
         return element;
     }
     public void open(String PageUrl)

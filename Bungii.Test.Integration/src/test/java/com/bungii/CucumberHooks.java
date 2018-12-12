@@ -8,6 +8,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.BeforeStep;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 
@@ -74,7 +75,13 @@ public class CucumberHooks {
 	public void beforeTest(Scenario scenario) {
 		this.reportManager.startTestCase(scenario.getName());
 	}
+	//TEMP METHOD TO TRY TO CHECK IF STEP NAME CAN BE EXTRACTED
+	@BeforeStep
+	public void beforeStep(Scenario  scenario){
 
+		//System.out.println("XXX"+step.getSourceTagNames());
+
+	}
 	/**
 	 * Cucumber hook to update test case in report
 	 * 
@@ -99,7 +106,7 @@ public class CucumberHooks {
 	 */
 	public void tearDown() throws IOException {
 		this.reportManager.endSuiteFile();
-		logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
+		//logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}
 }

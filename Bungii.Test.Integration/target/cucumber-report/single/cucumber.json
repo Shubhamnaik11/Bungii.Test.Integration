@@ -1,12 +1,12 @@
 [
   {
-    "line": 1,
+    "line": 3,
     "elements": [
       {
         "before": [
           {
             "result": {
-              "duration": 597500,
+              "duration": 639300,
               "status": "passed"
             },
             "match": {
@@ -14,14 +14,14 @@
             }
           }
         ],
-        "line": 6,
-        "name": "TESTNE WFRAMEWORK2",
+        "line": 206,
+        "name": "Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app",
         "description": "",
-        "id": "promos;testne-wframework2",
+        "id": "to-test-solo---scheduling-bungii;cancel-bungii-from-admin-panel---verify-trip-is-gone-from-scheduled-trip-in-app",
         "after": [
           {
             "result": {
-              "duration": 144800,
+              "duration": 567500,
               "status": "passed"
             },
             "match": {
@@ -34,29 +34,610 @@
         "steps": [
           {
             "result": {
-              "duration": 782475400,
+              "duration": 39551947800,
               "status": "passed"
             },
-            "line": 8,
-            "name": "This is test statement",
+            "before": [
+              {
+                "result": {
+                  "duration": 23400,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 207,
+            "name": "I Select \"ACCOUNT\" from Customer App menu",
             "match": {
-              "location": "MyStepdefs.thisIsTestStatement()"
+              "arguments": [
+                {
+                  "val": "ACCOUNT",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 16296140500,
+              "status": "passed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 33700,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 208,
+            "name": "I get customer account details",
+            "match": {
+              "location": "AccountSteps.i_get_customer_account_details()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 34538058600,
+              "status": "passed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 51200,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 209,
+            "name": "I Select \"Home\" from Customer App menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Home",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 218624874500,
+              "status": "passed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 31900,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 210,
+            "name": "I request for  bungii",
+            "match": {
+              "location": "HomeSteps.iRequestForBungii(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "Driver",
+                  "Distance"
+                ]
+              },
+              {
+                "cells": [
+                  "Solo",
+                  "Long"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 10965808200,
+              "status": "passed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 136000,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 213,
+            "name": "I click \"Get Estimate\" button on \"Home\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Get Estimate",
+                  "offset": 9
+                },
+                {
+                  "val": "Home",
+                  "offset": 34
+                }
+              ],
+              "location": "CommonSteps.iClickButtonOnScreen(String,String)"
             },
             "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 199975147300,
+              "status": "passed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 78700,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 214,
+            "name": "I should be navigated to \"Estimate\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Estimate",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.i_should_be_naviagated_to_something_screen(String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "error_message": "java.lang.AssertionError: Error in executon ,Please check logs/ report for more details expected [true] but found [false]\r\n\tat org.testng.Assert.fail(Assert.java:96)\r\n\tat org.testng.Assert.failNotEquals(Assert.java:776)\r\n\tat org.testng.Assert.assertTrue(Assert.java:44)\r\n\tat com.bungii.common.manager.ResultManager.error(ResultManager.java:93)\r\n\tat com.bungii.ios.stepdefinitions.customer.EstimateSteps.iEnterTripInformation(EstimateSteps.java:71)\r\n\tat ✽.I confirm trip with following details(target/test-classes/features/ios/Integration/Scheduling_SOLO.feature:215)\r\n",
+              "duration": 107402846500,
+              "status": "failed"
+            },
+            "before": [
+              {
+                "result": {
+                  "duration": 91400,
+                  "status": "passed"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 215,
+            "name": "I confirm trip with following details",
+            "match": {
+              "location": "EstimateSteps.iEnterTripInformation(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "LoadTime",
+                  "PromoCode",
+                  "PayMentCard",
+                  "Time",
+                  "PickUpImage"
+                ]
+              },
+              {
+                "cells": [
+                  "30",
+                  "",
+                  "",
+                  "NEXT_POSSIBLE",
+                  "Default"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 218,
+            "name": "I should be navigated to \"Success\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Success",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.i_should_be_naviagated_to_something_screen(String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 219,
+            "name": "I click \"Done\" button on \"Success\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Done",
+                  "offset": 9
+                },
+                {
+                  "val": "Success",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.iClickButtonOnScreen(String,String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 220,
+            "name": "I open new \"Chrome\" browser for \"ADMIN\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Chrome",
+                  "offset": 12
+                },
+                {
+                  "val": "ADMIN",
+                  "offset": 33
+                }
+              ],
+              "location": "CommonSteps.i_open_new_something_browser_for_something_instance(String,String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 221,
+            "name": "I naviagate to admin portal",
+            "match": {
+              "location": "LogInSteps.i_naviagate_to_admin_portal()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 222,
+            "name": "I log in to admin portal",
+            "match": {
+              "location": "LogInSteps.i_log_in_to_admin_portal()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 223,
+            "name": "I Select \"Scheduled Trip\" from admin sidebar",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Scheduled Trip",
+                  "offset": 10
+                }
+              ],
+              "location": "DashBoardSteps.i_select_something_from_admin_sidebar(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 225,
+            "name": "I Cancel Bungii with following details",
+            "match": {
+              "location": "ScheduledTripSteps.i_cancel_bungii_with_following_details(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "Charge",
+                  "Comments"
+                ]
+              },
+              {
+                "cells": [
+                  "15",
+                  "TEST"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 228,
+            "name": "\"Bungii Cancel\" message should be displayed on \"Scheduled Trips\" page",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Bungii Cancel",
+                  "offset": 1
+                },
+                {
+                  "val": "Scheduled Trips",
+                  "offset": 48
+                }
+              ],
+              "location": "CommonSteps.something_message_should_be_displayed_on_something_page(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 229,
+            "name": "Bungii must be removed from the List",
+            "match": {
+              "location": "ScheduledTripSteps.bungii_must_be_removed_from_the_list()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 230,
+            "name": "I switch to \"ORIGINAL\" instance",
+            "match": {
+              "arguments": [
+                {
+                  "val": "ORIGINAL",
+                  "offset": 13
+                }
+              ],
+              "location": "CommonSteps.i_switch_to_something_instance(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 231,
+            "name": "I Switch to \"customer\" application on \"same\" devices",
+            "match": {
+              "arguments": [
+                {
+                  "val": "customer",
+                  "offset": 13
+                },
+                {
+                  "val": "same",
+                  "offset": 39
+                }
+              ],
+              "location": "CommonSteps.i_switch_to_something_application_on_something_devices(String,String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 232,
+            "name": "I Select \"SCHEDULED BUNGIIS\" from Customer App menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "SCHEDULED BUNGIIS",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "status": "skipped"
+            },
+            "before": [
+              {
+                "result": {
+                  "status": "skipped"
+                },
+                "match": {
+                  "location": "CucumberHooks.beforeStep(Scenario)"
+                }
+              }
+            ],
+            "line": 234,
+            "name": "Bungii must be removed from \"SCHEDULED BUNGIIS\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "SCHEDULED BUNGIIS",
+                  "offset": 29
+                }
+              ],
+              "location": "ScheduledBungiiSteps.bungii_must_be_removed_from_something_screen(String)"
+            },
+            "keyword": "Then "
           }
         ],
         "tags": [
           {
-            "name": "@TEST_FRAMEWORK_NEW_5"
+            "name": "@tag"
+          },
+          {
+            "name": "@Solo_SchedulingT"
           }
         ]
       }
     ],
-    "name": "Promos",
-    "description": "",
-    "id": "promos",
+    "name": "To Test Solo - Scheduling Bungii",
+    "description": "  I want to use request Scheduling Bungii with Solo type\n  Assume customer is logged in",
+    "id": "to-test-solo---scheduling-bungii",
     "keyword": "Feature",
-    "uri": "target/test-classes/features/ios/Customer/test.feature",
-    "tags": []
+    "uri": "target/test-classes/features/ios/Integration/Scheduling_SOLO.feature",
+    "tags": [
+      {
+        "name": "@tag",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
   }
 ]

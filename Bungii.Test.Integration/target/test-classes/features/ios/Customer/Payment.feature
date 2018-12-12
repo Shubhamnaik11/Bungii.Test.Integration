@@ -1,15 +1,13 @@
 @DONE
 @CUST_PAYMENT
 Feature: Payment page
-  As a Bungii customer I Should able to add card
+  As a Bungii customer
+  I Should able to add/remove/change payment card
 
-  Background: 
-    When I Switch to "customer" application on "same" devices
+  Background:
     Given I am on Customer logged in Home page
 
-  @CUST_PAYMENT_1
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
-    When I Select "Home" from Customer App menu
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add new" button on "PAYMENT" screen
@@ -17,14 +15,12 @@ Feature: Payment page
     Then I should see <Expected Message> on Payment page
     And I click "Cancel" button on "PAYMENT" screen
 
-    Examples: 
+    Examples:
       | Scenario       | CardNo           | Expiry | Expected Message |
       | INVALID_EXPIRY | 4242424242424242 | 12/02  | "invalid expiry" |
       | INVALID_CARD   | 1111111111111111 | 12/22  | "invalid card"   |
-      
-  @CUST_PAYMENT_2
+
   Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
-    When I Select "Home" from Customer App menu
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     Then PAYMENT page should be properly displayed
@@ -33,12 +29,11 @@ Feature: Payment page
     And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
     Then I should see "new card" on Payment page
 
-    Examples: 
+    Examples:
       | Scenario           | CardNo           | Expiry |
-      | ValidCard_Discover | 6011111111111117 | 12/22  |
-      | ValidCard_Visa     | 4242424242424242 | 12/22  |
+      | ValidCard Discover | 6011111111111117 | 12/22  |
+      | ValidCard Visa     | 4242424242424242 | 12/22  |
 
-  @CUST_PAYMENT_3
   Scenario: As Bungii customer I should able to delete card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -48,10 +43,8 @@ Feature: Payment page
     And I accept Alert message
     Then I should see "the card has been deleted" on Payment page
 
-@CUST_PAYMENTX
-  @CUST_PAYMENT_4
+
   Scenario: As Bungii customer I should able to change default card
-    When I Select "Home" from Customer App menu
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     Then I get "current" default card
@@ -60,11 +53,10 @@ Feature: Payment page
     When I click "SAVE" button on "PAYMENT" screen
     Then I should see "new default card" on Payment page
 
-  @CUST_PAYMENT_5
-  Scenario Outline: New user
+  Scenario Outline:  As new Bungii customer without payment card , Payment page should display add Payment card message and Image .
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
-    And I enter valid <Username> and <Password> as per below table
+    And I enter Username :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
     When I Select "PAYMENT" from Customer App menu
@@ -73,6 +65,6 @@ Feature: Payment page
     Then "ADD" should be present in "PAYMENT" screen
     When I Select "LOGOUT" from Customer App menu
 
-    Examples: 
-      | Scenario          | Username   | Password |
-      | New_Register_User | 0260673994 | cci12345 |
+    Examples:
+      | Scenario          | Username       | Password       |
+      | New_Register_User | {with no card} | {with no card} |

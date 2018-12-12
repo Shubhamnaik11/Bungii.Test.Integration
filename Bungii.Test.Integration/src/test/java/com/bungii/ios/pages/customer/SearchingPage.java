@@ -1,0 +1,22 @@
+package com.bungii.ios.pages.customer;
+
+//import org.apache.tools.ant.taskdefs.WaitFor;
+
+import com.bungii.common.core.PageBase;
+import io.appium.java_client.MobileBy;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class SearchingPage extends PageBase {
+
+
+    public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+    public WebElement Activity_ProgressBar() {return findElement("Progress", PageBase.LocatorType.Name); }
+    //public By Activity_ProgressBar = MobileBy.name("Progress");
+
+    public WebElement Text_WaitingMessage() {
+        return findElement("//XCUIElementTypeActivityIndicator[@name='In progress']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath);
+    }
+
+
+}

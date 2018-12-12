@@ -1,18 +1,17 @@
 package com.bungii.runner;
 
+import com.bungii.CucumberHooks;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
-import com.bungii.CucumberHooks;
-import org.apache.log4j.PropertyConfigurator;
+
 import java.io.IOException;
 
-//import com.testmodule.Recover;
 
-@CucumberOptions(features = "target/test-classes", monochrome = true, tags = "@TEST_FRAMEWORK_NEW_5", plugin = {
+@CucumberOptions(features = "target/test-classes", monochrome = true, tags = "@Solo_SchedulingT", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt"},

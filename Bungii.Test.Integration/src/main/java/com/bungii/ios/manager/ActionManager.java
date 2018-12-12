@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.*;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -15,6 +16,7 @@ import org.openqa.selenium.support.ui.*;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -228,6 +230,19 @@ public class ActionManager {
         }
     }
     /**
+     * IOS SPECIFIC
+     *
+     * @param bundleId
+     *            of application that needs to be activated
+     */
+    public void switchApplication(String bundleId) {
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        HashMap<String, Object> args = new HashMap<>();
+        args.put("bundleId", bundleId);
+        js.executeScript("mobile: launchApp", args);
+    }
+    /**
      * Wrapper for wait, clear data and sendKeys in Input Text box
      **/
     public void waitClearEnterText(WebElement element, String inputText) {
@@ -243,13 +258,22 @@ public class ActionManager {
      * @param by
      *            Element location found xpath, etc...
      **/
-    protected WebElement waitForExpectedElement(final By by) {
+    public WebElement waitForExpectedElement(final By by) {
         WebDriverWait wait =new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
         WebElement element = wait.until(visibilityOfElementLocated(by));
-        // ScrollToElement(element);
         return element;
     }
 
+
+    public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
+        for (int i = minutes; i > 0; i--) {
+            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            Thread.sleep(30000);
+            swipeDown();
+            Thread.sleep(30000);
+
+        }
+    }
     /**
      * An expectation for checking that an element is either invisible or not
      * present on the DOM.
@@ -258,12 +282,13 @@ public class ActionManager {
      *            used to find the element
      */
     public boolean invisibilityOfElementLocated(WebElement element) {
-        try {
+        return true;
+/*        try {
             return (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME))
                     .until(ExpectedConditions.invisibilityOf(element));
         } catch (Exception e) {
             return true;
-        }
+        }*/
     }
 
     /**
@@ -300,6 +325,50 @@ public class ActionManager {
     }
 
     /**
+     * Show notification
+     */
+    public void showNotifications() {
+        manageNotifications(true);
+    }
+
+    /**
+     * Hide notification
+     */
+    public void hideNotifications() {
+        manageNotifications(false);
+    }
+
+    /**
+     * Manage notification
+     * @param show
+     */
+    private void manageNotifications(Boolean show) {
+
+        Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
+        int yMargin = 5;
+        int xMid = screenSize.width / 2;
+        PointOption top = PointOption.point(xMid, yMargin);
+        PointOption bottom = PointOption.point(xMid, screenSize.height - yMargin);
+
+        TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
+        if (show) {
+            action.press(top);
+        } else {
+            action.press(bottom);
+        }
+        action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
+        if (show) {
+            action.moveTo(bottom);
+        } else {
+            action.moveTo(top);
+        }
+        action.perform();
+    }
+
+
+
+
+    /**
      * Make Sure driver is set to ios/Andriod specific
      *
      * @param key
@@ -307,11 +376,14 @@ public class ActionManager {
      */
     public boolean verifyImageIsPresent(String key) {
 
-        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 4);
+        WebDriverWait driverWait = new WebDriverWait(SetupManager.getDriver(), 4);
 
         String imagePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),
                 PropertyUtility.getImageLocations(key));
-        IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+        IOSDriver<MobileElement> driver;
+        driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
         driver.setSetting(Setting.IMAGE_MATCH_THRESHOLD, 0.8);
         driver.setSetting(Setting.FIX_IMAGE_FIND_SCREENSHOT_DIMENSIONS, false);
         try {
@@ -320,10 +392,72 @@ public class ActionManager {
 
             String base64Enroute = Base64.getEncoder().encodeToString(Files.readAllBytes(refImgFile.toPath()));
             By enrouteBase64 = MobileBy.image(base64Enroute);
-            wait.until(ExpectedConditions.presenceOfElementLocated(enrouteBase64));
+            driverWait.until(ExpectedConditions.presenceOfElementLocated(enrouteBase64));
             return true;
         } catch (Exception e) {
             return false;
         }
     }
+
+
+    public List<String> getListOfAlertButton() {
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+
+
+        wait.until(ExpectedConditions.alertIsPresent());
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("action", "getButtons");
+        List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
+        return buttons;
+    }
+
+    public boolean clickAlertButton(String label) {
+        List<String> buttons = getListOfAlertButton();
+
+        String buttonLabel = "";
+        for (String button : buttons) {
+            if (button.equalsIgnoreCase(label)) {
+                buttonLabel = button;
+                break;
+            }
+        }
+        if (buttonLabel.equals(""))
+            return false;
+        else {
+            HashMap<String, String> params = new HashMap<>();
+            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+            params.put("action", "accept");
+            params.put("buttonLabel", buttonLabel);
+            js.executeScript("mobile: alert", params);
+
+            return true;
+        }
+    }
+
+
+    /**
+     * @return value of alert message
+     */
+    public String getAlertMessage() {
+        if (isAlertPresent()) {
+            return  SetupManager.getDriver().switchTo().alert().getText();
+        } else {
+            return "";
+        }
+    }
+    public Rectangle getLocatorRectangle(WebElement element) {
+
+       // MobileElement element = (MobileElement) waitForExpectedElement(by);
+        int leftX = element.getLocation().getX();
+        int width = leftX + element.getSize().getWidth();
+        int upperY = element.getLocation().getY();
+        int hight = upperY + element.getSize().getHeight();
+        Rectangle area = new Rectangle(leftX, upperY, width, hight);
+        return area;
+
+    }
+
 }

@@ -27,13 +27,13 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App memu
+    And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "TRIP DETAILS" screen
-    Then Trip Information should be correctly displayed on "TRIP DETAILS" screen
+#    Then Trip Information should be correctly displayed on "TRIP DETAILS" screen
     When I accept selected Bungii
 #    When I Switch to "driver" application on "same" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App memu
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
@@ -73,7 +73,6 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @Solo_Scheduling
   Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
     When I Select "Home" from Customer App menu
     Then "Invite referrals" should be present in "Home" screen
@@ -87,7 +86,6 @@ Feature: To Test Solo - Scheduling Bungii
     Then "Drop" address should be displayed in text box
     Then Clear Button should be enabled for "Drop" box
 
-  @Solo_Scheduling
   Scenario: To Verify clear text button on Pick up and Drop location
     When I Select "Home" from Customer App menu
     When I select "Pick up" location
@@ -106,7 +104,6 @@ Feature: To Test Solo - Scheduling Bungii
     Then current location should be present as pickup location
     Then "Drop" address should be empty
 
-  @Solo_Scheduling
   Scenario: To check if the information icons display correct information
     When I Select "Home" from Customer App menu
     And I request for  bungii
@@ -136,7 +133,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
 
-  @test
+  @Solo_Scheduling
   Scenario: Verify Load/unload time fuctionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -154,7 +151,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Time          | Date  |
       | 2 hour before | today |
 
-  @test
+  @Solo_Scheduling
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -184,7 +181,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I select already scheduled bungii
     Then I Cancel selected Bungii
 
-  @testweb
+  @Solo_Scheduling
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
@@ -205,6 +202,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+  @Solo_SchedulingT
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
@@ -219,7 +217,7 @@ Feature: To Test Solo - Scheduling Bungii
       |       30 |           |             | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-    When I open new "Chrome" browser for "ADMIN" instance
+    When I open new "Chrome" browser for "ADMIN"
     When I naviagate to admin portal
     And I log in to admin portal
     When I Select "Scheduled Trip" from admin sidebar

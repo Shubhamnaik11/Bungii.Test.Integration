@@ -1,9 +1,8 @@
 @CUST_Invite @DONE
 Feature: Customer	Referal Invite page
-  As a Bungii customer I Should able to share my referal code
+  As a Bungii customer I Should able to share my referral code
 
   Background: 
-    #    When I Switch to "customer" application on "same" devices
     Given I am on Customer logged in Home page
 
   @CUST_Invite_1
@@ -37,7 +36,7 @@ Feature: Customer	Referal Invite page
     Then I should see draft post in "MAIL" application
 
   @CUST_Invite_4
-  Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Iwitter but no Application is installed
+  Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter but no Application is installed
     When I Select "Home" from Customer App menu
     When I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen

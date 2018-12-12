@@ -3,13 +3,13 @@ package com.bungii.common.manager;
 import com.bungii.common.utilities.LogUtility;
 import org.openqa.selenium.WebDriver;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DriverManager  {
     private static DriverManager driverManager;
-    private static Map<String, WebDriver> driverArray = new HashMap<>();
+    private static Map<String, WebDriver> driverArray = new ConcurrentHashMap<>();
     private static LogUtility logger = new LogUtility(DriverManager.class);
     protected static WebDriver driver;
     private static String primaryInstanceKey;
@@ -75,6 +75,8 @@ public class DriverManager  {
      */
     public void closeAllDriverInstanceExceptOriginal() {
         WebDriver driver;
+
+
         Set<String> keys = driverArray.keySet();
         for (String key : keys) {
             if (!key.equalsIgnoreCase(primaryInstanceKey)) {
