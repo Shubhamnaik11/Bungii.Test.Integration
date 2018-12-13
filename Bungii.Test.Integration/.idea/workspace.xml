@@ -1,8 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71947592-3ab5-44a3-a5de-1aaf4dcac414" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="71947592-3ab5-44a3-a5de-1aaf4dcac414" name="Default Changelist" comment="Removing unnecessary files">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_72.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_appium_java_client_e6bef4c917e8892ba8320e4837e80c9123487b14.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_25_0_jre.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_sqlserver_mssql_jdbc_7_0_0_jre8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_3_10_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_1_14_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_9_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_digester_commons_digester_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_validator_commons_validator_1_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_core_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_expressions_5_0_19.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_html_0_2_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_java8_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_java_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_junit_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_jvm_deps_1_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_picocontainer_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_cucumber_testng_3_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_datatable_1_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_datatable_dependencies_1_0_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_gherkin_5_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_gherkin_jvm_deps_1_0_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_cucumber_tag_expressions_1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__joda_time_joda_time_2_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__log4j_log4j_1_2_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_13.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_8_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_jodah_typetools_0_5_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_10_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_exec_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_extras_beanshell_bsh_2_0b6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_compat_qual_2_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20180130.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_6_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_picocontainer_picocontainer_2_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_api_3_141_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_chrome_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_edge_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_firefox_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_ie_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_java_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_opera_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_remote_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_safari_driver_3_14_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_seleniumhq_selenium_selenium_support_3_141_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_0_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_testng_testng_6_14_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-21-33_RunSuite/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-21-33_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/Screenshot/d85542c5-0575-450e-ace3-c62f43f83e96.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/Screenshot/015beda2-5f3f-4236-8513-6cfb7a6683b6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/iOSdeviceinformation.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/Driving.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/Loading.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/Unloading.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/arrived.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/arrived_disabled.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/enroute.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/enroute_disabled.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/enrouteq.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/removethis.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/removethis_crop.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/solo - Copy.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/solo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Images/solo1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/jdbcConfig.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/resultConfig.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Templates/resulttemplate.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/data.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/images.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/resourcesFilePaths.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/cucumber-custom-runner.vm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Customer Menu.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Invite.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Log In and Forget Password/Forgot Password.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Log In and Forget Password/LogIn.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Payment.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Promos.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Signup.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemandBungii.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemand_DriverAction.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/Scheduling_SOLO.feature" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,8 +181,8 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-16425">
-              <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+            <state relative-caret-position="337">
+              <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -241,7 +369,7 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
+    <option name="x" value="-1928" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
@@ -490,7 +618,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544682734113</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Removing unnecessary files">
+      <created>1544683138791</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1544683138791</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -536,9 +671,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="SVN Repositories" visible="true" weight="0.32900432" />
+      <window_info anchor="bottom" id="SVN Repositories" weight="0.32900432" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.10064935" />
@@ -549,7 +683,7 @@
       <window_info anchor="right" id="Maven Projects" order="8" visible="true" weight="0.17537314" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.12987013" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.2099567" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32900432" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.195629" />
@@ -618,7 +752,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
     <MESSAGE value="Feature and Page objects checkin - Andoid/Web" />
-    <option name="LAST_COMMIT_MESSAGE" value="Feature and Page objects checkin - Andoid/Web" />
+    <MESSAGE value="Removing unnecessary files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removing unnecessary files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -995,8 +1130,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16425">
-          <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+        <state relative-caret-position="337">
+          <caret line="34" column="9" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
         </state>
       </provider>
     </entry>
