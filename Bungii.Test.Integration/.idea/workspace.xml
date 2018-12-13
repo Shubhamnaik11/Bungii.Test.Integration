@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="71947592-3ab5-44a3-a5de-1aaf4dcac414" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-21-33_RunSuite/Misc/logo.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-21-33_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/Misc/logo.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/Screenshot/d85542c5-0575-450e-ace3-c62f43f83e96.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-53-16_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/Misc/logo.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/Screenshot/015beda2-5f3f-4236-8513-6cfb7a6683b6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-06_11-55-43_RunSuite/TEST_SUITE_template.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -62,13 +50,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="190" column="33" selection-start-line="190" selection-start-column="33" selection-end-line="190" selection-end-column="33" />
+            <state relative-caret-position="-16425">
+              <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="compiler.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="encodings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
@@ -76,20 +74,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-971" />
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Admin_DriverResendApplication.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverResendApplication.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bungii.feature" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/target/test-classes/features/android/Bungii/Bungii.feature">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="Payment.feature" pinned="false" current-in-tab="false">
@@ -159,6 +143,7 @@
       <find>scr</find>
       <find>resultConfig</find>
       <find>features</find>
+      <find>resul</find>
     </findStrings>
     <replaceStrings>
       <replace>(String) cucumberContextManager.getScenarioContext</replace>
@@ -228,6 +213,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ResultManager.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -279,74 +265,7 @@
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="Bungii" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="android" type="462c0819:PsiDirectoryNode" />
-              <item name="LoginAndForgotPassword" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
-              <item name="test-classes" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -564,7 +483,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544682218681</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Feature and Page objects checkin - Andoid/Web">
+      <created>1544682734113</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1544682734113</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -598,6 +524,15 @@
     <history-entry file="RunSuite_(1) - 2018.12.06 at 11h 53m 20s.xml">
       <configuration name="RunSuite (1)" configurationId="TestNG" />
     </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
@@ -682,7 +617,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
+    <MESSAGE value="Feature and Page objects checkin - Andoid/Web" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feature and Page objects checkin - Andoid/Web" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -759,20 +695,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager_old.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-459">
-          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ScreenshotUtility.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -935,6 +857,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="42" selection-start-line="42" selection-end-line="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -956,6 +881,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="22" selection-start-line="22" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1027,27 +955,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/android/manager/Assertion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Payment.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="190" column="33" selection-start-line="190" selection-start-column="33" selection-end-line="190" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -1065,6 +976,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/target/test-classes/features/android/Bungii/Bungii.feature">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/android/manager/Assertion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-16425">
+          <caret line="14" column="38" lean-forward="true" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
