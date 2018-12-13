@@ -94,8 +94,8 @@
         <dependency>
             <groupId>com.github.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>master-SNAPSHOT</version>
-            <!-- <version>${appium.java.client}</version> -->
+            <!-- <version>master-SNAPSHOT</version>  -->
+              <version>${appium.java.client}</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>

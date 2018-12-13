@@ -51,7 +51,7 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","DRIVER");
 
             }
-            else if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
+            else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID),APPIUM_SERVER_PORT);
         }
         else if(TARGET_PLATFORM.equalsIgnoreCase("WEB"))
