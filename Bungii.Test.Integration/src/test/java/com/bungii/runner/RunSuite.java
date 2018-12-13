@@ -10,12 +10,13 @@ import org.testng.annotations.Parameters;
 
 import java.io.IOException;
 
-
-@CucumberOptions(features = "target/test-classes", monochrome = true, tags = "@Solo_SchedulingT", plugin = {
-        "pretty", "html:target/cucumber-report/single",
-        "json:target/cucumber-report/single/cucumber.json",
-        "rerun:target/cucumber-report/single/rerun.txt"},
-        glue ={ "com.bungii"})
+@CucumberOptions(features = "target/test-classes", monochrome = true, tags = "@Android", plugin = {
+		"pretty", "html:target/cucumber-report/single",
+		"json:target/cucumber-report/single/cucumber.json",
+		"rerun:target/cucumber-report/single/rerun.txt"},
+		glue ={ "com.bungii.android"},
+		dryRun = true
+)
 public class RunSuite extends AbstractTestNGCucumberTests {
 
 	

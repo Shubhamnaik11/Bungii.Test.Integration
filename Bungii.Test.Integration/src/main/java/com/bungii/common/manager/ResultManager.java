@@ -34,9 +34,9 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void log(String name, String expected, String actual, Boolean... screenDump) {
+	public static void log( String name , String expected, String actual, Boolean... screenDump) {
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
-		logger.trace("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+		logger.trace("For steps :"  +name + " expected is :" + expected + " and actual is" + actual);
 	}
 
 	/**

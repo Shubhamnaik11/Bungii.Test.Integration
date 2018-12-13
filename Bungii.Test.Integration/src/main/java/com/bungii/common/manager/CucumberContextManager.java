@@ -22,7 +22,7 @@ public class CucumberContextManager {
             contextObject= new CucumberContextManager();
         }
         return contextObject;
-    }
+}
     /**
      * Store common details for a scenario in Map
      * @param key Key for details

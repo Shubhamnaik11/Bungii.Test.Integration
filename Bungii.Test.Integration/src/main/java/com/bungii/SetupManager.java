@@ -218,7 +218,7 @@ public class SetupManager extends EventFiringWebDriver {
         String deviceInfoFileKey="";
         if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey="ios.capabilities.file";
-        else if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
+        else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey="android.capabilities.file";
         String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"),PropertyUtility.getFileLocations(deviceInfoFileKey));
 
