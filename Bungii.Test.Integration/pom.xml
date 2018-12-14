@@ -29,6 +29,7 @@
         <joda.time>2.10</joda.time>
         <appium.java.client>e6bef4c917e8892ba8320e4837e80c9123487b14</appium.java.client>
         <my.sql.server.version></my.sql.server.version>
+        <serenity.version>2.0.23</serenity.version>
     </properties>
     <repositories>
         <repository>
@@ -131,6 +132,18 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>3.14.0</version>
         </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.thucydides/thucydides-core -->
+        <dependency>
+            <groupId>net.thucydides</groupId>
+            <artifactId>thucydides-core</artifactId>
+            <version>0.9.125</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -159,7 +172,7 @@
                         </goals>
                         <configuration>
                             <glue>
-                                <package>com.bungii</package>
+                                <package>com.bungii.android.stepdefinitions</package>
                             </glue>
                             <!-- 							These are the default values
                                                         Where to output the generated Junit tests -->
@@ -167,14 +180,22 @@
                             </outputDirectory>
                             <!-- 							The diectory containing your feature files.
                              -->
-                            <featuresDirectory>D:\Automation\Bungii.Test.Integration\src\test\resources\features\
+                            <featuresDirectory>src/test/resources/features/
                             </featuresDirectory>
                             <!-- 							Directory where the cucumber report files shall be written
                              -->
                             <cucumberOutputDir>${ResultFolder}\defaultReport</cucumberOutputDir>
                             <!-- 							comma separated list of output formats
                              -->
-                            <format>html</format>
+                            <plugins>
+                                <plugin>
+                                    <name>json</name>
+                                </plugin>
+                                <plugin>
+                                    <name>com.example.CustomHtmlFormatter</name>
+                                    <extension>html</extension>
+                                </plugin>
+                            </plugins>
                             <!-- 							CucumberOptions.strict property
                              -->
                             <strict>true</strict>
@@ -186,7 +207,7 @@
                             <tags>
                                 <!-- 								<tag>@testweb</tag>
                                  -->
-                                <tag>@LOGIN_1</tag>
+                                <tag>@Android1</tag>
                             </tags>
                             <useTestNG>true</useTestNG>
                             <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
@@ -212,7 +233,7 @@
                         </goals>
                         <configuration>
                             <systemPropertyVariables>
-                                <skip>true</skip>
+                                <skip>false</skip>
                                 <properties>
                                     <property>
                                         <name>usedefaultlisteners</name>

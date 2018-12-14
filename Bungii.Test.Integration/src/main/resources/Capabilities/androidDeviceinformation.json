@@ -11,17 +11,9 @@
 	"autoWebView": true
 
   },
-  "device2": {
-    "platformName": "iOS",
-    "automationName": "XCUITest",
-    "app": "com.apple.Maps",
-    "deviceName": "appiumTest-iPhone X",
-	"udid": "39605564-E02F-4576-A64A-3E1BBBDF05AC",
-	"newCommandTimeout":"1000"
-  },
   "connection":{
-	"device1":4723,
-	"device2":4727
+	"device1":4724
+
   }
 
   
