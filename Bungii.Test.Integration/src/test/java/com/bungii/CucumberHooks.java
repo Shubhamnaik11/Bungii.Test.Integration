@@ -51,7 +51,7 @@ public class CucumberHooks {
 	public synchronized void start(String resultFolder) {
 
 		try {
-			logger.detail("Device On which test will be run is" + System.getProperty("DEVICE"));
+			logger.detail("Device On which test will be run is " + System.getProperty("DEVICE"));
 			//Create new default driver instance and save it
 			SetupManager.getObject().getDriver();
 		} catch (Exception e) {

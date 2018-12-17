@@ -39,6 +39,7 @@ public class SetupManager extends EventFiringWebDriver {
     };
     static {
         TARGET_PLATFORM= PropertyUtility.getProp("target.platform");
+        logger.detail("TARGET_PLATFORM"+TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if(TARGET_PLATFORM.equalsIgnoreCase("IOS")|| TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
@@ -51,8 +52,10 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","DRIVER");
 
             }
-            else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
-                driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID),APPIUM_SERVER_PORT);
+            else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+                System.out.println("PORT"+APPIUM_SERVER_PORT+"");
+                driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+            }
         }
         else if(TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
@@ -190,7 +193,7 @@ public class SetupManager extends EventFiringWebDriver {
         String deviceInfoFileKey="";
         if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey="ios.capabilities.file";
-        else if(TARGET_PLATFORM.equalsIgnoreCase("IOS"))
+        else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey="android.capabilities.file";
 
         DesiredCapabilities capabilities= new DesiredCapabilities();
@@ -220,6 +223,8 @@ public class SetupManager extends EventFiringWebDriver {
             deviceInfoFileKey="ios.capabilities.file";
         else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey="android.capabilities.file";
+
+        logger.detail("deviceInfoFileKey="+deviceInfoFileKey);
         String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"),PropertyUtility.getFileLocations(deviceInfoFileKey));
 
         ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);

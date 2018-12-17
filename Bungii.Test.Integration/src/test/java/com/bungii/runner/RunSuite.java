@@ -2,20 +2,17 @@ package com.bungii.runner;
 
 import com.bungii.CucumberHooks;
 import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-
+import org.junit.runner.RunWith;
+import org.testng.annotations.*;
 import java.io.IOException;
 
-@CucumberOptions(features = "target/test-classes", monochrome = true, tags = "@Android", plugin = {
+@CucumberOptions(features = "src/test/resources/features/android", monochrome = true, tags = {"@Android1"}, plugin = {
 		"pretty", "html:target/cucumber-report/single",
 		"json:target/cucumber-report/single/cucumber.json",
 		"rerun:target/cucumber-report/single/rerun.txt"},
-		glue ={ "com.bungii.android"},
-		dryRun = true
+		glue ={"com.bungii.android.stepdefinitions"}
 )
 public class RunSuite extends AbstractTestNGCucumberTests {
 
@@ -68,5 +65,7 @@ public class RunSuite extends AbstractTestNGCucumberTests {
     public  void afterSuite() throws IOException {
     	this.hooks.tearDown();
     }
-
+	public static void Main(String args[]){
+		System.out.print("first statement. ");
+	}
 }

@@ -2,17 +2,17 @@
   "device1": {
     "platformName": "android",
     "deviceType": "MOTOROLA",
-    "app": "com.bungii.customer",
+    "app": "D:\\APK\\bungii-customer-qa-debug.apk",
     "deviceName": "Moto G",
 	"platformVersion": "5.1",
-	"browserName":"1000",
 	"no-reset":false,
 	"full-reset":true,
-	"autoWebView": true
-
+	"autoWebView": true,
+    "appPackage": "com.bungii.customer",
+    "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity"
   },
   "connection":{
-	"device1":4724
+	"device1":4723
 
   }
 
