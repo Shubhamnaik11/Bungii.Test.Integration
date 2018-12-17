@@ -9,7 +9,8 @@
 	"full-reset":true,
 	"autoWebView": true,
     "appPackage": "com.bungii.customer",
-    "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity"
+    "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
+    "udid": "192.168.55.43:5555"
   },
   "connection":{
 	"device1":4723
