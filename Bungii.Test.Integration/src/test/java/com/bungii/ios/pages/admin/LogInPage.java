@@ -10,6 +10,10 @@ public class LogInPage extends PageBase {
         return findElement("PhoneNo", LocatorType.Name);
     }
 
+    public WebElement TextBox_Phoned(boolean ... ignoreException) {
+        return findElement("Phone7No", LocatorType.Name,ignoreException[0]);
+    }
+
     public WebElement TextBox_Pass() {
         return findElement("Password", LocatorType.Name);
     }

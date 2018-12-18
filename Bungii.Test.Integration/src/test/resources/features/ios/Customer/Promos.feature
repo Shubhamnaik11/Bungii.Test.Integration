@@ -4,7 +4,7 @@ Feature: Promos
   I Should able to add new promo code
 
   Background:
-    Given I am on Customer logged in Home page
+  #  Given I am on Customer logged in Home page
 
   Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promocode
     When I logged in Customer application using  "existing" user
@@ -35,7 +35,7 @@ Feature: Promos
   Scenario: REERRAL Promo code FOR NEW USER only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
-    When I naviagate to admin portal
+    When I navigate to admin portal
 
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
@@ -53,7 +53,7 @@ Feature: Promos
   @cc
   Scenario Outline: USED ONE OFF
     When I open new "Chrome" browser for "ADMIN PORTAL"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
     Then I get promo code for "<Promo>"
@@ -71,7 +71,7 @@ Feature: Promos
 
   Scenario Outline: I should be allowed to enter valid promo code in Promo screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
     Then I get promo code for "<Promo>"
@@ -94,7 +94,7 @@ Feature: Promos
 
   Scenario: When i try to enter expired promo code I should be alerted for Expired Promo code message
     When I open new "Chrome" browser for "ADMIN PORTAL"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
     Then I get promo code for "expired"

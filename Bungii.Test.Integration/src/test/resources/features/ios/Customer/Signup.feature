@@ -61,7 +61,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
   Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source.
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Referral Source" from admin sidebar
     Then I get Referral Source info for "<Source>"
@@ -91,7 +91,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
   Scenario Outline:As a bungii Customer I should submit registration form with Promo code
     When I open new "Chrome" browser for "ADMIN"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
     Then I get promo code for "<Referral Code>"

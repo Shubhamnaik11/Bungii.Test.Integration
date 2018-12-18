@@ -10,7 +10,7 @@ import org.testng.annotations.Parameters;
 
 import java.io.IOException;
 
-@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@Solo_SchedulingTEST", plugin = {
+@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@cc", plugin = {
 		"pretty", "html:target/cucumber-report/single",
 		"json:target/cucumber-report/single/cucumber.json",
 		"rerun:target/cucumber-report/single/rerun.txt","com.bungii.common.utilities.CustomFormatter"},

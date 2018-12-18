@@ -1002,6 +1002,7 @@ public class CommonSteps extends DriverBase {
 				break;
 			}
 			String alertText = SetupManager.getDriver().switchTo().alert().getText();
+
 			testStepVerify.isEquals(alertText, expectedText, "user is alerted for " + key);
 			SetupManager.getDriver().switchTo().alert().accept();
 		} catch (Exception e) {

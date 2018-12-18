@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public class PageBase {
-    private  final long DRIVER_WAIT_TIME;
+    private   long DRIVER_WAIT_TIME;
 
     public enum LocatorType {
         Id,
@@ -28,16 +28,17 @@ public class PageBase {
 
     }
 
-    public static void WaitUntilElementIsDisplayed(By locator) {
+    public  void WaitUntilElementIsDisplayed(By locator) {
         try {
             WebDriver driver = DriverManager.getObject().getDriver();
-            WebDriverWait wait = new WebDriverWait(driver, 60);
+            WebDriverWait wait = new WebDriverWait(driver, DRIVER_WAIT_TIME);
             wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
         } catch (Exception ex) {
             // Assert.Fail("Following element is not displayed : " + locator);
         }
     }
+
     public void waitForPageLoad() {
         new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME).until(webDriver -> ((JavascriptExecutor) webDriver)
                 .executeScript("return document.readyState").equals("complete"));
@@ -92,11 +93,21 @@ public class PageBase {
         }
         return elements;
     }
+    private void updateWaitTime( boolean ...ignoreException){
+        if(ignoreException.length>0)
+            if(ignoreException[0]==true)
+                DRIVER_WAIT_TIME = 7L;
 
-    public WebElement findElement(String identifier, LocatorType locatorType) {
+    }
+    public void  updateWaitTime(Long waitTime){
+        DRIVER_WAIT_TIME=waitTime;
+    }
+
+    public WebElement findElement(String identifier, LocatorType locatorType , boolean ...ignoreException) {
         WebDriver driver = DriverManager.getObject().getDriver();
-
+        updateWaitTime(ignoreException);
         WebElement element = null;
+        try{
         switch (locatorType) {
             case Id: {
                 WaitUntilElementIsDisplayed(By.id(identifier));
@@ -138,6 +149,22 @@ public class PageBase {
                 element = driver.findElement(By.tagName(identifier));
                 break;
             }
+        }
+        }catch (NoSuchElementException e){
+            if(ignoreException.length>0){
+                if(ignoreException[0]==true)
+                {
+                    //ignore exception
+                    //or to do action
+                }else{
+                    throw new java.util.NoSuchElementException();
+                }
+            }else {
+                throw new java.util.NoSuchElementException();
+            }
+        }finally{
+            updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));
+
         }
 
         return element;

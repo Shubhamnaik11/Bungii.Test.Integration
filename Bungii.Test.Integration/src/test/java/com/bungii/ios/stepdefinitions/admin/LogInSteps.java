@@ -17,8 +17,8 @@ public class LogInSteps extends DriverBase {
 		this.logInPage = logInPage;
 	}
 	
-    @When("^I naviagate to admin portal$")
-    public void i_naviagate_to_admin_portal() throws Throwable {
+    @When("^I navigate to admin portal$")
+    public void i_navigate_to_admin_portal() throws Throwable {
 
 		SetupManager.getDriver().get(PropertyUtility.getProp("admin.url"));
 		pass( "I should be naviagate to admin portal",
@@ -27,7 +27,8 @@ public class LogInSteps extends DriverBase {
     
     @And("^I log in to admin portal$")
     public void i_log_in_to_admin_portal() throws Throwable {
-    	
+   // 	testStepAssert.isEnabled(logInPage,"TextBox_Phone");
+    	testStepAssert.isElementEnabled(logInPage.TextBox_Phoned(true),"Button should be enabled","Button is enabled on Admin Page","Button is not enabled on Admin Page");
     	//logInPage.logInToPortal(PropertyUtility.getProp("admin.user"),PropertyUtility.getProp("admin.password"));
 		logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
 		logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));

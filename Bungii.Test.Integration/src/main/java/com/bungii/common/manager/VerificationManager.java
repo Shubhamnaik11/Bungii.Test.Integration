@@ -1,5 +1,6 @@
 package com.bungii.common.manager;
 
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 
@@ -123,5 +124,52 @@ public class VerificationManager {
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
 
+	}
+	/**
+	 * @param element Webelement object return from PageBase
+	 * @param expectedText Expected Messaage to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementEnabled(WebElement element, String expectedText, String successMessage, String errorMessage) {
+		Boolean isEnabled;
+		try {
+			isEnabled= element.isEnabled();
+		} catch (Exception e) {
+			isEnabled= false;
+		}
+		isTrue(isEnabled,expectedText,successMessage, errorMessage);
+	}
+
+	/**
+	 * @param element Webelement object return from PageBase
+	 * @param expectedMessage Expected Messaage to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementSelected(WebElement element,String expectedMessage,String successMessage, String errorMessage) {
+		Boolean isSelected;
+		try {
+			isSelected= element.isSelected();
+		} catch (Exception e) {
+			isSelected= false;
+		}
+		isTrue(isSelected,expectedMessage,successMessage, errorMessage);
+	}
+
+	/**
+	 * @param element Webelement object return from PageBase
+	 * @param expectedMessage Expected Messaage to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementDisplayed(WebElement element,String expectedMessage,String successMessage, String errorMessage) {
+		Boolean isDisplayed;
+		try {
+			isDisplayed= element.isSelected();
+		} catch (Exception e) {
+			isDisplayed= false;
+		}
+		isTrue(isDisplayed,expectedMessage,successMessage, errorMessage);
 	}
 }

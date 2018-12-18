@@ -119,7 +119,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
 
-  @Solo_Scheduling
+  @Solo_SchedulingTEST
   Scenario: To check the elements of Bungii-Solo Estimate page
     #When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -133,7 +133,6 @@ Feature: To Test Solo - Scheduling Bungii
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
 
-  @Solo_Scheduling
   Scenario: Verify Load/unload time fuctionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -145,13 +144,12 @@ Feature: To Test Solo - Scheduling Bungii
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
   @testloadTime
-  Scenario: Verify Load/unload time fuctionality . Check if Estimate cost is re calculated
+  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices
     When I select Bungii time as per table
       | Time          | Date  |
       | 2 hour before | today |
 
-  @Solo_Scheduling
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -201,7 +199,6 @@ Feature: To Test Solo - Scheduling Bungii
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @Solo_SchedulingTEST
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
@@ -217,7 +214,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
     When I open new "Chrome" browser for "ADMIN"
-    When I naviagate to admin portal
+    When I navigate to admin portal
     And I log in to admin portal
     When I Select "Scheduled Trip" from admin sidebar
     # 			Then I Select Bungii from "Scheduled Trip" List
