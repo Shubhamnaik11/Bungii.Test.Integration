@@ -11,7 +11,8 @@ import java.io.IOException;
 		"pretty", "html:target/cucumber-report/single",
 		"json:target/cucumber-report/single/cucumber.json",
 		"rerun:target/cucumber-report/single/rerun.txt","com.bungii.common.utilities.CustomFormatter"},
-		glue ={"com.bungii.android.stepdefinitions","com.bungii.hooks"}
+		glue ={"com.bungii.android.stepdefinitions","com.bungii.hooks"},
+		dryRun = true
 )
 public class RunSuite_Android extends AbstractTestNGCucumberTests {
 

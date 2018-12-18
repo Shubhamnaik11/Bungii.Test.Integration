@@ -1,11 +1,15 @@
 package com.bungii.android.stepdefinitions;
 
-import com.bungii.android.pages.bungii.BungiiAcceptedPage;
-import com.bungii.android.pages.bungii.BungiiProgressPage;
+import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.bungii.*;
 import com.bungii.android.pages.bungii.SearchingPage;
+import com.bungii.android.pages.bungiiDriver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.AssertManager;
+import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.pages.driver.BungiiRequestPage;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import cucumber.api.PendingException;
 import cucumber.api.Scenario;
@@ -19,10 +23,17 @@ public class BungiiSteps extends DriverBase {
 
     SearchingPage Page_BungiiSearch = new SearchingPage();
     BungiiAcceptedPage Page_BungiiAccepted = new BungiiAcceptedPage();
-    BungiiProgressPage Page_BungiiProgress = new BungiiProgressPage();
+    BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
+    DriverInProgressBungiiPage Page_DriverBungiiProgress = new DriverInProgressBungiiPage();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
+    DriverBungiiRequestPage Page_BungiiRequest = new DriverBungiiRequestPage();
+    BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
 
     AssertManager assertManager = new AssertManager();
+    ActionManager action = new ActionManager();
+    GeneralUtility utility = new GeneralUtility();
+    PropertyUtility properties = new PropertyUtility();
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
@@ -137,28 +148,62 @@ public class BungiiSteps extends DriverBase {
         }
     }
 
-    @Given("^I am logged in as \"([^\"]*)\" driver$")
-    public void iAmLoggedInAsDriver(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+
 
     @When("^I tap on \"([^\"]*)\" on Driver Home page$")
     public void iTapOnOnDriverHomePage(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        switch (arg0)
+        {
+            case "Online/Offline button":
+                action.click(Page_DriverHome.Button_OnlineOffline());
+                break;
+
+            case "Available Trips link":
+                action.click(Page_DriverHome.Link_AvailableTrips());
+                break;
+
+            default: break;
+        }
     }
 
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        action.waitUntilAlertDisplayed(Page_BungiiRequest.Alert_Msg());
+        if (action.isElementPresent(Page_BungiiRequest.Alert_Msg()))
+        {
+            action.click(Page_BungiiRequest.AlertButton_View());
+            switch (arg0)
+            {
+                case "accepts On Demand Bungii":
+                    action.click(Page_BungiiRequest.Button_Accept());
+                    break;
+
+                case "rejects Bungii":
+                    action.click(Page_BungiiRequest.Button_Reject());
+                    break;
+            }
+        }
     }
 
     @When("^I tap \"([^\"]*)\" during a Bungii$")
     public void iTapDuringABungii(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        switch (arg0)
+        {
+            case "OK on Driver Accepted screen":
+                action.waitUntilIsElementExistsAndDisplayed(Page_BungiiAccepted.Button_OK());
+                action.click(Page_BungiiAccepted.Button_OK());
+                break;
+
+            case "SMS for a solo driver":
+                action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_SMS());
+                break;
+
+            case "Call for a solo driver":
+                action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_Call());
+                break;
+
+            default: break;
+        }
     }
 
     @Then("^Bungii driver should see \"([^\"]*)\"$")
@@ -175,8 +220,18 @@ public class BungiiSteps extends DriverBase {
 
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        switch (arg0)
+        {
+            case "SMS for a customer":
+                action.click(Page_DriverBungiiProgress.Button_Customer_SMS());
+                break;
+
+            case "Call for a solo driver":
+                action.click(Page_DriverBungiiProgress.Button_Customer_Call());
+                break;
+
+            default: break;
+        }
     }
 
     @Then("^correct details should be displayed to driver on \"([^\"]*)\" app$")
@@ -187,25 +242,37 @@ public class BungiiSteps extends DriverBase {
 
     @When("^Bungii Driver \"([^\"]*)\"$")
     public void bungiiDriver(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        switch (arg0)
+        {
+            case "cancels Bungii":
+                action.click(Page_DriverBungiiProgress.Button_Cancel());
+                action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
+                break;
+
+            case "slides to the next state":
+                action.swipeLeft(Page_DriverBungiiProgress.Slider());
+                break;
+
+            case "completes Bungii":
+                action.click(Page_BungiiComplete.Button_OnToTheNext());
+                break;
+
+            default: break;
+        }
     }
 
     @And("^Quit Bungii Driver app$")
     public void quitBungiiDriverApp() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
     }
 
     @When("^simulator driver is \"([^\"]*)\"$")
     public void simulatorDriverIs(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
     }
 
     @And("^Simulator Bungii Driver \"([^\"]*)\"$")
     public void simulatorBungiiDriver(String arg0) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
     }
 }

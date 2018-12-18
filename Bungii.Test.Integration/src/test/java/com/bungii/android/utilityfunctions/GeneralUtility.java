@@ -15,8 +15,8 @@ import org.openqa.selenium.WebElement;
 public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
     ActionManager action = new ActionManager();
-    LoginPage Page_Login = new LoginPage();
-    SignupPage Page_Signup = new SignupPage();
+    CustomerLoginPage Page_Login = new CustomerLoginPage();
+    CustomerSignupPage Page_Signup = new CustomerSignupPage();
     TermsPage Page_CustTerms = new TermsPage();
     CustomerHomePage Page_CustHome = new CustomerHomePage();
     MenuPage Page_Menu = new MenuPage();

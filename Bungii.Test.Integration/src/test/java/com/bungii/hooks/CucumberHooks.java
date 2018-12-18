@@ -99,6 +99,7 @@ public class CucumberHooks {
 	 */
 	public void tearDown() throws IOException {
 		this.reportManager.endSuiteFile();
+		//SetupManager.stopAppiumServer();
 		//logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}

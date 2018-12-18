@@ -5,7 +5,8 @@ Feature: CustomerForgotPassword
     Given I am on Sign up page
     When I tap on the "Login" Link
     And I tap on the "Forgot Password" Link
-  @Android
+
+  @Android1
   Scenario: Cust_ForgotPassword_Success
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -14,24 +15,28 @@ Feature: CustomerForgotPassword
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message"
     And The user should be logged in
-  @Android
+
+  @Android1
   Scenario: Cust_ForgotPassword_IncorretPhone
     When I enter "invalid" Phone Number
     And I tap on the "Send" Link
     Then The user should see "snackbar validation message"
-  @Android
+
+  @Android1
   Scenario: Cust_ForgotPassword_PhoneLessThan10char
     When I enter "less than 10 digit" Phone Number
     And I tap on the "Send" Link
     Then The user should see "Send button disabled"
-  @Android
+
+  @Android1
   Scenario: Cust_ForgotPassword_IncorrectSMSCode
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
     When I enter "invalid" SMS code
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message"
-  @Android
+
+  @Android1
   Scenario: Cust_ForgotPassword_PasswordLessThan6Char
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
