@@ -20,7 +20,9 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +34,7 @@ public class SetupManager extends EventFiringWebDriver {
     private static String APPIUM_SERVER_IP;
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
+    private static AppiumDriverLocalService service = null;
     private static final Thread CLOSE_THREAD = new Thread() {
 
         @Override
@@ -92,7 +95,12 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber){
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost")||APPIUM_SERVER_IP.equals("")||APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP="127.0.0.1";
-        startAppiumServer(APPIUM_SERVER_IP, portNumber);
+        if(checkIfServerIsRunnning(portNumber)) {
+            stopAppiumServer();
+        }
+            startAppiumServer(APPIUM_SERVER_IP, portNumber);
+
+
         return "http://"+APPIUM_SERVER_IP+":"+portNumber+"/wd/hub";
     }
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber){
@@ -104,6 +112,26 @@ public class SetupManager extends EventFiringWebDriver {
         AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
         service.start();
 
+    }
+    public static void stopAppiumServer() {
+        if (service!= null)
+        service.stop();
+    }
+
+    public static boolean checkIfServerIsRunnning(String port) {
+
+        boolean isServerRunning = false;
+        ServerSocket serverSocket;
+        try {
+            serverSocket = new ServerSocket(Integer.parseInt(port));
+            serverSocket.close();
+        } catch (IOException e) {
+            //If control comes here, then it means that the port is in use
+            isServerRunning = true;
+        } finally {
+            serverSocket = null;
+        }
+        return isServerRunning;
     }
     /**
      * Return IOS driver instance
