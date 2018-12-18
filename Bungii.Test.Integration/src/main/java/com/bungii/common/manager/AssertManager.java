@@ -127,8 +127,8 @@ public class AssertManager {
     }*/
 
     /**
-     * @param element Webelement object return from PageBase
-     * @param expectedText Expected Messaage to that is to be update in report
+     * @param element Web element object return from PageBase
+     * @param expectedText Expected Message to that is to be update in report
      * @param successMessage If success this message will be published
      * @param errorMessage If failed this message will be published
      */
@@ -143,8 +143,8 @@ public class AssertManager {
     }
 
     /**
-     * @param element Webelement object return from PageBase
-     * @param expectedMessage Expected Messaage to that is to be update in report
+     * @param element Web element object return from PageBase
+     * @param expectedMessage Expected Message to that is to be update in report
      * @param successMessage If success this message will be published
      * @param errorMessage If failed this message will be published
      */
@@ -159,15 +159,15 @@ public class AssertManager {
     }
 
     /**
-     * @param element Webelement object return from PageBase
-     * @param expectedMessage Expected Messaage to that is to be update in report
+     * @param element Web element object return from PageBase
+     * @param expectedMessage Expected Message to that is to be update in report
      * @param successMessage If success this message will be published
      * @param errorMessage If failed this message will be published
      */
     public void isElementDisplayed(WebElement element,String expectedMessage,String successMessage, String errorMessage) {
         Boolean isDisplayed;
         try {
-            isDisplayed= element.isSelected();
+            isDisplayed= element.isDisplayed();
         } catch (Exception e) {
             isDisplayed= false;
         }
