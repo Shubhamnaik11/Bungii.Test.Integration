@@ -13,7 +13,7 @@ public class SuccessSteps extends DriverBase {
 	ActionManager action = new ActionManager();
     @Then("^Bungii Posted message should be displayed$")
     public void bungii_posted_message_should_be_displayed() throws Throwable {
-    	testStepAssert.isTrue(isPostedMessageDisplayed(),"Bungii Posted message should be displayed","Bungii Posted message should be displayed","Bungii Posted message is not displayed");
+    	testStepAssert.isTrue(isPostedMessageDisplayed(),"Bungii Posted message should be displayed","Bungii Posted message is not displayed");
     }
 
 

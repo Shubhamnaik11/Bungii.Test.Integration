@@ -25,7 +25,7 @@ public class InviteSteps extends DriverBase {
 			String[] invitePageInfo = getPromoCodeInfo();
 
 			testStepVerify.isEquals(invitePageInfo[0], PropertyUtility.getMessage("customer.invite.header"),
-					"Invite Referral page should be properly displayed ", "Invite Header should be properly displayed",
+					 "Invite Header should be properly displayed",
 					"Header should be " + PropertyUtility.getMessage("customer.invite.header"), "Expected header is "
 							+ PropertyUtility.getMessage("customer.invite.header") + "Actual Header is" + invitePageInfo[0]);
 			testStepVerify.isEquals(invitePageInfo[1], PropertyUtility.getMessage("customer.invite.info").replace("â", "’"),
@@ -34,22 +34,22 @@ public class InviteSteps extends DriverBase {
 							+ invitePageInfo[1]);
 
 			testStepVerify.isTrue(invitePageInfo[2].trim().length() > 4,
-					"Invite Referral page should be properly displayed", "Invite Code Should  more than 4 letter long",
+					 "Invite Code Should  more than 4 letter long",
 					"Invite Code is" + invitePageInfo[2],
 					"Invite code is  " + invitePageInfo[2] + ", less then 4 char");
 			testStepVerify.isEquals(invitePageInfo[3], PropertyUtility.getMessage("customer.invite.underline"),
-					"Invite Referral page should be properly displayed", "Invite underline header should be displayed",
+					 "Invite underline header should be displayed",
 					"Invite underline is" + PropertyUtility.getMessage("customer.invite.underline"), "Expected underline is "
 							+ PropertyUtility.getMessage("customer.invite.underline") + " but actual is " + invitePageInfo[3]);
 			testStepVerify.isTrue(isShareButtonPresent(),
-					"Invite Referral page should be properly displayed", "Share button should be present",
+					 "Share button should be present",
 					"Share button is present", "Share button is not present");
 			testStepVerify.isTrue(isInviteReferralIconPresent(),
-					"Invite Referral page should be properly displayed", "Dollar image should be present",
+					 "Dollar image should be present",
 					"Dollar image is present", "Dollar image is not present");
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("Invite Referral page should be properly displayed", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 
@@ -60,13 +60,13 @@ public class InviteSteps extends DriverBase {
 		try {
 
 			String inviteCode = getPromoCode();
-			testStepVerify.isTrue(inviteCode.trim().length() > 4, "Invite Referral page should be properly displayed",
+			testStepVerify.isTrue(inviteCode.trim().length() > 4,
 					"Invite Code Should  more than 4 letter long", "Invite Code is " + inviteCode,
 					"Invite code is  " + inviteCode + ", less then 4 char");
 			cucumberContextManager.setScenarioContext("INVITE_CODE", inviteCode);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I get Invite Code", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -87,8 +87,7 @@ public class InviteSteps extends DriverBase {
 				messagePost = data[1];
 				expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", inviteCode);
 				testStepVerify.isEquals(data[0], PropertyUtility.getMessage("customer.invite.mailsub"),
-						"I should see draft post in " + application + " application",
-						"Post message subject should be" + PropertyUtility.getMessage("customer.invite.mailsub"),
+												"Post message subject should be" + PropertyUtility.getMessage("customer.invite.mailsub"),
 						"Post message is" + PropertyUtility.getMessage("customer.invite.mailsub"), "Expected Post message is"
 								+ PropertyUtility.getMessage("customer.invite.mailsub") + ", but actual is " + data[0]);
 				break;
@@ -96,12 +95,11 @@ public class InviteSteps extends DriverBase {
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
 			testStepVerify.contains(messagePost, expectedText,
-					"I should see draft post in " + application + " application",
-					"Post message should be" + expectedText, "Post message is" + expectedText,
+										"Post message should be" + expectedText, "Post message is" + expectedText,
 					"Expected Post message is" + expectedText + ", but actual is" + messagePost);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I should see draft post in " + application + " application", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}

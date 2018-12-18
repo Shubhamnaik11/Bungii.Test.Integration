@@ -32,7 +32,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I add \"([^\"]*)\" PromoCode", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -42,14 +42,14 @@ public class ScheduledBungiiSteps extends DriverBase {
 		try {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
-			Thread.sleep(5000);
+			Thread.sleep(20000);
 			action.swipeDown();
 			boolean isDeleted = isBungiiPresent(tripNoOfDriver, tripTime);
 			testStepVerify.isFalse(isDeleted, "Bungii must be removed from " + screen + " screen",
 					"Bungii Must be deleted", "Bungii is not deleted");
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("Bungii must be removed from " + screen + " screen", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -100,6 +100,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 	 * @return
 	 */
 	public boolean isBungiiPresent(String bungiiType, String bungiiTime) {
-		return scheduledBungiiPage.isElementEnabled(getLocatorForBungii(bungiiType, bungiiTime));
+		try{
+		return scheduledBungiiPage.isElementEnabled(getLocatorForBungii(bungiiType, bungiiTime));}
+		catch (Exception e){
+			return  false;
+		}
 	}
 }

@@ -40,17 +40,17 @@ public class PromoSteps extends DriverBase {
 
 		String inputCode=addUniquePromoCode(codeList);
 		cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputCode);
-		pass("I add "+key+" PromoCode", "I should able to add unique code", "I added code "+inputCode, true);
+		pass( "I should able to add unique code", "I added code "+inputCode, true);
 		
 		testStepVerify.isFalse(inputCode.equals(""),
-				"I add "+key+" PromoCode",
+
 				"I should able to enter unique "+key +"promo code",
 				"I added promocode :"+inputCode,
 				"I was not able to find unique promocode to enter");
 
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I add \"([^\"]*)\" PromoCode", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
 	}
 
@@ -58,11 +58,11 @@ public class PromoSteps extends DriverBase {
     public void i_should_able_to_see_expected_promo_code_in_available_promo_code()  {
     	try{
     	String usedPromoCode=(String)cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
-    	testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code in available promo code", "I should able to see expected promo code '"+usedPromoCode+"' in available promo code", "I was able to see '"+usedPromoCode +"' in available promo code", "I was not able to see '"+usedPromoCode +"' in available promo code");
+    	testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '"+usedPromoCode+"' in available promo code", "I was able to see '"+usedPromoCode +"' in available promo code", "I was not able to see '"+usedPromoCode +"' in available promo code");
    
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I should able to see expected promo code in available promo code", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
     
@@ -72,12 +72,12 @@ public class PromoSteps extends DriverBase {
     	String usedPromoCode=(String)cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
     	addPromoCode(usedPromoCode);
 		testStepAssert.isFalse(usedPromoCode.equals(""),
-				"I add Same Promo Code again",
+
 				"I should able to add Same Promo Code again",
 				"I added promocode :"+usedPromoCode,
 				"I was not able to find previous promocode to enter");	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I add Same Promo Code again", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
 

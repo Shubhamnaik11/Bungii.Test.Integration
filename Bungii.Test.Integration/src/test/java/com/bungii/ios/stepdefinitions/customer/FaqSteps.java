@@ -33,7 +33,7 @@ public class FaqSteps extends DriverBase {
     	
     } catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I tap on  "+key+" on FAQ page", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
 
@@ -75,7 +75,7 @@ private static boolean areAllTrue(boolean[] array)
 				"I was not able to see"+key +"on FAQ page");
     } catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I should see "+key+" on FAQ page", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
 

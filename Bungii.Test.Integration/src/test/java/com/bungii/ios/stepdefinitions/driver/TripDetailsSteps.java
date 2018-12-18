@@ -20,9 +20,9 @@ public class TripDetailsSteps extends DriverBase {
     public void i_accept_selected_bungii() {
     	try{
     	AcceptBungii();
-    	log("I accept selected Bungii","Bungii should be Bungii","Bungii is sucessfully accepted");
+    	log("Bungii should be Bungii","Bungii is sucessfully accepted");
     	}catch(Exception e){
-    		error("I accept selected Bungii","Bungii should be Bungii","Error occured while accepting bungii"+e.getMessage());
+    		error("Bungii should be Bungii","Error occured while accepting bungii"+e.getMessage());
     	}
     	
     }

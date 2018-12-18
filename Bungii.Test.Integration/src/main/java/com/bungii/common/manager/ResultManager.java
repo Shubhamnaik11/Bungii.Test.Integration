@@ -4,6 +4,7 @@ import com.bungii.common.enums.ResultType;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.ScreenshotUtility;
+import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
 import org.testng.Assert;
 
 import java.io.IOException;
@@ -24,9 +25,7 @@ public class ResultManager {
 
 	/**
 	 * Log step details to Result
-	 * 
-	 * @param name
-	 *            Name of step
+	 *
 	 * @param expected
 	 *            Expected result of step
 	 * @param actual
@@ -34,7 +33,8 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void log( String name , String expected, String actual, Boolean... screenDump) {
+	public static void log( String expected, String actual, Boolean... screenDump) {
+		String name= ThreadLocalStepDefinitionMatch.get();
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
 		logger.trace("For steps :"  +name + " expected is :" + expected + " and actual is" + actual);
 	}
@@ -42,8 +42,6 @@ public class ResultManager {
 	/**
 	 * Log step details to Result with status pass
 	 * 
-	 * @param name
-	 *            Name of step
 	 * @param expected
 	 *            Expected result of step
 	 * @param actual
@@ -51,7 +49,9 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void pass(String name, String expected, String actual, Boolean... screenDump) {
+	public static void pass(String expected, String actual, Boolean... screenDump) {
+		String name= ThreadLocalStepDefinitionMatch.get();
+
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 		logger.detail("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
 	}
@@ -59,7 +59,6 @@ public class ResultManager {
 	/**
 	 * Log step details to Result with fail status . Dont stop test
 	 * 
-	 * @param name
 	 *            Name of step
 	 * @param expected
 	 *            Expected result of step
@@ -68,7 +67,8 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void fail(String name, String expected, String actual, Boolean... screenDump) {
+	public static void fail( String expected, String actual, Boolean... screenDump) {
+		String name= ThreadLocalStepDefinitionMatch.get();
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
 		logger.error("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
 		reportManager.verificationFailed();
@@ -76,9 +76,7 @@ public class ResultManager {
 
 	/**
 	 * Log step details to Result with fail status . Stop test
-	 * 
-	 * @param name
-	 *            Name of step
+	 *
 	 * @param expected
 	 *            Expected result of step
 	 * @param actual
@@ -86,7 +84,9 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void error(String name, String expected, String actual, Boolean... screenDump) {
+	public static void error( String expected, String actual, Boolean... screenDump) {
+		String name= ThreadLocalStepDefinitionMatch.get();
+
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.ERROR.toString(), screenDump));
 		logger.error("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
 		reportManager.verificationFailed();
@@ -95,9 +95,7 @@ public class ResultManager {
 
 	/**
 	 * Log step details to Result with warning status .
-	 * 
-	 * @param name
-	 *            Name of step
+	 *
 	 * @param expected
 	 *            Expected result of step
 	 * @param actual
@@ -105,7 +103,9 @@ public class ResultManager {
 	 * @param screenDump
 	 *            take screenshot or not
 	 */
-	public static void warning(String name, String expected, String actual, Boolean... screenDump) {
+	public static void warning( String expected, String actual, Boolean... screenDump) {
+		String name= ThreadLocalStepDefinitionMatch.get();
+
 		reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
 		logger.warning("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
 	}
@@ -138,6 +138,7 @@ public class ResultManager {
 		} catch (IOException e) {
 			logger.error("Error while capturing/coping screenshot" + e.getMessage());
 		}
+
 
 		data.put("name", name);
 		data.put("type", logType);

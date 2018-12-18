@@ -1,7 +1,5 @@
 package com.bungii.common.manager;
 
-import cucumber.api.Scenario;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 /**
@@ -16,11 +14,10 @@ public class AssertManager {
 	/**
 	 * Check is boolean value is true
 	 * @param value boolean value to be checked
-	 * @param testStep Test step name
 	 * @param expectedText Expected Output
 	 * @param errorMessage If check if failed , this message will be displayed  in report
 	 */
-	public  void isTrue(boolean value, String testStep, String expectedText, String errorMessage) {
+	public  void isTrue(boolean value, String expectedText, String errorMessage) {
 
 
 		try {
@@ -28,7 +25,7 @@ public class AssertManager {
 		//	ResultManager.pass(testStep, expectedText, "Success :" + expectedText, true);
 		} catch (AssertionError e) {
 			//Stop test in case of failure
-			///ResultManager.error(testStep, expectedText, errorMessage, true);
+			ResultManager.error( expectedText, errorMessage, true);
 		}
 
 	}
@@ -46,7 +43,7 @@ public class AssertManager {
 		//	ResultManager.pass(testStep, expectedText, "Success :" + expectedText, true);
 		} catch (AssertionError e) {
 			//Stop test in case of failure
-		//	ResultManager.error(testStep, expectedText, errorMessage, true);
+			ResultManager.error( expectedText, errorMessage, true);
 		}
 
 	}
@@ -55,17 +52,16 @@ public class AssertManager {
 	/**
 	 * Check is boolean value is false
 	 * @param value boolean value to be checked
-	 * @param testStep Test step name
 	 * @param expectedText Expected Output
 	 * @param errorMessage If check if failed , this message will be displayed  in report
 	 */
-	public  void isFalse(boolean value, String testStep, String expectedText, String errorMessage) {
+	public  void isFalse(boolean value, String expectedText, String errorMessage) {
 		try {
 			Assert.assertFalse(value, expectedText);
 		//	ResultManager.pass(testStep, expectedText, "Success :" + expectedText, true);
 		} catch (AssertionError e) {
 			//Stop test in case of failure
-		//	ResultManager.error(testStep, expectedText, errorMessage, true);
+			ResultManager.error( expectedText, errorMessage, true);
 		}
 
 	}
@@ -73,17 +69,16 @@ public class AssertManager {
 	/**
 	 * Check is boolean value is false
 	 * @param value boolean value to be checked
-	 * @param testStep Test step name
 	 * @param expectedText Expected Output
 	 * @param errorMessage If check if failed , this message will be displayed  in report
 	 */
-	public  void isFalse(boolean value, String testStep, String expectedText, String successMessage,String errorMessage) {
+	public  void isFalse(boolean value, String expectedText, String successMessage,String errorMessage) {
 		try {
 			Assert.assertFalse(value, expectedText);
-			ResultManager.pass(testStep, expectedText, successMessage, true);
+			ResultManager.pass( expectedText, successMessage, true);
 		} catch (AssertionError e) {
 			//Stop test in case of failure
-			ResultManager.error(testStep, expectedText, errorMessage, true);
+			ResultManager.error( expectedText, errorMessage, true);
 		}
 
 	}

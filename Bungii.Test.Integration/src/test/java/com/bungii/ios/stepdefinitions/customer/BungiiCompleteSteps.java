@@ -46,11 +46,11 @@ public class BungiiCompleteSteps extends DriverBase {
 			default:
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
-			testStepVerify.isEquals(actualTip,tip,"I rate Bungii Driver  with following details and Press "+button+"Button", "Driver should be given tip for "+tip, "Bungii Driver is given tip for" + actualTip,
+			testStepVerify.isEquals(actualTip,tip, "Driver should be given tip for "+tip, "Bungii Driver is given tip for" + actualTip,
                     "Bungii Driver is given tip for" + actualTip);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I rate Bungii Driver  with following details and Press "+button+"Button", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 

@@ -28,7 +28,7 @@ public class BungiiDetailsSteps extends DriverBase {
 			SetupManager.getDriver().switchTo().alert().accept();
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I Cancel selected Bungii", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 

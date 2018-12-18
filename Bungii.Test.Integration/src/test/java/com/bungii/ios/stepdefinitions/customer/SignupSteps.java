@@ -27,7 +27,7 @@ public class SignupSteps extends DriverBase {
 
 		if (source.equals("{BLANK}")) {
 			action.swipeUP();
-			pass("I Select Referral source as " + source, "I leave referral source as empty",
+			pass( "I leave referral source as empty",
 					" I left  referral source as empty", true);
 		} else {
 			try {
@@ -38,17 +38,17 @@ public class SignupSteps extends DriverBase {
 					String value = REFERRAL_SOURCE.valueOf(key).toString();
 					clickReferralSource(value);
 					action.click(signupPage.Button_Done());
-					pass("I Select Referral source as " + source, "I should able to entered referral source as "+source,
+					pass("I should able to entered referral source as "+source,
 							"I entered referral source as "+source, true);
 				} else {
 
-					error("I Select Referral source as " + source, "Please enter valid referral source",
+					error("Please enter valid referral source",
 							"Error performing step,Error", true);
 
 				}
 			} catch (Exception e) {
 				logger.error("Error performing step" + e.getMessage());
-				error("I Select Referral source as " + source, "Step  Should be sucessfull",
+				error( "Step  Should be sucessfull",
 						"Error performing step,Error", true);
 			}
 		}

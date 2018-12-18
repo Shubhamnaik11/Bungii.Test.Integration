@@ -214,6 +214,7 @@ public class ActionManager {
      * Hide keyboard from screen
      */
     public void hideKeyboard() {
+        try {
         IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
                 .findElementByClassName("XCUIElementTypeKeyboard");
         Point keyboardPoint = element.getLocation();
@@ -221,11 +222,11 @@ public class ActionManager {
         PointOption top = PointOption.point(keyboardPoint.getX() + 2, keyboardPoint.getY() - 2);
 
         touchAction.tap(top).perform();
-        try {
+
             Thread.sleep(200);
             logger.detail(" Hidded Key board");
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
