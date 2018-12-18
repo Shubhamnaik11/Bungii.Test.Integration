@@ -47,10 +47,8 @@ public class NotificationSteps extends DriverBase {
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
 		e.getStackTrace();
-		logger.error("Error performing step" + e.getMessage());
-
 		e.printStackTrace();
-		error("I click on notification for \"([^\"]*)\" for \"([^\"]*)\"", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 
 	}
 	}
@@ -82,7 +80,7 @@ public class NotificationSteps extends DriverBase {
 			appHeaderName="BUNGII";
 			break;
 		default:
-			error("Switch application " + appName, "UnIm plemented Step or in correct app", "UnImplemented Step");
+			error("UnIm plemented Step or in correct app", "UnImplemented Step");
 			break;
 		}
 		return appHeaderName;
@@ -97,7 +95,7 @@ public class NotificationSteps extends DriverBase {
     	String expectedMessage=getExpectedNotification(actionToPerfrom);
     	boolean isDisplayed=checkNotification(getAppHeader(actor),expectedMessage );
 
-    	testStepVerify.isTrue(isDisplayed,"Notification for "+actor+" for "+actionToPerfrom+" should be displayed", actor+" should be notified for "+expectedMessage, actor+" was notified for "+expectedMessage, "Not able to get notification with text for '"+expectedMessage +"' for"+actor );
+    	testStepVerify.isTrue(isDisplayed, actor+" should be notified for "+expectedMessage, actor+" was notified for "+expectedMessage, "Not able to get notification with text for '"+expectedMessage +"' for"+actor );
 		action.hideNotifications();
     	action.switchApplication(bunddleId);
     	}
@@ -113,16 +111,16 @@ public class NotificationSteps extends DriverBase {
 			
 			boolean cleared = clearAllNotifcation();
 			if (cleared)
-				log("I clear all notification", "I should able cleared all notification", "I cleared all notification");
+				log( "I should able cleared all notification", "I cleared all notification");
 			else
-				log("I clear all notification", "I should able cleared all notification",
+				log( "I should able cleared all notification",
 						"Not notification found on device");
 		
 			action.hideNotifications();
 			((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I clear all notification", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 
 		}
 	}
@@ -206,7 +204,7 @@ public class NotificationSteps extends DriverBase {
 
 		for (WebElement notifcation : elements) {
 			String notificationText = notifcation.getAttribute("label");
-			System.err.println("Cleared notification :" + notificationText);
+			logger.detail("Cleared notification :" + notificationText);
 
 			action.swipeLeft(notifcation);
 			if (notifcation.isDisplayed())

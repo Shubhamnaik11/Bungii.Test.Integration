@@ -1,8 +1,6 @@
 package com.bungii.ios.pages.other;
 
 import com.bungii.common.core.PageBase;
-
-
 import org.openqa.selenium.WebElement;
 
 public class MessagesPage extends PageBase {

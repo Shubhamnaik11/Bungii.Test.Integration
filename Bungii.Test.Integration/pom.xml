@@ -29,7 +29,6 @@
         <joda.time>2.10</joda.time>
         <appium.java.client>e6bef4c917e8892ba8320e4837e80c9123487b14</appium.java.client>
         <my.sql.server.version></my.sql.server.version>
-        <serenity.version>2.0.23</serenity.version>
     </properties>
     <repositories>
         <repository>
@@ -131,17 +130,6 @@
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-chrome-driver</artifactId>
             <version>3.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-core</artifactId>
-            <version>${serenity.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/net.thucydides/thucydides-core -->
-        <dependency>
-            <groupId>net.thucydides</groupId>
-            <artifactId>thucydides-core</artifactId>
-            <version>0.9.125</version>
         </dependency>
 
     </dependencies>

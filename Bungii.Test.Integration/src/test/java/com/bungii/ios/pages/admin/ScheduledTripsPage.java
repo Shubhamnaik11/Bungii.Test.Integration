@@ -15,27 +15,18 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_Success() {
         return findElement("SuccessMessage", LocatorType.Id);
     }
-
-
     public WebElement TextBox_Phone() {
         return findElement("PhoneNo", LocatorType.Name);
     }
-
-    public List<WebElement> Row_TripDetails() {
-        return findElements("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]", LocatorType.XPath);
-    }
+    public List<WebElement> Row_TripDetails() { return findElements("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]", LocatorType.XPath); }
 
     public WebElement TableBody_TripDetails() {
         return findElement("TripListsTBody", LocatorType.Id);
     }
 
-    public WebElement RadioBox_Cancel() {
-        return findElement("//div[@class='customerCancel']/input", LocatorType.XPath);
-    }
+    public WebElement RadioBox_Cancel() {return findElement("//div[@class='customerCancel']/input", LocatorType.XPath);}
 
-    public WebElement RadioBox_Research() {
-        return findElement("//div[contains(@class,'driverCancel ')]/input", LocatorType.XPath);
-    }
+    public WebElement RadioBox_Research() {return findElement("//div[contains(@class,'driverCancel ')]/input", LocatorType.XPath); }
 
     public WebElement TextBox_CancelFee() {
         return findElement("txtCancellationFee", LocatorType.Id);
@@ -49,5 +40,9 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("CustomerCancel", LocatorType.Name);
     }
 
+    public void waitForLoadingToDisappear(){
+        waitForLoadingToDisappear();
+    }
 
+   // wait
 }

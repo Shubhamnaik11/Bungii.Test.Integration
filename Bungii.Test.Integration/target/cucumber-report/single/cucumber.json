@@ -1,0 +1,448 @@
+[
+  {
+    "line": 3,
+    "elements": [
+      {
+        "before": [
+          {
+            "result": {
+              "duration": 1074900,
+              "status": "passed"
+            },
+            "match": {
+              "location": "CucumberHooks.beforeTest(Scenario)"
+            }
+          }
+        ],
+        "line": 205,
+        "name": "Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app",
+        "description": "",
+        "id": "to-test-solo---scheduling-bungii;cancel-bungii-from-admin-panel---verify-trip-is-gone-from-scheduled-trip-in-app",
+        "after": [
+          {
+            "result": {
+              "duration": 612071300,
+              "status": "passed"
+            },
+            "match": {
+              "location": "CucumberHooks.afterTest(Scenario)"
+            }
+          }
+        ],
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 39180142000,
+              "status": "passed"
+            },
+            "line": 206,
+            "name": "I Select \"ACCOUNT\" from Customer App menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "ACCOUNT",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 15455569700,
+              "status": "passed"
+            },
+            "line": 207,
+            "name": "I get customer account details",
+            "match": {
+              "location": "AccountSteps.i_get_customer_account_details()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 33666496900,
+              "status": "passed"
+            },
+            "line": 208,
+            "name": "I Select \"Home\" from Customer App menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Home",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 195768270000,
+              "status": "passed"
+            },
+            "line": 209,
+            "name": "I request for  bungii",
+            "match": {
+              "location": "HomeSteps.iRequestForBungii(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "Driver",
+                  "Distance"
+                ]
+              },
+              {
+                "cells": [
+                  "Solo",
+                  "Long"
+                ]
+              }
+            ],
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 9924974400,
+              "status": "passed"
+            },
+            "line": 212,
+            "name": "I click \"Get Estimate\" button on \"Home\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Get Estimate",
+                  "offset": 9
+                },
+                {
+                  "val": "Home",
+                  "offset": 34
+                }
+              ],
+              "location": "CommonSteps.iClickButtonOnScreen(String,String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 24281802600,
+              "status": "passed"
+            },
+            "line": 213,
+            "name": "I should be navigated to \"Estimate\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Estimate",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.i_should_be_naviagated_to_something_screen(String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 242722014700,
+              "status": "passed"
+            },
+            "line": 214,
+            "name": "I confirm trip with following details",
+            "match": {
+              "location": "EstimateSteps.iEnterTripInformation(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "LoadTime",
+                  "PromoCode",
+                  "PayMentCard",
+                  "Time",
+                  "PickUpImage"
+                ]
+              },
+              {
+                "cells": [
+                  "30",
+                  "",
+                  "",
+                  "NEXT_POSSIBLE",
+                  "Default"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 20418648000,
+              "status": "passed"
+            },
+            "line": 217,
+            "name": "I should be navigated to \"Success\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Success",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.i_should_be_naviagated_to_something_screen(String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 4103761200,
+              "status": "passed"
+            },
+            "line": 218,
+            "name": "I click \"Done\" button on \"Success\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Done",
+                  "offset": 9
+                },
+                {
+                  "val": "Success",
+                  "offset": 26
+                }
+              ],
+              "location": "CommonSteps.iClickButtonOnScreen(String,String)"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 2472993300,
+              "status": "passed"
+            },
+            "line": 219,
+            "name": "I open new \"Chrome\" browser for \"ADMIN\"",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Chrome",
+                  "offset": 12
+                },
+                {
+                  "val": "ADMIN",
+                  "offset": 33
+                }
+              ],
+              "location": "CommonSteps.i_open_new_something_browser_for_something_instance(String,String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1776082500,
+              "status": "passed"
+            },
+            "line": 220,
+            "name": "I naviagate to admin portal",
+            "match": {
+              "location": "LogInSteps.i_naviagate_to_admin_portal()"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 10062913200,
+              "status": "passed"
+            },
+            "line": 221,
+            "name": "I log in to admin portal",
+            "match": {
+              "location": "LogInSteps.i_log_in_to_admin_portal()"
+            },
+            "keyword": "And "
+          },
+          {
+            "result": {
+              "duration": 856970600,
+              "status": "passed"
+            },
+            "line": 222,
+            "name": "I Select \"Scheduled Trip\" from admin sidebar",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Scheduled Trip",
+                  "offset": 10
+                }
+              ],
+              "location": "DashBoardSteps.i_select_something_from_admin_sidebar(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 213538476400,
+              "status": "passed"
+            },
+            "line": 224,
+            "name": "I Cancel Bungii with following details",
+            "match": {
+              "location": "ScheduledTripSteps.i_cancel_bungii_with_following_details(DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "Charge",
+                  "Comments"
+                ]
+              },
+              {
+                "cells": [
+                  "15",
+                  "TEST"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 2503458800,
+              "status": "passed"
+            },
+            "line": 227,
+            "name": "\"Bungii Cancel\" message should be displayed on \"Scheduled Trips\" page",
+            "match": {
+              "arguments": [
+                {
+                  "val": "Bungii Cancel",
+                  "offset": 1
+                },
+                {
+                  "val": "Scheduled Trips",
+                  "offset": 48
+                }
+              ],
+              "location": "CommonSteps.something_message_should_be_displayed_on_something_page(String,String)"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 699086900,
+              "status": "passed"
+            },
+            "line": 228,
+            "name": "Bungii must be removed from the List",
+            "match": {
+              "location": "ScheduledTripSteps.bungii_must_be_removed_from_the_list()"
+            },
+            "keyword": "Then "
+          },
+          {
+            "result": {
+              "duration": 765942200,
+              "status": "passed"
+            },
+            "line": 229,
+            "name": "I switch to \"ORIGINAL\" instance",
+            "match": {
+              "arguments": [
+                {
+                  "val": "ORIGINAL",
+                  "offset": 13
+                }
+              ],
+              "location": "CommonSteps.i_switch_to_something_instance(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 817373400,
+              "status": "passed"
+            },
+            "line": 230,
+            "name": "I Switch to \"customer\" application on \"same\" devices",
+            "match": {
+              "arguments": [
+                {
+                  "val": "customer",
+                  "offset": 13
+                },
+                {
+                  "val": "same",
+                  "offset": 39
+                }
+              ],
+              "location": "CommonSteps.i_switch_to_something_application_on_something_devices(String,String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 37527866900,
+              "status": "passed"
+            },
+            "line": 231,
+            "name": "I Select \"SCHEDULED BUNGIIS\" from Customer App menu",
+            "match": {
+              "arguments": [
+                {
+                  "val": "SCHEDULED BUNGIIS",
+                  "offset": 10
+                }
+              ],
+              "location": "HomeSteps.i_select_something_from_customer_app_menu(String)"
+            },
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 48146779600,
+              "status": "passed"
+            },
+            "line": 233,
+            "name": "Bungii must be removed from \"SCHEDULED BUNGIIS\" screen",
+            "match": {
+              "arguments": [
+                {
+                  "val": "SCHEDULED BUNGIIS",
+                  "offset": 29
+                }
+              ],
+              "location": "ScheduledBungiiSteps.bungii_must_be_removed_from_something_screen(String)"
+            },
+            "keyword": "Then "
+          }
+        ],
+        "tags": [
+          {
+            "name": "@tag"
+          },
+          {
+            "name": "@Solo_SchedulingTEST"
+          }
+        ]
+      }
+    ],
+    "name": "To Test Solo - Scheduling Bungii",
+    "description": "  I want to use request Scheduling Bungii with Solo type\n  Assume customer is logged in",
+    "id": "to-test-solo---scheduling-bungii",
+    "keyword": "Feature",
+    "uri": "target/test-classes/features/ios/Integration/Scheduling_SOLO.feature",
+    "tags": [
+      {
+        "name": "@tag",
+        "type": "Tag",
+        "location": {
+          "line": 2,
+          "column": 1
+        }
+      }
+    ]
+  }
+]

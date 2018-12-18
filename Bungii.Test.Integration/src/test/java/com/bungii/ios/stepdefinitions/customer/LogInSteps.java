@@ -30,12 +30,12 @@ public class LogInSteps extends DriverBase {
             action.waitClearEnterText(loginPage.Textfield_PhoneNumber(),strUserName);
             action.waitClearEnterText(loginPage.Textfield_Password(),strPassWord);
 
-            pass("I enter username and password ", "USername and Password should be added sucessfully",
+            pass( "USername and Password should be added sucessfully",
                     "Username :"+ strUserName+", and password :"+strPassWord+",is added sucessfully");
 
         } catch (Exception e) {
             logger.error("Error performing step" + e.getMessage());
-            error("I enter valid "+username+" and "+password+" as per below table", "Step  Should be sucessfull", "Error performing step,Error", true);
+            error( "Step  Should be sucessfull", "Error performing step,Error", true);
         }
     }
 }

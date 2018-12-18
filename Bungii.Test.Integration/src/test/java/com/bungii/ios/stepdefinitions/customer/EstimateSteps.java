@@ -68,7 +68,7 @@ public class EstimateSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I confirm trip with following details", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 
@@ -132,7 +132,7 @@ public class EstimateSteps extends DriverBase {
 			selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I select Bungii time as per table", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 	}
@@ -252,7 +252,7 @@ public class EstimateSteps extends DriverBase {
 				actualMessage = getInfoMessage("TOTAL ESTIMATE");
 				break;
 			default:
-				fail(iconName + " information icon should display correct information", "Step  Should be sucessfull",
+				fail( "Step  Should be sucessfull",
 						"UnImplemented STEP , please verify test step", true);
 				break;
 			}
@@ -263,7 +263,7 @@ public class EstimateSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error(iconName + " information icon should display correct information", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -276,7 +276,7 @@ public class EstimateSteps extends DriverBase {
 
 			boolean flag = checkLoadingTime(loadTimeValue[i]);
 			testStepVerify.isTrue(flag,
-					"check if I have ability to select different load time and Estimate cost is re calculated",
+
 					"I should able to to select " + loadTimeValue[i] + "mins as load time",
 					"I was able to to select " + loadTimeValue[i] + "mins as load time",
 					"I was not able to to select " + loadTimeValue[i] + "mins as load time");
@@ -284,7 +284,6 @@ public class EstimateSteps extends DriverBase {
 
 			if (i == 0)
 				testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
-						"check if I have ability to select different load time and Estimate cost is re calculated",
 						"total Estimated cost is calculated considering  Loading/unloading time",
 						"Total Estimate cost for first scroll value should be same as default one, Previous cost is "
 								+ oldEstimateValue + " , new cost is " + newEstimateValue,
@@ -292,7 +291,7 @@ public class EstimateSteps extends DriverBase {
 			else
 				testStepVerify
 						.isFalse(newEstimateValue.equals(oldEstimateValue),
-								"check if I have ability to select different load time and Estimate cost is re calculated",
+
 								"total Estimated cost is calculated considering  Loading/unloading time",
 								"Total Estimate cost is recalculated , previous cost is" + oldEstimateValue
 										+ " , new cost is" + newEstimateValue,
@@ -331,7 +330,7 @@ public class EstimateSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("","");
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I confirm trip with following details", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 	}
@@ -358,7 +357,7 @@ public class EstimateSteps extends DriverBase {
 		} catch (Exception e) {
 
 			logger.error("Error performing step" + e.getMessage());
-			error("Estimate Screen should have element as per below table", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -373,11 +372,11 @@ public class EstimateSteps extends DriverBase {
 		boolean isElementPresent = checkIfElementIsPresent("REQUEST BUNGII");
 
 		if (expectedValue.equalsIgnoreCase("DISABLED"))
-			testStepVerify.isFalse(isElementPresent, "Verify 'REQUEST BUNGII' button presence",
+			testStepVerify.isFalse(isElementPresent,
 					"REQUEST BUNGII' button should be disabled", "REQUEST BUNGII' button is disabled",
 					"REQUEST BUNGII' button is enabled");
 		else
-			testStepVerify.isTrue(isElementPresent, "Verify 'REQUEST BUNGII' button presence",
+			testStepVerify.isTrue(isElementPresent,
 					"REQUEST BUNGII' button should be enabled", "REQUEST BUNGII' button is enabled",
 					"REQUEST BUNGII' button is disabled");
 
@@ -400,12 +399,11 @@ public class EstimateSteps extends DriverBase {
 		String expectedMsg = PropertyUtility.getMessage("customer.text.terms");
 		boolean isValueCorrect = value.equals(expectedMsg);
 
-		testStepVerify.isTrue(isElementPresent, "Verify Terms & Condition checkBox",
+		testStepVerify.isTrue(isElementPresent,
 				"Verify Terms & Condition checkBox should be " + expectedValue,
 				"Verify Terms & Condition checkBox is " + expectedValue,
 				"Verify Terms & Condition checkBox is not " + expectedValue);
 		testStepVerify.isTrue(isValueCorrect,
-				"Verify Value for 'Terms & Condition' Should be " + PropertyUtility.getMessage("customer.text.terms"),
 				" Terms & Condition value Should be " + PropertyUtility.getMessage("customer.text.terms"),
 				" Terms & Condition value is " + PropertyUtility.getMessage("customer.text.terms") + "as expected",
 				"'Terms & Condition' value is not matching ,expected is" + PropertyUtility.getMessage("customer.text.terms")
@@ -424,10 +422,10 @@ public class EstimateSteps extends DriverBase {
 		String value = getElementValue("Time");
 		System.err.println("Value is " + value);
 		boolean isValueCorrect = value.equals(expectedValue);
-		testStepVerify.isTrue(isElementPresent, "Verify Time row is present", "'Time' row should be present",
+		testStepVerify.isTrue(isElementPresent, "'Time' row should be present",
 				"'Time' row  is present'", "'Time' row  not present'");
 		if (!expectedValue.equals(""))
-			testStepVerify.isTrue(isValueCorrect, "Verify Value for Time Should be " + expectedValue,
+			testStepVerify.isTrue(isValueCorrect,
 					" Time value Should be " + expectedValue, " Time value is " + expectedValue + "as expected",
 					"'Time' value is not matching ,expected is" + expectedValue + "but actual is" + value);
 
@@ -446,10 +444,10 @@ public class EstimateSteps extends DriverBase {
 
 		boolean isValueCorrect = value.equals(expectedValue);
 
-		testStepVerify.isTrue(isElementPresent, "Verify Payment Method row is present",
+		testStepVerify.isTrue(isElementPresent,
 				"'Payment Method' row should be present", "'Payment Method' row  is present'",
 				"'Payment Method' row  not present'");
-		testStepVerify.isTrue(isValueCorrect, "Verify Value for Payment Method Should be " + expectedValue,
+		testStepVerify.isTrue(isValueCorrect,
 				" Payment Method value Should be " + expectedValue,
 				" Payment Method value is " + expectedValue + "as expected",
 				"'Payment Method' value is not matching ,expected is" + expectedValue + "but actual is" + value);
@@ -480,10 +478,10 @@ public class EstimateSteps extends DriverBase {
 			isValueCorrect = value.equals(expectedValue);
 		}
 
-		testStepVerify.isTrue(isElementPresent, "Verify Total Estimate row is present",
+		testStepVerify.isTrue(isElementPresent,
 				"'Total Estimate' row should be present", "'Total Estimate' row  is present'",
 				"'Total Estimate' row  not present'");
-		testStepVerify.isTrue(isValueCorrect, "Verify Value for Total Estimate Should be " + expectedValue,
+		testStepVerify.isTrue(isValueCorrect,
 				" Total Estimate value Should be " + expectedValue, " Time value is " + value + " as expected",
 				"' Total Estimate' value is not matching ,expected is" + expectedValue + "but actual is" + value);
 
@@ -502,10 +500,10 @@ public class EstimateSteps extends DriverBase {
 
 		boolean isValueCorrect = value.equals(expectedValue);
 
-		testStepVerify.isTrue(isElementPresent, "Verify Promo Code row is present",
+		testStepVerify.isTrue(isElementPresent,
 				"'Promo Code' row should be present", "'Promo Code' row  is present'",
 				"'Promo Code' row  not present'");
-		testStepVerify.isTrue(isValueCorrect, "Verify Value for Promo Code Should be " + expectedValue,
+		testStepVerify.isTrue(isValueCorrect,
 				" Promo Code value Should be " + expectedValue, " Promo Code value is " + expectedValue + "as expected",
 				"'Promo Code' value is not matching ,expected is" + expectedValue + "but actual is" + value);
 
@@ -527,10 +525,10 @@ public class EstimateSteps extends DriverBase {
 
 		}
 		isValueCorrect = value.equals(expectedValue);
-		testStepVerify.isTrue(isElementPresent, "Verify Load/unload time row is present",
+		testStepVerify.isTrue(isElementPresent,
 				"'Load/unload time' row should be present", "'Load/unload time' row  is present'",
 				"'Load/unload time' row  not present'");
-		testStepVerify.isTrue(isValueCorrect, "Verify Value for Load/unload time Should be " + expectedValue,
+		testStepVerify.isTrue(isValueCorrect,
 				" Load/unload time value Should be " + expectedValue,
 				"Load/unload time value is " + expectedValue + "as expected",
 				"'Load/unload time' value is not matching ,expected is" + expectedValue + "but actual is" + value);
@@ -563,10 +561,10 @@ public class EstimateSteps extends DriverBase {
 			isValueCorrect = value.equals(expectedValue);
 		}
 
-		testStepVerify.isTrue(isElementPresent, "Verify Trip Distance row is present",
+		testStepVerify.isTrue(isElementPresent,
 				"'Trip Distance' row should be present", "'Trip Distance' row  is present'",
 				"'Trip Distance' row  not present'");
-		testStepVerify.isTrue(isValueCorrect, "Verify Value for Trip Distance Should be " + expectedValue,
+		testStepVerify.isTrue(isValueCorrect,
 				" Trip Distance value Should be " + expectedValue, " Trip Distance value is " + value + " as expected",
 				"'Trip Distance' value is not matching ,expected is" + expectedValue + "but actual is" + value);
 

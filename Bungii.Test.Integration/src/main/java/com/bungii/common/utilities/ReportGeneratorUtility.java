@@ -100,6 +100,7 @@ public class ReportGeneratorUtility {
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
 		addTestCaseEntryInDetailsTable(tcName);
+		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
 
 	/**
@@ -172,8 +173,11 @@ public class ReportGeneratorUtility {
 			status = "Failed";
 			failed++;
 		}
-		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
+
+		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);
+/*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
+				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
 		str1 = "<td>" + tcName + "</td><td>" + status + "</td>" + str;
 		summaryArray.add(str1);

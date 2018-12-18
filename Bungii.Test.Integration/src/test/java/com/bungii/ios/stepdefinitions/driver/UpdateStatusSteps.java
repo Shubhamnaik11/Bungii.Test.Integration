@@ -107,9 +107,9 @@ public class UpdateStatusSteps extends DriverBase {
 		}
 		
 		if(isInfoCorrectlyDisplayed&&isCustomerNameCorrect){
-			pass("Trip Information should be correctly displayed on "+key+" status screen for driver","Trip Information should be correctly displayed and customer name :"+expectedCustName +"should be displayed","Trip Information is correctly displayed and customer name :"+expectedCustName +"is displayed correctly");
+			pass("Trip Information should be correctly displayed and customer name :"+expectedCustName +"should be displayed","Trip Information is correctly displayed and customer name :"+expectedCustName +"is displayed correctly");
 		}else{
-			fail("Trip Information should be correctly displayed on "+key+" status screen for driver","Trip Information should be correctly displayed and customer name :"+expectedCustName +"should be displayed","Trip Information is correctly displayed and customer name :"+expectedCustName +"is displayed correctly");
+			fail("Trip Information should be correctly displayed and customer name :"+expectedCustName +"should be displayed","Trip Information is correctly displayed and customer name :"+expectedCustName +"is displayed correctly");
 
 		}
 
@@ -139,13 +139,13 @@ public class UpdateStatusSteps extends DriverBase {
 
 		// is both condition is true print single log else individual log
 		if (isPhoneNumCorrect && isMessagePage) {
-			pass("correct details should be displayed to driver on sms app", "I should be navigated to SMS app",
+			pass( "I should be navigated to SMS app",
 					"I was navigated to SMS app and To field contained number" + expectedNumber, true);
 		} else {
-			testStepVerify.isTrue(isMessagePage, "correct details should be displayed to driver on sms app",
+			testStepVerify.isTrue(isMessagePage,
 					"I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
 
-			testStepVerify.isTrue(isPhoneNumCorrect, "correct details should be displayed to driver on sms app",
+			testStepVerify.isTrue(isPhoneNumCorrect,
 					"To Field should contains " + expectedNumber,
 					"To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
 					"To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
@@ -166,19 +166,19 @@ public class UpdateStatusSteps extends DriverBase {
 
 		// is both condition is true print single log else individual log
 		if (isMessageCorrect && isOptionsCorrect) {
-			pass("correct details should be displayed to driver on call app",
+			pass(
 					"I should be alerted to call twillo number",
 					"I was Alert to call twilio number and have option to cancel and call twilio number , options are"
 							+ options.get(0) + " and " + options.get(1),
 					true);
 		} else {
-			testStepVerify.isTrue(isMessageCorrect, "correct details should be displayed to driver on call app",
+			testStepVerify.isTrue(isMessageCorrect,
 					"I should be alerted to call twillo number", "Twillo number was displayed in alert message",
 					"Twillo number was not displayed in alert message , Actual message :" + actualMessage
 							+ " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
 
 			testStepVerify
-					.isTrue(isOptionsCorrect, "correct details should be displayed to driver on call app",
+					.isTrue(isOptionsCorrect,
 							"Alert should have option to cancel and call twilio number ",
 							"Alert  have option to cancel and call twilio number , options are" + options.get(0)
 									+ " and " + options.get(1),
@@ -199,13 +199,12 @@ public class UpdateStatusSteps extends DriverBase {
 
 		} else {
 			testStepVerify.isEquals(actualInfo.get(0), "DROP OFF LOCATION",
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
 					"'DROP OFF LOCATION' Tag should correctly displayed",
 					"'DROP OFF LOCATION' Tag is correctly displayed",
 					"'PDROP OFF LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isEquals(actualInfo.get(1), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
@@ -229,18 +228,18 @@ public class UpdateStatusSteps extends DriverBase {
 
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
 					"'PICKUP LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isETACorrect,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"ETA should be correctly displayed",
 					"'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
 					"'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
 
 			testStepVerify.isTrue(isPickUpDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String)cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
@@ -263,19 +262,19 @@ public class UpdateStatusSteps extends DriverBase {
 
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"'DROP OFF LOCATION' Tag should correctly displayed",
 					"'DROP OFF LOCATION' Tag is correctly displayed",
 					"'PDROP OFF LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isETAdisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"ETA should be correctly displayed",
 					"'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
 					"'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
 
 			testStepVerify.isTrue(isDropDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for driver",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
@@ -295,12 +294,12 @@ public class UpdateStatusSteps extends DriverBase {
 			//removed pass statement to avoid multiple screenshot and log in result
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on update status screen for driver",
+
 					"'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
 					"'PICKUP LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isPickupDisplayed,
-					"Trip Information should be correctly displayed on update status screen for driver",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
@@ -338,13 +337,13 @@ public class UpdateStatusSteps extends DriverBase {
 			boolean otherOne = verifyStatus(scrValue);
 			if (otherOne == true) {
 
-				fail("I should be naviagated to " + screen + " trip status screen",
+				fail(
 						scr + " screen icon should not be higlighted", scr + " screen icon is higlighted", true);
 			}
 
 		}
 		testStepVerify.isTrue(pageFlag && activeStatusFlag,
-				"I should be naviagated to " + screen + " trip status screen",
+
 				"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
 	}
 

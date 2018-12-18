@@ -24,13 +24,13 @@ public class ForgotPasswordSteps extends DriverBase {
             String smsCode = DbUtility.getVerificationCode(phoneNumber);
 
             cucumberContextManager.setScenarioContext("SMS_CODE", smsCode);
-            testStepAssert.isFalse(smsCode.equals(""), "I Get SMS CODE for " + strArg1,
+            testStepAssert.isFalse(smsCode.equals(""),
                     "I should able to fetch value for sms code", "SMS CODE for " + strArg1 + " is " + smsCode,
                     "Not able to fetch sms code for " + strArg1);
 
         } catch (Throwable e) {
             logger.error("Error performing step" + e.getMessage());
-            error("I Get SMS CODE for " + strArg1, "Step  Should be sucessfull", "Error performing step,Error", true);
+            error( "Step  Should be sucessfull", "Error performing step,Error", true);
         }
     }
 }

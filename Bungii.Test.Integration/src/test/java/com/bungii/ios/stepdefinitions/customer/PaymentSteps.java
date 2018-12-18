@@ -27,17 +27,17 @@ public class PaymentSteps extends DriverBase {
     @Then("^PAYMENT page should be properly displayed$")
     public void payment_page_should_be_properly_displayed()  {
     	try{
-		testStepVerify.isTrue(paymentPageInfoCorrect() ,"PAYMENT page should be properly displayed ","Add New payment method should be displayed",
+		testStepVerify.isTrue(paymentPageInfoCorrect() ,"Add New payment method should be displayed",
 				 "Add New payment method is displayed",
 				 "Add New payment method is not displayed");
 		
-		testStepVerify.isTrue(!isSaveButtonEnabled() ,"PAYMENT page should be properly displayed ","Save button should be disabled",
+		testStepVerify.isTrue(!isSaveButtonEnabled() ,"Save button should be disabled",
 				 "Save button should be disabled",
 				 "Save button should be disabled");
 		
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("PAYMENT page should be properly displayed", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
     
@@ -47,12 +47,12 @@ public class PaymentSteps extends DriverBase {
     	addCardDetails(cardno,expiry);
     	cucumberContextManager.setScenarioContext("CARD_NUMBER", cardno);
     	cucumberContextManager.setScenarioContext("CARD_EXPIRY", expiry);
-		pass("I enter (.+) and (.+) on Card Details page",
+		pass(
 				"I should able enter "+cardno+" and "+expiry+" on Card Details page",
 				"I entered "+cardno+" and "+expiry+" on Card Details page",
 				true);
     	}catch (Exception e) {
-    		fail("I enter "+cardno+" and "+expiry+" on Card Details page",
+    		fail(
     				"I should able enter "+cardno+" and "+expiry+" on Card Details page",
     				"I entered "+cardno+" and "+expiry+" on Card Details page",
     				true);		
@@ -64,13 +64,13 @@ public class PaymentSteps extends DriverBase {
     	try{
 
     	leftSwipeOtherCard();
-		pass("I swipe"+arg1 +" card on the payment page",
+		pass(
 				"I swipe"+arg1 +" card on the payment page",
 				"I swipe"+arg1 +" card on the payment page",
 				true);
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I swipe "+arg1+" card on the payment page", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error("Step  Should be sucessfull", "Error performing step,Error", true);
 	}
 	}
 	
@@ -82,7 +82,7 @@ public class PaymentSteps extends DriverBase {
     	cucumberContextManager.setScenarioContext("DEFAULT_CARD", currentDefaultCard);
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I get "+strArg1+" default card", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
 	
@@ -92,33 +92,33 @@ public class PaymentSteps extends DriverBase {
 
     	switch (action.toLowerCase()) {
 		case "invalid card":
-			testStepVerify.isTrue(isFieldInvalid("card number"),"I should see "+action+" on Payment page ","I should see "+action +" error",
+			testStepVerify.isTrue(isFieldInvalid("card number"),"I should see "+action +" error",
 					 "I was able to see "+action +" error",
 					 "I was not able to see "+action +" error");
 			break;
 		case "invalid expiry":
-			testStepVerify.isTrue(isFieldInvalid("expiry"),"I should see "+action+" on Payment page ","I should see "+action +" error",
+			testStepVerify.isTrue(isFieldInvalid("expiry"),"I should see "+action +" error",
 					 "I was able to see "+action +" error",
 					 "I was not able to see "+action +" error");
 			break;
 		case "the card has been deleted":
 			int noOfCard = getNumberOfOtherCard();
 			int beforeDelete =(int) cucumberContextManager.getScenarioContext("NO_CARD_BEFORE");
-			testStepVerify.isTrue(noOfCard==beforeDelete-1,"I should see "+action+" on Payment page ","Card should deleted from payment page",
+			testStepVerify.isTrue(noOfCard==beforeDelete-1,"Card should deleted from payment page",
 					 "Card is deleted from payment page",
 					"Card is not deleted from payment page");
 			break;
 		case "new card":
 	    	String cardNumber =(String) cucumberContextManager.getScenarioContext("CARD_NUMBER");
 	    	
-			testStepVerify.isTrue(isCardPresent(cardNumber.substring(12)),"I should see "+action+" on Payment page ","I should see "+action +"",
+			testStepVerify.isTrue(isCardPresent(cardNumber.substring(12)),"I should see "+action +"",
 					 "I was able to see "+action +" ",
 					 "I was not able to see "+action +" ");
 			break;
 		case "new default card":
 			String prvDefaultCard =(String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
 	    	String currentDefaultCard=getDefaultCardNumber();
-			testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard),"I should see "+action+" on Payment page ","I should see "+action +"",
+			testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard),"I should see "+action +"",
 					 "Previous default card was "+prvDefaultCard +" and new card is "+currentDefaultCard,
 					 "Previous card is same as new default card");
 			break;
@@ -127,7 +127,7 @@ public class PaymentSteps extends DriverBase {
 		}
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I should see "+action+" on Payment page", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
     
@@ -142,7 +142,7 @@ public class PaymentSteps extends DriverBase {
     	}else if(key.equalsIgnoreCase("Other card")){
     		String defaultCard=(String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
     		boolean clicked =clickOtherCard(defaultCard);
-			testStepVerify.isTrue(clicked,"I tap on "+key+" on Payment page ","I should able to click on card having different last 4 digit then default one",
+			testStepVerify.isTrue(clicked,"I should able to click on card having different last 4 digit then default one",
 					 "I was able to click Other card not having card number "+defaultCard,
 					 "I was not able to click Other card not having card number "+defaultCard);
     	}else if(key.equalsIgnoreCase("Checkbox")){
@@ -151,7 +151,7 @@ public class PaymentSteps extends DriverBase {
     	}
 	} catch (Exception e) {
 		logger.error("Error performing step" + e.getMessage());
-		error("I tap on "+key+" on Payment page", "Step  Should be sucessfull", "Error performing step,Error", true);
+		error( "Step  Should be sucessfull", "Error performing step,Error", true);
 	}
     }
 

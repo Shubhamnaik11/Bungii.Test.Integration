@@ -25,14 +25,14 @@ public class VerificationSteps extends DriverBase {
 			action.waitClearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
 			action.click(verificationPage.Button_Verify());
 
-			pass("I enter "+strArg1+" Verification code", "I should able to enter verification code",
+			pass( "I should able to enter verification code",
 					"I entered verification code : " + smsCode +"in sms code field", true);
 			//TODO:REMOVE THIS
 			Thread.sleep(20000);
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I enter "+strArg1+" Verification code", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 

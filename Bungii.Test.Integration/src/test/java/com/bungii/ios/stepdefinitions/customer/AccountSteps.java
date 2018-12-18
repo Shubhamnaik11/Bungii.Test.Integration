@@ -37,11 +37,11 @@ public class AccountSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",phone );
 			
 			logger.detail("I get customer account details , Customer name is " + details[0]);
-			log("I get customer account details", "I get customer account details", "Customer name is " + details[0],
+			log( "I get customer account details", "Customer name is " + details[0],
 					true);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I get customer account details", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error("Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 

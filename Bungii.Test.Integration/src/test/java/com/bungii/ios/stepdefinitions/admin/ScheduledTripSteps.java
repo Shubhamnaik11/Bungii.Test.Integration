@@ -60,12 +60,12 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			cancelBungii(tripDetails, cancelCharge, comments);
-			log("I Cancel Bungii with following details", "I should able to cancel bungii", "I was able to cancel bungii",
+			log( "I should able to cancel bungii", "I was able to cancel bungii",
 					true);
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I Cancel Bungii with following details", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 
@@ -104,15 +104,15 @@ public class ScheduledTripSteps extends DriverBase {
 				scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
 			}
-			testStepVerify.isTrue(rowNumber == 0, "Bungii must be removed from the List",
+			testStepVerify.isTrue(rowNumber == 0,
 					"Bungii should be removed from the List", "Bungii is removed from the List",
 					"Bungii is not removed from the List");
 			
-			log("Bungii must be removed from the List", "Bungii must be removed from the List", "Bungii is removed from the List",
+			log( "Bungii must be removed from the List", "Bungii is removed from the List",
 					true);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("Bungii must be removed from the List", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 
@@ -181,7 +181,7 @@ public class ScheduledTripSteps extends DriverBase {
 		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
 		action.click(scheduledTripsPage.Button_Submit());
-		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());
+//		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());
 
 	}
 

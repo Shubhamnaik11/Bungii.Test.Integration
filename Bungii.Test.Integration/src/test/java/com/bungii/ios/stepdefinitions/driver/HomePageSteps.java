@@ -24,7 +24,7 @@ public class HomePageSteps extends DriverBase {
     public void i_select_something_from_driver_app_memu(String menuItem) throws Throwable {
     	goToAppMenu();
     	boolean flag=clickAppMenu(menuItem);
-    	testStepAssert.isTrue(flag, "I Select "+menuItem+" from driver App memu", "I should able to click "+menuItem, "Not able to select "+menuItem +" from App menu");
+    	testStepAssert.isTrue(flag,  "I should able to click "+menuItem, "Not able to select "+menuItem +" from App menu");
     }
 	/**
 	 * Check if active page is driver home page.

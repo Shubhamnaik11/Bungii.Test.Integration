@@ -15,7 +15,7 @@ public class SearchingSteps extends DriverBase {
     @And("^I wait for SEARCHING screen to disappear$")
     public void i_wait_for_searching_screen_to_disappear() throws Throwable {
     	WaitForSearchingPageDisappear(Integer.parseInt(PropertyUtility.getProp("on.demand.search.time")));
-    	testStepVerify.isFalse(isProgressBarVisible(), "I wait for SEARCHING screen to disappear", "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
+    	testStepVerify.isFalse(isProgressBarVisible(),  "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
     }
 
 

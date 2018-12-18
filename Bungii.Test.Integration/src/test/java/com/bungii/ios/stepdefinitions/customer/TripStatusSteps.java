@@ -57,16 +57,16 @@ public class TripStatusSteps extends DriverBase {
 				boolean otherOne = verifyStatus(scrValue);
 				if (otherOne == true) {
 
-					fail("I should be naviagated to " + screen + " trip status screen",
+					fail(
 							scr + " screen icon should not be higlighted", scr + " screen icon is higlighted", true);
 				}
 			}
 			testStepAssert.isTrue(pageFlag && activeStatusFlag,
-					"I should be naviagated to " + screen + " trip status screen",
+
 					"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I enter all the required fields", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -103,13 +103,13 @@ public class TripStatusSteps extends DriverBase {
 		}
 
 		if (isInfoDisplayed && isDriverDisplayed) {
-			pass("Trip Information should be correctly displayed on " + key + " status screen for customer",
+			pass(
 					"Trip Information should be correctly displayed and driver name :" + expectedDriverName
 							+ "should be displayed",
 					"Trip Information is correctly displayed and driver name :" + expectedDriverName
 							+ "is displayed correctly");
 		} else {
-			fail("Trip Information should be correctly displayed on " + key + " status screen for customer",
+			fail(
 					"Trip Information should be correctly displayed and driver name :" + expectedDriverName
 							+ "should be displayed",
 					"Trip Information is correctly displayed and driver name :" + expectedDriverName
@@ -130,19 +130,18 @@ public class TripStatusSteps extends DriverBase {
 			//removed pass statement to avoid multiple screenshot and log in result
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"'DROP OFF LOCATION' Tag should correctly displayed",
 					"'DROP OFF LOCATION' Tag is correctly displayed",
 					"'DROP OFF LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isEtaDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
-					"ETA should be correctly displayed",
+										"ETA should be correctly displayed",
 					"'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
 					"'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
 
 			testStepVerify.isTrue(isDropLocationDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
@@ -162,13 +161,13 @@ public class TripStatusSteps extends DriverBase {
 			//removed pass statement to avoid multiple screenshot and log in result
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"'DROP OFF LOCATION' Tag should correctly displayed",
 					"'DROP OFF LOCATION' Tag is correctly displayed",
 					"'PDROP OFF LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isDropDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
@@ -188,18 +187,18 @@ public class TripStatusSteps extends DriverBase {
 			//removed pass statement to avoid multiple screenshot and log in result
 		} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
 					"'PICKUP LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(isEtaCorrect,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"ETA should be correctly displayed",
 					"'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
 					"'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
 
 			testStepVerify.isTrue(isPickUpCorrect,
-					"Trip Information should be correctly displayed on Enroute status screen for customer",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
@@ -219,12 +218,12 @@ public class TripStatusSteps extends DriverBase {
 			//removed pass statement to avoid multiple screenshot and log in result
 			} else {
 			testStepVerify.isTrue(isTagDisplayed,
-					"Trip Information should be correctly displayed on " + screen + " status screen for customer",
+
 					"'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
 					"'PICKUP LOCATION' Tag was not correctly displayed");
 
 			testStepVerify.isTrue(pickUpCorrect,
-					"Trip Information should be correctly displayed on " + screen + " status screen for customer",
+
 					"Pick up location should be correctly displayed ",
 					"Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
 							+ (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
@@ -256,13 +255,13 @@ public class TripStatusSteps extends DriverBase {
 		boolean isMessagePage = isMessageAppPage(), isNumberCorrect = actualValue.contains(expectedNumber);
 
 		if (isNumberCorrect && isMessagePage) {
-			pass("correct details should be displayed to customer on sms app", "I should be navigated to SMS app",
+			pass( "I should be navigated to SMS app",
 					"I was navigated to SMS app and To field contained number" + expectedNumber, true);
 		} else {
-			testStepVerify.isTrue(isMessagePage, "correct details should be displayed to customer on sms app",
+			testStepVerify.isTrue(isMessagePage,
 					"I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
 
-			testStepVerify.isTrue(isNumberCorrect, "correct details should be displayed to customer on sms app",
+			testStepVerify.isTrue(isNumberCorrect,
 					"To Field should contains " + expectedNumber,
 					"To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
 					"To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
@@ -283,19 +282,19 @@ public class TripStatusSteps extends DriverBase {
 				isOptionCorrect = options.contains("Cancel") && options.contains("Call");
 
 		if (isMessageCorrect && isOptionCorrect) {
-			pass("correct details should be displayed to customer on call app",
+			pass(
 					"I should be alerted to call twillo number",
 					"I was Alert to call twilio number and have option to cancel and call twilio number , options are"
 							+ options.get(0) + " and " + options.get(1),
 					true);
 		} else {
-			testStepVerify.isTrue(isMessageCorrect, "correct details should be displayed to customer on call app",
+			testStepVerify.isTrue(isMessageCorrect,
 					"I should be alerted to call twillo number", "Twillo number was displayed in alert message",
 					"Twillo number was not displayed in alert message , Actual message :" + actualMessage
 							+ " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
 
 			testStepVerify
-					.isTrue(isOptionCorrect, "correct details should be displayed to customer on call app",
+					.isTrue(isOptionCorrect,
 							"Alert should have option to cancel and call twilio number ",
 							"Alert  have option to cancel and call twilio number , options are" + options.get(0)
 									+ " and " + options.get(1),

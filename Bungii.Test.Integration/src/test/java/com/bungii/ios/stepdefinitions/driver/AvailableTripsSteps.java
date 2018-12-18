@@ -30,7 +30,7 @@ public class AvailableTripsSteps extends DriverBase {
 			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
 
 		} catch (Exception e) {
-			error("I Select Trip from available trip", "I Select Trip from available trip",
+			error( "I Select Trip from available trip",
 					"I was not able to select available trip " + e.getMessage());
 		}
 	}

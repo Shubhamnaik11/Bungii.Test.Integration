@@ -140,17 +140,15 @@ public class CommonSteps extends DriverBase {
 						.equals(PropertyUtility.getMessage("customer.forgotpassword.info"));
 				break;
 			default:
-				error(messageElement + " message should be displayed on " + screen + " page",
-						"UnImplemented Step or incorrect button name", "UnImplemented Step");
+				error("UnImplemented Step or incorrect button name", "UnImplemented Step");
 				break;
 			}
 			testStepVerify.isTrue(messageDisplayed,
-					messageElement + " message should be displayed on " + screen + " page",
-					messageElement + " should be displayed", messageElement + " Message is Displayed",
+										messageElement + " should be displayed", messageElement + " Message is Displayed",
 					messageElement + " Message is not Displayed");
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error(messageElement + " message should be displayed on " + screen + " page", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -180,17 +178,17 @@ public class CommonSteps extends DriverBase {
 				isFound = paymentPage.isElementEnabled(paymentPage.Button_ADD());
 				break;
 			default:
-				error("Click " + button + "button", "UnImplemented Step or incorrect button name",
+				error( "UnImplemented Step or incorrect button name",
 						"UnImplemented Step");
 				break;
 			}
 
-			testStepVerify.isTrue(isFound, button + "should be present in " + screen + " screen",
+			testStepVerify.isTrue(isFound,
 					button + "should be present in " + screen + " screen",
 					button + "is present in " + screen + " screen", button + "is not present in " + screen + " screen");
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error(button + "should be present in \"([^\"]*)\" screen", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -318,16 +316,16 @@ public class CommonSteps extends DriverBase {
 				shareInviteCode(button);
 				break;
 			default:
-				error("Click " + button + "button", "UnImplemented Step or incorrect button name",
+				error( "UnImplemented Step or incorrect button name",
 						"UnImplemented Step");
 				break;
 			}
-			log("Click '" + button + " ' button on " + screen + " screen", "Click " + button + " button ",
+			log( "Click " + button + " button ",
 					"Clicked " + button + " button", true);
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
 			e.printStackTrace();
-			error("I click " + button + " button on " + screen + " screen", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -382,7 +380,7 @@ public class CommonSteps extends DriverBase {
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
 			e.printStackTrace();
-			error("I should be navigated to " + screen + " screen", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -398,12 +396,12 @@ public class CommonSteps extends DriverBase {
 			String smsCode = DbUtility.getVerificationCode(phone);
 
 			cucumberContextManager.setScenarioContext("SMS_CODE", smsCode);
-			testStepAssert.isFalse(smsCode.equals(""), "I Get SMS CODE for " + strArg1,
+			testStepAssert.isFalse(smsCode.equals(""),
 					"I should able to fetch value for sms code", "SMS CODE for " + strArg1 + " is " + smsCode,
 					"Not able to fetch sms code for " + strArg1);
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I Get SMS CODE for new " + strArg1, "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 	}
@@ -427,7 +425,7 @@ public class CommonSteps extends DriverBase {
 			}
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I am on the " + screen + " page", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 
 		}
 	}
@@ -473,16 +471,16 @@ public class CommonSteps extends DriverBase {
 				action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
 				break;
 			default:
-				error("Switch application " + appName, "UnImplemented Step or in correct app", "UnImplemented Step");
+				error("UnImplemented Step or in correct app", "UnImplemented Step");
 				break;
 			}
-			pass("Switch application " + appName, "Switch to " + appName + " application",
+			pass( "Switch to " + appName + " application",
 					"Switch to " + appName + " application", true);
 			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICAION", appName.toUpperCase());
 
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I Switch to " + appName + " application on " + device + " devices", "Step  Should be sucessfull",
+			error("Step  Should be sucessfull",
 					"Error performing step,Error", true);
 
 		}
@@ -524,14 +522,13 @@ public class CommonSteps extends DriverBase {
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
 			testStepVerify.isEquals(actualMessage, expectedMessage,
-					"Alert message with " + message + " text should be displayed",
 					"Alert with text" + expectedMessage + "should be displayed",
 					"Alert with text ," + expectedMessage + " should be displayed",
 					"Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
 							+ expectedMessage);
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			fail("Alert message with " + message + " text should be displayed", "Step  Should be sucessfull",
+			fail( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -540,7 +537,7 @@ public class CommonSteps extends DriverBase {
 	public void i_click_something_on_alert_message(String buttonLabel) throws Throwable {
 		boolean clicked = action.clickAlertButton(buttonLabel);
 
-		testStepAssert.isTrue(clicked, "Alert message with " + buttonLabel + " button should be displayed",
+		testStepAssert.isTrue(clicked,
 				"Clicked on " + buttonLabel + " button", "Alert Message with " + buttonLabel + "button not displayed");
 	}
 
@@ -548,10 +545,10 @@ public class CommonSteps extends DriverBase {
 	public void iAcceptAlertMessage() {
 		try {
 			SetupManager.getDriver().switchTo().alert().accept();
-			log("I accept Alert message", "Alert Message should be accepted", "Alert Message is accepted");
+			log( "Alert Message should be accepted", "Alert Message is accepted");
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I accept Alert message", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error("Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -559,10 +556,10 @@ public class CommonSteps extends DriverBase {
 	public void iRejectAlertMessage() {
 		try {
 			SetupManager.getDriver().switchTo().alert().dismiss();
-			log("I reject Alert message", "Alert Message should be reject", "Alert Message is reject");
+			log("Alert Message should be reject", "Alert Message is reject");
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I reject Alert message", "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -585,15 +582,14 @@ public class CommonSteps extends DriverBase {
 				break;
 
 			default:
-				error("Trip Information should be correctly displayed on " + screen + " screen",
+				error(
 						"UnImplemented Step or in correct app", "UnImplemented Step");
 				break;
 			}
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
 			e.printStackTrace();
-			error("Trip Information should be correctly displayed on  " + screen + "screen",
-					"Step  Should be sucessfull", "Error performing step,Error", true);
+			error("Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 
 	}
@@ -613,8 +609,7 @@ public class CommonSteps extends DriverBase {
 				password = PropertyUtility.getDataProperties("new.customer.password");
 				break;*/
 			default:
-				error("I logged in Customer application using  " + key + " user",
-						"UnImplemented Step or in correct app", "UnImplemented Step");
+				error("UnImplemented Step or in correct app", "UnImplemented Step");
 				break;
 			}
 			goToLogInPage(NavigationBarName);
@@ -625,7 +620,7 @@ public class CommonSteps extends DriverBase {
 
 		} catch (Throwable e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I logged in Customer application using   " + key + "user", "Step  Should be sucessfull",
+			error("Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -679,17 +674,15 @@ public class CommonSteps extends DriverBase {
 		}
 
 		testStepVerify.isTrue(isPickUpAddressCorrect,
-				"Trip Information should be correctly displayed on " + screen + " screen",
 				"Pick up address should be " + pickUpLocation, "Pick up address is " + pickUpLocation,
 				"Expected pickup address is " + pickUpLocation + ", but actual is" + tripInfo[0]);
 		testStepVerify.isTrue(isDropAddressCorrect,
-				"Trip Information should be correctly displayed on " + screen + " screen",
 				"Drop address should be " + dropLocation, "Drop address is " + dropLocation,
 				"Expected Drop address is " + dropLocation + ", but actual is" + tripInfo[1]);
-		testStepVerify.isTrue(isTimeCorrect, "Trip time should be correctly displayed on " + screen + " screen",
+		testStepVerify.isTrue(isTimeCorrect,
 				"Trip time should be " + tripTime, "Trip time is " + tripTime,
 				"Expected Trip time is " + tripTime + ", but actual is" + tripInfo[3]);
-		testStepVerify.isTrue(isEstimateCorrect, "Trip Estimate should be correctly displayed on " + screen + " screen",
+		testStepVerify.isTrue(isEstimateCorrect,
 				"Trip Estimate should be " + estimate, "Trip time is " + estimate,
 				"Expected Trip Estimate is " + estimate + ", but actual is" + tripInfo[4]);
 
@@ -701,13 +694,14 @@ public class CommonSteps extends DriverBase {
 
 			SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
 			SetupManager.getObject().useDriverInstance(instanceName);
-			log("I open new " + browser + " browser for " + instanceName + " instance$",
+			log(
 					"I open new " + browser + " browser for " + instanceName + " instance$",
 					"I open new " + browser + " browser for " + instanceName + " instance$", true);
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I open new " + browser + " browser for " + instanceName + " instance$", "Step  Should be sucessfull",
+			e.printStackTrace();
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -718,7 +712,7 @@ public class CommonSteps extends DriverBase {
 			SetupManager.getObject().useDriverInstance(instanceName);
 		}catch (Exception e){
 			logger.error("Error performing step" + e.getMessage());
-			error("I connect to "+deviceId+" using "+instanceName+" instance", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 
@@ -727,12 +721,12 @@ public class CommonSteps extends DriverBase {
 	public void i_switch_to_something_instance(String instanceName) throws Throwable {
 		try {
 			SetupManager.getObject().useDriverInstance(instanceName);
-			log("I switch to  " + instanceName + "instance", "I switch to  " + instanceName + "instance",
+			log("I switch to  " + instanceName + "instance",
 					"I switch to  " + instanceName + "instance", true);
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I switch to  " + instanceName + "instance", "Step  Should be sucessfull",
+			error( "Step  Should be sucessfull",
 					"Error performing step,Error", true);
 		}
 	}
@@ -775,7 +769,7 @@ public class CommonSteps extends DriverBase {
 			e.printStackTrace();
 			//logger.error("Error performing step" + e.printStackTrace());
 
-			error("I am on Customer logged in Home page ", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 	}
@@ -807,7 +801,7 @@ public class CommonSteps extends DriverBase {
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
-			error("I am on Customer logged in Home page", "Step  Should be sucessfull", "Error performing step,Error",
+			error( "Step  Should be sucessfull", "Error performing step,Error",
 					true);
 		}
 	}
@@ -918,19 +912,19 @@ public class CommonSteps extends DriverBase {
 				break;
 
 			default:
-				error("I Enter " + value + " value in " + field + " field in " + screen + " Page",
+				error(
 						"UnImplemented Step or in correct app", "UnImplemented Step");
 
 				break;
 			}
-			log("I Enter " + value + " value in " + field + " field in " + screen + " Page",
+			log(
 					"I should able to Enter " + value + " value in " + field + " field in " + screen + " Page",
 					"I Entered " + inputValue + " in " + field + " field", true);
 
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
 			e.getStackTrace();
-			error("I Enter " + value + " value in " + field + " field in " + screen + " Page",
+			error(
 					"Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
@@ -1003,7 +997,7 @@ public class CommonSteps extends DriverBase {
 				break;
 
 			default:
-				error("user is alerted for " + key, "UnImplemented Step or in correct app", "UnImplemented Step");
+				error( "UnImplemented Step or in correct app", "UnImplemented Step");
 
 				break;
 			}
@@ -1013,7 +1007,7 @@ public class CommonSteps extends DriverBase {
 		} catch (Exception e) {
 			logger.error("Error performing step" + e.getMessage());
 			e.getStackTrace();
-			error("user is alerted for " + key, "Step  Should be sucessfull", "Error performing step,Error", true);
+			error( "Step  Should be sucessfull", "Error performing step,Error", true);
 		}
 	}
 
@@ -1028,14 +1022,14 @@ public class CommonSteps extends DriverBase {
 		tripLocation[1] = action.getValueAttribute(estimatePage.Text_DropOffLocation());
 
 		if (tripLocation[0].equals(pickUpLocation) && tripLocation[1].equals(dropOffLocation)) {
-			pass("Trip Information should be correctly displayed on " + screen + " screen",
+			pass(
 					"Trip Information should be correctly displayed on " + screen + " screen",
 					"Pick up location :" + pickUpLocation + " , Drop location: " + dropOffLocation
 							+ "is correctly displayed on estimate screen ",
 					true);
 
 		} else {
-			fail("Trip Information should be correctly displayed on " + screen + " screen",
+			fail(
 					"Trip Information should be correctly displayed on " + screen + " screen",
 					"Pick up location on request screen is:" + pickUpLocation + " and on Estimate screen is"
 							+ tripLocation[0] + " .Drop off location on request screen is:" + dropOffLocation

@@ -23,10 +23,10 @@ public class ReferralSourceSteps extends DriverBase {
 		cucumberContextManager.setFeatureContextContext("PERCENTAGE_ACCOUNT_"+source.toUpperCase().replaceAll(" ", "_"), referralInfo[1]);
 		
 		if (referralInfo[0] == null) {
-			error("I get Referral Source info for " + source, "I should get Referral Source info for "+source,
+			error( "I should get Referral Source info for "+source,
 					"I was not able to get Referral Source info for "+source+" Check test data", true);
 		}else{
-			pass("I get Referral Source info for " + source, "I should get Referral Source info for "+source,
+			pass("I should get Referral Source info for "+source,
 					"I got Referral Source info for "+source+". Number of data account created for source "+ source+" is "+referralInfo[0]+" , and percentage of total is "+referralInfo[0], true);
 		}
 
@@ -40,8 +40,8 @@ public class ReferralSourceSteps extends DriverBase {
 		
 		switch (expected.toLowerCase()) {
 		case "increase by 1":
-			testStepVerify.isTrue(Integer.parseInt(referralInfo[0])==(Integer.parseInt(numberOfAccount)+1), "account created info for "+source+" should be "+expected, "account created info for "+source+" should be :"+referralInfo[0] , "Previous account created info for "+source+"was :"+numberOfAccount+" and new is :"+referralInfo[0], "Previous account created info for "+source+"was :"+numberOfAccount+" and new is :"+referralInfo[0]);
-			testStepVerify.isFalse(referralInfo[1].equalsIgnoreCase(percentageOfAccount), "account created info for "+source+" should be "+expected, "Percentage of account created info for "+source+" should not be :"+percentageOfAccount , "Previous percentege account created info for "+source+"was :"+percentageOfAccount+" and new is :"+referralInfo[1], "Previous percentage account created info for "+source+"was :"+percentageOfAccount+" and new is :"+referralInfo[1]);
+			testStepVerify.isTrue(Integer.parseInt(referralInfo[0])==(Integer.parseInt(numberOfAccount)+1),  "account created info for "+source+" should be :"+referralInfo[0] , "Previous account created info for "+source+"was :"+numberOfAccount+" and new is :"+referralInfo[0], "Previous account created info for "+source+"was :"+numberOfAccount+" and new is :"+referralInfo[0]);
+			testStepVerify.isFalse(referralInfo[1].equalsIgnoreCase(percentageOfAccount),  "Percentage of account created info for "+source+" should not be :"+percentageOfAccount , "Previous percentege account created info for "+source+"was :"+percentageOfAccount+" and new is :"+referralInfo[1], "Previous percentage account created info for "+source+"was :"+percentageOfAccount+" and new is :"+referralInfo[1]);
 			break;
 
 		default:

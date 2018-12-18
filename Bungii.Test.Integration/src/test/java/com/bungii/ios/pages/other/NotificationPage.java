@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class NotificationPage extends PageBase{
-	public List<WebElement> Cell_Notification() { return findElements("NotificationCell",LocatorType.XPath.Name);};
+	public List<WebElement> Cell_Notification() { return findElements("NotificationCell",LocatorType.Name);};
 
 
 
