@@ -8,6 +8,8 @@ import com.bungii.common.utilities.ParseUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -90,10 +92,19 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber){
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost")||APPIUM_SERVER_IP.equals("")||APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP="127.0.0.1";
-
+        startAppiumServer(APPIUM_SERVER_IP, portNumber);
         return "http://"+APPIUM_SERVER_IP+":"+portNumber+"/wd/hub";
     }
+    public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber){
 
+        //Build the Appium service
+        AppiumServiceBuilder  builder = new AppiumServiceBuilder();
+        builder.withIPAddress(APPIUM_SERVER_IP);
+        builder.usingPort(Integer.parseInt(portNumber));
+        AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
+        service.start();
+
+    }
     /**
      * Return IOS driver instance
      * @return ios driver instance
