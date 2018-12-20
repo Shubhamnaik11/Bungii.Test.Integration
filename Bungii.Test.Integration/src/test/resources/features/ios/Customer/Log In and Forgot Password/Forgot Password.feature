@@ -1,5 +1,5 @@
-@FORGOT
-Feature: FORGOT
+@FORGOT_ALL
+Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button
   I Should able to Reset my password
@@ -35,7 +35,7 @@ Feature: FORGOT
     When I click "Back" button on "Forgot Password" screen
 
     Examples:
-      | Scenario         | Value   | New Password | SMS CODE | Expected Message             |
+      | Scenario         | Value        | New Password | SMS CODE | Expected Message             |
       | Invalid password | {VALID USER} | Cci1         | valid    | INVALID PASSWORD WHILE RESET |
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID PASSWORD WHILE RESET |
 
@@ -53,5 +53,5 @@ Feature: FORGOT
     Then I should be navigated to "Home" screen
 
     Examples:
-      | Scenario    | Value   | New Password | Expected Message        |
+      | Scenario    | Value        | New Password | Expected Message        |
       | VALID PHONE | {VALID USER} | Cci12345     | PASSWORD CHANGE SUCCESS |
