@@ -28,7 +28,7 @@
         <log4j.version>1.2.17</log4j.version>
         <joda.time>2.10</joda.time>
         <appium.java.client>e6bef4c917e8892ba8320e4837e80c9123487b14</appium.java.client>
-        <my.sql.server.version></my.sql.server.version>
+        <my.sql.server.version>8.0.13</my.sql.server.version>
     </properties>
     <repositories>
         <repository>

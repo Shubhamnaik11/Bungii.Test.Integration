@@ -329,7 +329,7 @@ public class HomeSteps extends DriverBase {
      * Click App menu icon
      */
     public void goToAppMenu() {
-        //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
+        action.invisibilityOfElementLocated(homePage.Indicator_Loading(true));
         action.click(homePage.Button_AppMenu());
     }
 

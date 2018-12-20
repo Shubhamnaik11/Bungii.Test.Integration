@@ -283,13 +283,13 @@ public class ActionManager {
      *            used to find the element
      */
     public boolean invisibilityOfElementLocated(WebElement element) {
-        return true;
-/*        try {
+
+        try {
             return (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME))
                     .until(ExpectedConditions.invisibilityOf(element));
         } catch (Exception e) {
             return true;
-        }*/
+        }
     }
 
     /**

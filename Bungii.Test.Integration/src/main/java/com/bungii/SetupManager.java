@@ -98,7 +98,9 @@ public class SetupManager extends EventFiringWebDriver {
         if(checkIfServerIsRunnning(portNumber)) {
             stopAppiumServer();
         }
-            startAppiumServer(APPIUM_SERVER_IP, portNumber);
+            //Start server only if its localhost
+            if( APPIUM_SERVER_IP=="127.0.0.1")
+                startAppiumServer(APPIUM_SERVER_IP, portNumber);
 
 
         return "http://"+APPIUM_SERVER_IP+":"+portNumber+"/wd/hub";
