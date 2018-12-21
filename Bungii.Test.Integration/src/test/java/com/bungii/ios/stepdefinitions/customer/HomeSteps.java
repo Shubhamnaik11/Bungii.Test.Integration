@@ -11,6 +11,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 
 import java.util.Map;
@@ -34,8 +35,8 @@ public class HomeSteps extends DriverBase {
             boolean isHomePage = utility.verifyPageHeader("HOME");
             testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull", "Error performing step,Error", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
     }
@@ -100,14 +101,15 @@ public class HomeSteps extends DriverBase {
             saveBungiiHomeDetails(tripDriverType);
 
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull", "Error performing step,Error",
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
 
     @And("^I request for  bungii for given pickup and drop location$")
-    public void i_request_for_bungii_for_given_pickup_and_drop_location(DataTable data) throws Throwable {
+    public void i_request_for_bungii_for_given_pickup_and_drop_location(DataTable data) {
+        try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
         String Pickup = dataMap.get("Pickup Location").trim();
@@ -121,6 +123,11 @@ public class HomeSteps extends DriverBase {
         testStepVerify.isTrue(verifyNoOfDriver(tripDriverType),
                 "Number of Driver for Bungii should be " + tripDriverType,
                 "Number of Driver for Bungii is not " + tripDriverType);
+    } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
 
     }
 
@@ -160,9 +167,8 @@ public class HomeSteps extends DriverBase {
             pass(action + " location should be selected",
                     action + " location is selected", true);
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-
-            error("Step  Should be sucessfull", "Error performing step,Error",
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
@@ -175,13 +181,12 @@ public class HomeSteps extends DriverBase {
                     "Pickup location value should be non empty", "Pickup location value is" + addressValue,
                     "Pickup location value should be non empty");
 
-            testStepVerify.isEquals(getEtaTime(), "0 MINS",
-                    "Current location should be present as pickup location");
+            testStepVerify.isEquals(getEtaTime(), "0 MINS");
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
-            error("Step  Should be sucessfull",
-                    "Error performing step,Error", true);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -203,39 +208,35 @@ public class HomeSteps extends DriverBase {
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull",
-                    "Error performing step,Error", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
     @Then("^\"([^\"]*)\" box header and ETA bar header should be correctly displayed$")
-    public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action) throws Throwable {
+    public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action)  {
         try {
             switch (action.toUpperCase()) {
                 case "DROP":
-                    testStepVerify.isEquals(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),
-                            action + " ETA bar header should be correctly displayed");
+                    testStepVerify.isEquals(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"));
                     testStepVerify.isEquals(getLocationBoxHeaderValue("DROP"),
-                            PropertyUtility.getMessage("customer.drop.boxheader"),
-                            action + " Locaton box header should be correctly displayed");
+                            PropertyUtility.getMessage("customer.drop.boxheader"));
                     break;
                 case "PICK UP":
                     testStepVerify.isEquals(getEtaBarHeader("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.etaheader"),
-                            action + " ETA bar header should be correctly displayed");
+                            PropertyUtility.getMessage("customer.pickup.etaheader"));
                     testStepVerify.isEquals(getLocationBoxHeaderValue("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.boxheader"),
-                            action + " Locaton box header should be correctly displayed");
+                            PropertyUtility.getMessage("customer.pickup.boxheader"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
-            error("Step  Should be sucessfull",
-                    "Error performing step,Error", true);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -259,8 +260,8 @@ public class HomeSteps extends DriverBase {
                     action + "address bar value should be not empty", action + "address bar value is " + textBoxValue,
                     action + "address bar value is empty");
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull", "Error performing step,Error",
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
@@ -285,8 +286,8 @@ public class HomeSteps extends DriverBase {
                     action + "address bar value is empty",
                     action + "address bar value is not empty , its value is" + textBoxValue);
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull", "Error performing step,Error",
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
@@ -299,13 +300,23 @@ public class HomeSteps extends DriverBase {
             log(menuItem + " must be selected sucessfully",
                     menuItem + " is selected sucessfully", true);
         } catch (Exception e) {
-            logger.error("Error performing step" + e.getMessage());
-            error("Step  Should be sucessfull",
-                    "Error performing step,Error", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
+    @Then("^Trip Information should be correctly displayed on CUSTOMER HOME screen$")
+    public void trip_information_should_be_correctly_displayed_on_something_screen(String screen)  {
+        try {
+            verifyTripInformationOnHome(screen);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
 
+    }
     /**
      * Get navigation header name
      *
@@ -329,7 +340,7 @@ public class HomeSteps extends DriverBase {
      * Click App menu icon
      */
     public void goToAppMenu() {
-        action.invisibilityOfElementLocated(homePage.Indicator_Loading(true));
+       // action.invisibilityOfElementLocated(homePage.Indicator_Loading(true));
         action.click(homePage.Button_AppMenu());
     }
 
@@ -510,7 +521,7 @@ public class HomeSteps extends DriverBase {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
-        action.waitClearEnterText(homePage.TextBox_Pickup(), location);
+        action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
         action.hideKeyboard();
         action.click(homePage.BUTTON_SET());
@@ -525,7 +536,7 @@ public class HomeSteps extends DriverBase {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
-        action.waitClearEnterText(homePage.TextBox_Drop(), location);
+        action.clearEnterText(homePage.TextBox_Drop(), location);
         action.click(homePage.Link_DropSuggestion());
         //	hideKeyboard();
         // Click(BUTTON_SET);

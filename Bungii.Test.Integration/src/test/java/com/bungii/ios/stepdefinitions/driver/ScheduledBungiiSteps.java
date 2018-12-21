@@ -15,30 +15,8 @@ public class ScheduledBungiiSteps {
     	this.scheduledBungiipage=scheduledBungiipage;
 
 	}
-/*    @And("^I Select Trip from scheduled trip$")
-    public void i_select_trip_from_scheduled_trip() throws Throwable {
 
 
-    	String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-		String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
-    	scheduledBungiipage.selectBungiiFromList(tripNoOfDriver,tripTime);
-    }*/
-
-	/**
-	 * Check if active page is Bungii scheduled details page.
-	 * @return return comparison result navigation header to expected msg from
-	 *         property
-	 */
-	public boolean isScheduledBungiiPage() {
-		action.textToBePresentInElementName(scheduledBungiipage.Text_NavigationBar(), PropertyUtility.getMessage("driver.navigation.scheduledbungii"));
-		return action.getNameAttribute(scheduledBungiipage.Text_NavigationBar()).equals(PropertyUtility.getMessage("driver.navigation.scheduledbungii"));
-
-	}
-
-
-/*	public void selectBungiiFromList(){
-		click(Image_SelectBungii);
-	}*/
 
 	//TODO:HANDLE DUO
 	/**

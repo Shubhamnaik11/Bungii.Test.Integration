@@ -37,21 +37,7 @@ public class DriverManager  {
     public void setPrimaryInstanceKey(String key){
         primaryInstanceKey =key;
     }
-/*    *//**
-     * Store driver instance. Use only once in run suite
-     *//*
-    public void storeDriverInstance() {
-        driverArray.put("ORIGINAL", getDriver());
-    }*/
 
-
-/*    *//**
-     * Store driver instance. Use only once in run suite
-     *//*
-    public void storeDriverInstance(String key) {
-        driverArray.put(key, getDriver());
-
-    }*/
 
     public void storeDriverInstance(String key, WebDriver driver) {
         driverArray.put(key, driver);

@@ -17,13 +17,13 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then user is alerted for "<Expected Message>"
 
     Examples:
-      | Scenario      | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message              |
-      | Valid         | {BLANK}    | {BLANK}         | {BLANK}                         | {BLANK}      | {BLANK}  |               | {BLANK}  | EMPTY SIGNUP FIELD            |
-      | Invalid_EMAIL | test       | {RANDOM_STRING} | ss@dd                           | 9403960188   | Cci12345 |               | facebook | INVALID EMAIL WHILE SIGNUP    |
-      | Invalid_EMAIL | test       | {RANDOM_STRING} | Vishal.bagi@creativecapsule.com | 9403960188   | Cci      |               | facebook | INVALID PASSWORD WHILE SIGNUP |
+      | Scenario           | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message              |
+      | EMPTY SIGNUP FIELD | {BLANK}    | {BLANK}         | {BLANK}                         | {BLANK}      | {BLANK}  |               | {BLANK}  | EMPTY SIGNUP FIELD            |
+      | Invalid_EMAIL      | test       | {RANDOM_STRING} | ss@dd                           | 9403960188   | Cci12345 |               | facebook | INVALID EMAIL WHILE SIGNUP    |
+      | Invalid_EMAIL      | test       | {RANDOM_STRING} | Vishal.bagi@creativecapsule.com | 9403960188   | Cci      |               | facebook | INVALID PASSWORD WHILE SIGNUP |
 
 
-  Scenario Outline: If I try to submit my registration form with invalid Phone number then I should be Alerted for it .Scenario : <Scenario>
+  Scenario Outline: If I try to submit my registration form with invalid Phone number then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
     And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
@@ -37,7 +37,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario            | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
-      | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | 9403960188   | Cci12345 |               | facebook | EXISTING USER              |
+      | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {VALID USER} | Cci12345 |               | facebook | EXISTING USER              |
       | InValid_Phone       | Vishal     | Bagi            | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
 
 
@@ -55,10 +55,10 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
-      | InValid_Phone | Vishal     | Bagi      | vishal.bagi@creativecapsule.com | {RANDOM_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
+      | InValid_Phone | Vishal     | Bagi      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
 
 
-  Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source.
+  Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source. Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     When I navigate to admin portal
@@ -86,10 +86,10 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then account created info for "<Source>" should be "increase by 1"
 
     Examples:
-      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
-      | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
+      | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
+      | Source :OTHER | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
 
-  Scenario Outline:As a bungii Customer I should submit registration form with Promo code
+  Scenario Outline:As a new Bungii Customer I should submit registration form with Promo code
     When I open new "Chrome" browser for "ADMIN"
     When I navigate to admin portal
     And I log in to admin portal
@@ -119,7 +119,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
 
 
-  Scenario Outline: Valid flow with out Promo code
+  Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page

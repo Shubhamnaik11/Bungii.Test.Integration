@@ -7,9 +7,11 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.pass;
 
 
 public class ScheduledBungiiSteps extends DriverBase {
@@ -29,10 +31,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
 			selectBungii(tripNoOfDriver, tripTime);
-
+			pass("I select already scheduled bungii", "I selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
 
@@ -44,13 +46,14 @@ public class ScheduledBungiiSteps extends DriverBase {
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
 			Thread.sleep(20000);
 			action.swipeDown();
-			boolean isDeleted = isBungiiPresent(tripNoOfDriver, tripTime);
-			testStepVerify.isFalse(isDeleted, "Bungii must be removed from " + screen + " screen",
+			boolean isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
+
+			testStepVerify.isFalse(isBungiiPresent, "Bungii must be removed from " + screen + " screen",
 					"Bungii Must be deleted", "Bungii is not deleted");
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull",
-					"Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
 		}
 	}
 

@@ -96,9 +96,8 @@ public class VerificationManager {
 	/**
 	 * @param expectedValue Expected value 
 	 * @param actualValue Actual value
-	 * @param testStep Test step name
 	 */
-	public void isEquals(String actualValue,String expectedValue, String testStep) {
+	public void isEquals(String actualValue,String expectedValue) {
 		try {
 			Assert.assertEquals(expectedValue, actualValue);
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);

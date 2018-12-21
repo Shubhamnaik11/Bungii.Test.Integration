@@ -5,6 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.AccountPage;
 import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -16,7 +17,6 @@ public class AccountSteps extends DriverBase {
 
 	public AccountSteps(AccountPage accountPage) {
 		this.accountPage = accountPage;
-
 	}
 
 	/**
@@ -36,12 +36,12 @@ public class AccountSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("CUSTOMER", details[0]);
 			cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",phone );
 			
-			logger.detail("I get customer account details , Customer name is " + details[0]);
-			log( "I get customer account details", "Customer name is " + details[0],
+			logger.detail("I get customer account details , Customer name is " + details[0]+ " and Phone Number is "+ details[1]);
+			log( "I get customer account details", "Customer name is " + details[0] + " and Phone Number is "+ details[1],
 					true);
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error("Step  Should be sucessfull", "Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
 

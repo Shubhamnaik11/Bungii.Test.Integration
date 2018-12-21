@@ -12,6 +12,7 @@ import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -23,21 +24,18 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 
-/**
- * @author vishal.bagi
- *
- */
+
 public class ScheduledTripSteps extends DriverBase {
 	private ScheduledTripsPage scheduledTripsPage;
 	ActionManager action = new ActionManager();
-	private static LogUtility logger = new LogUtility(EstimateSteps.class);
+	private static LogUtility logger = new LogUtility(ScheduledTripSteps.class);
 
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {
 		this.scheduledTripsPage = scheduledTripsPage;
 	}
 
 	@Then("^I Cancel Bungii with following details$")
-	public void i_cancel_bungii_with_following_details(DataTable cancelDetails) throws Throwable {
+	public void i_cancel_bungii_with_following_details(DataTable cancelDetails)  {
 		try {
 			Map<String, String> tripDetails = new HashMap<String, String>();
 			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -45,7 +43,10 @@ public class ScheduledTripSteps extends DriverBase {
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 
 			tripDetails.put("CUSTOMER", custName);
-			tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+			//On admin panel CST time use to show
+			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+
+			tripDetails.put("SCHEDULED_DATE", bungiiTime);
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
@@ -64,8 +65,8 @@ public class ScheduledTripSteps extends DriverBase {
 					true);
 
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error",
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
 					true);
 		}
 
@@ -84,7 +85,7 @@ public class ScheduledTripSteps extends DriverBase {
 	}
 
 	@Then("^Bungii must be removed from the List$")
-	public void bungii_must_be_removed_from_the_list() throws Throwable {
+	public void bungii_must_be_removed_from_the_list() {
 		try {
 			Map<String, String> tripDetails = new HashMap<String, String>();
 			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
@@ -94,7 +95,10 @@ public class ScheduledTripSteps extends DriverBase {
 			scheduledTripsPage.waitForPageLoad();
 
 			tripDetails.put("CUSTOMER", custName);
-			tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+			//On admin panel CST time use to show
+			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+			tripDetails.put("SCHEDULED_DATE", bungiiTime);
+
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to di
@@ -111,8 +115,8 @@ public class ScheduledTripSteps extends DriverBase {
 			log( "Bungii must be removed from the List", "Bungii is removed from the List",
 					true);
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error",
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
 					true);
 		}
 
@@ -181,19 +185,10 @@ public class ScheduledTripSteps extends DriverBase {
 		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
 		action.click(scheduledTripsPage.Button_Submit());
+		scheduledTripsPage.waitForPageLoad();
 //		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());
 
 	}
 
-	/**
-	 * Verify success message
-	 * @return
-	 */
-	public boolean verifySuccessMessage(){
-		if(scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().equals(PropertyUtility.getMessage("admin.cancel.sucess")))
-			return true;
-		else
-			return false;
-	}
 
 }

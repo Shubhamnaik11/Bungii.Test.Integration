@@ -27,8 +27,6 @@ Feature: Customer	Menu
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
 
-  @CUST_MENU_SUPPORT
-  @CUST_MENU_SUPPORT_POSITIVE
   Scenario: Bungii customer I want to Ask question using support menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
@@ -38,8 +36,6 @@ Feature: Customer	Menu
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
 
-  @CUST_MENU_SUPPORT_NEGATIVE
-  @CUST_MENU_SUPPORT
   Scenario: Bungii customer I dont enter any question and click on send button
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
@@ -47,8 +43,6 @@ Feature: Customer	Menu
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "EMPTY SUPPORT QUESTION"
 
-  @CUST_MENU_FAQ
-  @CUST_MENU_SUPPORT
   Scenario: Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen

@@ -43,7 +43,7 @@ public class ForgotPasswordPage extends PageBase {
 	 * @param smsCode  code that is to be entered
 	 *//*
 	public void enterSMSCode(String smsCode){
-		waitClearEnterText(Text_SmsCode, smsCode);
+		clearEnterText(Text_SmsCode, smsCode);
 		hideKeyboard();
 
 	}
@@ -54,7 +54,7 @@ public class ForgotPasswordPage extends PageBase {
 	 * @param password password that is to be entered
 	 *//*
 	public void enterNewPassWord(String password){
-		waitClearEnterText(Text_Password, password);
+		clearEnterText(Text_Password, password);
 		hideKeyboard();
 
 	}

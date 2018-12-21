@@ -30,6 +30,13 @@ public class FileUtility {
 		}
 		return file.exists();
 	}
+
+	/**
+	 * Copy file from source to destination
+	 * @param sPath  Source path
+	 * @param dPath  Destination path
+	 * @return
+	 */
 	public static boolean copyFile(String sPath, String dPath){
 
 		Path FROM = Paths.get(sPath);

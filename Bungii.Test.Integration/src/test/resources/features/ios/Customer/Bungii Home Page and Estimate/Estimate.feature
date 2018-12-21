@@ -22,7 +22,7 @@ Feature: Customer	Referal Invite page
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     Then I should be navigated to "Home" screen
-    Then Trip Information should be correctly displayed on "CUSTOMER HOME" screen
+    Then Trip Information should be correctly displayed on CUSTOMER HOME screen
 
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
@@ -65,10 +65,10 @@ Feature: Customer	Referal Invite page
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on "Estimate" screen
+    Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
       | 30       |           |             | Now  | Default     |
     And I click "Cancel" button on "Estimate" screen
     Then I should be navigated to "Home" screen
-    Then Trip Information should be correctly displayed on "CUSTOMER HOME" screen
+    Then Trip Information should be correctly displayed on CUSTOMER HOME screen

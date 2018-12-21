@@ -7,9 +7,11 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
 import cucumber.api.java.en.And;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 
 public class AvailableTripsSteps extends DriverBase {
@@ -28,10 +30,10 @@ public class AvailableTripsSteps extends DriverBase {
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
-
+			log( "I Select Trip from available trip", "I selected trip for customer " +customerName + " of "+ numberOfDriver +" type",true);
 		} catch (Exception e) {
-			error( "I Select Trip from available trip",
-					"I was not able to select available trip " + e.getMessage());
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
 

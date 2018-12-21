@@ -33,7 +33,7 @@ public class GeneralUtility extends DriverBase {
     }
 
     public boolean verifyPageHeader(String key){
-        String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICAION");
+        String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
         boolean isCorrectPage=false;
         switch (key.toUpperCase()){

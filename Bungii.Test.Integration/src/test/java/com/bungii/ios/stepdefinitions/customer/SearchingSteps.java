@@ -1,10 +1,15 @@
 package com.bungii.ios.stepdefinitions.customer;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.SearchingPage;
+import com.bungii.ios.stepdefinitions.driver.TripDetailsSteps;
 import cucumber.api.java.en.And;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import static com.bungii.common.manager.ResultManager.error;
 
 public class SearchingSteps extends DriverBase {
 	SearchingPage searchingPage;
@@ -12,11 +17,19 @@ public class SearchingSteps extends DriverBase {
 		this.searchingPage=searchingPage;
 	}
 	ActionManager action = new ActionManager();
-    @And("^I wait for SEARCHING screen to disappear$")
-    public void i_wait_for_searching_screen_to_disappear() throws Throwable {
+	private static LogUtility logger = new LogUtility(TripDetailsSteps.class);
+
+	@And("^I wait for SEARCHING screen to disappear$")
+    public void i_wait_for_searching_screen_to_disappear() {
+    	try{
     	WaitForSearchingPageDisappear(Integer.parseInt(PropertyUtility.getProp("on.demand.search.time")));
     	testStepVerify.isFalse(isProgressBarVisible(),  "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
-    }
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+		}
+    	}
 
 
 	/**

@@ -6,6 +6,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.pages.customer.ForgotPasswordPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -29,8 +30,8 @@ public class ForgotPasswordSteps extends DriverBase {
                     "Not able to fetch sms code for " + strArg1);
 
         } catch (Throwable e) {
-            logger.error("Error performing step" + e.getMessage());
-            error( "Step  Should be sucessfull", "Error performing step,Error", true);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 }

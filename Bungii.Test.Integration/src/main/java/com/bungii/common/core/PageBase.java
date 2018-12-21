@@ -11,24 +11,14 @@ import java.util.List;
 
 
 public class PageBase {
-    private   long DRIVER_WAIT_TIME;
+    private long DRIVER_WAIT_TIME;
 
-    public enum LocatorType {
-        Id,
-        Name,
-        ClassName,
-        LinkText,
-        PartialLinkText,
-        CssSelector,
-        TagName,
-        XPath
-    }
-    public  PageBase(){
+    public PageBase() {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
 
     }
 
-    public  void WaitUntilElementIsDisplayed(By locator) {
+    public void WaitUntilElementIsDisplayed(By locator) {
         try {
             WebDriver driver = DriverManager.getObject().getDriver();
             WebDriverWait wait = new WebDriverWait(driver, DRIVER_WAIT_TIME);
@@ -43,6 +33,7 @@ public class PageBase {
         new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME).until(webDriver -> ((JavascriptExecutor) webDriver)
                 .executeScript("return document.readyState").equals("complete"));
     }
+
     public List<WebElement> findElements(String identifier, LocatorType locatorType) {
         WebDriver driver = DriverManager.getObject().getDriver();
 
@@ -93,88 +84,91 @@ public class PageBase {
         }
         return elements;
     }
-    private void updateWaitTime( boolean ...ignoreException){
-        if(ignoreException.length>0)
-            if(ignoreException[0]==true)
-                DRIVER_WAIT_TIME = 7L;
+
+    private void updateWaitTime(boolean... ignoreException) {
+        if (ignoreException.length > 0)
+            if (ignoreException[0] == true)
+                DRIVER_WAIT_TIME = 5L;
 
     }
-    public void  updateWaitTime(Long waitTime){
-        DRIVER_WAIT_TIME=waitTime;
+
+    public void updateWaitTime(Long waitTime) {
+        DRIVER_WAIT_TIME = waitTime;
     }
 
-    public WebElement findElement(String identifier, LocatorType locatorType , boolean ...ignoreException) {
+    public WebElement findElement(String identifier, LocatorType locatorType, boolean... ignoreException) {
         WebDriver driver = DriverManager.getObject().getDriver();
         updateWaitTime(ignoreException);
         WebElement element = null;
-        try{
-        switch (locatorType) {
-            case Id: {
-                WaitUntilElementIsDisplayed(By.id(identifier));
-                element = driver.findElement(By.id(identifier));
-                break;
+        try {
+            switch (locatorType) {
+                case Id: {
+                    WaitUntilElementIsDisplayed(By.id(identifier));
+                    element = driver.findElement(By.id(identifier));
+                    break;
+                }
+                case Name: {
+                    WaitUntilElementIsDisplayed(By.name(identifier));
+                    element = driver.findElement(By.name(identifier));
+                    break;
+                }
+                case ClassName: {
+                    WaitUntilElementIsDisplayed(By.className(identifier));
+                    element = driver.findElement(By.className(identifier));
+                    break;
+                }
+                case XPath: {
+                    WaitUntilElementIsDisplayed(By.xpath(identifier));
+                    element = driver.findElement(By.xpath(identifier));
+                    break;
+                }
+                case LinkText: {
+                    WaitUntilElementIsDisplayed(By.linkText(identifier));
+                    element = driver.findElement(By.linkText(identifier));
+                    break;
+                }
+                case PartialLinkText: {
+                    WaitUntilElementIsDisplayed(By.partialLinkText(identifier));
+                    element = driver.findElement(By.partialLinkText(identifier));
+                    break;
+                }
+                case CssSelector: {
+                    WaitUntilElementIsDisplayed(By.cssSelector(identifier));
+                    element = driver.findElement(By.cssSelector(identifier));
+                    break;
+                }
+                case TagName: {
+                    WaitUntilElementIsDisplayed(By.tagName(identifier));
+                    element = driver.findElement(By.tagName(identifier));
+                    break;
+                }
             }
-            case Name: {
-                WaitUntilElementIsDisplayed(By.name(identifier));
-                element = driver.findElement(By.name(identifier));
-                break;
-            }
-            case ClassName: {
-                WaitUntilElementIsDisplayed(By.className(identifier));
-                element = driver.findElement(By.className(identifier));
-                break;
-            }
-            case XPath: {
-                WaitUntilElementIsDisplayed(By.xpath(identifier));
-                element = driver.findElement(By.xpath(identifier));
-                break;
-            }
-            case LinkText: {
-                WaitUntilElementIsDisplayed(By.linkText(identifier));
-                element = driver.findElement(By.linkText(identifier));
-                break;
-            }
-            case PartialLinkText: {
-                WaitUntilElementIsDisplayed(By.partialLinkText(identifier));
-                element = driver.findElement(By.partialLinkText(identifier));
-                break;
-            }
-            case CssSelector: {
-                WaitUntilElementIsDisplayed(By.cssSelector(identifier));
-                element = driver.findElement(By.cssSelector(identifier));
-                break;
-            }
-            case TagName: {
-                WaitUntilElementIsDisplayed(By.tagName(identifier));
-                element = driver.findElement(By.tagName(identifier));
-                break;
-            }
-        }
-        }catch (NoSuchElementException e){
-            if(ignoreException.length>0){
-                if(ignoreException[0]==true)
-                {
+        } catch (NoSuchElementException e) {
+            if (ignoreException.length > 0) {
+                if (ignoreException[0] == true) {
                     //ignore exception
                     //or to do action
-                }else{
+                } else {
                     throw new java.util.NoSuchElementException();
                 }
-            }else {
+            } else {
                 throw new java.util.NoSuchElementException();
             }
-        }finally{
+        } finally {
             updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));
 
         }
 
         return element;
     }
-    public void open(String PageUrl)
-    {
+
+    public void open(String PageUrl) {
         DriverManager.getObject().getDriver().navigate().to(PageUrl);
     }
 
-    public String get(){return DriverManager.getObject().getDriver().getCurrentUrl();}
+    public String get() {
+        return DriverManager.getObject().getDriver().getCurrentUrl();
+    }
 
     /**
      * An expectation for checking that an element, known to be present on the
@@ -193,5 +187,16 @@ public class PageBase {
             return false;
         }
 
+    }
+
+    public enum LocatorType {
+        Id,
+        Name,
+        ClassName,
+        LinkText,
+        PartialLinkText,
+        CssSelector,
+        TagName,
+        XPath
     }
 }

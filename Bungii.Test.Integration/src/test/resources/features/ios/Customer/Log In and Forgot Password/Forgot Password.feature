@@ -1,4 +1,4 @@
-@FORGOT_ALL
+@IOS_FORGOT
 Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button

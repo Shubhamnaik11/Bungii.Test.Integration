@@ -246,7 +246,7 @@ public class ActionManager {
     /**
      * Wrapper for wait, clear data and sendKeys in Input Text box
      **/
-    public void waitClearEnterText(WebElement element, String inputText) {
+    public void clearEnterText(WebElement element, String inputText) {
 
         element.clear();
         element.sendKeys(inputText);

@@ -9,6 +9,7 @@ import com.bungii.ios.pages.other.NotificationPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -30,12 +31,12 @@ public class NotificationSteps extends DriverBase {
 
 		Thread.sleep(60000);
 		try{
-		String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICAION");
+		String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 		String appHeaderName=getAppHeader(appName);
 
 		String bunddleId=getBundleId(currentApplication);
 
-			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICAION", appName.toUpperCase());
+			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 		((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
 		boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
@@ -45,10 +46,8 @@ public class NotificationSteps extends DriverBase {
 
 		}
 	} catch (Exception e) {
-		logger.error("Error performing step" + e.getMessage());
-		e.getStackTrace();
-		e.printStackTrace();
-		error( "Step  Should be sucessfull", "Error performing step,Error", true);
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 
 	}
 	}
@@ -87,8 +86,9 @@ public class NotificationSteps extends DriverBase {
 	}
 
     @Then("^Notification for \"([^\"]*)\" for \"([^\"]*)\" should be displayed$")
-    public void notification_for_something_for_something_should_be_displayed(String actor, String actionToPerfrom) throws Throwable {
-		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICAION"));
+    public void notification_for_something_for_something_should_be_displayed(String actor, String actionToPerfrom)  {
+		try{
+		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
 		((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 		action.showNotifications();
 		
@@ -98,11 +98,16 @@ public class NotificationSteps extends DriverBase {
     	testStepVerify.isTrue(isDisplayed, actor+" should be notified for "+expectedMessage, actor+" was notified for "+expectedMessage, "Not able to get notification with text for '"+expectedMessage +"' for"+actor );
 		action.hideNotifications();
     	action.switchApplication(bunddleId);
+	} catch (Exception e) {
+		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+	}
     	}
     
 	@When("^I clear all notification$")
 	public void i_clear_all_notification() {
-		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICAION"));
+		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
 
 		try {
 			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
@@ -119,8 +124,8 @@ public class NotificationSteps extends DriverBase {
 			action.hideNotifications();
 			((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 
 		}
 	}

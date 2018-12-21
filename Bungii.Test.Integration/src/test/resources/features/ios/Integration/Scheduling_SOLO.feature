@@ -1,11 +1,13 @@
 
-@tag
+@ON_DEMAND
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
   Assume customer is logged in
 
   #Background: List of steps run before each of the scenarios
   @positiveCompletesolo
+  @Solo_SchedulingTEST
+
   Scenario: Positive Scenario
 
  #   When I connect to "device2" using "customer app" instance
@@ -18,7 +20,7 @@ Feature: To Test Solo - Scheduling Bungii
         | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on "Estimate" screen
+    Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
       | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
       |       30 |           |             | NEXT_POSSIBLE | Default     |
@@ -30,7 +32,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "TRIP DETAILS" screen
-#    Then Trip Information should be correctly displayed on "TRIP DETAILS" screen
+    Then Trip Information should be correctly displayed on TRIP DETAILS screen
     When I accept selected Bungii
 #    When I Switch to "driver" application on "same" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -111,7 +113,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Solo   | Long     |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on "Estimate" screen
+    Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
       |       30 |           |             | NEXT_POSSIBLE | Default     |
@@ -119,7 +121,6 @@ Feature: To Test Solo - Scheduling Bungii
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
 
-  @Solo_SchedulingTEST
   Scenario: To check the elements of Bungii-Solo Estimate page
     #When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
@@ -128,7 +129,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Solo   | Long     |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on "Estimate" screen
+    Then Trip Information should be correctly displayed on Estimate screen
     Then Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
@@ -142,13 +143,6 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then check if I have ability to select different load time and Estimate cost is re calculated
-
-  @testloadTime
-  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
-    When I Switch to "customer" application on "same" devices
-    When I select Bungii time as per table
-      | Time          | Date  |
-      | 2 hour before | today |
 
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     When I Switch to "customer" application on "same" devices
@@ -195,11 +189,14 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Done" button on "Success" screen
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
-    Then Trip Information should be correctly displayed on "BUNGII DETAILS" screen
+    Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+  @TEST_CC
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
     When I Select "Home" from Customer App menu

@@ -5,6 +5,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.VerificationPage;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -22,7 +23,7 @@ public class VerificationSteps extends DriverBase {
 	public void i_enter_something_verification_code(String strArg1) {
 		try {
 			String smsCode = (String) cucumberContextManager.getScenarioContext("SMS_CODE");
-			action.waitClearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
+			action.clearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
 			action.click(verificationPage.Button_Verify());
 
 			pass( "I should able to enter verification code",
@@ -31,8 +32,8 @@ public class VerificationSteps extends DriverBase {
 			Thread.sleep(20000);
 
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
 

@@ -6,6 +6,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.BungiiCompletePage;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -46,11 +47,11 @@ public class BungiiCompleteSteps extends DriverBase {
 			default:
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
-			testStepVerify.isEquals(actualTip,tip, "Driver should be given tip for "+tip, "Bungii Driver is given tip for" + actualTip,
+			testStepVerify.isTrue(Integer.parseInt(actualTip)==Integer.parseInt(tip), "Driver should be given tip for "+tip, "Bungii Driver is given tip for" + actualTip,
                     "Bungii Driver is given tip for" + actualTip);
 		} catch (Exception e) {
-			logger.error("Error performing step" + e.getMessage());
-			error( "Step  Should be sucessfull", "Error performing step,Error", true);
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
 

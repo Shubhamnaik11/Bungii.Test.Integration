@@ -52,9 +52,9 @@ public class SetupManager extends EventFiringWebDriver {
             if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
                 driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID),APPIUM_SERVER_PORT);
                 if(getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
-                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","CUSTOMER");
+                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION","CUSTOMER");
                 else
-                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICAION","DRIVER");
+                    CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION","DRIVER");
 
             }
             else if(TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
@@ -189,6 +189,7 @@ public class SetupManager extends EventFiringWebDriver {
         DesiredCapabilities capabilities= getCapabilities(deviceId);
         AppiumDriver<MobileElement> newDriverInstance = null;
         newDriverInstance = createAdditionAppiumDriver( appiumPortNumber,capabilities);
+        newDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
         DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
     }
@@ -197,15 +198,22 @@ public class SetupManager extends EventFiringWebDriver {
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--disable-extensions");
-        chromeOptions.addArguments("--disable-com.bungii.com.bungii.web.web-security");
+        chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         capabilities.setCapability("chrome.verbose", false);
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         return capabilities;
     }
 
+    /**
+     * Create new webdriver instance
+     * @param key instance name that is to be saved
+     * @param browser type of browser
+     */
     public void createNewWebdriverInstance(String key, String browser) {
         WebDriver newWebDriverInstance = createWebDriverInstance(browser);
+        newWebDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+
         DriverManager.getObject().storeDriverInstance(key, newWebDriverInstance);
     }
     /**

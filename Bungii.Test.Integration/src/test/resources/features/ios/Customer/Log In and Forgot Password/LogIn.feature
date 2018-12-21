@@ -1,6 +1,6 @@
-@LOGIN_ALL
+@IOS_LOGIN_ALL
 Feature: Log In
-  As a Bungii Customer I should be allowed to login only using valid credetion
+  As a Bungii Customer I should be allowed to login only using valid credential
 
   Background:
     Given I am on the "LOG IN" page

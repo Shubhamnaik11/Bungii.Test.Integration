@@ -24,24 +24,18 @@ public final class RandomGeneratorUtility {
 		 switch(inputString){
 		 case "{RANDOM_STRING}":
 			 strOutput=RandomGeneratorUtility.random(RandomSize, CharacterTypeSets.ALPHABETS);
-			// output= RandomGenerator.random(RandomSize, PermittedCharacters.ALPHABETS);
 			 break;
 		 case "{RANDOM_APLHANUM}":
 			 strOutput= RandomGeneratorUtility.random(RandomSize, CharacterTypeSets.ALPHANUMERIC);
-		//	 output= RandomGenerator.random(RandomSize, PermittedCharacters.ALPHANUMERIC);
 			 break;
 		 case "{RANDOM_EMAIL}":
 			 strOutput= RandomGeneratorUtility.randomEmailAddress(RandomSize);
-			// output= RandomGenerator.randomEmailAddress(RandomSize);
 			 break;
 		 case "{RANDOM_PASTDATE}":
 			 strOutput=  fmt.print(RandomGeneratorUtility.randomAdultsDOB());
-			// output= RandomGenerator.randomAdultsDOB();
-			
 			 break;
 		 case "{RANDOM_NUM}":
 			 strOutput= RandomGeneratorUtility.random(RandomSize, CharacterTypeSets.NUMERIC);
-			// output= RandomGenerator.random(RandomSize, PermittedCharacters.NUMERIC);
 			 break;
 		 case "{RANDOM_PHONE_NUM}":
 			 strOutput="999999"+ RandomGeneratorUtility.random(4, CharacterTypeSets.NUMERIC);
@@ -49,10 +43,8 @@ public final class RandomGeneratorUtility {
 		 	break;
 		 case "{RANDOM_NUM_IN_Range}":
 			 strOutput= RandomGeneratorUtility.randomIntegerInRange(1, RandomSize).toString();
-		//	 output= RandomGenerator.randomIntegerInRange(1, RandomSize);
-			 break;		
+			 break;
 		default:
-			//output =inputString;
 			strOutput =inputString;
 			 
 		 }

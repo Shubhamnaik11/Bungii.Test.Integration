@@ -1,4 +1,5 @@
 package com.bungii.common.manager;
+
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 
@@ -9,16 +10,17 @@ import java.sql.Statement;
 
 public class DbContextManager {
     private static LogUtility logger = new LogUtility(DbContextManager.class);
-    private static String MYSQL_URL=PropertyUtility.getJdbcConfigProperties("jdbc.mysqlserver.url");
-    private static String MYSQL_USER=PropertyUtility.getJdbcConfigProperties("mysql.user");
-    private static String MYSQL_PASSWORD=PropertyUtility.getJdbcConfigProperties("mysql.password");;
-    private static String MSSQL_URL=PropertyUtility.getJdbcConfigProperties("jdbc.sqlserver.url");
-    private static String MSSQL_USER=PropertyUtility.getJdbcConfigProperties("sqlserver.user");
-    private static String MSSQL_PASSWORD=PropertyUtility.getJdbcConfigProperties("sqlserver.password");
+    private static String MYSQL_URL = PropertyUtility.getJdbcConfigProperties("jdbc.mysqlserver.url");
+    private static String MYSQL_USER = PropertyUtility.getJdbcConfigProperties("mysql.user");
+    private static String MYSQL_PASSWORD = PropertyUtility.getJdbcConfigProperties("mysql.password");
+
+    private static String MSSQL_URL = PropertyUtility.getJdbcConfigProperties("jdbc.sqlserver.url");
+    private static String MSSQL_USER = PropertyUtility.getJdbcConfigProperties("sqlserver.user");
+    private static String MSSQL_PASSWORD = PropertyUtility.getJdbcConfigProperties("sqlserver.password");
 
 
     public static String getDataFromMsSqlServer(String queryString) {
-        String result="";
+        String result = "";
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = DriverManager.getConnection(MSSQL_URL, MSSQL_USER, MSSQL_PASSWORD);
@@ -26,9 +28,9 @@ public class DbContextManager {
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(queryString);
-            while (rs.next()){
-                result=rs.getString(1);
-                logger.detail("MS SQL SERVER DATA"+result);
+            while (rs.next()) {
+                result = rs.getString(1);
+                logger.detail("MS SQL SERVER DATA" + result);
             }
             conn.close();
         } catch (Exception e) {
@@ -38,7 +40,7 @@ public class DbContextManager {
         return result;
     }
 
-    public static String getDataFromMySqlServer(String queryString){
+    public static String getDataFromMySqlServer(String queryString) {
         String result = "";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -47,9 +49,9 @@ public class DbContextManager {
 
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(queryString);
-            while (rs.next()){
-                result=rs.getString(1);
-                logger.detail("MY SQL SERVER DATA"+result);
+            while (rs.next()) {
+                result = rs.getString(1);
+                logger.detail("MY SQL SERVER DATA" + result);
             }
             con.close();
         } catch (Exception e) {
