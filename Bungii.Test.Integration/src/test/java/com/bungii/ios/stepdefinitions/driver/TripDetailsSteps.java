@@ -36,7 +36,7 @@ public class TripDetailsSteps extends DriverBase {
 
 
 	@Then("^Trip Information should be correctly displayed on TRIP DETAILS screen$")
-	public void trip_information_should_be_correctly_displayed_on_something_screen(String screen)  {
+	public void trip_information_should_be_correctly_displayed_on_something_screen()  {
 		try {
 			String[] actualDetails = getTripDetails();
 			cucumberContextManager.setScenarioContext("BUNGII_DRIVER_ESTIMATE", actualDetails[1]);
@@ -52,7 +52,7 @@ public class TripDetailsSteps extends DriverBase {
 			boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
 			testStepVerify.isTrue(isTimeCorrect && isDistanceCorrect,
-					"Trip Information should be correctly displayed on" + screen + " screen",
+					"Trip Information should be correctly displayed on TRIP DETAILS screen",
 					"Trip Information should be correctly displayed ",
 					expectedTripDistance + expectedTripTime + "" + actualDetails[0] + actualDetails[1] + actualDetails[2]);
 		} catch (Throwable e) {

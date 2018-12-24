@@ -29,7 +29,7 @@ public class TripStatusSteps extends DriverBase {
     }
 
 
-    @Then("^Customer should be naviagated to \"([^\"]*)\" trip status screen$")
+    @Then("^Customer should be navigated to \"([^\"]*)\" trip status screen$")
     public void customerShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
             boolean pageFlag = false;

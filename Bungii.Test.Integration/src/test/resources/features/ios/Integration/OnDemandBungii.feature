@@ -25,7 +25,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |             | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     Then I click on notification for "Driver" for "on demand trip"
@@ -41,7 +41,7 @@ Feature: Create on demand bungii
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     And I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then Customer should be naviagated to "EN ROUTE" trip status screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
     Then correct details should be displayed to customer on "SMS" app
     Then correct details should be displayed to customer on "Call" app
@@ -54,7 +54,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to driver on "Call" app
 
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "ARRIVED" trip status screen
+    Then Customer should be navigated to "ARRIVED" trip status screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
     Then correct details should be displayed to customer on "SMS" app
     Then correct details should be displayed to customer on "Call" app
@@ -66,7 +66,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
     Then correct details should be displayed to customer on "SMS" app
     Then correct details should be displayed to customer on "Call" app
@@ -78,7 +78,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
     Then correct details should be displayed to customer on "SMS" app
     Then correct details should be displayed to customer on "Call" app
@@ -90,7 +90,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
     Then correct details should be displayed to customer on "SMS" app
     Then correct details should be displayed to customer on "Call" app
@@ -119,6 +119,6 @@ Feature: Create on demand bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |             | Now  | Default     |
     Then Estimate value for trip should be properly displayed

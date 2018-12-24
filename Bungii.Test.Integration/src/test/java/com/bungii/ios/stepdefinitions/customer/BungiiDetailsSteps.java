@@ -34,7 +34,7 @@ public class BungiiDetailsSteps extends DriverBase {
 	}
 	//TODO: Add duo
 	@Then("^Trip Information should be correctly displayed on BUNGII DETAILS screen$")
-	public void trip_information_should_be_correctly_displayed_on_something_screen(String screen)  {
+	public void trip_information_should_be_correctly_displayed_on_something_screen()  {
 		try {
 
 			String[] tripInfo = getSoloBungiiLocationInformation();

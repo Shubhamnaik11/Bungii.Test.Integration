@@ -108,7 +108,16 @@ public class EstimatePage extends PageBase {
     public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.Name);
     }
+    public  WebElement Button_AddSecondPhoto(){
+        return  findElement("2",LocatorType.Name);
+    }
 
+    public  WebElement Button_AddThirdPhoto(){
+        return  findElement("3",LocatorType.Name);
+    }
+    public  WebElement Button_AddFourthPhoto(){
+        return  findElement("4",LocatorType.Name);
+    }
     public WebElement Button_Gallary() {
         return findElement("Gallery", LocatorType.Name);
     }
@@ -127,6 +136,9 @@ public class EstimatePage extends PageBase {
 
     public WebElement CheckBoxOn_Terms() {
         return findElement("check box on", LocatorType.Name);
+    }
+    public WebElement Button_AddPromoCode() {
+        return findElement("ADD", LocatorType.Name);
     }
 
     public WebElement CheckBox_Value() {

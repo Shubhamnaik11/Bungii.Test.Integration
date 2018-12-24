@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.customer;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -7,7 +8,9 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -44,10 +47,15 @@ public class ScheduledBungiiSteps extends DriverBase {
 		try {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+
 			Thread.sleep(20000);
 			action.swipeDown();
-			boolean isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
-
+			boolean isBungiiPresent =isBungiiPresent(tripNoOfDriver, tripTime);
+			//do half screen swipe if Bungii is present
+			if(isBungiiPresent)
+			{	halfScreenSwipe();
+				isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
+			}
 			testStepVerify.isFalse(isBungiiPresent, "Bungii must be removed from " + screen + " screen",
 					"Bungii Must be deleted", "Bungii is not deleted");
 		} catch (Exception e) {
@@ -56,7 +64,15 @@ public class ScheduledBungiiSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+	private void halfScreenSwipe(){
+		Dimension size = SetupManager.getDriver().manage().window().getSize();
+		int startx = (int) (size.width * 0.5);
+		int endx = (int) (size.width * 0.5);
+		int starty = size.height / 2;
+		int endy = size.height ;
 
+		action.dragFromToForDuration(startx, starty, endx, endy, 1);
+	}
 
 
 

@@ -269,7 +269,10 @@ public class CommonSteps extends DriverBase {
                         action.click(driverUpdateStatusPage.Button_Call());
                     break;
                 case "ADD":
-                    action.click(promosPage.Button_Add());
+                    if(screen.equalsIgnoreCase("Estimate"))
+                        action.click(estimatePage.Button_AddPromoCode());
+                    else
+                        action.click(promosPage.Button_Add());
                     break;
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());

@@ -42,19 +42,30 @@ public class EstimateSteps extends DriverBase {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
             String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
                     pickUpImage = data.get("PickUpImage");
+            //Vishal[21/12]: added this to save time , It takes time to read trip value from estimate page
+            boolean saveDetails=true;
+            try{String save_trip_info = data.get("Save Trip Info"); saveDetails=save_trip_info.equalsIgnoreCase("No")?false:true;}
+            catch (Exception e){}
             boolean isCorrectTime = false, isAlertCorrect;
             String strTime = "";
 
             enterLoadingTime(loadTime);
-            addBungiiPickUpImage();
+            addPromoCode(promoCode);
+            addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             strTime = enterTime(time);
 
-            String[] details = getEstimateDetails();
+            String[] details = new String[4];
+            if(saveDetails){
+                details = getEstimateDetails();
+                isCorrectTime =  details[1].equals(strTime);
+            }
+            else
+                isCorrectTime =  action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+
             clickRequestBungii();
             // verification
             isAlertCorrect = verifyAndAcceptAlert(loadTime);
-            isCorrectTime = details[1].equals(strTime);
 
             // SAVE required values in scenario context
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
@@ -63,8 +74,8 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
 
             testStepVerify.isTrue(isCorrectTime && isAlertCorrect, "I confirm trip with following details",
-                    "I should able to confirm trip details", "Trip was not sucessfully confirmed ,Bungii request time"
-                            + strTime + " not matching with entered time");
+                    "I created new  trip for "+strTime, "Trip was not successfully confirmed ,Bungii request time"
+                            + strTime + " not matching with entered time or heads up alert text is not matching");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -73,7 +84,10 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
+    private void addPromoCode(String code){
+        action.click(estimatePage.Button_AddPromoCode());
 
+    }
     @Then("^Estimate value for trip should be properly displayed$")
     public void estimate_value_for_trip_should_be_properly_displayed() {
         try {
@@ -181,7 +195,7 @@ public class EstimateSteps extends DriverBase {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM d, hh:mm a");
         String formattedDate = sdf.format(date);
         //After sprint 27 /26 IST is being added in scheduled page
-        formattedDate = formattedDate + " IST";
+        formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
         return formattedDate;
     }
 
@@ -317,7 +331,7 @@ public class EstimateSteps extends DriverBase {
                 String strTime = enterTime(time);
                 cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
             }
-            addBungiiPickUpImage();
+            addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             String[] details = getEstimateDetails();
             // SAVE required values in scenario context
@@ -360,7 +374,7 @@ public class EstimateSteps extends DriverBase {
 
 
     @Then("^Trip Information should be correctly displayed on Estimate screen$")
-    public void trip_information_should_be_correctly_displayed_on_something_screen(String screen) {
+    public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String pickUpLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
@@ -371,12 +385,12 @@ public class EstimateSteps extends DriverBase {
             tripLocation[1] = action.getValueAttribute(estimatePage.Text_DropOffLocation());
 
             if (tripLocation[0].equals(pickUpLocation) && tripLocation[1].equals(dropOffLocation)) {
-                pass("Trip Information should be correctly displayed on " + screen + " screen",
+                pass("Trip Information should be correctly displayed on Estimate screen",
                         "Pick up location :" + pickUpLocation + " , Drop location: " + dropOffLocation
                                 + "is correctly displayed on estimate screen ", true);
 
             } else {
-                fail("Trip Information should be correctly displayed on " + screen + " screen",
+                fail("Trip Information should be correctly displayed on Estimate screen",
                         "Pick up location on request screen is:" + pickUpLocation + " and on Estimate screen is"
                                 + tripLocation[0] + " .Drop off location on request screen is:" + dropOffLocation + " and on Estimate screen is" + tripLocation[1],
                         true);
@@ -698,12 +712,25 @@ public class EstimateSteps extends DriverBase {
     /**
      * Add Last image from camera roll folder as bungii pickup item image
      */
-    public void addBungiiPickUpImage() {
-        estimatePage.Button_AddPhoto().click();
-        estimatePage.Button_Gallary().click();
-        estimatePage.PhotosFolder().click();
-        List<WebElement> folder = estimatePage.Cell_Photo();
-        folder.get(folder.size() - 1).click();
+    public void addBungiiPickUpImage(String option) {
+        if (option.equalsIgnoreCase("4 images")) {
+            addImage(4);
+        }else if(option.equalsIgnoreCase("Default")){
+            addImage(1);
+        }else
+            addImage(1);
+
+    }
+
+    private void addImage(int numberOfImage) {
+        for (int i = 1; i <= numberOfImage; i++) {
+            estimatePage.Button_AddPhoto().click();
+            estimatePage.Button_Gallary().click();
+            estimatePage.PhotosFolder().click();
+            List<WebElement> folder = estimatePage.Cell_Photo();
+            folder.get(folder.size() - 1).click();
+        }
+
     }
 
     /**
@@ -739,9 +766,13 @@ public class EstimateSteps extends DriverBase {
         String actualText = getDriver().switchTo().alert().getText();
 
         //Replace '<TIME>' keyword with load/unload time for current trip
-
+        String bungiiType= (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
         String expectedText = PropertyUtility.getMessage("alert.Request.Bungii").replaceAll("<TIME>", loadTime.trim());
+        //VISHAL[21/12]: added message for duo as there is different message for duo trip
+        if(bungiiType.equalsIgnoreCase("DUO"))
+             expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim());
         getDriver().switchTo().alert().accept();
+        logger.detail("Popup text on head up alert message:"+actualText);
         return actualText.equals(expectedText);
     }
 

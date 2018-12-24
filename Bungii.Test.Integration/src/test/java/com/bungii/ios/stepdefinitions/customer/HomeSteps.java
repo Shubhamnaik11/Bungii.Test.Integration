@@ -41,7 +41,7 @@ public class HomeSteps extends DriverBase {
 
     }
 
-    public void verifyTripInformationOnHome(String screen) {
+    public void verifyTripInformationOnHome() {
         String expectedPickUpLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")),
                 expectedDropLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")), expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
@@ -112,16 +112,16 @@ public class HomeSteps extends DriverBase {
         try{
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
-        String Pickup = dataMap.get("Pickup Location").trim();
-        String Drop = dataMap.get("Drop Location").trim();
+        String pickup = dataMap.get("Pickup Location").trim();
+        String drop = dataMap.get("Drop Location").trim();
         String tripDriverType = dataMap.get("Driver").trim();
 
-        selectBungiiLocation("PICK UP", Pickup);
-        selectBungiiLocation("DROP", Drop);
+        selectBungiiLocation("PICK UP", pickup);
+        selectBungiiLocation("DROP", drop);
         selectTripDriver(tripDriverType);
         saveBungiiHomeDetails(tripDriverType);
         testStepVerify.isTrue(verifyNoOfDriver(tripDriverType),
-                "Number of Driver for Bungii should be " + tripDriverType,
+                "I should request " + tripDriverType +" Bungii", tripDriverType +" Bungii was requested for Pick up  address"+ pickup+" and drop address "+ drop +" using search dropdown",
                 "Number of Driver for Bungii is not " + tripDriverType);
     } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -307,9 +307,9 @@ public class HomeSteps extends DriverBase {
     }
 
     @Then("^Trip Information should be correctly displayed on CUSTOMER HOME screen$")
-    public void trip_information_should_be_correctly_displayed_on_something_screen(String screen)  {
+    public void trip_information_should_be_correctly_displayed_on_something_screen()  {
         try {
-            verifyTripInformationOnHome(screen);
+            verifyTripInformationOnHome();
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
@@ -523,7 +523,7 @@ public class HomeSteps extends DriverBase {
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
-        action.hideKeyboard();
+      //  action.hideKeyboard();
         action.click(homePage.BUTTON_SET());
     }
 

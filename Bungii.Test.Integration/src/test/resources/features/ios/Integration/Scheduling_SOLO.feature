@@ -1,5 +1,3 @@
-
-@ON_DEMAND
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
   Assume customer is logged in
@@ -15,15 +13,15 @@ Feature: To Test Solo - Scheduling Bungii
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
     When I Select "Home" from Customer App menu
-      When I request for  bungii for given pickup and drop location
-        | Driver | Pickup Location | Drop Location                |
-        | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
-      |       30 |           |             | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
     Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
@@ -42,26 +40,26 @@ Feature: To Test Solo - Scheduling Bungii
     #TODO: verify bungii detail page
    # Then If Alerted I ""
     When I start selected Bungii
-   Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen
     When I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "ARRIVED" trip status screen
+    Then Customer should be navigated to "ARRIVED" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
     When I Switch to "customer" application on "same" devices
-    Then Customer should be naviagated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
@@ -70,7 +68,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Bungii Complete" screen
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
-      |       5 |   5 |
+      | 5       | 5   |
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
@@ -115,8 +113,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
-      |       30 |           |             | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then "Load/Upload Time" information icon should display correct information
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
@@ -134,7 +132,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
 
-  Scenario: Verify Load/unload time fuctionality . Check if Estimate cost is re calculated
+  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
     And I request for  bungii
@@ -153,8 +151,8 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
-      |       30 |           |             | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
     Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
@@ -165,8 +163,8 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time              | PickUpImage |
-      |       30 |           |             | <OLD BUNGII TIME> | Default     |
+      | LoadTime | PromoCode | Payment Card | Time              | PickUpImage |
+      | 30       |           |              | <OLD BUNGII TIME> | Default     |
     Then user is alerted for "already scheduled bungii"
     And I click "Cancel" button on "Estimate" screen
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
@@ -183,8 +181,8 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
-      |       30 |           |             | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
@@ -193,21 +191,19 @@ Feature: To Test Solo - Scheduling Bungii
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @TEST_CC
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
     When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time          | PickUpImage |
-      |       30 |           |             | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
     When I open new "Chrome" browser for "ADMIN"
@@ -217,11 +213,10 @@ Feature: To Test Solo - Scheduling Bungii
     # 			Then I Select Bungii from "Scheduled Trip" List
     When I Cancel Bungii with following details
       | Charge | Comments |
-      |     15 | TEST     |
+      | 15     | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     Then Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     When I Switch to "customer" application on "same" devices
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
-    #     And I Select Trip from scheduled trip
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

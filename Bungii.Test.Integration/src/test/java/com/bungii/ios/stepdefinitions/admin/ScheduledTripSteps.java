@@ -41,12 +41,11 @@ public class ScheduledTripSteps extends DriverBase {
 			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
-
 			tripDetails.put("CUSTOMER", custName);
 			//On admin panel CST time use to show
+		//	getPortalTime("Dec 21, 11:15 AM IST");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-
-			tripDetails.put("SCHEDULED_DATE", bungiiTime);
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
@@ -54,7 +53,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
-			for (int i = 0; i < 5 && rowNumber == 0; i++) {
+			for (int i = 0; i < 5 && rowNumber == 999; i++) {
 				Thread.sleep(30000);
 				SetupManager.getDriver().navigate().refresh();
 				scheduledTripsPage.waitForPageLoad();
@@ -73,6 +72,7 @@ public class ScheduledTripSteps extends DriverBase {
 	}
 
 	private String getCstTime(String bungiiTime) throws ParseException {
+		//Dec 21, 11:15 AM IST
 		Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(bungiiTime);
 		Date currentDate = new Date();
 		bungiiDate.setYear(currentDate.getYear());
@@ -81,6 +81,16 @@ public class ScheduledTripSteps extends DriverBase {
 		sdf.setTimeZone(TimeZone.getTimeZone("CST"));
 
 		String formattedDate = sdf.format(bungiiDate);
+		return formattedDate;
+	}
+
+	private String getPortalTime(String bungiiTime) throws ParseException {
+		Calendar calendar = Calendar.getInstance();
+
+		int intYear=calendar.get(Calendar.YEAR);
+
+		String formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" + bungiiTime.substring(13, bungiiTime.length());
+
 		return formattedDate;
 	}
 
@@ -97,23 +107,22 @@ public class ScheduledTripSteps extends DriverBase {
 			tripDetails.put("CUSTOMER", custName);
 			//On admin panel CST time use to show
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			tripDetails.put("SCHEDULED_DATE", bungiiTime);
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime));
 
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to di
-			for (int i = 0; i < 5 && rowNumber != 0; i++) {
+			for (int i = 0; i < 5 && rowNumber != 999; i++) {
 				Thread.sleep(30000);
 				SetupManager.getDriver().navigate().refresh();
 				scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
 			}
-			testStepVerify.isTrue(rowNumber == 0,
+			testStepVerify.isTrue(rowNumber == 999,
 					"Bungii should be removed from the List", "Bungii is removed from the List",
 					"Bungii is not removed from the List");
 			
-			log( "Bungii must be removed from the List", "Bungii is removed from the List",
-					true);
+
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -151,7 +160,7 @@ public class ScheduledTripSteps extends DriverBase {
 	public int getTripRowNumber(Map<String,String> tripDetails){
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
-		int rowNumber=0;
+		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
 			String rowCustName=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]")).getText();
@@ -175,6 +184,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public void cancelBungii(Map<String,String> tripDetails,String cancelCharge,String comments){
 		int rowNumber =getTripRowNumber(tripDetails);
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
 		WebElement editButton;
 		if(rowNumber==0){
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));

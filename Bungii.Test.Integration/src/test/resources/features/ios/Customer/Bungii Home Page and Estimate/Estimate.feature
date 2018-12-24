@@ -16,8 +16,8 @@ Feature: Customer	Referal Invite page
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      | 30       |           |             | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 30       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
@@ -30,8 +30,8 @@ Feature: Customer	Referal Invite page
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      | 30       |           |             | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     And I wait for SEARCHING screen to disappear
     Then I should be navigated to "DRIVER NOT AVAILABLE" screen
@@ -50,8 +50,8 @@ Feature: Customer	Referal Invite page
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      | 30       |           |             | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
     And I click "REQUEST BUNGII" button on "Estimate" screen
     And I reject Alert message
     Then I should be navigated to "ESTIMATE" screen
@@ -67,8 +67,8 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | PayMentCard | Time | PickUpImage |
-      | 30       |           |             | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
     And I click "Cancel" button on "Estimate" screen
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
