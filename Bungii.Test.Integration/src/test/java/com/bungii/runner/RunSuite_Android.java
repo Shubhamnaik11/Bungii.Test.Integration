@@ -7,12 +7,11 @@ import org.junit.runner.RunWith;
 import org.testng.annotations.*;
 import java.io.IOException;
 
-@CucumberOptions(features = "src/test/resources/features/android", monochrome = true, tags = {"@Android1"}, plugin = {
+@CucumberOptions(features = "src/test/resources/features/android", monochrome = true, tags = {"@Sanity_Android"}, plugin = {
 		"pretty", "html:target/cucumber-report/single",
 		"json:target/cucumber-report/single/cucumber.json",
 		"rerun:target/cucumber-report/single/rerun.txt","com.bungii.common.utilities.CustomFormatter"},
-		glue ={"com.bungii.android.stepdefinitions","com.bungii.hooks"},
-		dryRun = true
+		glue ={"com.bungii.android.stepdefinitions","com.bungii.hooks"}
 )
 public class RunSuite_Android extends AbstractTestNGCucumberTests {
 

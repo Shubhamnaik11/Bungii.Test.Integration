@@ -33,7 +33,7 @@ public class BungiiCompleteSteps extends DriverBase {
 			String ratting = data.get("Ratting"), tip = data.get("Tip");
 			//give tip and fetch actual tip
 			giveTip(Integer.parseInt(tip));
-			String actualTip = bungiiCompletePage.Text_TipValue().getAttribute("value");
+			String actualTip = bungiiCompletePage.Text_TipValue().getAttribute("value").replace("$","");
 			
 			giveRatting(Integer.parseInt(ratting));
 
@@ -47,8 +47,8 @@ public class BungiiCompleteSteps extends DriverBase {
 			default:
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
-			testStepVerify.isTrue(Integer.parseInt(actualTip)==Integer.parseInt(tip), "Driver should be given tip for "+tip, "Bungii Driver is given tip for" + actualTip,
-                    "Bungii Driver is given tip for" + actualTip);
+			testStepVerify.isTrue(  (int)Double.parseDouble(actualTip)==Integer.parseInt(tip), "driver should be given tip for "+tip, "Bungii driver is given tip for" + actualTip,
+                    "Bungii driver is given tip for" + actualTip);
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -8,5 +8,5 @@ public class Driver_DashboardPage extends PageBase {
 //Header - Dashboard
     public WebElement Header_Dashboard () { return findElement("//input[@id='DriverCurrentStatus']/following-sibling::h4", LocatorType.XPath); }
 
-
+    public WebElement Link_Logout(){return  findElement("//a[.='log out']", LocatorType.XPath);}
 }

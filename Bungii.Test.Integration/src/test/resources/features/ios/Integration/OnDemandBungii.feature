@@ -6,7 +6,7 @@ Feature: Create on demand bungii
   Background:
 
     Given I am on Customer logged in Home page
-
+  @ON_DEMAND_COMPELTE
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
     And I clear all notification
     When I Switch to "driver" application on "same" devices

@@ -8,7 +8,7 @@ public class Driver_DetailsPage extends PageBase {
     //Header
     public WebElement DriverReg_AllPagesHeader () { return findElement("//div[@id='tab-title']/h3", LocatorType.XPath); }
 
-    //Driver Details - Blank field validation
+    //driver Details - Blank field validation
     public WebElement Err_DriverDetails_AllBlank () { return findElement("summary1", LocatorType.Id); }
 
     //Details - Address Information - Street Address
@@ -35,16 +35,16 @@ public class Driver_DetailsPage extends PageBase {
     //Details - 'I have had at least one year of driving experience' checkbox
     public WebElement CheckBox_DrivingExp () { return findElement("//input[@id='DriverDetails.HasSufficientDrivingExperience']/following-sibling::label", LocatorType.XPath); }
 
-    //Details - Driver Availability - Clear all
+    //Details - driver Availability - Clear all
     public WebElement Link_ClearAll () { return findElement("//input[@class='clearAll']/parent::label", LocatorType.XPath); }
 
-    //Details - Driver Availability - Wednesday Afternoon
+    //Details - driver Availability - Wednesday Afternoon
     public WebElement CheckBox_WedAftrn () { return findElement("//input[@id='DriverDetails_DriverAvailability_TimeSlots_2__Afternoon']", LocatorType.XPath); }
 
-    //Details - Driver Availability - Select all
+    //Details - driver Availability - Select all
     public WebElement Link_SelectAll () { return findElement("//input[@class='selectAll']/parent::label", LocatorType.XPath); }
 
-    //Details - Driver Availability - Sunday Evening
+    //Details - driver Availability - Sunday Evening
     public WebElement CheckBox_SunEve () { return findElement("//input[@id='DriverDetails_DriverAvailability_TimeSlots_6__Evening']", LocatorType.XPath); }
 
     //Details - TextArea - Other
@@ -56,13 +56,13 @@ public class Driver_DetailsPage extends PageBase {
     //Details - TextArea - Current / Primary Occupation
     public WebElement TextArea_Occupation () { return findElement("DriverDetails_CurrentOccupation", LocatorType.Id); }
 
-    //Details - Driver Picture Upload
+    //Details - driver Picture Upload
     public WebElement Link_DriverPicture () { return findElement("//div[@id='dropzone1']/div/p/a[contains(text(),'click here')]", LocatorType.XPath); }
 
-    //Details - Driver Picture Upload - Crop Button
+    //Details - driver Picture Upload - Crop Button
     public WebElement Button_Crop () { return findElement("//div[@class='modal-content']/div[@class='modal-footer']/button[text()='Crop']", LocatorType.XPath); }
 
-    //Details - Driver Picture Upload - Remove File Link
+    //Details - driver Picture Upload - Remove File Link
     public WebElement Link_RemoveFile () { return findElement("//div[@id='dropzone1']/div/a[text()='Remove file']", LocatorType.XPath); }
 
     //Details - More Details - Social Security Number

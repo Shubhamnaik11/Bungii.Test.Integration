@@ -191,7 +191,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isDropLocationDisplayed = actualInfo.get(1)
-                .equals((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+                .contains((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
 
         if (isTagDisplayed && isDropLocationDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -218,7 +218,7 @@ public class UpdateStatusSteps extends DriverBase {
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
         boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
         boolean isPickUpDisplayed = actualInfo.get(1)
-                .equals((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                .contains((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
 
         if (isTagDisplayed && isETACorrect && isPickUpDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -242,7 +242,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        boolean isDropDisplayed = actualInfo.get(1).equals((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+        boolean isDropDisplayed = actualInfo.get(1).contains((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
 
         if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -271,7 +271,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
         boolean isPickupDisplayed = actualInfo.get(1)
-                .equals((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                .contains((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
         if (isTagDisplayed && isPickupDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
         } else {

@@ -45,6 +45,9 @@ public class EstimatePage extends PageBase {
 
     //------Date and Time------------------------------------------------------------------------
     public WebElement Time () { return findElement("com.bungii.customer:id/date_time_picker_textview_selectedtime", LocatorType.Id); }
+    public WebElement Button_Later () { return findElement("com.bungii.customer:id/alert_schedule_bungii_textview_later", LocatorType.Id); }
+    public WebElement Button_DateConfirm () { return findElement("android:id/button1", LocatorType.Id); }
+    public WebElement Button_TimeConfirm () { return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id); }
 
     public WebElement Samsung_CurrentSelectedDate () { return findElement("//android.widget.DatePicker/android.widget.LinearLayout/android.widget.ViewAnimator/android.widget.ListView/android.view.View/android.view.View[@enabled='true' and @selected='true']", LocatorType.XPath); }
 
@@ -75,7 +78,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Link_AddPhoto () { return findElement("com.bungii.customer:id/imageview_row_image_add_item_photo", LocatorType.Id); }
 
-    public WebElement Message_CameraPermissions () { return findElement("com.android.packageinstaller:id/permission_message", LocatorType.Id); }
+    public WebElement Message_CameraPermissions (boolean ... ignoreException) { return findElement("com.android.packageinstaller:id/permission_message", LocatorType.Id,ignoreException); }
 
     public WebElement Permissions_CameraAllow () { return findElement("com.android.packageinstaller:id/permission_allow_button", LocatorType.Id); }
 
@@ -94,11 +97,14 @@ public class EstimatePage extends PageBase {
     public WebElement Button_Camera_Retry () { return findElement("com.sec.android.app.camera:id/retry", LocatorType.Id); }
 
     public WebElement Button_Review () { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id); }
+    public WebElement Button_SelectedImage () { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id); }
+
+
 
     //------Confirmations---------------------------------------------------------------------------
-    public WebElement Checkbox_AgreeEstimate () { return findElement("com.bungii.customer:id/estimate_agree_disclaimer", LocatorType.Id); }
+    public WebElement Checkbox_AgreeEstimate (boolean ...ignoreException) { return findElement("com.bungii.customer:id/estimate_agree_disclaimer", LocatorType.Id,ignoreException); }
 
-    public WebElement Button_RequestBungii () { return findElement("//android.widget.Button[@text='REQUEST BUNGII']", LocatorType.XPath); }
+    public WebElement Button_RequestBungii (boolean ...ignoreException) { return findElement("//android.widget.Button[@text='REQUEST BUNGII']", LocatorType.XPath,ignoreException); }
 
     public WebElement Alert_ConfirmRequestMessage () { return findElement("android:id/message", LocatorType.Id); }
 

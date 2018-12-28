@@ -36,6 +36,6 @@ public class SimulatorPage extends PageBase {
     public WebElement DSim_Btn_Complete () { return findElement("btnComplete", LocatorType.Id); }
 
     //Click here to test again Link
-    public WebElement Link_Restart () { return findElement("//div[@id='Driver-Actions-Complete']/div/h4/a[text()='here']", LocatorType.XPath); }
+    public WebElement Link_Restart () { return findElement("//div[@id='driver-Actions-Complete']/div/h4/a[text()='here']", LocatorType.XPath); }
 
 }

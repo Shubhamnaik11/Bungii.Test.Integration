@@ -60,7 +60,7 @@ public class TripStatusSteps extends DriverBase {
                     fail(scr + " screen icon should not be highlighted", scr + " screen icon is highlighted", true);
                 }
             }
-            testStepAssert.isTrue(pageFlag && activeStatusFlag,"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
+            testStepVerify.isTrue(pageFlag && activeStatusFlag,"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -125,7 +125,7 @@ public class TripStatusSteps extends DriverBase {
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
                 isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
                 isDropLocationDisplayed = actualInfo.get(1)
-                        .equals((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+                        .contains((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
 
         if (isTagDisplayed && isEtaDisplayed && isDropLocationDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -156,7 +156,7 @@ public class TripStatusSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isDropDisplayed = actualInfo.get(1).equals((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+                isDropDisplayed = actualInfo.get(1).contains((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
 
         if (isTagDisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -183,7 +183,7 @@ public class TripStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION"),
                 isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
-                isPickUpCorrect = actualInfo.get(1).equals((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                isPickUpCorrect = actualInfo.get(1).contains((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
         if (isTagDisplayed && isEtaCorrect && isPickUpCorrect) {
             //removed pass statement to avoid multiple screenshot and log in result
         } else {
@@ -214,7 +214,7 @@ public class TripStatusSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION"),
-                pickUpCorrect = actualInfo.get(1).equals((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                pickUpCorrect = actualInfo.get(1).contains((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
         if (isTagDisplayed && pickUpCorrect) {
             //removed pass statement to avoid multiple screenshot and log in result
         } else {

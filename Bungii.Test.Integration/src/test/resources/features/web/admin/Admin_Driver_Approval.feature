@@ -4,7 +4,7 @@ Feature: Admin_Driver_Approval
     Given I am logged in as Admin
     And there is a pending driver verification
 
-  @Web1
+  @Web
   Scenario: Admin_Driver_ApproveApplication
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"

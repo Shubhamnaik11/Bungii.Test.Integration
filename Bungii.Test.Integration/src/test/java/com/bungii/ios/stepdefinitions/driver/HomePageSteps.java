@@ -1,6 +1,7 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
@@ -23,6 +24,8 @@ public class HomePageSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
+            if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
+
             goToAppMenu();
             boolean flag = clickAppMenu(menuItem);
             testStepAssert.isTrue(flag, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
@@ -34,25 +37,25 @@ public class HomePageSteps extends DriverBase {
     }
 
     /**
-     * Driver goes online
+     * driver goes online
      */
     public void goOnline() {
         if (homepage.isElementEnabled(homepage.Button_GoOnline()))
             action.click(homepage.Button_GoOnline());
         else if (homepage.isElementEnabled(homepage.Button_GoOffline()))
-            logger.warning("Driver Status is already Online");
+            logger.warning("driver Status is already Online");
         else
             logger.error("Not able to get driver status");
     }
 
     /**
-     * Driver goes offline
+     * driver goes offline
      */
     public void goOffline() {
         if (homepage.isElementEnabled(homepage.Button_GoOffline()))
             action.click(homepage.Button_GoOffline());
         else if (homepage.isElementEnabled(homepage.Button_GoOnline()))
-            logger.warning("Driver Status is already offline");
+            logger.warning("driver Status is already offline");
         else
             logger.error("Not able to get driver status");
     }
@@ -71,7 +74,7 @@ public class HomePageSteps extends DriverBase {
     /**
      * Get driver status information
      *
-     * @return String array of Driver status information
+     * @return String array of driver status information
      */
     public String[] getDriverInformation() {
         String[] driverInfo = new String[3];

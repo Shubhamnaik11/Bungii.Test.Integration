@@ -7,7 +7,7 @@ Feature: Driver_SMSVerification
     And I enter "unique" driver phone number on Signup page
     And I click "Signup button" on driver portal
     Then I should be directed to "phone verification page" on Driver portal
-  @Web
+
   Scenario: DriverSignup_Valid_Verification Code
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal
@@ -15,6 +15,8 @@ Feature: Driver_SMSVerification
     And I should see "Logged in user name" on Driver Registration
     When I click "Continue Registration" on driver portal
     Then I should be directed to "Driver Details page" on Driver portal
+    Then the driver logout from dashboard
+
   @Web
   Scenario: DriverSignUp_Resend_VerificationCode
     When I click "Resend verification code" on driver portal

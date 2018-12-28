@@ -57,8 +57,8 @@ public class HomeSteps extends DriverBase {
                 "Drop address should be " + expectedDropLocation, "Drop address is " + expectedDropLocation,
                 "Expected Drop address is " + expectedDropLocation + ", but actual is" + actualDropLocation);
         testStepVerify.isTrue(verifyNoOfDriver(expectedTripNoOfDriver),
-                "Number of Driver for Bungii should be " + expectedTripNoOfDriver, "Number of Driver for Bungii is " + expectedTripNoOfDriver,
-                "Number of Driver for Bungii is not " + expectedTripNoOfDriver);
+                "Number of driver for Bungii should be " + expectedTripNoOfDriver, "Number of driver for Bungii is " + expectedTripNoOfDriver,
+                "Number of driver for Bungii is not " + expectedTripNoOfDriver);
 
     }
 
@@ -69,7 +69,7 @@ public class HomeSteps extends DriverBase {
 
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
-            String tripDriverType = dataMap.get("Driver").trim();
+            String tripDriverType = dataMap.get("driver").trim();
             String distance = dataMap.get("Distance").trim();
             int dragFactor = 1;
             switch (distance.toUpperCase()) {
@@ -94,8 +94,8 @@ public class HomeSteps extends DriverBase {
             selectTripDriver(tripDriverType);
 
             testStepVerify.isTrue(verifyNoOfDriver(tripDriverType), "I Requested Bungii",
-                    "Number of Driver for Bungii should be " + tripDriverType,
-                    "Number of Driver for Bungii is not " + tripDriverType);
+                    "Number of driver for Bungii should be " + tripDriverType,
+                    "Number of driver for Bungii is not " + tripDriverType);
 
 
             saveBungiiHomeDetails(tripDriverType);
@@ -114,7 +114,7 @@ public class HomeSteps extends DriverBase {
 
         String pickup = dataMap.get("Pickup Location").trim();
         String drop = dataMap.get("Drop Location").trim();
-        String tripDriverType = dataMap.get("Driver").trim();
+        String tripDriverType = dataMap.get("driver").trim();
 
         selectBungiiLocation("PICK UP", pickup);
         selectBungiiLocation("DROP", drop);
@@ -122,7 +122,7 @@ public class HomeSteps extends DriverBase {
         saveBungiiHomeDetails(tripDriverType);
         testStepVerify.isTrue(verifyNoOfDriver(tripDriverType),
                 "I should request " + tripDriverType +" Bungii", tripDriverType +" Bungii was requested for Pick up  address"+ pickup+" and drop address "+ drop +" using search dropdown",
-                "Number of Driver for Bungii is not " + tripDriverType);
+                "Number of driver for Bungii is not " + tripDriverType);
     } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

@@ -6,10 +6,10 @@ import org.openqa.selenium.WebElement;
 public class Driver_VerifyPhonePage extends PageBase {
 
     //---------------------------Forgot Password - Verify Your Phone-------------------------------------------------
-    //Driver - Verify your phone - Header
+    //driver - Verify your phone - Header
     public WebElement Header_VerifyPhone () { return findElement("//div[@id='verification']/h2", LocatorType.XPath); }
 
-    //Driver - Verify your phone - text
+    //driver - Verify your phone - text
     public WebElement Text_Verify_PhoneNo () { return findElement("//div[@id='verification']/p", LocatorType.XPath); }
 
     //Verify Your Phone - Blank field validation error

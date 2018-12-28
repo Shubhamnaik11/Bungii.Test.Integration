@@ -654,6 +654,8 @@ public class CommonSteps extends DriverBase {
                 action.click(Image_SelectBungii);
             } else {
                 //driverScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
+
+                if(!action.isAlertPresent()){
                 String imageTag = "";
                 if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
                     imageTag = Image_Solo;
@@ -662,6 +664,10 @@ public class CommonSteps extends DriverBase {
                 WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + tripTime + "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
                 //By Image_SelectBungii = MobileBy.xpath();
                 action.click(Image_SelectBungii);
+                }else{
+                    //If alert is present accept it , it will automatically select Bungii
+                    SetupManager.getDriver().switchTo().alert().accept();
+                }
 
             }
 

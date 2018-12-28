@@ -45,16 +45,22 @@ public class TripDetailsSteps extends DriverBase {
 			String expectedTripDistance = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
 			//Leading zero is not present in time, Check if zero is present and delete it
 			String timeValue = expectedTripTime.split(",")[1];
-			timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
+			timeValue = timeValue.trim().substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
 
 			boolean isTimeCorrect = expectedTripTime.split(",")[0].trim().equals(actualDetails[2].trim())
 					&& timeValue.trim().equals(actualDetails[3].trim());
 			boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
-			testStepVerify.isTrue(isTimeCorrect && isDistanceCorrect,
+			testStepVerify.isTrue(isTimeCorrect ,
 					"Trip Information should be correctly displayed on TRIP DETAILS screen",
-					"Trip Information should be correctly displayed ",
-					expectedTripDistance + expectedTripTime + "" + actualDetails[0] + actualDetails[1] + actualDetails[2]);
+					"Trip Time should be correctly displayed ",
+					"Trip Time is not displayed correctly displayed , expected Trip date:"+ expectedTripTime.split(",")[0].trim()+" actual trip date:"+actualDetails[2].trim() +"Expected trip time:"+timeValue+"actual trip time"+actualDetails[3].trim());
+
+			testStepVerify.isTrue(isDistanceCorrect,
+					"Trip Information should be correctly displayed on TRIP DETAILS screen",
+					"Trip Distance should be correctly displayed ",
+					"Trip Distance is not displayed correctly displayed , expected Trip distance"+ expectedTripDistance+" actual trip distance "+actualDetails[0]);
+
 		} catch (Throwable e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -81,4 +87,6 @@ public class TripDetailsSteps extends DriverBase {
 		tripDetails[3] =action. getValueAttribute(tripDetailsPage.Text_ScheduledTime());
 		return tripDetails;
 	}
+
+
 }

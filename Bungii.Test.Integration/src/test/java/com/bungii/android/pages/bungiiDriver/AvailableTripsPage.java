@@ -3,7 +3,13 @@ package com.bungii.android.pages.bungiiDriver;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class AvailableTripsPage extends PageBase {
+
+
+    public List<WebElement> List_AvailableBungiis() { return findElements("//*[@resource-id='com.bungii.driver:id/row_available_pickup_container']/android.widget.RelativeLayout", LocatorType.XPath); }
+
 
     //------Available Trips Page--------------------------------------------------------------------
     public WebElement Row_AvailableTrip_01() { return findElement("com.bungii.driver:id/available_trips_recyclerview_list", LocatorType.Id); }

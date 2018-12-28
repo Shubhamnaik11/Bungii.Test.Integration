@@ -51,9 +51,12 @@ public class ActionManager {
             SetupManager.getDriver().switchTo().alert();
             logger.detail("Alert is present");
             return true;
-        } catch (NoAlertPresentException | InterruptedException Ex) {
+        } catch (NoAlertPresentException | InterruptedException Ex ) {
             logger.detail("Alert is not present");
             return false;
+        }catch (Exception ex){
+            logger.error("Error occured "+ex);
+            return  false;
         }
     }
     public String getValueAttribute(WebElement element) {
@@ -76,6 +79,7 @@ public class ActionManager {
     public void waitForAlert() {
         (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
     }
+
     /**
      * Swipe up on current mobile screen IOS SPECIFIC
      */
@@ -244,7 +248,7 @@ public class ActionManager {
         js.executeScript("mobile: launchApp", args);
     }
     /**
-     * Wrapper for wait, clear data and sendKeys in Input Text box
+     * Wrapper for wait, clear data and clearSendKeys in Input Text box
      **/
     public void clearEnterText(WebElement element, String inputText) {
 

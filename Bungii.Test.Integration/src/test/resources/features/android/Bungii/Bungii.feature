@@ -99,33 +99,3 @@ Feature: Bungii
     And I tap on "No free money" on Bungii estimate
     And Bungii Driver "completes Bungii"
     And Quit Bungii Driver app
-
-  @Android
-  Scenario: Bungii_Complete_Simulator
-    When simulator driver is "online"
-    And Simulator Bungii Driver "accepts Bungii"
-    Then for a Bungii I should see "Bungii accepted"
-    When I tap "OK on Driver Accepted screen" during a Bungii
-    Then for a Bungii I should see "Enroute screen"
-    And for a Bungii I should see "Pickup location details"
-    And for a Bungii I should see "Driver Details"
-    When Simulator Bungii Driver "arrives at pickup location"
-    Then for a Bungii I should see "Arrived screen"
-    And for a Bungii I should see "Pickup location details"
-    And for a Bungii I should see "Driver Details"
-    When Simulator Bungii Driver "starts loading items"
-    Then for a Bungii I should see "Loading Item screen"
-    And for a Bungii I should see "Pickup location details"
-    And for a Bungii I should see "Driver Details"
-    When Simulator Bungii Driver "starts driving to dropoff"
-    Then for a Bungii I should see "Driving to DropOff screen"
-    And for a Bungii I should see "Dropoff location details"
-    And for a Bungii I should see "Driver Details"
-    When Simulator Bungii Driver "starts unloading items"
-    Then for a Bungii I should see "Unloading Item screen"
-    And for a Bungii I should see "Dropoff location details"
-    And for a Bungii I should see "Driver Details"
-    When Simulator Bungii Driver "completes Bungii"
-    And I tap on "X on complete" on Bungii estimate
-    And I tap on "No free money" on Bungii estimate
-    And simulator driver is "offline"

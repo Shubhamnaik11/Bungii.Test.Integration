@@ -113,7 +113,7 @@ public class PromoSteps extends DriverBase {
         String validCode = "";
         validCode = uniques.get(0);
 /*        promosPage.TextBox_EnterCode().clear();
-        promosPage.TextBox_EnterCode().sendKeys(validCode);*/
+        promosPage.TextBox_EnterCode().clearSendKeys(validCode);*/
 
         action.clearEnterText(promosPage.TextBox_EnterCode(), validCode);
 

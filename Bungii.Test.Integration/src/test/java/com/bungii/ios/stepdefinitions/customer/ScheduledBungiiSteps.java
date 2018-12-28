@@ -6,6 +6,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
@@ -125,4 +126,6 @@ public class ScheduledBungiiSteps extends DriverBase {
 			return  false;
 		}
 	}
+
+
 }

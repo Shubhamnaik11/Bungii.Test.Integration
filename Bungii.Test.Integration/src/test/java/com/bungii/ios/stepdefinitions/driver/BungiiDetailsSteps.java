@@ -1,6 +1,7 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -29,6 +30,9 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I start selected Bungii$")
     public void i_start_selected_bungii() {
         try {
+            if(action.isAlertPresent())
+                SetupManager.getDriver().switchTo().alert().accept();
+
             action.click(bungiiDetailsPage.Button_StartBungii());
             log("I start selected Bungii ", "I started selected Bungii", true);
         } catch (Exception e) {

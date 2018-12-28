@@ -18,6 +18,7 @@ import io.appium.java_client.android.AndroidDriver;
 
 import java.time.Duration;
 
+import static com.bungii.common.manager.ResultManager.log;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
@@ -67,17 +68,17 @@ public class EstimateBungiiSteps extends DriverBase {
                 break;
 
             case "Request Bungii":
-                if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate()))
+                if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
                     action.scrollToBottom();
                 action.click(Page_Estimate.Checkbox_AgreeEstimate());
 
-                if (!action.isElementPresent(Page_Estimate.Button_RequestBungii()))
+                if (!action.isElementPresent(Page_Estimate.Button_RequestBungii(true)))
                     action.scrollToBottom();
                 action.click(Page_Estimate.Button_RequestBungii());
                 break;
 
             case "Yes on HeadsUp pop up":
-                action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage());
+                action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(),120L);
                 action.click(Page_Estimate.Button_RequestConfirm());
 
                 //--------*to be worked on*-------------
@@ -106,7 +107,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 break;
 
             case "Done after requesting a Scheduled Bungii":
-                if (!action.isElementPresent(Page_CustHome.Button_Done()))
+                if (!action.isElementPresent(Page_CustHome.Button_Done(true)))
                     action.scrollToBottom();
                 action.click(Page_CustHome.Button_Done());
                 break;
@@ -126,12 +127,15 @@ public class EstimateBungiiSteps extends DriverBase {
                 break;
 
             case "No free money":
+                if(!action.isElementPresent(Page_WantDollar5.Button_NoFreeMoney(true)))
+                    action.scrollToBottom();
                 action.click(Page_WantDollar5.Button_NoFreeMoney());
                 break;
 
             default: break;
         }
-    }
+        log( " I tap on "+arg0+" on Bungii estimate",
+                 "I  Selected"+ arg0, true);    }
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
     public void iShouldSeeOnBungiiEstimate(String arg0) throws Throwable {
@@ -156,10 +160,13 @@ public class EstimateBungiiSteps extends DriverBase {
                 utility.loginToCustomerApp(properties.getProp("customer_havingReferral.phonenumber"), properties.getProp("customer_generic.password"));
                 break;
             case "my":
-                utility.loginToCustomerApp(properties.getProp("customer_generic.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "stage":
                 utility.loginToCustomerApp(properties.getProp("customer_generic.phonenumber"), properties.getProp("customer_generic.password"));
+                break;
+            case "valid":
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                 break;
             default: break;
         }
@@ -182,8 +189,8 @@ public class EstimateBungiiSteps extends DriverBase {
             case "current location in pickup and dropoff fields":
                 //string a = driver.PageSource;
                 action.click(Page_CustHome.Button_Locator());
-                Thread.sleep(2500);
-                if(action.isElementPresent(Page_CustHome.Text_ETAvalue()))
+                Thread.sleep(5500);
+                if(action.isElementPresent(Page_CustHome.Text_ETAvalue(true)))
                 {
                     int ETA = Integer.parseInt(Page_CustHome.Text_ETAvalue().getText().replace(" MINS", ""));
                     if (ETA <= 30)
@@ -191,9 +198,13 @@ public class EstimateBungiiSteps extends DriverBase {
                 }
                 action.click(Page_CustHome.Button_Locator());
                 action.click(Page_CustHome.Button_ETASet());
-                break;
+               break;
             default: break;
         }
+        String pickUpLocation=Page_CustHome.Textfield_PickupLocation().getText(),dropUpLocation=Page_CustHome.Textfield_DropoffLocation().getText();
+        testStepAssert.isFalse(pickUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+pickUpLocation,"I was not able select pickup location");
+        testStepAssert.isFalse(dropUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+dropUpLocation,"I was not able select pickup location");
+
     }
 
     @And("^I add \"([^\"]*)\" PromoCode$")
@@ -239,6 +250,39 @@ public class EstimateBungiiSteps extends DriverBase {
         }
     }
 
+    @And("^I add loading/unloading time of \"([^\"]*)\"$")
+    public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
+        action.click(Page_Estimate.Link_LoadingUnloadingTime());
+        switch (arg0)
+        {
+            case "15 mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_15());
+                break;
+
+            case "30 mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_30());
+                break;
+
+            case "45 mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_45());
+                break;
+
+            case "60 mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_60());
+                break;
+
+            case "75 mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_75());
+                break;
+
+            case "90+ mins":
+                action.click(Page_Estimate.LoadingUnloadingTime_90());
+                break;
+
+            default: break;
+        }
+        log( " I add loading/unloading time "+ arg0+ "on Estimate page",
+                "I clicked on "+arg0 +"as Estimate loading/unloading time ", true);    }
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
       int i= 0;
@@ -251,21 +295,22 @@ public class EstimateBungiiSteps extends DriverBase {
 
             action.click(Page_Estimate.Link_AddPhoto());
 
-            if (action.isElementPresent(Page_Estimate.Message_CameraPermissions()))
+            if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
                 action.click(Page_Estimate.Permissions_CameraAllow());
 
             action.click(Page_Estimate.Option_Camera());
-
-            if (properties.getProp("deviceType").equalsIgnoreCase("MOTOROLA"))
+            String manufacturer  = driver.getCapabilities().getCapability("deviceType").toString();
+            if (manufacturer.equalsIgnoreCase("MOTOROLA"))
             {
-                Thread.sleep(2000);
+                Thread.sleep(3000);
                // driver.tap(1, 100, 500, 1);
                 new TouchAction(driver)
                         .tap(point(100,500))
                         .waitAction(waitOptions(Duration.ofMillis(250))).perform();
+                Thread.sleep(3000);
                 action.click(Page_Estimate.Button_Review());
             }
-            if (properties.getProp("deviceType").equalsIgnoreCase("") || properties.getProp("deviceType").equalsIgnoreCase("SAMSUNG"))
+           if (manufacturer.equalsIgnoreCase("") || manufacturer.equalsIgnoreCase("SAMSUNG"))
             {
                 action.click(Page_Estimate.Button_Camera_ClickAlternate());
                 //DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
@@ -280,8 +325,17 @@ public class EstimateBungiiSteps extends DriverBase {
         {
             //code to be added incase of "Invalid Image error"
         }
+
+
+        testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(),"I add "+arg0+" photos to the Bungii" ,"I selected photos on estimate page","Selected image was not displayed on Estimate page");
     }
 
 
+    @And("I select Bungii Time as {string}")
+    public void iSelectBungiiTimeAs(String arg0) {
+        utility.selectBungiiTime();
+        String bungiiTime=action.getText(bungiiEstimatePage.Time());
+        cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
 
+    }
 }

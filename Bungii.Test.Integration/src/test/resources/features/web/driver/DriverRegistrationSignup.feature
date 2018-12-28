@@ -9,6 +9,7 @@ Feature: DriverRegistrationSignup
     And I enter "unique" driver phone number on Signup page
     And I click "Signup button" on driver portal
     Then I should be directed to "phone verification page" on Driver portal
+    Then the driver logout from dashboard
   @Web
   Scenario: DriverSignUp_InvalidDetails
     When I enter "invalid" details on Signup page

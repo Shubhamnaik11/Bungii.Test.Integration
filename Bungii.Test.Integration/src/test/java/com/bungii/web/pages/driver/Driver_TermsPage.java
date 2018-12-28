@@ -18,7 +18,7 @@ public class Driver_TermsPage extends PageBase {
     public WebElement CheckBox_Agree_Click() { return findElement("//input[@id='TermsnConditions.HasAgreedToTerms']/following-sibling::label", LocatorType.XPath); }
 
     //Terms & Conditions - Agree checkbox
-    public WebElement CheckBox_Agree() { return findElement("//input[@id='TermsnConditions.HasAgreedToTerms']", LocatorType.XPath); }
+    public WebElement CheckBox_Agree(boolean...ignoreException) { return findElement("//input[@id='TermsnConditions.HasAgreedToTerms']", LocatorType.XPath,ignoreException); }
 
     //Terms & Conditions - Next Button
     public WebElement Button_TermsNext () { return findElement("btnTerms", LocatorType.Id); }

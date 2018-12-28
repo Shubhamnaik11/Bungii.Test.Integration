@@ -11,8 +11,8 @@ import cucumber.api.java.en.*;
 public class CustomerForgotPasswordSteps {
 
     ForgotPasswordPage Page_ForgotPassword = new ForgotPasswordPage();
-    CustomerSignupPage Page_Signup = new CustomerSignupPage();
-    CustomerLoginPage Page_CustomerLogin = new CustomerLoginPage();
+    SignupPage Page_Signup = new SignupPage();
+    LoginPage Page_CustomerLogin = new LoginPage();
 
     AssertManager assertManager = new AssertManager();
     ActionManager action = new ActionManager();

@@ -1,3 +1,5 @@
+
+
 Feature: Driver_Login
 
   Background:
@@ -10,6 +12,7 @@ Feature: Driver_Login
     And I enter "valid" driver Password on Driver portal
     And I click "LOG IN button" on driver portal
     Then the driver should "be logged in"
+    Then the driver logout from dashboard
   @Web
   Scenario: Driver_Login_Blank
     When I click "LOG IN button" on driver portal

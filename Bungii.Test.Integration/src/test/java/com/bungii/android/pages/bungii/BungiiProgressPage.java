@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.How;
 
 public class BungiiProgressPage extends PageBase {
+    public WebElement Title_Status(boolean ... ignoreException) { return findElement("com.bungii.customer:id/toolbar_title", LocatorType.Id,ignoreException); }
 
     //------Page Titles--------------------------------------------------------------
     public WebElement PageTitle () { return findElement("com.bungii.customer:id/toolbar_title",LocatorType.Id); }
@@ -14,7 +15,7 @@ public class BungiiProgressPage extends PageBase {
 
     public WebElement BungiiStatus_Arrived () { return findElement("com.bungii.customer:id/pickup_details_status_2",LocatorType.Id); }
 
-    public WebElement BungiiStatus_LoadingItem () { return findElement("com.bungii.customer:id/pickup_details_status_2",LocatorType.Id); }
+    public WebElement BungiiStatus_LoadingItem () { return findElement("com.bungii.customer:id/pickup_details_status_3",LocatorType.Id); }
 
     public WebElement BungiiStatus_DrivingToDropOff () { return findElement("com.bungii.customer:id/pickup_details_status_4",LocatorType.Id); }
 
@@ -27,7 +28,7 @@ public class BungiiProgressPage extends PageBase {
 
     public WebElement Bungii_ETA () { return findElement("com.bungii.customer:id/pickup_details_estimate",LocatorType.Id); }
 
-    //------Driver Details-----------------------------------------------------------
+    //------driver Details-----------------------------------------------------------
     public WebElement Bungii_Driver_Image () { return findElement("com.bungii.customer:id/pickup_details_caller_image",LocatorType.Id); }
 
     public WebElement Bungii_Driver_Title () { return findElement("com.bungii.customer:id/pickup_details_caller_title",LocatorType.Id); }

@@ -10,7 +10,7 @@ public class BungiiCompletePage extends PageBase {
 
     public WebElement CloseRateTipPage() { return findElement("//android.view.View[@id='com.bungii.customer:id/toolbar']/android.widget.ImageView",LocatorType.XPath); }
 
-    public WebElement Title_RateYourDriver() { return findElement("//android.widget.TextView[@text ='Rate Your Driver']",LocatorType.XPath); }
+    public WebElement Title_RateYourDriver() { return findElement("//android.widget.TextView[@text ='Rate Your driver']",LocatorType.XPath); }
 
     public WebElement Image_Driver() { return findElement("com.bungii.customer:id/driver_profile_image",LocatorType.Id); }
 

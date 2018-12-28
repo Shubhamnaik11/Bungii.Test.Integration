@@ -81,7 +81,7 @@ public class DriverManager  {
         Set<String> keys = driverArray.keySet();
         for (String key : keys) {
             driver = driverArray.get(key);
-            System.err.println("KEY:" + key + "Driver" + driver);
+            System.err.println("KEY:" + key + "driver" + driver);
         }
     }
 

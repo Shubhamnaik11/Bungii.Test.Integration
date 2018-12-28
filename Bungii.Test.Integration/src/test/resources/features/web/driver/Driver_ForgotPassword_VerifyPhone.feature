@@ -21,22 +21,22 @@ Feature: Driver_ForgotPassword_VerifyPhone
   @Web
   Scenario: Driver_ForgotPassword_VerifyPhone_InvalidVerificationCode
     When I enter "invalid" code on Verify your phone page
-    And I enter "valid" new password" on Verify your phone page
+    And I enter "valid" new password on Verify your phone page
     And I enter "correct" password in Confirm password field
     And I click "Reset Password" on driver portal
     Then driver should see "validation for invalid code" during phone verification
   @Web
   Scenario: Driver_ForgotPassword_VerifyPhone_InvalidPasswords
-    When I enter "short" new password" on Verify your phone page
+    When I enter "short" new password on Verify your phone page
     And I enter "correct" password in Confirm password field
     And I click "Reset Password" on driver portal
     Then driver should see "validations for password fields" during phone verification
-    When I enter "invalid" new password" on Verify your phone page
+    When I enter "invalid" new password on Verify your phone page
     Then driver should see "validation for invalid password" during phone verification
   @Web
   Scenario: Driver_ForgotPassword_Success
     When I enter "valid" code on Verify your phone page
-    And I enter "valid" new password" on Verify your phone page
+    And I enter "valid" new password on Verify your phone page
     And I enter "correct" password in Confirm password field
     And I click "Reset Password" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal

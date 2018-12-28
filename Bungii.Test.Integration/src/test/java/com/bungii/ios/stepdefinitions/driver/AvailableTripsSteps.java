@@ -67,4 +67,5 @@ public class AvailableTripsSteps extends DriverBase {
 		action.click(Image_SelectBungii);
 	}
 
+
 }

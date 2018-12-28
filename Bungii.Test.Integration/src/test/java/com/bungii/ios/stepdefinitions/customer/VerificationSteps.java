@@ -20,7 +20,7 @@ public class VerificationSteps extends DriverBase {
 	}
 
 	@When("^I enter \"([^\"]*)\" Verification code$")
-	public void i_enter_something_verification_code(String strArg1) {
+	public void i_enter_something_verificationcode(String strArg1) {
 		try {
 			String smsCode = (String) cucumberContextManager.getScenarioContext("SMS_CODE");
 			action.clearEnterText(verificationPage.TextBox_SmsCode(),smsCode);

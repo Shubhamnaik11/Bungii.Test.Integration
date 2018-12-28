@@ -50,7 +50,7 @@ public class EstimateSteps extends DriverBase {
             String strTime = "";
 
             enterLoadingTime(loadTime);
-            addPromoCode(promoCode);
+          //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             strTime = enterTime(time);

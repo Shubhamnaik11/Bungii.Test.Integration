@@ -155,7 +155,21 @@ public class VerificationManager {
 		}
 		isTrue(isSelected,expectedMessage,successMessage, errorMessage);
 	}
-
+	/**
+	 * @param element Web element object return from PageBase
+	 * @param expectedMessage Expected Message to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementNotSelected(WebElement element,String expectedMessage,String successMessage, String errorMessage) {
+		Boolean isSelected;
+		try {
+			isSelected= element.isSelected();
+		} catch (Exception e) {
+			isSelected= false;
+		}
+		isFalse(isSelected,expectedMessage,successMessage, errorMessage);
+	}
 	/**
 	 * @param element Web element object return from PageBase
 	 * @param expectedMessage Expected Message to that is to be update in report
@@ -170,5 +184,42 @@ public class VerificationManager {
 			isDisplayed= false;
 		}
 		isTrue(isDisplayed,expectedMessage,successMessage, errorMessage);
+	}
+
+	/**
+	 * @param element Web element object return from PageBase
+	 * @param expectedMessage Expected Message to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementTextEquals(WebElement element,String expectedValue,String expectedMessage,String successMessage, String errorMessage) {
+		isEquals(element.getText(),expectedValue,expectedMessage,successMessage,errorMessage);
+	}
+
+	/**
+	 * @param element Web element object return from PageBase
+	 * @param expectedMessage Expected Message to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementTextEquals(WebElement element,String expectedValue) {
+		isEquals(element.getText(),expectedValue);
+	}
+
+
+	/**
+	 * @param element Web element object return from PageBase
+	 * @param expectedMessage Expected Message to that is to be update in report
+	 * @param successMessage If success this message will be published
+	 * @param errorMessage If failed this message will be published
+	 */
+	public void isElementNotDisplayed(WebElement element,String expectedMessage,String successMessage, String errorMessage) {
+		Boolean isDisplayed;
+		try {
+			isDisplayed= element.isDisplayed();
+		} catch (Exception e) {
+			isDisplayed= false;
+		}
+		isFalse(isDisplayed,expectedMessage,successMessage, errorMessage);
 	}
 }

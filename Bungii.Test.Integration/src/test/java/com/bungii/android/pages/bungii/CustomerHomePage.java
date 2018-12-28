@@ -12,10 +12,10 @@ public class CustomerHomePage extends PageBase {
     public WebElement Textfield_ActualDropoffLocation () { return findElement("places_autocomplete_dropoff_location",LocatorType.Id); }
 
     //------Title-----------------------------------------------------------------------------------------
-    public WebElement Title_HomePage () { return findElement("com.bungii.customer:id/toolbar_main_title",LocatorType.Id); }
+    public WebElement Title_HomePage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/toolbar_main_title",LocatorType.Id,ignoreException); }
 
     //------Text-----------------------------------------------------------------------------------------
-    public WebElement Text_ETAvalue () { return findElement("com.bungii.customer:id/eta_bar_textview_estimate",LocatorType.Id); }
+    public WebElement Text_ETAvalue (boolean ... ignoreException) { return findElement("com.bungii.customer:id/eta_bar_textview_estimate",LocatorType.Id,ignoreException); }
 
     //------Buttons---------------------------------------------------------------------------------------
     public WebElement Link_Invite () { return findElement("com.bungii.customer:id/menu_invite",LocatorType.Id); }
@@ -47,5 +47,5 @@ public class CustomerHomePage extends PageBase {
 
     public WebElement Image_Tick () { return findElement("//android.widget.FrameLayout[@id='android:id/content']/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.ImageView",LocatorType.XPath); }
 
-    public WebElement Button_Done () { return findElement("com.bungii.customer:id/bungii_posted_button_done",LocatorType.Id); }
+    public WebElement Button_Done (boolean ... ignoreException) { return findElement("com.bungii.customer:id/bungii_posted_button_done",LocatorType.Id,ignoreException); }
 }

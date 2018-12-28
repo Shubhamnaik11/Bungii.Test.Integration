@@ -8,10 +8,10 @@ public class Driver_DocumentationPage extends PageBase {
     //Pickup Information - Blank field validation
     public WebElement Err_Documentation_AllBlank () { return findElement("summary3", LocatorType.Id); }
 
-    //Documentation - Driver’s License Image Upload
+    //Documentation - driver’s License Image Upload
     public WebElement DropZone3_LicenseImage () { return findElement("//div[@id='dropzone3']", LocatorType.XPath); }
 
-    //Documentation - Driver’s License Image Upload - Remove file
+    //Documentation - driver’s License Image Upload - Remove file
     public WebElement Link_LicenseRemoveFile () { return findElement("//div[@id='dropzone3']/div/a[contains(text(),'Remove')]", LocatorType.XPath); }
 
     //Documentation - License number
