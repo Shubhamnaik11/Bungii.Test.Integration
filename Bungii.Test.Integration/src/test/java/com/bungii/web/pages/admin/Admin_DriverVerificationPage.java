@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_DriverVerificationPage extends PageBase {
 
-    public WebElement Title_DriverVerificationPage () { return findElement("//*[@id='verification-content']/h4", LocatorType.XPath); }
+    public WebElement Title_DriverVerificationPage (boolean...ignoreException) { return findElement("//*[@id='verification-content']/h4", LocatorType.XPath,ignoreException); }
 
     public WebElement Verify_Approve_DriverPic () { return findElement("//*[@id='btnok_16']", LocatorType.XPath); }
 

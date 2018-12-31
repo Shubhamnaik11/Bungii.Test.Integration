@@ -58,7 +58,7 @@ public class Driver_DetailsPage extends PageBase {
 
     //Details - driver Picture Upload
     public WebElement Link_DriverPicture () { return findElement("//div[@id='dropzone1']/div/p/a[contains(text(),'click here')]", LocatorType.XPath); }
-
+    public WebElement Area_DriverPictureDrop(){return  findElement("//*[@class=='dz-default dz-message row']",LocatorType.Id);}
     //Details - driver Picture Upload - Crop Button
     public WebElement Button_Crop () { return findElement("//div[@class='modal-content']/div[@class='modal-footer']/button[text()='Crop']", LocatorType.XPath); }
 
@@ -85,4 +85,8 @@ public class Driver_DetailsPage extends PageBase {
 
     //Details - Next Button
     public WebElement Button_DetailsNext () { return findElement("btnAddInfo", LocatorType.Id); }
+
+    public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath); }
+
+
 }

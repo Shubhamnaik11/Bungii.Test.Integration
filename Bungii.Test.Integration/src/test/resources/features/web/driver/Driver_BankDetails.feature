@@ -21,7 +21,7 @@ Feature: Driver_BankDetails
     Then I should be directed to "Documentation page" on Driver portal
     When I click Next on "Documentation" page
     Then I should be directed to "Bank Details page" on Driver portal
-  @Web1
+  @Web
   Scenario: Driver_BankDetails_Valid
     When I enter "valid" data on Bank Details page
     And I click Next on "Bank Details" page

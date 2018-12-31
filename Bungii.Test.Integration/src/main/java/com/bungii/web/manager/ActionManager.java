@@ -7,6 +7,8 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Random;
+
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
 
@@ -19,7 +21,14 @@ public class ActionManager {
         element.sendKeys(text);
         logger.detail("Send  " + text + " in element" + element.toString());
     }
-
+    /**
+     * @param element , locator of field
+     * @param text    , Text value that is to be sent
+     */
+    public void sendKeys(WebElement element, String text) {
+        element.sendKeys(text);
+        logger.detail("Send  " + text + " in element" + element.toString());
+    }
     public void clear(WebElement element) {
         logger.detail("Clear  element" + element.toString());
     }
@@ -41,7 +50,14 @@ public class ActionManager {
     public void navigateToPreviousPageUsingBrowserBackButton() {
         SetupManager.getDriver().navigate().back();
     }
-
+    //Select Random Dropdown value
+    Random random = new Random();
+    public void selectRandomDropdown(WebElement DropdownField)
+    {
+        Select  s = new Select(DropdownField);
+        int itemCount = s.getOptions().size(); // get the count of elements in ddlWebElement
+        s.selectByIndex(random.nextInt( itemCount-1));
+    }
 
     public void navigateTo(String url) {
         SetupManager.getDriver().navigate().to(url);

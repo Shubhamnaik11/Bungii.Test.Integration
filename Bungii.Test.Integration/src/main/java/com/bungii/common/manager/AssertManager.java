@@ -150,4 +150,19 @@ public class AssertManager {
         }
         isTrue(isDisplayed, expectedMessage, successMessage, errorMessage);
     }
+    /**
+     * @param element         Web element object return from PageBase
+     * @param expectedMessage Expected Message to that is to be update in report
+     * @param successMessage  If success this message will be published
+     * @param errorMessage    If failed this message will be published
+     */
+    public void isNotElementDisplayed(WebElement element, String expectedMessage, String successMessage, String errorMessage) {
+        Boolean isDisplayed;
+        try {
+            isDisplayed = element.isDisplayed();
+        } catch (Exception e) {
+            isDisplayed = false;
+        }
+        isTrue(isDisplayed, expectedMessage, successMessage, errorMessage);
+    }
 }

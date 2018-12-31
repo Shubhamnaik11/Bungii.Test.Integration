@@ -40,4 +40,6 @@ public class Driver_PickUpInfoPage extends PageBase {
     //ickup Information - Next Button
     public WebElement Button_PickUpNext () { return findElement("btnPickUpInfo", LocatorType.Id); }
 
+    public WebElement DropZoneHiddenFileTag_TruckImage () { return findElement("//input[@class = 'dz-hidden-input'][2]", LocatorType.XPath); }
+
 }
