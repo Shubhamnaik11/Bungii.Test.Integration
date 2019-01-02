@@ -69,7 +69,7 @@ public class HomeSteps extends DriverBase {
 
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
-            String tripDriverType = dataMap.get("driver").trim();
+            String tripDriverType = dataMap.get("Driver").trim();
             String distance = dataMap.get("Distance").trim();
             int dragFactor = 1;
             switch (distance.toUpperCase()) {
@@ -114,7 +114,7 @@ public class HomeSteps extends DriverBase {
 
         String pickup = dataMap.get("Pickup Location").trim();
         String drop = dataMap.get("Drop Location").trim();
-        String tripDriverType = dataMap.get("driver").trim();
+        String tripDriverType = dataMap.get("Driver").trim();
 
         selectBungiiLocation("PICK UP", pickup);
         selectBungiiLocation("DROP", drop);

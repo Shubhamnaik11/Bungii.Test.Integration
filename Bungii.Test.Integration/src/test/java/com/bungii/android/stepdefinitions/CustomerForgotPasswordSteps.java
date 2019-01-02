@@ -17,7 +17,6 @@ public class CustomerForgotPasswordSteps {
     AssertManager assertManager = new AssertManager();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    PropertyUtility properties = new PropertyUtility();
     DbUtility dbutility = new DbUtility();
 
     @Given("I am on Sign up page")
@@ -56,13 +55,13 @@ public class CustomerForgotPasswordSteps {
         switch (string)
         {
             case "valid":
-                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(),  properties.getProp("customer_generic.phonenumber"));
+                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(),  PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                 break;
             case "invalid":
-                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(), properties.getProp("customer_Invalid.phonenumber "));
+                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(),PropertyUtility.getDataProperties("customer_Invalid.phonenumber "));
                 break;
             case "less than 10 digit":
-                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(),  properties.getProp("customer_LessThan10.phonenumber"));
+                action.sendKeys(Page_ForgotPassword.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer_LessThan10.phonenumber"));
                 break;
             default: break;
         }
@@ -73,11 +72,11 @@ public class CustomerForgotPasswordSteps {
         switch (string)
         {
             case "valid":
-                String SMSCode = dbutility.getVerificationCode( properties.getProp("customer_generic.phonenumber"));
+                String SMSCode = dbutility.getVerificationCode( PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                 action.sendKeys(Page_ForgotPassword.TextField_SMSCode(), SMSCode);
                 break;
             case "invalid":
-                action.sendKeys(Page_ForgotPassword.TextField_SMSCode(), properties.getProp("verificationcode.incorrect"));
+                action.sendKeys(Page_ForgotPassword.TextField_SMSCode(), PropertyUtility.getDataProperties("verificationcode.incorrect"));
                 break;
             default: break;
         }
@@ -88,10 +87,10 @@ public class CustomerForgotPasswordSteps {
         switch (string)
         {
             case "valid":
-                action.sendKeys(Page_ForgotPassword.TextField_NewPassword(), properties.getProp("customer_generic.password"));
+                action.sendKeys(Page_ForgotPassword.TextField_NewPassword(), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "invalid":
-                action.sendKeys(Page_ForgotPassword.TextField_NewPassword(), properties.getProp("customer_LessThan6.password"));
+                action.sendKeys(Page_ForgotPassword.TextField_NewPassword(), PropertyUtility.getDataProperties("customer_LessThan6.password"));
                 break;
             default: break;
         }

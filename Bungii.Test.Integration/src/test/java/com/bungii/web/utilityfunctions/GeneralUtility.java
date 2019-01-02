@@ -18,6 +18,7 @@ public class GeneralUtility {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
+
     public void DriverLogin(String Phone, String Password) {
         String driverURL = PropertyUtility.getProp("Driver_URL");
 /*        if (environment.Equals("Dev"))
@@ -32,8 +33,8 @@ public class GeneralUtility {
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), Password);
         action.click(Page_Driver_Login.Button_DriverLogin());
     }
-    public void AdminLogin()
-    {
+
+    public void AdminLogin() {
 /*        if (environment.Equals("Dev"))
             WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_Dev"]);
         else if (environment.Equals("QA"))
@@ -46,6 +47,7 @@ public class GeneralUtility {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("AdminPassword"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+
     public void DriverLogout() {
         action.click(driver_dashboardPage.Link_Logout());
     }

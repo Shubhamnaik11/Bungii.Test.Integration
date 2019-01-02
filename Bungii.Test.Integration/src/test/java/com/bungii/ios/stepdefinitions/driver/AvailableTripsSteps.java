@@ -1,6 +1,7 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -26,6 +27,7 @@ public class AvailableTripsSteps extends DriverBase {
 	@And("^I Select Trip from available trip$")
 	public void i_select_trip_from_available_trip() {
 		try {
+			if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
 
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");

@@ -148,22 +148,22 @@ public class EstimateBungiiSteps extends DriverBase {
         switch (arg0)
         {
             case "existing":
-                utility.loginToCustomerApp(properties.getProp("customer_generic.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_generic.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "newly registered":
-                utility.loginToCustomerApp(properties.getProp("customer_newlyregistered.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "already having bungiis":
-                utility.loginToCustomerApp(properties.getProp("customer_withbungiis.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "having referral code":
-                utility.loginToCustomerApp(properties.getProp("customer_havingReferral.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "my":
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "stage":
-                utility.loginToCustomerApp(properties.getProp("customer_generic.phonenumber"), properties.getProp("customer_generic.password"));
+                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "valid":
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
@@ -177,14 +177,14 @@ public class EstimateBungiiSteps extends DriverBase {
         switch (arg0)
         {
             case "valid pickup and dropoff locations":
-                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), properties.getProp("pickup.LocationB"));
+                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.LocationB"));
                 Thread.sleep(2000);
-                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), properties.getProp("dropoff.locationB"));
+                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
                 break;
             case "Atlanta pickup and dropoff locations":
-                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), properties.getProp("pickup.locationC"));
+                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationC"));
                 Thread.sleep(2000);
-                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), properties.getProp("dropoff.locationC"));
+                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(),PropertyUtility.getDataProperties("dropoff.locationC"));
                 break;
             case "current location in pickup and dropoff fields":
                 //string a = driver.PageSource;
@@ -212,25 +212,25 @@ public class EstimateBungiiSteps extends DriverBase {
         switch (arg0)
         {
             case "valid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  properties.getProp("promocode.valid"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("promocode.valid"));
                 break;
             case "fixed valid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  properties.getProp("promocode.fixedvalid"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.fixedvalid"));
                 break;
             case "invalid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), properties.getProp("promocode.invalid"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("promocode.invalid"));
                 break;
             case "expired":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), properties.getProp("promocode.expired"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),PropertyUtility.getDataProperties("promocode.expired"));
                 break;
             case "referral":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), properties.getProp("referral.code"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("referral.code"));
                 break;
             case "first time":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  properties.getProp("promocode.firsttime"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.firsttime"));
                 break;
             case "used one off":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  properties.getProp("promocode.useedoneoff"));
+                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.useedoneoff"));
                 break;
             default: break;
         }

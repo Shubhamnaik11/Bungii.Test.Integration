@@ -73,6 +73,73 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
+
+  @Solo_Scheduling_SANITY
+  Scenario: Positive Scenario
+
+    When I Select "ACCOUNT" from Customer App menu
+    Then I get customer account details
+    When I Select "Home" from Customer App menu
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    Then Trip Information should be correctly displayed on Estimate screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
+    Then I should be navigated to "Success" screen
+    Then Bungii Posted message should be displayed
+    And I click "Done" button on "Success" screen
+    Then I Select "Home" from Customer App menu
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    Then I should be navigated to "TRIP DETAILS" screen
+    Then Trip Information should be correctly displayed on TRIP DETAILS screen
+    When I accept selected Bungii
+#    When I Switch to "driver" application on "same" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    When I wait for Minimum duration for Bungii Start Time
+    #TODO: verify bungii detail page
+   # Then If Alerted I ""
+    When I start selected Bungii
+    Then I should be navigated to "EN ROUTE" trip status screen
+    When I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "ARRIVED" trip status screen
+    When I Switch to "driver" application on "same" devices
+    When I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    When I Switch to "driver" application on "same" devices
+    When I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    When I Switch to "driver" application on "same" devices
+    When I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    When I Switch to "driver" application on "same" devices
+    When I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    When I rate Bungii Driver  with following details and Press "OK" Button
+      | Ratting | Tip |
+      | 5       | 5   |
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
   Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
     When I Select "Home" from Customer App menu
     Then "Invite referrals" should be present in "Home" screen

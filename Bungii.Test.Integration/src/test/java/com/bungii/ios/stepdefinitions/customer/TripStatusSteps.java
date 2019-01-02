@@ -99,7 +99,7 @@ public class TripStatusSteps extends DriverBase {
                     break;
             }
 
-            if (isInfoDisplayed && isDriverDisplayed) {
+            if (/*isInfoDisplayed && */isDriverDisplayed) {
                 pass(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",

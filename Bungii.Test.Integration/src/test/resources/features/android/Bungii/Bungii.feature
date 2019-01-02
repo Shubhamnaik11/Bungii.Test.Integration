@@ -8,7 +8,7 @@ Feature: Bungii
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
 
-    @Android
+    @Android1
   Scenario: Bungii_CustomerCancelOnHeadsUp
     When I tap on "Cancel on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii Estimate page with all details"

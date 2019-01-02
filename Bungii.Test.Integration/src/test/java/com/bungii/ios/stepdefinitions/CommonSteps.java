@@ -670,6 +670,8 @@ public class CommonSteps extends DriverBase {
                 }
 
             }
+            log("I Select Trip from scheduled trip " ,
+                    "I Selected Trip from scheduled trip", true);
 
         } catch (Exception e) {
             logger.error("Error performing  step" + e.getMessage());

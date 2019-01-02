@@ -17,7 +17,7 @@ Feature: Driver_Details
 
   @Web1
   Scenario: Driver_Details_Valid test
-#    When I enter "valid" data on Driver Details page
+    When I enter "valid" data on Driver Details page
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
     When I enter "valid" data on Documentation page
