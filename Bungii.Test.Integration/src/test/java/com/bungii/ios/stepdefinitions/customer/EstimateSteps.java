@@ -192,7 +192,7 @@ public class EstimateSteps extends DriverBase {
      */
     public String bungiiTimeDisplayInTextArea(Date date) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
         String formattedDate = sdf.format(date);
         //After sprint 27 /26 IST is being added in scheduled page
         formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
