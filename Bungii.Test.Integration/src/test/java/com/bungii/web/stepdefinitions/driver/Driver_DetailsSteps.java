@@ -47,13 +47,13 @@ public class Driver_DetailsSteps extends DriverBase {
 
                 utility.addImageInDropZone(Page_Driver_Details.DropZoneHiddenFileTag_ProfileImage(), driverImagePath);
 
-                if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+             //ToDO   if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
+             //ToDO       action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
 
                 action.click(Page_Driver_Details.Button_Crop());
-                Thread.sleep(1000);
-                if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+                Thread.sleep(15000);
+             //ToDO   if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
+             //ToDO       action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
 
                 testStepVerify.isElementEnabled(Page_Driver_Details.Link_RemoveFile(), "driver remove link should be present", "driver remove link is present", "driver remove link is not present");
 

@@ -1,10 +1,11 @@
+@webundertest
 Feature: Admin_DriverResendApplication
 
   Background:
     Given I am logged in as Admin
     And there is a pending driver verification
 
- @Web
+ @reworkneeded
   Scenario: Admin_Driver_ResendApplication
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"
@@ -13,6 +14,7 @@ Feature: Admin_DriverResendApplication
     And I confirm the "Driver Resend Application" action
     And I check the status of the Driver application
 
+  @reworkneeded
   Scenario: Admin_Driver_ResendApplication_WithAllApprovedFields
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"

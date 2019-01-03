@@ -4,6 +4,9 @@ import com.bungii.SetupManager;
 import com.bungii.common.utilities.LogUtility;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.InvalidElementStateException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -43,10 +46,22 @@ public class ActionManager {
      * @param element ,locator that is to be clicked
      */
     public void click(WebElement element) {
-        element.click();
+        try {
+            element.click();
+        }
+         catch(StaleElementReferenceException | InvalidElementStateException ex) {
+                        //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
+                        JavaScriptClick(element);
+            }
         logger.detail("Click on locator by locator" + element.toString());
     }
+    public void JavaScriptClick(WebElement element) {
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].click();", element);
+        logger.detail(" JS Click on locator by locator" + element.toString());
 
+
+    }
     public void navigateToPreviousPageUsingBrowserBackButton() {
         SetupManager.getDriver().navigate().back();
     }

@@ -3,6 +3,8 @@ package com.bungii.web.pages.driver;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class Driver_PickUpInfoPage extends PageBase {
     //Pickup Information - Blank field validation
     public WebElement Err_PickupInfo_AllBlank () { return findElement("summary2", LocatorType.Id); }
@@ -41,5 +43,7 @@ public class Driver_PickUpInfoPage extends PageBase {
     public WebElement Button_PickUpNext () { return findElement("btnPickUpInfo", LocatorType.Id); }
 
     public WebElement DropZoneHiddenFileTag_TruckImage () { return findElement("//input[@class = 'dz-hidden-input'][2]", LocatorType.XPath); }
+
+    public List<WebElement> Div_UploadedImages () { return findElements("//div[@class='dz-preview dz-processing dz-image-preview dz-success dz-complete']", LocatorType.XPath); }
 
 }

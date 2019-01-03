@@ -34,14 +34,7 @@ public class DriverRegistrationSteps extends DriverBase {
 
     @Given("^I navigate to \"([^\"]*)\"$")
     public void i_navigate_to_something(String p0) throws Throwable {
-        String url = "";
-        switch (p0) {
-            case "Bungii Driver URL":
-                url = PropertyUtility.getProp("Driver_URL");
-            default:
-                break;
-        }
-        action.navigateTo(url);
+        utility.NavigateToDriverLogin();
         pass("I should be navigate to " + p0,
                 "I am navigate to " + p0, true);
     }

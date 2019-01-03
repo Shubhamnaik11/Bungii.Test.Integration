@@ -30,8 +30,19 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 action.selectRandomDropdown(Page_Driver_PickupInfo.DropDown_PickupYear());
                 action.clearSendKeys(Page_Driver_PickupInfo.TextBox_LicenseNo(), PropertyUtility.getDataProperties("PickupLicenseNo"));
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
-                if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+              //ToDO  if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
+                //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+                int size =Page_Driver_PickupInfo.Div_UploadedImages().size();
+                int count = 0;
+                while (size !=3) {
+                Thread.sleep(5000);
+                if (count >=5 )
+                    break;
+
+                size =Page_Driver_PickupInfo.Div_UploadedImages().size();
+                count++;
+                }
+
                 testStepVerify.isElementDisplayed(Page_Driver_PickupInfo.Image_Truck1(), " Image truck 1 should be displayed ", "Pickup truck  1 image is displayed", "Pickup image 1 is not displayed");
                 testStepVerify.isElementDisplayed(Page_Driver_PickupInfo.Image_Truck2(), " Image truck 2 should be displayed ", "Pickup truck  2 image is displayed", "Pickup image 2 is not displayed");
                 testStepVerify.isElementDisplayed(Page_Driver_PickupInfo.Image_Truck3(), " Image truck 3 should be displayed ", "Pickup truck  3 image is displayed", "Pickup image 3 is not displayed");
@@ -70,8 +81,8 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 //  action.click(Page_Driver_Doc.DropZone3_LicenseImage());
                 utility.addImageInDropZone(Page_Driver_Doc.DropZoneHiddenFileTag_LicenseImage(), licenseImagePath);
                 Thread.sleep(5000);
-                if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+              //ToDO  if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
+                //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
                 testStepVerify.isElementDisplayed(Page_Driver_Doc.Link_LicenseRemoveFile(), " Licence remove file should be displayed ", "Licence remove file is displayed", "Licence remove file is not displayed");
 
                 action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber"));
@@ -79,8 +90,8 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
                 utility.addImageInDropZone(Page_Driver_Doc.DropZoneHiddenFileTag_InsuranceImage(), insuranceImagePath);
                 Thread.sleep(5000);
-                if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+               //ToDO if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
+                //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
                 testStepVerify.isElementDisplayed(Page_Driver_Doc.Link_InsuranceRemoveFile(), " Insurance remove file should be displayed ", " Insurance remove file is displayed", " Insurance remove file is not displayed");
                 break;
 

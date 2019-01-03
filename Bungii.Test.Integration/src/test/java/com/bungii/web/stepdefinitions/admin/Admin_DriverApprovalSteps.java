@@ -116,6 +116,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         }    }
     @And("^I check if I can change the driver application status $")
     public void i_check_if_i_can_change_the_driver_application_status() throws Throwable {
-        throw new PendingException();
+       // throw new PendingException();
     }
 }

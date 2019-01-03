@@ -10,7 +10,7 @@ import org.testng.annotations.Parameters;
 
 import java.io.IOException;
 
-@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@WebTEST", plugin = {
+@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
