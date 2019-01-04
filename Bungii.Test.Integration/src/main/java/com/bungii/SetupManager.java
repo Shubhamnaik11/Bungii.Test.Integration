@@ -193,6 +193,23 @@ public class SetupManager extends EventFiringWebDriver {
 
         DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
     }
+
+    /**
+     * Create new appium driver instance as per setting in config file and assign it to variable
+     */
+    public void createNewAndroidInstance(String key,String deviceId) throws MalformedURLException{
+
+        String appiumPortNumber =String.valueOf(returnPortNumber(deviceId));
+        DesiredCapabilities capabilities= getCapabilities(deviceId);
+        AndroidDriver<MobileElement> newDriverInstance = null;
+
+        String appiumServerUrl=getAppiumServerURL(appiumPortNumber);
+        newDriverInstance =  new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
+        newDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+
+        DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
+    }
+
     private static DesiredCapabilities getChromeDesiredCapabilities() {
 
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();

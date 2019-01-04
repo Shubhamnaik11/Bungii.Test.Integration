@@ -8,11 +8,13 @@ import com.bungii.android.pages.bungiiCustomer.LoginPage;
 import com.bungii.android.pages.bungiiCustomer.SignupPage;
 import com.bungii.android.pages.bungiiCustomer.TermsPage;
 import com.bungii.android.pages.bungiiDriver.HomePage;
+import com.bungii.android.pages.menus.AccountPage;
 import com.bungii.android.pages.menus.MenuPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -39,6 +41,7 @@ public class GeneralUtility extends DriverBase {
     OtherAppsPage otherAppsPage = new OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
     HomePage driverHomePage = new HomePage();
+    AccountPage cutomerAccountPage= new AccountPage();
     com.bungii.android.pages.bungiiDriver.LoginPage driverLoginPage = new com.bungii.android.pages.bungiiDriver.LoginPage();
 
     public void launchDriverApplication() throws MalformedURLException {
@@ -89,9 +92,11 @@ public class GeneralUtility extends DriverBase {
 
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
+        double PromoCode = Double.parseDouble(Promo.replace("-$",""));
+
         double tripTime = Double.parseDouble(estTime);
 
-        double estimate = distance + loadUnloadTime + tripTime;
+        double estimate = distance + loadUnloadTime + tripTime-PromoCode;
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
 
         return estimate;
@@ -105,6 +110,38 @@ public class GeneralUtility extends DriverBase {
         }
         ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
     }
+
+    public void clickCustomerMenuItem(String menuItem){
+        switch(menuItem.toUpperCase()){
+            case "HOME":
+                action.click(Page_CustHome.Button_NavHome());
+                break;
+            case "FAQ":
+                action.click(Page_CustHome.Button_NavHome());
+                break;
+            case "ACCOUNT":
+                action.click(Page_CustHome.Button_NavAccount());
+                break;
+            case "PAYMENT":
+                action.click(Page_CustHome.Button_NavPayment());
+                break;
+            case "SUPPORT":
+                action.click(Page_CustHome.Button_NavSupport());
+                break;
+            case "PROMOS":
+                action.click(Page_CustHome.Button_NavPromos());
+                break;
+            case "LOGOUT":
+                action.click(Page_CustHome.Button_Navlogout());
+                break;
+        }
+    }
+    public String getEstimateTime() {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        return DbUtility.getEstimateTime(custRef);
+    }
+
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         if (action.isElementPresent(Page_Signup.Link_Login(true))) {
@@ -212,7 +249,7 @@ public class GeneralUtility extends DriverBase {
 
     }
 
-    public void selectAddress(WebElement element, String searchstring) {
+    public void selectAddress(WebElement element, String searchstring) throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
         action.clear(element);
@@ -220,7 +257,7 @@ public class GeneralUtility extends DriverBase {
         element.sendKeys(searchstring);
         int x = element.getLocation().getX() + 32;
         int y = element.getLocation().getY() + 176;
-
+        Thread.sleep(2000);
         new TouchAction(driver).tap(new PointOption().withCoordinates(x, y)).release().perform();
     }
 

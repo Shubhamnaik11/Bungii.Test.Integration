@@ -12,10 +12,12 @@ ActionManager action = new ActionManager();
 TripDetailsPage tripDetailsPage = new TripDetailsPage();
 
     @When("I tap on {string} on driver Trip details Page")
-    public void iTapOnOnDriverTripDetailsPage(String arg0) {
+    public void iTapOnOnDriverTripDetailsPage(String arg0) throws InterruptedException {
     switch (arg0.toUpperCase()){
         case "ACCEPT":
+            Thread.sleep(4000);
             action.click(tripDetailsPage.Button_Accept());
+            Thread.sleep(2000);
             break;
     }
     }

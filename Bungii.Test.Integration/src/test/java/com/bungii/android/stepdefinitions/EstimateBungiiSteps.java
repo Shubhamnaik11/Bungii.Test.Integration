@@ -7,6 +7,7 @@ import com.bungii.android.pages.menus.SaveMoneyPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
+
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -16,6 +17,7 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 
+import java.text.DecimalFormat;
 import java.time.Duration;
 
 import static com.bungii.common.manager.ResultManager.log;
@@ -41,6 +43,7 @@ public class EstimateBungiiSteps extends DriverBase {
         {
             case "two drivers selector":
                 action.click(Page_CustHome.Selector_Duo());
+                cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER","DUO");
                 break;
 
             case "Get Estimate button":
@@ -140,8 +143,38 @@ public class EstimateBungiiSteps extends DriverBase {
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
     public void iShouldSeeOnBungiiEstimate(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
+        switch (arg0)
+        {
+            case "two drivers selected":
+                testStepAssert.isElementTextEquals(Page_CustHome.Switch_SoloDuo(), "2", "Driver trip should be Duo","'2' text is displayed ","2 text message is not displayed");
+                break;
+
+            case "all elements":
+                testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(),"Estimate header should be displayed ","Estimate header is displayed","Estimate header is not displayed");
+
+
+                testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),PropertyUtility.getDataProperties("pickup.locationB"));
+                testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),PropertyUtility.getDataProperties("dropoff.locationB"));
+
+                double expectedTotalEstimate = utility.bungiiEstimate(action.getText(Page_Estimate.Text_TripDistance()),action.getText(Page_Estimate.Link_LoadingUnloadingTime()),utility.getEstimateTime(), action.getText(Page_Estimate.Link_Promo()));
+                String loadTime = action.getText(Page_Estimate.Text_TotalEstimate());
+                String truncValue = new DecimalFormat("#.#").format(expectedTotalEstimate);
+
+                String actualValue = loadTime.substring(0, loadTime.length() - 1);
+                testStepVerify.isEquals("$"+String.valueOf(truncValue), actualValue);
+                break;
+
+            case "driver cancelled":
+                testStepAssert.isElementDisplayed(Page_CustHome.Title_HomePage(),"Home page title should be displayed","Home page title is displayed","Home page title is not displayed");
+                testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(),"Get estimate button should be displayed","Get estimate button is displayed","Get estimate button is not displayed");
+                break;
+
+            case "Bungii posted Success page":
+                testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(),"Bungii Posted image should be displayed ","Bungii posted image is displayed ","Bungii posted image is not displayed");
+                break;
+
+            default: break;
+        }    }
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
@@ -177,7 +210,7 @@ public class EstimateBungiiSteps extends DriverBase {
         switch (arg0)
         {
             case "valid pickup and dropoff locations":
-                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.LocationB"));
+                utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
                 Thread.sleep(2000);
                 utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
                 break;
@@ -201,10 +234,25 @@ public class EstimateBungiiSteps extends DriverBase {
                break;
             default: break;
         }
-        String pickUpLocation=Page_CustHome.Textfield_PickupLocation().getText(),dropUpLocation=Page_CustHome.Textfield_DropoffLocation().getText();
+        //savePickupAddress();
+        //saveDropupAddress();
+        String pickUpLocation= action.getText(Page_CustHome.Textfield_PickupLocation()),dropUpLocation=action.getText(Page_CustHome.Textfield_DropoffLocation());
         testStepAssert.isFalse(pickUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+pickUpLocation,"I was not able select pickup location");
         testStepAssert.isFalse(dropUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+dropUpLocation,"I was not able select pickup location");
 
+    }
+    private String savePickupAddress(){
+        action.click(Page_CustHome.Textfield_PickupLocation());
+        String pickUpLocation=Page_CustHome.Textfield_PickupLocation().getText();
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION",pickUpLocation);
+
+        return pickUpLocation;
+    }
+    private String saveDropupAddress(){
+        action.click(Page_CustHome.Textfield_DropoffLocation());
+        String dropUpLocation=Page_CustHome.Textfield_DropoffLocation().getText();
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION",dropUpLocation);
+        return dropUpLocation;
     }
 
     @And("^I add \"([^\"]*)\" PromoCode$")
@@ -240,7 +288,7 @@ public class EstimateBungiiSteps extends DriverBase {
     public void iTapOnSaveMoneyPage(String arg0) throws Throwable {
         switch (arg0) {
             case "Add":
-                action.click(Page_SaveMoney.Button_Add());
+                action.click(Page_SaveMoney.Button_AddPromoPage());
                 break;
             case "Get More Money":
                 action.click(Page_SaveMoney.Button_GetMoreMoney());
@@ -333,7 +381,13 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @And("I select Bungii Time as {string}")
     public void iSelectBungiiTimeAs(String arg0) {
-        utility.selectBungiiTime();
+        switch (arg0){
+            case "next possible scheduled":
+                utility.selectBungiiTime();
+                break;
+            case "next possible scheduled for duo":
+                break;
+        }
         String bungiiTime=action.getText(bungiiEstimatePage.Time());
         cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
 

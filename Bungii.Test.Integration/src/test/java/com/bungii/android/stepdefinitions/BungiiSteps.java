@@ -181,6 +181,7 @@ public class BungiiSteps extends DriverBase {
                 if(action.isNotificationAlertDisplayed()){
                 if(action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
                     utility.acceptNotificationAlert();
+                    Thread.sleep(5000);
                     skipClick=true;
                 }
                 else{
@@ -217,7 +218,7 @@ public class BungiiSteps extends DriverBase {
     @When("^I tap \"([^\"]*)\" during a Bungii$")
     public void iTapDuringABungii(String arg0) throws Throwable {
         switch (arg0) {
-            case "OK on driver Accepted screen":
+            case "OK on Driver Accepted screen":
                 action.waitUntilIsElementExistsAndDisplayed(Page_BungiiAccepted.Button_OK());
                 action.click(Page_BungiiAccepted.Button_OK());
                 break;
@@ -233,6 +234,7 @@ public class BungiiSteps extends DriverBase {
             default:
                 break;
         }
+        log("I should able to click on"+arg0,"I clicked on "+arg0 );
     }
 
     @Then("^Bungii driver should see \"([^\"]*)\"$")
@@ -398,6 +400,23 @@ public class BungiiSteps extends DriverBase {
             default:
                 break;
         }
+    }
+    @Then("^I accept Alert message for \"([^\"]*)\"$")
+    public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
+        String actualText= action.getText(Page_DriverBungiiProgress.Alert_Message());
+        String expectedText="";
+        switch (strArg1){
+            case "Reminder: both driver at pickup":
+                expectedText=PropertyUtility.getMessage("bungii.duo.driver.pickup");
+                break;
+            case "Reminder: both driver at drop off":
+                expectedText=PropertyUtility.getMessage("bungii.duo.driver.drop");
+                break;
+
+        }
+        testStepVerify.isEquals(actualText,PropertyUtility.getMessage("bungii.duo.driver.pickup"),strArg1+"should be displayed",expectedText+" is displayed","Expect alert text is "+expectedText +" and actual is "+actualText);
+        action.click(Page_DriverBungiiProgress.Alert_Accept());
+
     }
 
     @And("^Quit Bungii Driver app$")

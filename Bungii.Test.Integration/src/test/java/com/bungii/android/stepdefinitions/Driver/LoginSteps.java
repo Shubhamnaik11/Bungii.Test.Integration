@@ -20,6 +20,11 @@ public class LoginSteps extends DriverBase {
                 password = PropertyUtility.getDataProperties("valid.driver.password");
                 shouldLoginSucessful = true;
                 break;
+            case"valid driver 2":
+                phone = PropertyUtility.getDataProperties("valid.driver2.phone");
+                password = PropertyUtility.getDataProperties("valid.driver2.password");
+                shouldLoginSucessful = true;
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }

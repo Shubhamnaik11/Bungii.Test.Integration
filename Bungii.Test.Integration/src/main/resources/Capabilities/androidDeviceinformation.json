@@ -9,9 +9,23 @@
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "TA93401OLE"
+    "udid": "192.168.55.43:5556"
+  },
+  "device2": {
+    "platformName": "android",
+    "deviceType": "MOTOROLA",
+    "deviceName": "Moto G(4)",
+    "platformVersion": "7.0",
+    "noReset": true,
+    "newCommandTimeout": "1000",
+    "autoWebView": true,
+    "app": "D:\\APK\\bungii-driver-qa-debug.apk",
+    "appPackage": "com.bungii.driver",
+    "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
+    "udid": "ZY2239HR8Q"
   },
   "connection": {
-    "device1": 4723
+    "device1": 4723,
+    "device2": 4725
   }
 }

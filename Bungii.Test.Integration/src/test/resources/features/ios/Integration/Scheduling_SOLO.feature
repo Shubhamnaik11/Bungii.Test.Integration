@@ -85,7 +85,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on Estimate screen
+#    Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |

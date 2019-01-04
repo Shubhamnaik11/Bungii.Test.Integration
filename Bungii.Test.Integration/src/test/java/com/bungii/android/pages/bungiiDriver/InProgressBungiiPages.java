@@ -46,4 +46,6 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Bungii_Customer_Title() { return findElement("com.bungii.driver:id/pickup_details_caller_title", LocatorType.Id); }
 
     public WebElement Bungii_Customer_Name() { return findElement("com.bungii.driver:id/pickup_details_caller_name", LocatorType.Id); }
+    public WebElement Alert_Message(){return findElement("android:id/message",LocatorType.Id);}
+    public WebElement Alert_Accept(){return  findElement("android:id/button1",LocatorType.Id);}
 }

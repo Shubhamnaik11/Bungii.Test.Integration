@@ -40,4 +40,6 @@ public class BungiiProgressPage extends PageBase {
     public WebElement Button_Bungii_Driver_SMS () { return findElement("com.bungii.customer:id/pickup_details_sms_button",LocatorType.Id); }
 
     public WebElement Button_Bungii_Driver_Call () { return findElement("com.bungii.customer:id/pickup_details_call_button",LocatorType.Id); }
+
+
 }

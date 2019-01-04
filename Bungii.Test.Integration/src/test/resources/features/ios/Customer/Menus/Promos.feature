@@ -100,7 +100,6 @@ Feature: Promos
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
     Then I get Invite Code
-
     When I click "SHARE" button on "INVITE" screen
     When I click "SHARE ON TWITTER" button on "INVITE" screen
     Then user is alerted for "No twitter installed"

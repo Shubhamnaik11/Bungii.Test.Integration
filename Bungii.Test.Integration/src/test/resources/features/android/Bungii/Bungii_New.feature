@@ -110,7 +110,6 @@ Feature: Sanity
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
 
-  @Sanity
   Scenario: Validate That I am able to create on demand bungii.
     When I enter "current location in pickup and dropoff fields" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
@@ -166,7 +165,6 @@ Feature: Sanity
     And Bungii Driver "completes Bungii"
 
 
-  @Android
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
 
     When I enter "current location in pickup and dropoff fields" on Bungii estimate
@@ -276,9 +274,12 @@ Feature: Sanity
     And Bungii Driver "completes Bungii"
 
 
-  @Sanity_Android
+  @Sanity_ON
   @Android
   Scenario: Validate That I am able to create Schedule  bungii.
+    When I tap on "Menu" > "Account" link
+    Then I get customer account details
+    When I tap on "Menu" > "Home" link
 
     When I enter "current location in pickup and dropoff fields" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate

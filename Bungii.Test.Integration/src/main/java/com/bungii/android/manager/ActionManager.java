@@ -36,7 +36,11 @@ public class ActionManager {
         } catch (Exception ex) {
         }
     }
-
+    public String getValueAttribute(WebElement element) {
+        String value = element.getAttribute("value");
+        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        return value;
+    }
     public static void clear(WebElement element) {
         element.clear();
         logger.detail("Clear locator by locator" + element.toString());

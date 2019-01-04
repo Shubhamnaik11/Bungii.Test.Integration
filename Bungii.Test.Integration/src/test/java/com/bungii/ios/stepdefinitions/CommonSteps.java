@@ -447,7 +447,7 @@ public class CommonSteps extends DriverBase {
     public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
         try {
 
-            SetupManager.getObject().useDriverInstance("ORIGINAL");
+         //   SetupManager.getObject().useDriverInstance("ORIGINAL");
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));

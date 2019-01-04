@@ -88,5 +88,6 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath); }
 
+    public WebElement loading_Wrapper(boolean...ignoreException){return  findElement("modal-backdrop fade in",LocatorType.ClassName,ignoreException);}
 
 }
