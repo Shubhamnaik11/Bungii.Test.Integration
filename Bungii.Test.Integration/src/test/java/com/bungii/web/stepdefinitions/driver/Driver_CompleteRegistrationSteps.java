@@ -30,13 +30,12 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 action.selectRandomDropdown(Page_Driver_PickupInfo.DropDown_PickupYear());
                 action.clearSendKeys(Page_Driver_PickupInfo.TextBox_LicenseNo(), PropertyUtility.getDataProperties("PickupLicenseNo"));
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
-              //ToDO  if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-                //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
+                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 int size =Page_Driver_PickupInfo.Div_UploadedImages().size();
                 int count = 0;
                 while (size !=3) {
-                Thread.sleep(5000);
-                if (count >=5 )
+                Thread.sleep(2000);
+                if (count >=20 )
                     break;
 
                 size =Page_Driver_PickupInfo.Div_UploadedImages().size();
@@ -50,10 +49,12 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
             case "less truck image - i":
                 //action.click(Page_Driver_PickupInfo.DropZone2_TruckImages());
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
+                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
             case "less truck image - ii":
+                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
@@ -85,7 +86,7 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
                 testStepVerify.isElementDisplayed(Page_Driver_Doc.Link_LicenseRemoveFile(), " Licence remove file should be displayed ", "Licence remove file is displayed", "Licence remove file is not displayed");
 
-                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber"));
+                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(),Long.toHexString(Double.doubleToLongBits(Math.random())));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
                 utility.addImageInDropZone(Page_Driver_Doc.DropZoneHiddenFileTag_InsuranceImage(), insuranceImagePath);

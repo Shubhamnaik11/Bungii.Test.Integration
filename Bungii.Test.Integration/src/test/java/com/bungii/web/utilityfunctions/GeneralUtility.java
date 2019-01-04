@@ -53,6 +53,7 @@ private String GetDriverUrl()
     }
     public void NavigateToDriverLogin() {
         String driverURL = GetDriverUrl();
+        action.deleteAllCookies();
         action.navigateTo(driverURL);
     }
 

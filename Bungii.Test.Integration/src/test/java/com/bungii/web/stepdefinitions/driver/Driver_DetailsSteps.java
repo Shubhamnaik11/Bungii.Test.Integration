@@ -44,22 +44,17 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Details.TextArea_Other(), PropertyUtility.getDataProperties("DriverOther"));
 
                 action.clearSendKeys(Page_Driver_Details.TextArea_Occupation(), PropertyUtility.getDataProperties("DriverOccupation"));
-
-                utility.addImageInDropZone(Page_Driver_Details.DropZoneHiddenFileTag_ProfileImage(), driverImagePath);
-
-             //ToDO   if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-             //ToDO       action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
-
-                action.click(Page_Driver_Details.Button_Crop());
-                Thread.sleep(15000);
-             //ToDO   if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
-             //ToDO       action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
-
-                testStepVerify.isElementEnabled(Page_Driver_Details.Link_RemoveFile(), "driver remove link should be present", "driver remove link is present", "driver remove link is not present");
-
                 action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN"));
                 action.clearSendKeys(Page_Driver_Details.TextBox_Birthday(), PropertyUtility.getDataProperties("DriverBirthday"));
                 action.selectRandomDropdown(Page_Driver_Details.DropDown_Info());
+                utility.addImageInDropZone(Page_Driver_Details.DropZoneHiddenFileTag_ProfileImage(), driverImagePath);
+
+                action.click(Page_Driver_Details.Button_Crop());
+                action.invisibilityOfElementLocated(Page_Driver_Details.Wrapper_Spinner());
+
+                testStepVerify.isElementEnabled(Page_Driver_Details.Link_RemoveFile(), "driver remove link should be present", "driver remove link is present", "driver remove link is not present");
+
+
 
                 action.click(Page_Driver_Details.CheckBox_Consent());
 
@@ -74,10 +69,10 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_Details.Link_ClearAll());
                 testStepVerify.isElementNotSelected(Page_Driver_Details.CheckBox_WedAftrn(), "Checkbox for Wed afternoon should not be selected ", " Checkbox for Wed afternoon is not selected", "Checkbox for Wed afternoon is selected");
 
-                action.click(Page_Driver_Details.Link_DriverPicture());
                 utility.addImageInDropZone(Page_Driver_Details.DropZoneHiddenFileTag_ProfileImage(), driverImagePath);
                 action.click(Page_Driver_Details.Button_Crop());
-                Thread.sleep(1000);
+                action.invisibilityOfElementLocated(Page_Driver_Details.Wrapper_Spinner());
+
                 action.click(Page_Driver_Details.Link_RemoveFile());
 
                 action.clearSendKeys(Page_Driver_Details.TextBox_SSN(), PropertyUtility.getDataProperties("DriverSSN_Invalid"));

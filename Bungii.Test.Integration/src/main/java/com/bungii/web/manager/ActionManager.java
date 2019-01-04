@@ -1,14 +1,15 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.InvalidElementStateException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Random;
 
@@ -71,7 +72,8 @@ public class ActionManager {
     {
         Select  s = new Select(DropdownField);
         int itemCount = s.getOptions().size(); // get the count of elements in ddlWebElement
-        s.selectByIndex(random.nextInt( itemCount-1));
+         int randomnumber= random.nextInt( itemCount-1);
+        s.selectByIndex(randomnumber==0 ? (randomnumber+1 <= itemCount ? randomnumber+1 : randomnumber ) : randomnumber );
     }
 
     public void navigateTo(String url) {
@@ -81,5 +83,21 @@ public class ActionManager {
     public static void selectElementByText(WebElement element, String text)
     {
         new Select(element).selectByVisibleText(text);
+    }
+
+    public  void deleteAllCookies()
+    {
+        SetupManager.getDriver().manage().deleteAllCookies();
+    }
+
+    public boolean invisibilityOfElementLocated(WebElement element){
+try {
+    return new WebDriverWait(DriverManager.getObject().getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime"))).until(ExpectedConditions.invisibilityOf(element));
+}
+catch(Exception ex)
+{
+    return true;
+}
+
     }
 }
