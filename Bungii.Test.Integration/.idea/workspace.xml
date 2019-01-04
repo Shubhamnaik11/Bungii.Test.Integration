@@ -5,130 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71947592-3ab5-44a3-a5de-1aaf4dcac414" name="Default Changelist" comment="Removing unnecessary files">
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/android/manager/ActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/android/manager/ActionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/android/manager/Assertion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/android/manager/Assertion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/DriverBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/DriverBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/enums/ResultType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/enums/ResultType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/enums/TargetPlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/enums/TargetPlatform.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/AssertManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/AssertManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/CucumberContextManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/CucumberContextManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DbContextManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DbContextManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DriverManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DriverManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ReportManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ReportManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ResultManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ResultManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/CustomFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/CustomFormatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/FileUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/FileUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ParseUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ParseUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/PropertyUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/PropertyUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/RandomGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/RandomGeneratorUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ScreenshotUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ScreenshotUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ThreadLocalStepDefinitionMatch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ThreadLocalStepDefinitionMatch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Capabilities/iOSdeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Capabilities/iOSdeviceinformation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/SystemProperties/jdbcConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SystemProperties/jdbcConfig.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/SystemProperties/resultConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/SystemProperties/resultConfig.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Templates/resulttemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Templates/resulttemplate.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/images.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/images.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/resourcesFilePaths.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/resourcesFilePaths.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/BungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/BungiiSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CustomerForgotPasswordSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CustomerForgotPasswordSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/ForgotPasswordPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/customer/ForgotPasswordPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/DashBoardSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/DashBoardSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LogInSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LogInSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/PromoCodeSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/PromoCodeSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ReferralSourceSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ReferralSourceSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ScheduledTripSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ScheduledTripSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/AccountSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/AccountSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiCompleteSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiCompleteSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiDetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiDetailsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/FaqSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/FaqSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ForgotPasswordSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ForgotPasswordSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/InviteSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/InviteSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PaymentSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PaymentSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromoSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromoSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ScheduledBungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ScheduledBungiiSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SearchingSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SearchingSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SignupSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SignupSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SuccessSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SuccessSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TermsAndConditionSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TermsAndConditionSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/VerificationSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/VerificationSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AccountSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AccountSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AvailableTripsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AvailableTripsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/BungiiDetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/BungiiDetailsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/HomePageSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/HomePageSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/ScheduledBungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/ScheduledBungiiSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/TripDetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/TripDetailsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/NotificationSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/NotificationSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/ios/utilityfunctions/GeneralUtility.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Android.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Android.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/testfeature.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/testfeature.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/LogIn.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/LogIn.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Customer Menu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Customer Menu.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Signup/Signup.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Signup/Signup.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemand_DriverAction.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemand_DriverAction.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/iOSdeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/iOSdeviceinformation.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/jdbcConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SystemProperties/jdbcConfig.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SystemProperties/log4j.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/SystemProperties/resultConfig.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/SystemProperties/resultConfig.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Templates/resulttemplate.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Templates/resulttemplate.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/data.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/images.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/images.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/resourcesFilePaths.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/resourcesFilePaths.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/formatter.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/formatter.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/jquery-1.8.2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/jquery-1.8.2.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/cucumber-custom-runner.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/cucumber-custom-runner.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/Bungii.Test.Integration.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/Bungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/Bungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/EstimateBungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/EstimateBungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/testfeature.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/testfeature.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/LoginAndForgotPassword/Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/LoginAndForgotPassword/Login.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Menus/CustomerMenu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Menus/CustomerMenu.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_Payment.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_Payment.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_SaveMoney.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_SaveMoney.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_Support.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Menus/Menu_Support.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Menus/ReferralInvite.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Menus/ReferralInvite.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/ScheduleBungiis/DuoScheduled.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/ScheduleBungiis/DuoScheduled.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/ScheduleBungiis/SoloScheduled.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/ScheduleBungiis/SoloScheduled.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Signup/CustomerSignup.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/android/Signup/CustomerSignup.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/android/Bungii/testfeature.feature" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Customer Menu.feature" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Customer/Invite.feature" beforeDir="false" />
@@ -140,16 +38,17 @@
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemandBungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemandBungii.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemand_DriverAction.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/OnDemand_DriverAction.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/Scheduling_SOLO.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/ios/Integration/Scheduling_SOLO.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverRejection.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverRejection.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverResendApplication.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverResendApplication.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverVerification.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverVerification.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_Driver_Approval.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_Driver_Approval.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/DriverRegistrationSignup.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/DriverRegistrationSignup.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_Driver.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverRejection.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverResendApplication.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_DriverVerification.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/admin/Admin_Driver_Approval.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/DriverRegistrationSignup.feature" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_BankDetails.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_BankDetails.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Details.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Details.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_ForgotPassword.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_ForgotPassword.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_Login.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_PickUpInfo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_PickUpInfo.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_RegistrationCompletion.feature" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/features/web/driver/Driver_RegistrationCompletion.feature" afterDir="false" />
@@ -158,220 +57,117 @@
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="D:\Bungii-QA-Automation\Bungii.Test.Integration\.idea\shelf/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunSuite_IOS.ic" NAME="RunSuite_IOS Coverage Results" MODIFIED="1545287275284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunSuite_TESTNG.ic" NAME="RunSuite TESTNG Coverage Results" MODIFIED="1545040841351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.bungii.runner.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunSuite_IOS__1_.ic" NAME="RunSuite_IOS (1) Coverage Results" MODIFIED="1545287325460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.bungii.runner.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunSuite_TESTNG.ic" NAME="RunSuite TESTNG Coverage Results" MODIFIED="1545040841351" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunSuite_IOS.ic" NAME="RunSuite_IOS Coverage Results" MODIFIED="1545287275284" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.bungii.runner.*</FILTER>
     </SUITE>
   </component>
   <component name="CoverageViewManager">
     <option name="myElementSize" value="181" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2822">
-                    <caret line="197" selection-start-line="197" selection-end-line="197" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="595">
-                    <caret line="59" column="76" selection-start-line="59" selection-start-column="69" selection-end-line="59" selection-end-column="76" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiDetailsSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="425">
-                    <caret line="35" column="76" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="65">
-                    <caret line="112" column="51" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
-                    <folding>
-                      <element signature="imports" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1649">
-                    <caret line="98" selection-start-line="98" selection-end-line="98" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/PromoCodeSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1343">
-                    <caret line="93" column="24" selection-start-line="93" selection-start-column="24" selection-end-line="93" selection-end-column="24" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromoSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2312">
-                    <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="7990">
-                    <caret line="500" column="16" selection-start-line="500" selection-start-column="16" selection-end-line="500" selection-end-column="16" />
-                    <folding>
-                      <element signature="imports" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AccountSteps.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="306">
-                    <caret line="29" column="133" selection-start-line="29" selection-end-line="30" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/admin/LogInPage.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="153">
-                    <caret line="12" column="64" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="64" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FavoritesManager">
     <favorites_list name="Bungii.Test.Integration" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature">
+      <file leaf-file-name="Driver_PickUpInfoPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_PickUpInfoPage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+            <state relative-caret-position="318">
+              <caret line="46" column="27" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature">
+      <file leaf-file-name="Admin_DriverApprovalSteps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverApprovalSteps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="10" selection-start-column="1" selection-end-column="10" />
+            <state relative-caret-position="167">
+              <caret line="48" column="76" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ScheduledBungiiSteps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1258">
-              <caret line="95" column="48" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ScheduledTripSteps.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/admin/ScheduledTripsPage.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java">
+      <file leaf-file-name="Admin_DriverVerificationPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_DriverVerificationPage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="12" column="101" selection-start-line="12" selection-start-column="92" selection-end-line="12" selection-end-column="101" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature">
+      <file leaf-file-name="RunSuite_Web.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Web.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="11" selection-start-column="1" selection-end-column="11" />
+            <state relative-caret-position="-17">
+              <caret line="16" column="69" lean-forward="true" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractTestNGCucumberTests.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-testng/3.0.2/cucumber-testng-3.0.2-sources.jar!/cucumber/api/testng/AbstractTestNGCucumberTests.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Driver_BankDetails.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_BankDetails.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Admin_DriverApplicationVerification.feature" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Admin_DashboardPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_DashboardPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Admin_DriverResendApplicationSteps.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverResendApplicationSteps.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Driver_BankDetailsPage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_BankDetailsPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -387,11 +183,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tripDetailsPage</find>
-      <find>Then Trip Information should be correctly displayed on &quot;TRIP DETAILS&quot; screen</find>
-      <find>Then Trip Information should be correctly displayed on &quot;BUNGII DETAILS&quot; screen</find>
-      <find>Then Trip Information should be correctly displayed on &quot;CUSTOMER HOME&quot; screen</find>
-      <find>Trip Information should be correctly displayed on</find>
       <find>I Select Trip from scheduled trip</find>
       <find>I logged in Customer application using</find>
       <find>error(&quot;Step  Should be sucessful&quot;</find>
@@ -417,6 +208,11 @@
       <find>BUNGII_TIME</find>
       <find>throw</find>
       <find>csr</find>
+      <find>9975960645</find>
+      <find>Existing_DriverPhoneNumber</find>
+      <find>isElementDisplayed</find>
+      <find>BrowserExecutables</find>
+      <find>wra</find>
     </findStrings>
     <replaceStrings>
       <replace>(String) cucumberContextManager.getScenarioContext</replace>
@@ -433,7 +229,6 @@
       <replace>Then Trip Information should be correctly displayed on BUNGII DETAILS screen</replace>
       <replace>Then Trip Information should be correctly displayed on CUSTOMER HOME screen</replace>
       <replace>error(&quot;Step  Should be successful&quot;</replace>
-      <replace>error(&quot;Step  Should be successful&quot;</replace>
       <replace>error(&quot;Step  Should be successful&quot;,</replace>
       <replace>successful&quot;,</replace>
       <replace>successful&quot;</replace>
@@ -445,7 +240,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -456,38 +251,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SignupSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LogInSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ReferralSourceSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiCompleteSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/FaqSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SuccessSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/ScheduledBungiiSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/TripDetailsSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SearchingSteps.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/core/DriverBase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/AssertManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DbContextManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DriverManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ResultManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/CustomFormatter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/FileUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/RandomGeneratorUtility.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ThreadLocalStepDefinitionMatch.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" />
-        <option value="$PROJECT_DIR$/src/main/resources/Capabilities/iOSdeviceinformation.json" />
-        <option value="$PROJECT_DIR$/src/main/resources/Templates/resulttemplate.html" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/DashBoardSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/PromoCodeSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/AccountSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/InviteSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PaymentSteps.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TermsAndConditionSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AccountSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AvailableTripsSteps.java" />
@@ -507,6 +270,38 @@
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/UserProperties/environment.properties" />
+        <option value="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverResendApplication.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverRejection.feature" />
+        <option value="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_DocumentationPage.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Driver_Approval.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverVerification.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_SMSVerification.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Driver_Actions.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/DriverRegistrationSignup.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Signup.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_ForgotPassword.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/utilityfunctions/GeneralUtility.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_DetailsPage.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Details.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_PickUpInfoPage.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_PickUpInfo.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_RegistrationCompletion.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_CompleteRegistrationSteps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Application.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_DashboardPage.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverApprovalSteps.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_BankDetails.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Web.java" />
       </list>
     </option>
   </component>
@@ -547,8 +342,8 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
+    <option name="x" value="-2116" />
+    <option name="y" value="-19" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
   </component>
@@ -626,28 +421,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="enums" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="manager" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -663,38 +437,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="BrowserExecutables" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="Capabilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="Images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="SystemProperties" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="Templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -724,15 +466,6 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="bungii" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -789,6 +522,48 @@
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="stepdefinitions" type="462c0819:PsiDirectoryNode" />
+              <item name="driver" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="bungii" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="utilityfunctions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -806,7 +581,7 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -815,8 +590,8 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -825,46 +600,14 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Bungii Home Page and Estimate" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Log In and Forgot Password" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Customer" type="462c0819:PsiDirectoryNode" />
-              <item name="Menus" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="features" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
-              <item name="Integration" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="driver" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
@@ -915,24 +658,20 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="TestNG.RunSuite_IOS (1)">
-    <configuration name="Feature: CustomerForgotPassword" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
-      <option name="CUCUMBER_CORE_VERSION" value="3" />
-      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" />
-      <option name="GLUE" value="com.bungii.hooks" />
+  <component name="RunManager" selected="TestNG.RunSuite_Web">
+    <configuration name="Feature: Driver_SMSVerification" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_SMSVerification.feature" />
+      <option name="GLUE" value="com.bungii.hooks com.bungii.web.stepdefinitions.driver" />
       <option name="MAIN_CLASS_NAME" value="cucumber.api.cli.Main" />
       <module name="Bungii.Test.Integration" />
-      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm3SMFormatter" />
-      <option name="SUGGESTED_NAME" value="Feature: CustomerForgotPassword" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm2SMFormatter --monochrome" />
+      <option name="SUGGESTED_NAME" value="Feature: Driver_SMSVerification" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="cucumber.api.cli.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="RunSuite - Junit" type="JUnit" factoryName="JUnit">
       <module name="Bungii.Test.Integration" />
@@ -942,17 +681,46 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.bungii.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
       <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
-    <configuration name="RunSuite TESTNG" type="TestNG" editBeforeRun="true">
+    <configuration name="Bungii.Test.Integration [clean]" type="MavenRunConfiguration" factoryName="Maven" temporary="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+              </list>
+            </option>
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+    </configuration>
+    <configuration name="RunSuite TESTNG" type="TestNG" factoryName="TestNG" editBeforeRun="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage" track_test_folders="true">
         <pattern>
@@ -972,17 +740,16 @@
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="OUTPUT_DIRECTORY" value="D:\Bungii-QA-Automation" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
       </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
-    <configuration name="RunSuite (2)" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RunSuite" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage">
         <pattern>
@@ -990,31 +757,26 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
@@ -1028,276 +790,6 @@
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
       <properties />
       <listeners />
       <method v="2">
@@ -1348,6 +840,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
       <properties />
       <listeners />
       <method v="2">
@@ -1364,6 +858,292 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
       <properties />
       <listeners />
       <method v="2">
@@ -1448,15 +1228,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
       <properties />
       <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RunSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RunSuite_IOS (1)" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage">
         <pattern>
@@ -1464,47 +1242,28 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.ios.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite_Android" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.bungii.runner" />
-      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite_Android" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RunSuite_IOS (1)" type="TestNG" temporary="true" nameIsGenerated="true">
-      <module name="Bungii.Test.Integration" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.bungii.runner.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="com.bungii.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite_IOS" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
-    <configuration name="RunSuite_IOS" type="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RunSuite_IOS" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage">
         <pattern>
@@ -1512,15 +1271,28 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
       <option name="PACKAGE_NAME" value="com.bungii.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite_IOS" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
-    <configuration name="xml" type="TestNG">
+    <configuration name="RunSuite_Web" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage">
         <pattern>
@@ -1528,6 +1300,37 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" value="com.bungii.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunSuite_Web" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <properties />
+      <listeners />
+    </configuration>
+    <configuration name="xml" type="TestNG" factoryName="TestNG">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" value="$PROJECT_DIR$/testNG.xml" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="" />
@@ -1538,31 +1341,32 @@
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <list>
-      <item itemvalue="Cucumber java.Feature: CustomerForgotPassword" />
       <item itemvalue="JUnit.RunSuite - Junit" />
       <item itemvalue="TestNG.RunSuite TESTNG" />
-      <item itemvalue="TestNG.RunSuite (2)" />
-      <item itemvalue="TestNG.RunSuite" />
-      <item itemvalue="TestNG.RunSuite_Android" />
+      <item itemvalue="TestNG.xml" />
+      <item itemvalue="Cucumber java.Feature: Driver_SMSVerification" />
       <item itemvalue="TestNG.RunSuite_IOS (1)" />
       <item itemvalue="TestNG.RunSuite_IOS" />
-      <item itemvalue="TestNG.xml" />
+      <item itemvalue="Maven.Bungii.Test.Integration [clean]" />
+      <item itemvalue="TestNG.RunSuite_Web" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.RunSuite_Web" />
+        <item itemvalue="Maven.Bungii.Test.Integration [clean]" />
+        <item itemvalue="Cucumber java.Feature: Driver_SMSVerification" />
         <item itemvalue="TestNG.RunSuite_IOS (1)" />
         <item itemvalue="TestNG.RunSuite_IOS" />
-        <item itemvalue="TestNG.RunSuite_Android" />
-        <item itemvalue="Cucumber java.Feature: CustomerForgotPassword" />
-        <item itemvalue="TestNG.RunSuite (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -1630,39 +1434,53 @@
       <option name="project" value="LOCAL" />
       <updated>1545118609440</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Web Tests checked in">
+      <created>1546514639313</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1546514639313</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Web Regression tests checked in">
+      <created>1546600895423</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1546600895423</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 12h 21m 17s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 15h 05m 02s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 12h 24m 33s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 15h 14m 30s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 12h 31m 42s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 15h 20m 11s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 12h 34m 19s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 15h 38m 40s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 17h 29m 10s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 03m 25s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 17h 48m 14s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 13m 25s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 18h 14m 30s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 23m 31s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 18h 28m 20s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 38m 25s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 18h 31m 36s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 44m 57s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
-    <history-entry file="RunSuite_IOS_(1) - 2018.12.20 at 18h 42m 16s.xml">
-      <configuration name="RunSuite_IOS (1)" configurationId="TestNG" />
+    <history-entry file="RunSuite_Web - 2019.01.04 at 16h 46m 20s.xml">
+      <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1675,39 +1493,72 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.18656716" />
-      <window_info id="Structure" order="1" sideWeight="0.15813954" side_tool="true" weight="0.18923241" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Learn" order="6" />
-      <window_info id="Favorites" order="7" sideWeight="0.48879838" side_tool="true" weight="0.17004265" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49755502" weight="0.53303474" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.88965887" visible="true" weight="0.3672806" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.8343521" weight="0.4356103" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
-      <window_info anchor="bottom" id="SVN Repositories" order="7" weight="0.32900432" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.77139366" weight="0.33818588" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85394454" weight="0.20476706" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.110341154" side_tool="true" visible="true" weight="0.3672806" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.8031785" weight="0.28107503" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.054371003" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7579957" weight="0.381798" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" visible="true" weight="0.22334754" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.21481876" side_tool="true" weight="0.3673696" />
+      <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" weight="0.0826226" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" visible="true" weight="0.17980023" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.74626863" weight="0.2974473" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" weight="0.20421754" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.3011727" />
+      <window_info id="Structure" order="1" sideWeight="0.15813954" side_tool="true" weight="0.18923241" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="5" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Favorites" order="7" sideWeight="0.48879838" side_tool="true" weight="0.17004265" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7851812" weight="0.4428413" />
+      <window_info anchor="bottom" id="SVN Repositories" order="7" weight="0.32900432" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="Coverage" order="9" sideWeight="0.5023256" side_tool="true" visible="true" weight="0.040511727" />
+      <window_info id="Learn" order="6" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.054371003" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49755502" weight="0.53303474" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.74626863" weight="0.2974473" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49755502" weight="0.53303474" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="9" sideWeight="0.5023256" side_tool="true" visible="true" weight="0.040511727" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="7" sideWeight="0.48879838" side_tool="true" weight="0.17004265" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" weight="0.20421754" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.21481876" side_tool="true" visible="true" weight="0.3673696" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.054371003" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" weight="0.17980023" />
+      <window_info anchor="bottom" id="SVN Repositories" order="7" weight="0.32900432" />
+      <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" visible="true" weight="0.0826226" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.3011727" />
+      <window_info id="Learn" order="6" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7579957" weight="0.17758046" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Structure" order="1" sideWeight="0.15813954" side_tool="true" weight="0.18923241" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7851812" visible="true" weight="0.3673696" />
+    </layout-to-restore>
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.vm" />
@@ -1747,55 +1598,22 @@
         </entry>
       </map>
     </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list />
-          </value>
-        </entry>
-        <entry key="User">
-          <value>
-            <list />
-          </value>
-        </entry>
-      </map>
-    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
     <MESSAGE value="Feature and Page objects checkin - Andoid/Web" />
     <MESSAGE value="Removing unnecessary files" />
     <MESSAGE value="Appium Server Start/Shutdown" />
-    <option name="LAST_COMMIT_MESSAGE" value="Appium Server Start/Shutdown" />
+    <MESSAGE value="Web Tests checked in" />
+    <MESSAGE value="Web Regression tests checked in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Web Regression tests checked in" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
-          <line>43</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
-          <line>185</line>
-          <properties />
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
-          <line>176</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java</url>
-          <line>197</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java</url>
           <line>66</line>
@@ -1857,6 +1675,7 @@
           <option name="timeStamp" value="62" />
         </line-breakpoint>
       </breakpoints>
+      <option name="time" value="60" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1864,389 +1683,366 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/ResultManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/DashBoardSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="39" column="82" selection-start-line="39" selection-end-line="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ReferralSourceSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-431">
-          <caret line="31" column="70" selection-start-line="31" selection-start-column="64" selection-end-line="31" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiAcceptedSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiCompleteSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/FaqSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="56" column="27" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ForgotPasswordSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/InviteSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1472">
-          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/LogInSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="30" column="25" lean-forward="true" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PaymentSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="309" lean-forward="true" selection-start-line="309" selection-end-line="309" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromotionSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SearchingSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SuccessSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="36" column="43" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SupportSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/SignupSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="72" selection-start-line="72" selection-end-line="73" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TermsAndConditionSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="127" selection-start-line="25" selection-start-column="127" selection-end-line="25" selection-end-column="127" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/TripStatusSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1453">
-          <caret line="242" column="37" selection-start-line="242" selection-start-column="20" selection-end-line="242" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/VerificationSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/AccountSteps.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-support/3.141.5/selenium-support-3.141.5-sources.jar!/org/openqa/selenium/support/ui/FluentWait.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
-          <caret line="39" selection-start-line="39" selection-end-line="40" selection-end-column="26" />
-          <folding>
-            <element signature="e#685#686#0" expanded="true" />
-            <element signature="e#722#723#0" expanded="true" />
-          </folding>
+          <caret line="108" selection-start-line="108" selection-end-line="108" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AvailableTripsSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="32" column="27" lean-forward="true" selection-start-line="32" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/HomePageSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/ScheduledBungiiSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/TripDetailsSteps.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-support/3.141.5/selenium-support-3.141.5-sources.jar!/org/openqa/selenium/support/ui/WebDriverWait.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-266">
-          <caret line="23" column="20" selection-start-line="23" selection-end-line="24" />
+        <state relative-caret-position="187">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/UpdateStatusSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="805">
-          <caret line="421" selection-start-line="421" selection-end-line="421" />
+        <state relative-caret-position="106">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/MessageSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/LogInSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Promos.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="986">
-          <caret line="58" column="4" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/BungiiDetailsSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1037">
-          <caret line="64" column="5" selection-start-line="64" selection-start-column="5" selection-end-line="64" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/other/NotificationPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="8" column="46" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/other/NotificationSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="219" column="41" selection-start-line="219" selection-start-column="41" selection-end-line="219" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-remote-driver/3.14.0/selenium-remote-driver-3.14.0-sources.jar!/org/openqa/selenium/remote/DesiredCapabilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="116" selection-start-line="116" selection-end-line="116" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="10" selection-start-column="1" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ScheduledBungiiSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/ios/manager/ActionManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
-          <caret line="95" column="48" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ScheduledTripSteps.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/admin/ScheduledTripsPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverVerificationSteps.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
-          <caret line="12" column="101" selection-start-line="12" selection-start-column="92" selection-end-line="12" selection-end-column="101" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_LoginSteps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="1" selection-end-column="11" />
+        <state relative-caret-position="68">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2822">
-          <caret line="197" selection-start-line="197" selection-end-line="197" />
+        <state relative-caret-position="111">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/EstimateSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_DashboardPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="59" column="76" selection-start-line="59" selection-start-column="69" selection-end-line="59" selection-end-column="76" />
+        <state relative-caret-position="119">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/BungiiDetailsSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_IOS.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="35" column="76" selection-start-line="35" selection-start-column="76" selection-end-line="35" selection-end-column="76" />
+        <state relative-caret-position="170">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverRejection.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="119">
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="58" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/PromoCodeSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Driver_Approval.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="93" column="24" selection-start-line="93" selection-start-column="24" selection-end-line="93" selection-end-column="24" />
+        <state relative-caret-position="577">
+          <caret line="83" selection-start-line="83" selection-end-line="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/PromoSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverResendApplication.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2312">
-          <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="21" selection-end-column="57" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverVerification.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7990">
-          <caret line="500" column="16" selection-start-line="500" selection-start-column="16" selection-end-line="500" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/driver/AccountSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_Driver_Actions.feature">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="29" column="133" selection-start-line="29" selection-end-line="30" />
+        <state relative-caret-position="510">
+          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/pages/admin/LogInPage.java">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/DriverRegistrationSignup.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="15" lean-forward="true" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="8" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/utilityfunctions/GeneralUtility.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="55" column="26" selection-start-line="55" selection-start-column="26" selection-end-line="55" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/core/PageBase.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="12" column="64" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="64" />
+          <caret line="16" column="79" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="79" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-core/3.0.2/cucumber-core-3.0.2-sources.jar!/cucumber/runtime/Timeout.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="112" column="51" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
+        <state relative-caret-position="170">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-java/3.0.2/cucumber-java-3.0.2-sources.jar!/cucumber/runtime/java/JavaStepDefinition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_ForgotPasswordSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="99" column="16" selection-start-line="99" selection-start-column="16" selection-end-line="99" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_FinishPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_SMSVerification.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_ForgotPassword.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="60" selection-start-line="29" selection-start-column="60" selection-end-line="29" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Signup.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_DetailsPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="90" column="25" selection-start-line="90" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Details.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="8" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_PickUpInfo.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_RegistrationCompletion.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_DocumentationPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="614">
+          <caret line="48" column="1" selection-start-line="48" selection-start-column="1" selection-end-line="48" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_CompleteRegistrationSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="33" column="77" selection-start-line="33" selection-start-column="77" selection-end-line="33" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-core/3.0.2/cucumber-core-3.0.2-sources.jar!/cucumber/runtime/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="35" column="16" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Application.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="48" column="35" selection-start-line="48" selection-start-column="35" selection-end-line="48" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="277" selection-start-line="277" selection-end-line="277" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-42">
+          <caret line="76" selection-start-line="76" selection-end-line="76" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2919#2920#0" expanded="true" />
+            <element signature="e#2978#2979#0" expanded="true" />
+            <element signature="e#3165#3166#0" expanded="true" />
+            <element signature="e#3233#3234#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_LoginPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_MenuLinksPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_BankDetailsPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/driver/Driver_PickUpInfoPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="46" column="27" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverResendApplicationSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="13" column="16" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_DashboardPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="51" selection-start-line="11" selection-start-column="51" selection-end-line="11" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/io/cucumber/cucumber-testng/3.0.2/cucumber-testng-3.0.2-sources.jar!/cucumber/api/testng/AbstractTestNGCucumberTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="19" column="16" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_BankDetails.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverApprovalSteps.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="48" column="76" selection-start-line="48" selection-start-column="76" selection-end-line="48" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Admin_DriverVerificationPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Web.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="16" column="69" lean-forward="true" selection-start-line="16" selection-start-column="69" selection-end-line="16" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="34" column="20" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
         </state>
       </provider>
     </entry>

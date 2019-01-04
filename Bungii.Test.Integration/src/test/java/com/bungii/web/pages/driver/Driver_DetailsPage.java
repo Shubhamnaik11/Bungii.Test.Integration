@@ -86,7 +86,9 @@ public class Driver_DetailsPage extends PageBase {
     //Details - Next Button
     public WebElement Button_DetailsNext () { return findElement("btnAddInfo", LocatorType.Id); }
 
-    public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath); }
+    public WebElement DropZoneHiddenFileTag_ProfileImage () { return findElement("//input[@class = 'dz-hidden-input']", LocatorType.XPath, true); }
+
+    public WebElement Wrapper_Spinner () { return findElement("//div[@class='modal fade loader in' and @style='display: block;']", LocatorType.XPath, true); }
 
     public WebElement loading_Wrapper(boolean...ignoreException){return  findElement("modal-backdrop fade in",LocatorType.ClassName,ignoreException);}
 

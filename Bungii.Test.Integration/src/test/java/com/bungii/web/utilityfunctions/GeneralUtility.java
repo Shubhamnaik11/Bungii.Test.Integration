@@ -18,31 +18,49 @@ public class GeneralUtility {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
-
+private String GetDriverUrl()
+{
+    String driverURL = null;
+    String environment = PropertyUtility.getProp("environment");
+    if (environment.equals("Dev"))
+        driverURL = PropertyUtility.getDataProperties("dev.driver.url");
+    if (environment.equals("QA"))
+        driverURL = PropertyUtility.getDataProperties("qa.driver.url");
+    if (environment.equals("Stage"))
+        driverURL = PropertyUtility.getDataProperties("stage.driver.url");
+    return driverURL;
+}
+    private String GetAdminUrl()
+    {
+        String adminURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equals("Dev"))
+            adminURL = PropertyUtility.getDataProperties("dev.admin.url");
+        if (environment.equals("QA"))
+            adminURL = PropertyUtility.getDataProperties("qa.admin.url");
+        if (environment.equals("Stage"))
+            adminURL = PropertyUtility.getDataProperties("stage.admin.url");
+        return adminURL;
+    }
     public void DriverLogin(String Phone, String Password) {
-        String driverURL = PropertyUtility.getProp("Driver_URL");
-/*        if (environment.Equals("Dev"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Dev"]);
-        else if (environment.Equals("QA"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_QA"]);
-        else if (environment.Equals("Stage"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Driver_URL_Stage"]);*/
+        String driverURL = GetDriverUrl();
+
         action.navigateTo(driverURL);
         action.click(Page_Driver_Login.Tab_LogIn());
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), Phone);
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), Password);
         action.click(Page_Driver_Login.Button_DriverLogin());
     }
+    public void NavigateToDriverLogin() {
+        String driverURL = GetDriverUrl();
+        action.deleteAllCookies();
+        action.navigateTo(driverURL);
+    }
 
     public void AdminLogin() {
-/*        if (environment.Equals("Dev"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_Dev"]);
-        else if (environment.Equals("QA"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_QA"]);
-        else if (environment.Equals("Stage"))
-            WebDriverAction.NavigateToUrl(ConfigurationManager.AppSettings["Admin_URL_Stage"]);*/
+        String adminURL = GetAdminUrl();
 
-
+        action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("AdminPhonenumber"));
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("AdminPassword"));
         action.click(Page_AdminLogin.Button_AdminLogin());

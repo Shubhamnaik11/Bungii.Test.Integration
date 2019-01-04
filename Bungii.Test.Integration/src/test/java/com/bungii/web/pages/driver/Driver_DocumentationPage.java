@@ -41,9 +41,9 @@ public class Driver_DocumentationPage extends PageBase {
     //Documentation - Next Button
     public WebElement Button_DocNext () { return findElement("btnDoc", LocatorType.Id); }
 
-    public WebElement DropZoneHiddenFileTag_LicenseImage () { return findElement("//input[@class = 'dz-hidden-input'][3]", LocatorType.XPath); }
+    public WebElement DropZoneHiddenFileTag_LicenseImage () { return findElement("//input[@class = 'dz-hidden-input'][3]", LocatorType.XPath , true ); }
 
     //public WebElement DropZoneHiddenFileTag_InsuranceImagRe () { return findElement("//input[@class = 'dz-hidden-input'][last()]", LocatorType.XPath); }
-    public WebElement DropZoneHiddenFileTag_InsuranceImage () { return findElement("//input[@class = 'dz-hidden-input'][3]", LocatorType.XPath); }
+    public WebElement DropZoneHiddenFileTag_InsuranceImage () { return findElement("//input[@class = 'dz-hidden-input'][3]", LocatorType.XPath , true ); }
 
 }

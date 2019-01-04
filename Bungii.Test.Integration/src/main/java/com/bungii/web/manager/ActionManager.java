@@ -1,10 +1,12 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -45,10 +47,22 @@ public class ActionManager {
      * @param element ,locator that is to be clicked
      */
     public void click(WebElement element) {
-        element.click();
+        try {
+            element.click();
+        }
+         catch(StaleElementReferenceException | InvalidElementStateException ex) {
+                        //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
+                        JavaScriptClick(element);
+            }
         logger.detail("Click on locator by locator" + element.toString());
     }
+    public void JavaScriptClick(WebElement element) {
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].click();", element);
+        logger.detail(" JS Click on locator by locator" + element.toString());
 
+
+    }
     public void navigateToPreviousPageUsingBrowserBackButton() {
         SetupManager.getDriver().navigate().back();
     }
@@ -58,7 +72,8 @@ public class ActionManager {
     {
         Select  s = new Select(DropdownField);
         int itemCount = s.getOptions().size(); // get the count of elements in ddlWebElement
-        s.selectByIndex(random.nextInt( itemCount-1));
+         int randomnumber= random.nextInt( itemCount-1);
+        s.selectByIndex(randomnumber==0 ? (randomnumber+1 <= itemCount ? randomnumber+1 : randomnumber ) : randomnumber );
     }
 
     public void navigateTo(String url) {
@@ -69,32 +84,20 @@ public class ActionManager {
     {
         new Select(element).selectByVisibleText(text);
     }
-    /**
-     * An expectation for checking that an element is either invisible or not
-     * present on the DOM.
-     *
-     * @param element
-     *            used to find the element
-     */
-    public boolean invisibilityOfElementLocated(WebElement element) {
 
-        try {
-            return (new WebDriverWait(SetupManager.getDriver(), 30))
-                    .until(ExpectedConditions.invisibilityOf(element));
-        } catch (Exception e) {
-            return true;
-        }
+    public  void deleteAllCookies()
+    {
+        SetupManager.getDriver().manage().deleteAllCookies();
     }
 
+    public boolean invisibilityOfElementLocated(WebElement element){
+try {
+    return new WebDriverWait(DriverManager.getObject().getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime"))).until(ExpectedConditions.invisibilityOf(element));
+}
+catch(Exception ex)
+{
+    return true;
+}
 
-    public boolean isElementDisplayed(WebElement element) {
-        Boolean isDisplayed;
-        try {
-            isDisplayed= element.isDisplayed();
-        } catch (Exception e) {
-            isDisplayed= false;
-        }
-        return  isDisplayed;
     }
-
 }
