@@ -9,6 +9,6 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement RecentDriverRegistrations() { return findElement("//*[@id='GeofenceDashboard']//h4/text()='Recent driver Registrations'", LocatorType.XPath); }
 
-    public List<WebElement> PendingVerification() { return findElements("//td[text()='Pending Verification']/following-sibling::td/a", LocatorType.XPath); }
+    public List<WebElement> PendingVerification() { return findElements("//td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
 
 }
