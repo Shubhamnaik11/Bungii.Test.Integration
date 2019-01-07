@@ -125,11 +125,6 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
     }
 
-    @And("^I click on the \"([^\"]*)\" button$")
-    public void i_click_on_the_something_button(String strArg1) throws Throwable {
-        action.click(admin_DriverVerificationPage.Button_Cancel());
-    }
-
     @And("^I check if a Cancel confirmation message is shown$")
     public void i_check_if_a_cancel_confirmation_message_is_shown() throws Throwable {
         testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Popup_ConfirmCancelDriverVerificationApplication(),"","","");

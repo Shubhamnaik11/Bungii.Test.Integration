@@ -10,6 +10,10 @@ import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import com.bungii.common.manager.CucumberContextManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GeneralUtility {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
@@ -18,7 +22,8 @@ public class GeneralUtility {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
-private String GetDriverUrl()
+
+    private String GetDriverUrl()
 {
     String driverURL = null;
     String environment = PropertyUtility.getProp("environment");
@@ -96,6 +101,12 @@ private String GetDriverUrl()
         }
         ((JavascriptExecutor) SetupManager.getDriver()).executeScript(" arguments[0].style.visibility = 'visible';", dropZoneWebelement);
         action.sendKeys(dropZoneWebelement, inputFilesString.trim());
+
+    }
+    public String GetUniqueLastName()
+    {
+        String Lastname= RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
+        return Lastname;
 
     }
 }

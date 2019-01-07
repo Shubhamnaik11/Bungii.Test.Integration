@@ -5,17 +5,14 @@ import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.When;
 
 public class Admin_DriverResendApplicationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     ActionManager action = new ActionManager();
 
-    @And("^I check the status of the Driver application$")
-    public void i_check_the_status_of_the_driver_application() throws Throwable {
 
-    }
-
-    @And("^I verify and reject the invalid verification fields$")
+    @When("^I verify and reject the invalid verification fields$")
     public void i_verify_and_reject_the_invalid_verification_fields() throws Throwable {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());

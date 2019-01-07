@@ -49,7 +49,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Verify_Approve_DriverAccountNumber () { return findElement("//*[@id='btnok_14']", LocatorType.XPath); }
 
-    public WebElement Button_DriverApproveApplication () { return findElement("//*[@id='btnapprove']", LocatorType.XPath); }
+    public WebElement Button_DriverApproveApplication () { return findElement("//*[@id='btnapprove']", LocatorType.XPath, true); }
 
     public WebElement Button_DriverConfirmApproval () { return findElement("//*[@id='btnapproveagree']", LocatorType.XPath); }
 
@@ -103,7 +103,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Textinput_ReasonforRejection_PickupImages () { return findElement("//*[@id='DriverDetails_DriverVerification_DriverVerificationDetails_17__Comment']", LocatorType.XPath); }
 
-    public WebElement Button_DriverResentButton () { return findElement("//*[@id='btnresend']", LocatorType.XPath); }
+    public WebElement Button_DriverResentButton () { return findElement("//*[@id='btnresend']", LocatorType.XPath, true); }
 
     public WebElement Button_DriverConfirmResend () { return findElement("//*[@id='btnresendagree']", LocatorType.XPath); }
 

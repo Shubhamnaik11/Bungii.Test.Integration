@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.driver;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -59,7 +60,9 @@ public class DriverRegistrationSteps extends DriverBase {
         switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
-                action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(), PropertyUtility.getDataProperties("DriverLastName"));
+                String Lastname = utility.GetUniqueLastName();
+                action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
+                cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_ConfirmPassword(), PropertyUtility.getDataProperties("DriverPassword"));

@@ -4,11 +4,12 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.When;
 
 public class Admin_DriverRejectSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     ActionManager action = new ActionManager();
-    @And("^I click on \"([^\"]*)\" link$")
+    @When("^I click on \"([^\"]*)\" link$")
     public void i_click_on_something_link(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Link_RejectApplication());
     }
@@ -21,10 +22,10 @@ public class Admin_DriverRejectSteps extends DriverBase {
     @And("^I check if a validation message \"([^\"]*)\" is shown$")
     public void i_check_if_a_validation_message_something_is_shown(String strArg1) throws Throwable {
         testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
-
+///remove
     }
 
-    @And("^I do not enter the reject reason$")
+    @When("^I do not enter the reject reason$")
     public void i_do_not_enter_the_reject_reason() throws Throwable {
         admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication().clear();
     }

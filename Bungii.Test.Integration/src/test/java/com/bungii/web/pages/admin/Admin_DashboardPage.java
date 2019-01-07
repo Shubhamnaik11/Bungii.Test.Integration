@@ -11,4 +11,11 @@ public class Admin_DashboardPage extends PageBase {
 
     public List<WebElement> PendingVerification() { return findElements("//td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
 
+    public WebElement Link_ViewAllDriverRegistrations () { return findElement("//a[text()='View All Driver Registrations']", LocatorType.XPath); }
+
+    public WebElement TextBox_Search() { return findElement("DriverListViewResponseModel_SearchCriteria']", LocatorType.Id); }
+    public WebElement Icon_Search() { return findElement("btnSearchDriver']", LocatorType.Id); }
+
+    public WebElement GridRow_PendingVerificationLink (String LastName) { return findElement("//td[text()='James "+LastName+"']/following-sibling::td[text()='Pending Verification']/following-sibling::td[2]/a", LocatorType.XPath); }
+
 }

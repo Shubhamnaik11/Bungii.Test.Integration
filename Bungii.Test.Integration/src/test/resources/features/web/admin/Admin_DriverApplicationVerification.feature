@@ -29,166 +29,85 @@ Feature: Admin_DriverApplicationVerification
     And I am logged in as Admin
     And there is a pending driver verification
 
-  @regression1
-  Scenario: Admin_Driver_ApproveApplication
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve all the verification fields
-    And I click on "Approve Application" button
-    And I confirm the "Driver Application Approval" action
-
-
-
-  @reworkneeded
-  Scenario: Admin_Driver_ApproveApplication_WithRejectedFields
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and reject the invalid verification fields
-    And I check if "Approve Application" button is visible
-
-  @reworkneeded
-  Scenario: Admin_Driver_ChangeStatusOfApproveApplication
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve all the verification fields
-    And I click on "Approve Application" button
-    And I confirm the "Driver Application Approval" action
-    And I check if I can change the driver application status
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_Sucessfully
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on "Reject Application" link
-    And I confirm the "Driver Reject Application" action
-    And I check the status of the Driver application
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_ConfirmationMessage
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on "Reject Application" link
-    And I check if "Driver Reject Application" confirm action is shown
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_AfterVerification
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and reject the invalid verification fields
-    And I click on "Reject Application" link
-    And I confirm the "Driver Reject Application" action
-    And I check the status of the Driver application
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_Cancelled
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on "Reject Application" link
-    And I reject the "Driver Reject Application"confirm action
-    And I check the status of the Driver application
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_WithAllFieldsApproved
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve all the verification fields
-    And I click on "Reject Application" link
-    And I confirm the "Driver Reject Application" action
-    And I check the status of the Driver application
-
-  @reworkneeded
-  Scenario: Driver_Application_Reject_Without Reason
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on "Reject Application" link
-    And I confirm the "Driver Reject Application" action
-    And I do not enter the reject reason
-    And I click on "Submit" Button
-    And I check if a validation message "Please add reject reason" is shown
-
-  @reworkneeded
-  Scenario: Admin_Driver_ResendApplication
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and reject the invalid verification fields
-    And I click on "Resend Application" button
-    And I confirm the "Driver Resend Application" action
-    And I check the status of the Driver application
-
-  @reworkneeded
-  Scenario: Admin_Driver_ResendApplication_WithAllApprovedFields
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve all the verification fields
-    And I check if "Resend Application" button is visible
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyFields
+  @sanity
+  @regression
+  Scenario: Admin_DriverApplicationApproval
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"
     And I check if each field has an "accept" option
     And I check if each field has an "reject" option
+    And I check if the Save and cancel buttons are seen by default
+    When I verify and approve all the verification fields
+    And I click on the "Approve Application" Button
+    And I confirm the "Driver Application Approval" action
+    Then the status of the driver application should be marked as "Active"
 
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyStatus
+  @regression
+  Scenario: Admin_Driver_ApproveApplication_WithRejectedFields
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"
-    And I verify and approve the "Driver Picture" field
-    And I check if the status has been changed to "accepted"
-    And I verify and reject the "Birthday" field
-    And I check if the status has been changed to "rejected"
+    When I verify and reject the invalid verification fields
+    Then the "Approve Application" button is not visible
 
-  @reworkneeded
+  @sanity
+  @regression
+  Scenario: Admin_DriverApplicationRejectionAfterVerification
+    When I click "Verify" button against the applicant name
+    Then I should be directed to "Driver Verification Page"
+    When I click on "Reject Application" link
+    And I confirm the "Driver Reject Application" action
+    And I do not enter the reject reason
+    And I click on the "Submit" Button
+    Then the validation message "Please add reject reason" is displayed
+    When I enter the reject reason
+    And I click on the "Submit" Button
+    Then the status of the driver application should be marked as "Rejected"
+
+  @sanity
+  @regression
+  Scenario: Admin_DriverResendApplication
+    When I click "Verify" button against the applicant name
+    Then I should be directed to "Driver Verification Page"
+    When I verify and reject the invalid verification fields
+    And I click on the "Resend Application" Button
+    And I confirm the "Driver Resend Application" action
+    Then the status of the driver application should be marked as "Re-sent to Driver"
+
+  @regression
+  Scenario: Admin_DriverResendApplicationWithAllApprovedFields
+    When I click "Verify" button against the applicant name
+    Then I should be directed to "Driver Verification Page"
+    And I verify and approve all the verification fields
+    Then the "Resend Application" button is not visible
+
+  @regression
+  Scenario: Driver_Application_Reject_Cancelled
+    When I click "Verify" button against the applicant name
+    Then I should be directed to "Driver Verification Page"
+    When I click on "Reject Application" link
+    And I reject the "Driver Reject Application"confirm action
+    And I click on the "Cancel" Button
+    Then the status of the driver application should be marked as "Pending Verification"
+
+  @regression1
+  Scenario: Driver_Application_Reject_WithAllFieldsApproved
+    When I click "Verify" button against the applicant name
+    Then I should be directed to "Driver Verification Page"
+    When I verify and approve all the verification fields
+    And I click on "Reject Application" link
+    And I confirm the "Driver Reject Application" action
+    And I enter the reject reason
+    And I click on the "Submit" Button
+    Then the status of the driver application should be marked as "Rejected"
+
+  @regression
   Scenario: Admin_Driver_VerifyStatusChange
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"
-    And I verify and approve the "Driver Picture" field
-    And I check if the status has been changed to "accepted"
-    And I change the status of the "Driver Picture" field
-    And I check if the status of "Driver Picture" field has been changed to rejected
+    When I verify and approve the "Driver Picture" field
+    Then the status of the field changes to "accepted"
+    When I verify and reject the "Driver Picture" field
+    Then the status of the field changes to "rejected"
+    When I click and reset the status of "Driver Picture" field
+    Then the status of the field resets to default
 
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyStatus_AcceptedToReset
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve the "Driver Picture" field
-    And I check if the status has been changed to "accepted"
-    And I click and reset the status of "Driver Picture" field
-    And I verify that the status has been reset
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyStatus_RejectedToReset
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and reject the "Driver Picture" field
-    And I check if the status of "Driver Picture" field has been changed to rejected
-    And I click and reset the Rejected status of "Driver Picture" field
-    And I verify that the status has been reset
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyDefaultButtons
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I check if the Save and cancel buttons are seen by default
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyConfirmCancel
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I verify and approve the "Driver Picture" field
-    And I click on the "Cancel" button
-    And I check if a Cancel confirmation message is shown
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyConfirmCancelWhenNoChangesAreMade
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on the "Cancel" button
-    And I check if a Cancel confirmation message is not shown
-
-  @reworkneeded
-  Scenario: Admin_Driver_VerifyAdminDirectstoDashboardOnCancel
-    When I click "Verify" button against the applicant name
-    Then I should be directed to "Driver Verification Page"
-    And I click on the "Cancel" button
-    And I check if admin gets directed to dashboard

@@ -173,6 +173,10 @@ public class AssertManager {
         } catch (Exception e) {
             isDisplayed = false;
         }
-        isTrue(isDisplayed, expectedMessage, successMessage, errorMessage);
+        isFalse(isDisplayed, expectedMessage, successMessage, errorMessage);
     }
+    public void isElementValueEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
+        isTrue(element.getAttribute("value").equals(expectedText), expectedMessage, successMessage, errorMessage);
+    }
+
 }
