@@ -20,11 +20,13 @@ public class AvailableTripsSteps   extends DriverBase {
         String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
      //   customerName="Vishal Bagi";numberOfDriver="SOLO";
-        selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+        boolean isSelected =selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+        testStepVerify.isTrue(isSelected,"I should able to select trip from available trip","I was not able find available trip for customer "+customerName +" Bungii type "+numberOfDriver);
     }
-    public void selectBungiiFromList(String bungiiType, String customerName){
+    public boolean selectBungiiFromList(String bungiiType, String customerName){
         boolean isSelected=false;
       //  action.scrollToBottom();
+        //TODO: check diff between solo and duo on screen
         String expectedInstance="2";
         if(bungiiType.toUpperCase().equals("SOLO"))
         {
@@ -49,6 +51,7 @@ public class AvailableTripsSteps   extends DriverBase {
                 break;
             }
         }
+        return isSelected;
     }
 }
 

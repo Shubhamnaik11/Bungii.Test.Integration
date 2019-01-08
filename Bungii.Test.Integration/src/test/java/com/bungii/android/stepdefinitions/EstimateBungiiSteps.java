@@ -7,8 +7,6 @@ import com.bungii.android.pages.menus.SaveMoneyPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
-
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -25,12 +23,12 @@ import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class EstimateBungiiSteps extends DriverBase {
-    EstimatePage bungiiEstimatePage = new EstimatePage() ;
+    EstimatePage bungiiEstimatePage = new EstimatePage();
     SearchingPage Page_DriverSearch = new SearchingPage();
     CustomerHomePage Page_CustHome = new CustomerHomePage();
-    EstimatePage Page_Estimate= new EstimatePage();
-    BungiiCompletePage Page_BungiiComplete= new BungiiCompletePage() ;
-    WantDollar5Page Page_WantDollar5= new WantDollar5Page();
+    EstimatePage Page_Estimate = new EstimatePage();
+    BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
+    WantDollar5Page Page_WantDollar5 = new WantDollar5Page();
     SaveMoneyPage Page_SaveMoney = new SaveMoneyPage();
 
     ActionManager action = new ActionManager();
@@ -39,11 +37,10 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
     public void iTapOnOnBungiiEstimate(String arg0) throws Throwable {
-        switch (arg0)
-        {
+        switch (arg0) {
             case "two drivers selector":
                 action.click(Page_CustHome.Selector_Duo());
-                cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER","DUO");
+                cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", "DUO");
                 break;
 
             case "Get Estimate button":
@@ -81,7 +78,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 break;
 
             case "Yes on HeadsUp pop up":
-                action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(),120L);
+                action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
                 action.click(Page_Estimate.Button_RequestConfirm());
 
                 //--------*to be worked on*-------------
@@ -130,85 +127,87 @@ public class EstimateBungiiSteps extends DriverBase {
                 break;
 
             case "No free money":
-                if(!action.isElementPresent(Page_WantDollar5.Button_NoFreeMoney(true)))
+                if (!action.isElementPresent(Page_WantDollar5.Button_NoFreeMoney(true)))
                     action.scrollToBottom();
                 action.click(Page_WantDollar5.Button_NoFreeMoney());
                 break;
 
-            default: break;
+            default:
+                break;
         }
-        log( " I tap on "+arg0+" on Bungii estimate",
-                 "I  Selected"+ arg0, true);    }
+        log(" I tap on " + arg0 + " on Bungii estimate",
+                "I  Selected " + arg0, true);
+    }
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
     public void iShouldSeeOnBungiiEstimate(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        switch (arg0)
-        {
+        switch (arg0) {
             case "two drivers selected":
-                testStepAssert.isElementTextEquals(Page_CustHome.Switch_SoloDuo(), "2", "Driver trip should be Duo","'2' text is displayed ","2 text message is not displayed");
+                testStepAssert.isElementTextEquals(Page_CustHome.Switch_SoloDuo(), "2", "Driver trip should be Duo", "'2' text is displayed ", "2 text message is not displayed");
                 break;
 
             case "all elements":
-                testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(),"Estimate header should be displayed ","Estimate header is displayed","Estimate header is not displayed");
+                testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 
-                testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),PropertyUtility.getDataProperties("pickup.locationB"));
-                testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),PropertyUtility.getDataProperties("dropoff.locationB"));
+                testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
+                testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
 
-                double expectedTotalEstimate = utility.bungiiEstimate(action.getText(Page_Estimate.Text_TripDistance()),action.getText(Page_Estimate.Link_LoadingUnloadingTime()),utility.getEstimateTime(), action.getText(Page_Estimate.Link_Promo()));
+                double expectedTotalEstimate = utility.bungiiEstimate(action.getText(Page_Estimate.Text_TripDistance()), action.getText(Page_Estimate.Link_LoadingUnloadingTime()), utility.getEstimateTime(), action.getText(Page_Estimate.Link_Promo()));
                 String loadTime = action.getText(Page_Estimate.Text_TotalEstimate());
                 String truncValue = new DecimalFormat("#.#").format(expectedTotalEstimate);
 
                 String actualValue = loadTime.substring(0, loadTime.length() - 1);
-                testStepVerify.isEquals("$"+String.valueOf(truncValue), actualValue);
+                testStepVerify.isEquals("$" + String.valueOf(truncValue), actualValue);
                 break;
 
             case "driver cancelled":
-                testStepAssert.isElementDisplayed(Page_CustHome.Title_HomePage(),"Home page title should be displayed","Home page title is displayed","Home page title is not displayed");
-                testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(),"Get estimate button should be displayed","Get estimate button is displayed","Get estimate button is not displayed");
+                testStepAssert.isElementDisplayed(Page_CustHome.Title_HomePage(), "Home page title should be displayed", "Home page title is displayed", "Home page title is not displayed");
+                testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(), "Get estimate button should be displayed", "Get estimate button is displayed", "Get estimate button is not displayed");
                 break;
 
             case "Bungii posted Success page":
-                testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(),"Bungii Posted image should be displayed ","Bungii posted image is displayed ","Bungii posted image is not displayed");
+                testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(), "Bungii Posted image should be displayed ", "Bungii posted image is displayed ", "Bungii posted image is not displayed");
                 break;
 
-            default: break;
-        }    }
+            default:
+                break;
+        }
+    }
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
-        switch (arg0)
-        {
+        switch (arg0) {
             case "existing":
-                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_generic.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "newly registered":
-                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "already having bungiis":
-                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "having referral code":
-                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"),  PropertyUtility.getDataProperties("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "my":
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "stage":
-                utility.loginToCustomerApp( PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                 break;
             case "valid":
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                 break;
-            default: break;
+            default:
+                break;
         }
     }
 
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
-        switch (arg0)
-        {
+        switch (arg0) {
             case "valid pickup and dropoff locations":
                 utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
                 Thread.sleep(2000);
@@ -217,71 +216,78 @@ public class EstimateBungiiSteps extends DriverBase {
             case "Atlanta pickup and dropoff locations":
                 utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationC"));
                 Thread.sleep(2000);
-                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(),PropertyUtility.getDataProperties("dropoff.locationC"));
+                utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationC"));
                 break;
             case "current location in pickup and dropoff fields":
                 //string a = driver.PageSource;
                 action.click(Page_CustHome.Button_Locator());
                 Thread.sleep(5500);
-                if(action.isElementPresent(Page_CustHome.Text_ETAvalue(true)))
-                {
+                if (action.isElementPresent(Page_CustHome.Text_ETAvalue(true))) {
                     int ETA = Integer.parseInt(Page_CustHome.Text_ETAvalue().getText().replace(" MINS", ""));
                     if (ETA <= 30)
                         action.click(Page_CustHome.Button_ETASet());
                 }
                 action.click(Page_CustHome.Button_Locator());
                 action.click(Page_CustHome.Button_ETASet());
-               break;
-            default: break;
+                break;
+            default:
+                break;
         }
         //savePickupAddress();
         //saveDropupAddress();
-        String pickUpLocation= action.getText(Page_CustHome.Textfield_PickupLocation()),dropUpLocation=action.getText(Page_CustHome.Textfield_DropoffLocation());
-        testStepAssert.isFalse(pickUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+pickUpLocation,"I was not able select pickup location");
-        testStepAssert.isFalse(dropUpLocation.equals(""),"I should able to select pickup location","Pickup location was selected , Pickup value is "+dropUpLocation,"I was not able select pickup location");
+        String pickUpLocation = action.getText(Page_CustHome.Textfield_PickupLocation()), dropUpLocation = action.getText(Page_CustHome.Textfield_DropoffLocation());
+        testStepAssert.isFalse(pickUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + pickUpLocation, "I was not able select pickup location");
+        testStepAssert.isFalse(dropUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + dropUpLocation, "I was not able select pickup location");
 
     }
-    private String savePickupAddress(){
+
+    private String savePickupAddress() {
         action.click(Page_CustHome.Textfield_PickupLocation());
-        String pickUpLocation=Page_CustHome.Textfield_PickupLocation().getText();
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION",pickUpLocation);
+        String pickUpLocation = Page_CustHome.Textfield_PickupLocation().getText();
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION", pickUpLocation);
 
         return pickUpLocation;
     }
-    private String saveDropupAddress(){
+
+    private String saveDropupAddress() {
         action.click(Page_CustHome.Textfield_DropoffLocation());
-        String dropUpLocation=Page_CustHome.Textfield_DropoffLocation().getText();
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION",dropUpLocation);
+        String dropUpLocation = Page_CustHome.Textfield_DropoffLocation().getText();
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION", dropUpLocation);
         return dropUpLocation;
     }
 
     @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
-        switch (arg0)
-        {
+        String promoCode="";
+        switch (arg0) {
             case "valid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("promocode.valid"));
+                promoCode= PropertyUtility.getDataProperties("promocode.valid");
                 break;
             case "fixed valid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.fixedvalid"));
+                promoCode= PropertyUtility.getDataProperties("promocode.fixedvalid");
                 break;
             case "invalid":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("promocode.invalid"));
+                promoCode= PropertyUtility.getDataProperties("promocode.invalid");
                 break;
             case "expired":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),PropertyUtility.getDataProperties("promocode.expired"));
+                promoCode= PropertyUtility.getDataProperties("promocode.expired");
                 break;
             case "referral":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), PropertyUtility.getDataProperties("referral.code"));
+                promoCode= PropertyUtility.getDataProperties("referral.code");
                 break;
             case "first time":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.firsttime"));
+                promoCode= PropertyUtility.getDataProperties("promocode.firsttime");
                 break;
             case "used one off":
-                action.sendKeys(Page_SaveMoney.Textfield_PromoCode(),  PropertyUtility.getDataProperties("promocode.useedoneoff"));
+                promoCode=PropertyUtility.getDataProperties("promocode.useedoneoff");
                 break;
-            default: break;
+            default:
+                break;
         }
+        action.sendKeys(Page_SaveMoney.Textfield_PromoCode(), promoCode);
+
+        log(" I should able to add " + arg0 + " promo code ",
+                "I entered promo code '" + promoCode + "'", true);
     }
 
     @And("^I tap \"([^\"]*)\" on Save Money page$")
@@ -296,13 +302,14 @@ public class EstimateBungiiSteps extends DriverBase {
             default:
                 break;
         }
+        log(" I should able to tap " + arg0 + " on Save Money page",
+                "I tapped on " + arg0 + " on Save Money Page", true);
     }
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
         action.click(Page_Estimate.Link_LoadingUnloadingTime());
-        switch (arg0)
-        {
+        switch (arg0) {
             case "15 mins":
                 action.click(Page_Estimate.LoadingUnloadingTime_15());
                 break;
@@ -327,17 +334,19 @@ public class EstimateBungiiSteps extends DriverBase {
                 action.click(Page_Estimate.LoadingUnloadingTime_90());
                 break;
 
-            default: break;
+            default:
+                break;
         }
-        log( " I add loading/unloading time "+ arg0+ "on Estimate page",
-                "I clicked on "+arg0 +"as Estimate loading/unloading time ", true);    }
+        log(" I add loading/unloading time " + arg0 + "on Estimate page",
+                "I clicked on " + arg0 + "as Estimate loading/unloading time ", true);
+    }
+
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
-      int i= 0;
+        int i = 0;
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
-        do
-        {
+        do {
             if (!action.isElementPresent(Page_Estimate.Link_AddPhoto()))
                 action.swipeLeft(Page_Estimate.Row_Images());
 
@@ -347,19 +356,17 @@ public class EstimateBungiiSteps extends DriverBase {
                 action.click(Page_Estimate.Permissions_CameraAllow());
 
             action.click(Page_Estimate.Option_Camera());
-            String manufacturer  = driver.getCapabilities().getCapability("deviceType").toString();
-            if (manufacturer.equalsIgnoreCase("MOTOROLA"))
-            {
+            String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
+            if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                 Thread.sleep(3000);
-               // driver.tap(1, 100, 500, 1);
+                // driver.tap(1, 100, 500, 1);
                 new TouchAction(driver)
-                        .tap(point(100,500))
+                        .tap(point(100, 500))
                         .waitAction(waitOptions(Duration.ofMillis(250))).perform();
-                Thread.sleep(3000);
+                Thread.sleep(5000);
                 action.click(Page_Estimate.Button_Review());
             }
-           if (manufacturer.equalsIgnoreCase("") || manufacturer.equalsIgnoreCase("SAMSUNG"))
-            {
+            if (manufacturer.equalsIgnoreCase("") || manufacturer.equalsIgnoreCase("SAMSUNG")) {
                 action.click(Page_Estimate.Button_Camera_ClickAlternate());
                 //DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                 Thread.sleep(2000);
@@ -369,27 +376,27 @@ public class EstimateBungiiSteps extends DriverBase {
             i++;
         } while (i < Integer.parseInt(arg0));
 
-        if(action.isElementPresent(Page_Estimate.Text_PickupLocation()))
-        {
+        if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
             //code to be added incase of "Invalid Image error"
         }
 
 
-        testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(),"I add "+arg0+" photos to the Bungii" ,"I selected photos on estimate page","Selected image was not displayed on Estimate page");
+        testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
     }
 
 
     @And("I select Bungii Time as {string}")
     public void iSelectBungiiTimeAs(String arg0) {
-        switch (arg0){
+        switch (arg0) {
             case "next possible scheduled":
                 utility.selectBungiiTime();
                 break;
             case "next possible scheduled for duo":
                 break;
         }
-        String bungiiTime=action.getText(bungiiEstimatePage.Time());
-        cucumberContextManager.setScenarioContext("BUNGII_TIME",bungiiTime);
-
+        String bungiiTime = action.getText(bungiiEstimatePage.Time());
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
+        log(" I select Bungii Time as " + arg0,
+                " I select Bungii Time as " + bungiiTime + ", Selected Bungii time is " + bungiiTime, true);
     }
 }

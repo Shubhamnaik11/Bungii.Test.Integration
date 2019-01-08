@@ -15,7 +15,7 @@ TripDetailsPage tripDetailsPage = new TripDetailsPage();
     public void iTapOnOnDriverTripDetailsPage(String arg0) throws InterruptedException {
     switch (arg0.toUpperCase()){
         case "ACCEPT":
-            Thread.sleep(4000);
+            Thread.sleep(5000);
             action.click(tripDetailsPage.Button_Accept());
             Thread.sleep(2000);
             break;

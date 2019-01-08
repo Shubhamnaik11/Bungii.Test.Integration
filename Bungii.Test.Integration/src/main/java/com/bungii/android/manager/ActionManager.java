@@ -64,8 +64,8 @@ public class ActionManager {
 
     public boolean isElementPresent(WebElement element) {
         //Set the timeout to something low
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+     //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
             boolean isdisplayed = element.isDisplayed();
             return isdisplayed;

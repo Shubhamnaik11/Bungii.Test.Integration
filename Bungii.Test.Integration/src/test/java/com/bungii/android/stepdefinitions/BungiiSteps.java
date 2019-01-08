@@ -19,6 +19,9 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -32,7 +35,7 @@ public class BungiiSteps extends DriverBase {
     HomePage Page_DriverHome = new HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
-    ScheduledBungiiPage scheduledBungiiPage =new ScheduledBungiiPage();
+    ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -137,7 +140,25 @@ public class BungiiSteps extends DriverBase {
                 break;
 
             case "Available Trips link":
-                action.click(Page_DriverHome.Link_AvailableTrips());
+                if (action.isNotificationAlertDisplayed()) {
+                        action.click(Page_BungiiRequest.AlertButton_Cancel(true));
+                        Thread.sleep(1000);
+                }
+              //  System.out.println(SetupManager.getDriver().getPageSource());
+/*                if(!action.isElementPresent(Page_DriverHome.Link_AvailableTrips(true))) {
+                    action.click(Page_DriverHome.Button_NavigationBar());
+                    List<WebElement> elements = Page_DriverHome.Button_NavigationBarText();
+                    for(WebElement element: elements){
+                        if(element.getText().equalsIgnoreCase("HOME")){
+                            action.click(element);
+                            break;
+                        }
+                    }
+                }*/
+                if(!action.isElementPresent(Page_DriverHome.Link_AvailableTrips(true))){
+                    utility.launchDriverApplication();Thread.sleep(3000);}
+
+                    action.click(Page_DriverHome.Link_AvailableTrips());
                 break;
             case "Go Online button":
                 if (Page_DriverHome.Button_OnlineOffline().getText().equalsIgnoreCase("GO OFFLINE"))
@@ -157,48 +178,50 @@ public class BungiiSteps extends DriverBase {
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
         try {
-            if(arg0.equalsIgnoreCase("accepts On Demand Bungii")){
-            boolean isDisplayed = action.waitUntilAlertDisplayed(60L);
-            if (!isDisplayed)
-                i_click_on_notification_for_something("on demand trip");
-            isDisplayed = action.waitUntilAlertDisplayed(180L);
+            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")) {
+                boolean isDisplayed = action.waitUntilAlertDisplayed(60L);
+                if (!isDisplayed)
+                    i_click_on_notification_for_something("on demand trip");
+                isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-            if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
-                action.click(Page_BungiiRequest.AlertButton_View());
-                switch (arg0) {
-                    case "accepts On Demand Bungii":
-                        action.click(Page_BungiiRequest.Button_Accept());
-                        break;
+                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
+                    action.click(Page_BungiiRequest.AlertButton_View());
+                    switch (arg0) {
+                        case "accepts On Demand Bungii":
+                            action.click(Page_BungiiRequest.Button_Accept());
+                            break;
 
-                    case "rejects Bungii":
+                        case "rejects Bungii":
+                            action.click(Page_BungiiRequest.Button_Reject());
+                            break;
+                    }
+                }
+            } else if (arg0.equalsIgnoreCase("Start Schedule Bungii")) {
+                boolean skipClick = false;
+
+                if (action.isNotificationAlertDisplayed()) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                        utility.acceptNotificationAlert();
+                        skipClick = true;
+                    } else {
                         action.click(Page_BungiiRequest.Button_Reject());
-                        break;
-                }
-            }}
-            else if( arg0.equalsIgnoreCase("Start Schedule Bungii")){
-                boolean skipClick=false;
+                    }
 
-                if(action.isNotificationAlertDisplayed()){
-                if(action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
-                    utility.acceptNotificationAlert();
-                    Thread.sleep(5000);
-                    skipClick=true;
                 }
-                else{
-                    action.click(Page_BungiiRequest.Button_Reject());
-                }
-
-            }
+                Thread.sleep(5000);
+                action.scrollToBottom();
                 action.click(scheduledBungiiPage.Button_Start());
             }
-    }catch(Exception e){
+            log("Bungii driver should able to" + arg0 +" request", "Bungii driver  " + arg0);
+
+        } catch (Exception e) {
+
+        }
 
     }
 
-}
-
     @Then("^I click on notification for \"([^\"]*)\"$")
-    public void i_click_on_notification_for_something(String strArg1)  {
+    public void i_click_on_notification_for_something(String strArg1) {
         try {
             action.showNotifications();
             String expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
@@ -210,7 +233,10 @@ public class BungiiSteps extends DriverBase {
             //if no notificatiaon then hide
             if (!isFound)
                 action.hideNotifications();
-        }catch(Exception e){
+
+
+            testStepVerify.isTrue(isFound,"I should able to on notification for "+ strArg1 ,"I clicked on notification for "+strArg1 +" with message"+expecteMessage ,"I was not able to find notification with "+expecteMessage +" message");
+        } catch (Exception e) {
 
         }
     }
@@ -234,7 +260,7 @@ public class BungiiSteps extends DriverBase {
             default:
                 break;
         }
-        log("I should able to click on"+arg0,"I clicked on "+arg0 );
+        log("I should able to click on" + arg0, "I clicked on " + arg0);
     }
 
     @Then("^Bungii driver should see \"([^\"]*)\"$")
@@ -341,6 +367,9 @@ public class BungiiSteps extends DriverBase {
             default:
                 break;
         }
+
+    log("Bungii Driver should able to  taps on "+ arg0 +" during Bungii",
+                " Bungii Driver taps " + arg0 +" during a Bungii", true);
     }
 
     //VISHAL[2512]:DONE
@@ -381,7 +410,7 @@ public class BungiiSteps extends DriverBase {
     }
 
     @When("^Bungii Driver \"([^\"]*)\"$")
-    public void     bungiiDriver(String arg0) throws Throwable {
+    public void bungiiDriver(String arg0) throws Throwable {
         switch (arg0) {
             case "cancels Bungii":
                 action.click(Page_DriverBungiiProgress.Button_Cancel());
@@ -400,23 +429,25 @@ public class BungiiSteps extends DriverBase {
             default:
                 break;
         }
+        log("Bungii Driver should " + arg0,
+                " Bungii Driver " + arg0, true);
     }
+
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
-        String actualText= action.getText(Page_DriverBungiiProgress.Alert_Message());
-        String expectedText="";
-        switch (strArg1){
+        String actualText = action.getText(Page_DriverBungiiProgress.Alert_Message());
+        String expectedText = "";
+        switch (strArg1) {
             case "Reminder: both driver at pickup":
-                expectedText=PropertyUtility.getMessage("bungii.duo.driver.pickup");
+                expectedText = PropertyUtility.getMessage("bungii.duo.driver.pickup");
                 break;
             case "Reminder: both driver at drop off":
-                expectedText=PropertyUtility.getMessage("bungii.duo.driver.drop");
+                expectedText = PropertyUtility.getMessage("bungii.duo.driver.drop");
                 break;
 
         }
-        testStepVerify.isEquals(actualText,PropertyUtility.getMessage("bungii.duo.driver.pickup"),strArg1+"should be displayed",expectedText+" is displayed","Expect alert text is "+expectedText +" and actual is "+actualText);
+        testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
         action.click(Page_DriverBungiiProgress.Alert_Accept());
-
     }
 
     @And("^Quit Bungii Driver app$")

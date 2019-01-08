@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class HomePage extends PageBase {
 
-	public WebElement Button_GoOnline() { return findElement("GO ONLINE", PageBase.LocatorType.Name); }
-	public WebElement Button_GoOffline() { return findElement("GO OFFLINE", PageBase.LocatorType.Name); }
+	public WebElement Button_GoOnline(boolean ...ignoreException) { return findElement("GO ONLINE", PageBase.LocatorType.Name,ignoreException); }
+	public WebElement Button_GoOffline(boolean ...ignoreException) { return findElement("GO OFFLINE", PageBase.LocatorType.Name,ignoreException); }
 	public WebElement Text_AvailableTrips() { return findElement("Available Trips", PageBase.LocatorType.Name); }
 
 	public WebElement NavigationBar_Status () { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }

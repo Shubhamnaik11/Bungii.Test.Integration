@@ -5,27 +5,27 @@
     "deviceName": "Moto G",
     "platformVersion": "5.1",
     "noReset": true,
-    "newCommandTimeout": "1000",
+    "newCommandTimeout": "1500",
     "autoWebView": true,
-    "appPackage": "com.bungii.customer",
+    "appPackage": "com.bungii.driver",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "192.168.55.43:5556"
+    "udid": "TA93401OLE"
   },
-  "device2": {
+  "extra1": {
     "platformName": "android",
     "deviceType": "MOTOROLA",
     "deviceName": "Moto G(4)",
     "platformVersion": "7.0",
     "noReset": true,
-    "newCommandTimeout": "1000",
+    "newCommandTimeout": "1500",
     "autoWebView": true,
     "app": "D:\\APK\\bungii-driver-qa-debug.apk",
     "appPackage": "com.bungii.driver",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "ZY2239HR8Q"
+    "udid": "192.168.54.209:5556"
   },
   "connection": {
     "device1": 4723,
-    "device2": 4725
+    "extra1": 4725
   }
 }

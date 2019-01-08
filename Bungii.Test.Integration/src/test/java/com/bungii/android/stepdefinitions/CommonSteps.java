@@ -21,8 +21,9 @@ public class CommonSteps {
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
         try {
-            if(!device.equalsIgnoreCase("same"))i_switch_to_something_instance(device);
-           // SetupManager.getObject().useDriverInstance("ORIGINAL");
+            if(!device.equalsIgnoreCase("same")){i_switch_to_something_instance(device); Thread.sleep(2000);}
+
+            // SetupManager.getObject().useDriverInstance("ORIGINAL");
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     utility.launchDriverApplication();
@@ -34,7 +35,6 @@ public class CommonSteps {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            Thread.sleep(1000);
 
             pass("Switch to " + appName + " application",
                     "Switch to " + appName + " application", true);
@@ -54,6 +54,8 @@ public class CommonSteps {
         try {
             SetupManager.getObject().createNewAndroidInstance(instanceName, deviceId);
             SetupManager.getObject().useDriverInstance(instanceName);
+            log("I should be connected to "+deviceId ,
+                    "I connected to "+deviceId +" device and assigned session name "+instanceName, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -66,8 +68,8 @@ public class CommonSteps {
     public void i_switch_to_something_instance(String instanceName)  {
         try {
             SetupManager.getObject().useDriverInstance(instanceName);
-            log("I switch to  " + instanceName + "instance",
-                    "I switch to  " + instanceName + "instance", true);
+            log("I switch to  " + instanceName + " instance session",
+                    "I switch to  " + instanceName + "instance session", true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

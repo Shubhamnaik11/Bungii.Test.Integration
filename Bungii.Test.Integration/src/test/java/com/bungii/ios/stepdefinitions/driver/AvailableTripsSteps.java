@@ -22,7 +22,7 @@ public class AvailableTripsSteps extends DriverBase {
 	public AvailableTripsSteps(AvailableTripsPage availableTripsPage) {
 		this.availableTripsPage = availableTripsPage;
 	}
-	String Image_Solo="bungii_type-solo";
+	String Image_Solo="bungii_type-solo",Image_Duo="bungii_type-duo";
 
 	@And("^I Select Trip from available trip$")
 	public void i_select_trip_from_available_trip() {
@@ -32,6 +32,10 @@ public class AvailableTripsSteps extends DriverBase {
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
 			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
+
+		//	selectBungiiFromList("DUO","Vishal B");
+
+
 			log( "I Select Trip from available trip", "I selected trip for customer " +customerName + " of "+ numberOfDriver +" type",true);
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -62,10 +66,13 @@ public class AvailableTripsSteps extends DriverBase {
 		if(bungiiType.toUpperCase().equals("SOLO"))
 		{
 			imageTag=Image_Solo;
+		}else{
+			imageTag=Image_Duo;
 		}
 
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='"+customerName+"']/following-sibling::XCUIElementTypeImage[@name='"+imageTag+"']/parent::XCUIElementTypeCell");
-		WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/following-sibling::XCUIElementTypeImage[@name='"+imageTag+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		//WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/following-sibling::XCUIElementTypeImage[@name='"+imageTag+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		action.click(Image_SelectBungii);
 	}
 
