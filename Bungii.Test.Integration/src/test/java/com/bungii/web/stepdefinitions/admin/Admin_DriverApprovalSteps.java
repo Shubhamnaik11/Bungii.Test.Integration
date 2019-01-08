@@ -31,7 +31,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     @When("^I click \"([^\"]*)\" button against the applicant name$")
     public void i_click_something_button_against_the_applicant_name(String strArg1) throws Throwable {
 
-        cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
+       // cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
 
         //Search code
        action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
