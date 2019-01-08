@@ -38,7 +38,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
         action.click(admin_GetAllBungiiDriversPage.Button_Search());
-        Thread.sleep(3000);
+        Thread.sleep(4000);
         switch (strArg1) {
             case "Verify":
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(Lastname));

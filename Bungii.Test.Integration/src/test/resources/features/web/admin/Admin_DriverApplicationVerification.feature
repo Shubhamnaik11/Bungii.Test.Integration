@@ -101,7 +101,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
 
   @regression
-  Scenario: Admin_Driver_VerifyStatusChange
+  Scenario: Admin_DriverVerifyStatusChange
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"
     When I verify and approve the "Driver Picture" field
