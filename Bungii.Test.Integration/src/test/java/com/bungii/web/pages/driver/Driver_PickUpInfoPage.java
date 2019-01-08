@@ -44,7 +44,7 @@ public class Driver_PickUpInfoPage extends PageBase {
 
     public WebElement DropZoneHiddenFileTag_TruckImage () { return findElement("//input[@class = 'dz-hidden-input'][2]", LocatorType.XPath, true );}
 
-    public List<WebElement> Div_UploadedImages () { return findElements("//div[@class='dz-preview dz-processing dz-image-preview dz-success dz-complete']", LocatorType.XPath); }
+    public List<WebElement> Div_UploadedImages () { return findElements("//div[contains(@class,'dz-success dz-complete')]", LocatorType.XPath); }
 
     public WebElement Wrapper_Spinner () { return findElement("//div[@class='modal fade loader in' and @style='display: block;']", LocatorType.XPath, true); }
 

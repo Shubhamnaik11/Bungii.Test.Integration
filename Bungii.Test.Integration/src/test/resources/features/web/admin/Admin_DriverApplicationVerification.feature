@@ -89,7 +89,7 @@ Feature: Admin_DriverApplicationVerification
     And I click on the "Cancel" Button
     Then the status of the driver application should be marked as "Pending Verification"
 
-  @regression1
+  @regression
   Scenario: Driver_Application_Reject_WithAllFieldsApproved
     When I click "Verify" button against the applicant name
     Then I should be directed to "Driver Verification Page"

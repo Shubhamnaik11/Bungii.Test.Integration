@@ -21,7 +21,7 @@ Feature: Driver_Signup
 
   @regression
   Scenario: DriverSignUp_ExistingPhoneNumber
-    When I enter "valid" details on Signup page
-    And I enter "existing" driver phone number on Signup page
+    When I enter "existing" driver phone number on Signup page
+    And I enter "valid" details on Signup page
     And I click "Signup button" on driver portal
     Then I should see "existing phone error" on Driver Registration
