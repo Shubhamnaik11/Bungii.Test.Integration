@@ -20,7 +20,7 @@ import java.io.IOException;
 @CucumberOptions(
         strict = $strict,
         features = {"$featureFile"},
-        plugin = #stringArray($plugins),
+        plugin ={"com.bungii.common.utilities.CustomFormatter"},
         monochrome = ${monochrome},
 #if(!$featureFile.contains(".feature:") && $tags)
         tags = #stringArray($tags),

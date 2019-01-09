@@ -29,7 +29,6 @@ Feature: To Test Duo - Scheduling Bungii
 
     When I connect to "device2" using "Driver2" instance
     When I Switch to "driver" application on "same" devices
-    And I Select Trip from scheduled trip
 
     Given I am logged in as "valid driver 2" driver
     Then I change driver status to "Online"

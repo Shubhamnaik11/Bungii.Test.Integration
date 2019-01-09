@@ -1,3 +1,5 @@
+@Android
+
 Feature: Duo
 
   Background:
@@ -14,7 +16,8 @@ Feature: Duo
     When I Switch to "customer" application on "ORIGINAL" devices
 
 
-  @Android_DUO
+  @sanity
+  @regression
   Scenario: Validate That I am able to create Schedule  bungii.
 
     When I enter "current location in pickup and dropoff fields" on Bungii estimate

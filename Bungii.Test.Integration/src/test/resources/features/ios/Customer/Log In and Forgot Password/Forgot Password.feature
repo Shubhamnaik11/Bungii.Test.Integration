@@ -1,4 +1,4 @@
-@IOS_FORGOT
+@IOS
 Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button
@@ -7,7 +7,7 @@ Feature: FORGOT PASSWORD
   Background:
     Given I am on the "LOG IN" page
 
-
+  @regression
   Scenario Outline: As Bungii customer , I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
@@ -20,6 +20,7 @@ Feature: FORGOT PASSWORD
       | Phone Number less than 10 | 940396       | FAILED TO SEND TOKEN |
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
+  @regression
   Scenario Outline: As Bungii customer , I should able to alerted if I Enter invalid password or sms code during forget password functionality. Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
@@ -39,7 +40,7 @@ Feature: FORGOT PASSWORD
       | Invalid password | {VALID USER} | Cci1         | valid    | INVALID PASSWORD WHILE RESET |
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID PASSWORD WHILE RESET |
 
-
+  @regression
   Scenario Outline: As Bungii customer , I should able to change my password using forgot password functionality
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page

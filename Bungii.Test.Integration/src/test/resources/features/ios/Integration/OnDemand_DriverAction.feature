@@ -1,4 +1,4 @@
-@IOS_DRIVERACTION
+@IOS
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
@@ -17,6 +17,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SEARCHING" screen
     Then I click on notification for "Driver" for "on demand trip"
 
+  @regression
   Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     And I click "YES" on alert message
@@ -28,6 +29,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then user is alerted for "CANCEL BUNGII"
     Then I should be navigated to "Home" screen
 
+  @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     And I click "YES" on alert message
@@ -51,6 +53,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "Home" screen
     Then Notification for "Customer" for "DRIVER CANCELLED" should be displayed
 
+  @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on Arived Update Page.
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     And I click "YES" on alert message

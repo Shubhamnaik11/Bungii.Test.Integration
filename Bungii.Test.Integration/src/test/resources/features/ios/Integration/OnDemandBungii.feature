@@ -1,4 +1,4 @@
-@ON_DEMAND
+@IOS
 Feature: Create on demand bungii
   I want to use this template for my feature file
   Assume driver and user already logged in
@@ -7,6 +7,7 @@ Feature: Create on demand bungii
 
     Given I am on Customer logged in Home page
   @ON_DEMAND_COMPELTE
+  @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
     And I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -108,7 +109,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-
+  @regression
   @ON_DEMAND_COMPELTE_SANITY
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
 
@@ -196,7 +197,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @ON_DEMAND_3
+  @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
 
     When I request for  bungii for given pickup and drop location

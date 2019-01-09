@@ -6,6 +6,7 @@ import com.bungii.android.pages.bungii.*;
 import com.bungii.android.pages.menus.SaveMoneyPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -14,10 +15,12 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
@@ -34,9 +37,11 @@ public class EstimateBungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     PropertyUtility properties = new PropertyUtility();
+    private static LogUtility logger = new LogUtility(EstimateBungiiSteps.class);
 
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
     public void iTapOnOnBungiiEstimate(String arg0) throws Throwable {
+        try {
         switch (arg0) {
             case "two drivers selector":
                 action.click(Page_CustHome.Selector_Duo());
@@ -137,10 +142,16 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         log(" I tap on " + arg0 + " on Bungii estimate",
                 "I  Selected " + arg0, true);
+
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
     public void iShouldSeeOnBungiiEstimate(String arg0) throws Throwable {
+        try {
         // Write code here that turns the phrase above into concrete actions
         switch (arg0) {
             case "two drivers selected":
@@ -174,10 +185,15 @@ public class EstimateBungiiSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
+        try {
         switch (arg0) {
             case "existing":
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
@@ -203,10 +219,15 @@ public class EstimateBungiiSteps extends DriverBase {
             default:
                 break;
         }
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
+        try {
         switch (arg0) {
             case "valid pickup and dropoff locations":
                 utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
@@ -238,7 +259,10 @@ public class EstimateBungiiSteps extends DriverBase {
         String pickUpLocation = action.getText(Page_CustHome.Textfield_PickupLocation()), dropUpLocation = action.getText(Page_CustHome.Textfield_DropoffLocation());
         testStepAssert.isFalse(pickUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + pickUpLocation, "I was not able select pickup location");
         testStepAssert.isFalse(dropUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + dropUpLocation, "I was not able select pickup location");
-
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     private String savePickupAddress() {
@@ -258,6 +282,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
+        try {
         String promoCode="";
         switch (arg0) {
             case "valid":
@@ -288,10 +313,16 @@ public class EstimateBungiiSteps extends DriverBase {
 
         log(" I should able to add " + arg0 + " promo code ",
                 "I entered promo code '" + promoCode + "'", true);
+
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I tap \"([^\"]*)\" on Save Money page$")
     public void iTapOnSaveMoneyPage(String arg0) throws Throwable {
+        try {
         switch (arg0) {
             case "Add":
                 action.click(Page_SaveMoney.Button_AddPromoPage());
@@ -304,10 +335,15 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         log(" I should able to tap " + arg0 + " on Save Money page",
                 "I tapped on " + arg0 + " on Save Money Page", true);
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
+        try {
         action.click(Page_Estimate.Link_LoadingUnloadingTime());
         switch (arg0) {
             case "15 mins":
@@ -339,10 +375,15 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         log(" I add loading/unloading time " + arg0 + "on Estimate page",
                 "I clicked on " + arg0 + "as Estimate loading/unloading time ", true);
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
+        try {
         int i = 0;
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
@@ -382,11 +423,16 @@ public class EstimateBungiiSteps extends DriverBase {
 
 
         testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
 
     @And("I select Bungii Time as {string}")
     public void iSelectBungiiTimeAs(String arg0) {
+        try {
         switch (arg0) {
             case "next possible scheduled":
                 utility.selectBungiiTime();
@@ -398,5 +444,9 @@ public class EstimateBungiiSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
         log(" I select Bungii Time as " + arg0,
                 " I select Bungii Time as " + bungiiTime + ", Selected Bungii time is " + bungiiTime, true);
+        } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 }

@@ -1,4 +1,4 @@
-@IOS_CUST_PAYMENT
+@IOS
 Feature: Payment page
   As a Bungii customer
   I Should able to add/remove/change payment card
@@ -6,6 +6,7 @@ Feature: Payment page
   Background:
     Given I am on Customer logged in Home page
 
+  @regression
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -19,6 +20,7 @@ Feature: Payment page
       | INVALID_EXPIRY | 4242424242424242 | 12/02  | "invalid expiry" |
       | INVALID_CARD   | 1111111111111111 | 12/22  | "invalid card"   |
 
+  @regression
   Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -33,6 +35,7 @@ Feature: Payment page
       | ValidCard Discover | 6011111111111117 | 12/22  |
       | ValidCard Visa     | 4242424242424242 | 12/22  |
 
+  @regression
   Scenario: As Bungii customer I should able to delete card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -43,6 +46,7 @@ Feature: Payment page
     Then I should see "the card has been deleted" on Payment page
 
 
+  @regression
   Scenario: As Bungii customer I should able to change default card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -52,6 +56,7 @@ Feature: Payment page
     When I click "SAVE" button on "PAYMENT" screen
     Then I should see "new default card" on Payment page
 
+  @regression
   Scenario Outline:  As new Bungii customer without payment card , Payment page should display add Payment card message and Image .
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen

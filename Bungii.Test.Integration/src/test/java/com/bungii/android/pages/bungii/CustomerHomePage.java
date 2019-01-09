@@ -24,7 +24,7 @@ public class CustomerHomePage extends PageBase {
 
     public WebElement Button_Locator () { return findElement("//android.widget.ImageView[@content-desc='My Location']",LocatorType.XPath); }
 
-    public WebElement Button_GetEstimate () { return findElement("pickup_location_get_estimate_button",LocatorType.Id); }
+    public WebElement Button_GetEstimate () { return findElement("com.bungii.customer:id/pickup_location_get_estimate_button",LocatorType.Id); }
 
     public WebElement Switch_SoloDuo () { return findElement("com.bungii.customer:id/home_switch_noofdrivers",LocatorType.Id); }
 
