@@ -1,10 +1,11 @@
-@IOS_LOGIN_ALL
+@IOS
 Feature: Log In
   As a Bungii Customer I should be allowed to login only using valid credential
 
   Background:
     Given I am on the "LOG IN" page
 
+  @regression
   Scenario Outline: As Bungii customer I should not able login to application using invalid details.  Scenario:<Scenario>
     And I enter Username :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen
@@ -19,7 +20,7 @@ Feature: Log In
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
 
-
+  @regression
   Scenario: As Bungii customer , I should able to login to application using valid password
     When I enter Username :{VALID}  and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

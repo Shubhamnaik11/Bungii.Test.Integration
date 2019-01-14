@@ -644,8 +644,7 @@ public class EstimateSteps extends DriverBase {
         if (!timeScroll.getAttribute("value").equals(inputValue))
             timeScroll.sendKeys(inputValue);
         //action.invisibilityOfElementLocated(estimatePage.Indicator_Loading());
-        action.click(estimatePage.Text_LoadTime());
-        System.err.println("DONE");
+        action.click(estimatePage.Button_Set());
     }
 
     public boolean checkLoadingTime(String timeValue) {
@@ -698,7 +697,10 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
         action.click(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
-        action.click(estimatePage.Row_TimeSelect());
+      //  action.click(estimatePage.Row_TimeSelect());
+
+        action.click(estimatePage.Button_Set());
+
     }
 
     /**

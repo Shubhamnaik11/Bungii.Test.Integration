@@ -34,7 +34,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class CommonSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
-    String Image_Solo = "bungii_type-solo";
+    String Image_Solo = "bungii_type-solo",Image_Duo="bungii_type-duo";
     private EstimatePage estimatePage;
     private HomePage homePage;
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
@@ -447,7 +447,7 @@ public class CommonSteps extends DriverBase {
     public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
         try {
 
-         //   SetupManager.getObject().useDriverInstance("ORIGINAL");
+            if(!device.equalsIgnoreCase("same")){i_switch_to_something_instance(device); Thread.sleep(1000);}
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
@@ -640,15 +640,21 @@ public class CommonSteps extends DriverBase {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
+          //  tripNoOfDriver="DUO";tripTime="Jan 08, 03:00 PM IST";currentApplication="DRIVER";
+
+            if(tripTime.contains(PropertyUtility.getDataProperties("time.label")))
+                tripTime=tripTime.replace(PropertyUtility.getDataProperties("time.label"),"").trim();
+
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";
                 if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
                     imageTag = Image_Solo;
+                }else if(tripNoOfDriver.toUpperCase().equals("DUO")){
+                    imageTag=Image_Duo;
                 }
-                action.swipeDown();
 
-                //	By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
+                action.swipeDown();
 
                 WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + tripTime + "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
                 action.click(Image_SelectBungii);
@@ -659,10 +665,14 @@ public class CommonSteps extends DriverBase {
                 String imageTag = "";
                 if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
                     imageTag = Image_Solo;
+                }else if(tripNoOfDriver.toUpperCase().equals("DUO")){
+                    imageTag=Image_Duo;
                 }
+
                 action.swipeDown();
-                WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + tripTime + "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-                //By Image_SelectBungii = MobileBy.xpath();
+                //vishal[0801]:Commented due to new build
+                //WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name=“" + tripTime + "”]/following-sibling::XCUIElementTypeImage[@name=“" + imageTag + "”]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+                    WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true);
                 action.click(Image_SelectBungii);
                 }else{
                     //If alert is present accept it , it will automatically select Bungii

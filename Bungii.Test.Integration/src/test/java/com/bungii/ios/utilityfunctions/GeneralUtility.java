@@ -5,11 +5,15 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.HomePage;
+import com.bungii.ios.pages.driver.LoginPage;
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebElement;
 
 public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
     HomePage driverHomePage= new HomePage();
     ActionManager action = new ActionManager();
+    LoginPage driverLoginPage = new LoginPage();
     /**
      * Calculate estimate cost of trip check if less than minimum cost then
      * return minimum cost
@@ -142,5 +146,16 @@ public class GeneralUtility extends DriverBase {
                 break;
         }
         return  expectedMessage;
+    }
+
+    public void loginToDriverApp(String phone, String password) throws InterruptedException {
+        if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
+            WebElement element=driverLoginPage.TextField_PhoneNumber();
+            action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
+            action.sendKeys(driverLoginPage.Textfield_Password(), password);
+            action.click(driverLoginPage.Button_Login());
+        } else {
+            //Not on Login page
+        }
     }
 }

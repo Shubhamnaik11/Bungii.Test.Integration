@@ -18,7 +18,7 @@ public class HomePage extends PageBase {
 
     public WebElement Button_OnlineOffline () { return findElement("com.bungii.driver:id/home_button_go_online", LocatorType.Id); }
 
-    public WebElement Link_AvailableTrips () { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id); }
+    public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id,ignoreException); }
 
 
     public WebElement Alert_NewBungii () { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id); }

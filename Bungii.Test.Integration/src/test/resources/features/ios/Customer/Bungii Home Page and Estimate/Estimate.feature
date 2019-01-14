@@ -1,4 +1,4 @@
-@ESTIMATE_IOS
+@IOS
 Feature: Customer	Referal Invite page
   As a Bungii customer
   when I request for Bungii
@@ -6,10 +6,9 @@ Feature: Customer	Referal Invite page
 
 
   Background:
-
     Given I am on Customer logged in Home page
 
-
+  @regression
   Scenario: If I cancel on Bungii while it is in Searching driver  page , I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -24,6 +23,7 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
 
+  @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -43,6 +43,7 @@ Feature: Customer	Referal Invite page
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242          |      | UNCHECK             | DISABLED       |
 
+  @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -59,6 +60,7 @@ Feature: Customer	Referal Invite page
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | 30 mins          | ADD        | {PREVIOUS VALUE} | x4242          | Now  | CHECK               | ENABLED        |
 
+  @regression
   Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |

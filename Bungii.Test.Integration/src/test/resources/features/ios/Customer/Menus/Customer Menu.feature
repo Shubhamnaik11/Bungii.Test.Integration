@@ -1,11 +1,11 @@
-@IOS_CUST_MENU
-
+@IOS
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links
 
   Background: 
     Given I am on Customer logged in Home page
 
+  @regression
   Scenario: Bungii customer I want to check all menu links
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
@@ -27,6 +27,7 @@ Feature: Customer	Menu
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
 
+  @regression
   Scenario: Bungii customer I want to Ask question using support menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
@@ -36,6 +37,7 @@ Feature: Customer	Menu
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
 
+  @regression
   Scenario: Bungii customer I dont enter any question and click on send button
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
@@ -43,6 +45,7 @@ Feature: Customer	Menu
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "EMPTY SUPPORT QUESTION"
 
+  @regression
   Scenario: Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen

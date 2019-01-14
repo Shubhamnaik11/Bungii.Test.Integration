@@ -1,4 +1,4 @@
-@IOS_Promos
+@IOS
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -6,6 +6,7 @@ Feature: Promos
   Background:
     Given I am on Customer logged in Home page
 
+  @regression
   Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promo code
     When I logged in Customer application using  "existing" user
     When I Select "PROMOS" from Customer App menu
@@ -20,7 +21,7 @@ Feature: Promos
       | Senario | Promo  | Expected Message      |
       | Invalid | FRESH1 | FIRST TIME ONLY PROMO |
 
-
+  @regression
   Scenario Outline: As a Bungii Customer , I should be alert while adding invalid promo code
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -32,6 +33,7 @@ Feature: Promos
       | Senario | Promo   | Expected Message |
       | Invalid | AAAAAAA | Invalid Promo    |
 
+  @regression
   Scenario: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -50,6 +52,7 @@ Feature: Promos
     Then user is alerted for "REFERRAL FOR NEW USER"
     When I Select "LOGOUT" from Customer App menu
 
+  @regression
   Scenario: As a Bungii Customer , I should be alerted while added used one off promo code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal
@@ -63,7 +66,7 @@ Feature: Promos
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "Invalid Promo"
 
-
+  @regression
   Scenario: As a Bungii Customer , I should be alerted while adding already existing code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal
@@ -80,7 +83,7 @@ Feature: Promos
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "Already Existing Code"
 
-
+  @regression
   Scenario: When i try to enter expired promo code I should be alerted for Expired Promo code message
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal
@@ -94,6 +97,7 @@ Feature: Promos
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "EXPIRED PROMO"
 
+  @regression
   Scenario: When i try to share my promo code , via twitter but there is no application installed then I should be alerted for No twitter Installed message
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen

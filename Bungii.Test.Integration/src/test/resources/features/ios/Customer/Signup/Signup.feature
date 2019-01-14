@@ -1,11 +1,11 @@
-@SIGNUP_ALL
+@IOS
 Feature: As a new customer I should be allowed to Sign up on Bungii Customer applicatrion
 
 
   Background:
     Given I am on the "SIGN UP" page
 
-
+  @regression
   Scenario Outline: If I try to submit my registration form with invalid details then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
@@ -22,7 +22,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Invalid_EMAIL      | test       | {RANDOM_STRING} | ss@dd                           | 9403960188   | Cci12345 |               | facebook | INVALID EMAIL WHILE SIGNUP    |
       | Invalid_EMAIL      | test       | {RANDOM_STRING} | Vishal.bagi@creativecapsule.com | 9403960188   | Cci      |               | facebook | INVALID PASSWORD WHILE SIGNUP |
 
-
+  @regression
   Scenario Outline: If I try to submit my registration form with invalid Phone number then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
@@ -40,7 +40,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {VALID USER} | Cci12345 |               | facebook | EXISTING USER              |
       | InValid_Phone       | Vishal     | Bagi            | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
 
-
+  @regression
   Scenario Outline: If I try to submit my registration form with invalid Promo code then I should be Alerted for it .
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
@@ -57,7 +57,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
       | InValid_Phone | Vishal     | Bagi      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
 
-
+  @regression
   Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source. Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -89,6 +89,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | Source :OTHER | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
 
+  @regression
   Scenario Outline:As a new Bungii Customer I should submit registration form with Promo code
     When I open new "Chrome" browser for "ADMIN"
     When I navigate to admin portal
@@ -118,7 +119,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
 
-
+  @regression
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page

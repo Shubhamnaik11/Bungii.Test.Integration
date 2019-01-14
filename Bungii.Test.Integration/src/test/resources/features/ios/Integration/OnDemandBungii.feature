@@ -1,4 +1,4 @@
-@ON_DEMAND
+@IOS
 Feature: Create on demand bungii
   I want to use this template for my feature file
   Assume driver and user already logged in
@@ -6,7 +6,8 @@ Feature: Create on demand bungii
   Background:
 
     Given I am on Customer logged in Home page
-  @ON_DEMAND_COMPELTE
+
+  @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
     And I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -108,10 +109,14 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-
+  @regression
   @ON_DEMAND_COMPELTE_SANITY
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
+    Then I click on notification for "Driver" for "on demand trip"
+
     When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    Then I change driver status to "Online"
     And I Select "ACCOUNT" from driver App menu
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu
@@ -142,43 +147,43 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII ACCEPTED" screen
     And I click "Ok" button on "BUNGII ACCEPTED" screen
     Then Customer should be navigated to "EN ROUTE" trip status screen
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+ #   Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+ #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+ #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+  #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+ #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+  #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+#    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
@@ -193,7 +198,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @ON_DEMAND_3
+  @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
 
     When I request for  bungii for given pickup and drop location

@@ -34,7 +34,7 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Select_TimeRow() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load/unload time']/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);
     }
 
     public WebElement Text_PickUpLocation() {
@@ -54,11 +54,11 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Text_LoadUnLoadTime() {
-        return findElement("Load/unload time", LocatorType.Name);
+        return findElement("Load + unload time", LocatorType.Name);
     }
 
     public WebElement Text_LoadUnLoadTimeValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load/unload time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
     }
 
     public WebElement Text_PromoCode() {
@@ -94,7 +94,7 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Button_InfoLoadingTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load/unload time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
     }
 
     public WebElement Button_InfoTotalEstimate() {
@@ -154,9 +154,10 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Text_LoadTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load/unload time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/parent::XCUIElementTypeOther", LocatorType.XPath);
     }
 
+    public WebElement Button_Set(){return findElement("Set",LocatorType.Name);}
     public WebElement DateWheel_BungiiTime() {
         return findElement("//XCUIElementTypePickerWheel", LocatorType.XPath);
     }

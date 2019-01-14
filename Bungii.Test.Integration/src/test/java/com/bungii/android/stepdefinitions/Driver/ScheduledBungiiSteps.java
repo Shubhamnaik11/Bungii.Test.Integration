@@ -6,6 +6,7 @@ import com.bungii.android.pages.bungiiDriver.BungiiRequest;
 import com.bungii.android.pages.bungiiDriver.ScheduledBungiiPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
@@ -26,19 +27,20 @@ public class ScheduledBungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
+    private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
 
     @And("I Select Trip from driver scheduled trip")
     public void iSelectTripFromDriverScheduledTrip() {
+        try{
         boolean skipNormalFlow = false;
         boolean isSelected = false;
-    //    cucumberContextManager.setScenarioContext("BUNGII_TIME","Dec 27, 11:00 AM");
         if(action.isNotificationAlertDisplayed()){
             if(action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
                 utility.acceptNotificationAlert();
                 skipNormalFlow=true;
             }
             else{
-                action.click(Page_BungiiRequest.Button_Reject());
+                action.click(Page_BungiiRequest.AlertButton_Cancel());
             }
 
 
@@ -57,7 +59,15 @@ public class ScheduledBungiiSteps extends DriverBase {
                 }
             }
         }
+        if(skipNormalFlow)
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
+        else
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
 
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
 
@@ -81,10 +91,10 @@ public class ScheduledBungiiSteps extends DriverBase {
                     diffInMinutes = 0;
                 }
                 action.hardWaitWithSwipeUp((int) diffInMinutes + 1);
-                log("I wait for "+diffInMinutes+1+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+1, true);
+                log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes, true);
             }
         } catch (Exception e) {
-            //logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }

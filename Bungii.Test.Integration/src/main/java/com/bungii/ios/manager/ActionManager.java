@@ -49,8 +49,13 @@ public class ActionManager {
         try {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
-            logger.detail("Alert is present");
-            return true;
+            String alertMessage=SetupManager.getDriver().switchTo().alert().getText();
+            logger.detail("Alert is present :"+alertMessage);
+
+            if(alertMessage.contains("no such alert"))
+                return false;
+            else
+                return true;
         } catch (NoAlertPresentException | InterruptedException Ex ) {
             logger.detail("Alert is not present");
             return false;
@@ -464,5 +469,15 @@ public class ActionManager {
         return area;
 
     }
-
+    public boolean isElementPresent(WebElement element) {
+        //Set the timeout to something low
+        //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            boolean isdisplayed = element.isDisplayed();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
 }

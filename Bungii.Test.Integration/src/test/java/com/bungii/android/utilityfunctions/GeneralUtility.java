@@ -44,7 +44,7 @@ public class GeneralUtility extends DriverBase {
     AccountPage cutomerAccountPage= new AccountPage();
     com.bungii.android.pages.bungiiDriver.LoginPage driverLoginPage = new com.bungii.android.pages.bungiiDriver.LoginPage();
 
-    public void launchDriverApplication() throws MalformedURLException {
+    public void launchDriverApplication() throws MalformedURLException, InterruptedException {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
 
         //TODO: REMOVE HARD CODING, read from properties
@@ -57,9 +57,10 @@ public class GeneralUtility extends DriverBase {
         activity.setStopApp(false);
         ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
         driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+        Thread.sleep(3000);
     }
 
-    public void launchCustomerApplication() throws MalformedURLException {
+    public void launchCustomerApplication() throws MalformedURLException, InterruptedException {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
 
         //TODO: REMOVE HARD CODING, read from properties
@@ -69,6 +70,8 @@ public class GeneralUtility extends DriverBase {
         activity.setStopApp(false);
         ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
         driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+        Thread.sleep(3000);
+
     }
 
 

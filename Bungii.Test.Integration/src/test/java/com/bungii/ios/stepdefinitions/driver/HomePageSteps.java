@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.HomePage;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -24,7 +25,7 @@ public class HomePageSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-            if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
+            if (action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
 
             goToAppMenu();
             boolean flag = clickAppMenu(menuItem);
@@ -36,13 +37,31 @@ public class HomePageSteps extends DriverBase {
         }
     }
 
+    @Then("^I change driver status to \"([^\"]*)\"$")
+    public void i_change_driver_status_to_something(String status) throws Throwable {
+        try {
+            switch (status.toUpperCase()) {
+                case "ONLINE":
+                    goOnline();
+                    break;
+                case "OFFLINE":
+                    goOffline();
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     /**
      * driver goes online
      */
     public void goOnline() {
-        if (homepage.isElementEnabled(homepage.Button_GoOnline()))
+        if (action.isElementPresent(homepage.Button_GoOnline(true)))
             action.click(homepage.Button_GoOnline());
-        else if (homepage.isElementEnabled(homepage.Button_GoOffline()))
+        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
             logger.warning("driver Status is already Online");
         else
             logger.error("Not able to get driver status");
@@ -52,9 +71,9 @@ public class HomePageSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        if (homepage.isElementEnabled(homepage.Button_GoOffline()))
+        if (action.isElementPresent(homepage.Button_GoOffline(true)))
             action.click(homepage.Button_GoOffline());
-        else if (homepage.isElementEnabled(homepage.Button_GoOnline()))
+        else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             logger.warning("driver Status is already offline");
         else
             logger.error("Not able to get driver status");
