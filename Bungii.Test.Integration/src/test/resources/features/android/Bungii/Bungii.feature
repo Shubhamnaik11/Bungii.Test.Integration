@@ -1,3 +1,4 @@
+@Android
 Feature: Bungii
 
   Background:
@@ -8,24 +9,25 @@ Feature: Bungii
     And I add loading/unloading time of "30 mins"
     And I tap on "Request Bungii" on Bungii estimate
 
-    @Android1
+  @regression
   Scenario: Bungii_CustomerCancelOnHeadsUp
     When I tap on "Cancel on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii Estimate page with all details"
-  @Android
+  @regression
   Scenario: Bungii_CustomerCancelOnSearch
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
     When I tap on "Cancel during search" on Bungii estimate
     Then for a Bungii I should see "Bungii Home page with locations"
-  @Android
+  @regression
   Scenario: Bungii_DriverRejects
     When I tap on "Cancel" on Bungii estimate
     Then I should see "driver cancelled" on Bungii estimate
-  @Android
+  @regression
   Scenario: Bungii_DriverAcceptsAndThenCancels
 
-  @Android
+  @regression
+
 #Customer requests an On Demand Bungii. Driver accepts and completes the Bungii.
 #Verify call and SMS functionality on all pages on Customer and Driver app while the Bungii is in progress.
   Scenario: Bungii_Complete_DriverApp

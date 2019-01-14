@@ -4,7 +4,6 @@ Feature: To Test Solo - Scheduling Bungii
   Assume customer is logged in
 
   #Background: List of steps run before each of the scenarios
-  @positiveCompletesolo
   @regression
 
   Scenario: Positive Scenario

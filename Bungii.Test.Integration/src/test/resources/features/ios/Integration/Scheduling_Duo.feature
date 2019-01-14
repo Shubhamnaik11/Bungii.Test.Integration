@@ -19,9 +19,34 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
 
+  @SANITY_IOS_DUO1
+  Scenario: Create Duo Bungii
+
+   # When I connect to "device2" using "Driver2" instance
+   # When I Switch to "driver" application on "same" devices
+    Then I click on notification for "Driver" for "on demand trip"
+    Then I should be navigated to "EN ROUTE" trip status screen
+    When I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen
+    When I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
+
+    When I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+
+    When I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
 
   @SANITY_IOS_DUO
   Scenario: Create Duo Bungii
+
+
+
+  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
+
+ #   When I connect to "device2" using "Driver2" instance
+  #  When I Switch to "driver" application on "same" devices
+  #  Then I should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
@@ -49,6 +74,7 @@ Feature: To Test Duo - Scheduling Bungii
       | 30       |           |              | NEXT_POSSIBLE | 1 images    | Yes             |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    When I Select "Home" from Customer App menu
 
     When I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE TRIPS" from driver App menu
@@ -56,11 +82,11 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "TRIP DETAILS" screen
     Then Trip Information should be correctly displayed on TRIP DETAILS screen
     When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
 
     When I Switch to "driver" application on "Driver2" devices
     And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from available trip
-   # Then I should be navigated to "TRIP DETAILS" screen
     Then Trip Information should be correctly displayed on TRIP DETAILS screen
     When I accept selected Bungii
 
@@ -69,63 +95,62 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
     When I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+  #  Then I should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     When I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+  #  Then I should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "EN ROUTE" trip status screen
+  #  Then Customer should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+  #  Then I should be navigated to "ARRIVED" trip status screen
 
     When I Switch to "driver" application on "Driver2" devices
     When I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+  #  Then I should be navigated to "ARRIVED" trip status screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
+  #  Then Customer should be navigated to "ARRIVED" trip status screen
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" trip status screen
-
+  #  Then I should be navigated to "LOADING ITEM" trip status screen
 
     When I Switch to "driver" application on "Driver2" devices
     When I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" trip status screen
+  #  Then I should be navigated to "LOADING ITEM" trip status screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
+  #  Then Customer should be navigated to "LOADING ITEM" trip status screen
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     When I Switch to "driver" application on "Driver2" devices
     When I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
 
     When I Switch to "driver" application on "Driver2" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+  #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
@@ -137,9 +162,9 @@ Feature: To Test Duo - Scheduling Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-    When I Switch to "customer" application on "same" devices
+    When I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "OK" Button
+    When I rate Bungii Driver  with following details and Press "CLOSE" Button
       | Ratting | Tip |
       | 5       | 5   |
     Then I should be navigated to "Promotion" screen

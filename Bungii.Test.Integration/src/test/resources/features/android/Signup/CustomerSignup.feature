@@ -1,9 +1,10 @@
+@Android
 Feature: CustomerSignup
   Sign up as a Customer on Bungii app
 
   Background:
     Given I am on Sign up page
-  @Android
+  @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     Given I have existing details of "Referral Counts"
     When I enter "unique" customer phone number
@@ -14,17 +15,17 @@ Feature: CustomerSignup
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
     And Admin portal should have updated value of "Referral Counts"
-  @Android
+  @regression
   Scenario: Signup_AllFieldsBlank
     When I enter "blank" customer phone number
     And I enter "blank" data in mandatory fields
     Then the new user should see "sign up button disabled"
-  @Android
+  @regression
   Scenario: Signup_InvalidDetails
     When I enter "invalid" customer phone number
     And I enter "invalid" data in mandatory fields
     Then the new user should see "validations for all fields"
-  @Android
+  @regression
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number
     And I enter "valid" data in mandatory fields
@@ -35,7 +36,7 @@ Feature: CustomerSignup
     Then The user should be logged in
     When I tap on "Menu" > "Save Money" link
     Then "ValidPercent" promo code should be displayed
-  @Android
+  @regression
   Scenario: Signup_InvalidReferralCode-Yes
     When I enter "unique" customer phone number
     And I enter "valid" data in mandatory fields
@@ -43,7 +44,7 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button
     And I tap on the "Yes" button
     Then the new user should see "Signup page"
-  @Android
+  @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number
     And I enter "valid" data in mandatory fields

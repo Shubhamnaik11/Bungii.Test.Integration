@@ -6,7 +6,7 @@ Feature: Create on demand bungii
   Background:
 
     Given I am on Customer logged in Home page
-  @ON_DEMAND_COMPELTE
+
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
     And I clear all notification
@@ -112,6 +112,7 @@ Feature: Create on demand bungii
   @regression
   @ON_DEMAND_COMPELTE_SANITY
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
+    Then I click on notification for "Driver" for "on demand trip"
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
@@ -146,43 +147,43 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII ACCEPTED" screen
     And I click "Ok" button on "BUNGII ACCEPTED" screen
     Then Customer should be navigated to "EN ROUTE" trip status screen
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+ #   Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+ #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+ #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+  #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+ #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+  #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+#    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen

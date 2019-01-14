@@ -1,5 +1,6 @@
+@Android
 Feature: DuoScheduled
-  @Android
+  @regression
   Scenario: DuoScheduled_RequestSuccessfully
     Given I am logged in as "existing" driver
     Given I am logged in as "my" customer

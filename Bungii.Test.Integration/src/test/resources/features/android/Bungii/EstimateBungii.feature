@@ -1,8 +1,9 @@
-Feature: EstimateBungii
+@Android
 
+Feature: EstimateBungii
   Background:
 #    Given I am logged in as "my" customer
-  @Android_T
+  @regression
   Scenario: Bungii_Estimate_ExistingUser_FixedPromoCode
     When I Select "ACCOUNT" from customer app menu list
     Then I get customer account details
