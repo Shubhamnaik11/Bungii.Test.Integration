@@ -28,8 +28,8 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
     /**
      * @param device Device variable from maven
      */
-    @Parameters({"test.Device","test.Platform","test.Environment"})
-    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment) {
+    @Parameters({"test.Device","test.Platform","test.Environment","test.Category"})
+    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category) {
         //Use below statement only in test runner running which are not suppose to run with maven ,
         //In case of maven logFilepath is set in maven set in POM.xml
 

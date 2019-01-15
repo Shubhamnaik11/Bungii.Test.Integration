@@ -13,11 +13,38 @@
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverLoginPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Driver_GetAllBungiiDriversPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-47-43_RunSuite_IOS/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-47-43_RunSuite_IOS/TEST_SUITE_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-50-28_RunSuite_IOS/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-53-26_RunSuite_IOS/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-53-26_RunSuite_IOS/TEST_SUITE_template.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Misc/logo.PNG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/04fd6762-39c0-406b-adb6-04860453b8f0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/0bbef421-b64e-45ee-bd6b-2d6090b17743.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/17641286-e4bf-4084-8489-05b888ff9b4c.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/18c44ba0-dc0e-410e-841b-f9208efb7f68.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/35963b75-0ed2-4fff-b147-fd2112c07392.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/4e0172b5-46c5-4900-b0eb-29c9161a05ef.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/58512141-a4d8-41b5-abcb-75843acecef9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/6d290616-8eca-48fc-89c6-4603d2637693.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/79f66893-f0c2-44fa-b27f-0c74227a501d.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/8328a5c5-5b9f-4047-aa4c-cbe200403897.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/9fe64a6c-1e84-4016-9c41-681bd98673dd.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/b2227a1a-03eb-4b30-a2ed-5c2836d3ce92.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/b6fed16c-d740-48e0-931f-5bc66a588cde.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/be71c496-6409-40bb-9a46-3b11f83e1058.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/bfa972c5-a0f9-47cc-8bbc-942c2a3957a2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/c3fbed6a-b7e0-4bbc-b9a9-c127d3a4ebab.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/cb9fcc1d-f6e9-4e33-b88b-d6b438323a4b.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/d2d8ba4b-9681-4a94-87e1-24f259ceffc3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/df806931-a0e2-42d2-8bae-be8fc004db4a.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/Screenshot/e6d6433e-02e7-4c08-90c5-305ac045b558.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Results/Result_2018-12-18_10-56-12_RunSuite_IOS/TEST_SUITE_template.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/CommonSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" afterDir="false" />
@@ -28,8 +55,13 @@
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/data.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/images.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/images.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/formatter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/jquery-1.8.2.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/style.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
@@ -105,11 +137,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="176" column="40" selection-start-line="176" selection-start-column="40" selection-end-line="176" selection-end-column="40" />
+            <state relative-caret-position="-3384">
+              <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -117,8 +149,8 @@
       <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
-              <caret line="84" selection-start-line="84" selection-end-line="84" />
+            <state relative-caret-position="856">
+              <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,20 +158,29 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Admin_DriverApplicationVerification.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
+      <file leaf-file-name="ObjectFactoryImpl.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3-sources.jar!/org/testng/internal/ObjectFactoryImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="14" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="43" />
+            <state relative-caret-position="340">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DriverRegistrationSteps.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java">
+      <file leaf-file-name="ClassHelper.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3-sources.jar!/org/testng/internal/ClassHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="218" column="139" lean-forward="true" selection-start-line="218" selection-start-column="139" selection-end-line="218" selection-end-column="139" />
+            <state relative-caret-position="208">
+              <caret line="371" selection-start-line="371" selection-end-line="371" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VerificationManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="200" column="29" selection-start-line="200" selection-start-column="14" selection-end-line="200" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -156,26 +197,26 @@
       <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
+            <state relative-caret-position="29">
+              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SetupManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java">
+      <file leaf-file-name="Driver_Documentation.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2992">
-              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            <state relative-caret-position="323">
+              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReportGeneratorUtility.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java">
+      <file leaf-file-name="Admin_DriverApplicationVerification.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="102" column="44" selection-start-line="102" selection-start-column="44" selection-end-line="102" selection-end-column="44" />
+            <state relative-caret-position="204">
+              <caret line="12" column="14" selection-start-line="33" selection-start-column="12" selection-end-line="33" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -183,17 +224,12 @@
       <file leaf-file-name="CucumberHooks.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="49" column="34" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="data.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
+            <state relative-caret-position="-616">
+              <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+              <folding>
+                <element signature="e#1329#1330#0" expanded="true" />
+                <element signature="e#1376#1377#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -237,8 +273,8 @@
       <find>DropZoneHiddenFileTag_TruckImage</find>
       <find>exist</find>
       <find>setUpClass</find>
-      <find>C:/Users/pariksha/Documents/Jenkins/workspace/Bungii-QA/Bungii_QA_Auto_Android_Web/cucumber_java/Bungii.Test.Integration/src/test/resources/features/web/admin</find>
       <find>cucumberContextManager</find>
+      <find>C:/Users/pariksha/Documents/Jenkins/workspace/Bungii-QA/Bungii_QA_Auto_Android_Web/cucumber_java/Bungii.Test.Integration/src/test/resources/features/web/admin</find>
     </findStrings>
     <replaceStrings>
       <replace>(String) cucumberContextManager.getScenarioContext</replace>
@@ -277,7 +313,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/HomeSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/CommonSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/admin/ScheduledTripSteps.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/ios/stepdefinitions/customer/ScheduledBungiiSteps.java" />
@@ -324,10 +359,11 @@
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/admin/Admin_DriverApprovalSteps.java" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunSuite_Web.java" />
-        <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
-        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -368,8 +404,8 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-2180" />
-    <option name="y" value="-18" />
+    <option name="x" value="-2314" />
+    <option name="y" value="-23" />
     <option name="width" value="1932" />
     <option name="height" value="1047" />
   </component>
@@ -398,56 +434,6 @@
               <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="utilities" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bungii" type="462c0819:PsiDirectoryNode" />
-              <item name="manager" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bungii.Test.Integration" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Bungii.Test.Integration" type="b2602c69:ProjectViewProjectNode" />
@@ -699,6 +685,7 @@
       <properties>
         <property name="test.Platform" value="web" />
         <property name="test.Environment" value="QA" />
+        <property name="test.Category" value="sanity" />
         <property name="test.Device" value="device1" />
       </properties>
       <listeners />
@@ -1501,16 +1488,17 @@
       <option name="project" value="LOCAL" />
       <updated>1547464505321</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Test Script Fixes">
+      <created>1547535183852</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1547535183852</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="RunSuite_Web - 2019.01.14 at 15h 53m 42s.xml">
-      <configuration name="RunSuite_Web" configurationId="TestNG" />
-    </history-entry>
-    <history-entry file="RunSuite_Web - 2019.01.14 at 15h 55m 03s.xml">
-      <configuration name="RunSuite_Web" configurationId="TestNG" />
-    </history-entry>
     <history-entry file="RunSuite_Web - 2019.01.14 at 15h 59m 47s.xml">
       <configuration name="RunSuite_Web" configurationId="TestNG" />
     </history-entry>
@@ -1535,6 +1523,12 @@
     <history-entry file="RunAutoSuite - 2019.01.15 at 12h 15m 53s.xml">
       <configuration name="RunAutoSuite" configurationId="TestNG" />
     </history-entry>
+    <history-entry file="RunAutoSuite - 2019.01.15 at 13h 12m 30s.xml">
+      <configuration name="RunAutoSuite" configurationId="TestNG" />
+    </history-entry>
+    <history-entry file="RunAutoSuite - 2019.01.15 at 13h 21m 17s.xml">
+      <configuration name="RunAutoSuite" configurationId="TestNG" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1546,12 +1540,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" weight="0.28301886" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" weight="0.1864595" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
@@ -1559,16 +1552,17 @@
       <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" visible="true" weight="0.06130064" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" weight="0.0" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.74626863" weight="0.35516092" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" weight="0.008879024" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" visible="true" weight="0.99778026" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.18869936" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.18869936" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49755502" weight="0.53303474" />
       <window_info id="Structure" order="1" sideWeight="0.15813954" side_tool="true" weight="0.18923241" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="5" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info id="Favorites" order="7" sideWeight="0.48879838" side_tool="true" weight="0.17004265" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7851812" visible="true" weight="0.25416204" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7851812" weight="0.2763596" />
       <window_info anchor="bottom" id="SVN Repositories" order="7" weight="0.32900432" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1578,7 +1572,6 @@
       <window_info id="Learn" order="6" />
       <window_info anchor="right" id="Maven" order="4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.054371003" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49755502" weight="0.53303474" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1668,7 +1661,8 @@
     <MESSAGE value="Web Checkin - Updatees" />
     <MESSAGE value="Cleanup Web" />
     <MESSAGE value="Jenkins Capability" />
-    <option name="LAST_COMMIT_MESSAGE" value="Jenkins Capability" />
+    <MESSAGE value="Test Script Fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test Script Fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1769,8 +1763,14 @@
           <properties />
           <option name="timeStamp" value="108" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="109" />
+      <option name="time" value="110" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1778,27 +1778,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar!/com/google/common/collect/RegularImmutableMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-remote-driver/3.14.0/selenium-remote-driver-3.14.0-sources.jar!/org/openqa/selenium/remote/RemoteWebDriver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="313" selection-start-line="313" selection-end-line="313" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-support/3.141.5/selenium-support-3.141.5-sources.jar!/org/openqa/selenium/support/ui/ExpectedConditions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="204" selection-start-line="204" selection-end-line="204" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.0-jre/guava-25.0-jre-sources.jar!/com/google/common/collect/ImmutableMap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
@@ -1978,13 +1957,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -2042,41 +2014,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="29" selection-end-line="49" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="47" column="70" selection-start-line="47" selection-start-column="70" selection-end-line="47" selection-end-column="70" />
+        <state relative-caret-position="333">
+          <caret line="215" column="34" selection-start-line="215" selection-start-column="34" selection-end-line="215" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2992">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="176" column="40" selection-start-line="176" selection-start-column="40" selection-end-line="176" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="84" selection-start-line="84" selection-end-line="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="391">
+          <caret line="220" selection-start-line="220" selection-end-line="220" />
         </state>
       </provider>
     </entry>
@@ -2087,6 +2035,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/VerificationManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="200" column="29" selection-start-line="200" selection-start-column="14" selection-end-line="200" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3-sources.jar!/org/testng/internal/ObjectFactoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/testng/testng/6.14.3/testng-6.14.3-sources.jar!/org/testng/internal/ClassHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="371" selection-start-line="371" selection-end-line="371" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-616">
+          <caret line="41" column="11" selection-start-line="41" selection-start-column="11" selection-end-line="41" selection-end-column="11" />
+          <folding>
+            <element signature="e#1329#1330#0" expanded="true" />
+            <element signature="e#1376#1377#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -2094,10 +2081,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/DriverRegistrationSteps.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="218" column="139" lean-forward="true" selection-start-line="218" selection-start-column="139" selection-end-line="218" selection-end-column="139" />
+        <state relative-caret-position="856">
+          <caret line="72" column="30" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3384">
+          <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
         </state>
       </provider>
     </entry>

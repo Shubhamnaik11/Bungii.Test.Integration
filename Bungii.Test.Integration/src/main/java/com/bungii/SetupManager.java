@@ -217,6 +217,8 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
+        chromeOptions.addArguments("start-maximized");
+        chromeOptions.addArguments("--disable-infobars");
         capabilities.setCapability("chrome.verbose", false);
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         return capabilities;
