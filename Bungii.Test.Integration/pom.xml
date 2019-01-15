@@ -155,7 +155,7 @@
                         </goals>
                         <configuration>
                             <glue>
-                                <package>com.bungii.android.stepdefinitions</package>
+                                <package>com.bungii.web.stepdefinitions</package>
                             </glue>
                             <!-- 							These are the default values
                                                         Where to output the generated Junit tests -->
@@ -194,7 +194,7 @@
                             </tags>
                             <useTestNG>true</useTestNG>
                             <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
-                            <parallelScheme>SCENARIO</parallelScheme>
+                            <parallelScheme>FEATURE</parallelScheme>
 
                             <!-- 							If set to true, only feature files containing the required tags
                                                             shall be generated.

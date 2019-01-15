@@ -212,7 +212,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 testStepVerify.isFalse(VerifCode_Updated.equals(VerifCode_Initial), "New verification code should not be same as old code", "New verification code is not same as old code", "New verification code is same as old code");
                 break;
             case "Logged in user name":
-                String UserName = PropertyUtility.getDataProperties("DriverFirstName") + " " + PropertyUtility.getDataProperties("DriverLastName");
+                String UserName = PropertyUtility.getDataProperties("DriverFirstName") + " " + (String) cucumberContextManager.getScenarioContext("LASTNAME"); //PropertyUtility.getDataProperties("DriverLastName");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_DriverName()), UserName);
                 break;
             case "correct field validations":

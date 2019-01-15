@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @regression", plugin = {
+@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @sanity", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
