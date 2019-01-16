@@ -7,9 +7,9 @@
     "noReset": true,
     "newCommandTimeout": "1500",
     "autoWebView": true,
-    "appPackage": "com.bungii.driver",
+    "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "TA93401OLE"
+    "udid": "192.168.55.43:5556"
   },
   "extra1": {
     "platformName": "android",

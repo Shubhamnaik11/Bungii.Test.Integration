@@ -188,11 +188,19 @@ public class SetupManager extends EventFiringWebDriver {
         String appiumPortNumber =String.valueOf(returnPortNumber(deviceId));
         DesiredCapabilities capabilities= getCapabilities(deviceId);
         AppiumDriver<MobileElement> newDriverInstance = null;
-        newDriverInstance = createAdditionAppiumDriver( appiumPortNumber,capabilities);
-        newDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
-        DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
+        if(TARGET_PLATFORM.equalsIgnoreCase("IOS")){
+            IOSDriver<MobileElement> iosDriverInstance=(IOSDriver<MobileElement>)startAppiumDriver(capabilities,appiumPortNumber);
+            iosDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+            DriverManager.getObject().storeDriverInstance(key, iosDriverInstance);
+        }else{
+            newDriverInstance = createAdditionAppiumDriver( appiumPortNumber,capabilities);
+            newDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+            DriverManager.getObject().storeDriverInstance(key, newDriverInstance);
+        }
     }
+
+
 
     /**
      * Create new appium driver instance as per setting in config file and assign it to variable

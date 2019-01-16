@@ -1,9 +1,9 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungiiCustomer.ForgotPasswordPage;
-import com.bungii.android.pages.bungiiCustomer.LoginPage;
-import com.bungii.android.pages.bungiiCustomer.SignupPage;
+import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LoginPage;
+import com.bungii.android.pages.customer.SignupPage;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.manager.AssertManager;

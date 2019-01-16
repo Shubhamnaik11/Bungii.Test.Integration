@@ -13,7 +13,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -239,6 +242,11 @@ public class ActionManager {
             e.printStackTrace();
         }
     }
+    public void click(Point p){
+        TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
+        PointOption top = PointOption.point(p.getX(), p.getY());
+
+        touchAction.tap(top).perform();    }
     /**
      * IOS SPECIFIC
      *
@@ -329,7 +337,7 @@ public class ActionManager {
                 .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             logger.detail("Wait failed");
         }
     }
@@ -385,7 +393,11 @@ public class ActionManager {
      * @return
      */
     public boolean verifyImageIsPresent(String key) {
-
+/*        try {
+            test();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
         WebDriverWait driverWait = new WebDriverWait(SetupManager.getDriver(), 4);
 
         String imagePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),
@@ -394,7 +406,7 @@ public class ActionManager {
         driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        driver.setSetting(Setting.IMAGE_MATCH_THRESHOLD, 0.8);
+        driver.setSetting(Setting.IMAGE_MATCH_THRESHOLD, 0.26);
         driver.setSetting(Setting.FIX_IMAGE_FIND_SCREENSHOT_DIMENSIONS, false);
         try {
             File enroute = new File(imagePath);
@@ -408,6 +420,19 @@ public class ActionManager {
             return false;
         }
     }
+
+        public static void test() throws IOException {
+            File file= new File("C:\\Users\\vishal.bagi\\Pictures\\test.jpg");
+            BufferedImage image = ImageIO.read(file);
+            // Getting pixel color by position x and y
+            int clr=  image.getRGB(41,85);
+            int  red   = (clr & 0x00ff0000) >> 16;
+            int  green = (clr & 0x0000ff00) >> 8;
+            int  blue  =  clr & 0x000000ff;
+            System.out.println("Red Color value = "+ red);
+            System.out.println("Green Color value = "+ green);
+            System.out.println("Blue Color value = "+ blue);
+        }
 
 
     public List<String> getListOfAlertButton() {

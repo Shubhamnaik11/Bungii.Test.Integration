@@ -2,8 +2,7 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungii.*;
-import com.bungii.android.pages.menus.SaveMoneyPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -32,7 +31,7 @@ public class EstimateBungiiSteps extends DriverBase {
     EstimatePage Page_Estimate = new EstimatePage();
     BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
     WantDollar5Page Page_WantDollar5 = new WantDollar5Page();
-    SaveMoneyPage Page_SaveMoney = new SaveMoneyPage();
+    PromosPage Page_SaveMoney = new PromosPage();
 
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
@@ -280,7 +279,7 @@ public class EstimateBungiiSteps extends DriverBase {
         return dropUpLocation;
     }
 
-    @And("^I add \"([^\"]*)\" PromoCode$")
+/*    @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
         try {
         String promoCode="";
@@ -318,9 +317,9 @@ public class EstimateBungiiSteps extends DriverBase {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-    }
+    }*/
 
-    @And("^I tap \"([^\"]*)\" on Save Money page$")
+/*    @And("^I tap \"([^\"]*)\" on Save Money page$")
     public void iTapOnSaveMoneyPage(String arg0) throws Throwable {
         try {
         switch (arg0) {
@@ -339,7 +338,7 @@ public class EstimateBungiiSteps extends DriverBase {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-    }
+    }*/
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {

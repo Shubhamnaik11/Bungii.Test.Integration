@@ -10,7 +10,9 @@ public class HomePage extends PageBase {
 	public WebElement Text_AvailableTrips() { return findElement("Available Trips", PageBase.LocatorType.Name); }
 
 	public WebElement NavigationBar_Status () { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
-	public WebElement Text_NavigationBar () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+//	public WebElement Text_NavigationBar () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+	public WebElement Text_NavigationBar () { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
+
 	public WebElement Button_AppMenu () { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
 
 	public WebElement Text_DriverName() { return findElement("//XCUIElementTypeButton[@name='Available Trips']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }

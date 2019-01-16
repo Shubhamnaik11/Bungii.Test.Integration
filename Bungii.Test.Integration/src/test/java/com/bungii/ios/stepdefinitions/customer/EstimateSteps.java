@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.customer;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -73,9 +74,22 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
 
-            testStepVerify.isTrue(isCorrectTime && isAlertCorrect, "I confirm trip with following details",
+            if(action.isAlertPresent()){
+                if(action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage(PropertyUtility.getMessage("customer.alert.delay.scheduled")))) {
+                    warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request",true);
+                    SetupManager.getDriver().switchTo().alert().accept();
+                    strTime = enterTime(time);
+                    isCorrectTime =  action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+                    cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+                }
+            }
+
+            testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
+                    "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
+
+            testStepVerify.isTrue(isCorrectTime , "I confirm trip with following details",
                     "I created new  trip for "+strTime, "Trip was not successfully confirmed ,Bungii request time"
-                            + strTime + " not matching with entered time or heads up alert text is not matching");
+                            + strTime + " not matching with entered time ");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -709,6 +723,8 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTimeNow() {
         action.click(estimatePage.Row_TimeSelect());
         action.click(estimatePage.Button_Now());
+        action.click(estimatePage.Button_Set());
+
     }
 
     /**

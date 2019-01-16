@@ -153,8 +153,12 @@ public class EstimatePage extends PageBase {
         return findElement("Cancel", LocatorType.Name);
     }
 
-    public WebElement Text_LoadTime() {
+/*    public WebElement Text_LoadTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+    }*/
+
+    public WebElement Text_LoadTime() {
+        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);
     }
 
     public WebElement Button_Set(){return findElement("Set",LocatorType.Name);}

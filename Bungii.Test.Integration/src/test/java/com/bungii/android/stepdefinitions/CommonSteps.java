@@ -1,19 +1,17 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
-import com.bungii.android.pages.bungii.BungiiProgressPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
 
-public class CommonSteps {
+public class CommonSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.CommonSteps.class);
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
@@ -78,5 +76,10 @@ public class CommonSteps {
         }
     }
 
-
+    @Then("^\"([^\"]*)\" page should be opened$")
+    public void ThenPageShouldBeOpened(String page)
+    {
+        boolean isCorrectPage=utility.isCorrectPage(page);
+        testStepAssert.isTrue(isCorrectPage,page+" should be displayed",page+" is displayed correctly  ",page+" is not displayed correct");
+    }
 }

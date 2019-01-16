@@ -1,9 +1,11 @@
 package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.menus.AccountPage;
+import com.bungii.android.pages.customer.AccountPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -39,5 +41,16 @@ public class AccountSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+    @And("^logged in Customer details should be displayed$")
+    public void logged_in_customer_details_should_be_displayed() throws Throwable {
+        String actualName=action.getText(accountPage.Account_Name());
+        String expectedName=PropertyUtility.getDataProperties("customer.first.name")+" "+PropertyUtility.getDataProperties("customer.last.name");
+        String actualPhone=action.getText(accountPage.Account_Phone()).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+        String expectedPhoneNumber=PropertyUtility.getDataProperties("valid.customer.phone");
+
+        testStepVerify.isEquals(actualName,expectedName,"Customer name on account page should be "+expectedName, "Customer name on account page is"+actualName,"Customer name on account page is "+actualName +" , but expected is"+expectedName );
+        testStepVerify.isEquals(actualPhone,expectedPhoneNumber);
+        testStepVerify.isEquals(action.getText(accountPage.Account_Email()),PropertyUtility.getDataProperties("customer.email"));
     }
 }

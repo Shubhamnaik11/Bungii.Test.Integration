@@ -4,8 +4,10 @@ import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
 public class HomePage extends PageBase {
+//    public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
-    public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+
+    public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
     public WebElement BUTTON_SET() {return findElement("//XCUIElementTypeButton[@name='SET']", PageBase.LocatorType.XPath); }
     public WebElement TextBox_Pickup() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
     public WebElement Link_PickUpSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }

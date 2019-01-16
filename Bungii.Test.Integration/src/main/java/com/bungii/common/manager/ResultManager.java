@@ -128,4 +128,7 @@ public class ResultManager {
         return data;
     }
 
+    public static String getScreenShotFolder() {
+        return reportManager.getTestScreenShotFolderName();
+    }
 }

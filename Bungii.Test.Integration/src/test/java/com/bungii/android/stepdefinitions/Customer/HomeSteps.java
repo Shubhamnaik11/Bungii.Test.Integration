@@ -1,10 +1,12 @@
 package com.bungii.android.stepdefinitions.Customer;
 
-import com.bungii.android.pages.bungii.CustomerHomePage;
+import com.bungii.android.pages.customer.CustomerHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.ios.manager.ActionManager;
+import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.android.manager.ActionManager;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -37,6 +39,42 @@ public class HomeSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I tap \"([^\"]*)\" on Home page$")
+    public void i_tap_something_on_home_page(String strArg1) throws Throwable {
+        switch (strArg1){
+            case "Referral Invite link":
+                action.click(customerHomePage.Link_Invite());
+                break;
 
+        }
 
+    }
+    @Given("^I am on Customer logged in Home page$")
+    public void iAmOnCustomerLoggedInHomePage() {
+        try {
+
+            String NavigationBarName = action.getText(customerHomePage.Title_HomePage());
+
+            if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
+                    || NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer.user"),
+                        PropertyUtility.getDataProperties("customer.password"));
+            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
+                // do nothing
+            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+              //  iClickButtonOnScreen("CANCEL", "SEARCHING");
+               // iRejectAlertMessage();
+            } else {
+                i_tap_on_something_something_link(NavigationBarName,"HOME");
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        } catch (Throwable throwable) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(throwable));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);        }
+    }
 }

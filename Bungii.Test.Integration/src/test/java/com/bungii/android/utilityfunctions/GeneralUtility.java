@@ -2,14 +2,12 @@ package com.bungii.android.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungii.CustomerHomePage;
-import com.bungii.android.pages.bungii.EstimatePage;
-import com.bungii.android.pages.bungiiCustomer.LoginPage;
-import com.bungii.android.pages.bungiiCustomer.SignupPage;
-import com.bungii.android.pages.bungiiCustomer.TermsPage;
-import com.bungii.android.pages.bungiiDriver.HomePage;
-import com.bungii.android.pages.menus.AccountPage;
-import com.bungii.android.pages.menus.MenuPage;
+import com.bungii.android.pages.customer.CustomerHomePage;
+import com.bungii.android.pages.customer.EstimatePage;
+import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.HomePage;
+import com.bungii.android.pages.customer.AccountPage;
+import com.bungii.android.pages.customer.MenuPage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -42,7 +40,11 @@ public class GeneralUtility extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     HomePage driverHomePage = new HomePage();
     AccountPage cutomerAccountPage= new AccountPage();
-    com.bungii.android.pages.bungiiDriver.LoginPage driverLoginPage = new com.bungii.android.pages.bungiiDriver.LoginPage();
+    PaymentPage paymentPage = new PaymentPage();
+    FAQPage faqPage = new FAQPage();
+    SupportPage supportPage= new SupportPage();
+    PromosPage promosPage = new PromosPage();
+    com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
 
     public void launchDriverApplication() throws MalformedURLException, InterruptedException {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
@@ -74,7 +76,36 @@ public class GeneralUtility extends DriverBase {
 
     }
 
-
+    public boolean isCorrectPage(String p0){
+        boolean isCorrectPage=false;
+        switch (p0)
+        {
+            case "FAQ":
+                isCorrectPage=action.isElementPresent(faqPage.Header_FAQPage(true));
+                break;
+            case "Account":
+                isCorrectPage=action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
+                break;
+            case "Payment":
+                isCorrectPage=action.isElementPresent(paymentPage.Header_PaymentPage(true));
+                break;
+            case "Support":
+                isCorrectPage=action.isElementPresent(supportPage.Header_SupportPage(true));
+                break;
+            case "Promos":
+                isCorrectPage=action.isElementPresent(promosPage.Header_SavePage(true));
+                break;
+            case "Home":
+                isCorrectPage=action.isElementPresent(Page_CustHome.Header_HomePage(true));
+                break;
+            case "Login":
+            case "Logout":
+                isCorrectPage= action.isElementPresent(Page_Login.Header_LoginPage(true));
+                break;
+            default: break;
+        }
+        return isCorrectPage;
+    }
     public void isPhoneNumbersEqual(WebElement element, String value) {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
@@ -120,7 +151,7 @@ public class GeneralUtility extends DriverBase {
                 action.click(Page_CustHome.Button_NavHome());
                 break;
             case "FAQ":
-                action.click(Page_CustHome.Button_NavHome());
+                action.click(Page_CustHome.Button_NavFAQ());
                 break;
             case "ACCOUNT":
                 action.click(Page_CustHome.Button_NavAccount());
@@ -202,7 +233,10 @@ public class GeneralUtility extends DriverBase {
             //Not on Login page
         }
     }
-
+    public boolean isAlphaNumeric(String s){
+        String pattern= "^[a-zA-Z0-9]*$";
+        return s.matches(pattern);
+    }
     public void isDriverLoginSucessful() {
         testStepAssert.isElementEnabled(driverHomePage.Title_Status(true), "driver should be sucessfully login in", "driver was logged in sucessfuly and driver status is" + action.getText(driverHomePage.Title_Status()), "driver was logged in successfuly");
     }
