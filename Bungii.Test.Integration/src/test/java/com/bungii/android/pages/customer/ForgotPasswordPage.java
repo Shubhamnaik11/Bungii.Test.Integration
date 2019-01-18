@@ -8,12 +8,16 @@ public class ForgotPasswordPage extends PageBase {
     //------Forgot Password 1st page--------------------------------------------------------------------------
     //Forgot Password page title
     public WebElement Title_ForgotPassword() { return findElement("com.bungii.customer:id/toolbar_main_title", LocatorType.Id); }
-
+    public WebElement Snackbar_ForgotPassword(boolean...ignoreException){return findElement("com.bungii.customer:id/snackbar_text",LocatorType.Id,ignoreException);}
     //Forgot Password - Phone Number field
     public WebElement TextField_ForgotPass_PhoneNumber() { return findElement("com.bungii.customer:id/field_phone", LocatorType.Id); }
 
+    public WebElement Text_IncorrectPassword() { return findElement("com.bungii.customer:id/textinput_error", LocatorType.Id); }
+
+
+
     //Forgot Password - Phone Number field
-    public WebElement Button_ForgotPass_Send() { return findElement("com.bungii.customer:id/button2", LocatorType.Id); }
+    public WebElement Button_ForgotPass_Send(boolean...ignoreException) { return findElement("com.bungii.customer:id/button2", LocatorType.Id,ignoreException); }
 
     //------Forgot Password 2nd page--------------------------------------------------------------------------
     //SMS Code field

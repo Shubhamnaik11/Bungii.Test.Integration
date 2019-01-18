@@ -319,7 +319,7 @@ public class UpdateStatusSteps extends DriverBase {
     public void iShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
             int activeStatus=0;
-            boolean[] statusCheck=utility.checkStatusOnDriver();
+
             boolean pageFlag = false;
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())){
                 pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
@@ -333,7 +333,7 @@ public class UpdateStatusSteps extends DriverBase {
             else if (screen.equals(Status.UNLOADING_ITEM.toString())){
                 pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());activeStatus=4;}
 
-
+            boolean[] statusCheck=utility.checkStatusOnDriver();
             for(int i=0;i<statusCheck.length;i++){
                 if(activeStatus==i){
                     testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
@@ -416,6 +416,7 @@ public class UpdateStatusSteps extends DriverBase {
      * Click call to customer
      */
     public void clickCallToCustomer() {
+        action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_Call());
     }
 
@@ -423,6 +424,7 @@ public class UpdateStatusSteps extends DriverBase {
      * Click SMS to customer
      */
     public void clickSMSToCustomer() {
+        action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_Sms());
     }
 

@@ -3,6 +3,8 @@ package com.bungii.android.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class PromosPage extends PageBase {
     public WebElement Header_SavePage (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='PROMOS']", LocatorType.XPath,ignoreException); }   //places_autocomplete_pickup_location is actual id
 
@@ -20,6 +22,8 @@ public class PromosPage extends PageBase {
     public WebElement SaveMoney_PromoCode2 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label'][2]", LocatorType.XPath); }
 
     public WebElement SaveMoney_PromoCode3 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label'][3]", LocatorType.XPath); }
+
+    public List<WebElement> List_PromoCode(){return  findElements("com.bungii.customer:id/promo_code_label",LocatorType.Id);}
     public WebElement Snackbar () { return findElement("com.bungii.customer:id/snackbar_text", LocatorType.Id); }
 
 

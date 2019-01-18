@@ -28,7 +28,7 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_Payment() {return findElement("//XCUIElementTypeStaticText[@name='PAYMENT']", PageBase.LocatorType.XPath); }
     public WebElement AppMenu_Support() {return findElement("//XCUIElementTypeStaticText[@name='SUPPORT']", PageBase.LocatorType.XPath); }
     public WebElement AppMenu_Promos() {return findElement("//XCUIElementTypeStaticText[@name='PROMOS']", PageBase.LocatorType.XPath); }
-    public WebElement AppMenu_DriveWithBungii() {return findElement("//XCUIElementTypeStaticText[@name='DRIVE WITH BUNGII']", PageBase.LocatorType.XPath); }
+    public WebElement AppMenu_DriveWithBungii() {return findElement("//XCUIElementTypeStaticText[@name='SIGN UP TO DRIVE']", PageBase.LocatorType.XPath); }
 
 
     public WebElement AppMenu_LogOut() {return findElement("LOGOUT", PageBase.LocatorType.Name); }

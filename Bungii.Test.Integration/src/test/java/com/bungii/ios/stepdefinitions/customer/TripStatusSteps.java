@@ -35,7 +35,7 @@ public class TripStatusSteps extends DriverBase {
     public void customerShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
             int activeStatus=0;
-            boolean[] statusCheck=utility.checkStatusOnCustomer();
+
             boolean pageFlag = false;
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())){
                 pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
@@ -49,7 +49,7 @@ public class TripStatusSteps extends DriverBase {
             else if (screen.equals(Status.UNLOADING_ITEM.toString())){
                 pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());activeStatus=4;}
 
-
+            boolean[] statusCheck=utility.checkStatusOnCustomer();
             for(int i=0;i<statusCheck.length;i++){
                 if(activeStatus==i){
                     testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");

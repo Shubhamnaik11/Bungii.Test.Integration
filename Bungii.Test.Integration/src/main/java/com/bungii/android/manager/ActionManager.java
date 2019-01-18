@@ -12,8 +12,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.collections.Lists;
 
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
@@ -50,14 +53,14 @@ public class ActionManager {
 
     }
 
-    public static void HideKeyboard() {
+/*    public static void HideKeyboard() {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.hideKeyboard();
             logger.detail("Hide Keyboard");
         } catch (Exception ex) {
         }
-    }
+    }*/
 
     public boolean isElementPresent(WebElement element) {
         //Set the timeout to something low
@@ -162,11 +165,21 @@ public class ActionManager {
     public void clearSendKeys(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        driver.hideKeyboard();
+        hideKeyboard();
         logger.detail("Send  " + text + " in element" + element.toString());
     }
 
+    /**
+     * SendKeys using adb shell
+     * @param input
+     */
+    public void sendKeys(String input){
+        AndroidDriver driver= (AndroidDriver) SetupManager.getDriver();
+        Map<String, Object> args = new HashMap<>();
+        args.put("command", "input");
+        args.put("args", Lists.newArrayList("text", input));
+        driver.executeScript("mobile: shell", args);
+    }
     /**
      * @return boolean value according to alert existence
      */
@@ -241,7 +254,7 @@ public class ActionManager {
         // 4/5 of the screen as the bottom finger-press point
         int bottomY = driver.manage().window().getSize().height * 4 / 5;
         // just non zero point, as it didn't scroll to zero normally
-        int topY = driver.manage().window().getSize().height / 8;
+        int topY = driver.manage().window().getSize().height / 6;
         //scroll with TouchAction by itself
         scroll(pressX,topY , pressX,bottomY );
     }

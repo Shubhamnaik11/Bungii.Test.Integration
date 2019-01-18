@@ -2,12 +2,15 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PromosPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import javax.swing.text.Utilities;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -16,6 +19,7 @@ public class PromosSteps extends DriverBase {
     ActionManager action = new ActionManager();
     PromosPage promoPage = new PromosPage();
     private static LogUtility logger = new LogUtility(PromosSteps.class);
+    GeneralUtility utilities= new GeneralUtility();
 
     @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
@@ -41,13 +45,13 @@ public class PromosSteps extends DriverBase {
                     promoCode= PropertyUtility.getDataProperties("promocode.firsttime");
                     break;
                 case "used one off":
-                    promoCode=PropertyUtility.getDataProperties("promocode.useedoneoff");
+                    promoCode=PropertyUtility.getDataProperties("promocode.usedoneoff");
                     break;
                 default:
                     break;
             }
-            action.sendKeys(promoPage.Textfield_PromoCode(), promoCode);
-
+            action.clearSendKeys(promoPage.Textfield_PromoCode(), promoCode);
+            cucumberContextManager.setScenarioContext("ADDED_PROMOCODE",promoCode);
             log(" I should able to add " + arg0 + " promo code ",
                     "I entered promo code '" + promoCode + "'", true);
 
@@ -56,15 +60,23 @@ public class PromosSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^\"([^\"]*)\" promo code should be displayed$")
+    public void something_promo_code_should_be_displayed(String strArg1) throws Throwable {
+        String expectedMessage=PropertyUtility.getDataProperties("promocode.valid.percent");
+        action.scrollToBottom();
+        testStepAssert.isTrue(utilities.isPromoCodePresent(expectedMessage),"Promo code should be added","Promocode is added","Promocode is not added");
 
+    }
     @Then("^I should see \"([^\"]*)\" on Save Money page$")
     public void i_should_see_something_on_save_money_page(String strArg1) throws Throwable {
         String expectedMessage="";
+        String actualMessage="";
         switch (strArg1)
         {
             case "promocode added":
                 expectedMessage=PropertyUtility.getDataProperties("promocode.valid");
-                testStepAssert.isElementTextEquals(promoPage.SaveMoney_PromoCode1(),expectedMessage ,"Promo code should be added","Promocode is added","Promocode is not added");
+                action.scrollToBottom();
+                testStepAssert.isTrue(utilities.isPromoCodePresent(expectedMessage),"Promo code should be added","Promocode is added","Promocode is not added");
                 break;
             case "snackbar message for invalid code":
                 expectedMessage=PropertyUtility.getMessage("customer.promos.invalid");
@@ -79,8 +91,9 @@ public class PromosSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(promoPage.Snackbar(),expectedMessage,"Validation message :'"+expectedMessage+"' should be displayed","'"+expectedMessage+"' message should be displayed","'"+expectedMessage+"' message should be displayed");
                 break;
             case "snackbar stating referrals are only for new users":
-                expectedMessage=PropertyUtility.getMessage("customer.promos.first.time.error");
-                testStepAssert.isElementTextEquals(promoPage.Snackbar(),expectedMessage ,"Validation message :'"+expectedMessage+"' should be displayed","'"+expectedMessage+"' message should be displayed","'"+expectedMessage+"' message should be displayed");
+                expectedMessage=PropertyUtility.getMessage("customer.promos.referral.error");
+                actualMessage=action.getText(promoPage.Snackbar());
+                testStepAssert.isEquals(actualMessage,expectedMessage ,"Validation message :'"+expectedMessage+"' should be displayed","'"+expectedMessage+"' message should be displayed","'"+expectedMessage+"' message should be displayed");
                 break;
             case "snackbar stating first time code is for new users":
                 expectedMessage=PropertyUtility.getMessage("customer.promos.first.time.old.user");

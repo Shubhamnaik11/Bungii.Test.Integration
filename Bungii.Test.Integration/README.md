@@ -14,3 +14,8 @@ Ex
 	where test.Device variable contains list of devices on which parallel test should be executed
 
 	LIMITATION : For mobile device , Number of device = Number of Runner file generated
+
+
+	Note: For android start appium server with "--relaxed-security" flag
+	      Ex
+	        appium -p 4723 --relaxed-security

@@ -34,7 +34,7 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Select_TimeRow() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther", LocatorType.XPath);
     }
 
     public WebElement Text_PickUpLocation() {
@@ -54,11 +54,11 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Text_LoadUnLoadTime() {
-        return findElement("Load + unload time", LocatorType.Name);
+        return findElement("Load + Unload Time", LocatorType.Name);
     }
 
     public WebElement Text_LoadUnLoadTimeValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
     }
 
     public WebElement Text_PromoCode() {
@@ -70,19 +70,19 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Text_Estimate() {
-        return findElement("Total estimate", LocatorType.Name);
+        return findElement("Total Estimate", LocatorType.Name);
     }
 
     public WebElement Text_EstimateValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Total estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
 
     public WebElement Text_PaymentMethod() {
-        return findElement("Payment Method", LocatorType.Name);
+        return findElement("Payment Mode", LocatorType.Name);
     }
 
     public WebElement Text_PaymentMethodValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Payment Method']/following-sibling::XCUIElementTypeButton", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Payment Mode']/following-sibling::XCUIElementTypeButton", LocatorType.XPath);
     }
 
     public WebElement Text_Time() {
@@ -94,11 +94,11 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Button_InfoLoadingTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
     }
 
     public WebElement Button_InfoTotalEstimate() {
-        return findElement("//XCUIElementTypeStaticText[@name='Total estimate']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
     }
 
     public WebElement Button_InfoTime() {
@@ -154,11 +154,11 @@ public class EstimatePage extends PageBase {
     }
 
 /*    public WebElement Text_LoadTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
     }*/
 
     public WebElement Text_LoadTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Load + unload time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);
     }
 
     public WebElement Button_Set(){return findElement("Set",LocatorType.Name);}

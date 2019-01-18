@@ -20,8 +20,7 @@ public class CommonSteps extends DriverBase {
     public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
         try {
             if(!device.equalsIgnoreCase("same")){i_switch_to_something_instance(device); Thread.sleep(2000);}
-
-            // SetupManager.getObject().useDriverInstance("ORIGINAL");
+            boolean isApplicationIsInForeground=false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     utility.launchDriverApplication();
@@ -33,19 +32,52 @@ public class CommonSteps extends DriverBase {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-
-            pass("Switch to " + appName + " application",
-                    "Switch to " + appName + " application", true);
-        //    cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 /*            error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);*/
 
         }
-    }
+        //Verify that application is successfully switched
+        try {
+            boolean isApplicationIsInForeground=false;
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    isApplicationIsInForeground=utility.isDriverApplicationOpen();
+                    break;
+                case "CUSTOMER":
+                    isApplicationIsInForeground=utility.isCustomerApplicationOpen();
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            testStepVerify.isTrue(isApplicationIsInForeground,"Switch to " + appName + " application","Switch to " + appName + " application is successful","Switch to " + appName + " application was not successfull");
+        }catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
 
+        }
+
+    }
+    @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
+    public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
+        try {
+
+            SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
+            SetupManager.getObject().useDriverInstance(instanceName);
+            log(
+                    "I open new " + browser + " browser for " + instanceName + " instance$",
+                    "I open new " + browser + " browser for " + instanceName + " instance$", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @When("^I connect to \"([^\"]*)\" using \"([^\"]*)\" instance$")
     public void i_connect_to_something_using_something_instance(String deviceId, String instanceName) {

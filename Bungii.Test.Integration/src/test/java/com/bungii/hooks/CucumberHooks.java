@@ -26,7 +26,7 @@ public class CucumberHooks {
 
 	protected WebDriver driver;
 	private ReportManager reportManager;
-
+	private static boolean isFirstTestCase;
 	private static LogUtility logger = new LogUtility(CucumberHooks.class);
 
 	static {
@@ -36,7 +36,7 @@ public class CucumberHooks {
 		FileUtility.autoHome =autoHome;
 		String log4jConfPath ="src/main/resources/SystemProperties/log4j.properties";
 		PropertyConfigurator.configure(FileUtility.getSuiteResource("",log4jConfPath));
-
+		isFirstTestCase=true;
 	}
 
 	public CucumberHooks() {
@@ -73,6 +73,14 @@ public class CucumberHooks {
 	@Before
 	public void beforeTest(Scenario scenario) {
 		this.reportManager.startTestCase(scenario.getName());
+		//Set original instance as default instance at start of each test case
+		SetupManager.getObject().useDriverInstance("ORIGINAL");
+
+		//Vishal[1801]: Restart app before Each test case
+		//If not first test case
+		if(!isFirstTestCase)
+			SetupManager.getObject().restartApp();
+
 	}
 
 	/**
@@ -83,7 +91,10 @@ public class CucumberHooks {
 	 */
 	@After
 	public void afterTest(Scenario scenario) {
+		//if first test case flag is ste to true then change it to false
+		if(isFirstTestCase)isFirstTestCase=false;
 		DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
+
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
 			//Recover recover = new Recover();

@@ -42,7 +42,18 @@ com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new co
             {50, 51, 255},
 
     };
-
+    public String GetAdminUrl()
+    {
+        String adminURL = null;
+        String environment = PropertyUtility.getProp("environment");
+        if (environment.equals("Dev"))
+            adminURL = PropertyUtility.getDataProperties("dev.admin.url");
+        if (environment.equals("QA"))
+            adminURL = PropertyUtility.getDataProperties("qa.admin.url");
+        if (environment.equals("Stage"))
+            adminURL = PropertyUtility.getDataProperties("stage.admin.url");
+        return adminURL;
+    }
     /**
      * Calculate estimate cost of trip check if less than minimum cost then
      * return minimum cost
@@ -224,7 +235,9 @@ com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new co
         Color actual = new Color(actualColor[0], actualColor[1], actualColor[2]);
         Color expected = new Color(expectedRGB[0], expectedRGB[1], expectedRGB[2]);
         double diff =ColourDistance(actual,expected);
-        boolean isEqual=diff<25;
+        logger.detail("Difference between actual and expected is :"+diff);
+
+        boolean isEqual=diff<30;
 /*      for(int i =0;i<actualColor.length;i++){
           if(Math.abs(actualColor[i]-expectedRGB[i])>7){
               //if flag is not set as false then set

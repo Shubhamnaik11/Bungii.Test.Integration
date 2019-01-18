@@ -723,7 +723,7 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTimeNow() {
         action.click(estimatePage.Row_TimeSelect());
         action.click(estimatePage.Button_Now());
-        action.click(estimatePage.Button_Set());
+    //    action.click(estimatePage.Button_Set());
 
     }
 
@@ -785,7 +785,7 @@ public class EstimateSteps extends DriverBase {
 
         //Replace '<TIME>' keyword with load/unload time for current trip
         String bungiiType= (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
-        String expectedText = PropertyUtility.getMessage("alert.Request.Bungii").replaceAll("<TIME>", loadTime.trim());
+        String expectedText = PropertyUtility.getMessage("alert.Request.Bungii.ios").replaceAll("<TIME>", loadTime.trim());
         //VISHAL[21/12]: added message for duo as there is different message for duo trip
         if(bungiiType.equalsIgnoreCase("DUO"))
              expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim());

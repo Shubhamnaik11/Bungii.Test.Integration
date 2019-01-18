@@ -84,7 +84,7 @@ public class PaymentSteps extends DriverBase {
             case "message when no payment methods exist":
                 //  String ActualNoPaymentText = UtilFunctions.TrimString(paymentPage.Text_NoPaymentExists().Text);
                 String ActualNoPaymentText = action.getText(paymentPage.Text_NoPaymentExists());
-                testStepVerify.isEquals(PropertyUtility.getMessage("customer.payment.add"), ActualNoPaymentText);
+                testStepVerify.isEquals(ActualNoPaymentText,PropertyUtility.getMessage("customer.payment.add.android") );
                 testStepVerify.isElementDisplayed(paymentPage.Button_Add(), "Add Buttons should be displayed on Payment Page", "Add button is displayed on Payment Page", "Add button is not displayed on Payment Page");
                 break;
 

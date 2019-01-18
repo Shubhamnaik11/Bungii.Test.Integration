@@ -1,9 +1,9 @@
 @Android
+
 Feature: Menu_Payment
 Scenarios on Payment Methods
 
-@PENDING
-  #Only 1 pending Cannot logout
+  @regression
   Scenario: Cust_Menu_Payment_NoPaymentMethodExists
     Given I am logged in as "newly registered" customer
     When I tap on "Menu" > "Payment" link

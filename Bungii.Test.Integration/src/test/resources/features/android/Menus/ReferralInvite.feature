@@ -1,6 +1,4 @@
 @Android
-@DONE
-
 Feature: ReferralInvite
 
   Background:

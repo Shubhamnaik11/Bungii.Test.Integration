@@ -10,7 +10,7 @@ import java.util.List;
 public class UpdateStatusPage extends PageBase {
 	public WebElement Text_Slide() { return findElement(
 			"//XCUIElementTypeImage[@name='slide_to_start_button']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Button_Sms() { return findElement("//XCUIElementTypeButton[@name='btn call']/preceding-sibling::XCUIElementTypeButton", PageBase.LocatorType.XPath); }
+	//public WebElement Button_Sms() { return findElement("//XCUIElementTypeButton[@name='btn call']/preceding-sibling::XCUIElementTypeButton", PageBase.LocatorType.XPath); }
 	public WebElement Text_CustomerName() { return findElement("//XCUIElementTypeButton[@name='btn call']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
 	public WebElement Text_Customer() { return findElement("//XCUIElementTypeStaticText[@name='CUSTOMER']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
@@ -39,8 +39,11 @@ public class UpdateStatusPage extends PageBase {
 
 	public WebElement Button_Slide() { return findElement("slide_to_start_button", PageBase.LocatorType.Name); }
 	public WebElement Button_Cancel() { return findElement("Cancel", PageBase.LocatorType.Name); }
-	public WebElement Button_Call() { return findElement("btn call", PageBase.LocatorType.Name); }
+//	public WebElement Button_Call() { return findElement("btn call", PageBase.LocatorType.Name); }
 
+	public WebElement Button_Call() { return findElement("Call customer", PageBase.LocatorType.Name); }
+	public WebElement Button_Sms() { return findElement("Text customer", PageBase.LocatorType.Name); }
+	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
 

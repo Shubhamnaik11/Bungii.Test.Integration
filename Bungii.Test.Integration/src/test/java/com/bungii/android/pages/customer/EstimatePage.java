@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class EstimatePage extends PageBase {
 
     //------Header-------------------------------------------------------------------------------
-    public WebElement Header_Estimate () { return findElement("//android.widget.TextView[@text='ESTIMATE']", LocatorType.XPath); }
+    public WebElement Header_Estimate (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='ESTIMATE']", LocatorType.XPath,ignoreException); }
 
     //------Locations----------------------------------------------------------------------------
     public WebElement Text_PickupLocation () { return findElement("com.bungii.customer:id/estimate_label_pickup_location", LocatorType.Id); }
@@ -23,17 +23,17 @@ public class EstimatePage extends PageBase {
     //------loading/unloading time---------------------------------------------------------------
     public WebElement Link_LoadingUnloadingTime () { return findElement("com.bungii.customer:id/pickup_estimate_textview_loadunloadtime", LocatorType.Id); }
 
-    public WebElement LoadingUnloadingTime_15 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='0']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_15 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='0']", LocatorType.XPath); }
 
-    public WebElement LoadingUnloadingTime_30 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='1']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_30 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='1']", LocatorType.XPath); }
 
-    public WebElement LoadingUnloadingTime_45 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='2']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_45 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='2']", LocatorType.XPath); }
 
-    public WebElement LoadingUnloadingTime_60 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='3']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_60 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='3']", LocatorType.XPath); }
 
-    public WebElement LoadingUnloadingTime_75 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='4']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_75 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='4']", LocatorType.XPath); }
 
-    public WebElement LoadingUnloadingTime_90 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @instance='5']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_90 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='5']", LocatorType.XPath); }
 
     //------Promo Code--------------------------------------------------------------------------
     public WebElement Link_Promo () { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id); }
@@ -76,7 +76,7 @@ public class EstimatePage extends PageBase {
     //------Photo--------------------------------------------------------------------------------
     public WebElement Row_Images () { return findElement("com.bungii.customer:id/imagesHorizontalScrollContainer", LocatorType.Id); }
 
-    public WebElement Link_AddPhoto () { return findElement("com.bungii.customer:id/imageview_row_image_add_item_photo", LocatorType.Id); }
+    public WebElement Link_AddPhoto (boolean ... ignoreException) { return findElement("com.bungii.customer:id/imageview_row_image_add_item_photo", LocatorType.Id,ignoreException); }
 
     public WebElement Message_CameraPermissions (boolean ... ignoreException) { return findElement("com.android.packageinstaller:id/permission_message", LocatorType.Id,ignoreException); }
 

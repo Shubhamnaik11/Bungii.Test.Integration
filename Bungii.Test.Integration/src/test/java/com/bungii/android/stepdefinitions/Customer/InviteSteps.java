@@ -5,6 +5,7 @@ import com.bungii.android.pages.customer.InvitePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -61,6 +62,17 @@ public class InviteSteps extends DriverBase {
                 break;
         }
     }
+    @And("^I share on \"([^\"]*)\"$")
+    public void i_share_on_something(String strArg1) throws Throwable {
+        switch (strArg1)
+        {
+            case "Facebook with app installed":
+                testStepAssert.isElementDisplayed(invitePage.FBApp_PostLink(true),"Overlay post button should be be displayed","Post button is displayed","Post button is not displayed");
+                action.sendKeys(invitePage.FBApp_StatusText(),PropertyUtility.getDataProperties("support.text"));
+                action.click(invitePage.FBApp_PostLink());
+                break;
+            default: break;
+        }    }
 
     @Then("^I should see post \"([^\"]*)\"$")
     public void i_should_see_post_something(String strArg1) throws Throwable {

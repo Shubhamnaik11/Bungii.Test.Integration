@@ -1,6 +1,7 @@
 @Android
 
 Feature: EstimateBungii
+
   Background:
 #    Given I am logged in as "my" customer
   @regression
@@ -12,10 +13,10 @@ Feature: EstimateBungii
     When I enter "valid pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
-    When I tap on "Promo Code" on Bungii estimate
-    And I add "fixed valid" PromoCode
-    And I tap "Add" on Save Money page
-    And I tap on "desired Promo Code" on Bungii estimate
+  #  When I tap on "Promo Code" on Bungii estimate
+  #  And I add "fixed valid" PromoCode
+  #  And I tap "Add" on Save Money page
+  #  And I tap on "desired Promo Code" on Bungii estimate
     Then I should see "all elements" on Bungii estimate
     When I add "4" photos to the Bungii
     And I tap on "Request Bungii" on Bungii estimate
@@ -23,4 +24,4 @@ Feature: EstimateBungii
     Then for a Bungii I should see "Bungii search screen"
 
     And I tap on "Cancel during search" on Bungii estimate
-    Then I should see "driver cancelled" on Bungii estimate
+    Then for a Bungii I should see "Bungii Home page with locations"

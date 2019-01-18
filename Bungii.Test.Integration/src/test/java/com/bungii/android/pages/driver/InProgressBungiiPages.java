@@ -18,11 +18,19 @@ public class InProgressBungiiPages extends PageBase {
 
     //------Slider-------------------------------------------------------------------
     public WebElement Slider() { return findElement("com.bungii.driver:id/pickup_details_slider_view", LocatorType.Id); }
+
+
+    public WebElement Button_More() { return findElement("com.bungii.driver:id/pickup_details_ellipsise", LocatorType.Id); }
+
     //------SMS----------------------------------------------------------------------
-    public WebElement Button_Customer_SMS() { return findElement("com.bungii.driver:id/pickup_details_sms_button", LocatorType.Id); }
+   // public WebElement Button_Customer_SMS() { return findElement("com.bungii.driver:id/pickup_details_sms_button", LocatorType.Id); }
+    public WebElement Button_Customer_SMS() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[3]", LocatorType.XPath); }
 
     //------Call---------------------------------------------------------------------
-    public WebElement Button_Customer_Call() { return findElement("com.bungii.driver:id/pickup_details_call_button", LocatorType.Id); }
+  //  public WebElement Button_Customer_Call() { return findElement("com.bungii.driver:id/pickup_details_call_button", LocatorType.Id); }
+    public WebElement Button_Customer_Call() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[2]", LocatorType.XPath); }
+
+
 
     //------Bungii Statuses----------------------------------------------------------
     public WebElement BungiiStatus_Enroute(boolean ... ignoreException) { return findElement("com.bungii.driver:id/pickup_details_status_1", LocatorType.Id,ignoreException); }

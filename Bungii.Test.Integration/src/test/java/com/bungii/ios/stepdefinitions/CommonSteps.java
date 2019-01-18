@@ -819,12 +819,14 @@ public class CommonSteps extends DriverBase {
                 case "REFERRAL CODE":
                     List<String> inputValueList = getRefferalCode(inputValue);
                     action.clearEnterText(signupPage.Textfield_PromoCode(), inputValueList.get(0));
-                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                   // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValueList.get(0));
                     break;
                 case "PROMO CODE":
                     List<String> ValueList = getRefferalCode(inputValue);
                     action.clearEnterText(promosPage.TextBox_EnterCode(), ValueList.get(0));
-                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                  //  cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));
                     break;
                 case "SMS CODE":
                     inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")

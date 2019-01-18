@@ -3,13 +3,16 @@ package com.bungii.android.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
-public class CustomerHomePage extends PageBase {
+public class HomePage extends PageBase {
+
+    public WebElement Generic_Element (boolean... ignoreException) { return findElement("//*[contains(@resource-id,\"com.bungii.customer\")]", LocatorType.XPath,ignoreException); }
+
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
 
-    public WebElement Textfield_PickupLocation () { return findElement("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview' and @instance='0']",LocatorType.XPath); }
+    public WebElement Textfield_PickupLocation () { return findElements("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath).get(0); }
 
-    public WebElement Textfield_DropoffLocation () { return findElement("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview' and @instance='1']",LocatorType.XPath); }
+    public WebElement Textfield_DropoffLocation () { return findElements("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath).get(1); }
 
     public WebElement Textfield_ActualDropoffLocation () { return findElement("places_autocomplete_dropoff_location",LocatorType.Id); }
 

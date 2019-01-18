@@ -10,7 +10,8 @@ public class PaymentPage extends PageBase {
     public WebElement Header_PaymentPage (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='PAYMENT']", LocatorType.XPath,ignoreException); }
 
     //------New User Payment page---------------------------------------------------------------------------------------------
-    public WebElement Button_Add () { return findElement("com.bungii.customer:id/payment_methods_textview_add_new_payment", LocatorType.Id); }
+    public WebElement Button_Add () { return findElement("com.bungii.customer:id/payment_methods_button_add", LocatorType.Id); }
+   // public WebElement Button_Add () { return findElement("com.bungii.customer:id/payment_methods_textview_add_new_payment", LocatorType.Id); }
 
     public WebElement Text_NoPaymentExists () { return findElement("//android.widget.TextView[2]", LocatorType.XPath); }
 

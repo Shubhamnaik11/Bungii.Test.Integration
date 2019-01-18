@@ -27,10 +27,10 @@ public class LoginPage extends PageBase {
     public WebElement Snackbar_IncorrectPassword() { return findElement("com.bungii.customer:id/snackbar_text", LocatorType.Id); }
 
     //Error message - Phone Number
-    public WebElement Error_EnterPhone() { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/textinput_error' and @instance='2']", LocatorType.XPath); }
+    public WebElement Error_EnterPhone() { return findElements("com.bungii.customer:id/textinput_error", LocatorType.Id).get(0); }
 
     //Error message - Password
-    public WebElement Error_EnterPassword() { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/textinput_error' and @instance='3']", LocatorType.XPath); }
+    public WebElement Error_EnterPassword() { return findElements("com.bungii.customer:id/textinput_error", LocatorType.Id).get(1); }
 
     //Snackbar - Invalid Password
     public WebElement Snackbar() { return findElement("com.bungii.customer:id/snackbar_text", LocatorType.Id); }

@@ -1,6 +1,6 @@
 package com.bungii.android.stepdefinitions.Customer;
 
-import com.bungii.android.pages.customer.CustomerHomePage;
+import com.bungii.android.pages.customer.HomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -14,14 +14,14 @@ import static com.bungii.common.manager.ResultManager.error;
 
 public class HomeSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
-    CustomerHomePage customerHomePage = new CustomerHomePage();
+    HomePage homePage = new HomePage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(HomeSteps.class);
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
     public void i_select_something_from_customer_app_menu_list(String strArg1) throws Throwable {
         try {
-            action.click(customerHomePage.Button_NavigationBar());
+        //    action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg1);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -32,7 +32,7 @@ public class HomeSteps extends DriverBase {
     @When("^I tap on \"([^\"]*)\" > \"([^\"]*)\" link$")
     public void i_tap_on_something_something_link(String strArg1, String strArg2) throws Throwable {
         try {
-            action.click(customerHomePage.Button_NavigationBar());
+       //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -43,7 +43,7 @@ public class HomeSteps extends DriverBase {
     public void i_tap_something_on_home_page(String strArg1) throws Throwable {
         switch (strArg1){
             case "Referral Invite link":
-                action.click(customerHomePage.Link_Invite());
+                action.click(homePage.Link_Invite());
                 break;
 
         }
@@ -53,7 +53,7 @@ public class HomeSteps extends DriverBase {
     public void iAmOnCustomerLoggedInHomePage() {
         try {
 
-            String NavigationBarName = action.getText(customerHomePage.Title_HomePage());
+            String NavigationBarName = action.getText(homePage.Title_HomePage());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
                     || NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {

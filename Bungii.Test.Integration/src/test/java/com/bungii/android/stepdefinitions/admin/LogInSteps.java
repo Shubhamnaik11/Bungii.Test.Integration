@@ -1,11 +1,10 @@
-package com.bungii.ios.stepdefinitions.admin;
+package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.pages.admin.LogInPage;
+import com.bungii.android.pages.admin.LogInPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
@@ -16,10 +15,9 @@ import static com.bungii.common.manager.ResultManager.pass;
 
 
 public class LogInSteps extends DriverBase {
-    private static LogUtility logger = new LogUtility(LogInSteps.class);
+    private static LogUtility logger = new LogUtility(com.bungii.android.stepdefinitions.admin.LogInSteps.class);
     LogInPage logInPage;
     GeneralUtility utility = new GeneralUtility();
-
     public LogInSteps(LogInPage logInPage) {
         this.logInPage = logInPage;
     }
@@ -28,6 +26,7 @@ public class LogInSteps extends DriverBase {
     public void i_navigate_to_admin_portal() {
         try {
             SetupManager.getDriver().get(utility.GetAdminUrl());
+
             pass("I should be navigate to admin portal",
                     "I navigate to admin portal", true);
 
