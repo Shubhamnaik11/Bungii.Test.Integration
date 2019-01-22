@@ -37,7 +37,7 @@
   border-color: #e4e5e7;
 }
 
-.table tr.header {
+.table tr.header tr.header1{
   font-weight: bold;
   background-color: #fff;
   cursor: pointer;
@@ -51,7 +51,7 @@
   /* Likely future */
 }
 
-.table tr:not(.header) {
+.table tr:not(.header){
   display: none;
 }
 
@@ -84,7 +84,6 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  float: right;
   color: #999;
   text-align: center;
   padding: 3px;
@@ -133,9 +132,9 @@ $(document).ready(function() {
                                                                                  value=<!--FAILED.COUNT--> /><input
         name=0 type="hidden" id="inconclusive" value=<!--INCONCLUSIVE.COUNT--> />
 <div align=right width=30% id='status_chart'></div>
-<div class="">TEST CASE DETAILS
+<div class=""><h1></h1><u>TEST CASE DETAILS:</u></div></h1>
     <table class="table" style="width: 100%; " colspan=10><br><br><br>
-    <tr class="header1">
+    <tr class="header1" >
         <td><b>Step</b></td>
         <td><b>Result</b></td>
         <td><b>Expected Result</b></td>
