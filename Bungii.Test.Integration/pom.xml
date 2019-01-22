@@ -231,7 +231,7 @@
                                 <test.Category>${test.Category}</test.Category>
                             </systemPropertyVariables>
                             <forkCount>${acceptance.test.parallel.count}</forkCount>
-                            <reuseForks>false</reuseForks>
+                            <reuseForks>true</reuseForks>
                             <includes>
                                 <include>**/*IT.class</include>
                             </includes>
