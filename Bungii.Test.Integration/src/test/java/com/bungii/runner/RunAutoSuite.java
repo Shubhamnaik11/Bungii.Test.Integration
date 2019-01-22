@@ -35,17 +35,19 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
 
         System.setProperty("LogFilePath", "Results");
 
-        String ClassName = this.getClass().getSimpleName();
-        String[] deviceList = device.split(",");
-        //if mutiple devices are pass from maven then get class number and use that device for running that class
-        if (deviceList.length > 1) {
-            int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
+    String ClassName = this.getClass().getSimpleName();
+        if (Platform !="web") {
+    String[] deviceList = device.split(",");
+    //if mutiple devices are pass from maven then get class number and use that device for running that class
+    if (deviceList.length > 1) {
+        int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
 
-            System.setProperty("DEVICE", deviceList[threadNumber - 1]);
-        } else {
-            System.setProperty("DEVICE", device);
+        System.setProperty("DEVICE", deviceList[threadNumber - 1]);
+    } else {
+        System.setProperty("DEVICE", device);
 
-        }
+    }
+}
         Properties props = new Properties();
 
         String propsFileName = "./src/main/resources/UserProperties/config.properties";
