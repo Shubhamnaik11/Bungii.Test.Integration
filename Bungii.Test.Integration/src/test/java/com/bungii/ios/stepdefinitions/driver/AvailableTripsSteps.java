@@ -31,6 +31,7 @@ public class AvailableTripsSteps extends DriverBase {
 
 			String customerName=(String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String numberOfDriver=(String)cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
+		//	customerName="Vishal B";numberOfDriver="DUO";
 			selectBungiiFromList(numberOfDriver,customerName.substring(0, customerName.indexOf(" ")+2));
 
 		//	selectBungiiFromList("DUO","Vishal B");

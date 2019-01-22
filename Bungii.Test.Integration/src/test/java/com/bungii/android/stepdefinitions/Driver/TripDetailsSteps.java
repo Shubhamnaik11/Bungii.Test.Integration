@@ -1,7 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungiiDriver.TripDetailsPage;
+import com.bungii.android.pages.driver.TripDetailsPage;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;

@@ -2,19 +2,12 @@ package com.bungii.android.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungii.CustomerHomePage;
-import com.bungii.android.pages.bungii.EstimatePage;
-import com.bungii.android.pages.bungiiCustomer.LoginPage;
-import com.bungii.android.pages.bungiiCustomer.SignupPage;
-import com.bungii.android.pages.bungiiCustomer.TermsPage;
-import com.bungii.android.pages.bungiiDriver.HomePage;
-import com.bungii.android.pages.menus.AccountPage;
-import com.bungii.android.pages.menus.MenuPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -30,19 +23,26 @@ import java.net.MalformedURLException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.bungii.common.manager.ResultManager.warning;
+
 public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
     ActionManager action = new ActionManager();
     LoginPage Page_Login = new LoginPage();
     SignupPage Page_Signup = new SignupPage();
     TermsPage Page_CustTerms = new TermsPage();
-    CustomerHomePage Page_CustHome = new CustomerHomePage();
+    HomePage homePage = new HomePage();
     MenuPage Page_Menu = new MenuPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
-    HomePage driverHomePage = new HomePage();
-    AccountPage cutomerAccountPage= new AccountPage();
-    com.bungii.android.pages.bungiiDriver.LoginPage driverLoginPage = new com.bungii.android.pages.bungiiDriver.LoginPage();
+    com.bungii.android.pages.driver.HomePage driverHomePage = new com.bungii.android.pages.driver.HomePage();
+    AccountPage cutomerAccountPage = new AccountPage();
+    PaymentPage paymentPage = new PaymentPage();
+    FAQPage faqPage = new FAQPage();
+    SupportPage supportPage = new SupportPage();
+    PromosPage promosPage = new PromosPage();
+    com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
+    ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
 
     public void launchDriverApplication() throws MalformedURLException, InterruptedException {
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
@@ -74,6 +74,76 @@ public class GeneralUtility extends DriverBase {
 
     }
 
+    public boolean isCustomerApplicationOpen() throws InterruptedException {
+        if (action.isElementPresent(homePage.Generic_Element(true)))
+            return true;
+        else {
+            Thread.sleep(5000);
+            return action.isElementPresent(homePage.Generic_Element(true));
+        }
+    }
+
+    public boolean isDriverApplicationOpen() throws InterruptedException {
+        if(action.isElementPresent(driverHomePage.Generic_Element(true)))
+            return true;
+        else{
+            Thread.sleep(5000);
+
+            return action.isElementPresent(driverHomePage.Generic_Element(true));
+        }
+    }
+
+    public boolean isCorrectPage(String p0) {
+        boolean isCorrectPage = false;
+        switch (p0) {
+            case "FAQ":
+                isCorrectPage = action.isElementPresent(faqPage.Header_FAQPage(true));
+                break;
+            case "Account":
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
+                break;
+            case "Payment":
+                isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
+                break;
+            case "Support":
+                isCorrectPage = action.isElementPresent(supportPage.Header_SupportPage(true));
+                break;
+            case "Promos":
+                isCorrectPage = action.isElementPresent(promosPage.Header_SavePage(true));
+                break;
+            case "Home":
+                isCorrectPage = action.isElementPresent(homePage.Header_HomePage(true));
+                break;
+            case "Estimate":
+                isCorrectPage = action.isElementPresent(estimatePage.Header_Estimate(true));
+                break;
+            case "Login":
+            case "Logout":
+                isCorrectPage = action.isElementPresent(Page_Login.Header_LoginPage(true));
+                break;
+            case "Signup":
+                isCorrectPage = action.isElementPresent(Page_Signup.Header_SignUp(true));
+                break;
+            default:
+                break;
+        }
+        return isCorrectPage;
+    }
+
+    public void verifyIsPageIsCorrectlyDisplayed(String expectedPage) {
+        testStepAssert.isTrue(isCorrectPage(expectedPage), expectedPage + " page should be displaed ", expectedPage + " Page is successfully displayed", expectedPage + " Page is not displayed");
+    }
+
+    public String getSnackBarMessage() {
+        WebElement snackBar = forgotPasswordPage.Snackbar_ForgotPassword(true);
+        String actualMessage = "";
+        if (snackBar == null) {
+            warning("Snackbar message for success should be displayed", "Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text");
+        } else {
+            actualMessage = snackBar.getText();
+        }
+        return actualMessage;
+    }
 
     public void isPhoneNumbersEqual(WebElement element, String value) {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
@@ -95,11 +165,11 @@ public class GeneralUtility extends DriverBase {
 
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
-        double PromoCode = Double.parseDouble(Promo.replace("-$",""));
+        double PromoCode = Double.parseDouble(Promo.replace("-$", ""));
 
         double tripTime = Double.parseDouble(estTime);
 
-        double estimate = distance + loadUnloadTime + tripTime-PromoCode;
+        double estimate = distance + loadUnloadTime + tripTime - PromoCode;
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
 
         return estimate;
@@ -108,52 +178,106 @@ public class GeneralUtility extends DriverBase {
     private void inputOnNumberKeyBoard(String strNum) throws InterruptedException {
         for (char c : strNum.toCharArray()) {
             ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.valueOf("DIGIT_" + c)));
-            System.out.println("   ENTER VALUE :"+c);
+            System.out.println("   ENTER VALUE :" + c);
             Thread.sleep(200);
         }
         ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
     }
 
-    public void clickCustomerMenuItem(String menuItem){
-        switch(menuItem.toUpperCase()){
+    public void clickCustomerMenuItem(String menuItem) {
+        action.click(homePage.Button_NavigationBar());
+        switch (menuItem.toUpperCase()) {
             case "HOME":
-                action.click(Page_CustHome.Button_NavHome());
+                action.click(homePage.Button_NavHome());
                 break;
             case "FAQ":
-                action.click(Page_CustHome.Button_NavHome());
+                action.click(homePage.Button_NavFAQ());
                 break;
             case "ACCOUNT":
-                action.click(Page_CustHome.Button_NavAccount());
+                action.click(homePage.Button_NavAccount());
                 break;
             case "PAYMENT":
-                action.click(Page_CustHome.Button_NavPayment());
+                action.click(homePage.Button_NavPayment());
                 break;
             case "SUPPORT":
-                action.click(Page_CustHome.Button_NavSupport());
+                action.click(homePage.Button_NavSupport());
                 break;
             case "PROMOS":
-                action.click(Page_CustHome.Button_NavPromos());
+                action.click(homePage.Button_NavPromos());
                 break;
             case "LOGOUT":
-                action.click(Page_CustHome.Button_Navlogout());
+                action.click(homePage.Button_Navlogout());
                 break;
         }
     }
+
     public String getEstimateTime() {
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
 
+    public void goToSignupPage() {
+        clickCustomerMenuItem("LOGOUT");
+        action.click(Page_Login.Link_Signup());
+        // action.click(Page_Login.Link_Signup());
+
+    }
+
+    public void goToLoginPage() {
+
+        if (action.isElementPresent(Page_Signup.Link_Login(true)))
+            action.click(Page_Signup.Link_Login());
+        else if (action.isElementPresent(Page_Login.Header_LoginPage(true))) {
+            //do nothing
+        } else
+            clickCustomerMenuItem("LOGOUT");
+
+    }
+
+    public String trimString(String stringtext) {
+        stringtext = stringtext.trim().replace("\t", "").replace("\n", "").replace("\r", "");
+        return stringtext;
+    }
+
+    /**
+     * Check if promo code is present in list of available promocode in promocode page
+     *
+     * @param promoCode promocode that is to be checked
+     * @return
+     */
+    public boolean isPromoCodePresent(String promoCode) {
+        List<WebElement> listOfPromoCode = promosPage.List_PromoCode();
+        boolean isPromoCodePresent = false;
+        for (WebElement lstPromo : listOfPromoCode) {
+            if (action.getText(lstPromo).contains(promoCode)) {
+                isPromoCodePresent = true;
+                break;
+            }
+        }
+        return isPromoCodePresent;
+    }
+
+    public String generateMobileNumber() {
+
+        String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
+        while (!DbUtility.isPhoneNumberUnique(phoneNumber)) {
+            phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
+
+        }
+        return phoneNumber;
+    }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         if (action.isElementPresent(Page_Signup.Link_Login(true))) {
             action.click(Page_Signup.Link_Login());
-            //
-
+        }
+        //
+        if (isCorrectPage("Login")) {
             WebElement element = Page_Login.TextField_PhoneNumber();
             if (StringUtils.isNumeric(phone)) {
-                element.sendKeys();
+                //element.sendKeys();
+                element.click();
                 inputOnNumberKeyBoard(phone);
             } else {
                 action.clearSendKeys(Page_Login.TextField_PhoneNumber(), phone);
@@ -175,20 +299,20 @@ public class GeneralUtility extends DriverBase {
         } else {
             //I am not on Login screen
         }
-        //AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
-        //AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+        //AssertionManager.ElementDisplayed(homePage.Title_HomePage);
+        //AssertionManager.ElementDisplayed(homePage.Link_Invite);
     }
 
     public void LogoutCustomerApp() {
-        if (action.isElementPresent(Page_CustHome.Link_Menu())) {
-            action.click(Page_CustHome.Link_Menu());
+        if (action.isElementPresent(homePage.Link_Menu())) {
+            action.click(homePage.Link_Menu());
             action.click(Page_Menu.Menu_Logout());
         }
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
         if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
-            WebElement element=driverLoginPage.TextField_PhoneNumber();
+            WebElement element = driverLoginPage.TextField_PhoneNumber();
 
             if (StringUtils.isNumeric(phone)) {
                 element.sendKeys();
@@ -201,6 +325,11 @@ public class GeneralUtility extends DriverBase {
         } else {
             //Not on Login page
         }
+    }
+
+    public boolean isAlphaNumeric(String s) {
+        String pattern = "^[a-zA-Z0-9]*$";
+        return s.matches(pattern);
     }
 
     public void isDriverLoginSucessful() {

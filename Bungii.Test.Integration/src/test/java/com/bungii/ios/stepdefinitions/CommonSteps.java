@@ -640,7 +640,7 @@ public class CommonSteps extends DriverBase {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
-          //  tripNoOfDriver="DUO";tripTime="Jan 08, 03:00 PM IST";currentApplication="DRIVER";
+         //   tripNoOfDriver="DUO";tripTime="Jan 10, 07:15 PM GMT+5:30";currentApplication="DRIVER";
 
             if(tripTime.contains(PropertyUtility.getDataProperties("time.label")))
                 tripTime=tripTime.replace(PropertyUtility.getDataProperties("time.label"),"").trim();
@@ -670,9 +670,15 @@ public class CommonSteps extends DriverBase {
                 }
 
                 action.swipeDown();
+                Thread.sleep(2000);
                 //vishal[0801]:Commented due to new build
                 //WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name=“" + tripTime + "”]/following-sibling::XCUIElementTypeImage[@name=“" + imageTag + "”]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
                     WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true);
+                    if(Image_SelectBungii==null){
+                        Thread.sleep(30000);
+                        action.swipeDown();
+                        Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true);
+                    }
                 action.click(Image_SelectBungii);
                 }else{
                     //If alert is present accept it , it will automatically select Bungii
@@ -813,12 +819,14 @@ public class CommonSteps extends DriverBase {
                 case "REFERRAL CODE":
                     List<String> inputValueList = getRefferalCode(inputValue);
                     action.clearEnterText(signupPage.Textfield_PromoCode(), inputValueList.get(0));
-                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                   // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValueList.get(0));
                     break;
                 case "PROMO CODE":
                     List<String> ValueList = getRefferalCode(inputValue);
                     action.clearEnterText(promosPage.TextBox_EnterCode(), ValueList.get(0));
-                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                  //  cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));
                     break;
                 case "SMS CODE":
                     inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")

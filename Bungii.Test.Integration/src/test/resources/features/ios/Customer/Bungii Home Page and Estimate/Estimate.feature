@@ -31,7 +31,7 @@ Feature: Customer	Referal Invite page
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | Now  | Default     |
+      | 15       |           |              | Now  | Default     |
     Then I should be navigated to "SEARCHING" screen
     And I wait for SEARCHING screen to disappear
     Then I should be navigated to "DRIVER NOT AVAILABLE" screen
@@ -52,7 +52,7 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | Now  | Default     |
+      | 15       |           |              | Now  | Default     |
     And I click "REQUEST BUNGII" button on "Estimate" screen
     And I reject Alert message
     Then I should be navigated to "ESTIMATE" screen

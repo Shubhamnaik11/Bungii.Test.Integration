@@ -6,6 +6,7 @@ import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.pages.admin.LogInPage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -17,6 +18,7 @@ import static com.bungii.common.manager.ResultManager.pass;
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(LogInSteps.class);
     LogInPage logInPage;
+    GeneralUtility utility = new GeneralUtility();
 
     public LogInSteps(LogInPage logInPage) {
         this.logInPage = logInPage;
@@ -25,7 +27,7 @@ public class LogInSteps extends DriverBase {
     @When("^I navigate to admin portal$")
     public void i_navigate_to_admin_portal() {
         try {
-            SetupManager.getDriver().get(PropertyUtility.getProp("admin.url"));
+            SetupManager.getDriver().get(utility.GetAdminUrl());
             pass("I should be navigate to admin portal",
                     "I navigate to admin portal", true);
 

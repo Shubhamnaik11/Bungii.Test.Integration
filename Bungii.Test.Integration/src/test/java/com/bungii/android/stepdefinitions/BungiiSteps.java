@@ -3,10 +3,10 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.enums.Status;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungii.BungiiAcceptedPage;
-import com.bungii.android.pages.bungii.BungiiProgressPage;
-import com.bungii.android.pages.bungii.SearchingPage;
-import com.bungii.android.pages.bungiiDriver.*;
+import com.bungii.android.pages.customer.BungiiAcceptedPage;
+import com.bungii.android.pages.customer.BungiiProgressPage;
+import com.bungii.android.pages.customer.SearchingPage;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -34,6 +34,7 @@ public class BungiiSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
     HomePage Page_DriverHome = new HomePage();
+    com.bungii.android.pages.customer.HomePage customerHomePage = new com.bungii.android.pages.customer.HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
@@ -50,6 +51,11 @@ public class BungiiSteps extends DriverBase {
                     break;
 
                 case "Bungii Home page with locations":
+                    testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
+                    String pickUpLocation = action.getText(customerHomePage.Textfield_PickupLocation()), dropUpLocation = action.getText(customerHomePage.Textfield_DropoffLocation());
+                    testStepVerify.isEquals(pickUpLocation, (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    testStepVerify.isEquals(dropUpLocation, (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+
                     break;
 
                 case "Bungii search screen":
@@ -194,7 +200,7 @@ public class BungiiSteps extends DriverBase {
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
         try {
-            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")) {
+            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(60L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
@@ -207,7 +213,7 @@ public class BungiiSteps extends DriverBase {
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
 
-                        case "rejects Bungii":
+                        case "rejects On Demand Bungii":
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
                     }
@@ -228,7 +234,7 @@ public class BungiiSteps extends DriverBase {
                 action.scrollToBottom();
                 action.click(scheduledBungiiPage.Button_Start());
             }
-            log("Bungii driver should able to" + arg0 + " request", "Bungii driver  " + arg0);
+            log("Bungii driver should able to" + arg0 + " request", "Bungii driver  " + arg0,true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -280,7 +286,7 @@ public class BungiiSteps extends DriverBase {
                 default:
                     break;
             }
-            log("I should able to click on" + arg0, "I clicked on " + arg0);
+            log("I should able to click on" + arg0, "I clicked on " + arg0, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -291,6 +297,10 @@ public class BungiiSteps extends DriverBase {
     public void bungiiDriverShouldSee(String arg0) throws Throwable {
         try {
             switch (arg0) {
+                case "Home screen":
+                    testStepVerify.isElementTextEquals(Page_DriverHome.Title_Status(), PropertyUtility.getMessage("driver.home.title.online"), "Driver status should be Online", "Driver status is Online", "Driver status is offline");
+                    testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
+                    break;
                 case "Enroute screen":
                     testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should be high lighted ", "En route icon is high lighted", "En route icon is not high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be high lighted ", "Arrived icon is not high lighted", "Arrived icon is  high lighted");
@@ -393,10 +403,12 @@ public class BungiiSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "SMS for a customer":
+                    action.click(Page_DriverBungiiProgress.Button_More());
                     action.click(Page_DriverBungiiProgress.Button_Customer_SMS());
                     break;
 
-                case "Call for a solo driver":
+                case "Call for a customer":
+                    action.click(Page_DriverBungiiProgress.Button_More());
                     action.click(Page_DriverBungiiProgress.Button_Customer_Call());
                     break;
 

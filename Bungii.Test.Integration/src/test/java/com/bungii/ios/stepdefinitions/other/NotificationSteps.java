@@ -6,12 +6,29 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +43,7 @@ public class NotificationSteps extends DriverBase {
 	public NotificationSteps(NotificationPage notificationPage){
 		this.notificationPage=notificationPage;
 	}
+	GeneralUtility utility = new GeneralUtility();
 	@Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
 	public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
@@ -36,9 +54,12 @@ public class NotificationSteps extends DriverBase {
 
 		String bunddleId=getBundleId(currentApplication);
 
+
+
 			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-		((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
+			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
+			logger.detail(SetupManager.getDriver().getPageSource());
 		boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 		if(!notificationClick){
 			Thread.sleep(60000);
@@ -166,9 +187,28 @@ public class NotificationSteps extends DriverBase {
 	 * @param Message Notification text
 	 * @return Did we click notification text or not
 	 */
-	public boolean clickNotification(String application, String Message) {
+	public boolean clickNotification(String application, String Message) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, InterruptedException {
 		boolean clicked = false;
-		List<WebElement> elements = notificationPage.Cell_Notification();
+		IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+
+		String iosVersion = driver.getCapabilities().getCapability("platformVersion").toString();
+		List<WebElement> elements = new ArrayList<WebElement>();
+		if(iosVersion.contains("10")) {
+			for (int i=0;i<=3;i++) {
+				String xml=driver.getPageSource();
+				Point p= utility.getCordinatesForNotification(xml,Message);
+				if(p!=null) {
+					action.click(p);
+					clicked = true;
+					break;
+				}
+				Thread.sleep(10000);
+
+			}
+		}
+		else
+		 elements = notificationPage.Cell_Notification();
+
 		for (WebElement notifcation : elements) {
 			String[] info = notifcation.getAttribute("label").split(",", 3);
 			System.err.println(info[0] + " C" + info[2]);

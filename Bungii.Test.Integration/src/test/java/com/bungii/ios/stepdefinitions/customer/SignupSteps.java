@@ -33,6 +33,7 @@ public class SignupSteps extends DriverBase {
 					" I left  referral source as empty", true);
 		} else {
 			try {
+				action.hideKeyboard();
 				action.swipeUP();
 				action.click(signupPage.Button_Chevron());
 						String key = source.toUpperCase().replaceAll(" ", "_");

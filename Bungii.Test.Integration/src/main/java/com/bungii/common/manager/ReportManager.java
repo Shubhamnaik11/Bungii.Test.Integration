@@ -76,7 +76,7 @@ public class ReportManager {
 		return this.detailsFolderPath;
 	}
 
-	
+
 	/**
 	 * @return return folder name of Result folder
 	 */

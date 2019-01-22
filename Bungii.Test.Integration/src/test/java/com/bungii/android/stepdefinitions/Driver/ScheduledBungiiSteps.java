@@ -1,9 +1,8 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.bungiiDriver.BungiiRequest;
-import com.bungii.android.pages.bungiiDriver.ScheduledBungiiPage;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;

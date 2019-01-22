@@ -149,10 +149,10 @@ public class PageBase {
                     //ignore exception
                     //or to do action
                 } else {
-                    throw new java.util.NoSuchElementException();
+                    throw new NoSuchElementException(identifier);
                 }
             } else {
-                throw new java.util.NoSuchElementException();
+                throw new NoSuchElementException(identifier);
             }
         } finally {
             updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));

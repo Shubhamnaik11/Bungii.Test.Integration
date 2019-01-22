@@ -521,6 +521,7 @@ public class HomeSteps extends DriverBase {
 
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
+        action.click(homePage.Button_ClearPickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
       //  action.hideKeyboard();

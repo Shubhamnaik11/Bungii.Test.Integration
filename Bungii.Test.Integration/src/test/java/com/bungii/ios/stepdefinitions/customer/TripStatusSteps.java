@@ -7,6 +7,7 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
@@ -22,6 +23,7 @@ public class TripStatusSteps extends DriverBase {
     MessagesPage messagesPage;
     ActionManager action = new ActionManager();
     private UpdateStatusPage updateStatusPage;
+    GeneralUtility utility = new GeneralUtility();
 
     public TripStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage) {
         this.updateStatusPage = updateStatusPage;
@@ -32,35 +34,32 @@ public class TripStatusSteps extends DriverBase {
     @Then("^Customer should be navigated to \"([^\"]*)\" trip status screen$")
     public void customerShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
+            int activeStatus=0;
+
             boolean pageFlag = false;
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString()))
-                pageFlag = isUpdatePage(Status.ARRIVED.toString());
-            else if (screen.equals(Status.EN_ROUTE.toString()))
-                pageFlag = isUpdatePage(Status.EN_ROUTE.toString());
-            else if (screen.equals(Status.LOADING_ITEM.toString()))
-                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());
+            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())){
+                pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
+            else if (screen.equals(Status.EN_ROUTE.toString())){
+                pageFlag = isUpdatePage(Status.EN_ROUTE.toString());activeStatus=0;}
+            else if (screen.equals(Status.LOADING_ITEM.toString())){
+                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());activeStatus=2;}
 
-            else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString()))
-                pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());
-            else if (screen.equals(Status.UNLOADING_ITEM.toString()))
-                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());
+            else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())){
+                pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());activeStatus=3;}
+            else if (screen.equals(Status.UNLOADING_ITEM.toString())){
+                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());activeStatus=4;}
 
-            boolean activeStatusFlag = verifyStatus(screen.replace(" ", "_"));
+            boolean[] statusCheck=utility.checkStatusOnCustomer();
+            for(int i=0;i<statusCheck.length;i++){
+                if(activeStatus==i){
+                    testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
+                }else {
+                    testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + "screen","Pickup status "+i+1+" screen should not be highlighted",i+1+" status should is highlighted");
 
-            // verify other screen icon are not highlighted
-
-            for (Status scr : Status.values()) {
-
-                if (screen.equalsIgnoreCase(scr.toString()))
-                    continue;
-
-                String scrValue = scr.toString().replace(" ", "_");
-                boolean isOtherScreenHighlighted = verifyStatus(scrValue);
-                if (isOtherScreenHighlighted == true) {
-                    fail(scr + " screen icon should not be highlighted", scr + " screen icon is highlighted", true);
                 }
+
             }
-            testStepVerify.isTrue(pageFlag && activeStatusFlag,"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
+            testStepVerify.isTrue(pageFlag ,"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -28,6 +28,7 @@ public class HomePageSteps extends DriverBase {
             if (action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
 
             goToAppMenu();
+            Thread.sleep(1000);
             boolean flag = clickAppMenu(menuItem);
             testStepAssert.isTrue(flag, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
         } catch (Exception e) {

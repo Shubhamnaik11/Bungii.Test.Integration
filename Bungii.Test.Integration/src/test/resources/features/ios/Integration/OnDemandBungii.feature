@@ -109,10 +109,10 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
+  @sanity
   @regression
   @ON_DEMAND_COMPELTE_SANITY
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
-    Then I click on notification for "Driver" for "on demand trip"
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
