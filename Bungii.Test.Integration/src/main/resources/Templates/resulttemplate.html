@@ -2,11 +2,119 @@
 <head>
     <style>
         body {background-color: #FFFFCC;}table {background-color: #DCDCDC; text-align: center;}th { background-color: #003399;text-align: center;  color: #FFFFFF; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 15px;}tr { background-color: #E6E6E6; color: #1F1F7A;  font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px;}tr.d0 td { background-color: #01A9DB; }h1 { align=center; text-align: center; color: #003399; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 25px; }h4 {text-align=right;font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px; }<title>TEST SUMMARY REPORT</title>
+
+   body {
+  color: #6a6c6f;
+  background-color: #f1f3f6;
+  margin-top: 30px;
+}
+
+.container {
+  max-width: 960px;
+}
+
+.table>tbody>tr.active>td,
+.table>tbody>tr.active>th,
+.table>tbody>tr>td.active,
+.table>tbody>tr>th.active,
+.table>tfoot>tr.active>td,
+.table>tfoot>tr.active>th,
+.table>tfoot>tr>td.active,
+.table>tfoot>tr>th.active,
+.table>thead>tr.active>td,
+.table>thead>tr.active>th,
+.table>thead>tr>td.active,
+.table>thead>tr>th.active {
+  background-color: #fff;
+}
+
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th {
+  border-color: #e4e5e7;
+}
+
+.table tr.header {
+  font-weight: bold;
+  background-color: #fff;
+  cursor: pointer;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  /* Likely future */
+}
+
+.table tr:not(.header) {
+  display: none;
+}
+
+.table .header td:after {
+  content: "\002b";
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: right;
+  color: #999;
+  text-align: center;
+  padding: 3px;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+.table .header1 {
+  content: "\002b";
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: right;
+  color: #999;
+  text-align: center;
+  padding: 3px;
+  transition: transform .25s linear;
+  -webkit-transition: -webkit-transform .25s linear;
+}
+.table .header.active td:after {
+  content: "\2212";
+}
+
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script>
          google.charts.load('current', {packages: ['corechart']}); google.charts.setOnLoadCallback(drawChart);      function drawChart() {        var data = new google.visualization.DataTable(); var passValue=document.getElementById('pass').value;var intPassValue = parseInt(passValue, 10); var failValue=document.getElementById('fail').value;var intFailValue = parseInt(failValue, 10); var inconclusiveValue=document.getElementById('inconclusive').value;var intInconclusiveValue = parseInt(inconclusiveValue, 10);       data.addColumn('string', 'Group');        data.addColumn('number', 'Gender');        data.addRows([         ['Pass', intPassValue],		    ['Fail', intFailValue],			['Inconclusive', intInconclusiveValue]		        ]);		        var options = {		            'title':'Test Summary',		            'width':400,		            'backgroundColor':'transparent',		            'is3D':true,		            'height':300};		        var chart = new google.visualization.PieChart(		            document.getElementById('status_chart'));		        chart.draw(data, options);		      }
     </script>
+
+    <script>
+$(document).ready(function() {
+  var ua = navigator.userAgent,
+    event = (ua.match(/iPad/i)) ? "touchstart" : "click";
+  if ($('.table').length > 0) {
+    $('.table .header').on(event, function() {
+      $(this).toggleClass("active", "").nextUntil('.header').css('display', function(i, v) {
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+      });
+    });
+  }
+});
+</script>
 </head>
 <body><img src=<!--LOGO.PATH--> align=right><h1>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>TEST CASE REPORT</u></h1>
@@ -25,9 +133,9 @@
                                                                                  value=<!--FAILED.COUNT--> /><input
         name=0 type="hidden" id="inconclusive" value=<!--INCONCLUSIVE.COUNT--> />
 <div align=right width=30% id='status_chart'></div>
-<table align=center border=3 width=100%><br><br><br>
-    <th colspan=10>TEST CASE DETAILS</th>
-    <tr class=d0>
+<div class="">TEST CASE DETAILS
+    <table class="table" style="width: 100%; " colspan=10><br><br><br>
+    <tr class="header1">
         <td><b>Step</b></td>
         <td><b>Result</b></td>
         <td><b>Expected Result</b></td>

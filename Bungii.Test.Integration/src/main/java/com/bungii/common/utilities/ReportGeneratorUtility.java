@@ -107,7 +107,7 @@ public class ReportGeneratorUtility {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name) {
-		String str = "<td colspan='7'>" +"Test case:   "+ name + "</td>";
+		String str = "<tr class='header'><td colspan='7'  >" +"Test case:   "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 
@@ -120,13 +120,14 @@ public class ReportGeneratorUtility {
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
 
-		String str = "<td + rightSpan + >" + eventData.get("name").toString() + "</td>";
+		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
 		str = str + "<td>" + eventData.get("type").toString() + "</td>";
 		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
 		str = str + "<td>" + testStepStart + "</td>";
 		str = str + "<td>" + testStepEnd + "</td>";
-		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>";
+		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
+
 		detailsArray.add(str);
 		//increase step count ;
 		testStepCount++;

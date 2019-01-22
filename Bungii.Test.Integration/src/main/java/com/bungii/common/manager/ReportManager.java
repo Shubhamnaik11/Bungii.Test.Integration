@@ -63,7 +63,7 @@ public class ReportManager {
 		Date now = new Date();
 		String parentFolder = resultFolderName.equals("")?"":resultFolderName+"/";
 		System.out.println("parentFolder"+parentFolder);
-		String strDate = parentFolder+PropertyUtility.getResultConfigProperties("RESULT_FOLDER_INITIAL").trim() + sdfDate.format(now)+"_"+System.getProperty("runner.class")+"/";
+		String strDate = parentFolder+PropertyUtility.getResultConfigProperties("RESULT_FOLDER_INITIAL").trim()+"_"+System.getProperty("runner.class")+"/";
 
 		return strDate;
 	}
