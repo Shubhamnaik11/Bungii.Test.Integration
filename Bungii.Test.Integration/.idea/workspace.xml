@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71947592-3ab5-44a3-a5de-1aaf4dcac414" name="Default Changelist" comment="Web Optimization">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_9_2.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiCustomer/CustomerLoginPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiCustomer/CustomerSignupPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverBungiiRequestPage.java" afterDir="false" />
@@ -16,7 +15,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" afterDir="false" />
@@ -172,7 +170,7 @@
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="319">
-              <caret line="163" column="44" selection-start-line="163" selection-start-column="44" selection-end-line="163" selection-end-column="44" />
+              <caret line="163" column="55" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -1801,7 +1799,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548232061356</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Web Optimization - Checkin">
+      <created>1548237861299</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1548237861299</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1978,7 +1983,8 @@
     <MESSAGE value="Optimization - Unique runners" />
     <MESSAGE value="Web Optimization - Pom" />
     <MESSAGE value="Web Optimization - pom" />
-    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization - pom" />
+    <MESSAGE value="Web Optimization - Checkin" />
+    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization - Checkin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2398,7 +2404,7 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
-          <caret line="163" column="44" selection-start-line="163" selection-start-column="44" selection-end-line="163" selection-end-column="44" />
+          <caret line="163" column="55" selection-start-line="163" selection-start-column="55" selection-end-line="163" selection-end-column="55" />
         </state>
       </provider>
     </entry>

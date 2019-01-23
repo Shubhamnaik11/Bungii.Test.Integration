@@ -158,11 +158,14 @@
                             <goal>generateRunners</goal>
                         </goals>
                         <configuration>
-                            <!--  <glue>
+                            <glue>
                                 <package>com.bungii.web.stepdefinitions</package>
+                                <package>com.bungii.android.stepdefinitions</package>
+                                <package>com.bungii.ios.stepdefinitions</package>
+
                             </glue>
-                           							These are the default values
-                                                        Where to output the generated Junit tests -->
+                            <!-- 				These are the default values
+                                            Where to output the generated Junit tests -->
                             <outputDirectory>${project.build.directory}\generated-test-sources\cucumber
                             </outputDirectory>
                             <!-- 							The diectory containing your feature files.
