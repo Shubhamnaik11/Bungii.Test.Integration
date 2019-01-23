@@ -344,7 +344,7 @@
                             <forkCount>${acceptance.test.parallel.count}</forkCount>
                             <reuseForks>false</reuseForks>
                             <includes>
-                                <include>**/*IT.class</include>
+                                <include>**/${test.Platform}*IT.class</include>
                             </includes>
                         </configuration>
                     </execution>

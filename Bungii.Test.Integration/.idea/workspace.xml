@@ -35,7 +35,7 @@
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/rerun.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
@@ -131,8 +131,8 @@
       <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1">
-              <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
+            <state relative-caret-position="386">
+              <caret line="76" column="59" selection-start-line="76" selection-start-column="50" selection-end-line="76" selection-end-column="59" />
             </state>
           </provider>
         </entry>
@@ -194,8 +194,8 @@
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="198" column="44" selection-start-line="198" selection-start-column="44" selection-end-line="198" selection-end-column="44" />
+            <state relative-caret-position="504">
+              <caret line="346" column="60" selection-start-line="346" selection-start-column="60" selection-end-line="346" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -1752,7 +1752,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548231095866</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Web Optimization - Pom">
+      <created>1548231214010</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1548231214010</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1802,7 +1809,7 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" visible="true" weight="0.3318535" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" visible="true" weight="0.12874584" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
@@ -1927,7 +1934,8 @@
     <MESSAGE value="Retry Web Click" />
     <MESSAGE value="Pom changes" />
     <MESSAGE value="Optimization - Unique runners" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimization - Unique runners" />
+    <MESSAGE value="Web Optimization - Pom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization - Pom" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2339,15 +2347,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1">
-          <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
+        <state relative-caret-position="386">
+          <caret line="76" column="59" selection-start-line="76" selection-start-column="50" selection-end-line="76" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="198" column="44" selection-start-line="198" selection-start-column="44" selection-end-line="198" selection-end-column="44" />
+        <state relative-caret-position="504">
+          <caret line="346" column="60" selection-start-line="346" selection-start-column="60" selection-end-line="346" selection-end-column="60" />
         </state>
       </provider>
     </entry>
