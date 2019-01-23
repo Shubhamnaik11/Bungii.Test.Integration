@@ -15,6 +15,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" afterDir="false" />
@@ -102,11 +103,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+            <state relative-caret-position="148">
+              <caret line="61" column="125" selection-start-line="60" selection-start-column="4" selection-end-line="61" selection-end-column="125" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -114,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="76" column="59" selection-start-line="76" selection-start-column="50" selection-end-line="76" selection-end-column="59" />
+            <state relative-caret-position="117">
+              <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -318,13 +319,13 @@
         <option value="$PROJECT_DIR$/src/main/resources/SystemProperties/log4j.properties" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" />
         <option value="$PROJECT_DIR$/src/main/resources/Templates/resulttemplate.html" />
-        <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
+        <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
       </list>
     </option>
   </component>
@@ -1822,7 +1823,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548238550725</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Optimization - Moving Properties write">
+      <created>1548240669904</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1548240669904</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2000,7 +2008,8 @@
     <MESSAGE value="Web Optimization - pom" />
     <MESSAGE value="Web Optimization - Checkin" />
     <MESSAGE value="Web Optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization" />
+    <MESSAGE value="Optimization - Moving Properties write" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimization - Moving Properties write" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2354,13 +2363,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="76" column="59" selection-start-line="76" selection-start-column="50" selection-end-line="76" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -2398,11 +2400,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="62" column="8" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="8" />
+        <state relative-caret-position="148">
+          <caret line="61" column="125" selection-start-line="60" selection-start-column="4" selection-end-line="61" selection-end-column="125" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
         </state>
       </provider>
     </entry>

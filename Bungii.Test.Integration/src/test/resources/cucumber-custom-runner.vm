@@ -52,7 +52,18 @@ public class $className extends AbstractTestNGCucumberTests {
 
 		}
 		}
-		 Properties props = new Properties();
+		 
+
+				System.setProperty("runner.class",ClassName);
+		
+		this.hooks= new CucumberHooks();
+	}
+	
+
+ 	@Parameters({"NameWithtimestamp","test.Platform","test.Environment"})
+ 		@BeforeSuite
+        public void start(@Optional("") String resultFolder,@Optional("web") String Platform, @Optional("QA") String environment)
+ 		Properties props = new Properties();
 
                 String propsFileName = "./src/main/resources/UserProperties/config.properties";
                 try {
@@ -73,17 +84,8 @@ public class $className extends AbstractTestNGCucumberTests {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-
-				System.setProperty("runner.class",ClassName);
-		
-		this.hooks= new CucumberHooks();
-	}
-	
-    @Parameters("NameWithtimestamp")
- 	@BeforeSuite
- 	public void start(@Optional("") String resultFolder){
- 		
  		this.hooks.start(resultFolder);
+
  	}
     @AfterSuite
     public  void afterSuite() throws IOException {

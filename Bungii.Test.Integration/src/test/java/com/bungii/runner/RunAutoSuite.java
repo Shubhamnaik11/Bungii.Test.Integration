@@ -48,6 +48,19 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
 
     }
 }
+        System.setProperty("runner.class", ClassName);
+
+        this.hooks = new CucumberHooks();
+
+    }
+
+    /**
+     * @param resultFolder Result Folder variable from maven
+     */
+    @BeforeSuite
+    @Parameters({"NameWithtimestamp","test.Platform","test.Environment"})
+    public void start(@Optional("") String resultFolder,@Optional("web") String Platform, @Optional("QA") String environment) {
+
         Properties props = new Properties();
 
         String propsFileName = "./src/main/resources/UserProperties/config.properties";
@@ -69,19 +82,6 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        System.setProperty("runner.class", ClassName);
-
-        this.hooks = new CucumberHooks();
-
-    }
-
-    /**
-     * @param resultFolder Result Folder variable from maven
-     */
-    @BeforeSuite
-    @Parameters("NameWithtimestamp")
-    public void start(@Optional("") String resultFolder) {
         this.hooks.start(resultFolder);
     }
 
