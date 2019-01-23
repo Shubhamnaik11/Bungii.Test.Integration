@@ -50,7 +50,7 @@ public class ActionManager {
         try {
             element.click();
         }
-         catch(StaleElementReferenceException | InvalidElementStateException ex) {
+         catch(WebDriverException ex) {
                         //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
                         JavaScriptClick(element);
             }
