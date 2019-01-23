@@ -17,9 +17,11 @@ public class SupportSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" text in Support field$")
     public void i_enter_something_text_in_support_field(String p0) throws Throwable {
         String textValue = "";
+        //action.click(supportPage.TextField());
+        //action.hideKeyboard();
         switch (p0) {
             case "valid":
-                textValue = PropertyUtility.getDataProperties("support.text");
+                textValue = "Test";
                 break;
             case "space":
                 textValue = "          ";
@@ -27,7 +29,10 @@ public class SupportSteps extends DriverBase {
             default:
                 break;
         }
+
         action.sendKeys(supportPage.TextField(), textValue);
+
+        action.hideKeyboard();
         log("I should able to enter " + p0 + " ", "I enter " + textValue + " in support field");
 
     }

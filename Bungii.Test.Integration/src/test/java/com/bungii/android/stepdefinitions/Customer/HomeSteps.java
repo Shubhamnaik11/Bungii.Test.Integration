@@ -10,7 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class HomeSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
@@ -34,6 +34,7 @@ public class HomeSteps extends DriverBase {
         try {
        //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
+            log(" I should able to tap on "+strArg2," I tapped on "+strArg2);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -53,7 +54,7 @@ public class HomeSteps extends DriverBase {
     public void iAmOnCustomerLoggedInHomePage() {
         try {
 
-            String NavigationBarName = action.getText(homePage.Title_HomePage());
+/*            String NavigationBarName = action.getText(homePage.Title_HomePage(true));
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
                     || NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
@@ -66,6 +67,19 @@ public class HomeSteps extends DriverBase {
                // iRejectAlertMessage();
             } else {
                 i_tap_on_something_something_link(NavigationBarName,"HOME");
+            }*/
+
+         //   String NavigationBarName = action.getText(homePage.Title_HomePage(true));
+
+            if (utility.isCorrectPage("Signup")||utility.isCorrectPage("Login")) {
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
+            } else if (utility.isCorrectPage("Home")) {
+                // do nothing
+            } else if (utility.isCorrectPage("Searching")) {
+                //  iClickButtonOnScreen("CANCEL", "SEARCHING");
+                // iRejectAlertMessage();
+            } else {
+                i_tap_on_something_something_link("Menu","HOME");
             }
 
         } catch (Exception e) {

@@ -120,7 +120,6 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
 
-  @sanity1
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.

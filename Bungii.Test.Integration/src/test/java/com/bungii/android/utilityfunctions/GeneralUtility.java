@@ -45,6 +45,7 @@ public class GeneralUtility extends DriverBase {
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
 
     public void launchDriverApplication() throws MalformedURLException, InterruptedException {
+        try{
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
 
         //TODO: REMOVE HARD CODING, read from properties
@@ -57,10 +58,11 @@ public class GeneralUtility extends DriverBase {
         activity.setStopApp(false);
         ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
         driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-        Thread.sleep(3000);
+        Thread.sleep(3000);}catch (Exception e){}
     }
 
     public void launchCustomerApplication() throws MalformedURLException, InterruptedException {
+        try{
         AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
 
         //TODO: REMOVE HARD CODING, read from properties
@@ -70,7 +72,7 @@ public class GeneralUtility extends DriverBase {
         activity.setStopApp(false);
         ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
         driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-        Thread.sleep(3000);
+        Thread.sleep(3000);}catch (Exception e){}
 
     }
 
@@ -315,7 +317,7 @@ public class GeneralUtility extends DriverBase {
             WebElement element = driverLoginPage.TextField_PhoneNumber();
 
             if (StringUtils.isNumeric(phone)) {
-                element.sendKeys();
+                element.click();
                 inputOnNumberKeyBoard(phone);
             } else {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);

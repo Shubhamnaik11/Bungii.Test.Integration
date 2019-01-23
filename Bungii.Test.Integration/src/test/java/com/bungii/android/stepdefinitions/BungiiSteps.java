@@ -160,17 +160,6 @@ public class BungiiSteps extends DriverBase {
                         action.click(Page_BungiiRequest.AlertButton_Cancel(true));
                         Thread.sleep(1000);
                     }
-                    //  System.out.println(SetupManager.getDriver().getPageSource());
-/*                if(!action.isElementPresent(Page_DriverHome.Link_AvailableTrips(true))) {
-                    action.click(Page_DriverHome.Button_NavigationBar());
-                    List<WebElement> elements = Page_DriverHome.Button_NavigationBarText();
-                    for(WebElement element: elements){
-                        if(element.getText().equalsIgnoreCase("HOME")){
-                            action.click(element);
-                            break;
-                        }
-                    }
-                }*/
                     if (!action.isElementPresent(Page_DriverHome.Link_AvailableTrips(true))) {
                         utility.launchDriverApplication();
                         Thread.sleep(3000);

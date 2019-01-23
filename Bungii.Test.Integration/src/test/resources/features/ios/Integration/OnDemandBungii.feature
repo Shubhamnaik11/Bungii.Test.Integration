@@ -111,7 +111,6 @@ Feature: Create on demand bungii
 
   @sanity
   @regression
-  @ON_DEMAND_COMPELTE_SANITY
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
 
     When I Switch to "driver" application on "same" devices

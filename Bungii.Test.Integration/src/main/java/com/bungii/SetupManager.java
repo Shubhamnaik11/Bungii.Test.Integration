@@ -279,6 +279,8 @@ public class SetupManager extends EventFiringWebDriver {
         DriverManager.getObject().useDriverInstance(instanceKey);
     }
 
+    public String  getCurrentInstanceKey(){return DriverManager.getObject().getCurrentKey();}
+
     public AppiumDriver<MobileElement> createAdditionAppiumDriver(String serverPort, DesiredCapabilities capabilities) throws MalformedURLException {
         String appiumServerUrl = getAppiumServerURL(serverPort);
         return new AppiumDriver<>(new URL(appiumServerUrl), capabilities);

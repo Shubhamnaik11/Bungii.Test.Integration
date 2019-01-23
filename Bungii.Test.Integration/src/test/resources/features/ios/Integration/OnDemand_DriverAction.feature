@@ -1,9 +1,10 @@
 @IOS
+  @DRIVERACTION
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
   Background:
-    When I clear all notification
+ #   When I clear all notification
     When I Select "Home" from Customer App menu
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |

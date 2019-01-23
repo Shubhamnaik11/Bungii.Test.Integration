@@ -566,10 +566,10 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
                     break;
-/*			case "new":
+			case "new":
 				userName = PropertyUtility.getDataProperties("new.customer.user");
 				password = PropertyUtility.getDataProperties("new.customer.password");
-				break;*/
+				break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -855,6 +855,8 @@ public class CommonSteps extends DriverBase {
     public void user_is_alerted_for_something(String key) {
         try {
             action.waitForAlert();
+            if(!action.isAlertPresent())
+                action.waitForAlert();
             String expectedText = "";
             switch (key.toUpperCase()) {
                 case "ALREADY SCHEDULED BUNGII":

@@ -16,14 +16,14 @@ public class PaymentPage extends PageBase {
     public WebElement Text_NoPaymentExists () { return findElement("//android.widget.TextView[2]", LocatorType.XPath); }
 
     //------Select Payment Method--------------------------------------------------------------------------------------------
-    public WebElement Select_Method_Card () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/bt_payment_method_type' and @instance='2']", LocatorType.XPath); }
+    public WebElement Select_Method_Card () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/bt_payment_method_type' and @text='Credit or Debit Card']", LocatorType.XPath); }
 
     //------Payment page where cards have been already added-----------------------------------------------------------------
     public WebElement Link_AddNew () { return findElement("com.bungii.customer:id/payment_methods_textview_add_new_payment", LocatorType.Id); }
 
-    public WebElement PaymentCard1 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four' and @instance='2']", LocatorType.XPath); }
+    public WebElement PaymentCard1 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four']", LocatorType.XPath); }
     public List<WebElement> List_Card (){return findElements("com.bungii.customer:id/payment_method_container_main",LocatorType.Id);}
-    public WebElement PaymentCard2 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four' and @instance='3']", LocatorType.XPath); }
+    public WebElement PaymentCard2 () { return findElements("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four']", LocatorType.XPath).get(1); }
 
 
     public WebElement DefaultCard() { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']/preceding-sibling::android.widget.TextView",LocatorType.XPath);}
@@ -35,9 +35,9 @@ public class PaymentPage extends PageBase {
 
     public WebElement DefaultTick () { return findElement("com.bungii.customer:id/payment_methods_imageview_default_tick", LocatorType.Id); }
 
-    public WebElement DefaultTick_payment1 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four' and @instance='2']/following-sibling::android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']", LocatorType.XPath); }
+    public WebElement DefaultTick_payment1 () { return findElement("(//*[@resource-id='com.bungii.customer:id/payment_methods_layout_row'])[1]/android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']", LocatorType.XPath); }
 
-    public WebElement DefaultTick_payment2 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four' and @instance='3']/following-sibling::android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']", LocatorType.XPath); }
+    public WebElement DefaultTick_payment2 () { return findElement("(//*[@resource-id='com.bungii.customer:id/payment_methods_layout_row'])[2]/android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']", LocatorType.XPath); }
 
     public WebElement Checkbox_Default () { return findElement("com.bungii.customer:id/payment_methods_checkbox_set_default", LocatorType.Id); }
 
@@ -58,7 +58,8 @@ public class PaymentPage extends PageBase {
 
     public WebElement Error_CardNumber () { return findElement("com.bungii.customer:id/textinput_error", LocatorType.Id); }
 
-    public WebElement Month_12 () { return findElement("//android.widget.TextView[@text='12' and @instance ='12']", LocatorType.XPath); }
+ //   public WebElement Month_12 () { return findElement("//android.widget.TextView[@text='12' and @instance ='12']", LocatorType.XPath); }
+    public WebElement Month_12 () { return findElement("//android.widget.TextView[@text='12']", LocatorType.XPath); }
 
     public WebElement Year_2020 () { return findElement("//android.widget.TextView[@text='2020']", LocatorType.XPath); }
 

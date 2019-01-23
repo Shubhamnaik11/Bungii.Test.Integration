@@ -136,8 +136,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I Get SMS CODE for new "Customer"
 
     When I enter "valid" Verification code
-    Then I should be navigated to "TERMS AND CONDITION" screen
-    Then I accept Term and Condition agreement
+  #  Then I should be navigated to "TERMS AND CONDITION" screen
+  #  Then I accept Term and Condition agreement
     Then I should be navigated to "Home" screen
 
 

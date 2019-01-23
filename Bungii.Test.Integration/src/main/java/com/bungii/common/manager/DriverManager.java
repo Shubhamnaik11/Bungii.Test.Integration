@@ -13,7 +13,7 @@ public class DriverManager  {
     private static LogUtility logger = new LogUtility(DriverManager.class);
     protected static WebDriver driver;
     private static String primaryInstanceKey;
-
+    private static String currentKey="ORIGINAL";
 
     public static DriverManager getObject() {
         /*This logic will ensure that no more than
@@ -91,8 +91,13 @@ public class DriverManager  {
     public void useDriverInstance(String key) {
         if (driverArray.containsKey(key)) {
             setDriver(driverArray.get(key));
+            currentKey=key;
         } else {
             logger.error("DRIVER INSTANCE NOT FOUND ");
         }
+    }
+
+    public static String getCurrentKey() {
+        return currentKey;
     }
 }

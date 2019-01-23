@@ -1,3 +1,5 @@
+@Android
+@DONE
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
@@ -15,14 +17,14 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     When I Switch to "driver" application on "same" devices
-
+  @regression
   Scenario: OnDemand_DriverRejectsBungiiRequest
     When Bungii Driver "rejects On Demand Bungii" request
     Then Bungii driver should see "Home screen"
     When I Switch to "customer" application on "same" devices
     When I tap on "Cancel during search" on Bungii estimate
     And Quit Bungii Driver app
-
+  @regression
   Scenario: OnDemand_DriverCancelBungii_EnrouteState
     When Bungii Driver "accepts On Demand Bungii" request
     When I Switch to "customer" application on "same" devices
@@ -30,7 +32,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "cancels Bungii"
 
-  @TEST
+  @regression
   Scenario: OnDemand_DriverCancelBungii_ArrivedState
     When Bungii Driver "accepts On Demand Bungii" request
     When I Switch to "customer" application on "same" devices

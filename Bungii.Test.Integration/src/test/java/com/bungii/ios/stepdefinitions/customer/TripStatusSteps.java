@@ -54,8 +54,11 @@ public class TripStatusSteps extends DriverBase {
                 if(activeStatus==i){
                     testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
                 }else {
-                    testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + "screen","Pickup status "+i+1+" screen should not be highlighted",i+1+" status should is highlighted");
-
+                    int screenNo=i+1;
+                    if(statusCheck[i])
+                        testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + "screen","Pickup status "+screenNo+" screen should not be highlighted",screenNo+" status should is highlighted");
+                    else
+                        log("Pickup status "+screenNo+" screen should not be highlighted",screenNo+" status should is not highlighted",false);
                 }
 
             }
