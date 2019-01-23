@@ -52,8 +52,6 @@ public class $className extends AbstractTestNGCucumberTests {
 
 		}
 		}
-		 
-
 				System.setProperty("runner.class",ClassName);
 		
 		this.hooks= new CucumberHooks();
@@ -63,7 +61,7 @@ public class $className extends AbstractTestNGCucumberTests {
  	@Parameters({"NameWithtimestamp","test.Platform","test.Environment"})
  		@BeforeSuite
         public void start(@Optional("") String resultFolder,@Optional("web") String Platform, @Optional("QA") String environment)
- 		Properties props = new Properties();
+ 		{Properties props = new Properties();
 
                 String propsFileName = "./src/main/resources/UserProperties/config.properties";
                 try {
