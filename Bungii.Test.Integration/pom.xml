@@ -148,7 +148,7 @@
                 <version>${cucumber.jvm.parallel.version}</version>
                 <executions>
                     <execution>
-                        <id>generateRunners</id>
+                        <id>generateRunnersWeb</id>
                         <phase>generate-test-sources</phase>
                         <goals>
                             <goal>generateRunners</goal>
@@ -163,7 +163,7 @@
                             </outputDirectory>
                             <!-- 							The diectory containing your feature files.
                              -->
-                            <featuresDirectory>src/test/resources/features/
+                            <featuresDirectory>src/test/resources/features/web/
                             </featuresDirectory>
                             <!-- 							Directory where the cucumber report files shall be written
                              -->
@@ -195,7 +195,118 @@
                             <useTestNG>true</useTestNG>
                             <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
                             <parallelScheme>FEATURE</parallelScheme>
+                            <namingScheme>pattern</namingScheme>
+                            <namingPattern>WebParallel{c}IT</namingPattern>
+                            <!-- 							If set to true, only feature files containing the required tags
+                                                            shall be generated.
+                                                        Excluded tags (~@notMe) are ignored. -->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generateRunnersIOS</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <glue>
+                                <package>com.bungii.web.stepdefinitions</package>
+                            </glue>
+                            <!-- 							These are the default values
+                                                        Where to output the generated Junit tests -->
+                            <outputDirectory>${project.build.directory}\generated-test-sources\cucumber
+                            </outputDirectory>
+                            <!-- 							The diectory containing your feature files.
+                             -->
+                            <featuresDirectory>src/test/resources/features/ios
+                            </featuresDirectory>
+                            <!-- 							Directory where the cucumber report files shall be written
+                             -->
+                            <cucumberOutputDir>${ResultFolder}\defaultReport</cucumberOutputDir>
+                            <!-- 							comma separated list of output formats
+                             -->
+                            <plugins>
+                                <plugin>
+                                    <name>json</name>
+                                </plugin>
+                                <plugin>
+                                    <name>com.example.CustomHtmlFormatter</name>
+                                    <extension>html</extension>
+                                </plugin>
+                            </plugins>
+                            <!-- 							CucumberOptions.strict property
+                             -->
+                            <strict>true</strict>
+                            <!-- 							CucumberOptions.monochrome property
+                             -->
+                            <monochrome>true</monochrome>
+                            <!-- 							The tags to run, maps to CucumberOptions.tags property
+                             -->
+                            <tags>
+                                <!-- 								<tag>@testweb</tag>
 
+                                <tag>@sanity</tag>-->
+                            </tags>
+                            <useTestNG>true</useTestNG>
+                            <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
+                            <parallelScheme>FEATURE</parallelScheme>
+                            <namingScheme>pattern</namingScheme>
+                            <namingPattern>iOSParallel{c}IT</namingPattern>
+                            <!-- 							If set to true, only feature files containing the required tags
+                                                            shall be generated.
+                                                        Excluded tags (~@notMe) are ignored. -->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generateRunnersAndroid</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generateRunners</goal>
+                        </goals>
+                        <configuration>
+                            <glue>
+                                <package>com.bungii.web.stepdefinitions</package>
+                            </glue>
+                            <!-- 							These are the default values
+                                                        Where to output the generated Junit tests -->
+                            <outputDirectory>${project.build.directory}\generated-test-sources\cucumber
+                            </outputDirectory>
+                            <!-- 							The diectory containing your feature files.
+                             -->
+                            <featuresDirectory>src/test/resources/features/android
+                            </featuresDirectory>
+                            <!-- 							Directory where the cucumber report files shall be written
+                             -->
+                            <cucumberOutputDir>${ResultFolder}\defaultReport</cucumberOutputDir>
+                            <!-- 							comma separated list of output formats
+                             -->
+                            <plugins>
+                                <plugin>
+                                    <name>json</name>
+                                </plugin>
+                                <plugin>
+                                    <name>com.example.CustomHtmlFormatter</name>
+                                    <extension>html</extension>
+                                </plugin>
+                            </plugins>
+                            <!-- 							CucumberOptions.strict property
+                             -->
+                            <strict>true</strict>
+                            <!-- 							CucumberOptions.monochrome property
+                             -->
+                            <monochrome>true</monochrome>
+                            <!-- 							The tags to run, maps to CucumberOptions.tags property
+                             -->
+                            <tags>
+                                <!-- 								<tag>@testweb</tag>
+
+                                <tag>@sanity</tag>-->
+                            </tags>
+                            <useTestNG>true</useTestNG>
+                            <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
+                            <parallelScheme>FEATURE</parallelScheme>
+                            <namingScheme>pattern</namingScheme>
+                            <namingPattern>AndroidParallel{c}IT</namingPattern>
                             <!-- 							If set to true, only feature files containing the required tags
                                                             shall be generated.
                                                         Excluded tags (~@notMe) are ignored. -->
