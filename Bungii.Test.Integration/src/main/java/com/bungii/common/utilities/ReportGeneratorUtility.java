@@ -266,7 +266,7 @@ public class ReportGeneratorUtility {
 		String strDetails = "";
 		for (String str : strArray)
 			strDetails+="<tr>" + str + "</tr>";
-		logger.detail("Complete detail are "+strDetails);
+		logger.detail("Generated Report : "+strDetails);
 		return strDetails;
 	}
 }
