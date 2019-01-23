@@ -105,7 +105,9 @@ public class ReportManager {
 	public void verificationFailed(){
 		htmlReportManager.verificationFailed();
 	}
-	
+
+	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
+
 	/**
 	 *Add row in Result 
 	 * @param eventData map of information

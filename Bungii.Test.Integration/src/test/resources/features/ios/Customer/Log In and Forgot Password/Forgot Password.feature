@@ -38,7 +38,7 @@ Feature: FORGOT PASSWORD
     Examples:
       | Scenario         | Value        | New Password | SMS CODE | Expected Message             |
       | Invalid password | {VALID USER} | Cci1         | valid    | INVALID PASSWORD WHILE RESET |
-      | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID PASSWORD WHILE RESET |
+      | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE |
 
   @regression
   Scenario Outline: As Bungii customer , I should able to change my password using forgot password functionality

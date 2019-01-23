@@ -1,15 +1,9 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.manager.DriverManager;
-import com.bungii.common.manager.ReportManager;
-import com.bungii.common.manager.ResultManager;
-import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.common.utilities.ScreenshotUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
@@ -18,19 +12,10 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -41,7 +26,6 @@ public class UpdateStatusSteps extends DriverBase {
     MessagesPage messagesPage;
     Rectangle initial;
     ActionManager action = new ActionManager();
-    private UpdateStatusPage updateStatusPage;
     GeneralUtility utility = new GeneralUtility();
     int[][] rgb = {
             {238, 29, 58},
@@ -51,6 +35,8 @@ public class UpdateStatusSteps extends DriverBase {
             {50, 51, 255},
 
     };
+    private UpdateStatusPage updateStatusPage;
+
     public UpdateStatusSteps(UpdateStatusPage updateStatusPage, MessagesPage messagesPage) {
         this.updateStatusPage = updateStatusPage;
         this.messagesPage = messagesPage;
@@ -313,42 +299,49 @@ public class UpdateStatusSteps extends DriverBase {
     }
 
 
-
-
     @Then("^I should be navigated to \"([^\"]*)\" trip status screen$")
     public void iShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
-            int activeStatus=0;
+            int activeStatus = 0;
 
             boolean pageFlag = false;
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())){
-                pageFlag = isUpdatePage(Status.ARRIVED.toString());activeStatus=1;}
-            else if (screen.equals(Status.EN_ROUTE.toString())){
-                pageFlag = isUpdatePage(Status.EN_ROUTE.toString());activeStatus=0;}
-            else if (screen.equals(Status.LOADING_ITEM.toString())){
-                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());activeStatus=2;}
+            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+                pageFlag = isUpdatePage(Status.ARRIVED.toString());
+                activeStatus = 1;
+            } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                pageFlag = isUpdatePage(Status.EN_ROUTE.toString());
+                activeStatus = 0;
+            } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+                pageFlag = isUpdatePage(Status.LOADING_ITEM.toString());
+                activeStatus = 2;
+            } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+                pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());
+                activeStatus = 3;
+            } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());
+                activeStatus = 4;
+            }
 
-            else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())){
-                pageFlag = isUpdatePage(Status.DRIVING_TO_DROP_OFF.toString());activeStatus=3;}
-            else if (screen.equals(Status.UNLOADING_ITEM.toString())){
-                pageFlag = isUpdatePage(Status.UNLOADING_ITEM.toString());activeStatus=4;}
-
-            boolean[] statusCheck=utility.checkStatusOnDriver();
-            for(int i=0;i<statusCheck.length;i++){
-                if(activeStatus==i){
-                    testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
-                }else {
-                    testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + "screen","Pickup status "+i+1+" screen should not be highlighted",i+1+" status should is highlighted");
-
+            boolean[] statusCheck = utility.checkStatusOnDriver();
+            for (int i = 0; i < statusCheck.length; i++) {
+                if (activeStatus == i) {
+                    testStepVerify.isTrue(statusCheck[i], "I should be navigated to " + screen + "screen", screen + " screen icon is highlighted", screen + " screen icon is not highlighted");
+                } else {
+                    int screenNo = i + 1;
+                    if (statusCheck[i])
+                        testStepVerify.isFalse(statusCheck[i], "I should be navigated to " + screen + "screen", "Pickup status " + screenNo + " screen should not be highlighted", screenNo + " status should is highlighted");
+                    else
+                        log("Pickup status " + screenNo + " screen should not be highlighted", screenNo + " status should is not highlighted", false);
                 }
 
             }
-            testStepVerify.isTrue(pageFlag , "I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
+            testStepVerify.isTrue(pageFlag, "I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Then("^I accept Alert message for \"([^\"]*)\"$")
     public void i_accept_alert_message_for_something(String strArg1) throws Throwable {
         action.waitForAlert();
@@ -367,6 +360,7 @@ public class UpdateStatusSteps extends DriverBase {
         testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
         action.clickAlertButton("INITIATE");
     }
+
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));

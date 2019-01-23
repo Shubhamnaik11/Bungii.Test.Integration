@@ -1,52 +1,14 @@
+@IOS
 Feature: To Test Duo - Scheduling Bungii
   I want to use request Scheduling Bungii with Duo type
   Assume customer is logged in
 
 
+
+  @regression
+  @sanity
   Scenario: Create Duo Bungii
 
-#    When I Select "ACCOUNT" from Customer App menu
-#    Then I get customer account details
-#    When I Select "Home" from Customer App menu
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | 1 images    | No             |
-    Then I should be navigated to "Success" screen
-    And I click "Done" button on "Success" screen
-
-  @SANITY_IOS_DUO1
-  Scenario: Create Duo Bungii
-
-   # When I connect to "device2" using "Driver2" instance
-   # When I Switch to "driver" application on "same" devices
-    Then I click on notification for "Driver" for "on demand trip"
-    Then I should be navigated to "EN ROUTE" trip status screen
-    When I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
-    When I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
-
-    When I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-
-    When I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
-
-  @SANITY_IOS_DUO
-  Scenario: Create Duo Bungii
-
-
-
-  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
-
- #   When I connect to "device2" using "Driver2" instance
-  #  When I Switch to "driver" application on "same" devices
-  #  Then I should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
@@ -170,3 +132,22 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+
+  @TEST
+  Scenario: TEST
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
+  @regression
+  Scenario: Create Duo Bungii
+
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | 1 images    | No             |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen

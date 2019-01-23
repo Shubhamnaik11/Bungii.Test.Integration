@@ -66,7 +66,7 @@ public class ReportGeneratorUtility {
 	
 	public void createResultFileFromTemplate(){
 	    try {
-			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE_TEMPLATE"));
+			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -257,7 +257,9 @@ public class ReportGeneratorUtility {
 			logger.handleError("Exception caught while writing details in HTML : ", e);
 		}
 	}
-
+	public boolean isScenarioFailed(){
+		return this.isTcVerifyFailed;
+	}
 	
 	
 	private String getLogDetails(ArrayList<String> strArray) {

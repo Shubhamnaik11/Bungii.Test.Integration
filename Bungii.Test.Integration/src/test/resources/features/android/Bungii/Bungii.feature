@@ -166,8 +166,3 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
-
-
-
-
-

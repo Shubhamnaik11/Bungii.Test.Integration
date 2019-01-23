@@ -1,6 +1,7 @@
 package com.bungii.hooks;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.AssertManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
@@ -73,6 +74,7 @@ public class CucumberHooks {
 	@Before
 	public void beforeTest(Scenario scenario) {
 		this.reportManager.startTestCase(scenario.getName());
+		logger.detail( "Starting "+scenario.getName());
 		//Set original instance as default instance at start of each test case
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
 

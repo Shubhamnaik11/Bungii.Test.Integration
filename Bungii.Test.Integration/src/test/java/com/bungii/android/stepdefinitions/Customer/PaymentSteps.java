@@ -48,7 +48,10 @@ public class PaymentSteps extends DriverBase {
                 WebElement Button_Add = paymentPage.Button_Add();
                 action.click(new Point(Button_Add.getLocation().getX(), Button_Add.getLocation().getY()));
                 break;
-
+            case "Add New":
+                WebElement Button_AddNew = paymentPage.Link_AddNew();
+                action.click(new Point(Button_AddNew.getLocation().getX(), Button_AddNew.getLocation().getY()));
+                break;
             case "Credit or Debit Card":
                 action.click(paymentPage.Select_Method_Card());
                 if (action.isElementPresent(paymentPage.Header_CardDetailsPage()))
@@ -133,7 +136,9 @@ public class PaymentSteps extends DriverBase {
                 break;
 
             case "invalid card number":
-                paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
+                action.click(paymentPage.Textfield_CardNumber());
+                action.sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
+               // paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
                 break;
 
             case "valid expiry date":

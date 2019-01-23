@@ -5,7 +5,6 @@ Feature: CustomerSignup
   Background:
     Given I am on Sign up page
   @regression
-
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     When I navigate to admin portal
@@ -37,7 +36,6 @@ Feature: CustomerSignup
     Then the new user should see "validations for all fields"
 
   @regression
-
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page

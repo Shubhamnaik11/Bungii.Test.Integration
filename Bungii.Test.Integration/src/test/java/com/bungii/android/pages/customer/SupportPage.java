@@ -9,7 +9,9 @@ public class SupportPage extends PageBase {
 
     public WebElement Title() { return findElement("com.bungii.customer:id/feedback_text_view_title", LocatorType.Id); }
 
-    public WebElement TextField() { return findElement("com.bungii.customer:id/feedback_edit_text", LocatorType.Id); }
+  //  public WebElement TextField() { return findElement("com.bungii.customer:id/feedback_edit_text", LocatorType.Id); }
+
+    public WebElement TextField() { return findElement("//*[@resource-id='com.bungii.customer:id/feedback_edit_text']", LocatorType.XPath); }
 
     public WebElement Button_Send() { return findElement("com.bungii.customer:id/feedback_send_button", LocatorType.Id); }
 

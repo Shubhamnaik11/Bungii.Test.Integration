@@ -1,4 +1,5 @@
 @Android
+
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer
@@ -22,9 +23,12 @@ Feature: CustomerMenu
     Then I should see "first answer dropdown close" on FAQ page
     Then I should see "last question" on FAQ page
     Then I should see "social media links" on FAQ page
+    When I tap on "Menu" > "Logout" link
+
 
   @regression
   Scenario:As Bungii customer I should able to access account page
+    Given I am logged in as "valid" customer
     When I tap on "Menu" > "Account" link
     Then "Account" page should be opened
     And logged in Customer details should be displayed
@@ -44,7 +48,3 @@ Feature: CustomerMenu
     When I tap on "Menu" > "Promos" link
     Then "Promos" page should be opened
 
-  @regression
-  Scenario: As Bungii customer I should be log out when I click on Logout menu link
-    When I tap on "Menu" > "Logout" link
-    Then "Login" page should be opened
