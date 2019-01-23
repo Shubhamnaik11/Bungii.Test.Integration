@@ -163,7 +163,7 @@
                             </outputDirectory>
                             <!-- 							The diectory containing your feature files.
                              -->
-                            <featuresDirectory>src/test/resources/features/web/
+                            <featuresDirectory>src/test/resources/features/
                             </featuresDirectory>
                             <!-- 							Directory where the cucumber report files shall be written
                              -->
@@ -189,8 +189,8 @@
                              -->
                             <tags>
                                 <!-- 								<tag>@testweb</tag>
-                                -->
-                                <tag>@sanity</tag>
+
+                                <tag>@sanity</tag>-->
                             </tags>
                             <useTestNG>true</useTestNG>
                             <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
