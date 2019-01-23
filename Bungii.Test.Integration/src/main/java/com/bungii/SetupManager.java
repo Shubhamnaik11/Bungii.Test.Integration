@@ -235,7 +235,7 @@ public class SetupManager extends EventFiringWebDriver {
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
         }
-        logger.detail("return DesiredCapabilities for device " + deviceId + "as " + capabilities.toString());
+        logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
         return capabilities;
     }
 
