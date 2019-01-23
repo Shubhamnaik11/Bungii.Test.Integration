@@ -13,9 +13,8 @@
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverLoginPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Driver_GetAllBungiiDriversPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Login.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" afterDir="false" />
@@ -106,8 +105,8 @@
       <file leaf-file-name="RunAutoSuite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="61" column="125" selection-start-line="60" selection-start-column="4" selection-end-line="61" selection-end-column="125" />
+            <state relative-caret-position="131">
+              <caret line="63" column="44" lean-forward="true" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -115,11 +114,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="images.properties" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/images.properties">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="data.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cucumber-custom-runner.vm" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
+            <state relative-caret-position="661">
+              <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -129,33 +151,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="584">
               <caret line="270" column="5" selection-start-line="270" selection-start-column="5" selection-end-line="270" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bungii.Test.Integration.iml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bungii.Test.Integration.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="55" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DbContextManager.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/bungii/common/manager/DbContextManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="androidDeviceinformation.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="10" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -277,7 +272,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" />
         <option value="$PROJECT_DIR$/src/main/resources/UserProperties/environment.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_ForgotPassword_VerifyPhone.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverResendApplication.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverRejection.feature" />
@@ -326,6 +320,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
         <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
+        <option value="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" />
       </list>
     </option>
   </component>
@@ -1830,7 +1825,21 @@
       <option name="project" value="LOCAL" />
       <updated>1548240669904</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Web Optimization - Part II">
+      <created>1548240773878</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1548240773878</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Web Optimization">
+      <created>1548241127324</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1548241127324</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1880,7 +1889,7 @@
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" weight="0.38512763" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" visible="true" weight="0.38512763" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
@@ -1888,7 +1897,7 @@
       <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" visible="true" weight="0.16577825" />
       <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" weight="0.0" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.74626863" weight="0.3973363" />
-      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" visible="true" weight="0.027746947" />
+      <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" weight="0.027746947" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8418605" visible="true" weight="0.17377399" />
@@ -2007,9 +2016,10 @@
     <MESSAGE value="Web Optimization - Pom" />
     <MESSAGE value="Web Optimization - pom" />
     <MESSAGE value="Web Optimization - Checkin" />
-    <MESSAGE value="Web Optimization" />
     <MESSAGE value="Optimization - Moving Properties write" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimization - Moving Properties write" />
+    <MESSAGE value="Web Optimization - Part II" />
+    <MESSAGE value="Web Optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2193,23 +2203,6 @@
           <caret line="17" column="35" lean-forward="true" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="57" column="23" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/images.properties">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/messages.properties">
       <provider selected="true" editor-type-id="text-editor">
@@ -2398,20 +2391,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="661">
+          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="61" column="125" selection-start-line="60" selection-start-column="4" selection-end-line="61" selection-end-column="125" />
+        <state relative-caret-position="131">
+          <caret line="63" column="44" lean-forward="true" selection-start-line="63" selection-start-column="44" selection-end-line="63" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="54" column="9" selection-start-line="54" selection-start-column="9" selection-end-line="54" selection-end-column="9" />
+        <state relative-caret-position="68">
+          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/images.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="67" lean-forward="true" selection-start-line="67" selection-end-line="67" />
         </state>
       </provider>
     </entry>
