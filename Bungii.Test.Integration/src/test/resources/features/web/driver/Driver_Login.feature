@@ -6,6 +6,7 @@ Feature: Driver_Login
     When I click "LOG IN link" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
+  @smoke
   @sanity
   @regression
   Scenario: Driver_Login_Success
@@ -15,6 +16,7 @@ Feature: Driver_Login
     Then the driver should "be logged in"
     Then the driver logout from dashboard
 
+  @sanity
   @regression
   Scenario: Driver_Login_Blank
     When I click "LOG IN button" on driver portal
