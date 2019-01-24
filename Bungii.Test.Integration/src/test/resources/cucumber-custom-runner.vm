@@ -30,15 +30,16 @@ import java.io.IOException;
 #end
         glue = #stringArray($glue))
 public class $className extends AbstractTestNGCucumberTests {
-	private static final String RUN_CONFIG_PROPERTIES = "/profile.properties";
+	//private static final String RUN_CONFIG_PROPERTIES = "/profile.properties";
+    private static final String INITIAL_FILE_NAME="login";
 
 	CucumberHooks hooks;
 	/*public $className(){
 		this.hooks= new Hooks();
 	}*/
 	
-	  @Parameters({"test.Device","test.Platform","test.Environment","test.Category"})
-	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category){
+	  @Parameters({"test.Device","test.Platform","test.Environment","test.Category","multiple.data.file"})
+	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category, @Optional("false") String multipleLoginFile){
 		String ClassName =this.getClass().getSimpleName();
         if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
 		String[]deviceList = device.split(",");
@@ -52,7 +53,13 @@ public class $className extends AbstractTestNGCucumberTests {
 
 		}
 		}
-				System.setProperty("runner.class",ClassName);
+		if(multipleLoginFile.trim().equalsIgnoreCase("true")){
+            String threadNumber = ClassName.substring(8, 10);
+            System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+            System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+
+        }
+		System.setProperty("runner.class",ClassName);
 		
 		this.hooks= new CucumberHooks();
 	}

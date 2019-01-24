@@ -239,6 +239,7 @@
                                 <test.Platform>${test.Platform}</test.Platform>
                                 <test.Environment>${test.Environment}</test.Environment>
                                 <test.Category>${test.Category}</test.Category>
+                                <multiple.data.file>${multiple.data.file}}</multiple.data.file>>
                             </systemPropertyVariables>
                             <forkCount>${acceptance.test.parallel.count}</forkCount>
                             <reuseForks>false</reuseForks>

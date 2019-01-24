@@ -13,22 +13,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @sanity1", plugin = {
+@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @sanity", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
         glue = {"com.bungii.web.stepdefinitions", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
-
-
     CucumberHooks hooks;
-
+    private static final String INITIAL_FILE_NAME="login";
     /**
      * @param device Device variable from maven
      */
-    @Parameters({"test.Device", "test.Platform", "test.Environment", "test.Category"})
-    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category) {
+    @Parameters({"test.Device", "test.Platform", "test.Environment", "test.Category","multiple.data.file"})
+    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category,@Optional("false") String multipleLoginFile) {
         //Use below statement only in test runner running which are not suppose to run with maven ,
         //In case of maven logFilepath is set in maven set in POM.xml
 
@@ -39,13 +37,19 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
             String[] deviceList = device.split(",");
             //if mutiple devices are pass from maven then get class number and use that device for running that class
             if (deviceList.length > 1) {
-                int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
 
+                int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
                 System.setProperty("DEVICE", deviceList[threadNumber - 1]);
             } else {
                 System.setProperty("DEVICE", device);
 
             }
+        }
+        if(multipleLoginFile.trim().equalsIgnoreCase("true")){
+           // ClassName="Parallel02IT";
+            String threadNumber = ClassName.substring(8, 10);
+            System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+            System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
         }
         System.setProperty("runner.class", ClassName);
 

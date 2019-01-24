@@ -1,5 +1,6 @@
 package com.bungii.common.utilities;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -9,15 +10,18 @@ public class PropertyUtility {
     private static final String IMAGE_PROPERTY_FILE = "/UserProperties/images.properties";
     private static final String FILE_LOCATION_PROPERTY_FILE = "/UserProperties/resourcesFilePaths.properties";
     private static final String CONFIG_PROPERY_FILE = "/UserProperties/config.properties";
-    private static final String DATA_PROPERTY_FILE = "/UserProperties/data.properties";
     private static final String RESULT_CONFIG_PROPERTY_FILE = "/SystemProperties/resultConfig.properties";
     private static final String JDBC_CONFIG_PROPERTY_FILE = "/SystemProperties/jdbcConfig.properties";
+    private static final String DATA_PROPERTY_FILE = "/UserProperties/data.properties";
+    private static String LOGIN_PROPERTY_FILE = "/UserProperties/LoginProperties/login.properties";
+    private static String LOGIN_PROPERTY_FOLDER = "/UserProperties/LoginProperties";
     private static Properties properties;
     private static Properties fileLocations;
     private static Properties images;
     private static Properties data;
     private static Properties resultConfig;
     private static Properties jdbcConfig;
+    private static Properties loginData;
 
     /**
      * Gets the key from Config.properties related to chosen profile
@@ -95,6 +99,7 @@ public class PropertyUtility {
 
         }
     }
+
     /**
      * Gets the key from images.properties related to chosen profile
      *
@@ -125,6 +130,20 @@ public class PropertyUtility {
         }
     }
 
+    /**
+     * Update Login property fileName that is to be used for run
+     */
+    public static void updateLoginPropertyFileName() {
+        String loginFileName = null;
+        try {
+            loginFileName = System.getProperty("LOGIN_FILE");
+        } catch (Exception e) {
+            //do nothing
+        }
+        if (!(loginFileName == null)) {
+            LOGIN_PROPERTY_FILE = LOGIN_PROPERTY_FOLDER + File.separator + loginFileName + ".properties";
+        }
+    }
 
     public static void loadRunConfigProps() {
 
@@ -143,14 +162,29 @@ public class PropertyUtility {
         } catch (IOException e) {
             System.err.println(e);
         }
+        //update data property for multiple data properties
+        updateLoginPropertyFileName();
+        loginData = new Properties();
+        try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(LOGIN_PROPERTY_FILE)) {
+            loginData.load(inputStream);
+            loginData.list(System.out);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
 
         data = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(DATA_PROPERTY_FILE)) {
             data.load(inputStream);
-            data.list(System.out);
+       //     data.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
+
+        //add login Data properties to main data properties
+        data.putAll(loginData);
+        System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
+        data.list(System.out);
+
         resultConfig = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(RESULT_CONFIG_PROPERTY_FILE)) {
             resultConfig.load(inputStream);
