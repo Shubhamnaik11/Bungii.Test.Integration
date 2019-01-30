@@ -1,4 +1,4 @@
-@Android
+@android
 @Menu_Payment
 Feature: Menu_Payment
 Scenarios on Payment Methods

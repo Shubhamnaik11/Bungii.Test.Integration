@@ -56,6 +56,7 @@ public class Driver_DetailsSteps extends DriverBase {
 
 
 
+
                 action.click(Page_Driver_Details.CheckBox_Consent());
 
                 break;

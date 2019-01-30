@@ -1,5 +1,4 @@
-@Android
-
+@android
 Feature: EstimateBungii
 
 #  Background:

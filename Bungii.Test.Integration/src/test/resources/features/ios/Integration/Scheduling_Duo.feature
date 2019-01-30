@@ -1,4 +1,4 @@
-@IOS
+@ios
 Feature: To Test Duo - Scheduling Bungii
   I want to use request Scheduling Bungii with Duo type
   Assume customer is logged in

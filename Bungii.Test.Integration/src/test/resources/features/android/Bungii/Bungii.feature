@@ -1,4 +1,4 @@
-@Android
+@android
 Feature: On Demand Bungii
 
   Background:

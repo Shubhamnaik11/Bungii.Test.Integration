@@ -1,4 +1,4 @@
-@IOS
+@ios
 Feature: Customer	Referal Invite page
   As a Bungii customer
   when I request for Bungii

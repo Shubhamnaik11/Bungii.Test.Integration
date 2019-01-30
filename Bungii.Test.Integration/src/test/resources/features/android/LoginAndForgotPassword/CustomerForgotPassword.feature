@@ -1,4 +1,4 @@
-@Android
+@android
 @CustomerForgotPassword
 @TEST
 Feature: CustomerForgotPassword

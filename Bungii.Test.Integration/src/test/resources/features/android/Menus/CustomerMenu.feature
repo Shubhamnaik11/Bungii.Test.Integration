@@ -1,5 +1,4 @@
-@Android
-
+@android
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer

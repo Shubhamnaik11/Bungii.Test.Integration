@@ -1,4 +1,4 @@
-@Android
+@android
 
 Feature: Duo
 
