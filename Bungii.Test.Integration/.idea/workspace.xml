@@ -12,7 +12,7 @@
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverInProgressBungiiPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverLoginPage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" afterDir="false" />
@@ -29,8 +29,9 @@
       <change beforePath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/UserProperties/messages.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/cucumber.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/cucumber-report/single/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/cucumber-report/single/report.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" beforeDir="false" afterPath="$PROJECT_DIR$/target/generated-test-sources/cucumber/Parallel01IT.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/Bungii.Test.Integration.kotlin_module" beforeDir="false" />
@@ -124,7 +125,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.properties" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/config.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
@@ -178,11 +179,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="172" column="74" selection-start-line="172" selection-start-column="74" selection-end-line="172" selection-end-column="74" />
+            <state relative-caret-position="426">
+              <caret line="132" column="21" lean-forward="true" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -321,11 +322,11 @@
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_Duo.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/hooks/CucumberHooks.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
         <option value="$PROJECT_DIR$/src/main/resources/UserProperties/config.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -1989,7 +1990,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548832728019</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Optimization - Localhost VM appium sever">
+      <created>1548833465499</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1548833465499</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2144,7 +2152,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Web Regression tests checked in" />
     <MESSAGE value="New feature file checked in" />
     <MESSAGE value="Xpath correction" />
     <MESSAGE value="Final Changes" />
@@ -2169,7 +2176,8 @@
     <MESSAGE value="Android/ios Optimization" />
     <MESSAGE value="Optimization - pom" />
     <MESSAGE value="Code Optimization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code Optimization" />
+    <MESSAGE value="Optimization - Localhost VM appium sever" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimization - Localhost VM appium sever" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2632,13 +2640,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="172" column="74" selection-start-line="172" selection-start-column="74" selection-end-line="172" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/UserProperties/data.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="527">
@@ -2650,6 +2651,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="15" selection-start-line="2" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="132" column="21" lean-forward="true" selection-start-line="132" selection-start-column="21" selection-end-line="132" selection-end-column="21" />
         </state>
       </provider>
     </entry>
