@@ -46,7 +46,7 @@ public class SetupManager extends EventFiringWebDriver {
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
-        logger.detail("TARGET_PLATFORM" + TARGET_PLATFORM);
+        logger.detail("TARGET_PLATFORM : " + TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
