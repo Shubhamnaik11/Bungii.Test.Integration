@@ -170,7 +170,7 @@
                             </outputDirectory>
                             <!-- 							The diectory containing your feature files.
                              -->
-                            <featuresDirectory>src/test/resources/features/web/
+                            <featuresDirectory>src/test/resources/features/
                             </featuresDirectory>
                             <!-- 							Directory where the cucumber report files shall be written
                              -->

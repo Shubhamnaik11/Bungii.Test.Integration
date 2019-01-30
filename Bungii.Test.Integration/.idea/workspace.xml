@@ -11,35 +11,8 @@
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverHomePage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverInProgressBungiiPage.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/bungiiDriver/DriverLoginPage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/pages/admin/Driver_GetAllBungiiDriversPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/web/stepdefinitions/driver/Driver_DetailsSteps.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii_CustomerAction.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii_CustomerAction.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/EstimateBungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/EstimateBungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/OnDemandBungii_DriverAction.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Bungii/OnDemandBungii_DriverAction.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/Login.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/Login.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Menus/CustomerMenu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Menus/CustomerMenu.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Payment.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Payment.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/Forgot Password.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/LogIn.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Log In and Forgot Password/LogIn.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Customer Menu.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Customer Menu.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Payment.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Payment.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Promos.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Promos.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Signup/Signup.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Signup/Signup.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemand_DriverAction.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemand_DriverAction.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_Duo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_Duo.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/web/driver/Driver_Documentation.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/androidDeviceinformation.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Capabilities/iOSdeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Capabilities/iOSdeviceinformation.json" afterDir="false" />
@@ -126,92 +99,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Customer Menu.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Customer Menu.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Admin_DriverApplicationVerification.feature" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Admin_DriverApplicationVerification.feature" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="-459">
               <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Invite.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Invite.feature">
+      <file leaf-file-name="CustomerMenu.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/CustomerMenu.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-409">
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Menu_Payment.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Payment.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-391">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Menu_Promos.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1038">
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Menu_Support.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Payment.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Payment.feature">
+      <file leaf-file-name="ReferralInvite.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Promos.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Menus/Promos.feature">
+      <file leaf-file-name="DuoScheduled.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="272">
+              <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Signup.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Signup/Signup.feature">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="408">
+              <caret line="172" column="74" selection-start-line="172" selection-start-column="74" selection-end-line="172" selection-end-column="74" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OnDemand_DriverAction.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemand_DriverAction.feature">
+      <file leaf-file-name="SoloScheduled.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="-2823">
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OnDemandBungii.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature">
+      <file leaf-file-name="CustomerSignup.feature" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-714">
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scheduling_Duo.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_Duo.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Scheduling_SOLO.feature" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-255">
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+            <state relative-caret-position="-681">
+              <caret column="8" selection-start-column="8" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -315,7 +288,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/web/manager/ActionManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/SetupManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/bungii/common/utilities/ReportGeneratorUtility.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" />
         <option value="$PROJECT_DIR$/src/test/resources/cucumber-custom-runner.vm" />
         <option value="$PROJECT_DIR$/src/main/resources/UserProperties/data.properties" />
@@ -331,7 +303,6 @@
         <option value="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature" />
-        <option value="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature" />
@@ -346,6 +317,8 @@
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/OnDemandBungii.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_Duo.feature" />
         <option value="$PROJECT_DIR$/src/test/resources/features/ios/Integration/Scheduling_SOLO.feature" />
+        <option value="$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -396,8 +369,8 @@
     <option name="skipTests" value="true" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1532" />
-    <option name="y" value="67" />
+    <option name="x" value="119" />
+    <option name="y" value="46" />
     <option name="width" value="1932" />
     <option name="height" value="1047" />
   </component>
@@ -1925,7 +1898,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548248458174</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Android/ios Optimization">
+      <created>1548828512238</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1548828512239</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1970,17 +1950,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49200428" weight="0.32852387" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" visible="true" weight="0.38512763" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.2217484" side_tool="true" weight="0.3207547" />
       <window_info anchor="right" id="Maven Projects" order="8" sideWeight="0.4976744" visible="true" weight="0.1652452" />
-      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" visible="true" weight="0.32963374" />
+      <window_info anchor="bottom" id="Version Control" order="8" sideWeight="0.9173774" weight="0.32963374" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.74626863" weight="0.3973363" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.85181236" weight="0.027746947" />
       <window_info id="Capture Tool" order="4" />
@@ -1993,7 +1974,6 @@
       <window_info id="Favorites" order="7" sideWeight="0.48879838" side_tool="true" weight="0.17004265" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7851812" weight="0.2763596" />
       <window_info anchor="bottom" id="SVN Repositories" order="7" weight="0.32900432" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.7782516" visible="true" weight="0.38512763" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -2080,7 +2060,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Feature and Page objects checkin - Andoid/Web" />
     <MESSAGE value="Appium Server Start/Shutdown" />
     <MESSAGE value="Web Tests checked in" />
     <MESSAGE value="Web Regression tests checked in" />
@@ -2105,7 +2084,8 @@
     <MESSAGE value="Web Optimization - Part II" />
     <MESSAGE value="Web Optimization" />
     <MESSAGE value="Web Optimization - Pointing to new url" />
-    <option name="LAST_COMMIT_MESSAGE" value="Web Optimization - Pointing to new url" />
+    <MESSAGE value="Android/ios Optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="Android/ios Optimization" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2355,111 +2335,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="38" column="17" selection-start-line="38" selection-start-column="17" selection-end-line="38" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii_CustomerAction.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/EstimateBungii.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/OnDemandBungii_DriverAction.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/Login.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/CustomerMenu.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Payment.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-631">
-          <caret column="8" selection-start-column="8" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/features/ios/Customer/Bungii Home Page and Estimate/Estimate.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -2544,10 +2419,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408">
+          <caret selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/Bungii_CustomerAction.feature">
       <provider selected="true" editor-type-id="text-editor">
         <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/EstimateBungii.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Bungii/OnDemandBungii_DriverAction.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-273">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/CustomerForgotPassword.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-392">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/LoginAndForgotPassword/Login.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-69">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/CustomerMenu.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-409">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Payment.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Promos.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1038">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/Menu_Support.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Menus/ReferralInvite.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/SoloScheduled.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2823">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/Signup/CustomerSignup.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-681">
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/web/admin/Admin_DriverApplicationVerification.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-459">
           <caret column="3" lean-forward="true" selection-start-column="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/resources/features/android/ScheduleBungiis/DuoScheduled.feature">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="172" column="74" selection-start-line="172" selection-start-column="74" selection-end-line="172" selection-end-column="74" />
         </state>
       </provider>
     </entry>
