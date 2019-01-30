@@ -23,6 +23,8 @@ public class HomeSteps extends DriverBase {
         try {
         //    action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg1);
+            log(" I Select "+strArg1+" from customer app menu list"," I tapped on "+strArg1 +" from customer app menu list");
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -48,6 +50,7 @@ public class HomeSteps extends DriverBase {
                 break;
 
         }
+        log(" I should able to tap on "+strArg1+" on Home page"," I tapped on "+strArg1 +" on Home page");
 
     }
     @Given("^I am on Customer logged in Home page$")
@@ -81,6 +84,7 @@ public class HomeSteps extends DriverBase {
             } else {
                 i_tap_on_something_something_link("Menu","HOME");
             }
+            log(" I am on Customer logged in Home page","");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
