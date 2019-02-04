@@ -10,6 +10,8 @@
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
+    "adbPort":5554,
+    "remoteAdbHost":192.168.10.248,
     "udid": "TA93401OLE"
   },
   "extra1": {
