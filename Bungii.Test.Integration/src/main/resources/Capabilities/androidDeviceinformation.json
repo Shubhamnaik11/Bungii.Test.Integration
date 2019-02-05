@@ -12,7 +12,7 @@
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "adbPort":5554,
     "remoteAdbHost":192.168.10.248,
-    "udid": "TA93401OLE"
+    "udid": "192.168.55.43:5037"
   },
   "extra1": {
     "platformName": "android",
