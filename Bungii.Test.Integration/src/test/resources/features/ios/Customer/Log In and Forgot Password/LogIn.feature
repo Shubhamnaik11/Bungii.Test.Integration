@@ -22,6 +22,16 @@ Feature: Log In
 
   @regression
   Scenario: As Bungii customer , I should able to login to application using valid password
-    When I enter Username :{VALID}  and  Password :{VALID}
+    When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    Then User should be successfully logged in to the application
+
+  @regression
+  Scenario: As Bungii customer , I should be shown terms and condition page on first time login
+    When I enter Username :{VALID} and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    Then I accept Term and Condition agreement
+    Then I allow access of Notification from Bungii application
+    Then I allow access of Location from Bungii application
+    Then I close tutorial Page
     Then User should be successfully logged in to the application

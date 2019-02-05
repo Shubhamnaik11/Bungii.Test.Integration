@@ -4,6 +4,7 @@ Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
   Background:
+    Given I am on Customer logged in Home page
  #   When I clear all notification
     When I Select "Home" from Customer App menu
     When I request for  bungii for given pickup and drop location

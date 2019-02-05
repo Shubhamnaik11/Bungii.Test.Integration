@@ -44,38 +44,62 @@ public class GeneralUtility extends DriverBase {
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
 
+    /**
+     * Launch driver application's using package and activity
+     *
+     * @throws MalformedURLException
+     * @throws InterruptedException
+     */
     public void launchDriverApplication() throws MalformedURLException, InterruptedException {
-        try{
-        AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
+        try {
+            AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
 
-        //TODO: REMOVE HARD CODING, read from properties
-        String appPackage = "com.bungii.driver";
-/*
-        String appActivity="com.bungii.ui.activities.splash.SplashScreenActivity";
-*/
-        String appActivity = "com.bungii.ui.activities.splash.SplashScreenActivity";
-        Activity activity = new Activity(appPackage, appActivity);
-        activity.setStopApp(false);
-        ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
-        driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-        Thread.sleep(3000);}catch (Exception e){}
+/*            //TODO: REMOVE HARD CODING, read from properties
+            String appPackage = "com.bungii.driver";
+            String appActivity = "com.bungii.ui.activities.splash.SplashScreenActivity";*/
+            String appPackage = PropertyUtility.getProp("bundleId_Driver");
+            String appActivity = PropertyUtility.getProp("driver.initial.activity");
+            Activity activity = new Activity(appPackage, appActivity);
+            activity.setStopApp(false);
+            ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
+            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+            Thread.sleep(3000);
+        } catch (Exception e) {
+        }
     }
 
+    /**
+     * Launch customer application's using package and activity
+     *
+     * @throws MalformedURLException
+     * @throws InterruptedException
+     */
     public void launchCustomerApplication() throws MalformedURLException, InterruptedException {
-        try{
-        AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
-
+        try {
+            AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
+/*
         //TODO: REMOVE HARD CODING, read from properties
         String appPackage = "com.bungii.customer";
         String appActivity = "com.bungii.ui.activities.splash.SplashScreenActivity";
-        Activity activity = new Activity(appPackage, appActivity);
-        activity.setStopApp(false);
-        ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
-        driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-        Thread.sleep(3000);}catch (Exception e){}
+*/
+            String appPackage = PropertyUtility.getProp("bundleId_Customer");
+            String appActivity = PropertyUtility.getProp("customer.initial.activity");
+
+            Activity activity = new Activity(appPackage, appActivity);
+            activity.setStopApp(false);
+            ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
+            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+            Thread.sleep(3000);
+        } catch (Exception e) {
+        }
 
     }
 
+    /**
+     * Check if customer application is open . check if there is application open which has element that contains customer app resource id
+     * @return
+     * @throws InterruptedException
+     */
     public boolean isCustomerApplicationOpen() throws InterruptedException {
         if (action.isElementPresent(homePage.Generic_Element(true)))
             return true;
@@ -85,16 +109,26 @@ public class GeneralUtility extends DriverBase {
         }
     }
 
+    /**
+     * Check if driver application is open . check if there is application open which has element that contains driver app resource id
+     * @return
+     * @throws InterruptedException
+     */
     public boolean isDriverApplicationOpen() throws InterruptedException {
-        if(action.isElementPresent(driverHomePage.Generic_Element(true)))
+        if (action.isElementPresent(driverHomePage.Generic_Element(true)))
             return true;
-        else{
+        else {
             Thread.sleep(5000);
 
             return action.isElementPresent(driverHomePage.Generic_Element(true));
         }
     }
 
+    /**
+     * Check if correct page is open
+     * @param p0 identifier for page
+     * @return
+     */
     public boolean isCorrectPage(String p0) {
         boolean isCorrectPage = false;
         switch (p0) {
@@ -132,10 +166,18 @@ public class GeneralUtility extends DriverBase {
         return isCorrectPage;
     }
 
+    /**
+     * Verification that correct page is displayed
+     * @param expectedPage
+     */
     public void verifyIsPageIsCorrectlyDisplayed(String expectedPage) {
         testStepAssert.isTrue(isCorrectPage(expectedPage), expectedPage + " page should be displaed ", expectedPage + " Page is successfully displayed", expectedPage + " Page is not displayed");
     }
 
+    /**
+     * Get snack bar message
+     * @return return snack bar message
+     */
     public String getSnackBarMessage() {
         WebElement snackBar = forgotPasswordPage.Snackbar_ForgotPassword(true);
         String actualMessage = "";
@@ -147,6 +189,11 @@ public class GeneralUtility extends DriverBase {
         return actualMessage;
     }
 
+    /**
+     * Check if  phone number is correct
+     * @param element Web element of phone number
+     * @param value expected phine number value
+     */
     public void isPhoneNumbersEqual(WebElement element, String value) {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
@@ -177,6 +224,11 @@ public class GeneralUtility extends DriverBase {
         return estimate;
     }
 
+    /**
+     * Input value on Numeric keyboard
+     * @param strNum Number that is to be input
+     * @throws InterruptedException
+     */
     private void inputOnNumberKeyBoard(String strNum) throws InterruptedException {
         for (char c : strNum.toCharArray()) {
             ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.valueOf("DIGIT_" + c)));
@@ -186,6 +238,10 @@ public class GeneralUtility extends DriverBase {
         ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
     }
 
+    /**
+     * Click button on customer menu bar
+     * @param menuItem identifier for menu
+     */
     public void clickCustomerMenuItem(String menuItem) {
         action.click(homePage.Button_NavigationBar());
         switch (menuItem.toUpperCase()) {

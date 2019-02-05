@@ -133,11 +133,6 @@ Feature: To Test Duo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @TEST
-  Scenario: TEST
-    Then Customer should be navigated to "EN ROUTE" trip status screen
-    Then Customer should be navigated to "EN ROUTE" trip status screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
   @regression
   Scenario: Create Duo Bungii
 

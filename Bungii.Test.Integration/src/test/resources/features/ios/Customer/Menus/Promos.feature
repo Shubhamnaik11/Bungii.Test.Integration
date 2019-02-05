@@ -97,6 +97,8 @@ Feature: Promos
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "EXPIRED PROMO"
 
+
+    #commented scenario outcome due to change in application
   @regression
   Scenario: When i try to share my promo code , via twitter but there is no application installed then I should be alerted for No twitter Installed message
     When I Select "PROMOS" from Customer App menu
@@ -106,6 +108,6 @@ Feature: Promos
     Then I get Invite Code
     When I click "SHARE" button on "INVITE" screen
     When I click "SHARE ON TWITTER" button on "INVITE" screen
-    Then user is alerted for "No twitter installed"
-
+#    Then user is alerted for "No twitter installed"
+    Then I should be navigated to "Invite" screen
 

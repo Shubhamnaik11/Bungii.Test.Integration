@@ -55,6 +55,6 @@ public class SearchingSteps extends DriverBase {
 	 */
 	public boolean isProgressBarVisible(){
 		action.invisibilityOfElementLocated(searchingPage.Activity_ProgressBar());
-		return searchingPage.isElementEnabled(searchingPage.Activity_ProgressBar());
+		return searchingPage.isElementEnabled(searchingPage.Activity_ProgressBar(true));
 	}
 }

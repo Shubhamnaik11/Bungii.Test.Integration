@@ -23,6 +23,7 @@ public class PropertyUtility {
     private static Properties jdbcConfig;
     private static Properties loginData;
 
+    public static  String targetPlatform="",environment="";
     /**
      * Gets the key from Config.properties related to chosen profile
      *
@@ -150,6 +151,8 @@ public class PropertyUtility {
         properties = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(CONFIG_PROPERY_FILE)) {
             properties.load(inputStream);
+            //  update value of environment and target platform in property object
+            if(!environment.equals("") && !targetPlatform.equals("")){properties.setProperty("target.platform", targetPlatform);properties.setProperty("environment", environment);}
             properties.list(System.out);
         } catch (IOException e) {
             System.err.println(e);

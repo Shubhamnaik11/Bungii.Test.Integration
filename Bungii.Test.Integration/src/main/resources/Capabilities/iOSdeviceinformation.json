@@ -11,14 +11,6 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true
   },
-  "device3": {
-    "platformName": "iOS",
-    "automationName": "XCUITest",
-    "app": "com.apple.Maps",
-    "deviceName": "appiumTest-iPhone X",
-    "udid": "39605564-E02F-4576-A64A-3E1BBBDF05AC",
-    "newCommandTimeout": "1000"
-  },
   "device2": {
     "platformName": "iOS",
     "platformVersion": "10.2",

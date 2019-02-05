@@ -1,5 +1,7 @@
 package com.bungii.runner;
 
+import com.bungii.common.enums.TargetPlatform;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.hooks.CucumberHooks;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -12,12 +14,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-
-@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @sanity", plugin = {
+//
+@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @TTEST2", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.web.stepdefinitions", "com.bungii.hooks"}
+        glue = {"com.bungii.ios.stepdefinitions", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
@@ -52,7 +54,9 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
             System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
         }
         System.setProperty("runner.class", ClassName);
-
+        //this is to update values from config value
+        PropertyUtility.environment=environment;
+        PropertyUtility.targetPlatform=Platform;
         this.hooks = new CucumberHooks();
 
     }
@@ -63,8 +67,9 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
     @BeforeSuite
     @Parameters({"NameWithtimestamp", "test.Platform", "test.Environment"})
     public void start(@Optional("") String resultFolder, @Optional("web") String Platform, @Optional("QA") String environment) {
-
-        Properties props = new Properties();
+        //vishal[0102]:commented this as logic to update config properties is moved while reading property file in PropertyUtility class
+        //TODO: Remove commented block
+/*        Properties props = new Properties();
 
         String propsFileName = "./src/main/resources/UserProperties/config.properties";
         try {
@@ -84,7 +89,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
 
         } catch (IOException ex) {
             ex.printStackTrace();
-        }
+        }*/
         this.hooks.start(resultFolder);
     }
 

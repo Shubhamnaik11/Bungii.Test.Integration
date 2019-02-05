@@ -9,7 +9,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class CommonSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.CommonSteps.class);
@@ -17,10 +18,13 @@ public class CommonSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
-    public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
+    public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
-            if(!device.equalsIgnoreCase("same")){i_switch_to_something_instance(device); Thread.sleep(2000);}
-            boolean isApplicationIsInForeground=false;
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(2000);
+            }
+            boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     utility.launchDriverApplication();
@@ -40,20 +44,20 @@ public class CommonSteps extends DriverBase {
         }
         //Verify that application is successfully switched
         try {
-            boolean isApplicationIsInForeground=false;
+            boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
-                    isApplicationIsInForeground=utility.isDriverApplicationOpen();
+                    isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
-                    isApplicationIsInForeground=utility.isCustomerApplicationOpen();
+                    isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            testStepVerify.isTrue(isApplicationIsInForeground,"Switch to " + appName + " application","Switch to " + appName + " application is successful","Switch to " + appName + " application was not successfull");
-        }catch (Throwable e) {
+            testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
+        } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
@@ -61,6 +65,7 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
@@ -84,8 +89,8 @@ public class CommonSteps extends DriverBase {
         try {
             SetupManager.getObject().createNewAndroidInstance(instanceName, deviceId);
             SetupManager.getObject().useDriverInstance(instanceName);
-            log("I should be connected to "+deviceId ,
-                    "I connected to "+deviceId +" device and assigned session name "+instanceName, true);
+            log("I should be connected to " + deviceId,
+                    "I connected to " + deviceId + " device and assigned session name " + instanceName, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -95,7 +100,7 @@ public class CommonSteps extends DriverBase {
     }
 
     @When("^I switch to \"([^\"]*)\" instance$")
-    public void i_switch_to_something_instance(String instanceName)  {
+    public void i_switch_to_something_instance(String instanceName) {
         try {
             SetupManager.getObject().useDriverInstance(instanceName);
             log("I switch to  " + instanceName + " instance session",
@@ -109,9 +114,13 @@ public class CommonSteps extends DriverBase {
     }
 
     @Then("^\"([^\"]*)\" page should be opened$")
-    public void ThenPageShouldBeOpened(String page)
-    {
-        boolean isCorrectPage=utility.isCorrectPage(page);
-        testStepAssert.isTrue(isCorrectPage,page+" should be displayed",page+" is displayed correctly  ",page+" is not displayed correct");
+    public void ThenPageShouldBeOpened(String page) {
+        try {
+            boolean isCorrectPage = utility.isCorrectPage(page);
+            testStepAssert.isTrue(isCorrectPage, page + " should be displayed", page + " is displayed correctly  ", page + " is not displayed correct");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 }

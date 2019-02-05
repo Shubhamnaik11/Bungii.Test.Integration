@@ -36,32 +36,39 @@ public class AvailableTripsSteps extends DriverBase {
 
     public boolean selectBungiiFromList(String bungiiType, String customerName) {
         boolean isSelected = false;
-        //  action.scrollToBottom();
-        //TODO: check diff between solo and duo on screen
-        String expectedInstance = "2";
-        if (bungiiType.toUpperCase().equals("SOLO")) {
-            expectedInstance = "2";
-        } else {
-            expectedInstance = "4";
 
-        }
+        try {
+            //  action.scrollToBottom();
+            //TODO: check diff between solo and duo on screen
+            String expectedInstance = "2";
+            if (bungiiType.toUpperCase().equals("SOLO")) {
+                expectedInstance = "2";
+            } else {
+                expectedInstance = "4";
 
-        //List_AvailableBungiis
-        List<WebElement> elements = availableTrips.List_AvailableBungiis();
-        for (WebElement element : elements) {
-            MobileElement image = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_type"));
-            WebElement actualCustomer = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_drivername"));
-            String actualCustomerName = actualCustomer.getText();
-            System.out.println(SetupManager.getDriver().getPageSource());
-            //      String  instance =image.getAttribute("instance");
-
-            if (actualCustomerName.equals(customerName)) {
-                element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
-                isSelected = true;
-                break;
             }
+
+            //List_AvailableBungiis
+            List<WebElement> elements = availableTrips.List_AvailableBungiis();
+            for (WebElement element : elements) {
+                MobileElement image = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_type"));
+                WebElement actualCustomer = element.findElement(By.id("com.bungii.driver:id/row_available_pickup_drivername"));
+                String actualCustomerName = actualCustomer.getText();
+                System.out.println(SetupManager.getDriver().getPageSource());
+                //      String  instance =image.getAttribute("instance");
+
+                if (actualCustomerName.equals(customerName)) {
+                    element.findElement(By.id("com.bungii.driver:id/row_available_pickup_imageview_arrow")).click();
+                    isSelected = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
         return isSelected;
+
     }
 }
 

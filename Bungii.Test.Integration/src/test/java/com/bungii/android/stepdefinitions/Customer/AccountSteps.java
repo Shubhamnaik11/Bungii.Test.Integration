@@ -13,44 +13,50 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class AccountSteps extends DriverBase {
+    private static LogUtility logger = new LogUtility(AccountSteps.class);
     ActionManager action = new ActionManager();
     AccountPage accountPage = new AccountPage();
-    private static LogUtility logger = new LogUtility(AccountSteps.class);
 
     /**
      * Read customer details and store it in scenario context
-     *
      */
     @Then("^I get customer account details$")
     public void i_get_customer_account_details() {
         try {
             String[] details = new String[2];
-            details[0]=action.getText(accountPage.Account_Name());
-            details[1]=action.getText(accountPage.Account_Phone());
+            details[0] = action.getText(accountPage.Account_Name());
+            details[1] = action.getText(accountPage.Account_Phone());
 
             //replace all character
-            String phone =details[1].replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+            String phone = details[1].replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
             //store customer name and phone in scenario context
             cucumberContextManager.setScenarioContext("CUSTOMER", details[0]);
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",phone );
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", phone);
 
-            logger.detail("I get customer account details , Customer name is " + details[0]+ " and Phone Number is "+ details[1]);
-            log( "I get customer account details", "Customer name is " + details[0] + " and Phone Number is "+ details[1],
+            logger.detail("I get customer account details , Customer name is " + details[0] + " and Phone Number is " + details[1]);
+            log("I get customer account details", "Customer name is " + details[0] + " and Phone Number is " + details[1],
                     true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @And("^logged in Customer details should be displayed$")
-    public void logged_in_customer_details_should_be_displayed() throws Throwable {
-        String actualName=action.getText(accountPage.Account_Name());
-        String expectedName=PropertyUtility.getDataProperties("customer.first.name")+" "+PropertyUtility.getDataProperties("customer.last.name");
-        String actualPhone=action.getText(accountPage.Account_Phone()).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-        String expectedPhoneNumber=PropertyUtility.getDataProperties("valid.customer.phone");
 
-        testStepVerify.isEquals(actualName,expectedName,"Customer name on account page should be "+expectedName, "Customer name on account page is"+actualName,"Customer name on account page is "+actualName +" , but expected is"+expectedName );
-        testStepVerify.isEquals(actualPhone,expectedPhoneNumber);
-        testStepVerify.isEquals(action.getText(accountPage.Account_Email()),PropertyUtility.getDataProperties("customer.email"));
+    @And("^logged in Customer details should be displayed$")
+    public void logged_in_customer_details_should_be_displayed() {
+        try {
+            String actualName = action.getText(accountPage.Account_Name());
+            String expectedName = PropertyUtility.getDataProperties("customer.first.name") + " " + PropertyUtility.getDataProperties("customer.last.name");
+            String actualPhone = action.getText(accountPage.Account_Phone()).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+            String expectedPhoneNumber = PropertyUtility.getDataProperties("valid.customer.phone");
+
+            testStepVerify.isEquals(actualName, expectedName, "Customer name on account page should be " + expectedName, "Customer name on account page is" + actualName, "Customer name on account page is " + actualName + " , but expected is" + expectedName);
+            testStepVerify.isEquals(actualPhone, expectedPhoneNumber);
+            testStepVerify.isEquals(action.getText(accountPage.Account_Email()), PropertyUtility.getDataProperties("customer.email"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 }

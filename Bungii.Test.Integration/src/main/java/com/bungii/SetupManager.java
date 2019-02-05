@@ -12,6 +12,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.appium.java_client.service.local.flags.ServerArgument;
 import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +27,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class SetupManager extends EventFiringWebDriver {
@@ -109,11 +113,15 @@ public class SetupManager extends EventFiringWebDriver {
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
-
+        Map<String, String> env = new HashMap<String, String>(System.getenv());
+        env.put("PATH", "/usr/local/bin:" + env.get("PATH"));
         //Build the Appium service
         AppiumServiceBuilder builder = new AppiumServiceBuilder();
         builder.withIPAddress(APPIUM_SERVER_IP);
         builder.usingPort(Integer.parseInt(portNumber));
+        //relaxed security tag
+        builder.withArgument(GeneralServerFlag.RELAXED_SECURITY);
+        builder.withEnvironment(env);
         AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
         service.start();
 

@@ -11,7 +11,7 @@
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "adbPort":5554,
-    "remoteAdbHost":192.168.10.248,
+    "remoteAdbHost":"192.168.10.248",
     "udid": "192.168.55.43:5037"
   },
   "extra1": {

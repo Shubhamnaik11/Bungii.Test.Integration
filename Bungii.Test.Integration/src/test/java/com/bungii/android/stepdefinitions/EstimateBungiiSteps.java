@@ -47,7 +47,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Selector_Duo());
                     cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", "DUO");
                     break;
-
                 case "Get Estimate button":
                     while (action.isElementPresent(Page_CustHome.Button_GetEstimate()) == false)
                         iEnterOnBungiiEstimate("current location in pickup and dropoff fields");

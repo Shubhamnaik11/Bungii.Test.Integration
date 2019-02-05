@@ -51,7 +51,7 @@
   /* Likely future */
 }
 
-.table tr:not(.header){
+.table tr+tr+tr:not(.header){
   display: none;
 }
 
@@ -73,6 +73,7 @@
   transition: transform .25s linear;
   -webkit-transition: -webkit-transform .25s linear;
 }
+.table  tr.header2 {  background-color: #01A9DB;}
 .table .header1 {
   content: "\002b";
   position: relative;
@@ -118,7 +119,7 @@ $(document).ready(function() {
 <body><img src=<!--LOGO.PATH--> align=right><h1>
     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<u>TEST CASE REPORT</u></h1>
 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<table align=left border=3 width=70%>
+<table align=left border=3 width=70% style="margin-bottom: 25px;">
     <th colspan=7>TEST CASE SUMMARY</th>
     <tr class=d0>
         <td><b>TestCase Name</b></td>
@@ -132,17 +133,18 @@ $(document).ready(function() {
                                                                                  value=<!--FAILED.COUNT--> /><input
         name=0 type="hidden" id="inconclusive" value=<!--INCONCLUSIVE.COUNT--> />
 <div align=right width=30% id='status_chart'></div>
-<div class=""><h1></h1><u>TEST CASE DETAILS:</u></div></h1>
+</h1> <br></br><br></br>
     <table class="table" style="width: 100%; " colspan=10><br><br><br>
-    <tr class="header1" >
-        <td><b>Step</b></td>
-        <td><b>Result</b></td>
-        <td><b>Expected Result</b></td>
-        <td><b>Actual Result</b></td>
-        <td><b>Start Time</b></td>
-        <td><b>End Time</b></td>
-        <td><b>Duration</b></td>
-    </tr>
+            <th colspan="10">TEST CASE DETAILS</th>
+            <tr class="header2" >
+            <td><b>Step</b></td>
+            <td><b>Result</b></td>
+            <td><b>Expected Result</b></td>
+            <td><b>Actual Result</b></td>
+            <td><b>Start Time</b></td>
+            <td><b>End Time</b></td>
+            <td><b>Duration</b></td>
+        </tr>
     <tr><!--DETAILS-->
 </table>
 </body>

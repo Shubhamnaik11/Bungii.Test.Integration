@@ -1,4 +1,5 @@
 @ios
+
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
   Assume customer is logged in
@@ -139,7 +140,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  @TTEST1
   @regression
   Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
     When I Select "Home" from Customer App menu
@@ -153,7 +154,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     Then Clear Button should be enabled for "Drop" box
-
+  @TTEST1
   @regression
   Scenario: To Verify clear text button on Pick up and Drop location
     When I Select "Home" from Customer App menu
@@ -172,7 +173,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "Pick Up Clear Text" button on "Home" screen
     Then current location should be present as pickup location
     Then "Drop" address should be empty
-
+  @TTEST1
   @regression
   Scenario: To check if the information icons display correct information
     When I Select "Home" from Customer App menu
@@ -188,7 +189,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then "Load/Upload Time" information icon should display correct information
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
-
+  @TTEST1
   @regression
   Scenario: To check the elements of Bungii-Solo Estimate page
     #When I Switch to "customer" application on "same" devices
@@ -202,7 +203,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
-
+  @TTEST1
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices
@@ -213,7 +214,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then check if I have ability to select different load time and Estimate cost is re calculated
-
+  @TTEST1
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     When I Switch to "customer" application on "same" devices
@@ -243,7 +244,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-
+  @TTEST1
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
@@ -264,7 +265,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
+  @TTEST1
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 

@@ -4,21 +4,26 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PaymentPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class PaymentSteps extends DriverBase {
     PaymentPage paymentPage = new PaymentPage();
     ActionManager action = new ActionManager();
+    private static LogUtility logger = new LogUtility(PaymentSteps.class);
 
     @And("^I tap on \"([^\"]*)\" on Payment page$")
     public void i_tap_on_something_on_payment_page(String strArg1) throws Throwable {
+        try {
         switch (strArg1) {
             case "the 2nd payment method":
                 cucumberContextManager.setScenarioContext("CardNumber", action.getText(paymentPage.PaymentCard2()));
@@ -66,11 +71,17 @@ public class PaymentSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @When("^I swipe \"([^\"]*)\" card on the payment page$")
     public void i_swipe_something_card_on_the_payment_page(String strArg1) throws Throwable {
+        try {
         switch (strArg1) {
             case "2nd":
                 action.swipeLeft(paymentPage.PaymentCard2());
@@ -79,10 +90,16 @@ public class PaymentSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @Then("^I should see \"([^\"]*)\" on Payment page$")
     public void i_should_see_something_on_payment_page(String strArg1) throws Throwable {
+        try {
         switch (strArg1) {
             case "message when no payment methods exist":
                 //  String ActualNoPaymentText = UtilFunctions.TrimString(paymentPage.Text_NoPaymentExists().Text);
@@ -125,10 +142,16 @@ public class PaymentSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^I enter \"([^\"]*)\" on Card Details page$")
     public void i_enter_something_on_card_details_page(String p1) throws Throwable {
+        try {
         switch (p1) {
             case "valid card number":
                 paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.jcb"));
@@ -150,5 +173,10 @@ public class PaymentSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 }

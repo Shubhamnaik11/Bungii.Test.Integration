@@ -19,91 +19,100 @@ public class SignupSteps extends DriverBase {
     SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    DbUtility dbutility= new DbUtility();
+    DbUtility dbutility = new DbUtility();
 
     @When("^I enter \"([^\"]*)\" customer phone number on Signup Page$")
     public void i_enter_something_customer_phone_number_on_signup_page(String strArg1) throws Throwable {
-        String customerPhone = "";
-
-        switch (strArg1) {
-            case "unique":
-                customerPhone = utility.generateMobileNumber();
-                break;
-            case "blank":
-                break;
-            case "invalid":
-                customerPhone = PropertyUtility.getDataProperties("customer.phone.number.invalid");
-                break;
-            case "existing":
-                customerPhone = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                break;
-            default:
-                break;
+        try {
+            String customerPhone = "";
+            switch (strArg1) {
+                case "unique":
+                    customerPhone = utility.generateMobileNumber();
+                    break;
+                case "blank":
+                    break;
+                case "invalid":
+                    customerPhone = PropertyUtility.getDataProperties("customer.phone.number.invalid");
+                    break;
+                case "existing":
+                    customerPhone = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    break;
+                default:
+                    break;
+            }
+            action.sendKeys(Page_Signup.TextField_Phonenumber(), customerPhone);
+            cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
-        action.sendKeys(Page_Signup.TextField_Phonenumber(), customerPhone);
-        cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
-
     }
 
     @And("^I enter \"([^\"]*)\" data in mandatory fields on Signup Page$")
     public void i_enter_something_data_in_mandatory_fields_on_signup_page(String strArg1) throws Throwable {
-        switch (strArg1) {
-            case "valid":
-                action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name"));
-                action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
-                action.click(Page_Signup.TextField_Email());
-                action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
-                action.hideKeyboard();
+        try {
 
-                //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
-                action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
-                action.click(Page_Signup.Select_ReferralSource());
-                action.click(Page_Signup.Option_ReferralSource());
-                action.click(Page_Signup.Link_ReferralSourceDone());
-                break;
+            switch (strArg1) {
+                case "valid":
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name"));
+                    action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
+                    action.click(Page_Signup.TextField_Email());
+                    action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
+                    action.hideKeyboard();
+                    //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
+                    action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.click(Page_Signup.Select_ReferralSource());
+                    action.click(Page_Signup.Option_ReferralSource());
+                    action.click(Page_Signup.Link_ReferralSourceDone());
+                    break;
 
-            case "blank":
-                action.clearSendKeys(Page_Signup.TextField_FirstName(), "");
-                action.clearSendKeys(Page_Signup.TextField_LastName(), "");
-                action.clearSendKeys(Page_Signup.TextField_Email(), "");
-                action.clearSendKeys(Page_Signup.TextField_Password(), "");
-                break;
+                case "blank":
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(), "");
+                    action.clearSendKeys(Page_Signup.TextField_LastName(), "");
+                    action.clearSendKeys(Page_Signup.TextField_Email(), "");
+                    action.clearSendKeys(Page_Signup.TextField_Password(), "");
+                    break;
 
-            case "invalid":
-                action.click(Page_Signup.TextField_Email());
-                action.sendKeys(PropertyUtility.getDataProperties("customer.email.invalid"));
-                action.hideKeyboard();
-                //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
-                action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
-                Page_Signup.TextField_Referral().click();
-                action.hideKeyboard();
-                break;
-
-            default:
-                break;
+                case "invalid":
+                    action.click(Page_Signup.TextField_Email());
+                    action.sendKeys(PropertyUtility.getDataProperties("customer.email.invalid"));
+                    action.hideKeyboard();
+                    //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
+                    action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
+                    Page_Signup.TextField_Referral().click();
+                    action.hideKeyboard();
+                    break;
+                default:
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
     @When("^I enter \"([^\"]*)\" Verification code$")
     public void i_enter_something_verificationcode(String strArg1) {
-        String smsCode="";
+        String smsCode = "";
         try {
             switch (strArg1) {
                 case "valid":
                     Thread.sleep(20000);
-                    smsCode=dbutility.getVerificationCode((String)cucumberContextManager.getScenarioContext("CustomerPhoneNum"));
+                    smsCode = dbutility.getVerificationCode((String) cucumberContextManager.getScenarioContext("CustomerPhoneNum"));
                     break;
             }
             action.sendKeys(Page_Signup.Textfield_SMSCode(), smsCode);
 
-            pass( "I should able to enter verification code",
-                    "I entered verification code : " + smsCode +"in sms code field", true);
+            pass("I should able to enter verification code",
+                    "I entered verification code : " + smsCode + "in sms code field", true);
             //TODO:REMOVE THIS
-          //  Thread.sleep(20000);
+            //  Thread.sleep(20000);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -119,8 +128,10 @@ public class SignupSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @And("^I tap on the \"([^\"]*)\" button on Signup Page$")
     public void i_tap_on_the_something_button_on_signup_page(String strArg1) throws Throwable {
+        try {
         switch (strArg1) {
             case "Sign Up":
                 action.scrollToBottom();
@@ -135,10 +146,16 @@ public class SignupSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     @And("^the new user should see \"([^\"]*)\"$")
     public void the_new_user_should_see_something(String strArg1) throws Throwable {
+        try {
         switch (strArg1) {
             case "sign up button disabled":
                 testStepVerify.isElementNotEnabled(Page_Signup.Button_Signup(true), "Signup button should be disabled", "Signup button is disabled", "Signup button is enabled");
@@ -163,23 +180,35 @@ public class SignupSteps extends DriverBase {
             default:
                 break;
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
 
     @And("^I enter \"([^\"]*)\" promo code on Signup Page$")
     public void i_enter_something_promo_code_on_signup_page(String strArg1) throws Throwable {
+        try {
         String strPromoCode = "";
         switch (strArg1) {
             case "ValidPercent":
-                strPromoCode= PropertyUtility.getDataProperties("promocode.valid.percent");
+                strPromoCode = PropertyUtility.getDataProperties("promocode.valid.percent");
                 break;
             case "invalid":
-                strPromoCode= PropertyUtility.getDataProperties("promocode.invalid");
+                strPromoCode = PropertyUtility.getDataProperties("promocode.invalid");
                 break;
             default:
                 break;
         }
-        action.sendKeys(Page_Signup.TextField_Referral(),strPromoCode);
+        action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
-                "I entered  " + strPromoCode + " as "+strArg1 +"promoCode", true);    }
+                "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
+    }
 }

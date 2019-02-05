@@ -9,5 +9,8 @@ public enum TargetPlatform {
 	    TargetPlatform(String platformName) {
 	        this.platformName = platformName;
 	    }
+		public String value() {
+			return platformName;
+		}
 
 	}

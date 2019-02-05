@@ -7,11 +7,9 @@ import com.bungii.android.pages.customer.SignupPage;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.manager.AssertManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -142,49 +140,60 @@ public class CustomerForgotPasswordSteps extends DriverBase {
 
     @Then("The user should be logged in")
     public void the_user_should_be_logged_in() {
-        utility.isCorrectPage("Home");
-        testStepAssert.isTrue(utility.isCorrectPage("Home"),"Home page should be displayed" ,"Home page is displayed","Home page was not displayed");
-
+        try {
+            utility.isCorrectPage("Home");
+            testStepAssert.isTrue(utility.isCorrectPage("Home"), "Home page should be displayed", "Home page is displayed", "Home page was not displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^The user should see \"([^\"]*)\" on forgot password page$")
     public void the_user_should_see_something_on_forgot_password_page(String strArg1) throws Throwable {
-        String errorMessage = "";
-        switch (strArg1) {
-            case "snackbar validation message for success":
-                WebElement snackBar = forgotPasswordPage.Snackbar_ForgotPassword(true);
-                String actualMessage = "";
-                if (snackBar == null) {
-                    warning("Snackbar message for success should be displayed", "Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text");
+        try {
+            String errorMessage = "";
+            switch (strArg1) {
+                case "snackbar validation message for success":
+                    WebElement snackBar = forgotPasswordPage.Snackbar_ForgotPassword(true);
+                    String actualMessage = "";
+                    if (snackBar == null) {
+                        warning("Snackbar message for success should be displayed", "Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text");
+                        break;
+                    } else {
+                        actualMessage = snackBar.getText();
+                        testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+                    }
                     break;
-                } else {
-                    actualMessage = snackBar.getText();
-                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
-                }
-                break;
 
-            case "snackbar validation message for invalid sms code":
-                testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), PropertyUtility.getMessage("customer.forgotpassword.invalid.code.android"));
-                break;
-            case "Send button disabled":
-                testStepVerify.isElementNotEnabled(forgotPasswordPage.Button_ForgotPass_Send(true), "Send buttons should be disabled ", "Send button is disabled", "Send Button is not disabled");
-                break;
-            case "validation for incorrect password":
-                errorMessage = PropertyUtility.getMessage("customer.forgotpassword.invalid.password.android");
-                testStepVerify.isEquals(action.getText(forgotPasswordPage.Err_InvalidPassword()), errorMessage);
-                break;
-            case "validation for incorrect number":
-                errorMessage = PropertyUtility.getMessage("customer.forgotpassword.invalid.phone");
-                testStepVerify.isEquals(action.getText(forgotPasswordPage.Err_InvalidPassword()), errorMessage);
-                break;
-            case "snackbar validation message for invalid number":
-                errorMessage = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
-                testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), errorMessage);
-                break;
+                case "snackbar validation message for invalid sms code":
+                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), PropertyUtility.getMessage("customer.forgotpassword.invalid.code.android"));
+                    break;
+                case "Send button disabled":
+                    testStepVerify.isElementNotEnabled(forgotPasswordPage.Button_ForgotPass_Send(true), "Send buttons should be disabled ", "Send button is disabled", "Send Button is not disabled");
+                    break;
+                case "validation for incorrect password":
+                    errorMessage = PropertyUtility.getMessage("customer.forgotpassword.invalid.password.android");
+                    testStepVerify.isEquals(action.getText(forgotPasswordPage.Err_InvalidPassword()), errorMessage);
+                    break;
+                case "validation for incorrect number":
+                    errorMessage = PropertyUtility.getMessage("customer.forgotpassword.invalid.phone");
+                    testStepVerify.isEquals(action.getText(forgotPasswordPage.Err_InvalidPassword()), errorMessage);
+                    break;
+                case "snackbar validation message for invalid number":
+                    errorMessage = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), errorMessage);
+                    break;
 
 
-            default:
-                throw new Exception("Unimplemented step");
+                default:
+                    throw new Exception("Unimplemented step");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 }

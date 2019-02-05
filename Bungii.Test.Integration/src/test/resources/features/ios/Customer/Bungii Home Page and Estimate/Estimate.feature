@@ -58,7 +58,7 @@ Feature: Customer	Referal Invite page
     Then I should be navigated to "ESTIMATE" screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | 30 mins          | ADD        | {PREVIOUS VALUE} | x4242          | Now  | CHECK               | ENABLED        |
+      | {PREVIOUS VALUE} | 15 mins          | ADD        | {PREVIOUS VALUE} | x4242          | Now  | CHECK               | ENABLED        |
 
   @regression
   Scenario: When I cancel on Estimate Page , I should be navigated to Home screen

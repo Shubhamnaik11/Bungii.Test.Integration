@@ -51,17 +51,4 @@ public class LogInSteps extends DriverBase {
                     true);
         }
     }
-
-/*    @When("^I Switch to admin portal$")
-    public void i_switch_to_admin_portal() {
-        try {
-        DriverManager.getObject().useDriverInstance("ADMIN");
-        pass("Switch to  admin portal application",
-                "Switch to  admin portal application", true);
-    } catch (Exception e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
-                true);
-    }
-    }*/
 }

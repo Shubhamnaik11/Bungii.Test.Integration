@@ -29,7 +29,6 @@ public class CucumberHooks {
 	private ReportManager reportManager;
 	private static boolean isFirstTestCase;
 	private static LogUtility logger = new LogUtility(CucumberHooks.class);
-
 	static {
 		PropertyUtility.loadRunConfigProps();
 		String autoHome =CucumberHooks.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("/target/test-classes/", "");// (String) PropertyUtility.getProp("auto.home");
