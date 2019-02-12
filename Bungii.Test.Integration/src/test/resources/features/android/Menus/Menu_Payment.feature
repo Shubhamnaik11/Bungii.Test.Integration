@@ -1,5 +1,5 @@
 @android
-@Menu_Payment
+@CUST
 Feature: Menu_Payment
 Scenarios on Payment Methods
 

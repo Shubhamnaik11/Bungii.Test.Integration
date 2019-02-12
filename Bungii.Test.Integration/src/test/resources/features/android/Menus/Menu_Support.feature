@@ -1,5 +1,5 @@
 @android
-
+@CUST
 Feature: Menu_Support
   Test scenarios related to Support page
 
@@ -12,7 +12,7 @@ Feature: Menu_Support
     When I enter "valid" text in Support field
     And I tap "Send" on Support page
     Then The user should see "snackbar validation" on Support page
-  @Menu_SaveMoney
+
   @regression
   Scenario: Bungii customer I dont enter any question and click on send button
     When I enter "space" text in Support field

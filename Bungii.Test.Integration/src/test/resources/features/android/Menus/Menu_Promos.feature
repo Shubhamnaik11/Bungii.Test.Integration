@@ -1,4 +1,5 @@
 @android
+@CUST
 Feature: Menu_SaveMoney
 
   @regression
