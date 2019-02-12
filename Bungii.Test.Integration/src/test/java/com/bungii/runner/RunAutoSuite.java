@@ -24,11 +24,12 @@ import java.util.Properties;
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
     private static final String INITIAL_FILE_NAME="login";
+    private static String REMOTE_ADB_HOST,REMOTE_ADB_PORT="5554";
     /**
      * @param device Device variable from maven
      */
-    @Parameters({"test.Device", "test.Platform", "test.Environment", "test.Category","multiple.data.file"})
-    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category,@Optional("false") String multipleLoginFile) {
+    @Parameters({"test.Device", "test.Platform", "test.Environment", "test.Category","multiple.data.file","remote.adb.ip"})
+    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category,@Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost) {
         //Use below statement only in test runner running which are not suppose to run with maven ,
         //In case of maven logFilepath is set in maven set in POM.xml
 
@@ -57,6 +58,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         //this is to update values from config value
         PropertyUtility.environment=environment;
         PropertyUtility.targetPlatform=Platform;
+        REMOTE_ADB_HOST=remoteAdbHost;
         this.hooks = new CucumberHooks();
 
     }
@@ -90,7 +92,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         } catch (IOException ex) {
             ex.printStackTrace();
         }*/
-        this.hooks.start(resultFolder);
+        this.hooks.start(resultFolder,REMOTE_ADB_HOST,REMOTE_ADB_PORT);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.bungii;
 
+import com.bungii.common.enums.TargetPlatform;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.FileUtility;
@@ -15,6 +16,7 @@ import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.appium.java_client.service.local.flags.ServerArgument;
 import org.json.JSONObject;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -43,7 +45,7 @@ public class SetupManager extends EventFiringWebDriver {
             driver.quit();
         }
     };
-    private static String APPIUM_SERVER_IP;
+    private static String APPIUM_SERVER_IP,REMOTE_ADB_ADDRESS="",REMOTE_ADB_PORT="";
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
@@ -63,7 +65,7 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                System.out.println("PORT" + APPIUM_SERVER_PORT + "");
+                System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
                 driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
             }
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
@@ -114,15 +116,14 @@ public class SetupManager extends EventFiringWebDriver {
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
         Map<String, String> env = new HashMap<String, String>(System.getenv());
-        env.put("PATH", "/usr/local/bin:" + env.get("PATH"));
-        //Build the Appium service
+
         AppiumServiceBuilder builder = new AppiumServiceBuilder();
         builder.withIPAddress(APPIUM_SERVER_IP);
         builder.usingPort(Integer.parseInt(portNumber));
         //relaxed security tag
         builder.withArgument(GeneralServerFlag.RELAXED_SECURITY);
-        builder.withEnvironment(env);
-        AppiumDriverLocalService service = AppiumDriverLocalService.buildService(builder);
+       // builder.withEnvironment(env);
+        service = AppiumDriverLocalService.buildService(builder);
         service.start();
 
     }
@@ -242,11 +243,20 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
+
+        }
+        if(!REMOTE_ADB_ADDRESS.equals("")&&TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())){
+            capabilities.setCapability("remoteAdbHost",REMOTE_ADB_ADDRESS);
+            capabilities.setCapability("adbPort",REMOTE_ADB_PORT);
         }
         logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
         return capabilities;
     }
 
+    public static void updateRemoteAdbInformation(String remoteAdbHost,String remoteAdbPort){
+        REMOTE_ADB_ADDRESS=remoteAdbHost;
+        REMOTE_ADB_PORT=remoteAdbPort;
+    }
     /**
      * @param deviceId Device key whose port Number on which Appium server is running is to fetches
      * @return

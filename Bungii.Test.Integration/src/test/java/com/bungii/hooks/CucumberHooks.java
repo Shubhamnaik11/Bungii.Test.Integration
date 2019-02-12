@@ -47,10 +47,11 @@ public class CucumberHooks {
 	/**
 	 * This method will be called at start of each test suite
 	 */
-	public synchronized void start(String resultFolder) {
+	public synchronized void start(String resultFolder,String remoteAdbHost,String remoteAdbPort) {
 
 		try {
-			logger.detail("Device On which test will be run is" + System.getProperty("DEVICE"));
+			logger.detail("Device On which test will be run is :" + System.getProperty("DEVICE"));
+			SetupManager.updateRemoteAdbInformation(remoteAdbHost,remoteAdbPort);
 			//Create new default driver instance and save it
 			SetupManager.getObject().getDriver();
 		} catch (Exception e) {

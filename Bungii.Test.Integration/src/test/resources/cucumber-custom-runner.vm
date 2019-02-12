@@ -33,14 +33,14 @@ import java.io.IOException;
 public class $className extends AbstractTestNGCucumberTests {
 	//private static final String RUN_CONFIG_PROPERTIES = "/profile.properties";
     private static final String INITIAL_FILE_NAME="login";
-
+    private static String REMOTE_ADB_HOST,REMOTE_ADB_PORT="5554";
 	CucumberHooks hooks;
 	/*public $className(){
 		this.hooks= new Hooks();
 	}*/
 	
-	  @Parameters({"test.Device","test.Platform","test.Environment","test.Category","multiple.data.file"})
-	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category, @Optional("false") String multipleLoginFile){
+	  @Parameters({"test.Device","test.Platform","test.Environment","test.Category","multiple.data.file","remote.adb.ip"})
+	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category, @Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost){
 		String ClassName =this.getClass().getSimpleName();
         if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
 		String[]deviceList = device.split(",");
@@ -64,6 +64,7 @@ public class $className extends AbstractTestNGCucumberTests {
 		        //this is to update values from config value
         PropertyUtility.environment=environment;
         PropertyUtility.targetPlatform=Platform;
+        REMOTE_ADB_HOST=remoteAdbHost;
 		this.hooks= new CucumberHooks();
 	}
 	
@@ -92,7 +93,7 @@ public class $className extends AbstractTestNGCucumberTests {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }*/
- 		this.hooks.start(resultFolder);
+        this.hooks.start(resultFolder,REMOTE_ADB_HOST,REMOTE_ADB_PORT);
 
  	}
     @AfterSuite

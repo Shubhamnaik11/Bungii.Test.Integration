@@ -12,5 +12,8 @@ public enum TargetPlatform {
 		public String value() {
 			return platformName;
 		}
+		public String toString() {
+		return this.platformName;
+	}
 
 	}
