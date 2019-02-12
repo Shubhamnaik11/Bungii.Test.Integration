@@ -58,7 +58,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         //this is to update values from config value
         PropertyUtility.environment=environment;
         PropertyUtility.targetPlatform=Platform;
-        REMOTE_ADB_HOST=remoteAdbHost;
+        REMOTE_ADB_HOST=remoteAdbHost;System.setProperty("remoteAdbHost",remoteAdbHost);
         this.hooks = new CucumberHooks();
 
     }
@@ -92,7 +92,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         } catch (IOException ex) {
             ex.printStackTrace();
         }*/
-        this.hooks.start(resultFolder,REMOTE_ADB_HOST,REMOTE_ADB_PORT);
+        this.hooks.start(resultFolder);
     }
 
     /**

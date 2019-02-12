@@ -45,7 +45,7 @@ public class SetupManager extends EventFiringWebDriver {
             driver.quit();
         }
     };
-    private static String APPIUM_SERVER_IP,REMOTE_ADB_ADDRESS="",REMOTE_ADB_PORT="";
+    private static String APPIUM_SERVER_IP,REMOTE_ADB_ADDRESS="",REMOTE_ADB_PORT="5554";
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
@@ -245,18 +245,14 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability(key, jsonCaps.get(key));
 
         }
-        if(!REMOTE_ADB_ADDRESS.equals("")&&TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())){
-            capabilities.setCapability("remoteAdbHost",REMOTE_ADB_ADDRESS);
+        if(!System.getProperty("remoteAdbHost").trim().equals("")&&TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())){
+            capabilities.setCapability("remoteAdbHost",System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort",REMOTE_ADB_PORT);
         }
         logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
         return capabilities;
     }
 
-    public static void updateRemoteAdbInformation(String remoteAdbHost,String remoteAdbPort){
-        REMOTE_ADB_ADDRESS=remoteAdbHost;
-        REMOTE_ADB_PORT=remoteAdbPort;
-    }
     /**
      * @param deviceId Device key whose port Number on which Appium server is running is to fetches
      * @return
