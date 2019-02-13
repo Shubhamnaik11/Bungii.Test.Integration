@@ -2,6 +2,7 @@ package com.bungii.android.manager;
 
 import com.bungii.SetupManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -232,6 +233,23 @@ public class ActionManager {
         int topY = driver.manage().window().getSize().height / 8;
         //scroll with TouchAction by itself
         scroll(pressX, bottomY, pressX, topY);
+    }
+
+    /**
+     * An expectation for checking that an element is either invisible or not
+     * present on the DOM.
+     *
+     * @param element
+     *            used to find the element
+     */
+    public boolean invisibilityOfElementLocated(WebElement element) {
+
+        try {
+            return (new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime"))))
+                    .until(ExpectedConditions.invisibilityOf(element));
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     private void scroll(int fromX, int fromY, int toX, int toY) {

@@ -206,7 +206,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                     break;
                 case "newly registered":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_newlyregistered.password"));
                     break;
                 case "already having bungiis":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
@@ -412,6 +412,9 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
                     action.click(Page_Estimate.Permissions_CameraAllow());
+
+                if(!action.isElementPresent(Page_Estimate.Option_Camera(true)))
+                    action.scrollToBottom();
 
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();

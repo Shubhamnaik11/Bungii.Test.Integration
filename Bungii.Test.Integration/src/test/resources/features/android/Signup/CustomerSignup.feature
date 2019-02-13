@@ -1,10 +1,12 @@
 @android
 @CUST
+
 Feature: CustomerSignup
   Sign up as a Customer on Bungii app
 
   Background:
     Given I am on Sign up page
+
   @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -35,6 +37,7 @@ Feature: CustomerSignup
     When I enter "invalid" customer phone number on Signup Page
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
+
 
   @regression
   Scenario: Signup_SuccessValidPromoCode

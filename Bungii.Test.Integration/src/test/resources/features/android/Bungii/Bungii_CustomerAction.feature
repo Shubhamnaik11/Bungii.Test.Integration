@@ -1,8 +1,10 @@
 @android
 @Bungii
+
 Feature: Bungii
 
   Background:
+    Given I am on customer Log in page
     Given I am logged in as "my" customer
     When I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate

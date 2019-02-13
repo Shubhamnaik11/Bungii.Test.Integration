@@ -10,6 +10,7 @@ public class FAQPage extends PageBase {
 
     //------Page Elements------------------------------------------------------------------------
     public WebElement FAQ_BungiiLogo() { return findElement("com.bungii.customer:id/promo_code_label", LocatorType.Id); }
+    public WebElement FAQ_Loading(boolean...ignoreException) { return findElement("com.bungii.customer:id/faq_progressbar", LocatorType.Id,ignoreException); }
 
     public WebElement FAQ_Image() { return findElement("", LocatorType.Id); }
 

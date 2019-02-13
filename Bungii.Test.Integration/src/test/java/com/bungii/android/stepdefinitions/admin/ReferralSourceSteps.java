@@ -1,5 +1,6 @@
 package com.bungii.android.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.pages.admin.ReferralSourcePage;
@@ -43,6 +44,7 @@ public class ReferralSourceSteps extends DriverBase {
     @Then("^account created info for \"([^\"]*)\" should be \"([^\"]*)\"$")
     public void i_account_created_info_for_something_should_be_something(String source, String expected) {
         try {
+            Thread.sleep(120000);//TODO: remove this
             String[] referralInfo = getSourceInfo(source);
             String numberOfAccount = (String) cucumberContextManager.getFeatureContextContext("NUM_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));
             String percentageOfAccount = (String) cucumberContextManager.getFeatureContextContext("PERCENTAGE_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));
@@ -71,6 +73,7 @@ public class ReferralSourceSteps extends DriverBase {
      * @return String array containing number of account and percentage
      */
     public String[] getSourceInfo(String source) {
+        SetupManager.getDriver().navigate().refresh();
         String[] info = new String[2];
         switch (source.toLowerCase()) {
             case "facebook":

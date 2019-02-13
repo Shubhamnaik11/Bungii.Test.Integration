@@ -1,9 +1,11 @@
 @android
 @Bungii
+
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
   Background:
+    Given I am on customer Log in page
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
@@ -24,6 +26,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "customer" application on "same" devices
     When I tap on "Cancel during search" on Bungii estimate
     And Quit Bungii Driver app
+  @CUST_TEST
   @regression
   Scenario: OnDemand_DriverCancelBungii_EnrouteState
     When Bungii Driver "accepts On Demand Bungii" request
@@ -31,7 +34,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I tap "OK on Driver Accepted screen" during a Bungii
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "cancels Bungii"
-
+    When I Switch to "customer" application on "same" devices
+  @CUST_TEST
   @regression
   Scenario: OnDemand_DriverCancelBungii_ArrivedState
     When Bungii Driver "accepts On Demand Bungii" request
@@ -41,3 +45,4 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     And Bungii Driver "cancels Bungii"
+    When I Switch to "customer" application on "same" devices

@@ -21,7 +21,6 @@ Feature: ReferralInvite
     Then I should see post "on gmail app"
     When I Switch to "customer" application on "same" devices
 
-
   @regression
   Scenario: Cust_Menu_ReferralInvite_Twitter_AppNotInstalled
     When I tap "Share on Twitter" on Invite page

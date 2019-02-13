@@ -50,7 +50,7 @@ public class InvitePage extends PageBase {
     public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath); }
 
     //------Share - Twitter App-----------------------------------------------------------------
-    public WebElement Twitter_Referral_Body() { return findElement("status", LocatorType.Id); }
+    public WebElement Twitter_Referral_Body() { return findElement("//*[@resource-id='status']", LocatorType.XPath); }
 
 
 

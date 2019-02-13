@@ -37,7 +37,7 @@ public class HomeSteps extends DriverBase {
         try {
             //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
-            log(" I should able to tap on " + strArg2, " I tapped on " + strArg2);
+            log(" I should able to tap on " + strArg2, " I tapped on " + strArg2,true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

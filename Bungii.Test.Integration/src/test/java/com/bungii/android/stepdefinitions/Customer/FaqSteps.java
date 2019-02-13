@@ -22,7 +22,10 @@ public class FaqSteps extends DriverBase {
             switch (strArg1) {
                 case "first question":
                     Thread.sleep(5000);
+                    action.invisibilityOfElementLocated(faqPage.FAQ_Loading(true));
+
                     action.scrollToBottom();
+                    action.invisibilityOfElementLocated(faqPage.FAQ_FirstQuestion());
                     action.click(faqPage.FAQ_FirstQuestion());
                     break;
                 case "expanded first question":

@@ -1,9 +1,11 @@
 @android
 @Bungii
+
 Feature: EstimateBungii
 
-#  Background:
-#    Given I am logged in as "my" customer
+  Background:
+Given I am on customer Log in page
+   Given I am logged in as "my" customer
 
  #Scenario fails when fixed valid code is not default code
   @regression

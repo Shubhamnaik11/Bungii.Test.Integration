@@ -80,7 +80,7 @@ public class PromosSteps extends DriverBase {
             switch (strArg1) {
                 case "promocode added":
                     expectedMessage = PropertyUtility.getDataProperties("promocode.valid");
-                    action.scrollToBottom();
+                    action.scrollToBottom();action.scrollToBottom();action.scrollToBottom();
                     testStepAssert.isTrue(utilities.isPromoCodePresent(expectedMessage), "Promo code should be added", "Promocode is added", "Promocode is not added");
                     break;
                 case "snackbar message for invalid code":
@@ -151,7 +151,7 @@ public class PromosSteps extends DriverBase {
                     break;
             }
             log(" I should able to tap " + arg0 + " on Save Money page",
-                    "I tapped on " + arg0 + " on Save Money Page", true);
+                    "I tapped on " + arg0 + " on Save Money Page", false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

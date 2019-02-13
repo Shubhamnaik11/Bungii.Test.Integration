@@ -1,10 +1,11 @@
 @android
-@CUST
+
 Feature: Menu_Payment
 Scenarios on Payment Methods
 
   @regression
   Scenario: Cust_Menu_Payment_NoPaymentMethodExists
+    Given I am on customer Log in page
     Given I am logged in as "newly registered" customer
     When I tap on "Menu" > "Payment" link
     Then I should see "message when no payment methods exist" on Payment page
@@ -12,6 +13,7 @@ Scenarios on Payment Methods
 
   @regression
   Scenario: As Bungii Customer I should able to change me default payment card
+    Given I am on customer Log in page
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
     And I tap on "the 2nd payment method" on Payment page
@@ -40,7 +42,6 @@ Scenarios on Payment Methods
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
     When I tap on "Menu" > "Logout" link
-
 
   @regression
   Scenario:  As Bungii Customer I should not able to add invalid payment Card
