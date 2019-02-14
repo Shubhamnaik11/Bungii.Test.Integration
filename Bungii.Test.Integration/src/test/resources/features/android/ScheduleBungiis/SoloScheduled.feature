@@ -1,11 +1,13 @@
 @android
 @Bungii
+
 Feature: SoloScheduled
   Background:
 
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
     When I tap on "Go Online button" on Driver Home page
     When I Switch to "customer" application on "same" devices
 
@@ -120,7 +122,7 @@ Feature: SoloScheduled
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
-
+  @RR
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.

@@ -38,7 +38,7 @@ public class SupportSteps extends DriverBase {
         action.sendKeys(supportPage.TextField(), textValue);
 
         action.hideKeyboard();
-        log("I should able to enter " + p0 + " ", "I enter " + textValue + " in support field");
+        log("I should able to enter " + p0 + " ", "I enter " + textValue + " in support field",true);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",

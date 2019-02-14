@@ -1,5 +1,5 @@
 @android
-@CUST
+
 Feature: ReferralInvite
 
   Background:

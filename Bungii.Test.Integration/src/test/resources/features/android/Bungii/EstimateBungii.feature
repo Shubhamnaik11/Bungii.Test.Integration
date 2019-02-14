@@ -1,5 +1,4 @@
 @android
-@Bungii
 
 Feature: EstimateBungii
 

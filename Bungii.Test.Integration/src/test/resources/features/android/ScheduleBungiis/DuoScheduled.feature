@@ -1,5 +1,5 @@
 @android
-@Bungii
+
 Feature: Duo
 
   Background:
@@ -18,7 +18,7 @@ Feature: Duo
 
   @sanity
   @regression
-  Scenario: Validate That I am able to create Schedule  bungii.
+  Scenario: Validate That I am able to create Schedule duo bungii.
 
     When I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
