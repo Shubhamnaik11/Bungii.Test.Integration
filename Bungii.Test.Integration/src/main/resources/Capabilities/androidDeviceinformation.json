@@ -10,7 +10,7 @@
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "192.168.55.43:5037"
+    "udid": "TA93401OLE"
   },
   "extra1": {
     "platformName": "android",
