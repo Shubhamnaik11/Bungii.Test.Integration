@@ -5,9 +5,11 @@ $jsonFile= $args[1]
 $arr = $devicelist -split ','
 foreach ($device in $arr)
 {
+ $systemPortQuery=$device+'.systemPort'
+ $systemPortQuery
  # get appium port number
  $portNumber =.\jsonExtractor.bat $jsonFile connection.$device
- $webdriverport=.\jsonExtractor.bat $jsonFile $device.systemPort
+ $webdriverport=.\jsonExtractor.bat $jsonFile $systemPortQuery
  $logFile ="C:/Logs/AppiumServerLog_"+$device+$(get-date -f yyyy-MM-dd_hhmmss)+'.log'
  # add webdriver agent port to command
  $command ='--webdriveragent-port '+ $webdriverport+ ' -p '+$portNumber+ ' --log ' +$logFile +' --relaxed-security'
