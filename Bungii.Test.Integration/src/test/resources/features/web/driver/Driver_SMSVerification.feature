@@ -21,7 +21,7 @@ Feature: Driver_SMSVerification
     Then I should see "validation for blank verification code" on Driver Registration
 
   @regression
-  Scenario: DriverSignUp_Incorret_VerificationCode
+  Scenario: DriverSignUp_Incorrect_VerificationCode
     When I enter "incorrect" verification code
     And I click "Submit verification code" on driver portal
     Then I should see "validation for incorrect verification code" on Driver Registration
