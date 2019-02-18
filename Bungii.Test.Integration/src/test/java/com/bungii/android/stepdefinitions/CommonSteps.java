@@ -25,8 +25,7 @@ public class CommonSteps extends DriverBase {
                 Thread.sleep(3000);
             }
 
-            log("This is test to check switch",
-                    "Test", true);
+            logger.detail("DATA:"+SetupManager.getDriver().getPageSource());
             boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":

@@ -14,7 +14,7 @@ Feature: Duo
     When I connect to "extra1" using "Driver2" instance
   #  Given I am logged in as "valid driver 2" driver
     When I Switch to "customer" application on "ORIGINAL" devices
-
+    When I Switch to "customer" application on "same" devices
 @Duo
   @sanity
   @regression
