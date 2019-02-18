@@ -90,7 +90,7 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage, true);
+			ResultManager.fail( expectedText, errorMessage+"actual value"+actualValue+".expected value"+expectedValue, true);
 		}
 	}
 	/**
@@ -214,9 +214,6 @@ public class VerificationManager {
 
 	/**
 	 * @param element Web element object return from PageBase
-	 * @param expectedMessage Expected Message to that is to be update in report
-	 * @param successMessage If success this message will be published
-	 * @param errorMessage If failed this message will be published
 	 */
 	public void isElementTextEquals(WebElement element,String expectedValue) {
 		isEquals(element.getText(),expectedValue);

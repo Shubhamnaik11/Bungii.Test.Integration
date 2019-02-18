@@ -118,7 +118,7 @@ public class InviteSteps extends DriverBase {
                 case "on Twitter in browser":
                     action.hideKeyboard();
                     expectedText = PropertyUtility.getMessage("customer.invite.twitter.on.browser").replace("{0}", referralCode);
-                    testStepVerify.contains(action.getText(invitePage.Twitter_Referral_Body()), expectedText, " I should able to see propert invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    testStepVerify.contains(action.getText(invitePage.Twitter_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     break;
 
                 case "on Facebook app":

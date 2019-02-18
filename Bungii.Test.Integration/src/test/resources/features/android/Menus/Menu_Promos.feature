@@ -1,5 +1,5 @@
 @android
-
+@FF
 
 Feature: Menu_SaveMoney
 

@@ -7,7 +7,7 @@ Feature: To Test Solo - Scheduling Bungii
   #Background: List of steps run before each of the scenarios
   @regression
 
-  Scenario: Positive Scenario
+  Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
  #   When I connect to "device2" using "customer app" instance
 
@@ -76,7 +76,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   @regression
   @Solo_Scheduling_SANITY
-  Scenario: Positive Scenario
+  Scenario: I should able to Create and Complete Schedule Bungii
 
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
@@ -140,80 +140,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @TTEST1
-  @regression
-  Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
-    When I Select "Home" from Customer App menu
-    Then "Invite referrals" should be present in "Home" screen
-    Then current location should be present as pickup location
-    Then "PICK UP" box header and ETA bar header should be correctly displayed
-    When I select "Pick up" location
-    Then "Pick up" address should be displayed in text box
-    Then "Drop" box header and ETA bar header should be correctly displayed
-    Then Clear Button should be enabled for "Pick up" box
-    When I select "Drop" location
-    Then "Drop" address should be displayed in text box
-    Then Clear Button should be enabled for "Drop" box
-  @TTEST1
-  @regression
-  Scenario: To Verify clear text button on Pick up and Drop location
-    When I Select "Home" from Customer App menu
-    When I select "Pick up" location
-    Then "Pick up" address should be displayed in text box
-    And I click "Pick Up Clear Text" button on "Home" screen
-    Then current location should be present as pickup location
-    When I select "Pick up" location
-    Then "Pick up" address should be displayed in text box
-    When I select "Drop" location
-    Then "Drop" address should be displayed in text box
-    When I click "Drop Clear Text" button on "Home" screen
-    Then "Drop" address should be empty
-    When I select "Drop" location
-    Then "Drop" address should be displayed in text box
-    When I click "Pick Up Clear Text" button on "Home" screen
-    Then current location should be present as pickup location
-    Then "Drop" address should be empty
-  @TTEST1
-  @regression
-  Scenario: To check if the information icons display correct information
-    When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on Estimate screen
-    When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then "Load/Upload Time" information icon should display correct information
-    Then "Total estimate" information icon should display correct information
-    Then "Time" information icon should display correct information
-  @TTEST1
-  @regression
-  Scenario: To check the elements of Bungii-Solo Estimate page
-    #When I Switch to "customer" application on "same" devices
-    When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then Trip Information should be correctly displayed on Estimate screen
-    Then Estimate Screen should have element as per below table
-      | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242          | Now  | UNCHECK             | DISABLED       |
-  @TTEST1
-  @regression
-  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
-    When I Switch to "customer" application on "same" devices
-    When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then check if I have ability to select different load time and Estimate cost is re calculated
+
   @TTEST1
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii

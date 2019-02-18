@@ -15,7 +15,7 @@ Feature: Customer	Referral Invite page
     And I click "Done" button on "Invite" screen
 
   @regression
-  Scenario: As   As Bungii customer I should able to share my code using Text messages
+  Scenario: As   Bungii customer I should able to share my code using Text messages
     When I Select "Home" from Customer App menu
     When I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen

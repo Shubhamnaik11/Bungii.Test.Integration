@@ -42,7 +42,7 @@ Feature: CustomerMenu
   Scenario:As Bungii customer I should able to access support page
     When I tap on "Menu" > "Support" link
     Then "Support" page should be opened
-  @MENU
+
   @regression
   Scenario: As Bungii customer I should able to access promos page
     When I tap on "Menu" > "Promos" link

@@ -6,7 +6,7 @@ Feature: Customer	Menu
     Given I am on Customer logged in Home page
 
   @regression
-  Scenario: Bungii customer I want to check all menu links
+  Scenario: As Bungii customer I want to check all menu links
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
     When I Select "FAQ" from Customer App menu
@@ -28,7 +28,7 @@ Feature: Customer	Menu
     Then I should be navigated to "LOG IN" screen
 
   @regression
-  Scenario: Bungii customer I want to Ask question using support menu
+  Scenario: As Bungii customer I want to Ask question using support menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
     Then "Support Question" should be present in "SUPPORT" screen
@@ -38,7 +38,7 @@ Feature: Customer	Menu
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
 
   @regression
-  Scenario: Bungii customer I dont enter any question and click on send button
+  Scenario: As Bungii customer I dont enter any question and click on send button
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
     When I Enter "{EMPTY}" value in "Support Textbox" field in "SUPPORT" Page
@@ -46,7 +46,7 @@ Feature: Customer	Menu
     Then user is alerted for "EMPTY SUPPORT QUESTION"
 
   @regression
-  Scenario: Bungii customer I want to check FAQ
+  Scenario: As Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
     Then I should see "faq image" on FAQ page

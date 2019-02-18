@@ -8,7 +8,7 @@ Feature: Create on demand bungii
     Given I am on Customer logged in Home page
 
   @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
+  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
     And I clear all notification
     When I Switch to "driver" application on "same" devices
     And I Select "ACCOUNT" from driver App menu
