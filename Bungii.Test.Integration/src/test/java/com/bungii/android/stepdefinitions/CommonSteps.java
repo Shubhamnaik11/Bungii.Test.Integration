@@ -22,10 +22,11 @@ public class CommonSteps extends DriverBase {
         try {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
-                Thread.sleep(3000);
+                Thread.sleep(6000);
             }
+            String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
 
-            logger.detail("DATA:"+SetupManager.getDriver().getPageSource());
+            logger.detail(instanceName+"DATA:"+SetupManager.getDriver().getPageSource());
             boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
