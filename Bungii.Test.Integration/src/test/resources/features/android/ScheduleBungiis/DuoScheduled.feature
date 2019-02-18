@@ -4,10 +4,10 @@ Feature: Duo
 
   Background:
 
-  #  Given I am logged in as "valid" customer
-  #  When I tap on "Menu" > "Account" link
-  #  Then I get customer account details
-  #  When I tap on "Menu" > "Home" link
+    Given I am logged in as "valid" customer
+    When I tap on "Menu" > "Account" link
+    Then I get customer account details
+    When I tap on "Menu" > "Home" link
 
   #  When I Switch to "driver" application on "same" devices
   #  Given I am logged in as "valid" driver
