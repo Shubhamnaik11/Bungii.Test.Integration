@@ -1,5 +1,4 @@
-﻿echo bomm
-$devicelist =  $args[0]+',extra1'
+﻿$devicelist =  $args[0]+',extra1'
 $hostName= $args[1]
 $jsonFile= $args[2]
 set ADB_SERVER_SOCKET=tcp:$hostName:5554

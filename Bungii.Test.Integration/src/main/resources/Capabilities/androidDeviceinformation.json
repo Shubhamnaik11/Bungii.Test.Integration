@@ -14,16 +14,16 @@
   },
   "extra1": {
     "platformName": "android",
-    "deviceType": "MOTOROLA",
-    "deviceName": "Moto G(4)",
+    "automationName":"UiAutomator2",
+    "deviceType": "Nokia",
+    "deviceName": "Nokia 6.1 Plus",
     "platformVersion": "7.0",
     "noReset": true,
     "newCommandTimeout": "1500",
     "autoWebView": true,
-    "app": "D:\\APK\\bungii-driver-qa-debug.apk",
     "appPackage": "com.bungii.driver",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "udid": "192.168.54.209:5556"
+    "udid": "DRGID18101708783"
   },
   "connection": {
     "device1": 4723,

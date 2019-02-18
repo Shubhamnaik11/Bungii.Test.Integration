@@ -15,7 +15,7 @@ Feature: Duo
     Given I am logged in as "valid driver 2" driver
     When I Switch to "customer" application on "ORIGINAL" devices
 
-
+@Duo
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
