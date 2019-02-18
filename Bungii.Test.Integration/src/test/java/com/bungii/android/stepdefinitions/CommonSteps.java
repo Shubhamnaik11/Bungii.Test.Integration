@@ -22,8 +22,11 @@ public class CommonSteps extends DriverBase {
         try {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
-                Thread.sleep(2000);
+                Thread.sleep(3000);
             }
+
+            log("This is test to check switch",
+                    "Test", true);
             boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
