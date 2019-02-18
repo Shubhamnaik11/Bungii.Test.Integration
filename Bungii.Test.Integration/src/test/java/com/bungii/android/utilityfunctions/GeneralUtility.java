@@ -235,7 +235,8 @@ public class GeneralUtility extends DriverBase {
             System.out.println("   ENTER VALUE :" + c);
             Thread.sleep(200);
         }
-        ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
+        try{
+        ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();}catch (Exception e){}
     }
 
     /**
