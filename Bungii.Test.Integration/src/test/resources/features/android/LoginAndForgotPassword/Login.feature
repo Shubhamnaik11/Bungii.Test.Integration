@@ -1,12 +1,12 @@
 @android
-
+@MENU
 Feature: Login
   In order to login to bungii
   As a customer and perform functions
 
   Background:
     Given I am on customer Log in page
-@MENU
+
   @regression
   Scenario: Cust_Login_ValidCredentials
     When I enter customers "valid" Phone Number

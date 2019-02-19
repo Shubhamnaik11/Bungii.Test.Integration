@@ -1,6 +1,5 @@
 @android
-@FF
-
+@MENU
 Feature: Menu_SaveMoney
 
   @regression

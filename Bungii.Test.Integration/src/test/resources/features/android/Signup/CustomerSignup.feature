@@ -1,5 +1,5 @@
 @android
-
+@MENU
 
 Feature: CustomerSignup
   Sign up as a Customer on Bungii app

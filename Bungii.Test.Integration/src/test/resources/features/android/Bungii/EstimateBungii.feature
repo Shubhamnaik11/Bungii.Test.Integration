@@ -1,5 +1,5 @@
 @android
-
+@MENU
 Feature: EstimateBungii
 
   Background:

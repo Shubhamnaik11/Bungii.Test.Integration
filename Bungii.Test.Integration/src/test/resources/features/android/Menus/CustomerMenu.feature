@@ -1,5 +1,5 @@
 @android
-
+@MENU
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer
@@ -37,7 +37,7 @@ Feature: CustomerMenu
   Scenario: Cust_Menu_Payment
     When I tap on "Menu" > "Payment" link
     Then "Payment" page should be opened
-@MENU
+
   @regression
   Scenario:As Bungii customer I should able to access support page
     When I tap on "Menu" > "Support" link
