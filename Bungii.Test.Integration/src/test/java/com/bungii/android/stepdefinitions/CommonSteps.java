@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import cucumber.api.java.en.Then;
@@ -13,7 +14,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class CommonSteps extends DriverBase {
-    private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.CommonSteps.class);
+    private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -22,11 +23,8 @@ public class CommonSteps extends DriverBase {
         try {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
-                Thread.sleep(6000);
+                Thread.sleep(5000);
             }
-            String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
-
-            logger.detail(instanceName+"DATA:"+SetupManager.getDriver().getPageSource());
             boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
