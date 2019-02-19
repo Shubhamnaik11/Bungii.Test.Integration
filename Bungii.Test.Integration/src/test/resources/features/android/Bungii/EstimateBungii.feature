@@ -1,10 +1,11 @@
 @android
 @MENU
+
 Feature: EstimateBungii
 
   Background:
 Given I am on customer Log in page
-   Given I am logged in as "my" customer
+   Given I am logged in as "no promocode" customer
 
  #Scenario fails when fixed valid code is not default code
   @regression

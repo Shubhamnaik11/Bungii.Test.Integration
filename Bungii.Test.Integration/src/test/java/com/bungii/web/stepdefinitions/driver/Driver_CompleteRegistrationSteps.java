@@ -50,6 +50,7 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 //action.click(Page_Driver_PickupInfo.DropZone2_TruckImages());
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 

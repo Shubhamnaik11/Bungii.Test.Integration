@@ -13,13 +13,13 @@ public class LogInSteps extends DriverBase {
         boolean shouldLoginSucessful;
         switch (option.toLowerCase()) {
             case "valid":
-                phone = PropertyUtility.getDataProperties("valid.driver.phone");
-                password = PropertyUtility.getDataProperties("valid.driver.password");
+                phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver.password");
                 shouldLoginSucessful = true;
                 break;
             case"valid driver 2":
-                phone = PropertyUtility.getDataProperties("valid.driver2.phone");
-                password = PropertyUtility.getDataProperties("valid.driver2.password");
+                phone = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
                 shouldLoginSucessful = true;
                 break;
             default:

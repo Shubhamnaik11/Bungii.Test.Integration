@@ -10,7 +10,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "promocode added" on Save Money page
     When I tap on "Menu" > "Logout" link
-
+  @DD
   @regression
   Scenario: Menu_SaveMoney_AddInvalid
     Given I am logged in as "existing" customer

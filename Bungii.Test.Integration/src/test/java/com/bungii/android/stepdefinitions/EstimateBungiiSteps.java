@@ -224,6 +224,9 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "valid":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                     break;
+                case "no promocode":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
+                    break;
                 default:
                     break;
             }

@@ -102,11 +102,11 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
         switch (strArg1)
         {
             case "validation for invalid phone":
-                testStepVerify.isEquals(action.getText(Page_ForgotPassword.Err_ForgotPass_Phone()), PropertyUtility.getDataProperties("Err_DriverLogin_Phone)"));
+                testStepVerify.isEquals(action.getText(Page_ForgotPassword.Err_ForgotPass_Phone()), PropertyUtility.getMessage("Err_DriverLogin_Phone)"));
                 break;
             case "correct phone number":
                 String phone = PropertyUtility.getDataProperties("DriverPhoneNumber");
-                String PhoneLast4 = PropertyUtility.getDataProperties("VerifyPhoneText1") + "******" + phone.substring(phone.length() - 3) + PropertyUtility.getDataProperties("VerifyPhoneText2");
+                String PhoneLast4 = PropertyUtility.getMessage("VerifyPhoneText1") + "******" + phone.substring(phone.length() - 3) + PropertyUtility.getMessage("VerifyPhoneText2");
                 testStepVerify.isEquals(action.getText(Page_VerifyPhone.Text_Verify_PhoneNo()), PhoneLast4);
                 break;
             case "new verification code":
@@ -115,17 +115,17 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
                 testStepAssert.isFalse(Code_Initial.equals(Code_New),"New Code should not be equal to old code ","New code is equal to old code");
                 break;
             case "validation for invalid code":
-                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_Code_Incorrect()), PropertyUtility.getDataProperties("VerifCode_Err_Invalid"));
+                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_Code_Incorrect()), PropertyUtility.getMessage("VerifCode_Err_Invalid"));
                 break;
             case "validations for password fields":
-                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_Password_Invalid()), PropertyUtility.getDataProperties("DReg_Password_Short"));
-                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_ConfirmPassword()), PropertyUtility.getDataProperties("DReg_ConfirmPassword_Incorrect"));
+                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_Password_Invalid()), PropertyUtility.getMessage("DReg_Password_Short"));
+                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"));
                 break;
             case "validation for invalid password":
                 testStepVerify.isEquals(action.getText(Page_VerifyPhone.Err_VerifyPhone_Password_Invalid()), PropertyUtility.getDataProperties("DReg_Password_Invalid"));
                 break;
             case "success message driver login page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Login.Text_PasswordResetSuccess()), PropertyUtility.getDataProperties("Msg_PasswordResetSuccess"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Login.Text_PasswordResetSuccess()), PropertyUtility.getMessage("Msg_PasswordResetSuccess"));
                 break;
             default: break;
         }    }
