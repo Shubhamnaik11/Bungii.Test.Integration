@@ -13,7 +13,7 @@
     "systemPort": 8100,
     "udid": "TA93401OLE"
   },
-  "device2": {
+  "extra1": {
     "platformName": "android",
     "automationName":"UiAutomator2",
     "deviceType": "Nokia",
@@ -27,23 +27,8 @@
     "systemPort": 8110,
     "udid": "DRGID18101708783"
   },
-  "extra1": {
-    "platformName": "android",
-    "automationName":"UiAutomator2",
-    "deviceType": "Nokica",
-    "deviceName": "Nokica 6.1 Plus",
-    "platformVersion": "7.0",
-    "noReset": true,
-    "newCommandTimeout": "1500",
-    "autoWebView": true,
-    "appPackage": "com.bungii.driver",
-    "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
-    "systemPort": 8130,
-    "udid": "DRGID18101708783"
-  },
   "connection": {
     "device1": 4723,
-    "device2": 4724,
     "extra1": 4725
   }
 }
