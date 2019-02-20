@@ -47,5 +47,5 @@ public class Driver_PickUpInfoPage extends PageBase {
     public List<WebElement> Div_UploadedImages () { return findElements("//div[contains(@class,'dz-success dz-complete')]", LocatorType.XPath); }
 
     public WebElement Wrapper_Spinner () { return findElement("//div[@class='modal fade loader in' and @style='display: block;']", LocatorType.XPath, true); }
-
+    public WebElement cancel_upload(boolean ...ignoreException){return findElement("//*[text()='Cancel upload']",LocatorType.XPath,ignoreException);}
 }
