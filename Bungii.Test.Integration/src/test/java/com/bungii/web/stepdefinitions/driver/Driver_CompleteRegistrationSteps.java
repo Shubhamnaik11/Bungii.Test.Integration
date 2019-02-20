@@ -51,12 +51,14 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+                Thread.sleep(10000);
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
             case "less truck image - ii":
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+                Thread.sleep(10000);
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 

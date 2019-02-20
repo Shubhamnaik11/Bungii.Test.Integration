@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.driver;
 
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.*;
@@ -9,10 +10,13 @@ import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Driver_DetailsSteps extends DriverBase {
+    private static LogUtility logger = new LogUtility(Driver_DetailsSteps.class);
     Driver_ForgotPasswordPage Page_ForgotPassword = new Driver_ForgotPasswordPage();
     Driver_VerifyPhonePage Page_VerifyPhone = new Driver_VerifyPhonePage();
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
@@ -22,7 +26,6 @@ public class Driver_DetailsSteps extends DriverBase {
     Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage();
     Driver_TermsPage Page_Driver_Terms = new Driver_TermsPage();
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
-
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -53,8 +56,6 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.invisibilityOfElementLocated(Page_Driver_Details.Wrapper_Spinner());
 
                 testStepVerify.isElementEnabled(Page_Driver_Details.Link_RemoveFile(), "driver remove link should be present", "driver remove link is present", "driver remove link is not present");
-
-
 
 
                 action.click(Page_Driver_Details.CheckBox_Consent());
@@ -89,45 +90,51 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @Then("^I should see individual field validations on \"([^\"]*)\" page$")
     public void i_should_see_individual_field_validations_on_something_page(String strArg1) throws Throwable {
-        switch (strArg1) {
-            case "driver Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_ZipCode(), PropertyUtility.getMessage("Err_DriverDetails_ZipCode"));
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Other(), PropertyUtility.getMessage("Err_DriverDetails_Other"));
-                testStepVerify.isElementEnabled(Page_Driver_Details.Link_DriverPicture(), "driver Picture should be displayed", "driver Picture is displayed", "driver picture was not displayed");
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_SSN(), PropertyUtility.getMessage("Err_DriverDetails_SSN"));
-                testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Birthday(), PropertyUtility.getMessage("Err_DriverDetails_Birthday"));
-                break;
+        try {
+            switch (strArg1) {
+                case "driver Details":
+                    testStepVerify.isElementTextEquals(Page_Driver_Details.Err_ZipCode(), PropertyUtility.getMessage("Err_DriverDetails_ZipCode"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Other(), PropertyUtility.getMessage("Err_DriverDetails_Other"));
+                    testStepVerify.isElementEnabled(Page_Driver_Details.Link_DriverPicture(), "driver Picture should be displayed", "driver Picture is displayed", "driver picture was not displayed");
+                    testStepVerify.isElementTextEquals(Page_Driver_Details.Err_SSN(), PropertyUtility.getMessage("Err_DriverDetails_SSN"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Details.Err_Birthday(), PropertyUtility.getMessage("Err_DriverDetails_Birthday"));
+                    break;
 
-            case "Pickup Information - i":
-                testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_AddTruckImages(), PropertyUtility.getMessage("Err_Add1MoreTruckImage"));
-                break;
+                case "Pickup Information - i":
+                    testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_AddTruckImages(), PropertyUtility.getMessage("Err_Add1MoreTruckImage"));
+                    break;
 
-            case "Pickup Information - ii":
-                testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_AddTruckImages(), PropertyUtility.getMessage("Err_Add2MoreTruckImage"));
-                break;
+                case "Pickup Information - ii":
+                    testStepVerify.isElementTextEquals(Page_Driver_PickupInfo.Err_AddTruckImages(), PropertyUtility.getMessage("Err_Add2MoreTruckImage"));
+                    break;
 
-            case "date on Documentation":
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseExpiry(), PropertyUtility.getMessage("Err_InvalidDate"));
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_InsuranceExpiry(), PropertyUtility.getMessage("Err_InvalidDate"));
-                break;
+                case "date on Documentation":
+                    testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseExpiry(), PropertyUtility.getMessage("Err_InvalidDate"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_InsuranceExpiry(), PropertyUtility.getMessage("Err_InvalidDate"));
+                    break;
 
-            case "Documentation":
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseExpiry(), PropertyUtility.getMessage("Err_InvalidLicenseExpiryDate"));
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_InsuranceExpiry(), PropertyUtility.getMessage("Err_InvalidInsuranceExpiryDate"));
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseNumber(), PropertyUtility.getMessage("Err_LicenseNumber"));
-                break;
+                case "Documentation":
+                    testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseExpiry(), PropertyUtility.getMessage("Err_InvalidLicenseExpiryDate"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_InsuranceExpiry(), PropertyUtility.getMessage("Err_InvalidInsuranceExpiryDate"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseNumber(), PropertyUtility.getMessage("Err_LicenseNumber"));
+                    break;
 
-            case "bank account on Bank Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankAccNumber(), PropertyUtility.getMessage("Err_ShortBankAccount"));
-                break;
+                case "bank account on Bank Details":
+                    testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankAccNumber(), PropertyUtility.getMessage("Err_ShortBankAccount"));
+                    break;
 
-            case "Bank Details":
-                testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_RoutingNumber(), PropertyUtility.getMessage("Err_InvalidRoutingNumber"));
-                testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankAccNumber(), PropertyUtility.getMessage("Err_InvalidBankAccount"));
-                break;
+                case "Bank Details":
+                    testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_RoutingNumber(), PropertyUtility.getMessage("Err_InvalidRoutingNumber"));
+                    testStepVerify.isElementTextEquals(Page_Driver_Bank.Err_BankAccNumber(), PropertyUtility.getMessage("Err_InvalidBankAccount"));
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -155,7 +162,7 @@ public class Driver_DetailsSteps extends DriverBase {
             default:
                 break;
         }
-        log("I should able to click "+strArg1+" page","I clicked "+strArg1 +" page", true);
+        log("I should able to click " + strArg1 + " page", "I clicked " + strArg1 + " page", true);
 
     }
 
