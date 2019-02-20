@@ -112,9 +112,9 @@ public class Driver_DetailsSteps extends DriverBase {
                 break;
 
             case "Documentation":
-                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseNumber(), PropertyUtility.getMessage("Err_LicenseNumber"));
                 testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseExpiry(), PropertyUtility.getMessage("Err_InvalidLicenseExpiryDate"));
                 testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_InsuranceExpiry(), PropertyUtility.getMessage("Err_InvalidInsuranceExpiryDate"));
+                testStepVerify.isElementTextEquals(Page_Driver_Doc.Err_LicenseNumber(), PropertyUtility.getMessage("Err_LicenseNumber"));
                 break;
 
             case "bank account on Bank Details":

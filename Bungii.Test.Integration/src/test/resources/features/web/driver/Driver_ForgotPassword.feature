@@ -16,13 +16,13 @@ Feature: Driver_ForgotPassword
   Scenario: Driver_ForgotPassword_Blank
     When I click "Send Verification Code" on driver portal
     Then I should see blank fields validation on "Forgot Password" page
-  @WEB_FAIL
+
   @regression
   Scenario: Driver_ForgotPassword_InvalidPhone
     When I enter "invalid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     Then driver should see "validation for invalid phone" during phone verification
-  @WEB_FAIL
+
   @regression
   Scenario: Driver_ForgotPassword_VerifyPhone_CorrectPageDetails
     When I enter "valid" Phone Number on Forgot password page
@@ -53,7 +53,7 @@ Feature: Driver_ForgotPassword
     And I enter "correct" password in Confirm password field
     And I click "Reset Password" on driver portal
     Then driver should see "validation for invalid code" during phone verification
-  @WEB_FAIL
+
   @regression
   Scenario: Driver_ForgotPassword_VerifyPhone_InvalidPasswords
     When I enter "valid" Phone Number on Forgot password page

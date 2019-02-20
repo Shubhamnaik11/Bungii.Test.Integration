@@ -56,6 +56,7 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
 
             case "less truck image - ii":
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
