@@ -51,16 +51,18 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.cancel_upload(true));
-                action.invisibilityOfElementLocated(Page_Driver_PickupInfo.cancel_upload(true));
-                Thread.sleep(5000);
-                action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
+          //      action.invisibilityOfElementLocated(Page_Driver_PickupInfo.cancel_upload(true));
+         //       Thread.sleep(5000);
+                action.JavaScriptClick(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
+        //        action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
             case "less truck image - ii":
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
                 action.invisibilityOfElementLocated(Page_Driver_PickupInfo.cancel_upload(true));
-                Thread.sleep(5000);
-                action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
+             //   Thread.sleep(5000);
+           //     action.click(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
+                action.JavaScriptClick(Page_Driver_PickupInfo.Link_Truck1Image_Remove());
                 break;
 
             default:
