@@ -1,5 +1,5 @@
 @android
-@MENU
+
 Feature: Menu_SaveMoney
 
   @regression
@@ -10,7 +10,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "promocode added" on Save Money page
     When I tap on "Menu" > "Logout" link
-  @DD
+
   @regression
   Scenario: Menu_SaveMoney_AddInvalid
     Given I am logged in as "existing" customer
@@ -19,7 +19,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for invalid code" on Save Money page
     When I tap on "Menu" > "Logout" link
-
+  @TEST
   @regression
   Scenario: Menu_SaveMoney_AddExpired
     Given I am logged in as "existing" customer
@@ -28,7 +28,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for expired code" on Save Money page
     When I tap on "Menu" > "Logout" link
-
+  @TEST
   @regression
   Scenario: Menu_SaveMenu_Add already added code
     Given I am logged in as "existing" customer
@@ -39,7 +39,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar message for already added code" on Save Money page
     When I tap on "Menu" > "Logout" link
-
+  @TEST
   @regression
   Scenario: Menu_SaveMenu_Referral from SaveMoney page
     Given I am logged in as "newly registered" customer

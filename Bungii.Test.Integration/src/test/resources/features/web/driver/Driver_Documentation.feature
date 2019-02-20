@@ -16,7 +16,7 @@ Feature: Driver_Documentation
     And I click Next on "Driver Details" page
     And I enter "valid" data on Pickup Information page
     And I click Next on "Pickup Information" page
-
+@WEB_FAIL
   @regression
   Scenario: Driver_Documentation_InvalidData
     When I click Next on "Documentation" page

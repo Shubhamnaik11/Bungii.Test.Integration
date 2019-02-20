@@ -14,7 +14,7 @@ Feature: Driver_PickupInfo
     And I click "Continue Registration" on driver portal
     And I enter "valid" data on Driver Details page
     And I click Next on "Driver Details" page
-  @TEST
+  @WEB_FAIL
   @regression
   Scenario: Driver_PickupInfo_InvalidData
     When I click Next on "Pickup Information" page
