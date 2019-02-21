@@ -14,7 +14,7 @@ public class PropertyUtility {
     private static String JDBC_CONFIG_PROPERTY_FILE ="" ;//"/SystemProperties/jdbcConfig.properties";
     private static String DATA_PROPERTY_FILE = "" ;//"/UserProperties/data.properties";
     private static String LOGIN_PROPERTY_FILE = "" ;//"/UserProperties/LoginProperties/login.properties";
-    private static String LOGIN_PROPERTY_FOLDER = "/UserProperties/LoginProperties";
+    private static String LOGIN_PROPERTY_FOLDER = "/Profiles/{ENVT}/LoginProperties";
     private static Properties properties;
     private static Properties fileLocations;
     private static Properties images;
@@ -142,7 +142,7 @@ public class PropertyUtility {
             //do nothing
         }
         if (!(loginFileName == null)) {
-            LOGIN_PROPERTY_FILE = LOGIN_PROPERTY_FOLDER + File.separator + loginFileName + ".properties";
+            LOGIN_PROPERTY_FILE = LOGIN_PROPERTY_FOLDER.replace("{ENVT}",environment) + File.separator + loginFileName + ".properties";
         }
     }
 
@@ -166,7 +166,7 @@ public class PropertyUtility {
             System.err.println(e);
         }
         //update data property for multiple data properties
-        LOGIN_PROPERTY_FILE=fileLocations.getProperty("login.properties.file");
+        LOGIN_PROPERTY_FILE=fileLocations.getProperty("login.properties.file").replace("{ENVT}",properties.getProperty("environment").toUpperCase());
         updateLoginPropertyFileName();
         loginData = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(LOGIN_PROPERTY_FILE)) {
@@ -175,7 +175,7 @@ public class PropertyUtility {
         } catch (IOException e) {
             System.err.println(e);
         }
-        DATA_PROPERTY_FILE=fileLocations.getProperty("data.properties.file");
+        DATA_PROPERTY_FILE=fileLocations.getProperty("data.properties.file").replace("{ENVT}",properties.getProperty("environment").toUpperCase());
         data = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(DATA_PROPERTY_FILE)) {
             data.load(inputStream);
@@ -196,7 +196,7 @@ public class PropertyUtility {
         } catch (IOException e) {
             System.err.println(e);
         }
-        JDBC_CONFIG_PROPERTY_FILE=fileLocations.getProperty("jdbc.properties.file");
+        JDBC_CONFIG_PROPERTY_FILE=fileLocations.getProperty("jdbc.properties.file").replace("{ENVT}",properties.getProperty("environment").toUpperCase());
         jdbcConfig = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(JDBC_CONFIG_PROPERTY_FILE)) {
             jdbcConfig.load(inputStream);

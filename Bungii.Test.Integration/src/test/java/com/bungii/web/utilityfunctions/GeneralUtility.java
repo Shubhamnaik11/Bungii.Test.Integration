@@ -27,11 +27,11 @@ public class GeneralUtility {
 {
     String driverURL = null;
     String environment = PropertyUtility.getProp("environment");
-    if (environment.equals("Dev"))
+    if (environment.equalsIgnoreCase("DEV"))
         driverURL = PropertyUtility.getDataProperties("dev.driver.url");
-    if (environment.equals("QA"))
+    if (environment.equalsIgnoreCase("QA"))
         driverURL = PropertyUtility.getDataProperties("qa.driver.url");
-    if (environment.equals("Stage"))
+    if (environment.equalsIgnoreCase("STAGE"))
         driverURL = PropertyUtility.getDataProperties("stage.driver.url");
     return driverURL;
 }
@@ -39,11 +39,11 @@ public class GeneralUtility {
     {
         String adminURL = null;
         String environment = PropertyUtility.getProp("environment");
-        if (environment.equals("Dev"))
+        if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equals("QA"))
+        if (environment.equalsIgnoreCase("QA"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
-        if (environment.equals("Stage"))
+        if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
