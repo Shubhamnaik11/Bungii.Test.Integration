@@ -1,5 +1,6 @@
 @android
 @MENU
+
 Feature: Menu_Support
   Test scenarios related to Support page
 

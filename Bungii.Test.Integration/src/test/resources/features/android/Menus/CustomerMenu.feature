@@ -1,5 +1,6 @@
 @android
 @MENU
+
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer
@@ -24,7 +25,6 @@ Feature: CustomerMenu
     Then I should see "last question" on FAQ page
     Then I should see "social media links" on FAQ page
     When I tap on "Menu" > "Logout" link
-
 
   @regression
   Scenario:As Bungii customer I should able to access account page

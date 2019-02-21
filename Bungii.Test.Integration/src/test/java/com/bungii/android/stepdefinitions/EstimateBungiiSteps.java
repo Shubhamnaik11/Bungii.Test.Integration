@@ -161,6 +161,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "all elements":
+                  //  utility.getEstimateTime();
                     testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 

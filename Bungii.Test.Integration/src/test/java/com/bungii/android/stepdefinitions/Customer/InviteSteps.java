@@ -25,6 +25,8 @@ public class InviteSteps extends DriverBase {
         try {
             switch (actionItem) {
                 case "Share":
+                    Thread.sleep(7000);
+                    action.waitUntilIsElementExistsAndDisplayed(invitePage.Button_Share());
                     action.click(invitePage.Button_Share());
                     break;
                 case "Share on Facebook":
@@ -63,6 +65,10 @@ public class InviteSteps extends DriverBase {
                     testStepAssert.isElementEnabled(invitePage.Button_Share(), "Share button should be enabled", "Share button is enabled ", "Share button is not enabled");
                     break;
                 case "Referral Code":
+                    Thread.sleep(5000);
+                    ActionManager.waitUntilIsElementExistsAndDisplayed(invitePage.Invite_Code());
+                    if(action.getText(invitePage.Invite_Code()).equals(""))
+                        Thread.sleep(5000);
                     cucumberContextManager.setScenarioContext("ReferralCode", action.getText(invitePage.Invite_Code()));
                     log("I should able to see referral code", " Referral Code is " + (String) cucumberContextManager.getScenarioContext("ReferralCode"), true);
                     break;

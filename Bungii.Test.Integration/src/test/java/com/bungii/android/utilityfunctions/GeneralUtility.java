@@ -271,7 +271,9 @@ public class GeneralUtility extends DriverBase {
     }
 
     public String getEstimateTime() {
+
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+     //   phoneNumber="9999996170";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
@@ -320,6 +322,7 @@ public class GeneralUtility extends DriverBase {
     public String generateMobileNumber() {
 
         String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
+      //  phoneNumber="9999993248";
         while (!DbUtility.isPhoneNumberUnique(phoneNumber)) {
             phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
 

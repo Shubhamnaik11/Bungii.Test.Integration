@@ -4,6 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.driver.*;
 import com.bungii.web.utilityfunctions.DbUtility;
@@ -59,7 +60,7 @@ public class DriverRegistrationSteps extends DriverBase {
     public void i_enter_something_details_on_signup_page(String strArg1) throws Throwable {
         switch (strArg1) {
             case "valid":
-                action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
