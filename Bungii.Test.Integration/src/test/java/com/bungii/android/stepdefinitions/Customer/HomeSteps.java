@@ -83,7 +83,8 @@ public class HomeSteps extends DriverBase {
             //   String NavigationBarName = action.getText(homePage.Title_HomePage(true));
 
             if (utility.isCorrectPage("Signup") || utility.isCorrectPage("Login")) {
-                utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
+               // utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
+                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
             } else if (utility.isCorrectPage("Home")) {
                 // do nothing
             } else if (utility.isCorrectPage("Searching")) {

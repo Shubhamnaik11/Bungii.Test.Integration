@@ -351,9 +351,9 @@ public class GeneralUtility extends DriverBase {
                     action.click(Page_CustTerms.Button_GoToSetting());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                     ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-
-
                 }
+                if(action.isElementPresent(homePage.Button_Closetutorials(true)))
+                    action.click(homePage.Button_Closetutorials());
             }
         } else {
             //I am not on Login screen

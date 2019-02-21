@@ -66,8 +66,8 @@ public class GeneralUtility {
         String adminURL = GetAdminUrl();
 
         action.navigateTo(adminURL);
-        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("AdminPhonenumber"));
-        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("AdminPassword"));
+        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
 

@@ -47,6 +47,8 @@ public class HomePage extends PageBase {
 
     public WebElement Link_Menu () { return findElement("android.widget.ImageButton",LocatorType.ClassName); }
 
+    public WebElement Button_Closetutorials (boolean ...ignoreException) { return findElement("com.bungii.customer:id/tutorials_alert_iv_cancel",LocatorType.Id,ignoreException); }
+
     //------Bungii Posted Success page---------------------------------------------------------------------
     public WebElement Title_Success () { return findElement("//android.view.View[@id='com.bungii.customer:id/action_bar']/android.widget.TextView[@text='Success!']",LocatorType.XPath); }
 
@@ -63,5 +65,6 @@ public class HomePage extends PageBase {
     public WebElement Button_NavPromos() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(6); }
     public WebElement Button_NavDrives() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(7); }
     public WebElement Button_Navlogout() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(8); }
+
 
 }

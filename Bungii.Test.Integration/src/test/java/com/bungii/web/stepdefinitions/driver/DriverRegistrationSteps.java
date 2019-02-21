@@ -42,7 +42,7 @@ public class DriverRegistrationSteps extends DriverBase {
 
     @Given("^I am logged in as driver$")
     public void GivenIAmLoggedInAsDriver() {
-         utility.DriverLogin("9999999113", "Cci12345");
+       //  utility.DriverLogin("9999999113", "Cci12345");
 
         utility.DriverLogin(PropertyUtility.getDataProperties("DriverPhoneNumber"), PropertyUtility.getDataProperties("DriverPassword"));
         pass("I am logged in as driver",

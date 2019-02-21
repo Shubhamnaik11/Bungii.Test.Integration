@@ -6,7 +6,7 @@ Feature: CustomerSignup
 
   Background:
     Given I am on Sign up page
-
+  @TEST2
   @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"

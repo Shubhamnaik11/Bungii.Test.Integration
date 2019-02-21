@@ -9,10 +9,12 @@ Feature: Duo
     Then I get customer account details
     When I tap on "Menu" > "Home" link
 
-  #  When I Switch to "driver" application on "same" devices
-  #  Given I am logged in as "valid" driver
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    When I tap on "Go Online button" on Driver Home page
     When I connect to "extra1" using "Driver2" instance
-  #  Given I am logged in as "valid driver 2" driver
+    Given I am logged in as "valid driver 2" driver
+    When I tap on "Go Online button" on Driver Home page
     When I Switch to "customer" application on "ORIGINAL" devices
     When I Switch to "customer" application on "same" devices
 @Duo

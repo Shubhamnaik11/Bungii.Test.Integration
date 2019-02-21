@@ -7,6 +7,7 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -56,7 +57,7 @@ public class SignupSteps extends DriverBase {
             switch (strArg1) {
                 case "valid":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name"));
-                    action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
+                    action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                     action.click(Page_Signup.TextField_Email());
                     action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
                     action.hideKeyboard();
