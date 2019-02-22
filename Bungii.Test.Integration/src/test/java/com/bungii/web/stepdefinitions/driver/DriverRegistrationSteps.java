@@ -60,7 +60,7 @@ public class DriverRegistrationSteps extends DriverBase {
     public void i_enter_something_details_on_signup_page(String strArg1) throws Throwable {
         switch (strArg1) {
             case "valid":
-                action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
