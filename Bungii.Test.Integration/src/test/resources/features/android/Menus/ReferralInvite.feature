@@ -1,6 +1,6 @@
 @android
 @MENU
-@LOCAL
+
 Feature: ReferralInvite
 
   Background:
@@ -15,13 +15,13 @@ Feature: ReferralInvite
     When I tap "Share by Text Message" on Invite page
     Then I should see post "on text message app"
     When I Switch to "customer" application on "same" devices
-
+  @LOCAL
   @regression
   Scenario: Cust_Menu_ReferralInvite_Email
     When I tap "Share by Email" on Invite page
     Then I should see post "on gmail app"
     When I Switch to "customer" application on "same" devices
-
+  @LOCAL
   @regression
   Scenario: Cust_Menu_ReferralInvite_Twitter_AppNotInstalled
     When I tap "Share on Twitter" on Invite page
