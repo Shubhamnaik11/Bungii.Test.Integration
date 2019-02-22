@@ -1,6 +1,6 @@
 @android
 @MENU
-
+@LOCAL
 Feature: ReferralInvite
 
   Background:
