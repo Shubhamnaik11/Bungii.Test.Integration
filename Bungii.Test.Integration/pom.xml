@@ -247,6 +247,7 @@
                                 <multiple.data.file>${multiple.data.file}}</multiple.data.file>
                                 <remote.adb.ip>${remote.adb.ip}</remote.adb.ip>
                             </systemPropertyVariables>
+                            <testFailureIgnore>true</testFailureIgnore>
                             <forkCount>${acceptance.test.parallel.count}</forkCount>
                             <reuseForks>false</reuseForks>
                             <includes>
