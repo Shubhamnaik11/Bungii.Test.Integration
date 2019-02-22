@@ -1,5 +1,5 @@
 @ios
-@MENU
+
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -20,7 +20,7 @@ Feature: Promos
 #added promo code in
     Examples:
       | Senario | Promo  | Expected Message      |
-      | Invalid | FRESH1 | FIRST TIME ONLY PROMO |
+      | Invalid | first time only | FIRST TIME ONLY PROMO |
 
   @regression
   Scenario Outline: As a Bungii Customer , I should be alert while adding invalid promo code

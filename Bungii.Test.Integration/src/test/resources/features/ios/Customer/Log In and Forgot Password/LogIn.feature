@@ -1,4 +1,5 @@
 @ios
+
 Feature: Log In
   As a Bungii Customer I should be allowed to login only using valid credential
 
@@ -28,6 +29,8 @@ Feature: Log In
 
   @regression
   Scenario: As Bungii customer , I should be shown terms and condition page on first time login
+    Given I install Bungii App again
+    Given I am on the "LOG IN" page
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I accept Term and Condition agreement
@@ -35,3 +38,4 @@ Feature: Log In
     Then I allow access of Location from Bungii application
     Then I close tutorial Page
     Then User should be successfully logged in to the application
+    Then I Select "LOGOUT" from Customer App menu

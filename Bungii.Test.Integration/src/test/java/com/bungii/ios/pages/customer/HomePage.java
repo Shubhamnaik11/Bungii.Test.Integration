@@ -32,7 +32,7 @@ public class HomePage extends PageBase {
 
 
     public WebElement AppMenu_LogOut() {return findElement("LOGOUT", PageBase.LocatorType.Name); }
-    public WebElement Indicator_Loading(boolean ... ignoreError) {return findElement("In progress", PageBase.LocatorType.Name,ignoreError[0]); }
+    public WebElement Indicator_Loading(boolean ... ignoreError) {return findElement("In progress", PageBase.LocatorType.Name,ignoreError); }
     public WebElement Text_HeaderPickup() {return findElement("PICKUP LOCATION", PageBase.LocatorType.Name); }
     public WebElement Text_HeaderDrop() {return findElement("DROP OFF LOCATION", PageBase.LocatorType.Name); }
     public WebElement Button_SoloActive() {return findElement("bungii solo active", PageBase.LocatorType.Name); }

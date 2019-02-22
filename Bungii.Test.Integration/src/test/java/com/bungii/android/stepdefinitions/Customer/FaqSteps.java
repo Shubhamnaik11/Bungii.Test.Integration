@@ -24,7 +24,7 @@ public class FaqSteps extends DriverBase {
                     Thread.sleep(5000);
                     action.invisibilityOfElementLocated(faqPage.FAQ_Loading(true));
 
-                    action.scrollToBottom();
+                   // action.scrollToBottom();
                     action.invisibilityOfElementLocated(faqPage.FAQ_FirstQuestion());
                     action.click(faqPage.FAQ_FirstQuestion());
                     break;

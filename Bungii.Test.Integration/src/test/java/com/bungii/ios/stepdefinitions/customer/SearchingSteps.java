@@ -10,6 +10,7 @@ import cucumber.api.java.en.And;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class SearchingSteps extends DriverBase {
 	SearchingPage searchingPage;
@@ -23,7 +24,9 @@ public class SearchingSteps extends DriverBase {
     public void i_wait_for_searching_screen_to_disappear() {
     	try{
     	WaitForSearchingPageDisappear(Integer.parseInt(PropertyUtility.getProp("on.demand.search.time")));
-    	testStepVerify.isFalse(isProgressBarVisible(),  "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
+    //	testStepVerify.isFalse(isProgressBarVisible(),  "Progress bar should disappear", "Progress bar is not visible", "Progress bar is visible");
+			log( "I wait for SEARCHING screen to disappear", "I waited on Searching screen", true);
+
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -8,6 +8,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.EstimatePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
@@ -44,25 +45,27 @@ public class EstimateSteps extends DriverBase {
             String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
                     pickUpImage = data.get("PickUpImage");
             //Vishal[21/12]: added this to save time , It takes time to read trip value from estimate page
-            boolean saveDetails=true;
-            try{String save_trip_info = data.get("Save Trip Info"); saveDetails=save_trip_info.equalsIgnoreCase("No")?false:true;}
-            catch (Exception e){}
+            boolean saveDetails = true;
+            try {
+                String save_trip_info = data.get("Save Trip Info");
+                saveDetails = save_trip_info.equalsIgnoreCase("No") ? false : true;
+            } catch (Exception e) {
+            }
             boolean isCorrectTime = false, isAlertCorrect;
             String strTime = "";
 
             enterLoadingTime(loadTime);
-          //  addPromoCode(promoCode);
+            //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             strTime = enterTime(time);
 
             String[] details = new String[4];
-            if(saveDetails){
+            if (saveDetails) {
                 details = getEstimateDetails();
-                isCorrectTime =  details[1].equals(strTime);
-            }
-            else
-                isCorrectTime =  action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+                isCorrectTime = details[1].equals(strTime);
+            } else
+                isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
 
             clickRequestBungii();
             // verification
@@ -74,12 +77,12 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
 
-            if(action.isAlertPresent()){
-                if(action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage(PropertyUtility.getMessage("customer.alert.delay.scheduled")))) {
-                    warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request",true);
+            if (action.isAlertPresent()) {
+                if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage(PropertyUtility.getMessage("customer.alert.delay.scheduled")))) {
+                    warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime(time);
-                    isCorrectTime =  action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+                    isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
                 }
             }
@@ -87,8 +90,8 @@ public class EstimateSteps extends DriverBase {
             testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
-            testStepVerify.isTrue(isCorrectTime , "I confirm trip with following details",
-                    "I created new  trip for "+strTime, "Trip was not successfully confirmed ,Bungii request time"
+            testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
+                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
                             + strTime + " not matching with entered time ");
 
         } catch (Exception e) {
@@ -98,10 +101,12 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
-    private void addPromoCode(String code){
+
+    private void addPromoCode(String code) {
         action.click(estimatePage.Button_AddPromoCode());
 
     }
+
     @Then("^Estimate value for trip should be properly displayed$")
     public void estimate_value_for_trip_should_be_properly_displayed() {
         try {
@@ -329,6 +334,20 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+    @And("^I store default card value$")
+    public void i_store_default_card_value() throws Throwable {
+        try {
+            String defaultCard = getElementValue("Payment Method");
+            cucumberContextManager.setScenarioContext("DEFAULT_CARD", defaultCard);
+            pass("I store default card value",
+                    "Default card value us "+defaultCard, true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @When("^I enter following details on \"([^\"]*)\" screen$")
     public void i_enter_following_details_on_something_screen(String strArg1, DataTable tripInformation) {
 
@@ -493,8 +512,12 @@ public class EstimateSteps extends DriverBase {
         String value = getElementValue("Payment Method");
         System.err.println("Value is " + value);
 
-        boolean isValueCorrect = value.equals(expectedValue);
+        if (expectedValue.trim().equalsIgnoreCase("{PREVIOUS VALUE}"))
+            expectedValue=(String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
 
+        boolean isValueCorrect = value.equals(expectedValue);
+        if (expectedValue.contains("/"))
+            isValueCorrect = value.equals(expectedValue.split("/")[0]) || value.equals(expectedValue.split("/")[1]);
         testStepVerify.isTrue(isElementPresent,
                 "'Payment Method' row should be present", "'Payment Method' row  is present'",
                 "'Payment Method' row  not present'");
@@ -666,11 +689,10 @@ public class EstimateSteps extends DriverBase {
         action.click(estimatePage.Text_LoadTime());
         //	WebElement timeScroll = waitForExpectedElement(estimatePage.Wheel_LoadTime());
         WebElement timeScroll = estimatePage.Wheel_LoadTime();
-
         timeScroll.sendKeys(inputValue);
-        String actualValue = timeScroll.getAttribute("value");
-
-        action.click(estimatePage.Text_LoadTime());
+        String actualValue = estimatePage.Wheel_LoadTime().getAttribute("value");
+        action.click(estimatePage.Button_Set());
+        // action.click(estimatePage.Text_LoadTime());
         return actualValue.equals(inputValue);
 
     }
@@ -711,7 +733,7 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
         action.click(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
-      //  action.click(estimatePage.Row_TimeSelect());
+        //  action.click(estimatePage.Row_TimeSelect());
 
         action.click(estimatePage.Button_Set());
 
@@ -723,7 +745,7 @@ public class EstimateSteps extends DriverBase {
     public void selectBungiiTimeNow() {
         action.click(estimatePage.Row_TimeSelect());
         action.click(estimatePage.Button_Now());
-    //    action.click(estimatePage.Button_Set());
+        //    action.click(estimatePage.Button_Set());
 
     }
 
@@ -733,9 +755,9 @@ public class EstimateSteps extends DriverBase {
     public void addBungiiPickUpImage(String option) {
         if (option.equalsIgnoreCase("4 images")) {
             addImage(4);
-        }else if(option.equalsIgnoreCase("Default")){
+        } else if (option.equalsIgnoreCase("Default")) {
             addImage(1);
-        }else
+        } else
             addImage(1);
 
     }
@@ -784,13 +806,13 @@ public class EstimateSteps extends DriverBase {
         String actualText = getDriver().switchTo().alert().getText();
 
         //Replace '<TIME>' keyword with load/unload time for current trip
-        String bungiiType= (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
+        String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
         String expectedText = PropertyUtility.getMessage("alert.Request.Bungii.ios").replaceAll("<TIME>", loadTime.trim());
         //VISHAL[21/12]: added message for duo as there is different message for duo trip
-        if(bungiiType.equalsIgnoreCase("DUO"))
-             expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim());
+        if (bungiiType.equalsIgnoreCase("DUO"))
+            expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim());
         getDriver().switchTo().alert().accept();
-        logger.detail("Popup text on head up alert message:"+actualText);
+        logger.detail("Popup text on head up alert message:" + actualText);
         return actualText.equals(expectedText);
     }
 

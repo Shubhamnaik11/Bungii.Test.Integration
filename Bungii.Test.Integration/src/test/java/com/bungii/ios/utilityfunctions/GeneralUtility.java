@@ -3,12 +3,15 @@ package com.bungii.ios.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.HomePage;
 import com.bungii.ios.pages.driver.LoginPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -94,6 +97,20 @@ public class GeneralUtility extends DriverBase {
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
 
         return estimate;
+    }
+
+    /**
+     *
+     * Reset application defined in app capabilite
+     */
+    public void installCustomerApp(){
+        ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+        ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
+        String customerIPAFile=PropertyUtility.getFileLocations("ipa.file.location").replace("{ENVT}",PropertyUtility.environment);
+        ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(customerIPAFile);
+        ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+
+
     }
 
     public boolean verifyPageHeader(String key) {

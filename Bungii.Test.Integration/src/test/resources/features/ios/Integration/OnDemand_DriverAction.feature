@@ -4,6 +4,11 @@ Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
   Background:
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "ORIGINAL" devices
+
     Given I am on Customer logged in Home page
  #   When I clear all notification
     When I Select "Home" from Customer App menu
@@ -63,8 +68,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "ACCEPT" button on "Bungii Request" screen
     Then I should be navigated to "EN ROUTE" trip status screen
 
-    When I Switch to "customer" application on "same" devices
     Then Notification for "Customer" for "DRIVER ENROUTE" should be displayed
+    When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     And I click "Ok" button on "BUNGII ACCEPTED" screen
 

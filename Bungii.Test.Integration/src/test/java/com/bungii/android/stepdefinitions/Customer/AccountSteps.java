@@ -47,13 +47,13 @@ public class AccountSteps extends DriverBase {
         try {
             ActionManager.waitUntilIsElementExistsAndDisplayed(accountPage.Account_Phone());
             String actualName = action.getText(accountPage.Account_Name());
-            String expectedName = PropertyUtility.getDataProperties("customer.first.name") + " " + PropertyUtility.getDataProperties("customer.last.name");
+            String expectedName = PropertyUtility.getDataProperties("customer.first.valid.name") + " " + PropertyUtility.getDataProperties("customer.last.valid.name");
             String actualPhone = action.getText(accountPage.Account_Phone()).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
          //   String expectedPhoneNumber = PropertyUtility.getDataProperties("valid.customer.phone");
             String expectedPhoneNumber = PropertyUtility.getDataProperties("customer_generic.phonenumber");
             testStepVerify.isEquals(actualName, expectedName, "Customer name on account page should be " + expectedName, "Customer name on account page is" + actualName, "Customer name on account page is " + actualName + " , but expected is" + expectedName);
             testStepVerify.isEquals(actualPhone, expectedPhoneNumber);
-            testStepVerify.isEquals(action.getText(accountPage.Account_Email()), PropertyUtility.getDataProperties("customer.email"));
+            testStepVerify.isEquals(action.getText(accountPage.Account_Email()), PropertyUtility.getDataProperties("customer.valid.email"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

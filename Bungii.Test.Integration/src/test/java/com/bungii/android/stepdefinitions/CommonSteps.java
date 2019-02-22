@@ -39,9 +39,6 @@ public class CommonSteps extends DriverBase {
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-/*            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);*/
-
         }
         //Verify that application is successfully switched
         try {
@@ -56,6 +53,20 @@ public class CommonSteps extends DriverBase {
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
+            }
+            //if switch was unsucessfull, try to switch again
+            if(!isApplicationIsInForeground ){
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        utility.launchDriverApplication();
+                        break;
+                    case "CUSTOMER":
+                        utility.launchCustomerApplication();
+                        break;
+                    default:
+                        error("UnImplemented Step or in correct app", "UnImplemented Step");
+                        break;
+                }
             }
             testStepVerify.isTrue(isApplicationIsInForeground, "Switch to " + appName + " application", "Switch to " + appName + " application is successful", "Switch to " + appName + " application was not successfull");
         } catch (Throwable e) {

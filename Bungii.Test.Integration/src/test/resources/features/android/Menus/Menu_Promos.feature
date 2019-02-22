@@ -1,5 +1,5 @@
 @android
-
+@ST
 Feature: Menu_SaveMoney
 
   @regression
@@ -85,4 +85,4 @@ Feature: Menu_SaveMoney
     When I tap "Share" on Invite page
     And I tap "Share on Facebook" on Invite page
     And I share on "Facebook with app installed"
-    Then I should see post "on Facebook app"
+#    Then I should see post "on Facebook app"

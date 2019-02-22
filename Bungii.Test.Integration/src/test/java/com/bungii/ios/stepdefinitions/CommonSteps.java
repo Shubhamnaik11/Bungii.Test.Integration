@@ -26,6 +26,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -34,7 +35,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class CommonSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
-    String Image_Solo = "bungii_type-solo",Image_Duo="bungii_type-duo";
+    String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private EstimatePage estimatePage;
     private HomePage homePage;
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
@@ -269,7 +270,7 @@ public class CommonSteps extends DriverBase {
                         action.click(driverUpdateStatusPage.Button_Call());
                     break;
                 case "ADD":
-                    if(screen.equalsIgnoreCase("Estimate"))
+                    if (screen.equalsIgnoreCase("Estimate"))
                         action.click(estimatePage.Button_AddPromoCode());
                     else
                         action.click(promosPage.Button_Add());
@@ -444,10 +445,13 @@ public class CommonSteps extends DriverBase {
     }
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
-    public void i_switch_to_something_application_on_something_devices(String appName, String device)  {
+    public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
 
-            if(!device.equalsIgnoreCase("same")){i_switch_to_something_instance(device); Thread.sleep(1000);}
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(1000);
+            }
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
@@ -566,10 +570,10 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
                     break;
-			case "new":
-				userName = PropertyUtility.getDataProperties("new.customer.user");
-				password = PropertyUtility.getDataProperties("new.customer.password");
-				break;
+                case "new":
+                    userName = PropertyUtility.getDataProperties("new.customer.user");
+                    password = PropertyUtility.getDataProperties("new.customer.password");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -620,7 +624,7 @@ public class CommonSteps extends DriverBase {
     }
 
     @When("^I switch to \"([^\"]*)\" instance$")
-    public void i_switch_to_something_instance(String instanceName)  {
+    public void i_switch_to_something_instance(String instanceName) {
         try {
             SetupManager.getObject().useDriverInstance(instanceName);
             log("I switch to  " + instanceName + "instance",
@@ -640,18 +644,18 @@ public class CommonSteps extends DriverBase {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
-         //   tripNoOfDriver="DUO";tripTime="Jan 10, 07:15 PM GMT+5:30";currentApplication="DRIVER";
+            //   tripNoOfDriver="DUO";tripTime="Jan 10, 07:15 PM GMT+5:30";currentApplication="DRIVER";
 
-            if(tripTime.contains(PropertyUtility.getDataProperties("time.label")))
-                tripTime=tripTime.replace(PropertyUtility.getDataProperties("time.label"),"").trim();
+            if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
+                tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";
                 if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
                     imageTag = Image_Solo;
-                }else if(tripNoOfDriver.toUpperCase().equals("DUO")){
-                    imageTag=Image_Duo;
+                } else if (tripNoOfDriver.toUpperCase().equals("DUO")) {
+                    imageTag = Image_Duo;
                 }
 
                 action.swipeDown();
@@ -661,32 +665,32 @@ public class CommonSteps extends DriverBase {
             } else {
                 //driverScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
 
-                if(!action.isAlertPresent()){
-                String imageTag = "";
-                if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
-                    imageTag = Image_Solo;
-                }else if(tripNoOfDriver.toUpperCase().equals("DUO")){
-                    imageTag=Image_Duo;
-                }
+                if (!action.isAlertPresent()) {
+                    String imageTag = "";
+                    if (tripNoOfDriver.toUpperCase().equals("SOLO")) {
+                        imageTag = Image_Solo;
+                    } else if (tripNoOfDriver.toUpperCase().equals("DUO")) {
+                        imageTag = Image_Duo;
+                    }
 
-                action.swipeDown();
-                Thread.sleep(2000);
-                //vishal[0801]:Commented due to new build
-                //WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name=“" + tripTime + "”]/following-sibling::XCUIElementTypeImage[@name=“" + imageTag + "”]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-                    WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true);
-                    if(Image_SelectBungii==null){
+                    action.swipeDown();
+                    Thread.sleep(2000);
+                    //vishal[0801]:Commented due to new build
+                    //WebElement Image_SelectBungii = driverScheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name=“" + tripTime + "”]/following-sibling::XCUIElementTypeImage[@name=“" + imageTag + "”]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+                    WebElement Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
+                    if (Image_SelectBungii == null) {
                         Thread.sleep(30000);
                         action.swipeDown();
-                        Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true);
+                        Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
                     }
-                action.click(Image_SelectBungii);
-                }else{
+                    action.click(Image_SelectBungii);
+                } else {
                     //If alert is present accept it , it will automatically select Bungii
                     SetupManager.getDriver().switchTo().alert().accept();
                 }
 
             }
-            log("I Select Trip from scheduled trip " ,
+            log("I Select Trip from scheduled trip ",
                     "I Selected Trip from scheduled trip", true);
 
         } catch (Exception e) {
@@ -730,7 +734,7 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
-
+    //Except first time all code is fetch on fly, first time is read from file
     @SuppressWarnings("unchecked")
     public List<String> getRefferalCode(String codeType) {
         List<String> code = new ArrayList<String>();
@@ -756,6 +760,9 @@ public class CommonSteps extends DriverBase {
                 break;
             case "unused one off":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
+                break;
+            case "first time only":
+                code= Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
                 break;
             default:
                 code.add(codeType);
@@ -819,13 +826,13 @@ public class CommonSteps extends DriverBase {
                 case "REFERRAL CODE":
                     List<String> inputValueList = getRefferalCode(inputValue);
                     action.clearEnterText(signupPage.Textfield_PromoCode(), inputValueList.get(0));
-                   // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
                     cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValueList.get(0));
                     break;
                 case "PROMO CODE":
                     List<String> ValueList = getRefferalCode(inputValue);
                     action.clearEnterText(promosPage.TextBox_EnterCode(), ValueList.get(0));
-                  //  cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
+                    //  cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
                     cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));
                     break;
                 case "SMS CODE":
@@ -851,11 +858,25 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @Given("^I install Bungii App again$")
+    public void i_reset_bungii_app_data() {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            utility.installCustomerApp();
+            log("I reset Bungii App Data",
+                    "I reset Bungii App Data", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @Then("^user is alerted for \"([^\"]*)\"$")
     public void user_is_alerted_for_something(String key) {
         try {
             action.waitForAlert();
-            if(!action.isAlertPresent())
+            if (!action.isAlertPresent())
                 action.waitForAlert();
             String expectedText = "";
             switch (key.toUpperCase()) {

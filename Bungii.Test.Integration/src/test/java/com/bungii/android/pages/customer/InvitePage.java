@@ -31,12 +31,14 @@ public class InvitePage extends PageBase {
     public WebElement FBApp_Title() { return findElement("com.facebook.katana:id/title_view", LocatorType.Id); }
 
    // public WebElement FBApp_StatusText() { return findElement("com.facebook.katana:id/status_text", LocatorType.Id); }
-   public WebElement FBApp_StatusText() { return findElement("//android.widget.EditText[@resource-id\t='com.facebook.katana:id/(name removed)']", LocatorType.XPath); }
+   public WebElement FBApp_StatusText() { return findElement("//android.widget.EditText[@resource-id='com.facebook.katana:id/(name removed)']", LocatorType.XPath); }
 
     public WebElement FBApp_PreviewText() { return findElement("com.facebook.katana:id/link_attachment_context_text", LocatorType.Id); }
 
   //  public WebElement FBApp_PostLink() { return findElement("com.facebook.katana:id/button_share", LocatorType.Id); }
-    public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
+
+    public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.Button[@content-desc=\"SHARE\"]", LocatorType.XPath,ignoreException); }
+  //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 
     //------Share - Samsung Msg App-------------------------------------------------------------

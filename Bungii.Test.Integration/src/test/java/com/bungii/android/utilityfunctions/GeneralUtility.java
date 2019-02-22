@@ -450,7 +450,7 @@ public class GeneralUtility extends DriverBase {
         element.click();
         element.sendKeys(searchstring);
         int x = element.getLocation().getX() + 32;
-        int y = element.getLocation().getY() + 176;
+        int y = element.getLocation().getY() +element.getRect().getHeight()+ 10;
         Thread.sleep(2000);
         new TouchAction(driver).tap(new PointOption().withCoordinates(x, y)).release().perform();
     }

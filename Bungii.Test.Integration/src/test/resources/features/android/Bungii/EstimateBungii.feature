@@ -5,7 +5,7 @@ Feature: EstimateBungii
   Background:
 Given I am on customer Log in page
    Given I am logged in as "no promocode" customer
-  @TEST3
+  @LOCAL
  #Scenario fails when fixed valid code is not default code
   @regression
   Scenario: Bungii_Estimate_ExistingUser_FixedPromoCode

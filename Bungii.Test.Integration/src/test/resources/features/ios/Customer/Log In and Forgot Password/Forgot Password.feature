@@ -1,4 +1,5 @@
 @ios
+
 Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button
