@@ -39,7 +39,7 @@ Feature: CustomerSignup
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-
+  @TEST
   @regression
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page

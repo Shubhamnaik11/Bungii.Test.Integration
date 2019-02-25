@@ -10,7 +10,7 @@ Scenarios on Payment Methods
     When I tap on "Menu" > "Payment" link
     Then I should see "message when no payment methods exist" on Payment page
     When I tap on "Menu" > "Logout" link
-
+  @TEST
   @regression
   Scenario: As Bungii Customer I should able to change me default payment card
     Given I am on customer Log in page
