@@ -1,5 +1,5 @@
 @android
-@ST
+
 Feature: Bungii
 
   Background:

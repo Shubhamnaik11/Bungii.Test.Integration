@@ -1,5 +1,5 @@
 @android
-@ST
+
 Feature: Menu_SaveMoney
 
   @regression
@@ -75,7 +75,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar message stating referral already exists" on Save Money page
     When I tap on "Menu" > "Logout" link
-
+  @TEST
   @regression
   Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
     Given I am logged in as "existing" customer

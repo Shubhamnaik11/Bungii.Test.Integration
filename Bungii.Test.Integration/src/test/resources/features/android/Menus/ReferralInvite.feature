@@ -1,5 +1,4 @@
 @android
-@MENU
 
 Feature: ReferralInvite
 

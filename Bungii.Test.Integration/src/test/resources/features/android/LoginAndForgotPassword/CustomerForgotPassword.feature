@@ -1,6 +1,5 @@
 @android
-@ST
-@MENU
+
 Feature: CustomerForgotPassword
   Forgot password functionality in Customer app
 

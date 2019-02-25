@@ -1,6 +1,5 @@
 @android
-@MENU
-@ST
+
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer
@@ -13,7 +12,7 @@ Feature: CustomerMenu
   Scenario: As Bungii customer I should able to access home page
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened
-
+  @TEST
   @regression
   Scenario: As Bungii customer I should able to access FAQ page
     When I tap on "Menu" > "FAQ" link
