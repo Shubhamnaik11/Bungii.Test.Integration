@@ -11,12 +11,12 @@
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8100,
-    "udid": "192.168.54.67:5555"
+    "udid": "192.168.54.67:5554"
   },
   "extra1": {
     "platformName": "android",
-    "automationName":"MOTOROLA",
-    "deviceType": "Nokia",
+    "automationName":"UiAutomator2",
+    "deviceType": "MOTOROLA",
     "deviceName": "Moto G",
     "platformVersion": "5.1",
     "noReset": true,
