@@ -15,7 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 //
-@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @TTEST2", plugin = {
+@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
@@ -24,7 +24,6 @@ import java.util.Properties;
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
     private static final String INITIAL_FILE_NAME="login";
-    private static String REMOTE_ADB_HOST,REMOTE_ADB_PORT="5554";
     /**
      * @param device Device variable from maven
      */
@@ -58,7 +57,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         //this is to update values from config value
         PropertyUtility.environment=environment;
         PropertyUtility.targetPlatform=Platform;
-        REMOTE_ADB_HOST=remoteAdbHost;System.setProperty("remoteAdbHost",remoteAdbHost);
+        System.setProperty("remoteAdbHost",remoteAdbHost);
         this.hooks = new CucumberHooks();
 
     }

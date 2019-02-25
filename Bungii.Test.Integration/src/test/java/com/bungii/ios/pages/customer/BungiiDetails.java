@@ -12,8 +12,8 @@ public class BungiiDetails extends PageBase {
 	public WebElement Text_DropLocation() {return findElement("//XCUIElementTypeStaticText[@name='DROP OFF LOCATION']/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
 	public WebElement Text_Time() {return findElement("//XCUIElementTypeStaticText[@name='Time']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
 	public WebElement Text_TotalEstimate() {return findElement("//XCUIElementTypeStaticText[@name='Total estimate']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_Driver1Status() {return findElement("//XCUIElementTypeStaticText[@name='driver #1']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_Driver2Status() {return findElement("//XCUIElementTypeStaticText[@name='driver #2']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_Driver1Status() {return findElement("//XCUIElementTypeStaticText[@name='Driver #1']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_Driver2Status() {return findElement("//XCUIElementTypeStaticText[@name='Driver #2']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Row_TimeSelect() {return findElement("//XCUIElementTypeStaticText[@name='Time']/parent::XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 	public WebElement Button_Back() {return findElement("Back", LocatorType.Name); }
 

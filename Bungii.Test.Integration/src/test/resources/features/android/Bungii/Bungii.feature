@@ -9,7 +9,7 @@ Feature: On Demand Bungii
     Given I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
     When I Switch to "customer" application on "same" devices
-@TEST
+
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
 

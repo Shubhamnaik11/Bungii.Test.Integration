@@ -427,7 +427,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                     // driver.tap(1, 100, 500, 1);
                     new TouchAction(driver)
                             .tap(point(100, 500))
