@@ -1,5 +1,4 @@
 @ios
-
 Feature: Payment page
   As a Bungii customer
   I Should able to add/remove/change payment card
@@ -7,6 +6,7 @@ Feature: Payment page
   Background:
     Given I am on Customer logged in Home page
 
+  @regression1
   @regression
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
@@ -17,10 +17,11 @@ Feature: Payment page
     And I click "Cancel" button on "PAYMENT" screen
 
     Examples:
-      | Scenario       | CardNo           | Expiry | Expected Message |
-      | INVALID_EXPIRY | 4242424242424242 | 12/02  | "invalid expiry" |
-      | INVALID_CARD   | 1111111111111111 | 12/22  | "invalid card"   |
+      | Scenario       | CardNo       | Expiry | Expected Message |
+      | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" |
+      | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   |
 
+  @regression1
   @regression
   Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
@@ -32,9 +33,9 @@ Feature: Payment page
     Then I should see "new card" on Payment page
 
     Examples:
-      | Scenario           | CardNo           | Expiry |
-      | ValidCard Discover | 6011111111111117 | 12/22  |
-      | ValidCard Visa     | 4242424242424242 | 12/22  |
+      | Scenario           | CardNo        | Expiry |
+      | ValidCard Discover | DISCOVER CARD | 12/22  |
+      | ValidCard Visa     | VISA CARD     | 12/22  |
 
   @regression
   Scenario: As Bungii customer I should able to delete card

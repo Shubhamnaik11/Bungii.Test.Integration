@@ -19,8 +19,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |             | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |Save Trip Info |
+      | 15       |           |             | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
     Then I click on notification for "Driver" for "on demand trip"
 

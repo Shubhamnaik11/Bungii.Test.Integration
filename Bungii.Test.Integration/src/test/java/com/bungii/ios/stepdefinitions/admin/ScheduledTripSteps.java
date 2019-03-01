@@ -160,6 +160,8 @@ public class ScheduledTripSteps extends DriverBase {
 	public int getTripRowNumber(Map<String,String> tripDetails){
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
+		//Temp fix 25022019
+		scheduledDate=scheduledDate.replace("GMT+5:30","IST");
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){

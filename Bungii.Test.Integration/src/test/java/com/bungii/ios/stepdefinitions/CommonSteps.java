@@ -628,7 +628,7 @@ public class CommonSteps extends DriverBase {
         try {
             SetupManager.getObject().useDriverInstance(instanceName);
             log("I switch to  " + instanceName + "instance",
-                    "I switch to  " + instanceName + "instance", true);
+                    "I switch to  " + instanceName + "instance", false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

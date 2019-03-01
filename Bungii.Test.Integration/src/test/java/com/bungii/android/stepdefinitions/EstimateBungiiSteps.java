@@ -21,8 +21,8 @@ import org.openqa.selenium.WebElement;
 import java.text.DecimalFormat;
 import java.time.Duration;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.SetupManager.getDriver;
+import static com.bungii.common.manager.ResultManager.*;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
@@ -477,4 +477,44 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^\"([^\"]*)\" information icon should display correct information$")
+    public void something_information_icon_should_display_correct_information(String iconName) throws Throwable {
+        try {
+
+            String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOAD_TIME");
+            String expectedMessage = "", actualMessage = "";
+
+
+
+            switch (iconName.toUpperCase()) {
+                case "LOAD/UPLOAD TIME":
+                    expectedMessage = PropertyUtility.getMessage("customer.info.loadtime");
+                    action.click(bungiiEstimatePage.Button_InfoLoadTime());
+                    break;
+                case "TIME":
+                    expectedMessage = PropertyUtility.getMessage("customer.info.time");
+                    action.click(bungiiEstimatePage.Button_InfoTime());
+
+                    break;
+                case "TOTAL ESTIMATE":
+                    expectedMessage = PropertyUtility.getMessage("customer.info.totalestimate").replaceAll("<TIME>", loadTime.trim());
+                    action.click(bungiiEstimatePage.Button_InfoEstimate());
+                    break;
+                default:
+                    fail("Step  Should be successful",
+                            "UnImplemented STEP , please verify test step", true);
+                    break;
+            }
+            action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
+            actualMessage=action.getText(Page_Estimate.Alert_ConfirmRequestMessage());
+            testStepVerify.isEquals(actualMessage, expectedMessage);
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }    }
+
 }

@@ -5,8 +5,8 @@ Feature: Create on demand bungii
   Assume driver and user already logged in
 
   Background:
-
     Given I am on Customer logged in Home page
+
 
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
@@ -109,7 +109,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  @tt
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
@@ -141,7 +141,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII REQUEST" screen
     And I click "ACCEPT" button on "Bungii Request" screen
     Then I should be navigated to "EN ROUTE" trip status screen
- #   Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen

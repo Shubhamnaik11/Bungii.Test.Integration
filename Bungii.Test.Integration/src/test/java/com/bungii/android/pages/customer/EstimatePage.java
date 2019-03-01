@@ -117,6 +117,11 @@ public class EstimatePage extends PageBase {
     public WebElement Button_DelayRequestingTrip_OK () { return findElement("android:id/button1", LocatorType.Id); }
 
 
+    public WebElement Button_InfoLoadTime () { return findElement("com.bungii.customer:id/moreInfoLoadUnload", LocatorType.Id); }
+    public WebElement Button_InfoEstimate () { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_value_total']/preceding-sibling::android.widget.ImageView", LocatorType.XPath); }
+    public WebElement Button_InfoTime () { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_datetime_container']/android.widget.ImageView", LocatorType.XPath); }
+    public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
+
 
 
 

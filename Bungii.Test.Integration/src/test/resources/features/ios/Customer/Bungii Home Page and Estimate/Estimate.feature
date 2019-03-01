@@ -24,7 +24,6 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
 
-  @MENU
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
@@ -45,7 +44,6 @@ Feature: Customer Estimate screen
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
 
-  @MENU
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
     When I request for  bungii for given pickup and drop location
@@ -73,14 +71,12 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | Now  | Default     |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |Save Trip Info |
+      | 30       |           |              | Now  | Default     | No            |
     And I click "Cancel" button on "Estimate" screen
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
 
-
-  @MENU
   @regression
   Scenario: To check if the information icons display correct information
     When I Select "Home" from Customer App menu
@@ -91,13 +87,12 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |No             |
     Then "Load/Upload Time" information icon should display correct information
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
 
-  @MENU
   @regression
   Scenario: To check the elements of Bungii-Solo Estimate page
     #When I Switch to "customer" application on "same" devices
@@ -112,7 +107,6 @@ Feature: Customer Estimate screen
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242/x1117    | Now  | UNCHECK             | DISABLED       |
 
-  @MENU
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Switch to "customer" application on "same" devices

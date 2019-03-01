@@ -3,8 +3,8 @@
 Feature: EstimateBungii
 
   Background:
-Given I am on customer Log in page
-   Given I am logged in as "no promocode" customer
+  Given I am on customer Log in page
+    Given I am logged in as "no promocode" customer
 
  #Scenario fails when fixed valid code is not default code
   @regression
@@ -28,3 +28,11 @@ Given I am on customer Log in page
 
     And I tap on "Cancel during search" on Bungii estimate
     Then for a Bungii I should see "Bungii Home page with locations"
+  @NEW_TEST
+  Scenario: To check if the information icons display correct information
+    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+
+    Then "Load/Upload Time" information icon should display correct information
+    Then "Total estimate" information icon should display correct information
+    Then "Time" information icon should display correct information

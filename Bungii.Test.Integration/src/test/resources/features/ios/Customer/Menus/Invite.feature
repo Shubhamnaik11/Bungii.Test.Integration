@@ -1,5 +1,4 @@
 @ios
-
 Feature: Customer	Referral Invite page
   As a Bungii customer I Should able to share my referral code
 

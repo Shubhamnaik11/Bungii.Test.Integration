@@ -1,5 +1,4 @@
 @ios
-
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code

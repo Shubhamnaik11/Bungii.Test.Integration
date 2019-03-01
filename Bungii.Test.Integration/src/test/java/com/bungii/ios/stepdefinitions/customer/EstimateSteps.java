@@ -78,7 +78,7 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
 
             if (action.isAlertPresent()) {
-                if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage(PropertyUtility.getMessage("customer.alert.delay.scheduled")))) {
+                if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime(time);

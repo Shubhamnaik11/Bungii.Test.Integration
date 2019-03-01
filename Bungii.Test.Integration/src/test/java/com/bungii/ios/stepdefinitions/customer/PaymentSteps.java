@@ -4,6 +4,7 @@ package com.bungii.ios.stepdefinitions.customer;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.PaymentPage;
 import cucumber.api.java.en.And;
@@ -44,18 +45,32 @@ public class PaymentSteps extends DriverBase {
     }
 
     @And("^I enter (.+) and (.+) on Card Details page$")
-    public void i_enter_and_on_card_details_page(String cardno, String expiry) {
+    public void i_enter_and_on_card_details_page(String cardType, String expiry) {
         try {
-            addCardDetails(cardno, expiry);
-            cucumberContextManager.setScenarioContext("CARD_NUMBER", cardno);
+            String cardNumber;
+            switch (cardType.toUpperCase()) {
+                case "VISA CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.visa");
+                    break;
+                case "DISCOVER CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.valid.card.discover");
+                    break;
+                case "INVALID CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.invalid.card");
+                    break;
+                default:
+                    cardNumber = cardType;
+            }
+            addCardDetails(cardNumber, expiry);
+            cucumberContextManager.setScenarioContext("CARD_NUMBER", cardNumber);
             cucumberContextManager.setScenarioContext("CARD_EXPIRY", expiry);
-            pass("I should able enter " + cardno + " and " + expiry + " on Card Details page",
-                    "I entered " + cardno + " and " + expiry + " on Card Details page",
+            pass("I should able enter " + cardType + " and " + expiry + " on Card Details page",
+                    "I entered " + cardNumber + " and " + expiry + " on Card Details page",
                     true);
         } catch (Exception e) {
             fail(
-                    "I should able enter " + cardno + " and " + expiry + " on Card Details page",
-                    "I entered " + cardno + " and " + expiry + " on Card Details page",
+                    "I should able enter " + cardType + " and " + expiry + " on Card Details page",
+                    "I was not able to entered " + cardType + " and " + expiry + " on Card Details page",
                     true);
         }
     }

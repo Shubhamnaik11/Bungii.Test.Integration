@@ -103,12 +103,14 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-        if (checkIfServerIsRunnning(portNumber)) {
+
+        //Vishal[2602]Commented code to run appium service as Appium servers are created by powershell while job is running via Jenkins
+/*        if (checkIfServerIsRunnning(portNumber)) {
             stopAppiumServer();
         }
         //Start server only if its localhost
         if (APPIUM_SERVER_IP == "127.0.0.1")
-            startAppiumServer(APPIUM_SERVER_IP, portNumber);
+            startAppiumServer(APPIUM_SERVER_IP, portNumber);*/
 
 
         return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";

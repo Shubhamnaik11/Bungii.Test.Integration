@@ -1,5 +1,8 @@
-@MENU
 Feature: Customer Estimate screen
+
+  Background:
+    Given I am on Customer logged in Home page
+
 @regression
 Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
 When I Select "Home" from Customer App menu

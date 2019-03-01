@@ -33,7 +33,8 @@ public class CucumberHooks {
 		PropertyUtility.loadRunConfigProps();
 		String autoHome =CucumberHooks.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("/target/test-classes/", "");// (String) PropertyUtility.getProp("auto.home");
 		autoHome=autoHome.substring(0, 1).equals("/")?autoHome.substring(1):autoHome;
-		FileUtility.autoHome =autoHome;
+		//TEST MAC
+		FileUtility.autoHome ="/"+autoHome;
 		String log4jConfPath ="src/main/resources/SystemProperties/log4j.properties";
 		PropertyConfigurator.configure(FileUtility.getSuiteResource("",log4jConfPath));
 		isFirstTestCase=true;

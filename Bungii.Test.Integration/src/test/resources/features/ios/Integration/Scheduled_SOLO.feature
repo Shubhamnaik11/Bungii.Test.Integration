@@ -4,12 +4,16 @@ Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
   Assume customer is logged in
 
-  #Background: List of steps run before each of the scenarios
-  @regression
+  Background:
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "ORIGINAL" devices
+    Given I am on Customer logged in Home page
 
+  @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
- #   When I connect to "device2" using "customer app" instance
 
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
@@ -141,37 +145,36 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @TTEST1
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
-    When I Switch to "customer" application on "same" devices
+ #   When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
+  #  Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then I should be navigated to "Success" screen
-    Then Bungii Posted message should be displayed
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | Default     | No             |
+  #  Then I should be navigated to "Success" screen
+#    Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
+   # Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time              | PickUpImage |
-      | 30       |           |              | <OLD BUNGII TIME> | Default     |
+      | LoadTime | PromoCode | Payment Card | Time              | PickUpImage | Save Trip Info |
+      | 30       |           |              | <OLD BUNGII TIME> | Default     | No             |
     Then user is alerted for "already scheduled bungii"
     And I click "Cancel" button on "Estimate" screen
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-  @TTEST1
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
@@ -192,7 +195,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  @TTEST1
+
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 

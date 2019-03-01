@@ -85,12 +85,10 @@ public class UpdateStatusSteps extends DriverBase {
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
             boolean isInfoCorrectlyDisplayed = false;
-            logger.detail("before cust name");
 
             String expectedCustName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             expectedCustName = expectedCustName.substring(0, expectedCustName.indexOf(" ") + 2);
             boolean isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
-            logger.detail("After cust name");
 
             switch (key) {
                 case "EN ROUTE":
@@ -201,7 +199,7 @@ public class UpdateStatusSteps extends DriverBase {
         logger.detail("INside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isDropLocationDisplayed = actualInfo.get(1).replace(",","")
+        boolean isDropLocationDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
                 .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isDropLocationDisplayed) {
@@ -228,7 +226,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
         boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        boolean isPickUpDisplayed = actualInfo.get(1).replace(",","")
+        boolean isPickUpDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
                 .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isETACorrect && isPickUpDisplayed) {
@@ -253,7 +251,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        boolean isDropDisplayed = actualInfo.get(1).replace(",","").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+        boolean isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -281,7 +279,7 @@ public class UpdateStatusSteps extends DriverBase {
         logger.detail("inside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isPickupDisplayed = actualInfo.get(1).replace(",","")
+        boolean isPickupDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
                 .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
         if (isTagDisplayed && isPickupDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
