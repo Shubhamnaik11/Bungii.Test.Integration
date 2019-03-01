@@ -37,6 +37,7 @@ public class CucumberHooks {
 		if(SystemUtils.IS_OS_WINDOWS)
 			autoHome=autoHome.substring(0, 1).equals("/")?autoHome.substring(1):autoHome;
 		
+		FileUtility.autoHome =autoHome;
 		String log4jConfPath ="src/main/resources/SystemProperties/log4j.properties";
 		PropertyConfigurator.configure(FileUtility.getSuiteResource("",log4jConfPath));
 		isFirstTestCase=true;
