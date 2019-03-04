@@ -11,8 +11,8 @@ queryAppiumPort=".connection.$device"
 querywdaPort=".$device.wdaLocalPort"
 
 # get Appium port and wda port
-APPIUMPORT="$(cat $2 | jq ${queryAppiumPort})"
-WDAPORT="$(cat $2 | jq ${querywdaPort})"
+APPIUMPORT="$(cat $2 | /usr/local/bin/jq ${queryAppiumPort})"
+WDAPORT="$(cat $2 | /usr/local/bin/jq ${querywdaPort})"
 
 #Log file name
 today=`date '+%Y_%m_%d__%H_%M_%S'`;
@@ -20,7 +20,7 @@ filename="/Users/for-bungiiqa/Documents/Bungii-AppiumLogs/AppuimLogs_$today.log"
 
 #start Appium server with parameter
 echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
-appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --local-timezone --log ${filename} &
+/usr/local/bin/appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --local-timezone --log ${filename} &
 
 #wait for 5 sec
 Sleep 5s
