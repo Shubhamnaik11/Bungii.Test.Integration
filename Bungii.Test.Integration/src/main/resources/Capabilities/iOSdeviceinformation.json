@@ -6,10 +6,14 @@
     "app": "com.bungii.customer",
     "deviceName": "CCI-iPhone6P-1",
     "udid": "90512791eea23af17ac9ca5dbd29a2ade7568071",
-    "newCommandTimeout": "2000",
+    "newCommandTimeout": "600",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
-    "simpleIsVisibleCheck": true
+    "simpleIsVisibleCheck": true,
+    "xcodeOrgId": "2QXFACYJC7",
+    "xcodeSigningId":"iPhone Developer",
+    "wdaLocalPort": 8100
+
   },
   "device2": {
     "platformName": "iOS",
@@ -18,10 +22,11 @@
     "app": "com.bungii.customer",
     "deviceName": "CCI-iPhone7-1",
     "udid": "ed720c436342a2667475f4eba0448a94d687c3e2",
-    "newCommandTimeout": "2000",
+    "newCommandTimeout": "600",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
-    "simpleIsVisibleCheck": true
+    "simpleIsVisibleCheck": true,
+    "wdaLocalPort": 8110
   },
   "connection": {
     "device1": 4723,
