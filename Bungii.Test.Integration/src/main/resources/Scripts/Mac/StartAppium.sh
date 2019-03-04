@@ -22,6 +22,6 @@ appium_cmd='node /usr/local/bin/appium/lib/server/main.js'
 echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
 appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --local-timezone --log ${filename} &
 
-#wait for 5 sec
-Sleep 5s
+#wait for 18 sec
+Sleep 18s
 done
