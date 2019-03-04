@@ -16,7 +16,7 @@ WDAPORT="$(cat $2 | jq ${querywdaPort})"
 
 #Log file name
 today=`date '+%Y_%m_%d__%H_%M_%S'`;
-filename="/Users/ccitesting/Documents/AppiumLogs/AppuimLogs_$today.log"
+filename="/Users/for-bungiiqa/Documents/Bungii-AppiumLogs/AppuimLogs_$today.log"
 
 #start Appium server with parameter
 echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
