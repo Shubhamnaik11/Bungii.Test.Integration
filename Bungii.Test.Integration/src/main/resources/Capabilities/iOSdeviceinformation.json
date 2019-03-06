@@ -24,8 +24,6 @@
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
-    "xcodeOrgId": "2QXFACYJC7",
-    "xcodeSigningId":"iPhone Developer",
     "wdaLocalPort": 8110
   },
   "connection": {
