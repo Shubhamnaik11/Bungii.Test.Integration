@@ -6,7 +6,6 @@ Feature: Payment page
   Background:
     Given I am on Customer logged in Home page
 
-  @regression1
   @regression
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
@@ -21,7 +20,6 @@ Feature: Payment page
       | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" |
       | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   |
 
-  @regression1
   @regression
   Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
