@@ -1,4 +1,5 @@
 @ios
+@testjenkins
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links
 
@@ -36,7 +37,7 @@ Feature: Customer	Menu
     When I Enter "{RANDOM_STRING}" value in "Support Textbox" field in "SUPPORT" Page
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
-@testjenkins
+
   @regression
   Scenario: As Bungii customer I dont enter any question and click on send button
     When I Select "SUPPORT" from Customer App menu

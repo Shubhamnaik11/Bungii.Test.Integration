@@ -19,7 +19,7 @@ Feature: Log In
       | EMPTY PASSWORD          | {VALID}  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
-  @testjenkins
+
   @regression
   Scenario: As Bungii customer , I should able to login to application using valid password
     When I enter Username :{VALID} and  Password :{VALID}
