@@ -81,7 +81,7 @@ public class GenerateSummaryReport {
                     }
                 }
                 createResultFileFromTemplate();
-                newName(configFilePath,"Maven");
+                newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
             }
