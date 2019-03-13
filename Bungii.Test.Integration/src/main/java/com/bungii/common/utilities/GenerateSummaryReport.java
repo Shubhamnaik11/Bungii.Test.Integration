@@ -81,6 +81,7 @@ public class GenerateSummaryReport {
                     }
                 }
                 createResultFileFromTemplate();
+                newName(configFilePath,"Maven");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
             }
@@ -88,6 +89,9 @@ public class GenerateSummaryReport {
             e.printStackTrace();
 
         }
+    }
+    static  Path  newName(Path oldName, String newNameString) throws IOException {
+        return Files.move(oldName, oldName.resolveSibling(newNameString));
     }
 
     /**
