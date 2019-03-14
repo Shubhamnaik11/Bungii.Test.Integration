@@ -8,6 +8,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
+import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -39,6 +40,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
+
 			//On admin panel CST time use to show
 		//	getPortalTime("Dec 21, 11:15 AM IST");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
@@ -157,6 +159,8 @@ public class ScheduledTripSteps extends DriverBase {
 	public int getTripRowNumber(Map<String,String> tripDetails){
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
+		//Temp fix 25022019 : IST is added
+		scheduledDate=scheduledDate+" IST";
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
@@ -186,7 +190,8 @@ public class ScheduledTripSteps extends DriverBase {
 		if(rowNumber==0){
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
 		}else
-		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+			//vishal[1403] : Updated xpath
+		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
@@ -197,5 +202,26 @@ public class ScheduledTripSteps extends DriverBase {
 
 	}
 
+	@Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
+	public void something_message_should_be_displayed_on_something_page(String messageElement, String screen) {
+		try {
+			boolean messageDisplayed = false;
 
+			switch (messageElement.toUpperCase()) {
+				case "BUNGII CANCEL":
+					messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+			testStepVerify.isTrue(messageDisplayed,
+					messageElement + " should be displayed", messageElement + " Message is Displayed",
+					messageElement + " Message is not Displayed");
+		} catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
 }

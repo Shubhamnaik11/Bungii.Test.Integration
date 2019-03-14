@@ -9,5 +9,5 @@ public class TutorialPage extends PageBase {
     public WebElement Button_Close() {
         return findElement("Button", PageBase.LocatorType.Name);
     }
-    public WebElement Text_ToutorialHeader(){return findElement("SO WHAT IS BUNGII?", LocatorType.Name);}
+    public WebElement Text_ToutorialHeader(boolean... ignoreException){return findElement("SO WHAT IS BUNGII?", LocatorType.Name,ignoreException);}
 }

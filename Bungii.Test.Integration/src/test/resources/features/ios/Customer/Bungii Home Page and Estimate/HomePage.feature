@@ -1,3 +1,4 @@
+@ios
 Feature: Customer Estimate screen
 
   Background:

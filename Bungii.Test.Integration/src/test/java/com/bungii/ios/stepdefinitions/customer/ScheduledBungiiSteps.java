@@ -58,7 +58,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 				isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
 			}
 			testStepVerify.isFalse(isBungiiPresent, "Bungii must be removed from " + screen + " screen",
-					"Bungii Must be deleted", "Bungii is not deleted");
+					"Bungii is be deleted ,there is no bungii for time:"+tripTime, "Bungii is not deleted");
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful",

@@ -14,6 +14,8 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -65,7 +67,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 case "desired Promo Code":
                     String promoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE");
-                    action.click((WebElement) SetupManager.getDriver().findElement(By.xpath("//android.widget.TextView[contains(@text,'" + promoCode + "')]")));
+                    action.click((WebElement) getDriver().findElement(By.xpath("//android.widget.TextView[contains(@text,'" + promoCode + "')]")));
 //                action.click(Page_Estimate.Select_PromoCode());
                     break;
 
@@ -138,7 +140,13 @@ public class EstimateBungiiSteps extends DriverBase {
                         action.scrollToBottom();
                     action.click(Page_WantDollar5.Button_NoFreeMoney());
                     break;
-
+                case "back":
+                    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+                case "ok on already scheduled bungii message":
+                    testStepVerify.isEquals(action.getText(bungiiEstimatePage.Alert_ConfirmRequestMessage()),PropertyUtility.getMessage("customer.alert.alreadyscheduled"));
+                    action.click(bungiiEstimatePage.Button_RequestConfirm());
+                    break;
                 default:
                     break;
             }
@@ -281,7 +289,7 @@ public class EstimateBungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION", dropUpLocation);
 
             testStepAssert.isFalse(pickUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + pickUpLocation, "I was not able select pickup location");
-            testStepAssert.isFalse(dropUpLocation.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + dropUpLocation, "I was not able select pickup location");
+            testStepAssert.isFalse(dropUpLocation.equals(""), "I should able to select drop location", "drop location was selected , drop value is " + dropUpLocation, "I was not able select pickup location");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -463,12 +471,16 @@ public class EstimateBungiiSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "next possible scheduled":
+                case"OLD BUNGII TIME":
                     utility.selectBungiiTime();
                     break;
                 case "next possible scheduled for duo":
                     break;
             }
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
+            if(arg0.equalsIgnoreCase("OLD BUNGII TIME")){
+                testStepVerify.isEquals(bungiiTime,(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"),"I selected bungii time as old bungii time:"+bungiiTime,"I was not able to select bungii with old bungii time , Bungii time"+bungiiTime+" expected time"+(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
             log(" I select Bungii Time as " + arg0,
                     " I select Bungii Time as " + bungiiTime + ", Selected Bungii time is " + bungiiTime, true);

@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class EnableLocationPage extends PageBase{
 
-    public WebElement Button_Sure() {
-        return findElement("SURE", PageBase.LocatorType.Name);
+    public WebElement Button_Sure(boolean ...ignoreException) {
+        return findElement("SURE", PageBase.LocatorType.Name,ignoreException);
     }
 
 }

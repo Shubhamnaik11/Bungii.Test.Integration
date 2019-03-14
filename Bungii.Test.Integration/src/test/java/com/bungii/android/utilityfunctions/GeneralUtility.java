@@ -267,6 +267,9 @@ public class GeneralUtility extends DriverBase {
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
                 break;
+            case "SCHEDULED BUNGIIS":
+                action.click(homePage.Button_NavSchBungii());
+                break;
         }
     }
 

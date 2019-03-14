@@ -69,7 +69,9 @@ public class CommonSteps extends DriverBase {
     private BungiiRequestPage bungiiRequestPage;
     private BungiiAcceptedPage bungiiAcceptedPage;
     private TermsAndConditionPage termsAndConditionPage;
-
+    private EnableNotificationPage enableNotificationPage;
+    private EnableLocationPage enableLocationPage;
+    private TutorialPage tutorialPage;
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
                        HomePage homePage, LoginPage loginPage, SignupPage signupPage,
@@ -83,7 +85,7 @@ public class CommonSteps extends DriverBase {
                        DriverNotAvailablePage driverNotAvailablePage, NotificationPage notificationPage,
                        BungiiRequestPage bungiiRequestPage, com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage,
                        BungiiAcceptedPage bungiiAcceptedPage, com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       VerificationPage verificationPage, TermsAndConditionPage termsAndConditionPage) {
+                       VerificationPage verificationPage, TermsAndConditionPage termsAndConditionPage,EnableNotificationPage enableNotificationPage,EnableLocationPage enableLocationPage,TutorialPage tutorialPage) {
         this.estimatePage = estimatePage;
         this.homePage = homePage;
         this.loginPage = loginPage;
@@ -117,6 +119,9 @@ public class CommonSteps extends DriverBase {
         this.driverHomePage = driverHomePage;
         this.termsAndConditionPage = termsAndConditionPage;
         this.verificationPage = verificationPage;
+        this.enableNotificationPage=enableNotificationPage;
+        this.enableLocationPage=enableLocationPage;
+        this.tutorialPage=tutorialPage;
     }
 
     public void recoverScenario() {
@@ -718,6 +723,23 @@ public class CommonSteps extends DriverBase {
                 logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.user"),
                         PropertyUtility.getDataProperties("customer.password"));
                 iClickButtonOnScreen("Log In", "Log In");
+                if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
+                    action.click(termsAndConditionPage.Button_CheckOff());
+                    action.click(termsAndConditionPage.Button_Continue());
+                    if(action.isElementPresent(enableNotificationPage.Button_Sure(true))){
+                        action.click(enableNotificationPage.Button_Sure());
+                        action.clickAlertButton("Allow");
+                    }
+
+                    if(action.isElementPresent(enableLocationPage.Button_Sure(true))){
+                        action.click(enableLocationPage.Button_Sure());
+                        action.clickAlertButton("Allow");
+                    }
+
+                    if(action.isElementPresent(tutorialPage.Text_ToutorialHeader(true))){
+                        action.click(tutorialPage.Button_Close());
+                    }
+                }
                 //homeSteps.user_should_be_successfully_logged_in_to_the_system();
             } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
                 // do nothing
