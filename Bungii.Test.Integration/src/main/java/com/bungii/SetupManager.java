@@ -15,6 +15,7 @@ import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import io.appium.java_client.service.local.flags.ServerArgument;
+import org.apache.commons.lang3.SystemUtils;
 import org.json.JSONObject;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
@@ -169,11 +170,15 @@ public class SetupManager extends EventFiringWebDriver {
 
     public static WebDriver createWebDriverInstance(String browser) {
         WebDriver driver = null;
+        String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
+        if(SystemUtils.IS_OS_MAC)
+            chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
+
         switch (browser.toUpperCase()) {
             case "CHROME":
                 DesiredCapabilities capabilities = getChromeDesiredCapabilities();
                 ChromeDriverService service = new ChromeDriverService.Builder()
-                        .usingDriverExecutable(new File(FileUtility.getSuiteResource("", "src/main/resources/BrowserExecutables/chromedriver.exe")))
+                        .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
                         .usingAnyFreePort()
                         .build();
                 ChromeOptions options = new ChromeOptions();
