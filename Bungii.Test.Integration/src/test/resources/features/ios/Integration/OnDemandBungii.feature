@@ -7,7 +7,7 @@ Feature: Create on demand bungii
   Background:
     Given I am on Customer logged in Home page
 
-
+  @tt
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
     And I clear all notification
@@ -109,7 +109,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @tt
+
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
