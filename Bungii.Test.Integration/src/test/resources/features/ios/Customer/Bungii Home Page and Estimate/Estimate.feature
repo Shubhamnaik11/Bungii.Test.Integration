@@ -94,7 +94,7 @@ Feature: Customer Estimate screen
     Then "Time" information icon should display correct information
 
   @regression
-  Scenario: To check the elements of Bungii-Solo Estimate page
+  Scenario: To check the elements of Estimate page
     #When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
     And I request for  bungii

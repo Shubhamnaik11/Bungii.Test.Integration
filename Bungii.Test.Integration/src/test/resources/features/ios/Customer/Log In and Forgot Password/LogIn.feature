@@ -26,7 +26,7 @@ Feature: Log In
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
-  @regression2
+  @regression
   Scenario: As Bungii customer , I should be shown terms and condition page on first time login
     Given I install Bungii App again
     Given I am on the "LOG IN" page

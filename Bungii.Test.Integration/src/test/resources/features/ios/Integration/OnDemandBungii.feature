@@ -7,7 +7,7 @@ Feature: Create on demand bungii
   Background:
     Given I am on Customer logged in Home page
 
-  @tt
+
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
     And I clear all notification
