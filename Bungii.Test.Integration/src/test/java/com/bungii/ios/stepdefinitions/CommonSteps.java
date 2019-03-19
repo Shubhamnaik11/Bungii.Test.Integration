@@ -233,6 +233,8 @@ public class CommonSteps extends DriverBase {
                         action.click(invitePage.Button_Done());
                     else {
                         action.swipeUP();
+                        if(!action.isElementPresent(successPage.Button_Done(true)))
+                            action.swipeUP();
                         action.click(successPage.Button_Done());
                     }
                     break;
