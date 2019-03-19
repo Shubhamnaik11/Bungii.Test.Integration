@@ -1,4 +1,5 @@
 @ios
+@NONBUNGII
 Feature: Customer Home screen
 
   Background:

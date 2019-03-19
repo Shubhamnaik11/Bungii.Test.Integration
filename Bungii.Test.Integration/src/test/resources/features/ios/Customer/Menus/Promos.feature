@@ -1,5 +1,5 @@
 @ios
-@testjenkins
+@NONBUNGII
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -112,3 +112,19 @@ Feature: Promos
 #    Then user is alerted for "No twitter installed"
     Then I should be navigated to "Invite" screen
 
+  @new
+  Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
+
+    When I Select "PROMOS" from Customer App menu
+    Then I should be navigated to "PROMOS" screen
+    When I click "GET MORE MONEY" button on "PROMOS" screen
+    Then I should be navigated to "Invite" screen
+    Then I get Invite Code
+    When I click "SHARE" button on "INVITE" screen
+    When I click "SHARE ON FACEBOOK" button on "INVITE" screen
+    Then I should see "popup to post" Overlay Facebook screen
+    When I enter "valid data" on Overlay Facebook screen
+    When I tap "Next" button on Overlay Facebook screen
+    Then I should see "promo server url" Overlay Facebook screen
+    When I tap "Share" button on Overlay Facebook screen
+    Then I should be navigated to "Invite" screen

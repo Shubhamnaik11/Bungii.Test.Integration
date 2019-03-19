@@ -7,6 +7,7 @@ Feature: To Test Solo - Scheduling Bungii
   Background:
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
     When I Switch to "customer" application on "ORIGINAL" devices
     Given I am on Customer logged in Home page

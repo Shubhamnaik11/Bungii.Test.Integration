@@ -1,4 +1,5 @@
 @ios
+@NONBUNGII
 Feature: Payment page
   As a Bungii customer
   I Should able to add/remove/change payment card

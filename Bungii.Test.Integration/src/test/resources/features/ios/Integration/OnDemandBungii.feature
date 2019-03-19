@@ -116,6 +116,7 @@ Feature: Create on demand bungii
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
     And I Select "ACCOUNT" from driver App menu
     Then I get driver account details for driver 1

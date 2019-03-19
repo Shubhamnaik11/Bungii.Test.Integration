@@ -1,5 +1,5 @@
 @ios
-
+@NONBUNGII
 Feature: As a new customer I should be allowed to Sign up on Bungii Customer applicatrion
 
 

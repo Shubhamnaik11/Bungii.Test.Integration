@@ -1,5 +1,5 @@
 @ios
-
+@NONBUNGII
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
@@ -71,8 +71,8 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |Save Trip Info |
-      | 30       |           |              | Now  | Default     | No            |
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 30       |           |              | Now  | Default     | No             |
     And I click "Cancel" button on "Estimate" screen
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
@@ -87,8 +87,8 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |No             |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | Default     | No             |
     Then "Load/Upload Time" information icon should display correct information
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
@@ -117,3 +117,31 @@ Feature: Customer Estimate screen
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then check if I have ability to select different load time and Estimate cost is re calculated
+
+  @regression
+  Scenario: Bungii_Estimate_ExistingUser_FixedPromoCode
+
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    When I navigate to admin portal
+    And I log in to admin portal
+    When I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    When I switch to "ORIGINAL" instance
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              |      | Default     | No             |
+    When I tap "Promo code" on Estimate screen
+    Then I should be navigated to "PROMOS" screen
+    When I add "VALID" PromoCode
+    When I click "ADD" button on "PROMOS" screen
+    Then I should able to see expected promo code in available promo code
+    When I tap "Back" on Promos screen
+    Then I should be navigated to "Estimate" screen
+  #  Then Estimate Screen should have element as per below table
+  #    | Trip Distance | Load/unload time | Promo Code         | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
+  #    |               | 15 mins          | <ADDED_PROMO_CODE> | <IN DOLLAR>    |                | Now  |                     |                |
