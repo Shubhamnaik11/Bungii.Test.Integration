@@ -203,6 +203,9 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("start-maximized");
+        //vishal[2003]: checking chrome issue for Mac machine
+        chromeOptions.addArguments("--no-sandbox");
+
         chromeOptions.addArguments("--disable-infobars");
         capabilities.setCapability("chrome.verbose", false);
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
