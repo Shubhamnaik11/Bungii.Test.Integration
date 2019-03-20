@@ -196,6 +196,8 @@ public class SetupManager extends EventFiringWebDriver {
     }
 
     private static DesiredCapabilities getChromeDesiredCapabilities() {
+
+        //vishal[2003]: checking chrome issue for Mac machine
         String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
         if(SystemUtils.IS_OS_MAC)
             chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
@@ -216,7 +218,8 @@ public class SetupManager extends EventFiringWebDriver {
 
 
         chromeOptions.addArguments("--disable-infobars");
-        capabilities.setCapability("chrome.verbose", false);
+        //vishal[2003]: checking chrome issue for Mac machine
+        capabilities.setCapability("chrome.verbose", true);
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         return capabilities;
     }
