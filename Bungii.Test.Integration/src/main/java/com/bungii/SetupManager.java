@@ -211,7 +211,9 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("start-maximized");
 
         //vishal[2003]: checking chrome issue for Mac machine
-        chromeOptions.addArguments("--no-sandbox");
+        //chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("no-sandbox");
+
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
         capabilities.setCapability("chrome.binary", chromeDriverPath);
