@@ -176,6 +176,8 @@ public class SetupManager extends EventFiringWebDriver {
 
         switch (browser.toUpperCase()) {
             case "CHROME":
+                System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
+
                 DesiredCapabilities capabilities = getChromeDesiredCapabilities();
                 ChromeDriverService service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
