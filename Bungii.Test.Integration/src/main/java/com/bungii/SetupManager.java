@@ -215,6 +215,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
         capabilities.setCapability("chrome.binary", chromeDriverPath);
+        chromeOptions.addArguments("--whitelisted-ips='192.168.10.101'");
 
 
         chromeOptions.addArguments("--disable-infobars");
