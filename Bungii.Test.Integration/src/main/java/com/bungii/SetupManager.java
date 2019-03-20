@@ -196,6 +196,10 @@ public class SetupManager extends EventFiringWebDriver {
     }
 
     private static DesiredCapabilities getChromeDesiredCapabilities() {
+        String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
+        if(SystemUtils.IS_OS_MAC)
+            chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
+        System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
 
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
@@ -203,8 +207,13 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("start-maximized");
+
         //vishal[2003]: checking chrome issue for Mac machine
         chromeOptions.addArguments("--no-sandbox");
+        chromeOptions.addArguments("ignore-certificate-errors");
+        chromeOptions.addArguments("--allow-running-insecure-content");
+        capabilities.setCapability("chrome.binary", chromeDriverPath);
+
 
         chromeOptions.addArguments("--disable-infobars");
         capabilities.setCapability("chrome.verbose", false);
