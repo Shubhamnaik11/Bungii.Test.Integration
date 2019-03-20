@@ -17,6 +17,8 @@ public class PromosPage extends PageBase {
         return findElement("GET MORE MONEY", PageBase.LocatorType.Name);
     }
 
+    public WebElement Button_NavigationBack(){return findElement("//XCUIElementTypeButton[@name=\"ESTIMATE\"]",LocatorType.XPath);}
+
     public WebElement TextBox_EnterCode() {
         return findElement("//XCUIElementTypeTextField", PageBase.LocatorType.XPath);
     }

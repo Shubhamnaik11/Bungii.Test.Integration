@@ -86,3 +86,14 @@ Feature: Menu_SaveMoney
     And I tap "Share on Facebook" on Invite page
     And I share on "Facebook with app installed"
 #    Then I should see post "on Facebook app"
+
+  @new
+  Scenario: When i try to share my promo code , via twitter but there is no application installed then I it should open in browser
+    Given I am logged in as "existing" customer
+    When I tap on "Menu" > "Promos" link
+    And I tap "Get More Money" on Save Money page
+    Then I should see "Referral Code" on Invite Page
+    When I tap "Share" on Invite page
+    When I tap "Share on Twitter" on Invite page
+    Then I should see post "on Twitter in browser"
+    When I Switch to "customer" application on "same" devices

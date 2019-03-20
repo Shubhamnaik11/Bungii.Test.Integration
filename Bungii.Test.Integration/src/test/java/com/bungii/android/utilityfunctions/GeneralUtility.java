@@ -43,6 +43,8 @@ public class GeneralUtility extends DriverBase {
     PromosPage promosPage = new PromosPage();
     com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
+    TermsPage termsPage = new TermsPage();
+    SearchingPage searchingPage = new SearchingPage();
 
     /**
      * Launch driver application's using package and activity
@@ -160,12 +162,24 @@ public class GeneralUtility extends DriverBase {
             case "Signup":
                 isCorrectPage = action.isElementPresent(Page_Signup.Header_SignUp(true));
                 break;
+            case"Terms and Conditions":
+                isCorrectPage=action.isElementPresent(termsPage.Header_TermsPage(true));
+                break;
+            case "Tutorial":
+                isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
+                break;
+            case"DRIVER NOT AVAILABLE":
+                isCorrectPage=action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+                break;
             default:
                 break;
         }
         return isCorrectPage;
     }
 
+    public void resetApp(){
+        ((AndroidDriver)SetupManager.getDriver()).resetApp();
+    }
     /**
      * Verification that correct page is displayed
      * @param expectedPage
@@ -174,6 +188,9 @@ public class GeneralUtility extends DriverBase {
         testStepAssert.isTrue(isCorrectPage(expectedPage), expectedPage + " page should be displaed ", expectedPage + " Page is successfully displayed", expectedPage + " Page is not displayed");
     }
 
+    public String getAlertMessage(){
+        return action.getText(estimatePage.Alert_ConfirmRequestMessage(true));
+    }
     /**
      * Get snack bar message
      * @return return snack bar message
@@ -214,6 +231,7 @@ public class GeneralUtility extends DriverBase {
 
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
+        Promo=Promo.contains("ADD")?"0":Promo;
         double PromoCode = Double.parseDouble(Promo.replace("-$", ""));
 
         double tripTime = Double.parseDouble(estTime);

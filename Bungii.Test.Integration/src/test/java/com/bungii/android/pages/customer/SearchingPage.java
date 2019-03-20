@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class SearchingPage extends PageBase {
 
+    public WebElement Header_DriverNotAvailable(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='DRIVER NOT AVAILABLE']", LocatorType.XPath,ignoreException); }
+
     public WebElement Link_CancelSearch () { return findElement("com.bungii.customer:id/toolbar_button_cancel", LocatorType.Id); }
 
     public WebElement Button_CancelConfirm () { return findElement("android:id/button1", LocatorType.Id); }          //By.XPath("//android.widget.Button[@text='YES']")

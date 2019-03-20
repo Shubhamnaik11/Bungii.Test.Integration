@@ -144,6 +144,9 @@ public class SignupSteps extends DriverBase {
             case "Yes":
                 action.click(Page_Signup.Button_NoReferralYes());
                 break;
+            case"Log in":
+                action.click(Page_Signup.Link_Login());
+                break;
             default:
                 break;
         }

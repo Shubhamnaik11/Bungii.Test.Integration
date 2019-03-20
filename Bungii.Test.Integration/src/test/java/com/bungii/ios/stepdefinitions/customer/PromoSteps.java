@@ -12,8 +12,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class PromoSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromoSteps.class);
@@ -53,6 +53,25 @@ public class PromoSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I tap \"([^\"]*)\" on Promos screen$")
+    public void i_tap_something_on_estimate_screen(String button) throws Throwable {
+        try {
+            switch (button.toUpperCase()) {
+                case "BACK":
+                    action.click(promosPage.Button_NavigationBack());
+                    break;
+                default:
+                    fail("Step  Should be successful",
+                            "UnImplemented STEP , please verify test step", true);
+                    break;
+            }
+            log("I should able to tap on "+button+" on Estimate screen","I was able to tab on estimate screen",true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }    }
 
     @Then("^I should able to see expected promo code in available promo code$")
     public void i_should_able_to_see_expected_promo_code_in_available_promo_code() {

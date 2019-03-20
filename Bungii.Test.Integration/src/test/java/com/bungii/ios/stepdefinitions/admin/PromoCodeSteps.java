@@ -2,7 +2,7 @@ package com.bungii.ios.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.ios.manager.ActionManager;
+import com.bungii.web.manager.ActionManager;
 import com.bungii.ios.pages.admin.PromoCodePage;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -97,7 +97,8 @@ public class PromoCodeSteps extends DriverBase {
             for (WebElement code : codes) {
                 codeList.add(code.getText());
             }
-            promosPage.Button_Nextpage().click();
+            action.click(promosPage.Button_Nextpage());
+            //promosPage.Button_Nextpage().click();
             promosPage.waitForPageLoad();
             //  action.invisibilityOfElementLocated(promosPage.Loadder());
         }

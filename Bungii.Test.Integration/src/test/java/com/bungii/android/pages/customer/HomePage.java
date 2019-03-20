@@ -40,7 +40,7 @@ public class HomePage extends PageBase {
     public WebElement MapPanningArea () { return findElement("android.widget.FrameLayout",LocatorType.ClassName); }
 
     public WebElement Button_ETASet () { return findElement("com.bungii.customer:id/eta_bar_button_set",LocatorType.Id); }
-
+    public WebElement Text_ETAHeader(){return findElement("com.bungii.customer:id/eta_bar_title",LocatorType.Id);}
     public WebElement Header_HomePage (boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='BUNGII']",LocatorType.XPath,ignoreException); }
 
     public WebElement Link_Slider () { return findElement("com.bungii.customer:id/header_textview_username",LocatorType.Id); }
@@ -48,7 +48,7 @@ public class HomePage extends PageBase {
     public WebElement Link_Menu () { return findElement("android.widget.ImageButton",LocatorType.ClassName); }
 
     public WebElement Button_Closetutorials (boolean ...ignoreException) { return findElement("com.bungii.customer:id/tutorials_alert_iv_cancel",LocatorType.Id,ignoreException); }
-
+    public WebElement Text_TutorialHeader(){return findElement("com.bungii.customer:id/textView8",LocatorType.Id);}
     //------Bungii Posted Success page---------------------------------------------------------------------
     public WebElement Title_Success () { return findElement("//android.view.View[@id='com.bungii.customer:id/action_bar']/android.widget.TextView[@text='Success!']",LocatorType.XPath); }
 

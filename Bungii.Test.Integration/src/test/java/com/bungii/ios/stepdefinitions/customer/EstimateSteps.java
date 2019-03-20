@@ -389,13 +389,22 @@ public class EstimateSteps extends DriverBase {
                     paymentMethod = data.get("Payment Method"), tripTime = data.get("Time"),
                     termsAndCondition = data.get("Terms And Condition"), requestBungii = data.get("REQUEST BUNGII");
             // check each field for expected value
-            checkTripDistance(tripDistance);
-            checkLoadTime(loadTime);
-            checkPromoCode(promoCode);
-            checkEstimate(tripEstimate);
-            checkPayment(paymentMethod);
-            checkTime(tripTime);
-            checkTermsAndConditon(termsAndCondition);
+            if(!tripDistance.isEmpty())
+                checkTripDistance(tripDistance);
+
+            if(!loadTime.isEmpty())
+                checkLoadTime(loadTime);
+            if(!promoCode.isEmpty())
+                checkPromoCode(promoCode);
+            if(!tripEstimate.isEmpty())
+                checkEstimate(tripEstimate);
+            if(!paymentMethod.isEmpty())
+                checkPayment(paymentMethod);
+            if(!tripTime.isEmpty())
+                checkTime(tripTime);
+            if(!termsAndCondition.isEmpty())
+                checkTermsAndConditon(termsAndCondition);
+            if(!requestBungii.isEmpty())
             checkRequestBungii(requestBungii);
 
         } catch (Exception e) {
@@ -435,6 +444,28 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
+
+
+    @When("^I tap \"([^\"]*)\" on Estimate screen$")
+    public void i_tap_something_on_estimate_screen(String button) throws Throwable {
+    try {
+        switch (button.toUpperCase()) {
+            case "PROMO CODE":
+                action.click(estimatePage.Row_PromoCode());
+                break;
+            default:
+                fail("Step  Should be successful",
+                        "UnImplemented STEP , please verify test step", true);
+                break;
+        }
+        log("I should able to tap on "+button+" on Estimate screen","I was able to tab on estimate screen",true);
+
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }    }
+
 
     /**
      * Verify if request bungii button is enabled or disabled
@@ -570,8 +601,14 @@ public class EstimateSteps extends DriverBase {
         String value = getElementValue("Promo Code");
         System.err.println("Value is " + value);
 
-        boolean isValueCorrect = value.equals(expectedValue);
+        boolean isValueCorrect = false;
 
+        if(expectedValue.equalsIgnoreCase("<ADDED_PROMO_CODE>"))
+        {   expectedValue=(String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+            isValueCorrect = value.equals(expectedValue);
+        }else{
+            isValueCorrect = value.equals(expectedValue);
+        }
         testStepVerify.isTrue(isElementPresent,
                 "'Promo Code' row should be present", "'Promo Code' row  is present'",
                 "'Promo Code' row  not present'");

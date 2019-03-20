@@ -55,6 +55,6 @@ public class InvitePage extends PageBase {
     public WebElement Twitter_Referral_Body() { return findElement("//*[@resource-id='status']", LocatorType.XPath); }
 
 
-
+    public WebElement Button_Back(){return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]",LocatorType.XPath);}
 
 }

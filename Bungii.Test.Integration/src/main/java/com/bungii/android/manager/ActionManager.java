@@ -219,8 +219,9 @@ public class ActionManager {
     public void click(Point p){
         TouchAction touchAction = new TouchAction( (AndroidDriver<MobileElement>)  SetupManager.getDriver());
         PointOption top = PointOption.point(p.getX(), p.getY());
-
-        touchAction.tap(top).perform();    }
+        touchAction.tap(top).perform();
+        logger.detail("Clicked point at , (" + p.getX()+","+p.getY()+")");
+    }
 
     public void scrollToBottom() {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();

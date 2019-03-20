@@ -4,6 +4,7 @@ import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
 public class TermsPage extends PageBase {
+    public WebElement Header_TermsPage(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='TERMS & CONDITIONS']", LocatorType.XPath,ignoreException); }
 
 //Terms Page Elements
 

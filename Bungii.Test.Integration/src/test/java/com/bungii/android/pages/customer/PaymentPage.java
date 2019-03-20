@@ -58,10 +58,13 @@ public class PaymentPage extends PageBase {
 
     public WebElement Error_CardNumber () { return findElement("com.bungii.customer:id/textinput_error", LocatorType.Id); }
 
- //   public WebElement Month_12 () { return findElement("//android.widget.TextView[@text='12' and @instance ='12']", LocatorType.XPath); }
+    public WebElement Expiry_Years () { return findElement("//*[@resource-id='com.bungii.customer:id/bt_expiration_year_grid_view']/android.widget.TextView", LocatorType.XPath); }
     public WebElement Month_12 () { return findElement("//android.widget.TextView[@text='12']", LocatorType.XPath); }
 
     public WebElement Year_2020 () { return findElement("//android.widget.TextView[@text='2020']", LocatorType.XPath); }
+    public WebElement Year_2018 (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='2018']", LocatorType.XPath,ignoreException); }
+
+
 
     public WebElement Textfield_Expiration () { return findElement("//android.widget.EditText[@resource-id='com.bungii.customer:id/bt_card_form_expiration']", LocatorType.XPath); }
 

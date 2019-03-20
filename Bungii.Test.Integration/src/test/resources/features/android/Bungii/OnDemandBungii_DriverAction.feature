@@ -34,6 +34,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "cancels Bungii"
     When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    And I click "OK" on alert message
+    Then "Home" page should be opened
+
 
   @regression
   Scenario: OnDemand_DriverCancelBungii_ArrivedState
@@ -45,3 +49,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And Bungii Driver "slides to the next state"
     And Bungii Driver "cancels Bungii"
     When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    And I click "OK" on alert message
+    Then "Home" page should be opened

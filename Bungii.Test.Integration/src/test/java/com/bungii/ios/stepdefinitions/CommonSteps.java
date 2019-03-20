@@ -886,7 +886,8 @@ public class CommonSteps extends DriverBase {
     public void i_reset_bungii_app_data() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            utility.installCustomerApp();
+            boolean isNewInstalled =utility.installCustomerApp();
+            testStepAssert.isTrue(isNewInstalled,"I should able to install bungii App again","I was not able to install bungii app again");
             log("I reset Bungii App Data",
                     "I reset Bungii App Data", true);
 

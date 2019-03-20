@@ -112,7 +112,7 @@ Feature: Promos
 #    Then user is alerted for "No twitter installed"
     Then I should be navigated to "Invite" screen
 
-  @new
+  @regression
   Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
 
     When I Select "PROMOS" from Customer App menu

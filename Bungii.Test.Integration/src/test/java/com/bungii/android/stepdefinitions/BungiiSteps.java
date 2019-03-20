@@ -47,9 +47,6 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
-                case "Bungii Estimate page with all details":
-                    break;
-
                 case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
                     String pickUpLocation = action.getText(customerHomePage.Textfield_PickupLocation()), dropUpLocation = action.getText(customerHomePage.Textfield_DropoffLocation());

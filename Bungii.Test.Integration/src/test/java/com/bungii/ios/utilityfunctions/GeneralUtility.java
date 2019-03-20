@@ -13,6 +13,7 @@ import com.bungii.ios.pages.driver.UpdateStatusPage;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.*;
@@ -22,6 +23,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -103,12 +106,30 @@ public class GeneralUtility extends DriverBase {
      *
      * Reset application defined in app capabilite
      */
-    public void installCustomerApp(){
-        ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
-        ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
-        String customerIPAFile=PropertyUtility.getFileLocations("ipa.file.location").replace("{ENVT}",PropertyUtility.environment);
-        ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(customerIPAFile);
-        ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+    public boolean installCustomerApp(){
+        boolean isInstalled=false;
+        try {
+
+        String customerIPAFile=FileUtility.getSuiteResource("",PropertyUtility.getDataProperties("ipa.file.location").replace("{ENVT}",PropertyUtility.environment));
+        if(!Files.exists(Paths.get(customerIPAFile)))
+        {
+            customerIPAFile=PropertyUtility.getDataProperties("ipa.file.location").replace("{ENVT}",PropertyUtility.environment);
+        }
+
+            logger.detail("IPA file Location "+customerIPAFile);
+        if(Files.exists(Paths.get(customerIPAFile))) {
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(customerIPAFile);
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled=true;
+        }else{
+            isInstalled=false;
+        }
+        }catch (Exception e){
+
+        }
+    return isInstalled;
 
 
     }

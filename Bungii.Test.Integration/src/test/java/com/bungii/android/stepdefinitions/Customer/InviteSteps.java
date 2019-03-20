@@ -9,8 +9,12 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -41,6 +45,10 @@ public class InviteSteps extends DriverBase {
                 case "Share by Text Message":
                     action.click(invitePage.Share_TextMessage());
                     break;
+                case "Back":
+                    action.click(invitePage.Button_Back());
+                    //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
                 default:
                     break;
             }
@@ -51,6 +59,8 @@ public class InviteSteps extends DriverBase {
                     true);
         }
     }
+
+
 
     @Then("^I should see \"([^\"]*)\" on Invite Page$")
     public void i_should_see_something_on_invite_page(String strArg1) throws Throwable {

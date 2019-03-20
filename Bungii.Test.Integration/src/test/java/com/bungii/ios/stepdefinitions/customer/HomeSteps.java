@@ -473,7 +473,7 @@ public class HomeSteps extends DriverBase {
      *
      * @return value of selected pickup location
      */
-    public String getSelectedPickUpLocation() {
+    public String   getSelectedPickUpLocation() {
         return homePage.TextBox_Pickup().getAttribute("value");
     }
 

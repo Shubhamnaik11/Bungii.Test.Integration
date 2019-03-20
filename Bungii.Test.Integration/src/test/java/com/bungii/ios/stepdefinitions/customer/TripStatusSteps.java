@@ -150,7 +150,7 @@ public class TripStatusSteps extends DriverBase {
                     "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
                             + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
                     "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1)
-                            + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                            + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
         return isTagDisplayed && isEtaDisplayed && isDropLocationDisplayed;
     }
@@ -176,7 +176,7 @@ public class TripStatusSteps extends DriverBase {
                     "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
                             + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
                     "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1)
-                            + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                            + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
         return isTagDisplayed && isDropDisplayed;
     }

@@ -35,10 +35,8 @@ public class PaymentSteps extends DriverBase {
 
             case "Set as default payment mode":
                 testStepVerify.isElementDisplayed(paymentPage.Checkbox_Default(), "Default checkbox should be displayed", "Default checkbox is displayed ", "Default checkbox is not displayed");
-
                 action.click(paymentPage.Checkbox_Default());
                 break;
-
             case "Save":
                 testStepVerify.isElementDisplayed(paymentPage.Button_Save(), "Save button should be displayed", "Save button is displayed ", "Save button is not displayed");
                 action.click(paymentPage.Button_Save());
@@ -138,7 +136,12 @@ public class PaymentSteps extends DriverBase {
                 else
                     log("Invalid card message should be displayed", "Invalid card message is not displayed", false);
                 break;
-
+            case "no option to add previous year":
+                if(!action.isElementPresent(paymentPage.Year_2018(true)))
+                    log("I should not able to select previous year ","I was not able to see previous year , Expiry year starts from"+action.getText(paymentPage.Expiry_Years()),false);
+                else
+                    log("I should not able to select previous year ","I was able to see previous year option in expiry year, options are "+action.getText(paymentPage.Expiry_Years()),false);
+                break;
             default:
                 break;
         }
@@ -157,7 +160,14 @@ public class PaymentSteps extends DriverBase {
                 paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.jcb"));
                 cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.jcb").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
                 break;
-
+            case "valid visa card number":
+                paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.visa"));
+                cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.visa").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
+                break;
+            case "valid discover card number":
+                paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.valid.card.discover"));
+                cucumberContextManager.setScenarioContext("Last4Digits", PropertyUtility.getDataProperties("payment.valid.card.discover").substring(PropertyUtility.getDataProperties("payment.valid.card.jcb").length() - 4));
+                break;
             case "invalid card number":
                 action.click(paymentPage.Textfield_CardNumber());
                 action.sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));

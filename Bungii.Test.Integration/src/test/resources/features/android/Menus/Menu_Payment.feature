@@ -31,17 +31,34 @@ Scenarios on Payment Methods
     Then I should see "the card has been deleted" on Payment page
     When I tap on "Menu" > "Logout" link
 
-  @regression
-  Scenario:  As Bungii Customer I should able to change add payment card
+#  @OLD sceanario , modified the test .
+  #TODO: Remove this
+#  Scenario:  old
+#    Given I am logged in as "valid" customer
+#    When I tap on "Menu" > "Payment" link
+#    When I tap on "Add New" on Payment page
+#    And I tap on "Credit or Debit Card" on Payment page
+#    And I enter "valid card number" on Card Details page
+#    And I enter "valid expiry date" on Card Details page
+#    And I tap on "Add Card" on Payment page
+#    Then I should see "the card has been added" on Payment page
+#    When I tap on "Menu" > "Logout" link
+
+  @new
+  Scenario Outline:  As Bungii Customer I should able to add payment card
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
     When I tap on "Add New" on Payment page
     And I tap on "Credit or Debit Card" on Payment page
-    And I enter "valid card number" on Card Details page
-    And I enter "valid expiry date" on Card Details page
+    And I enter "<Card Detail>" on Card Details page
+    And I enter "<Card Expiry>" on Card Details page
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
     When I tap on "Menu" > "Logout" link
+    Examples:
+      | Scenario | Card Detail       | Card Expiry       |
+      | VALID_discover   | valid discover card number | valid expiry date |
+      | VALID_visa    | valid visa card number | valid expiry date |
 
   @regression
   Scenario:  As Bungii Customer I should not able to add invalid payment Card
@@ -51,4 +68,14 @@ Scenarios on Payment Methods
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "invalid card number" on Card Details page
     Then I should see "invalid card error" on Payment page
+
+
+  @new
+  Scenario:  As Bungii Customer I should not be able to add invalid expiry
+    Given I am logged in as "valid" customer
+    When I tap on "Menu" > "Payment" link
+    When I tap on "Add New" on Payment page
+    And I tap on "Credit or Debit Card" on Payment page
+    And I enter "valid card number" on Card Details page
+    Then I should see "no option to add previous year" on Payment page
 

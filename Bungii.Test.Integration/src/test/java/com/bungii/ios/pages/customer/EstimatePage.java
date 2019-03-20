@@ -64,6 +64,9 @@ public class EstimatePage extends PageBase {
     public WebElement Text_PromoCode() {
         return findElement("Promo Code", LocatorType.Name);
     }
+    public WebElement Row_PromoCode(){
+        return findElement("//XCUIElementTypeStaticText[@name=\"Promo Code\"]/parent:: XCUIElementTypeOther",LocatorType.XPath);
+    }
 
     public WebElement Text_PromoCodeValue() {
         return findElement("//XCUIElementTypeStaticText[@name='Promo Code']/following-sibling::XCUIElementTypeButton", LocatorType.XPath);
