@@ -182,6 +182,7 @@ public class SetupManager extends EventFiringWebDriver {
                 ChromeDriverService service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
                         .usingAnyFreePort()
+                        .withEnvironment(ImmutableMap.of("DISPLAY",":20"))
                         .build();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
