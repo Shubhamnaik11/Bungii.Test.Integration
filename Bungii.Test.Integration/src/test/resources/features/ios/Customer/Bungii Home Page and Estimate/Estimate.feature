@@ -117,7 +117,7 @@ Feature: Customer Estimate screen
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then check if I have ability to select different load time and Estimate cost is re calculated
-@testwebios
+
   @regression
   Scenario: Bungii_Estimate_ExistingUser_FixedPromoCode
 
