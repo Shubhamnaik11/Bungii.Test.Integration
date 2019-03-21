@@ -7,6 +7,7 @@ import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.ParseUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -23,6 +24,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.File;
@@ -168,8 +170,9 @@ public class SetupManager extends EventFiringWebDriver {
         driver = driver;
     }
 
-    public static WebDriver createWebDriverInstance(String browser) {
+    public static WebDriver createWebDriverInstance(String browser)  {
         WebDriver driver = null;
+
         String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
         if(SystemUtils.IS_OS_MAC)
             chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
@@ -182,15 +185,20 @@ public class SetupManager extends EventFiringWebDriver {
                 ChromeDriverService service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
                         .usingAnyFreePort()
+                        .withEnvironment(ImmutableMap.of("DISPLAY",":20"))
                         .build();
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
                 options.merge(capabilities);
+                /*driver = new RemoteWebDriver(
+                        new URL("http://localhost:4444/wd/hub"), capabilities
+                );*/
                 driver = new ChromeDriver(service, options);
                 break;
             default:
                 logger.error("webdriver method for " + browser + "is not implemented ");
         }
+
 
         return driver;
     }
@@ -213,6 +221,7 @@ public class SetupManager extends EventFiringWebDriver {
         //vishal[2003]: checking chrome issue for Mac machine
         //chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("no-sandbox");
+       // chromeOptions.addArguments("--headless");
 
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
