@@ -187,15 +187,7 @@ public class SetupManager extends EventFiringWebDriver {
                 ChromeDriverService service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
                         .usingAnyFreePort()
-                     //   .withEnvironment(ImmutableMap.of("DISPLAY",":20"))
                         .build();
-              /*  ChromeOptions options = new ChromeOptions();
-                options.addArguments("--start-maximized");
-                options.addArguments("--headless");
-                options.merge(optionsA);*/
-                /*driver = new RemoteWebDriver(
-                        new URL("http://localhost:4444/wd/hub"), capabilities
-                );*/
                 driver = new ChromeDriver(service, options);
                 break;
             default:
@@ -209,22 +201,21 @@ public class SetupManager extends EventFiringWebDriver {
     private static ChromeOptions getChromeDesiredCapabilities() {
 
         //vishal[2003]: checking chrome issue for Mac machine
-        String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
-        if(SystemUtils.IS_OS_MAC)
-            chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
-        System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
+    //    String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
+    //    if(SystemUtils.IS_OS_MAC)
+    //        chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
+    //    System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
 
        // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
+       // chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("start-maximized");
 
         //vishal[2003]: checking chrome issue for Mac machine
-        //chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("no-sandbox");
+        chromeOptions.addArguments("--no-sandbox");
 
 
         chromeOptions.addArguments("ignore-certificate-errors");
