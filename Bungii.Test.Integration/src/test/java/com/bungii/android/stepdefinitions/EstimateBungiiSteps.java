@@ -55,6 +55,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     while (action.isElementPresent(Page_CustHome.Button_GetEstimate()) == false)
                         iEnterOnBungiiEstimate("current location in pickup and dropoff fields");
                     //if (DriverAction.isElementPresent(Page_CustHome.Button_GetEstimate))
+                    if(!action.isElementPresent(Page_CustHome.Button_GetEstimate()))
+                        Thread.sleep(2000);
                     action.click(Page_CustHome.Button_GetEstimate());
                     break;
 
@@ -403,6 +405,9 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
         try {
+            if(!action.isElementPresent(Page_Estimate.Header_Estimate(true)))
+                Thread.sleep(5000);
+
             action.click(Page_Estimate.Link_LoadingUnloadingTime());
             switch (arg0) {
                 case "15 mins":

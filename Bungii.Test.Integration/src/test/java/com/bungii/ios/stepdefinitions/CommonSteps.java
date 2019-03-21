@@ -581,6 +581,10 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("new.customer.user");
                     password = PropertyUtility.getDataProperties("new.customer.password");
                     break;
+                case "referral":
+                    userName = PropertyUtility.getDataProperties("referral.customer.phone");
+                    password = PropertyUtility.getDataProperties("referral.customer.password");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;

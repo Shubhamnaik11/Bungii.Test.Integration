@@ -19,7 +19,7 @@ Feature: Promos
 
 #added promo code in
     Examples:
-      | Senario | Promo  | Expected Message      |
+      | Senario | Promo           | Expected Message      |
       | Invalid | first time only | FIRST TIME ONLY PROMO |
 
   @regression
@@ -31,11 +31,11 @@ Feature: Promos
     Then user is alerted for "<Expected Message>"
 
     Examples:
-      | Senario | Promo   | Expected Message |
+      | Scenario | Promo   | Expected Message |
       | Invalid | AAAAAAA | Invalid Promo    |
 
   @regression
-  Scenario: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
+  Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal
@@ -45,13 +45,17 @@ Feature: Promos
     Then I get promo code for "referral"
     When I switch to "ORIGINAL" instance
 
-    When I logged in Customer application using  "new" user
+    When I logged in Customer application using  "<User Type>" user
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I Enter "Referral" value in "Promo Code" field in "Promo" Page
     When I click "ADD" button on "PROMOS" screen
-    Then user is alerted for "REFERRAL FOR NEW USER"
+    Then user is alerted for "<Expected Message>"
     When I Select "LOGOUT" from Customer App menu
+    Examples:
+      | Scenario                           | User Type | Expected Message      |
+      | User already having REFERRAL code | referral  | REFERRAL FOR NEW USER |
+      | New user (with out REFERRAL code)  | new       | REFERRAL FOR NEW USER |
 
   @regression
   Scenario: As a Bungii Customer , I should be alerted while added used one off promo code
@@ -97,7 +101,6 @@ Feature: Promos
     And I Enter "expired" value in "Promo Code" field in "Promo" Page
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "EXPIRED PROMO"
-
 
     #commented scenario outcome due to change in application
   @regression

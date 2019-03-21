@@ -12,6 +12,8 @@ Feature: Create on demand bungii
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
     And I clear all notification
     When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    Then I change driver status to "Online"
     And I Select "ACCOUNT" from driver App menu
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu

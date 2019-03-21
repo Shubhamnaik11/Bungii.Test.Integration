@@ -25,8 +25,8 @@ public class HomePageSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-            if (action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
-
+            if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
+            Thread.sleep(1000);
             goToAppMenu();
             Thread.sleep(1000);
             boolean flag = clickAppMenu(menuItem);

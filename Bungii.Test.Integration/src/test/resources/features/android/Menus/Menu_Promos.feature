@@ -57,7 +57,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
     When I tap on "Menu" > "Logout" link
-  @TEST
+
   @regression
   Scenario: Menu_SaveMenu_OneOff code that has been used
     Given I am logged in as "existing" customer

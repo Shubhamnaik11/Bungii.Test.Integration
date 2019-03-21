@@ -9,6 +9,9 @@ Feature: To Test Solo - Scheduling Bungii
     Given I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
+    And I Select "ACCOUNT" from driver App menu
+    Then I get driver account details for driver 1
+    And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     Given I am on Customer logged in Home page
 
@@ -38,34 +41,77 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "TRIP DETAILS" screen
     Then Trip Information should be correctly displayed on TRIP DETAILS screen
     When I accept selected Bungii
-#    When I Switch to "driver" application on "same" devices
+
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
-    #TODO: verify bungii detail page
-   # Then If Alerted I ""
+
     When I start selected Bungii
     Then I should be navigated to "EN ROUTE" trip status screen
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    Then correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "Call" app
+
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+    Then correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "Call" app
+
+    When I Switch to "driver" application on "same" devices
     When I slide update button on "EN ROUTE" Screen
+
     Then I should be navigated to "ARRIVED" trip status screen
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    Then correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "Call" app
+
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+    Then correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "Call" app
+
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    Then correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "Call" app
+
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "Call" app
+
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    Then correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "Call" app
+
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    Then correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "Call" app
+
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    Then correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "Call" app
+
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "Call" app
+
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
@@ -145,7 +191,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @solo
+
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
  #   When I Switch to "customer" application on "same" devices
@@ -175,7 +221,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-  @solo
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
@@ -196,7 +242,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  @solo
+
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 

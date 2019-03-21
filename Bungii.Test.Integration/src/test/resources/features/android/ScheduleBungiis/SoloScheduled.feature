@@ -8,6 +8,9 @@ Feature: SoloScheduled
     Given I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     When I tap on "Go Online button" on Driver Home page
+    And I Select "ACCOUNT" from driver App menu
+    Then I get driver account details for driver 1
+    And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
 
   @regression
@@ -43,6 +46,7 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "Enroute screen"
@@ -50,6 +54,7 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
@@ -60,12 +65,14 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
@@ -76,12 +83,14 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
@@ -92,12 +101,14 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
@@ -108,12 +119,15 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     When Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+
     When Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
@@ -121,6 +135,8 @@ Feature: SoloScheduled
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
+    And I Select "HOME" from driver App menu
+
 
   @sanity
   @regression
@@ -191,6 +207,7 @@ Feature: SoloScheduled
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
+    And I Select "HOME" from driver App menu
 
 
   @new
