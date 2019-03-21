@@ -216,7 +216,7 @@ public class SetupManager extends EventFiringWebDriver {
 
        // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
+   //     chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
