@@ -181,15 +181,18 @@ public class SetupManager extends EventFiringWebDriver {
             case "CHROME":
                 System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
 
-                DesiredCapabilities capabilities = getChromeDesiredCapabilities();
+              // DesiredCapabilities capabilities = getChromeDesiredCapabilities();
+
+                ChromeOptions options = getChromeDesiredCapabilities();
                 ChromeDriverService service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File(FileUtility.getSuiteResource("", chromeDriverPath)))
                         .usingAnyFreePort()
-                        .withEnvironment(ImmutableMap.of("DISPLAY",":20"))
+                     //   .withEnvironment(ImmutableMap.of("DISPLAY",":20"))
                         .build();
-                ChromeOptions options = new ChromeOptions();
+              /*  ChromeOptions options = new ChromeOptions();
                 options.addArguments("--start-maximized");
-                options.merge(capabilities);
+                options.addArguments("--headless");
+                options.merge(optionsA);*/
                 /*driver = new RemoteWebDriver(
                         new URL("http://localhost:4444/wd/hub"), capabilities
                 );*/
@@ -203,7 +206,7 @@ public class SetupManager extends EventFiringWebDriver {
         return driver;
     }
 
-    private static DesiredCapabilities getChromeDesiredCapabilities() {
+    private static ChromeOptions getChromeDesiredCapabilities() {
 
         //vishal[2003]: checking chrome issue for Mac machine
         String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
@@ -211,8 +214,9 @@ public class SetupManager extends EventFiringWebDriver {
             chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
         System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
 
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+       // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
@@ -221,19 +225,19 @@ public class SetupManager extends EventFiringWebDriver {
         //vishal[2003]: checking chrome issue for Mac machine
         //chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("no-sandbox");
-       // chromeOptions.addArguments("--headless");
+
 
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
-        capabilities.setCapability("chrome.binary", chromeDriverPath);
+        //capabilities.setCapability("chrome.binary", chromeDriverPath);
         chromeOptions.addArguments("--whitelisted-ips='192.168.10.101'");
 
 
         chromeOptions.addArguments("--disable-infobars");
         //vishal[2003]: checking chrome issue for Mac machine
-        capabilities.setCapability("chrome.verbose", true);
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-        return capabilities;
+      //  capabilities.setCapability("chrome.verbose", true);
+        //capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+        return chromeOptions;
     }
 
     /**
