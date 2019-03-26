@@ -7,7 +7,10 @@ public class SupportPage extends PageBase {
 
     public WebElement Header_SupportPage(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='SUPPORT']", LocatorType.XPath,ignoreException); }
 
-    public WebElement Title() { return findElement("com.bungii.customer:id/feedback_text_view_title", LocatorType.Id); }
+    public WebElement Text_Title() { return findElement("com.bungii.customer:id/feedback_text_view_title", LocatorType.Id); }
+    public WebElement Text_SubTitle() { return findElement("com.bungii.customer:id/feeback_subtitle", LocatorType.Id); }
+
+
 
   //  public WebElement TextField() { return findElement("com.bungii.customer:id/feedback_edit_text", LocatorType.Id); }
 

@@ -28,6 +28,7 @@ public class DriverNotAvailableSteps extends DriverBase {
                     break;
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
@@ -49,6 +50,7 @@ public class DriverNotAvailableSteps extends DriverBase {
                     action.click(driverNotAvailablePage.Button_Ok());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log("I should able tapped on "+strArg1 +" button on  DRIVER NOT AVAILABLE screen","I tapped on "+strArg1 +" button on  DRIVER NOT AVAILABLE screen",true);

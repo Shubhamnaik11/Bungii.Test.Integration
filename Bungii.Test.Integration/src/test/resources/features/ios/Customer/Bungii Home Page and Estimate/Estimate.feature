@@ -145,3 +145,16 @@ Feature: Customer Estimate screen
   #  Then Estimate Screen should have element as per below table
   #    | Trip Distance | Load/unload time | Promo Code         | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
   #    |               | 15 mins          | <ADDED_PROMO_CODE> | <IN DOLLAR>    |                | Now  |                     |                |
+
+  @regression
+  Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
+
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |             | Now  | Default     |
+    Then Estimate value for trip should be properly displayed

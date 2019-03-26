@@ -67,6 +67,7 @@ public class PaymentSteps extends DriverBase {
                 action.click(paymentPage.Button_AddCard());
                 break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
@@ -85,9 +86,14 @@ public class PaymentSteps extends DriverBase {
                 action.swipeLeft(paymentPage.PaymentCard2());
                 cucumberContextManager.setScenarioContext("NO_ACTIVE_CARD", paymentPage.List_Card().size());
                 break;
+            case "default":
+                action.swipeLeft(paymentPage.DefaultCard());
+                break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
+        log("I should able to swipe on "+strArg1 +" card on payment page","I swiped on "+strArg1+"card on payment page",true);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -142,7 +148,11 @@ public class PaymentSteps extends DriverBase {
                 else
                     log("I should not able to select previous year ","I was able to see previous year option in expiry year, options are "+action.getText(paymentPage.Expiry_Years()),false);
                 break;
+            case "no delete button":
+                testStepVerify.isElementNotEnabled(paymentPage.Button_Delete(true),"Delete button should not be visible for default card","Delete button is not enabled","Delete button is enabled");
+                break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
@@ -181,9 +191,12 @@ public class PaymentSteps extends DriverBase {
                 break;
 
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
-    } catch (Exception e) {
+            log("I enter "+p1 +" on Card Details page","I enter"+p1+"on Card Details page",true);
+
+        } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
                 true);

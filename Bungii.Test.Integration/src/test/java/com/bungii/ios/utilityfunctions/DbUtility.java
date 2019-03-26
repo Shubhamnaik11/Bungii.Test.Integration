@@ -30,7 +30,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getCustomerRefference(String phoneNumber) {
         String custRef = "";
-        String queryString = "SELECT CustomerRef  FROM Customer WHERE Phone = "+phoneNumber;
+        String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = "+phoneNumber;
         custRef=getDataFromMySqlServer(queryString);
         logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
         return custRef;

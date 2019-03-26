@@ -23,12 +23,22 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for customer$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
-
             logger.detail("before driver name");
-
             String expectedDriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             expectedDriverName = expectedDriverName.substring(0, expectedDriverName.indexOf(" ") + 2);
-            boolean isDriverDisplayed = getDriverName().equals(expectedDriverName);
+            boolean isDriver1Displayed ;
+            if(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")){
+                String driver1Name = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                String driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                isDriver1Displayed=action.getText(bungiiProgressPage.Text_DuoDriver1_Name()).equals(driver1Name);
+                boolean isDriver2NameCorrect=action.getText(bungiiProgressPage.Text_DuoDriver2_Name()).equals(driver2Name);
+                testStepVerify.isTrue(isDriver2NameCorrect,
+                        "Driver name '"+driver2Name+"' should correctly display",
+                        "Driver name'"+driver2Name+"' was correctly display",
+                        "Driver name '"+driver2Name+"' was not correctly display");
+            }else{
+
+             isDriver1Displayed = getDriverName().equals(expectedDriverName);}
             logger.detail("after driver name");
 
             switch (key) {
@@ -48,10 +58,11 @@ public class BungiiInProgressSteps extends DriverBase {
                     validateUnloadingInfo(getTripInformation(key));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
-            if (isDriverDisplayed) {
+            if (isDriver1Displayed) {
                 pass(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",
@@ -117,7 +128,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
+                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute"),
                 //country is not displayed now
                 isDropLocationDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
                         .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());

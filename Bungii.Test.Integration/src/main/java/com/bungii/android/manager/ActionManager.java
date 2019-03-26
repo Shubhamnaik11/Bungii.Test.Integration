@@ -42,6 +42,12 @@ public class ActionManager {
         logger.detail("'value' attribute for " + element.toString() + " is " + value);
         return value;
     }
+    public String getAttribute(WebElement element,String attribute) {
+        String value = element.getAttribute(attribute);
+        logger.detail(attribute+" attribute for " + element.toString() + " is " + value);
+        return value;
+    }
+
     public static void clear(WebElement element) {
         element.clear();
         logger.detail("Clear locator by locator" + element.toString());

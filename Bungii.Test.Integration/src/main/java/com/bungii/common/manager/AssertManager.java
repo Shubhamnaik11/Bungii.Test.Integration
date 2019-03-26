@@ -1,5 +1,6 @@
 package com.bungii.common.manager;
 
+import com.bungii.common.utilities.LogUtility;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -9,6 +10,7 @@ import org.testng.Assert;
  * All Assertion methods will go in this class
  */
 public class AssertManager {
+    private static LogUtility logger = new LogUtility(ResultManager.class);
 
 
     /**
@@ -142,7 +144,9 @@ public class AssertManager {
      * @param errorMessage    If failed this message will be published
      */
     public void isElementTextEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
-        isTrue(element.getText().equals(expectedText), expectedMessage, successMessage, errorMessage);
+        String actualText=element.getText();
+        logger.detail("Element Text :"+actualText);
+        isTrue(actualText.equals(expectedText), expectedMessage, successMessage, errorMessage);
     }
 
     /**

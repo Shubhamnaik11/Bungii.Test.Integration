@@ -11,7 +11,7 @@ public class PromoCodePage extends PageBase {
 //	public WebElement Text_OneOffCode;
 
 
-  //  public By Loadder = By.className("link_Next");
+    //  public By Loadder = By.className("link_Next");
     public WebElement Loadder() { return findElement("link_Next", LocatorType.ClassName); };
 
 
@@ -38,6 +38,12 @@ public class PromoCodePage extends PageBase {
         return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
+    public List<WebElement> Text_PromoCodeFixed() {
+        return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[1]/span[contains(text(),'$')]/parent::td/preceding-sibling::td[3]", LocatorType.XPath);
+    }
+    public List<WebElement> Text_PromoCodePercent() {
+        return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[1]/span[contains(text(),'%')]/parent::td/preceding-sibling::td[3]", LocatorType.XPath);
+    }
 
 
     public List<WebElement> Text_ReferralCode() {
@@ -69,6 +75,5 @@ public class PromoCodePage extends PageBase {
     public WebElement Button_Nextpage() {
         return findElement("link_Next", LocatorType.Id);
     }
-
 
 }

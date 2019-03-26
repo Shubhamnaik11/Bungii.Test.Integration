@@ -32,6 +32,7 @@ public class SupportSteps extends DriverBase {
                 textValue = "          ";
                 break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
 
@@ -61,7 +62,12 @@ public class SupportSteps extends DriverBase {
                 action.hideKeyboard();
                 testStepAssert.isEquals(action.getText(supportPage.Error_Blank()), PropertyUtility.getMessage("customer.support.emptyfield"), "Proper validation message should be displayed", "'" + PropertyUtility.getMessage("customer.support.emptyfield") + "'message is displayed", "'" + PropertyUtility.getMessage("customer.support.emptyfield") + "'message is not displayed");
                 break;
+            case "support question":
+                testStepAssert.isEquals(action.getText(supportPage.Text_Title()).trim(),PropertyUtility.getMessage("customer.support.question"),"Support Menu Title must be displayed sucessfully","Support text "+PropertyUtility.getMessage("customer.support.question")+"is displayed correctly","Support text "+PropertyUtility.getMessage("customer.support.question")+"is not displayed correctly");
+                testStepAssert.isEquals(action.getText(supportPage.Text_SubTitle()).trim(),PropertyUtility.getMessage("customer.support.question.label"),"Support Menu Title must be displayed sucessfully","Support text "+PropertyUtility.getMessage("customer.support.question.label")+"is displayed correctly","Support text "+PropertyUtility.getMessage("customer.support.question.label")+"is not displayed correctly");
+                break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {

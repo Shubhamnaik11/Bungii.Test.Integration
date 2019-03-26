@@ -39,6 +39,7 @@ public class SignupSteps extends DriverBase {
                     customerPhone = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             action.sendKeys(Page_Signup.TextField_Phonenumber(), customerPhone);
@@ -85,6 +86,7 @@ public class SignupSteps extends DriverBase {
                     action.hideKeyboard();
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -103,6 +105,8 @@ public class SignupSteps extends DriverBase {
                     Thread.sleep(20000);
                     smsCode = dbutility.getVerificationCode((String) cucumberContextManager.getScenarioContext("CustomerPhoneNum"));
                     break;
+                default:
+                        error("UnImplemented Step or incorrect button name", "UnImplemented Step");
             }
             action.sendKeys(Page_Signup.Textfield_SMSCode(), smsCode);
 
@@ -148,6 +152,7 @@ public class SignupSteps extends DriverBase {
                 action.click(Page_Signup.Link_Login());
                 break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
@@ -182,6 +187,7 @@ public class SignupSteps extends DriverBase {
                 break;
 
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
     } catch (Exception e) {
@@ -204,6 +210,7 @@ public class SignupSteps extends DriverBase {
                 strPromoCode = PropertyUtility.getDataProperties("promocode.invalid");
                 break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);

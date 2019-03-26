@@ -19,6 +19,10 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Text_TipValue() {return findElement("//XCUIElementTypeButton[@name='-']/following::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
 
 
+	public WebElement Text_BungiiTime() {return findElement("//XCUIElementTypeStaticText[@name='Bungii time']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
+	public WebElement Text_Distance() {return findElement("//XCUIElementTypeStaticText[@name='Distance']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
+	public WebElement Text_FinalCost() {return findElement("//XCUIElementTypeStaticText[@name='Final Cost']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 
+	public WebElement Text_Email() {return findElement("//XCUIElementTypeStaticText[@name='A detailed receipt will be emailed to you.']", LocatorType.XPath);}
 
 }

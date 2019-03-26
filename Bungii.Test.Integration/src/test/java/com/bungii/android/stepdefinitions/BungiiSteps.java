@@ -10,6 +10,7 @@ import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -21,6 +22,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -134,6 +136,7 @@ public class BungiiSteps extends DriverBase {
 */
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
@@ -175,6 +178,7 @@ public class BungiiSteps extends DriverBase {
                     }
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -264,12 +268,27 @@ public class BungiiSteps extends DriverBase {
                 case "SMS for a solo driver":
                     action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_SMS());
                     break;
-
+                case "SMS for driver 1":
+                    action.click(Page_CustomerBungiiProgress.Button_DuoMore1());
+                    action.click(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
+                    break;
+                case "SMS for driver 2":
+                    action.click(Page_CustomerBungiiProgress.Button_DuoMore2());
+                    action.click(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
+                    break;
                 case "Call for a solo driver":
                     action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_Call());
                     break;
-
+                case "Call for driver 1":
+                    action.click(Page_CustomerBungiiProgress.Button_DuoMore1());
+                    action.click(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
+                    break;
+                case "Call for driver 2":
+                    action.click(Page_CustomerBungiiProgress.Button_DuoMore2());
+                    action.click(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
+                    break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log("I should able to click on" + arg0, "I clicked on " + arg0, true);
@@ -331,7 +350,14 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should be high lighted ", "Unloading icon is high lighted", "Unloading icon is not high lighted");
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_Status().getText(), Status.UNLOADING_ITEM.toString(), "I should be navigate to UNLOADING_ TEM Screen", "I am navigate to UNLOADING ITEM Screen", "I was not navigate to LOADING ITEM Screen");
                     break;
+                case "Pickup Item":
+                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Image_BungiiItem(),"Bungii item should be displayed","Bungii item is be displayed","Bungii item is not displayed");
+                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Button_CancelImage(),"Cancel on Bungii item should be displayed","Cancel on Bungii item is be displayed","Cancel on Bungii item is not displayed");
+                    action.click(Page_DriverBungiiProgress.Button_CancelImage());
+                break;
+
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -345,30 +371,42 @@ public class BungiiSteps extends DriverBase {
     public void correctDetailsShouldBeDisplayedOnApp(String arg0) throws Throwable {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-
+            String expectedDuoNumber;
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
             switch (arg0) {
+                case "Driver 1 SMS":
+                case "Driver 2 SMS":
                 case "SMS":
-                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), PropertyUtility.getMessage("twilio.number"));
+                    expectedDuoNumber=arg0.contains("2")?PropertyUtility.getMessage("twilio.number.driver2"):PropertyUtility.getMessage("twilio.number");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), expectedDuoNumber);
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(),expectedDuoNumber);
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
                     }
-                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), PropertyUtility.getMessage("twilio.number"));
+
                     break;
 
                 case "Calling":
-                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), PropertyUtility.getMessage("twilio.number"));
+                case "Driver 1 Calling":
+                case "Driver 2 Calling":
+                    expectedDuoNumber=arg0.contains("2")?PropertyUtility.getMessage("twilio.number.driver2"):PropertyUtility.getMessage("twilio.number");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
+                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber);
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), expectedDuoNumber);
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
                     }
-                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), PropertyUtility.getMessage("twilio.number"));
+
                     break;
 
                 default:
@@ -387,19 +425,76 @@ public class BungiiSteps extends DriverBase {
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
         try {
+            boolean isDuo=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase( "DUO");
+            if(!isDuo){
             switch (arg0) {
                 case "SMS for a customer":
                     action.click(Page_DriverBungiiProgress.Button_More());
+                    testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_Customer_SMS()).trim(),PropertyUtility.getMessage("driver.text.customer"));
                     action.click(Page_DriverBungiiProgress.Button_Customer_SMS());
                     break;
 
                 case "Call for a customer":
                     action.click(Page_DriverBungiiProgress.Button_More());
+                    testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_Customer_Call()).trim(),PropertyUtility.getMessage("driver.call.customer"));
                     action.click(Page_DriverBungiiProgress.Button_Customer_Call());
                     break;
-
-                default:
+                case"Contact support":
+                    action.click(Page_DriverBungiiProgress.Button_More());
+                    testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_Customer_CallSupport()).trim(),PropertyUtility.getMessage("driver.text.support"));
+                    action.click(Page_DriverBungiiProgress.Button_Customer_CallSupport());
                     break;
+                case"View items":
+                    action.click(Page_DriverBungiiProgress.Button_More());
+                    testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_Customer_ViewItem()).trim(),PropertyUtility.getMessage("driver.view.items.customer"));
+                    action.click(Page_DriverBungiiProgress.Button_Customer_ViewItem());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }}{
+                    switch (arg0) {
+                        case "SMS for a customer":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_SMS()).trim(),PropertyUtility.getMessage("driver.text.customer"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_SMS());
+                            break;
+
+                        case "Call for a customer":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_Call()).trim(),PropertyUtility.getMessage("driver.call.customer"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
+                            break;
+                        case "SMS for a driver":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_SMS()).trim(),PropertyUtility.getMessage("driver.text.driver"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_SMS());
+                            break;
+
+                        case "Call for a driver":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_Call()).trim(),PropertyUtility.getMessage("driver.call.driver"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
+                            break;
+                        case"Contact support":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport()).trim(),PropertyUtility.getMessage("driver.text.support"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
+                            break;
+                        case"Contact support for driver":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport()).trim(),PropertyUtility.getMessage("driver.text.support"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
+                            break;
+                        case"View items":
+                            action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem()).trim(),PropertyUtility.getMessage("driver.view.items.customer"));
+                            action.click(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem());
+                            break;
+                        default:
+                            error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                            break;
+                    }
             }
 
             log("Bungii Driver should able to  taps on " + arg0 + " during Bungii",
@@ -416,33 +511,61 @@ public class BungiiSteps extends DriverBase {
     public void correctDetailsShouldBeDisplayedToDriverOnApp(String arg0) throws Throwable {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-
+            String expectedDuoNumber="";
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
             switch (arg0) {
+                case "Driver 2 SMS":
+                case "Driver 1 SMS":
                 case "SMS":
-                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), PropertyUtility.getMessage("twilio.number"));
+                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                    if(arg0.equals("SMS"))
+                        expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
                     }
-                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), PropertyUtility.getMessage("twilio.number"));
+
                     break;
+                case "Support-SMS":
 
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), PropertyUtility.getMessage("driver.support.number"),"Support number should be correctly displayed","Support number is not correctly displayed");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), PropertyUtility.getMessage("driver.support.number"),"Support number should be correctly displayed","Support number is not correctly displayed");
+                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+
+                    }
+                    break;
+                case "Driver 1 Calling":
+                case "Driver 2 Calling":
                 case "Calling":
-                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), PropertyUtility.getMessage("twilio.number"));
+                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                    if(arg0.equals("Calling"))
+                        expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
+                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
                     }
-                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), PropertyUtility.getMessage("twilio.number"));
+
                     break;
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             while (Page_DriverBungiiProgress.Title_Status(true) == null)
@@ -475,6 +598,7 @@ public class BungiiSteps extends DriverBase {
                     break;
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log("Bungii Driver should " + arg0,
@@ -498,7 +622,8 @@ public class BungiiSteps extends DriverBase {
                 case "Reminder: both driver at drop off":
                     expectedText = PropertyUtility.getMessage("bungii.duo.driver.drop");
                     break;
-
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
             }
             testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
             action.click(Page_DriverBungiiProgress.Alert_Accept());

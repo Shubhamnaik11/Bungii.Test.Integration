@@ -56,7 +56,8 @@ public class ReferralSourceSteps extends DriverBase {
                     break;
 
                 default:
-                    break;
+                    throw new Exception(" UNIMPLEMENTED STEP");
+
             }
 
         } catch (Exception e) {

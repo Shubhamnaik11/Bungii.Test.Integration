@@ -171,6 +171,9 @@ public class GeneralUtility extends DriverBase {
             case"DRIVER NOT AVAILABLE":
                 isCorrectPage=action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                 break;
+            case "bungii.com":
+                isCorrectPage=action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
+                break;
             default:
                 break;
         }
@@ -217,6 +220,15 @@ public class GeneralUtility extends DriverBase {
         testStepVerify.isEquals(actualText, expectedText, "Twillio Number should be correct", "Twillio number is not correct. actualText:" + actualText + "expectedText:" + expectedText);
     }
 
+       /** Check if  phone number is correct
+     * @param element Web element of phone number
+     * @param value expected phine number value
+     */
+    public void isPhoneNumbersEqual(WebElement element, String value, String expectedMessage ,String errorMessage) {
+        String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
+        String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
+        testStepVerify.isEquals(actualText, expectedText,expectedMessage,errorMessage);
+    }
     /**
      * Calculate estimate cost of trip check if less than minimum cost then
      * return minimum cost
@@ -232,16 +244,48 @@ public class GeneralUtility extends DriverBase {
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
         Promo=Promo.contains("ADD")?"0":Promo;
-        double PromoCode = Double.parseDouble(Promo.replace("-$", ""));
-
         double tripTime = Double.parseDouble(estTime);
+        double actualValue = distance + loadUnloadTime + tripTime;
+        double discount=0 ;
+        if(Promo.contains("$"))
+            discount=Double.parseDouble(Promo.replace("-$", ""));
+        else if(Promo.contains("%"))
+            discount=actualValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100;
 
-        double estimate = distance + loadUnloadTime + tripTime - PromoCode;
+        double estimate = distance + loadUnloadTime + tripTime - discount;
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
 
         return estimate;
     }
 
+    /**
+     * Calculate  cost of trip check if less than minimum cost then
+     * return minimum cost
+     *
+     * @param tripDistance
+     * @param Promo
+     * @return
+     */
+    public double bungiiCustomerCost(String tripDistance,String tripTime, String Promo,String tripType) {
+
+        double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
+        double tripActualTime = Double.parseDouble(tripTime);
+        double tripValue = distance + tripActualTime;
+        if(tripType.equalsIgnoreCase("DUO"))
+            tripValue=tripValue*2;
+        Promo=Promo.contains("ADD")?"0":Promo;
+
+        double discount=0 ;
+        if(Promo.contains("$"))
+            discount=Double.parseDouble(Promo.replace("-$", ""));
+        else if(Promo.contains("%"))
+            discount=tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100;
+
+        double costToCustomer = distance +  tripActualTime - discount;
+        costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+
+        return costToCustomer;
+    }
     /**
      * Input value on Numeric keyboard
      * @param strNum Number that is to be input
@@ -288,6 +332,9 @@ public class GeneralUtility extends DriverBase {
             case "SCHEDULED BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
                 break;
+            case"SIGN UP TO DRIVE":
+                action.click(homePage.Button_NavDrives());
+                break;
         }
     }
 
@@ -295,9 +342,20 @@ public class GeneralUtility extends DriverBase {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
      //   phoneNumber="9999996170";
-        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
+
+    public String getActualTime() {
+
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //   phoneNumber="9999996170";
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String pickUpId= DbUtility.getPickupID(custRef);
+        String actualTime =DbUtility.getActualTime(pickUpId);
+        return actualTime;
+    }
+
 
     public void goToSignupPage() {
         clickCustomerMenuItem("LOGOUT");

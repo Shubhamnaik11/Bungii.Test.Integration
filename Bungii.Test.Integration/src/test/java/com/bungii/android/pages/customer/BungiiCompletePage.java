@@ -26,11 +26,14 @@ public class BungiiCompletePage extends PageBase {
 
     public WebElement Button_DecreaseTip() { return findElement("com.bungii.customer:id/tip_decrease_button",LocatorType.Id); }
 
-    public WebElement BungiiTime() { return findElement("com.bungii.customer:id/summary_value_time",LocatorType.Id); }
+    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/summary_value_time",LocatorType.Id); }
 
-    public WebElement Distance() { return findElement("com.bungii.customer:id/summary_value_distance",LocatorType.Id); }
+    public WebElement Text_Distance() { return findElement("com.bungii.customer:id/summary_value_distance",LocatorType.Id); }
 
-    public WebElement FinalCost() { return findElement("com.bungii.customer:id/summary_value_distance",LocatorType.Id);}
+    public WebElement Text_Discount() { return findElement("com.bungii.customer:id/summary_value_discount",LocatorType.Id); }
+
+
+    public WebElement FinalCost() { return findElement("com.bungii.customer:id/summary_value_cost",LocatorType.Id);}
 
     public WebElement Button_OK() { return findElement("com.bungii.customer:id/pickup_success_ok_button",LocatorType.Id); }
 }

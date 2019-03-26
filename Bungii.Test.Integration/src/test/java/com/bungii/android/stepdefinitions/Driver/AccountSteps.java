@@ -32,6 +32,19 @@ public class AccountSteps extends DriverBase {
         }
     }
 
+    @Then("^I get driver account details for driver 2$")
+    public void i_get_driver_account_details_for_driver_2() {
+        try {
+            String[] details = getDriverDetails();
+            String phone = details[1].replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+            cucumberContextManager.setScenarioContext("DRIVER_2", details[0]);
+            cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
+            log( "I get driver account details for driver 1", "driver 1 name is " + details[0] + " and Phone Number is "+ details[1],true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     /**
      * Get driver details from account page
      * @return String array containing driver name , Phone number anad email id

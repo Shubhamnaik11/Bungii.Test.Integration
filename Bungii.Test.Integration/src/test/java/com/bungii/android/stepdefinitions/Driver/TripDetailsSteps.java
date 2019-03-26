@@ -23,6 +23,8 @@ public class TripDetailsSteps {
                     action.click(tripDetailsPage.Button_Accept());
                     Thread.sleep(2000);
                     break;
+                default:
+                        error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

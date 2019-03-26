@@ -41,4 +41,18 @@ public class BungiiProgressPage extends PageBase {
     public WebElement Button_Bungii_Driver_Call () { return findElement("com.bungii.customer:id/pickup_details_call_button",LocatorType.Id); }
 
 
+    //More incas of duo
+    public WebElement Button_DuoMore1() { return findElements("com.bungii.customer:id/pickup_details_contact_options", LocatorType.Id).get(0); }
+    public WebElement Button_DuoMore2() { return findElements("com.bungii.customer:id/pickup_details_contact_options", LocatorType.Id).get(1); }
+
+    public WebElement Button_DuoDriver_SMS() { return findElement("com.bungii.customer:id/caller_communication_mode_sms_textview", LocatorType.Id); }
+    public WebElement Button_DuoDriver_Call() { return findElement("com.bungii.customer:id/caller_communication_mode_phone_call_textview", LocatorType.Id); }
+
+    public WebElement Button_CancelOnMoreOptions() { return findElement("com.bungii.customer:id/caller_cancel", LocatorType.Id); }
+    public WebElement Text_DuoDriver1_Name() { return findElements("com.bungii.customer:id/pickup_details_person_name", LocatorType.Id).get(0); }
+    public WebElement Text_DuoDriver2_Name() { return findElements("com.bungii.customer:id/pickup_details_person_name", LocatorType.Id).get(1); }
+
+
+
+
 }

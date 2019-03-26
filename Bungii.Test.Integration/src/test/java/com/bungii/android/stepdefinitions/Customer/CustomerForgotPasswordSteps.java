@@ -52,6 +52,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.click(Page_Signup.Button_VerifyContinue());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I tap on the " + arg0 + "Link",
@@ -78,6 +79,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.sendKeys(forgotPasswordPage.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer_LessThan10.phonenumber"));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I enter" + string + " Phone Number",
@@ -101,6 +103,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PropertyUtility.getDataProperties("verificationcode.incorrect"));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I enter" + string + " SMS code",
@@ -124,6 +127,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     newPassword = PropertyUtility.getDataProperties("customer_LessThan6.password");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             action.sendKeys(forgotPasswordPage.TextField_NewPassword(), newPassword);

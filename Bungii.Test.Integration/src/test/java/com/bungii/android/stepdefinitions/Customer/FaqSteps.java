@@ -34,6 +34,7 @@ public class FaqSteps extends DriverBase {
                     //    action.click(faqPage.FAQ_FirstQuestion_open());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -71,6 +72,7 @@ public class FaqSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(faqPage.FAQ_FBLogo(), "Facebook logo should be displayed", "Facebook logo is displayed", "Facebook logo is not displayed");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {

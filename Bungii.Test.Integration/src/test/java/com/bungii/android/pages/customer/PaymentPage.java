@@ -45,7 +45,7 @@ public class PaymentPage extends PageBase {
 
     public WebElement Text_SwipeLeftToDelete () { return findElement("com.bungii.customer:id/payment_methods_textview_slide_delete", LocatorType.Id); }
 
-    public WebElement Button_Delete () { return findElement("com.bungii.customer:id/delete_button", LocatorType.Id); }
+    public WebElement Button_Delete (boolean ...ignoreException) { return findElement("com.bungii.customer:id/delete_button", LocatorType.Id,ignoreException); }
 
     public WebElement Button_Delete_Yes () { return findElement("android:id/button1", LocatorType.Id); }
 

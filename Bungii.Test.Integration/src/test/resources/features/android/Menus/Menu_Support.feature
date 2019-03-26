@@ -6,9 +6,11 @@ Feature: Menu_Support
   Background:
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Support" link
-
+@update
   @regression
   Scenario:As Bungii customer I want to Ask question using support menu
+    Then "Support" page should be opened
+    Then The user should see "support question" on Support page
     When I enter "valid" text in Support field
     And I tap "Send" on Support page
     Then The user should see "snackbar validation" on Support page

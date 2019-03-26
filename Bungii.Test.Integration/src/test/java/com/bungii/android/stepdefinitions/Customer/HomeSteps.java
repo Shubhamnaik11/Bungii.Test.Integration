@@ -1,6 +1,5 @@
 package com.bungii.android.stepdefinitions.Customer;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.HomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -10,8 +9,6 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
@@ -42,7 +39,7 @@ public class HomeSteps extends DriverBase {
         try {
             //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
-            log(" I should able to tap on " + strArg2, " I tapped on " + strArg2,true);
+            log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -57,28 +54,31 @@ public class HomeSteps extends DriverBase {
                     action.click(homePage.Link_Invite());
                     break;
                 case "Drop Clear Text":
-                    WebElement row=homePage.Textfield_DropoffLocation();
-                    int xAxis = row.getLocation().getX() + row.getSize().getWidth() -4;
+                    WebElement row = homePage.Textfield_DropoffLocation();
+                    int xAxis = row.getLocation().getX() + row.getSize().getWidth() - 4;
                     int yAxis = row.getLocation().getY() + row.getRect().getHeight() / 2;
-                    action.click(new Point(xAxis,yAxis));
+                    action.click(new Point(xAxis, yAxis));
                     action.hideKeyboard();
                     break;
                 case "Pick Up Clear Text":
-                    WebElement pickRow=homePage.Textfield_PickupLocation();
-                    int x1Axis = pickRow.getLocation().getX() + pickRow.getSize().getWidth() -4;
+                    WebElement pickRow = homePage.Textfield_PickupLocation();
+                    int x1Axis = pickRow.getLocation().getX() + pickRow.getSize().getWidth() - 4;
                     int y1Axis = pickRow.getLocation().getY() + pickRow.getRect().getHeight() / 2;
-                    action.click(new Point(x1Axis,y1Axis));
+                    action.click(new Point(x1Axis, y1Axis));
                     action.hideKeyboard();
                     break;
                 case "My location":
                     action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     String addressValue = action.getText(homePage.Textfield_PickupLocation());
-                    if(addressValue.isEmpty())
+                    if (addressValue.isEmpty())
                         action.click(homePage.Button_Locator());
                     break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+
             }
-            log(" I should able to tap on " + strArg1 + " on Home page", " I tapped on " + strArg1 + " on Home page",true);
+            log(" I should able to tap on " + strArg1 + " on Home page", " I tapped on " + strArg1 + " on Home page", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -87,10 +87,10 @@ public class HomeSteps extends DriverBase {
     }
 
     @Then("^Trip Information should be correctly displayed on CUSTOMER HOME screen$")
-    public void trip_information_should_be_correctly_displayed_on_something_screen()  {
+    public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             String expectedPickUpLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")),
-                    expectedDropLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")), expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")?"DUO":"SOLO";
+                    expectedDropLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")), expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
 
             String pickUpLocation = action.getText(homePage.Textfield_PickupLocation()), dropUpLocation = action.getText(homePage.Textfield_DropoffLocation());
 
@@ -112,6 +112,7 @@ public class HomeSteps extends DriverBase {
         }
 
     }
+
     /**
      * Verify number of driver selected
      *
@@ -122,16 +123,17 @@ public class HomeSteps extends DriverBase {
         String expectedText = "";
         switch (strDriverType.toUpperCase()) {
             case "SOLO":
-                expectedText ="1";
+                expectedText = "1";
                 break;
             case "DUO":
-                expectedText ="2";
+                expectedText = "2";
                 break;
             default:
                 logger.error("Please enter driver type correctly");
         }
-        return  action.getText(homePage.Switch_SoloDuo()).equals(expectedText);
+        return action.getText(homePage.Switch_SoloDuo()).equals(expectedText);
     }
+
     @Given("^I am on Customer logged in Home page$")
     public void iAmOnCustomerLoggedInHomePage() {
         try {
@@ -154,7 +156,7 @@ public class HomeSteps extends DriverBase {
             //   String NavigationBarName = action.getText(homePage.Title_HomePage(true));
 
             if (utility.isCorrectPage("Signup") || utility.isCorrectPage("Login")) {
-               // utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
+                // utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
             } else if (utility.isCorrectPage("Home")) {
                 // do nothing
@@ -176,6 +178,7 @@ public class HomeSteps extends DriverBase {
                     true);
         }
     }
+
     @Then("^I close tutorial Page$")
     public void i_close_tutorial_page() throws Throwable {
         try {
@@ -193,10 +196,10 @@ public class HomeSteps extends DriverBase {
     public void current_location_should_be_present_as_pickup_location() {
         try {
             String addressValue = action.getText(homePage.Textfield_PickupLocation());
-            if(addressValue.isEmpty())
-            testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals("Set Pickup Location"),
-                    "Pickup location value should be non empty", "Pickup location value is" + addressValue,
-                    "Pickup location value should be non empty");
+            if (addressValue.isEmpty())
+                testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals("Set Pickup Location"),
+                        "Pickup location value should be non empty", "Pickup location value is" + addressValue,
+                        "Pickup location value should be non empty");
 
             testStepVerify.isEquals(action.getText(homePage.Text_ETAvalue()), "0 MINS");
         } catch (Exception e) {
@@ -208,7 +211,7 @@ public class HomeSteps extends DriverBase {
     }
 
     @Then("^\"([^\"]*)\" box header and ETA bar header should be correctly displayed$")
-    public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action)  {
+    public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action) {
         try {
             switch (action.toUpperCase()) {
                 case "DROP":
@@ -318,7 +321,7 @@ public class HomeSteps extends DriverBase {
             String textBoxValue = "";
             switch (action.toUpperCase()) {
                 case "DROP":
-                    textBoxValue =  getLocationBoxHeaderValue("DROP");
+                    textBoxValue = getLocationBoxHeaderValue("DROP");
                     break;
                 case "PICK UP":
                     textBoxValue = getLocationBoxHeaderValue("PICKUP");

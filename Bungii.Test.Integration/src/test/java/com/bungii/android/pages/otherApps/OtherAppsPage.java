@@ -11,6 +11,8 @@ public class OtherAppsPage extends PageBase {
     //------SMS---------------------------------------------------------------------------------------
     public WebElement SMS_Samsung_RecipientNo() { return findElement("com.android.mms:id/recipients_editor_to", LocatorType.Id); }
 
+    public WebElement Text_ChromeUrl(boolean... ignoreException) { return findElement("com.android.chrome:id/url_bar", LocatorType.Id,ignoreException); }
+
     public WebElement SMS_Moto_RecipientNo(boolean... ignoreException) { return findElement("com.android.mms:id/recipients_editor", LocatorType.Id,ignoreException); }
 
     //------Call--------------------------------------------------------------------------------------
@@ -30,5 +32,4 @@ public class OtherAppsPage extends PageBase {
     public WebElement Shared_Link(boolean... ignoreException) { return findElement("//android.view.View[contains(@content-desc,\"Shared Link: Check this out!, I just summoned a truck from my phone. You should download this new app called Bungii.\")]", LocatorType.XPath,ignoreException); }
 
     public WebElement Shared_Post(boolean... ignoreException){return findElement("//android.view.View[contains(@content-desc,\" You should download this new app called Bungii.\")]/parent::android.view.View/parent::android.view.View/preceding-sibling::android.view.View[1]",LocatorType.XPath,ignoreException);}
-
 }

@@ -21,7 +21,7 @@ public class PaymentPage extends PageBase {
 	public WebElement TextBox_InvalidExpiry() {return findElement("Invalid: MM/YY", PageBase.LocatorType.Name); }
 	public WebElement Button_PayPal() {return findElement("PayPal", PageBase.LocatorType.Name); }
 	public WebElement Button_Cancel() {return findElement("Cancel", PageBase.LocatorType.Name); }
-	public WebElement Button_Delete() {return findElement("icon delete", PageBase.LocatorType.Name); }
+	public WebElement Button_Delete(boolean ...ignoreException) {return findElement("icon delete", PageBase.LocatorType.Name,ignoreException); }
 
 
 	public List<WebElement> Cell_CardNumber() {return findElements("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }

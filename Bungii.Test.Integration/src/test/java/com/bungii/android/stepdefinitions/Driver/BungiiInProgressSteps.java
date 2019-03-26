@@ -23,10 +23,22 @@ public class BungiiInProgressSteps extends DriverBase {
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
 
+
             String expectedCustName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             expectedCustName = expectedCustName.substring(0, expectedCustName.indexOf(" ") + 2);
-            boolean isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
-
+            boolean isCustomerNameCorrect;
+            //drivername and customer name validation
+            if(String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO")){
+                isCustomerNameCorrect=action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
+                String driver1Name=(String) cucumberContextManager.getScenarioContext("DRIVER_1"),driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                boolean isDriverNameCorrect=action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver1Name.substring(0,driver1Name.indexOf(" ")+2))||action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver2Name.substring(0,driver2Name.indexOf(" ")+2));
+                testStepVerify.isTrue(isDriverNameCorrect,
+                        "Driver name should correctly display",
+                        "Driver name was correctly display",
+                        "Driver name was not correctly display");
+            }
+            else
+                isCustomerNameCorrect = getCustomerName().equals(expectedCustName);
             switch (key) {
                 case "EN ROUTE":
                     validateEnRouteInfo(getTripInformation(key));
@@ -44,6 +56,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     validateUnloadingInfo(getTripInformation(key));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
@@ -89,6 +102,7 @@ public class BungiiInProgressSteps extends DriverBase {
                 details.add(action.getText(bungiiProgressPage.Bungii_Location()));
                 break;
             default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
 
@@ -142,7 +156,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("inside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
         boolean isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
 
@@ -189,6 +203,7 @@ public class BungiiInProgressSteps extends DriverBase {
      * @return value of customer name
      */
     public String getCustomerName() {
+
         return action.getText(bungiiProgressPage.Bungii_Customer_Name());
     }
 }

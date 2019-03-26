@@ -7,9 +7,13 @@ public class TermsPage extends PageBase {
     public WebElement Header_TermsPage(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='TERMS & CONDITIONS']", LocatorType.XPath,ignoreException); }
 
 //Terms Page Elements
+    public WebElement Text_Label(boolean...ignoreException) { return findElement("//*[@text='TERMS OF USE']", LocatorType.XPath,ignoreException); }
 
     //Checkboxes
     public WebElement Checkbox_Agree(boolean ...ignoreException) { return findElement("com.bungii.customer:id/checkbox_accept_terms", LocatorType.Id,ignoreException); }
+    public WebElement Text_Accept(boolean ...ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/checkbox_accept_terms']/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
+
+
     //----------------Buttons--------------//
     public WebElement Button_Continue() { return findElement("com.bungii.customer:id/btn_terms_continue", LocatorType.Id); }
     //Permissions popup

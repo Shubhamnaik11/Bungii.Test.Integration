@@ -1,5 +1,6 @@
 package com.bungii.common.manager;
 
+import com.bungii.common.utilities.LogUtility;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -11,7 +12,8 @@ import org.testng.Assert;
  */
 public class VerificationManager {
 
-	
+	private static LogUtility logger = new LogUtility(VerificationManager.class);
+
 
 	/**
 	 * Check is boolean value is true
@@ -27,8 +29,22 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
-
 	}
+	/**
+	 * Check is boolean value is true
+	 * @param value boolean value to be checked
+	 * @param expectedText Expected Output
+	 */
+	public void isTrue(boolean value, String expectedText) {
+		try {
+			Assert.assertTrue(value, expectedText);
+			ResultManager.pass( expectedText, "Success :" + expectedText, true);
+		} catch (AssertionError e) {
+			//mark test case fail and continue test
+			ResultManager.fail( expectedText, "Failed :" + expectedText, true);
+		}
+	}
+
 	/**
 	 * Check is boolean value is true
 	 * @param value boolean value to be checked
@@ -143,6 +159,20 @@ public class VerificationManager {
 	/**
 	 * @param element Web element object return from PageBase
 	 * @param expectedText Expected Message to that is to be update in report
+	 */
+	public void isElementEnabled(WebElement element, String expectedText) {
+		Boolean isEnabled;
+		try {
+			isEnabled= element.isEnabled();
+		} catch (Exception e) {
+			isEnabled= false;
+		}
+		isTrue(isEnabled,expectedText);
+	}
+
+	/**
+	 * @param element Web element object return from PageBase
+	 * @param expectedText Expected Message to that is to be update in report
 	 * @param successMessage If success this message will be published
 	 * @param errorMessage If failed this message will be published
 	 */
@@ -216,7 +246,9 @@ public class VerificationManager {
 	 * @param element Web element object return from PageBase
 	 */
 	public void isElementTextEquals(WebElement element,String expectedValue) {
-		isEquals(element.getText(),expectedValue);
+		String elementText=element.getText();
+		logger.detail("Element Text"+elementText);
+		isEquals(elementText,expectedValue);
 	}
 
 

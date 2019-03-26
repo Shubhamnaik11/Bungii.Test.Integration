@@ -36,7 +36,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getCustomerRefference(String phoneNumber) {
         String custRef = "";
-        String queryString = "SELECT CustomerRef  FROM Customer WHERE Phone = " + phoneNumber;
+        String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = " + phoneNumber;
         custRef = getDataFromMySqlServer(queryString);
         logger.detail("For Phone Number " + phoneNumber + "customer reference is " + custRef);
         return custRef;
@@ -46,7 +46,24 @@ public class DbUtility extends DbContextManager {
         String estTime = "";
         String queryString = "SELECT EstTime FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
         estTime = getDataFromMySqlServer(queryString);
+
         logger.detail("For customer reference is " + custRef + " Extimate time is " + estTime);
         return estTime;
+    }
+    public static String getPickupID(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT PickupID FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
+
+        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        return PickupID;
+    }
+    public static String getActualTime(String pickupID) {
+        String queryString = "select ActualTime from triprequest  WHERE PickupID = '" + pickupID + "' order by pickupid desc limit 1";
+
+        String actualTime = getDataFromMySqlServer(queryString);
+
+        logger.detail("pickupID" + pickupID + "  time is " + actualTime);
+        return actualTime;
     }
 }

@@ -21,11 +21,13 @@ Scenarios on Payment Methods
     And I tap on "Save" on Payment page
     Then I should see "default payment set" on Payment page
     When I tap on "Menu" > "Logout" link
-
+  @update
   @regression
-  Scenario:  As Bungii Customer I should able to delete my default payment card
+  Scenario:  As Bungii Customer I should able to delete my payment card except default card
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
+    When I swipe "default" card on the payment page
+    Then I should see "no delete button" on Payment page
     When I swipe "2nd" card on the payment page
     And I tap on "Delete" on Payment page
     Then I should see "the card has been deleted" on Payment page

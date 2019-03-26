@@ -47,6 +47,7 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(loginPage.TextField_PhoneNumber(), "");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -70,6 +71,7 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(loginPage.TextField_Password(), "");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -87,6 +89,7 @@ public class LoginSteps extends DriverBase {
                     action.click(loginPage.Button_Login());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -117,6 +120,8 @@ public class LoginSteps extends DriverBase {
                 case "login button disabled":
                     testStepVerify.isElementNotEnabled(loginPage.Button_Login(), "Login button should not be enabled", "Login button is not enabled", "Login button is Enabled");
                     break;
+                default:
+                        error("UnImplemented Step or incorrect button name", "UnImplemented Step");
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -12,7 +12,7 @@ Feature: SoloScheduled
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
-
+  @update
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     When I tap on "Menu" > "Account" link
@@ -54,6 +54,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When Bungii Driver "slides to the next state"
@@ -72,6 +76,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When Bungii Driver "slides to the next state"
@@ -90,6 +98,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When Bungii Driver "slides to the next state"
@@ -108,6 +120,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When Bungii Driver "slides to the next state"
@@ -126,6 +142,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
+    When Bungii Driver taps "Contact support" during a Bungii
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When Bungii Driver taps "View items" during a Bungii
+    Then Bungii driver should see "Pickup Item"
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When Bungii Driver "slides to the next state"
@@ -134,6 +154,7 @@ Feature: SoloScheduled
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 

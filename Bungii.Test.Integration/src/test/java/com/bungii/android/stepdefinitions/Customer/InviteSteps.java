@@ -50,6 +50,7 @@ public class InviteSteps extends DriverBase {
                     //((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log("I should able to tap on" + actionItem, "I tapped on actionItem", true);
@@ -83,6 +84,7 @@ public class InviteSteps extends DriverBase {
                     log("I should able to see referral code", " Referral Code is " + (String) cucumberContextManager.getScenarioContext("ReferralCode"), true);
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -103,6 +105,7 @@ public class InviteSteps extends DriverBase {
                     action.click(invitePage.FBApp_PostLink());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -141,6 +144,7 @@ public class InviteSteps extends DriverBase {
                     break;
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {

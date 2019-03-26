@@ -7,11 +7,16 @@ Feature: CustomerMenu
 
   Background:
     Given I am on Customer logged in Home page
-
+@update
   @regression
-  Scenario: As Bungii customer I should able to access home page
+  Scenario: As Bungii customer I should able to access menu items
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened
+    When I tap on "Menu" > "SIGN UP TO DRIVE" link
+    Then "bungii.com" page should be opened
+    When I Switch to "customer" application on "same" devices
+    When I tap on "Menu" > "Logout" link
+    Then "Login" page should be opened
 
   @regression
   Scenario: As Bungii customer I should able to access FAQ page
@@ -23,7 +28,6 @@ Feature: CustomerMenu
     Then I should see "first answer dropdown close" on FAQ page
     Then I should see "last question" on FAQ page
     Then I should see "social media links" on FAQ page
-    When I tap on "Menu" > "Logout" link
 
   @regression
   Scenario:As Bungii customer I should able to access account page
@@ -46,4 +50,3 @@ Feature: CustomerMenu
   Scenario: As Bungii customer I should able to access promos page
     When I tap on "Menu" > "Promos" link
     Then "Promos" page should be opened
-

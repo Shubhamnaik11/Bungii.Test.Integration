@@ -139,6 +139,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "No free money":
+                    Thread.sleep(2000);
                     action.scrollToBottom();
                     if (!action.isElementPresent(Page_WantDollar5.Button_NoFreeMoney(true)))
                         action.scrollToBottom();
@@ -152,6 +153,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(bungiiEstimatePage.Button_RequestConfirm());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I tap on " + arg0 + " on Bungii estimate",
@@ -178,15 +180,15 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
-
+            //        testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
+             //       testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
+                    cucumberContextManager.setScenarioContext("PROMOCODE_VALUE",action.getText(Page_Estimate.Link_Promo()));
                     double expectedTotalEstimate = utility.bungiiEstimate(action.getText(Page_Estimate.Text_TripDistance()), action.getText(Page_Estimate.Link_LoadingUnloadingTime()), utility.getEstimateTime(), action.getText(Page_Estimate.Link_Promo()));
                     String loadTime = action.getText(Page_Estimate.Text_TotalEstimate());
-                    String truncValue = new DecimalFormat("#.#").format(expectedTotalEstimate);
-                    if(!truncValue.contains("."))truncValue=truncValue+".0";
-                    String actualValue = loadTime.substring(0, loadTime.length() - 1);
-                    testStepVerify.isEquals("$" + String.valueOf(truncValue), actualValue);
+                    String truncValue = new DecimalFormat("#.##").format(expectedTotalEstimate);
+                    if(!truncValue.contains("."))truncValue=truncValue+".00";
+                    String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
+                    testStepVerify.isEquals(actualValue,"$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"),"Trip distance should be in miles","Trip Distance does contains miles , actual value"+action.getText(Page_Estimate.Text_TripDistance()),"Trip Distance does not contains miles , actual value"+action.getText(Page_Estimate.Text_TripDistance()));
 
@@ -220,6 +222,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -258,6 +261,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I am logged in as"+arg0+" customer",
@@ -282,6 +286,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(2000);
                     utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationC"));
                     break;
+                case "goa location in pickup and dropoff fields long distance":
+                    utility.selectAddress(Page_CustHome.Textfield_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    Thread.sleep(2000);
+                    utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    break;
                 case "current location in pickup and dropoff fields":
                     //string a = driver.PageSource;
                     action.click(Page_CustHome.Button_Locator());
@@ -294,7 +303,24 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_Locator());
                     action.click(Page_CustHome.Button_ETASet());
                     break;
+                case "current location in pickup and dropoff fields long distance":
+                    action.click(Page_CustHome.Button_Locator());
+                    action.click(Page_CustHome.Button_Locator());
+
+                    Thread.sleep(5500);
+                    if (action.isElementPresent(Page_CustHome.Text_ETAvalue(true))) {
+                        int ETA = Integer.parseInt(Page_CustHome.Text_ETAvalue().getText().replace(" MINS", ""));
+                        if (ETA <= 30)
+                            action.click(Page_CustHome.Button_ETASet());
+                    }
+                   // action.click(Page_CustHome.Button_Locator());
+/*                    action.scrollToTop();action.scrollToTop();
+                    action.click(Page_CustHome.Button_ETASet());*/Thread.sleep(2000);
+                    action.hideKeyboard();
+                    utility.selectAddress(Page_CustHome.Textfield_DropoffLocation(), PropertyUtility.getDataProperties("dropoff.locationA "));
+                    break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             //savePickupAddress();
@@ -435,6 +461,7 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
                     break;
 
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             //save load time in cucumber context
@@ -488,9 +515,9 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
                 i++;
             } while (i < Integer.parseInt(arg0));
 
-            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
+/*            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
                 //code to be added incase of "Invalid Image error"
-            }
+            }*/
 
 
             testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
@@ -511,6 +538,8 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
                     break;
                 case "next possible scheduled for duo":
                     break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
             }
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
             if(arg0.equalsIgnoreCase("OLD BUNGII TIME")){

@@ -27,6 +27,12 @@ public class PromosSteps extends DriverBase {
                 case "valid":
                     promoCode = PropertyUtility.getDataProperties("promocode.valid");
                     break;
+                case "valid percent":
+                    promoCode = PropertyUtility.getDataProperties("promocode.valid.percent");
+                    break;
+                case "valid one off":
+                    promoCode=PropertyUtility.getDataProperties("promocode.one.off");
+                    break;
                 case "fixed valid":
                     promoCode = PropertyUtility.getDataProperties("promocode.fixedvalid");
                     break;
@@ -46,6 +52,7 @@ public class PromosSteps extends DriverBase {
                     promoCode = PropertyUtility.getDataProperties("promocode.usedoneoff");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             action.clearSendKeys(promoPage.Textfield_PromoCode(), promoCode);
@@ -113,6 +120,7 @@ public class PromosSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
         } catch (Exception e) {
@@ -148,6 +156,7 @@ public class PromosSteps extends DriverBase {
                     action.click(promoPage.Button_GetMoreMoney());
                     break;
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             log(" I should able to tap " + arg0 + " on Save Money page",
