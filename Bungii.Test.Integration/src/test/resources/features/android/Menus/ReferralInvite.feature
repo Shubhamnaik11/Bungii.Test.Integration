@@ -25,9 +25,18 @@ Feature: ReferralInvite
 
   @regression
   Scenario: Cust_Menu_ReferralInvite_Twitter_AppNotInstalled
+    Given I have "twitter" app "not installed"
     When I tap "Share" on Invite page
     When I tap "Share on Twitter" on Invite page
     Then I should see post "on Twitter in browser"
+    When I Switch to "customer" application on "same" devices
+
+  @regression
+  Scenario: Cust_Menu_ReferralInvite_Twitter_AppInstalled
+    Given I have "twitter" app "installed"
+    When I tap "Share" on Invite page
+    When I tap "Share on Twitter" on Invite page
+    Then I should see post "Tweet Post in Twitter app"
     When I Switch to "customer" application on "same" devices
 
 

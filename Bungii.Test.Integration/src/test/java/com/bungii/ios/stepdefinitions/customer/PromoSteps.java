@@ -35,6 +35,9 @@ public class PromoSteps extends DriverBase {
                 case "{EXPIRED}":
                     codeList = (List<String>) cucumberContextManager.getFeatureContextContext("EXPIRED");
                     break;
+                case "{PROMO FIXED}":
+                    codeList = (List<String>) cucumberContextManager.getFeatureContextContext("PROMO_FIXED");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

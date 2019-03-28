@@ -25,6 +25,8 @@ public class PaymentPage extends PageBase {
 
 
 	public List<WebElement> Cell_CardNumber() {return findElements("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
+	public WebElement Cell_DefaultCard() {return findElement("//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]", PageBase.LocatorType.XPath); }
+
 	public WebElement Cell_DefaultCardNumber() {return findElement(
 			"//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
 

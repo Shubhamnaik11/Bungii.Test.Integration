@@ -1,13 +1,17 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -15,10 +19,12 @@ public class BungiiCompletedSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
     BungiiCompletedPage bungiiCompletedSteps = new BungiiCompletedPage();
     ActionManager action = new ActionManager();
-
+    double DRIVER_SHARE=0.7,TRANSACTION_FEE=0.029,TR_COST=0.3;
+    GeneralUtility utility= new GeneralUtility();
     @Then("^Bungii driver should see \"([^\"]*)\" on Bungii completed page$")
     public void bungii_driver_should_see_something_on_bungii_completed_page(String identifier) throws Throwable {
         try {
+
             switch (identifier.toLowerCase()) {
                 case "correct details":
                     verifyBungiiCompletedPage();
@@ -49,10 +55,17 @@ public class BungiiCompletedSteps extends DriverBase {
      * Verify variable texts in Bungii Complete Page
      */
         public void verifyTripValue(){
+
+            double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
+            double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
+            String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
+            String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+            String tripTime =utility.getActualTime();
+
             String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),totalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
-            testStepVerify.isTrue(totalTime.contains("minutes"),"Total time should contains minute");
-            testStepVerify.isTrue(totalDistance.contains("miles"),"Total time should contains minute");
-            testStepVerify.isTrue(toatlEarning.contains("$"),"Total time should contains minute");
+            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" minutes"),"Total time should contains minute");
+            testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should contains minute");
+            testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning+"+truncValue+" should contains minute");
 
 
         }

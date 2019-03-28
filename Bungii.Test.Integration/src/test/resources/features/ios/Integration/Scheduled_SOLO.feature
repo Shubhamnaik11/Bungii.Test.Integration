@@ -52,6 +52,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
+    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
+    Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "EN ROUTE" trip status screen
@@ -66,6 +68,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
+    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
+    Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
@@ -79,6 +83,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
+    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
+    Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
@@ -92,6 +98,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
+    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
+    Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
@@ -105,6 +113,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
     Then correct details should be displayed to driver on "Call" app
+    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
+    Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
@@ -115,9 +125,11 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
+    Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
+    Then Bungii customer should see "correct details" on Bungii completed page
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
       | 5       | 5   |

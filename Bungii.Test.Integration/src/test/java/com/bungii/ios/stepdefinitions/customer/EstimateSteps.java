@@ -101,7 +101,10 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
-
+    @When("^I request for bungii using Request Bungii Button$")
+    public void i_request_for_bungii_using_request_bungii_button() throws Throwable {
+        clickRequestBungii();
+    }
     private void addPromoCode(String code) {
         action.click(estimatePage.Button_AddPromoCode());
 

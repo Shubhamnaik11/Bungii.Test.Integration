@@ -5,7 +5,7 @@ Feature: On Demand Bungii
  # Background:
 
 
-
+  @update2
   @update
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
@@ -26,6 +26,7 @@ Feature: On Demand Bungii
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
@@ -147,16 +148,19 @@ Feature: On Demand Bungii
     When Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
-
+  @update
   @sanity
   @regression
   Scenario: Validate That I am able to create on demand bungii.
-    Given I am logged in as "valid" customer
+
+    Given I am logged in as "no promocode" customer
+   # Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
@@ -221,7 +225,7 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
 
-  @update1
+  @update
     #This scenario is moved from EstimateBungii.feature
   @pending
   @regression
@@ -297,5 +301,5 @@ Feature: On Demand Bungii
     Examples:
       | Scenario         | Promo Code    | User         |
       | fixed valid      | fixed valid   | no promocode |
-    #  | Promo percentage | valid percent | no promocode |
-    #  | valid one off    | valid one off | no promocode |
+      | Promo percentage | valid percent | no promocode |
+      | valid one off    | valid one off | no promocode |

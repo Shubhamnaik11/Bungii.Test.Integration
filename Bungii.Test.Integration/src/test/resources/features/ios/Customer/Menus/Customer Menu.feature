@@ -27,7 +27,7 @@ Feature: Customer	Menu
     When I Switch to "customer" application on "same" devices
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
-
+  @update
   @regression
   Scenario: As Bungii customer I want to Ask question using support menu
     When I Select "SUPPORT" from Customer App menu

@@ -78,6 +78,7 @@ Feature: Menu_SaveMoney
 
   @regression
   Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
+    Given I have "facebook" app "installed"
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
     And I tap "Get More Money" on Save Money page

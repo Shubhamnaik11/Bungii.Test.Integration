@@ -10,6 +10,7 @@ public class BungiiCompletePage extends PageBase {
 
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+	public WebElement PageTitle_BungiiComplete() { return findElement("//XCUIElementTypeOther[@name=\"BUNGII COMPLETE\"]", PageBase.LocatorType.XPath); }
 	public WebElement Button_Back() {return findElement("Back", PageBase.LocatorType.Name); }
 	public List<WebElement> Button_Star() {return findElements("rating unselected star icon", PageBase.LocatorType.Name); }
 	public WebElement Button_Plus() {return findElement("+", PageBase.LocatorType.Name); }
@@ -22,7 +23,7 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Text_BungiiTime() {return findElement("//XCUIElementTypeStaticText[@name='Bungii time']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_Distance() {return findElement("//XCUIElementTypeStaticText[@name='Distance']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_FinalCost() {return findElement("//XCUIElementTypeStaticText[@name='Final Cost']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
-
+	public WebElement Text_Discount() {return findElement("//XCUIElementTypeStaticText[@name='Discount']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_Email() {return findElement("//XCUIElementTypeStaticText[@name='A detailed receipt will be emailed to you.']", LocatorType.XPath);}
 
 }

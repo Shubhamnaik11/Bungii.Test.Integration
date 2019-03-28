@@ -136,7 +136,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("INside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
         boolean isPickUpDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
                 .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
             testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");

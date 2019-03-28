@@ -90,6 +90,10 @@ public class InviteSteps extends DriverBase {
                             "Post message is" + PropertyUtility.getMessage("customer.invite.mailsub"), "Expected Post message is"
                                     + PropertyUtility.getMessage("customer.invite.mailsub") + ", but actual is " + data[0]);
                     break;
+                case "TWITTER":
+                    messagePost = getTwitterPostValue();
+                    expectedText = PropertyUtility.getMessage("customer.invite.twiiter.post").replace("{0}", inviteCode);
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -156,6 +160,11 @@ public class InviteSteps extends DriverBase {
         return textBody;
     }
 
+    public String getTwitterPostValue(){
+        String textBody = action.getValueAttribute(invitePage.Text_TwitterBody());
+        action.click(invitePage.Buttin_Tweet());
+        return textBody;
+    }
     /**
      * Get Mail body and subject that is auto populated
      *

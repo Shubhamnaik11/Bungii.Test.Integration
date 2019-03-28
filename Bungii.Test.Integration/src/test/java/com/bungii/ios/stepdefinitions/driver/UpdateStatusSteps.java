@@ -142,9 +142,56 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^correct details should be displayed to driver for \"([^\"]*)\"$")
+    public void correct_details_should_be_displayed_to_driver_for_something(String key) throws Throwable {
+        try {
+            switch (key.toUpperCase()) {
+                case "VIEW ITEMS":
+                    clickViewItems();
+                    validateViewImage(1);
+                    break;
+                case "SMS FOR SUPPORT":
+                    clickSMSToSupport();
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+    private void validateViewImage(int image){
+        testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
+        testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
+
+        updateStatusPage.Button_CloseViewItems();
+    }
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
+                .replace("-", "");
+        boolean isMessagePage = isMessageAppPage();
+        boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
+
+        // is both condition is true print single log else individual log
+        if (isPhoneNumCorrect && isMessagePage) {
+            pass("I should be navigated to SMS app",
+                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
+        } else {
+            testStepVerify.isTrue(isMessagePage,
+                    "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+
+            testStepVerify.isTrue(isPhoneNumCorrect,
+                    "To Field should contains " + expectedNumber,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+        }
+        action.click(messagesPage.Button_Cancel());
+    }
+    private void validateSMSNumber(String actualValue,String expectedValue) {
+        String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
         boolean isMessagePage = isMessageAppPage();
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
@@ -419,7 +466,20 @@ public class UpdateStatusSteps extends DriverBase {
         action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_Sms());
     }
-
+    /**
+     * Click SMS to Bungii
+     */
+    public void clickSMSToSupport() {
+        action.click(updateStatusPage.Button_MoreOptions());
+        action.click(updateStatusPage.Button_SupportSms());
+    }
+    /**
+     * Click View Items
+     */
+    public void clickViewItems() {
+        action.click(updateStatusPage.Button_MoreOptions());
+        action.click(updateStatusPage.Button_ViewItems());
+    }
     /**
      * Get Customer Name
      *

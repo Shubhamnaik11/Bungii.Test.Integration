@@ -8,5 +8,11 @@ public class EnableLocationPage extends PageBase{
     public WebElement Button_Sure(boolean ...ignoreException) {
         return findElement("SURE", PageBase.LocatorType.Name,ignoreException);
     }
+    public WebElement Text_Header() {
+        return findElements("//XCUIElementTypeStaticText", LocatorType.XPath).get(0);
+    }
 
+    public WebElement Text_Label() {
+        return findElements("//XCUIElementTypeStaticText", PageBase.LocatorType.XPath).get(1);
+    }
 }

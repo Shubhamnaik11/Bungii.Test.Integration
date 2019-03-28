@@ -1,8 +1,16 @@
 package com.bungii.ios.stepdefinitions.customer;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.SupportPage;
+import com.bungii.ios.stepdefinitions.CommonSteps;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Then;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import static com.bungii.common.manager.ResultManager.error;
 
 public class SupportSteps extends DriverBase {
 	private SupportPage supportPage;
@@ -10,6 +18,28 @@ public class SupportSteps extends DriverBase {
 		this.supportPage =supportPage;
 	}
 	ActionManager action = new ActionManager();
+	private static LogUtility logger = new LogUtility(SupportSteps.class);
+
+	@Then("^I should see \"([^\"]*)\" on Support Page$")
+	public void i_should_see_something_on_support_page(String identifier) throws Throwable {
+
+		try {
+			switch (identifier.toUpperCase()) {
+				case "support text label":
+					// homePage.clickEstimateButton();
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name",
+							"UnImplemented Step");
+					break;
+			}
+
+
+		} catch (Throwable e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}	}
 
 
 	/**

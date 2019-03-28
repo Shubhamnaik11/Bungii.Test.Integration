@@ -26,15 +26,21 @@ Feature: Log In
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
-
+@update
   @regression
   Scenario: As Bungii customer , I should be shown terms and condition page on first time login
     Given I install Bungii App again
     Given I am on the "LOG IN" page
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    Then I should be navigated to "TERMS AND CONDITION" screen
+    Then I should see "all details" on Term and Condition agreement
     Then I accept Term and Condition agreement
+    Then I should be navigated to "ALLOW NOTIFICATIONS" screen
+    Then I should see "all details" on allow notifications screen
     Then I allow access of Notification from Bungii application
+    Then I should be navigated to "ALLOW LOCATION" screen
+    Then I should see "all details" on allow location screen
     Then I allow access of Location from Bungii application
     Then I close tutorial Page
     Then User should be successfully logged in to the application

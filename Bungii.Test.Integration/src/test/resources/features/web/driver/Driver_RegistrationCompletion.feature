@@ -19,7 +19,7 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Documentation" page
     And I enter "valid" data on Bank Details page
     And I click Next on "Bank Details" page
-
+  @TEST1
   @regression
   Scenario: Driver_Terms_AgreeUnchecked
     When I click Next on "Terms & Conditions" page

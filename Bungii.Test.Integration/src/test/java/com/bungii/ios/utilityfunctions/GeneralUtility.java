@@ -1,6 +1,7 @@
 package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
@@ -237,6 +238,12 @@ public class GeneralUtility extends DriverBase {
             case "TERMS AND CONDITION":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.terms.condition");
                 break;
+            case"ALLOW NOTIFICATIONS":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.allow.notifications");
+                break;
+            case"ALLOW LOCATION":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.allow.locations");
+                break;
             case "DRIVER SEARCH":
             case "SEARCHING":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.searching");
@@ -308,6 +315,54 @@ public class GeneralUtility extends DriverBase {
       }*/
         return isEqual;
     }
+
+    public String getActualTime() {
+
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //   phoneNumber="9999996170";
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String pickUpId= com.bungii.android.utilityfunctions.DbUtility.getPickupID(custRef);
+        String actualTime = DbUtility.getActualTime(pickUpId);
+        return actualTime;
+    }
+
+    public String getEstimateDistance() {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //   phoneNumber="9999996170";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String distance= com.bungii.ios.utilityfunctions.DbUtility.getEstimateDistance(custRef);
+        return distance;
+    }
+
+    /**
+     * Calculate  cost of trip check if less than minimum cost then
+     * return minimum cost
+     *
+     * @param tripDistance
+     * @param Promo
+     * @return
+     */
+    public double bungiiCustomerCost(String tripDistance,String tripTime, String Promo,String tripType) {
+
+        double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
+        double tripActualTime = Double.parseDouble(tripTime);
+        double tripValue = distance + tripActualTime;
+        if(tripType.equalsIgnoreCase("DUO"))
+            tripValue=tripValue*2;
+        Promo=Promo.contains("ADD")?"0":Promo;
+
+        double discount=0 ;
+        if(Promo.contains("$"))
+            discount=Double.parseDouble(Promo.replace("-$", ""));
+        else if(Promo.contains("%"))
+            discount=tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100;
+
+        double costToCustomer = distance +  tripActualTime - discount;
+        costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+
+        return costToCustomer;
+    }
+
 
     public double ColourDistance(Color c1, Color c2) {
         double rmean = (c1.getRed() + c2.getRed()) / 2;

@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.InvitePage;
+import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -23,7 +24,7 @@ public class InviteSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     private static LogUtility logger = new LogUtility(InviteSteps.class);
-
+    OtherAppsPage otherAppsPage = new OtherAppsPage();
     @When("^I tap \"([^\"]*)\" on Invite page$")
     public void i_tap_something_on_invite_page(String actionItem) throws Throwable {
         try {
@@ -141,6 +142,12 @@ public class InviteSteps extends DriverBase {
                     break;
 
                 case "on Facebook app":
+                    break;
+                case "Tweet Post in Twitter app":
+                    action.hideKeyboard();
+                    expectedText = PropertyUtility.getMessage("customer.invite.twitter.on.browser").replace("{0}", referralCode);
+                    testStepVerify.contains(action.getText(otherAppsPage.Text_TweeterPost()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    action.click(otherAppsPage.Button_Tweet());
                     break;
 
                 default:

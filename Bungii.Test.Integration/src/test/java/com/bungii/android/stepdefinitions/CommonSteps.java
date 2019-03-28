@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -80,6 +81,38 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+
+
+    @Given("^I have \"([^\"]*)\" app \"([^\"]*)\"$")
+    public void i_have_something_app_something(String appName, String expectedOutcome) throws Throwable {
+        try {
+            boolean isAppInstalled=false;
+            switch (appName.toUpperCase()) {
+                case "TWITTER":
+                    isAppInstalled=((AndroidDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("twitter.bundle.id"));
+                    break;
+                case "FACEBOOK":
+                    isAppInstalled=((AndroidDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("facebook.bundle.id"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            switch (expectedOutcome.toUpperCase()) {
+                case "INSTALLED":
+                    testStepAssert.isTrue(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    break;
+                case "NOT INSTALLED":
+                    testStepAssert.isFalse(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }    }
+
 
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {

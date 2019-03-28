@@ -25,6 +25,11 @@ public class InvitePage  extends PageBase {
 	public WebElement Text_InviteHeader() { return findElement("//XCUIElementTypeImage[@name='icon_invite_referrals']/following-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath);}
 	public WebElement Text_InviteInfo() { return findElement("//XCUIElementTypeImage[@name='icon_invite_referrals']/following-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath);}
 	public WebElement Button_Code() { return findElement("//XCUIElementTypeImage[@name='icon_invite_referrals']/following-sibling::XCUIElementTypeButton", PageBase.LocatorType.XPath);}
+	public WebElement Text_TwitterBody() { return findElement("//XCUIElementTypeTextView", PageBase.LocatorType.XPath);}
+	public WebElement Buttin_Tweet() { return findElement("Tweet", LocatorType.Name);}
+	public WebElement Button_TwitterCancel() { return findElement("Cancel", PageBase.LocatorType.Name);}
+
+
 
 
 

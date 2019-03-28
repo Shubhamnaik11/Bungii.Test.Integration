@@ -76,11 +76,20 @@ public class PaymentSteps extends DriverBase {
     }
 
     @When("^I swipe \"([^\"]*)\" card on the payment page$")
-    public void iSwipeCardOnThePaymentPage(String arg1) {
+    public void iSwipeCardOnThePaymentPage(String cardType) {
         try {
-            leftSwipeOtherCard();
-            pass("I swipe" + arg1 + " card on the payment page",
-                    "I swipe" + arg1 + " card on the payment page",
+                switch (cardType.toLowerCase()) {
+                    case "default":
+                        leftSwipeDefaultCard();
+                        break;
+                    case "other":
+                        leftSwipeOtherCard();
+                        break;
+                    default:
+                        error("UnImplemented Step or in correct app", "UnImplemented Step");
+                        break;                }
+            pass("I swipe" + cardType + " card on the payment page",
+                    "I swipe" + cardType + " card on the payment page",
                     true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -133,6 +142,9 @@ public class PaymentSteps extends DriverBase {
                     testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard), "I should see " + action + "",
                             "Previous default card was " + prvDefaultCard + " and new card is " + currentDefaultCard,
                             "Previous card is same as new default card");
+                    break;
+                case "no delete button":
+                    testStepVerify.isElementNotEnabled(paymentPage.Button_Delete(true),"Delete button should not be displayed","Delete button is not displayed","Delete button is displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -261,6 +273,13 @@ public class PaymentSteps extends DriverBase {
      */
     public void leftSwipeOtherCard() {
         action.swipeLeft(paymentPage.Cell_CardNumber().get(0));
+    }
+
+    /**
+     * Left swipe the default card to delete it
+     */
+    public void leftSwipeDefaultCard() {
+        action.swipeLeft(paymentPage.Cell_DefaultCard());
     }
 
     /**

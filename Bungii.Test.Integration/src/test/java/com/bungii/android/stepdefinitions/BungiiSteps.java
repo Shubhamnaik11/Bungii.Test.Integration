@@ -452,7 +452,7 @@ public class BungiiSteps extends DriverBase {
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
-            }}{
+            }}else{
                     switch (arg0) {
                         case "SMS for a customer":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());

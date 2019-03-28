@@ -35,11 +35,13 @@ Feature: Payment page
       | Scenario           | CardNo        | Expiry |
       | ValidCard Discover | DISCOVER CARD | 12/22  |
       | ValidCard Visa     | VISA CARD     | 12/22  |
-
+  @update
   @regression
   Scenario: As Bungii customer I should able to delete card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
+    When I swipe "default" card on the payment page
+    Then I should see "no delete button" on Payment page
     When I swipe "other" card on the payment page
     And I tap on "Delete" on Payment page
     Then Alert message with Delete Warning text should be displayed

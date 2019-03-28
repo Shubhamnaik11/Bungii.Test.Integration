@@ -32,6 +32,9 @@ public class BungiiCompleteSteps  extends DriverBase {
                     verifyTripValue();
                     verifyDiscount();
                     break;
+                case "correct details":
+                    verifyTripValue();
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -49,8 +52,12 @@ public class BungiiCompleteSteps  extends DriverBase {
     public void verifyBungiiCompletedPage(){
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
+        String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
+        int tripActualTime=Integer.parseInt(utility.getActualTime());
+        String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
-
+        testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripActualTime+ " minutes"),"Total time should contains"+tripActualTime+" minute");
+        testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
         //Vishal[2503]:TODO: add more
     }
 
@@ -68,8 +75,9 @@ public class BungiiCompleteSteps  extends DriverBase {
         Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,totalTime,promoValue,numberOfDriver);
         String truncValue = new DecimalFormat("#.##").format(expectedTotalCost);
         if(!truncValue.contains("."))truncValue=truncValue+".00";
-
         testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
+
+        cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
     }
     public  void verifyDiscount(){
         double tripActualTime=Double.parseDouble(utility.getActualTime());

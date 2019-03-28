@@ -48,6 +48,9 @@ public class PromoCodeSteps extends DriverBase {
                 case "unused one off":
                     cucumberContextManager.setFeatureContextContext("UNUSED_ONE_OFF", getPromoCode(codeType));
                     break;
+                case "promo fixed":
+                    cucumberContextManager.setFeatureContextContext("PROMO_FIXED", getPromoCode(codeType));
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -91,6 +94,9 @@ public class PromoCodeSteps extends DriverBase {
                 case "expired":
                     codes = promosPage.Text_ExpiredPromoCode();
                     break;
+                case "promo fixed":
+                    codes = promosPage.Text_PromoCodeFixed();
+                        break;
                 default:
                     break;
             }

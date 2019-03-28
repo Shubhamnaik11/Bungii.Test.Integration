@@ -12,7 +12,7 @@ Scenarios on Payment Methods
     When I tap on "Menu" > "Logout" link
 
   @regression
-  Scenario: As Bungii Customer I should able to change me default payment card
+  Scenario: As Bungii Customer I should able to change my default payment card
     Given I am on customer Log in page
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link

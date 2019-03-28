@@ -22,6 +22,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
@@ -174,7 +175,7 @@ public class CommonSteps extends DriverBase {
                     isFound = supportPage.isElementEnabled(supportPage.Image_CustLogo());
                     break;
                 case "SUPPORT QUESTION":
-                    isFound = action.getValueAttribute(supportPage.Text_SupportQuestion()).equals(PropertyUtility.getMessage("customer.support.question"));
+                    isFound = action.getValueAttribute(supportPage.Text_SupportQuestion()).equals(PropertyUtility.getMessage("customer.support.question")) && action.getValueAttribute(supportPage.Text_SupportLabelQuestion()).equals(PropertyUtility.getMessage("customer.support.question.label"));
                     break;
                 case "ADD IMAGE":
                     isFound = paymentPage.isElementEnabled(paymentPage.Image_Add());
@@ -398,7 +399,35 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @Given("^I have \"([^\"]*)\" app \"([^\"]*)\"$")
+    public void i_have_something_app_something(String appName, String expectedOutcome) throws Throwable {
+        try {
+            boolean isAppInstalled=false;
+            switch (appName.toUpperCase()) {
+                case "TWITTER":
+                    isAppInstalled=((IOSDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("twitter.bundle.ios.id"));
+                    break;
+                case "FACEBOOK":
+                    isAppInstalled=((IOSDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("facebook.bundle.ios.id"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            switch (expectedOutcome.toUpperCase()) {
+                case "INSTALLED":
+                    testStepAssert.isTrue(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    break;
+                case "NOT INSTALLED":
+                    testStepAssert.isFalse(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }    }
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {

@@ -43,11 +43,19 @@ public class UpdateStatusPage extends PageBase {
 
 	public WebElement Button_Call() { return findElement("Call customer", PageBase.LocatorType.Name); }
 	public WebElement Button_Sms() { return findElement("Text customer", PageBase.LocatorType.Name); }
+	public WebElement Button_SupportSms() { return findElement("Text Bungii support", PageBase.LocatorType.Name); }
+	public WebElement Button_ViewItems() { return findElement("View items", PageBase.LocatorType.Name); }
+
 	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
 
 
-	
+	public WebElement Button_CloseViewItems() { return findElement("close btn white icon", PageBase.LocatorType.Name); }
+
+	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
+	public WebElement PageIndicator_Page1() { return findElement("//XCUIElementTypePageIndicator[@value='page 1 of 1']", PageBase.LocatorType.XPath); }
+
+
 
 }

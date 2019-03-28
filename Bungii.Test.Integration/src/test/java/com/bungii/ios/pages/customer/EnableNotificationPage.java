@@ -8,5 +8,11 @@ public class EnableNotificationPage extends PageBase {
         return findElement("SURE", PageBase.LocatorType.Name,ignoreException);
     }
 
+    public WebElement Text_Header() {
+        return findElements("//XCUIElementTypeStaticText", PageBase.LocatorType.XPath).get(0);
+    }
 
+    public WebElement Text_Label() {
+        return findElements("//XCUIElementTypeStaticText", PageBase.LocatorType.XPath).get(1);
+    }
 }
