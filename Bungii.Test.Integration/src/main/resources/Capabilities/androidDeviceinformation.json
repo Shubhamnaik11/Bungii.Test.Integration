@@ -11,7 +11,7 @@
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8100,
-    "udid": "192.168.54.96:5554"
+    "udid": "TA93401OLE"
   },
   "extra1": {
     "platformName": "android",
