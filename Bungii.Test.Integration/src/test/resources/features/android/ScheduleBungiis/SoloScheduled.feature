@@ -12,7 +12,7 @@ Feature: SoloScheduled
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
-  @update
+
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     When I tap on "Menu" > "Account" link
@@ -231,7 +231,7 @@ Feature: SoloScheduled
     And I Select "HOME" from driver App menu
 
 
-  @new
+  @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     When I tap on "Menu" > "Account" link
     Then I get customer account details
@@ -262,7 +262,7 @@ Feature: SoloScheduled
     When I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @new
+  @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
 
     When I tap on "Menu" > "Account" link
@@ -293,7 +293,7 @@ Feature: SoloScheduled
     Then I Cancel selected Bungii
 
 
-  @new
+  @regression
   Scenario: Customer should able to cancel scheduled bungii
 
     When I tap on "Menu" > "Account" link

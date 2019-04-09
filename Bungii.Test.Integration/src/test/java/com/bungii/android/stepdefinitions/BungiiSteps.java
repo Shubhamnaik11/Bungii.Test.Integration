@@ -517,7 +517,7 @@ public class BungiiSteps extends DriverBase {
                 case "Driver 2 SMS":
                 case "Driver 1 SMS":
                 case "SMS":
-                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE"));
                     if(arg0.equals("SMS"))
                         expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
 
@@ -547,7 +547,7 @@ public class BungiiSteps extends DriverBase {
                 case "Driver 1 Calling":
                 case "Driver 2 Calling":
                 case "Calling":
-                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE"));
+                    expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE"));
                     if(arg0.equals("Calling"))
                         expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
 

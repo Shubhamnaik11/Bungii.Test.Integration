@@ -83,19 +83,19 @@ public class TripStatusSteps extends DriverBase {
 
             switch (key) {
                 case "EN ROUTE":
-                    isInfoDisplayed = validateEnRouteInfo(getTripInformation());
+                    validateEnRouteInfo(getTripInformation());
                     break;
                 case "ARRIVED":
-                    isInfoDisplayed = validateArrivedInfo(getTripInformation(), key);
+                    validateArrivedInfo(getTripInformation(), key);
                     break;
                 case "LOADING ITEM":
-                    isInfoDisplayed = validateArrivedInfo(getTripInformation(), key);
+                    validateArrivedInfo(getTripInformation(), key);
                     break;
                 case "DRIVING TO DROP OFF":
-                    isInfoDisplayed = validateDrivingInfo(getTripInformation());
+                    validateDrivingInfo(getTripInformation());
                     break;
                 case "UNLOADING ITEM":
-                    isInfoDisplayed = validateUnloadingInfo(getTripInformation());
+                    validateUnloadingInfo(getTripInformation());
                     break;
                 default:
                     break;
@@ -259,7 +259,37 @@ public class TripStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @Then("^correct details should be displayed to customer for \"([^\"]*)\"$")
+    public void correct_details_should_be_displayed_to_customer_for_something_app(String key) throws Throwable {
+        try {
+            switch (key.toUpperCase()) {
+                case "DUO DRIVER 1-CALL DRIVER":
+                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_CallDriver());
+                    validateCallButtonAction(String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
+                    break;
+                case "DUO DRIVER 1-TEXT DRIVER":
+                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_SmsDriver());
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
+                    break;
+                case "DUO DRIVER 2-CALL DRIVER":
+                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_CallDriver());
+                    validateCallButtonAction(String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
+                    break;
+                case "DUO DRIVER 2-TEXT DRIVER":
+                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_SmsDriver());
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
+                    break;
+                default:
+                    throw new Exception("UN IMPLEMENTED STEPS");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }    }
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
@@ -273,6 +303,27 @@ public class TripStatusSteps extends DriverBase {
                     "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
 
             testStepVerify.isTrue(isNumberCorrect,
+                    "To Field should contains " + expectedNumber,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+        }
+        action.click(messagesPage.Button_Cancel());
+    }
+    private void validateSMSNumber(String actualValue,String expectedValue) {
+        String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
+                .replace("-", "");
+        boolean isMessagePage = isMessageAppPage();
+        boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
+
+        // is both condition is true print single log else individual log
+        if (isPhoneNumCorrect && isMessagePage) {
+            pass("I should be navigated to SMS app",
+                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
+        } else {
+            testStepVerify.isTrue(isMessagePage,
+                    "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+
+            testStepVerify.isTrue(isPhoneNumCorrect,
                     "To Field should contains " + expectedNumber,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
@@ -313,7 +364,39 @@ public class TripStatusSteps extends DriverBase {
         }
         action.clickAlertButton("Cancel");
     }
+    private void validateCallButtonAction(String expectedNumber) {
+        action.waitForAlert();
+        String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
+                .replace("?", "").replace("+", "").trim();
+        actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
+        String expectedMessage = expectedNumber.replace("(", "").replace(")", "").replace(" ", "")
+                .replace("-", "").replace("+", "").trim();
+        List<String> options = action.getListOfAlertButton();
 
+        boolean isMessageCorrect = actualMessage.equals(expectedMessage),
+                isOptionCorrect = options.contains("Cancel") && options.contains("Call");
+
+        if (isMessageCorrect && isOptionCorrect) {
+            pass(
+                    "I should be alerted to call twillo number",
+                    "I was Alert to call twilio number and have option to cancel and call twilio number , options are"
+                            + options.get(0) + " and " + options.get(1),
+                    true);
+        } else {
+            testStepVerify.isTrue(isMessageCorrect,
+                    "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
+                    "Twillo number was not displayed in alert message , Actual message :" + actualMessage
+                            + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
+
+            testStepVerify
+                    .isTrue(isOptionCorrect,
+                            "Alert should have option to cancel and call twilio number ",
+                            "Alert  have option to cancel and call twilio number , options are" + options.get(0)
+                                    + " and " + options.get(1),
+                            "Alert dont have option to cancel and call twilio number");
+        }
+        action.clickAlertButton("Cancel");
+    }
 
     /**
      * Check if active page is support page

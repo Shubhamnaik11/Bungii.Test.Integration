@@ -78,6 +78,7 @@ public class BungiiCompleteSteps extends DriverBase {
 
 	//	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
 		String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 		String totalDistance=utility.getEstimateDistance();
 
@@ -97,7 +98,9 @@ public class BungiiCompleteSteps extends DriverBase {
 		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
 		Double promoValue=0.0;
-		double distance = Double.parseDouble(totalDistance.replace(" miles", ""));
+		String distanceValueDB=utility.getEstimateDistance();
+
+		double distance =Double.parseDouble(distanceValueDB);// Double.parseDouble(totalDistance.replace(" miles", ""));
 
 		//double tripActualTime = Double.parseDouble(totalTime);
 		double tripValue = distance + tripActualTime;

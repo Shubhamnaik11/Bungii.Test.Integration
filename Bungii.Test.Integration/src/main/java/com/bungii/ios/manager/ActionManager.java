@@ -84,6 +84,15 @@ public class ActionManager {
         logger.detail("Click on locator by element" + element.toString());
     }
 
+    public void clickMiddlePoint(WebElement element) {
+        int leftX = element.getLocation().getX();
+        int width = element.getSize().getWidth();
+        int upperY = element.getLocation().getY();
+        int hight = element.getSize().getHeight();
+        Point p= new Point(leftX+(width/2),upperY+(hight/2));
+        click(p);
+        logger.detail("Click on locator by element" + element.toString());
+    }
     public void waitForAlert() {
         (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
     }

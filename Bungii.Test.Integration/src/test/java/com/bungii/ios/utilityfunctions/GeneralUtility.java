@@ -319,7 +319,7 @@ public class GeneralUtility extends DriverBase {
     public String getActualTime() {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
-        //   phoneNumber="9999996170";
+        //   phoneNumber="9403960188";
         String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String pickUpId= com.bungii.android.utilityfunctions.DbUtility.getPickupID(custRef);
         String actualTime = DbUtility.getActualTime(pickUpId);
@@ -328,7 +328,7 @@ public class GeneralUtility extends DriverBase {
 
     public String getEstimateDistance() {
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
-        //   phoneNumber="9999996170";
+        //   phoneNumber="9403960188";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String distance= com.bungii.ios.utilityfunctions.DbUtility.getEstimateDistance(custRef);
         return distance;

@@ -38,6 +38,12 @@ public class PromoSteps extends DriverBase {
                 case "{PROMO FIXED}":
                     codeList = (List<String>) cucumberContextManager.getFeatureContextContext("PROMO_FIXED");
                     break;
+                case "{PROMO PERCENT}":
+                    codeList = (List<String>) cucumberContextManager.getFeatureContextContext("PROMO_PERCENT");
+                    break;
+                case "{VALID ONE OFF}":
+                    codeList = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

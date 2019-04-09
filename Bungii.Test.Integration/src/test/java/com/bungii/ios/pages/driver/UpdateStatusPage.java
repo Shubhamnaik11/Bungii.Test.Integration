@@ -43,6 +43,10 @@ public class UpdateStatusPage extends PageBase {
 
 	public WebElement Button_Call() { return findElement("Call customer", PageBase.LocatorType.Name); }
 	public WebElement Button_Sms() { return findElement("Text customer", PageBase.LocatorType.Name); }
+
+	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.Name); }
+	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.Name); }
+
 	public WebElement Button_SupportSms() { return findElement("Text Bungii support", PageBase.LocatorType.Name); }
 	public WebElement Button_ViewItems() { return findElement("View items", PageBase.LocatorType.Name); }
 
@@ -56,6 +60,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
 	public WebElement PageIndicator_Page1() { return findElement("//XCUIElementTypePageIndicator[@value='page 1 of 1']", PageBase.LocatorType.XPath); }
 
+	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
+	public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }
 
 
 }

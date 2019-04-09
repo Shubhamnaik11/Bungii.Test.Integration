@@ -5,8 +5,6 @@ Feature: On Demand Bungii
  # Background:
 
 
-  @update2
-  @update
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
 
@@ -154,7 +152,7 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
-  @update
+
   @sanity
   @regression
   Scenario: Validate That I am able to create on demand bungii.
@@ -225,9 +223,8 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
 
-  @update
+
     #This scenario is moved from EstimateBungii.feature
-  @pending
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .
     When I Switch to "driver" application on "same" devices

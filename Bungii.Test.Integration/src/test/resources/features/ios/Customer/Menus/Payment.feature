@@ -32,9 +32,11 @@ Feature: Payment page
     Then I should see "new card" on Payment page
 
     Examples:
-      | Scenario           | CardNo        | Expiry |
+      | Scenario           | CardNo      | Expiry |
       | ValidCard Discover | DISCOVER CARD | 12/22  |
       | ValidCard Visa     | VISA CARD     | 12/22  |
+
+
   @update
   @regression
   Scenario: As Bungii customer I should able to delete card

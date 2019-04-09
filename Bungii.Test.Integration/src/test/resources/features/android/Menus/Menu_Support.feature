@@ -6,7 +6,7 @@ Feature: Menu_Support
   Background:
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Support" link
-@update
+
   @regression
   Scenario:As Bungii customer I want to Ask question using support menu
     Then "Support" page should be opened

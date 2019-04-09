@@ -45,11 +45,16 @@ public class PromoCodeSteps extends DriverBase {
                 case "used one off":
                     cucumberContextManager.setFeatureContextContext("USED_ONE_OFF", getPromoCode(codeType));
                     break;
+                case"{valid one off}":
                 case "unused one off":
-                    cucumberContextManager.setFeatureContextContext("UNUSED_ONE_OFF", getPromoCode(codeType));
+                    cucumberContextManager.setFeatureContextContext("UNUSED_ONE_OFF", getPromoCode("unused one off"));
                     break;
+                case "{promo fixed}":
                 case "promo fixed":
-                    cucumberContextManager.setFeatureContextContext("PROMO_FIXED", getPromoCode(codeType));
+                    cucumberContextManager.setFeatureContextContext("PROMO_FIXED", getPromoCode("promo fixed"));
+                    break;
+                case "{promo percent}":
+                    cucumberContextManager.setFeatureContextContext("PROMO_PERCENT", getPromoCode(codeType));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -68,7 +73,7 @@ public class PromoCodeSteps extends DriverBase {
      * @param key type of promocode that is to be searched
      * @return list of promocode for input category
      */
-    public List<String> getPromoCode(String key) {
+    public List<String> getPromoCode(String key) throws InterruptedException {
         List<String> codeList = new ArrayList<String>();
         if (!promosPage.Text_ActivePageNumber().getText().equals("1"))
             promosPage.Button_Previouspage().click();
@@ -97,12 +102,16 @@ public class PromoCodeSteps extends DriverBase {
                 case "promo fixed":
                     codes = promosPage.Text_PromoCodeFixed();
                         break;
+                case "{promo percent}":
+                    codes = promosPage.Text_PromoCodePercent();
+                    break;
                 default:
                     break;
             }
             for (WebElement code : codes) {
                 codeList.add(code.getText());
             }
+            Thread.sleep(1000);
             action.click(promosPage.Button_Nextpage());
             //promosPage.Button_Nextpage().click();
             promosPage.waitForPageLoad();

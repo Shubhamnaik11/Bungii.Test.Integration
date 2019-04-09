@@ -38,7 +38,7 @@ public class EstimateSteps extends DriverBase {
     }
 
     @When("^I confirm trip with following details$")
-    public void iEnterTripInformation(DataTable tripInformation) {
+    public void     iEnterTripInformation(DataTable tripInformation) {
 
         try {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
@@ -104,10 +104,20 @@ public class EstimateSteps extends DriverBase {
     @When("^I request for bungii using Request Bungii Button$")
     public void i_request_for_bungii_using_request_bungii_button() throws Throwable {
         clickRequestBungii();
+        String actualText = getDriver().switchTo().alert().getText();
+        getDriver().switchTo().alert().accept();
+        Thread.sleep(5000);
+        pass("I request for bungii using Request Bungii Button",
+                "I requested for bungii using Request Bungii Button");
+        logger.detail("Popup text on head up alert message:" + actualText);
     }
     private void addPromoCode(String code) {
         action.click(estimatePage.Button_AddPromoCode());
 
+    }
+    @When("^I select load time as \"([^\"]*)\" mins$")
+    public void i_select_load_time_as_something_mins(String loadTime) throws Throwable {
+        enterLoadingTime(loadTime.trim());
     }
 
     @Then("^Estimate value for trip should be properly displayed$")
@@ -374,7 +384,10 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
-            cucumberContextManager.setScenarioContext("", "");
+            String value = getElementValue("Promo Code");
+
+            cucumberContextManager.setScenarioContext("PROMOCODE_VALUE",value);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

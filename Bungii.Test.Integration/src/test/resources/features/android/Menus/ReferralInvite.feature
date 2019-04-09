@@ -40,7 +40,7 @@ Feature: ReferralInvite
     When I Switch to "customer" application on "same" devices
 
 
-  @new
+  @regression
   Scenario: As Bungii customer I go to Invite Page , Page with Proper info and promocode should be displayed
     Then I should see "all elements" on Invite Page
     When I tap "Back" on Invite page
