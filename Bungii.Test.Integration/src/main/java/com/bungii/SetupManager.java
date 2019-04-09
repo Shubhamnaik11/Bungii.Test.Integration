@@ -321,8 +321,19 @@ public class SetupManager extends EventFiringWebDriver {
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             ((AndroidDriver) getDriver()).launchApp();
         }
-    }
 
+    }
+    public void restartApp(String bundleId){
+        if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
+            ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
+            ((IOSDriver) SetupManager.getDriver()).activateApp(bundleId);
+
+        } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+            ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId);
+            ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
+
+        }
+    }
     public void useDriverInstance(String instanceKey) {
         DriverManager.getObject().useDriverInstance(instanceKey);
     }

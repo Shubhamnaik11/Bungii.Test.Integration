@@ -194,7 +194,7 @@ public class PaymentSteps extends DriverBase {
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
-            log("I enter "+p1 +" on Card Details page","I enter"+p1+"on Card Details page",true);
+            log("I enter "+p1 +" on Card Details page","I enter"+p1+"on Card Details page",false);
 
         } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -108,7 +108,8 @@ public class PromosSteps extends DriverBase {
                     testStepAssert.isEquals(actualMessage, expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
                     break;
                 case "snackbar stating first time code is for new users":
-                    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.old.user");
+                    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.error");
+                //    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.old.user");
                     testStepAssert.isElementTextEquals(promoPage.Snackbar(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
                     break;
                 case "snackbar message for used one off code":

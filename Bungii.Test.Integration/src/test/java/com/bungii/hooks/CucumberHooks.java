@@ -10,6 +10,8 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +38,7 @@ public class CucumberHooks {
 
 		if(SystemUtils.IS_OS_WINDOWS)
 			autoHome=autoHome.substring(0, 1).equals("/")?autoHome.substring(1):autoHome;
-		
+
 		FileUtility.autoHome =autoHome;
 		String log4jConfPath ="src/main/resources/SystemProperties/log4j.properties";
 		PropertyConfigurator.configure(FileUtility.getSuiteResource("",log4jConfPath));
@@ -83,9 +85,11 @@ public class CucumberHooks {
 
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
-		if(!isFirstTestCase)
+		if(!isFirstTestCase) {
+			//restart driver app
+			SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
 			SetupManager.getObject().restartApp();
-
+		}
 	}
 
 	/**

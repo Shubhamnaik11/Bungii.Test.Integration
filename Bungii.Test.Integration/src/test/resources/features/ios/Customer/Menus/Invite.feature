@@ -48,7 +48,7 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
  #   Then user is alerted for "No twitter installed"
 
-  @update
+  @regression
   Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter Application
     Given I have "twitter" app "installed"
     When I Select "Home" from Customer App menu

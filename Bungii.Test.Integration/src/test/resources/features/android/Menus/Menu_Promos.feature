@@ -56,6 +56,7 @@ Feature: Menu_SaveMoney
     When I add "first time" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
+ #   Then I should see "snackbar stating first time code is for new users" on Save Money page
     When I tap on "Menu" > "Logout" link
 
   @regression

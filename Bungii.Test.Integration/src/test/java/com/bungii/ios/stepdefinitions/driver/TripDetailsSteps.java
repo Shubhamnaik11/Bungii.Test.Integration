@@ -42,19 +42,29 @@ public class TripDetailsSteps extends DriverBase {
 			cucumberContextManager.setScenarioContext("BUNGII_DRIVER_ESTIMATE", actualDetails[1]);
 
 			String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+			//expectedTripTime="Apr 09 , 01:45 PM GMT+5:30";
 			String expectedTripDistance = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
 			//Leading zero is not present in time, Check if zero is present and delete it
-			String timeValue = expectedTripTime.split(",")[1];
-			timeValue = timeValue.trim().substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
-
-			boolean isTimeCorrect = expectedTripTime.split(",")[0].trim().equals(actualDetails[2].trim())
-					&& timeValue.trim().equals(actualDetails[3].trim());
+			String timeValue = expectedTripTime.split(",")[1].trim();
+			timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
+			String expectedDate=expectedTripTime.split(",")[0].trim();
+			int leadingZero=expectedDate.indexOf(" ")+1;
+			if(expectedDate.substring(leadingZero,leadingZero+1).startsWith("0"))
+				expectedDate=expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);
+			boolean isDateCorrect = expectedDate.trim().equals(actualDetails[2].trim());
+			boolean isTimeCorrect = timeValue.trim().equals(actualDetails[3].trim());
 			boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
 			testStepVerify.isTrue(isTimeCorrect ,
 					"Trip Information should be correctly displayed on TRIP DETAILS screen",
 					"Trip Time should be correctly displayed ",
-					"Trip Time is not displayed correctly displayed , expected Trip date:"+ expectedTripTime.split(",")[0].trim()+" actual trip date:"+actualDetails[2].trim() +"Expected trip time:"+timeValue+"actual trip time"+actualDetails[3].trim());
+					"Trip Time is not displayed correctly displayed ,Expected trip time:"+timeValue+"actual trip time"+actualDetails[3].trim());
+
+			testStepVerify.isTrue(isDateCorrect ,
+					"Trip Information should be correctly displayed on TRIP DETAILS screen",
+					"Trip Time should be correctly displayed ",
+					"Trip Time is not displayed correctly displayed , expected Trip date:"+ expectedDate+" actual trip date:"+actualDetails[2].trim() );
+
 
 			testStepVerify.isTrue(isDistanceCorrect,
 					"Trip Information should be correctly displayed on TRIP DETAILS screen",

@@ -5,9 +5,9 @@ Feature: Create on demand bungii
   Assume driver and user already logged in
 
   Background:
+
     Given I am on Customer logged in Home page
 
-@update
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
     And I clear all notification
@@ -222,14 +222,14 @@ Feature: Create on demand bungii
     Then I should be navigated to "Home" screen
 
 
-  @pending
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
+  @regression
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal
     And I log in to admin portal
     When I Select "Promo Code" from admin sidebar
-    Then I get promo code for "promo fixed"
+    Then I get promo code for "<Promo Code>"
     When I switch to "ORIGINAL" instance
 
 
@@ -252,15 +252,18 @@ Feature: Create on demand bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
-    When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |             | Now  | Default     |
+    When I select load time as "15" mins
     When I tap "Promo code" on Estimate screen
     Then I should be navigated to "PROMOS" screen
-    When I add "{PROMO FIXED}" PromoCode
+    When I add "<Promo Code>" PromoCode
     When I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
     When I tap "Back" on Promos screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      |        |           |             | Now  | Default     |
+
     When I request for bungii using Request Bungii Button
 
     Then I should be navigated to "SEARCHING" screen
@@ -271,78 +274,50 @@ Feature: Create on demand bungii
     And I click "ACCEPT" button on "Bungii Request" screen
  #   Then I should be navigated to "EN ROUTE" trip status screen
  #   Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
- #   Then correct details should be displayed to driver on "SMS" app
- #   Then correct details should be displayed to driver on "Call" app
- #   Then correct details should be displayed to driver for "SMS FOR SUPPORT"
- #   Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     And I click "Ok" button on "BUNGII ACCEPTED" screen
   #  Then Customer should be navigated to "EN ROUTE" trip status screen
   #  Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
-  #  Then correct details should be displayed to customer on "SMS" app
-  #  Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "EN ROUTE" Screen
   #  Then I should be navigated to "ARRIVED" trip status screen
   #  Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
-  #  Then correct details should be displayed to driver on "SMS" app
-  #  Then correct details should be displayed to driver on "Call" app
-  #  Then correct details should be displayed to driver for "SMS FOR SUPPORT"
-  #  Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
 #    Then Customer should be navigated to "ARRIVED" trip status screen
 #    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-#    Then correct details should be displayed to customer on "SMS" app
-#    Then correct details should be displayed to customer on "Call" app
+
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "ARRIVED" Screen
 #    Then I should be navigated to "LOADING ITEM" trip status screen
 #    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
-#    Then correct details should be displayed to driver on "SMS" app
-#    Then correct details should be displayed to driver on "Call" app
-#    Then correct details should be displayed to driver for "SMS FOR SUPPORT"
-#    Then correct details should be displayed to driver for "VIEW ITEMS"
+
 
     When I Switch to "customer" application on "same" devices
   #  Then Customer should be navigated to "LOADING ITEM" trip status screen
   #  Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
-  #  Then correct details should be displayed to customer on "SMS" app
-  #  Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "LOADING ITEM" Screen
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
   #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
-  #  Then correct details should be displayed to driver on "SMS" app
-  #  Then correct details should be displayed to driver on "Call" app
-  #  Then correct details should be displayed to driver for "SMS FOR SUPPORT"
-  #  Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
  #   Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
  #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
- #   Then correct details should be displayed to customer on "SMS" app
- #   Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "DRIVING TO DROP OFF" Screen
  #   Then I should be navigated to "UNLOADING ITEM" trip status screen
  #   Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
- #   Then correct details should be displayed to driver on "SMS" app
- #   Then correct details should be displayed to driver on "Call" app
- #   Then correct details should be displayed to driver for "SMS FOR SUPPORT"
- #   Then correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
   #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
   #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
-  #  Then correct details should be displayed to customer on "SMS" app
-  #  Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
@@ -350,7 +325,7 @@ Feature: Create on demand bungii
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    Then Bungii customer should see "correct details" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
       | 5       | 5   |
@@ -362,3 +337,8 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+    Examples:
+      | Scenario         | Promo Code    | User         |
+      | fixed valid      | {PROMO FIXED} | no promocode |
+      | Promo percentage | {PROMO PERCENT} | no promocode |
+      | valid one off    | {valid one off} | no promocode |

@@ -84,6 +84,7 @@ public class EstimateSteps extends DriverBase {
                     strTime = enterTime(time);
                     isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+                    clickRequestBungii();isAlertCorrect =verifyAndAcceptAlert(loadTime);
                 }
             }
 

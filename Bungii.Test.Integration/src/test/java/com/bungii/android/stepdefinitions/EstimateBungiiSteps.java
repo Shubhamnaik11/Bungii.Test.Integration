@@ -187,6 +187,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     String loadTime = action.getText(Page_Estimate.Text_TotalEstimate());
                     String truncValue = new DecimalFormat("#.##").format(expectedTotalEstimate);
                     if(!truncValue.contains("."))truncValue=truncValue+".00";
+                    int index=truncValue.indexOf(".");
+                    if(truncValue.substring(index).length()==2)truncValue=truncValue+"0";
                     String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
                     testStepVerify.isEquals(actualValue,"$" + String.valueOf(truncValue));
                     //vishal[1803]
