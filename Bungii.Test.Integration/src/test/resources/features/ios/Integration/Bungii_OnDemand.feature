@@ -1,5 +1,4 @@
 @ios
-
 Feature: Create on demand bungii
   I want to use this template for my feature file
   Assume driver and user already logged in
@@ -223,7 +222,7 @@ Feature: Create on demand bungii
 
 
   @regression
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     When I navigate to admin portal

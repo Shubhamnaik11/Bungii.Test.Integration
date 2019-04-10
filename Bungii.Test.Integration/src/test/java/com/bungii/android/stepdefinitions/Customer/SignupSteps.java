@@ -209,6 +209,9 @@ public class SignupSteps extends DriverBase {
             case "invalid":
                 strPromoCode = PropertyUtility.getDataProperties("promocode.invalid");
                 break;
+            case "Referral":
+                strPromoCode = PropertyUtility.getDataProperties("referral.code");
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;

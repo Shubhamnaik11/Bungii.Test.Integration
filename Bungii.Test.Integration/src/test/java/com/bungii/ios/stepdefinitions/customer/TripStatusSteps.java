@@ -146,10 +146,10 @@ public class TripStatusSteps extends DriverBase {
 
             testStepVerify.isTrue(isDropLocationDisplayed,
 
-                    "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
+                    "DROP OFF location should be correctly displayed ",
+                    "DROP OFF location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
                             + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1)
+                    "DROP OFF location was not displayed correctly, actual was is" + actualInfo.get(1)
                             + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
         return isTagDisplayed && isEtaDisplayed && isDropLocationDisplayed;
@@ -168,14 +168,14 @@ public class TripStatusSteps extends DriverBase {
 
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
-                    "'PDROP OFF LOCATION' Tag was not correctly displayed");
+                    "'DROP OFF LOCATION' Tag was not correctly displayed");
 
             testStepVerify.isTrue(isDropDisplayed,
 
-                    "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
+                    "DROP OFF location should be correctly displayed ",
+                    "DROP OFF location was correctly displayed , actual was is" + actualInfo.get(1) + "and expected is"
                             + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1)
+                    "DROP OFF location was not displayed correctly, actual was is" + actualInfo.get(1)
                             + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
         return isTagDisplayed && isDropDisplayed;

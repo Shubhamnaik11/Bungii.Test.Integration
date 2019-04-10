@@ -43,13 +43,14 @@ public class ReferralSourceSteps extends DriverBase {
     @Then("^account created info for \"([^\"]*)\" should be \"([^\"]*)\"$")
     public void i_account_created_info_for_something_should_be_something(String source, String expected) {
         try {
+            Thread.sleep(120000);//TODO: remove this
             String[] referralInfo = getSourceInfo(source);
             String numberOfAccount = (String) cucumberContextManager.getFeatureContextContext("NUM_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));
             String percentageOfAccount = (String) cucumberContextManager.getFeatureContextContext("PERCENTAGE_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));
 
             switch (expected.toLowerCase()) {
                 case "increase by 1":
-                    Thread.sleep(120000);//TODO: remove this
+
                     testStepVerify.isTrue(Integer.parseInt(referralInfo[0]) == (Integer.parseInt(numberOfAccount) + 1), "account created info for " + source + " should be :" + referralInfo[0], "Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0], "Previous account created info for " + source + "was :" + numberOfAccount + " and new is :" + referralInfo[0]);
                     testStepVerify.isFalse(referralInfo[1].equalsIgnoreCase(percentageOfAccount), "Percentage of account created info for " + source + " should not be :" + percentageOfAccount, "Previous percentege account created info for " + source + "was :" + percentageOfAccount + " and new is :" + referralInfo[1], "Previous percentage account created info for " + source + "was :" + percentageOfAccount + " and new is :" + referralInfo[1]);
                     break;

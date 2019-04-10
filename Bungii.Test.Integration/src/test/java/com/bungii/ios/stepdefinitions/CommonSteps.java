@@ -921,8 +921,8 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             boolean isNewInstalled =utility.installCustomerApp();
             testStepAssert.isTrue(isNewInstalled,"I should able to install bungii App again","I was not able to install bungii app again");
-            log("I reset Bungii App Data",
-                    "I reset Bungii App Data", true);
+            log("I install Bungii",
+                    "I installed Bungii", true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

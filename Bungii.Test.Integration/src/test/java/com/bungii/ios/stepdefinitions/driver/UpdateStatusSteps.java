@@ -331,13 +331,13 @@ public class UpdateStatusSteps extends DriverBase {
             testStepVerify.isEquals(actualInfo.get(0), "DROP OFF LOCATION",
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
-                    "'PDROP OFF LOCATION' Tag was not correctly displayed");
+                    "'DROP OFF LOCATION' Tag was not correctly displayed");
 
             testStepVerify.isEquals(actualInfo.get(1), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
 
-                    "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is " + actualInfo.get(1) + "and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is " + actualInfo.get(1) + " and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "DROP OFF location should be correctly displayed ",
+                    "DROP OFF location was correctly displayed , actual was is " + actualInfo.get(1) + "and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
+                    "DROP OFF location was not displayed correctly, actual was is " + actualInfo.get(1) + " and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
 
         return isTagDisplayed && isDropLocationDisplayed;
@@ -382,7 +382,7 @@ public class UpdateStatusSteps extends DriverBase {
             testStepVerify.isTrue(isTagDisplayed,
                     "'DROP OFF LOCATION' Tag should correctly displayed",
                     "'DROP OFF LOCATION' Tag is correctly displayed",
-                    "'PDROP OFF LOCATION' Tag was not correctly displayed");
+                    "'DROP OFF LOCATION' Tag was not correctly displayed");
 
             testStepVerify.isTrue(isETAdisplayed,
                     "ETA should be correctly displayed",
@@ -390,9 +390,9 @@ public class UpdateStatusSteps extends DriverBase {
                     "'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
 
             testStepVerify.isTrue(isDropDisplayed,
-                    "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "DROP OFF  location should be correctly displayed ",
+                    "DROP OFF  location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
+                    "DROP OFF location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
         }
         return isTagDisplayed && isETAdisplayed && isDropDisplayed;
     }

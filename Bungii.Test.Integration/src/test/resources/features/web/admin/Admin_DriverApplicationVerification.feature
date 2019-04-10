@@ -28,7 +28,7 @@ Feature: Admin_DriverApplicationVerification
     And the driver logout from dashboard
     And I am logged in as Admin
     And there is a pending driver verification
-
+  @testReport
   @sanity
   @regression
   Scenario: Admin_DriverApplicationApproval

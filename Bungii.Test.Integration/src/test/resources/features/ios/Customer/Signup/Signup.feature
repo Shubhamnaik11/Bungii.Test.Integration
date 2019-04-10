@@ -28,8 +28,6 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     And I Get SMS CODE for new "Customer"
     When I enter "valid" Verification code
-#    Then I should be navigated to "TERMS AND CONDITION" screen
-#    Then I accept Term and Condition agreement
     Then I should be navigated to "Home" screen
     When I switch to "ADMIN_PORTAL" instance
     When I Select "Referral Source" from admin sidebar
@@ -58,8 +56,6 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     And I Get SMS CODE for new "Customer"
     When I enter "valid" Verification code
-  #  Then I should be navigated to "TERMS AND CONDITION" screen
-  #  Then I accept Term and Condition agreement
     Then I should be navigated to "Home" screen
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -82,12 +78,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then Alert message with NO PROMO CODE text should be displayed
     And I reject Alert message
     Then I should be navigated to "VERIFICATION" screen
-
     And I Get SMS CODE for new "Customer"
-
     When I enter "valid" Verification code
-  #  Then I should be navigated to "TERMS AND CONDITION" screen
-  #  Then I accept Term and Condition agreement
     Then I should be navigated to "Home" screen
 
 

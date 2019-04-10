@@ -37,7 +37,7 @@ Feature: Payment page
       | ValidCard Visa     | VISA CARD     | 12/22  |
 
 
-  @update
+
   @regression
   Scenario: As Bungii customer I should able to delete card
     When I Select "PAYMENT" from Customer App menu
