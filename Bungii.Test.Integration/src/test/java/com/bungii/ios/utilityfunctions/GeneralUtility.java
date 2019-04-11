@@ -1,6 +1,7 @@
 package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -33,7 +34,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GeneralUtility extends DriverBase {
-
+    NotificationPage notificationPage = new NotificationPage();
     static final double MIN_COST = 39;
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
     HomePage driverHomePage = new HomePage();
@@ -80,7 +81,12 @@ public class GeneralUtility extends DriverBase {
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");
         return adminURL;
     }
-
+    public void recoverScenario() {
+        //Remove notification screen
+        if(action.isElementPresent(notificationPage.Button_NotificationScreen(true))){
+            action.hideNotifications();
+        }
+    }
     /**
      * Calculate estimate cost of trip check if less than minimum cost then
      * return minimum cost

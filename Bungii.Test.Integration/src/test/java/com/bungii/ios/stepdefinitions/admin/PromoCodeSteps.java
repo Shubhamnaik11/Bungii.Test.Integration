@@ -77,7 +77,9 @@ public class PromoCodeSteps extends DriverBase {
         List<String> codeList = new ArrayList<String>();
         if (!promosPage.Text_ActivePageNumber().getText().equals("1"))
             promosPage.Button_Previouspage().click();
-        while (codeList.size() <= 5) {
+     //   while (codeList.size() <= 5) {
+
+            while (codeList.size() <= 1) {
             List<WebElement> codes = new ArrayList<WebElement>();
             switch (key.toLowerCase()) {
                 case "referral":

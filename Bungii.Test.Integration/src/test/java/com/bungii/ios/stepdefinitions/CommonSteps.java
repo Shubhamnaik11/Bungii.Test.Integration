@@ -125,9 +125,7 @@ public class CommonSteps extends DriverBase {
         this.tutorialPage=tutorialPage;
     }
 
-    public void recoverScenario() {
 
-    }
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
     public void something_message_should_be_displayed_on_something_page(String messageElement, String screen) {
@@ -780,7 +778,8 @@ public class CommonSteps extends DriverBase {
                 // do nothing
             } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
                 iClickButtonOnScreen("CANCEL", "SEARCHING");
-                iRejectAlertMessage();
+                iAcceptAlertMessage();
+                //iRejectAlertMessage();
             } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
