@@ -7,6 +7,7 @@ import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -80,15 +81,18 @@ public class CucumberHooks {
 	public void beforeTest(Scenario scenario) {
 		this.reportManager.startTestCase(scenario.getName());
 		logger.detail( "Starting "+scenario.getName());
+/*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+			new GeneralUtility().recoverScenario();*/
 		//Set original instance as default instance at start of each test case
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
 		//restart driver app
 		SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+		SetupManager.getObject().restartApp();
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
 		if(!isFirstTestCase) {
 
-			SetupManager.getObject().restartApp();
+		//	SetupManager.getObject().restartApp();
 		}
 	}
 
@@ -106,7 +110,8 @@ public class CucumberHooks {
 
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
-			//Recover recover = new Recover();
+/*			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+				new GeneralUtility().recoverScenario();*/
 		}
 
 	}

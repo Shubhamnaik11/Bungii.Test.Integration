@@ -75,7 +75,7 @@ public class GeneralUtility extends DriverBase {
         String environment = PropertyUtility.getProp("environment");
         if (environment.equalsIgnoreCase("DEV"))
             adminURL = PropertyUtility.getDataProperties("dev.admin.url");
-        if (environment.equalsIgnoreCase("QA"))
+        if (environment.equalsIgnoreCase("QA")||environment.equalsIgnoreCase("QA_AUTO"))
             adminURL = PropertyUtility.getDataProperties("qa.admin.url");
         if (environment.equalsIgnoreCase("STAGE"))
             adminURL = PropertyUtility.getDataProperties("stage.admin.url");

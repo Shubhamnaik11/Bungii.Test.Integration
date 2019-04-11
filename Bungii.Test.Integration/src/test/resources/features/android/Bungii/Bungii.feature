@@ -247,6 +247,7 @@ Feature: On Demand Bungii
     And I tap "Add" on Save Money page
     And I tap on "desired Promo Code" on Bungii estimate
     Then I should see "all elements" on Bungii estimate
+    And I get Bungii details on Bungii Estimate
     When I add "1" photos to the Bungii
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
