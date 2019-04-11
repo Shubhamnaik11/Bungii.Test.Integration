@@ -82,12 +82,12 @@ public class CucumberHooks {
 		logger.detail( "Starting "+scenario.getName());
 		//Set original instance as default instance at start of each test case
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
-
+		//restart driver app
+		SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
 		if(!isFirstTestCase) {
-			//restart driver app
-			SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+
 			SetupManager.getObject().restartApp();
 		}
 	}
