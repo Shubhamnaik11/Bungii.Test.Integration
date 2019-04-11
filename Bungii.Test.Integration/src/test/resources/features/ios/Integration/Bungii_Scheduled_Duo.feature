@@ -2,7 +2,7 @@
 Feature: To Test Duo - Scheduling Bungii
   I want to use request Scheduling Bungii with Duo type
 
-  @regression
+#  @regression
   @sanity
   Scenario: Create Duo Bungii
 
@@ -130,7 +130,7 @@ Feature: To Test Duo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-  @regression
+ # @regression
   Scenario: Create Duo Bungii, Verify Details
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
