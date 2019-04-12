@@ -1,5 +1,5 @@
 {
-  "device1": {
+  "extra1": {
     "platformName": "android",
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
@@ -13,7 +13,7 @@
     "systemPort": 8100,
     "udid": "192.168.54.101:5558"
   },
-  "extra1": {
+  "device1": {
     "platformName": "android",
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
