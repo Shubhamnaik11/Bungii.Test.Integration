@@ -13,7 +13,7 @@ public class HomePage extends PageBase {
     public WebElement Link_PickUpSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
     public WebElement TextBox_Drop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
     public WebElement Link_DropSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='DROP OFF LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
-    public WebElement Button_ClearPickup() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
+    public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath,ignoreException); }
     public WebElement Button_ClearDrop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
     public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
     public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
