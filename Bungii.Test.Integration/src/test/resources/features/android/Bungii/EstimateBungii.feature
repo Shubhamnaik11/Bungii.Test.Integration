@@ -28,6 +28,7 @@ Feature: EstimateBungii
 
 #    And I tap on "Cancel during search" on Bungii estimate
 #    Then for a Bungii I should see "Bungii Home page with locations"
+
   @regression
   Scenario: To check if the information icons display correct information
     When I enter "current location in pickup and dropoff fields" on Bungii estimate

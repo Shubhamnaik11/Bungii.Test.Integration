@@ -75,8 +75,9 @@ public class PromoCodeSteps extends DriverBase {
      */
     public List<String> getPromoCode(String key) throws InterruptedException {
         List<String> codeList = new ArrayList<String>();
-        if (!promosPage.Text_ActivePageNumber().getText().equals("1"))
-            promosPage.Button_Previouspage().click();
+        //Vishal[12042019]: Temp fixed , Duo to QA _ Auto , TODO: Remove this
+       // if (!promosPage.Text_ActivePageNumber().getText().equals("1"))
+      //      promosPage.Button_Previouspage().click();
      //   while (codeList.size() <= 5) {
 
             while (codeList.size() <= 1) {
@@ -114,9 +115,8 @@ public class PromoCodeSteps extends DriverBase {
                 codeList.add(code.getText());
             }
             Thread.sleep(1000);
-            action.click(promosPage.Button_Nextpage());
-            //promosPage.Button_Nextpage().click();
-            promosPage.waitForPageLoad();
+         //   action.click(promosPage.Button_Nextpage());
+         //   promosPage.waitForPageLoad();
             //  action.invisibilityOfElementLocated(promosPage.Loadder());
         }
         logger.detail("Promo code list for key "+key+ " is "+String.join(", ", codeList));
