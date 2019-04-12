@@ -1,6 +1,6 @@
 #!/bin/sh
 #list of devices to consider , $1 is argument from command line
-devicelist="$1"",device2"
+devicelist="$1"",extra1"
 echo "Devicelist : $devicelist"
 devicelist=${devicelist//,/$'\n'}
 for device in $devicelist
