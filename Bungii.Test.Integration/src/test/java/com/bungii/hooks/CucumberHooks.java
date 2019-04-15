@@ -110,8 +110,9 @@ public class CucumberHooks {
 
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
-/*			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
-				new GeneralUtility().recoverScenario();*/
+
+			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+				new GeneralUtility().recoverScenario();
 		}
 
 	}

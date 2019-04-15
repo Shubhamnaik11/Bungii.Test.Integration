@@ -83,8 +83,28 @@ public class GeneralUtility extends DriverBase {
     }
     public void recoverScenario() {
         //Remove notification screen
-        if(action.isElementPresent(notificationPage.Button_NotificationScreen(true))){
+        if(action.isElementPresent(notificationPage.Button_NotificationScreen(true))||action.isElementPresent(notificationPage.Cell_Notification(true))){
             action.hideNotifications();
+        }
+        //Handle Alert
+        if(action.isAlertPresent()){
+            String alertMessage=action.getAlertMessage();
+            List<String> getListOfAlertButton =action.getListOfAlertButton();
+
+            if(alertMessage.contains("Software Update")){
+                if(getListOfAlertButton.contains("Later")){
+                    action.clickAlertButton("Later");
+                }
+            }else if(alertMessage.contains("new iOS update")){
+                if(getListOfAlertButton.contains("Close")){
+                    action.clickAlertButton("Close");
+
+                }
+            }else{
+                if(getListOfAlertButton.contains("Close"))
+                    action.clickAlertButton("Close");
+
+            }
         }
     }
     /**
