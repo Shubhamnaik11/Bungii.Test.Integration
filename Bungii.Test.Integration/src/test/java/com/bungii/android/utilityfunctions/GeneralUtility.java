@@ -131,7 +131,7 @@ public class GeneralUtility extends DriverBase {
      * @param p0 identifier for page
      * @return
      */
-    public boolean isCorrectPage(String p0) {
+    public boolean isCorrectPage(String p0) throws InterruptedException {
         boolean isCorrectPage = false;
         switch (p0) {
             case "FAQ":
@@ -166,12 +166,15 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage=action.isElementPresent(termsPage.Header_TermsPage(true));
                 break;
             case "Tutorial":
-                isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
+                isCorrectPage=action.isElementPresent(homePage.Text_TutorialPdf());
+               // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
                 break;
             case"DRIVER NOT AVAILABLE":
                 isCorrectPage=action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                 break;
             case "bungii.com":
+                if(!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
+                    Thread.sleep(5000);
                 isCorrectPage=action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
                 break;
             default:
@@ -187,7 +190,7 @@ public class GeneralUtility extends DriverBase {
      * Verification that correct page is displayed
      * @param expectedPage
      */
-    public void verifyIsPageIsCorrectlyDisplayed(String expectedPage) {
+    public void verifyIsPageIsCorrectlyDisplayed(String expectedPage) throws InterruptedException {
         testStepAssert.isTrue(isCorrectPage(expectedPage), expectedPage + " page should be displaed ", expectedPage + " Page is successfully displayed", expectedPage + " Page is not displayed");
     }
 

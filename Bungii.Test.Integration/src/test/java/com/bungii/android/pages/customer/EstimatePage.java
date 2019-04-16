@@ -25,7 +25,7 @@ public class EstimatePage extends PageBase {
     //------loading/unloading time---------------------------------------------------------------
     public WebElement Link_LoadingUnloadingTime () { return findElement("com.bungii.customer:id/pickup_estimate_textview_loadunloadtime", LocatorType.Id); }
 
-    public WebElement LoadingUnloadingTime_15 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='0']", LocatorType.XPath); }
+    public WebElement LoadingUnloadingTime_15 (boolean...ignoreException) { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='0']", LocatorType.XPath,ignoreException); }
 
     public WebElement LoadingUnloadingTime_30 () { return findElement("//android.widget.CheckedTextView[@resource-id='android:id/text1' and @index='1']", LocatorType.XPath); }
 

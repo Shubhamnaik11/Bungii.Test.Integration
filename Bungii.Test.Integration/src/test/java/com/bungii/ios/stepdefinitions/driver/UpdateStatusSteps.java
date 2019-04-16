@@ -81,6 +81,44 @@ public class UpdateStatusSteps extends DriverBase {
         }
     }
 
+    @When("^I verify and slide update button on \"([^\"]*)\" Screen$")
+    public void i_verify_and_start_selected_bungii(String screen) {
+        try {
+            String expectedMessage = "";
+
+            switch (screen.toUpperCase()) {
+                case "EN ROUTE":
+                    expectedMessage = PropertyUtility.getMessage("driver.slide.enroute");
+                    break;
+                case "ARRIVED":
+                    expectedMessage = PropertyUtility.getMessage("driver.slide.arrived");
+                    break;
+                case "LOADING ITEM":
+                    expectedMessage = PropertyUtility.getMessage("driver.slide.loading");
+                    break;
+                case "DRIVING TO DROP OFF":
+                    expectedMessage = PropertyUtility.getMessage("driver.slide.drop.off");
+                    break;
+                case "UNLOADING ITEM":
+                    expectedMessage = PropertyUtility.getMessage("driver.slide.unloading");
+                    break;
+                default:
+                    break;
+            }
+            String actualValue = getSliderText();
+
+            updateStatus();
+            Thread.sleep(7000);
+            testStepVerify.isEquals(actualValue, expectedMessage,
+				"I slide update button on " + screen + " Screen",
+				"Slider value should be" + expectedMessage + "and actual is" + actualValue,
+				"Slider value should be" + expectedMessage + "and actual is" + actualValue);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {

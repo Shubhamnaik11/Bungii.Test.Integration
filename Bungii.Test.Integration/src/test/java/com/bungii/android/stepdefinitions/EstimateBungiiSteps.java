@@ -430,6 +430,13 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
     cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION",action.getText(Page_Estimate.Text_DropOffLocation()));
 }
 
+    @And("^I get Bungii location details on Bungii Estimate$")
+    public void i_get_bungii_locations_details_on_bungii_estimate() throws Throwable {
+        // SAVE required values in scenario context
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION",action.getText(Page_Estimate.Text_PickupLocation()));
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION",action.getText(Page_Estimate.Text_DropOffLocation()));
+    }
+
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
         try {
@@ -437,6 +444,9 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
                 Thread.sleep(5000);
 
             action.click(Page_Estimate.Link_LoadingUnloadingTime());
+            if(!action.isElementPresent(Page_Estimate.LoadingUnloadingTime_15(true)))
+                action.click(Page_Estimate.Link_LoadingUnloadingTime());
+
             switch (arg0) {
                 case "15 mins":
                     action.click(Page_Estimate.LoadingUnloadingTime_15());

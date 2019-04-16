@@ -127,6 +127,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
+
   @Duo
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
@@ -135,6 +136,7 @@ Feature: Duo
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
+    And I get Bungii location details on Bungii Estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I select Bungii Time as "next possible scheduled for duo"

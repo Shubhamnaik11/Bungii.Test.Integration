@@ -12,7 +12,7 @@ Feature: SoloScheduled
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
-
+  @FAILED
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     When I tap on "Menu" > "Account" link
@@ -24,6 +24,7 @@ Feature: SoloScheduled
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I select Bungii Time as "next possible scheduled"
+    And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
@@ -151,6 +152,7 @@ Feature: SoloScheduled
     When Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
+    Then Bungii customer should see "correct details" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices

@@ -64,9 +64,11 @@ public class CommonSteps extends DriverBase {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         utility.launchDriverApplication();
+                        isApplicationIsInForeground = utility.isDriverApplicationOpen();
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
+                        isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");

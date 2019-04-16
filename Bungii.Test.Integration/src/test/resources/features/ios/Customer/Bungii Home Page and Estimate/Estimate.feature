@@ -80,10 +80,14 @@ Feature: Customer Estimate screen
   @regression
   Scenario: To check if the information icons display correct information
     When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+#    And I request for  bungii
+#      | Driver | Distance |
+#      | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
+
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
     When I enter following details on "Estimate" screen
@@ -95,11 +99,13 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check the elements of Estimate page
-    #When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+  #  And I request for  bungii
+  #    | Driver | Distance |
+  #    | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then Trip Information should be correctly displayed on Estimate screen
@@ -109,11 +115,13 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
-    When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+  #  And I request for  bungii
+  #    | Driver | Distance |
+  #    | Solo   | Long     |
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     Then check if I have ability to select different load time and Estimate cost is re calculated

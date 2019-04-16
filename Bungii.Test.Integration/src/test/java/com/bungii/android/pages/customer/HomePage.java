@@ -48,7 +48,7 @@ public class HomePage extends PageBase {
     public WebElement Link_Menu () { return findElement("android.widget.ImageButton",LocatorType.ClassName); }
 
     public WebElement Button_Closetutorials (boolean ...ignoreException) { return findElement("com.bungii.customer:id/tutorials_alert_iv_cancel",LocatorType.Id,ignoreException); }
-    public WebElement Text_TutorialHeader(){return findElement("com.bungii.customer:id/textView8",LocatorType.Id);}
+    public WebElement Text_TutorialPdf(){return findElement("com.bungii.customer:id/pdfView",LocatorType.Id);}
     //------Bungii Posted Success page---------------------------------------------------------------------
     public WebElement Title_Success () { return findElement("//android.view.View[@id='com.bungii.customer:id/action_bar']/android.widget.TextView[@text='Success!']",LocatorType.XPath); }
 

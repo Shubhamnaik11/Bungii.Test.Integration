@@ -1,4 +1,5 @@
 @ios
+@NONBUNGII
 Feature: Create on demand bungii
   I want to use this template for my feature file
   Assume driver and user already logged in
@@ -53,7 +54,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "EN ROUTE" Screen
+    When I verify and slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
@@ -68,7 +69,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "ARRIVED" Screen
+    When I verify and slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
@@ -83,7 +84,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "LOADING ITEM" Screen
+    When I verify and slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
@@ -98,7 +99,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "DRIVING TO DROP OFF" Screen
+    When I verify and slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
     Then correct details should be displayed to driver on "SMS" app
@@ -113,7 +114,7 @@ Feature: Create on demand bungii
     Then correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
-    When I slide update button on "UNLOADING ITEM" Screen
+    When I verify and slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices

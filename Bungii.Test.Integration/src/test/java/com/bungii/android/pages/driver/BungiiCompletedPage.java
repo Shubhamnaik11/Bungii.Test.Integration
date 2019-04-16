@@ -19,7 +19,7 @@ public class BungiiCompletedPage extends PageBase {
 
     public WebElement Text_TotalEarnings() { return findElement("com.bungii.driver:id/pickup_summary_text_total_earnings", LocatorType.Id); }
 
-    public WebElement Button_OnToTheNext() { return findElement("com.bungii.driver:id/pickup_summary_button_close_summary", LocatorType.Id); }
+    public WebElement Button_OnToTheNext(boolean ...ignoreException) { return findElement("com.bungii.driver:id/pickup_summary_button_close_summary", LocatorType.Id,ignoreException); }
 
     public WebElement Text_Label(){return  findElement("//*[@text='Cha-Ching!']",LocatorType.XPath);}
     public WebElement Image_Dollar(){return  findElement("//*[@text=\"Cha-Ching!\"]/preceding-sibling::android.widget.ImageView",LocatorType.XPath);}

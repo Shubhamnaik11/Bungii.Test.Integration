@@ -45,6 +45,7 @@ Scenarios on Payment Methods
 #    And I tap on "Add Card" on Payment page
 #    Then I should see "the card has been added" on Payment page
 #    When I tap on "Menu" > "Logout" link
+
   @regression
   Scenario Outline:  As Bungii Customer I should able to add payment card
     Given I am logged in as "valid" customer

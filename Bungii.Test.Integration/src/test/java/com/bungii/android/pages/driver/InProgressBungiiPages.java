@@ -24,15 +24,17 @@ public class InProgressBungiiPages extends PageBase {
 
 
     //More incas of duo
+    public WebElement Button_DuoMore(boolean...ignoreException) { return findElement("com.bungii.driver:id/pickup_details_contact_options", LocatorType.Id,ignoreException); }
+
     public WebElement Button_DuoMore1() { return findElements("com.bungii.driver:id/pickup_details_contact_options", LocatorType.Id).get(0); }
     public WebElement Button_DuoMore2() { return findElements("com.bungii.driver:id/pickup_details_contact_options", LocatorType.Id).get(1); }
-    public WebElement Button_DuoCustomer_SMS() { return findElement("com.bungii.driver:id/caller_communication_mode_sms_textview", LocatorType.Id); }
+    public WebElement Button_DuoCustomer_SMS(boolean...ignoreException) { return findElement("com.bungii.driver:id/caller_communication_mode_sms_textview", LocatorType.Id,ignoreException); }
 
-    public WebElement Button_DuoCustomer_Call() { return findElement("com.bungii.driver:id/caller_communication_mode_phone_call_textview", LocatorType.Id); }
+    public WebElement Button_DuoCustomer_Call(boolean...ignoreException) { return findElement("com.bungii.driver:id/caller_communication_mode_phone_call_textview", LocatorType.Id,ignoreException); }
 
-    public WebElement Button_DuoCustomer_ViewItem() { return findElement("com.bungii.driver:id/caller_communication_mode_view_pickup_items_images_textview", LocatorType.Id); }
+    public WebElement Button_DuoCustomer_ViewItem(boolean...ignoreException) { return findElement("com.bungii.driver:id/caller_communication_mode_view_pickup_items_images_textview", LocatorType.Id,ignoreException); }
 
-    public WebElement Button_DuoCustomer_CallSupport() { return findElement("com.bungii.driver:id/caller_communication_mode_contact_driver_support_textview", LocatorType.Id); }
+    public WebElement Button_DuoCustomer_CallSupport(boolean...ignoreException) { return findElement("com.bungii.driver:id/caller_communication_mode_contact_driver_support_textview", LocatorType.Id,ignoreException); }
     public WebElement Button_DuoCancel() { return findElement("com.bungii.driver:id/caller_cancel", LocatorType.Id); }
 
 

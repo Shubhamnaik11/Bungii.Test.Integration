@@ -453,41 +453,61 @@ public class BungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }}else{
+                    if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoMore(true)))
+                    {
+                        Thread.sleep(5000);
+                    }
                     switch (arg0) {
                         case "SMS for a customer":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_SMS(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_SMS()).trim(),PropertyUtility.getMessage("driver.text.customer"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_SMS());
                             break;
 
                         case "Call for a customer":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_Call(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_Call()).trim(),PropertyUtility.getMessage("driver.call.customer"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
                             break;
                         case "SMS for a driver":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_SMS(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_SMS()).trim(),PropertyUtility.getMessage("driver.text.driver"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_SMS());
                             break;
 
                         case "Call for a driver":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_Call(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_Call()).trim(),PropertyUtility.getMessage("driver.call.driver"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
                             break;
                         case"Contact support":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport()).trim(),PropertyUtility.getMessage("driver.text.support"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
                             break;
                         case"Contact support for driver":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport()).trim(),PropertyUtility.getMessage("driver.text.support"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
                             break;
                         case"View items":
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
+                            if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem(true)))
+                                action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem()).trim(),PropertyUtility.getMessage("driver.view.items.customer"));
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem());
                             break;
@@ -595,6 +615,11 @@ public class BungiiSteps extends DriverBase {
 
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
+                    if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
+                        Thread.sleep(5000);
+                        action.click(Page_BungiiComplete.Button_OnToTheNext());
+                    }
+
                     break;
 
                 default:
