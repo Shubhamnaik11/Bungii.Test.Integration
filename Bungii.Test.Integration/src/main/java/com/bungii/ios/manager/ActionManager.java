@@ -85,10 +85,13 @@ public class ActionManager {
     }
 
     public void clickMiddlePoint(WebElement element) {
-        int leftX = element.getLocation().getX();
-        int width = element.getSize().getWidth();
-        int upperY = element.getLocation().getY();
-        int hight = element.getSize().getHeight();
+        Point elementLocation=element.getLocation();
+        Dimension elementSize=element.getSize();
+
+        int leftX = elementLocation.getX();
+        int width = elementSize.getWidth();
+        int upperY = elementLocation.getY();
+        int hight = elementSize.getHeight();
         Point p= new Point(leftX+(width/2),upperY+(hight/2));
         click(p);
         logger.detail("Click on locator by element" + element.toString());
@@ -402,11 +405,6 @@ public class ActionManager {
      * @return
      */
     public boolean verifyImageIsPresent(String key) {
-/*        try {
-            test();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         WebDriverWait driverWait = new WebDriverWait(SetupManager.getDriver(), 4);
 
         String imagePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),
@@ -429,19 +427,6 @@ public class ActionManager {
             return false;
         }
     }
-
-        public static void test() throws IOException {
-            File file= new File("C:\\Users\\vishal.bagi\\Pictures\\test.jpg");
-            BufferedImage image = ImageIO.read(file);
-            // Getting pixel color by position x and y
-            int clr=  image.getRGB(41,85);
-            int  red   = (clr & 0x00ff0000) >> 16;
-            int  green = (clr & 0x0000ff00) >> 8;
-            int  blue  =  clr & 0x000000ff;
-            System.out.println("Red Color value = "+ red);
-            System.out.println("Green Color value = "+ green);
-            System.out.println("Blue Color value = "+ blue);
-        }
 
 
     public List<String> getListOfAlertButton() {
@@ -495,10 +480,12 @@ public class ActionManager {
     public Rectangle getLocatorRectangle(WebElement element) {
 
        // MobileElement element = (MobileElement) waitForExpectedElement(by);
-        int leftX = element.getLocation().getX();
-        int width = leftX + element.getSize().getWidth();
-        int upperY = element.getLocation().getY();
-        int hight = upperY + element.getSize().getHeight();
+        Point elementLocation=element.getLocation();
+        Dimension elementSize=element.getSize();
+        int leftX = elementLocation.getX();
+        int width = leftX + elementSize.getWidth();
+        int upperY = elementLocation.getY();
+        int hight = upperY + elementSize.getHeight();
         Rectangle area = new Rectangle(leftX, upperY, width, hight);
         return area;
 

@@ -52,7 +52,7 @@ public class UpdateStatusPage extends PageBase {
 
 	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 
-	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath); }
+	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath,ignoreException); }
 
 
 	public WebElement Button_CloseViewItems() { return findElement("close btn white icon", PageBase.LocatorType.Name); }

@@ -71,6 +71,8 @@ public class UpdateStatusSteps extends DriverBase {
 
             updateStatus();
             Thread.sleep(5000);
+            log("I slide update button on " + screen + " screen", "I slide update button on " + screen + " screen",true);
+
 		/*testStepVerify.isEquals(actualValue, expectedMessage,
 				"I slide update button on " + screen + " Screen",
 				"Slider value should be" + expectedMessage + "and actual is" + actualValue,
@@ -529,10 +531,9 @@ public class UpdateStatusSteps extends DriverBase {
      */
     public void updateStatus() {
         //get locator rectangle is time consuming process
-        if (initial == null)
-            initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());
-        // dragFromToForDuration(initial.x,initial.y,initial.x,initial.y,waitForExpectedElement(TextBox_Pickup));
-
+/*        if (initial == null)
+            initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());*/
+        Rectangle initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());
         action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, updateStatusPage.AreaSlide());
     }
 

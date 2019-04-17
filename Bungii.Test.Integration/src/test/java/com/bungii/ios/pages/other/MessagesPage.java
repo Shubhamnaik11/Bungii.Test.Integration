@@ -12,7 +12,7 @@ public class MessagesPage extends PageBase {
 	public WebElement Text_ToField() {
 		return findElement("To:", LocatorType.Name);
 	}
-
+	public WebElement Button_RemindMeLater(boolean... ignoreException){return findElement("Remind Me Later",LocatorType.Name,ignoreException);}
 
 	
 

@@ -1,6 +1,10 @@
 package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.ios.enums.Status;
+import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.driver.BungiiCompletedPage;
+import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.common.core.DriverBase;
@@ -19,6 +23,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Rectangle;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -38,9 +43,13 @@ public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
     HomePage driverHomePage = new HomePage();
+    com.bungii.ios.pages.customer.HomePage customerHomePage= new com.bungii.ios.pages.customer.HomePage();
+    EstimatePage estimatePage= new EstimatePage();
     ActionManager action = new ActionManager();
     LoginPage driverLoginPage = new LoginPage();
     UpdateStatusPage driverUpdateStatusPage = new UpdateStatusPage();
+    MessagesPage messagesPage=new MessagesPage();
+    BungiiCompletedPage driverBungiiCompletedPage= new BungiiCompletedPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     int[][] rgb = {
             {238, 29, 55},
@@ -94,18 +103,61 @@ public class GeneralUtility extends DriverBase {
             if(alertMessage.contains("Software Update")){
                 if(getListOfAlertButton.contains("Later")){
                     action.clickAlertButton("Later");
+                    if(action.isElementPresent(messagesPage.Button_RemindMeLater(true)))
+                        action.click(messagesPage.Button_RemindMeLater());
                 }
             }else if(alertMessage.contains("new iOS update")){
                 if(getListOfAlertButton.contains("Close")){
                     action.clickAlertButton("Close");
 
                 }
+            }else if(getListOfAlertButton.contains("Cancel")){
+                action.clickAlertButton("Cancel");
             }else{
                 if(getListOfAlertButton.contains("Close"))
                     action.clickAlertButton("Close");
 
             }
         }
+        action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+        if(action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))){
+
+           String screen=action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
+                if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+                    action.click(driverUpdateStatusPage.Button_Cancel());
+                    action.clickAlertButton("Yes");
+                } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                    action.click(driverUpdateStatusPage.Button_Cancel());
+                    action.clickAlertButton("Yes");
+                } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+                    updateStatus();updateStatus();updateStatus();
+                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+                    updateStatus();updateStatus();
+                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+                    updateStatus();
+                    action.click(driverBungiiCompletedPage.Button_NextTrip());
+                }
+
+        }
+        action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+        String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
+
+        if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+            action.click(estimatePage.Button_Cancel());
+            SetupManager.getDriver().switchTo().alert().accept();
+        }
+    }
+    /**
+     * Slide the slider to update status
+     */
+    public void updateStatus() {
+        //get locator rectangle is time consuming process
+        Rectangle initial = action.getLocatorRectangle(driverUpdateStatusPage.AreaSlide());
+        // dragFromToForDuration(initial.x,initial.y,initial.x,initial.y,waitForExpectedElement(TextBox_Pickup));
+
+        action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, driverUpdateStatusPage.AreaSlide());
     }
     /**
      * Calculate estimate cost of trip check if less than minimum cost then

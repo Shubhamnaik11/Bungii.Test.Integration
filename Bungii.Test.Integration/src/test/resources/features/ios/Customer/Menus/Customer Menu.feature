@@ -6,7 +6,7 @@ Feature: Customer	Menu
 
   Background: 
     Given I am on Customer logged in Home page
-
+  @RERUN
   @regression
   Scenario: As Bungii customer I want to check all menu links
     When I Select "Home" from Customer App menu
