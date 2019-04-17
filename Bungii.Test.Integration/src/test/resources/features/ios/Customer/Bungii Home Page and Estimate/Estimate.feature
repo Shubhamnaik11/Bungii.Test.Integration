@@ -23,7 +23,7 @@ Feature: Customer Estimate screen
     Then user is alerted for "CANCEL BUNGII"
     Then I should be navigated to "Home" screen
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
-  @RERUN1
+
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
@@ -43,7 +43,7 @@ Feature: Customer Estimate screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
-  @RERUN
+
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
     When I request for  bungii for given pickup and drop location
@@ -60,7 +60,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "ESTIMATE" screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method   | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | 15 mins          | ADD        | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
+      | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
 
   @regression
   Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
@@ -96,7 +96,7 @@ Feature: Customer Estimate screen
     Then "Load/Upload Time" information icon should display correct information
     Then "Total estimate" information icon should display correct information
     Then "Time" information icon should display correct information
-  @RERUN
+
   @regression
   Scenario: To check the elements of Estimate page
     When I Select "Home" from Customer App menu
@@ -112,7 +112,7 @@ Feature: Customer Estimate screen
     Then Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242/x1117    | Now  | UNCHECK             | DISABLED       |
-  @RERUN
+
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Select "Home" from Customer App menu
@@ -153,11 +153,12 @@ Feature: Customer Estimate screen
   #  Then Estimate Screen should have element as per below table
   #    | Trip Distance | Load/unload time | Promo Code         | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
   #    |               | 15 mins          | <ADDED_PROMO_CODE> | <IN DOLLAR>    |                | Now  |                     |                |
-  @RERUN1
+
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
     When I Select "ACCOUNT" from Customer App menu
     Then I get customer account details
+    When I Select "Home" from Customer App menu
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |

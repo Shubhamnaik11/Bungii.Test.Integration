@@ -249,8 +249,9 @@ public class UpdateStatusSteps extends DriverBase {
     }
 
     private void validateViewImage(int image){
-        testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
-        testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
+      //  testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
+        testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("page 1 of 1"),"One image scrol slide should be present");
+     //   testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
 
         action.click(updateStatusPage.Button_CloseViewItems());
     }

@@ -55,7 +55,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("//XCUIElementTypeNavigationBar", PageBase.LocatorType.XPath,ignoreException); }
 
 
-	public WebElement Button_CloseViewItems() { return findElement("close btn white icon", PageBase.LocatorType.Name); }
+	public WebElement Button_CloseViewItems(boolean ...ignoreException) { return findElement("close btn white icon", PageBase.LocatorType.Name,ignoreException); }
 
 	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
 	public WebElement PageIndicator_Page1() { return findElement("//XCUIElementTypePageIndicator[@value='page 1 of 1']", PageBase.LocatorType.XPath); }

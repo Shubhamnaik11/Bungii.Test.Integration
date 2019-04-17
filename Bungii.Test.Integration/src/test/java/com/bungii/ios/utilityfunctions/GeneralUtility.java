@@ -2,7 +2,9 @@ package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.ios.enums.Status;
+import com.bungii.ios.pages.customer.BungiiCompletePage;
 import com.bungii.ios.pages.customer.EstimatePage;
+import com.bungii.ios.pages.customer.PromotionPage;
 import com.bungii.ios.pages.driver.BungiiCompletedPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.pages.other.NotificationPage;
@@ -49,6 +51,8 @@ public class GeneralUtility extends DriverBase {
     LoginPage driverLoginPage = new LoginPage();
     UpdateStatusPage driverUpdateStatusPage = new UpdateStatusPage();
     MessagesPage messagesPage=new MessagesPage();
+    BungiiCompletePage bungiiCompletePage= new BungiiCompletePage();
+    PromotionPage promotionPage=new PromotionPage();
     BungiiCompletedPage driverBungiiCompletedPage= new BungiiCompletedPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     int[][] rgb = {
@@ -120,6 +124,9 @@ public class GeneralUtility extends DriverBase {
             }
         }
         action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+        //view item page
+        action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true));
+            action.click(driverUpdateStatusPage.Button_CloseViewItems());
         if(action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))){
 
            String screen=action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
@@ -142,11 +149,21 @@ public class GeneralUtility extends DriverBase {
 
         }
         action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
-        String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
+        if(action.isAlertPresent()){
+            List<String> getListOfAlertButton =action.getListOfAlertButton();
+            if(getListOfAlertButton.contains("OK"))
+                action.clickAlertButton("OK");
 
+        }
+        String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
         if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
             action.click(estimatePage.Button_Cancel());
             SetupManager.getDriver().switchTo().alert().accept();
+        }else if(NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))){
+            action.click(bungiiCompletePage.Button_Close());;
+            action.click(promotionPage.Button_IdontLikePromo());
+        }else if(NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))){
+            action.click(promotionPage.Button_IdontLikePromo());
         }
     }
     /**
@@ -233,9 +250,19 @@ public class GeneralUtility extends DriverBase {
                 }
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
+                try {
+                if(!action.isElementPresent(driverHomePage.Text_NavigationBar(true))){
+                        Thread.sleep(9000);
+                }
+                } catch (InterruptedException e) {
+                e.printStackTrace();
+                }
                 action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
                 isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
-
+                if(!isCorrectPage){
+                    action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                }
         }
         return isCorrectPage;
     }

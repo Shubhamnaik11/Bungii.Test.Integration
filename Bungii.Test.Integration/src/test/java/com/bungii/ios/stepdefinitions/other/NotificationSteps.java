@@ -66,6 +66,16 @@ public class NotificationSteps extends DriverBase {
 			boolean notificationClickRetry=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 
 		}
+		//temp fixed
+			if(action.isAlertPresent()) {
+				String alertMessage = action.getAlertMessage();
+				List<String> getListOfAlertButton = action.getListOfAlertButton();
+				if (alertMessage.contains("new iOS update")) {
+					if (getListOfAlertButton.contains("Close")) {
+						action.clickAlertButton("Close");
+					}
+				}
+			}
 	} catch (Exception e) {
 		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

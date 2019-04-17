@@ -10,6 +10,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.AppiumDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
@@ -152,14 +153,15 @@ public class HomeSteps extends DriverBase {
 
 
     @When("^I select \"([^\"]*)\" location$")
-    public void i_select_something_location(String action) {
+    public void i_select_something_location(String actionToDo) {
         try {
-            switch (action.toUpperCase()) {
+            switch (actionToDo.toUpperCase()) {
                 case "DROP":
                     selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    selectPickUpLocation(1);
+                //    selectPickUpLocation(1);
+                    action.click(homePage.BUTTON_SET());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
@@ -176,6 +178,8 @@ public class HomeSteps extends DriverBase {
     @Then("^current location should be present as pickup location$")
     public void current_location_should_be_present_as_pickup_location() {
         try {
+        //    ((AppiumDriver)SetupManager.getDriver()).terminateApp( PropertyUtility.getProp("bundleId_Customer"));
+         //   ((AppiumDriver)SetupManager.getDriver()).launchApp();
             String addressValue = getSelectedPickUpLocation();
             testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals("Set Pickup Location"),
                     "Pickup location value should be non empty", "Pickup location value is" + addressValue,

@@ -50,7 +50,7 @@ Feature: Payment page
     And I accept Alert message
     Then I should see "the card has been deleted" on Payment page
 
-  @RERUN1
+
   @regression
   Scenario: As Bungii customer I should able to change default card
     When I Select "PAYMENT" from Customer App menu
