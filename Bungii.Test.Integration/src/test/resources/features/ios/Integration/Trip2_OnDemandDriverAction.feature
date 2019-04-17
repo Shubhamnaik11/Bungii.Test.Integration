@@ -1,5 +1,5 @@
 @ios
-@NONBUNGII
+@NONBUNGII1
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
