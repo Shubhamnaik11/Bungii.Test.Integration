@@ -439,10 +439,11 @@ public class ActionManager {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", "getButtons");
         List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
+        logger.detail("List of alert button:"+buttons.toString());
         return buttons;
     }
 
-    public boolean clickAlertButton(String label) {
+    public boolean  clickAlertButton(String label) {
         List<String> buttons = getListOfAlertButton();
 
         String buttonLabel = "";

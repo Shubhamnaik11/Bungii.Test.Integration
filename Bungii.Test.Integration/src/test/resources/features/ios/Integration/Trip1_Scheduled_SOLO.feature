@@ -125,8 +125,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     When I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on "Bungii Completed" screen
+
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     Then Bungii customer should see "correct details" on Bungii completed page
@@ -136,6 +135,9 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
 
   @regression
   @sanity

@@ -129,27 +129,35 @@ public class GeneralUtility extends DriverBase {
             }
         }
         action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-        logger.detail("Switched to Driver");
+        logger.detail("Switched to Driver in recovery scenario");
 
         //view item page
         if(action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true)))
-            action.click(driverUpdateStatusPage.Button_CloseViewItems());
+        {   action.click(driverUpdateStatusPage.Button_CloseViewItems());
+            logger.detail("Clicked Close on view item screen");
+
+        }
         if(action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))){
 
            String screen=action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
                 if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+                    logger.detail("Driver struck on arrived screen");
                     action.click(driverUpdateStatusPage.Button_Cancel());
                     action.clickAlertButton("Yes");
                 } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                    logger.detail("Driver struck on EN_ROUTE screen");
                     action.click(driverUpdateStatusPage.Button_Cancel());
                     action.clickAlertButton("Yes");
                 } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+                    logger.detail("Driver struck on LOADING_ITEM screen");
                     updateStatus();updateStatus();updateStatus();
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
                 } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+                    logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
                     updateStatus();updateStatus();
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
                 } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+                    logger.detail("Driver struck on UNLOADING_ITEM screen");
                     updateStatus();
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
                 }
@@ -164,12 +172,15 @@ public class GeneralUtility extends DriverBase {
         }
         String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
         if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+            logger.detail("Customer struck on searching screen");
             action.click(estimatePage.Button_Cancel());
             SetupManager.getDriver().switchTo().alert().accept();
         }else if(NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))){
+            logger.detail("Customer struck on bungii complete screen");
             action.click(bungiiCompletePage.Button_Close());;
             action.click(promotionPage.Button_IdontLikePromo());
         }else if(NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))){
+            logger.detail("Customer struck on promotion screen");
             action.click(promotionPage.Button_IdontLikePromo());
         }
     }
@@ -492,6 +503,24 @@ public class GeneralUtility extends DriverBase {
         String key = instanceName + "_" + appKey + "_" + statusKey;
         cucumberContextManager.setFeatureContextContext(key + "_POINT", point);
         cucumberContextManager.setFeatureContextContext(key + "_DIM", dimension);
+    }
+
+    public void addSliderValueToFeatureContext(String appKey,Rectangle rectangle){
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        cucumberContextManager.setFeatureContextContext(key + "_RECT", rectangle);
+    }
+
+    public boolean isSliderValueContainsInContext(String appKey) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey ;
+        return cucumberContextManager.isFeatureContextContains(key + "_RECT");
+    }
+
+    public Rectangle getSliderValueFromContext(String appKey){
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey ;
+        return (Rectangle) cucumberContextManager.getFeatureContextContext(key + "_RECT");
     }
 
     public boolean isContextContainsStatusKey(String appKey, String statusKey) {

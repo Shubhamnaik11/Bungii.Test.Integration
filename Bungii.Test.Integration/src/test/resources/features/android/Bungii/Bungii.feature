@@ -226,7 +226,7 @@ Feature: On Demand Bungii
 
     #This scenario is moved from EstimateBungii.feature
   @regression
-  Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .
+  Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
@@ -297,7 +297,7 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
     Examples:
-      | Scenario         | Promo Code    | User         |
-      | fixed valid      | fixed valid   | no promocode |
-      | Promo percentage | valid percent | no promocode |
-      | valid one off    | valid one off | no promocode |
+      | Scenario            | Promo Code    | User         |
+      | Promo fixed         | valid         | no promocode |
+      | Promo percentage    | valid percent | no promocode |
+      | valid one off fixed | valid one off | no promocode |

@@ -47,7 +47,7 @@ public class UpdateStatusSteps extends DriverBase {
     public void i_start_selected_bungii(String screen) {
         try {
             String expectedMessage = "";
-
+            updateStatus();
             switch (screen.toUpperCase()) {
                 case "EN ROUTE":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.enroute");
@@ -534,7 +534,15 @@ public class UpdateStatusSteps extends DriverBase {
         //get locator rectangle is time consuming process
 /*        if (initial == null)
             initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());*/
-        Rectangle initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());
+        Rectangle initial;
+        if (!utility.isSliderValueContainsInContext("DRIVER")) {
+            initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());
+            utility.addSliderValueToFeatureContext("DRIVER",initial);
+
+        } else {
+            initial = utility.getSliderValueFromContext("DRIVER");
+        }
+
         action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, updateStatusPage.AreaSlide());
     }
 
