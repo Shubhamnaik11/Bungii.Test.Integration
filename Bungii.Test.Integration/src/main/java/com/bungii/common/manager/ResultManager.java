@@ -32,7 +32,8 @@ public class ResultManager {
      */
     public static void log(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
+//        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), false));
         logger.trace("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
     }
 
@@ -45,8 +46,9 @@ public class ResultManager {
      */
     public static void pass(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
+    //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
         logger.detail("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
     }
 
@@ -91,8 +93,9 @@ public class ResultManager {
      */
     public static void warning(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
+    //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
 
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), false));
         logger.warning("For steps :" + name + " expected is :" + expected + " and actual is" + actual);
     }
 
