@@ -13,7 +13,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     Given I am on Customer logged in Home page
-
+@TESTONE
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 

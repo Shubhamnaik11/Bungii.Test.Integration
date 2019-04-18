@@ -95,13 +95,18 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
     public void recoverScenario() {
+        logger.detail("Inside recovery scenario");
         //Remove notification screen
         if(action.isElementPresent(notificationPage.Button_NotificationScreen(true))||action.isElementPresent(notificationPage.Cell_Notification(true))){
             action.hideNotifications();
+            logger.detail("Notification page is removed");
         }
         //Handle Alert
         if(action.isAlertPresent()){
+
             String alertMessage=action.getAlertMessage();
+            logger.detail("Alert is present on screen,Alert message:"+alertMessage);
+
             List<String> getListOfAlertButton =action.getListOfAlertButton();
 
             if(alertMessage.contains("Software Update")){
@@ -124,8 +129,10 @@ public class GeneralUtility extends DriverBase {
             }
         }
         action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+        logger.detail("Switched to Driver");
+
         //view item page
-        action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true));
+        if(action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true)))
             action.click(driverUpdateStatusPage.Button_CloseViewItems());
         if(action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))){
 

@@ -42,7 +42,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     Then Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           | ADD        | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
+      | {PREVIOUS VALUE} | SELECT           |         | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
 
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
