@@ -206,7 +206,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+@OTHER
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
  #   When I Switch to "customer" application on "same" devices
@@ -236,7 +236,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-
+  @OTHER
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
@@ -257,7 +257,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
+  @OTHER
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
