@@ -1,5 +1,5 @@
 @ios
-@TESTONE
+
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
   Assume customer is logged in
