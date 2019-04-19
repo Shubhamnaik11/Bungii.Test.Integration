@@ -47,7 +47,6 @@ public class UpdateStatusSteps extends DriverBase {
     public void i_start_selected_bungii(String screen) {
         try {
             String expectedMessage = "";
-            updateStatus();
             switch (screen.toUpperCase()) {
                 case "EN ROUTE":
                     expectedMessage = PropertyUtility.getMessage("driver.slide.enroute");
