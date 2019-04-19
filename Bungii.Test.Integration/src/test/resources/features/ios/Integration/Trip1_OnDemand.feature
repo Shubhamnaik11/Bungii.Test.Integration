@@ -1,5 +1,5 @@
 @ios
-
+@TESTONE
 Feature: Create on demand bungii
   I want to use this template for my feature file
   Assume driver and user already logged in
