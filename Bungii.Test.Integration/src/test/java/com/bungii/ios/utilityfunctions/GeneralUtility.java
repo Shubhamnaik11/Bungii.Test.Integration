@@ -160,6 +160,9 @@ public class GeneralUtility extends DriverBase {
                     logger.detail("Driver struck on UNLOADING_ITEM screen");
                     updateStatus();
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
+                }else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
+                    logger.detail("Driver struck on bungii completed screen");
+                    action.click(driverBungiiCompletedPage.Button_NextTrip());
                 }
 
         }
@@ -189,8 +192,16 @@ public class GeneralUtility extends DriverBase {
      */
     public void updateStatus() {
         //get locator rectangle is time consuming process
-        Rectangle initial = action.getLocatorRectangle(driverUpdateStatusPage.AreaSlide());
-        // dragFromToForDuration(initial.x,initial.y,initial.x,initial.y,waitForExpectedElement(TextBox_Pickup));
+/*        if (initial == null)
+            initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());*/
+        Rectangle initial;
+        if (!isSliderValueContainsInContext("DRIVER")) {
+            initial = action.getLocatorRectangle(driverUpdateStatusPage.AreaSlide());
+            addSliderValueToFeatureContext("DRIVER",initial);
+
+        } else {
+            initial = getSliderValueFromContext("DRIVER");
+        }
 
         action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, driverUpdateStatusPage.AreaSlide());
     }

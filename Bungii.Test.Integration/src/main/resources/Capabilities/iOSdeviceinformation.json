@@ -6,7 +6,7 @@
     "app": "com.bungii.customer",
     "deviceName": "CCI-iPhone6P-1",
     "udid": "90512791eea23af17ac9ca5dbd29a2ade7568071",
-    "newCommandTimeout": "600",
+    "newCommandTimeout": "20000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
