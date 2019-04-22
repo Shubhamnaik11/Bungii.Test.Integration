@@ -3,6 +3,7 @@ package com.bungii.common.core;
 import com.bungii.SetupManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
+import io.appium.java_client.MobileBy;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -80,7 +81,21 @@ public class PageBase {
                 elements = driver.findElements(By.tagName(identifier));
                 break;
             }
-
+            case AccessibilityId: {
+                WaitUntilElementIsDisplayed(MobileBy.AccessibilityId(identifier));
+                elements = driver.findElements(MobileBy.AccessibilityId(identifier));
+                break;
+            }
+            case Predicate: {
+                WaitUntilElementIsDisplayed(MobileBy.iOSNsPredicateString(identifier));
+                elements = driver.findElements(MobileBy.iOSNsPredicateString(identifier));
+                break;
+            }
+            case ClassChain: {
+                WaitUntilElementIsDisplayed(MobileBy.iOSClassChain(identifier));
+                elements = driver.findElements(MobileBy.iOSClassChain(identifier));
+                break;
+            }
         }
         return elements;
     }
@@ -142,6 +157,21 @@ public class PageBase {
                     element = driver.findElement(By.tagName(identifier));
                     break;
                 }
+                case AccessibilityId: {
+                    WaitUntilElementIsDisplayed(MobileBy.AccessibilityId(identifier));
+                    element = driver.findElement(MobileBy.AccessibilityId(identifier));
+                    break;
+                }
+                case Predicate: {
+                    WaitUntilElementIsDisplayed(MobileBy.iOSNsPredicateString(identifier));
+                    element = driver.findElement(MobileBy.iOSNsPredicateString(identifier));
+                    break;
+                }
+                case ClassChain: {
+                    WaitUntilElementIsDisplayed(MobileBy.iOSClassChain(identifier));
+                    element = driver.findElement(MobileBy.iOSClassChain(identifier));
+                    break;
+                }
             }
         } catch (NoSuchElementException e) {
             if (ignoreException.length > 0) {
@@ -197,6 +227,6 @@ public class PageBase {
         PartialLinkText,
         CssSelector,
         TagName,
-        XPath
+        XPath, AccessibilityId, Predicate, ClassChain
     }
 }

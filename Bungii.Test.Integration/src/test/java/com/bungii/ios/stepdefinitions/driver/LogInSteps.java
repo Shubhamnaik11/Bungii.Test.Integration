@@ -16,11 +16,15 @@ public class LogInSteps extends DriverBase {
                 phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
                 password = PropertyUtility.getDataProperties("ios.valid.driver.password");
                 shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case"valid driver 2":
                 phone = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
                 password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
                 shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
                 break;
             default:
                 throw new Exception("Please specify valid input");

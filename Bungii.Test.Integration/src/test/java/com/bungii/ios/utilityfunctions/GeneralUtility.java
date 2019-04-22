@@ -652,30 +652,30 @@ public class GeneralUtility extends DriverBase {
             File srcFile = ((TakesScreenshot) SetupManager.getObject().getDriver()).getScreenshotAs(OutputType.FILE);
             Point initialLocation;
             Dimension elementSize;
-            if (!isContextContainsStatusKey("CUSTOMER", "1")) {
+            if (!isContextContainsStatusKey("DRIVER", "1")) {
                 WebElement pickUpStatus1 = customerUpdateStatusPage.Image_Trip_State_1();
                 initialLocation = pickUpStatus1.getLocation();
                 elementSize = pickUpStatus1.getSize();
-                addStatusBarLocationToFeatureContext("CUSTOMER", "1", initialLocation, elementSize);
+                addStatusBarLocationToFeatureContext("DRIVER", "1", initialLocation, elementSize);
 
             } else {
-                initialLocation = getInitialLocationFromContext("CUSTOMER", "1");
-                elementSize = getDimenstionFromContext("CUSTOMER", "1");
+                initialLocation = getInitialLocationFromContext("DRIVER", "1");
+                elementSize = getDimenstionFromContext("DRIVER", "1");
             }
             System.out.println("status of element 1");
             int[] statusPixelValue = getPixelColor(srcFile, initialLocation.getX() + (elementSize.getWidth() / 4), initialLocation.getY() + (elementSize.height / 2));
             array[0] = checkRGBValue(statusPixelValue, rgb[0]);
 
 
-            if (!isContextContainsStatusKey("CUSTOMER", "2")) {
+            if (!isContextContainsStatusKey("DRIVER", "2")) {
                 WebElement pickUpStatus2 = customerUpdateStatusPage.Image_Trip_State_2();
                 initialLocation = pickUpStatus2.getLocation();
                 elementSize = pickUpStatus2.getSize();
-                addStatusBarLocationToFeatureContext("CUSTOMER", "2", initialLocation, elementSize);
+                addStatusBarLocationToFeatureContext("DRIVER", "2", initialLocation, elementSize);
 
             } else {
-                initialLocation = getInitialLocationFromContext("CUSTOMER", "2");
-                elementSize = getDimenstionFromContext("CUSTOMER", "2");
+                initialLocation = getInitialLocationFromContext("DRIVER", "2");
+                elementSize = getDimenstionFromContext("DRIVER", "2");
             }
 
             System.out.println("status of element 2");
@@ -683,15 +683,15 @@ public class GeneralUtility extends DriverBase {
             array[1] = checkRGBValue(statusPixelValue, rgb[1]);
 
 
-            if (!isContextContainsStatusKey("CUSTOMER", "3")) {
+            if (!isContextContainsStatusKey("DRIVER", "3")) {
                 WebElement pickUpStatus3 = customerUpdateStatusPage.Image_Trip_State_3();
                 initialLocation = pickUpStatus3.getLocation();
                 elementSize = pickUpStatus3.getSize();
-                addStatusBarLocationToFeatureContext("CUSTOMER", "3", initialLocation, elementSize);
+                addStatusBarLocationToFeatureContext("DRIVER", "3", initialLocation, elementSize);
 
             } else {
-                initialLocation = getInitialLocationFromContext("CUSTOMER", "3");
-                elementSize = getDimenstionFromContext("CUSTOMER", "3");
+                initialLocation = getInitialLocationFromContext("DRIVER", "3");
+                elementSize = getDimenstionFromContext("DRIVER", "3");
             }
             System.out.println("status of element 3");
             statusPixelValue = getPixelColor(srcFile, initialLocation.getX() + (elementSize.getWidth() / 4), initialLocation.getY() + (elementSize.height / 2));
@@ -699,15 +699,15 @@ public class GeneralUtility extends DriverBase {
 
 
 
-            if (!isContextContainsStatusKey("CUSTOMER", "4")) {
+            if (!isContextContainsStatusKey("DRIVER", "4")) {
                 WebElement pickUpStatus4 = customerUpdateStatusPage.Image_Trip_State_4();
                 initialLocation = pickUpStatus4.getLocation();
                 elementSize = pickUpStatus4.getSize();
-                addStatusBarLocationToFeatureContext("CUSTOMER", "4", initialLocation, elementSize);
+                addStatusBarLocationToFeatureContext("DRIVER", "4", initialLocation, elementSize);
 
             } else {
-                initialLocation = getInitialLocationFromContext("CUSTOMER", "4");
-                elementSize = getDimenstionFromContext("CUSTOMER", "4");
+                initialLocation = getInitialLocationFromContext("DRIVER", "4");
+                elementSize = getDimenstionFromContext("DRIVER", "4");
             }
             System.out.println("status of element 4");
             statusPixelValue = getPixelColor(srcFile, initialLocation.getX() + (elementSize.getWidth() / 6), initialLocation.getY() + (elementSize.height / 2));
@@ -715,16 +715,16 @@ public class GeneralUtility extends DriverBase {
 
 
 
-            if (!isContextContainsStatusKey("CUSTOMER", "5")) {
+            if (!isContextContainsStatusKey("DRIVER", "5")) {
                 WebElement pickUpStatus5 = customerUpdateStatusPage.Image_Trip_State_5();
 
                 initialLocation = pickUpStatus5.getLocation();
                 elementSize = pickUpStatus5.getSize();
-                addStatusBarLocationToFeatureContext("CUSTOMER", "5", initialLocation, elementSize);
+                addStatusBarLocationToFeatureContext("DRIVER", "5", initialLocation, elementSize);
 
             } else {
-                initialLocation = getInitialLocationFromContext("CUSTOMER", "5");
-                elementSize = getDimenstionFromContext("CUSTOMER", "5");
+                initialLocation = getInitialLocationFromContext("DRIVER", "5");
+                elementSize = getDimenstionFromContext("DRIVER", "5");
             }
             System.out.println("status of element 5");
             statusPixelValue = getPixelColor(srcFile, initialLocation.getX() + (elementSize.getWidth() / 4), initialLocation.getY() + (elementSize.height / 2));

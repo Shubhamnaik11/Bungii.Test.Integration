@@ -6,8 +6,12 @@ import org.openqa.selenium.WebElement;
 
 public class TutorialPage extends PageBase {
 
-    public WebElement Button_Close() {
+/*    public WebElement Button_Close() {
         return findElement("Button", PageBase.LocatorType.Name);
     }
-    public WebElement Text_ToutorialHeader(boolean... ignoreException){return findElement("SO WHAT IS BUNGII?", LocatorType.Name,ignoreException);}
+    public WebElement Text_ToutorialHeader(boolean... ignoreException){return findElement("SO WHAT IS BUNGII?", LocatorType.Name,ignoreException);}*/
+    public WebElement Button_Close() {
+        return findElement("Button", LocatorType.AccessibilityId);
+    }
+    public WebElement Text_ToutorialHeader(boolean... ignoreException){return findElement("SO WHAT IS BUNGII?", LocatorType.AccessibilityId,ignoreException);}
 }

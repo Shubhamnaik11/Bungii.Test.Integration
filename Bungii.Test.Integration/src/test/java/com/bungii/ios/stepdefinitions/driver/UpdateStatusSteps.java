@@ -533,16 +533,17 @@ public class UpdateStatusSteps extends DriverBase {
         //get locator rectangle is time consuming process
 /*        if (initial == null)
             initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());*/
+    WebElement slider =updateStatusPage.AreaSlide();
         Rectangle initial;
         if (!utility.isSliderValueContainsInContext("DRIVER")) {
-            initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());
+            initial = action.getLocatorRectangle(slider);
             utility.addSliderValueToFeatureContext("DRIVER",initial);
 
         } else {
             initial = utility.getSliderValueFromContext("DRIVER");
         }
 
-        action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, updateStatusPage.AreaSlide());
+        action.dragFromToForDuration(0, 0, initial.getWidth(), initial.getHeight(), 1, slider);
     }
 
     /**

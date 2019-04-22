@@ -84,14 +84,22 @@ public class HomeSteps extends DriverBase {
                 case "LONG":
                     dragFactor = 5;
                     break;
-
+                case "CURRENT":
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
+            if(distance.equalsIgnoreCase("CURRENT")){
+                waitForLoadingDisappear();
+                action.dragFromToForDuration(150, 470, 151, 471, 1);
+                action.click(homePage.BUTTON_SET());
+                waitForLoadingDisappear();
+                action.click(homePage.BUTTON_SET());
 
-            selectPickUpLocation(dragFactor);
-
-            selectDropLocation(dragFactor);
+            }else {
+                selectPickUpLocation(dragFactor);
+                selectDropLocation(dragFactor);
+            }
             selectTripDriver(tripDriverType);
 
             testStepVerify.isTrue(verifyNoOfDriver(tripDriverType), "I Requested Bungii",
@@ -494,7 +502,7 @@ public class HomeSteps extends DriverBase {
      * Wait for loading to disappear
      */
     public void waitForLoadingDisappear() {
-        action.invisibilityOfElementLocated(homePage.Image_Loading());
+        action.invisibilityOfElementLocated(homePage.Image_Loading(true));
     }
 
     /**

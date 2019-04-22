@@ -755,6 +755,10 @@ public class CommonSteps extends DriverBase {
 
                 logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.user"),
                         PropertyUtility.getDataProperties("customer.password"));
+
+                cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("customer.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("customer.user") );
+
                 iClickButtonOnScreen("Log In", "Log In");
                 if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
                     action.click(termsAndConditionPage.Button_CheckOff());

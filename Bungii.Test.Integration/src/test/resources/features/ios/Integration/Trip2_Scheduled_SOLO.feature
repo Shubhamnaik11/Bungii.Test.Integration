@@ -14,7 +14,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     Given I am on Customer logged in Home page
-
+  @TEST
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
@@ -32,7 +32,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
-    Then Bungii Posted message should be displayed
+ #   Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
@@ -157,7 +157,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
-    Then Bungii Posted message should be displayed
+ #   Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
@@ -206,7 +206,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-@OTHER
+
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
  #   When I Switch to "customer" application on "same" devices
@@ -236,7 +236,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-  @OTHER
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     When I Select "ACCOUNT" from Customer App menu
@@ -251,13 +251,14 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
+    Then Bungii Posted message should be displayed
     And I click "Done" button on "Success" screen
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     When I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     Then I Cancel selected Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  @OTHER
+
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 

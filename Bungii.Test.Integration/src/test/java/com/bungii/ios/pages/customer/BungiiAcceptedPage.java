@@ -8,9 +8,11 @@ public class BungiiAcceptedPage extends PageBase {
         return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath);
     }
 
-    public WebElement Button_Ok() {
+/*    public WebElement Button_Ok() {
         return findElement("OK", LocatorType.Name);
-    }
-
+    }*/
+public WebElement Button_Ok() {
+    return findElement("OK", LocatorType.AccessibilityId);
+}
 
 }

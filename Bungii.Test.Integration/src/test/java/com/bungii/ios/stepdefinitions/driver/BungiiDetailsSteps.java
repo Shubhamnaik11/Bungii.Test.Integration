@@ -60,7 +60,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     diffInMinutes = 0;
                 }
                 action.hardWaitWithSwipeUp((int) diffInMinutes + 1);
-                log("I wait for "+diffInMinutes+1+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+1, true);
+                log("I wait for "+diffInMinutes+1+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+1+" (Extra buffer)", true);
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

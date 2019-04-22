@@ -38,7 +38,7 @@ public class EstimateSteps extends DriverBase {
     }
 
     @When("^I confirm trip with following details$")
-    public void     iEnterTripInformation(DataTable tripInformation) {
+    public void iEnterTripInformation(DataTable tripInformation) {
 
         try {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
@@ -94,6 +94,62 @@ public class EstimateSteps extends DriverBase {
             testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
                             + strTime + " not matching with entered time ");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+
+    @When("^I confirm trip with following detail$")
+    public void  iEnterTripInformations(DataTable tripInformation) throws Throwable  {
+        try {
+            Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
+            String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
+                    pickUpImage = data.get("PickUpImage");
+            //Vishal[21/12]: added this to save time , It takes time to read trip value from estimate page
+            boolean saveDetails = true;
+            try {
+                String save_trip_info = data.get("Save Trip Info");
+                saveDetails = save_trip_info.equalsIgnoreCase("No") ? false : true;
+            } catch (Exception e) {
+            }
+            boolean isCorrectTime = false;
+            String strTime = "";
+
+            enterLoadingTime(loadTime);
+            //  addPromoCode(promoCode);
+            addBungiiPickUpImage(pickUpImage);
+            clickAcceptTerms();
+            strTime = enterTime(time);
+
+            String[] details = new String[4];
+            if (saveDetails) {
+                details = getEstimateDetails();
+            }
+
+            i_request_for_bungii_using_request_bungii_button();
+
+            // SAVE required values in scenario context
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
+
+            if (action.isAlertPresent()) {
+                if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
+                    warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
+                    SetupManager.getDriver().switchTo().alert().accept();
+                    strTime = enterTime(time);
+                    cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+                    i_request_for_bungii_using_request_bungii_button();
+                }
+            }
+
+            log( "I confirm trip with following details", "Trip was successfully confirmed ");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -166,7 +222,12 @@ public class EstimateSteps extends DriverBase {
             String[] timeSplit = tripTime.trim().split("\\W");
             selectBungiiTime(0, timeSplit[0], timeSplit[1], timeSplit[2]);
             strTime = expectedTripTime;
-        } else {
+        } else if(time.equals("NEXT_POSSIBLE_IN_DATE_SCROLL")){
+            Date date = getNextScheduledBungiiTime();
+            String[] dateScroll = bungiiTimeForScroll(date);
+            strTime = bungiiTimeDisplayInTextArea(date);
+            selectBungiiTime();
+        }else {
             selectBungiiTime(0, "", "", "");
             strTime = "Now";
         }
@@ -788,11 +849,18 @@ public class EstimateSteps extends DriverBase {
         action.click(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
         //  action.click(estimatePage.Row_TimeSelect());
-
         action.click(estimatePage.Button_Set());
-
     }
 
+    /**
+     * Select Bungii time
+     *
+     */
+    public void selectBungiiTime() {
+        action.click(estimatePage.Row_TimeSelect());
+        //  action.click(estimatePage.Row_TimeSelect());
+        action.click(estimatePage.Button_Set());
+    }
     /**
      * Select Bungii trip time to Now
      */
@@ -846,7 +914,7 @@ public class EstimateSteps extends DriverBase {
      * Click request bungii
      */
     public void clickRequestBungii() {
-        estimatePage.Button_RequestBungii().click();
+        action.click(estimatePage.Button_RequestBungii());
     }
 
     /**
