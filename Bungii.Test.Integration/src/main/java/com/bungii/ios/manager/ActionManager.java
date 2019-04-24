@@ -198,6 +198,8 @@ public class ActionManager {
      *            Reference element for all the coordinate
      */
     public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
+        logger.detail("Slide started");
+
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
         Map<String, Object> params = new HashMap<>();
         params.put("duration", duration);
@@ -207,7 +209,7 @@ public class ActionManager {
         params.put("toY", endy);
         params.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: dragFromToForDuration", params);
-
+        logger.detail("Slide ended");
     }
     /**
      * Drag from one point to andother IOS SPECIFIC

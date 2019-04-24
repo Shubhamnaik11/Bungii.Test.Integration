@@ -488,10 +488,13 @@ public class CommonSteps extends DriverBase {
             }
             switch (appName.toUpperCase()) {
                 case "DRIVER":
-                    action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+                    //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                     break;
                 case "CUSTOMER":
-                    action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+
+                    //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
