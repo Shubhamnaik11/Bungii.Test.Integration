@@ -12,7 +12,7 @@ Feature: SoloScheduled
     Then I get driver account details for driver 1
     And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
-  @FAILED
+
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     When I tap on "Menu" > "Account" link
