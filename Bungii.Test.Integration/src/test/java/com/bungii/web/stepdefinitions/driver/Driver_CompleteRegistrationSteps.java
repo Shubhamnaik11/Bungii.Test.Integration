@@ -97,10 +97,10 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("ExpirationDate"));
                 utility.addImageInDropZone(Page_Driver_Doc.DropZoneHiddenFileTag_InsuranceImage(), insuranceImagePath);
-                Thread.sleep(5000);
+                Thread.sleep(7000);
                //ToDO if(action.isElementDisplayed(Page_Driver_Details.loading_Wrapper(true)))
                 //ToDO    action.invisibilityOfElementLocated(Page_Driver_Details.loading_Wrapper(true));
-                testStepVerify.isElementDisplayed(Page_Driver_Doc.Link_InsuranceRemoveFile(), " Insurance remove file should be displayed ", " Insurance remove file is displayed", " Insurance remove file is not displayed");
+                testStepVerify.isElementDisplayed(Page_Driver_Doc.Link_InsuranceRemoveFile(true), " Insurance remove file should be displayed ", " Insurance remove file is displayed", " Insurance remove file is not displayed");
                 break;
 
             case "invalid date":

@@ -30,7 +30,7 @@ public class Driver_DocumentationPage extends PageBase {
     public WebElement DropZone4_InsuranceImage () { return findElement("//div[@id='dropzone4']", LocatorType.XPath); }
 
     //Documentation - Insurance Image Upload - Remove file
-    public WebElement Link_InsuranceRemoveFile () { return findElement("//div[@id='dropzone4']/div/a[contains(text(),'Remove')]", LocatorType.XPath); }
+    public WebElement Link_InsuranceRemoveFile (boolean ...ignoreExceptions) { return findElement("//div[@id='dropzone4']/div/a[contains(text(),'Remove')]", LocatorType.XPath,ignoreExceptions); }
 
     //Documentation - Insurance expiration
     public WebElement TextBox_InsuranceExpiry () { return findElement("DriverDocument_InsuranceExpiry", LocatorType.Id); }

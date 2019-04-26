@@ -14,8 +14,10 @@ public class DbUtility extends DbContextManager {
      */
     public static String getVerificationCode(String phoneNumber) {
         String smsCode = "";
-        String queryString = "SELECT SmsVerificationCode FROM Customer WHERE Phone = " + phoneNumber;
-        smsCode = getDataFromMsSqlServer(queryString);
+/*        String queryString = "SELECT SmsVerificationCode FROM Customer WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMsSqlServer(queryString);*/
+        String queryString = "SELECT SmsVerificationCode FROM customer WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
         logger.detail("SMS code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
@@ -28,8 +30,10 @@ public class DbUtility extends DbContextManager {
      */
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
-        String queryString = "SELECT Id FROM Customer WHERE Phone = " + phoneNumber;
-        id = getDataFromMsSqlServer(queryString);
+/*        String queryString = "SELECT Id FROM Customer WHERE Phone = " + phoneNumber;
+        id = getDataFromMsSqlServer(queryString);*/
+        String queryString = "SELECT Id FROM customer WHERE Phone = " + phoneNumber;
+        id = getDataFromMySqlMgmtServer(queryString);
         logger.detail("Phone Number " + phoneNumber + "is unique " + id.equals(""));
         return id.equals("");
     }
