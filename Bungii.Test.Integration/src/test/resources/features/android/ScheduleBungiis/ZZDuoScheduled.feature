@@ -1,5 +1,5 @@
 @android
-
+@duo
 Feature: Duo
 
   Background:
