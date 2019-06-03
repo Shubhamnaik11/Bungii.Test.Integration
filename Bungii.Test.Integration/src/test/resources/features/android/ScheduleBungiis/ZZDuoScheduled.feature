@@ -1,5 +1,5 @@
 @android
-@duo
+
 Feature: Duo
 
   Background:
@@ -21,6 +21,7 @@ Feature: Duo
 
     And I Select "ACCOUNT" from driver App menu
     Then I get driver account details for driver 2
+    And I Select "Home" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     When I Switch to "customer" application on "same" devices
 
@@ -128,7 +129,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-  @Duo
+
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 

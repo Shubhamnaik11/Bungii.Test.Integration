@@ -128,7 +128,7 @@ public class TripStatusSteps extends DriverBase {
                 isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
                 //country is not displayed now
                 isDropLocationDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
-                        .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+                        .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace("Rd","Road").replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isEtaDisplayed && isDropLocationDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -159,7 +159,7 @@ public class TripStatusSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+                isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace("Rd","Road").replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result

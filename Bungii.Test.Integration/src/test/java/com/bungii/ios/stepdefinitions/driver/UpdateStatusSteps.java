@@ -1,6 +1,7 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -11,6 +12,7 @@ import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.WebElement;
@@ -362,7 +364,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isDropLocationDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
-                .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+                .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isDropLocationDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -413,7 +415,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        boolean isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+        boolean isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace("Rd","Road").replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
 
         if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -533,6 +535,10 @@ public class UpdateStatusSteps extends DriverBase {
         //get locator rectangle is time consuming process
 /*        if (initial == null)
             initial = action.getLocatorRectangle(updateStatusPage.AreaSlide());*/
+/*        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));*/
+
+
     WebElement slider =updateStatusPage.AreaSlide();
         Rectangle initial;
         if (!utility.isSliderValueContainsInContext("DRIVER")) {

@@ -18,6 +18,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     When I Switch to "driver" application on "same" devices
+
   @regression
   Scenario: OnDemand_DriverRejectsBungiiRequest
     When Bungii Driver "rejects On Demand Bungii" request

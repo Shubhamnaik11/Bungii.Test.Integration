@@ -5,6 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -17,7 +18,10 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -543,6 +547,20 @@ public class GeneralUtility extends DriverBase {
         int y = element.getLocation().getY() +element.getRect().getHeight()+ 10;
         Thread.sleep(2000);
         new TouchAction(driver).tap(new PointOption().withCoordinates(x, y)).release().perform();
+    }
+
+    public String getCustomerSnackBarMessage(){
+
+        WebDriverWait wait = new WebDriverWait( SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated( By.id("com.bungii.customer:id/snackbar_text")));
+        return action.getText(element);
+    }
+
+    public String getDriverSnackBarMessage(){
+
+        WebDriverWait wait = new WebDriverWait( SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated( By.id("com.bungii.driver:id/snackbar_text")));
+        return action.getText(element);
     }
 
     public void acceptNotificationAlert() {

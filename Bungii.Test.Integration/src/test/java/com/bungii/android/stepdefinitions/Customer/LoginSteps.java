@@ -105,7 +105,8 @@ public class LoginSteps extends DriverBase {
             String errorMessage = "", actualMessage = "", expectedMessage = "";
             switch (strArg1) {
                 case "snackbar validation message invalid password":
-                    testStepVerify.isElementTextEquals(loginPage.Snackbar(), PropertyUtility.getMessage("customer.error.invalidpassword"));
+                    //testStepVerify.isElementTextEquals(loginPage.Snackbar(), PropertyUtility.getMessage("customer.error.invalidpassword"));
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.invalidpassword"));
                     break;
                 case "field validations for password":
                     actualMessage = utility.trimString(action.getText(loginPage.Error_EnterPassword()));

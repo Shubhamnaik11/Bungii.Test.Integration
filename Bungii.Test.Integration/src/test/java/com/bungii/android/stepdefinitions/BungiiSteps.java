@@ -383,10 +383,15 @@ public class BungiiSteps extends DriverBase {
                         utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), expectedDuoNumber);
 
                     if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(),expectedDuoNumber);
-                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-
+                        if(action.isElementPresent(Page_OtherApps.SMS_Moto_RecipientNo(true))) {
+                            utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), expectedDuoNumber);
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        }else{
+                            utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo_And7(), expectedDuoNumber);
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        }
                     }
 
                     break;
@@ -545,11 +550,18 @@ public class BungiiSteps extends DriverBase {
                         utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
 
                     if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
-                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        {if(action.isElementPresent(Page_OtherApps.SMS_Moto_RecipientNo(true))){
+                            utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), expectedDuoNumber, "Number " + expectedDuoNumber + "should be correctly displayed", "Number" + expectedDuoNumber + " is not correctly displayed");
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        }else
+                            {
+                            utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo_And7(), expectedDuoNumber);
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                            ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        }
 
-                    }
+                    }}
 
                     break;
                 case "Support-SMS":
@@ -558,11 +570,17 @@ public class BungiiSteps extends DriverBase {
                         utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), PropertyUtility.getMessage("driver.support.number"),"Support number should be correctly displayed","Support number is not correctly displayed");
 
                     if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        if(action.isElementPresent(Page_OtherApps.SMS_Moto_RecipientNo(true))){
                         utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo(), PropertyUtility.getMessage("driver.support.number"),"Support number should be correctly displayed","Support number is not correctly displayed");
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
 
-                    }
+                    }else
+                    {
+                        utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Moto_RecipientNo_And7(), PropertyUtility.getMessage("driver.support.number"));
+                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                        ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    }}
                     break;
                 case "Driver 1 Calling":
                 case "Driver 2 Calling":
