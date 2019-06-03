@@ -1,0 +1,47 @@
+{
+  "device1": {
+    "platformName": "iOS",
+    "platformVersion": "11.1",
+    "automationName": "XCUITest",
+    "app": "com.bungii.customer",
+    "deviceName": "CCI-iPhone6P-1",
+    "udid": "90512791eea23af17ac9ca5dbd29a2ade7568071",
+    "newCommandTimeout": "20000",
+    "wdaLaunchTimeout": "240000",
+    "wdaConnectionTimeout": "240000",
+    "simpleIsVisibleCheck": true,
+    "wdaLocalPort": 8100
+
+  },
+  "extra1": {
+    "platformName": "iOS",
+    "platformVersion": "11.2",
+    "automationName": "XCUITest",
+    "app": "com.bungii.customer",
+    "deviceName": "iPhone 6S-01",
+    "udid": "9c8414b952bc0f72f9d51a232e5d1dba45efcce4",
+    "newCommandTimeout": "20000",
+    "wdaLaunchTimeout": "240000",
+    "wdaConnectionTimeout": "240000",
+    "simpleIsVisibleCheck": true,
+    "wdaLocalPort": 8110
+
+  },
+  "device2": {
+    "platformName": "iOS",
+    "platformVersion": "10.2",
+    "automationName": "XCUITest",
+    "app": "com.bungii.customer",
+    "deviceName": "CCI-iPhone7-1",
+    "udid": "ed720c436342a2667475f4eba0448a94d687c3e2",
+    "newCommandTimeout": "12000",
+    "wdaLaunchTimeout": "240000",
+    "wdaConnectionTimeout": "240000",
+    "simpleIsVisibleCheck": true,
+    "wdaLocalPort": 8110
+  },
+  "connection": {
+    "device1": 4723,
+    "extra1": 4727
+  }
+}

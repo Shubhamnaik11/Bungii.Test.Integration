@@ -1,0 +1,187 @@
+package com.bungii.web.stepdefinitions.admin;
+
+import com.bungii.common.core.DriverBase;
+import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.*;
+import com.bungii.web.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.*;
+
+public class Admin_DriverApprovalSteps extends DriverBase {
+    Admin_LoginPage adminLoginPage = new Admin_LoginPage();
+    Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
+    Admin_DashboardPage adminDashboardPage = new Admin_DashboardPage();
+    Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
+    Admin_GetAllBungiiDriversPage admin_GetAllBungiiDriversPage = new Admin_GetAllBungiiDriversPage();
+
+    GeneralUtility utility = new GeneralUtility();
+    ActionManager action = new ActionManager();
+
+    @Given("^I am logged in as Admin$")
+    public void i_am_logged_in_as_admin() throws Throwable {
+        utility.AdminLogin();
+    }
+
+    @And("^there is a pending driver verification$")
+    public void there_is_a_pending_driver_verification() throws Throwable {
+        testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
+        //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
+        testStepAssert.isElementDisplayed(adminDashboardPage.PendingVerification().get(0), "There should be Pending application", "There is Pending application", "There is not Pending application");
+    }
+
+    @When("^I click \"([^\"]*)\" button against the applicant name$")
+    public void i_click_something_button_against_the_applicant_name(String strArg1) throws Throwable {
+
+       // cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
+
+        //Search code
+       action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
+        String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
+        action.click(admin_GetAllBungiiDriversPage.Button_Search());
+        Thread.sleep(4000);
+        switch (strArg1) {
+            case "Verify":
+                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(Lastname));
+                break;
+        }
+
+    }
+
+    @Then("^I should be directed to \"([^\"]*)\"$")
+    public void i_should_be_directed_to_something(String screen) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Title_DriverVerificationPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+    }
+
+    @And("^I verify and approve all the verification fields$")
+    public void i_verify_and_approve_all_the_verification_fields() throws Throwable {
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverBirthday());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());   }
+
+    @And("^I click on the \"([^\"]*)\" Button$")
+    public void iClickOnTheButton(String arg0) throws Throwable {
+        switch (arg0)
+        {
+            case "Approve Application":
+                action.click(admin_DriverVerificationPage.Button_DriverApproveApplication());
+                Thread.sleep(5000);
+                break;
+            case "Submit":
+                action.click(admin_DriverVerificationPage.Button_Submit());
+                Thread.sleep(5000);
+                break;
+            case "Resend Application":
+                action.click(admin_DriverVerificationPage.Button_DriverResentButton());
+                break;
+            case "Cancel":
+            action.click(admin_DriverVerificationPage.Button_Cancel());
+            break;
+        }    }
+
+
+    @And("^I confirm the \"([^\"]*)\" action$")
+    public void i_confirm_the_something_action(String strArg1) throws Throwable {
+        switch (strArg1)
+        {
+            case "Driver Application Approval":
+                action.click(admin_DriverVerificationPage.Button_DriverConfirmApproval());
+                break;
+
+            case "Driver Resend Application":
+                action.click(admin_DriverVerificationPage.Button_DriverConfirmResend());
+                break;
+
+            case "Driver Reject Application":
+                action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
+                break;
+        }    }
+    @And("^the \"([^\"]*)\" button is not visible$")
+    public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
+        switch (strArg1)
+        {
+            case "Approve Application":
+                testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Button_DriverApproveApplication(),"Approve Application button should be displayed","Approve Application button is displayed","Approve Application button is not displayed");
+                break;
+            case "Resend Application":
+                testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Button_DriverResentButton(),"Resend Application button should be displayed","Resend Application button is displayed","Resend Application button is not displayed");
+                break;
+        }    }
+
+
+
+
+        @Then("^the status of the driver application should be marked as \"([^\"]*)\"$")
+        public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws Throwable {
+
+        //Search code
+            String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
+            action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
+            action.click(admin_GetAllBungiiDriversPage.Button_Search());
+            Thread.sleep(3000);
+            switch (arg0)
+            {
+                case "Active":
+                  testStepAssert.isElementDisplayed(admin_GetAllBungiiDriversPage.GridRow_BungiiActiveDriver(Lastname),"Active Status should be displayed","Active Status is displayed","Active Status is not displayed");
+                    break;
+                case "Rejected":
+                    testStepAssert.isElementDisplayed(admin_GetAllBungiiDriversPage.GridRow_BungiiRejectedDriver(Lastname),"Rejected Status should be displayed","Rejected Status is displayed","Rejected Status is not displayed");
+                    break;
+                case "Re-sent to Driver":
+                    testStepAssert.isElementDisplayed(admin_GetAllBungiiDriversPage.GridRow_BungiiResentToDriver(Lastname),"Re-sent to Driver Status should be displayed","Re-sent to Driver Status is displayed","Re-sent to Driver Status is not displayed");
+                    break;
+                case "Pending Verification":
+                    testStepAssert.isElementDisplayed(admin_GetAllBungiiDriversPage.GridRow_BungiiPendingVerification(Lastname),"Pending Verification Status should be displayed","Pending Verification Status is displayed","Pending Verification Status is not displayed");
+                    break;
+            }
+        
+
+         }
+
+
+    @Then("^the validation message \"([^\"]*)\" is displayed$")
+    public void theValidationMessageIsDisplayed(String arg0) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
+
+    }
+
+    @When("^I enter the reject reason$")
+    public void iEnterTheRejectReason() throws Throwable {
+        action.clearSendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication(),"Invalid values found. Please review and resend the application");
+    }
+
+    @Then("^the status of the field changes to \"([^\"]*)\"$")
+    public void theStatusOfTheFieldChangesTo(String arg0) throws Throwable {
+        switch (arg0) {
+            case "Accepted":
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status of the field ","Status is accepted" , "Field is not accepted");
+            break;
+                case "Rejected":
+                testStepAssert.isElementValueEquals(admin_DriverVerificationPage.Status_Accepted(), "","I check status of the field ","Status is rejected" , "Field is not rejected");
+        break;
+        }
+    }
+
+    @Then("^the status of the field resets to default$")
+    public void theStatusOfTheFieldResetsToDefault() throws Throwable {
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
+
+    }
+}
