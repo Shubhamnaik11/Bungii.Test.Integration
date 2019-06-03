@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.github.appium:java-client:e6bef4c917e8892ba8320e4837e80c9123487b14">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/e6bef4c917e8892ba8320e4837e80c9123487b14/java-client-e6bef4c917e8892ba8320e4837e80c9123487b14.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/e6bef4c917e8892ba8320e4837e80c9123487b14/java-client-e6bef4c917e8892ba8320e4837e80c9123487b14-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/appium/java-client/e6bef4c917e8892ba8320e4837e80c9123487b14/java-client-e6bef4c917e8892ba8320e4837e80c9123487b14-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
