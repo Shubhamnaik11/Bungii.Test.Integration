@@ -1,5 +1,0 @@
-com\bungii\runner\RunSuite_IOS.class
-com\bungii\android\stepdefinitions\MyStepdefs.class
-com\bungii\runner\RunSuite_Android.class
-com\bungii\hooks\CucumberHooks.class
-com\bungii\Parallel01IT.class
