@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunAutoSuite.ic" NAME="RunAutoSuite Coverage Results" MODIFIED="1559806090996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.bungii.runner.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="2254" />
+    <option name="y" value="19" />
+    <option name="width" value="1694" />
+    <option name="height" value="1064" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559806134782" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/UserProperties/runConfig.properties" />
+  </component>
+  <component name="RunManager">
+    <configuration name="RunAutoSuite" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="Bungii.Test.Integration" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bungii.runner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SUITE_NAME" value="" />
+      <option name="PACKAGE_NAME" value="com.bungii.runner" />
+      <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunAutoSuite" />
+      <option name="GROUP_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="OUTPUT_DIRECTORY" value="" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="PROPERTIES_FILE" value="$PROJECT_DIR$/src/main/resources/UserProperties/runConfig.properties" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.RunAutoSuite" />
+      </list>
+    </recent_temporary>
+  </component>
+</project>
