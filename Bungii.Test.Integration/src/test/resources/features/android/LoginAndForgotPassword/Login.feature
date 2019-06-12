@@ -1,5 +1,5 @@
 @android
-
+@S29READY
 Feature: Login
   In order to login to bungii
   As a customer and perform functions
@@ -13,6 +13,7 @@ Feature: Login
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     Then The user should be logged in
+    When I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Cust_Login_InvalidCredentials

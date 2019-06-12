@@ -230,6 +230,7 @@ public class ActionManager {
     }
 
     public void scrollToBottom() {
+        try {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
         //if pressX was zero it didn't work for me
@@ -239,7 +240,8 @@ public class ActionManager {
         // just non zero point, as it didn't scroll to zero normally
         int topY = driver.manage().window().getSize().height / 8;
         //scroll with TouchAction by itself
-        scroll(pressX, bottomY, pressX, topY);
+        scroll(pressX, bottomY, pressX, topY);}catch (Exception e){
+            logger.error("Not able to scroll");}
     }
 
     /**

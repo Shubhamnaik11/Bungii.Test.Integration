@@ -51,9 +51,11 @@ public class BungiiSteps extends DriverBase {
             switch (arg0) {
                 case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
-                    String pickUpLocation = action.getText(customerHomePage.Textfield_PickupLocation()), dropUpLocation = action.getText(customerHomePage.Textfield_DropoffLocation());
-                    testStepVerify.isEquals(pickUpLocation, (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
-                    testStepVerify.isEquals(dropUpLocation, (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+                    //Sprint 29 changes
+                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
 
                     break;
 

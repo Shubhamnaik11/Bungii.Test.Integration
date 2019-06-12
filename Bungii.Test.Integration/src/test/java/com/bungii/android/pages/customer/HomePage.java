@@ -10,12 +10,6 @@ public class HomePage extends PageBase {
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
 
-    public WebElement Textfield_PickupLocation () { return findElements("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath).get(0); }
-
-    public WebElement Textfield_DropoffLocation () { return findElements("//android.widget.EditText[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath).get(1); }
-
-    public WebElement Textfield_ActualDropoffLocation () { return findElement("places_autocomplete_dropoff_location",LocatorType.Id); }
-
     //------Title-----------------------------------------------------------------------------------------
     public WebElement Title_HomePage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/toolbar_main_title",LocatorType.Id,ignoreException); }
 
@@ -65,6 +59,18 @@ public class HomePage extends PageBase {
     public WebElement Button_NavPromos() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(6); }
     public WebElement Button_NavDrives() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(7); }
     public WebElement Button_Navlogout() { return findElements("//*[@resource-id='com.bungii.customer:id/design_menu_item_text']",LocatorType.XPath).get(8); }
+
+    public WebElement Button_ClearPickUp (boolean ...ignoreException) { return findElement("com.bungii.customer:id/layout_places_autocomplete_iv_clear",LocatorType.Id,ignoreException); }
+    public WebElement Button_ClearDrop () { return findElements("com.bungii.customer:id/layout_places_autocomplete_iv_clear",LocatorType.Id).get(1); }
+    public WebElement TextBox_PickUpLocLine1(){return findElement("com.bungii.customer:id/layout_places_autocomplete_addressline_one",LocatorType.Id);}
+    public WebElement TextBox_PickUpLocLine2(){return findElement("com.bungii.customer:id/layout_places_autocomplete_addressline_two",LocatorType.Id);}
+    public WebElement TextBox_PickUp(){return findElement("com.bungii.customer:id/address_ll_container",LocatorType.Id);}
+    public WebElement TextBox_PickUpTextBox(){return findElement("com.bungii.customer:id/autocomplete_textview",LocatorType.Id);}
+    public WebElement TextBox_DropOffLine1(){return findElements("com.bungii.customer:id/layout_places_autocomplete_addressline_one",LocatorType.Id).get(1);}
+    public WebElement TextBox_DropOffLine2(){return findElements("com.bungii.customer:id/layout_places_autocomplete_addressline_two",LocatorType.Id).get(1);}
+    public WebElement TextBox_DropOff(boolean ...ignoreException){return findElement("//*[@resource-id='com.bungii.customer:id/places_autocomplete_dropoff_location']/descendant::*[@resource-id='com.bungii.customer:id/address_ll_container']",LocatorType.XPath,ignoreException);}
+    public WebElement TextBox_DropOffTextBox(){return findElement("//*[@resource-id='com.bungii.customer:id/places_autocomplete_dropoff_location']/descendant::*[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath);}
+
 
 
 }

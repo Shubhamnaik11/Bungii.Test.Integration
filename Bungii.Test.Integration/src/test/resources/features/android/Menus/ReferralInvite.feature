@@ -1,5 +1,5 @@
 @android
-
+@S29READY
 Feature: ReferralInvite
 
   Background:
@@ -14,8 +14,8 @@ Feature: ReferralInvite
     When I tap "Share" on Invite page
     When I tap "Share by Text Message" on Invite page
     Then I should see post "on text message app"
-    When I Switch to "customer" application on "same" devices
-  
+  #  When I Switch to "customer" application on "same" devices
+
   @regression
   Scenario: Cust_Menu_ReferralInvite_Email
     When I tap "Share" on Invite page

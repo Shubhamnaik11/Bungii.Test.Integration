@@ -244,7 +244,7 @@
                                 <test.Platform>${test.Platform}</test.Platform>
                                 <test.Environment>${test.Environment}</test.Environment>
                                 <test.Category>${test.Category}</test.Category>
-                                <multiple.data.file>${multiple.data.file}}</multiple.data.file>
+                                <multiple.data.file>${multiple.data.file}</multiple.data.file>
                                 <remote.adb.ip>${remote.adb.ip}</remote.adb.ip>
                             </systemPropertyVariables>
                             <testFailureIgnore>true</testFailureIgnore>

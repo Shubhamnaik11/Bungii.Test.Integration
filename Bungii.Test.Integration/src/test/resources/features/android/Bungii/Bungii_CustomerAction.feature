@@ -1,5 +1,5 @@
 @android
-
+@S29READY
 Feature: Bungii
 
   Background:
@@ -10,7 +10,7 @@ Feature: Bungii
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
 
-
+  
   @regression
   Scenario: Bungii_CustomerCancelOnHeadsUp
     And I get Bungii details on Bungii Estimate

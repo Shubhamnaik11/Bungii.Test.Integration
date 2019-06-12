@@ -1,4 +1,5 @@
 @android
+@S29READY
 Feature: Customer Home screen
 
   Background:

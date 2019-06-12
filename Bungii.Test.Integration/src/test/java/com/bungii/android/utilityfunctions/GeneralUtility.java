@@ -25,6 +25,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.warning;
@@ -313,7 +314,8 @@ public class GeneralUtility extends DriverBase {
      * @param menuItem identifier for menu
      */
     public void clickCustomerMenuItem(String menuItem) {
-        action.click(homePage.Button_NavigationBar());
+        try{
+        action.click(homePage.Button_NavigationBar());}catch (org.openqa.selenium.NoSuchElementException e){}
         switch (menuItem.toUpperCase()) {
             case "HOME":
                 action.click(homePage.Button_NavHome());
