@@ -45,12 +45,19 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeStaticText[@name='DROP OFF LOCATION']/following::XCUIElementTypeTextField", LocatorType.XPath);
     }*/
 
-    public WebElement Text_PickUpLocation() {
-        return findElement("**/XCUIElementTypeTextField[1]", LocatorType.ClassChain);
+    public WebElement Text_PickUpLocationLineOne() {
+        return findElement("//XCUIElementTypeImage[@name=\"input_icon_pickup\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath);
+    }
+    public WebElement Text_PickUpLocationLineTwo() {
+        return findElement("//XCUIElementTypeImage[@name=\"input_icon_pickup\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath);
     }
 
-    public WebElement Text_DropOffLocation() {
-        return findElement("**/XCUIElementTypeTextField[2]", LocatorType.ClassChain);
+
+    public WebElement Text_DropOffLocationLineOne() {
+        return findElement("//XCUIElementTypeImage[@name=\"input_icon_dropoff\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath);
+    }
+    public WebElement Text_DropOffLocationLineTwo() {
+        return findElement("//XCUIElementTypeImage[@name=\"input_icon_dropoff\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath);
     }
 
    // public WebElement Text_DistanceValue() {       return findElement("//XCUIElementTypeStaticText[@name='Trip Distance']/following::XCUIElementTypeStaticText", LocatorType.XPath);    }
@@ -184,6 +191,9 @@ public class EstimatePage extends PageBase {
 
     public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.AccessibilityId);
+    }
+    public WebElement Button_AddPhotoAdditional() {
+        return findElement("ADD ITEM OR RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Text_Time() {
         return findElement("Time", LocatorType.AccessibilityId);

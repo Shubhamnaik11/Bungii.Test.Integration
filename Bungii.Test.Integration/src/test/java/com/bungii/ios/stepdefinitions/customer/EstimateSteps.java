@@ -497,22 +497,27 @@ public class EstimateSteps extends DriverBase {
     public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-            String pickUpLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
-            String dropOffLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
+            String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+            String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
 
-            String[] tripLocation = new String[2];
-            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocation());
-            tripLocation[1] = action.getValueAttribute(estimatePage.Text_DropOffLocation());
+            String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+            String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
 
-            if (tripLocation[0].equals(pickUpLocation) && tripLocation[1].equals(dropOffLocation)) {
+            String[] tripLocation = new String[4];
+            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineOne());
+            tripLocation[1] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineTwo());
+            tripLocation[2] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineOne());
+            tripLocation[3] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineTwo());
+
+            if (tripLocation[0].equals(pickUpLocationLineOne) && tripLocation[1].equals(pickUpLocationLineTwo) &&tripLocation[2].equals(dropOffLocationLineOne) && tripLocation[3].equals(dropOffLocationLineTwo)) {
                 pass("Trip Information should be correctly displayed on Estimate screen",
-                        "Pick up location :" + pickUpLocation + " , Drop location: " + dropOffLocation
+                        "Pick up location :" + pickUpLocationLineOne + " , Drop location: " + dropOffLocationLineOne
                                 + "is correctly displayed on estimate screen ", true);
 
             } else {
                 fail("Trip Information should be correctly displayed on Estimate screen",
-                        "Pick up location on request screen is:" + pickUpLocation + " and on Estimate screen is"
-                                + tripLocation[0] + " .Drop off location on request screen is:" + dropOffLocation + " and on Estimate screen is" + tripLocation[1],
+                        "Pick up location on request screen is:" + pickUpLocationLineOne + " and on Estimate screen is"
+                                + tripLocation[0] + " .Drop off location on request screen is:" + dropOffLocationLineOne + " and on Estimate screen is" + tripLocation[1],
                         true);
             }
 
@@ -771,18 +776,6 @@ public class EstimateSteps extends DriverBase {
     }
 
     /**
-     * Get trip information .(Pickup / Drop location)
-     *
-     * @return trip information
-     */
-    public String[] getTripLocationInformation() {
-        String[] tripInformation = new String[2];
-        tripInformation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocation());
-        tripInformation[1] = action.getValueAttribute(estimatePage.Text_DropOffLocation());
-        return tripInformation;
-    }
-
-    /**
      * Enter loading/unloading time
      *
      * @param timeValue input that is to be entered
@@ -886,7 +879,10 @@ public class EstimateSteps extends DriverBase {
 
     private void addImage(int numberOfImage) {
         for (int i = 1; i <= numberOfImage; i++) {
-            estimatePage.Button_AddPhoto().click();
+            if(i==1)
+                estimatePage.Button_AddPhoto().click();
+            else
+                estimatePage.Button_AddPhotoAdditional().click();
             estimatePage.Button_Gallary().click();
             estimatePage.PhotosFolder().click();
             List<WebElement> folder = estimatePage.Cell_Photo();

@@ -43,20 +43,20 @@ public class HomeSteps extends DriverBase {
     }
 
     public void verifyTripInformationOnHome() {
-        String expectedPickUpLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")),
-                expectedDropLocation = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")), expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+        String expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")),expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")),
+                expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")),expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")), expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
-        String actualPickUpLocation = getSelectedPickUpLocation();
-        String actualDropLocation = getSelectedDropLocation();
+        String[] actualPickUpLocation = getSelectedPickUpLocation();
+        String[] actualDropLocation = getSelectedDropLocation();
 
-        testStepVerify.isTrue(actualPickUpLocation.equals(expectedPickUpLocation),
+        testStepVerify.isTrue(actualPickUpLocation[0].equals(expectedPickUpLocationLineOne) &&actualPickUpLocation[1].equals(expectedPickUpLocationLineTwo),
 
-                "Pick up address should be " + expectedPickUpLocation, "Pick up address is " + expectedPickUpLocation,
-                "Expected pickup address is " + expectedPickUpLocation + ", but actual is" + actualPickUpLocation);
-        testStepVerify.isTrue(actualDropLocation.equals(expectedDropLocation),
+                "Pick up address should be " + expectedPickUpLocationLineOne, "Pick up address is " + actualPickUpLocation[0],
+                "Expected pickup address is " + expectedPickUpLocationLineOne + ", but actual is" + actualPickUpLocation[0]);
+        testStepVerify.isTrue(actualDropLocation[0].equals(expectedDropLocationLineOne) && actualDropLocation[1].equals(expectedDropLocationLineTwo) ,
 
-                "Drop address should be " + expectedDropLocation, "Drop address is " + expectedDropLocation,
-                "Expected Drop address is " + expectedDropLocation + ", but actual is" + actualDropLocation);
+                "Drop address should be " + expectedDropLocationLineOne, "Drop address is " + actualDropLocation[0],
+                "Expected Drop address is " + expectedDropLocationLineOne + ", but actual is" + actualDropLocation[0]);
         testStepVerify.isTrue(verifyNoOfDriver(expectedTripNoOfDriver),
                 "Number of driver for Bungii should be " + expectedTripNoOfDriver, "Number of driver for Bungii is " + expectedTripNoOfDriver,
                 "Number of driver for Bungii is not " + expectedTripNoOfDriver);
@@ -141,8 +141,13 @@ public class HomeSteps extends DriverBase {
     }
 
     public void saveBungiiHomeDetails(String tripDriverType) {
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION", getSelectedPickUpLocation());
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION", getSelectedDropLocation());
+        String[] pickUpLocation=getSelectedPickUpLocation();
+        String[] dropOffLocation=getSelectedDropLocation();
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", pickUpLocation[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", pickUpLocation[1]);
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", dropOffLocation[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", dropOffLocation[1]);
+
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
     }
 
@@ -188,12 +193,13 @@ public class HomeSteps extends DriverBase {
         try {
         //    ((AppiumDriver)SetupManager.getDriver()).terminateApp( PropertyUtility.getProp("bundleId_Customer"));
          //   ((AppiumDriver)SetupManager.getDriver()).launchApp();
-            String addressValue = getSelectedPickUpLocation();
-            testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals("Set Pickup Location"),
+            String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne());
+
+            testStepVerify.isTrue( !addressValue.isEmpty()&&!addressValue.equals(""),
                     "Pickup location value should be non empty", "Pickup location value is" + addressValue,
                     "Pickup location value should be non empty");
 
-            testStepVerify.isEquals(getEtaTime(), "0 MINS");
+     //       testStepVerify.isEquals(getEtaTime(), "0 MINS");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
@@ -232,14 +238,10 @@ public class HomeSteps extends DriverBase {
             switch (action.toUpperCase()) {
                 case "DROP":
                     testStepVerify.isEquals(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"));
-                    testStepVerify.isEquals(getLocationBoxHeaderValue("DROP"),
-                            PropertyUtility.getMessage("customer.drop.boxheader"));
                     break;
                 case "PICK UP":
                     testStepVerify.isEquals(getEtaBarHeader("PICKUP"),
                             PropertyUtility.getMessage("customer.pickup.etaheader"));
-                    testStepVerify.isEquals(getLocationBoxHeaderValue("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.boxheader"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -253,15 +255,15 @@ public class HomeSteps extends DriverBase {
     }
 
     @Then("^\"([^\"]*)\" address should be displayed in text box$")
-    public void something_address_should_be_displayed_in_text_box(String action) {
+    public void something_address_should_be_displayed_in_text_box(String actionAddress) {
         try {
             String textBoxValue = "";
-            switch (action.toUpperCase()) {
+            switch (actionAddress.toUpperCase()) {
                 case "DROP":
-                    textBoxValue = getSelectedDropLocation();
+                    textBoxValue =action.getValueAttribute(homePage.TextBox_Drop_LineOne()) ;
                     break;
                 case "PICK UP":
-                    textBoxValue = getSelectedPickUpLocation();
+                    textBoxValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne()) ;
                     break;
                 default:
                     throw new Exception(" UN IMPLEMENTED STEP");
@@ -279,15 +281,15 @@ public class HomeSteps extends DriverBase {
     }
 
     @Then("^\"([^\"]*)\" address should be empty$")
-    public void something_address_should_be_empty(String action) {
+    public void something_address_should_be_empty(String actionAddress) {
         try {
             String textBoxValue = "";
-            switch (action.toUpperCase()) {
+            switch (actionAddress.toUpperCase()) {
                 case "DROP":
-                    textBoxValue = getSelectedDropLocation();
+                    textBoxValue = action.getValueAttribute(homePage.TextBox_Pickup()) ;
                     break;
                 case "PICK UP":
-                    textBoxValue = getSelectedPickUpLocation();
+                    textBoxValue =  action.getValueAttribute(homePage.TextBox_Drop()) ;
                     break;
                 default:
                     throw new Exception(" UN IMPLEMENTED STEP");
@@ -485,8 +487,12 @@ public class HomeSteps extends DriverBase {
      *
      * @return value of selected pickup location
      */
-    public String   getSelectedPickUpLocation() {
-        return homePage.TextBox_Pickup().getAttribute("value");
+    public String[]   getSelectedPickUpLocation() {
+        String[] pickUpLocation= new String[2];
+        pickUpLocation[0]=homePage.TextBox_Pickup_LineOne().getAttribute("value");
+        pickUpLocation[1]=homePage.TextBox_Pickup_LineTwo().getAttribute("value");
+
+        return pickUpLocation;
     }
 
     /**
@@ -494,8 +500,11 @@ public class HomeSteps extends DriverBase {
      *
      * @return value of selected drop location
      */
-    public String getSelectedDropLocation() {
-        return homePage.TextBox_Drop().getAttribute("value");
+    public String[] getSelectedDropLocation() {
+        String[] dropLocation= new String[2];
+        dropLocation[0]=homePage.TextBox_Drop_LineOne().getAttribute("value");
+        dropLocation[1]=homePage.TextBox_Drop_LineTwo().getAttribute("value");
+        return dropLocation;
     }
 
     /**
@@ -570,7 +579,8 @@ public class HomeSteps extends DriverBase {
         int offset = 70 * dragFactor;
         Point initial = homePage.Image_eta_bar().getLocation();
         // scroll and click on set , if alert is present then repeat
-        while (homePage.TextBox_Drop().getAttribute("value").contains("Set Drop")) {
+        while (action.isElementPresent(homePage.TextBox_Drop(true))) {
+            //   while (homePage.TextBox_Drop().getAttribute("value").contains("Set Drop")) {
             action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
             //	action.invisibilityOfElementLocated(homePage.Image_Loading());
             action.click(homePage.BUTTON_SET());

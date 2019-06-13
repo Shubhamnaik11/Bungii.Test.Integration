@@ -1,6 +1,6 @@
 @ios
 @NONBUNGII
-
+@S29READY
 Feature: Customer Home screen
 
   Background:
@@ -21,7 +21,7 @@ Scenario: To verify ETA , Location text box header . To Verify clear text button
   When I select "Drop" location
   Then "Drop" address should be displayed in text box
   Then Clear Button should be enabled for "Drop" box
-  @TESTAGAIN
+
 @regression
 Scenario: To Verify clear text button on Pick up and Drop location
     Given I am on Customer logged in Home page

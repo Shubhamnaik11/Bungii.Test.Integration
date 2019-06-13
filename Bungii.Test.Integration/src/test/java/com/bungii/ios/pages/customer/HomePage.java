@@ -11,10 +11,17 @@ public class HomePage extends PageBase {
     public WebElement Link_PickUpSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
     public WebElement TextBox_Drop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
     public WebElement Link_DropSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='DROP OFF LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }*/
-    public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath,ignoreException); }
-    public WebElement Button_ClearDrop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
+  //  public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath,ignoreException); }
+// public WebElement Button_ClearDrop() {return findElement("//XCUIElementTypeStaticText[@name=\"DROP OFF LOCATION\"]/following-sibling::XCUIElementTypeTextField/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
+    //Sprint 29
+    public WebElement Button_ClearPickup(boolean ...ignoreException) {return findElement("input icon cancel", LocatorType.AccessibilityId,ignoreException); }
+    public WebElement Button_ClearDrop() {return findElement("(//XCUIElementTypeButton[@name=\"input icon cancel\"])[2]", PageBase.LocatorType.XPath); }
+
+
     public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
-    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
+  //  public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+
     public WebElement Text_EtaTime() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
 
     public WebElement Scroll_SoloToDuo() {return findElement("//XCUIElementTypeStaticText[@name='1']/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther", PageBase.LocatorType.XPath); }
@@ -47,10 +54,17 @@ public class HomePage extends PageBase {
 //  public WebElement Link_PickUpSuggestion() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
 
     public WebElement Button_AppMenu () { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain); }
-    public WebElement TextBox_Pickup() {return findElement("**/XCUIElementTypeTextField[1]", LocatorType.ClassChain); }
+    public WebElement TextBox_Pickup(boolean ...ignoreException) {return findElement("**/XCUIElementTypeTextField[1]", LocatorType.ClassChain,ignoreException); }
+    public WebElement TextBox_Pickup_LineOne() {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+    public WebElement TextBox_Pickup_LineTwo() {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+
     public WebElement Link_PickUpSuggestion() {return findElement("**/XCUIElementTypeTable[2]/XCUIElementTypeCell", LocatorType.ClassChain); }
-    public WebElement TextBox_Drop() {return findElement("**/XCUIElementTypeTextField[2]", PageBase.LocatorType.ClassChain); }
+    public WebElement TextBox_Drop(boolean ...ignoreException) {return findElement("//*[@value='Set Drop Off Location']", LocatorType.XPath,ignoreException); }
+   // public WebElement TextBox_Drop() {return findElement("**/XCUIElementTypeTextField[2]", PageBase.LocatorType.ClassChain); }
+
     public WebElement Link_DropSuggestion() {return findElement("**/XCUIElementTypeTable[2]/XCUIElementTypeCell", PageBase.LocatorType.ClassChain); }
+    public WebElement TextBox_Drop_LineOne() {return findElement("//*[@name='input_icon_dropoff']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+    public WebElement TextBox_Drop_LineTwo() {return findElement("//*[@name='input_icon_dropoff']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
 
 
         public WebElement Button_GetEstimate() {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate); }
@@ -76,6 +90,8 @@ public class HomePage extends PageBase {
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_Home() {return findElement("HOME", LocatorType.AccessibilityId); }
 
+    public WebElement Image_PickupIcon() {return findElement("input_icon_pickup", LocatorType.AccessibilityId); }
+    public WebElement Image_DropOffIcon() {return findElement("input_icon_dropoff", LocatorType.AccessibilityId); }
 
 
 
