@@ -497,17 +497,17 @@ public class EstimateSteps extends DriverBase {
     public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-            String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
-            String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+            String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").trim();
+            String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").trim();
 
-            String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
-            String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+            String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").trim();
+            String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").trim();
 
             String[] tripLocation = new String[4];
-            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineOne());
-            tripLocation[1] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineTwo());
-            tripLocation[2] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineOne());
-            tripLocation[3] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineTwo());
+            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineOne()).replace(",","").trim();
+            tripLocation[1] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineTwo()).replace(",","").trim();
+            tripLocation[2] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineOne()).replace(",","").trim();
+            tripLocation[3] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineTwo()).replace(",","").trim();
 
             if (tripLocation[0].equals(pickUpLocationLineOne) && tripLocation[1].equals(pickUpLocationLineTwo) &&tripLocation[2].equals(dropOffLocationLineOne) && tripLocation[3].equals(dropOffLocationLineTwo)) {
                 pass("Trip Information should be correctly displayed on Estimate screen",
