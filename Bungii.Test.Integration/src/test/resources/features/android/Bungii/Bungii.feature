@@ -1,5 +1,5 @@
 @android
-
+@S29READY
 Feature: On Demand Bungii
 
  # Background:
@@ -300,4 +300,4 @@ Feature: On Demand Bungii
       | Scenario            | Promo Code    | User         |
       | Promo fixed         | valid         | no promocode |
       | Promo percentage    | valid percent | no promocode |
-     | valid one off fixed | valid one off | no promocode |
+      | valid one off fixed | valid one off | no promocode |

@@ -37,7 +37,7 @@ public class InvitePage extends PageBase {
 
   //  public WebElement FBApp_PostLink() { return findElement("com.facebook.katana:id/button_share", LocatorType.Id); }
 
-    public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.Button[@content-desc=\"SHARE\"]", LocatorType.XPath,ignoreException); }
+    public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.Button[@content-desc=\"POST\"]", LocatorType.XPath,ignoreException); }
   //  public WebElement FBApp_PostLink(boolean ...ignoreException) { return findElement("//android.widget.ImageView[@content-desc=\"Set Album\"]/following-sibling::android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 

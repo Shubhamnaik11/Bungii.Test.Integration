@@ -1,5 +1,5 @@
 @android
-
+@S29READY
 Feature: SoloScheduled
   Background:
 
