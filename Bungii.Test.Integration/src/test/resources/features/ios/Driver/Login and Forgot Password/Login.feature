@@ -6,15 +6,15 @@ Feature: Log In
   As a Bungii Driver I should be allowed to login only using valid credential
 
   Background:
-    Given I am on the "LOG IN" page
+    Given I am on the "LOG IN" page on driverApp
 
   @regression
   Scenario Outline: As Bungii driver I should not able login to application using invalid details.  Scenario:<Scenario>
-    And I enter phoneNumber :{VALID} and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
-    Then Alert message with <Expected Message> text should be displayed
-    And I accept Alert message
-    Then I should be navigated to "LOG IN" screen
+    And I enter phoneNumber :<Username> and  Password :<Password>
+    And I click "Log In" button on "Log In" screen driverApp
+    Then Alert message with <Expected Message> text should be displayed on driverApp
+    And I accept Alert message on driverApp
+    Then I should be navigated to "LOG IN" screen driverApp
 
     Examples:
       | Scenario                | Username | Password | Expected Message |
@@ -26,5 +26,5 @@ Feature: Log In
   @regression
   Scenario: As Bungii driver , I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
+    And I click "Log In" button on "Log In" screen driverApp
     Then I should be successfully logged in to the application

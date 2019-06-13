@@ -1,4 +1,39 @@
 package com.bungii.ios.stepdefinitions.driver;
 
-public class VerificationSteps {
+import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
+import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.driver.VerificationPage;
+import cucumber.api.java.en.When;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.pass;
+
+public class VerificationSteps extends DriverBase {
+    VerificationPage verificationPage;
+    private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.customer.VerificationSteps.class);
+    ActionManager action = new ActionManager();
+    public VerificationSteps(VerificationPage verificationPage) {
+        this.verificationPage = verificationPage;
+    }
+
+//    @When("^I enter \"([^\"]*)\" Verification code driver$")
+//    public void i_enter_something_verificationcode_driver(String strArg1) {
+//        try {
+//            String smsCode = (String) cucumberContextManager.getScenarioContext("SMS_CODE");
+//            action.clearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
+//            action.click(verificationPage.Button_Verify());
+//
+//            pass( "I should able to enter verification code",
+//                    "I entered verification code : " + smsCode +"in sms code field", true);
+//            //TODO:REMOVE THIS
+//            Thread.sleep(20000);
+//
+//        } catch (Exception e) {
+//            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+//            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+//        }
+//    }
+
 }

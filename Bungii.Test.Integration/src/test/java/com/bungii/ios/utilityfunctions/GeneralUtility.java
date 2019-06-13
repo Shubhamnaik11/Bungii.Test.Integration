@@ -272,7 +272,7 @@ public class GeneralUtility extends DriverBase {
 
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
-                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
+//                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
                     isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
                     break;
                 } else {

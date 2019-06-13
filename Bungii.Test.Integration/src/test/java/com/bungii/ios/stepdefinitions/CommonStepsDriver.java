@@ -1,4 +1,411 @@
 package com.bungii.ios.stepdefinitions;
 
-public class CommonStepsDriver {
+import com.bungii.SetupManager;
+import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
+import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
+import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.ScheduledTripsPage;
+import com.bungii.ios.pages.driver.BungiiCompletedPage;
+import com.bungii.ios.pages.driver.BungiiRequestPage;
+import com.bungii.ios.pages.driver.DriverBungiiDetailsPage;
+import com.bungii.ios.pages.driver.TripDetailsPage;
+import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import io.appium.java_client.ios.IOSDriver;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static com.bungii.common.manager.ResultManager.*;
+
+
+public class CommonStepsDriver extends DriverBase {
+    private static LogUtility logger = new LogUtility(CommonSteps.class);
+    ActionManager action = new ActionManager();
+    String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
+
+    private String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+
+    private com.bungii.ios.pages.driver.HomePage driverHomePage;
+    private DriverBungiiDetailsPage driverbungiiDetailspage;
+    private com.bungii.ios.pages.driver.LoginPage driverLoginPage;
+    private TripDetailsPage tripDetails;
+    private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
+    private com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage;
+    private TripDetailsPage tripDetailsPage;
+    private BungiiCompletedPage driverBungiiCompletedPage;
+    private ScheduledTripsPage scheduledTripsPage;
+    private com.bungii.ios.pages.driver.ScheduledBungiiPage driverScheduledBungiiPage;
+    private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
+    private NotificationPage notificationPage;
+    private BungiiRequestPage bungiiRequestPage;
+
+    public CommonStepsDriver(
+                       com.bungii.ios.pages.driver.ScheduledBungiiPage driverScheduledBungiiPage,
+                       TripDetailsPage tripDetails, DriverBungiiDetailsPage driverbungiiDetailspage,
+                       com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,  TripDetailsPage tripDetailsPage,
+                       BungiiCompletedPage bungiiCompletedPage,
+                       ScheduledTripsPage scheduledTripsPage,
+                       NotificationPage notificationPage,
+                       BungiiRequestPage bungiiRequestPage, com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage,
+                        com.bungii.ios.pages.driver.HomePage driverHomePage,
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
+
+        this.tripDetails = tripDetails;
+        this.driverbungiiDetailspage = driverbungiiDetailspage;
+        this.driverUpdateStatusPage = updateStatusPage;
+        this.tripDetails = tripDetails;
+        this.driverBungiiCompletedPage = bungiiCompletedPage;
+        this.scheduledTripsPage = scheduledTripsPage;
+        this.driverScheduledBungiiPage = driverScheduledBungiiPage;
+        this.notificationPage = notificationPage;
+        this.bungiiRequestPage = bungiiRequestPage;
+        this.customerUpdateStatusPage = customerUpdateStatusPage;
+        this.driverHomePage = driverHomePage;
+        this.driverLoginPage=driverLoginPage;
+        this.driverForgotPasswordPage=driverForgotPasswordPage;
+    }
+
+
+
+    @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page driverApp$")
+    public void something_message_should_be_displayed_on_something_page_driverApp(String messageElement, String screen) {
+        try {
+            boolean messageDisplayed = false;
+
+            switch (messageElement.toUpperCase()) {
+                case "BUNGII CANCEL":
+                    messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
+                    break;
+                case "FORGOT PASSWORD INFORMATION":
+                    messageDisplayed = action.getValueAttribute(driverForgotPasswordPage.Text_Info())
+                            .equals(PropertyUtility.getMessage("driver.forgotpassword.info"));
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+            testStepVerify.isTrue(messageDisplayed,
+                    messageElement + " should be displayed", messageElement + " Message is Displayed",
+                    messageElement + " Message is not Displayed");
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+
+    @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen driverApp$")
+    public void iClickButtonOnScreenDriverApp(String button, String screen) {
+        try {
+            action.swipeUP();
+            action.hideKeyboard();
+            switch (button.toUpperCase()) {
+                case "LOG IN":
+                    if (screen.equalsIgnoreCase("log in"))
+                        action.click(driverLoginPage.Button_Login());
+                    else
+                        System.err.println("test");
+                    // none, error
+                    break;
+                case "SEND":
+                    if (screen.equalsIgnoreCase("forgot password"))
+                        action.click(driverForgotPasswordPage.Button_Send());
+                    break;
+                case "SMS":
+                    if (screen.equalsIgnoreCase("customer-Update"))
+                        action.click(customerUpdateStatusPage.Button_Sms());
+                    else
+                        action.click(driverUpdateStatusPage.Button_Sms());
+                    break;
+                case "CALL":
+                    if (screen.equalsIgnoreCase("customer-Update"))
+                        action.click(customerUpdateStatusPage.Button_Call());
+                    else
+                        action.click(driverUpdateStatusPage.Button_Call());
+                    break;
+                case "FORGOT PASSWORD":
+                    action.click(driverLoginPage.Button_ForgotPassword());
+                    break;
+                case "CONTINUE":
+                    action.click(driverForgotPasswordPage.Button_Continue());
+                    break;
+                case "BACK":
+                    action.click(driverForgotPasswordPage.Button_Back());
+                    break;
+                case "ACCEPT":
+                    action.click(bungiiRequestPage.Button_Accept());
+                    break;
+                case "REJECT":
+                    action.click(bungiiRequestPage.Button_Reject());
+                    break;
+                case "SHARE ON FACEBOOK":
+                case "SHARE ON TWITTER":
+                case "SHARE BY EMAIL":
+                case "SHARE BY TEXT MESSAGE":
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name",
+                            "UnImplemented Step");
+                    break;
+            }
+
+            log("Click " + button + " button ",
+                    "Clicked " + button + " button", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+
+
+    @Then("^I should be navigated to \"([^\"]*)\" screen driverApp$")
+    public void i_should_be_naviagated_to_something_screen(String screen) {
+        try {
+            boolean isCorrectPage = false;
+
+            GeneralUtility utility = new GeneralUtility();
+            isCorrectPage = utility.verifyPageHeader(screen);
+            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    public List<String> getRefferalCode(String codeType) {
+        List<String> code = new ArrayList<String>();
+        switch (codeType.toLowerCase()) {
+            case "referral":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("REFERRAL");
+                break;
+            case "valid":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("VALID");
+                break;
+            case "promo":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("PROMO");
+                break;
+
+            case "expired":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("EXPIRED");
+                break;
+            case "one off":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("ONE_OFF");
+                break;
+            case "used one off":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
+                break;
+            case "unused one off":
+                code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
+                break;
+            case "first time only":
+                code= Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
+                break;
+            default:
+                code.add(codeType);
+                break;
+        }
+        return code;
+    }
+
+    public String generateMobileNumber() {
+
+        String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
+        while (!DbUtility.isPhoneNumberUnique(phoneNumber)) {
+            phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
+
+        }
+        return phoneNumber;
+    }
+
+    @When("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page driverApp$")
+    public void iEnterValueInFieldInPageDriverApp(String value, String field, String screen) {
+
+        try {
+            String inputValue = RandomGeneratorUtility.getData(value, 10);
+
+            if (!value.equalsIgnoreCase("{RANDOM_PHONE_NUM}")) {
+                inputValue = value.equalsIgnoreCase("{EMPTY}") ? "     " : inputValue;
+                inputValue = value.equalsIgnoreCase("{BLANK}") ? "" : inputValue;
+            } else {
+                inputValue = generateMobileNumber();
+            }
+
+            switch (field.toUpperCase()) {
+                case "SUPPORT TEXTBOX":
+//                    action.clearEnterText(supportPage.TextBox_Support(), inputValue);
+                    break;
+                case "FIRST NAME":
+//                    action.clearEnterText(signupPage.Textfield_FirstName(), inputValue);
+                    break;
+                case "LAST NAME":
+//                    action.clearEnterText(signupPage.Textfield_LastName(), inputValue);
+                    action.hideKeyboard();
+                    break;
+                case "EMAIL":
+//                    action.clearEnterText(signupPage.Textfield_Email(), inputValue);
+                    action.hideKeyboard();
+                    break;
+                case "PHONE NUMBER":
+                        if (screen.equalsIgnoreCase("FORGOT PASSWORD")) {
+                            inputValue = value.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : inputValue;
+                            action.clearEnterText(driverForgotPasswordPage.Text_InputNumber(), inputValue);
+                            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", inputValue);
+                        }
+                    action.hideKeyboard();
+                    break;
+
+                case "SMS CODE":
+                    inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
+                            : "111";
+                    action.clearEnterText(driverForgotPasswordPage.Text_SmsCode(), inputValue);
+                    action.hideKeyboard();
+
+                    break;
+                case "NEW PASSWORD":
+                    action.clearEnterText(driverForgotPasswordPage.Text_Password(), inputValue);
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            log("I should able to Enter " + value + " value in " + field + " field in " + screen + " Page",
+                    "I Entered " + inputValue + " in " + field + " field", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    @Then("^user is alerted for \"([^\"]*)\" driverApp$")
+    public void user_is_alerted_for_something_driverApp(String key) {
+        try {
+            action.waitForAlert();
+            if (!action.isAlertPresent())
+                action.waitForAlert();
+            String expectedText = "";
+            switch (key.toUpperCase()) {
+
+                case "FAILED TO SEND TOKEN":
+                    expectedText = PropertyUtility.getMessage("driver.forgotpassword.failed.reset");
+                    break;
+                case "PASSWORD CHANGE SUCCESS":
+                    expectedText = PropertyUtility.getMessage("driver.forgotpassword.success");
+                    break;
+                case "INVALID SMS CODE":
+                    expectedText = PropertyUtility.getMessage("driver.forgotpassword.invalid.code");
+                    break;
+                case "INVALID PASSWORD WHILE RESET":
+                    expectedText = PropertyUtility.getMessage("driver.forgotpassword.invalid.password");
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+            testStepVerify.isEquals(alertText, expectedText);
+            SetupManager.getDriver().switchTo().alert().accept();
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^Alert message with (.+) text should be displayed on driverApp$")
+    public void alert_message_with_text_should_be_displayed_driverApp(String message) {
+        try {
+            action.waitForAlert();
+            String actualMessage = action.getAlertMessage();
+            String expectedMessage;
+            switch (message.toUpperCase()) {
+                case "INVALID_PASSWORD":
+                    expectedMessage = PropertyUtility.getMessage("driver.error.invalidpassword");
+                    break;
+                case "EMPTY_FIELD":
+                    expectedMessage = PropertyUtility.getMessage("driver.error.emptyfield");
+                    break;
+                case "ACCEPT BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            testStepVerify.isEquals(actualMessage, expectedMessage,
+                    "Alert with text" + expectedMessage + "should be displayed",
+                    "Alert with text ," + expectedMessage + " should be displayed",
+                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                            + expectedMessage);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I accept Alert message on driverApp$")
+    public void iAcceptAlertMessage_DriverApp() {
+        try {
+            SetupManager.getDriver().switchTo().alert().accept();
+            log("Alert Message should be accepted", "Alert Message is accepted");
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    @Given("^I am on the \"([^\"]*)\" page on driverApp$")
+    public void i_am_on_the_something_page_on_driverApp(String screen) {
+        try {
+            String NavigationBarName = action.getNameAttribute(driverHomePage.Text_NavigationBar());
+            switch (screen.toUpperCase()) {
+                case "LOG IN":
+                    goToDriverLogInPage(NavigationBarName);
+                    break;
+                case "HOME":
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
+
+    public void goToDriverLogInPage(String navigationBarName) throws Throwable {
+        HomePageSteps homeSteps = new HomePageSteps(driverHomePage);
+
+        if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
+                homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+        }
+
+    }
+
 }

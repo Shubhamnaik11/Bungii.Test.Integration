@@ -20,6 +20,15 @@ public class DbUtility extends DbContextManager {
         return smsCode;
     }
 
+    public static String getVerificationCodeDriver(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT SmsVerificationCode FROM driver WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("SMS code is" + smsCode + ", query, " + queryString);
+        return smsCode;
+    }
+
+
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
         String queryString = "SELECT Id FROM customer WHERE Phone = " + phoneNumber;

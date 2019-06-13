@@ -16,9 +16,9 @@ public class LoginPage extends PageBase {
     public WebElement Button_Login() {
         return findElement("//XCUIElementTypeButton[@name='LOG IN']", PageBase.LocatorType.XPath);
     }*/
-public WebElement TextField_PhoneNumber(boolean ... ignoreException) {
-    return findElement("XCUIElementTypeTextField", LocatorType.ClassName,ignoreException);
-}
+    public WebElement TextField_PhoneNumber(boolean ... ignoreException) {
+        return findElement("XCUIElementTypeTextField", LocatorType.ClassName,ignoreException);
+    }
 
     public WebElement Textfield_Password() {
         return findElement("XCUIElementTypeSecureTextField", LocatorType.ClassName);
@@ -27,4 +27,9 @@ public WebElement TextField_PhoneNumber(boolean ... ignoreException) {
     public WebElement Button_Login() {
         return findElement("type == 'XCUIElementTypeButton' AND name == 'LOG IN'", LocatorType.Predicate);
     }
+
+    public WebElement Button_ForgotPassword() {
+        return findElement("Forgot password?", LocatorType.AccessibilityId);
+    }
+
 }

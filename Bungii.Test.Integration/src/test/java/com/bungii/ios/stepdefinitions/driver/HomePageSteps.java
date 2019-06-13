@@ -6,6 +6,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.HomePage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -21,6 +22,18 @@ public class HomePageSteps extends DriverBase {
         this.homepage = homepage;
     }
 
+    @Then("^I should be successfully logged in to the application$")
+    public void driver_should_be_successfully_logged_in_to_the_system() {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            boolean isHomePage = utility.verifyPageHeader("HOME");
+            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
@@ -30,6 +43,7 @@ public class HomePageSteps extends DriverBase {
             goToAppMenu();
             Thread.sleep(1000);
             boolean flag = clickAppMenu(menuItem);
+            Thread.sleep(1000);
             testStepAssert.isTrue(flag, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -124,6 +138,7 @@ public class HomePageSteps extends DriverBase {
                 action.click(homepage.AppMenu_ScheduledTrip());
                 break;
             case "LOGOUT":
+                action.swipeUP();
                 action.click(homepage.AppMenu_LogOut());
                 break;
             default:
