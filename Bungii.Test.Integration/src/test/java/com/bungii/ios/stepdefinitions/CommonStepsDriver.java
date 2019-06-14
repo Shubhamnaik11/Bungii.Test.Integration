@@ -2,7 +2,6 @@ package com.bungii.ios.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -20,13 +19,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.WebElement;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -36,51 +29,27 @@ public class CommonStepsDriver extends DriverBase {
     ActionManager action = new ActionManager();
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
 
-    private String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
-
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
-    private DriverBungiiDetailsPage driverbungiiDetailspage;
     private com.bungii.ios.pages.driver.LoginPage driverLoginPage;
-    private TripDetailsPage tripDetails;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
-    private com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage;
-    private TripDetailsPage tripDetailsPage;
-    private BungiiCompletedPage driverBungiiCompletedPage;
     private ScheduledTripsPage scheduledTripsPage;
-    private com.bungii.ios.pages.driver.ScheduledBungiiPage driverScheduledBungiiPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
-    private NotificationPage notificationPage;
-    private BungiiRequestPage bungiiRequestPage;
 
     public CommonStepsDriver(
-                       com.bungii.ios.pages.driver.ScheduledBungiiPage driverScheduledBungiiPage,
-                       TripDetailsPage tripDetails, DriverBungiiDetailsPage driverbungiiDetailspage,
-                       com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,  TripDetailsPage tripDetailsPage,
-                       BungiiCompletedPage bungiiCompletedPage,
+                       com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
                        ScheduledTripsPage scheduledTripsPage,
-                       NotificationPage notificationPage,
-                       BungiiRequestPage bungiiRequestPage, com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage,
+                       BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
                        com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
 
-        this.tripDetails = tripDetails;
-        this.driverbungiiDetailspage = driverbungiiDetailspage;
         this.driverUpdateStatusPage = updateStatusPage;
-        this.tripDetails = tripDetails;
-        this.driverBungiiCompletedPage = bungiiCompletedPage;
         this.scheduledTripsPage = scheduledTripsPage;
-        this.driverScheduledBungiiPage = driverScheduledBungiiPage;
-        this.notificationPage = notificationPage;
-        this.bungiiRequestPage = bungiiRequestPage;
-        this.customerUpdateStatusPage = customerUpdateStatusPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
     }
 
-
-
-    @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page driverApp$")
+    @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page on driverApp$")
     public void something_message_should_be_displayed_on_something_page_driverApp(String messageElement, String screen) {
         try {
             boolean messageDisplayed = false;
@@ -109,10 +78,9 @@ public class CommonStepsDriver extends DriverBase {
 
 
 
-    @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen driverApp$")
+    @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen on driverApp$")
     public void iClickButtonOnScreenDriverApp(String button, String screen) {
         try {
-            action.swipeUP();
             action.hideKeyboard();
             switch (button.toUpperCase()) {
                 case "LOG IN":
@@ -127,36 +95,20 @@ public class CommonStepsDriver extends DriverBase {
                         action.click(driverForgotPasswordPage.Button_Send());
                     break;
                 case "SMS":
-                    if (screen.equalsIgnoreCase("customer-Update"))
-                        action.click(customerUpdateStatusPage.Button_Sms());
-                    else
-                        action.click(driverUpdateStatusPage.Button_Sms());
+                    action.click(driverUpdateStatusPage.Button_Sms());
                     break;
                 case "CALL":
-                    if (screen.equalsIgnoreCase("customer-Update"))
-                        action.click(customerUpdateStatusPage.Button_Call());
-                    else
-                        action.click(driverUpdateStatusPage.Button_Call());
+                    action.click(driverUpdateStatusPage.Button_Call());
                     break;
                 case "FORGOT PASSWORD":
                     action.click(driverLoginPage.Button_ForgotPassword());
                     break;
                 case "CONTINUE":
+                    action.swipeUP();
                     action.click(driverForgotPasswordPage.Button_Continue());
                     break;
                 case "BACK":
                     action.click(driverForgotPasswordPage.Button_Back());
-                    break;
-                case "ACCEPT":
-                    action.click(bungiiRequestPage.Button_Accept());
-                    break;
-                case "REJECT":
-                    action.click(bungiiRequestPage.Button_Reject());
-                    break;
-                case "SHARE ON FACEBOOK":
-                case "SHARE ON TWITTER":
-                case "SHARE BY EMAIL":
-                case "SHARE BY TEXT MESSAGE":
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -174,10 +126,7 @@ public class CommonStepsDriver extends DriverBase {
         }
     }
 
-
-
-
-    @Then("^I should be navigated to \"([^\"]*)\" screen driverApp$")
+    @Then("^I should be navigated to \"([^\"]*)\" screen on driverApp$")
     public void i_should_be_naviagated_to_something_screen(String screen) {
         try {
             boolean isCorrectPage = false;
@@ -196,41 +145,6 @@ public class CommonStepsDriver extends DriverBase {
     }
 
 
-    public List<String> getRefferalCode(String codeType) {
-        List<String> code = new ArrayList<String>();
-        switch (codeType.toLowerCase()) {
-            case "referral":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("REFERRAL");
-                break;
-            case "valid":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("VALID");
-                break;
-            case "promo":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("PROMO");
-                break;
-
-            case "expired":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("EXPIRED");
-                break;
-            case "one off":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("ONE_OFF");
-                break;
-            case "used one off":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
-                break;
-            case "unused one off":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
-                break;
-            case "first time only":
-                code= Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
-                break;
-            default:
-                code.add(codeType);
-                break;
-        }
-        return code;
-    }
-
     public String generateMobileNumber() {
 
         String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
@@ -241,7 +155,7 @@ public class CommonStepsDriver extends DriverBase {
         return phoneNumber;
     }
 
-    @When("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page driverApp$")
+    @When("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page on driverApp$")
     public void iEnterValueInFieldInPageDriverApp(String value, String field, String screen) {
 
         try {
@@ -255,20 +169,6 @@ public class CommonStepsDriver extends DriverBase {
             }
 
             switch (field.toUpperCase()) {
-                case "SUPPORT TEXTBOX":
-//                    action.clearEnterText(supportPage.TextBox_Support(), inputValue);
-                    break;
-                case "FIRST NAME":
-//                    action.clearEnterText(signupPage.Textfield_FirstName(), inputValue);
-                    break;
-                case "LAST NAME":
-//                    action.clearEnterText(signupPage.Textfield_LastName(), inputValue);
-                    action.hideKeyboard();
-                    break;
-                case "EMAIL":
-//                    action.clearEnterText(signupPage.Textfield_Email(), inputValue);
-                    action.hideKeyboard();
-                    break;
                 case "PHONE NUMBER":
                         if (screen.equalsIgnoreCase("FORGOT PASSWORD")) {
                             inputValue = value.equalsIgnoreCase("{VALID USER}") ? PropertyUtility.getDataProperties("ios.valid.driver.phone") : inputValue;
@@ -302,7 +202,7 @@ public class CommonStepsDriver extends DriverBase {
     }
 
 
-    @Then("^user is alerted for \"([^\"]*)\" driverApp$")
+    @Then("^user is alerted for \"([^\"]*)\" on driverApp$")
     public void user_is_alerted_for_something_driverApp(String key) {
         try {
             action.waitForAlert();
@@ -348,9 +248,6 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "EMPTY_FIELD":
                     expectedMessage = PropertyUtility.getMessage("driver.error.emptyfield");
-                    break;
-                case "ACCEPT BUNGII QUESTION":
-                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

@@ -44,7 +44,7 @@
     "platformName": "iOS",
     "platformVersion": "10.3.3",
     "automationName": "XCUITest",
-    "app": "com.bungii.driver",
+    "app": "com.bungii.customer",
     "deviceName": "iPhone 5-1",
     "udid": "ae2976ba6253d8c9309f8e4a7e5add7c5acb2829",
     "newCommandTimeout": "12000",

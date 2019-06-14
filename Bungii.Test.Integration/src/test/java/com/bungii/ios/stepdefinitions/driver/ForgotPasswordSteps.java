@@ -15,7 +15,7 @@ public class ForgotPasswordSteps extends DriverBase {
 
     ForgotPasswordPage driverForgotPasswordPage = new ForgotPasswordPage();
 
-    @And("^I Get SMS CODE for \"([^\"]*)\" number driver$")
+    @And("^I Get SMS CODE for \"([^\"]*)\" number on driverApp$")
     public void i_get_sms_code_for_driverNumber(String strArg1) {
         try {
 
