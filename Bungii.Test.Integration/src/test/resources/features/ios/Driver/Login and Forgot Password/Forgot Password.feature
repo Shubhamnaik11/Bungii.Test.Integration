@@ -8,8 +8,8 @@ Feature: FORGOT PASSWORD
   I Should be able to Reset my password
 
   Background:
-    When I Switch to "driver" application on "same" devices
-    Given I am on the "LOG IN" page on driverApp
+    Given I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
 
   @regression
   Scenario Outline: As Bungii driver, I should be alerted if I add invalid phone number during Forgot Password functionality . Scenario:<Scenario>
@@ -35,8 +35,8 @@ Feature: FORGOT PASSWORD
     And I Enter "<New Password>" value in "new password" field in "FORGOT PASSWORD" Page on driverApp
     When I click "Continue" button on "Forgot Password" screen on driverApp
     Then user is alerted for "<Expected Message>" on driverApp
-    Then I should be navigated to "Forgot Password" screen on driverApp
-    When I click "Back" button on "Forgot Password" screen on driverApp
+    And I should be navigated to "Forgot Password" screen on driverApp
+    Then I click "Back" button on "Forgot Password" screen on driverApp
 
     Examples:
       | Scenario         | Value        | New Password | SMS CODE | Expected Message             |
@@ -54,7 +54,7 @@ Feature: FORGOT PASSWORD
     And I Enter "<New Password>" value in "new password" field in "FORGOT PASSWORD" Page on driverApp
     When I click "Continue" button on "Forgot Password" screen on driverApp
     Then user is alerted for "<Expected Message>" on driverApp
-    Then I should be navigated to "Home" screen on driverApp
+    And I should be navigated to "Home" screen on driverApp
 
     Examples:
       | Scenario    | Value        | New Password | Expected Message        |
