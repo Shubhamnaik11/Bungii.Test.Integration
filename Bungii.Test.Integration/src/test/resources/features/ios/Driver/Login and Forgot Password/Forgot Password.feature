@@ -36,7 +36,6 @@ Feature: FORGOT PASSWORD
     When I click "Continue" button on "Forgot Password" screen on driverApp
     Then user is alerted for "<Expected Message>" on driverApp
     And I should be navigated to "Forgot Password" screen on driverApp
-    Then I click "Back" button on "Forgot Password" screen on driverApp
 
     Examples:
       | Scenario         | Value        | New Password | SMS CODE | Expected Message             |
@@ -52,10 +51,11 @@ Feature: FORGOT PASSWORD
     And I Get SMS CODE for "<Value>" number on driverApp
     And I Enter "valid" value in "sms code" field in "FORGOT PASSWORD" Page on driverApp
     And I Enter "<New Password>" value in "new password" field in "FORGOT PASSWORD" Page on driverApp
+    And I Enter "<Confirm Password>" value in "confirm password" field in "FORGOT PASSWORD" Page on driverApp
     When I click "Continue" button on "Forgot Password" screen on driverApp
     Then user is alerted for "<Expected Message>" on driverApp
     And I should be navigated to "Home" screen on driverApp
 
     Examples:
-      | Scenario    | Value        | New Password | Expected Message        |
-      | VALID PHONE | {VALID USER} | Cci12345     | PASSWORD CHANGE SUCCESS |
+      | Scenario    | Value        | New Password | Confirm Password  | Expected Message        |
+      | VALID PHONE | {VALID USER} | Cci12345     | Cci12345          | PASSWORD CHANGE SUCCESS |

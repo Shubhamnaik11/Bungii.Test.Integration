@@ -175,23 +175,24 @@ public class CommonStepsDriver extends DriverBase {
                             action.clearEnterText(driverForgotPasswordPage.Text_InputNumber(), inputValue);
                             cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", inputValue);
                         }
-                    action.hideKeyboard();
                     break;
-
                 case "SMS CODE":
                     inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
                             : "111";
                     action.clearEnterText(driverForgotPasswordPage.Text_SmsCode(), inputValue);
-                    action.hideKeyboard();
-
                     break;
                 case "NEW PASSWORD":
                     action.clearEnterText(driverForgotPasswordPage.Text_Password(), inputValue);
+                    break;
+                case "CONFIRM PASSWORD":
+                    action.clearEnterText(driverForgotPasswordPage.Text_Confirm_Password(), inputValue);
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
+            action.hideKeyboard();
+
             log("I should able to Enter " + value + " value in " + field + " field in " + screen + " Page",
                     "I Entered " + inputValue + " in " + field + " field", true);
         } catch (Exception e) {

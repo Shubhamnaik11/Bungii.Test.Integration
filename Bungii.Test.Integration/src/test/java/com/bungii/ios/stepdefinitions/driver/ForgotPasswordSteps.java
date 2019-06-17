@@ -11,7 +11,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import static com.bungii.common.manager.ResultManager.error;
 
 public class ForgotPasswordSteps extends DriverBase {
-    private static LogUtility logger = new LogUtility(VerificationSteps.class);
+    private static LogUtility logger = new LogUtility(ForgotPasswordSteps.class);
 
     ForgotPasswordPage driverForgotPasswordPage = new ForgotPasswordPage();
 
