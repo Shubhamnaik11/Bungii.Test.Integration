@@ -123,6 +123,21 @@ public class VerificationManager {
 		}
 
 	}
+	/**
+	 * @param expectedValue Expected value
+	 * @param actualValue Actual value
+	 */
+	public void isEquals(Integer actualValue, Integer expectedValue) {
+		try {
+			Assert.assertEquals(expectedValue, actualValue);
+			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
+		} catch (AssertionError e) {
+			//mark test case fail and continue test
+			ResultManager.fail( expectedValue+" should be displayed", actualValue+" is displayed instead of"+expectedValue, true);
+		}
+
+	}
+
 	
 	/**
 	 * Check is boolean value is false

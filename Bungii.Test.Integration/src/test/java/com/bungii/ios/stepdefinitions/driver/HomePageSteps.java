@@ -4,12 +4,18 @@ package com.bungii.ios.stepdefinitions.driver;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.HomePage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+
+import java.math.BigDecimal;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -38,7 +44,10 @@ public class HomePageSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-            if (action.isAlertPresent()){ SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
+            if (action.isAlertPresent()) {
+                SetupManager.getDriver().switchTo().alert().dismiss();
+                Thread.sleep(1000);
+            }
             Thread.sleep(1000);
             goToAppMenu();
             Thread.sleep(1000);
@@ -124,29 +133,171 @@ public class HomePageSteps extends DriverBase {
      */
     public boolean clickAppMenu(String appMenuItem) {
         boolean notClicked = false;
-        switch (appMenuItem.toUpperCase()) {
-            case "AVAILABLE TRIPS":
-                action.click(homepage.AppMenu_AvailableTrip());
-                break;
-            case "HOME":
-                action.click(homepage.AppMenu_Home());
-                break;
-            case "ACCOUNT":
-                action.click(homepage.AppMenu_Account());
-                break;
-            case "SCHEDULED BUNGIIS":
-                action.click(homepage.AppMenu_ScheduledTrip());
-                break;
-            case "LOGOUT":
-                action.swipeUP();
-                action.click(homepage.AppMenu_LogOut());
-                break;
-            default:
-                logger.error("Please specify valid application menu item");
-                notClicked = true;
-                break;
+        try {
+            switch (appMenuItem.toUpperCase()) {
+                case "AVAILABLE TRIPS":
+                    action.click(homepage.AppMenu_AvailableTrip());
+                    break;
+                case "HOME":
+                    action.click(homepage.AppMenu_Home());
+                    break;
+                case "ACCOUNT":
+                    action.click(homepage.AppMenu_Account());
+                    break;
+                case "SCHEDULED BUNGIIS":
+                    action.click(homepage.AppMenu_ScheduledTrip());
+                    break;
+                case "LOGOUT":
+                    action.swipeUP();
+                    Thread.sleep(1000);
+
+                    action.click(homepage.AppMenu_LogOut());
+                    break;
+                default:
+                    logger.error("Please specify valid application menu item");
+                    notClicked = true;
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
         return !notClicked;
+
+    }
+
+    @Then("Info text should be updated")
+    public void info_text_should_be_updated() {
+        // Write code here that turns the phrase above into concrete actions
+        try {
+            testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
+            testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo"));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @Then("The navigation title should change to {string}")
+    public void the_navigation_title_should_change_to(String navTitle) {
+        // Write code here that turns the phrase above into concrete actions
+        try {
+
+            switch (navTitle.toUpperCase()) {
+                case "ONLINE":
+                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
+                    break;
+                case "OFFLINE":
+                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+
+
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("the status of the driver should be {string}")
+    public void the_status_of_the_driver(String status) {
+        try {
+            switch (status.toUpperCase()) {
+                case "OFFLINE":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), PropertyUtility.getMessage("driver.home.goonline"));
+                    break;
+                case "ONLINE":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), PropertyUtility.getMessage("driver.home.gooffline"));
+                    break;
+                default:
+                    break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^The title of button should change to \"([^\"]*)\" on driverApp$")
+    public void the_title_of_button_should_change_to(String buttonTitle) {
+
+        try {
+            switch (buttonTitle.toUpperCase()) {
+                case "GO ONLINE":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), buttonTitle.toUpperCase());
+                    break;
+                case "GO OFFLINE":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), buttonTitle.toUpperCase());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+
+
+            }
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("The {string} for {string} driver should be correctly displayed")
+    public void the_for_driver_should_be_correctly_displayed(String info, String driver) {
+        try {
+            String driverPhoneNumber, driverName, driverVehicle;
+            if (driver.toLowerCase().equals("valid")) {
+                driverPhoneNumber = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                driverName = PropertyUtility.getDataProperties("ios.driver.name");
+                driverVehicle = PropertyUtility.getDataProperties("ios.driver.vehicle");
+            } else {
+                driverPhoneNumber = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
+                driverName = PropertyUtility.getDataProperties("ios.driver2.name");
+                driverVehicle = PropertyUtility.getDataProperties("ios.driver2.vehicle");
+            }
+
+            switch (info.toLowerCase()) {
+                case "name":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverName()), driverName);
+                    break;
+                case "vehicle info":
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_DriverInfo()), driverVehicle);
+                    break;
+                case "rating":
+                    String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
+
+                    BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
+                    int ratingInt = bigDecimal.intValue();
+                    BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
+
+                    System.out.println("ratingString: " + ratingString);
+                    System.out.println("Integer Part: " + ratingInt);
+                    System.out.println("Decimal Part: " + ratingDecimal);
+
+                    homepage.WaitUntilElementIsDisplayed(By.xpath("//XCUIElementTypeButton[@name=\"rating filled star icon\"])"));
+
+                    int filledStarCount = homepage.FilledStars().size();
+                    int HalfFilledStarCount = homepage.HalfFilledStar().size();
+
+                    testStepVerify.isEquals(filledStarCount, ratingInt);
+
+                    if (ratingDecimal.doubleValue() >= 0.5) {
+                        testStepVerify.isEquals(HalfFilledStarCount, 1);
+                    }
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+
+            }
+        } catch (
+                Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
 

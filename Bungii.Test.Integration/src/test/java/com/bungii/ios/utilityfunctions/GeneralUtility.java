@@ -277,6 +277,12 @@ public class GeneralUtility extends DriverBase {
                     break;
                 } else {
                 }
+            case "AVAILABLE TRIPS":
+                if (currentApplication.equals("DRIVER")) {
+//                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE TRIPS");
+                    break;
+                }
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {

@@ -110,10 +110,20 @@ public class CommonStepsDriver extends DriverBase {
                 case "BACK":
                     action.click(driverForgotPasswordPage.Button_Back());
                     break;
+                case "GO ONLINE":
+                    action.click(driverHomePage.GoOnline_Btn());
+                    break;
+                case "GO OFFLINE":
+                    action.click(driverHomePage.GoOffline_Btn());
+                    break;
+                case "AVAILABLE TRIPS":
+                    action.click(driverHomePage.Text_AvailableTrips());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
                     break;
+
             }
 
             log("Click " + button + " button ",
@@ -280,12 +290,13 @@ public class CommonStepsDriver extends DriverBase {
     @Given("^I am on the \"([^\"]*)\" page on driverApp$")
     public void i_am_on_the_something_page_on_driverApp(String screen) {
         try {
-            String NavigationBarName = action.getNameAttribute(driverHomePage.Text_NavigationBar());
+            String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
             switch (screen.toUpperCase()) {
                 case "LOG IN":
-                    goToDriverLogInPage(NavigationBarName);
+                    goToDriverLogInPage(navigationBarName);
                     break;
                 case "HOME":
+                    testStepVerify.isEquals(navigationBarName, PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -305,5 +316,6 @@ public class CommonStepsDriver extends DriverBase {
         }
 
     }
+
 
 }
