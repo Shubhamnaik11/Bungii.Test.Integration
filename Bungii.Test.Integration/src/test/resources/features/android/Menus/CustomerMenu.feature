@@ -15,7 +15,7 @@ Feature: CustomerMenu
     When I tap on "Menu" > "SIGN UP TO DRIVE" link
     Then "bungii.com" page should be opened
     When I Switch to "customer" application on "same" devices
-    When I tap on "Menu" > "Logout" link
+    And I tap on "Menu" > "Logout" link
     Then "Login" page should be opened
 
   @regression
@@ -26,8 +26,8 @@ Feature: CustomerMenu
     Then I should see "first answer dropdown open" on FAQ page
     When I tap on "expanded first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
-    Then I should see "last question" on FAQ page
-    Then I should see "social media links" on FAQ page
+    And I should see "last question" on FAQ page
+    And I should see "social media links" on FAQ page
 
   @regression
   Scenario:As Bungii customer I should able to access account page

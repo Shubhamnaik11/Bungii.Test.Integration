@@ -10,12 +10,12 @@ Feature: Promos
   @regression
   Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promo code
     When I logged in Customer application using  "existing" user
-    When I Select "PROMOS" from Customer App menu
+    And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
-    And I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
-    When I click "ADD" button on "PROMOS" screen
+    When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
     Then user is alerted for "<Expected Message>"
-    When I Select "LOGOUT" from Customer App menu
+    And I Select "LOGOUT" from Customer App menu
 
 #added promo code in
     Examples:
@@ -26,8 +26,8 @@ Feature: Promos
   Scenario Outline: As a Bungii Customer , I should be alert while adding invalid promo code
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
-    And I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
-    When I click "ADD" button on "PROMOS" screen
+    When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
     Then user is alerted for "<Expected Message>"
 
     Examples:
@@ -38,15 +38,15 @@ Feature: Promos
   Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
-    When I navigate to admin portal
+    And I navigate to admin portal
 
     And I log in to admin portal
-    When I Select "Promo Code" from admin sidebar
+    And I Select "Promo Code" from admin sidebar
     Then I get promo code for "referral"
-    When I switch to "ORIGINAL" instance
+    And I switch to "ORIGINAL" instance
 
-    When I logged in Customer application using  "<User Type>" user
-    When I Select "PROMOS" from Customer App menu
+    And I logged in Customer application using  "<User Type>" user
+    And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I Enter "Referral" value in "Promo Code" field in "Promo" Page
     When I click "ADD" button on "PROMOS" screen

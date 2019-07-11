@@ -11,20 +11,20 @@ Feature: CustomerSignup
   @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
-    When I navigate to admin portal
+    And I navigate to admin portal
     And I log in to admin portal
-    When I Select "Referral Source" from admin sidebar
+    And I Select "Referral Source" from admin sidebar
     Then I get Referral Source info for "OTHER"
     When I switch to "ORIGINAL" instance
-    When I enter "unique" customer phone number on Signup Page
+    And I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I tap on the "Sign Up" button on Signup Page
     And I tap on the "No, Continue" button on Signup Page
-    When I enter "valid" Verification code
+    And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
     When I switch to "ADMIN_PORTAL" instance
-    When I Select "Referral Source" from admin sidebar
+    And I Select "Referral Source" from admin sidebar
     Then account created info for "OTHER" should be "increase by 1"
 
 

@@ -1,5 +1,6 @@
 @android
 @S29READY
+@update
 Feature: Customer Home screen
 
   Background:
@@ -8,7 +9,7 @@ Feature: Customer Home screen
   @regression
   Scenario: To Verify clear text button on Pick up and Drop location
     When I tap on "Menu" > "Home" link
-    When I select "Pick up" location
+    And I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     And I tap "Pick Up Clear Text" on Home page
     And I tap "My location" on Home page
@@ -17,13 +18,13 @@ Feature: Customer Home screen
     Then "Pick up" address should be displayed in text box
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
-    And I tap "Drop Clear Text" on Home page
+    When I tap "Drop Clear Text" on Home page
 
     Then "Drop" address should be empty
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
-    And I tap "Pick Up Clear Text" on Home page
+    When I tap "Pick Up Clear Text" on Home page
     And I tap "My location" on Home page
 
     Then current location should be present as pickup location
-    Then "Drop" address should be empty
+    And "Drop" address should be empty

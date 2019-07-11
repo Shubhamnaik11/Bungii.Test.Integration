@@ -1,4 +1,5 @@
 @ios
+@S29READY
 @NONBUNGII
 Feature: Customer	Referral Invite page
   As a Bungii customer I Should able to share my referral code
@@ -18,33 +19,33 @@ Feature: Customer	Referral Invite page
   @regression
   Scenario: As   Bungii customer I should able to share my code using Text messages
     When I Select "Home" from Customer App menu
-    When I click "Invite referrals" button on "HOME" screen
+    And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    When I click "SHARE BY TEXT MESSAGE" button on "INVITE" screen
+    When I get Invite Code
+    And I click "SHARE" button on "INVITE" screen
+    And I click "SHARE BY TEXT MESSAGE" button on "INVITE" screen
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
 
   @regression
   Scenario: As Bungii customer I should able to share my code using EMAIL
     When I Select "Home" from Customer App menu
-    When I click "Invite referrals" button on "HOME" screen
+    And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    When I click "SHARE BY EMAIL" button on "INVITE" screen
+    When I get Invite Code
+    And I click "SHARE" button on "INVITE" screen
+    And I click "SHARE BY EMAIL" button on "INVITE" screen
     Then I should see draft post in "MAIL" application
 
   @regression
   Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter but no Application is installed
     Given I have "twitter" app "not installed"
     When I Select "Home" from Customer App menu
-    When I click "Invite referrals" button on "HOME" screen
+    And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    When I click "SHARE ON TWITTER" button on "INVITE" screen
+    When I get Invite Code
+    And I click "SHARE" button on "INVITE" screen
+    And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then I should be navigated to "Invite" screen
  #   Then user is alerted for "No twitter installed"
 
@@ -52,10 +53,10 @@ Feature: Customer	Referral Invite page
   Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter Application
     Given I have "twitter" app "installed"
     When I Select "Home" from Customer App menu
-    When I click "Invite referrals" button on "HOME" screen
+    And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    When I click "SHARE ON TWITTER" button on "INVITE" screen
+    When I get Invite Code
+    And I click "SHARE" button on "INVITE" screen
+    And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then I should see draft post in "twitter" application
-    Then I should be navigated to "Invite" screen
+    And I should be navigated to "Invite" screen

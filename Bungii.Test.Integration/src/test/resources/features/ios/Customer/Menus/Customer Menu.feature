@@ -1,12 +1,12 @@
 @ios
-
+@S29READY
 @NONBUNGII
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links
 
   Background: 
     Given I am on Customer logged in Home page
-  @RERUN
+
   @regression
   Scenario: As Bungii customer I want to check all menu links
     When I Select "Home" from Customer App menu
@@ -33,8 +33,8 @@ Feature: Customer	Menu
   Scenario: As Bungii customer I want to Ask question using support menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
-    Then "Support Question" should be present in "SUPPORT" screen
-    Then "Bungii Customer Logo" should be present in "SUPPORT" screen
+    And "Support Question" should be present in "SUPPORT" screen
+    And "Bungii Customer Logo" should be present in "SUPPORT" screen
     When I Enter "{RANDOM_STRING}" value in "Support Textbox" field in "SUPPORT" Page
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
@@ -51,9 +51,9 @@ Feature: Customer	Menu
   Scenario: As Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
-    Then I should see "faq image" on FAQ page
+    And I should see "faq image" on FAQ page
     When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown open" on FAQ page
     When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
-    Then I should see "social media links" on FAQ page
+    And I should see "social media links" on FAQ page

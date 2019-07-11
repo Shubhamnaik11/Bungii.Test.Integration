@@ -1,5 +1,6 @@
 @android
 @S29READY
+
 Feature: CustomerForgotPassword
   Forgot password functionality in Customer app
 
@@ -11,12 +12,12 @@ Feature: CustomerForgotPassword
   Scenario: Cust_ForgotPassword_Success
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
-    When I enter "valid" SMS code
+    And I enter "valid" SMS code
     And I enter customers new "valid" Password
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message for success" on forgot password page
     And The user should be logged in
-    When I tap on "Menu" > "Logout" link
+    And I tap on "Menu" > "Logout" link
 
   @regression
   Scenario: Cust_ForgotPassword_IncorretPhone
@@ -28,13 +29,13 @@ Feature: CustomerForgotPassword
   Scenario: Cust_ForgotPassword_PhoneLessThan10char
     When I enter "less than 10 digit" Phone Number
     Then The user should see "validation for incorrect number" on forgot password page
-    Then The user should see "Send button disabled" on forgot password page
+    And The user should see "Send button disabled" on forgot password page
 
   @regression
   Scenario: Cust_ForgotPassword_IncorrectSMSCode
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
-    When I enter "invalid" SMS code
+    And I enter "invalid" SMS code
     And I enter customers new "valid" Password
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message for invalid sms code" on forgot password page
@@ -43,6 +44,6 @@ Feature: CustomerForgotPassword
   Scenario: Cust_ForgotPassword_PasswordLessThan6Char
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
-    When I enter "valid" SMS code
+    And I enter "valid" SMS code
     And I enter customers new "invalid" Password
     Then The user should see "validation for incorrect password" on forgot password page

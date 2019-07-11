@@ -416,7 +416,7 @@ public class CommonSteps extends DriverBase {
                     testStepAssert.isTrue(isAppInstalled,appName+" should be installed",appName+" is Not installed");
                     break;
                 case "NOT INSTALLED":
-                    testStepAssert.isFalse(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    testStepAssert.isFalse(isAppInstalled,appName+" should be installed",appName+" is installed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
