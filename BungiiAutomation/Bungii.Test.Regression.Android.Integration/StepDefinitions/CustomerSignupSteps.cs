@@ -1,10 +1,14 @@
 ﻿using Bungii.Test.Integration.Framework.Core.Android;
+using Bungii.Test.Integration.Framework.Core.Web;
 using Bungii.Test.Regression.Android.Integration.Data;
 using Bungii.Test.Regression.Android.Integration.Functions;
 using Bungii.Test.Regression.Android.Integration.Pages;
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Android;
 using TechTalk.SpecFlow;
+using Bungii.Android.Regression.Test.Integration.Functions;
+using System;
+using Bungii.Test.Integration.Framework;
 
 namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 {
@@ -12,16 +16,19 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
     public class CustomerRegistrationSteps
     {
         public AppiumDriver<AndroidElement> driver = AndroidManager.androiddriver;
+        
         LoginPage Page_Login = new LoginPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
         TermsPage Page_Terms = new TermsPage(AndroidManager.androiddriver);
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         SaveMoneyPage Page_SaveMoney = new SaveMoneyPage(AndroidManager.androiddriver);
-
+       
         Data_Reusable_Customer Data_Customer = new Data_Reusable_Customer();
         Data_Validations_Customer Data_Valid_Customer = new Data_Validations_Customer();
 
+        GeneralUtilityFunctions Functions = new GeneralUtilityFunctions();
         UtilityFunctions UtilFunctions = new UtilityFunctions();
+        AndroidWebUtilityFunctions WebUtils = new AndroidWebUtilityFunctions();
 
         [When(@"I enter ""(.*)"" data in mandatory fields")]
         public void WhenIEnterDataInMandatoryFields(string p0)
@@ -61,7 +68,11 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             switch (p0)
             {
                 case "unique":
-                    string CustomerPhone = Data_Customer.RandomPhoneNum();
+                    string CustomerPhone;
+                    do
+                        CustomerPhone = Functions.RandomPhoneNum();
+                    while (Functions.IsPhoneUnique(CustomerPhone)==false);  
+                                      
                     FeatureContext.Current.Add("CustomerPhoneNum", CustomerPhone);
                     DriverAction.SendKeys(Page_Signup.TextField_Phonenumber, CustomerPhone);
                     break;
@@ -91,9 +102,6 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     break;
                 case "No, Continue":
                     DriverAction.Click(Page_Signup.Button_NoReferralConfirm);
-                    break;
-                case "Get Estimate":
-                    DriverAction.Click(Page_CustHome.Button_GetEstimate);
                     break;
                 case "Yes":
                     DriverAction.Click(Page_Signup.Button_NoReferralYes);
@@ -149,8 +157,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementTextEqual(Page_Signup.TextField_Email, Data_Customer.Email);
                 
                     var ExpectedPhoneNumber = DriverAction.GetValueFromFeatureContextVariable("CustomerPhoneNum");
-                    var ActualPhoneNumber = Page_Signup.TextField_Phonenumber.Text;
-                    ActualPhoneNumber = ActualPhoneNumber.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
+                    string ActualPhoneNumber = UtilFunctions.ConvertPhoneToString(Page_Signup.TextField_Phonenumber);
                     AssertionManager.CompareStrings(ExpectedPhoneNumber, ActualPhoneNumber);
 
                     AssertionManager.ElementNotEmpty(Page_Signup.TextField_Password);
@@ -159,7 +166,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
 
                 case "snackbar validation message":
                     AssertionManager.SnackbarTextEqual(Page_Login.Snackbar, Data_Valid_Customer.Cust_Signup_Snackbar_ExistingPhone);
-                    break;  
+                    break;
 
                 default: break;
             }
@@ -174,7 +181,7 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.ValidPercentCode);
                     break;
                 case "invalid":
-                    DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.InvalidReferralCode);
+                    DriverAction.SendKeys(Page_Signup.TextField_Referral, Data_Customer.InvalidCode);
                     break;
                 default: break;
             }
@@ -189,6 +196,46 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
                     AssertionManager.ElementTextEqual(Page_SaveMoney.SaveMoney_PromoCode1, Data_Valid_Customer.ValidPercentPromoCode);
                     break;
             }
+        }
+
+        [Given(@"I have existing details of ""(.*)""")]
+        public void GivenIHaveExistingDetailsOf(string p0)
+        {
+            switch (p0)
+            {
+                case "Referral Counts":
+                    WebUtils.AdminLogin();
+                    var result = WebUtils.GetReferralSourceCount("Other");
+                    int AccCreated_Count = result.Item1;
+                    double AccCreated_Percent = result.Item2;
+                    DriverAction.AddValueToScenarioContextVariable("AccCreated_Count", AccCreated_Count.ToString());
+                    DriverAction.AddValueToScenarioContextVariable("AccCreated_Percent", AccCreated_Percent.ToString());
+                    break;
+                default: break;
+            }
+        }
+
+        [Then(@"Admin portal should have updated value of ""(.*)""")]
+        public void ThenAdminPortalShouldHaveUpdatedValueOf(string p0)
+        {
+           // WebUtils.RefreshWebPage();
+            switch (p0)
+            {
+                case "Referral Counts":
+                    int AccCreated_Count = Convert.ToInt32(DriverAction.GetValueFromScenarioContextVariable("AccCreated_Count"));
+                    double AccCreated_Percent = Convert.ToDouble(DriverAction.GetValueFromScenarioContextVariable("AccCreated_Percent"));
+                    var result = WebUtils.GetReferralSourceCount("Other");
+                    int AccCreated_Count_Updated = result.Item1;
+                    double AccCreated_Percent_Updated = result.Item2;
+                    double AccCreated_Percent_Expected = WebUtils.CalculatePercentValue("Other");
+
+                    WebAssertionManager.CompareStrings((AccCreated_Count + 1).ToString(), AccCreated_Count_Updated.ToString());                    
+                    WebAssertionManager.CompareStrings(AccCreated_Percent_Expected.ToString(), AccCreated_Percent_Updated.ToString());
+                    break;
+
+                default: break;
+            }
+            WebUtils.Quit();
         }
     }
 }

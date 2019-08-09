@@ -1,26 +1,19 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-using OpenQA.Selenium.Safari;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Bungii.Test.Integration.Framework.Core.Web
 {
-
     public static class WebManager
     {
-
         public static IWebDriver webdriver = null;
         private static string browser = ConfigurationManager.AppSettings["Browser"];
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
         private static string SnapshotsDir = ConfigurationManager.AppSettings["SnapshotsDirectory"];
 
         public static void InitializeDriver()
@@ -39,11 +32,9 @@ namespace Bungii.Test.Integration.Framework.Core.Web
                     SetupChrome();
                     break;
             }
-
         }
+
         #region Browser Setups
-
-
 
         private static void SetupInternetExplorer()
         {
@@ -64,7 +55,6 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             webdriver.Manage().Window.Maximize();
         }
 
-
         private static void SetupChrome()
         {
             string BrowserDirectory = ConfigurationManager.AppSettings["BrowserDirectory"];
@@ -73,9 +63,9 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             webdriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(60));
-            webdriver.Manage().Window.Maximize();
-
+            //webdriver.Manage().Window.Maximize();
         }
+
         public static void Quit(ScenarioContext scenarioContext)
         {
             if (ScenarioContext.Current.TestError != null)
@@ -85,13 +75,13 @@ namespace Bungii.Test.Integration.Framework.Core.Web
                 if (!Directory.Exists(path))
                 {
                     System.IO.Directory.CreateDirectory(path);
-
                 }
                 String filenname = scenarioContext.ScenarioInfo.Title;
                 TakeScreenshot(path + "/" + filenname + ".png");
             }
             webdriver.Quit();
         }
+
         public static void TakeScreenshot(String filename)
         {
             ITakesScreenshot screenshotDriver = webdriver as ITakesScreenshot;

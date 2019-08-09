@@ -90,21 +90,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\AndroidDriver\DriverAction_DriverApp.cs" />
+    <Compile Include="Core\AndroidDriver\KeyManager_DriverApp.cs" />
     <Compile Include="Core\Android\AndroidManager.cs" />
+    <Compile Include="Core\AndroidDriver\AndroidManager_DriverApp.cs" />
     <Compile Include="Core\Android\AssertionManager.cs" />
     <Compile Include="Core\Android\DriverAction.cs" />
     <Compile Include="Core\Android\KeyManager.cs" />
-    <Compile Include="Core\Web\AssertionManager.cs" />
-    <Compile Include="Core\Web\DriverAction.cs" />
-    <Compile Include="Core\Web\KeyManager.cs" />
+    <Compile Include="Core\Web\WebAssertionManager.cs" />
+    <Compile Include="Core\Web\WebDriverAction.cs" />
+    <Compile Include="Core\Web\WebKeyManager.cs" />
     <Compile Include="Core\Web\WebManager.cs" />
+    <Compile Include="GeneralUtilityFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Packages.config" />
+    <None Include="Packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

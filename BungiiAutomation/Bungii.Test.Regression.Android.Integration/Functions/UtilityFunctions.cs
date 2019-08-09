@@ -9,6 +9,10 @@ using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Appium.MultiTouch;
 using System.Configuration;
 using Bungii.Test.Integration.Framework.Core.Android;
+using OpenQA.Selenium.Appium.Interfaces;
+using System.Text.RegularExpressions;
+using Bungii.Test.Integration.Framework.Core.Web;
+using Bungii.Test.Regression.Android.Integration.Pages.LoginSignupPages;
 
 namespace Bungii.Test.Regression.Android.Integration.Functions
 {
@@ -19,8 +23,12 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         TermsPage Page_CustTerms = new TermsPage(AndroidManager.androiddriver);
         CustomerHomePage Page_CustHome = new CustomerHomePage(AndroidManager.androiddriver);
-        private static string connection  = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+        MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
+        PermissionsPage Page_Permissions = new PermissionsPage(AndroidManager.androiddriver);        
 
+        private static string environment = ConfigurationManager.AppSettings["Environment"];
+        private static string connection;
+        
         public void LoginToCustomerApp(string phone, string password)
         {
             DriverAction.Click(Page_Signup.Link_Login);
@@ -36,12 +44,30 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
                     DriverAction.Click(Page_CustTerms.Button_PermissionsAllow);
                 }
             }
-            AssertionManager.ElementDisplayed(Page_CustHome.Title_HomePage);
-            AssertionManager.ElementDisplayed(Page_CustHome.Link_Invite);
+            if (DriverAction.isElementPresent(Page_Permissions.Text_Location_text1))
+            {
+                AssertionManager.ElementDisplayed(Page_Permissions.Text_Location_text2);
+                DriverAction.Click(Page_Permissions.Button_Location_Sure);
+                DriverAction.Click(Page_Permissions.Button_Location_Allow);
+            }
+        }
+
+        public void LogoutCustomerApp()
+        {
+            if(DriverAction.isElementPresent(Page_CustHome.Link_Menu))
+            {
+                DriverAction.Click(Page_CustHome.Link_Menu);
+                DriverAction.Click(Page_Menu.Menu_Logout);
+            }
         }
 
         public string GetVerificationCode(string PhoneNumber)
         {
+            if (environment.Equals("Dev"))
+                connection = ConfigurationManager.AppSettings["Dev.Database.ConnectionUri"];
+            else if (environment.Equals("QA"))
+                connection = ConfigurationManager.AppSettings["QA.Database.ConnectionUri"];
+
             string SMSCode = string.Empty;
             try
             {
@@ -83,6 +109,12 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
         }
 
+        public void ScrollUntilElementDisplayed(IWebElement element)
+        {
+            do ScrollToBottom();
+            while(IsElementDisplayed(element)==false);
+        }
+
         public void ScrollToTop()
         {
             var dimensions = driver.Manage().Window.Size;
@@ -91,35 +123,93 @@ namespace Bungii.Test.Regression.Android.Integration.Functions
             Double screenHeightEnd = dimensions.Height * 0.5;
             int scrollend = Convert.ToInt32(screenHeightEnd);
             driver.Swipe(0, scrollstart, 0, scrollend, 1000);
+        }       
+
+        public void SwipeLeft(IWebElement row)
+        {
+            int xShift = Convert.ToInt32(row.Size.Width * 0.20);
+            int xStart = (row.Size.Width) - xShift;
+            int xEnd = xShift;
+
+            ITouchAction action = new TouchAction(driver)
+            .Press(row, xStart, (row.Size.Height / 2))
+            .Wait(1000)
+            .MoveTo(row, xEnd, (row.Size.Height / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
+        public void ScrollUp(IWebElement element)
+        {
+            int xShift = Convert.ToInt32(element.Size.Height * 0.20);
+            int xStart = (element.Size.Height) - xShift;
+            int xEnd = xShift;
+
+            ITouchAction action = new TouchAction(driver)
+            .Press(element, xStart, (element.Size.Width / 2))
+            .Wait(1000)
+            .MoveTo(element, xEnd, (element.Size.Width / 2))
+            .Release();
+
+            action.Perform();
+            Thread.Sleep(2000);
+        }
+
+        public bool IsAlphanumeric(string stringtext)
+        {
+            Regex reg = new Regex("^[a-zA-Z0-9]*$");
+            if (reg.IsMatch(stringtext))
+                return true;
+            else return false;            
         }
 
         public string TrimString(string stringtext)
         {
-            stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "");
+            stringtext = stringtext.Trim().Replace("\t", "").Replace("\n", "").Replace("\r", "");
             return stringtext;
         }
 
-        public void HideKeyboard()
+        public string ConvertPhoneToString(IWebElement actualphone)
         {
-            try
-            {
-              driver.HideKeyboard();
-            }
-            catch(Exception)
-            {
-            }
+            string phone = actualphone.Text.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
+            return phone;
+        }
+
+        public string GetStringLength(IWebElement textstring)
+        {
+            string length = Convert.ToString(textstring.Text.Length);
+            return length;
         }
 
         public void SelectAddress(IWebElement element, string searchstring)
         {
-            // element.Clear();
             DriverAction.Clear(element);
-            Thread.Sleep(5000);
+            element.Click();
             element.SendKeys(searchstring);
             int x = element.Location.X;
             int y = element.Location.Y;
 
             new TouchAction(driver).Tap(x + 32, y + 176).Release().Perform();
+        }
+
+        public bool IsElementDisplayed(IWebElement element)
+        {
+            try
+            {
+                IWebElement elementpresent = element;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public void initialiseweb()
+        {
+            WebManager.InitializeDriver();
         }
     }
 }

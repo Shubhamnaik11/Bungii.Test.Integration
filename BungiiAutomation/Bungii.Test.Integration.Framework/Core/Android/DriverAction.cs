@@ -10,26 +10,12 @@ namespace Bungii.Test.Integration.Framework.Core.Android
     [Binding]
     public class DriverAction : KeyManager
     {
-        #region Waits
-        public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
-        {
-            try
-            {
-                Thread.Sleep(PauseTimeMilliSeconds * 3);
-                WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 30));
-                wait.Until((driver => element.Displayed));
-            }
-            catch (Exception)
-            {
-                Assert.Fail("Following element is not displayed : " + element);
-            }
-        }
+        #region Waits        
 
         public static void WaitUntilSnackbarExistsAndDisplayed(IWebElement element)
         {
             try
             {
-                Thread.Sleep(PauseTimeMilliSeconds * 1);
                 WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 5));
                 wait.Until((driver => element.Displayed));
             }
@@ -80,12 +66,25 @@ namespace Bungii.Test.Integration.Framework.Core.Android
             return ScenarioContext.Current.Get<String>(VariableName);
         }
 
+        public static void AddValueToFeatureContextVariable(string VariableName, string value)
+        {
+            FeatureContext.Current.Add(VariableName, value);
+        }
+
         public static string GetValueFromFeatureContextVariable(string VariableName)
         {
             return FeatureContext.Current.Get<String>(VariableName);
         }
 
         public static void SendKeys(IWebElement element, string text)
+        {
+            Clear(element);
+            element.Click();
+            element.SendKeys(text);
+            AndroidManager.androiddriver.HideKeyboard();
+        }
+
+        public static void SendKeys1(IWebElement element, string text)
         {
             Clear(element);
             element.Click();
@@ -108,6 +107,31 @@ namespace Bungii.Test.Integration.Framework.Core.Android
         public static void NavigateBack()
         {
             AndroidManager.androiddriver.Navigate().Back();
+        }
+
+        public static void HideKeyboard()
+        {
+            try
+            {
+                AndroidManager.androiddriver.HideKeyboard();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public static void WaitUntilIsElementExistsAndDisplayed(IWebElement element)
+        {
+            try
+            {
+                Thread.Sleep(PauseTimeMilliSeconds * 3);
+                WebDriverWait wait = new WebDriverWait(AndroidManager.androiddriver, new TimeSpan(0, 0, 30));
+                wait.Until((driver => element.Displayed));
+            }
+            catch (Exception)
+            {
+                Assert.Fail("Following element is not displayed : " + element);
+            }
         }
     }
 }

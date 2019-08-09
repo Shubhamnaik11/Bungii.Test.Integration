@@ -13,10 +13,17 @@ Scenario: Cust_Menu_Home
 Scenario: Cust_Menu_FAQ
 	When I tap on "Menu" > "FAQ" link
 	Then "FAQ" page should be opened
+	When I tap on "first question" on FAQ page
+	Then I should see "first answer dropdown open" on FAQ page
+	When I tap on "first question" on FAQ page
+	Then I should see "first answer dropdown close" on FAQ page
+	Then I should see "last question" on FAQ page
+	Then I should see "social media links" on FAQ page
 
 Scenario: Cust_Menu_Account
 	When I tap on "Menu" > "Account" link
 	Then "Account" page should be opened
+	And logged in Customer details should be displayed
 
 Scenario: Cust_Menu_Payment
 	When I tap on "Menu" > "Payment" link

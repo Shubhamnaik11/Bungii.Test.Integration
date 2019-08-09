@@ -20,11 +20,10 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
         TermsPage Page_Terms = new TermsPage(AndroidManager.androiddriver);
         SignupPage Page_Signup = new SignupPage(AndroidManager.androiddriver);
         MenuPage Page_Menu = new MenuPage(AndroidManager.androiddriver);
-        CameraPage Page_Camera = new CameraPage(AndroidManager.androiddriver);
         SaveMoneyPage Page_SaveMoney = new SaveMoneyPage(AndroidManager.androiddriver);
         SupportPage Page_Support = new SupportPage(AndroidManager.androiddriver);
         PaymentPage Page_Payment = new PaymentPage(AndroidManager.androiddriver);
-        HomePage Page_Home = new HomePage(AndroidManager.androiddriver);
+        CustomerHomePage Page_Home = new CustomerHomePage(AndroidManager.androiddriver);
         FAQPage Page_FAQ = new FAQPage(AndroidManager.androiddriver);
         AccountPage Page_Account = new AccountPage(AndroidManager.androiddriver);
 
@@ -112,21 +111,45 @@ namespace Bungii.Test.Regression.Android.Integration.StepDefinitions
             }
         }
 
-        [Then(@"All contents of ""(.*)"" page should be displayed")]
-        public void ThenAllContentsOfPageShouldBeDisplayed(string p0)
+        [Then(@"logged in Customer details should be displayed")]
+        public void ThenLoggedInCustomerDetailsShouldBeDisplayed()
+        {
+            AssertionManager.ElementTextEqual(Page_Account.Account_Name, Data_Customer.CustomerFirstName + " " + Data_Customer.CustomerLastName);
+            string ActualPhone = UtilFunctions.ConvertPhoneToString(Page_Account.Account_Phone);
+            AssertionManager.CompareStrings(Data_Customer.CustomerPhonenumber, ActualPhone);
+            AssertionManager.ElementTextEqual(Page_Account.Account_Email, Data_Customer.Email);
+        }
+
+        [When(@"I tap on ""(.*)"" on FAQ page")]
+        public void WhenITapOnOnFAQPage(string p0)
         {
             switch (p0)
             {
-                case "FAQ":
+                case "first question":
                     DriverAction.Click(Page_FAQ.FAQ_FirstQuestion);
-                    AssertionManager.ElementPresent(Page_FAQ.FAQ_FirstAnswer);
-                    UtilFunctions.ScrollToBottom();
-                    Page_Menu.FAQ_TwitterLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
-                    Page_Menu.FAQ_InstagramLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
-                    Page_Menu.FAQ_FBLogo.Click();
-                    DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_BACK);
+                    break;
+                default: break;
+            }
+        }
+
+        [Then(@"I should see ""(.*)"" on FAQ page")]
+        public void ThenIShouldSeeOnFAQPage(string p0)
+        {
+            switch (p0)
+            {
+                case "first answer dropdown open":
+                    AssertionManager.ElementDisplayed(Page_FAQ.FAQ_FirstAnswer);
+                    break;
+                case "first answer dropdown close":
+                    AssertionManager.ElementNotDisplayed(Page_FAQ.FAQ_FirstAnswer);
+                    break;
+                case "last question":
+                    AssertionManager.ElementDisplayed(Page_FAQ.FAQ_LastQuestion);
+                    break;
+                case "social media links":
+                    AssertionManager.ElementDisplayed(Page_FAQ.FAQ_TwitterLogo);
+                    AssertionManager.ElementDisplayed(Page_FAQ.FAQ_InstagramLogo);
+                    AssertionManager.ElementDisplayed(Page_FAQ.FAQ_FBLogo);
                     break;
                 default: break;
             }
