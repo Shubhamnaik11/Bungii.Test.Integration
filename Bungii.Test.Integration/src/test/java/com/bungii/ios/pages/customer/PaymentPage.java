@@ -21,6 +21,10 @@ public class PaymentPage extends PageBase {
 	public WebElement TextBox_InvalidExpiry() {return findElement("Invalid: MM/YY", PageBase.LocatorType.Name); }
 	public WebElement Button_PayPal() {return findElement("PayPal", PageBase.LocatorType.Name); }
 	public WebElement Button_Cancel() {return findElement("Cancel", PageBase.LocatorType.Name); }
+
+	public WebElement TextBox_CVV() {return findElement("CVV", PageBase.LocatorType.Name); }
+	public WebElement TextBox_PostalCode() {return findElement("Postal Code", PageBase.LocatorType.Name); }
+
 	public WebElement Button_Delete(boolean ...ignoreException) {return findElement("icon delete", PageBase.LocatorType.Name,ignoreException); }
 
 
@@ -31,11 +35,11 @@ public class PaymentPage extends PageBase {
 			"//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
 
 	public List<WebElement> Text_CardNumber () {return findElements("//XCUIElementTypeStaticText[@name='**** **** **** ']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-public WebElement Text_AddHeader() {return findElement("//XCUIElementTypeStaticText[@name='Add payment option']", PageBase.LocatorType.XPath); }
-public WebElement Text_AddInfo() {return findElement(
+	public WebElement Text_AddHeader() {return findElement("//XCUIElementTypeStaticText[@name='Add payment option']", PageBase.LocatorType.XPath); }
+	public WebElement Text_AddInfo() {return findElement(
 		"//XCUIElementTypeStaticText[@name='Add payment option']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
-public WebElement Button_AddNew() {return findElement("//XCUIElementTypeOther/XCUIElementTypeButton[@name='Add new']", PageBase.LocatorType.XPath); }
+	public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+	public WebElement Button_AddNew() {return findElement("//XCUIElementTypeOther/XCUIElementTypeButton[@name='Add new']", PageBase.LocatorType.XPath); }
 
 }

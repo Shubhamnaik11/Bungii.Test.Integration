@@ -1,5 +1,6 @@
 @ios
-@S29READY
+@S30READY
+
 @NONBUNGII
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links

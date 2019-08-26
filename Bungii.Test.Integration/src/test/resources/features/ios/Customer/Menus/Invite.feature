@@ -1,5 +1,6 @@
 @ios
-@S29READY
+
+@S30READY
 @NONBUNGII
 Feature: Customer	Referral Invite page
   As a Bungii customer I Should able to share my referral code
@@ -47,7 +48,7 @@ Feature: Customer	Referral Invite page
     And I click "SHARE" button on "INVITE" screen
     And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then I should be navigated to "Invite" screen
- #   Then user is alerted for "No twitter installed"
+    Then user is alerted for "No twitter installed"
 
   @regression
   Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter Application

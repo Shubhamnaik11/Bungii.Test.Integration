@@ -16,7 +16,7 @@ public class FacebookPage extends PageBase {
 
     //TODO: check if this is to be removed
     public WebElement Button_ShareLink(boolean...ignoreException) {
-        return findElement("promosrvqa.bungii.ccigoa", LocatorType.Name,ignoreException);
+        return findElement("Want $10?", LocatorType.Name,ignoreException);
     }
 
 

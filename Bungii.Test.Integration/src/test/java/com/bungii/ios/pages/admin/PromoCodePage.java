@@ -17,7 +17,8 @@ public class PromoCodePage extends PageBase {
 
 
     public List<WebElement> Text_OneOffCode() {
-        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
+        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[3][text()='0']/preceding-sibling::td[5][not(contains(text(),'FBSHARE'))]",LocatorType.XPath);
+    //    return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
 

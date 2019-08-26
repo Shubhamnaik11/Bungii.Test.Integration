@@ -47,7 +47,7 @@ public class NotificationSteps extends DriverBase {
 	@Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
 	public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-		Thread.sleep(60000);
+		Thread.sleep(20000);
 		try{
 		String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 		String appHeaderName=getAppHeader(appName);
@@ -59,7 +59,7 @@ public class NotificationSteps extends DriverBase {
 			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
-			logger.detail(SetupManager.getDriver().getPageSource());
+		//	logger.detail(SetupManager.getDriver().getPageSource());
 		boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 		if(!notificationClick){
 			Thread.sleep(80000);
@@ -221,7 +221,7 @@ public class NotificationSteps extends DriverBase {
 
 		for (WebElement notifcation : elements) {
 			String[] info = notifcation.getAttribute("label").split(",", 3);
-			System.err.println(info[0] + " C" + info[2]);
+			System.err.println(info[0] + " ||  " + info[2]);
 			if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
 				action.swipeRight(notifcation);
 				clicked = true;
@@ -255,6 +255,14 @@ public class NotificationSteps extends DriverBase {
 
 	public boolean clearAllNotifcation() {
 		boolean cleared = false;
+		//click on clear button on notification page
+		List<WebElement> clearButtons = notificationPage.Button_NotificationClear();
+		for (WebElement clearButton : clearButtons) {
+			action.click(clearButton);
+			action.click(notificationPage.Button_NotificationClearConfirm(true));
+			cleared = true;
+		}
+
 		List<WebElement> elements = notificationPage.Cell_Notification();
 
 		for (WebElement notifcation : elements) {
@@ -267,9 +275,11 @@ public class NotificationSteps extends DriverBase {
 			cleared = true;
 
 		}
-		while (notificationPage.Cell_Notification().size() > 0)
-			clearAllNotifcation();
-
+		//minimum 3 notification are shown on all iOS screen , If earlier notification had  more than 3 notification then only search for notification agiain . This will save time .
+		if(elements.size()>3) {
+			while (notificationPage.Cell_Notification().size() > 0)
+				clearAllNotifcation();
+		}
 		return cleared;
 
 	}

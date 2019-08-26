@@ -38,6 +38,7 @@ public class TripDetailsSteps extends DriverBase {
 	@Then("^Trip Information should be correctly displayed on TRIP DETAILS screen$")
 	public void trip_information_should_be_correctly_displayed_on_something_screen()  {
 		try {
+			action.swipeUP();
 			String[] actualDetails = getTripDetails();
 			cucumberContextManager.setScenarioContext("BUNGII_DRIVER_ESTIMATE", actualDetails[1]);
 

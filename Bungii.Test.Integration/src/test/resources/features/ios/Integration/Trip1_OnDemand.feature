@@ -1,43 +1,33 @@
 @ios
-@TESTONE
 Feature: Create on demand bungii
-  I want to use this template for my feature file
   Assume driver and user already logged in
 
   Background:
 
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
-
+  @regression1
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
-    When I clear all notification
-    And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
-    And I Select "ACCOUNT" from driver App menu
-    And I get driver account details for driver 1
-    And I Select "HOME" from driver App menu
-    And I Switch to "customer" application on "same" devices
-    And I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
 
-    When I Select "Home" from Customer App menu
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           |
-   #   | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi |
+   #And I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid" driver
+    And I change driver status to "Online"
+    And I Switch to "customer" application on "same" devices
+
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    And Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-    When I click on notification for "Driver" for "on demand trip"
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+      | 15       |           |              | Now  | Default     | No             |
+ #   Then I should be navigated to "SEARCHING" screen
+    And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
+    And I click "YES" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
     When I click "ACCEPT" button on "Bungii Request" screen
     Then I should be navigated to "EN ROUTE" trip status screen
@@ -133,8 +123,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
-  @TEST
+  @S30READY
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
@@ -143,20 +132,12 @@ Feature: Create on demand bungii
     And I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     And I change driver status to "Online"
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
-    When I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
-    And I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-
-    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location         | Drop Location               | geofence  |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-  #  Then Trip Information should be correctly displayed on Estimate screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 15       |           |              | Now  | Default     |
@@ -173,43 +154,34 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
     Then Customer should be navigated to "EN ROUTE" trip status screen
-#    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" trip status screen
- #   Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "ARRIVED" trip status screen
-#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" trip status screen
- #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "LOADING ITEM" trip status screen
- #   Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-  #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
- #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" trip status screen
-  #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
     Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-#    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
@@ -223,7 +195,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  @S30READY
   @OTHER
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
@@ -235,23 +207,15 @@ Feature: Create on demand bungii
     Then I get promo code for "<Promo Code>"
     When I switch to "ORIGINAL" instance
 
-
  #   And I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-#    Then I change driver status to "Online"
-#    And I Select "ACCOUNT" from driver App menu
-#    Then I get driver account details for driver 1
- #   And I Select "HOME" from driver App menu
+    And I Select "HOME" from driver App menu
+    Then I change driver status to "Online"
     And I Switch to "customer" application on "same" devices
-    And I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-
-    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           |
-   #   | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi |
+      | Driver | Pickup Location         | Drop Location               | Geofence  |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -341,7 +305,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
     Examples:
-      | Scenario         | Promo Code      | User         |
-      | fixed valid      | {PROMO FIXED}   | no promocode |
+      | Scenario    | Promo Code    | User         |
+      | fixed valid | {PROMO FIXED} | no promocode |
       | Promo percentage | {PROMO PERCENT} | no promocode |
       | valid one off    | {valid one off} | no promocode |

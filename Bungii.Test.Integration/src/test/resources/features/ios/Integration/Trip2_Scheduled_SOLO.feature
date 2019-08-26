@@ -2,29 +2,24 @@
 
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
-  Assume customer is logged in
 
   Background:
-    When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
-    When I Select "HOME" from driver App menu
-    And I Switch to "customer" application on "ORIGINAL" devices
+
+#    Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
+    When I Switch to "driver" application on "same" devices
+   And I am logged in as "valid" driver
+#    And I change driver status to "Online"
+    And I Switch to "customer" application on "ORIGINAL" devices
 
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
 
-    And I Select "ACCOUNT" from Customer App menu
-    And I get customer account details
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -32,7 +27,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
- #   Then Bungii Posted message should be displayed
+    Then Bungii Posted message should be displayed
     When I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
@@ -144,12 +139,10 @@ Feature: To Test Solo - Scheduling Bungii
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
 
-    When I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
 #    Then Trip Information should be correctly displayed on Estimate screen
@@ -206,7 +199,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-
+  @S30READY
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
  #   When I Switch to "customer" application on "same" devices
@@ -236,15 +229,15 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
-
+  @S30READY
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
-    When I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-    When I Select "Home" from Customer App menu
-    And I request for  bungii
-      | Driver | Distance |
-      | Solo   | Long     |
+ #   When I Select "ACCOUNT" from Customer App menu
+ #   Then I get customer account details
+ #   When I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Solo   |6000 College Blvd, Leawood, KS 66211, USA | 6000 College Blvd, Leawood, KS 66211, USA | kansas      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
@@ -259,17 +252,14 @@ Feature: To Test Solo - Scheduling Bungii
     And I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+  @S30READY
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
-    When I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |    goa|
     And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |

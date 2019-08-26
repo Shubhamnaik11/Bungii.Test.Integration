@@ -56,7 +56,7 @@ public class HomePage extends PageBase {
     public WebElement Button_AppMenu () { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain); }
     public WebElement TextBox_Pickup(boolean ...ignoreException) {return findElement("**/XCUIElementTypeTextField[1]", LocatorType.ClassChain,ignoreException); }
     public WebElement TextBox_Pickup_LineOne() {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
-    public WebElement TextBox_Pickup_LineTwo() {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+    public WebElement TextBox_Pickup_LineTwo(boolean ...ignoreException) {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath,ignoreException); }
 
     public WebElement Link_PickUpSuggestion() {return findElement("**/XCUIElementTypeTable[2]/XCUIElementTypeCell", LocatorType.ClassChain); }
     public WebElement TextBox_Drop(boolean ...ignoreException) {return findElement("//*[@value='Set Drop Off Location']", LocatorType.XPath,ignoreException); }

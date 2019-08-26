@@ -69,8 +69,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_SupportSms() { return findElement("Text Bungii support", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_ViewItems() { return findElement("View items", PageBase.LocatorType.AccessibilityId); }
-	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.AccessibilityId); }
-
+//	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.AccessibilityId); }
+	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
 
 

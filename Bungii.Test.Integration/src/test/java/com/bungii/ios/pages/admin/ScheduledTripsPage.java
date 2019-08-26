@@ -40,6 +40,13 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("CustomerCancel", LocatorType.Name);
     }
 
+
+    public WebElement Button_ScheduledDateSort(){return  findElement("span-ScheduledDate",LocatorType.Id);}
+    public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
+
+    public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
+
+
     public void waitForLoadingToDisappear(){
         waitForLoadingToDisappear();
     }

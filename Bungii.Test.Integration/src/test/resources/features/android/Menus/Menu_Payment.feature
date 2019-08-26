@@ -43,13 +43,16 @@ Scenarios on Payment Methods
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "<Card Detail>" on Card Details page
     And I enter "<Card Expiry>" on Card Details page
+    And I enter "<CVV>" on Card Details page
+    And I enter "<Postal Code>" on Card Details page
+
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
     And I tap on "Menu" > "Logout" link
     Examples:
-      | Scenario       | Card Detail                | Card Expiry       |
-      | VALID_discover | valid discover card number | valid expiry date |
-      | VALID_visa     | valid visa card number     | valid expiry date |
+      | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
+      | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
+      | VALID_visa     | valid visa card number     | valid expiry date |valid cvv|valid postal code|
 
   @regression
   Scenario:  As Bungii Customer I should not able to add invalid payment Card

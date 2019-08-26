@@ -1,5 +1,6 @@
 @ios
 @NONBUNGII
+@S30READY
 Feature: As a new customer I should be allowed to Sign up on Bungii Customer applicatrion
 
 
@@ -36,7 +37,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | Source :OTHER | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
-
+  
   @regression
   Scenario Outline:As a new Bungii Customer I should submit registration form with Promo code
     When I open new "Chrome" browser for "ADMIN"
@@ -64,7 +65,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-
+  
   @regression
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
@@ -87,7 +88,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
-
+  
   @regression
   Scenario Outline: If I try to submit my registration form with invalid details then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -104,7 +105,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | EMPTY SIGNUP FIELD | {BLANK}    | {BLANK}         | {BLANK}                         | {BLANK}      | {BLANK}  |               | {BLANK}  | EMPTY SIGNUP FIELD            |
       | Invalid_EMAIL      | test       | {RANDOM_STRING} | ss@dd                           | 9403960188   | Cci12345 |               | facebook | INVALID EMAIL WHILE SIGNUP    |
       | Invalid_Password      | test       | {RANDOM_STRING} | Vishal.bagi@creativecapsule.com | 9403960188   | Cci      |               | facebook | INVALID PASSWORD WHILE SIGNUP |
-
+  
   @regression
   Scenario Outline: If I try to submit my registration form with invalid Phone number then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -122,7 +123,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario            | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
       | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {VALID USER} | Cci12345 |               | facebook | EXISTING USER              |
       | InValid_Phone       | Vishal     | Bagi            | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
-
+  
   @regression
   Scenario Outline: If I try to submit my registration form with invalid Promo code then I should be Alerted for it .
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page

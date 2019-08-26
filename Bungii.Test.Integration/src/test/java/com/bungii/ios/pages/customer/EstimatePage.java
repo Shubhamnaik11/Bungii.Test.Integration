@@ -240,7 +240,22 @@ public class EstimatePage extends PageBase {
     public WebElement Button_Gallary() {
         return findElement("Gallery", LocatorType.AccessibilityId);
     }
-    public WebElement PhotosFolder() {
+    public WebElement Button_Camera() {
+        return findElement("Camera", LocatorType.AccessibilityId);
+    }
+    public WebElement Button_OK(boolean...ignoreException) {
+        return findElement("OK", LocatorType.AccessibilityId,ignoreException);
+    }
+    public WebElement Button_PhotoCapture() {
+        return findElement("PhotoCapture", LocatorType.AccessibilityId);
+    }
+    public WebElement Button_UsePhoto() {
+        return findElement("Use Photo", LocatorType.AccessibilityId);
+    }
+    public WebElement Photos2Folder() {
         return findElement("Camera Roll", LocatorType.AccessibilityId);
+    }
+    public WebElement PhotosFolder() {
+        return findElement("Moments", LocatorType.AccessibilityId);
     }
 }

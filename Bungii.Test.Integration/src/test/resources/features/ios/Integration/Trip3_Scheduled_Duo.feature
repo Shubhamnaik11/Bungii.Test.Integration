@@ -2,7 +2,7 @@
 
 Feature: To Test Duo - Scheduling Bungii
   I want to use request Scheduling Bungii with Duo type
-
+@S30READY
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -10,17 +10,11 @@ Feature: To Test Duo - Scheduling Bungii
 
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-    And I change driver status to "Online"
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
-    And I change driver status to "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
     And I am on Customer logged in Home page
-    And I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-
-    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -50,62 +44,62 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "BUNGII DETAILS" screen
     When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
-  #  Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen
 
     And I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
-  #  Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" trip status screen
 
     And I Switch to "customer" application on "same" devices
-  #  Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-  #  Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" trip status screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-  #  Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" trip status screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
-  #  Then Customer should be navigated to "ARRIVED" trip status screen
+    Then Customer should be navigated to "ARRIVED" trip status screen
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-  #  Then I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-  #  Then I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-  #  Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "LOADING ITEM" Screen
-  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
-  #  Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
 
     And I Switch to "customer" application on "ORIGINAL" devices
-  #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
@@ -122,35 +116,21 @@ Feature: To Test Duo - Scheduling Bungii
     When I rate Bungii Driver  with following details and Press "CLOSE" Button
       | Ratting | Tip |
       | 5       | 5   |
-    Then I should be navigated to "Promotion" screen
+   #Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @TESTSNACKBAR
+
+
   @regression
   Scenario: Create Duo Bungii, Verify Details
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-    And I change driver status to "Online"
- #   And I Select "ACCOUNT" from driver App menu
- #   Then I get driver account details for driver 1
- #   And I Select "HOME" from driver App menu
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
-    And I change driver status to "Online"
- #   And I Select "ACCOUNT" from driver App menu
- #   Then I get driver account details for driver 2
- #   And I Select "HOME" from driver App menu
-
-
-
     And I Switch to "customer" application on "ORIGINAL" devices
     And I am on Customer logged in Home page
-    And I Select "ACCOUNT" from Customer App menu
-    Then I get customer account details
-    When I Select "Home" from Customer App menu
-
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |

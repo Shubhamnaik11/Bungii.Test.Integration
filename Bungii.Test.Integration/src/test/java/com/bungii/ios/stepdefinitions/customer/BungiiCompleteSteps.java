@@ -27,7 +27,6 @@ public class BungiiCompleteSteps extends DriverBase {
 		this.bungiiCompletePage = bungiiCompletePage;
 
 	}
-	static final double MIN_COST = 39;
 
 	@Then("^Bungii customer should see \"([^\"]*)\" on Bungii completed page$")
 	public void bungii_customer_should_see_something_on_bungii_completed_page(String identifier) throws Throwable {
@@ -84,14 +83,21 @@ public class BungiiCompleteSteps extends DriverBase {
 
 
 		Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,String.valueOf(tripActualTime),promoValue,numberOfDriver);
-		String truncValue = new DecimalFormat("#.##").format(expectedTotalCost);
-		if(!truncValue.contains("."))truncValue=truncValue+".00";
+		String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
+	//	if(!truncValue.contains("."))truncValue=truncValue+".00";
 
 		testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
 
 	}
 	public  void verifyDiscount(){
+		//get current geofence
+		String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+		//get minimum cost,Mile value,Minutes value of Geofence
+		double minCost =Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.minimum.cost")),
+				perMileValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.miles")),
+				perMinutesValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.minutes"));
+
 		double tripActualTime=Double.parseDouble(utility.getActualTime());
 		String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0];
 		String Promo=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -103,7 +109,7 @@ public class BungiiCompleteSteps extends DriverBase {
 		double distance =Double.parseDouble(distanceValueDB);// Double.parseDouble(totalDistance.replace(" miles", ""));
 
 		//double tripActualTime = Double.parseDouble(totalTime);
-		double tripValue = distance + tripActualTime;
+		double tripValue = distance *perMileValue + tripActualTime *perMinutesValue;
 		if(numberOfDriver.equalsIgnoreCase("DUO"))
 			tripValue=tripValue*2;
 
@@ -112,21 +118,22 @@ public class BungiiCompleteSteps extends DriverBase {
 		else if(Promo.contains("%"))
 			promoValue=Double.valueOf(tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100);
 		//if final cost with promo is less than 39, then discount is reduced
-		if((tripValue-promoValue)<MIN_COST)
-			promoValue=tripValue-MIN_COST;
+		if((tripValue-promoValue)<minCost)
+			promoValue=tripValue-minCost;
 
-		String promoDiscountValue = new DecimalFormat("#.##").format(promoValue);
+		String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
 
-		if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
+	//	if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
 
 		//  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
-		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+Promo,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
+		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
 	}
-
+	//TODO: Handle Duo
 	@When("^I rate Bungii Driver  with following details and Press \"([^\"]*)\" Button$")
 	public void iRateBungiiDriverWithFollowingDetailsAndPressButton(String button, DataTable tipInformation) {
 		try {
-			
+			String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
 			//Input from user
 			Map<String, String> data = tipInformation.transpose().asMap(String.class, String.class);
 			String ratting = data.get("Ratting"), tip = data.get("Tip");
@@ -146,8 +153,9 @@ public class BungiiCompleteSteps extends DriverBase {
 			default:
 				throw new Exception(" UNIMPLEMENTED STEP");
 			}
-			testStepVerify.isTrue(  (int)Double.parseDouble(actualTip)==Integer.parseInt(tip), "driver should be given tip for "+tip, "Bungii driver is given tip for" + actualTip,
-                    "Bungii driver is given tip for" + actualTip);
+			if (!numberOfDriver.toUpperCase().equals("DUO"))
+				testStepVerify.isTrue(  (int)Double.parseDouble(actualTip)==Integer.parseInt(tip), "driver should be given tip for "+tip, "Bungii driver is given tip for" + actualTip,
+                    	"Bungii driver is given tip for" + actualTip);
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

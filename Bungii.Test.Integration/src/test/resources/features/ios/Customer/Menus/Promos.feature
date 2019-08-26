@@ -1,5 +1,6 @@
 @ios
 @NONBUNGII
+@S30READYExcept1
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -34,6 +35,7 @@ Feature: Promos
       | Scenario | Promo   | Expected Message |
       | Invalid | AAAAAAA | Invalid Promo    |
 
+  @notready
   @regression
   Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 
@@ -102,9 +104,9 @@ Feature: Promos
     When I click "ADD" button on "PROMOS" screen
     Then user is alerted for "EXPIRED PROMO"
 
-    #commented scenario outcome due to change in application
   @regression
   Scenario: When i try to share my promo code , via twitter but there is no application installed then I should be alerted for No twitter Installed message
+    Given I have "twitter" app "not installed"
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I click "GET MORE MONEY" button on "PROMOS" screen
@@ -112,7 +114,7 @@ Feature: Promos
     Then I get Invite Code
     When I click "SHARE" button on "INVITE" screen
     When I click "SHARE ON TWITTER" button on "INVITE" screen
-#    Then user is alerted for "No twitter installed"
+    Then user is alerted for "No twitter installed"
     Then I should be navigated to "Invite" screen
 
   @regression

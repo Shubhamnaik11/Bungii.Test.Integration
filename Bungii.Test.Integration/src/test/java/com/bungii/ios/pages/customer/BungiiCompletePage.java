@@ -37,4 +37,7 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Button_Close() {return findElement("close button icon", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_Minus() {return findElement("-", PageBase.LocatorType.AccessibilityId); }
 
+	public WebElement Button_Driver2Plus() {return findElements("+", PageBase.LocatorType.AccessibilityId).get(1); }
+	public WebElement Button_Driver2Minus() {return findElements("-", PageBase.LocatorType.AccessibilityId).get(1); }
+
 }

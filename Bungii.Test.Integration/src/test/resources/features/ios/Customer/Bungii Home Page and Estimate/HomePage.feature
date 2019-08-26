@@ -1,6 +1,7 @@
 @ios
 @NONBUNGII
-@S29READY
+@S30READY
+
 Feature: Customer Home screen
 
   Background:

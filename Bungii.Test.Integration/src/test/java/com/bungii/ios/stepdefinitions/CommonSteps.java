@@ -238,6 +238,8 @@ public class CommonSteps extends DriverBase {
                     }
                     break;
                 case "ON TO THE NEXT ONE":
+                    //sometime earning popup comes late
+                    if (action.isAlertPresent()){ logger.detail("Alert message"+action.getAlertMessage());;SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
                     break;
                 case "I DON'T LIKE FREE MONEY":
@@ -759,8 +761,7 @@ public class CommonSteps extends DriverBase {
                 logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.user"),
                         PropertyUtility.getDataProperties("customer.password"));
 
-                cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("customer.name"));
-                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("customer.user") );
+
 
                 iClickButtonOnScreen("Log In", "Log In");
                 if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
@@ -790,7 +791,8 @@ public class CommonSteps extends DriverBase {
             } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
-
+            cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("customer.user") );
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

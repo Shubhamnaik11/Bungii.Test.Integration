@@ -129,9 +129,13 @@ public class ActionManager {
         Map<String, Object> params = new HashMap<>();
         params.put("direction", "right");
         params.put("element", ((RemoteWebElement) element).getId());
+   //     params.put("element", ((IOSElement) element).getId());
         js.executeScript("mobile: swipe", params);
     }
-
+    public String getDeviceTimeZone(){
+        String time2 = ((AppiumDriver) SetupManager.getDriver()).getDeviceTime();
+        return time2;
+    }
     /**
      * Swipe left on current mobile screen IOS SPECIFIC
      */
@@ -175,7 +179,7 @@ public class ActionManager {
         Columns.get(2).sendKeys(minutes);
 
         Columns.get(1).sendKeys(hour);
-        logger.detail("Time picker value is  " + Columns.get(0).getAttribute("value") + " , "
+        logger.detail("CDT  " + Columns.get(0).getAttribute("value") + " , "
                 + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
                 + Columns.get(3).getAttribute("value"));
 
@@ -347,8 +351,8 @@ public class ActionManager {
      */
     public void textToBePresentInElementName(final WebElement element, final String text) {
 
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(60, TimeUnit.SECONDS)
-                .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
+        .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
         } catch (Exception e) {

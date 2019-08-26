@@ -1,5 +1,5 @@
 @ios
-
+@S30READY
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
@@ -10,11 +10,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Switch to "customer" application on "ORIGINAL" devices
 
     And I am on Customer logged in Home page
- #   When I clear all notification
+  #  When I clear all notification
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | froggyland Goa   | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen

@@ -8,8 +8,12 @@ public class BungiiDetails extends PageBase {
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 	public WebElement Button_CancelBungii() {return findElement("//XCUIElementTypeStaticText[@name='CANCEL BUNGII']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath); }
-	public WebElement Text_PickUpLocation() {return findElement("//XCUIElementTypeStaticText[@name='PICKUP LOCATION']/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
-	public WebElement Text_DropLocation() {return findElement("//XCUIElementTypeStaticText[@name='DROP OFF LOCATION']/following-sibling::XCUIElementTypeTextField", PageBase.LocatorType.XPath); }
+	public WebElement Text_PickUpLocationLine1() {return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(0); }
+	public WebElement Text_PickUpLocationLine2() {return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(1); }
+
+	public WebElement Text_DropLocationLine1() {return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(2); }
+	public WebElement Text_DropLocationLine2() {return findElements("XCUIElementTypeStaticText", PageBase.LocatorType.ClassName).get(3); }
+
 	public WebElement Text_Time() {return findElement("//XCUIElementTypeStaticText[@name='Time']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
 	public WebElement Text_TotalEstimate() {return findElement("//XCUIElementTypeStaticText[@name='Total estimate']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Text_Driver1Status() {return findElement("//XCUIElementTypeStaticText[@name='Driver #1']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }

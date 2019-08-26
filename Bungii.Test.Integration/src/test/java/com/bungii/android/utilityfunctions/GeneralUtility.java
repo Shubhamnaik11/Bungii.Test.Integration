@@ -538,7 +538,29 @@ public class GeneralUtility extends DriverBase {
         action.click(estimatePage.Button_TimeConfirm());
 
     }
-
+    /**
+     * Get geofence data from properties file
+     *
+     * @param geofenceName Geofence name
+     * @param partialKey   this is partial value that is to be searched in properties file
+     * @return get message from Geofence propertiese file
+     */
+    public String getGeofenceData(String geofenceName, String partialKey) {
+        geofenceName = (geofenceName.isEmpty() || geofenceName.equals("")) ? PropertyUtility.getGeofenceData("current.geofence") : geofenceName.toLowerCase();
+        String actualKey = geofenceName + "." + partialKey;
+        return PropertyUtility.getGeofenceData(actualKey);
+    }
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofence(){
+        //get current geofence
+        String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone =getGeofenceData(currentGeofence,"geofence.timezone");
+        return getGeofenceTimeZone.toUpperCase();
+    }
     public void selectAddress(WebElement element, String searchstring) throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 

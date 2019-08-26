@@ -43,8 +43,7 @@ public class PaymentSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
-    @And("^I enter (.+) and (.+) on Card Details page$")
+    @And("^I enter Card No:([^\"]*) and Expiry :([^\"]*) on Card Details page$")
     public void i_enter_and_on_card_details_page(String cardType, String expiry) {
         try {
             String cardNumber;
@@ -73,6 +72,31 @@ public class PaymentSteps extends DriverBase {
                     "I was not able to entered " + cardType + " and " + expiry + " on Card Details page",
                     true);
         }
+    }
+
+    @And("^I enter postal code :(.+) and Cvv: (.+) on Card Details page$")
+    public void i_enter_postal_code_and_cvv_on_card_details_page(String postalcode, String cvv) throws Throwable {
+        String postalCodeValue="",cvvValue="";
+        switch (postalcode.toUpperCase()) {
+            case "VALID POSTAL CODE":
+                postalCodeValue = PropertyUtility.getDataProperties("valid.card.postal.code");
+                break;
+/*            case "INVALID POSTAL CODE":
+                postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
+                break;*/
+        }
+        switch (cvv.toUpperCase()) {
+            case "VALID CVV":
+                cvvValue = PropertyUtility.getDataProperties("valid.card.cvv");
+                break;
+/*            case "INVALID POSTAL CODE":
+                postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
+                break;*/
+        }
+        action.sendKeys(paymentPage.TextBox_PostalCode(), postalCodeValue);
+        action.sendKeys(paymentPage.TextBox_CVV(), cvvValue);
+        pass("I enter postal code :"+postalcode+" and Cvv: "+cvv+" on Card Details page",
+                "I entered " + postalCodeValue + " and " + cvvValue + " on Card Details page",true);
     }
 
     @When("^I swipe \"([^\"]*)\" card on the payment page$")
