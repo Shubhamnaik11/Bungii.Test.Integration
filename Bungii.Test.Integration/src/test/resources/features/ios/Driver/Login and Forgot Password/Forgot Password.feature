@@ -33,6 +33,7 @@ Feature: FORGOT PASSWORD
     And I Get SMS CODE for "<Value>" number on driverApp
     And I Enter "<SMS CODE>" value in "sms code" field in "FORGOT PASSWORD" Page on driverApp
     And I Enter "<New Password>" value in "new password" field in "FORGOT PASSWORD" Page on driverApp
+    And I Enter "<New Password>" value in "confirm password" field in "FORGOT PASSWORD" Page on driverApp
     When I click "Continue" button on "Forgot Password" screen on driverApp
     Then user is alerted for "<Expected Message>" on driverApp
     And I should be navigated to "Forgot Password" screen on driverApp

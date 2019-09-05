@@ -1,4 +1,5 @@
 @ios
+
 Feature: Create on demand bungii
   Assume driver and user already logged in
 
@@ -6,7 +7,7 @@ Feature: Create on demand bungii
 
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
-  @regression1
+
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call
 
@@ -23,7 +24,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following detail
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | Now  | Default     | No             |
+      | 15       |           |              | Now  | Default     | Yes             |
  #   Then I should be navigated to "SEARCHING" screen
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed

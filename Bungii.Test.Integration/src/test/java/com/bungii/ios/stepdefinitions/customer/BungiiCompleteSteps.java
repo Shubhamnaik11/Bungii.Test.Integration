@@ -123,6 +123,8 @@ public class BungiiCompleteSteps extends DriverBase {
 
 		String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
 
+		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
+
 	//	if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
 
 		//  testStepVerify.isEquals(actualDiscount,"$" + promoValue);

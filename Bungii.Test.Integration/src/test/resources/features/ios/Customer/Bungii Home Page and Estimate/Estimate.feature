@@ -120,11 +120,11 @@ Feature: Customer Estimate screen
     And check if I have ability to select different load time and Estimate cost is re calculated
 
 
-  @NONSPRINT30
+
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
-    When I Select "ACCOUNT" from Customer App menu
-    And I get customer account details
+#    When I Select "ACCOUNT" from Customer App menu
+#    And I get customer account details
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |

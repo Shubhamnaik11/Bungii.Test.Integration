@@ -186,10 +186,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

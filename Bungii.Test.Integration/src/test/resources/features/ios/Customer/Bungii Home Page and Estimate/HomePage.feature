@@ -22,11 +22,13 @@ Scenario: To verify ETA , Location text box header . To Verify clear text button
   When I select "Drop" location
   Then "Drop" address should be displayed in text box
   And Clear Button should be enabled for "Drop" box
-
+  @regression1
 @regression
 Scenario: To Verify clear text button on Pick up and Drop location
-  When I am on Customer logged in Home page
-  And I Select "Home" from Customer App menu
+#    When I Switch to "customer" application on "same" devices
+
+    And I am on Customer logged in Home page
+#  And I Select "Home" from Customer App menu
   And I select "Pick up" location
   Then "Pick up" address should be displayed in text box
   When I click "Pick Up Clear Text" button on "Home" screen

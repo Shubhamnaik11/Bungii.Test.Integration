@@ -257,7 +257,8 @@ public class ActionManager {
             logger.detail(" Hidded Key board");
 
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
+            logger.error(e.getStackTrace());
         }
     }
     public void click(Point p){

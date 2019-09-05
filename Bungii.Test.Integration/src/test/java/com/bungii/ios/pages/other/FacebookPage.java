@@ -8,9 +8,13 @@ public class FacebookPage extends PageBase {
     public WebElement Text_Input() { return findElement("//XCUIElementTypeTextView/XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
     public WebElement Button_Next() {
+/*
         return findElement("Next", LocatorType.Name);
+*/
+        return findElement("Post", LocatorType.Name);
+
     }
-    public WebElement Button_Share() {
+   public WebElement Button_Share() {
         return findElement("Share", LocatorType.Name);
     }
 

@@ -177,8 +177,8 @@ public class HomeSteps extends DriverBase {
                     selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    //    selectPickUpLocation(1);
-                    action.click(homePage.BUTTON_SET());
+                       selectPickUpLocation(1);
+                 //   action.click(homePage.BUTTON_SET());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
@@ -531,9 +531,13 @@ public class HomeSteps extends DriverBase {
 
         int offset = 70 * dragFactor;
         Point initial = homePage.Image_eta_bar().getLocation();
-        while (homePage.TextBox_Pickup().getAttribute("value").contains("Pick")) {
-            action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
-            //	action.invisibilityOfElementLocated(homePage.Image_Loading());
+        boolean isPickupLineDisplayed=action.isElementPresent(homePage.TextBox_Pickup(true));
+        if(isPickupLineDisplayed) {
+            while (action.getValueAttribute(homePage.TextBox_Pickup(true)).contains("Pick")) {
+                action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
+
+                if (!action.isElementPresent(homePage.TextBox_Pickup(true))) break;
+            }
         }
         action.click(homePage.BUTTON_SET());
     }
