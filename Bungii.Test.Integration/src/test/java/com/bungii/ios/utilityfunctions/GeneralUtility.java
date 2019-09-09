@@ -147,6 +147,7 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
             String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
+            logger.detail("screen is"+screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");
                 action.click(driverUpdateStatusPage.Button_Cancel());
