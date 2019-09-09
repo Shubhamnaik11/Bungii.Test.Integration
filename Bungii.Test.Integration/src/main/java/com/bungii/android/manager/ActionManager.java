@@ -71,8 +71,8 @@ public class ActionManager {
 
     public boolean isElementPresent(WebElement element) {
         //Set the timeout to something low
-    //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-     //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
             boolean isdisplayed = element.isDisplayed();
             return isdisplayed;
@@ -81,6 +81,17 @@ public class ActionManager {
         }
     }
 
+    public boolean isElementEnabled(WebElement element) {
+        //Set the timeout to something low
+        //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            boolean isdisplayed = element.isEnabled();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
     public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
@@ -118,7 +129,7 @@ public class ActionManager {
                     .ignoring(NoAlertPresentException.class)
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[contains(@resource-id,'notification_alert_message')]")));
 
-              //      .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@resource-id='com.bungii.driver:id/notification_alert_message']")));
+            //      .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@resource-id='com.bungii.driver:id/notification_alert_message']")));
             isDisplayed = true;
         } catch (Exception Ex) {
             isDisplayed = false;
@@ -231,16 +242,16 @@ public class ActionManager {
 
     public void scrollToBottom() {
         try {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
-        //if pressX was zero it didn't work for me
-        int pressX = driver.manage().window().getSize().width / 2;
-        // 4/5 of the screen as the bottom finger-press point
-        int bottomY = driver.manage().window().getSize().height * 4 / 5;
-        // just non zero point, as it didn't scroll to zero normally
-        int topY = driver.manage().window().getSize().height / 8;
-        //scroll with TouchAction by itself
-        scroll(pressX, bottomY, pressX, topY);}catch (Exception e){
+            //if pressX was zero it didn't work for me
+            int pressX = driver.manage().window().getSize().width / 2;
+            // 4/5 of the screen as the bottom finger-press point
+            int bottomY = driver.manage().window().getSize().height * 4 / 5;
+            // just non zero point, as it didn't scroll to zero normally
+            int topY = driver.manage().window().getSize().height / 8;
+            //scroll with TouchAction by itself
+            scroll(pressX, bottomY, pressX, topY);}catch (Exception e){
             logger.error("Not able to scroll");}
     }
 
