@@ -159,7 +159,7 @@ public class HomeSteps extends DriverBase {
             } else {
                 i_tap_on_something_something_link("Menu", "HOME");
             }
-            log(" I am on Customer logged in Home page", "");
+            log(" I am on Driver logged in Home page", "");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

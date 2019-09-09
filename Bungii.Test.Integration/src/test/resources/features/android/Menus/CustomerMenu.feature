@@ -1,5 +1,6 @@
 @android
-@S29READY
+@S30READYExceptFAQ
+
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer

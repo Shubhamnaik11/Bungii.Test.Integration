@@ -1,5 +1,5 @@
 @android
-@S29READY
+@S30READY
 Feature: SoloScheduled
   Background:
 
@@ -7,19 +7,14 @@ Feature: SoloScheduled
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
-    When I tap on "Go Online button" on Driver Home page
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
-    And I Select "HOME" from driver App menu
     When I Switch to "customer" application on "same" devices
 
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
+
     When I tap on "Menu" > "Home" link
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -164,11 +159,10 @@ Feature: SoloScheduled
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
+
     When I tap on "Menu" > "Home" link
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -235,11 +229,9 @@ Feature: SoloScheduled
 
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
     When I tap on "Menu" > "Home" link
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -267,11 +259,9 @@ Feature: SoloScheduled
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
 
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
     When I tap on "Menu" > "Home" link
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -281,7 +271,7 @@ Feature: SoloScheduled
     When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     When I tap on "Menu" > "Home" link
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -298,11 +288,9 @@ Feature: SoloScheduled
   @regression
   Scenario: Customer should able to cancel scheduled bungii
 
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
     When I tap on "Menu" > "Home" link
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     When I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"

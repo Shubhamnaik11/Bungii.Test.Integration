@@ -1,5 +1,5 @@
 @android
-@S29READY
+@S30READY
 
 Feature: Login
   In order to login to bungii

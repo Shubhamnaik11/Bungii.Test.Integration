@@ -5,10 +5,10 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -19,16 +19,24 @@ import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.util.TimeUtils;
 
 import java.net.MalformedURLException;
+import java.sql.Time;
+import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import static com.bungii.common.manager.ResultManager.warning;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
@@ -37,10 +45,11 @@ public class GeneralUtility extends DriverBase {
     SignupPage Page_Signup = new SignupPage();
     TermsPage Page_CustTerms = new TermsPage();
     HomePage homePage = new HomePage();
+    com.bungii.android.pages.driver.HomePage driverHomePage = new com.bungii.android.pages.driver.HomePage();
+
     MenuPage Page_Menu = new MenuPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
-    com.bungii.android.pages.driver.HomePage driverHomePage = new com.bungii.android.pages.driver.HomePage();
     AccountPage cutomerAccountPage = new AccountPage();
     PaymentPage paymentPage = new PaymentPage();
     FAQPage faqPage = new FAQPage();
@@ -59,7 +68,8 @@ public class GeneralUtility extends DriverBase {
      */
     public void launchDriverApplication() throws MalformedURLException, InterruptedException {
         try {
-            AndroidDriver<AndroidElement> driver = (AndroidDriver<AndroidElement>) SetupManager.getDriver();
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), SECONDS);
 
 /*            //TODO: REMOVE HARD CODING, read from properties
             String appPackage = "com.bungii.driver";
@@ -68,10 +78,10 @@ public class GeneralUtility extends DriverBase {
             String appActivity = PropertyUtility.getProp("driver.initial.activity");
             Activity activity = new Activity(appPackage, appActivity);
             activity.setStopApp(false);
-            ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
-            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-            Thread.sleep(3000);
+            ((AndroidDriver<MobileElement>) driver).startActivity(activity);
+            //   Thread.sleep(3000);
         } catch (Exception e) {
+
         }
     }
 
@@ -95,7 +105,7 @@ public class GeneralUtility extends DriverBase {
             Activity activity = new Activity(appPackage, appActivity);
             activity.setStopApp(false);
             ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
-            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Long.parseLong(PropertyUtility.getProp("implicit.wait")), SECONDS);
             Thread.sleep(3000);
         } catch (Exception e) {
         }
@@ -104,6 +114,7 @@ public class GeneralUtility extends DriverBase {
 
     /**
      * Check if customer application is open . check if there is application open which has element that contains customer app resource id
+     *
      * @return
      * @throws InterruptedException
      */
@@ -118,6 +129,7 @@ public class GeneralUtility extends DriverBase {
 
     /**
      * Check if driver application is open . check if there is application open which has element that contains driver app resource id
+     *
      * @return
      * @throws InterruptedException
      */
@@ -133,6 +145,7 @@ public class GeneralUtility extends DriverBase {
 
     /**
      * Check if correct page is open
+     *
      * @param p0 identifier for page
      * @return
      */
@@ -167,20 +180,20 @@ public class GeneralUtility extends DriverBase {
             case "Signup":
                 isCorrectPage = action.isElementPresent(Page_Signup.Header_SignUp(true));
                 break;
-            case"Terms and Conditions":
-                isCorrectPage=action.isElementPresent(termsPage.Header_TermsPage(true));
+            case "Terms and Conditions":
+                isCorrectPage = action.isElementPresent(termsPage.Header_TermsPage(true));
                 break;
             case "Tutorial":
-                isCorrectPage=action.isElementPresent(homePage.Text_TutorialPdf());
-               // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
+                isCorrectPage = action.isElementPresent(homePage.Text_TutorialPdf());
+                // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
                 break;
-            case"DRIVER NOT AVAILABLE":
-                isCorrectPage=action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+            case "DRIVER NOT AVAILABLE":
+                isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                 break;
             case "bungii.com":
-                if(!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
+                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
                     Thread.sleep(5000);
-                isCorrectPage=action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
+                isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
                 break;
             default:
                 break;
@@ -188,22 +201,26 @@ public class GeneralUtility extends DriverBase {
         return isCorrectPage;
     }
 
-    public void resetApp(){
-        ((AndroidDriver)SetupManager.getDriver()).resetApp();
+    public void resetApp() {
+        ((AndroidDriver) SetupManager.getDriver()).resetApp();
     }
+
     /**
      * Verification that correct page is displayed
+     *
      * @param expectedPage
      */
     public void verifyIsPageIsCorrectlyDisplayed(String expectedPage) throws InterruptedException {
         testStepAssert.isTrue(isCorrectPage(expectedPage), expectedPage + " page should be displaed ", expectedPage + " Page is successfully displayed", expectedPage + " Page is not displayed");
     }
 
-    public String getAlertMessage(){
+    public String getAlertMessage() {
         return action.getText(estimatePage.Alert_ConfirmRequestMessage(true));
     }
+
     /**
      * Get snack bar message
+     *
      * @return return snack bar message
      */
     public String getSnackBarMessage() {
@@ -219,24 +236,34 @@ public class GeneralUtility extends DriverBase {
 
     /**
      * Check if  phone number is correct
+     *
      * @param element Web element of phone number
-     * @param value expected phine number value
+     * @param value   expected phine number value
      */
     public void isPhoneNumbersEqual(WebElement element, String value) {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
+        if (!actualText.equalsIgnoreCase(expectedText)) {
+            if (expectedText.startsWith("1")) expectedText = expectedText.replaceFirst("1", "");
+        }
         testStepVerify.isEquals(actualText, expectedText, "Twillio Number should be correct", "Twillio number is not correct. actualText:" + actualText + "expectedText:" + expectedText);
     }
 
-       /** Check if  phone number is correct
+    /**
+     * Check if  phone number is correct
+     *
      * @param element Web element of phone number
-     * @param value expected phine number value
+     * @param value   expected phine number value
      */
-    public void isPhoneNumbersEqual(WebElement element, String value, String expectedMessage ,String errorMessage) {
+    public void isPhoneNumbersEqual(WebElement element, String value, String expectedMessage, String errorMessage) {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
-        testStepVerify.isEquals(actualText, expectedText,expectedMessage,errorMessage);
+        if (!actualText.equalsIgnoreCase(expectedText)) {
+            if (expectedText.startsWith("+1")) expectedText = expectedText.replace("+1", "");
+        }
+        testStepVerify.isEquals(actualText, expectedText, expectedMessage, errorMessage);
     }
+
     /**
      * Calculate estimate cost of trip check if less than minimum cost then
      * return minimum cost
@@ -251,14 +278,14 @@ public class GeneralUtility extends DriverBase {
 
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
-        Promo=Promo.contains("ADD")?"0":Promo;
+        Promo = Promo.contains("ADD") ? "0" : Promo;
         double tripTime = Double.parseDouble(estTime);
         double actualValue = distance + loadUnloadTime + tripTime;
-        double discount=0 ;
-        if(Promo.contains("$"))
-            discount=Double.parseDouble(Promo.replace("-$", ""));
-        else if(Promo.contains("%"))
-            discount=actualValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100;
+        double discount = 0;
+        if (Promo.contains("$"))
+            discount = Double.parseDouble(Promo.replace("-$", ""));
+        else if (Promo.contains("%"))
+            discount = actualValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
 
         double estimate = distance + loadUnloadTime + tripTime - discount;
         estimate = estimate > MIN_COST ? estimate : MIN_COST;
@@ -274,48 +301,55 @@ public class GeneralUtility extends DriverBase {
      * @param Promo
      * @return
      */
-    public double bungiiCustomerCost(String tripDistance,String tripTime, String Promo,String tripType) {
+    public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
 
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double tripActualTime = Double.parseDouble(tripTime);
         double tripValue = distance + tripActualTime;
-        if(tripType.equalsIgnoreCase("DUO"))
-            tripValue=tripValue*2;
-        Promo=Promo.contains("ADD")?"0":Promo;
+        if (tripType.equalsIgnoreCase("DUO"))
+            tripValue = tripValue * 2;
+        Promo = Promo.contains("ADD") ? "0" : Promo;
 
-        double discount=0 ;
-        if(Promo.contains("$"))
-            discount=Double.parseDouble(Promo.replace("-$", ""));
-        else if(Promo.contains("%"))
-            discount=tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100;
+        double discount = 0;
+        if (Promo.contains("$"))
+            discount = Double.parseDouble(Promo.replace("-$", ""));
+        else if (Promo.contains("%"))
+            discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
 
-        double costToCustomer = distance +  tripActualTime - discount;
+        double costToCustomer = distance + tripActualTime - discount;
         costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
 
         return costToCustomer;
     }
+
     /**
      * Input value on Numeric keyboard
+     *
      * @param strNum Number that is to be input
      * @throws InterruptedException
      */
-    private void inputOnNumberKeyBoard(String strNum) throws InterruptedException {
+    public void inputOnNumberKeyBoard(String strNum) throws InterruptedException {
         for (char c : strNum.toCharArray()) {
             ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.valueOf("DIGIT_" + c)));
             System.out.println("   ENTER VALUE :" + c);
             Thread.sleep(200);
         }
-        try{
-        ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();}catch (Exception e){}
+        try {
+            ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
+        } catch (Exception e) {
+        }
     }
 
     /**
      * Click button on customer menu bar
+     *
      * @param menuItem identifier for menu
      */
     public void clickCustomerMenuItem(String menuItem) {
-        try{
-        action.click(homePage.Button_NavigationBar());}catch (org.openqa.selenium.NoSuchElementException e){}
+        try {
+            action.click(homePage.Button_NavigationBar());
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+        }
         switch (menuItem.toUpperCase()) {
             case "HOME":
                 action.click(homePage.Button_NavHome());
@@ -341,7 +375,7 @@ public class GeneralUtility extends DriverBase {
             case "SCHEDULED BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
                 break;
-            case"SIGN UP TO DRIVE":
+            case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
                 break;
         }
@@ -350,7 +384,7 @@ public class GeneralUtility extends DriverBase {
     public String getEstimateTime() {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
-     //   phoneNumber="9999996170";
+        //   phoneNumber="9999996170";
         String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
@@ -368,8 +402,8 @@ public class GeneralUtility extends DriverBase {
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         //   phoneNumber="9403960188";
         String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
-        String pickUpId= DbUtility.getPickupID(custRef);
-        String actualTime =DbUtility.getActualTime(pickUpId);
+        String pickUpId = DbUtility.getPickupID(custRef);
+        String actualTime = DbUtility.getActualTime(pickUpId);
         return actualTime;
     }
 
@@ -391,6 +425,7 @@ public class GeneralUtility extends DriverBase {
             clickCustomerMenuItem("LOGOUT");
 
     }
+
 
     public String trimString(String stringtext) {
         stringtext = stringtext.trim().replace("\t", "").replace("\n", "").replace("\r", "");
@@ -418,7 +453,7 @@ public class GeneralUtility extends DriverBase {
     public String generateMobileNumber() {
 
         String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
-      //  phoneNumber="9999993248";
+        //  phoneNumber="9999993248";
         while (!DbUtility.isPhoneNumberUnique(phoneNumber)) {
             phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
 
@@ -451,7 +486,7 @@ public class GeneralUtility extends DriverBase {
                     action.click(Page_CustTerms.Button_PermissionsAllow());
                     ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
-                if(action.isElementPresent(homePage.Button_Closetutorials(true)))
+                if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
             }
         } else {
@@ -483,6 +518,50 @@ public class GeneralUtility extends DriverBase {
         } else {
             //Not on Login page
         }
+    }
+
+    public void enterDriverPhoneAndPassword(String phone, String password) throws InterruptedException {
+        if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
+            WebElement element = driverLoginPage.TextField_PhoneNumber();
+
+            if (StringUtils.isNumeric(phone)) {
+                element.click();
+                inputOnNumberKeyBoard(phone);
+            } else {
+                action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
+            }
+            action.sendKeys(driverLoginPage.TextField_Password(), password);
+        } else {
+            //Not on Login page
+        }
+    }
+
+    public void goToDriverLoginPage() {
+
+        if (action.isElementPresent(driverLoginPage.Text_LoginBar(true))) {
+        } else
+            clickDriverMenuItem("LOGOUT");
+
+    }
+    private boolean clickDriverMenu(String menuItem){
+        Boolean isClicked=false;
+        List<WebElement> elements = driverHomePage.Button_NavigationBarText();
+        for (WebElement element : elements) {
+            if (element.getText().equalsIgnoreCase(menuItem)) {
+                action.click(element);
+                isClicked = true;
+                break;
+            }
+        }
+        return isClicked;
+    }
+
+    public void clickDriverMenuItem(String menuItem) {
+        action.click(driverHomePage.Button_NavigationBar());
+        boolean isClicked = clickDriverMenu(menuItem);
+
+        if(!isClicked){action.scrollToBottom();isClicked = clickDriverMenu(menuItem);}
+        testStepAssert.isTrue(isClicked, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
     }
 
     public boolean isAlphaNumeric(String s) {
@@ -539,6 +618,19 @@ public class GeneralUtility extends DriverBase {
 
     }
 
+    /**
+     * Get geofence data from properties file
+     *
+     * @param geofenceName Geofence name
+     * @param partialKey   this is partial value that is to be searched in properties file
+     * @return get message from Geofence propertiese file
+     */
+    public String getGeofenceData(String geofenceName, String partialKey) {
+        geofenceName = (geofenceName.isEmpty() || geofenceName.equals("")) ? PropertyUtility.getGeofenceData("current.geofence") : geofenceName.toLowerCase();
+        String actualKey = geofenceName + "." + partialKey;
+        return PropertyUtility.getGeofenceData(actualKey);
+    }
+
     public void selectAddress(WebElement element, String searchstring) throws InterruptedException {
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
@@ -546,23 +638,71 @@ public class GeneralUtility extends DriverBase {
         element.click();
         element.sendKeys(searchstring);
         int x = element.getLocation().getX() + 32;
-        int y = element.getLocation().getY() +element.getRect().getHeight()+ 10;
+        int y = element.getLocation().getY() + element.getRect().getHeight() + 10;
         Thread.sleep(2000);
         new TouchAction(driver).tap(new PointOption().withCoordinates(x, y)).release().perform();
+        Thread.sleep(2000);
+
     }
 
-    public String getCustomerSnackBarMessage(){
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofence() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        return getGeofenceTimeZone;
+    }
 
-        WebDriverWait wait = new WebDriverWait( SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated( By.id("com.bungii.customer:id/snackbar_text")));
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofenceId() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
+        return getGeofenceTimeZone;
+    }
+
+    public String getCustomerSnackBarMessage() {
+
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
         return action.getText(element);
     }
 
-    public String getDriverSnackBarMessage(){
+    public String getDriverSnackBarMessage() {
 
-        WebDriverWait wait = new WebDriverWait( SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated( By.id("com.bungii.driver:id/snackbar_text")));
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
         return action.getText(element);
+    }
+    public void waitForSnackbarMessage(){
+        FluentWait<WebDriver> wait = new FluentWait<WebDriver>((WebDriver)SetupManager.getDriver());
+        wait.pollingEvery(Duration.ofMillis(250) );
+        wait.withTimeout(Duration.ofSeconds(30));
+        wait.ignoring(NoSuchElementException.class); // We need to ignore this exception.
+
+        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>() {
+            public WebElement apply(WebDriver arg0) {
+                System.out.println("Checking for the object!!");
+                WebElement element = arg0.findElement(By.id("com.bungii.driver:id/snackbar_text"));
+                if (element != null) {
+                    System.out.println("A new dynamic object is found."+element.getText());
+                }
+                return element;
+            }
+        };
+
+        wait.until(function);
     }
 
     public void acceptNotificationAlert() {

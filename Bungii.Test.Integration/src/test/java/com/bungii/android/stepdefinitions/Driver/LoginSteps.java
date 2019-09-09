@@ -1,18 +1,26 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.android.pages.driver.LoginPage;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.pass;
 
 public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    LoginPage driverLogInPage= new LoginPage();
     private static LogUtility logger = new LogUtility(LoginSteps.class);
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
@@ -24,11 +32,15 @@ public class LoginSteps extends DriverBase {
                 case "valid":
                     phone = PropertyUtility.getDataProperties("valid.driver.phone");
                     password = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
                 case "valid driver 2":
                     phone = PropertyUtility.getDataProperties("valid.driver2.phone");
                     password = PropertyUtility.getDataProperties("valid.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("valid.driver2.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
                 default:
@@ -43,8 +55,80 @@ public class LoginSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("PageSoruce", SetupManager.getDriver().getPageSource());
+
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I am on the LOG IN page on driver app$")
+    public void i_am_on_the_log_in_page_on_driver_app()  {
+        try {
+
+
+        utility.goToDriverLoginPage();
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page Source", SetupManager.getDriver().getPageSource());
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @When("^I enter phoneNumber :(.+) and  Password :(.+)$")
+    public void i_enter_valid_credentials(String username, String password) {
+        try {
+            String strUserName = username.equals("<BLANK>") ? "" : username.trim().equals("{VALID}")? PropertyUtility.getDataProperties("valid.driver.phone"):username;
+            String strPassWord = password.equals("<BLANK>") ? "" : password.equals("{VALID}")? PropertyUtility.getDataProperties("valid.driver.password"):password;
+
+            //            strUserName =username.equalsIgnoreCase("{with no card}")? PropertyUtility.getDataProperties("no.payment.card.customer.user"):strUserName;
+//            strPassWord = password.equals("{with no card}") ?  PropertyUtility.getDataProperties("no.payment.card.customer.password"):strPassWord;
+            utility.enterDriverPhoneAndPassword(strUserName, strPassWord);
+
+
+            pass( "Username and Password should be added successfully",
+                    "Username :"+ strUserName+", and password :"+strPassWord+",is added successfully");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I click \"([^\"]*)\" button on Log In screen on driver app$")
+    public void i_click_something_button_on_log_in_screen_on_driver_app(String option) throws Throwable {
+        switch (option.toUpperCase()) {
+            case"LOG IN":
+                action.click(driverLogInPage.Button_Login());
+                break;
+            case"FORGOT PASSWORD":
+                action.click(driverLogInPage.Button_ForgotPassword());
+                break;
+
+        }
+    }
+    @Then("^I should see \"([^\"]*)\" on Log In screen on driver app$")
+    public void i_should_see_something_on_log_in_screen_on_driver_app(String option) throws Throwable {
+        switch (option) {
+            case"SNACK BAR VALIDATION FOR INVALID PASSWORD":
+                testStepVerify.isEquals(utility.getDriverSnackBarMessage(), PropertyUtility.getMessage("driver.error.invalidpassword"));
+            break;
+
+            case "LOGIN BUTTON DISABLED":
+                testStepVerify.isTrue(!action.isElementEnabled(driverLogInPage.Button_Login()),"Login button should be disabled");
+                break;
+            case "LOGIN BUTTON ENABLED":
+                testStepVerify.isTrue(action.isElementEnabled(driverLogInPage.Button_Login()),"Login button should be ENABLED");
+                break;
+            case"Empty Phone Error":
+                testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
+                break;
+
+            case"Empty Password Error":
+                testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.password.error"));
+                break;
+
+            case " Empty Phone and Password Error":
+                testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
+                testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError2()), PropertyUtility.getMessage("driver.login.password.error"));
+                break;
+        }    }
+
 
 }

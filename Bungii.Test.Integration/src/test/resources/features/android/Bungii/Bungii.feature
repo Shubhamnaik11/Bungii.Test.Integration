@@ -1,9 +1,9 @@
 @android
-@S29READY
+@S30READY
+@regression1
 Feature: On Demand Bungii
 
  # Background:
-
 
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
@@ -12,15 +12,16 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
-    When I Select "HOME" from driver App menu
+  #  And I Select "ACCOUNT" from driver App menu
+  #  Then I get driver account details for driver 1
+  #  When I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "ACCOUNT" link
-    And I get customer account details
-    And I tap on "Menu" > "HOME" link
+  #  And I tap on "Menu" > "ACCOUNT" link
+  #  And I get customer account details
+  #  And I tap on "Menu" > "HOME" link
 
-    And I enter "current location in pickup and dropoff fields" on Bungii estimate
+  #  And I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -155,20 +156,21 @@ Feature: On Demand Bungii
   @regression
   Scenario: Validate That I am able to create on demand bungii.
 
-    Given I am logged in as "no promocode" customer
-   # Given I am logged in as "valid" customer
+   # Given I am logged in as "no promocode" customer
+    Given I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-    When I tap on "Go Online button" on Driver Home page
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
+ #   And I Select "ACCOUNT" from driver App menu
+ #   Then I get driver account details for driver 1
     When I Select "HOME" from driver App menu
+    And I tap on "Go Online button" on Driver Home page
+
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "ACCOUNT" link
-    And I get customer account details
+ #   And I tap on "Menu" > "ACCOUNT" link
+ #   And I get customer account details
     And I tap on "Menu" > "HOME" link
 
-    And I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -219,23 +221,21 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
 
-
     #This scenario is moved from EstimateBungii.feature
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>
-    When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
-    When I tap on "Go Online button" on Driver Home page
-  # And I Select "ACCOUNT" from driver App menu
-  #  Then I get driver account details for driver 1
-  #  And I Select "HOME" from driver App menu
+
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     Given I am logged in as "<User>" customer
-    When I tap on "Menu" > "ACCOUNT" link
-    Then I get customer account details
+
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    When I tap on "Go Online button" on Driver Home page
+    When I Switch to "customer" application on "same" devices
+
     When I tap on "Menu" > "HOME" link
-    When I enter "goa location in pickup and dropoff fields long distance" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     When I tap on "Promo Code" on Bungii estimate

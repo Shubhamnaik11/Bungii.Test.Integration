@@ -347,8 +347,8 @@ public class ActionManager {
      */
     public void textToBePresentInElementName(final WebElement element, final String text) {
 
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(60, TimeUnit.SECONDS)
-                .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class);
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
         } catch (Exception e) {

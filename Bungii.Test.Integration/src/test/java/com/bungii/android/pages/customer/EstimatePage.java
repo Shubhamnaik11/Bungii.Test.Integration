@@ -53,6 +53,7 @@ public class EstimatePage extends PageBase {
 
     //------Date and Time------------------------------------------------------------------------
     public WebElement Time () { return findElement("com.bungii.customer:id/date_time_picker_textview_selectedtime", LocatorType.Id); }
+    public WebElement Text_TimeZoneLabel () { return findElement("com.bungii.customer:id/date_time_picker_textview_timezone_label", LocatorType.Id); }
     public WebElement Button_Later () { return findElement("com.bungii.customer:id/alert_schedule_bungii_textview_later", LocatorType.Id); }
     public WebElement Button_DateConfirm () { return findElement("android:id/button1", LocatorType.Id); }
     public WebElement Button_TimeConfirm () { return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id); }

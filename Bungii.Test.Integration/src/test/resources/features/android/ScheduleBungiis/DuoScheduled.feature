@@ -5,22 +5,22 @@ Feature: Duo
   Background:
 
     Given I am logged in as "valid" customer
-    When I tap on "Menu" > "Account" link
-    Then I get customer account details
-    When I tap on "Menu" > "Home" link
+  #  When I tap on "Menu" > "Account" link
+ #   Then I get customer account details
+  #  When I tap on "Menu" > "Home" link
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
-    When I tap on "Go Online button" on Driver Home page
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 1
+#    When I tap on "Go Online button" on Driver Home page
+ #   And I Select "ACCOUNT" from driver App menu
+ #   Then I get driver account details for driver 1
 
     When I connect to "extra1" using "Driver2" instance
     Given I am logged in as "valid driver 2" driver
-    When I tap on "Go Online button" on Driver Home page
+#    When I tap on "Go Online button" on Driver Home page
 
-    And I Select "ACCOUNT" from driver App menu
-    Then I get driver account details for driver 2
+#    And I Select "ACCOUNT" from driver App menu
+   # Then I get driver account details for driver 2
     And I Select "Home" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     When I Switch to "customer" application on "same" devices
@@ -29,7 +29,8 @@ Feature: Duo
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+#    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
@@ -132,8 +133,9 @@ Feature: Duo
 
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
+ #   When I enter "current location in pickup and dropoff fields" on Bungii estimate
 
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
@@ -144,6 +146,7 @@ Feature: Duo
     And I tap on "Request Bungii" on Bungii estimate
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    When I tap on "Menu" > "Home" link
 
     When I Switch to "driver" application on "same" devices
     When I tap on "Available Trips link" on Driver Home page
@@ -164,7 +167,7 @@ Feature: Duo
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
+   And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"

@@ -153,7 +153,7 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
-                case "Online/Offline button":
+                case "Online/Offline button":Thread.sleep(1000);
                     action.click(Page_DriverHome.Button_OnlineOffline());
                     break;
 
@@ -218,7 +218,8 @@ public class BungiiSteps extends DriverBase {
                         utility.acceptNotificationAlert();
                         skipClick = true;
                     } else {
-                        action.click(Page_BungiiRequest.Button_Reject());
+                      //  action.click(Page_BungiiRequest.Button_Reject());
+                        action.click(Page_BungiiRequest.AlertButton_Cancel());
                     }
 
                 }
@@ -230,6 +231,7 @@ public class BungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Pagesource", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
@@ -260,6 +262,7 @@ public class BungiiSteps extends DriverBase {
     @When("^I tap \"([^\"]*)\" during a Bungii$")
     public void iTapDuringABungii(String arg0) throws Throwable {
         try {
+            Thread.sleep(3000);
 
             switch (arg0) {
                 case "OK on Driver Accepted screen":
@@ -372,6 +375,7 @@ public class BungiiSteps extends DriverBase {
     @Then("^correct details should be displayed on \"([^\"]*)\" app$")
     public void correctDetailsShouldBeDisplayedOnApp(String arg0) throws Throwable {
         try {
+            Thread.sleep(3000);
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             String expectedDuoNumber;
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
@@ -432,6 +436,8 @@ public class BungiiSteps extends DriverBase {
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
         try {
+            //TEMPCHECK
+            Thread.sleep(1000);
             boolean isDuo=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase( "DUO");
             if(!isDuo){
             switch (arg0) {
@@ -537,6 +543,9 @@ public class BungiiSteps extends DriverBase {
     @Then("^correct details should be displayed to driver on \"([^\"]*)\" app$")
     public void correctDetailsShouldBeDisplayedToDriverOnApp(String arg0) throws Throwable {
         try {
+            //TEMPCHECK
+            Thread.sleep(1000);
+
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             String expectedDuoNumber="";
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();

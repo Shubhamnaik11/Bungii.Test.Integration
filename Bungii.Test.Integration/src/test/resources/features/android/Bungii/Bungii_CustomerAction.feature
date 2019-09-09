@@ -1,11 +1,13 @@
 @android
-@S29READY
+@S30READY
+@regression1
+
 Feature: Bungii
 
   Background:
     Given I am on customer Log in page
-    And I am logged in as "my" customer
-    When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    And I am logged in as "valid" customer
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"

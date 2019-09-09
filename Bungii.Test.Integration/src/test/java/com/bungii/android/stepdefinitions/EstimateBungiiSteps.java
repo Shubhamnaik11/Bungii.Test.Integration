@@ -52,8 +52,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", "DUO");
                     break;
                 case "Get Estimate button":
-                    while (action.isElementPresent(Page_CustHome.Button_GetEstimate(true)) == false)
-                        iEnterOnBungiiEstimate("current location in pickup and dropoff fields");
+                 //   while (action.isElementPresent(Page_CustHome.Button_GetEstimate(true)) == false)
+                 //       iEnterOnBungiiEstimate("current location in pickup and dropoff fields");
                     //if (DriverAction.isElementPresent(Page_CustHome.Button_GetEstimate))
                     if(!action.isElementPresent(Page_CustHome.Button_GetEstimate()))
                         Thread.sleep(2000);
@@ -134,6 +134,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "OK on complete":
+                    boolean isDuo=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase( "DUO");
+                    if(isDuo){action.waitUntilIsElementExistsAndDisplayed(Page_BungiiComplete.Button_OK());Thread.sleep(20000);}
                     action.waitUntilIsElementExistsAndDisplayed(Page_BungiiComplete.Button_OK());
                     action.click(Page_BungiiComplete.Button_OK());
                     break;
@@ -239,6 +241,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
+
         try {
             switch (arg0) {
                 case "existing":
@@ -262,9 +265,13 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "valid":
                     //utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("customer_generic.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("customer_generic.phonenumber") );
                     break;
                 case "no promocode":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("valid.name.customer.no.promocode"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("valid.customer.no.promocode") );
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -281,28 +288,31 @@ public class EstimateBungiiSteps extends DriverBase {
     @When("^I enter \"([^\"]*)\" on Bungii estimate$")
     public void iEnterOnBungiiEstimate(String arg0) throws Throwable {
         try {
-
+            Thread.sleep(2000);
             switch (arg0) {
                 case "valid pickup and dropoff locations":
                     if(action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationB"));
-                    Thread.sleep(4000);
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationB"));
-                    break;
-                case "Atlanta pickup and dropoff locations":
-                    if(action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
-                        action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationC"));
                     Thread.sleep(2000);
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationC"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationB"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","kansas");
                     break;
                 case "goa location in pickup and dropoff fields long distance":
                     if(action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
-                    Thread.sleep(2000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","goa");
+                    break;
+                case "kansas pickup and dropoff locations":
+                    if(action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.kansas"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.kansas"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","kansas");
+                    Thread.sleep(1000);
+
                     break;
                 case "current location in pickup and dropoff fields":
                     //string a = driver.PageSource;
@@ -317,6 +327,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                     action.click(Page_CustHome.Button_Locator());
                     action.click(Page_CustHome.Button_ETASet());
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","goa");
                     break;
                 case "current location in pickup and dropoff fields long distance":
                     action.click(Page_CustHome.Button_Locator());
@@ -330,7 +341,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     }
                     Thread.sleep(2000);
                     action.hideKeyboard();
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA "));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","goa");
+
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -346,6 +359,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 Thread.sleep(5000);
                 action.click(Page_CustHome.Button_ETASet());
             }
+            action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
             String dropUpLocationLine1 = action.getText(Page_CustHome.TextBox_DropOffLine1()),dropUpLocationLine2 = action.getText(Page_CustHome.TextBox_DropOffLine2());
 
             cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", pickUpLocationLine1);

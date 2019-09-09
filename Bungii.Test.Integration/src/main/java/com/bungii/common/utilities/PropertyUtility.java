@@ -15,6 +15,7 @@ public class PropertyUtility {
     private static String DATA_PROPERTY_FILE = "" ;//"/UserProperties/data.properties";
     private static String LOGIN_PROPERTY_FILE = "" ;//"/UserProperties/LoginProperties/login.properties";
     private static String LOGIN_PROPERTY_FOLDER = "/Profiles/{ENVT}/LoginProperties";
+    private static String GEOFENCE_PROPERTY_FILE = "/Profiles/{ENVT}/geofence.properties";
     private static Properties properties;
     private static Properties fileLocations;
     private static Properties images;
@@ -22,6 +23,7 @@ public class PropertyUtility {
     private static Properties resultConfig;
     private static Properties jdbcConfig;
     private static Properties loginData;
+    private static Properties geoFenceData;
 
     public static  String targetPlatform="",environment="";
     /**
@@ -132,6 +134,22 @@ public class PropertyUtility {
     }
 
     /**
+     * Gets the key from geofence.properties for a framework
+     *
+     * @param key
+     **/
+    public static String getGeofenceData(String key) {
+
+        if ((key == null) || key.isEmpty()) {
+            return "";
+        } else {
+
+            return ResourceBundle.getBundle(PropertyUtility.getFileLocations("geofence.properties.file").substring(1).replace("{ENVT}",properties.getProperty("environment").toUpperCase())).getString(key);
+
+        }
+    }
+
+    /**
      * Update Login property fileName that is to be used for run
      */
     public static void updateLoginPropertyFileName() {
@@ -179,7 +197,7 @@ public class PropertyUtility {
         data = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(DATA_PROPERTY_FILE)) {
             data.load(inputStream);
-       //     data.list(System.out);
+            //     data.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }

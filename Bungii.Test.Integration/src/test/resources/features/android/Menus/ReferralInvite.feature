@@ -1,6 +1,6 @@
 @android
-@S29READY
-@update
+@S30READY
+
 Feature: ReferralInvite
 
   Background:

@@ -81,6 +81,17 @@ public class ActionManager {
         }
     }
 
+    public boolean isElementEnabled(WebElement element) {
+        //Set the timeout to something low
+        //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            boolean isdisplayed = element.isEnabled();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
     public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();

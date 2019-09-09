@@ -1,6 +1,7 @@
 @android
-@S29READY
+@S30READY
 @update
+
 Feature: Customer Home screen
 
   Background:

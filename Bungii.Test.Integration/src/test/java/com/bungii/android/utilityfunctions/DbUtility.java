@@ -14,7 +14,7 @@ public class DbUtility extends DbContextManager {
      */
     public static String getVerificationCode(String phoneNumber) {
         String smsCode = "";
-/*        String queryString = "SELECT SmsVerificationCode FROM Customer WHERE Phone = " + phoneNumber;
+/*        String queryString = "SELECT SmsVerificationCode FROM Driver WHERE Phone = " + phoneNumber;
         smsCode = getDataFromMsSqlServer(queryString);*/
         String queryString = "SELECT SmsVerificationCode FROM customer WHERE Phone = " + phoneNumber;
         smsCode = getDataFromMySqlMgmtServer(queryString);
@@ -30,7 +30,7 @@ public class DbUtility extends DbContextManager {
      */
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
-/*        String queryString = "SELECT Id FROM Customer WHERE Phone = " + phoneNumber;
+/*        String queryString = "SELECT Id FROM Driver WHERE Phone = " + phoneNumber;
         id = getDataFromMsSqlServer(queryString);*/
         String queryString = "SELECT Id FROM customer WHERE Phone = " + phoneNumber;
         id = getDataFromMySqlMgmtServer(queryString);
@@ -69,5 +69,12 @@ public class DbUtility extends DbContextManager {
 
         logger.detail("pickupID" + pickupID + "  time is " + actualTime);
         return actualTime;
+    }
+    public static String getVerificationCodeDriver(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT SmsVerificationCode FROM driver WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("SMS code is" + smsCode + ", query, " + queryString);
+        return smsCode;
     }
 }

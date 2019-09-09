@@ -60,6 +60,9 @@ public class BungiiCompletedSteps extends DriverBase {
             double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
             String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
             String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+            //Trip distance value is displayed till 1 decimanl point
+            int indexOfSpace=tripDistance.indexOf(" ");
+            tripDistance = tripDistance.substring(0,indexOfSpace-1)+tripDistance.substring(indexOfSpace);
             String tripTime =utility.getActualTime();
 
             String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),totalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
