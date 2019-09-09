@@ -10,6 +10,7 @@
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
+    "useNewWDA": true,
     "wdaLocalPort": 8100
 
   },

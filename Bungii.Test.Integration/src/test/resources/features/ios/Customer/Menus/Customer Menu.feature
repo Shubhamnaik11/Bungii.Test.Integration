@@ -47,14 +47,16 @@ Feature: Customer	Menu
     When I Enter "{EMPTY}" value in "Support Textbox" field in "SUPPORT" Page
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "EMPTY SUPPORT QUESTION"
-
+    #Social media link are not visible now
+    # By default 1 answer is collapsed and displayed.
+  @regression2
   @regression
   Scenario: As Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
     And I should see "faq image" on FAQ page
-    When I tap on "first question" on FAQ page
+#    When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown open" on FAQ page
     When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
-    And I should see "social media links" on FAQ page
+ #   And I should see "social media links" on FAQ page
