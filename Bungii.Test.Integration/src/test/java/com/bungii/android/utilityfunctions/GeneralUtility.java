@@ -9,6 +9,7 @@ import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.Activity;
@@ -16,6 +17,8 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.pagefactory.AndroidBy;
+import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -33,6 +36,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.logging.Logger;
 
 import static com.bungii.common.manager.ResultManager.warning;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
@@ -538,7 +542,7 @@ public class GeneralUtility extends DriverBase {
 
     public void goToDriverLoginPage() {
 
-        if (action.isElementPresent(driverLoginPage.Text_LoginBar(true))) {
+        if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
         } else
             clickDriverMenuItem("LOGOUT");
 
@@ -686,15 +690,16 @@ public class GeneralUtility extends DriverBase {
         return action.getText(element);
     }
     public void waitForSnackbarMessage(){
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>((WebDriver)SetupManager.getDriver());
-        wait.pollingEvery(Duration.ofMillis(250) );
+        FluentWait<AndroidDriver> wait = new FluentWait<AndroidDriver>((AndroidDriver)SetupManager.getDriver());
+        wait.pollingEvery(Duration.ofMillis(1000) );
         wait.withTimeout(Duration.ofSeconds(30));
         wait.ignoring(NoSuchElementException.class); // We need to ignore this exception.
 
-        Function<WebDriver, WebElement> function = new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver arg0) {
+
+        Function<AndroidDriver, MobileElement> function = new Function<AndroidDriver, MobileElement>() {
+            public MobileElement apply(AndroidDriver arg0) {
                 System.out.println("Checking for the object!!");
-                WebElement element = arg0.findElement(By.id("com.bungii.driver:id/snackbar_text"));
+                MobileElement element = (MobileElement)arg0.findElement(MobileBy.xpath("//*[text()='Password is successfully reset.']"));
                 if (element != null) {
                     System.out.println("A new dynamic object is found."+element.getText());
                 }

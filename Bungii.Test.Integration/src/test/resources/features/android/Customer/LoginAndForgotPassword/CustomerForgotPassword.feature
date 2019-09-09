@@ -1,6 +1,4 @@
 @android
-@S30READY
-
 Feature: CustomerForgotPassword
   Forgot password functionality in Customer app
 

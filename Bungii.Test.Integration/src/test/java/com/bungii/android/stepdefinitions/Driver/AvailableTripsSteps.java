@@ -8,7 +8,9 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -47,7 +49,7 @@ public class AvailableTripsSteps extends DriverBase {
             }
             isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
             log("I Select Trip from driver available trip","I Select Trip from driver available trip");
-          //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Bungii type " + numberOfDriver);
+          //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Estimate and Customer Cancel type " + numberOfDriver);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -90,5 +92,9 @@ public class AvailableTripsSteps extends DriverBase {
         return isSelected;
 
     }
+    @Then("^I should be navigated to Available Trip screen on driver app$")
+    public void i_should_be_navigated_to_something_screen_on_driver_app() throws Throwable {
+        String getNaviagationText=action.getText(availableTrips.NavigationBar_Text());
+        testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"),getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is"+getNaviagationText);    }
 }
 

@@ -63,9 +63,9 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         }
         if(skipNormalFlow)
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Bungii");
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using alert for upcoming trip to driver ","I was not able to select Estimate and Customer Cancel");
         else
-            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Bungii's present in avialable bungii list","I was not able to select Bungii");
+            testStepVerify.isTrue(isSelected,"I should able to Select Trip from driver scheduled trip","I selected trip using list of Estimate and Customer Cancel's present in avialable bungii list","I was not able to select Estimate and Customer Cancel");
 
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -98,7 +98,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     diffInMinutes = 0;
                 }
                 action.hardWaitWithSwipeUp((int) diffInMinutes + 1);
-                log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes, true);
+                log("I wait for "+diffInMinutes+" Minutes for Estimate and Customer Cancel Start Time ", "I waited for "+diffInMinutes, true);
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

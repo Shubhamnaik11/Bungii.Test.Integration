@@ -12,8 +12,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
-
- #   And I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "2" photos to the Bungii
     And I add loading/unloading time of "30 mins"

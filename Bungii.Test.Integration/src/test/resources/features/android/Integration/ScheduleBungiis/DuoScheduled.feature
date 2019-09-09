@@ -5,22 +5,12 @@ Feature: Duo
   Background:
 
     Given I am logged in as "valid" customer
-  #  When I tap on "Menu" > "Account" link
- #   Then I get customer account details
-  #  When I tap on "Menu" > "Home" link
 
     When I Switch to "driver" application on "same" devices
     Given I am logged in as "valid" driver
-#    When I tap on "Go Online button" on Driver Home page
- #   And I Select "ACCOUNT" from driver App menu
- #   Then I get driver account details for driver 1
 
     When I connect to "extra1" using "Driver2" instance
     Given I am logged in as "valid driver 2" driver
-#    When I tap on "Go Online button" on Driver Home page
-
-#    And I Select "ACCOUNT" from driver App menu
-   # Then I get driver account details for driver 2
     And I Select "Home" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
     When I Switch to "customer" application on "same" devices
@@ -133,7 +123,6 @@ Feature: Duo
 
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
- #   When I enter "current location in pickup and dropoff fields" on Bungii estimate
 
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate

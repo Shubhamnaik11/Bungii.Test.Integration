@@ -32,9 +32,9 @@ public class OtherAppsPage extends PageBase {
     //FB
     public WebElement Button_Options() { return findElement("//android.view.View[@content-desc=\"Selected, More, Tab 5 of 5\"]", LocatorType.XPath); }
     public WebElement Link_ViewProfile() { return findElement("//android.view.View[@content-desc=\"Your Profile\"]", LocatorType.XPath); }
-    public WebElement Shared_Link(boolean... ignoreException) { return findElement("//android.view.View[contains(@content-desc,\"Shared Link: Check this out!, I just summoned a truck from my phone. You should download this new app called Bungii.\")]", LocatorType.XPath,ignoreException); }
+    public WebElement Shared_Link(boolean... ignoreException) { return findElement("//android.view.View[contains(@content-desc,\"Shared Link: Check this out!, I just summoned a truck from my phone. You should download this new app called Estimate and Customer Cancel.\")]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Shared_Post(boolean... ignoreException){return findElement("//android.view.View[contains(@content-desc,\" You should download this new app called Bungii.\")]/parent::android.view.View/parent::android.view.View/preceding-sibling::android.view.View[1]",LocatorType.XPath,ignoreException);}
+    public WebElement Shared_Post(boolean... ignoreException){return findElement("//android.view.View[contains(@content-desc,\" You should download this new app called Estimate and Customer Cancel.\")]/parent::android.view.View/parent::android.view.View/preceding-sibling::android.view.View[1]",LocatorType.XPath,ignoreException);}
 
 
 

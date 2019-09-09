@@ -1,6 +1,4 @@
 @android
-@S30READY
-
 Feature: Login
   In order to login to bungii
   As a customer and perform functions
@@ -45,7 +43,7 @@ Feature: Login
     Then The user should see "field validations for password" on log in page
     And The user should see "login button disabled" on log in page
 
-@regression
+  @regression
   Scenario: As Bungii customer , I should be shown terms and condition page on first time login ( Reset data of app to simulate fresh install)
     Given I newly installed "Bungii Customer" app
     When I tap on the "Log in" button on Signup Page

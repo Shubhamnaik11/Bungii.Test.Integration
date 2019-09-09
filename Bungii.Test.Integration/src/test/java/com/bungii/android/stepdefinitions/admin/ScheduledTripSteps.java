@@ -122,8 +122,8 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			testStepVerify.isTrue(rowNumber == 999,
-					"Bungii should be removed from the List", "Bungii is removed from the List",
-					"Bungii is not removed from the List");
+					"Estimate and Customer Cancel should be removed from the List", "Estimate and Customer Cancel is removed from the List",
+					"Estimate and Customer Cancel is not removed from the List");
 			
 
 		} catch (Exception e) {

@@ -1,6 +1,4 @@
 @android
-@S30READY
-
 Feature: Menu_Support
   Test scenarios related to Support page
 

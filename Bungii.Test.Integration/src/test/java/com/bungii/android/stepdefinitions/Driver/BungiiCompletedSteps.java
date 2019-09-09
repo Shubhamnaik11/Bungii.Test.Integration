@@ -40,10 +40,10 @@ public class BungiiCompletedSteps extends DriverBase {
         }    }
 
     /**
-     * Verify Static texts on Bungii Completed page
+     * Verify Static texts on Estimate and Customer Cancel Completed page
      */
         public void verifyBungiiCompletedPage(){
-            testStepVerify.isElementTextEquals(bungiiCompletedSteps.Title_Status(),"Bungii Completed");
+            testStepVerify.isElementTextEquals(bungiiCompletedSteps.Title_Status(),"Estimate and Customer Cancel Completed");
             testStepVerify.isElementEnabled(bungiiCompletedSteps.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
             testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
             testStepVerify.isElementEnabled(bungiiCompletedSteps.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
@@ -52,7 +52,7 @@ public class BungiiCompletedSteps extends DriverBase {
         }
 
     /**
-     * Verify variable texts in Bungii Complete Page
+     * Verify variable texts in Estimate and Customer Cancel Complete Page
      */
         public void verifyTripValue(){
 

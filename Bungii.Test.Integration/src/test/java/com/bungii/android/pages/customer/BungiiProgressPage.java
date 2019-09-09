@@ -9,7 +9,7 @@ public class BungiiProgressPage extends PageBase {
     //------Page Titles--------------------------------------------------------------
     public WebElement PageTitle () { return findElement("com.bungii.customer:id/toolbar_title",LocatorType.Id); }
 
-    //------Bungii Statuses----------------------------------------------------------
+    //------Estimate and Customer Cancel Statuses----------------------------------------------------------
     public WebElement BungiiStatus_Enroute () { return findElement("com.bungii.customer:id/pickup_details_status_1",LocatorType.Id); }
 
     public WebElement BungiiStatus_Arrived () { return findElement("com.bungii.customer:id/pickup_details_status_2",LocatorType.Id); }

@@ -96,8 +96,8 @@ public class HomeSteps extends DriverBase {
                     "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
                     "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
             testStepVerify.isTrue(verifyNoOfDriver(expectedTripNoOfDriver),
-                    "Number of driver for Bungii should be " + expectedTripNoOfDriver, "Number of driver for Bungii is " + expectedTripNoOfDriver,
-                    "Number of driver for Bungii is not " + expectedTripNoOfDriver);
+                    "Number of driver for Estimate and Customer Cancel should be " + expectedTripNoOfDriver, "Number of driver for Estimate and Customer Cancel is " + expectedTripNoOfDriver,
+                    "Number of driver for Estimate and Customer Cancel is not " + expectedTripNoOfDriver);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -159,7 +159,7 @@ public class HomeSteps extends DriverBase {
             } else {
                 i_tap_on_something_something_link("Menu", "HOME");
             }
-            log(" I am on Driver logged in Home page", "");
+            log(" I am on Customer logged in Home page", "");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

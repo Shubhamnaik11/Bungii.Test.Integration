@@ -1,5 +1,4 @@
 @android
-@S30READYExceptFAQ
 
 Feature: CustomerMenu
   In Bungii Customer

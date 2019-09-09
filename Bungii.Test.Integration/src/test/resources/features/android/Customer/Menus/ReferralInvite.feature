@@ -1,6 +1,4 @@
 @android
-@S30READY
-
 Feature: ReferralInvite
 
   Background:

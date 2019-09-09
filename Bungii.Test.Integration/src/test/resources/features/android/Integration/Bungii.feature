@@ -1,6 +1,4 @@
 @android
-@S30READY
-@regression1
 Feature: On Demand Bungii
 
  # Background:
@@ -12,15 +10,8 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
-  #  And I Select "ACCOUNT" from driver App menu
-  #  Then I get driver account details for driver 1
-  #  When I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
-  #  And I tap on "Menu" > "ACCOUNT" link
-  #  And I get customer account details
-  #  And I tap on "Menu" > "HOME" link
 
-  #  And I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -156,18 +147,13 @@ Feature: On Demand Bungii
   @regression
   Scenario: Validate That I am able to create on demand bungii.
 
-   # Given I am logged in as "no promocode" customer
-    Given I am logged in as "valid" customer
+    Given I am logged in as "no promocode" customer
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
- #   And I Select "ACCOUNT" from driver App menu
- #   Then I get driver account details for driver 1
     When I Select "HOME" from driver App menu
     And I tap on "Go Online button" on Driver Home page
 
     And I Switch to "customer" application on "same" devices
- #   And I tap on "Menu" > "ACCOUNT" link
- #   And I get customer account details
     And I tap on "Menu" > "HOME" link
 
     And I enter "kansas pickup and dropoff locations" on Bungii estimate

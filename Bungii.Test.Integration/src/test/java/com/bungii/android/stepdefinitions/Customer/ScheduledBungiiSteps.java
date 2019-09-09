@@ -31,13 +31,13 @@ public class ScheduledBungiiSteps extends DriverBase {
             Thread.sleep(20000);
             action.scrollToTop();
             boolean isBungiiPresent =isBungiiPresent(tripNoOfDriver, tripTime);
-            //do half screen swipe if Bungii is present
+            //do half screen swipe if Estimate and Customer Cancel is present
             if(isBungiiPresent)
             {	action.scrollToTop();
                 isBungiiPresent = isBungiiPresent(tripNoOfDriver, tripTime);
             }
-            testStepVerify.isFalse(isBungiiPresent, "Bungii must be removed from " + screen + " screen",
-                    "Bungii Must be deleted", "Bungii is not deleted");
+            testStepVerify.isFalse(isBungiiPresent, "Estimate and Customer Cancel must be removed from " + screen + " screen",
+                    "Estimate and Customer Cancel Must be deleted", "Estimate and Customer Cancel is not deleted");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful",
@@ -73,7 +73,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         /**
      * Check if bungii is present
      * @param bungiiType
-     *            Bungii Type , Solo /Duo
+     *            Estimate and Customer Cancel Type , Solo /Duo
      * @param bungiiTime
      *            Scheduled bungii time
      * @return

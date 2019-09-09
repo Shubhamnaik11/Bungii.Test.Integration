@@ -79,7 +79,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_Estimate.Select_PaymentMode());
                     break;
 
-                case "Request Bungii":
+                case "Request Estimate and Customer Cancel":
                     if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
                         action.scrollToBottom();
                     action.click(Page_Estimate.Checkbox_AgreeEstimate());
@@ -118,7 +118,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     }*/
                     break;
 
-                case "Done after requesting a Scheduled Bungii":
+                case "Done after requesting a Scheduled Estimate and Customer Cancel":
                     if (!action.isElementPresent(Page_CustHome.Button_Done(true)))
                         action.scrollToBottom();
                     action.click(Page_CustHome.Button_Done());
@@ -158,7 +158,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            log(" I tap on " + arg0 + " on Bungii estimate",
+            log(" I tap on " + arg0 + " on Estimate and Customer Cancel estimate",
                     "I  Selected " + arg0, true);
 
         } catch (Exception e) {
@@ -196,18 +196,18 @@ public class EstimateBungiiSteps extends DriverBase {
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"),"Trip distance should be in miles","Trip Distance does contains miles , actual value"+action.getText(Page_Estimate.Text_TripDistance()),"Trip Distance does not contains miles , actual value"+action.getText(Page_Estimate.Text_TripDistance()));
 
-                    testStepVerify.isElementNotEnabled(Page_Estimate.Button_RequestBungii(true),"Request Bungii should be disabled","Reguest Bungii button is disabled","Reguest Bungii button is enabled");
+                    testStepVerify.isElementNotEnabled(Page_Estimate.Button_RequestBungii(true),"Request Estimate and Customer Cancel should be disabled","Reguest Estimate and Customer Cancel button is disabled","Reguest Estimate and Customer Cancel button is enabled");
                     action.scrollToBottom();
                     testStepVerify.isTrue(Page_Estimate.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"),"Estimate agree checkbox should be unchecked","Estimate agree checkbox should be is checked");
-                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()),"Now", "Bungii time should be 'Now'", "Bungii time is"+action.getText(Page_Estimate.Time()));
+                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()),"Now", "Estimate and Customer Cancel time should be 'Now'", "Estimate and Customer Cancel time is"+action.getText(Page_Estimate.Time()));
                     break;
 
                 case "driver cancelled":
                     testStepAssert.isElementDisplayed(Page_CustHome.Title_HomePage(), "Home page title should be displayed", "Home page title is displayed", "Home page title is not displayed");
                     testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(), "Get estimate button should be displayed", "Get estimate button is displayed", "Get estimate button is not displayed");
                     break;
-                case "Bungii posted Success page":
-                    testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(), "Bungii Posted image should be displayed ", "Bungii posted image is displayed ", "Bungii posted image is not displayed");
+                case "Estimate and Customer Cancel posted Success page":
+                    testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(), "Estimate and Customer Cancel Posted image should be displayed ", "Estimate and Customer Cancel posted image is displayed ", "Estimate and Customer Cancel posted image is not displayed");
                     break;
                 case "previous values":
                     testStepVerify.isElementTextEquals(Page_Estimate.Text_TripDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
@@ -216,7 +216,7 @@ public class EstimateBungiiSteps extends DriverBase {
                  //   testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
                  //   testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
                     break;
-                case "Bungii Estimate page with all details":
+                case "Estimate and Customer Cancel Estimate page with all details":
                     action.scrollToTop();
                     testStepVerify.isElementTextEquals(Page_Estimate.Time(),(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
                     testStepVerify.isElementTextEquals(Page_Estimate.Text_TripDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
@@ -568,7 +568,7 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
             }*/
 
 
-            testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
+            testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Estimate and Customer Cancel", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -576,7 +576,7 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
     }
 
 
-    @And("I select Bungii Time as {string}")
+    @And("I select Estimate and Customer Cancel Time as {string}")
     public void iSelectBungiiTimeAs(String arg0) {
         try {
             switch (arg0) {
@@ -591,11 +591,11 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
             }
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
             if(arg0.equalsIgnoreCase("OLD BUNGII TIME")){
-                testStepVerify.isEquals(bungiiTime,(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"),"I selected bungii time as old bungii time:"+bungiiTime,"I was not able to select bungii with old bungii time , Bungii time"+bungiiTime+" expected time"+(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+                testStepVerify.isEquals(bungiiTime,(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"),"I selected bungii time as old bungii time:"+bungiiTime,"I was not able to select bungii with old bungii time , Estimate and Customer Cancel time"+bungiiTime+" expected time"+(String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", bungiiTime);
-            log(" I select Bungii Time as " + arg0,
-                    " I select Bungii Time as " + bungiiTime + ", Selected Bungii time is " + bungiiTime, true);
+            log(" I select Estimate and Customer Cancel Time as " + arg0,
+                    " I select Estimate and Customer Cancel Time as " + bungiiTime + ", Selected Estimate and Customer Cancel time is " + bungiiTime, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

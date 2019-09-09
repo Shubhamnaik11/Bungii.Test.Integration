@@ -1,5 +1,4 @@
 @android
-@S30READY
 
 Feature: Menu_Payment
 Scenarios on Payment Methods

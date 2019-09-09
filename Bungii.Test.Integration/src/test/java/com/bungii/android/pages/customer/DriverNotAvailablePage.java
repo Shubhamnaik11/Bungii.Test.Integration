@@ -9,7 +9,7 @@ public class DriverNotAvailablePage extends  PageBase {
 
     public WebElement Button_Ok() { return findElement("com.bungii.customer:id/driver_unavailaible_button_ok", PageBase.LocatorType.Id); }
     public WebElement Alert_ConfirmRequestMessage () { return findElement("android:id/message", LocatorType.Id); }
-    public WebElement Alert_ScheduleBungii (boolean...ignoreException) { return findElement("//android.widget.Button[@text='Schedule Bungii']", LocatorType.XPath,ignoreException); }
+    public WebElement Alert_ScheduleBungii (boolean...ignoreException) { return findElement("//android.widget.Button[@text='Schedule Estimate and Customer Cancel']", LocatorType.XPath,ignoreException); }
 
 
 }

@@ -1,7 +1,4 @@
 @android
-@S30READY
-@update
-
 Feature: Customer Home screen
 
   Background:
@@ -20,12 +17,10 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     When I tap "Drop Clear Text" on Home page
-
     Then "Drop" address should be empty
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     When I tap "Pick Up Clear Text" on Home page
     And I tap "My location" on Home page
-
     Then current location should be present as pickup location
     And "Drop" address should be empty

@@ -9,7 +9,7 @@ public class InProgressBungiiPages extends PageBase {
     //------Page Titles--------------------------------------------------------------
     public WebElement Title_Status(boolean ... ignoreException) { return findElement("com.bungii.driver:id/toolbar_title", LocatorType.Id,ignoreException); }
 
-    //------Cancel Bungii------------------------------------------------------------
+    //------Cancel Estimate and Customer Cancel------------------------------------------------------------
     public WebElement Button_Cancel() { return findElement("com.bungii.driver:id/toolbar_button_cancel", LocatorType.Id); }
 
     public WebElement Button_Cancel_Yes() { return findElement("android:id/button1", LocatorType.Id); }
@@ -58,7 +58,7 @@ public class InProgressBungiiPages extends PageBase {
 
 
 
-    //------Bungii Statuses----------------------------------------------------------
+    //------Estimate and Customer Cancel Statuses----------------------------------------------------------
     public WebElement BungiiStatus_Enroute(boolean ... ignoreException) { return findElement("com.bungii.driver:id/pickup_details_status_1", LocatorType.Id,ignoreException); }
 
     public WebElement BungiiStatus_Arrived(boolean ... ignoreException) { return findElement("com.bungii.driver:id/pickup_details_status_2", LocatorType.Id,ignoreException); }

@@ -17,7 +17,7 @@ public class LoginPage extends PageBase {
     //Password field
     public WebElement Text_LoginError() { return findElement("com.bungii.driver:id/textinput_error", LocatorType.Id); }
     public WebElement Text_LoginError2() { return findElements("com.bungii.driver:id/textinput_error", LocatorType.Id).get(1); }
-    public WebElement Button_ForgotPassword() { return findElement("com.bungii.driver:id/login_button_forgot_password", LocatorType.Id); }
+    public WebElement Button_ForgotPassword(boolean ...ignoreException) { return findElement("com.bungii.driver:id/login_button_forgot_password", LocatorType.Id,ignoreException); }
 
 
 

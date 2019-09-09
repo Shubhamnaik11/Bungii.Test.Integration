@@ -1,6 +1,4 @@
 @android
-@S30READY
-
 Feature: CustomerSignup
   Sign up as a Customer on Bungii app
 
@@ -26,8 +24,6 @@ Feature: CustomerSignup
     When I switch to "ADMIN_PORTAL" instance
     And I Select "Referral Source" from admin sidebar
     Then account created info for "OTHER" should be "increase by 1"
-
-
 
   @regression
   Scenario: Signup_AllFieldsBlank
@@ -64,6 +60,7 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     And I tap on the "Yes" button on Signup Page
     Then the new user should see "Signup page"
+
   @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number on Signup Page

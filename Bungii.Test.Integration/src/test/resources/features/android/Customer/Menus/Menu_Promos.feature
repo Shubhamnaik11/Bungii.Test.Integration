@@ -1,6 +1,4 @@
 @android
-@S29READY
-
 Feature: Menu_SaveMoney
 
   @regression
@@ -57,7 +55,6 @@ Feature: Menu_SaveMoney
     And I add "first time" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
- #   Then I should see "snackbar stating first time code is for new users" on Save Money page
     And I tap on "Menu" > "Logout" link
 
   @regression
