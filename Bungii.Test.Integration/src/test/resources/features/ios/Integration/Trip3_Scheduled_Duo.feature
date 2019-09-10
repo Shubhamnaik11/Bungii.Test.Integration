@@ -2,8 +2,8 @@
 
 Feature: To Test Duo - Scheduling Bungii
   I want to use request Scheduling Bungii with Duo type
-@S30READY
- # @regression
+
+  @regression
   @sanity
   Scenario: Create Duo Bungii
 
@@ -121,7 +121,7 @@ Feature: To Test Duo - Scheduling Bungii
     Then I should be navigated to "Home" screen
 
 
- # @regression
+  @regression
   Scenario: Create Duo Bungii, Verify Details
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver

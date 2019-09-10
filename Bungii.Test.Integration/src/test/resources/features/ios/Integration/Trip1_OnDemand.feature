@@ -1,5 +1,4 @@
 @ios
-
 Feature: Create on demand bungii
   Assume driver and user already logged in
 
@@ -25,7 +24,6 @@ Feature: Create on demand bungii
     When I confirm trip with following detail
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | Yes             |
- #   Then I should be navigated to "SEARCHING" screen
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     And I click "YES" on alert message
@@ -124,7 +122,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @S30READY
+
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device.
@@ -196,8 +194,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @S30READY
-  @OTHER
+
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
 

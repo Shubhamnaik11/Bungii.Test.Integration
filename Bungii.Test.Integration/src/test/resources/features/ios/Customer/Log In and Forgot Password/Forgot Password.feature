@@ -1,6 +1,4 @@
 @ios
-@NONBUNGII
-@S30READY
 Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button
@@ -8,7 +6,6 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I am on the "LOG IN" page
-  @update1
 
   @regression
   Scenario Outline: As Bungii customer , I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>

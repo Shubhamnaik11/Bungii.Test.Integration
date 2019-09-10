@@ -1,5 +1,4 @@
 @ios
-@NONBUNGII
 @S30READYExcept1
 Feature: Promos
   As a Bungii customer

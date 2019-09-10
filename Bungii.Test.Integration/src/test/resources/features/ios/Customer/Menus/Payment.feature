@@ -1,15 +1,11 @@
 @ios
-@NONBUNGII
-@S30READY
 Feature: Payment page
   As a Bungii customer
   I Should able to add/remove/change payment card
 
   Background:
     Given I am on Customer logged in Home page
-
-
-
+  @regression1
   @regression
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu

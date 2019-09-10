@@ -1,7 +1,4 @@
 @ios
-@S30READY
-
-@NONBUNGII
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links
 
@@ -47,9 +44,9 @@ Feature: Customer	Menu
     When I Enter "{EMPTY}" value in "Support Textbox" field in "SUPPORT" Page
     And I click "SEND" button on "SUPPORT" screen
     Then user is alerted for "EMPTY SUPPORT QUESTION"
+
     #Social media link are not visible now
     # By default 1 answer is collapsed and displayed.
-  @regression2
   @regression
   Scenario: As Bungii customer I want to check FAQ
     When I Select "FAQ" from Customer App menu

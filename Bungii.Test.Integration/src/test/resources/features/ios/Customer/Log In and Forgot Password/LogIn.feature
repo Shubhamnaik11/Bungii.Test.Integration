@@ -1,6 +1,4 @@
 @ios
-@NONBUNGII
-@S30READY
 Feature: Log In
   As a Bungii Customer I should be allowed to login only using valid credential
 

@@ -193,7 +193,7 @@ public class EstimateSteps extends DriverBase {
             double expectedValue = utility.bungiiEstimate(totalDistance, loadTime, getEstimateTime(), "");
 
             String actualValue = estimate.substring(0, estimate.length() - 1);
-            String truncValue = new DecimalFormat("#.#").format(expectedValue);
+            String truncValue = new DecimalFormat("#.00").format(expectedValue);
           //  String truncValue = new DecimalFormat("#.##").format(expectedValue);
             testStepVerify.isEquals(actualValue, truncValue, "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
         } catch (Exception e) {

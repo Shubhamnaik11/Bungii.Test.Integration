@@ -4,8 +4,7 @@ Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
   Background:
-
-#    Given I am on the "LOG IN" page
+    Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
    And I am logged in as "valid" driver
@@ -199,10 +198,9 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @S30READY
+
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
- #   When I Switch to "customer" application on "same" devices
     When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -229,7 +227,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
-  @S30READY
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
  #   When I Select "ACCOUNT" from Customer App menu
@@ -252,7 +250,6 @@ Feature: To Test Solo - Scheduling Bungii
     And I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @S30READY
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
@@ -269,7 +266,6 @@ Feature: To Test Solo - Scheduling Bungii
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
-    # 			Then I Select Bungii from "Scheduled Trip" List
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 15     | TEST     |

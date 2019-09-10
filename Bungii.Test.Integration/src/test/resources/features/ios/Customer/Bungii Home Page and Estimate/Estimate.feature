@@ -1,6 +1,5 @@
 @ios
 
-@S30READY
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
