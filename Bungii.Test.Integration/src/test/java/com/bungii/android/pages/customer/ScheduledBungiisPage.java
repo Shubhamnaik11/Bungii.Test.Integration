@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class ScheduledBungiisPage extends PageBase {
 
-    //------Scheduled Estimate and Customer Cancel page---------------------------------------------------------------------
+    //------Scheduled Bungii page---------------------------------------------------------------------
     public WebElement Title_ScheduledBungiis () { return findElement("com.bungii.customer:id/toolbar_main_title", LocatorType.Id); }
 
     public WebElement Text_NoBungiis () { return findElement("//android.widget.LinearLayout[@id='com.bungii.customer:id/scheduled_bungii_list_rl_container_nobungii']/android.widget.TextView[@instance='1']", LocatorType.XPath); }
@@ -20,7 +20,7 @@ public class ScheduledBungiisPage extends PageBase {
 
     public WebElement Button_OK () { return findElement("android:id/button1", LocatorType.Id); }
 
-    //------Scheduled Estimate and Customer Cancel Details-------------------------------------------------------------
+    //------Scheduled Bungii Details-------------------------------------------------------------
     public WebElement ScheduledBungii_01 () { return findElement("com.bungii.customer:id/container_scheduled_trip_row", LocatorType.Id); }
 
     public WebElement Text_BungiiScheduledTime_01 () { return findElement("com.bungii.customer:id/scheduled_row_textview_scheduleddatetime", LocatorType.Id); }

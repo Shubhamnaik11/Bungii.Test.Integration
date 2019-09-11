@@ -1,5 +1,6 @@
 package com.bungii.android.stepdefinitions.Customer;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.HomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -96,8 +97,8 @@ public class HomeSteps extends DriverBase {
                     "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
                     "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
             testStepVerify.isTrue(verifyNoOfDriver(expectedTripNoOfDriver),
-                    "Number of driver for Estimate and Customer Cancel should be " + expectedTripNoOfDriver, "Number of driver for Estimate and Customer Cancel is " + expectedTripNoOfDriver,
-                    "Number of driver for Estimate and Customer Cancel is not " + expectedTripNoOfDriver);
+                    "Number of driver for Bungii should be " + expectedTripNoOfDriver, "Number of driver for Bungii is " + expectedTripNoOfDriver,
+                    "Number of driver for Bungii is not " + expectedTripNoOfDriver);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -163,10 +164,12 @@ public class HomeSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         } catch (Throwable throwable) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(throwable));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }

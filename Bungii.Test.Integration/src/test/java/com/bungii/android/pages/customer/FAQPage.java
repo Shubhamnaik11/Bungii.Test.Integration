@@ -19,13 +19,13 @@ public class FAQPage extends PageBase {
     public WebElement FAQ_AppFAQTitle() { return findElement("", LocatorType.Id); }
 
     // public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[3][@instance='33']", LocatorType.XPath); }
-    public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[contains(@text,'So what exactly is Estimate and Customer Cancel? +')]", LocatorType.XPath); }
+    public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii? +')]", LocatorType.XPath); }
     public WebElement FAQ_FirstQuestion_open() { return findElement("//android.view.View[3][@instance='35']", LocatorType.XPath); }
-    public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,'So what exactly is Estimate and Customer Cancel? +')]/following-sibling::android.view.View", LocatorType.XPath,ignoreException); }
+    public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii? +')]/following-sibling::android.view.View", LocatorType.XPath,ignoreException); }
     //public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[3][@instance='35']/following::android.view.View[1]", LocatorType.XPath,ignoreException); }
 
 
-    public WebElement FAQ_LastQuestion(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,\"What if there's an issue with my Estimate and Customer Cancel and/or I have other questions? +\")]", LocatorType.XPath,ignoreException); }
+    public WebElement FAQ_LastQuestion(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,\"What if there's an issue with my Bungii and/or I have other questions? +\")]", LocatorType.XPath,ignoreException); }
   //  public WebElement FAQ_LastQuestion(boolean...ignoreException) { return findElement("-h2-data-preserve-html-node-true-style-font-size-20px-what-if-there-s-an-issue-with-my-bungii-and-or-i-have-other-questions-h-data-preserve-html-node-true-style-float-right-h-hr-data-preserve-html-node-true-style-width-100-h2-", LocatorType.Id,ignoreException); }
 
     public WebElement FAQ_LastAnswer() { return findElement("//android.view.View[@content-desc='Please contact text support at (913) 353-6683 or email us at support@bungii.com immediately.' and @instance='54']", LocatorType.XPath); }

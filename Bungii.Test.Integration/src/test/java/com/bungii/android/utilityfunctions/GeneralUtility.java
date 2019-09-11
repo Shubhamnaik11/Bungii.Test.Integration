@@ -21,10 +21,7 @@ import io.appium.java_client.pagefactory.AndroidBy;
 import io.appium.java_client.pagefactory.AndroidFindBys;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -353,6 +350,13 @@ public class GeneralUtility extends DriverBase {
         try {
             action.click(homePage.Button_NavigationBar());
         } catch (org.openqa.selenium.NoSuchElementException e) {
+            if(action.isElementPresent(homePage.Button_NavigationBarCompleter(true))){
+
+                WebElement Button_NavigationBar = homePage.Button_NavigationBarCompleter();
+                int xAxisStartPoint = Button_NavigationBar.getLocation().getX() +  20;
+                int yAxis = Button_NavigationBar.getLocation().getY() + Button_NavigationBar.getRect().getHeight() / 2;
+                action.click(new Point(xAxisStartPoint, yAxis));
+            }
         }
         switch (menuItem.toUpperCase()) {
             case "HOME":

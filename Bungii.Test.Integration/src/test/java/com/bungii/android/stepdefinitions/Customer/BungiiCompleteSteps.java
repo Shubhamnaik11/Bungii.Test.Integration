@@ -47,10 +47,10 @@ public class BungiiCompleteSteps  extends DriverBase {
         }
     }
     /**
-     * Verify Static texts on Estimate and Customer Cancel Completed page
+     * Verify Static texts on Bungii Completed page
      */
     public void verifyBungiiCompletedPage(){
-        testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Estimate and Customer Cancel Complete Page should be displayed");
+        testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
         int tripActualTime=Integer.parseInt(utility.getActualTime());
@@ -64,7 +64,7 @@ public class BungiiCompleteSteps  extends DriverBase {
     }
 
     /**
-     * Verify variable texts in Estimate and Customer Cancel Complete Page
+     * Verify variable texts in Bungii Complete Page
      */
     public void verifyTripValue(){        action.scrollToBottom();
 

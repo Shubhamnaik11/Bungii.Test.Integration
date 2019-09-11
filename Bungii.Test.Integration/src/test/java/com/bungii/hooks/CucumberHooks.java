@@ -110,23 +110,33 @@ public class CucumberHooks {
 
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
+			logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 				new GeneralUtility().recoverScenario();
+			else if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
+				SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));	SetupManager.getObject().useDriverInstance("ORIGINAL");
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 
 	}
 
 	// @AfterSuite
 	/**
-	 * This will be called at start of each suite
+	 * This will be called at end of each suite
 	 * 
 	 * @throws IOException
 	 */
 	public void tearDown() throws IOException {
 		this.reportManager.endSuiteFile();
 		//SetupManager.stopAppiumServer();
-		//logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
+		logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}
 }

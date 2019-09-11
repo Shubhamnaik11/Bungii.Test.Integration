@@ -9,6 +9,7 @@ public class HomePage extends PageBase {
 
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
+    public WebElement Button_NavigationBarCompleter (boolean ...ignoreException) { return findElement("android.view.View", LocatorType.ClassName,ignoreException); }
 
     //------Title-----------------------------------------------------------------------------------------
     public WebElement Title_HomePage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/toolbar_main_title",LocatorType.Id,ignoreException); }

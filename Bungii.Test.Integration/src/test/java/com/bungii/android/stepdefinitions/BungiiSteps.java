@@ -49,7 +49,7 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
-                case "Estimate and Customer Cancel Home page with locations":
+                case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
                     //Sprint 29 changes
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
@@ -59,10 +59,10 @@ public class BungiiSteps extends DriverBase {
 
                     break;
 
-                case "Estimate and Customer Cancel search screen":
-                    testStepVerify.isElementDisplayed(Page_BungiiSearch.Loader(), "I should able  to see Loader on Estimate and Customer Cancel search screen ", "I was able to see Loader on Estimate and Customer Cancel search screen", "Loader was not displayed on Estimate and Customer Cancel Search screen");
-                    testStepVerify.isElementDisplayed(Page_BungiiSearch.Text_MsgSearching(), "I should able  see Searching message on Estimate and Customer Cancel search screen", "I was able to see Searching message Loader on Estimate and Customer Cancel search screen", "Searching message was not displayed on Estimate and Customer Cancel Search screen");
-                    testStepVerify.isElementDisplayed(Page_BungiiSearch.ProgressBar(), "I should able  to see Progress bar on Estimate and Customer Cancel search screen", "I was able to see Progress Bar on Estimate and Customer Cancel search screen", "Progress bar was not displayed on Estimate and Customer Cancel Search screen");
+                case "Bungii search screen":
+                    testStepVerify.isElementDisplayed(Page_BungiiSearch.Loader(), "I should able  to see Loader on Bungii search screen ", "I was able to see Loader on Bungii search screen", "Loader was not displayed on Bungii Search screen");
+                    testStepVerify.isElementDisplayed(Page_BungiiSearch.Text_MsgSearching(), "I should able  see Searching message on Bungii search screen", "I was able to see Searching message Loader on Bungii search screen", "Searching message was not displayed on Bungii Search screen");
+                    testStepVerify.isElementDisplayed(Page_BungiiSearch.ProgressBar(), "I should able  to see Progress bar on Bungii search screen", "I was able to see Progress Bar on Bungii search screen", "Progress bar was not displayed on Bungii Search screen");
                     Thread.sleep(1000);
                     break;
                 case "Enroute screen":
@@ -108,7 +108,7 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.UNLOADING_ITEM.toString(), "I should be navigate to UNLOADING_ TEM Screen", "I am navigate to UNLOADING ITEM Screen", "I was not navigate to LOADING ITEM Screen");
                     break;
                /*
-            case "Estimate and Customer Cancel accepted":
+            case "Bungii accepted":
                 assertManager.ElementDisplayed(Page_BungiiAccepted.PageTitle_BungiiAccepted());
                 assertManager.ElementTextEqual(Page_BungiiAccepted.Label_BungiiAccepted(), Data_Valid_Customer.BungiiAccepted);
                 assertManager.ElementTextEqual(Page_BungiiAccepted.Label_DriverEnRoute(), Data_Valid_Customer.DriverEnRoute);
@@ -192,7 +192,7 @@ public class BungiiSteps extends DriverBase {
     @And("^Bungii Driver \"([^\"]*)\" request$")
     public void bungiiDriverRequest(String arg0) {
         try {
-            if (arg0.equalsIgnoreCase("accepts On Demand Estimate and Customer Cancel")||arg0.equalsIgnoreCase("rejects On Demand Estimate and Customer Cancel")) {
+            if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(60L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
@@ -201,16 +201,16 @@ public class BungiiSteps extends DriverBase {
                 if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
-                        case "accepts On Demand Estimate and Customer Cancel":
+                        case "accepts On Demand Bungii":
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
 
-                        case "rejects On Demand Estimate and Customer Cancel":
+                        case "rejects On Demand Bungii":
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
                     }
                 }
-            } else if (arg0.equalsIgnoreCase("Start Schedule Estimate and Customer Cancel")) {
+            } else if (arg0.equalsIgnoreCase("Start Schedule Bungii")) {
                 boolean skipClick = false;
 
                 if (action.isNotificationAlertDisplayed()) {
@@ -227,7 +227,7 @@ public class BungiiSteps extends DriverBase {
                 action.scrollToBottom();
                 action.click(scheduledBungiiPage.Button_Start());
             }
-            log("Estimate and Customer Cancel driver should able to" + arg0 + " request", "Estimate and Customer Cancel driver  " + arg0,true);
+            log("Bungii driver should able to" + arg0 + " request", "Bungii driver  " + arg0,true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -242,10 +242,10 @@ public class BungiiSteps extends DriverBase {
         try {
             action.showNotifications();
             String expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-            boolean isFound = utility.clickOnNofitication("Estimate and Customer Cancel", expecteMessage);
+            boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
                 Thread.sleep(50000);
-                isFound = utility.clickOnNofitication("Estimate and Customer Cancel", expecteMessage);
+                isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
             //if no notificatiaon then hide
             if (!isFound)
@@ -356,8 +356,8 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_Status().getText(), Status.UNLOADING_ITEM.toString(), "I should be navigate to UNLOADING_ TEM Screen", "I am navigate to UNLOADING ITEM Screen", "I was not navigate to LOADING ITEM Screen");
                     break;
                 case "Pickup Item":
-                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Image_BungiiItem(),"Estimate and Customer Cancel item should be displayed","Estimate and Customer Cancel item is be displayed","Estimate and Customer Cancel item is not displayed");
-                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Button_CancelImage(),"Cancel on Estimate and Customer Cancel item should be displayed","Cancel on Estimate and Customer Cancel item is be displayed","Cancel on Estimate and Customer Cancel item is not displayed");
+                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Image_BungiiItem(),"Bungii item should be displayed","Bungii item is be displayed","Bungii item is not displayed");
+                    testStepVerify.isElementEnabled(Page_DriverBungiiProgress.Button_CancelImage(),"Cancel on Bungii item should be displayed","Cancel on Bungii item is be displayed","Cancel on Bungii item is not displayed");
                     action.click(Page_DriverBungiiProgress.Button_CancelImage());
                 break;
 
@@ -530,8 +530,8 @@ public class BungiiSteps extends DriverBase {
                     }
             }
 
-            log("Estimate and Customer Cancel Driver should able to  taps on " + arg0 + " during Estimate and Customer Cancel",
-                    " Estimate and Customer Cancel Driver taps " + arg0 + " during a Estimate and Customer Cancel", true);
+            log("Bungii Driver should able to  taps on " + arg0 + " during Bungii",
+                    " Bungii Driver taps " + arg0 + " during a Bungii", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -631,7 +631,7 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
-                case "cancels Estimate and Customer Cancel":
+                case "cancels Bungii":
                     action.click(Page_DriverBungiiProgress.Button_Cancel());
                     action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
                     Thread.sleep(5000);
@@ -642,7 +642,7 @@ public class BungiiSteps extends DriverBase {
                     Thread.sleep(1000);
                     break;
 
-                case "completes Estimate and Customer Cancel":
+                case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
                     if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
                         Thread.sleep(5000);
@@ -655,8 +655,8 @@ public class BungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            log("Estimate and Customer Cancel Driver should " + arg0,
-                    " Estimate and Customer Cancel Driver " + arg0, true);
+            log("Bungii Driver should " + arg0,
+                    " Bungii Driver " + arg0, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

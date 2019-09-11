@@ -225,8 +225,8 @@ public class CommonSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             utility.resetApp();
-            log("I reset Estimate and Customer Cancel App Data",
-                    "I reset Estimate and Customer Cancel App Data", true);
+            log("I reset Cancel App Data",
+                    "I reset Estimate App Data", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

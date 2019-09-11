@@ -6,7 +6,7 @@ package com.bungii.android.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.common.utilities.PropertyUtility;
@@ -122,8 +122,8 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			testStepVerify.isTrue(rowNumber == 999,
-					"Estimate and Customer Cancel should be removed from the List", "Estimate and Customer Cancel is removed from the List",
-					"Estimate and Customer Cancel is not removed from the List");
+					"Bungii should be removed from the List", "Bungii is removed from the List",
+					"Bungii is not removed from the List");
 			
 
 		} catch (Exception e) {
