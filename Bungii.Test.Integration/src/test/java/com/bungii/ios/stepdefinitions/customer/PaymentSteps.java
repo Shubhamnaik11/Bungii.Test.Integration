@@ -142,6 +142,7 @@ public class PaymentSteps extends DriverBase {
                             "I was not able to see " + action + " error");
                     break;
                 case "invalid expiry":
+                    Thread.sleep(5000);
                     testStepVerify.isTrue(isFieldInvalid("expiry"), "I should see " + action + " error",
                             "I was able to see " + action + " error",
                             "I was not able to see " + action + " error");

@@ -11,8 +11,8 @@ Feature: Payment page
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add new" button on "PAYMENT" screen
-    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
     And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
     Then I should see <Expected Message> on Payment page
     And I click "Cancel" button on "PAYMENT" screen
 
