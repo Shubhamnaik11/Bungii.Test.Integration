@@ -34,7 +34,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
-      | Source :OTHER | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
+      | Source :OTHER | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
   
   @regression
   Scenario Outline:As a new Bungii Customer I should submit registration form with Promo code
@@ -62,7 +62,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
-      | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
+      | VALID    | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
   
   @regression
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
@@ -84,7 +84,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
-      | VALID    | Vishal     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
+      | VALID    | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
   
   @regression
@@ -120,7 +120,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario            | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
       | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {VALID USER} | Cci12345 |               | facebook | EXISTING USER              |
-      | InValid_Phone       | Vishal     | Bagi            | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
+      | InValid_Phone       | Mike     | tester            | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
   
   @regression
   Scenario Outline: If I try to submit my registration form with invalid Promo code then I should be Alerted for it .
@@ -137,4 +137,4 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
-      | InValid_Phone | Vishal     | Bagi      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
+      | InValid_Phone | Mike     | tester      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |

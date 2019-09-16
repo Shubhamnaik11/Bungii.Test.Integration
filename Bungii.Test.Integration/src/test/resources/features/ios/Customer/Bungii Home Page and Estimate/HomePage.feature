@@ -1,5 +1,4 @@
 @ios
-
 Feature: Customer Home screen
 
   Background:

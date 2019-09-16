@@ -94,7 +94,7 @@ public class ActionManager {
         int hight = elementSize.getHeight();
         Point p= new Point(leftX+(width/2),upperY+(hight/2));
         click(p);
-        logger.detail("Click on locator by element" + element.toString());
+        logger.detail("Click on locator by element" + element.toString()+p);
     }
     public void waitForAlert() {
         (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
@@ -254,10 +254,27 @@ public class ActionManager {
         touchAction.tap(top).perform();
 
             Thread.sleep(200);
+
             logger.detail(" Hidded Key board");
 
         } catch (Exception e) {
           //  e.printStackTrace();
+            logger.error(e.getStackTrace());
+        }
+    }
+
+    /**
+     * Hide keyboard from screen
+     */
+    public void nextFieldKeyboard() {
+        try {
+            IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
+                    .findElementByName("Next:");
+            click(element);
+            logger.detail(" Next Field Key board");
+
+        } catch (Exception e) {
+            //  e.printStackTrace();
             logger.error(e.getStackTrace());
         }
     }
@@ -278,6 +295,10 @@ public class ActionManager {
         HashMap<String, Object> args = new HashMap<>();
         args.put("bundleId", bundleId);
         js.executeScript("mobile: launchApp", args);
+    }
+    public void terminateApp(String bundleId){
+        ((IOSDriver)SetupManager.getDriver()).terminateApp(bundleId);
+
     }
     /**
      * Wrapper for wait, clear data and clearSendKeys in Input Text box

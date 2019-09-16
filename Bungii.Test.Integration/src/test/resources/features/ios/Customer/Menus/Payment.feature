@@ -5,7 +5,7 @@ Feature: Payment page
 
   Background:
     Given I am on Customer logged in Home page
-  @regression1
+
   @regression
   Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
@@ -50,7 +50,6 @@ Feature: Payment page
     Then Alert message with Delete Warning text should be displayed
     When I accept Alert message
     Then I should see "the card has been deleted" on Payment page
-
 
   @regression
   Scenario: As Bungii customer I should able to change default card

@@ -56,13 +56,14 @@ public class BungiiCompleteSteps extends DriverBase {
 	 * Verify Static texts on Bungii Completed page
 	 */
 	public void verifyBungiiCompletedPage(){
+		action.swipeUP();
 		testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
 		//     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
 		String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance());
 		int tripActualTime=Integer.parseInt(utility.getActualTime());
 		String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
-		testStepVerify.isTrue(totalTime.contains(tripActualTime+ "  minute"),"Total time should contains"+tripActualTime+" minute");
+		testStepVerify.isTrue(totalTime.contains(tripActualTime+ "  minute")||totalTime.contains(tripActualTime+ " minute"),"Total time should contains"+tripActualTime+" minute");
 		testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
 		//Vishal[2503]:TODO: add more
 	}

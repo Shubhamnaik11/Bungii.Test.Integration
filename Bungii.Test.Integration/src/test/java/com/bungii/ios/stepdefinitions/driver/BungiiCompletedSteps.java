@@ -26,7 +26,7 @@ public class BungiiCompletedSteps extends DriverBase {
 
     @Then("^Bungii driver should see \"([^\"]*)\" on Bungii completed page$")
     public void bungii_driver_should_see_something_on_bungii_completed_page(String identifier) throws Throwable {
-        try {
+        try {Thread.sleep(5000);
             if (action.isAlertPresent()){ logger.detail("Alert message"+action.getAlertMessage());;SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
 
             switch (identifier.toLowerCase()) {
@@ -68,7 +68,7 @@ public class BungiiCompletedSteps extends DriverBase {
 
         String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime()),totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance()),toatlEarning=action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
 
-        testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  minute"),"Total time should contains "+tripTime+"minute");
+        testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  minute")||totalTime.trim().contains(tripTime+" minute"),"Total time should contains "+tripTime+"minute");
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should contains"+tripDistance+" miles");
      //   testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning should contains $"+truncValue);
         testStepVerify.isTrue(toatlEarning.contains("$")&& (Double.parseDouble(toatlEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);

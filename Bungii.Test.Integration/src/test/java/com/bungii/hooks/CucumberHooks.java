@@ -73,7 +73,7 @@ public class CucumberHooks {
 
 	/**
 	 * Cucumber hook to update test case in report
-	 * 
+	 *
 	 * @param scenario
 	 *            Scenario that is being executed
 	 */
@@ -86,19 +86,19 @@ public class CucumberHooks {
 		//Set original instance as default instance at start of each test case
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
 		//restart driver app
-		SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-		SetupManager.getObject().restartApp();
+		//SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+		//SetupManager.getObject().restartApp();
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
 		if(!isFirstTestCase) {
 
-		//	SetupManager.getObject().restartApp();
+			//	SetupManager.getObject().restartApp();
 		}
 	}
 
 	/**
 	 * Cucumber hook to update test case in report
-	 * 
+	 *
 	 * @param scenario
 	 *            Scenario that was being executed
 	 */
@@ -110,23 +110,44 @@ public class CucumberHooks {
 
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
+			try{
+			logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());}catch (Exception e){}
 
 			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 				new GeneralUtility().recoverScenario();
-		}
+			else if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
+				SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));	SetupManager.getObject().useDriverInstance("ORIGINAL");
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
+		}
+		SetupManager.getObject().useDriverInstance("ORIGINAL");
+		if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
+			SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+
+			SetupManager.getObject().restartApp();
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	// @AfterSuite
 	/**
-	 * This will be called at start of each suite
-	 * 
+	 * This will be called at end of each suite
+	 *
 	 * @throws IOException
 	 */
 	public void tearDown() throws IOException {
 		this.reportManager.endSuiteFile();
 		//SetupManager.stopAppiumServer();
-		//logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
+		logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}
 }

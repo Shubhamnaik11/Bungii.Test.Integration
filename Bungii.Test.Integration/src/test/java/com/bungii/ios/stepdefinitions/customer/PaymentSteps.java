@@ -250,8 +250,8 @@ public class PaymentSteps extends DriverBase {
      */
     public boolean clickOtherCard(String defaultCard) {
         try {
-            //By otherCard = MobileBy.xpath("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='"+ defaultCard + "']");
-            action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
+          //  action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
+            action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[1][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
             return true;
         } catch (Exception e) {
             return false;
@@ -337,6 +337,9 @@ public class PaymentSteps extends DriverBase {
 
         boolean isPresent = false;
         List<WebElement> cards = paymentPage.Text_CardNumber();
+
+        if(cards.size()==0)
+            cards=paymentPage.Text_CardNumber_iOS11_2();
         for (WebElement card : cards) {
             if (action.getValueAttribute(card).equalsIgnoreCase(cardNumber)) {
                 isPresent = true;

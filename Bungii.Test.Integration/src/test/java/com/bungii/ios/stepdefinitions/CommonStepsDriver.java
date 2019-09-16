@@ -105,6 +105,7 @@ public class CommonStepsDriver extends DriverBase {
                     break;
                 case "CONTINUE":
                     action.swipeUP();
+                    action.nextFieldKeyboard();
                     action.click(driverForgotPasswordPage.Button_Continue());
                     break;
                 case "BACK":

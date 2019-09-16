@@ -157,6 +157,7 @@ public class UpdateStatusSteps extends DriverBase {
                 fail("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
 
             }
+            logger.detail("PageSource"+SetupManager.getDriver().getPageSource());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -301,34 +302,58 @@ public class UpdateStatusSteps extends DriverBase {
     }
 
     private void validateCallButtonAction() {
-        action.waitForAlert();
-        String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
-                .replace("?", "").replace("+", "").trim();
-        actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
-        String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
-                .replace("-", "").replace("+", "").trim();
-        List<String> options = action.getListOfAlertButton();
-        boolean isMessageCorrect = actualMessage.equals(expectedMessage);
-        boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
 
-        // is both condition is true print single log else individual log
-        if (isMessageCorrect && isOptionsCorrect) {
-            pass("I should be alerted to call twillo number",
-                    "I was Alert to call twilio number and have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                    true);
-        } else {
+        String iosVersion = ((IOSDriver)SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
+
+        if(!iosVersion.startsWith("10.")) {
+            action.waitForAlert();
+            String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
+                    .replace("?", "").replace("+", "").trim();
+            actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
+            String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
+                    .replace("-", "").replace("+", "").trim();
+            List<String> options = action.getListOfAlertButton();
+            boolean isMessageCorrect = actualMessage.equals(expectedMessage);
+            boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
+
+            // is both condition is true print single log else individual log
+            if (isMessageCorrect && isOptionsCorrect) {
+                pass("I should be alerted to call twillo number",
+                        "I was Alert to call twilio number and have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
+                        true);
+            } else {
+                testStepVerify.isTrue(isMessageCorrect,
+                        "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
+                        "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
+
+                testStepVerify
+                        .isTrue(isOptionsCorrect,
+                                "Alert should have option to cancel and call twilio number ",
+                                "Alert  have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
+                                "Alert dont have option to cancel and call twilio number");
+            }
+            action.clickAlertButton("Cancel");
+        }else{
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            logger.detail("Pagesource"+SetupManager.getDriver().getPageSource());
+            String actualMessage = updateStatusPage.CallNumeberValue_iOS10().getText().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
+                    .replace("?", "").replace("+", "").trim();
+            String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
+                    .replace("-", "").replace("+", "").trim();
+            boolean isMessageCorrect = actualMessage.equals(expectedMessage);
             testStepVerify.isTrue(isMessageCorrect,
                     "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
                     "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
-
-            testStepVerify
-                    .isTrue(isOptionsCorrect,
-                            "Alert should have option to cancel and call twilio number ",
-                            "Alert  have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                            "Alert dont have option to cancel and call twilio number");
+            if(action.isElementPresent(updateStatusPage.ButtonCancelCall_iOS10(true)))
+                action.click(updateStatusPage.ButtonCancelCall_iOS10());
+            action.click(updateStatusPage.EndCall_iOS10());
         }
-        action.clickAlertButton("Cancel");
     }
+
 
     private void validateCallButtonAction(String expectedNumber) {
         action.waitForAlert();

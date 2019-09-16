@@ -465,13 +465,16 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
-        if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
-            WebElement element = driverLoginPage.TextField_PhoneNumber();
-            action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
-            action.sendKeys(driverLoginPage.Textfield_Password(), password);
-            action.click(driverLoginPage.Button_Login());
-        } else {
-            //Not on Login page
+        String navigationBarName=action.getNameAttribute(driverHomePage.NavigationBar_Status());
+        if(!( navigationBarName.equalsIgnoreCase("ONLINE")|| navigationBarName.equalsIgnoreCase("OFFLINE"))) {
+            if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
+                WebElement element = driverLoginPage.TextField_PhoneNumber();
+                action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
+                action.sendKeys(driverLoginPage.Textfield_Password(), password);
+                action.click(driverLoginPage.Button_Login());
+            } else {
+                //Not on Login page
+            }
         }
     }
 

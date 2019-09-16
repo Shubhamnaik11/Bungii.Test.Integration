@@ -31,10 +31,13 @@ public class PaymentPage extends PageBase {
 	public List<WebElement> Cell_CardNumber() {return findElements("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell", PageBase.LocatorType.XPath); }
 	public WebElement Cell_DefaultCard() {return findElement("//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]", PageBase.LocatorType.XPath); }
 
+	//public WebElement Cell_DefaultCardNumber() {return findElement(
+	//		"//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
 	public WebElement Cell_DefaultCardNumber() {return findElement(
-			"//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
+			"//XCUIElementTypeOther[@name='Default card']/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
 
 	public List<WebElement> Text_CardNumber () {return findElements("//XCUIElementTypeStaticText[@name='**** **** **** ']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public List<WebElement> Text_CardNumber_iOS11_2 () {return findElements("//XCUIElementTypeStaticText[@name='**** **** **** ']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 	public WebElement Text_AddHeader() {return findElement("//XCUIElementTypeStaticText[@name='Add payment option']", PageBase.LocatorType.XPath); }
 	public WebElement Text_AddInfo() {return findElement(
 		"//XCUIElementTypeStaticText[@name='Add payment option']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }

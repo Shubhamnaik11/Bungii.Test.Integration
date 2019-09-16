@@ -39,9 +39,9 @@ public class ScheduledTripSteps extends DriverBase {
 		try {
 
 			Map<String, String> tripDetails = new HashMap<String, String>();
-			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");custName="Testcustomertywd_applekcFTPgNL Test";
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
-			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");bungiiTime="Aug 16, 11:30 AM GMT+5:30";
+			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));

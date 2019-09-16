@@ -1,6 +1,7 @@
 package com.bungii.ios.pages.driver;
 
 import com.bungii.common.core.PageBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -56,6 +57,12 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }*/
 
+	public WebElement CallNumeberValue_iOS10(boolean ...ignoreException) { return findElement("XCUIElementTypeStaticText", LocatorType.ClassName,ignoreException); }
+	public WebElement EndCall_iOS10(boolean ...ignoreException) { return findElement("End call", LocatorType.AccessibilityId,ignoreException); }
+	public WebElement ButtonCancelCall_iOS10(boolean ...ignoreException) { return findElement("Cancel", LocatorType.AccessibilityId,ignoreException); }
+
+
+
 	public WebElement Image_Trip_State_1() { return findElement("pickup_state_1", LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_2() { return findElement("pickup_state_2", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_3() { return findElement("pickup_state_3", PageBase.LocatorType.AccessibilityId); }
@@ -72,7 +79,6 @@ public class UpdateStatusPage extends PageBase {
 //	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
-
 
 	public WebElement Button_CloseViewItems(boolean ...ignoreException) { return findElement("close btn white icon", PageBase.LocatorType.AccessibilityId,ignoreException); }
 	public WebElement AreaSlide() { return findElement(

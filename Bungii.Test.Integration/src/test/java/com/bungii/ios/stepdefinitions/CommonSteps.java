@@ -222,7 +222,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "SIGN UP":
                     if (screen.equalsIgnoreCase("SIGN UP")) {
-                        action.swipeUP();
+                        action.swipeUP();action.swipeUP();
                         action.click(signupPage.Button_Signup());
                     } else
                         action.click(loginPage.Button_SignUp());
@@ -299,6 +299,7 @@ public class CommonSteps extends DriverBase {
                     action.click(loginPage.Button_ForgotPassword());
                     break;
                 case "CONTINUE":
+                    action.nextFieldKeyboard();
                     action.click(forgotPasswordPage.Button_Continue());
                     break;
                 case "BACK":
@@ -501,6 +502,15 @@ public class CommonSteps extends DriverBase {
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
+            }		//temp fixed
+            if(action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("new iOS update")) {
+                    if (getListOfAlertButton.contains("Close")) {
+                        action.clickAlertButton("Close");
+                    }
+                }
             }
             pass("Switch to " + appName + " application",
                     "Switch to " + appName + " application", true);
@@ -909,6 +919,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "NEW PASSWORD":
                     action.clearEnterText(forgotPasswordPage.Text_Password(), inputValue);
+                    action.hideKeyboard();
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -1012,7 +1023,7 @@ public class CommonSteps extends DriverBase {
             }
             String alertText = SetupManager.getDriver().switchTo().alert().getText();
             testStepVerify.isEquals(alertText, expectedText);
-            SetupManager.getDriver().switchTo().alert().accept();
+            SetupManager.getDriver().switchTo().alert().accept();Thread.sleep(1000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -83,10 +83,10 @@ public class HomePageSteps extends DriverBase {
      * driver goes online
      */
     public void goOnline() {
-        if (action.isElementPresent(homepage.Button_GoOnline(true)))
-            action.click(homepage.Button_GoOnline());
-        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
+        if (action.isElementPresent(homepage.Button_GoOffline(true)))
             logger.warning("driver Status is already Online");
+        else if (action.isElementPresent(homepage.Button_GoOnline(true)))
+            action.click(homepage.Button_GoOnline());
         else
             logger.error("Not able to get driver status");
     }

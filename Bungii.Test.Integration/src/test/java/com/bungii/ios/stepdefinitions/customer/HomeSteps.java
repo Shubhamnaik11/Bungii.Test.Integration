@@ -558,11 +558,11 @@ public class HomeSteps extends DriverBase {
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();
         try {
-           // wait for loading to dis
-            if (action.isElementPresent(homePage.Image_Loading(true))) {
+           // wait for loading to disappear
+/*            if (action.isElementPresent(homePage.Image_Loading(true))) {
                 action.invisibilityOfElementLocated(homePage.Image_Loading(true));
-            }
-            Thread.sleep(1000);
+            }*/
+            Thread.sleep(3000);
 
 
             action.click(homePage.BUTTON_SET());

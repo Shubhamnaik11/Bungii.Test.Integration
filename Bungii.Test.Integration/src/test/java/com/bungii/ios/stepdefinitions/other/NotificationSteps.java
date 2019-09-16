@@ -66,7 +66,7 @@ public class NotificationSteps extends DriverBase {
 			boolean notificationClickRetry=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 
 		}
-		//temp fixed
+		//temp fixed for iOS  device
 			if(action.isAlertPresent()) {
 				String alertMessage = action.getAlertMessage();
 				List<String> getListOfAlertButton = action.getListOfAlertButton();
@@ -129,6 +129,16 @@ public class NotificationSteps extends DriverBase {
     	testStepVerify.isTrue(isDisplayed, actor+" should be notified for "+expectedMessage, actor+" was notified for "+expectedMessage, "Not able to get notification with text for '"+expectedMessage +"' for"+actor );
 		action.hideNotifications();
     	action.switchApplication(bunddleId);
+			// fixed for iOS device where update is prompted
+			if(action.isAlertPresent()) {
+				String alertMessage = action.getAlertMessage();
+				List<String> getListOfAlertButton = action.getListOfAlertButton();
+				if (alertMessage.contains("new iOS update")) {
+					if (getListOfAlertButton.contains("Close")) {
+						action.clickAlertButton("Close");
+					}
+				}
+			}
 	} catch (Exception e) {
 		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
