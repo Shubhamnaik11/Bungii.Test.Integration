@@ -23,5 +23,5 @@ echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT
 appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --local-timezone --log ${filename} &
 
 #wait for 18 sec
-Sleep 18s
+Sleep 30s
 done
