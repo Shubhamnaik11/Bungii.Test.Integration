@@ -13,7 +13,7 @@
     "simpleIsVisibleCheck": true,
     "clearSystemFiles": true,
     "useJSONSource": false,
-    "wdaLocalPort": 8100
+    "wdaLocalPort": 8110
   },
   "device1": {
     "platformName": "iOS",
