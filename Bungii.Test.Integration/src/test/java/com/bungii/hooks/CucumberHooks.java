@@ -87,7 +87,7 @@ public class CucumberHooks {
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
 		//restart driver app
 		//SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-		//SetupManager.getObject().restartApp();
+		SetupManager.getObject().restartApp();
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
 		if(!isFirstTestCase) {
@@ -116,12 +116,7 @@ public class CucumberHooks {
 			if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 				new GeneralUtility().recoverScenario();
 			else if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
-				SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));	SetupManager.getObject().useDriverInstance("ORIGINAL");
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+
 			}
 
 		}
