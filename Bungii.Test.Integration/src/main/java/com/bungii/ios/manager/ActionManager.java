@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static io.appium.java_client.touch.offset.PointOption.point;
+
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
     private  final long DRIVER_WAIT_TIME;
@@ -83,7 +85,14 @@ public class ActionManager {
         element.click();
         logger.detail("Click on locator by element" + element.toString());
     }
-
+    public void tapByElement( WebElement element) {
+        AppiumDriver<WebElement> driver= (AppiumDriver<WebElement>) SetupManager.getDriver();
+		int startX = element.getLocation().getX();
+		int addition = (int) (element.getSize().height * 0.5);
+		int endX = startX + addition;
+		int startY = element.getLocation().getY();
+		new TouchAction(driver).tap(point(endX, startY)).perform();
+	}
     public void clickMiddlePoint(WebElement element) {
         Point elementLocation=element.getLocation();
         Dimension elementSize=element.getSize();
@@ -249,7 +258,7 @@ public class ActionManager {
                 .findElementByClassName("XCUIElementTypeKeyboard");
         Point keyboardPoint = element.getLocation();
         TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        PointOption top = PointOption.point(keyboardPoint.getX() + 2, keyboardPoint.getY() - 2);
+        PointOption top = point(keyboardPoint.getX() + 2, keyboardPoint.getY() - 2);
 
         touchAction.tap(top).perform();
 
@@ -280,7 +289,7 @@ public class ActionManager {
     }
     public void click(Point p){
         TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        PointOption top = PointOption.point(p.getX(), p.getY());
+        PointOption top = point(p.getX(), p.getY());
 
         touchAction.tap(top).perform();    }
     /**
@@ -405,8 +414,8 @@ public class ActionManager {
         Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
         int yMargin = 5;
         int xMid = screenSize.width / 2;
-        PointOption top = PointOption.point(xMid, yMargin);
-        PointOption bottom = PointOption.point(xMid, screenSize.height - yMargin);
+        PointOption top = point(xMid, yMargin);
+        PointOption bottom = point(xMid, screenSize.height - yMargin);
 
         TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
         if (show) {
