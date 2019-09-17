@@ -12,7 +12,7 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
     "clearSystemFiles": true,
-    "useJSONSource": true,
+    "useJSONSource": false,
     "wdaLocalPort": 8100
   },
   "device1": {
@@ -26,7 +26,7 @@
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
-    "useNewWDA": true,
+    "useNewWDA": false,
     "useJSONSource": true,
     "wdaLocalPort": 8100
   },
