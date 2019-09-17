@@ -1,6 +1,6 @@
 {
 
-  "device1": {
+  "extra1": {
     "platformName": "iOS",
     "platformVersion": "11.2.5",
     "automationName": "XCUITest",
@@ -15,7 +15,7 @@
     "useJSONSource": true,
     "wdaLocalPort": 8100
   },
-  "extra1": {
+  "device1": {
     "platformName": "iOS",
     "platformVersion": "11.2",
     "automationName": "XCUITest",
