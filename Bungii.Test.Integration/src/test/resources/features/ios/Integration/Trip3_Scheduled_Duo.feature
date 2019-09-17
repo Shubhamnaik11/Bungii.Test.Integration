@@ -110,6 +110,7 @@ Feature: To Test Duo - Scheduling Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "HOME" from driver App menu
 
     And I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "Bungii Complete" screen

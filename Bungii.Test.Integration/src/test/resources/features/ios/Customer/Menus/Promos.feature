@@ -1,5 +1,4 @@
 @ios
-@S30READYExcept1
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -34,7 +33,6 @@ Feature: Promos
       | Scenario | Promo   | Expected Message |
       | Invalid | AAAAAAA | Invalid Promo    |
 
-  @notready
   @regression
   Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 

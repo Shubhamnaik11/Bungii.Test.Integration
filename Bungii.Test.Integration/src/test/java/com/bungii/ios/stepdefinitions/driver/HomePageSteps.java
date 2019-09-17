@@ -150,8 +150,11 @@ public class HomePageSteps extends DriverBase {
                 case "LOGOUT":
                     action.swipeUP();
                     Thread.sleep(1000);
-
-                    action.click(homepage.AppMenu_LogOut());
+                    action.click(homepage.AppMenu_LogOut1());
+                    if(action.isElementPresent(homepage.AppMenu_LogOut1(true)))
+                        action.tapByElement(homepage.AppMenu_LogOut1());
+                //    action.click(homepage.AppMenu_LogOut());
+                 //   action.tapByElement(homepage.AppMenu_LogOut());
                     break;
                 default:
                     logger.error("Please specify valid application menu item");

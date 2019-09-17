@@ -5,7 +5,6 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
   Background:
     Given I am on the "SIGN UP" page
 
-
   @regression
   Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source. Scenario :<Scenario>
 

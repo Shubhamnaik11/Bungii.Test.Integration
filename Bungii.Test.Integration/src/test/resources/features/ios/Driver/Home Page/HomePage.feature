@@ -1,12 +1,11 @@
 @ios
-@TEST1
 Feature: Driver Home screen
 
   Background:
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-  @TEST22
+
   @regression
   Scenario: To verify that the default status mode is Offline
     Then the status of the driver should be "Offline"

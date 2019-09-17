@@ -10,7 +10,7 @@
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
-    "simpleIsVisibleCheck": true,
+    "simpleIsVisibleCheck": false,
     "clearSystemFiles": true,
     "useJSONSource": false,
     "wdaLocalPort": 8110
