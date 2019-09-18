@@ -73,6 +73,7 @@ public class CommonSteps extends DriverBase {
     private EnableNotificationPage enableNotificationPage;
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
+
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
                        HomePage homePage, LoginPage loginPage, SignupPage signupPage,
@@ -86,7 +87,7 @@ public class CommonSteps extends DriverBase {
                        DriverNotAvailablePage driverNotAvailablePage, NotificationPage notificationPage,
                        BungiiRequestPage bungiiRequestPage, com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage,
                        BungiiAcceptedPage bungiiAcceptedPage, com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       VerificationPage verificationPage, TermsAndConditionPage termsAndConditionPage,EnableNotificationPage enableNotificationPage,EnableLocationPage enableLocationPage,TutorialPage tutorialPage) {
+                       VerificationPage verificationPage, TermsAndConditionPage termsAndConditionPage, EnableNotificationPage enableNotificationPage, EnableLocationPage enableLocationPage, TutorialPage tutorialPage) {
         this.estimatePage = estimatePage;
         this.homePage = homePage;
         this.loginPage = loginPage;
@@ -120,11 +121,10 @@ public class CommonSteps extends DriverBase {
         this.driverHomePage = driverHomePage;
         this.termsAndConditionPage = termsAndConditionPage;
         this.verificationPage = verificationPage;
-        this.enableNotificationPage=enableNotificationPage;
-        this.enableLocationPage=enableLocationPage;
-        this.tutorialPage=tutorialPage;
+        this.enableNotificationPage = enableNotificationPage;
+        this.enableLocationPage = enableLocationPage;
+        this.tutorialPage = tutorialPage;
     }
-
 
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page$")
@@ -233,14 +233,19 @@ public class CommonSteps extends DriverBase {
                         action.click(invitePage.Button_Done());
                     else {
                         action.swipeUP();
-                        if(!action.isElementPresent(successPage.Button_Done(true)))
+                        if (!action.isElementPresent(successPage.Button_Done(true)))
                             action.swipeUP();
                         action.click(successPage.Button_Done());
                     }
                     break;
                 case "ON TO THE NEXT ONE":
                     //sometime earning popup comes late
-                    if (action.isAlertPresent()){ logger.detail("Alert message"+action.getAlertMessage());;SetupManager.getDriver().switchTo().alert().dismiss();   Thread.sleep(1000);        }
+                    if (action.isAlertPresent()) {
+                        logger.detail("Alert message" + action.getAlertMessage());
+                        ;
+                        SetupManager.getDriver().switchTo().alert().dismiss();
+                        Thread.sleep(1000);
+                    }
                     action.click(driverBungiiCompletedPage.Button_NextTrip());
                     break;
                 case "I DON'T LIKE FREE MONEY":
@@ -401,26 +406,27 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Given("^I have \"([^\"]*)\" app \"([^\"]*)\"$")
     public void i_have_something_app_something(String appName, String expectedOutcome) throws Throwable {
         try {
-            boolean isAppInstalled=false;
+            boolean isAppInstalled = false;
             switch (appName.toUpperCase()) {
                 case "TWITTER":
-                    isAppInstalled=((IOSDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("twitter.bundle.ios.id"));
+                    isAppInstalled = ((IOSDriver) (SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("twitter.bundle.ios.id"));
                     break;
                 case "FACEBOOK":
-                    isAppInstalled=((IOSDriver)(SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("facebook.bundle.ios.id"));
+                    isAppInstalled = ((IOSDriver) (SetupManager.getDriver())).isAppInstalled(PropertyUtility.getDataProperties("facebook.bundle.ios.id"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
             switch (expectedOutcome.toUpperCase()) {
                 case "INSTALLED":
-                    testStepAssert.isTrue(isAppInstalled,appName+" should be installed",appName+" is Not installed");
+                    testStepAssert.isTrue(isAppInstalled, appName + " should be installed", appName + " is Not installed");
                     break;
                 case "NOT INSTALLED":
-                    testStepAssert.isFalse(isAppInstalled,appName+" should be installed",appName+" is installed");
+                    testStepAssert.isFalse(isAppInstalled, appName + " should be installed", appName + " is installed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -429,7 +435,8 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
-        }    }
+        }
+    }
 
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
@@ -483,11 +490,10 @@ public class CommonSteps extends DriverBase {
     }
 
 
-
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
-            String appHeader="";
+            String appHeader = "";
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(1000);
@@ -496,18 +502,18 @@ public class CommonSteps extends DriverBase {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    appHeader="Bungii Driver";
+                    appHeader = "Bungii Driver";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    appHeader="Bungii";
+                    appHeader = "Bungii";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
-            }		//temp fixed
-            if(action.isAlertPresent()) {
+            }        //temp fixed
+            if (action.isAlertPresent()) {
                 String alertMessage = action.getAlertMessage();
                 List<String> getListOfAlertButton = action.getListOfAlertButton();
                 if (alertMessage.contains("new iOS update")) {
@@ -516,8 +522,7 @@ public class CommonSteps extends DriverBase {
                     }
                 }
             }
-            if(!action.getNameAttribute(homePage.Application_Name()).equals(appHeader))
-            {
+            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -788,22 +793,21 @@ public class CommonSteps extends DriverBase {
                         PropertyUtility.getDataProperties("customer.password"));
 
 
-
                 iClickButtonOnScreen("Log In", "Log In");
-                if(action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
+                if (action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
                     action.click(termsAndConditionPage.Button_CheckOff());
                     action.click(termsAndConditionPage.Button_Continue());
-                    if(action.isElementPresent(enableNotificationPage.Button_Sure(true))){
+                    if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                         action.click(enableNotificationPage.Button_Sure());
                         action.clickAlertButton("Allow");
                     }
 
-                    if(action.isElementPresent(enableLocationPage.Button_Sure(true))){
+                    if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                         action.click(enableLocationPage.Button_Sure());
                         action.clickAlertButton("Allow");
                     }
 
-                    if(action.isElementPresent(tutorialPage.Text_ToutorialHeader(true))){
+                    if (action.isElementPresent(tutorialPage.Button_Close(true))) {
                         action.click(tutorialPage.Button_Close());
                     }
                 }
@@ -814,17 +818,34 @@ public class CommonSteps extends DriverBase {
                 iClickButtonOnScreen("CANCEL", "SEARCHING");
                 iAcceptAlertMessage();
                 //iRejectAlertMessage();
+            } else if (action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
+                action.click(termsAndConditionPage.Button_CheckOff());
+                action.click(termsAndConditionPage.Button_Continue());
+                if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
+                    action.click(enableNotificationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+
+                if (action.isElementPresent(tutorialPage.Image_tutorialstep1(true))) {
+                    action.click(tutorialPage.Button_Close());
+                }
             } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
-            cucumberContextManager.setScenarioContext("CUSTOMER",PropertyUtility.getDataProperties("customer.name"));
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE",PropertyUtility.getDataProperties("customer.user") );
+            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }
+
     //Except first time all code is fetch on fly, first time is read from file
     @SuppressWarnings("unchecked")
     public List<String> getRefferalCode(String codeType) {
@@ -853,7 +874,7 @@ public class CommonSteps extends DriverBase {
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
                 break;
             case "first time only":
-                code= Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
+                code = Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
                 break;
             default:
                 code.add(codeType);
@@ -954,8 +975,8 @@ public class CommonSteps extends DriverBase {
     public void i_reset_bungii_app_data() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            boolean isNewInstalled =utility.installCustomerApp();
-            testStepAssert.isTrue(isNewInstalled,"I should able to install bungii App again","I was not able to install bungii app again");
+            boolean isNewInstalled = utility.installCustomerApp();
+            testStepAssert.isTrue(isNewInstalled, "I should able to install bungii App again", "I was not able to install bungii app again");
             log("I install Bungii",
                     "I installed Bungii", true);
 
@@ -1039,7 +1060,8 @@ public class CommonSteps extends DriverBase {
             }
             String alertText = SetupManager.getDriver().switchTo().alert().getText();
             testStepVerify.isEquals(alertText, expectedText);
-            SetupManager.getDriver().switchTo().alert().accept();Thread.sleep(1000);
+            SetupManager.getDriver().switchTo().alert().accept();
+            Thread.sleep(1000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

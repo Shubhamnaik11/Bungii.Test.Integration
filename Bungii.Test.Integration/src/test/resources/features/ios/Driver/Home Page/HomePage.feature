@@ -1,5 +1,4 @@
 @ios
-@FAILED
 Feature: Driver Home screen
 
   Background:

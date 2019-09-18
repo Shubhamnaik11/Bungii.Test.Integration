@@ -85,6 +85,12 @@ public class CucumberHooks {
 			new GeneralUtility().recoverScenario();*/
 		//Set original instance as default instance at start of each test case
 		SetupManager.getObject().useDriverInstance("ORIGINAL");
+		SetupManager.getObject().restartApp();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		//restart driver app
 		//SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
 		SetupManager.getObject().restartApp();
@@ -107,6 +113,7 @@ public class CucumberHooks {
 		//if first test case flag is ste to true then change it to false
 		if(isFirstTestCase)isFirstTestCase=false;
 		DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
+		SetupManager.getObject().useDriverInstance("ORIGINAL");
 
 		this.reportManager.endTestCase(scenario.isFailed());
 		if (scenario.isFailed()) {
@@ -119,17 +126,8 @@ public class CucumberHooks {
 
 			}
 
-		}
-		SetupManager.getObject().useDriverInstance("ORIGINAL");
-		if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
+		}else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
 			SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-
-			SetupManager.getObject().restartApp();
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 

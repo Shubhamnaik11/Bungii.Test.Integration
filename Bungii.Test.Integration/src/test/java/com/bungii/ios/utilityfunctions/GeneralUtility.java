@@ -8,9 +8,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
-import com.bungii.ios.pages.customer.BungiiCompletePage;
-import com.bungii.ios.pages.customer.EstimatePage;
-import com.bungii.ios.pages.customer.PromotionPage;
+import com.bungii.ios.pages.customer.*;
 import com.bungii.ios.pages.driver.BungiiCompletedPage;
 import com.bungii.ios.pages.driver.HomePage;
 import com.bungii.ios.pages.driver.LoginPage;
@@ -53,6 +51,8 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletePage bungiiCompletePage = new BungiiCompletePage();
     PromotionPage promotionPage = new PromotionPage();
     BungiiCompletedPage driverBungiiCompletedPage = new BungiiCompletedPage();
+    EnableNotificationPage enableNotificationPage= new EnableNotificationPage();
+    EnableLocationPage enableLocationPage = new EnableLocationPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     int[][] rgb = {
             {238, 29, 55},
@@ -103,8 +103,13 @@ public class GeneralUtility extends DriverBase {
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
-        //Remove notification screen
-        if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+
+        if(action.isElementPresent(customerHomePage.Application_Name()))
+        {
+            //do nothing
+        }
+        else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+            //Remove notification screen
             action.hideNotifications();
             logger.detail("Notification page is removed");
         }
@@ -135,19 +140,21 @@ public class GeneralUtility extends DriverBase {
 
             }
         }
-        action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+       // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
         logger.detail("Switched to Driver in recovery scenario");
 
+        //If we restart app then close view item page is dismissed
         //view item page
-        if (action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true))) {
+/*        if (action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true))) {
             action.click(driverUpdateStatusPage.Button_CloseViewItems());
             logger.detail("Clicked Close on view item screen");
 
-        }
+        }*/
         if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
             String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
-            logger.detail("screen is"+screen);
+            logger.detail("screen is "+screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");
                 action.click(driverUpdateStatusPage.Button_Cancel());
@@ -177,12 +184,12 @@ public class GeneralUtility extends DriverBase {
             }
 
         }
-        action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+       // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
         if (action.isAlertPresent()) {
             List<String> getListOfAlertButton = action.getListOfAlertButton();
             if (getListOfAlertButton.contains("OK"))
                 action.clickAlertButton("OK");
-
         }
         String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
         if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
@@ -472,6 +479,15 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
+                if(action.isElementPresent(enableNotificationPage.Button_Sure(true))){
+                    action.click(enableNotificationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+
+                if(action.isElementPresent(enableLocationPage.Button_Sure(true))){
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Always Allow");
+                }
             } else {
                 //Not on Login page
             }

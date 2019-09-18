@@ -1,5 +1,4 @@
 @ios
-@FAILED
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -129,5 +128,5 @@ Feature: Promos
     When I enter "valid data" on Overlay Facebook screen
     When I tap "Next" button on Overlay Facebook screen
  #   Then I should see "promo server url" Overlay Facebook screen
- #   When I tap "Share" button on Overlay Facebook screen
+    When I tap "Share" button on Overlay Facebook screen
     Then I should be navigated to "Invite" screen

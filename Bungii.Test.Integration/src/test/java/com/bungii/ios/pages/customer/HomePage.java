@@ -89,7 +89,7 @@ public class HomePage extends PageBase {
     public WebElement Image_eta_bar() {return findElement("eta_bar_bg", PageBase.LocatorType.AccessibilityId); }
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_Home() {return findElement("HOME", LocatorType.AccessibilityId); }
-    public WebElement Application_Name() {return findElement("XCUIElementTypeApplication", LocatorType.ClassName); }
+    public WebElement Application_Name(boolean ...ignoreException) {return findElement("XCUIElementTypeApplication", LocatorType.ClassName,ignoreException); }
 
     public WebElement Image_PickupIcon() {return findElement("input_icon_pickup", LocatorType.AccessibilityId); }
     public WebElement Image_DropOffIcon() {return findElement("input_icon_dropoff", LocatorType.AccessibilityId); }
