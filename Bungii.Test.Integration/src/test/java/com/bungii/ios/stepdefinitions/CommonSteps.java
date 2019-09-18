@@ -481,10 +481,12 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
+
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
-
+            String appHeader="";
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(1000);
@@ -493,10 +495,11 @@ public class CommonSteps extends DriverBase {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    appHeader="Bungii Driver";
                     break;
                 case "CUSTOMER":
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    appHeader="Bungii";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
                     break;
                 default:
@@ -511,6 +514,18 @@ public class CommonSteps extends DriverBase {
                         action.clickAlertButton("Close");
                     }
                 }
+            }
+            if(!action.getNameAttribute(homePage.Application_Name()).equals(appHeader))
+            {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+
             }
             pass("Switch to " + appName + " application",
                     "Switch to " + appName + " application", true);
