@@ -1,4 +1,5 @@
 @ios
+@FAILED
 Feature: Create on demand bungii
   Assume driver and user already logged in
 

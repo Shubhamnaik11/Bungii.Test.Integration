@@ -222,7 +222,8 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "SIGN UP":
                     if (screen.equalsIgnoreCase("SIGN UP")) {
-                        action.swipeUP();action.swipeUP();
+                        action.hideKeyboard();
+                        action.swipeUP();
                         action.click(signupPage.Button_Signup());
                     } else
                         action.click(loginPage.Button_SignUp());

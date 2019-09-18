@@ -287,6 +287,22 @@ public class ActionManager {
             logger.error(e.getStackTrace());
         }
     }
+
+    /**
+     * Press button from keyboard from screen
+     */
+    public void pressFieldKeyboard(String keyName) {
+        try {
+            IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
+                    .findElementByName(keyName);
+            click(element);
+            logger.detail(keyName+" Field Key board");
+
+        } catch (Exception e) {
+            //  e.printStackTrace();
+            logger.error(e.getStackTrace());
+        }
+    }
     public void click(Point p){
         TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
         PointOption top = point(p.getX(), p.getY());

@@ -1,4 +1,5 @@
 @ios
+@FAILED
 Feature: As a new customer I should be allowed to Sign up on Bungii Customer applicatrion
 
 
@@ -62,7 +63,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-  
+
   @regression
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
@@ -85,7 +86,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
-  
+
   @regression
   Scenario Outline: If I try to submit my registration form with invalid details then I should be Alerted for it . Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page

@@ -1,5 +1,5 @@
 @ios
-@Testte
+@FAILED
 Feature: FORGOT PASSWORD
   As a Bungii driver
   When I click Forgot password button
