@@ -355,7 +355,7 @@ public class GeneralUtility extends DriverBase {
             }
 
             logger.detail("IPA file Location " + driverIpaFile);
-            if (Files.exists(Paths.get(driverIpaFile))) {
+            if (!Files.exists(Paths.get(driverIpaFile))) {
                 warning("IPA file doesnot exist on local machine",
                         "File " + driverIpaFile, false);
             }
