@@ -363,8 +363,12 @@ public class GeneralUtility extends DriverBase {
                     ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
 
                 }catch (Exception e){}
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(driverIpaFile);
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            logger.detail("Trying to install app " + driverIpaFile);
+
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(driverIpaFile);
+            logger.detail("done Trying to install app " + driverIpaFile);
+
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
                 isInstalled = true;
 
         } catch (Exception e) {
