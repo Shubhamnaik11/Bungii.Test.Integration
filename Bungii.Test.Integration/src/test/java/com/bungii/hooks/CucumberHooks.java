@@ -144,7 +144,7 @@ public class CucumberHooks {
 
 	}
 
-	@Before("@DUOSPLIT1")
+	@Before("@DUOSPLIT2")
 	public void beforeSecond(){
 		new GeneralUtility().installDriverApp();
 		new GeneralUtility().installCustomerApp();
