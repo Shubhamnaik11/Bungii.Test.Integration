@@ -65,7 +65,7 @@ public class AssertManager {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }
-
+        logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
     }
 
 

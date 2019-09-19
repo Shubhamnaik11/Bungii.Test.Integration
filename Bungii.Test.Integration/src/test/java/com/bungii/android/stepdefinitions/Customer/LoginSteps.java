@@ -24,7 +24,7 @@ public class LoginSteps extends DriverBase {
     @Given("^I am on customer Log in page$")
     public void i_am_on_customer_log_in_page() throws Throwable {
         try {
-            utility.launchCustomerApplication();
+         //   utility.launchCustomerApplication();
             utility.goToLoginPage();
             action.waitUntilIsElementExistsAndDisplayed(loginPage.Header_LoginPage(true));
             testStepVerify.isElementDisplayed(loginPage.Header_LoginPage(true), "Login button should be displayed ", "Login button is displayed", "Sign up button is not displayed");

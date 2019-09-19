@@ -110,12 +110,15 @@ public class ForgotPasswordSteps extends DriverBase  {
             case "confirm password":
                 action.sendKeys(forgotPasswordPage.Text_Confirm_Password(), value);
                 break;
-        }       }
+        }
+        pass("I Enter "+value+ "value in " +strArg1+"field in FORGOT PASSWORD Page on driver app","I Entered "+value+ "value in " +strArg1+"field in FORGOT PASSWORD Page on driver app");
+    }
 
     @And("^I Get SMS CODE for \"([^\"]*)\" number on driver app$")
     public void i_get_sms_code_for_something_number_on_driver_app(String value) throws Throwable {
         switch (value) {
             case"{VALID USER}":
+                Thread.sleep(2000);
                 String phoneNumber= PropertyUtility.getDataProperties("valid.driver.phone");
                 String smsCode = DbUtility.getVerificationCodeDriver(phoneNumber);
                 cucumberContextManager.setScenarioContext("SMS_CODE", smsCode);

@@ -1,7 +1,9 @@
 @android
+@TESTBUNGII
 Feature: On Demand Bungii
 
- # Background:
+  Background:
+
 
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
@@ -206,7 +208,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
-
+  @FAILED
     #This scenario is moved from EstimateBungii.feature
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>

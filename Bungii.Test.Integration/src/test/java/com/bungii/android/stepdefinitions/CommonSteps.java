@@ -25,18 +25,21 @@ public class CommonSteps extends DriverBase {
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
+        boolean isApplicationIsInForeground = false;
+
         try {
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
                 Thread.sleep(5000);
             }
-            boolean isApplicationIsInForeground = false;
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     utility.launchDriverApplication();
+                    isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
                     utility.launchCustomerApplication();
+                    isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -45,29 +48,18 @@ public class CommonSteps extends DriverBase {
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
-        //Verify that application is successfully switched
-        try {
-            boolean isApplicationIsInForeground = false;
-            switch (appName.toUpperCase()) {
-                case "DRIVER":
-                    isApplicationIsInForeground = utility.isDriverApplicationOpen();
-                    break;
-                case "CUSTOMER":
-                    isApplicationIsInForeground = utility.isCustomerApplicationOpen();
-                    break;
-                default:
-                    error("UnImplemented Step or in correct app", "UnImplemented Step");
-                    break;
-            }
+try {
             //if switch was unsucessfull, try to switch again
             if (!isApplicationIsInForeground) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
-                        utility.launchDriverApplication();
+                        //utility.launchDriverApplication();
+                        SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
                         break;
                     case "CUSTOMER":
-                        utility.launchCustomerApplication();
+                        //utility.launchCustomerApplication();
+                        SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                         break;
                     default:
@@ -75,6 +67,7 @@ public class CommonSteps extends DriverBase {
                         break;
                 }
             }
+            Thread.sleep(2000);
             if(!isApplicationIsInForeground)
                 warning("Switch to " + appName + " application","Not able to currently verify if " + appName + " application was not successfull");
             else

@@ -1,5 +1,5 @@
 @android
-@S30READY
+@TESTBUNGII
 Feature: SoloScheduled
   Background:
 

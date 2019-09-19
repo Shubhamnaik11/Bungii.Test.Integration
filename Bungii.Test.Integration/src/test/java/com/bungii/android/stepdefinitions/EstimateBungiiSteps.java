@@ -211,8 +211,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "previous values":
                     testStepVerify.isElementTextEquals(Page_Estimate.Text_TripDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
-                 //    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
+//                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineOne(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineTwo(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineOne(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineTwo(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+
+                    //    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
                  //   testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
                  //   testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
                     break;
@@ -243,6 +248,8 @@ public class EstimateBungiiSteps extends DriverBase {
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
 
         try {
+
+            Thread.sleep(2000);
             switch (arg0) {
                 case "existing":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
@@ -541,7 +548,7 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
                     action.click(Page_Estimate.Permissions_CameraAllow());
 
 ;
-
+                Thread.sleep(2000);
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {

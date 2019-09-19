@@ -96,6 +96,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
 
             switch (string) {
                 case "valid":
+                    Thread.sleep(2000);
                     String SMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), SMSCode);
                     break;
