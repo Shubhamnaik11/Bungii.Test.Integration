@@ -325,7 +325,7 @@ public class GeneralUtility extends DriverBase {
             logger.detail("IPA file Location " + customerIPAFile);
             if (Files.exists(Paths.get(customerIPAFile))) {
                 warning("IPA file doesnot exist on local machine",
-                        "File " + customerIPAFile, true);
+                        "File " + customerIPAFile, false);
             }
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
@@ -357,7 +357,7 @@ public class GeneralUtility extends DriverBase {
             logger.detail("IPA file Location " + driverIpaFile);
             if (Files.exists(Paths.get(driverIpaFile))) {
                 warning("IPA file doesnot exist on local machine",
-                        "File " + driverIpaFile, true);
+                        "File " + driverIpaFile, false);
             }
                 ((IOSDriver<MobileElement>) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                 try {
