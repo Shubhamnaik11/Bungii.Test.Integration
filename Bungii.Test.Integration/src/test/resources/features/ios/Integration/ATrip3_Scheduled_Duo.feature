@@ -121,7 +121,7 @@ Feature: To Test Duo - Scheduling Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-
+  @DUO2
   @regression
   Scenario: Create Duo Bungii, Verify Details
     When I Switch to "driver" application on "same" devices

@@ -689,6 +689,9 @@ public class CommonSteps extends DriverBase {
         try {
             SetupManager.getObject().createNewAppiumInstance(instanceName, deviceId);
             SetupManager.getObject().useDriverInstance(instanceName);
+            log(
+                    "I connect to  " + deviceId + " using " + instanceName + " instance$",
+                    "I connect to " + deviceId + "using " + instanceName + " instance$", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
