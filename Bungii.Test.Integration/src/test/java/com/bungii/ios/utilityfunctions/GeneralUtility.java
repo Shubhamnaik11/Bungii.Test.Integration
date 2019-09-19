@@ -37,8 +37,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.bungii.common.manager.ResultManager.warning;
-
 public class GeneralUtility extends DriverBase {
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
 
@@ -323,9 +321,11 @@ public class GeneralUtility extends DriverBase {
             }
 
             logger.detail("IPA file Location " + customerIPAFile);
-            if (Files.exists(Paths.get(customerIPAFile))) {
-                warning("IPA file doesnot exist on local machine",
-                        "File " + customerIPAFile, false);
+            if (!Files.exists(Paths.get(customerIPAFile))) {
+                logger.detail("IPA file doesnot exist " + customerIPAFile);
+
+/*                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, false);*/
             }
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
@@ -356,21 +356,24 @@ public class GeneralUtility extends DriverBase {
 
             logger.detail("IPA file Location " + driverIpaFile);
             if (!Files.exists(Paths.get(driverIpaFile))) {
-                warning("IPA file doesnot exist on local machine",
-                        "File " + driverIpaFile, false);
-            }
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-                try {
-                    ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
+                logger.detail("IPA file doesnot exist " + driverIpaFile);
 
-                }catch (Exception e){}
+   /*             warning("IPA file doesnot exist on local machine",
+                        "File " + driverIpaFile, false);*/
+            }
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+            try {
+                ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
+
+            } catch (Exception e) {
+            }
             logger.detail("Trying to install app " + driverIpaFile);
 
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(driverIpaFile);
             logger.detail("done Trying to install app " + driverIpaFile);
 
             ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
-                isInstalled = true;
+            isInstalled = true;
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

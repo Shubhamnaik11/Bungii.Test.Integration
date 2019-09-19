@@ -144,8 +144,8 @@ public class CucumberHooks {
 
 	}
 
-	@Before("@DUOSPLIT2")
-	public void beforeSecond(){
+	@Before("@POSTDUO")
+	public void afterDuoScenario(){
 		new GeneralUtility().installDriverApp();
 		new GeneralUtility().installCustomerApp();
 
