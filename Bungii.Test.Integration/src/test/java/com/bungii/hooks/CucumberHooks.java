@@ -143,4 +143,12 @@ public class CucumberHooks {
 		logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}
+
+	@Before("@DUOSPLIT1")
+	public void beforeSecond(){
+		new GeneralUtility().installDriverApp();
+		new GeneralUtility().installCustomerApp();
+
+
+	}
 }

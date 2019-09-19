@@ -33,9 +33,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.bungii.common.manager.ResultManager.warning;
 
 public class GeneralUtility extends DriverBase {
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
@@ -51,7 +52,7 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletePage bungiiCompletePage = new BungiiCompletePage();
     PromotionPage promotionPage = new PromotionPage();
     BungiiCompletedPage driverBungiiCompletedPage = new BungiiCompletedPage();
-    EnableNotificationPage enableNotificationPage= new EnableNotificationPage();
+    EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     int[][] rgb = {
@@ -64,9 +65,9 @@ public class GeneralUtility extends DriverBase {
     };
 
     /**
-     * @param file  File object pointing to screenshot image file
-     * @param x x co-ordinate of point whose pixel color needs to be find out
-     * @param y y co-ordinate of point whose pixel color needs to be find out
+     * @param file File object pointing to screenshot image file
+     * @param x    x co-ordinate of point whose pixel color needs to be find out
+     * @param y    y co-ordinate of point whose pixel color needs to be find out
      * @return RGB value of pount
      * @throws IOException
      */
@@ -101,14 +102,13 @@ public class GeneralUtility extends DriverBase {
         return adminURL;
     }
 
+
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 
-        if(action.isElementPresent(customerHomePage.Application_Name()))
-        {
+        if (action.isElementPresent(customerHomePage.Application_Name())) {
             //do nothing
-        }
-        else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        } else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
             //Remove notification screen
             action.hideNotifications();
             logger.detail("Notification page is removed");
@@ -141,7 +141,7 @@ public class GeneralUtility extends DriverBase {
             }
         }
         SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-       // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+        // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
         logger.detail("Switched to Driver in recovery scenario");
 
         //If we restart app then close view item page is dismissed
@@ -154,7 +154,7 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
             String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
-            logger.detail("screen is "+screen);
+            logger.detail("screen is " + screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");
                 action.click(driverUpdateStatusPage.Button_Cancel());
@@ -185,7 +185,7 @@ public class GeneralUtility extends DriverBase {
 
         }
         SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
-       // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+        // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
         if (action.isAlertPresent()) {
             List<String> getListOfAlertButton = action.getListOfAlertButton();
             if (getListOfAlertButton.contains("OK"))
@@ -231,9 +231,9 @@ public class GeneralUtility extends DriverBase {
      * return minimum cost
      *
      * @param tripDistance Trip distance
-     * @param loadTime load / unload time
-     * @param estTime estimate trip complete time
-     * @param Promo Promo
+     * @param loadTime     load / unload time
+     * @param estTime      estimate trip complete time
+     * @param Promo        Promo
      * @return
      */
     public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
@@ -262,7 +262,7 @@ public class GeneralUtility extends DriverBase {
             discount = Double.parseDouble(Promo.replace("-$", ""));
         else if (Promo.contains("%"))
             discount = estimateCost * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
-        estimateCost=estimateCost-discount;
+        estimateCost = estimateCost - discount;
         //Check if estimate is greater than min
         estimateCost = estimateCost > minCost ? estimateCost : minCost;
 
@@ -281,27 +281,31 @@ public class GeneralUtility extends DriverBase {
         String actualKey = geofenceName + "." + partialKey;
         return PropertyUtility.getGeofenceData(actualKey);
     }
+
     /**
      * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
      * @return
      */
-    public String getTimeZoneBasedOnGeofence(){
+    public String getTimeZoneBasedOnGeofence() {
         //get current geofence
-        String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
-        String getGeofenceTimeZone =getGeofenceData(currentGeofence,"geofence.timezone");
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         return getGeofenceTimeZone;
     }
+
     /**
      * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
      * @return
      */
-    public String getTimeZoneBasedOnGeofenceId(){
+    public String getTimeZoneBasedOnGeofenceId() {
         //get current geofence
-        String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
-       // currentGeofence="kansas";
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        // currentGeofence="kansas";
         //get timezone value of Geofence
-        String getGeofenceTimeZone =getGeofenceData(currentGeofence,"geofence.timezone.id");
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone.id");
         return getGeofenceTimeZone;
     }
 
@@ -319,14 +323,50 @@ public class GeneralUtility extends DriverBase {
 
             logger.detail("IPA file Location " + customerIPAFile);
             if (Files.exists(Paths.get(customerIPAFile))) {
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
-                ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(customerIPAFile);
+                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, true);
+            }
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(customerIPAFile);
+            ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled = true;
+
+        } catch (Exception e) {
+
+        }
+        return isInstalled;
+
+
+    }
+
+
+    /**
+     * Reset application defined in app capabilite
+     */
+    public boolean installDriverApp() {
+        boolean isInstalled = false;
+        try {
+
+            String driverIpaFile = FileUtility.getSuiteResource("", PropertyUtility.getDataProperties("driver.ipa.file.location").replace("{ENVT}", PropertyUtility.environment));
+            if (!Files.exists(Paths.get(driverIpaFile))) {
+                driverIpaFile = PropertyUtility.getDataProperties("driver.ipa.file.location").replace("{ENVT}", PropertyUtility.environment);
+            }
+
+            logger.detail("IPA file Location " + driverIpaFile);
+            if (Files.exists(Paths.get(driverIpaFile))) {
+                warning("IPA file doesnot exist on local machine",
+                        "File " + driverIpaFile, true);
+            }
+                ((IOSDriver<MobileElement>) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                try {
+                    ((IOSDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
+
+                }catch (Exception e){}
+                ((IOSDriver<MobileElement>) SetupManager.getDriver()).installApp(driverIpaFile);
                 ((IOSDriver<MobileElement>) SetupManager.getDriver()).launchApp();
                 isInstalled = true;
-            } else {
-                isInstalled = false;
-            }
+
         } catch (Exception e) {
 
         }
@@ -472,19 +512,19 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
-        String navigationBarName=action.getNameAttribute(driverHomePage.NavigationBar_Status());
-        if(!( navigationBarName.equalsIgnoreCase("ONLINE")|| navigationBarName.equalsIgnoreCase("OFFLINE"))) {
+        String navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
+        if (!(navigationBarName.equalsIgnoreCase("ONLINE") || navigationBarName.equalsIgnoreCase("OFFLINE"))) {
             if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
                 WebElement element = driverLoginPage.TextField_PhoneNumber();
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
-                if(action.isElementPresent(enableNotificationPage.Button_Sure(true))){
+                if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
 
-                if(action.isElementPresent(enableLocationPage.Button_Sure(true))){
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");
                 }
@@ -568,7 +608,7 @@ public class GeneralUtility extends DriverBase {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-        logger.detail("tripDistance"+tripDistance+".tripTime"+tripTime+"Promo"+Promo+"tripType"+tripType);
+        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
