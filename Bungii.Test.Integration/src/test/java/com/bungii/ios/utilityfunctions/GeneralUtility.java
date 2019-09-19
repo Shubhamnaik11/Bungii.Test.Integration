@@ -18,6 +18,7 @@ import com.bungii.ios.pages.other.NotificationPage;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
@@ -333,7 +334,7 @@ public class GeneralUtility extends DriverBase {
             isInstalled = true;
 
         } catch (Exception e) {
-
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
         return isInstalled;
 
@@ -372,7 +373,7 @@ public class GeneralUtility extends DriverBase {
                 isInstalled = true;
 
         } catch (Exception e) {
-
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
         return isInstalled;
 
