@@ -102,6 +102,17 @@ public class GeneralUtility extends DriverBase {
     }
 
 
+    public void handleIosUpdateMessage(){
+        if(action.isAlertPresent()) {
+            String alertMessage = action.getAlertMessage();
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            if (alertMessage.contains("new iOS update")) {
+                if (getListOfAlertButton.contains("Close")) {
+                    action.clickAlertButton("Close");
+                }
+            }
+        }
+    }
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 
@@ -383,7 +394,7 @@ public class GeneralUtility extends DriverBase {
 
     }
 
-    public boolean verifyPageHeader(String key) {
+    public boolean verifyPageHeader(String key) throws InterruptedException {
         String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 
         boolean isCorrectPage = false;
@@ -396,10 +407,16 @@ public class GeneralUtility extends DriverBase {
 
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
-//                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                    String naviagationBar = action.getNameAttribute(driverHomePage.Text_NavigationBar());
+                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
+                        isCorrectPage = true;
+                    } else {
+                        Thread.sleep(7000);
+                        isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                    }
                     break;
                 } else {
+                    //Customer app
                 }
             case "AVAILABLE TRIPS":
                 if (currentApplication.equals("DRIVER")) {
@@ -519,6 +536,16 @@ public class GeneralUtility extends DriverBase {
         return expectedMessage;
     }
 
+
+    public void grantPermissionToDriverApp(){
+            action.click(enableNotificationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
+            action.clickAlertButton("Always Allow");
+        }
+    }
+
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
         String navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
         if (!(navigationBarName.equalsIgnoreCase("ONLINE") || navigationBarName.equalsIgnoreCase("OFFLINE"))) {
@@ -527,15 +554,20 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
-                if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
+                Thread.sleep(2500);
+                navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
+                if(navigationBarName.equals("NOTIFICATIONS")){
+                    grantPermissionToDriverApp();
+                }
+/*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
 
-                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                else if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");
-                }
+                }*/
             } else {
                 //Not on Login page
             }

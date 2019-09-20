@@ -13,7 +13,9 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
+import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -99,13 +101,18 @@ public class HomeSteps extends DriverBase {
                 selectDropLocation(dragFactor);
             }
             selectTripDriver(tripDriverType);
+            String bungiiType=saveBungiiHomeDetails(tripDriverType);
+            boolean isbungiiTypeCorrect=false;
+            isbungiiTypeCorrect=(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) ||(tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
 
-            testStepVerify.isTrue(verifyNoOfDriver(tripDriverType), "I Requested Bungii",
+/*            testStepVerify.isTrue(verifyNoOfDriver(tripDriverType), "I Requested Bungii",
+                    "Number of driver for Bungii should be " + tripDriverType,
+                    "Number of driver for Bungii is not " + tripDriverType);*/
+            testStepVerify.isTrue(isbungiiTypeCorrect, "I Requested Bungii",
                     "Number of driver for Bungii should be " + tripDriverType,
                     "Number of driver for Bungii is not " + tripDriverType);
 
 
-            saveBungiiHomeDetails(tripDriverType);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -132,8 +139,10 @@ public class HomeSteps extends DriverBase {
             selectBungiiLocation("PICK UP", pickup);
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
-            saveBungiiHomeDetails(tripDriverType);
-            testStepVerify.isTrue(verifyNoOfDriver(tripDriverType),
+            String bungiiType=saveBungiiHomeDetails(tripDriverType);
+            boolean isbungiiTypeCorrect=false;
+            isbungiiTypeCorrect=(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) ||(tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
+            testStepVerify.isTrue(isbungiiTypeCorrect,
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
                     "Number of driver for Bungii is not " + tripDriverType);
         } catch (Exception e) {
@@ -144,15 +153,24 @@ public class HomeSteps extends DriverBase {
 
     }
 
-    public void saveBungiiHomeDetails(String tripDriverType) {
-        String[] pickUpLocation = getSelectedPickUpLocation();
+    public String saveBungiiHomeDetails(String tripDriverType) {
+/*        String[] pickUpLocation = getSelectedPickUpLocation();
         String[] dropOffLocation = getSelectedDropLocation();
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", pickUpLocation[0]);
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", pickUpLocation[1]);
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", dropOffLocation[0]);
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", dropOffLocation[1]);
+        cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());*/
 
+        String[] bungiiLocation = getPickUpAndDropLocation();
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[2]);
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+
+        return  bungiiLocation[4];
+
     }
 
     public void selectBungiiLocation(String type, String location) {
@@ -497,6 +515,23 @@ public class HomeSteps extends DriverBase {
         pickUpLocation[0] = homePage.TextBox_Pickup_LineOne().getAttribute("value");
         pickUpLocation[1] = homePage.TextBox_Pickup_LineTwo().getAttribute("value");
 
+        return pickUpLocation;
+    }
+
+    /**
+     * Get Pick up and drop location value
+     *
+     * @return value of selected pickup drop location
+     */
+    public String[] getPickUpAndDropLocation() {
+        List<WebElement> staticFields=homePage.TextBox_AddressGeneric();
+        String[] pickUpLocation = new String[5];
+        if(staticFields.size()!=5)
+            error("i should able to get all information from home screen", "Not able to get all information from home screen", true);
+        for(int i=0;i<5;i++){
+            pickUpLocation[i]=staticFields.get(i).getAttribute("value");
+
+        }
         return pickUpLocation;
     }
 

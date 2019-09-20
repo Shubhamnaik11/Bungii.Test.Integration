@@ -47,7 +47,8 @@ public class NotificationSteps extends DriverBase {
 	@Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
 	public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-		Thread.sleep(20000);
+		//Thread.sleep(20000);
+		Thread.sleep(10000);
 		try{
 		String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 		String appHeaderName=getAppHeader(appName);
@@ -67,15 +68,7 @@ public class NotificationSteps extends DriverBase {
 
 		}
 		//temp fixed for iOS  device
-			if(action.isAlertPresent()) {
-				String alertMessage = action.getAlertMessage();
-				List<String> getListOfAlertButton = action.getListOfAlertButton();
-				if (alertMessage.contains("new iOS update")) {
-					if (getListOfAlertButton.contains("Close")) {
-						action.clickAlertButton("Close");
-					}
-				}
-			}
+		utility.handleIosUpdateMessage();
 	} catch (Exception e) {
 		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -130,15 +123,7 @@ public class NotificationSteps extends DriverBase {
 		action.hideNotifications();
     	action.switchApplication(bunddleId);
 			// fixed for iOS device where update is prompted
-			if(action.isAlertPresent()) {
-				String alertMessage = action.getAlertMessage();
-				List<String> getListOfAlertButton = action.getListOfAlertButton();
-				if (alertMessage.contains("new iOS update")) {
-					if (getListOfAlertButton.contains("Close")) {
-						action.clickAlertButton("Close");
-					}
-				}
-			}
+			utility.handleIosUpdateMessage();
 	} catch (Exception e) {
 		logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 		error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

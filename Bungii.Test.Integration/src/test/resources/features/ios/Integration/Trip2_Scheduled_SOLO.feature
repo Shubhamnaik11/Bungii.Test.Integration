@@ -8,14 +8,13 @@ Feature: To Test Solo - Scheduling Bungii
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
    And I am logged in as "valid" driver
-#    And I change driver status to "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
 
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
 
-    And I Select "Home" from Customer App menu
+#    And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location         | Drop Location | Geofence  |
       | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
@@ -124,12 +123,11 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct details" on Bungii completed page
-    When I rate Bungii Driver  with following details and Press "OK" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen

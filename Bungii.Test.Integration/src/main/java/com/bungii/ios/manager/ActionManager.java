@@ -484,8 +484,6 @@ public class ActionManager {
 
     public List<String> getListOfAlertButton() {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
-
-
         wait.until(ExpectedConditions.alertIsPresent());
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
 

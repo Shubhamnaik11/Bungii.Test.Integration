@@ -3,6 +3,8 @@ package com.bungii.ios.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class HomePage extends PageBase {
 //    public WebElement Text_NavigationBar() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
@@ -65,9 +67,10 @@ public class HomePage extends PageBase {
     public WebElement Link_DropSuggestion() {return findElement("**/XCUIElementTypeTable[2]/XCUIElementTypeCell", PageBase.LocatorType.ClassChain); }
     public WebElement TextBox_Drop_LineOne() {return findElement("//*[@name='input_icon_dropoff']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
     public WebElement TextBox_Drop_LineTwo() {return findElement("//*[@name='input_icon_dropoff']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath); }
+    public List<WebElement> TextBox_AddressGeneric() {return findElements("**/XCUIElementTypeOther/XCUIElementTypeStaticText[`visible == 1`]", LocatorType.ClassChain); }
 
 
-        public WebElement Button_GetEstimate() {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate); }
+    public WebElement Button_GetEstimate() {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate); }
     public WebElement BUTTON_SET() {return findElement("SET", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_FAQ() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }

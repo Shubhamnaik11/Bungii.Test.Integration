@@ -72,7 +72,7 @@ public class UpdateStatusSteps extends DriverBase {
 
             updateStatus();
             Thread.sleep(5000);
-            log("I slide update button on " + screen + " screen", "I slide update button on " + screen + " screen",true);
+            log("I slide update button on " + screen + " screen", "I slide update button on " + screen + " screen", true);
 
 		/*testStepVerify.isEquals(actualValue, expectedMessage,
 				"I slide update button on " + screen + " Screen",
@@ -113,9 +113,9 @@ public class UpdateStatusSteps extends DriverBase {
             updateStatus();
             Thread.sleep(7000);
             testStepVerify.isEquals(actualValue, expectedMessage,
-				"I slide update button on " + screen + " Screen",
-				"Slider value should be" + expectedMessage + "and actual is" + actualValue,
-				"Slider value should be" + expectedMessage + "and actual is" + actualValue);
+                    "I slide update button on " + screen + " Screen",
+                    "Slider value should be" + expectedMessage + "and actual is" + actualValue,
+                    "Slider value should be" + expectedMessage + "and actual is" + actualValue);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -157,7 +157,7 @@ public class UpdateStatusSteps extends DriverBase {
                 fail("Trip Information should be correctly displayed and customer name :" + expectedCustName + "should be displayed", "Trip Information is correctly displayed and customer name :" + expectedCustName + "is displayed correctly");
 
             }
-            logger.detail("PageSource"+SetupManager.getDriver().getPageSource());
+          //  logger.detail("PageSource" + SetupManager.getDriver().getPageSource());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -184,6 +184,7 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Then("^correct details should be displayed to driver for \"([^\"]*)\"$")
     public void correct_details_should_be_displayed_to_driver_for_something(String key) throws Throwable {
         try {
@@ -194,7 +195,7 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "SMS FOR SUPPORT":
                     clickSMSToSupport();
-                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO CUSTOMER-VIEW ITEM":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
@@ -214,7 +215,7 @@ public class UpdateStatusSteps extends DriverBase {
                 case "DUO CUSTOMER-TEXT BUNGII SUPPORT":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_SupportSms());
-                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO DRIVER 1-CALL DRIVER":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
@@ -229,17 +230,17 @@ public class UpdateStatusSteps extends DriverBase {
                 case "DUO DRIVER 1-TEXT DRIVER":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SmsDriver());
-                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
                     break;
                 case "DUO DRIVER 2-TEXT DRIVER":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SmsDriver());
-                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")));
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")));
                     break;
                 case "DUO DRIVER-TEXT BUNGII SUPPORT":
                     action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SupportSms());
-                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 default:
                     throw new Exception("Not Implemented");
@@ -250,96 +251,87 @@ public class UpdateStatusSteps extends DriverBase {
         }
     }
 
-    private void validateViewImage(int image){
-      //  testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
-        testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("page 1 of 1"),"One image scrol slide should be present");
-     //   testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
+    private void validateViewImage(int image) {
+        //  testStepVerify.isElementEnabled(updateStatusPage.Image_TripItem(),"Trip Item should be displayed");
+        testStepVerify.isTrue(action.getValueAttribute(updateStatusPage.PageIndicator_Page1()).equals("page 1 of 1"), "One image scrol slide should be present");
+        //   testStepVerify.isElementEnabled(updateStatusPage.PageIndicator_Page1(),"Trip Item should be displayed");
 
         action.click(updateStatusPage.Button_CloseViewItems());
     }
+
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
-        boolean isMessagePage = isMessageAppPage();
+     //   boolean isMessagePage = isMessageAppPage();
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
-        // is both condition is true print single log else individual log
-        if (isPhoneNumCorrect && isMessagePage) {
-            pass("I should be navigated to SMS app",
-                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
-        } else {
+/*
+
             testStepVerify.isTrue(isMessagePage,
                     "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+*/
 
             testStepVerify.isTrue(isPhoneNumCorrect,
                     "To Field should contains " + expectedNumber,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
-        }
+
         action.click(messagesPage.Button_Cancel());
     }
 
-    private void validateSMSNumber(String actualValue,String expectedValue) {
+    private void validateSMSNumber(String actualValue, String expectedValue) {
         String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
-        boolean isMessagePage = isMessageAppPage();
+       // boolean isMessagePage = isMessageAppPage();
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
-        // is both condition is true print single log else individual log
-        if (isPhoneNumCorrect && isMessagePage) {
-            pass("I should be navigated to SMS app",
-                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
-        } else {
+/*
+
             testStepVerify.isTrue(isMessagePage,
                     "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+*/
 
             testStepVerify.isTrue(isPhoneNumCorrect,
                     "To Field should contains " + expectedNumber,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
-        }
+
         action.click(messagesPage.Button_Cancel());
     }
 
     private void validateCallButtonAction() {
 
-        String iosVersion = ((IOSDriver)SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
+        String iosVersion = ((IOSDriver) SetupManager.getDriver()).getCapabilities().getCapability("platformVersion").toString();
 
-        if(!iosVersion.startsWith("10.")) {
+        if (!iosVersion.startsWith("10.")) {
             action.waitForAlert();
             String actualMessage = action.getAlertMessage().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
                     .replace("?", "").replace("+", "").trim();
             actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
             String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                     .replace("-", "").replace("+", "").trim();
-            List<String> options = action.getListOfAlertButton();
+            //    List<String> options = action.getListOfAlertButton();
             boolean isMessageCorrect = actualMessage.equals(expectedMessage);
-            boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
+            //   boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
 
-            // is both condition is true print single log else individual log
-            if (isMessageCorrect && isOptionsCorrect) {
-                pass("I should be alerted to call twillo number",
-                        "I was Alert to call twilio number and have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                        true);
-            } else {
-                testStepVerify.isTrue(isMessageCorrect,
-                        "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
-                        "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
+            testStepVerify.isTrue(isMessageCorrect,
+                    "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
+                    "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
 
-                testStepVerify
+/*                testStepVerify
                         .isTrue(isOptionsCorrect,
                                 "Alert should have option to cancel and call twilio number ",
                                 "Alert  have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                                "Alert dont have option to cancel and call twilio number");
-            }
+                                "Alert dont have option to cancel and call twilio number");*/
+
             action.clickAlertButton("Cancel");
-        }else{
+        } else {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            logger.detail("Pagesource"+SetupManager.getDriver().getPageSource());
+            //logger.detail("Pagesource" + SetupManager.getDriver().getPageSource());
             String actualMessage = updateStatusPage.CallNumeberValue_iOS10().getText().replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
                     .replace("?", "").replace("+", "").trim();
             String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
@@ -348,7 +340,7 @@ public class UpdateStatusSteps extends DriverBase {
             testStepVerify.isTrue(isMessageCorrect,
                     "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
                     "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
-            if(action.isElementPresent(updateStatusPage.ButtonCancelCall_iOS10(true)))
+            if (action.isElementPresent(updateStatusPage.ButtonCancelCall_iOS10(true)))
                 action.click(updateStatusPage.ButtonCancelCall_iOS10());
             action.click(updateStatusPage.EndCall_iOS10());
         }
@@ -362,34 +354,31 @@ public class UpdateStatusSteps extends DriverBase {
         actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
         String expectedMessage = expectedNumber.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "").replace("+", "").trim();
-        List<String> options = action.getListOfAlertButton();
-        boolean isMessageCorrect = actualMessage.equals(expectedMessage);
-        boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
+   //     List<String> options = action.getListOfAlertButton();
+        boolean isAlertMessageCorrect = actualMessage.equals(expectedMessage);
+   //     boolean isOptionsCorrect = options.contains("Cancel") && options.contains("Call");
 
-        // is both condition is true print single log else individual log
-        if (isMessageCorrect && isOptionsCorrect) {
-            pass("I should be alerted to call twillo number",
-                    "I was Alert to call twilio number and have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                    true);
-        } else {
-            testStepVerify.isTrue(isMessageCorrect,
+
+            testStepVerify.isTrue(isAlertMessageCorrect,
                     "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
-                    "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" +expectedNumber);
+                    "Twillo number was not displayed in alert message , Actual message :" + actualMessage + " , Expected Message:" + expectedNumber);
 
-            testStepVerify
+
+/*            testStepVerify
                     .isTrue(isOptionsCorrect,
                             "Alert should have option to cancel and call twilio number ",
                             "Alert  have option to cancel and call twilio number , options are" + options.get(0) + " and " + options.get(1),
-                            "Alert dont have option to cancel and call twilio number");
-        }
+                            "Alert dont have option to cancel and call twilio number");*/
+
         action.clickAlertButton("Cancel");
     }
+
     private boolean validateUnloadingInfo(List<String> actualInfo) {
         logger.detail("INside trip info validation");
-        String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
-        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
+        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        String actualDropOfflocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        String actualDropOfflocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
 
         boolean isDropLocationDisplayed = actualDropOfflocation
                 .contains(dropOffLocationLineOne) && actualDropOfflocation
@@ -407,8 +396,8 @@ public class UpdateStatusSteps extends DriverBase {
             testStepVerify.isEquals(actualInfo.get(1), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
 
                     "DROP OFF location should be correctly displayed ",
-                    "DROP OFF location was correctly displayed , actual was is " + actualDropOfflocation + "and expected is " +dropOffLocationLineOne+dropOffLocationLineTwo,
-                    "DROP OFF location was not displayed correctly, actual was is " + actualDropOfflocation + " and expected is" + dropOffLocationLineOne+dropOffLocationLineTwo);
+                    "DROP OFF location was correctly displayed , actual was is " + actualDropOfflocation + "and expected is " + dropOffLocationLineOne + dropOffLocationLineTwo,
+                    "DROP OFF location was not displayed correctly, actual was is " + actualDropOfflocation + " and expected is" + dropOffLocationLineOne + dropOffLocationLineTwo);
         }
 
         return isTagDisplayed && isDropLocationDisplayed;
@@ -416,14 +405,14 @@ public class UpdateStatusSteps extends DriverBase {
 
     private boolean validateEnRouteInfo(List<String> actualInfo) {
         logger.detail("INside trip info validation");
-        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
-        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
+        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
         boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        String actualPickuplocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
         boolean isPickUpDisplayed = actualPickuplocation
-                .contains(pickUpLocationLineOne) &&actualPickuplocation.contains(pickUpLocationLineTwo);
+                .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);
 
         if (isTagDisplayed && isETACorrect && isPickUpDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -436,8 +425,8 @@ public class UpdateStatusSteps extends DriverBase {
                     "'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
             testStepVerify.isTrue(isPickUpDisplayed,
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne+pickUpLocationLineTwo,
-                    "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne+pickUpLocationLineTwo);
+                    "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
+                    "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo);
         }
         return isTagDisplayed && isETACorrect && isPickUpDisplayed;
     }
@@ -445,12 +434,12 @@ public class UpdateStatusSteps extends DriverBase {
     private boolean validateDrivingInfo(List<String> actualInfo) {
         logger.detail("inside trip info validation");
 
-        String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
-        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
+        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
-        String actualDropoffLocation=actualInfo.get(1).replace(",","").replace("  "," ");
-        boolean isDropDisplayed =actualDropoffLocation.contains(dropOffLocationLineOne) &&actualDropoffLocation.contains(dropOffLocationLineTwo) ;
+        String actualDropoffLocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
+        boolean isDropDisplayed = actualDropoffLocation.contains(dropOffLocationLineOne) && actualDropoffLocation.contains(dropOffLocationLineTwo);
 
         if (isTagDisplayed && isETAdisplayed && isDropDisplayed) {
             //removed pass statement to avoid multiple screenshot and log in result
@@ -468,19 +457,19 @@ public class UpdateStatusSteps extends DriverBase {
 
             testStepVerify.isTrue(isDropDisplayed,
                     "DROP OFF  location should be correctly displayed ",
-                    "DROP OFF  location was correctly displayed , actual was is" + actualDropoffLocation + " and expected is " + dropOffLocationLineOne+dropOffLocationLineTwo,
-                    "DROP OFF location was not displayed correctly, actual was is" + actualDropoffLocation+ "and expected is" + dropOffLocationLineOne+dropOffLocationLineTwo);
+                    "DROP OFF  location was correctly displayed , actual was is" + actualDropoffLocation + " and expected is " + dropOffLocationLineOne + dropOffLocationLineTwo,
+                    "DROP OFF location was not displayed correctly, actual was is" + actualDropoffLocation + "and expected is" + dropOffLocationLineOne + dropOffLocationLineTwo);
         }
         return isTagDisplayed && isETAdisplayed && isDropDisplayed;
     }
 
     private boolean validateArrivedInfo(List<String> actualInfo) {
         logger.detail("inside trip info validation");
-        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
-        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();
+        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").replace("  ", " ").trim();
+        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace("  ", " ").trim();
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        String actualPickuplocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
 
         boolean isPickupDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation
@@ -494,8 +483,8 @@ public class UpdateStatusSteps extends DriverBase {
 
             testStepVerify.isTrue(isPickupDisplayed,
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne+pickUpLocationLineTwo,
-                    "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + "and expected is" + pickUpLocationLineOne+pickUpLocationLineTwo);
+                    "Pick up location was correctly displayed , actual was is" + actualPickuplocation + " and expected is " + pickUpLocationLineOne + pickUpLocationLineTwo,
+                    "Pick up location was not displayed correctly, actual was is" + actualPickuplocation + "and expected is" + pickUpLocationLineOne + pickUpLocationLineTwo);
         }
         return isTagDisplayed && isPickupDisplayed;
     }
@@ -579,11 +568,11 @@ public class UpdateStatusSteps extends DriverBase {
         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));*/
 
 
-    WebElement slider =updateStatusPage.AreaSlide();
+        WebElement slider = updateStatusPage.AreaSlide();
         Rectangle initial;
         if (!utility.isSliderValueContainsInContext("DRIVER")) {
             initial = action.getLocatorRectangle(slider);
-            utility.addSliderValueToFeatureContext("DRIVER",initial);
+            utility.addSliderValueToFeatureContext("DRIVER", initial);
 
         } else {
             initial = utility.getSliderValueFromContext("DRIVER");
@@ -635,6 +624,7 @@ public class UpdateStatusSteps extends DriverBase {
         action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_Sms());
     }
+
     /**
      * Click SMS to Bungii
      */
@@ -642,6 +632,7 @@ public class UpdateStatusSteps extends DriverBase {
         action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_SupportSms());
     }
+
     /**
      * Click View Items
      */
@@ -649,6 +640,7 @@ public class UpdateStatusSteps extends DriverBase {
         action.click(updateStatusPage.Button_MoreOptions());
         action.click(updateStatusPage.Button_ViewItems());
     }
+
     /**
      * Get Customer Name
      *

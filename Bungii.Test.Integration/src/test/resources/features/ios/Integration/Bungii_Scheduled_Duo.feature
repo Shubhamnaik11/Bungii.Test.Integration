@@ -117,7 +117,6 @@ Feature: To Test Duo - Scheduling Bungii
     When I rate Bungii Driver  with following details and Press "CLOSE" Button
       | Ratting | Tip |
       | 5       | 5   |
-   #Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
@@ -236,9 +235,7 @@ Feature: To Test Duo - Scheduling Bungii
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "CLOSE" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
@@ -392,12 +389,12 @@ Feature: To Test Duo - Scheduling Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "HOME" from driver App menu
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "CLOSE" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
@@ -534,12 +531,12 @@ Feature: To Test Duo - Scheduling Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "HOME" from driver App menu
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "CLOSE" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen

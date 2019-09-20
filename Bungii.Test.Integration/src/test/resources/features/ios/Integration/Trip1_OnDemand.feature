@@ -10,7 +10,7 @@ Feature: Create on demand bungii
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
 
-    And I clear all notification
+   # And I clear all notification
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
     And I change driver status to "Online"
@@ -110,21 +110,21 @@ Feature: Create on demand bungii
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    And Bungii customer should see "correct details" on Bungii completed page
+ #   And Bungii customer should see "correct details" on Bungii completed page
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
       | 5       | 5   |
-    And I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Switch to "customer" application on "same" devices
-
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
+    And I Switch to "driver" application on "same" devices
+ #   Then Bungii driver should see "correct details" on Bungii completed page
+    When I click "On To The Next One" button on "Bungii Completed" screen
+
+
   @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information
+  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
 
    #And I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -227,17 +227,17 @@ Feature: Create on demand bungii
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct details" on Bungii completed page
-    When I rate Bungii Driver  with following details and Press "OK" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Switch to "customer" application on "same" devices
 
-    Then I should be navigated to "Promotion" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
+  @testthis
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
@@ -300,11 +300,10 @@ Feature: Create on demand bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
+
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    When I rate Bungii Driver  with following details and Press "OK" Button
-      | Ratting | Tip |
-      | 5       | 5   |
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
@@ -405,17 +404,16 @@ Feature: Create on demand bungii
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct details with promo" on Bungii completed page
-    When I rate Bungii Driver  with following details and Press "OK" Button
-      | Ratting | Tip |
-      | 5       | 5   |
-    And I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Switch to "customer" application on "same" devices
-
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
+
+    And I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    When I click "On To The Next One" button on "Bungii Completed" screen
+
+
     Examples:
       | Scenario    | Promo Code    | User         |
       | fixed valid | {PROMO FIXED} | no promocode |

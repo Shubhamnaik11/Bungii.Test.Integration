@@ -303,41 +303,35 @@ public class TripStatusSteps extends DriverBase {
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
-        boolean isMessagePage = isMessageAppPage(), isNumberCorrect = actualValue.contains(expectedNumber);
-
-        if (isNumberCorrect && isMessagePage) {
-            pass("I should be navigated to SMS app",
-                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
-        } else {
+        boolean /*isMessagePage = isMessageAppPage(), */isNumberCorrect = actualValue.contains(expectedNumber);
+/*
             testStepVerify.isTrue(isMessagePage,
                     "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+*/
 
             testStepVerify.isTrue(isNumberCorrect,
                     "To Field should contains " + expectedNumber,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
-        }
         action.click(messagesPage.Button_Cancel());
     }
     private void validateSMSNumber(String actualValue,String expectedValue) {
         String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
-        boolean isMessagePage = isMessageAppPage();
+       /* boolean isMessagePage = isMessageAppPage();*/
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
-        // is both condition is true print single log else individual log
-        if (isPhoneNumCorrect && isMessagePage) {
-            pass("I should be navigated to SMS app",
-                    "I was navigated to SMS app and To field contained number" + expectedNumber, true);
-        } else {
+
+/*
             testStepVerify.isTrue(isMessagePage,
                     "I should be navigated to SMS app", "I was navigate to sms app", "I was not navigated to sms app");
+*/
 
             testStepVerify.isTrue(isPhoneNumCorrect,
                     "To Field should contains " + expectedNumber,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
-        }
+
         action.click(messagesPage.Button_Cancel());
     }
 
@@ -348,30 +342,23 @@ public class TripStatusSteps extends DriverBase {
         actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
         String expectedMessage = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "").replace("+", "").trim();
-        List<String> options = action.getListOfAlertButton();
+   //     List<String> options = action.getListOfAlertButton();
 
-        boolean isMessageCorrect = actualMessage.equals(expectedMessage),
-                isOptionCorrect = options.contains("Cancel") && options.contains("Call");
+        boolean isMessageCorrect = actualMessage.equals(expectedMessage)/*,isOptionCorrect = options.contains("Cancel") && options.contains("Call")*/;
 
-        if (isMessageCorrect && isOptionCorrect) {
-            pass(
-                    "I should be alerted to call twillo number",
-                    "I was Alert to call twilio number and have option to cancel and call twilio number , options are"
-                            + options.get(0) + " and " + options.get(1),
-                    true);
-        } else {
+
             testStepVerify.isTrue(isMessageCorrect,
                     "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
                     "Twillo number was not displayed in alert message , Actual message :" + actualMessage
                             + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
-
+/*
             testStepVerify
                     .isTrue(isOptionCorrect,
                             "Alert should have option to cancel and call twilio number ",
                             "Alert  have option to cancel and call twilio number , options are" + options.get(0)
                                     + " and " + options.get(1),
-                            "Alert dont have option to cancel and call twilio number");
-        }
+                            "Alert dont have option to cancel and call twilio number");*/
+
         action.clickAlertButton("Cancel");
     }
     private void validateCallButtonAction(String expectedNumber) {
@@ -381,30 +368,23 @@ public class TripStatusSteps extends DriverBase {
         actualMessage = actualMessage.substring(1, actualMessage.length() - 1);
         String expectedMessage = expectedNumber.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "").replace("+", "").trim();
-        List<String> options = action.getListOfAlertButton();
+     //   List<String> options = action.getListOfAlertButton();
 
-        boolean isMessageCorrect = actualMessage.equals(expectedMessage),
-                isOptionCorrect = options.contains("Cancel") && options.contains("Call");
+        boolean isMessageCorrect = actualMessage.equals(expectedMessage)/*,isOptionCorrect = options.contains("Cancel") && options.contains("Call")*/;
 
-        if (isMessageCorrect && isOptionCorrect) {
-            pass(
-                    "I should be alerted to call twillo number",
-                    "I was Alert to call twilio number and have option to cancel and call twilio number , options are"
-                            + options.get(0) + " and " + options.get(1),
-                    true);
-        } else {
+
             testStepVerify.isTrue(isMessageCorrect,
                     "I should be alerted to call twillo number", "Twillo number was displayed in alert message",
                     "Twillo number was not displayed in alert message , Actual message :" + actualMessage
                             + " , Expected Message:" + PropertyUtility.getMessage("twilio.number"));
 
-            testStepVerify
+/*            testStepVerify
                     .isTrue(isOptionCorrect,
                             "Alert should have option to cancel and call twilio number ",
                             "Alert  have option to cancel and call twilio number , options are" + options.get(0)
                                     + " and " + options.get(1),
-                            "Alert dont have option to cancel and call twilio number");
-        }
+                            "Alert dont have option to cancel and call twilio number");*/
+
         action.clickAlertButton("Cancel");
     }
 

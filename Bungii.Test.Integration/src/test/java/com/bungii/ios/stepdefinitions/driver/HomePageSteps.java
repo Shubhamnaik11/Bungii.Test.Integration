@@ -83,8 +83,12 @@ public class HomePageSteps extends DriverBase {
      * driver goes online
      */
     public void goOnline() {
-        if (action.isElementPresent(homepage.Button_GoOffline(true)))
+
+        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+
+        if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
+        else if(navigationHeaderName.equals("OFFLINE")){action.click(homepage.Button_GoOnline());}
         else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             action.click(homepage.Button_GoOnline());
         else
@@ -95,7 +99,14 @@ public class HomePageSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        if (action.isElementPresent(homepage.Button_GoOffline(true)))
+        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+
+        if(navigationHeaderName.equals("OFFLINE")){
+            logger.warning("driver Status is already offline");
+        }else if(navigationHeaderName.equals("ONLINE")){
+            action.click(homepage.Button_GoOffline());
+        }
+        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
             action.click(homepage.Button_GoOffline());
         else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             logger.warning("driver Status is already offline");

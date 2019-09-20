@@ -60,14 +60,12 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeImage[@name=\"input_icon_dropoff\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath);
     }
 
-   // public WebElement Text_DistanceValue() {       return findElement("//XCUIElementTypeStaticText[@name='Trip Distance']/following::XCUIElementTypeStaticText", LocatorType.XPath);    }
-    public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
+  //  public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
+    public WebElement Text_DistanceValue() {       return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.ClassChain);    }
 
-
-
-    //public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
-
-    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("type == 'XCUIElementTypeStaticText' AND( value CONTAINS[c] 'mins' OR value == 'SELECT')", LocatorType.Predicate);    }
+//     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
+//    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("type == 'XCUIElementTypeStaticText' AND( value CONTAINS[c] 'mins' OR value == 'SELECT')", LocatorType.Predicate);    }
+    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[10]", LocatorType.ClassChain);    }
 
 
     public WebElement Row_PromoCode() {
@@ -80,7 +78,8 @@ public class EstimatePage extends PageBase {
 
 
     public WebElement Text_EstimateValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+        //return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[6]", LocatorType.ClassChain);
     }
 
 
@@ -90,7 +89,13 @@ public class EstimatePage extends PageBase {
 
 
     public WebElement Text_TimeValue() {
-        return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+     //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);
+    }
+
+    public List<WebElement> Text_GenericStaticText() {
+        //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
+        return findElements("**/XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.ClassChain);
     }
 
     public WebElement Button_InfoLoadingTime() {
@@ -121,6 +126,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_LoadTime() {
         return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeButton", LocatorType.XPath);
+        //return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[2]", LocatorType.ClassChain);
     }
 
 
@@ -246,8 +252,8 @@ public class EstimatePage extends PageBase {
     public WebElement Button_OK(boolean...ignoreException) {
         return findElement("OK", LocatorType.AccessibilityId,ignoreException);
     }
-    public WebElement Button_PhotoCapture() {
-        return findElement("PhotoCapture", LocatorType.AccessibilityId);
+    public WebElement Button_PhotoCapture(boolean...ignoreException) {
+        return findElement("PhotoCapture", LocatorType.AccessibilityId,ignoreException);
     }
     public WebElement Button_UsePhoto() {
         return findElement("Use Photo", LocatorType.AccessibilityId);

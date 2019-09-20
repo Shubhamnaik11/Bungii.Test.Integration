@@ -333,6 +333,9 @@ public class CommonSteps extends DriverBase {
                 case "SHARE BY TEXT MESSAGE":
                     shareInviteCode(button);
                     break;
+                case"CLOSE BUTTON":
+                    action.click(customerBungiiCompletePage.Button_Close());;
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -498,13 +501,16 @@ public class CommonSteps extends DriverBase {
                 i_switch_to_something_instance(device);
                 Thread.sleep(1000);
             }
+            //Vishal[20092019]: added terminate before switching the app, works faster
             switch (appName.toUpperCase()) {
                 case "DRIVER":
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                     appHeader = "Bungii Driver";
                     break;
                 case "CUSTOMER":
+                    ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                     ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                     appHeader = "Bungii";
                     //action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
@@ -513,21 +519,15 @@ public class CommonSteps extends DriverBase {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }        //temp fixed
-            if (action.isAlertPresent()) {
-                String alertMessage = action.getAlertMessage();
-                List<String> getListOfAlertButton = action.getListOfAlertButton();
-                if (alertMessage.contains("new iOS update")) {
-                    if (getListOfAlertButton.contains("Close")) {
-                        action.clickAlertButton("Close");
-                    }
-                }
-            }
+            new GeneralUtility().handleIosUpdateMessage();
             if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
                         break;
                     case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
@@ -544,6 +544,50 @@ public class CommonSteps extends DriverBase {
 
         }
     }
+    //This is same as above method except apps are not reminated before starting
+    @When("^I open \"([^\"]*)\" application on \"([^\"]*)\" devices$")
+    public void i_open_something_application_on_something_devices(String appName, String device) throws Throwable {
+        try {
+            String appHeader = "";
+            if (!device.equalsIgnoreCase("same")) {
+                i_switch_to_something_instance(device);
+                Thread.sleep(1000);
+            }
+            switch (appName.toUpperCase()) {
+                case "DRIVER":
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    appHeader = "Bungii Driver";
+                    break;
+                case "CUSTOMER":
+                    ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    appHeader = "Bungii";
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }        //temp fixed
+            new GeneralUtility().handleIosUpdateMessage();
+            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
+
+            }
+            pass("Open " + appName + " application on "+device+" devices",
+                    "Open " + appName + " application"+device+" devices", true);
+            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+
+        }    }
 
     // TODO change catch to error
     @Then("^Alert message with (.+) text should be displayed$")
@@ -780,6 +824,24 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    public void navigateFromTermToHomeScreen() {
+        action.click(termsAndConditionPage.Button_CheckOff());
+        action.click(termsAndConditionPage.Button_Continue());
+        if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
+            action.click(enableNotificationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+        }
+
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+        }
+
+        action.click(tutorialPage.Button_Close());
+
+
+    }
+
     @Given("^I am on Customer logged in Home page$")
     public void iAmOnCustomerLoggedInHomePage() {
         try {
@@ -797,23 +859,14 @@ public class CommonSteps extends DriverBase {
 
 
                 iClickButtonOnScreen("Log In", "Log In");
-                if (action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
-                    action.click(termsAndConditionPage.Button_CheckOff());
-                    action.click(termsAndConditionPage.Button_Continue());
-                    if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
-                        action.click(enableNotificationPage.Button_Sure());
-                        action.clickAlertButton("Allow");
-                    }
 
-                    if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                        action.click(enableLocationPage.Button_Sure());
-                        action.clickAlertButton("Allow");
-                    }
-
-                    if (action.isElementPresent(tutorialPage.Button_Close(true))) {
-                        action.click(tutorialPage.Button_Close());
-                    }
+                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+                if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
+                    //DO Nothing
+                } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                    navigateFromTermToHomeScreen();
                 }
+
                 //homeSteps.user_should_be_successfully_logged_in_to_the_system();
             } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
                 // do nothing
@@ -821,23 +874,17 @@ public class CommonSteps extends DriverBase {
                 iClickButtonOnScreen("CANCEL", "SEARCHING");
                 iAcceptAlertMessage();
                 //iRejectAlertMessage();
-            } else if (action.isElementPresent(termsAndConditionPage.Button_CheckOff(true))) {
-                action.click(termsAndConditionPage.Button_CheckOff());
-                action.click(termsAndConditionPage.Button_Continue());
-                if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
-                    action.click(enableNotificationPage.Button_Sure());
-                    action.clickAlertButton("Allow");
-                }
-
+            } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                navigateFromTermToHomeScreen();
+            } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
-
-                if (action.isElementPresent(tutorialPage.Image_tutorialstep1(true))) {
-                    action.click(tutorialPage.Button_Close());
-                }
-            } else {
+            }
+            else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));

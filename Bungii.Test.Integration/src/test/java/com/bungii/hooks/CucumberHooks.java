@@ -93,7 +93,6 @@ public class CucumberHooks {
 		}
 		//restart driver app
 		//SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-		SetupManager.getObject().restartApp();
 		//Vishal[1801]: Restart app before Each test case
 		//If not first test case
 		if(!isFirstTestCase) {
@@ -140,10 +139,8 @@ public class CucumberHooks {
 	public void tearDown() throws IOException {
 		this.reportManager.endSuiteFile();
 		//SetupManager.stopAppiumServer();
-		logger.detail("PAGE SOURCE:"+DriverManager.getObject().getDriver().getPageSource());
 
 	}
-
 	@Before("@POSTDUO")
 	public void afterDuoScenario(){
 		new GeneralUtility().installDriverApp();
