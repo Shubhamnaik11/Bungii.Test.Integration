@@ -553,4 +553,13 @@ public class ActionManager {
             return false;
         }
     }
+    public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
+        try {
+            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until((ExpectedConditions.visibilityOf(element)));
+        } catch (Exception Ex) {
+          //  Assert.fail("Following element is not displayed : " + element);
+        }
+    }
 }

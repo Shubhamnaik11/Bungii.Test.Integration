@@ -139,6 +139,7 @@ public class HomeSteps extends DriverBase {
             selectBungiiLocation("PICK UP", pickup);
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
+
             String bungiiType=saveBungiiHomeDetails(tripDriverType);
             boolean isbungiiTypeCorrect=false;
             isbungiiTypeCorrect=(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) ||(tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
@@ -161,7 +162,7 @@ public class HomeSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", dropOffLocation[0]);
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", dropOffLocation[1]);
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());*/
-
+        action.waitUntilIsElementExistsAndDisplayed(homePage.Button_GetEstimate(true));
         String[] bungiiLocation = getPickUpAndDropLocation();
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
@@ -213,8 +214,7 @@ public class HomeSteps extends DriverBase {
     @Then("^current location should be present as pickup location$")
     public void current_location_should_be_present_as_pickup_location() {
         try {
-            //    ((AppiumDriver)SetupManager.getDriver()).terminateApp( PropertyUtility.getProp("bundleId_Customer"));
-            //   ((AppiumDriver)SetupManager.getDriver()).launchApp();
+
             String addressValue = action.getValueAttribute(homePage.TextBox_Pickup_LineOne());
 
             testStepVerify.isTrue(!addressValue.isEmpty() && !addressValue.equals(""),

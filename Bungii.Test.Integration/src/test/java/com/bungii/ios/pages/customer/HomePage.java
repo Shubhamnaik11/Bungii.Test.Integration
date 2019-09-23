@@ -70,7 +70,7 @@ public class HomePage extends PageBase {
     public List<WebElement> TextBox_AddressGeneric() {return findElements("**/XCUIElementTypeOther/XCUIElementTypeStaticText[`visible == 1`]", LocatorType.ClassChain); }
 
 
-    public WebElement Button_GetEstimate() {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate); }
+    public WebElement Button_GetEstimate(boolean ...ignoreException) {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate,ignoreException); }
     public WebElement BUTTON_SET() {return findElement("SET", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_FAQ() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }

@@ -692,10 +692,16 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("referral.customer.phone");
                     password = PropertyUtility.getDataProperties("referral.customer.password");
                     break;
+                case "customer-duo":
+                    userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                    password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
             goToLogInPage(NavigationBarName);
 
             LogInSteps logInSteps = new LogInSteps(loginPage);

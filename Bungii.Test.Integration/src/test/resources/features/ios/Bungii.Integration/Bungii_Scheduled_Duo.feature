@@ -9,12 +9,13 @@ Feature: To Test Duo - Scheduling Bungii
 
 
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid duo driver" driver
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices
-    And I am on Customer logged in Home page
+    When I logged in Customer application using  "customer-duo" user
+  #  And I am on Customer logged in Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -124,13 +125,13 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Validate customer can contact driver
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid duo driver" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices
-    And I am on Customer logged in Home page
+    When I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -246,13 +247,13 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid duo driver" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices
-    And I am on Customer logged in Home page
+    When I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -406,13 +407,13 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Verify driver can call each other
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid duo driver" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices
-    And I am on Customer logged in Home page
+    When I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
