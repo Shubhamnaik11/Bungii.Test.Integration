@@ -32,7 +32,7 @@ Feature: Promos
     Examples:
       | Scenario | Promo   | Expected Message |
       | Invalid | AAAAAAA | Invalid Promo    |
-  @TESTCHROME
+
   @regression
   Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 

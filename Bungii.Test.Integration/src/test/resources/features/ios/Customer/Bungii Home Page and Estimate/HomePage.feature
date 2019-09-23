@@ -1,5 +1,5 @@
 @ios
-@FAILED
+
 Feature: Customer Home screen
 
   Background:

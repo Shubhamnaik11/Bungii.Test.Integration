@@ -88,7 +88,7 @@ public class ScheduledTripSteps extends DriverBase {
 		return formattedDate;
 	}
 
-	private String getPortalTime(String bungiiTime) throws ParseException {
+	public String getPortalTime(String bungiiTime) throws ParseException {
 		Calendar calendar = Calendar.getInstance();
 
 		int intYear=calendar.get(Calendar.YEAR);

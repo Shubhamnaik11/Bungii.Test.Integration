@@ -8,6 +8,9 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.DashBoardPage;
+import com.bungii.ios.pages.admin.LogInPage;
+import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.*;
 import com.bungii.ios.pages.driver.BungiiCompletedPage;
 import com.bungii.ios.pages.driver.HomePage;
@@ -15,8 +18,12 @@ import com.bungii.ios.pages.driver.LoginPage;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
+import com.bungii.ios.stepdefinitions.admin.LogInSteps;
+import com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Dimension;
@@ -31,7 +38,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -54,6 +63,7 @@ public class GeneralUtility extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
+    ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     int[][] rgb = {
             {238, 29, 55},
             {255, 169, 66},
@@ -113,6 +123,47 @@ public class GeneralUtility extends DriverBase {
             }
         }
     }
+
+    public void recoverScenarioscheduled() {
+
+        try {
+            logger.detail("Inside recovery scenario for scheduled");
+
+            //restart app
+        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+        action.click(customerHomePage.Button_AppMenu());
+        action.click(customerHomePage.AppMenu_ScheduledTrip());
+        List<WebElement> allschBungii=scheduledBungiiPage.List_SchBungii();
+        ArrayList<String> detailsArray = new ArrayList<String>();
+        if(allschBungii.size()>0) {
+            for (int i = 0; i < allschBungii.size(); i++) {
+                detailsArray.add(action.getNameAttribute(allschBungii.get(i)));
+            }
+            SetupManager.getObject().createNewWebdriverInstance("RECOVERY", "chrome");
+            SetupManager.getObject().useDriverInstance("RECOVERY");
+            SetupManager.getDriver().get(GetAdminUrl());
+            new LogInSteps(new LogInPage()).i_log_in_to_admin_portal();
+            new DashBoardSteps(new DashBoardPage()).i_select_something_from_admin_sidebar("scheduled trip");
+            Map<String, String> tripDetails = new HashMap<String, String>();
+            tripDetails.put("CUSTOMER", (String) cucumberContextManager.getScenarioContext("CUSTOMER"));
+            String bungiiTime = "";
+            for (int i = 0; i < detailsArray.size(); i++) {
+                bungiiTime = detailsArray.get(i);
+                logger.detail("bungiiTime" + bungiiTime);
+                tripDetails.put("SCHEDULED_DATE", new ScheduledTripSteps(new ScheduledTripsPage()).getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
+                tripDetails.put("BUNGII_DISTANCE", "");
+                new ScheduledTripSteps(new ScheduledTripsPage()).cancelBungii(tripDetails, "5", "RECOVERY");
+
+            }
+        }
+        }catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+
+        }
+        SetupManager.getObject().useDriverInstance("ORIGINAL");
+    }
+
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 

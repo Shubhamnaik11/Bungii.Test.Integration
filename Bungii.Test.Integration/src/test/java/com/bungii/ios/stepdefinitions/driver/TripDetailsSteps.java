@@ -25,6 +25,10 @@ public class TripDetailsSteps extends DriverBase {
     @When("^I accept selected Bungii$")
     public void i_accept_selected_bungii() {
         try {
+            if (action.isAlertPresent()) {
+                SetupManager.getDriver().switchTo().alert().dismiss();
+                Thread.sleep(1000);
+            }
             AcceptBungii();
             log("Bungii should be Bungii", "Bungii is sucessfully accepted");
         } catch (Exception e) {

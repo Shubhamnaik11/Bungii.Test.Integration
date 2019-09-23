@@ -770,7 +770,10 @@ public class CommonSteps extends DriverBase {
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
-
+            if (action.isAlertPresent()) {
+                SetupManager.getDriver().switchTo().alert().dismiss();
+                Thread.sleep(1000);
+            }
             //   tripNoOfDriver="DUO";tripTime="Jan 10, 07:15 PM GMT+5:30";currentApplication="DRIVER";
 
             if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
