@@ -1,7 +1,8 @@
 @ios
 @DUO
-Feature: To Test Duo - Scheduling Bungii
-  I want to use request Scheduling Bungii with Duo type
+@scheduled
+Feature: To Test Duo - Scheduled Bungii
+  I want  request Scheduled Bungii with Duo type
 
   @regression
   @sanity
@@ -9,7 +10,7 @@ Feature: To Test Duo - Scheduling Bungii
 
 
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid duo driver" driver
+    And I am logged in as "valid duo driver 1" driver
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
@@ -125,7 +126,7 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Validate customer can contact driver
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid duo driver" driver
+    And I am logged in as "valid duo driver 1" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
@@ -247,7 +248,7 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid duo driver" driver
+    And I am logged in as "valid duo driver 1" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
@@ -407,7 +408,7 @@ Feature: To Test Duo - Scheduling Bungii
   @regression
   Scenario: Create Duo Bungii, Verify driver can call each other
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid duo driver" driver
+    And I am logged in as "valid duo driver 1" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
