@@ -814,6 +814,10 @@ public class CommonSteps extends DriverBase {
                         action.swipeDown();
                         Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
                     }
+                    if (action.isAlertPresent()) {
+                        SetupManager.getDriver().switchTo().alert().dismiss();
+                        Thread.sleep(1000);
+                    }
                     action.click(Image_SelectBungii);
                 } else {
                     //If alert is present accept it , it will automatically select Bungii
