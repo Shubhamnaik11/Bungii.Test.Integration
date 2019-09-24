@@ -10,9 +10,9 @@
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
-    "simpleIsVisibleCheck": false,
-    "clearSystemFiles": true,
-    "useJSONSource": false,
+    "simpleIsVisibleCheck": true,
+    "useNewWDA": false,
+    "useJSONSource": true,
     "wdaLocalPort": 8110
   },
   "device1": {
