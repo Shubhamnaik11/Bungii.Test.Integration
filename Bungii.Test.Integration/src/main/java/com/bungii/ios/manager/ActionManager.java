@@ -13,10 +13,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -30,17 +27,26 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
-    private  final long DRIVER_WAIT_TIME;
+    private final long DRIVER_WAIT_TIME;
 
-    public  ActionManager(){
+    public ActionManager() {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
 
     }
+
+    public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
+        try {
+            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, 10);
+            wait.until((ExpectedConditions.visibilityOf(element)));
+        } catch (Exception Ex) {
+            //  Assert.fail("Following element is not displayed : " + element);
+        }
+    }
+
     /**
-     * @param element
-     *            , locator of field
-     * @param text
-     *            , Text value that is to be sent
+     * @param element , locator of field
+     * @param text    , Text value that is to be sent
      */
     public void sendKeys(WebElement element, String text) {
         element.sendKeys(text);
@@ -54,21 +60,22 @@ public class ActionManager {
         try {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
-            String alertMessage=SetupManager.getDriver().switchTo().alert().getText();
-            logger.detail("Alert is present :"+alertMessage);
+            String alertMessage = SetupManager.getDriver().switchTo().alert().getText();
+            logger.detail("Alert is present :" + alertMessage);
 
-            if(alertMessage.contains("no such alert"))
+            if (alertMessage.contains("no such alert"))
                 return false;
             else
                 return true;
-        } catch (NoAlertPresentException | InterruptedException Ex ) {
+        } catch (NoAlertPresentException | InterruptedException Ex) {
             logger.detail("Alert is not present");
             return false;
-        }catch (Exception ex){
-            logger.error("Error occured "+ex);
-            return  false;
+        } catch (Exception ex) {
+            logger.error("Error occured " + ex);
+            return false;
         }
     }
+
     public String getValueAttribute(WebElement element) {
         String value = element.getAttribute("value");
         logger.detail("'value' attribute for " + element.toString() + " is " + value);
@@ -85,26 +92,29 @@ public class ActionManager {
         element.click();
         logger.detail("Click on locator by element" + element.toString());
     }
-    public void tapByElement( WebElement element) {
-        AppiumDriver<WebElement> driver= (AppiumDriver<WebElement>) SetupManager.getDriver();
-		int startX = element.getLocation().getX();
-		int addition = (int) (element.getSize().height * 0.5);
-		int endX = startX + addition;
-		int startY = element.getLocation().getY();
-		new TouchAction(driver).tap(point(endX, startY)).perform();
-	}
+
+    public void tapByElement(WebElement element) {
+        AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
+        int startX = element.getLocation().getX();
+        int addition = (int) (element.getSize().height * 0.5);
+        int endX = startX + addition;
+        int startY = element.getLocation().getY();
+        new TouchAction(driver).tap(point(endX, startY)).perform();
+    }
+
     public void clickMiddlePoint(WebElement element) {
-        Point elementLocation=element.getLocation();
-        Dimension elementSize=element.getSize();
+        Point elementLocation = element.getLocation();
+        Dimension elementSize = element.getSize();
 
         int leftX = elementLocation.getX();
         int width = elementSize.getWidth();
         int upperY = elementLocation.getY();
         int hight = elementSize.getHeight();
-        Point p= new Point(leftX+(width/2),upperY+(hight/2));
+        Point p = new Point(leftX + (width / 2), upperY + (hight / 2));
         click(p);
-        logger.detail("Click on locator by element" + element.toString()+p);
+        logger.detail("Click on locator by element" + element.toString() + p);
     }
+
     public void waitForAlert() {
         (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
     }
@@ -113,20 +123,34 @@ public class ActionManager {
      * Swipe up on current mobile screen IOS SPECIFIC
      */
     public void swipeUP() {
-        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-        Map<String, Object> params = new HashMap<>();
-        params.put("direction", "up");
-        js.executeScript("mobile: swipe", params);
+        try {
 
+            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+            Map<String, Object> params = new HashMap<>();
+            params.put("direction", "up");
+            js.executeScript("mobile: swipe", params);
+
+        } catch (Exception ex) {
+            logger.error("Error occured " + ex.getMessage());
+
+        }
     }
+
     /**
      * Swipe up on current mobile screen IOS SPECIFIC
      */
     public void swipeDown() {
-        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-        Map<String, Object> params = new HashMap<>();
-        params.put("direction", "down");
-        js.executeScript("mobile: swipe", params);
+        try {
+
+
+            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+            Map<String, Object> params = new HashMap<>();
+            params.put("direction", "down");
+            js.executeScript("mobile: swipe", params);
+        } catch (Exception ex) {
+            logger.error("Error occured " + ex.getMessage());
+
+        }
     }
 
     /**
@@ -138,13 +162,15 @@ public class ActionManager {
         Map<String, Object> params = new HashMap<>();
         params.put("direction", "right");
         params.put("element", ((RemoteWebElement) element).getId());
-   //     params.put("element", ((IOSElement) element).getId());
+        //     params.put("element", ((IOSElement) element).getId());
         js.executeScript("mobile: swipe", params);
     }
-    public String getDeviceTimeZone(){
+
+    public String getDeviceTimeZone() {
         String time2 = ((AppiumDriver) SetupManager.getDriver()).getDeviceTime();
         return time2;
     }
+
     /**
      * Swipe left on current mobile screen IOS SPECIFIC
      */
@@ -153,26 +179,19 @@ public class ActionManager {
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
         Map<String, Object> params = new HashMap<>();
         params.put("direction", "left");
-        params.put("element", ((RemoteWebElement)element).getId());
+        params.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: swipe", params);
     }
-
 
     /**
      * IOS SPECIFIC
      *
-     * @param picker
-     *            locator for picker element
-     * @param wheel
-     *            locator for wheel inside picker
-     * @param forwordDate
-     *            No of days from today
-     * @param hour
-     *            value for hour
-     * @param minutes
-     *            value for minute
-     * @param meridiem
-     *            value for meridiem , AM/PM
+     * @param picker      locator for picker element
+     * @param wheel       locator for wheel inside picker
+     * @param forwordDate No of days from today
+     * @param hour        value for hour
+     * @param minutes     value for minute
+     * @param meridiem    value for meridiem , AM/PM
      */
     public void dateTimePicker(By picker, By wheel, int forwordDate, String hour, String minutes, String meridiem) {
         List<WebElement> Columns = waitForExpectedElement(picker).findElements(wheel);
@@ -197,18 +216,12 @@ public class ActionManager {
     /**
      * Drag from one point to andother IOS SPECIFIC
      *
-     * @param startx
-     *            X coordinate for initial location of swipe
-     * @param starty
-     *            Y coordinate for initial location of swipe
-     * @param endx
-     *            X coordinate for end location of swipe
-     * @param endy
-     *            Y coordinate for end location of swipe
-     * @param duration
-     *            time duration in which swipe should be performed
-     * @param element
-     *            Reference element for all the coordinate
+     * @param startx   X coordinate for initial location of swipe
+     * @param starty   Y coordinate for initial location of swipe
+     * @param endx     X coordinate for end location of swipe
+     * @param endy     Y coordinate for end location of swipe
+     * @param duration time duration in which swipe should be performed
+     * @param element  Reference element for all the coordinate
      */
     public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
         logger.detail("Slide started");
@@ -224,19 +237,15 @@ public class ActionManager {
         js.executeScript("mobile: dragFromToForDuration", params);
         logger.detail("Slide ended");
     }
+
     /**
      * Drag from one point to andother IOS SPECIFIC
      *
-     * @param startx
-     *            X coordinate for initial location of swipe
-     * @param starty
-     *            Y coordinate for initial location of swipe
-     * @param endx
-     *            X coordinate for end location of swipe
-     * @param endy
-     *            Y coordinate for end location of swipe
-     * @param duration
-     *            time duration in which swipe should be performed
+     * @param startx   X coordinate for initial location of swipe
+     * @param starty   Y coordinate for initial location of swipe
+     * @param endx     X coordinate for end location of swipe
+     * @param endy     Y coordinate for end location of swipe
+     * @param duration time duration in which swipe should be performed
      */
     public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration) {
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
@@ -249,25 +258,26 @@ public class ActionManager {
         js.executeScript("mobile: dragFromToForDuration", params);
 
     }
+
     /**
      * Hide keyboard from screen
      */
     public void hideKeyboard() {
         try {
-        IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
-                .findElementByClassName("XCUIElementTypeKeyboard");
-        Point keyboardPoint = element.getLocation();
-        TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
-        PointOption top = point(keyboardPoint.getX() + 2, keyboardPoint.getY() - 2);
+            IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
+                    .findElementByClassName("XCUIElementTypeKeyboard");
+            Point keyboardPoint = element.getLocation();
+            TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
+            PointOption top = point(keyboardPoint.getX() + 2, keyboardPoint.getY() - 2);
 
-        touchAction.tap(top).perform();
+            touchAction.tap(top).perform();
 
             Thread.sleep(200);
 
             logger.detail(" Hidded Key board");
 
         } catch (Exception e) {
-          //  e.printStackTrace();
+            //  e.printStackTrace();
             logger.error(e.getStackTrace());
         }
     }
@@ -296,23 +306,25 @@ public class ActionManager {
             IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
                     .findElementByName(keyName);
             click(element);
-            logger.detail(keyName+" Field Key board");
+            logger.detail(keyName + " Field Key board");
 
         } catch (Exception e) {
             //  e.printStackTrace();
             logger.error(e.getStackTrace());
         }
     }
-    public void click(Point p){
+
+    public void click(Point p) {
         TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
         PointOption top = point(p.getX(), p.getY());
 
-        touchAction.tap(top).perform();    }
+        touchAction.tap(top).perform();
+    }
+
     /**
      * IOS SPECIFIC
      *
-     * @param bundleId
-     *            of application that needs to be activated
+     * @param bundleId of application that needs to be activated
      */
     public void switchApplication(String bundleId) {
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
@@ -321,10 +333,12 @@ public class ActionManager {
         args.put("bundleId", bundleId);
         js.executeScript("mobile: launchApp", args);
     }
-    public void terminateApp(String bundleId){
-        ((IOSDriver)SetupManager.getDriver()).terminateApp(bundleId);
+
+    public void terminateApp(String bundleId) {
+        ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
 
     }
+
     /**
      * Wrapper for wait, clear data and clearSendKeys in Input Text box
      **/
@@ -335,18 +349,17 @@ public class ActionManager {
         logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
 
     }
+
     /**
      * Find the dynamic element wait until its visible
      *
-     * @param by
-     *            Element location found xpath, etc...
+     * @param by Element location found xpath, etc...
      **/
     public WebElement waitForExpectedElement(final By by) {
-        WebDriverWait wait =new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
         WebElement element = wait.until(visibilityOfElementLocated(by));
         return element;
     }
-
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
@@ -357,12 +370,12 @@ public class ActionManager {
 
         }
     }
+
     /**
      * An expectation for checking that an element is either invisible or not
      * present on the DOM.
      *
-     * @param element
-     *            used to find the element
+     * @param element used to find the element
      */
     public boolean invisibilityOfElementLocated(WebElement element) {
 
@@ -375,8 +388,7 @@ public class ActionManager {
     }
 
     /**
-     * @param by
-     *            Element location found by xpath etc...
+     * @param by Element location found by xpath etc...
      * @return
      * @throws NoSuchElementException
      */
@@ -391,15 +403,15 @@ public class ActionManager {
             return element.isEnabled() ? element : null;
         };
     }
+
     /**
      * An expectation for checking if the given text is present in the specified
      * elements value attribute.
-     *
      */
     public void textToBePresentInElementName(final WebElement element, final String text) {
 
         Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
-        .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
         } catch (Exception e) {
@@ -423,6 +435,7 @@ public class ActionManager {
 
     /**
      * Manage notification
+     *
      * @param show
      */
     private void manageNotifications(Boolean show) {
@@ -447,9 +460,6 @@ public class ActionManager {
         }
         action.perform();
     }
-
-
-
 
     /**
      * Make Sure driver is set to ios/Andriod specific
@@ -481,7 +491,6 @@ public class ActionManager {
         }
     }
 
-
     public List<String> getListOfAlertButton() {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
         wait.until(ExpectedConditions.alertIsPresent());
@@ -490,11 +499,11 @@ public class ActionManager {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", "getButtons");
         List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
-        logger.detail("List of alert button:"+buttons.toString());
+        logger.detail("List of alert button:" + buttons.toString());
         return buttons;
     }
 
-    public boolean  clickAlertButton(String label) {
+    public boolean clickAlertButton(String label) {
         List<String> buttons = getListOfAlertButton();
 
         String buttonLabel = "";
@@ -518,22 +527,22 @@ public class ActionManager {
         }
     }
 
-
     /**
      * @return value of alert message
      */
     public String getAlertMessage() {
         if (isAlertPresent()) {
-            return  SetupManager.getDriver().switchTo().alert().getText();
+            return SetupManager.getDriver().switchTo().alert().getText();
         } else {
             return "";
         }
     }
+
     public Rectangle getLocatorRectangle(WebElement element) {
 
-       // MobileElement element = (MobileElement) waitForExpectedElement(by);
-        Point elementLocation=element.getLocation();
-        Dimension elementSize=element.getSize();
+        // MobileElement element = (MobileElement) waitForExpectedElement(by);
+        Point elementLocation = element.getLocation();
+        Dimension elementSize = element.getSize();
         int leftX = elementLocation.getX();
         int width = leftX + elementSize.getWidth();
         int upperY = elementLocation.getY();
@@ -542,6 +551,7 @@ public class ActionManager {
         return area;
 
     }
+
     public boolean isElementPresent(WebElement element) {
         //Set the timeout to something low
         //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
@@ -551,15 +561,6 @@ public class ActionManager {
             return isdisplayed;
         } catch (Exception Ex) {
             return false;
-        }
-    }
-    public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
-        try {
-            IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
-            WebDriverWait wait = new WebDriverWait(driver, 10);
-            wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception Ex) {
-          //  Assert.fail("Following element is not displayed : " + element);
         }
     }
 }

@@ -1,5 +1,5 @@
 @ios
-@POSTDUO
+
 Feature: Create on demand bungii
   Assume driver and user already logged in
 
@@ -7,7 +7,7 @@ Feature: Create on demand bungii
 
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
-
+  @POSTDUO
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
 

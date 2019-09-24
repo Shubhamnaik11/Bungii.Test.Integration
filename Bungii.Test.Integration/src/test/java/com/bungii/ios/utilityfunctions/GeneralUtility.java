@@ -198,6 +198,12 @@ public class GeneralUtility extends DriverBase {
             } else {
                 if (getListOfAlertButton.contains("Close"))
                     action.clickAlertButton("Close");
+                else if(getListOfAlertButton.contains("Always Allow"))
+                    action.clickAlertButton("Always Allow");
+                else if(getListOfAlertButton.contains("Always Allow"))
+                    action.clickAlertButton("Always Allow");
+                else if(getListOfAlertButton.contains("Allow"))
+                    action.clickAlertButton("Allow");
 
             }
         }
@@ -229,15 +235,27 @@ public class GeneralUtility extends DriverBase {
                 updateStatus();
                 updateStatus();
                 updateStatus();
+                if(action.isAlertPresent()){
+                    if (action.getListOfAlertButton().contains("INITIATE")) {
+                        action.clickAlertButton("INITIATE");
+                    }}
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
                 logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
                 updateStatus();
                 updateStatus();
+                if(action.isAlertPresent()){
+                    if (action.getListOfAlertButton().contains("INITIATE")) {
+                        action.clickAlertButton("INITIATE");
+                    }}
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
                 logger.detail("Driver struck on UNLOADING_ITEM screen");
                 updateStatus();
+                if(action.isAlertPresent()){
+                    if (action.getListOfAlertButton().contains("INITIATE")) {
+                        action.clickAlertButton("INITIATE");
+                    }}
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
                 logger.detail("Driver struck on bungii completed screen");
