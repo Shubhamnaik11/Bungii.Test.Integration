@@ -198,47 +198,47 @@ public class UpdateStatusSteps extends DriverBase {
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO CUSTOMER-VIEW ITEM":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_ViewItems());
                     validateViewImage(1);
                     break;
                 case "DUO CUSTOMER-CALL CUSTOMER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_Call());
                     validateCallButtonAction();
                     break;
                 case "DUO CUSTOMER-TEXT CUSTOMER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_Sms());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()));
                     break;
                 case "DUO CUSTOMER-TEXT BUNGII SUPPORT":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_SupportSms());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO DRIVER 1-CALL DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_CallDriver());
                     validateCallButtonAction(String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
                     break;
                 case "DUO DRIVER 2-CALL DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_CallDriver());
                     validateCallButtonAction(String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")));
                     break;
                 case "DUO DRIVER 1-TEXT DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")));
                     break;
                 case "DUO DRIVER 2-TEXT DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE")));
                     break;
                 case "DUO DRIVER-TEXT BUNGII SUPPORT":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SupportSms());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;

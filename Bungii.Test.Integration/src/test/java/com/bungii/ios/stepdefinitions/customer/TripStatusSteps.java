@@ -274,22 +274,22 @@ public class TripStatusSteps extends DriverBase {
         try {
             switch (key.toUpperCase()) {
                 case "DUO DRIVER 1-CALL DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_CallDriver());
                     validateCallButtonAction(PropertyUtility.getMessage("twilio.number"));
                     break;
                 case "DUO DRIVER 1-TEXT DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions1());
+                    action.click(updateStatusPage.Button_DuoMoreOptions1());
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("twilio.number"));
                     break;
                 case "DUO DRIVER 2-CALL DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_CallDriver());
                     validateCallButtonAction(PropertyUtility.getMessage("twilio.number.driver2"));
                     break;
                 case "DUO DRIVER 2-TEXT DRIVER":
-                    action.clickMiddlePoint(updateStatusPage.Button_DuoMoreOptions2());
+                    action.click(updateStatusPage.Button_DuoMoreOptions2());
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("twilio.number.driver2"));
                     break;
