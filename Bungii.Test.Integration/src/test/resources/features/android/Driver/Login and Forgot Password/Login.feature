@@ -1,12 +1,11 @@
 @android
-@NONBUNGII
-@DriverLogin1
+@FAILED
 
 Feature: Log In
   As a Bungii Driver I should be allowed to login only using valid credential
 
   Background:
-    Given I Switch to "driver" application on "same" devices
+ #   Given I Open "driver" application on "same" devices
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
 

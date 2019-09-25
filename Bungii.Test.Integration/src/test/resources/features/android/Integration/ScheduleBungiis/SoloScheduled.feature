@@ -1,5 +1,5 @@
 @android
-@TESTBUNGII
+@SoloScheduled
 Feature: SoloScheduled
   Background:
 
@@ -283,7 +283,6 @@ Feature: SoloScheduled
     When I tap on "Menu" > "SCHEDULED BUNGIIS" link
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-
 
   @regression
   Scenario: Customer should able to cancel scheduled bungii

@@ -12,6 +12,8 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.collections.Lists;
@@ -183,6 +185,26 @@ public class ActionManager {
         logger.detail("text Value is  " + text + " for element" + element.toString());
 
         return text;
+    }
+    /**
+     * An expectation for checking if the given text is present in the specified
+     * elements value attribute.
+     *
+     */
+    public void eitherTextToBePresentInElementText(final WebElement element, final String text1,final String text2) {
+
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+        try {
+          //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.textToBePresentInElement(element,text1),
+                            ExpectedConditions.textToBePresentInElement(element,text2)
+                    )
+            );        } catch (Exception e) {
+            logger.detail("Wait failed");
+        }
     }
 
     public void clearSendKeys(WebElement element, String text) {
@@ -428,6 +450,18 @@ public class ActionManager {
             scrollToTop();
             Thread.sleep(30000);
             scrollToTop();
+        }
+    }
+
+    public void hardWait(int minutes) throws InterruptedException {
+        for (int i = minutes; i > 0; i--) {
+            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            Thread.sleep(30000);
+            //Send some command after 30 sec so that connection wont die
+            ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
+            Thread.sleep(30000);
+            //Send some command after 30 sec so that connection wont die
+            ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
         }
     }
 }

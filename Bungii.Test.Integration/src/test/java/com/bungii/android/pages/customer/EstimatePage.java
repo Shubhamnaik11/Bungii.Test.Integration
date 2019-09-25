@@ -9,6 +9,7 @@ public class EstimatePage extends PageBase {
 
     //------Header-------------------------------------------------------------------------------
     public WebElement Header_Estimate (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='ESTIMATE']", LocatorType.XPath,ignoreException); }
+  public WebElement GenericHeader(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/action_bar']/android.widget.TextView", LocatorType.XPath,ignoreException); }
 
     //------Locations----------------------------------------------------------------------------
   //  public WebElement Text_PickupLocation () { return findElement("com.bungii.customer:id/estimate_label_pickup_location", LocatorType.Id); }

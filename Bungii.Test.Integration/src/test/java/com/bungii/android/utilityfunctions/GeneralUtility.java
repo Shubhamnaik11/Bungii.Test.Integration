@@ -126,8 +126,10 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(homePage.Generic_Element(true)))
             return true;
         else {
-            Thread.sleep(5000);
-            return action.isElementPresent(homePage.Generic_Element(true));
+           // Thread.sleep(5000);
+            logger.detail(SetupManager.getDriver().getPageSource());
+            return false;
+           // return action.isElementPresent(homePage.Generic_Element(true));
         }
     }
 
@@ -141,8 +143,10 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(driverHomePage.Generic_Element(true)))
             return true;
         else {
-          Thread.sleep(5000);
-           return action.isElementPresent(driverHomePage.Generic_Element(true));
+            logger.detail(SetupManager.getDriver().getPageSource());
+          //Thread.sleep(5000);
+           return false;
+           //return action.isElementPresent(driverHomePage.Generic_Element(true));
         }
     }
 
@@ -419,6 +423,8 @@ public class GeneralUtility extends DriverBase {
 
 
     public void goToSignupPage() {
+        action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
         switch (currentPage.toUpperCase()) {
             case "BUNGII":
@@ -441,6 +447,8 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void goToLoginPage() {
+        action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+
         boolean skipNormalFlow = false;
     //    System.out.println("Page"+SetupManager.getDriver().getPageSource());
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
@@ -515,6 +523,8 @@ public class GeneralUtility extends DriverBase {
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         boolean isNextScreenLogIN=false;
      //   System.out.println(SetupManager.getDriver().getPageSource());
+        action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
         switch (currentPage.toUpperCase()) {
             case "BUNGII":
@@ -531,6 +541,17 @@ public class GeneralUtility extends DriverBase {
                 action.click(Page_Signup.Link_Login());
                 isNextScreenLogIN=true;
                 break;
+            case"TERMS & CONDITIONS":
+                action.click(Page_CustTerms.Checkbox_Agree());
+                action.click(Page_CustTerms.Button_Continue());
+                if (action.isElementPresent(Page_CustTerms.Popup_PermissionsMessage(true))) {
+                    action.click(Page_CustTerms.Button_GoToSetting());
+                    action.click(Page_CustTerms.Button_PermissionsAllow());
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                }
+                if (action.isElementPresent(homePage.Button_Closetutorials(true)))
+                    action.click(homePage.Button_Closetutorials());
+                break;
 
         }
         if (currentPage.equalsIgnoreCase("LOGIN")||isNextScreenLogIN) {
@@ -545,8 +566,8 @@ public class GeneralUtility extends DriverBase {
 
             action.clearSendKeys(Page_Login.TextField_Password(), password);
             action.click(Page_Login.Button_Login());
-         //   Thread.sleep(2000);
-            action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
+            Thread.sleep(3000);
+         //   action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
             String nextPage = action.getText(Page_Signup.Header_HomePage(true));
 
             if (nextPage.equalsIgnoreCase("TERMS & CONDITIONS")) {
@@ -575,7 +596,10 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
-        if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
+        action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
+        String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+        if (currentPage.equals("LOGIN")) {
+       // if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
             WebElement element = driverLoginPage.TextField_PhoneNumber();
 
             if (StringUtils.isNumeric(phone)) {
@@ -608,10 +632,11 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void goToDriverLoginPage() {
+        String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
 
-        if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
-        } else
-            clickDriverMenuItem("LOGOUT");
+        if (currentPage.equals("LOGIN")) {}
+        else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {}
+        else clickDriverMenuItem("LOGOUT");
 
     }
 
@@ -809,8 +834,10 @@ public class GeneralUtility extends DriverBase {
         try {
 
 
-        if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
+     //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
+        if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
             String screen = action.getText(driverBungiiProgressPage.Title_Status());
+            logger.detail("Driver struck screen"+screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");
                 action.click(driverBungiiProgressPage.Button_Cancel());
@@ -867,6 +894,9 @@ public class GeneralUtility extends DriverBase {
                     }
                 }*/
                 action.click(bungiiCompletedPage.Button_OnToTheNext());
+            }else  if(screen.equals("BUNGII COMPLETED")){
+                action.click(bungiiCompletedPage.Button_OnToTheNext());
+
             }
         }else if (action.isElementPresent(bungiiCompletedPage.Button_OnToTheNext(true))) {
             logger.detail("Driver struck on bungii completed screen");

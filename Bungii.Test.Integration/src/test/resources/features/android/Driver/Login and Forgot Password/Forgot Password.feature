@@ -1,5 +1,5 @@
 @android
-
+@FAILED
 Feature: FORGOT PASSWORD
   As a Bungii driver
   When I click Forgot password button
@@ -7,6 +7,7 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I Switch to "driver" application on "same" devices
+   # Given I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
 
   @regression
@@ -20,7 +21,7 @@ Feature: FORGOT PASSWORD
 
     Examples:
       | Scenario                  | Value      | Expected Message                | Send Button Status   |
-  #    | Phone Number less than 10 | 940396     | Please enter Phone number error | SEND BUTTON DISABLED |
+      | Phone Number less than 10 | 940396     | Please enter Phone number error | SEND BUTTON DISABLED |
       | Invalid Phone Number      | 2121212121 | FAILED TO SEND TOKEN            | SEND BUTTON ENABLED  |
 
   @regression

@@ -1,5 +1,5 @@
 @android
-@TESTBUNGII
+
 Feature: On Demand Bungii
 
   Background:
@@ -23,7 +23,7 @@ Feature: On Demand Bungii
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
 
-    When I Switch to "driver" application on "same" devices
+    When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     And I Switch to "customer" application on "same" devices
     And I tap "OK on Driver Accepted screen" during a Bungii
@@ -166,7 +166,7 @@ Feature: On Demand Bungii
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
 
-    When I Switch to "driver" application on "same" devices
+    When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
 
@@ -208,8 +208,8 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
     When I Switch to "driver" application on "same" devices
     And Bungii Driver "completes Bungii"
-  @FAILED
-    #This scenario is moved from EstimateBungii.feature
+
+
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>
 
@@ -237,7 +237,7 @@ Feature: On Demand Bungii
     When I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
 
-    When I Switch to "driver" application on "same" devices
+    When I Open "driver" application on "same" devices
     And Bungii Driver "accepts On Demand Bungii" request
     Then Bungii driver should see "Enroute screen"
 

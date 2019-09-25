@@ -6,6 +6,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.BungiiProgressPage;
 import com.bungii.android.pages.customer.SearchingPage;
+import com.bungii.android.pages.customer.SignupPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -40,6 +41,7 @@ public class BungiiSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
+    SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -193,7 +195,7 @@ public class BungiiSteps extends DriverBase {
     public void bungiiDriverRequest(String arg0) {
         try {
             if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(40L);
+                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
@@ -242,6 +244,7 @@ public class BungiiSteps extends DriverBase {
         try {
          //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
             action.showNotifications();
+            log("Checking notifications","Checking notifications",true);
             String expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
@@ -644,7 +647,11 @@ public class BungiiSteps extends DriverBase {
 
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
-                    if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
+                    String currentPage = action.getText(Page_Signup.GenericHeader(true));
+                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE")){
+                        //do nothing
+                    }
+                    else if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
                         Thread.sleep(5000);
                         action.click(Page_BungiiComplete.Button_OnToTheNext());
                     }

@@ -84,12 +84,8 @@ public class CucumberHooks {
 			new GeneralUtility().recoverScenario();*/
         //Set original instance as default instance at start of each test case
         SetupManager.getObject().useDriverInstance("ORIGINAL");
-        SetupManager.getObject().restartApp();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+       // SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+
         //restart driver app
         //SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
         //SetupManager.getObject().restartApp();
@@ -97,7 +93,12 @@ public class CucumberHooks {
         //If not first test case
         if (!isFirstTestCase) {
 
-            //	SetupManager.getObject().restartApp();
+            SetupManager.getObject().restartApp();
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

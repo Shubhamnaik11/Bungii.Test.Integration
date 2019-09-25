@@ -34,6 +34,7 @@ public class EstimateBungiiSteps extends DriverBase {
     EstimatePage bungiiEstimatePage = new EstimatePage();
     SearchingPage Page_DriverSearch = new SearchingPage();
     HomePage Page_CustHome = new HomePage();
+    com.bungii.android.pages.driver.HomePage Page_DriverHome= new com.bungii.android.pages.driver.HomePage();
     EstimatePage Page_Estimate = new EstimatePage();
     BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
     WantDollar5Page Page_WantDollar5 = new WantDollar5Page();
@@ -41,6 +42,7 @@ public class EstimateBungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     PropertyUtility properties = new PropertyUtility();
+    SignupPage Page_Signup= new SignupPage();
     private String[] loadTimeValue = {"15 mins", "30 mins", "45 mins", "60 mins", "75 mins", "90+ mins"};
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
     public void iTapOnOnBungiiEstimate(String arg0) throws Throwable {
@@ -56,7 +58,7 @@ public class EstimateBungiiSteps extends DriverBase {
                  //       iEnterOnBungiiEstimate("current location in pickup and dropoff fields");
                     //if (DriverAction.isElementPresent(Page_CustHome.Button_GetEstimate))
                     if(!action.isElementPresent(Page_CustHome.Button_GetEstimate()))
-                        Thread.sleep(2000);
+                        Thread.sleep(5000);
                     action.click(Page_CustHome.Button_GetEstimate());
                     break;
 
@@ -72,7 +74,6 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "desired Promo Code":
                     String promoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE");
                     action.click((WebElement) getDriver().findElement(By.xpath("//android.widget.TextView[contains(@text,'" + promoCode + "')]")));
-//                action.click(Page_Estimate.Select_PromoCode());
                     break;
 
                 case "Payment Mode":
@@ -80,8 +81,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Request Bungii":
-                    if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
-                        action.scrollToBottom();
+                  //  if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
+                    action.scrollToBottom();action.scrollToBottom();
                     action.click(Page_Estimate.Checkbox_AgreeEstimate());
 
                     if (!action.isElementPresent(Page_Estimate.Button_RequestBungii(true)))
@@ -92,7 +93,8 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "Yes on HeadsUp pop up":
                     action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
                     action.click(Page_Estimate.Button_RequestConfirm());
-                    action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
+                    action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true),"Success!","SEARCHING…");
+                 //   action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
                     //--------*to be worked on*-------------
                     //If time has passed
                     /*if (DriverAction.isElementPresent(Page_Estimate.Alert_DelayRequestingTrip))
@@ -119,7 +121,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Done after requesting a Scheduled Bungii":
-                    if (!action.isElementPresent(Page_CustHome.Button_Done(true)))
+                    //vishal[23092019]:commented as scroll is mostly equired
+                  //  if (!action.isElementPresent(Page_CustHome.Button_Done(true)))
                         action.scrollToBottom();
                     action.click(Page_CustHome.Button_Done());
                     break;
@@ -148,6 +151,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_WantDollar5.Button_NoFreeMoney());
                     break;
                 case "back":
+                    Thread.sleep(2000);
+                    if(!action.isElementPresent(Page_Estimate.Header_Estimate(true)))
+                        Thread.sleep(5000);
                     ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                     break;
                 case "ok on already scheduled bungii message":
@@ -361,12 +367,14 @@ public class EstimateBungiiSteps extends DriverBase {
 
             String pickUpLocationLine1 = action.getText(Page_CustHome.TextBox_PickUpLocLine1()),pickUpLocationLine2= action.getText(Page_CustHome.TextBox_PickUpLocLine2());
 
+         //   Page_CustHome.Button_GetEstimate()
             if(!action.isElementPresent(Page_CustHome.TextBox_DropOff(true)))
             {
                 Thread.sleep(5000);
                 action.click(Page_CustHome.Button_ETASet());
             }
-            action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
+            action.waitUntilIsElementExistsAndDisplayed(Page_CustHome.Button_GetEstimate());
+       //     action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
             String dropUpLocationLine1 = action.getText(Page_CustHome.TextBox_DropOffLine1()),dropUpLocationLine2 = action.getText(Page_CustHome.TextBox_DropOffLine2());
 
             cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", pickUpLocationLine1);
@@ -532,23 +540,28 @@ public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
         try {
+            action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Header_Estimate(), 30L);
             int i = 0;
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             //    action.scrollToBottom();
             do {
-                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto()))
+                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
                     action.swipeLeft(Page_Estimate.Row_Images());
 
                 if(!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
                     action.scrollToBottom();
 
                 action.click(Page_Estimate.Link_AddPhoto());
-
-                if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
+                Thread.sleep(2000);
+                //adding most probable outcome first
+                if(action.isElementPresent(Page_Estimate.Option_Camera(true))){
+                    //do nothing,
+                }
+                else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
                     action.click(Page_Estimate.Permissions_CameraAllow());
 
 ;
-                Thread.sleep(2000);
+
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {

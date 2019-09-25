@@ -1,4 +1,5 @@
 @android
+
 Feature: EstimateBungii
 
   Background:
@@ -39,7 +40,7 @@ Feature: EstimateBungii
     And I enter "valid pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then check if I have ability to select different load time and Estimate cost is re calculated
-  @TESTAGAIN
+
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I enter "kansas pickup and dropoff locations" on Bungii estimate

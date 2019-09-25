@@ -8,6 +8,7 @@ import java.util.List;
 public class HomePage extends PageBase {
 
     public WebElement Generic_Element (boolean... ignoreException) { return findElement("//*[contains(@resource-id,\"com.bungii.driver\")]", LocatorType.XPath,ignoreException); }
+    public WebElement Generic_HeaderElement (boolean... ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.driver:id/toolbar' or 'com.bungii.driver:id/toolbar']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
 
     public WebElement Title_Status (boolean ... ignoreException) { return findElement("com.bungii.driver:id/toolbar_main_title", LocatorType.Id ,ignoreException    ); }
 
