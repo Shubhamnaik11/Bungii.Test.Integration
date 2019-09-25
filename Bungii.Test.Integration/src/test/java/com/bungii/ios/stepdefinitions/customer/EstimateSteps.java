@@ -16,12 +16,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
@@ -30,6 +28,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class EstimateSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
+    GeneralUtility utility = new GeneralUtility();
     private EstimatePage estimatePage;
     private String[] loadTimeValue = {"15", "30", "45", "60", "75", "90+"};
 
@@ -39,7 +38,6 @@ public class EstimateSteps extends DriverBase {
 
     @When("^I confirm trip with following details$")
     public void iEnterTripInformation(DataTable tripInformation) {
-
         try {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
             String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
@@ -59,13 +57,15 @@ public class EstimateSteps extends DriverBase {
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             strTime = enterTime(time);
-
+            String actualTime = "";
             String[] details = new String[4];
             if (saveDetails) {
                 details = getEstimateDetails();
                 isCorrectTime = details[1].equals(strTime);
-            } else
-                isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+            } else {
+                actualTime = action.getValueAttribute(estimatePage.Text_TimeValue());
+                isCorrectTime = actualTime.equals(strTime);
+            }
 
             clickRequestBungii();
             // verification
@@ -76,6 +76,7 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
+            Thread.sleep(1000);
 
             if (action.isAlertPresent()) {
                 if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
@@ -84,7 +85,8 @@ public class EstimateSteps extends DriverBase {
                     strTime = enterTime(time);
                     isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
-                    clickRequestBungii();isAlertCorrect =verifyAndAcceptAlert(loadTime);
+                    clickRequestBungii();
+                    isAlertCorrect = verifyAndAcceptAlert(loadTime);
                 }
             }
 
@@ -93,7 +95,7 @@ public class EstimateSteps extends DriverBase {
 
             testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
-                            + strTime + " not matching with entered time ");
+                            + strTime + actualTime + " not matching with entered time ");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -105,7 +107,7 @@ public class EstimateSteps extends DriverBase {
 
 
     @When("^I confirm trip with following detail$")
-    public void  iEnterTripInformations(DataTable tripInformation) throws Throwable  {
+    public void iEnterTripInformations(DataTable tripInformation) throws Throwable {
         try {
             Map<String, String> data = tripInformation.transpose().asMap(String.class, String.class);
             String loadTime = data.get("LoadTime"), promoCode = data.get("PromoCode"), time = data.get("Time"),
@@ -149,7 +151,7 @@ public class EstimateSteps extends DriverBase {
                 }
             }
 
-            log( "I confirm trip with following details", "Trip was successfully confirmed ");
+            log("I confirm trip with following details", "Trip was successfully confirmed ");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -158,6 +160,7 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
+
     @When("^I request for bungii using Request Bungii Button$")
     public void i_request_for_bungii_using_request_bungii_button() throws Throwable {
         clickRequestBungii();
@@ -168,10 +171,12 @@ public class EstimateSteps extends DriverBase {
                 "I requested for bungii using Request Bungii Button");
         logger.detail("Popup text on head up alert message:" + actualText);
     }
+
     private void addPromoCode(String code) {
         action.click(estimatePage.Button_AddPromoCode());
 
     }
+
     @When("^I select load time as \"([^\"]*)\" mins$")
     public void i_select_load_time_as_something_mins(String loadTime) throws Throwable {
         enterLoadingTime(loadTime.trim());
@@ -185,11 +190,15 @@ public class EstimateSteps extends DriverBase {
             estimate = estimate.replace("$", "");
             String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");
             GeneralUtility utility = new GeneralUtility();
-            double expectedValue = utility.bungiiEstimate(distance, loadTime, getEstimateTime(), "");
+            //get data from DB instead of Phone Screen
+            //TODO: verify DB and phone value
+            String totalDistance = utility.getEstimateDistance();
+            double expectedValue = utility.bungiiEstimate(totalDistance, loadTime, getEstimateTime(), "");
 
             String actualValue = estimate.substring(0, estimate.length() - 1);
-            String truncValue = new DecimalFormat("#.#").format(expectedValue);
-            testStepVerify.isEquals(actualValue, truncValue, "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
+            String truncValue = new DecimalFormat("#.00").format(expectedValue);
+            //  String truncValue = new DecimalFormat("#.##").format(expectedValue);
+            testStepVerify.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -206,15 +215,15 @@ public class EstimateSteps extends DriverBase {
     public String enterTime(String time) {
         String strTime = "";
         if (time.equalsIgnoreCase("NOW")) {
-            selectBungiiTimeNow();
+            //    selectBungiiTimeNow();
             strTime = "Now";
         } else if (time.equalsIgnoreCase("NEXT_POSSIBLE")) {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
-
-            selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
-
+            action.click(estimatePage.Row_TimeSelect());
+            //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            action.click(estimatePage.Button_Set());
         } else if (time.equals("<OLD BUNGII TIME>")) {
             String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String tripDay = expectedTripTime.split(",")[0];
@@ -222,12 +231,12 @@ public class EstimateSteps extends DriverBase {
             String[] timeSplit = tripTime.trim().split("\\W");
             selectBungiiTime(0, timeSplit[0], timeSplit[1], timeSplit[2]);
             strTime = expectedTripTime;
-        } else if(time.equals("NEXT_POSSIBLE_IN_DATE_SCROLL")){
+        } else if (time.equals("NEXT_POSSIBLE_IN_DATE_SCROLL")) {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             selectBungiiTime();
-        }else {
+        } else {
             selectBungiiTime(0, "", "", "");
             strTime = "Now";
         }
@@ -289,7 +298,12 @@ public class EstimateSteps extends DriverBase {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
         String formattedDate = sdf.format(date);
         //After sprint 27 /26 IST is being added in scheduled page
-        formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
         return formattedDate;
     }
 
@@ -300,7 +314,7 @@ public class EstimateSteps extends DriverBase {
      * @return formated date
      */
     public String[] bungiiTimeForScroll(Date date) {
-
+        //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
         String formattedDate = sdf.format(date);
         String[] SplitDate = formattedDate.split("\\|");
@@ -310,22 +324,52 @@ public class EstimateSteps extends DriverBase {
         return SplitDate;
     }
 
+    public String getDateForTimeZone() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+
+    public Date getFormatedTime() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+
     /**
      * Read property file for minimum difference for next bunii time
      *
      * @return next possible valid bungii time
      */
     public Date getNextScheduledBungiiTime() {
-        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        return getFormatedTime();
+/*        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
         Calendar calendar = Calendar.getInstance();
         // int mnts = calendar.get(Calendar.MINUTE);
+        String geofenceLabel="CST6CDT";utility.getTimeZoneBasedOnGeofence().toUpperCase();
+
+        calendar.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
 
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
         Date nextQuatter = calendar.getTime();
-        return nextQuatter;
+
+        return nextQuatter;*/
     }
 
     public Date getScheduledBungiiTime(int minuteDifferance) {
@@ -415,7 +459,7 @@ public class EstimateSteps extends DriverBase {
             String defaultCard = getElementValue("Payment Method");
             cucumberContextManager.setScenarioContext("DEFAULT_CARD", defaultCard);
             pass("I store default card value",
-                    "Default card value us "+defaultCard, true);
+                    "Default card value us " + defaultCard, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -448,7 +492,7 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
             String value = getElementValue("Promo Code");
 
-            cucumberContextManager.setScenarioContext("PROMOCODE_VALUE",value);
+            cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -467,23 +511,23 @@ public class EstimateSteps extends DriverBase {
                     paymentMethod = data.get("Payment Method"), tripTime = data.get("Time"),
                     termsAndCondition = data.get("Terms And Condition"), requestBungii = data.get("REQUEST BUNGII");
             // check each field for expected value
-            if(!tripDistance.isEmpty())
+            if (!tripDistance.isEmpty())
                 checkTripDistance(tripDistance);
 
-            if(!loadTime.isEmpty())
+            if (!loadTime.isEmpty())
                 checkLoadTime(loadTime);
-            if(!promoCode.isEmpty())
+            if (!promoCode.isEmpty())
                 checkPromoCode(promoCode);
-            if(!tripEstimate.isEmpty())
+            if (!tripEstimate.isEmpty())
                 checkEstimate(tripEstimate);
-            if(!paymentMethod.isEmpty())
+            if (!paymentMethod.isEmpty())
                 checkPayment(paymentMethod);
-            if(!tripTime.isEmpty())
+            if (!tripTime.isEmpty())
                 checkTime(tripTime);
-            if(!termsAndCondition.isEmpty())
+            if (!termsAndCondition.isEmpty())
                 checkTermsAndConditon(termsAndCondition);
-            if(!requestBungii.isEmpty())
-            checkRequestBungii(requestBungii);
+            if (!requestBungii.isEmpty())
+                checkRequestBungii(requestBungii);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -497,19 +541,19 @@ public class EstimateSteps extends DriverBase {
     public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-            String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").trim();
-            String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").trim();
+            String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").trim();
+            String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").trim();
 
-            String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").trim();
-            String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").trim();
+            String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").trim();
+            String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").trim();
 
             String[] tripLocation = new String[4];
-            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineOne()).replace(",","").trim();
-            tripLocation[1] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineTwo()).replace(",","").trim();
-            tripLocation[2] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineOne()).replace(",","").trim();
-            tripLocation[3] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineTwo()).replace(",","").trim();
+            tripLocation[0] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineOne()).replace(",", "").trim();
+            tripLocation[1] = action.getValueAttribute(estimatePage.Text_PickUpLocationLineTwo()).replace(",", "").trim();
+            tripLocation[2] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineOne()).replace(",", "").trim();
+            tripLocation[3] = action.getValueAttribute(estimatePage.Text_DropOffLocationLineTwo()).replace(",", "").trim();
 
-            if (tripLocation[0].equals(pickUpLocationLineOne) && tripLocation[1].equals(pickUpLocationLineTwo) &&tripLocation[2].equals(dropOffLocationLineOne) && tripLocation[3].equals(dropOffLocationLineTwo)) {
+            if (tripLocation[0].equals(pickUpLocationLineOne) && tripLocation[1].equals(pickUpLocationLineTwo) && tripLocation[2].equals(dropOffLocationLineOne) && tripLocation[3].equals(dropOffLocationLineTwo)) {
                 pass("Trip Information should be correctly displayed on Estimate screen",
                         "Pick up location :" + pickUpLocationLineOne + " , Drop location: " + dropOffLocationLineOne
                                 + "is correctly displayed on estimate screen ", true);
@@ -531,23 +575,24 @@ public class EstimateSteps extends DriverBase {
 
     @When("^I tap \"([^\"]*)\" on Estimate screen$")
     public void i_tap_something_on_estimate_screen(String button) throws Throwable {
-    try {
-        switch (button.toUpperCase()) {
-            case "PROMO CODE":
-                action.click(estimatePage.Row_PromoCode());
-                break;
-            default:
-                fail("Step  Should be successful",
-                        "UnImplemented STEP , please verify test step", true);
-                break;
-        }
-        log("I should able to tap on "+button+" on Estimate screen","I was able to tab on estimate screen",true);
+        try {
+            switch (button.toUpperCase()) {
+                case "PROMO CODE":
+                    action.click(estimatePage.Row_PromoCode());
+                    break;
+                default:
+                    fail("Step  Should be successful",
+                            "UnImplemented STEP , please verify test step", true);
+                    break;
+            }
+            log("I should able to tap on " + button + " on Estimate screen", "I was able to tab on estimate screen", true);
 
-    } catch (Exception e) {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        error("Step  Should be successful",
-                "Error performing step,Please check logs for more details", true);
-    }    }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 
     /**
@@ -627,7 +672,7 @@ public class EstimateSteps extends DriverBase {
         System.err.println("Value is " + value);
 
         if (expectedValue.trim().equalsIgnoreCase("{PREVIOUS VALUE}"))
-            expectedValue=(String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
+            expectedValue = (String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
 
         boolean isValueCorrect = value.equals(expectedValue);
         if (expectedValue.contains("/"))
@@ -686,10 +731,10 @@ public class EstimateSteps extends DriverBase {
 
         boolean isValueCorrect = false;
 
-        if(expectedValue.equalsIgnoreCase("<ADDED_PROMO_CODE>"))
-        {   expectedValue=(String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+        if (expectedValue.equalsIgnoreCase("<ADDED_PROMO_CODE>")) {
+            expectedValue = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
             isValueCorrect = value.equals(expectedValue);
-        }else{
+        } else {
             isValueCorrect = value.equals(expectedValue);
         }
         testStepVerify.isTrue(isElementPresent,
@@ -768,10 +813,17 @@ public class EstimateSteps extends DriverBase {
      */
     public String[] getEstimateDetails() {
         String[] details = new String[4];
-        details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());
-        details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());
-        details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());
-        details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());
+
+        List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
+
+        details[0]=action.getValueAttribute(genericStaticText.get(1));
+      //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
+        details[1] = action.getValueAttribute(genericStaticText.get(10));//
+     //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
+        details[2] = action.getValueAttribute(genericStaticText.get(5));//6
+    //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
+        details[3] = action.getValueAttribute(genericStaticText.get(9));//10
+     //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }
 
@@ -847,13 +899,13 @@ public class EstimateSteps extends DriverBase {
 
     /**
      * Select Bungii time
-     *
      */
     public void selectBungiiTime() {
         action.click(estimatePage.Row_TimeSelect());
         //  action.click(estimatePage.Row_TimeSelect());
         action.click(estimatePage.Button_Set());
     }
+
     /**
      * Select Bungii trip time to Now
      */
@@ -879,14 +931,26 @@ public class EstimateSteps extends DriverBase {
 
     private void addImage(int numberOfImage) {
         for (int i = 1; i <= numberOfImage; i++) {
-            if(i==1)
+            if (i == 1)
                 estimatePage.Button_AddPhoto().click();
             else
                 estimatePage.Button_AddPhotoAdditional().click();
-            estimatePage.Button_Gallary().click();
+            //capture image instead of uploading existing image. this saves some time
+            action.click(estimatePage.Button_Camera());
+            if (action.isElementPresent(estimatePage.Button_PhotoCapture(true))) {
+                //do nothing, directly move to steps after IF conditions
+            } else if (action.isElementPresent(estimatePage.Button_OK(true)))
+                action.click(estimatePage.Button_OK());
+
+            action.click(estimatePage.Button_PhotoCapture());
+            action.click(estimatePage.Button_UsePhoto());
+
+
+            //commmented code to add image from galary
+   /*         estimatePage.Button_Gallary().click();
             estimatePage.PhotosFolder().click();
             List<WebElement> folder = estimatePage.Cell_Photo();
-            folder.get(folder.size() - 1).click();
+            folder.get(folder.size() - 1).click();*/
         }
 
     }
@@ -925,10 +989,15 @@ public class EstimateSteps extends DriverBase {
 
         //Replace '<TIME>' keyword with load/unload time for current trip
         String bungiiType = (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
-        String expectedText = PropertyUtility.getMessage("alert.Request.Bungii.ios").replaceAll("<TIME>", loadTime.trim());
+
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get geofence data from proper
+        String perMileVlaue = utility.getGeofenceData(currentGeofence, "geofence.dollar.per.miles"), perMinutesVlaue = utility.getGeofenceData(currentGeofence, "geofence.dollar.per.minutes");
+
+        String expectedText = PropertyUtility.getMessage("alert.Request.Bungii.ios").replaceAll("<TIME>", loadTime.trim()).replaceAll("<PER_MIN>", perMinutesVlaue.trim()).replaceAll("<PER_MILE>", perMileVlaue.trim());
         //VISHAL[21/12]: added message for duo as there is different message for duo trip
         if (bungiiType.equalsIgnoreCase("DUO"))
-            expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim());
+            expectedText = PropertyUtility.getMessage("alert.request.duo.bungii").replaceAll("<TIME>", loadTime.trim()).replaceAll("<PER_MIN>", perMinutesVlaue.trim()).replaceAll("<PER_MILE>", perMileVlaue.trim());
         getDriver().switchTo().alert().accept();
         logger.detail("Popup text on head up alert message:" + actualText);
         return actualText.equals(expectedText);

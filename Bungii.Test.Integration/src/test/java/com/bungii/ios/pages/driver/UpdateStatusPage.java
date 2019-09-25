@@ -1,6 +1,7 @@
 package com.bungii.ios.pages.driver;
 
 import com.bungii.common.core.PageBase;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -56,6 +57,12 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }*/
 
+	public WebElement CallNumeberValue_iOS10(boolean ...ignoreException) { return findElement("XCUIElementTypeStaticText", LocatorType.ClassName,ignoreException); }
+	public WebElement EndCall_iOS10(boolean ...ignoreException) { return findElement("End call", LocatorType.AccessibilityId,ignoreException); }
+	public WebElement ButtonCancelCall_iOS10(boolean ...ignoreException) { return findElement("Cancel", LocatorType.AccessibilityId,ignoreException); }
+
+
+
 	public WebElement Image_Trip_State_1() { return findElement("pickup_state_1", LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_2() { return findElement("pickup_state_2", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Image_Trip_State_3() { return findElement("pickup_state_3", PageBase.LocatorType.AccessibilityId); }
@@ -69,18 +76,20 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_SupportSms() { return findElement("Text Bungii support", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_ViewItems() { return findElement("View items", PageBase.LocatorType.AccessibilityId); }
-	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.AccessibilityId); }
-
+//	public WebElement Button_MoreOptions() { return findElement("more options", PageBase.LocatorType.Name); }
+	public WebElement Button_MoreOptions() { return findElement("more options", LocatorType.AccessibilityId); }
 	public WebElement Text_NavigationBar(boolean ...ignoreException) { return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName,ignoreException); }
-
 
 	public WebElement Button_CloseViewItems(boolean ...ignoreException) { return findElement("close btn white icon", PageBase.LocatorType.AccessibilityId,ignoreException); }
 	public WebElement AreaSlide() { return findElement(
 			"type == 'XCUIElementTypeStaticText' AND value BEGINSWITH[c] 'SLIDE '", LocatorType.Predicate); }
 	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
 	public WebElement PageIndicator_Page1() { return findElement("type == 'XCUIElementTypePageIndicator' AND value == 'page 1 of 1'", LocatorType.Predicate); }
-	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
-	public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }
-
+	//public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
+	//public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
+	//public WebElement Button_DuoMoreOptions2() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(1); }
+	//public WebElement Button_DuoMoreOptions1() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(0); }
+	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[2]", LocatorType.ClassChain); }
+	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[1]", LocatorType.ClassChain); }
 
 }

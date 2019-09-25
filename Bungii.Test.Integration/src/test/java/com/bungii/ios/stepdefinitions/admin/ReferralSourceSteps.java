@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.ReferralSourcePage;
@@ -44,6 +45,7 @@ public class ReferralSourceSteps extends DriverBase {
     public void i_account_created_info_for_something_should_be_something(String source, String expected) {
         try {
             Thread.sleep(120000);//TODO: remove this
+            SetupManager.getDriver().navigate().refresh();
             String[] referralInfo = getSourceInfo(source);
             String numberOfAccount = (String) cucumberContextManager.getFeatureContextContext("NUM_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));
             String percentageOfAccount = (String) cucumberContextManager.getFeatureContextContext("PERCENTAGE_ACCOUNT_" + source.toUpperCase().replaceAll(" ", "_"));

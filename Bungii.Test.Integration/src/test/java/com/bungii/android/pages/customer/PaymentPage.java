@@ -65,6 +65,8 @@ public class PaymentPage extends PageBase {
     public WebElement Year_2018 (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='2018']", LocatorType.XPath,ignoreException); }
 
 
+    public WebElement Text_Cvv () { return findElement("com.bungii.customer:id/bt_card_form_cvv", LocatorType.Id); }
+    public WebElement Text_PostalCode () { return findElement("com.bungii.customer:id/bt_card_form_postal_code", LocatorType.Id); }
 
     public WebElement Textfield_Expiration () { return findElement("//android.widget.EditText[@resource-id='com.bungii.customer:id/bt_card_form_expiration']", LocatorType.XPath); }
 

@@ -9,14 +9,18 @@ public class FacebookPage extends PageBase {
 
     public WebElement Button_Next() {
         return findElement("Next", LocatorType.Name);
+/*
+        return findElement("Post", LocatorType.Name);
+*/
+
     }
-    public WebElement Button_Share() {
+   public WebElement Button_Share() {
         return findElement("Share", LocatorType.Name);
     }
 
     //TODO: check if this is to be removed
     public WebElement Button_ShareLink(boolean...ignoreException) {
-        return findElement("promosrvqa.bungii.ccigoa", LocatorType.Name,ignoreException);
+        return findElement("Want $10?", LocatorType.Name,ignoreException);
     }
 
 

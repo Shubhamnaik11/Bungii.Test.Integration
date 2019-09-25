@@ -20,7 +20,7 @@ public class TermsAndConditionPage  extends PageBase {
 
 	public WebElement Button_Continue () {return findElement("CONTINUE", LocatorType.AccessibilityId); }
 	public WebElement Text_Label (boolean ...ignoreException) {return findElement("TERMS OF USE", LocatorType.AccessibilityId,ignoreException); }
-	public WebElement Text_Accept (boolean ...ignoreException) {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'I agree to Terms and Conditions'", LocatorType.XPath,ignoreException); }
+	public WebElement Text_Accept (boolean ...ignoreException) {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'I agree to Terms and Conditions'", LocatorType.Predicate,ignoreException); }
 
 
 

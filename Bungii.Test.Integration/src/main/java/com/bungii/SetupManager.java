@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.appmanagement.AndroidTerminateApplicationOptions;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -32,6 +33,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -323,6 +325,21 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
     }
+    public void terminateApp(String bundleId){
+
+        if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
+            ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
+
+        } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+            try {
+                ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
+            } catch (org.openqa.selenium.WebDriverException e) {
+                logger.detail(" Issue with stopping app"+bundleId);
+            }
+
+        }
+
+    }
     public void restartApp(String bundleId){
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
@@ -390,7 +407,7 @@ public class SetupManager extends EventFiringWebDriver {
     public void createNewWebdriverInstance(String key, String browser) {
         WebDriver newWebDriverInstance = createWebDriverInstance(browser);
         newWebDriverInstance.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-
+        newWebDriverInstance.manage().window().maximize();
         DriverManager.getObject().storeDriverInstance(key, newWebDriverInstance);
     }
 

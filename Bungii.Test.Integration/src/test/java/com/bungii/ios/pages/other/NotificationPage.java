@@ -12,6 +12,10 @@ public class NotificationPage extends PageBase{
 	public List<WebElement> Cell_Notitication_ios10(){return findElements("XCUIElementTypeCell",LocatorType.ClassName);}
 	public List<WebElement> Cell_Notitication_ios10_2(){return findElements("//*[contains(@label,'BUNGII DRIVER,')]",LocatorType.XPath);}
 	public WebElement Button_NotificationScreen(boolean... ignoreException) { return findElement("Press Home to open",LocatorType.AccessibilityId,ignoreException);};
+	public List<WebElement> Button_NotificationClear() { return findElements("Clear notifications in section",LocatorType.AccessibilityId);};
+	public WebElement Button_NotificationClearConfirm(boolean... ignoreException) { return findElement("Confirm clear notifications in section",LocatorType.AccessibilityId,ignoreException);};
+
+
 
 
 }
