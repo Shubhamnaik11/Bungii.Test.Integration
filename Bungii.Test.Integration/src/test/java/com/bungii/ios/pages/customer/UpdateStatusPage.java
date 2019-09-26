@@ -44,8 +44,8 @@ public class UpdateStatusPage extends PageBase {
 //	public WebElement Button_DuoMoreOptions1() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(0); }
 //	public WebElement Button_DuoMoreOptions2() { return findElements("more", LocatorType.AccessibilityId).get(1); }
 
-	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Cancel\"`][1]", LocatorType.ClassChain); }
-	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Cancel\"`][2]", LocatorType.ClassChain); }
+	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][1]", LocatorType.ClassChain); }
+	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][2]", LocatorType.ClassChain); }
 
 	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.AccessibilityId); }
