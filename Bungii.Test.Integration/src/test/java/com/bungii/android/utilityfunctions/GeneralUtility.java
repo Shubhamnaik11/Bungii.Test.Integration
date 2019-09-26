@@ -266,7 +266,7 @@ public class GeneralUtility extends DriverBase {
         String actualText = element.getText().replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         String expectedText = value.replace(" ", "").replace("-", "").replace(",", "").replace("(", "").replace(")", "").replace("+", "");
         if (!actualText.equalsIgnoreCase(expectedText)) {
-            if (expectedText.startsWith("+1")) expectedText = expectedText.replace("+1", "");
+            if (expectedText.startsWith("1")) expectedText = expectedText.replaceFirst("1", "");
         }
         testStepVerify.isEquals(actualText, expectedText, expectedMessage, errorMessage);
     }
@@ -544,10 +544,11 @@ public class GeneralUtility extends DriverBase {
             case"TERMS & CONDITIONS":
                 action.click(Page_CustTerms.Checkbox_Agree());
                 action.click(Page_CustTerms.Button_Continue());
-                if (action.isElementPresent(Page_CustTerms.Popup_PermissionsMessage(true))) {
-                    action.click(Page_CustTerms.Button_GoToSetting());
+                if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
+                  // action.click(Page_CustTerms.Button_GoToSetting());
+                   action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
-                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                   // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());

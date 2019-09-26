@@ -120,7 +120,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-
+  @duo
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
@@ -152,18 +152,18 @@ Feature: Duo
     And I Select Trip from driver scheduled trip
     When I wait for Minimum duration for Bungii Start Time
     And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii driver should see "Enroute screen"
+ #   Then Bungii driver should see "Enroute screen"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "driver" application on "ORIGINAL" devices
    And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
-    Then Bungii driver should see "Enroute screen"
+ #   Then Bungii driver should see "Enroute screen"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Enroute screen"
+ #   Then for a Bungii I should see "Enroute screen"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
@@ -192,7 +192,7 @@ Feature: Duo
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Arrived screen"
+ #   Then Bungii driver should see "Arrived screen"
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When Bungii Driver taps "SMS for a driver" during a Bungii
@@ -226,7 +226,7 @@ Feature: Duo
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Arrived screen"
+  #  Then Bungii driver should see "Arrived screen"
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When Bungii Driver taps "SMS for a driver" during a Bungii
@@ -245,7 +245,7 @@ Feature: Duo
     Then Bungii driver should see "Pickup Item"
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
+ #   Then for a Bungii I should see "Arrived screen"
     Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
@@ -259,7 +259,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at pickup"
-    Then Bungii driver should see "Loading Item screen"
+  #  Then Bungii driver should see "Loading Item screen"
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 2 SMS" app
@@ -279,7 +279,7 @@ Feature: Duo
     When I Switch to "driver" application on "ORIGINAL" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at pickup"
-    Then Bungii driver should see "Loading Item screen"
+ #   Then Bungii driver should see "Loading Item screen"
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 1 SMS" app
@@ -297,7 +297,7 @@ Feature: Duo
     Then Bungii driver should see "Pickup Item"
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
+  #  Then for a Bungii I should see "Loading Item screen"
     Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
@@ -310,7 +310,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "Driver2" devices
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
+ #   Then Bungii driver should see "Driving to DropOff screen"
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 2 SMS" app
@@ -329,7 +329,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Driving to DropOff screen"
+ #   Then Bungii driver should see "Driving to DropOff screen"
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 1 SMS" app
@@ -347,7 +347,7 @@ Feature: Duo
     Then Bungii driver should see "Pickup Item"
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
+ #   Then for a Bungii I should see "Driving to DropOff screen"
     Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
@@ -360,7 +360,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "Driver2" devices
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
+ #   Then Bungii driver should see "Unloading Item screen"
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 2 SMS" app
@@ -379,7 +379,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When Bungii Driver "slides to the next state"
-    Then Bungii driver should see "Unloading Item screen"
+ #   Then Bungii driver should see "Unloading Item screen"
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
     When Bungii Driver taps "SMS for a driver" during a Bungii
     Then correct details should be displayed to driver on "Driver 1 SMS" app
@@ -397,7 +397,7 @@ Feature: Duo
     Then Bungii driver should see "Pickup Item"
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
+ #   Then for a Bungii I should see "Unloading Item screen"
     Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
@@ -412,16 +412,13 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
+    And Bungii Driver "completes Bungii"
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
+    And Bungii Driver "completes Bungii"
 
     When I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "completes Bungii"
-
-    When I Switch to "driver" application on "Driver2" devices
-    And Bungii Driver "completes Bungii"

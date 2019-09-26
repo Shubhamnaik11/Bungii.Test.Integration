@@ -60,6 +60,7 @@ public class ActionManager {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
         } catch (Exception Ex) {
+            logger.detail("Page source"+ SetupManager.getDriver().getPageSource());
             Assert.fail("Following element is not displayed : " + element);
         }
     }
@@ -266,9 +267,9 @@ public class ActionManager {
     /**
      * @param element ,locator that is to be clicked
      */
-    public void longPress(WebElement elemen1t) {
+    public void longPress(WebElement element) {
 
-        TouchAction action = new TouchAction((AndroidDriver)SetupManager.getDriver()).longPress(longPressOptions().withElement(element(elemen1t)).withDuration(Duration.ofMillis(10000))).release().perform();
+        TouchAction action = new TouchAction((AndroidDriver)SetupManager.getDriver()).longPress(longPressOptions().withElement(element(element)).withDuration(Duration.ofMillis(10000))).release().perform();
       //  Thread.sleep(5000);
 
 

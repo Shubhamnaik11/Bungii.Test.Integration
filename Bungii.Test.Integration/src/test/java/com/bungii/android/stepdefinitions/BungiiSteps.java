@@ -648,7 +648,7 @@ public class BungiiSteps extends DriverBase {
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
-                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE")){
+                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")){
                         //do nothing
                     }
                     else if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){

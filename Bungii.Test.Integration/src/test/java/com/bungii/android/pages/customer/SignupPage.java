@@ -5,8 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class SignupPage extends PageBase {
     public WebElement Header_SignUp(boolean ...ignoreException) { return findElement("//android.widget.TextView[@text='SIGN UP']", LocatorType.XPath,ignoreException); }
-        public WebElement GenericHeader(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
-        public WebElement Header_HomePage(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
+        public WebElement GenericHeader(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
+        public WebElement Header_HomePage(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
 
 
     // Login link
