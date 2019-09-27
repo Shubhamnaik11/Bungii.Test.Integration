@@ -13,6 +13,9 @@ public class LoginPage extends PageBase {
 
     //Log In button
     public WebElement Button_Login() { return findElement("com.bungii.driver:id/loginGlobalButton", LocatorType.Id); }
+    public WebElement Button_Sure() { return findElement("com.bungii.driver:id/button_location_permission_sure", LocatorType.Id); }
+    public WebElement Button_Allow() { return findElement("com.android.packageinstaller:id/permission_allow_button", LocatorType.Id); }
+    public WebElement Header_Location(boolean ...ignoreException) { return findElement("com.bungii.driver:id/toolbar_location_permission", LocatorType.Id,ignoreException); }
 
     //Password field
     public WebElement Text_LoginError() { return findElement("com.bungii.driver:id/textinput_error", LocatorType.Id); }

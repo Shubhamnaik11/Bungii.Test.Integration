@@ -106,7 +106,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Button_Camera_Retry () { return findElement("com.sec.android.app.camera:id/retry", LocatorType.Id); }
 
-    public WebElement Button_Review () { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id); }
+    public WebElement Button_Review (boolean ...ignoreException) { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id,ignoreException); }
     public WebElement Button_SelectedImage () { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id); }
 
 

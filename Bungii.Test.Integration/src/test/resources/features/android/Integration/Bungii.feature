@@ -144,6 +144,7 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
+  @ONDEMAND
 
   @sanity
   @regression

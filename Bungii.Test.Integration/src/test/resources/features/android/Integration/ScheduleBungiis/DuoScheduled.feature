@@ -1,5 +1,5 @@
 @android
-
+@duo
 Feature: Duo
 
   Background:
@@ -120,7 +120,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-  @duo
+
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
@@ -412,13 +412,17 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
-    And Bungii Driver "completes Bungii"
 
     When I Switch to "driver" application on "ORIGINAL" devices
     When Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
-    And Bungii Driver "completes Bungii"
 
     When I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "completes Bungii"
+
+    When I Switch to "driver" application on "Driver2" devices
+    And Bungii Driver "completes Bungii"

@@ -574,10 +574,10 @@ public class GeneralUtility extends DriverBase {
             if (nextPage.equalsIgnoreCase("TERMS & CONDITIONS")) {
                 action.click(Page_CustTerms.Checkbox_Agree());
                 action.click(Page_CustTerms.Button_Continue());
-                if (action.isElementPresent(Page_CustTerms.Popup_PermissionsMessage(true))) {
-                    action.click(Page_CustTerms.Button_GoToSetting());
+                if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
+                    action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
-                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    //((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
@@ -611,6 +611,18 @@ public class GeneralUtility extends DriverBase {
             }
             action.sendKeys(driverLoginPage.TextField_Password(), password);
             action.click(driverLoginPage.Button_Login());
+            Thread.sleep(1000);
+            currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")){
+
+            }else if(currentPage.equals("LOCATION")){
+                action.click(driverLoginPage.Button_Sure());
+                action.click(driverLoginPage.Button_Allow());
+            }
+            else if(action.isElementPresent(driverLoginPage.Header_Location(true))){
+                action.click(driverLoginPage.Button_Sure());
+                action.click(driverLoginPage.Button_Allow());
+            }
         } else {
             //Not on Login page
         }
@@ -676,9 +688,14 @@ public class GeneralUtility extends DriverBase {
 
     public boolean clickOnNofitication(String appName, String notificationMessage) {
         boolean isDisplayed = false;
-        List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
-        List<WebElement> notificationText = otherAppsPage.Text_Notification();
+     //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
+      //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
         System.out.println(SetupManager.getDriver().getPageSource());
+
+        //FIX FOR APPIUM 1.42
+        action.click(otherAppsPage.Notification_OnDemand());
+        isDisplayed=true;
+/*
         for (int i = 0; i < notificationHeader.size(); i++) {
             if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
                 String currentNotificationText = notificationText.get(i).getText();
@@ -696,7 +713,7 @@ public class GeneralUtility extends DriverBase {
                 }
             }
 
-        }
+        }*/
 
         return isDisplayed;
     }
