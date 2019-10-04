@@ -2,14 +2,14 @@
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
-  Background:
+  @regression
+  Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
     And I change driver status to "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
 
     And I am on Customer logged in Home page
-  #  When I clear all notification
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -22,9 +22,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | 15       |           |             | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
     When I click on notification for "Driver" for "on demand trip"
-
-  @regression
-  Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
@@ -37,15 +34,18 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | Enroute      |
+
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid" driver
     Then I should be navigated to "EN ROUTE" trip status screen
 
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
 
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
@@ -61,19 +61,15 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on Arived Update Page.
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" trip status screen
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | ARRIVED      |
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+    Then Customer should be navigated to "ARRIVED" trip status screen
 
-    And Notification for "Customer" for "DRIVER ENROUTE" should be displayed
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid" driver
     Then I should be navigated to "ARRIVED" trip status screen
 
     When I click "Cancel" button on "update" screen
