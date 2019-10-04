@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 public class PropertyUtility {
     private static final String IMAGE_PROPERTY_FILE = "/UserProperties/images.properties";
+    private static final String CSV_PROPERTY_FILE = "/UserProperties/csv.properties";
     private static final String FILE_LOCATION_PROPERTY_FILE = "/UserProperties/resourcesFilePaths.properties";
     private static final String CONFIG_PROPERY_FILE = "/UserProperties/config.properties";
     private static final String RESULT_CONFIG_PROPERTY_FILE = "/SystemProperties/resultConfig.properties";
@@ -19,6 +20,7 @@ public class PropertyUtility {
     private static Properties properties;
     private static Properties fileLocations;
     private static Properties images;
+    private static Properties csv;
     private static Properties data;
     private static Properties resultConfig;
     private static Properties jdbcConfig;
@@ -117,7 +119,14 @@ public class PropertyUtility {
 
         }
     }
+    public static String getCsvLocations(String key) {
+        if ((key == null) || key.isEmpty()) {
+            return "";
+        } else {
+            return csv.getProperty(key);
 
+        }
+    }
     /**
      * Gets the key from messages.properties for a framework
      *
@@ -227,6 +236,17 @@ public class PropertyUtility {
             try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(IMAGE_PROPERTY_FILE)) {
                 images.load(inputStream);
                 images.list(System.out);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            csv = new Properties();
+            try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(CSV_PROPERTY_FILE)) {
+                csv.load(inputStream);
+                csv.list(System.out);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
