@@ -235,6 +235,148 @@ public class BungiiSteps extends DriverBase {
         coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
     }
 
+    @Given("that duo schedule bungii is in progress")
+    public void thatduoScheduleBungiiIsInProgress(DataTable data) {
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+        String geofence = dataMap.get("geofence").trim();
+        String state = dataMap.get("Bungii State").trim();
+        String customer = dataMap.get("Customer").trim();
+        String driver1 = dataMap.get("Driver1").trim();
+        String driver2 = dataMap.get("Driver2").trim();
+        String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
+
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+
+            if (customer.equalsIgnoreCase("customer-duo")) {
+                custPhoneNum = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                custPassword = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+
+            } else {
+                custPhoneNum = PropertyUtility.getDataProperties("customer.user");
+                custPassword = PropertyUtility.getDataProperties("customer.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+            }
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+
+            driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.duo.phone");
+            driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.duo.password");
+            cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.duo.name"));
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+
+            driver2PhoneNum = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
+            driver2Password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
+            cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
+            cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
+
+        } else {
+            custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+            custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+        }
+        //LOGIN
+        String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+        String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+        String driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
+
+        String driverRef = driverServices.getDriverRef(driverAccessToken);
+        String driver2Ref = driverServices.getDriverRef(driver2AccessToken);
+        String custRef = customerServices.getCustomerRef(custAccessToken);
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //CUSTOMER& DRIVER VIEW
+        //  coreServices.customerView("",custAccessToken);
+        //   coreServices.driverView("",driverAccessToken);
+
+        //update location and driver status
+        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverStatus(driverAccessToken);
+        coreServices.updateDriverLocation(driver2AccessToken);
+        coreServices.updateDriverStatus(driver2AccessToken);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //request Bungii
+        coreServices.validatePickupRequest(custAccessToken, geofence);
+        String pickupRequest = coreServices.getPickupRequest(custAccessToken, 2, geofence);
+        String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+        coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
+        int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
+
+        if (state.equalsIgnoreCase("Accepted")) {
+            coreServices.pickupdetails(pickupRequest, driverAccessToken);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+            coreServices.pickupdetails(pickupRequest, driver2AccessToken);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+        } else if (state.equalsIgnoreCase("enroute")) {
+
+            coreServices.pickupdetails(pickupRequest, driverAccessToken);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+            coreServices.pickupdetails(pickupRequest, driver2AccessToken);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+
+            try {
+                Thread.sleep(wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+        } else {
+            coreServices.pickupdetails(pickupRequest, driverAccessToken);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+            coreServices.pickupdetails(pickupRequest, driver2AccessToken);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+
+            try {
+                Thread.sleep(wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 25);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 26);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 27);
+            coreServices.customerView(pickupRequest, custAccessToken);
+            coreServices.driverView(pickupRequest, driverAccessToken);
+            coreServices.driverView(pickupRequest, driver2AccessToken);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
+            coreServices.updateStatus(pickupRequest, driver2AccessToken, 28);
+            coreServices.customerView(pickupRequest, custAccessToken);
+            coreServices.driverView(pickupRequest, driverAccessToken);
+            String driverPaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driverAccessToken);
+            String driver2PaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driver2AccessToken);
+
+            coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0, driver2Ref, driver2PaymentMethod);
+            System.out.println(pickupRequest);
+        }
+
+
+    }
+
     @Given("that solo schedule bungii is in progress")
     public void thatsoloscheduleBungiiIsInProgress(DataTable data) {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
@@ -270,7 +412,7 @@ public class BungiiSteps extends DriverBase {
         String driverRef = driverServices.getDriverRef(driverAccessToken);
         String custRef = customerServices.getCustomerRef(custAccessToken);
 
-        coreServices.waitForAvailableTrips(driverAccessToken,"559ca617-e25f-f409-ec79-2ba0490c8f55");
+        coreServices.waitForAvailableTrips(driverAccessToken, "559ca617-e25f-f409-ec79-2ba0490c8f55");
         //CUSTOMER& DRIVER VIEW
         coreServices.customerView("", custAccessToken);
         coreServices.driverView("", driverAccessToken);
@@ -287,7 +429,7 @@ public class BungiiSteps extends DriverBase {
         int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 
 
-      //  coreServices.waitForAvailableTrips(driverAccessToken,pickupRequest);
+         coreServices.waitForAvailableTrips(driverAccessToken,pickupRequest);
 
         coreServices.pickupdetails(pickupRequest, driverAccessToken);
         if (state.equalsIgnoreCase("Accepted")) {

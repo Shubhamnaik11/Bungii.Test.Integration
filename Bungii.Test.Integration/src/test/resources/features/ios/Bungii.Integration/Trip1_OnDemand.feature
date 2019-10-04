@@ -12,12 +12,12 @@ Feature: Create on demand bungii
       | geofence | Bungii State |
       | goa      | Enroute      |
 
-    Given I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
 
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"

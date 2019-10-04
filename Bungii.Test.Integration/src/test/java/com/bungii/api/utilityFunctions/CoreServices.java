@@ -86,7 +86,7 @@ public class CoreServices extends DriverBase {
     public boolean isPickupIsListedInAvailableTrip(String authToken, String expectedPickupRequest) {
         boolean isPickupInAvailableTrip = false;
         JsonPath jsonPathEvaluator = availablePickupList(authToken).jsonPath();
-        JSONArray availableArray = jsonPathEvaluator.get("PickupRequestID");
+        JSONArray availableArray = jsonPathEvaluator.get("AvailablePickups");
         if (availableArray != null) {
             for (int i = 0; i < availableArray.length(); i++) {
                 JSONObject pickupDetails = availableArray.getJSONObject(i);
@@ -248,8 +248,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImageForScheduledTrip(apiURL, jsonObj, header);
-        //TODO: REMVOE THIS
-        //  ApiHelper.genericResponseValidation(response);
+          ApiHelper.genericResponseValidation(response);
         return response;
     }
 

@@ -706,8 +706,11 @@ public class CommonSteps extends DriverBase {
 
             LogInSteps logInSteps = new LogInSteps(loginPage);
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
-            iClickButtonOnScreen("Log In", "Log In");
+            iClickButtonOnScreen("Log In", "Log In");                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
+            if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                navigateFromTermToHomeScreen();
+            }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

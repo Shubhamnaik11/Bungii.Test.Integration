@@ -38,7 +38,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | goa      | Enroute      |
 
-    Given I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
     Then Customer should be navigated to "EN ROUTE" trip status screen
 
@@ -64,7 +64,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | goa      | ARRIVED      |
-    Given I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
     Then Customer should be navigated to "ARRIVED" trip status screen
 
