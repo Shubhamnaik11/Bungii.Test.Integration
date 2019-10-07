@@ -355,6 +355,7 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
     }
+
     public void restartApp(String bundleId){
 
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
@@ -372,21 +373,7 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
     }
-    public void terminateApp(String bundleId){
 
-        if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
-            ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
-
-        } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-            try {
-                ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
-            } catch (org.openqa.selenium.WebDriverException e) {
-                logger.detail(" Issue with stopping app"+bundleId);
-            }
-
-        }
-
-    }
     public void useDriverInstance(String instanceKey) {
         DriverManager.getObject().useDriverInstance(instanceKey);
     }
