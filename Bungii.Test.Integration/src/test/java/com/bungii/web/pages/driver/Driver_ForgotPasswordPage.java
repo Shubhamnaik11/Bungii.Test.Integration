@@ -16,14 +16,14 @@ public class Driver_ForgotPasswordPage extends PageBase {
     public WebElement Err_ForgotPass_BlankField () { return findElement("forgotpassworderrorsummary", LocatorType.Id); }
 
     //driver Forgot Password - Phone Number field
-    public WebElement Textfield_ForgotPass_Phone() { return findElement("//form[@id='ForgotPasswordPage']/div/input[@id='PhoneNo']", LocatorType.XPath); }
+    public WebElement Textfield_ForgotPass_Phone() { return findElement("//form[@id='ForgotPassword']/div/input[@id='PhoneNo']", LocatorType.XPath); }
 
     //driver Forgot Password - Phone Number field Error
     public WebElement Err_ForgotPass_Phone() { return findElement("PhoneNo-error", LocatorType.Id); }
 
     //driver Forgot Password - Send Verification Code button
-    public WebElement Button_SendVerifCode() { return findElement("//form[@id='ForgotPasswordPage']/button[contains(text(),'Code')]", LocatorType.XPath); }
+    public WebElement Button_SendVerifCode() { return findElement("//form[@id='ForgotPassword']/button[contains(text(),'Code')]", LocatorType.XPath); }
 
     //driver Forgot Password - Back to Login link
-    public WebElement Link_BackToLogin() { return findElement("//form[@id='ForgotPasswordPage']/div/a[text()='Back to Login']", LocatorType.XPath); }
+    public WebElement Link_BackToLogin() { return findElement("//form[@id='ForgotPassword']/div/a[text()='Back to Login']", LocatorType.XPath); }
 }

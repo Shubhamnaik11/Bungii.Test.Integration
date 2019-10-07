@@ -3,6 +3,8 @@ package com.bungii.ios.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class ScheduledBungiiPage extends PageBase {
     public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
@@ -38,6 +40,9 @@ public class ScheduledBungiiPage extends PageBase {
 
     public WebElement Table_NoBungii() {
         return findElement("//XCUIElementTypeTable", LocatorType.XPath);
+    }
+    public List<WebElement> List_SchBungii() {
+        return findElements("//XCUIElementTypeImage[@name='disclosure-arrow-right']/preceding-sibling::XCUIElementTypeStaticText[last()]", LocatorType.XPath);
     }
 
 

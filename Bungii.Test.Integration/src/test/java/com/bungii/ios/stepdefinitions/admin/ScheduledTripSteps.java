@@ -37,15 +37,19 @@ public class ScheduledTripSteps extends DriverBase {
 	@Then("^I Cancel Bungii with following details$")
 	public void i_cancel_bungii_with_following_details(DataTable cancelDetails)  {
 		try {
+
 			Map<String, String> tripDetails = new HashMap<String, String>();
 			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
+
+			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
 			//On admin panel CST time use to show
-		//	getPortalTime("Dec 21, 11:15 AM IST");
+		//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime));
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
@@ -84,7 +88,7 @@ public class ScheduledTripSteps extends DriverBase {
 		return formattedDate;
 	}
 
-	private String getPortalTime(String bungiiTime) throws ParseException {
+	public String getPortalTime(String bungiiTime) throws ParseException {
 		Calendar calendar = Calendar.getInstance();
 
 		int intYear=calendar.get(Calendar.YEAR);
@@ -167,7 +171,7 @@ public class ScheduledTripSteps extends DriverBase {
 		for(int i=1;i<=rows.size();i++){
 			String rowCustName=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]")).getText();
 			String rowSchduledTime=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]")).getText();
-			String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
+		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]")).getText();
 
 			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){

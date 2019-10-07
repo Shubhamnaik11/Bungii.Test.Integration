@@ -1,5 +1,5 @@
 @ios
-@NONBUNGII
+
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
@@ -42,7 +42,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     And Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           |         | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
+      | {PREVIOUS VALUE} | SELECT           |            | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
 
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
@@ -79,10 +79,7 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check if the information icons display correct information
-    When I Select "Home" from Customer App menu
-#    And I request for  bungii
-#      | Driver | Distance |
-#      | Solo   | Long     |
+#    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -99,10 +96,7 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check the elements of Estimate page
-    When I Select "Home" from Customer App menu
-  #  And I request for  bungii
-  #    | Driver | Distance |
-  #    | Solo   | Long     |
+ #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -113,12 +107,10 @@ Feature: Customer Estimate screen
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
       | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242/x1117    | Now  | UNCHECK             | DISABLED       |
 
+
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
-    When I Select "Home" from Customer App menu
-  #  And I request for  bungii
-  #    | Driver | Distance |
-  #    | Solo   | Long     |
+ #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -127,17 +119,18 @@ Feature: Customer Estimate screen
     And check if I have ability to select different load time and Estimate cost is re calculated
 
 
+
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
-    When I Select "ACCOUNT" from Customer App menu
-    And I get customer account details
+#    When I Select "ACCOUNT" from Customer App menu
+#    And I get customer account details
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location | Drop Location                | Geofence  |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |             | Now  | Default     |
+      | 30       |           |              | Now  | Default     |
     Then Estimate value for trip should be properly displayed

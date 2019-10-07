@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 public class Driver_TermsPage extends PageBase {
 
     //Terms & Conditions - Text
-    public WebElement Text_Terms() { return findElement(".//*[@id='divStep5']/div[3]/div/div/div/table/tbody/tr[9]/td[2]", LocatorType.XPath); }
+    public WebElement Text_Terms() { return findElement("//table[@class='table table-bordered']/tbody/tr[9]/td[2]", LocatorType.XPath); }
 
     //Terms & Conditions - Error - Agree unchecked
     public WebElement Err_Terms () { return findElement("summary5", LocatorType.Id); }

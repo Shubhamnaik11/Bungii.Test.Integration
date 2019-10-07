@@ -83,10 +83,14 @@ public class HomePageSteps extends DriverBase {
      * driver goes online
      */
     public void goOnline() {
-        if (action.isElementPresent(homepage.Button_GoOnline(true)))
-            action.click(homepage.Button_GoOnline());
-        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
+
+        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+
+        if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
+        else if(navigationHeaderName.equals("OFFLINE")){action.click(homepage.Button_GoOnline());}
+        else if (action.isElementPresent(homepage.Button_GoOnline(true)))
+            action.click(homepage.Button_GoOnline());
         else
             logger.error("Not able to get driver status");
     }
@@ -95,7 +99,14 @@ public class HomePageSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        if (action.isElementPresent(homepage.Button_GoOffline(true)))
+        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+
+        if(navigationHeaderName.equals("OFFLINE")){
+            logger.warning("driver Status is already offline");
+        }else if(navigationHeaderName.equals("ONLINE")){
+            action.click(homepage.Button_GoOffline());
+        }
+        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
             action.click(homepage.Button_GoOffline());
         else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             logger.warning("driver Status is already offline");
@@ -150,8 +161,11 @@ public class HomePageSteps extends DriverBase {
                 case "LOGOUT":
                     action.swipeUP();
                     Thread.sleep(1000);
-
-                    action.click(homepage.AppMenu_LogOut());
+                    action.click(homepage.AppMenu_LogOut1());
+                    if(action.isElementPresent(homepage.AppMenu_LogOut1(true)))
+                        action.tapByElement(homepage.AppMenu_LogOut1());
+                //    action.click(homepage.AppMenu_LogOut());
+                 //   action.tapByElement(homepage.AppMenu_LogOut());
                     break;
                 default:
                     logger.error("Please specify valid application menu item");
@@ -186,10 +200,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getValueAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

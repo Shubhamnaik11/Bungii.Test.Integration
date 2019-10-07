@@ -43,8 +43,7 @@ public class PaymentSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
-    @And("^I enter (.+) and (.+) on Card Details page$")
+    @And("^I enter Card No:([^\"]*) and Expiry :([^\"]*) on Card Details page$")
     public void i_enter_and_on_card_details_page(String cardType, String expiry) {
         try {
             String cardNumber;
@@ -73,6 +72,31 @@ public class PaymentSteps extends DriverBase {
                     "I was not able to entered " + cardType + " and " + expiry + " on Card Details page",
                     true);
         }
+    }
+
+    @And("^I enter postal code :(.+) and Cvv: (.+) on Card Details page$")
+    public void i_enter_postal_code_and_cvv_on_card_details_page(String postalcode, String cvv) throws Throwable {
+        String postalCodeValue="",cvvValue="";
+        switch (postalcode.toUpperCase()) {
+            case "VALID POSTAL CODE":
+                postalCodeValue = PropertyUtility.getDataProperties("valid.card.postal.code");
+                break;
+/*            case "INVALID POSTAL CODE":
+                postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
+                break;*/
+        }
+        switch (cvv.toUpperCase()) {
+            case "VALID CVV":
+                cvvValue = PropertyUtility.getDataProperties("valid.card.cvv");
+                break;
+/*            case "INVALID POSTAL CODE":
+                postalCode = PropertyUtility.getDataProperties("payment.valid.card.discover");
+                break;*/
+        }
+        action.sendKeys(paymentPage.TextBox_PostalCode(), postalCodeValue);
+        action.sendKeys(paymentPage.TextBox_CVV(), cvvValue);
+        pass("I enter postal code :"+postalcode+" and Cvv: "+cvv+" on Card Details page",
+                "I entered " + postalCodeValue + " and " + cvvValue + " on Card Details page",true);
     }
 
     @When("^I swipe \"([^\"]*)\" card on the payment page$")
@@ -118,6 +142,7 @@ public class PaymentSteps extends DriverBase {
                             "I was not able to see " + action + " error");
                     break;
                 case "invalid expiry":
+                    Thread.sleep(5000);
                     testStepVerify.isTrue(isFieldInvalid("expiry"), "I should see " + action + " error",
                             "I was able to see " + action + " error",
                             "I was not able to see " + action + " error");
@@ -225,8 +250,8 @@ public class PaymentSteps extends DriverBase {
      */
     public boolean clickOtherCard(String defaultCard) {
         try {
-            //By otherCard = MobileBy.xpath("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='"+ defaultCard + "']");
-            action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
+          //  action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
+            action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[1][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
             return true;
         } catch (Exception e) {
             return false;
@@ -312,6 +337,9 @@ public class PaymentSteps extends DriverBase {
 
         boolean isPresent = false;
         List<WebElement> cards = paymentPage.Text_CardNumber();
+
+        if(cards.size()==0)
+            cards=paymentPage.Text_CardNumber_iOS11_2();
         for (WebElement card : cards) {
             if (action.getValueAttribute(card).equalsIgnoreCase(cardNumber)) {
                 isPresent = true;

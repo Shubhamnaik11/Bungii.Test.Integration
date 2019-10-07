@@ -1,6 +1,9 @@
 package com.bungii.hooks;
 
 import com.bungii.SetupManager;
+package com.bungii.hooks;
+
+import com.bungii.SetupManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
@@ -25,6 +28,8 @@ import java.io.IOException;
  */
 public class CucumberHooks {
 
+    private static boolean isFirstTestCase;
+    private static LogUtility logger = new LogUtility(CucumberHooks.class);
     private static boolean isFirstTestCase;
     private static LogUtility logger = new LogUtility(CucumberHooks.class);
 
@@ -67,10 +72,19 @@ public class CucumberHooks {
         try {
             this.reportManager.startSuiteFile(resultFolder);
         } catch (Exception e) {
-            logger.error("Unable to start report com.bungii.android.manager");
+            logger.error("Unable to start report com.bungii.android.manager");C:\Program Files\KDiff3\kdiff3.exe
         }
     }
 
+    /**
+     * Cucumber hook to update test case in report
+     *
+     * @param scenario Scenario that is being executed
+     */
+    @Before
+    public void beforeTest(Scenario scenario) {
+        this.reportManager.startTestCase(scenario.getName());
+        logger.detail("Starting " + scenario.getName());
     /**
      * Cucumber hook to update test case in report
      *
@@ -89,6 +103,13 @@ public class CucumberHooks {
         //restart driver app
         //SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
         //SetupManager.getObject().restartApp();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //restart driver app
+        //SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
         //Vishal[1801]: Restart app before Each test case
         //If not first test case
         if (!isFirstTestCase) {
@@ -109,10 +130,18 @@ public class CucumberHooks {
      */
     @After
     public void afterTest(Scenario scenario) {
+    /**
+     * Cucumber hook to update test case in report
+     *
+     * @param scenario Scenario that was being executed
+     */
+    @After
+    public void afterTest(Scenario scenario) {
         try {
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
+        SetupManager.getObject().useDriverInstance("ORIGINAL");
 
             this.reportManager.endTestCase(scenario.isFailed());
             if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
@@ -145,6 +174,9 @@ public class CucumberHooks {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
+        } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
+            SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+        }
         }
     }
 
@@ -161,4 +193,24 @@ public class CucumberHooks {
         logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
 
     }
+
+    //for first test case after duo reinstall the apps
+    @Before("@POSTDUO")
+    public void afterDuoScenario() {
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")){
+            new GeneralUtility().installDriverApp();
+            new GeneralUtility().installCustomerApp();
+        }
+    }
+
+    //Cancel bungii from admin panel
+    @After("@scheduled")
+    public void afterScheduledBungii(Scenario scenario) {
+        //This scenario is not complete/full prof
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") &&scenario.isFailed()) {
+          //  new GeneralUtility().recoverScenarioscheduled();
+        }
+    }
+
+
 }
