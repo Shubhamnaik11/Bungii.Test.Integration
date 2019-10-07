@@ -73,10 +73,13 @@ public class AvailableTripsSteps extends DriverBase {
 			imageTag=Image_Duo;
 		}
 		if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
-		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='"+customerName+"']/following-sibling::XCUIElementTypeImage[@name='"+imageTag+"']/parent::XCUIElementTypeCell");
-		//WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/following-sibling::XCUIElementTypeImage[@name='"+imageTag+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		WebElement Image_SelectBungii = availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		action.click(Image_SelectBungii);
+
+		//sometime row is not getting clicked due to alert
+		if(action.isAlertPresent()) SetupManager.getDriver().switchTo().alert().dismiss();
+		if(action.isElementPresent(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
+			action.click(availableTripsPage.findElement("//XCUIElementTypeStaticText[@name='"+customerName+"']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true));
 	}
 
 
