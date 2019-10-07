@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
@@ -59,15 +60,18 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;
-
        }
+        log("I click on "+link+" menu link" ,
+                "I have clicked on "+link+" menu link", true);
+
     }
 
     @When("^I search by Name \"([^\"]*)\"$")
     public void i_search_by_name_something(String strArg1) throws Throwable {
         String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
         action.sendKeys(admin_PromoCodesPage.TextBox_Search(),Name +Keys.ENTER);
-
+        log("I search "+ Name + "prmocode" ,
+                "I have on searched "+Name+" prmocode", true);
     }
 
     @When("^I search by Code \"([^\"]*)\"$")
@@ -75,11 +79,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         String Code = (String) cucumberContextManager.getScenarioContext("PROMOCODE");
         action.sendKeys(admin_PromoCodesPage.TextBox_Search(), Code+Keys.ENTER);
+
+        log("I search "+ Code + "prmocode" ,
+                "I have on searched "+Code+" prmocode", true);
     }
     @When("^I search by first code generated for above promocode$")
     public void i_search_by_any_code_generated_for_above_promocode() throws Throwable {
         String LastCode = (String) cucumberContextManager.getScenarioContext("LASTCODE");
         action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode+Keys.ENTER);
+        log("I search "+ LastCode + "prmocode" ,
+                "I have on searched "+LastCode+" prmocode", true);
     }
     @Then("^the searched promocode data gets populated correctly$")
     public void the_searched_promocode_data_gets_populated_correctly() throws Throwable {
@@ -114,6 +123,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void i_view_the_searched_promocode() throws Throwable {
        String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("following-sibling::td[1]")));
+        log("I click on View link" ,
+                "I have clicked on View link", true);
     }
 
     @When("^I click on \"([^\"]*)\" icon$")
@@ -125,6 +136,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
 
         }
+        log("I click on Filter icon" ,
+                "I have clicked on Filter icon", true);
     }
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
@@ -161,12 +174,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 action.click(admin_PromoCodesPage.CheckBox_HideExpired());
                 break;
         }
+        log("I select "+value+" in CodeType "+ CodeType ,
+                "I have selected "+value+" in CodeType "+ CodeType, true);
     }
 
     @When("^I select promocode type as \"([^\"]*)\"$")
     public void i_select_promocode_type_as_something(String promoCodeType) throws Throwable {
         Thread.sleep(5000);
         action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+        log("I select promocode type as "+ promoCodeType ,
+                "I have selected promocode type as "+ promoCodeType, true);
     }
 
     @Then("^the \"([^\"]*)\" type promocode gets saved successfully and it is displayed in the Promocodes grid$")
@@ -416,6 +433,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 }
                 break;
         }
+        log("I click on "+button+" on "+ popup ,
+                "I have clicked on "+button+" on "+ popup, true);
     }
     @And("^I enter following values in fields$")
     public void i_enter_following_values_in_fields(DataTable data) throws Throwable {
@@ -512,7 +531,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
                     break;
             }
-
+            log("I enter data into Add Promocode popup" ,
+                    "I have entered data into Add Promocode popup" , true);
         } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -527,6 +547,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void i_uncheck_something(String strArg1) throws Throwable {
         if(admin_PromoCodesPage.CheckBox_HideExpired().isSelected())
         action.click(admin_PromoCodesPage.CheckBox_HideExpired());
+
+        log("I uncheck Hide Expired filter" ,
+                "I have unchecked Hide Expired filter" , true);
     }
 
     @And("^the \"([^\"]*)\" message is displayed for the \"([^\"]*)\" field$")
@@ -563,6 +586,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
            action.click(admin_PromoCodesPage.Button_Save());
             the_corresponding_message_is_displayed_beside_the_something_field(Message);
       }
+        log("I enter data into No of Codes field on Add Promocode popup" ,
+                "I have entered data into No of Codes field on Add Promocode popup" , true);
     }
 
     @Then("^the corresponding message is displayed beside the \"([^\"]*)\" field$")

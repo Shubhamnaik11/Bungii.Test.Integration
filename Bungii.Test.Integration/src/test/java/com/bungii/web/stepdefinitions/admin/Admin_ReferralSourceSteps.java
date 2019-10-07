@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_ReferralSourceSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     ActionManager action = new ActionManager();
@@ -101,6 +103,8 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                 }
                 break;
         }
+        log("I click on "+header+" to sort by order "+ sortOrder ,
+                "I have clicked on "+header+" to sort by order "+ sortOrder, true);
     }
 
     @Then("^the \"([^\"]*)\" list should be sorted by \"([^\"]*)\" order of \"([^\"]*)\"$")
@@ -261,6 +265,8 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     @When("^I click on \"([^\"]*)\" button with entering \"([^\"]*)\" and \"([^\"]*)\" date$")
     public void i_click_on_something_button_with_entering_something_and_something_date(String strArg1, String strArg2, String strArg3) throws Throwable  {
                         action.click(admin_ReferralSourcePage.Button_Search());
+                        log("I click Search on Referral source page",
+                "I have clicked Search on Referral source page", true);
       }
 
     @Then("^the \"([^\"]*)\" message is displayed beside \"([^\"]*)\" field$")
@@ -279,6 +285,8 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     public void i_enter_something_less_than_the_something(String strArg1, String strArg2) throws Throwable {
         action.sendKeys(admin_ReferralSourcePage.TextBox_FromDate(),"11/11/2019");
         action.sendKeys(admin_ReferralSourcePage.TextBox_ToDate(),"10/11/2015");
+        log("I enter From and To date on Referral source page",
+                "I have entered From and To date on Referral source page", true);
 
     }
 

@@ -30,6 +30,7 @@ import java.time.Instant;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_BusinessUsersSteps extends DriverBase {
     ActionManager action = new ActionManager();
@@ -52,7 +53,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
             action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
             action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
-
+            log("I enter values on Add Business User page",
+                    "I entered values on Add Business User page", true);
 
             cucumberContextManager.setScenarioContext("BO_NAME", Name);
             cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
@@ -67,14 +69,18 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @When("^I enter invalid phone number and email field$")
     public void i_enter_invalid_phone_number_and_email_field() throws Throwable {
-       action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"INVALID");
+        action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"INVALID");
         action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),"INVALID");
+        log("I enter invalid values on Add Business User page",
+                "I entered  invalid values on Add Business User page", true);
 
     }
     @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_search_by_name_something_in_something_page(String currentdatetime, String strArg1) throws Throwable {
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
+        log("I search by name in Business User list page",
+                "I searched by name in Business User list page", true);
     }
 
     @When("^I edit the \"([^\"]*)\" and \"([^\"]*)\"$")
@@ -177,6 +183,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             case "Select Business User":
                 String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
+                log("I select element from Select Business User dropdown",
+                        "I have selected element from Select Business User dropdown", true);
             break;
         }
     }
@@ -187,6 +195,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 {
                     case "Add Payment Method" :
                         action.click(admin_BusinessUsersPage.Button_RequestPayment());
+
                         break;
                     case "Upload" :
                         action.click(admin_BusinessUsersPage.Button_Upload());
@@ -195,6 +204,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         action.click(admin_BusinessUsersPage.Button_Confirm());
                         break;
                 }
+        log("I select "+button+" from Business User page",
+                "I have selected "+button+" from Business User page", true);
 
     }
 
@@ -222,19 +233,24 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-expirationDate")));
         action.sendKeys(admin_BusinessUsersPage.TextBox_ExpirationDate(),ExpirationDate);
         SetupManager.getDriver().switchTo().defaultContent();
+        log("I enter card details on Add Payment to Business user page",
+                "I have entered card details on Add Payment to Business user page", true);
 
     }
 
     @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_on_something_button_on_something_screen(String button, String Screen) throws Throwable {
         action.click(admin_BusinessUsersPage.Button_PaymentSave());
+        log("I click save on Add Payment to Business user page",
+                "I have clicked save on Add Payment to Business user page", true);
     }
 
     @When("^I select user \"([^\"]*)\"$")
     public void i_select_user_something(String uniqueno) throws Throwable {
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),Name);
-
+        log("I select "+uniqueno+" from Bulk Trips page",
+                "I have selected "+uniqueno+" from Bulk Trips page", true);
     }
 
     @And("^I upload image to be associated with the trip$")
@@ -244,6 +260,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
         action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
         action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+        log("I upload csv and image on Bulk Trips page",
+                "I have uploaded csv and image on Bulk Trips page", true);
 
     }
     @Then("^the pickup from the csv are listed down$")
