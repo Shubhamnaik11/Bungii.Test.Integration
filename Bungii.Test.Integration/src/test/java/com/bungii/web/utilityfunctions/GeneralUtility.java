@@ -70,7 +70,14 @@ public class GeneralUtility {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+    public void TestAdminLogin() {
+        String adminURL = GetAdminUrl();
 
+        action.navigateTo(adminURL);
+        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.testuser"));
+        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.testpassword"));
+        action.click(Page_AdminLogin.Button_AdminLogin());
+    }
     public void DriverLogout() {
         action.click(driver_dashboardPage.Link_Logout());
     }
@@ -93,7 +100,12 @@ public class GeneralUtility {
         action.sendKeys(dropZoneWebelement, filePath);
 
     }
+    public void addCSV(WebElement csvWebelement, String filePath) {
 
+        ((JavascriptExecutor) SetupManager.getDriver()).executeScript(" arguments[0].style.visibility = 'visible';", csvWebelement);
+        action.sendKeys(csvWebelement, filePath);
+
+    }
     public void addImageInDropZone(WebElement dropZoneWebelement, String[] filePath) {
         String inputFilesString = "";
         for (String file : filePath) {

@@ -1,10 +1,15 @@
 package com.bungii.web.stepdefinitions.admin;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
@@ -12,6 +17,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_DashboardPage adminDashboardPage = new Admin_DashboardPage();
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     Admin_GetAllBungiiDriversPage admin_GetAllBungiiDriversPage = new Admin_GetAllBungiiDriversPage();
+    Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
+    Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -20,7 +28,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_am_logged_in_as_admin() throws Throwable {
         utility.AdminLogin();
     }
-
+    @Given("^I am logged in as TestAdmin$")
+    public void i_am_logged_in_as_Testadmin() throws Throwable {
+        utility.TestAdminLogin();
+    }
     @And("^there is a pending driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
@@ -49,7 +60,22 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @Then("^I should be directed to \"([^\"]*)\"$")
     public void i_should_be_directed_to_something(String screen) throws Throwable {
-        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Title_DriverVerificationPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+        switch (screen) {
+            case "Driver Verification Page":
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Title_DriverVerificationPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Promo Code Page":
+                testStepAssert.isElementDisplayed(admin_PromoCodesPage.Title_PromocodesPage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Referral Source Page":
+                testStepAssert.isElementDisplayed(admin_ReferralSourcePage.Title_ReferralSourcePage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Business Users Page":
+                testStepAssert.isElementDisplayed(admin_BusinessUsersPage.Header_BusinessUsers(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+
+
+        }
     }
 
     @And("^I verify and approve all the verification fields$")
@@ -94,6 +120,23 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Cancel":
             action.click(admin_DriverVerificationPage.Button_Cancel());
             break;
+            case "New Code":
+                action.click(admin_PromoCodesPage.Button_NewCode());
+                break;
+            case "Apply":
+                action.click(admin_PromoCodesPage.Button_Apply());
+                Thread.sleep(2000);
+                break;
+            case "Reset":
+                action.click(admin_PromoCodesPage.Button_Reset());
+                Thread.sleep(2000);
+                break;
+            case "Save":
+                action.click(admin_PromoCodesPage.Button_Save());
+                break;
+            case "New Business User":
+                action.click(admin_BusinessUsersPage.Button_CreateBusinessUser());
+                break;
         }    }
 
 
