@@ -21,7 +21,6 @@ import static com.bungii.common.manager.ResultManager.error;
 
 public class CoreServices extends DriverBase {
     private static LogUtility logger = new LogUtility(CoreServices.class);
-
     private static String VALIDATE_PICKUP_REQUEST = "/api/pickup/validatepickuprequest";
     private static String PICKUP_REQUEST = "/api/pickup/request";
     private static String RECALCULATE_ESTIMAT = "/api/pickup/recalculateestimate";
@@ -34,16 +33,9 @@ public class CoreServices extends DriverBase {
     private static String UPDATE_PICKUP_STATUS = "/api/pickup/updatestatus";
     private static String RATE_AND_TIP = "/api/customer/rateandtipdriver";
     private static String AVAILABLE_PICKUPLIST = "/api/driver/availablepickuplist";
+    GeneralUtility utility = new GeneralUtility();
 
-    public static String getCurrentUTCTime() {
-        // Get formatted UTC time
-        Calendar calendar = Calendar.getInstance();
-        Date dateTime = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        sdf.setTimeZone(TimeZone.getTimeZone("GTM"));
-        String dateFormatted = sdf.format(dateTime);
-        return dateFormatted;
-    }
+
 
     public Response validatePickupRequest(String authToken, String geoFence) {
 
@@ -98,6 +90,7 @@ public class CoreServices extends DriverBase {
         return isPickupInAvailableTrip;
     }
 
+    // wait for 5 mins for pickup to be displayed in available trips
     public void waitForAvailableTrips(String authToken, String expectedPickupRequest) {
         try {
 
@@ -246,7 +239,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
         Response response = ApiHelper.uploadImageForScheduledTrip(apiURL, jsonObj, header);
-          ApiHelper.genericResponseValidation(response);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 
@@ -331,11 +324,11 @@ public class CoreServices extends DriverBase {
         }
     }
 
-    public Response updateDriverLocation(String authToken,String geofence) {
-        Float[] driverLocations= getDriverLocation(geofence);
+    public Response updateDriverLocation(String authToken, String geofence) {
+        Float[] driverLocations = utility.getDriverLocation(geofence);
         JSONObject jsonObj = new JSONObject();
-  //      jsonObj.put("Latitude", 15.367737300);
- //       jsonObj.put("Longitude", 73.936542900);
+        //      jsonObj.put("Latitude", 15.367737300);
+        //       jsonObj.put("Longitude", 73.936542900);
         jsonObj.put("Latitude", driverLocations[0]);
         jsonObj.put("Longitude", driverLocations[1]);
         Header header = new Header("AuthorizationToken", authToken);
@@ -347,31 +340,17 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
-    public Float[] getDriverLocation(String geofence){
-        Float maxChange =0.003f;
-        Float minChange =-0.003f;
-        Float pickupLat = 0f,pickupLong=0f;
-        // Add random float to  driver location
-        Random rand = new Random();
 
-        if (geofence.equalsIgnoreCase("goa")) {
-            pickupLat= Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude"));
-            pickupLong= Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude"));
-        }
-        Float[] driverCordinate= new Float[2];
 
-        driverCordinate[0] = pickupLat+ rand.nextFloat() * (maxChange - minChange) + minChange;
 
-        driverCordinate[1] = pickupLong+ rand.nextFloat() * (maxChange - minChange) + minChange;
-        return driverCordinate;
-    }
+
     public Response updateDriverStatus(String authToken) {
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("DeviceName", "XT1092");
         //make status online
         jsonObj.put("Status", 1);
-        jsonObj.put("DeviceToken", "fYUrbPrSXAo:APAS1bFc7QqYIWYyYaIvlcu1Nz30Swc67UDBg75rwUlNbPZDIi2dLdrsgdplYB5GmJqOihXVB64bwVmfEqZAF0DkTOsYX8b8VrjleMHjkSVdQy3ao2nWrCot_HcXx6jYY7pksq3JbKCHP0QYyvmywSA6HRNIhXgiSa");
+        jsonObj.put("DeviceToken", "fYUrbPrSXAo:APAS1bFc7QqYIWYyYaIvlcu1Nz30Swc67UDBg75rwUlNbPZDIi2dLdrsgdplYB5GmJqOihXVB64bwVmfEqZAF0DkTOsYX8b8VrjleMHjkSVdQy3ao2nWrCot_HcXx6jYY7pksq3JbKCHP0QYyvmywSA6HRNIhXgiSa" + utility.genearateRandomString());
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;
@@ -391,7 +370,7 @@ public class CoreServices extends DriverBase {
             status.put("PickupId", pickupID);
             status.put("PickupStatusId", pickupID);
             status.put("synced", false);
-            status.put("StatusTimestamp", getCurrentUTCTime());
+            status.put("StatusTimestamp", utility.getCurrentUTCTime());
             status.put("Status", statusID);
             statusArray.put(status);
             jsonObj.put("Statuses", statusArray);
@@ -414,18 +393,17 @@ public class CoreServices extends DriverBase {
     }
 
 
-
-    public void pickupdetails(String pickupID, String authToken,String geofence) {
+    public void pickupdetails(String pickupID, String authToken, String geofence) {
         try {
 
             JSONObject jsonObj = new JSONObject();
             JSONObject driverCordinate = new JSONObject();
-            Float[] driverLocations= getDriverLocation(geofence);
+            Float[] driverLocations = utility.getDriverLocation(geofence);
 
             driverCordinate.put("Latitude", driverLocations[0]);
             driverCordinate.put("Longitude", driverLocations[1]);
-    //        driverCordinate.put("Latitude", 15.36773730);
-     //       driverCordinate.put("Longitude", 73.936542900);
+            //        driverCordinate.put("Latitude", 15.36773730);
+            //       driverCordinate.put("Longitude", 73.936542900);
             //make status online
             jsonObj.put("Location", driverCordinate);
             jsonObj.put("PickupRequestID", pickupID);

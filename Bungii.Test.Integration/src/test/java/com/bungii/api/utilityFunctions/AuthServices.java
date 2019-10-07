@@ -28,9 +28,8 @@ public class AuthServices {
             String loginURL = UrlBuilder.createApiUrl("auth", CUST_LOGIN_ENDPOINT);
             Response response = ApiHelper.postDetailsForCustomer(loginURL, data);
             return response;
-
-
     }
+    //get customer access token
     public String getCustomerToken(String custPhoneCode, String custPhoneNum, String custPassword){
         Response response=customerLogin( custPhoneCode, custPhoneNum, custPassword);
         ApiHelper.genericResponseValidation(response);
@@ -38,7 +37,7 @@ public class AuthServices {
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("AccessToken");
     }
-
+    //Driver login
     public Response driverLogin(String driverPhoneCode, String driverPhoneNum, String driverPassword) {
             Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", driverPhoneCode);
@@ -48,7 +47,7 @@ public class AuthServices {
             Response response= ApiHelper.postDetailsForDriver(loginURL, data);
             return response;
     }
-
+    //Get driver access token
     public String getDriverToken(String driverPhoneCode, String driverPhoneNum, String driverPassword){
         Response response=driverLogin( driverPhoneCode, driverPhoneNum, driverPassword);
         ApiHelper.genericResponseValidation(response);

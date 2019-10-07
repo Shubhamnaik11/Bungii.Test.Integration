@@ -11,7 +11,6 @@ public class CustomerServices {
 
 
     public Response customerProfile(String authToken) {
-
         String loginURL = null;
         loginURL = UrlBuilder.createApiUrl("customer", customer_PROFILE);
         Header header = new Header("AuthorizationToken", authToken);

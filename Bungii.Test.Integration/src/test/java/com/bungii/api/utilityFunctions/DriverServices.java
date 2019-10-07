@@ -11,14 +11,15 @@ public class DriverServices {
 
 
     public Response driverProfile(String authToken) {
-            String loginURL = null;
-            loginURL = UrlBuilder.createApiUrl("driver", DRIVER_PROFILE);
-            Header header = new Header("AuthorizationToken", authToken);
-            Response response = ApiHelper.getRequestForDriver(loginURL, header);
-            return response;
+        String loginURL = null;
+        loginURL = UrlBuilder.createApiUrl("driver", DRIVER_PROFILE);
+        Header header = new Header("AuthorizationToken", authToken);
+        Response response = ApiHelper.getRequestForDriver(loginURL, header);
+        return response;
     }
-    public String getDriverRef(String authToken){
-        Response response=driverProfile( authToken);
+
+    public String getDriverRef(String authToken) {
+        Response response = driverProfile(authToken);
         ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator = response.jsonPath();
         return jsonPathEvaluator.get("DriverProfile.DriverRef");
