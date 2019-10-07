@@ -86,4 +86,10 @@ public class DbUtility extends DbContextManager {
         logger.detail("Rating is" + rating + ", query, " + queryString);
         return rating;
     }
+
+    public static void isDriverEligibleForTrip(String phoneNumber,String pickupRequest){
+        String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2="select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='"+pickupRequest+"' )";
+    }
 }

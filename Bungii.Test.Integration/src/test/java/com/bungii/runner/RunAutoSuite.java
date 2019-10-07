@@ -19,7 +19,7 @@ import java.util.Properties;
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.android.stepdefinitions", "com.bungii.hooks"}
+        glue = {"com.bungii.ios.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
