@@ -15,9 +15,7 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -54,10 +52,10 @@ public class CoreServices extends DriverBase {
         JSONObject pickupCordinates = new JSONObject();
 
         if (geoFence.equalsIgnoreCase("goa")) {
-            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
-            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
-            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.latitude")));
-            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
         }
 
         jsonObj.put("DropoffLocation", dropOffCordinate);
@@ -86,11 +84,11 @@ public class CoreServices extends DriverBase {
     public boolean isPickupIsListedInAvailableTrip(String authToken, String expectedPickupRequest) {
         boolean isPickupInAvailableTrip = false;
         JsonPath jsonPathEvaluator = availablePickupList(authToken).jsonPath();
-        JSONArray availableArray = jsonPathEvaluator.get("AvailablePickups");
+        ArrayList availableArray = jsonPathEvaluator.get("AvailablePickups");
         if (availableArray != null) {
-            for (int i = 0; i < availableArray.length(); i++) {
-                JSONObject pickupDetails = availableArray.getJSONObject(i);
-                String pickupRequest = pickupDetails.getString("PickupRef");
+            for (int i = 0; i < availableArray.size(); i++) {
+                HashMap pickupDetails = (HashMap) availableArray.get(i);
+                String pickupRequest = (String) pickupDetails.get("PickupRef");
                 if (pickupRequest.equalsIgnoreCase(expectedPickupRequest)) {
                     isPickupInAvailableTrip = true;
                     break;
@@ -333,11 +331,13 @@ public class CoreServices extends DriverBase {
         }
     }
 
-    public Response updateDriverLocation(String authToken) {
-
+    public Response updateDriverLocation(String authToken,String geofence) {
+        Float[] driverLocations= getDriverLocation(geofence);
         JSONObject jsonObj = new JSONObject();
-        jsonObj.put("Latitude", 15.367737300);
-        jsonObj.put("Longitude", 73.936542900);
+  //      jsonObj.put("Latitude", 15.367737300);
+ //       jsonObj.put("Longitude", 73.936542900);
+        jsonObj.put("Latitude", driverLocations[0]);
+        jsonObj.put("Longitude", driverLocations[1]);
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;
@@ -347,7 +347,24 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
+    public Float[] getDriverLocation(String geofence){
+        Float maxChange =0.003f;
+        Float minChange =-0.003f;
+        Float pickupLat = 0f,pickupLong=0f;
+        // Add random float to  driver location
+        Random rand = new Random();
 
+        if (geofence.equalsIgnoreCase("goa")) {
+            pickupLat= Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude"));
+            pickupLong= Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude"));
+        }
+        Float[] driverCordinate= new Float[2];
+
+        driverCordinate[0] = pickupLat+ rand.nextFloat() * (maxChange - minChange) + minChange;
+
+        driverCordinate[1] = pickupLong+ rand.nextFloat() * (maxChange - minChange) + minChange;
+        return driverCordinate;
+    }
     public Response updateDriverStatus(String authToken) {
 
         JSONObject jsonObj = new JSONObject();
@@ -363,6 +380,7 @@ public class CoreServices extends DriverBase {
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
         return response;
     }
+
 
     public void updateStatus(String pickupID, String authToken, int statusID) {
         try {
@@ -395,14 +413,19 @@ public class CoreServices extends DriverBase {
 
     }
 
-    public void pickupdetails(String pickupID, String authToken) {
+
+
+    public void pickupdetails(String pickupID, String authToken,String geofence) {
         try {
 
             JSONObject jsonObj = new JSONObject();
             JSONObject driverCordinate = new JSONObject();
+            Float[] driverLocations= getDriverLocation(geofence);
 
-            driverCordinate.put("Latitude", 15.36773730);
-            driverCordinate.put("Longitude", 73.936542900);
+            driverCordinate.put("Latitude", driverLocations[0]);
+            driverCordinate.put("Longitude", driverLocations[1]);
+    //        driverCordinate.put("Latitude", 15.36773730);
+     //       driverCordinate.put("Longitude", 73.936542900);
             //make status online
             jsonObj.put("Location", driverCordinate);
             jsonObj.put("PickupRequestID", pickupID);

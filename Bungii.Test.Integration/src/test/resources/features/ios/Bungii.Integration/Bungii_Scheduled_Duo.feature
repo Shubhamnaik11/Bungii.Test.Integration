@@ -123,7 +123,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "Home" screen
 
 
-
+  @TESTAPI
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
 

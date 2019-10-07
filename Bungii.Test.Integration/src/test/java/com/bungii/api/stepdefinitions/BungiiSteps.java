@@ -32,7 +32,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.driverView("", driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,"goa");
         coreServices.updateDriverStatus(driverAccessToken);
 
         //request Bungii
@@ -43,7 +43,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
 
 
-        coreServices.pickupdetails(pickupRequest, driverAccessToken);
+        coreServices.pickupdetails(pickupRequest, driverAccessToken,"goa");
         coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
         coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
         coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
@@ -69,7 +69,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.driverView("", driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,"goa");
         coreServices.updateDriverStatus(driverAccessToken);
 
         //request Bungii
@@ -127,9 +127,9 @@ public class BungiiSteps extends DriverBase {
         //   coreServices.driverView("",driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,"goa");
         coreServices.updateDriverStatus(driverAccessToken);
-        coreServices.updateDriverLocation(driver2AccessToken);
+        coreServices.updateDriverLocation(driver2AccessToken,"goa");
         coreServices.updateDriverStatus(driver2AccessToken);
         try {
             Thread.sleep(5000);
@@ -197,7 +197,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.driverView("", driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,"goa");
         coreServices.updateDriverStatus(driverAccessToken);
 
         //request Bungii
@@ -224,7 +224,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.driverView("", driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,"goa");
         coreServices.updateDriverStatus(driverAccessToken);
 
         //request Bungii
@@ -295,9 +295,9 @@ public class BungiiSteps extends DriverBase {
         //   coreServices.driverView("",driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,geofence);
         coreServices.updateDriverStatus(driverAccessToken);
-        coreServices.updateDriverLocation(driver2AccessToken);
+        coreServices.updateDriverLocation(driver2AccessToken,geofence);
         coreServices.updateDriverStatus(driver2AccessToken);
         try {
             Thread.sleep(5000);
@@ -315,6 +315,8 @@ public class BungiiSteps extends DriverBase {
         String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
         coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
         int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+        coreServices.waitForAvailableTrips(driverAccessToken,pickupRequest);
+        coreServices.waitForAvailableTrips(driver2AccessToken,pickupRequest);
 
 
         if (state.equalsIgnoreCase("Accepted")) {
@@ -412,13 +414,12 @@ public class BungiiSteps extends DriverBase {
         String driverRef = driverServices.getDriverRef(driverAccessToken);
         String custRef = customerServices.getCustomerRef(custAccessToken);
 
-        coreServices.waitForAvailableTrips(driverAccessToken, "559ca617-e25f-f409-ec79-2ba0490c8f55");
         //CUSTOMER& DRIVER VIEW
         coreServices.customerView("", custAccessToken);
         coreServices.driverView("", driverAccessToken);
 
         //update location and driver status
-        coreServices.updateDriverLocation(driverAccessToken);
+        coreServices.updateDriverLocation(driverAccessToken,geofence);
         coreServices.updateDriverStatus(driverAccessToken);
 
         //request Bungii
@@ -500,7 +501,7 @@ public class BungiiSteps extends DriverBase {
 
 
             //update location and driver status
-            coreServices.updateDriverLocation(driverAccessToken);
+            coreServices.updateDriverLocation(driverAccessToken,geofence);
             coreServices.updateDriverStatus(driverAccessToken);
 
             //request Bungii
