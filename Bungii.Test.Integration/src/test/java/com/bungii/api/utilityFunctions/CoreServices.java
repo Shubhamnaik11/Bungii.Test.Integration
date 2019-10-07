@@ -238,7 +238,7 @@ public class CoreServices extends DriverBase {
         String apiURL = null;
 
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CONFIRMATION);
-        Response response = ApiHelper.uploadImageForScheduledTrip(apiURL, jsonObj, header);
+        Response response = ApiHelper.uploadImage(apiURL, jsonObj, header);
         ApiHelper.genericResponseValidation(response);
         return response;
     }

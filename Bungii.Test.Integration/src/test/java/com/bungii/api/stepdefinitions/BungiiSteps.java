@@ -251,7 +251,11 @@ public class BungiiSteps extends DriverBase {
             coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
             int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 
-
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);

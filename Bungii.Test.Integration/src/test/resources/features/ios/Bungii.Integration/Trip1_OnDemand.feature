@@ -5,7 +5,7 @@ Feature: Create on demand bungii
   Background:
 
 
- # @POSTDUO
+  @POSTDUO
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress

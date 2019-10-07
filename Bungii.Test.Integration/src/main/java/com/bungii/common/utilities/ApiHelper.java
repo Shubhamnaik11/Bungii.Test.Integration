@@ -225,12 +225,13 @@ public class ApiHelper {
         }
     }
 
-    public static Response uploadImage(String Path, JSONObject data, Header authToken) {
+    public static Response uploadImageOndemand(String Path, JSONObject data, Header authToken) {
+        String pickupImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("PICKUP_ITEM_IMAGE"));
 
         Response response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                 .contentType("multipart/form-data")
-                //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                .multiPart("ItemImage1", new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
+
+                .multiPart("ItemImage1", new File(pickupImage))
                 .multiPart("Content-Type", "image/jpeg")
                 .multiPart("filename", "ItemImage1")
                 .multiPart("WalletRef", data.get("WalletRef"))
@@ -250,14 +251,15 @@ public class ApiHelper {
         return gson;
     }
 
-    public static Response uploadImageForScheduledTrip(String Path, JSONObject data, Header authToken) {
+    public static Response uploadImage(String Path, JSONObject data, Header authToken) {
         Response response;
+        String pickupImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("PICKUP_ITEM_IMAGE"));
 
         if ((Boolean) data.get("IsScheduledPickup")) {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
                     //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
+                    .multiPart("ItemImage1", new File(pickupImage))
                     .multiPart("Content-Type", "image/jpeg")
                     .multiPart("filename", "ItemImage1")
                     .multiPart("WalletRef", data.get("WalletRef"))
@@ -272,7 +274,7 @@ public class ApiHelper {
             response = givenCustConfig().header(authToken).param("WalletRef", data.get("WalletRef")).param("EstLoadUnloadTimeInMilliseconds", data.get("EstLoadUnloadTimeInMilliseconds")).param("PickupRequestID", data.get("PickupRequestID")).param("Description", data.get("Description")).param("PaymentMethodID", data.get("PaymentMethodID")).param("IsScheduledPickup", data.get("IsScheduledPickup"))
                     .contentType("multipart/form-data")
                     //.multiPart(new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
-                    .multiPart("ItemImage1", new File("C:\\Users\\vishal.bagi\\Pictures\\ItemImage2.jpg"))
+                    .multiPart("ItemImage1", new File(pickupImage))
                     .multiPart("Content-Type", "image/jpeg")
                     .multiPart("filename", "ItemImage1")
                     .multiPart("WalletRef", data.get("WalletRef"))
