@@ -9,7 +9,7 @@ public class MenuPage extends PageBase {
 
     public WebElement CustMenu_Email () { return findElement("com.bungii.customer:id/header_textview_email", LocatorType.Id); }
 
-    //---------Customer Menu-------------------------------------------------------------------------
+    //---------Driver Menu-------------------------------------------------------------------------
     public WebElement Menu_Home () { return findElement("//android.widget.CheckedTextView[@text='HOME']", LocatorType.XPath); }
 
     public WebElement Menu_FAQ () { return findElement("//android.widget.CheckedTextView[@text='FAQ']", LocatorType.XPath); }

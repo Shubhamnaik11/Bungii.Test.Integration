@@ -6,6 +6,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.customer.BungiiProgressPage;
 import com.bungii.android.pages.customer.SearchingPage;
+import com.bungii.android.pages.customer.SignupPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -40,6 +41,7 @@ public class BungiiSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
+    SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -66,38 +68,39 @@ public class BungiiSteps extends DriverBase {
                     Thread.sleep(1000);
                     break;
                 case "Enroute screen":
-                    testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.EN_ROUTE.toString(), "I should be navigate to En route Screen", "I am navigate to En route Screen", "I was not navigate to En route Screen");
-                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should be high lighted ", "En route icon is high lighted", "En route icon is not high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be high lighted ", "Arrived icon is not high lighted", "Arrived icon is  high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
+                    testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.EN_ROUTE.toString(), "I should be navigate to En route Screen", "I am navigate to En route Screen", "I was not navigate to En route Screen");
+                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should be high lighted ", "En route icon is high lighted", "En route icon is not high lighted");
+
                     break;
                 case "Arrived screen":
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
-                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
                     testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.ARRIVED.toString(), "I should be navigate to ARRIVED Screen", "I am navigate to ARRIVED Screen", "I was not navigate to ARRIVED Screen");
+                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
                     break;
 
                 case "Loading Item screen":
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be high lighted ", "Arrived icon is not high lighted", "Arrived icon is high lighted");
-                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should be high lighted ", " Loading icon is high lighted", "Loading icon is not high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
                     testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.LOADING_ITEM.toString(), "I should be navigate to LOADING ITEM Screen", "I am navigate to LOADING ITEM Screen", "I was not navigate to LOADING ITEM Screen");
+                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should be high lighted ", " Loading icon is high lighted", "Loading icon is not high lighted");
                     break;
 
                 case "Driving to DropOff screen":
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be high lighted ", "Arrived icon is not high lighted", "Arrived icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
-                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should be high lighted ", " Driving to Drop Off icon is high lighted", " Driving to Drop Off icon is not high lighted");
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
                     testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.DRIVING_TO_DROP_OFF.toString(), "I should be navigate to DRIVING TO DROP OFF Screen", "I am navigate to DRIVING TO DROP OFF Screen", "I was not navigate to LOADING ITEM Screen");
+                    testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should be high lighted ", " Driving to Drop Off icon is high lighted", " Driving to Drop Off icon is not high lighted");
                     break;
                 case "Unloading Item screen":
                     testStepVerify.isElementNotSelected(Page_CustomerBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
@@ -153,7 +156,7 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
-                case "Online/Offline button":
+                case "Online/Offline button":Thread.sleep(1000);
                     action.click(Page_DriverHome.Button_OnlineOffline());
                     break;
 
@@ -193,7 +196,7 @@ public class BungiiSteps extends DriverBase {
     public void bungiiDriverRequest(String arg0) {
         try {
             if (arg0.equalsIgnoreCase("accepts On Demand Bungii")||arg0.equalsIgnoreCase("rejects On Demand Bungii")) {
-                boolean isDisplayed = action.waitUntilAlertDisplayed(60L);
+                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("on demand trip");
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
@@ -202,10 +205,12 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
+                            Thread.sleep(2000);
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
 
                         case "rejects On Demand Bungii":
+                            Thread.sleep(2000);
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
                     }
@@ -218,7 +223,8 @@ public class BungiiSteps extends DriverBase {
                         utility.acceptNotificationAlert();
                         skipClick = true;
                     } else {
-                        action.click(Page_BungiiRequest.Button_Reject());
+                      //  action.click(Page_BungiiRequest.Button_Reject());
+                        action.click(Page_BungiiRequest.AlertButton_Cancel());
                     }
 
                 }
@@ -230,6 +236,7 @@ public class BungiiSteps extends DriverBase {
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Pagesource", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
@@ -238,7 +245,9 @@ public class BungiiSteps extends DriverBase {
     @Then("^I click on notification for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something(String strArg1) {
         try {
+         //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
             action.showNotifications();
+            log("Checking notifications","Checking notifications",true);
             String expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
@@ -248,7 +257,6 @@ public class BungiiSteps extends DriverBase {
             //if no notificatiaon then hide
             if (!isFound)
                 action.hideNotifications();
-
 
             testStepVerify.isTrue(isFound, "I should able to on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
         } catch (Exception e) {
@@ -260,6 +268,7 @@ public class BungiiSteps extends DriverBase {
     @When("^I tap \"([^\"]*)\" during a Bungii$")
     public void iTapDuringABungii(String arg0) throws Throwable {
         try {
+            Thread.sleep(3000);
 
             switch (arg0) {
                 case "OK on Driver Accepted screen":
@@ -372,6 +381,7 @@ public class BungiiSteps extends DriverBase {
     @Then("^correct details should be displayed on \"([^\"]*)\" app$")
     public void correctDetailsShouldBeDisplayedOnApp(String arg0) throws Throwable {
         try {
+            Thread.sleep(3000);
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             String expectedDuoNumber;
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
@@ -432,6 +442,8 @@ public class BungiiSteps extends DriverBase {
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
         try {
+            //TEMPCHECK
+            Thread.sleep(1000);
             boolean isDuo=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase( "DUO");
             if(!isDuo){
             switch (arg0) {
@@ -537,6 +549,9 @@ public class BungiiSteps extends DriverBase {
     @Then("^correct details should be displayed to driver on \"([^\"]*)\" app$")
     public void correctDetailsShouldBeDisplayedToDriverOnApp(String arg0) throws Throwable {
         try {
+            //TEMPCHECK
+            Thread.sleep(1000);
+
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             String expectedDuoNumber="";
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
@@ -635,7 +650,11 @@ public class BungiiSteps extends DriverBase {
 
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
-                    if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
+                    String currentPage = action.getText(Page_Signup.GenericHeader(true));
+                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")){
+                        //do nothing
+                    }
+                    else if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
                         Thread.sleep(5000);
                         action.click(Page_BungiiComplete.Button_OnToTheNext());
                     }

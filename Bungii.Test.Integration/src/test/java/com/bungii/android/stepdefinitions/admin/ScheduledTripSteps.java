@@ -6,7 +6,8 @@ package com.bungii.android.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.android.manager.ActionManager;
+import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.web.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Then;
@@ -26,6 +27,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class ScheduledTripSteps extends DriverBase {
 	private ScheduledTripsPage scheduledTripsPage;
 	ActionManager action = new ActionManager();
+	GeneralUtility utility = new GeneralUtility();
 	private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps.class);
 
 	public ScheduledTripSteps(ScheduledTripsPage scheduledTripsPage) {
@@ -41,11 +43,12 @@ public class ScheduledTripSteps extends DriverBase {
 			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
-
+			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
 			//On admin panel CST time use to show
 		//	getPortalTime("Dec 21, 11:15 AM IST");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
-			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime));
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
@@ -160,8 +163,10 @@ public class ScheduledTripSteps extends DriverBase {
 	public int getTripRowNumber(Map<String,String> tripDetails){
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
-		//Temp fix 25022019 : IST is added
-		scheduledDate=scheduledDate+" IST";
+		String label=utility.getTimeZoneBasedOnGeofence();
+
+		scheduledDate=scheduledDate+" "+label;
+		scheduledDate=scheduledDate.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST");
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
@@ -170,7 +175,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String rowEstimatedDistance= SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber= SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]")).getText();
 
-			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
+			if(rowCustName.equalsIgnoreCase(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
 				rowNumber=Integer.parseInt(rowSrNumber);
 			}
 

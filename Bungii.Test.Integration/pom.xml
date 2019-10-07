@@ -84,12 +84,12 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
         </dependency>
-<!--        <dependency>
-            <groupId>com.github.appium</groupId>
-            <artifactId>java-client</artifactId>
-            &lt;!&ndash; <version>master-SNAPSHOT</version>  &ndash;&gt;
-              <version>${appium.java.client}</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>com.github.appium</groupId>
+                    <artifactId>java-client</artifactId>
+                    &lt;!&ndash; <version>master-SNAPSHOT</version>  &ndash;&gt;
+                      <version>${appium.java.client}</version>
+                </dependency>-->
         <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
         <dependency>
             <groupId>io.appium</groupId>
@@ -151,7 +151,7 @@
     <build>
         <plugins>
 
-         <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>

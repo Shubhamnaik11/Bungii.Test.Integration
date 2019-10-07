@@ -197,7 +197,7 @@ public class PropertyUtility {
         data = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(DATA_PROPERTY_FILE)) {
             data.load(inputStream);
-       //     data.list(System.out);
+            //     data.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }

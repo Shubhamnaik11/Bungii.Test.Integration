@@ -132,7 +132,7 @@ public class InviteSteps extends DriverBase {
                     action.hideKeyboard();
                     testStepVerify.isElementTextEquals(invitePage.Gmail_Referral_Subject(), PropertyUtility.getMessage("customer.invite.mailsub"));
                     expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", referralCode);
-                    testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see propert invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     break;
 
                 case "on Twitter in browser":
@@ -140,7 +140,12 @@ public class InviteSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.invite.twitter.on.browser").replace("{0}", referralCode);
                     if(action.isElementPresent(invitePage.Twitter_Referral_Body(true)))
                     testStepVerify.contains(action.getText(invitePage.Twitter_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
-                    else
+                    else if(action.isElementPresent(invitePage.Twitter_SignUP(true))) {
+                        action.sendKeys(invitePage.Twitter_PhoneNumber(), "cc.claracooper@gmail.com");
+                        action.sendKeys(invitePage.Twitter_Password(), "google2020");action.click(invitePage.Twitter_Login());Thread.sleep(5000);
+                        testStepVerify.contains(action.getText(invitePage.Twitter_Referral_BodyChrome()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    }
+                        else
                     testStepVerify.contains(action.getText(invitePage.Twitter_Referral_BodyChrome()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
 
                     break;
