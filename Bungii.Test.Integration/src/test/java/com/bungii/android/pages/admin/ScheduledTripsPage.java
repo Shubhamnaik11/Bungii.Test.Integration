@@ -43,6 +43,8 @@ public class ScheduledTripsPage extends PageBase {
     public void waitForLoadingToDisappear(){
         waitForLoadingToDisappear();
     }
+    public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
 
+    public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
    // wait
 }

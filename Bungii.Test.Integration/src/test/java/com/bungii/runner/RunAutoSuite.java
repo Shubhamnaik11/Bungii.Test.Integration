@@ -15,11 +15,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 //
-@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @TEST22", plugin = {
+@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.ios.stepdefinitions", "com.bungii.hooks"}
         glue = {"com.bungii.ios.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {

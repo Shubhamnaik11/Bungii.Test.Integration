@@ -11,6 +11,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -32,6 +33,7 @@ public class BungiiInProgressSteps extends DriverBase {
                 isCustomerNameCorrect=action.getText(bungiiProgressPage.Text_DuoCustomer_Name()).equals(expectedCustName);
                 String driver1Name=(String) cucumberContextManager.getScenarioContext("DRIVER_1"),driver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
                 boolean isDriverNameCorrect=action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver1Name.substring(0,driver1Name.indexOf(" ")+2))||action.getText(bungiiProgressPage.Text_DuoDriver_Name()).equals(driver2Name.substring(0,driver2Name.indexOf(" ")+2));
+                logger.detail("driver1Name"+driver1Name.substring(0,driver1Name.indexOf(" ")+2) +"|||Driver 2"+driver2Name.substring(0,driver2Name.indexOf(" ")+2));
                 testStepVerify.isTrue(isDriverNameCorrect,
                         "Driver name should correctly display",
                         "Driver name was correctly display",
@@ -113,8 +115,11 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("INside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isDropLocationDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
-                .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+        String actualDroplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+
+        String dropOffLocationLineOne=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        boolean isDropDisplayed =actualDroplocation.contains(dropOffLocationLineOne) &&actualDroplocation.contains(dropOffLocationLineTwo) ;
 
 
             testStepVerify.isEquals(actualInfo.get(0), "DROP OFF LOCATION",
@@ -122,14 +127,16 @@ public class BungiiInProgressSteps extends DriverBase {
                     "'DROP OFF LOCATION' Tag is correctly displayed",
                     "'PDROP OFF LOCATION' Tag was not correctly displayed");
 
-            testStepVerify.isTrue(isDropLocationDisplayed,
+            testStepVerify.isTrue(isDropDisplayed,
 
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is " + actualInfo.get(1) + "and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is " + actualInfo.get(1) + " and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "Pick up location was correctly displayed , actual was is " + actualInfo.get(1) + "and expected is " + dropOffLocationLineOne+dropOffLocationLineTwo
+                    ,
+                    "Pick up location was not displayed correctly, actual was is " + actualInfo.get(1) + " and expected is" +dropOffLocationLineOne+dropOffLocationLineTwo
+            );
 
 
-        return isTagDisplayed && isDropLocationDisplayed;
+        return isTagDisplayed && isDropDisplayed;
     }
 
     private boolean validateEnRouteInfo(List<String> actualInfo) {
@@ -137,17 +144,22 @@ public class BungiiInProgressSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
         boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
-        boolean isPickUpDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
-                .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
-            testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");
+        String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
+        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();
+        boolean isPickUpDisplayed = actualPickuplocation
+                .contains(pickUpLocationLineOne) &&actualPickuplocation.contains(pickUpLocationLineTwo);
+
+        String actualDroplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        testStepVerify.isTrue(isTagDisplayed, "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed", "'PICKUP LOCATION' Tag was not correctly displayed");
             testStepVerify.isTrue(isETACorrect,
                     "ETA should be correctly displayed",
                     "'ETA' Tag and minutes was correctly displayed , Actual ETA is " + actualInfo.get(2),
                     "'ETA' Tag and minutes was not displayed  correctly, Actual ETA is " + actualInfo.get(2));
             testStepVerify.isTrue(isPickUpDisplayed,
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + pickUpLocationLineOne+pickUpLocationLineTwo,
+                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + " and expected is " +pickUpLocationLineOne+pickUpLocationLineTwo);
 
         return isTagDisplayed && isETACorrect && isPickUpDisplayed;
     }
@@ -157,7 +169,11 @@ public class BungiiInProgressSteps extends DriverBase {
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
         boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
-        boolean isDropDisplayed = actualInfo.get(1).replace(",","").replace("  "," ").contains(((String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+        String actualDropoffLocation=actualInfo.get(1).replace(",","").replace("  "," ");
+
+        String dropOffLocationLineOne=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
+        boolean isDropDisplayed =actualDropoffLocation.contains(dropOffLocationLineOne) &&actualDropoffLocation.contains(dropOffLocationLineTwo) ;
 
 
             testStepVerify.isTrue(isTagDisplayed,
@@ -172,8 +188,10 @@ public class BungiiInProgressSteps extends DriverBase {
 
             testStepVerify.isTrue(isDropDisplayed,
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + dropOffLocationLineOne+dropOffLocationLineTwo
+                    ,
+                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + dropOffLocationLineOne+dropOffLocationLineTwo
+            );
 
         return isTagDisplayed && isETAdisplayed && isDropDisplayed;
     }
@@ -182,23 +200,27 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("inside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isPickupDisplayed = actualInfo.get(1).replace(",","").replace("  "," ")
-                .contains(((String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").trim());
+        String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
+        String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
+        String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();
+        boolean isPickUpDisplayed = actualPickuplocation
+                .contains(pickUpLocationLineOne) &&actualPickuplocation.contains(pickUpLocationLineTwo);
 
+        String actualDroplocation=actualInfo.get(1).replace(",","").replace("  "," ");
             testStepVerify.isTrue(isTagDisplayed,
                     "'PICKUP LOCATION' Tag should correctly displayed", "'PICKUP LOCATION' Tag is correctly displayed",
                     "'PICKUP LOCATION' Tag was not correctly displayed");
 
-            testStepVerify.isTrue(isPickupDisplayed,
+            testStepVerify.isTrue(isPickUpDisplayed,
                     "Pick up location should be correctly displayed ",
-                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"),
-                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
+                    "Pick up location was correctly displayed , actual was is" + actualInfo.get(1) + " and expected is " + pickUpLocationLineOne+pickUpLocationLineTwo,
+                    "Pick up location was not displayed correctly, actual was is" + actualInfo.get(1) + "and expected is" + pickUpLocationLineOne+pickUpLocationLineTwo);
 
-        return isTagDisplayed && isPickupDisplayed;
+        return isTagDisplayed && isPickUpDisplayed;
     }
 
     /**
-     * Get Customer Name
+     * Get Driver Name
      *
      * @return value of customer name
      */

@@ -33,8 +33,8 @@ public class AccountSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER", details[0]);
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", phone);
 
-            logger.detail("I get customer account details , Customer name is " + details[0] + " and Phone Number is " + details[1]);
-            log("I get customer account details", "Customer name is " + details[0] + " and Phone Number is " + details[1],
+            logger.detail("I get customer account details , Driver name is " + details[0] + " and Phone Number is " + details[1]);
+            log("I get customer account details", "Driver name is " + details[0] + " and Phone Number is " + details[1],
                     true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -47,11 +47,12 @@ public class AccountSteps extends DriverBase {
         try {
             ActionManager.waitUntilIsElementExistsAndDisplayed(accountPage.Account_Phone());
             String actualName = action.getText(accountPage.Account_Name());
-            String expectedName = PropertyUtility.getDataProperties("customer.first.valid.name") + " " + PropertyUtility.getDataProperties("customer.last.valid.name");
+         //   String expectedName = PropertyUtility.getDataProperties("customer.first.valid.name") + " " + PropertyUtility.getDataProperties("customer.last.valid.name");
+            String expectedName = PropertyUtility.getDataProperties("customer_generic.name");
             String actualPhone = action.getText(accountPage.Account_Phone()).replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
          //   String expectedPhoneNumber = PropertyUtility.getDataProperties("valid.customer.phone");
             String expectedPhoneNumber = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-            testStepVerify.isEquals(actualName, expectedName, "Customer name on account page should be " + expectedName, "Customer name on account page is" + actualName, "Customer name on account page is " + actualName + " , but expected is" + expectedName);
+            testStepVerify.isEquals(actualName, expectedName, "Driver name on account page should be " + expectedName, "Driver name on account page is" + actualName, "Driver name on account page is " + actualName + " , but expected is" + expectedName);
             testStepVerify.isEquals(actualPhone, expectedPhoneNumber);
             testStepVerify.isEquals(action.getText(accountPage.Account_Email()), PropertyUtility.getDataProperties("customer.valid.email"));
         } catch (Exception e) {

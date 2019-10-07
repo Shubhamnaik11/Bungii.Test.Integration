@@ -9,6 +9,7 @@ public class HomePage extends PageBase {
 
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }
+    public WebElement Button_NavigationBarCompleter (boolean ...ignoreException) { return findElement("android.view.View", LocatorType.ClassName,ignoreException); }
 
     //------Title-----------------------------------------------------------------------------------------
     public WebElement Title_HomePage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/toolbar_main_title",LocatorType.Id,ignoreException); }
@@ -33,7 +34,7 @@ public class HomePage extends PageBase {
 
     public WebElement MapPanningArea () { return findElement("android.widget.FrameLayout",LocatorType.ClassName); }
 
-    public WebElement Button_ETASet () { return findElement("com.bungii.customer:id/eta_bar_button_set",LocatorType.Id); }
+    public WebElement Button_ETASet (boolean ... ignoreException) { return findElement("com.bungii.customer:id/eta_bar_button_set",LocatorType.Id,ignoreException); }
     public WebElement Text_ETAHeader(){return findElement("com.bungii.customer:id/eta_bar_title",LocatorType.Id);}
     public WebElement Header_HomePage (boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='BUNGII']",LocatorType.XPath,ignoreException); }
 
@@ -43,7 +44,7 @@ public class HomePage extends PageBase {
 
     public WebElement Button_Closetutorials (boolean ...ignoreException) { return findElement("com.bungii.customer:id/tutorials_alert_iv_cancel",LocatorType.Id,ignoreException); }
     public WebElement Text_TutorialPdf(){return findElement("com.bungii.customer:id/pdfView",LocatorType.Id);}
-    //------Bungii Posted Success page---------------------------------------------------------------------
+    //------Estimate and Customer Cancel Posted Success page---------------------------------------------------------------------
     public WebElement Title_Success () { return findElement("//android.view.View[@id='com.bungii.customer:id/action_bar']/android.widget.TextView[@text='Success!']",LocatorType.XPath); }
 
     public WebElement Image_Tick () { return findElement("//android.widget.FrameLayout[@id='android:id/content']/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.ImageView",LocatorType.XPath); }

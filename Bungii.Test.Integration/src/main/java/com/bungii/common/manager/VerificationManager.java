@@ -76,6 +76,7 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
+		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
 
 	}
 	/**
@@ -92,6 +93,7 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
+		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
 	}
 	
 	/**
@@ -108,6 +110,8 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage+"actual value"+actualValue+".expected value"+expectedValue, true);
 		}
+		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+
 	}
 	/**
 	 * @param expectedValue Expected value 
@@ -121,7 +125,7 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedValue+" should be displayed", actualValue+" is displayed instead of"+expectedValue, true);
 		}
-
+		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
 	}
 	/**
 	 * @param expectedValue Expected value
@@ -135,7 +139,7 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedValue+" should be displayed", actualValue+" is displayed instead of"+expectedValue, true);
 		}
-
+		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
 	}
 
 	

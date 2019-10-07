@@ -19,7 +19,7 @@ public class SearchingPage extends PageBase {
 
     public WebElement Text_MsgSearching () { return findElement("com.bungii.customer:id/searching_view_subtitle", LocatorType.Id); }
 
-    public WebElement ProgressBar () { return findElement("com.bungii.customer:id/searching_view_horizontal_progressbar", LocatorType.Id); }
+    public WebElement ProgressBar (boolean...ignoreException) { return findElement("com.bungii.customer:id/searching_view_horizontal_progressbar", LocatorType.Id,ignoreException); }
 
     public WebElement PageTitle_DriverNotAvailable () { return findElement("//android.widget.TextView[@text='DRIVER NOT AVAILABLE']", LocatorType.XPath); }
 }
