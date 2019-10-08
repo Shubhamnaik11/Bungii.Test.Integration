@@ -2,8 +2,6 @@
 
 Feature: On Demand Bungii
 
-  Background:
-
 
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option

@@ -1,5 +1,4 @@
 @android
-@NONBUNGII
 
 Feature: Driver Home screen
 

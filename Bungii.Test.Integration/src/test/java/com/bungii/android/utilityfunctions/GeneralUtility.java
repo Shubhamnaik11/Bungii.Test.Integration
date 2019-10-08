@@ -469,7 +469,7 @@ public class GeneralUtility extends DriverBase {
 
                 break;
             case "LOGIN":
-                action.click(Page_Signup.Link_Login());
+             //   action.click(Page_Signup.Link_Login());
                 skipNormalFlow = true;
 
                 break;

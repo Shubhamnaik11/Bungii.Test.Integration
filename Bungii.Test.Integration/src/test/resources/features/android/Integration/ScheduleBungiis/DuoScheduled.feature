@@ -2,9 +2,6 @@
 @duo
 Feature: Duo
 
-  Background:
-
-
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
@@ -118,7 +115,6 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-  @testapi
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
