@@ -23,7 +23,6 @@ import com.bungii.ios.stepdefinitions.admin.LogInSteps;
 import com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
-import io.cucumber.datatable.DataTable;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Dimension;
@@ -38,7 +37,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +70,8 @@ public class GeneralUtility extends DriverBase {
             {50, 51, 255},
 
     };
+    private TermsAndConditionPage termsAndConditionPage = new TermsAndConditionPage();
+    private TutorialPage tutorialPage = new TutorialPage();
 
     /**
      * @param file File object pointing to screenshot image file
@@ -112,8 +112,8 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public void handleIosUpdateMessage(){
-        if(action.isAlertPresent()) {
+    public void handleIosUpdateMessage() {
+        if (action.isAlertPresent()) {
             String alertMessage = action.getAlertMessage();
             List<String> getListOfAlertButton = action.getListOfAlertButton();
             if (alertMessage.contains("new iOS update")) {
@@ -130,34 +130,34 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Inside recovery scenario for scheduled");
 
             //restart app
-        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-        action.click(customerHomePage.Button_AppMenu());
-        action.click(customerHomePage.AppMenu_ScheduledTrip());
-        List<WebElement> allschBungii=scheduledBungiiPage.List_SchBungii();
-        ArrayList<String> detailsArray = new ArrayList<String>();
-        if(allschBungii.size()>0) {
-            for (int i = 0; i < allschBungii.size(); i++) {
-                detailsArray.add(action.getNameAttribute(allschBungii.get(i)));
-            }
-            SetupManager.getObject().createNewWebdriverInstance("RECOVERY", "chrome");
-            SetupManager.getObject().useDriverInstance("RECOVERY");
-            SetupManager.getDriver().get(GetAdminUrl());
-            new LogInSteps(new LogInPage()).i_log_in_to_admin_portal();
-            new DashBoardSteps(new DashBoardPage()).i_select_something_from_admin_sidebar("scheduled trip");
-            Map<String, String> tripDetails = new HashMap<String, String>();
-            tripDetails.put("CUSTOMER", (String) cucumberContextManager.getScenarioContext("CUSTOMER"));
-            String bungiiTime = "";
-            for (int i = 0; i < detailsArray.size(); i++) {
-                bungiiTime = detailsArray.get(i);
-                logger.detail("bungiiTime" + bungiiTime);
-                tripDetails.put("SCHEDULED_DATE", new ScheduledTripSteps(new ScheduledTripsPage()).getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
-                tripDetails.put("BUNGII_DISTANCE", "");
-                new ScheduledTripSteps(new ScheduledTripsPage()).cancelBungii(tripDetails, "5", "RECOVERY");
+            ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+            ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+            action.click(customerHomePage.Button_AppMenu());
+            action.click(customerHomePage.AppMenu_ScheduledTrip());
+            List<WebElement> allschBungii = scheduledBungiiPage.List_SchBungii();
+            ArrayList<String> detailsArray = new ArrayList<String>();
+            if (allschBungii.size() > 0) {
+                for (int i = 0; i < allschBungii.size(); i++) {
+                    detailsArray.add(action.getNameAttribute(allschBungii.get(i)));
+                }
+                SetupManager.getObject().createNewWebdriverInstance("RECOVERY", "chrome");
+                SetupManager.getObject().useDriverInstance("RECOVERY");
+                SetupManager.getDriver().get(GetAdminUrl());
+                new LogInSteps(new LogInPage()).i_log_in_to_admin_portal();
+                new DashBoardSteps(new DashBoardPage()).i_select_something_from_admin_sidebar("scheduled trip");
+                Map<String, String> tripDetails = new HashMap<String, String>();
+                tripDetails.put("CUSTOMER", (String) cucumberContextManager.getScenarioContext("CUSTOMER"));
+                String bungiiTime = "";
+                for (int i = 0; i < detailsArray.size(); i++) {
+                    bungiiTime = detailsArray.get(i);
+                    logger.detail("bungiiTime" + bungiiTime);
+                    tripDetails.put("SCHEDULED_DATE", new ScheduledTripSteps(new ScheduledTripsPage()).getPortalTime(bungiiTime.replace("CDT", "CST").replace("EDT", "EST").replace("MDT", "MST")));
+                    tripDetails.put("BUNGII_DISTANCE", "");
+                    new ScheduledTripSteps(new ScheduledTripsPage()).cancelBungii(tripDetails, "5", "RECOVERY");
 
+                }
             }
-        }
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
         }
@@ -198,11 +198,10 @@ public class GeneralUtility extends DriverBase {
             } else {
                 if (getListOfAlertButton.contains("Close"))
                     action.clickAlertButton("Close");
-                else if(getListOfAlertButton.contains("Always Allow"))
+
+                else if (getListOfAlertButton.contains("Always Allow"))
                     action.clickAlertButton("Always Allow");
-                else if(getListOfAlertButton.contains("Always Allow"))
-                    action.clickAlertButton("Always Allow");
-                else if(getListOfAlertButton.contains("Allow"))
+                else if (getListOfAlertButton.contains("Allow"))
                     action.clickAlertButton("Allow");
 
             }
@@ -235,27 +234,30 @@ public class GeneralUtility extends DriverBase {
                 updateStatus();
                 updateStatus();
                 updateStatus();
-                if(action.isAlertPresent()){
+                if (action.isAlertPresent()) {
                     if (action.getListOfAlertButton().contains("INITIATE")) {
                         action.clickAlertButton("INITIATE");
-                    }}
+                    }
+                }
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
                 logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
                 updateStatus();
                 updateStatus();
-                if(action.isAlertPresent()){
+                if (action.isAlertPresent()) {
                     if (action.getListOfAlertButton().contains("INITIATE")) {
                         action.clickAlertButton("INITIATE");
-                    }}
+                    }
+                }
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
                 logger.detail("Driver struck on UNLOADING_ITEM screen");
                 updateStatus();
-                if(action.isAlertPresent()){
+                if (action.isAlertPresent()) {
                     if (action.getListOfAlertButton().contains("INITIATE")) {
                         action.clickAlertButton("INITIATE");
-                    }}
+                    }
+                }
                 action.click(driverBungiiCompletedPage.Button_NextTrip());
             } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
                 logger.detail("Driver struck on bungii completed screen");
@@ -283,7 +285,34 @@ public class GeneralUtility extends DriverBase {
         } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))) {
             logger.detail("Customer struck on promotion screen");
             action.click(promotionPage.Button_IdontLikePromo());
+        } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+            navigateFromTermToHomeScreen();
+        } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+            action.click(enableNotificationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+            if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+            }
         }
+    }
+
+    public void navigateFromTermToHomeScreen() {
+        action.click(termsAndConditionPage.Button_CheckOff());
+        action.click(termsAndConditionPage.Button_Continue());
+        if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
+            action.click(enableNotificationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+        }
+
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
+            action.clickAlertButton("Allow");
+        }
+
+        action.click(tutorialPage.Button_Close());
+
+
     }
 
     /**
@@ -606,9 +635,9 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public void grantPermissionToDriverApp(){
-            action.click(enableNotificationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+    public void grantPermissionToDriverApp() {
+        action.click(enableNotificationPage.Button_Sure());
+        action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Always Allow");
@@ -631,7 +660,7 @@ public class GeneralUtility extends DriverBase {
                 action.click(driverLoginPage.Button_Login());
                 Thread.sleep(2500);
                 navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-                if(navigationBarName.equals("NOTIFICATIONS")){
+                if (navigationBarName.equals("NOTIFICATIONS")) {
                     grantPermissionToDriverApp();
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {

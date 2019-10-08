@@ -4,6 +4,7 @@ import com.bungii.api.utilityFunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.Given;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -89,6 +90,17 @@ public class BungiiSteps extends DriverBase {
                 custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                 custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+
+                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+
+                driver2PhoneNum = PropertyUtility.getDataProperties("valid.driver2.phone");
+                driver2Password = PropertyUtility.getDataProperties("valid.driver2.password");
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("valid.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
             }
             //LOGIN
@@ -206,6 +218,7 @@ public class BungiiSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
             String geofence = dataMap.get("geofence").trim();
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
             String state = dataMap.get("Bungii State").trim();
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
 
@@ -225,6 +238,10 @@ public class BungiiSteps extends DriverBase {
                 custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                 custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
 
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
@@ -285,7 +302,7 @@ public class BungiiSteps extends DriverBase {
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0);
             }
-            log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
+            log("that solo schedule bungii is in progress", "that solo schedule bungii is on" + state, false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -319,7 +336,13 @@ public class BungiiSteps extends DriverBase {
                 custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
 
+                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+
             }
+
+
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
@@ -341,7 +364,9 @@ public class BungiiSteps extends DriverBase {
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
             coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
-
+            Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+            if (!isDriverEligibel)
+                error("Diver should be eligible for on demand trip", "Dirver ID is not in eligibleDriver list", false);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);

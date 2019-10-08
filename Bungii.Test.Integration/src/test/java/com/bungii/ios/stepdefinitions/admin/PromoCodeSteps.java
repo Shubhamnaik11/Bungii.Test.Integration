@@ -26,34 +26,62 @@ public class PromoCodeSteps extends DriverBase {
     @Then("^I get promo code for \"([^\"]*)\"$")
     public void iGetPromoCodeFor(String codeType) {
         try {
+            action.click(promosPage.Button_Filter());
             switch (codeType.toLowerCase()) {
                 case "referral":
+                    action.click(promosPage.CheckBox_FilterReferral());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("REFERRAL", getPromoCode(codeType));
                     break;
                 case "valid":
+                    action.click(promosPage.CheckBox_FilterPromo());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("VALID", getPromoCode(codeType));
                     break;
                 case "promo":
+                    action.click(promosPage.CheckBox_FilterPromo());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("PROMO", getPromoCode(codeType));
                     break;
                 case "expired":
+                    action.click(promosPage.CheckBox_FilterPromo());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("EXPIRED", getPromoCode(codeType));
                     break;
                 case "one off":
+                    action.click(promosPage.CheckBox_FilterOneOffByAdmin());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("ONE_OFF", getPromoCode(codeType));
                     break;
                 case "used one off":
+                    action.click(promosPage.CheckBox_FilterOneOffByAdmin());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("USED_ONE_OFF", getPromoCode(codeType));
                     break;
                 case"{valid one off}":
                 case "unused one off":
+                    action.click(promosPage.CheckBox_FilterOneOffByAdmin());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("UNUSED_ONE_OFF", getPromoCode("unused one off"));
                     break;
                 case "{promo fixed}":
                 case "promo fixed":
+                    action.click(promosPage.CheckBox_FilterPromo());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("PROMO_FIXED", getPromoCode("promo fixed"));
                     break;
                 case "{promo percent}":
+                    action.click(promosPage.CheckBox_FilterPromo());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("PROMO_PERCENT", getPromoCode(codeType));
                     break;
                 default:

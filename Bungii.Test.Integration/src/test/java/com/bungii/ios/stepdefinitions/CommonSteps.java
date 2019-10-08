@@ -706,10 +706,12 @@ public class CommonSteps extends DriverBase {
 
             LogInSteps logInSteps = new LogInSteps(loginPage);
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
-            iClickButtonOnScreen("Log In", "Log In");                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            iClickButtonOnScreen("Log In", "Log In");
+            Thread.sleep(2000);
+            NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
-                navigateFromTermToHomeScreen();
+                new GeneralUtility().navigateFromTermToHomeScreen();
             }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -841,6 +843,7 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+/*
     public void navigateFromTermToHomeScreen() {
         action.click(termsAndConditionPage.Button_CheckOff());
         action.click(termsAndConditionPage.Button_Continue());
@@ -858,12 +861,14 @@ public class CommonSteps extends DriverBase {
 
 
     }
+*/
 
     @Given("^I am on Customer logged in Home page$")
     public void iAmOnCustomerLoggedInHomePage() {
         try {
             LogInSteps logInSteps = new LogInSteps(new LoginPage());
             HomeSteps homeSteps = new HomeSteps(homePage);
+            GeneralUtility utility= new GeneralUtility();
             String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
@@ -876,12 +881,12 @@ public class CommonSteps extends DriverBase {
 
 
                 iClickButtonOnScreen("Log In", "Log In");
-
+                Thread.sleep(2000);
                 NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
                 if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
                     //DO Nothing
                 } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
-                    navigateFromTermToHomeScreen();
+                    utility.navigateFromTermToHomeScreen();
                 }
 
                 //homeSteps.user_should_be_successfully_logged_in_to_the_system();
@@ -892,7 +897,7 @@ public class CommonSteps extends DriverBase {
                 iAcceptAlertMessage();
                 //iRejectAlertMessage();
             } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
-                navigateFromTermToHomeScreen();
+                utility.navigateFromTermToHomeScreen();
             } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");

@@ -21,6 +21,7 @@ public class BungiiDetailsSteps extends DriverBase {
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
+            Thread.sleep(5000);
             action.click(bungiiDetailsPage.Button_CancelBungii());
             action.click(bungiiDetailsPage.Button_CancelAccept());
             action.click(bungiiDetailsPage.Button_Yes());

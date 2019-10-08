@@ -611,9 +611,9 @@ public class GeneralUtility extends DriverBase {
             }
             action.sendKeys(driverLoginPage.TextField_Password(), password);
             action.click(driverLoginPage.Button_Login());
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
-            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")){
+            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")){
 
             }else if(currentPage.equals("LOCATION")){
                 action.click(driverLoginPage.Button_Sure());
