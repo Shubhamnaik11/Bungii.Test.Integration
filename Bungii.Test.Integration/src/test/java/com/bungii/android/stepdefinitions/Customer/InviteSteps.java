@@ -35,7 +35,14 @@ public class InviteSteps extends DriverBase {
                     action.click(invitePage.Button_Share());
                     break;
                 case "Share on Facebook":
-                    action.click(invitePage.Share_Facebook());
+                    action.longPress(invitePage.Share_Facebook());
+                    Thread.sleep(30000);
+                    if(!action.isElementPresent(invitePage.FBApp_PostLink(true))){
+
+                        i_tap_something_on_invite_page("Share");
+                        action.click(invitePage.Share_Facebook());
+
+                    }
                     break;
                 case "Share on Twitter":
                     action.click(invitePage.Share_Twitter());
@@ -101,6 +108,7 @@ public class InviteSteps extends DriverBase {
 
             switch (strArg1) {
                 case "Facebook with app installed":
+                    Thread.sleep(60000);
                     testStepAssert.isElementDisplayed(invitePage.FBApp_PostLink(true), "Overlay post button should be be displayed", "Post button is displayed", "Post button is not displayed");
                     action.sendKeys(invitePage.FBApp_StatusText(), PropertyUtility.getDataProperties("support.text"));
                     action.click(invitePage.FBApp_PostLink());
