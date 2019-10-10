@@ -854,7 +854,7 @@ public class GeneralUtility extends DriverBase {
 
      //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
         if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
-            String screen = action.getText(driverBungiiProgressPage.Title_Status());
+            String screen = action.getText(driverHomePage.Generic_HeaderElement());
             logger.detail("Driver struck screen"+screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");
