@@ -8,6 +8,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
+import com.bungii.web.pages.admin.Admin_PromoterPage;
 import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -34,8 +35,9 @@ import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_BusinessUsersSteps extends DriverBase {
     ActionManager action = new ActionManager();
-    private static LogUtility logger = new LogUtility(EstimateSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_BusinessUsersSteps.class);
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
+    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String strArg1, DataTable data) throws Throwable {
@@ -179,31 +181,53 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @And("^I select \"([^\"]*)\" from the \"([^\"]*)\" dropdown$")
     public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
+        String Name = null;
         switch(field) {
             case "Select Business User":
-                String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
+                 Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
             break;
+            case "Select Promoter":
+                 Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
+                action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
+                log("I select element from Select Business User dropdown",
+                        "I have selected element from Select Business User dropdown", true);
+                break;
         }
     }
 
-    @And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String button) throws Throwable {
-        switch (button)
-                {
-                    case "Add Payment Method" :
-                        action.click(admin_BusinessUsersPage.Button_RequestPayment());
+    @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" page$")
+    public void i_click_on_something_button(String button, String page) throws Throwable {
+        switch(page) {
+            case "Business Users Payment":
+            switch (button) {
+                case "Add Payment Method":
+                    action.click(admin_BusinessUsersPage.Button_RequestPayment());
 
-                        break;
-                    case "Upload" :
+                    break;
+            }
+            break;
+            case "Bulk Trips":
+                switch (button) {
+                    case "Upload":
                         action.click(admin_BusinessUsersPage.Button_Upload());
                         break;
-                    case "Confirm" :
+                    case "Confirm":
                         action.click(admin_BusinessUsersPage.Button_Confirm());
                         break;
                 }
+                break;
+            case "Promoter Cards":
+                    switch (button) {
+                        case "Add Payment Method":
+                            action.click(admin_BusinessUsersPage.Button_RequestPayment());
+                            break;
+                    }
+                    break;
+            }
+
         log("I select "+button+" from Business User page",
                 "I have selected "+button+" from Business User page", true);
 
@@ -240,7 +264,24 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void i_click_on_something_button_on_something_screen(String button, String Screen) throws Throwable {
-        action.click(admin_BusinessUsersPage.Button_PaymentSave());
+        switch(Screen)
+        {
+            case "Business User Cards":
+                switch(button) {
+                    case "Save":
+                        action.click(admin_BusinessUsersPage.Button_PaymentSave());
+                        break;
+                }
+                break;
+            case "Promoter Cards":
+                switch(button) {
+                    case "Save":
+                        action.click(admin_PromoterPage.Button_SavePayment());
+                        break;
+                }
+                break;
+
+        }
         log("I click save on Add Payment to Business user page",
                 "I have clicked save on Add Payment to Business user page", true);
     }

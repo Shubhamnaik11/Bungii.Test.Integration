@@ -6,103 +6,158 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_PromoCodesPage;
+import com.bungii.web.pages.admin.Admin_PromoterPage;
 import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.eo.Se;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_ReferralSourceSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+
     ActionManager action = new ActionManager();
-    private static LogUtility logger = new LogUtility(EstimateSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_ReferralSourceSteps.class);
     List<WebElement> GridColumn1, GridColumn2, GridColumn3, GridColumn4, GridColumn5;
     String[] array = new String[0];
     String[] array1 = new String[0];
+    List<List<String>> DefaultGridData =  new ArrayList<>();
+    List<List<String>> Grid = new ArrayList<>();
 
-    @When("^I click on \"([^\"]*)\" header \"([^\"]*)\"$")
-    public void i_click_on_something_header_something(String header, String sortOrder) throws Throwable {
-
-        GridColumn1 = SetupManager.getDriver().findElements(By.xpath("//tr/td[1]"));
-        GridColumn2 = SetupManager.getDriver().findElements(By.xpath("//tr/td[2]"));
-        GridColumn3 = SetupManager.getDriver().findElements(By.xpath("//tr/td[3]"));
-        GridColumn4 = SetupManager.getDriver().findElements(By.xpath("//tr/td[4]"));
-        GridColumn5 = SetupManager.getDriver().findElements(By.xpath("//tr/td[5]"));
-
+    @When("^I click on \"([^\"]*)\" header \"([^\"]*)\" on \"([^\"]*)\" grid$")
+    public void i_click_on_something_header_something(String header, String sortOrder , String grid) throws Throwable {
+        int pageno = 2;
         String sort = null;
-        switch (header) {
-            case "Source":
-                sort = admin_ReferralSourcePage.Header_Source().getAttribute("class");
-                if (sortOrder.equals("Ascending")) {
-                    if (!sort.equals("sorting_asc")) {
-                        action.click(admin_ReferralSourcePage.Header_Source());
-                    }
-                } else {
-                    if (!sort.equals("sorting_desc")) {
-                        action.click(admin_ReferralSourcePage.Header_Source());
-                    }
-                }
-                break;
-            case "Accounts Created":
-                sort = admin_ReferralSourcePage.Header_AccountsCreated().getAttribute("class");
-                if (sortOrder.equals("Ascending")) {
-                    if (!sort.equals("sorting_asc")) {
-                        action.click(admin_ReferralSourcePage.Header_AccountsCreated());
+    switch (grid) {
+        case "Referral Source":
 
+            switch (header) {
+                case "Source":
+                    DefaultGridData = paginateAndGetGridData(5);
+                    sort = admin_ReferralSourcePage.Header_Source().getAttribute("class");
+                    if (sortOrder.equals("Ascending")) {
+                        if (!sort.equals("sorting_asc")) {
+                            action.click(admin_ReferralSourcePage.Header_Source());
+                        }
+                    } else {
+                        if (!sort.equals("sorting_desc")) {
+                            action.click(admin_ReferralSourcePage.Header_Source());
+                        }
                     }
-                } else {
-                    if (!sort.equals("sorting_desc")) {
-                        action.click(admin_ReferralSourcePage.Header_AccountsCreated());
-                    }
-                }
-                break;
-            case "Percentage of total(Accounts Created)":
-                sort = admin_ReferralSourcePage.Header_PercentageOfTotalAC().getAttribute("class");
-                if (sortOrder.equals("Ascending")) {
-                    if (!sort.equals("sorting_asc")) {
-                        action.click(admin_ReferralSourcePage.Header_PercentageOfTotalAC());
-                    }
-                } else {
-                    if (!sort.equals("sorting_desc")) {
-                        action.click(admin_ReferralSourcePage.Header_PercentageOfTotalAC());
+                    break;
+                case "Accounts Created":
+                    sort = admin_ReferralSourcePage.Header_AccountsCreated().getAttribute("class");
+                    if (sortOrder.equals("Ascending")) {
+                        if (!sort.equals("sorting_asc")) {
+                            action.click(admin_ReferralSourcePage.Header_AccountsCreated());
 
+                        }
+                    } else {
+                        if (!sort.equals("sorting_desc")) {
+                            action.click(admin_ReferralSourcePage.Header_AccountsCreated());
+                        }
                     }
-                }
+                    break;
+                case "Percentage of total(Accounts Created)":
+                    sort = admin_ReferralSourcePage.Header_PercentageOfTotalAC().getAttribute("class");
+                    if (sortOrder.equals("Ascending")) {
+                        if (!sort.equals("sorting_asc")) {
+                            action.click(admin_ReferralSourcePage.Header_PercentageOfTotalAC());
+                        }
+                    } else {
+                        if (!sort.equals("sorting_desc")) {
+                            action.click(admin_ReferralSourcePage.Header_PercentageOfTotalAC());
+
+                        }
+                    }
+                    break;
+                case "Trips Completed":
+                    sort = admin_ReferralSourcePage.Header_TripsCompleted().getAttribute("class");
+                    if (sortOrder.equals("Ascending")) {
+                        if (!sort.equals("sorting_asc")) {
+                            action.click(admin_ReferralSourcePage.Header_TripsCompleted());
+                        }
+                    } else {
+                        if (!sort.equals("sorting_desc")) {
+                            action.click(admin_ReferralSourcePage.Header_TripsCompleted());
+                        }
+                    }
+                    break;
+                case "Percentage of total(Trips Completed)":
+                    sort = admin_ReferralSourcePage.Header_PercentageOfTotalTC().getAttribute("class");
+                    if (sortOrder.equals("Ascending")) {
+                        if (!sort.equals("sorting_asc")) {
+                            action.click(admin_ReferralSourcePage.Header_PercentageOfTotalTC());
+                        }
+                    } else {
+                        if (!sort.equals("sorting_desc")) {
+                            action.click(admin_ReferralSourcePage.Header_PercentageOfTotalTC());
+                        }
+                    }
+                    break;
+            }
                 break;
-            case "Trips Completed":
-                sort = admin_ReferralSourcePage.Header_TripsCompleted().getAttribute("class");
-                if (sortOrder.equals("Ascending")) {
-                    if (!sort.equals("sorting_asc")) {
-                        action.click(admin_ReferralSourcePage.Header_TripsCompleted());
+
+                case "Promoter":
+                    switch (header) {
+                        case "Name":
+                            DefaultGridData = paginateAndGetGridData(3);
+                            sort = admin_PromoterPage.Header_Name().findElement(By.xpath("Span")).getAttribute("onclick");
+                            if (sortOrder.equals("Ascending")) {
+                                if (!sort.equals("ASC")) {
+                                    action.click(admin_PromoterPage.Header_Name());
+                               }
+                            } else {
+                               if (!sort.equals("DESC")) {
+                                    action.click(admin_PromoterPage.Header_Name());
+                               }
+                            }
+
+                            break;
+                        case "Created":
+                            sort = admin_PromoterPage.Header_Created().findElement(By.xpath("Span")).getAttribute("onclick");
+                            if (sortOrder.equals("Ascending")) {
+                                if (!sort.equals("ASC")) {
+                                    action.click(admin_PromoterPage.Header_Created());
+                                }
+                            } else {
+                                if (!sort.equals("DESC")) {
+                                    action.click(admin_PromoterPage.Header_Created());
+                                }
+                            }
+                            break;
+                        case "Code Initials":
+                            sort = admin_PromoterPage.Header_CodeInitials().findElement(By.xpath("Span")).getAttribute("onclick");
+                            if (sortOrder.equals("Ascending")) {
+                                if (!sort.equals("ASC")) {
+                                    action.click(admin_PromoterPage.Header_CodeInitials());
+                                }
+                            } else {
+                                if (!sort.equals("DESC")) {
+                                    action.click(admin_PromoterPage.Header_CodeInitials());
+                                }
+                            }
+
+                            break;
                     }
-                } else {
-                    if (!sort.equals("sorting_desc")) {
-                        action.click(admin_ReferralSourcePage.Header_TripsCompleted());
-                    }
-                }
                 break;
-            case "Percentage of total(Trips Completed)":
-                sort = admin_ReferralSourcePage.Header_PercentageOfTotalTC().getAttribute("class");
-                if (sortOrder.equals("Ascending")) {
-                    if (!sort.equals("sorting_asc")) {
-                        action.click(admin_ReferralSourcePage.Header_PercentageOfTotalTC());
-                    }
-                } else {
-                    if (!sort.equals("sorting_desc")) {
-                        action.click(admin_ReferralSourcePage.Header_PercentageOfTotalTC());
-                    }
-                }
-                break;
-        }
+
+    }
         log("I click on "+header+" to sort by order "+ sortOrder ,
                 "I have clicked on "+header+" to sort by order "+ sortOrder, true);
     }
@@ -110,93 +165,108 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     @Then("^the \"([^\"]*)\" list should be sorted by \"([^\"]*)\" order of \"([^\"]*)\"$")
     public void the_something_list_should_be_sorted_by_something_order_of_something(String strArg1, String sortOrder, String field) throws Throwable {
 
-        List<String> Column1 = new ArrayList<String>();
-        List<String> Column2 = new ArrayList<String>();
-        List<String> Column3 = new ArrayList<String>();
-        List<String> Column4 = new ArrayList<String>();
-        List<String> Column5 = new ArrayList<String>();
+        int pageno = 2;
+        List<List<String>> CurrentGridData =  new ArrayList<>();
 
-        List<String> DefaultColumn1 = new ArrayList<String>();
-        List<String> DefaultColumn2 = new ArrayList<String>();
-        List<String> DefaultColumn3 = new ArrayList<String>();
-        List<String> DefaultColumn4 = new ArrayList<String>();
-        List<String> DefaultColumn5 = new ArrayList<String>();
+        switch(strArg1) {
+    case "Referral Source":
+        CurrentGridData = paginateAndGetGridData(5);
+    switch (field) {
+        case "Source":
+            Collections.sort(DefaultGridData.get(0));
+            if (sortOrder.equals("Ascending")) {
+                testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(0));
+                testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
+        case "Accounts Created":
+            Collections.sort(DefaultGridData.get(1), Comparator.comparingInt(Integer::parseInt));
+            if (sortOrder.equals("Ascending")) {
+                testStepAssert.isTrue(DefaultGridData.get(1).equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(1));
+                testStepAssert.isTrue(DefaultGridData.get(1).equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
+        case "Percentage of total(Accounts Created)":
+            Collections.sort(DefaultGridData.get(2), Comparator.comparingDouble(Double::parseDouble));
+            if (sortOrder.equals("Ascending")) {
+                testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(2));
+                testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
+        case "Trips Completed":
+            Collections.sort(DefaultGridData.get(3), Comparator.comparingInt(Integer::parseInt));
+            if (sortOrder.equals("Ascending")) {
 
-        List<WebElement> CurrentGridColumn1 = SetupManager.getDriver().findElements(By.xpath("//tr/td[1]"));
-        List<WebElement> CurrentGridColumn2 = SetupManager.getDriver().findElements(By.xpath("//tr/td[2]"));
-        List<WebElement> CurrentGridColumn3 = SetupManager.getDriver().findElements(By.xpath("//tr/td[3]"));
-        List<WebElement> CurrentGridColumn4 = SetupManager.getDriver().findElements(By.xpath("//tr/td[4]"));
-        List<WebElement> CurrentGridColumn5 = SetupManager.getDriver().findElements(By.xpath("//tr/td[5]"));
-
-        for (WebElement e : CurrentGridColumn1)
-            Column1.add(e.getText());
-        for (WebElement e : CurrentGridColumn2)
-            Column2.add(e.getText());
-        for (WebElement e : CurrentGridColumn3)
-            Column3.add(e.getText());
-        for (WebElement e : CurrentGridColumn4)
-            Column4.add(e.getText());
-        for (WebElement e : CurrentGridColumn5)
-            Column5.add(e.getText());
-        for (WebElement e : GridColumn1)
-            DefaultColumn1.add(e.getText());
-        for (WebElement e : GridColumn2)
-            DefaultColumn2.add(e.getText());
-        for (WebElement e : GridColumn3)
-            DefaultColumn3.add(e.getText());
-        for (WebElement e : GridColumn4)
-            DefaultColumn4.add(e.getText());
-        for (WebElement e : GridColumn5)
-            DefaultColumn5.add(e.getText());
-
+                testStepAssert.isTrue(DefaultGridData.get(3).equals(CurrentGridData.get(3)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(3));
+                testStepAssert.isTrue(DefaultGridData.get(3).equals(CurrentGridData.get(3)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
+        case "Percentage of total(Trips Completed)":
+            Collections.sort(DefaultGridData.get(4), Comparator.comparingDouble(Double::parseDouble));
+            if (sortOrder.equals("Ascending")) {
+                testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            } else {
+                Collections.reverse(DefaultGridData.get(4));
+                testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+            }
+            break;
+    }
+    break;
+    case "Promoter":
+        CurrentGridData = paginateAndGetGridData(3);
         switch (field) {
-            case "Source":
-                Collections.sort(DefaultColumn1);
+            case "Name":
+                Collections.sort(DefaultGridData.get(0));
                 if (sortOrder.equals("Ascending")) {
-                    testStepAssert.isTrue(DefaultColumn1.equals(Column1), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                  testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 } else {
-                    Collections.reverse(DefaultColumn1);
-                    testStepAssert.isTrue(DefaultColumn1.equals(Column1), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                   Collections.reverse(DefaultGridData.get(0));
+                   testStepAssert.isTrue(DefaultGridData.get(0).equals(CurrentGridData.get(0)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 }
                 break;
-            case "Accounts Created":
-                Collections.sort(DefaultColumn2, Comparator.comparingInt(Integer::parseInt));
-                if (sortOrder.equals("Ascending")) {
-                    testStepAssert.isTrue(DefaultColumn2.equals(Column2), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
-                } else {
-                    Collections.reverse(DefaultColumn2);
-                    testStepAssert.isTrue(DefaultColumn2.equals(Column2), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
-                }
-                break;
-            case "Percentage of total(Accounts Created)":
-                Collections.sort(DefaultColumn3, Comparator.comparingDouble(Double::parseDouble));
-                if (sortOrder.equals("Ascending")) {
-                    testStepAssert.isTrue(DefaultColumn3.equals(Column3), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
-                } else {
-                    Collections.reverse(DefaultColumn3);
-                    testStepAssert.isTrue(DefaultColumn3.equals(Column3), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
-                }
-                break;
-            case "Trips Completed":
-                Collections.sort(DefaultColumn4, Comparator.comparingInt(Integer::parseInt));
-                if (sortOrder.equals("Ascending")) {
+            case "Created":
+                ArrayList<String> dateList = new ArrayList<String>();
+                DateFormat parser = new SimpleDateFormat("MMM dd, yyyy");
+                DateFormat parser2 = new SimpleDateFormat("MMM dd, yyyy");
 
-                    testStepAssert.isTrue(DefaultColumn4.equals(Column4), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                for (String dateString : DefaultGridData.get(1)) {
+                    try {
+                        Date convertedDate = parser.parse(dateString);
+                        String date = parser2.format(convertedDate);
+                        dateList.add(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                Collections.sort(dateList);
+                if (sortOrder.equals("Ascending")) {
+                    testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 } else {
-                    Collections.reverse(DefaultColumn4);
-                    testStepAssert.isTrue(DefaultColumn4.equals(Column4), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                    Collections.reverse(dateList);
+                  testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 }
                 break;
-            case "Percentage of total(Trips Completed)":
-                Collections.sort(DefaultColumn5, Comparator.comparingDouble(Double::parseDouble));
+            case "Code Intials":
+                Collections.sort(DefaultGridData.get(2));
                 if (sortOrder.equals("Ascending")) {
-                    testStepAssert.isTrue(DefaultColumn5.equals(Column5), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                    testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 } else {
-                    Collections.reverse(DefaultColumn5);
-                    testStepAssert.isTrue(DefaultColumn5.equals(Column5), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
+                    Collections.reverse(DefaultGridData.get(2));
+                    testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 }
                 break;
         }
+        break;
+}
     }
 
     @Then("^the \"([^\"]*)\" should display accurate value for each Source$")
@@ -290,4 +360,62 @@ public class Admin_ReferralSourceSteps extends DriverBase {
 
     }
 
+    List<List<String>> getGridData(int columncount)
+    {
+        for (int i=1; i<=columncount; i++) {
+            try {
+                Thread.sleep(2000);
+            }
+            catch(Exception ex){}
+            String columnXPath = String.format("//tr/td[%s]", i);
+            List<WebElement> GridColumn = SetupManager.getDriver().findElements(By.xpath(columnXPath));
+            ArrayList<String> GridColumnData = new ArrayList<String>();;
+
+
+                if(Grid.size() < columncount) {
+                    for ( WebElement e : GridColumn) {
+                        GridColumnData.add(e.getText());
+                    }
+                    Grid.add(GridColumnData);
+                }
+                else
+                    for ( WebElement e : GridColumn) {
+                        Grid.get(i-1).add(e.getText());
+                    }
+        }
+
+        return Grid;
+    }
+
+    List<List<String>> paginateAndGetGridData(int column)
+    {
+
+        List<List<String>> GridPageData = new ArrayList<>();
+        int pageno = 2;
+        do {
+            DefaultGridData = getGridData(column);
+            if(SetupManager.getDriver().findElements(By.id(String.valueOf(pageno))).size()!=0) {
+                try {
+                    SetupManager.getDriver().findElement(By.id(String.valueOf(pageno)));
+                } catch (Exception e) {
+                    while (pageno > 1) {
+                        pageno = pageno - 2;
+                        action.click(SetupManager.getDriver().findElement(By.id(String.valueOf(pageno))));
+                    }
+                    Grid = new ArrayList<>();
+                    break;
+                }
+
+                action.click(SetupManager.getDriver().findElement(By.id(String.valueOf(pageno))));
+                pageno = pageno + 1;
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception ex) {
+                }
+            }
+            else
+                break;
+        } while (true);
+        return DefaultGridData;
+    }
 }

@@ -124,7 +124,7 @@ Feature: Admin_Promocodes
     |Value|Message|
     |0 | Please enter a value greater than or equal to 1.                 |
     |71                                                       |Please enter a value less than or equal to 70.       |
-    Then the corresponding message is displayed beside the "respective" field
+    Then the "corresponding" message is displayed beside the "respective" field
 
 
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
