@@ -182,7 +182,7 @@ public class CucumberHooks {
     public void afterDuoScenario() {
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
             new GeneralUtility().installDriverApp();
-            try{ new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
+            try{ SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
             new GeneralUtility().installCustomerApp();
         }
     }
