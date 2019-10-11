@@ -1,5 +1,4 @@
 @android
-
 Feature: CustomerMenu
   In Bungii Customer
   As a logged in customer
@@ -22,12 +21,12 @@ Feature: CustomerMenu
   Scenario: As Bungii customer I should able to access FAQ page
     When I tap on "Menu" > "FAQ" link
     Then "FAQ" page should be opened
-    When I tap on "first question" on FAQ page
+  #  When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown open" on FAQ page
     When I tap on "expanded first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
     And I should see "last question" on FAQ page
-    And I should see "social media links" on FAQ page
+  #  And I should see "social media links" on FAQ page
 
   @regression
   Scenario:As Bungii customer I should able to access account page

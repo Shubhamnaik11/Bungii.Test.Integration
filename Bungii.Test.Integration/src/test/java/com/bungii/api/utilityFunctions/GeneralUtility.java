@@ -33,6 +33,9 @@ public class GeneralUtility {
         if (geofence.equalsIgnoreCase("goa")) {
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("kansas")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude"));
         }
         Float[] driverCordinate = new Float[2];
 

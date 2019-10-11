@@ -469,7 +469,7 @@ public class GeneralUtility extends DriverBase {
 
                 break;
             case "LOGIN":
-                action.click(Page_Signup.Link_Login());
+             //   action.click(Page_Signup.Link_Login());
                 skipNormalFlow = true;
 
                 break;
@@ -611,9 +611,9 @@ public class GeneralUtility extends DriverBase {
             }
             action.sendKeys(driverLoginPage.TextField_Password(), password);
             action.click(driverLoginPage.Button_Login());
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
-            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE")){
+            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")){
 
             }else if(currentPage.equals("LOCATION")){
                 action.click(driverLoginPage.Button_Sure());
@@ -854,7 +854,7 @@ public class GeneralUtility extends DriverBase {
 
      //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
         if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
-            String screen = action.getText(driverBungiiProgressPage.Title_Status());
+            String screen = action.getText(driverHomePage.Generic_HeaderElement());
             logger.detail("Driver struck screen"+screen);
             if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
                 logger.detail("Driver struck on arrived screen");

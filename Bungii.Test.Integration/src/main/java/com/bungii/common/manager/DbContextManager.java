@@ -62,6 +62,32 @@ public class DbContextManager {
 
         return result;
     }
+
+    public static boolean checkIfExpectedDataFromMySqlServer(String queryString,String expectedString) {
+        String result = "";ResultSet rs = null;boolean isDataPresent=false;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
+            logger.detail("Connected to my sql server");
+
+            Statement stmt = con.createStatement();
+             rs = stmt.executeQuery(queryString);
+            while (rs.next()) {
+                result = rs.getString(1);
+
+                logger.detail("MY SQL SERVER DATA" + result);
+                if(result.equals(expectedString)){
+                    isDataPresent=true;
+                    break;
+                }
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return isDataPresent;
+    }
     public static String getDataFromMySqlMgmtServer(String queryString) {
         String result = "";
         try {

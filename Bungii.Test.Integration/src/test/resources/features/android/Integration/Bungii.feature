@@ -2,31 +2,19 @@
 
 Feature: On Demand Bungii
 
-  Background:
-
 
   @regression
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
 
-    Given I am logged in as "valid" customer
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | kansas   | Enroute      |
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-    When I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
 
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I get Bungii details on Bungii Estimate
-    And I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then for a Bungii I should see "Bungii search screen"
-
-    When I Open "driver" application on "same" devices
-    And Bungii Driver "accepts On Demand Bungii" request
     And I Switch to "customer" application on "same" devices
-    And I tap "OK on Driver Accepted screen" during a Bungii
+    And I am logged in as "valid" customer
+
 
     Then for a Bungii I should see "Enroute screen"
     When I tap "SMS for a solo driver" during a Bungii
@@ -144,7 +132,6 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
-  @ONDEMAND
 
   @sanity
   @regression

@@ -13,8 +13,8 @@ public class EstimatePage extends PageBase {
 
     //------Locations----------------------------------------------------------------------------
   //  public WebElement Text_PickupLocation () { return findElement("com.bungii.customer:id/estimate_label_pickup_location", LocatorType.Id); }
-    public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
-    public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
 
   //  public WebElement Text_DropOffLocation () { return findElement("com.bungii.customer:id/estimate_label_dropoff_location", LocatorType.Id); }
     public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/pickup_request_dopoff_container']/android.widget.TextView[1]", LocatorType.XPath); }

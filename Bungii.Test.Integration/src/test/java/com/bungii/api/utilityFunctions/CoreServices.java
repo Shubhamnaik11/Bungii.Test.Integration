@@ -36,7 +36,6 @@ public class CoreServices extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
 
 
-
     public Response validatePickupRequest(String authToken, String geoFence) {
 
         JSONObject jsonObj = new JSONObject();
@@ -48,6 +47,11 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
+        } else if (geoFence.equalsIgnoreCase("kansas")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
         }
 
         jsonObj.put("DropoffLocation", dropOffCordinate);
@@ -150,6 +154,36 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties("goa.drop.address1") + ", " + PropertyUtility.getDataProperties("goa.drop.address2"));
             cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties("goa.drop.city") + ", " + PropertyUtility.getDataProperties("goa.drop.state"));
             cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
+        } else if (geoFence.equalsIgnoreCase("kansas")) {
+            dropOffAddress.put("Address1", PropertyUtility.getDataProperties("kansas.drop.address1"));
+            dropOffAddress.put("Address2", PropertyUtility.getDataProperties("kansas.drop.address2"));
+            dropOffAddress.put("City", PropertyUtility.getDataProperties("kansas.drop.city"));
+            dropOffAddress.put("Country", PropertyUtility.getDataProperties("kansas.drop.country"));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
+            dropOffAddress.put("Location", dropOffCordinate);
+            dropOffAddress.put("State", PropertyUtility.getDataProperties("kansas.drop.state"));
+            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("kansas.drop.zipcode"));
+
+            pickUpAddress.put("Address1", PropertyUtility.getDataProperties("kansas.pickup.address1"));
+            pickUpAddress.put("Address2", PropertyUtility.getDataProperties("kansas.pickup.address2"));
+            pickUpAddress.put("City", PropertyUtility.getDataProperties("kansas.pickup.city"));
+            pickUpAddress.put("Country", PropertyUtility.getDataProperties("kansas.pickup.country"));
+            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
+            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
+            pickUpAddress.put("Location", pickUpCordinate);
+            pickUpAddress.put("State", PropertyUtility.getDataProperties("kansas.pickup.state"));
+            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("kansas.pickup.zipcode"));
+
+            jsonObj.put("DropOffAddress", dropOffAddress);
+            jsonObj.put("PickupAddress", pickUpAddress);
+            jsonObj.put("NoOfDrivers", numberOfDriver);
+
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties("kansas.pickup.address1") + ", " + PropertyUtility.getDataProperties("kansas.pickup.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties("kansas.pickup.city") + ", " + PropertyUtility.getDataProperties("kansas.pickup.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties("kansas.drop.address1") + ", " + PropertyUtility.getDataProperties("kansas.drop.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties("kansas.drop.city") + ", " + PropertyUtility.getDataProperties("kansas.drop.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
         }
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -185,7 +219,11 @@ public class CoreServices extends DriverBase {
 
             ApiHelper.genericResponseValidation(response);
             cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
-            String bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
+            String bungiiDistance="";
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+                bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
+            else
+                bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
 
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "$" + jsonPathEvaluator.get("Estimate.Cost"));
@@ -273,8 +311,15 @@ public class CoreServices extends DriverBase {
         Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
 
-        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+     //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+    //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
         int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
@@ -327,8 +372,6 @@ public class CoreServices extends DriverBase {
     public Response updateDriverLocation(String authToken, String geofence) {
         Float[] driverLocations = utility.getDriverLocation(geofence);
         JSONObject jsonObj = new JSONObject();
-        //      jsonObj.put("Latitude", 15.367737300);
-        //       jsonObj.put("Longitude", 73.936542900);
         jsonObj.put("Latitude", driverLocations[0]);
         jsonObj.put("Longitude", driverLocations[1]);
         Header header = new Header("AuthorizationToken", authToken);
@@ -340,8 +383,6 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
-
-
 
 
     public Response updateDriverStatus(String authToken) {

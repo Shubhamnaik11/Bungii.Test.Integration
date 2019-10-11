@@ -3,32 +3,19 @@
 Feature: SoloScheduled
   Background:
 
-    Given I am logged in as "valid" customer
-    When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
-    And I Select "HOME" from driver App menu
-    When I Switch to "customer" application on "same" devices
+
 
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
-
-    When I tap on "Menu" > "Home" link
-
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I get Bungii details on Bungii Estimate
-    And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas      | Accepted     | NEXT_POSSIBLE |
+    When I Switch to "customer" application on "same" devices
+    Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
-    When I tap on "Available Trips link" on Driver Home page
+    Given I am logged in as "valid" driver
 
-    And I Select Trip from driver available trip
-    When I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     When I wait for Minimum duration for Bungii Start Time
@@ -159,7 +146,11 @@ Feature: SoloScheduled
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.
-
+    Given I am logged in as "valid" customer
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
+    When I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
 
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
@@ -226,25 +217,22 @@ Feature: SoloScheduled
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
-
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
-    When I tap on "Menu" > "Home" link
 
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas      | Accepted     | NEXT_POSSIBLE |
+    When I Switch to "customer" application on "same" devices
+    Given I am logged in as "valid" customer
+
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
 
     When I open new "Chrome" browser for "ADMIN"
     When I navigate to admin portal
     And I log in to admin portal
     When I Select "Scheduled Trip" from admin sidebar
-    # 			Then I Select Bungii from "Scheduled Trip" List
     When I Cancel Bungii with following details
       | Charge | Comments |
       | 15     | TEST     |
@@ -259,16 +247,14 @@ Feature: SoloScheduled
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
 
-    When I tap on "Menu" > "Home" link
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas      | Scheduled     | NEXT_POSSIBLE |
 
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    When I Switch to "driver" application on "same" devices
+    Given I am logged in as "valid" driver
+    When I Switch to "customer" application on "same" devices
+    Given I am logged in as "valid" customer
 
     When I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
@@ -286,21 +272,13 @@ Feature: SoloScheduled
 
   @regression
   Scenario: Customer should able to cancel scheduled bungii
-
-    When I tap on "Menu" > "Home" link
-
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
-    And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled"
-    And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas      | Scheduled     | NEXT_POSSIBLE |
+    Given I am logged in as "valid" customer
+    When I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "SCHEDULED BUNGIIS" link
     When I select already scheduled bungii
     Then I Cancel selected Bungii
-
     When I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

@@ -6,6 +6,7 @@ import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.stepdefinitions.driver.LogInSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -158,7 +159,7 @@ public class CucumberHooks {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
         }
-    
+
 
 }
 
@@ -181,6 +182,7 @@ public class CucumberHooks {
     public void afterDuoScenario() {
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
             new GeneralUtility().installDriverApp();
+            try{ new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
             new GeneralUtility().installCustomerApp();
         }
     }
@@ -190,7 +192,7 @@ public class CucumberHooks {
     public void afterScheduledBungii(Scenario scenario) {
         //This scenario is not complete/full prof
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") && scenario.isFailed()) {
-            //  new GeneralUtility().recoverScenarioscheduled();
+           //   new GeneralUtility().recoverScenarioscheduled();
         }
     }
 

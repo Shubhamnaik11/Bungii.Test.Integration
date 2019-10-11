@@ -23,7 +23,7 @@ Scenarios on Payment Methods
     And I tap on "Menu" > "Logout" link
 
   @regression
-  Scenario:  As Bungii Customer I should able to delete my payment card except default card
+  Scenario:  As Bungii Customer I should able to delete my payment
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
 #    And I swipe "default" card on the payment page
