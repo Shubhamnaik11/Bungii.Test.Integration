@@ -6,7 +6,7 @@ import java.nio.channels.OverlappingFileLockException;
 
 public class ManageDevices {
     static public String availableDeviceList;
-    private static String fileName="Results/Availabledevices.txt";
+    private static String fileName="Availabledevices.txt";
     public static void write(String content) {
 
         try {
@@ -44,7 +44,7 @@ public class ManageDevices {
     static public String readFile()
     {
         String content = null;
-        File file = new File(fileName); 
+        File file = new File(fileName);
         FileReader reader = null;
         try {
             reader = new FileReader(file);
