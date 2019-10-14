@@ -206,7 +206,7 @@ public class ActionManager {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
                 .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
-          //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
             wait.until(
                     ExpectedConditions.or(
                             ExpectedConditions.textToBePresentInElement(element,text1),
@@ -216,7 +216,25 @@ public class ActionManager {
             logger.detail("Wait failed");
         }
     }
+    /**
+     * An expectation for checking if the given text is present in the specified
+     * elements value attribute.
+     *
+     */
+    public void textToBePresentInElementText(final WebElement element, final String text1) {
 
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(120))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+        try {
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.textToBePresentInElement(element,text1)
+                    )
+            );        } catch (Exception e) {
+            logger.detail("Wait failed");
+        }
+    }
     public void clearSendKeys(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);

@@ -280,22 +280,30 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_SMS());
                     break;
                 case "SMS for driver 1":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoMore1());
                     action.click(Page_CustomerBungiiProgress.Button_DuoMore1());
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
                     action.click(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
                     break;
                 case "SMS for driver 2":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoMore2());
                     action.click(Page_CustomerBungiiProgress.Button_DuoMore2());
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
                     action.click(Page_CustomerBungiiProgress.Button_DuoDriver_SMS());
                     break;
                 case "Call for a solo driver":
                     action.click(Page_CustomerBungiiProgress.Button_Bungii_Driver_Call());
                     break;
                 case "Call for driver 1":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoMore1());
                     action.click(Page_CustomerBungiiProgress.Button_DuoMore1());
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
                     action.click(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
                     break;
                 case "Call for driver 2":
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoMore2());
                     action.click(Page_CustomerBungiiProgress.Button_DuoMore2());
+                    action.waitUntilIsElementExistsAndDisplayed(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
                     action.click(Page_CustomerBungiiProgress.Button_DuoDriver_Call());
                     break;
                 default:
@@ -478,6 +486,7 @@ public class BungiiSteps extends DriverBase {
                     }
                     switch (arg0) {
                         case "SMS for a customer":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore1());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_SMS(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore1());
@@ -487,6 +496,7 @@ public class BungiiSteps extends DriverBase {
                             break;
 
                         case "Call for a customer":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore1());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_Call(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore1());
@@ -495,6 +505,7 @@ public class BungiiSteps extends DriverBase {
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
                             break;
                         case "SMS for a driver":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore2());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_SMS(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore2());
@@ -503,6 +514,7 @@ public class BungiiSteps extends DriverBase {
                             break;
 
                         case "Call for a driver":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore2());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_Call(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore2());
@@ -510,6 +522,7 @@ public class BungiiSteps extends DriverBase {
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_Call());
                             break;
                         case"Contact support":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore1());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore1());
@@ -517,6 +530,7 @@ public class BungiiSteps extends DriverBase {
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
                             break;
                         case"Contact support for driver":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore2());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore2());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore2());
@@ -524,6 +538,7 @@ public class BungiiSteps extends DriverBase {
                             action.click(Page_DriverBungiiProgress.Button_DuoCustomer_CallSupport());
                             break;
                         case"View items":
+                            action.waitUntilIsElementExistsAndDisplayed(Page_DriverBungiiProgress.Button_DuoMore1());
                             action.click(Page_DriverBungiiProgress.Button_DuoMore1());
                             if(!action.isElementPresent(Page_DriverBungiiProgress.Button_DuoCustomer_ViewItem(true)))
                                 action.click(Page_DriverBungiiProgress.Button_DuoMore1());

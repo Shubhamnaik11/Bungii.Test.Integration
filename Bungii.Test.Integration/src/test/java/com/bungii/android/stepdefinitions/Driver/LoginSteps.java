@@ -35,6 +35,7 @@ public class LoginSteps extends DriverBase {
                     shouldLoginSucessful = true;
                     break;
                 case "valid driver 2":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     phone = PropertyUtility.getDataProperties("valid.driver2.phone");
                     password = PropertyUtility.getDataProperties("valid.driver2.password");
                     cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("valid.driver2.name"));

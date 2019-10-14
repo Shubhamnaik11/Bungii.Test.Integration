@@ -114,14 +114,14 @@ Feature: Duo
 
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
-
+  @regression1
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | kansas   | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
-
+      | kansas   | enroute     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+    When I Switch to "customer" application on "same" devices
     Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
@@ -130,22 +130,20 @@ Feature: Duo
     When I connect to "extra1" using "Driver2" instance
     Given I am logged in as "valid driver 2" driver
 
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    When I wait for Minimum duration for Bungii Start Time
-    And Bungii Driver "Start Schedule Bungii" request
+#    And I Select "SCHEDULED BUNGIIS" from driver App menu
+#    And I Select Trip from driver scheduled trip
+ #   When I wait for Minimum duration for Bungii Start Time
+ #   And Bungii Driver "Start Schedule Bungii" request
  #   Then Bungii driver should see "Enroute screen"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "driver" application on "ORIGINAL" devices
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And Bungii Driver "Start Schedule Bungii" request
- #   Then Bungii driver should see "Enroute screen"
+#    And I Select "SCHEDULED BUNGIIS" from driver App menu
+ #   And I Select Trip from driver scheduled trip
+#    And Bungii Driver "Start Schedule Bungii" request
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When I Switch to "customer" application on "same" devices
- #   Then for a Bungii I should see "Enroute screen"
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
     When I tap "SMS for driver 1" during a Bungii
     Then correct details should be displayed on "Driver 1 SMS" app
