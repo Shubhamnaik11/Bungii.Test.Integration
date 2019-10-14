@@ -101,7 +101,7 @@ public class Admin_PromoterSteps extends DriverBase {
     }
 
     @Then("^the promoter \"([^\"]*)\" is displayed in the Promocodes grid$")
-    public void the_promoter_something_is_displayed_in_the_promocodes_grid(String currentdatetime, String strArg1) throws Throwable {
+    public void the_promoter_something_is_displayed_in_the_promocodes_grid(String currentdatetime) throws Throwable {
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");

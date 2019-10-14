@@ -41,9 +41,9 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Label_CountErrorContainer () { return findElement("PromoCodeItem_CodesCount-error", LocatorType.Id); }
     public WebElement TextBox_CodeCount () { return findElement("PromoCodeItem_CodesCount", LocatorType.Id); }
 
-    public WebElement DropDown_Promoter () { return findElement("drpPromoter", LocatorType.Id); }
+    public WebElement DropDown_Promoter () { return findElement("//form[@id='PromoCodes']//following::select[@id='drpPromoter']", LocatorType.XPath); }
 
-    public WebElement DropDown_Promotion () { return findElement("drpPromotion", LocatorType.Id); }
+    public WebElement DropDown_Promotion () { return findElement("//form[@id='PromoCodes']//following::select[@id='drpPromotion']", LocatorType.XPath); }
 
     public WebElement TextBox_PromotionStartDate () { return findElement("PromoCodeItem_PromotionStartDate", LocatorType.Id); }
 
@@ -84,5 +84,7 @@ public class Admin_PromoCodesPage extends PageBase {
     public WebElement Button_Apply() { return findElement("applyFilter", LocatorType.Id); }
 
     public WebElement Button_Reset() { return findElement("//button[text()='Reset']", LocatorType.XPath); }
+
+
 
 }
