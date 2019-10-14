@@ -5,6 +5,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.hooks.CucumberHooks;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
+import org.apache.commons.lang3.ArrayUtils;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
@@ -19,11 +20,12 @@ import java.util.Properties;
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.ios.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
+        glue = {"com.bungii.android.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
     private static final String INITIAL_FILE_NAME="login";
+    String lstallDevice;
     /**
      * @param device Device variable from maven
      */
@@ -35,13 +37,37 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         System.setProperty("LogFilePath", "Results");
 
         String ClassName = this.getClass().getSimpleName();
+        lstallDevice=device;
         if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
-            String[] deviceList = device.split(",");
             //if mutiple devices are pass from maven then get class number and use that device for running that class
-            if (deviceList.length > 1) {
+            if (lstallDevice.split(",").length > 1) {
 
-                int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
-                System.setProperty("DEVICE", deviceList[threadNumber - 1]);
+                String curentThreadNumber = ClassName.substring(8, 10);
+                if(curentThreadNumber.equals("01")){
+                    ManageDevices.write("");
+                    System.setProperty("DEVICE", lstallDevice.split(",")[0]);
+                }else {
+                    try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+                    boolean searchFreeDevice=true;
+                    do{
+                        device= ManageDevices.readFile();
+                        System.out.println("Searching for device for, class"+ClassName+ " Found "+device);
+                        if(device!=null){
+                            if(!device.isEmpty()){
+                                String[] deviceList = device.split(",");
+                                String deviceToBeUsed=deviceList[0];
+                                System.setProperty("DEVICE", deviceToBeUsed);
+                                System.out.println("Found device for, class"+ClassName+ " .Using "+deviceToBeUsed);
+                                deviceList = ArrayUtils.remove(deviceList, 0);
+                                String strDeviceList = String.join(",", deviceList);
+                                ManageDevices.write(strDeviceList);
+                                searchFreeDevice=false;
+                            }
+                        }
+                        try {Thread.sleep(20000);} catch (InterruptedException e) {e.printStackTrace();}
+
+                    }while (searchFreeDevice);
+                }
             } else {
                 System.setProperty("DEVICE", device);
 
@@ -49,9 +75,24 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         }
         if(multipleLoginFile.trim().equalsIgnoreCase("true")){
            // ClassName="Parallel02IT";
-            String threadNumber = ClassName.substring(8, 10);
-            System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
-            System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+        //    String threadNumber = ClassName.substring(8, 10);
+        //    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+        //    System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+
+            switch (System.getProperty("DEVICE").toLowerCase()){
+                case "device1":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME);
+                    break;
+                case "device2":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_01");
+                    break;
+                case "device3":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_02");
+                    break;
+                case "extra1":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_03");
+                    break;
+            }
         }
         System.setProperty("runner.class", ClassName);
         //this is to update values from config value
@@ -102,6 +143,19 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
     @AfterSuite
     public void afterSuite() throws IOException {
         this.hooks.tearDown();
+        String ClassName = this.getClass().getSimpleName();
+        String curentThreadNumber = ClassName.substring(8, 10);
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
+        if(curentThreadNumber.equals("01")){
+            ManageDevices.write(lstallDevice);
+        }else {
+                if(ManageDevices.readFile().trim().equals("")) {
+                    ManageDevices.write(System.getProperty("DEVICE"));
+                }else {
+                    ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
+                }
+        }
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
     }
 
 }

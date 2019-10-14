@@ -4,7 +4,7 @@
 
 #end##
 package com.bungii;
-
+import com.bungii.runner.ManageDevices;
 import com.bungii.SetupManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 import java.io.IOException;
+import org.apache.commons.lang3.ArrayUtils;
 
 @CucumberOptions(
         strict = $strict,
@@ -34,6 +35,7 @@ public class $className extends AbstractTestNGCucumberTests {
 	//private static final String RUN_CONFIG_PROPERTIES = "/profile.properties";
     private static final String INITIAL_FILE_NAME="login";
     private static String REMOTE_ADB_HOST,REMOTE_ADB_PORT="5554";
+        String lstallDevice;
 	CucumberHooks hooks;
 	/*public $className(){
 		this.hooks= new Hooks();
@@ -42,30 +44,71 @@ public class $className extends AbstractTestNGCucumberTests {
 	  @Parameters({"test.Device","test.Platform","test.Environment","test.Category","multiple.data.file","remote.adb.ip"})
 	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category, @Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost){
 		String ClassName =this.getClass().getSimpleName();
-        if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
-		String[]deviceList = device.split(",");
-		if(deviceList.length>1){
-			int threadNumber = Integer.parseInt(ClassName.substring(8,10));		
+         lstallDevice=device;
 
-		System.err.println("DEVICE is "+device+" deviceTo be consider "+deviceList[threadNumber-1]);
-		System.setProperty("DEVICE",deviceList[threadNumber-1]);}
-		else{
-			System.setProperty("DEVICE",device);
 
-		}
-		}
-		if(multipleLoginFile.trim().equalsIgnoreCase("true")){
-            String threadNumber = ClassName.substring(8, 10);
-            System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
-            System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+         if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
+             //if mutiple devices are pass from maven then get class number and use that device for running that class
+             if (lstallDevice.split(",").length > 1) {
 
-        }
-		System.setProperty("runner.class",ClassName);
-		        //this is to update values from config value
-        PropertyUtility.environment=environment;
-        PropertyUtility.targetPlatform=Platform;
-        REMOTE_ADB_HOST=remoteAdbHost;System.setProperty("remoteAdbHost",remoteAdbHost);
-		this.hooks= new CucumberHooks();
+                 String curentThreadNumber = ClassName.substring(8, 10);
+                 if(curentThreadNumber.equals("01")){
+                     ManageDevices.write("");
+                     System.setProperty("DEVICE", lstallDevice.split(",")[0]);
+                 }else {
+                     try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+                     boolean searchFreeDevice=true;
+                     do{
+                         device= ManageDevices.readFile();
+                                                 System.out.println("Searching for device for, class"+ClassName+ " Found "+device);
+                         if(device!=null){
+                             if(!device.isEmpty()){
+                                 String[] deviceList = device.split(",");
+                                 String deviceToBeUsed=deviceList[0];
+                                 System.setProperty("DEVICE", deviceToBeUsed);
+                                 System.out.println("Found device for, class"+ClassName+ " .Using "+deviceToBeUsed);
+                                 deviceList = ArrayUtils.remove(deviceList, 0);
+                                 String strDeviceList = String.join(",", deviceList);
+                                 ManageDevices.write(strDeviceList);
+                                 searchFreeDevice=false;
+                             }
+                         }
+                         try {Thread.sleep(20000);} catch (InterruptedException e) {e.printStackTrace();}
+
+                     }while (searchFreeDevice);
+                 }
+             } else {
+                 System.setProperty("DEVICE", device);
+
+             }
+         }
+         if(multipleLoginFile.trim().equalsIgnoreCase("true")){
+            // ClassName="Parallel02IT";
+         //    String threadNumber = ClassName.substring(8, 10);
+         //    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+         //    System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
+
+            switch (System.getProperty("DEVICE").toLowerCase()){
+                case "device1":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME);
+                    break;
+                case "device2":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_01");
+                    break;
+                case "device3":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_02");
+                    break;
+                case "extra1":
+                    System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_03");
+                    break;
+            }
+         }
+         System.setProperty("runner.class", ClassName);
+         //this is to update values from config value
+         PropertyUtility.environment=environment;
+         PropertyUtility.targetPlatform=Platform;
+         System.setProperty("remoteAdbHost",remoteAdbHost);
+         this.hooks = new CucumberHooks();
 	}
 	
 
@@ -98,6 +141,22 @@ public class $className extends AbstractTestNGCucumberTests {
  	}
     @AfterSuite
     public  void afterSuite() throws IOException {
+
+        String ClassName = this.getClass().getSimpleName();
+                    System.out.println("AFTER SUITE"+ClassName);
+
+        String curentThreadNumber = ClassName.substring(8, 10);
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
+        if(curentThreadNumber.equals("01")){
+            ManageDevices.write(lstallDevice);
+        }else {
+            if(ManageDevices.readFile().trim().equals("")) {
+                ManageDevices.write(System.getProperty("DEVICE"));
+            }else {
+                ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
+            }
+        }
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
     	this.hooks.tearDown();
     }
 	}
