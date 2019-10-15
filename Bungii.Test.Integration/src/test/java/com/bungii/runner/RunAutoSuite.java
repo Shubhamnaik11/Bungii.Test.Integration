@@ -1,6 +1,6 @@
 package com.bungii.runner;
 
-import com.bungii.common.enums.TargetPlatform;
+import com.bungii.common.utilities.ManageDevices;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.hooks.CucumberHooks;
 import cucumber.api.CucumberOptions;
@@ -11,10 +11,8 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Properties;
+
 //
 @CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",
@@ -38,11 +36,12 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
 
         String ClassName = this.getClass().getSimpleName();
         lstallDevice=device;
+        System.setProperty("ALL_DEVICES",lstallDevice);
         if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
             //if mutiple devices are pass from maven then get class number and use that device for running that class
             if (lstallDevice.split(",").length > 1) {
 
-                String curentThreadNumber = ClassName.substring(8, 10);
+                String curentThreadNumber = ClassName.substring(8, 10);curentThreadNumber="01";
                 if(curentThreadNumber.equals("01")){
                     ManageDevices.write("");
                     System.setProperty("DEVICE", lstallDevice.split(",")[0]);
@@ -61,6 +60,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
                                 deviceList = ArrayUtils.remove(deviceList, 0);
                                 String strDeviceList = String.join(",", deviceList);
                                 ManageDevices.write(strDeviceList);
+                                System.out.println("Updated device for, class"+ClassName+ "is  "+ManageDevices.readFile());
                                 searchFreeDevice=false;
                             }
                         }
@@ -132,7 +132,8 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         } catch (IOException ex) {
             ex.printStackTrace();
         }*/
-        this.hooks.start(resultFolder);
+        try {this.hooks.start(resultFolder); }catch (Exception e){
+            afterSuite(); }
     }
 
     /**
@@ -141,9 +142,15 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
      * @throws IOException
      */
     @AfterSuite
-    public void afterSuite() throws IOException {
-        this.hooks.tearDown();
-        String ClassName = this.getClass().getSimpleName();
+    public void afterSuite() {
+        try {
+            this.hooks.tearDown();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        ManageDevices.afterSuiteManageDevice();
+        /*    String ClassName = this.getClass().getSimpleName();
+
         String curentThreadNumber = ClassName.substring(8, 10);
         System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
         if(curentThreadNumber.equals("01")){
@@ -155,7 +162,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
                     ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
                 }
         }
-        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());*/
     }
 
 }

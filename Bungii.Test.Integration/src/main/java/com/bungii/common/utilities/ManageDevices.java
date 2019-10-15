@@ -1,4 +1,4 @@
-package com.bungii.runner;
+package com.bungii.common.utilities;
 
 import java.io.*;
 import java.nio.channels.FileLock;
@@ -64,6 +64,22 @@ public class ManageDevices {
             }
         }
         return content;
+    }
+
+    static public void afterSuiteManageDevice(){
+        String ClassName=System.getProperty("runner.class");
+        String curentThreadNumber = ClassName.substring(8, 10);
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
+        if(curentThreadNumber.equals("01")){
+            ManageDevices.write(System.getProperty("ALL_DEVICES"));
+        }else {
+            if(ManageDevices.readFile().trim().equals("")) {
+                ManageDevices.write(System.getProperty("DEVICE"));
+            }else {
+                ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
+            }
+        }
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
     }
 
 }

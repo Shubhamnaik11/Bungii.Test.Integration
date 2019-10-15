@@ -3,10 +3,7 @@ package com.bungii;
 import com.bungii.common.enums.TargetPlatform;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
-import com.bungii.common.utilities.FileUtility;
-import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.ParseUtility;
-import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.*;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -20,6 +17,7 @@ import io.appium.java_client.service.local.flags.ServerArgument;
 import org.apache.commons.lang3.SystemUtils;
 import org.json.JSONObject;
 import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -30,6 +28,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
@@ -37,6 +36,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class SetupManager extends EventFiringWebDriver {
@@ -63,7 +63,12 @@ public class SetupManager extends EventFiringWebDriver {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
-                driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                try {
+                    driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+
+                }catch (Exception e){
+                    ManageDevices.afterSuiteManageDevice();
+                }
                 if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "CUSTOMER");
                 else
@@ -75,7 +80,8 @@ public class SetupManager extends EventFiringWebDriver {
             }
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
+
+            driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
 
 
@@ -243,14 +249,13 @@ public class SetupManager extends EventFiringWebDriver {
      *
      * @return appium driver instance
      */
-    private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
+    private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber)  {
         try {
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-
 
         } catch (MalformedURLException e) {
             e.printStackTrace();

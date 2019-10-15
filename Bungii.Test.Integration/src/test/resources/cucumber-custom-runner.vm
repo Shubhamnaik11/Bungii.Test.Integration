@@ -4,7 +4,7 @@
 
 #end##
 package com.bungii;
-import com.bungii.runner.ManageDevices;
+import com.bungii.common.utilities.ManageDevices;
 import com.bungii.SetupManager;
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -45,6 +45,7 @@ public class $className extends AbstractTestNGCucumberTests {
 	public $className(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category, @Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost){
 		String ClassName =this.getClass().getSimpleName();
          lstallDevice=device;
+        System.setProperty("ALL_DEVICES",lstallDevice);
 
 
          if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
@@ -70,6 +71,7 @@ public class $className extends AbstractTestNGCucumberTests {
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);
                                  ManageDevices.write(strDeviceList);
+                                 System.out.println("Updated device for, class"+ClassName+ "is  "+ManageDevices.readFile());
                                  searchFreeDevice=false;
                              }
                          }
@@ -136,12 +138,12 @@ public class $className extends AbstractTestNGCucumberTests {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }*/
-        this.hooks.start(resultFolder);
+            try {this.hooks.start(resultFolder); }catch (Exception e){afterSuite(); }
 
  	}
     @AfterSuite
-    public  void afterSuite() throws IOException {
-
+    public  void afterSuite() {
+    /*
         String ClassName = this.getClass().getSimpleName();
                     System.out.println("AFTER SUITE"+ClassName);
 
@@ -156,7 +158,12 @@ public class $className extends AbstractTestNGCucumberTests {
                 ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
             }
         }
-        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());
-    	this.hooks.tearDown();
-    }
+        System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());*/
+                ManageDevices.afterSuiteManageDevice();
+
+        try {
+            this.hooks.tearDown();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }    }
 	}
