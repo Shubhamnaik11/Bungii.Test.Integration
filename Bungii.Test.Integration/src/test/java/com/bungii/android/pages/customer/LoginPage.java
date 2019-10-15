@@ -15,7 +15,7 @@ public class LoginPage extends PageBase {
     public WebElement TextField_Password() { return findElement("com.bungii.customer:id/field_password", LocatorType.Id); }
 
     //Log In button
-    public WebElement Button_Login() { return findElement("com.bungii.customer:id/loginGlobalButton", LocatorType.Id); }
+    public WebElement Button_Login(boolean...ignoreException) { return findElement("com.bungii.customer:id/loginGlobalButton", LocatorType.Id,ignoreException); }
 
     // Forgot Password link
     public WebElement Link_ForgotPassword() { return findElement("com.bungii.customer:id/login_button_forgot_password", LocatorType.Id); }
@@ -31,7 +31,7 @@ public class LoginPage extends PageBase {
 
     //Error message - Password
     //public WebElement Error_EnterPassword() { return findElements("com.bungii.customer:id/textinput_error", LocatorType.Id).get(1); }
-    public WebElement Error_EnterPassword() { return findElement("//*[@resource-id='com.bungii.customer:id/field_password_layout']/*/android.widget.TextView[@resource-id='com.bungii.customer:id/textinput_error']", LocatorType.XPath); }
+    public WebElement Error_EnterPassword() { return findElement("//*[@resource-id='com.bungii.customer:id/field_password_layout']/*/*/android.widget.TextView[@resource-id='com.bungii.customer:id/textinput_error']", LocatorType.XPath); }
 
 
 

@@ -9,11 +9,12 @@ public class EstimatePage extends PageBase {
 
     //------Header-------------------------------------------------------------------------------
     public WebElement Header_Estimate (boolean...ignoreException) { return findElement("//android.widget.TextView[@text='ESTIMATE']", LocatorType.XPath,ignoreException); }
+  public WebElement GenericHeader(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/action_bar']/android.widget.TextView", LocatorType.XPath,ignoreException); }
 
     //------Locations----------------------------------------------------------------------------
   //  public WebElement Text_PickupLocation () { return findElement("com.bungii.customer:id/estimate_label_pickup_location", LocatorType.Id); }
-    public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
-    public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/pickup_estimate_iv_address_type']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
 
   //  public WebElement Text_DropOffLocation () { return findElement("com.bungii.customer:id/estimate_label_dropoff_location", LocatorType.Id); }
     public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/pickup_request_dopoff_container']/android.widget.TextView[1]", LocatorType.XPath); }
@@ -53,6 +54,7 @@ public class EstimatePage extends PageBase {
 
     //------Date and Time------------------------------------------------------------------------
     public WebElement Time () { return findElement("com.bungii.customer:id/date_time_picker_textview_selectedtime", LocatorType.Id); }
+    public WebElement Text_TimeZoneLabel () { return findElement("com.bungii.customer:id/date_time_picker_textview_timezone_label", LocatorType.Id); }
     public WebElement Button_Later () { return findElement("com.bungii.customer:id/alert_schedule_bungii_textview_later", LocatorType.Id); }
     public WebElement Button_DateConfirm () { return findElement("android:id/button1", LocatorType.Id); }
     public WebElement Button_TimeConfirm () { return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id); }
@@ -104,7 +106,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Button_Camera_Retry () { return findElement("com.sec.android.app.camera:id/retry", LocatorType.Id); }
 
-    public WebElement Button_Review () { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id); }
+    public WebElement Button_Review (boolean ...ignoreException) { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id,ignoreException); }
     public WebElement Button_SelectedImage () { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id); }
 
 
@@ -120,7 +122,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Button_RequestConfirmCancel () { return findElement("android:id/button2", LocatorType.Id); }
 
-    public WebElement Button_OK () { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
+    public WebElement Button_OK (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath,ignoreException); }
 
 
     public WebElement Alert_DelayRequestingTrip () { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath); }

@@ -56,7 +56,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
             }
             log(" I tap on the " + arg0 + "Link",
-                    "I tapped on " + arg0, true);
+                    "I tapped on " + arg0, false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -96,6 +96,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
 
             switch (string) {
                 case "valid":
+                    Thread.sleep(2000);
                     String SMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), SMSCode);
                     break;
@@ -166,8 +167,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                         warning("Snackbar message for success should be displayed", "Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text");
                         break;
                     } else {
-                        actualMessage = snackBar.getText();
-                        testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+                        actualMessage = action.getText(snackBar);
+                        testStepVerify.isEquals(actualMessage,PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+                        //testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
                     }
                     break;
 

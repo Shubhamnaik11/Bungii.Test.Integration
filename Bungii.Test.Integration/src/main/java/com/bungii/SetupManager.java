@@ -78,6 +78,8 @@ public class SetupManager extends EventFiringWebDriver {
         driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
 
+
+
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
@@ -321,7 +323,20 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) getDriver()).launchApp();
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+            ((AndroidDriver) getDriver()).closeApp();
             ((AndroidDriver) getDriver()).launchApp();
+
+        }
+
+    }
+
+    public void launchApp(String bundleId) {
+        if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
+            ((IOSDriver) SetupManager.getDriver()).activateApp(bundleId);
+        } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
+            ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
+
+
         }
 
     }
@@ -340,17 +355,25 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
     }
+
     public void restartApp(String bundleId){
+
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
             ((IOSDriver) SetupManager.getDriver()).activateApp(bundleId);
 
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-            ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId);
+            try {
+            ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
+            } catch (org.openqa.selenium.WebDriverException e) {
+                logger.detail(" Issue with stopping app"+bundleId);
+            }
             ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
 
         }
+
     }
+
     public void useDriverInstance(String instanceKey) {
         DriverManager.getObject().useDriverInstance(instanceKey);
     }

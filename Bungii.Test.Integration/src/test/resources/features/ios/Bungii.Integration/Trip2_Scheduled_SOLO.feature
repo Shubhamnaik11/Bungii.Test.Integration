@@ -4,36 +4,19 @@ Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
   Background:
-    Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-   And I am logged in as "valid" driver
-    And I Switch to "customer" application on "ORIGINAL" devices
+
 
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | Accepted     | NEXT_POSSIBLE |
 
-#    And I Select "Home" from Customer App menu
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location | Geofence  |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    And Trip Information should be correctly displayed on Estimate screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then I should be navigated to "Success" screen
-    Then Bungii Posted message should be displayed
-    When I click "Done" button on "Success" screen
-    Then I Select "Home" from Customer App menu
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from available trip
-    Then I should be navigated to "TRIP DETAILS" screen
-    And Trip Information should be correctly displayed on TRIP DETAILS screen
-    When I accept selected Bungii
+    And I am logged in as "valid" driver
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -135,9 +118,13 @@ Feature: To Test Solo - Scheduling Bungii
   @regression
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
-
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location | Geofence  |
+      | Driver | Pickup Location | Drop Location           | Geofence |
       | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
 
     And I click "Get Estimate" button on "Home" screen
@@ -199,19 +186,12 @@ Feature: To Test Solo - Scheduling Bungii
 
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
-    When I Select "Home" from Customer App menu
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-  #  Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | Default     | No             |
-  #  Then I should be navigated to "Success" screen
-#    Then Bungii Posted message should be displayed
-    And I click "Done" button on "Success" screen
-    Then I Select "Home" from Customer App menu
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | Scheduled    | NEXT_POSSIBLE |
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -228,20 +208,11 @@ Feature: To Test Solo - Scheduling Bungii
 
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
- #   When I Select "ACCOUNT" from Customer App menu
- #   Then I get customer account details
- #   When I Select "Home" from Customer App menu
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then I should be navigated to "Success" screen
-    And Bungii Posted message should be displayed
-    And I click "Done" button on "Success" screen
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | Scheduled    | NEXT_POSSIBLE |
+    And I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
@@ -250,16 +221,14 @@ Feature: To Test Solo - Scheduling Bungii
 
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | Scheduled    | NEXT_POSSIBLE |
+    And I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+    And I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
 
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |    goa|
-    And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then I should be navigated to "Success" screen
-    When I click "Done" button on "Success" screen
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal

@@ -29,12 +29,9 @@ public class EstimateSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    private EstimatePage estimatePage;
+   // private EstimatePage estimatePage;
     private String[] loadTimeValue = {"15", "30", "45", "60", "75", "90+"};
-
-    public EstimateSteps(EstimatePage estimatePage) {
-        this.estimatePage = estimatePage;
-    }
+    EstimatePage estimatePage = new EstimatePage();
 
     @When("^I confirm trip with following details$")
     public void iEnterTripInformation(DataTable tripInformation) {
