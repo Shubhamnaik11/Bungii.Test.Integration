@@ -12,7 +12,7 @@ Feature: To Test Solo - Scheduling Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | Accepted     | NEXT_POSSIBLE |
-
+    When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
