@@ -17,7 +17,7 @@ import java.util.Properties;
 
 @CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",
-        "jsontarget/cucumber-report/single/cucumber.json",
+        "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
         glue = {"com.bungii.ios.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
 )
