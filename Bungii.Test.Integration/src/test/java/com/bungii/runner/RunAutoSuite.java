@@ -15,11 +15,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 //
-@CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @TEST22", plugin = {
+@CucumberOptions(features = "target/test-classes/features/web", monochrome = true, tags = "@web and @regression", plugin = {
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.ios.stepdefinitions", "com.bungii.hooks"}
+        glue = {"com.bungii.web.stepdefinitions", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
@@ -28,7 +28,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
      * @param device Device variable from maven
      */
     @Parameters({"test.Device", "test.Platform", "test.Environment", "test.Category","multiple.data.file","remote.adb.ip"})
-    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA") String environment, @Optional("sanity") String category,@Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost) {
+    public RunAutoSuite(@Optional("device1") String device, @Optional("web") String Platform, @Optional("QA_AUTO") String environment, @Optional("underconst") String category,@Optional("false") String multipleLoginFile,@Optional("") String remoteAdbHost) {
         //Use below statement only in test runner running which are not suppose to run with maven ,
         //In case of maven logFilepath is set in maven set in POM.xml
 
