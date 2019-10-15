@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.customer;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;

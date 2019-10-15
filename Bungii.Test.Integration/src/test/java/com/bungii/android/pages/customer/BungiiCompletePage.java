@@ -6,9 +6,10 @@ import org.openqa.selenium.WebElement;
 public class BungiiCompletePage extends PageBase {
 
 
-    public WebElement PageTitle_BungiiComplete() { return findElement("//android.widget.TextView[@text='BUNGII COMPLETE']",LocatorType.XPath); }
+    public WebElement PageTitle_BungiiComplete(boolean ... ignoreException) { return findElement("//android.widget.TextView[@text='BUNGII COMPLETE']",LocatorType.XPath,ignoreException); }
+    public WebElement PageTitle_BungiiCompleteGeneric(boolean ... ignoreException) { return findElement("com.bungii.customer:id/title_summary",LocatorType.Id,ignoreException); }
 
-    public WebElement CloseRateTipPage() { return findElement("//android.view.View[@id='com.bungii.customer:id/toolbar']/android.widget.ImageView",LocatorType.XPath); }
+    public WebElement CloseRateTipPage() { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar']/android.widget.ImageView",LocatorType.XPath); }
 
     public WebElement Title_RateYourDriver() { return findElement("//android.widget.TextView[@text ='Rate Your driver']",LocatorType.XPath); }
 

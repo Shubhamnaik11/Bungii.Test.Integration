@@ -89,7 +89,7 @@ public class UpdateStatusPage extends PageBase {
 	//public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions2() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(1); }
 	//public WebElement Button_DuoMoreOptions1() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(0); }
-	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[2]", LocatorType.ClassChain); }
-	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[1]", LocatorType.ClassChain); }
+	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][2]", LocatorType.ClassChain); }
+	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][1]", LocatorType.ClassChain); }
 
 }

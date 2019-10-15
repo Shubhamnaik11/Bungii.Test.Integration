@@ -1,107 +1,75 @@
 @ios
 
 Feature: Create on demand bungii
-  Assume driver and user already logged in
 
   Background:
 
-    Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+
   @POSTDUO
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | Enroute      |
 
-   # And I clear all notification
+    When I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
 
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location | Geofence  |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | Now  | Default     | Yes             |
-    And I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    And I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
- #   Then I should be navigated to "EN ROUTE" trip status screen
- #   And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-#    Then Customer should be navigated to "EN ROUTE" trip status screen
-#    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-#    Then I should be navigated to "ARRIVED" trip status screen
-#    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
- #   Then Customer should be navigated to "ARRIVED" trip status screen
- #   And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
- #   Then I should be navigated to "LOADING ITEM" trip status screen
- #   And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "LOADING ITEM" trip status screen
-#    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-#    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-#    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-#    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-#    Then I should be navigated to "UNLOADING ITEM" trip status screen
-#    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
     And correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
- #   Then Customer should be navigated to "UNLOADING ITEM" trip status screen
- #   And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
     And correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
@@ -111,7 +79,6 @@ Feature: Create on demand bungii
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
- #   And Bungii customer should see "correct details" on Bungii completed page
     When I rate Bungii Driver  with following details and Press "OK" Button
       | Ratting | Tip |
       | 5       | 5   |
@@ -120,106 +87,58 @@ Feature: Create on demand bungii
     Then I should be navigated to "Home" screen
 
     And I Switch to "driver" application on "same" devices
- #   Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "Logout" from driver App menu
 
 
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | Enroute      |
 
-   #And I clear all notification
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
 
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location | Geofence  |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | Now  | Default     | Yes             |
-    And I click on notification for "Driver" for "on demand trip"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    And I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
- #   Then I should be navigated to "EN ROUTE" trip status screen
+    And I am logged in as "valid" driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
- #   And correct details should be displayed to driver on "SMS" app
- #   And correct details should be displayed to driver on "Call" app
- #   And correct details should be displayed to driver for "SMS FOR SUPPORT"
- #   And correct details should be displayed to driver for "VIEW ITEMS"
+
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-#    Then Customer should be navigated to "EN ROUTE" trip status screen
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
-#    And correct details should be displayed to customer on "SMS" app
-#    And correct details should be displayed to customer on "Call" app
+
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-#    Then I should be navigated to "ARRIVED" trip status screen
     And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
-#    And correct details should be displayed to driver on "SMS" app
-#    And correct details should be displayed to driver on "Call" app
-#    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-#    And correct details should be displayed to driver for "VIEW ITEMS"
+
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "ARRIVED" trip status screen
     And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-#    And correct details should be displayed to customer on "SMS" app
-#    And correct details should be displayed to customer on "Call" app
+
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-#    Then I should be navigated to "LOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
-#    And correct details should be displayed to driver on "SMS" app
-#    And correct details should be displayed to driver on "Call" app
-#    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-#    And correct details should be displayed to driver for "VIEW ITEMS"
+
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "LOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
-#    And correct details should be displayed to customer on "SMS" app
-#    And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-#    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
     And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
-#    And correct details should be displayed to driver on "SMS" app
-#    And correct details should be displayed to driver on "Call" app
-#    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-#    And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
     And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
-#    And correct details should be displayed to customer on "SMS" app
-#    And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-#    Then I should be navigated to "UNLOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
-#    And correct details should be displayed to driver on "SMS" app
-#    And correct details should be displayed to driver on "Call" app
-#    And correct details should be displayed to driver for "SMS FOR SUPPORT"
-#    And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
     And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
-#    And correct details should be displayed to customer on "SMS" app
-#    And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
@@ -235,21 +154,24 @@ Feature: Create on demand bungii
 
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Switch to "customer" application on "same" devices
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "Logout" from driver App menu
 
-  @testthis
+#    And I Switch to "customer" application on "same" devices
+
+
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
-
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     And I change driver status to "Online"
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location               | geofence  |
+      | Driver | Pickup Location | Drop Location           | geofence |
       | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
@@ -311,7 +233,8 @@ Feature: Create on demand bungii
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
-
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -326,7 +249,7 @@ Feature: Create on demand bungii
     Then I change driver status to "Online"
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location         | Drop Location               | Geofence  |
+      | Driver | Pickup Location | Drop Location           | Geofence |
       | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
@@ -365,7 +288,7 @@ Feature: Create on demand bungii
   #  Then I should be navigated to "ARRIVED" trip status screen
   #  Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
-    And I Switch to "customer" application on "same" devices
+#    And I Switch to "customer" application on "same" devices
 #    Then Customer should be navigated to "ARRIVED" trip status screen
 #    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
@@ -376,7 +299,7 @@ Feature: Create on demand bungii
 #    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
 
-    And I Switch to "customer" application on "same" devices
+ #   And I Switch to "customer" application on "same" devices
   #  Then Customer should be navigated to "LOADING ITEM" trip status screen
   #  Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
@@ -385,7 +308,7 @@ Feature: Create on demand bungii
   #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
   #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
-    And I Switch to "customer" application on "same" devices
+ #   And I Switch to "customer" application on "same" devices
  #   Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
  #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
@@ -394,7 +317,7 @@ Feature: Create on demand bungii
  #   Then I should be navigated to "UNLOADING ITEM" trip status screen
  #   Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
-    And I Switch to "customer" application on "same" devices
+  #  And I Switch to "customer" application on "same" devices
   #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
   #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
@@ -416,7 +339,7 @@ Feature: Create on demand bungii
 
 
     Examples:
-      | Scenario    | Promo Code    | User         |
-      | fixed valid | {PROMO FIXED} | no promocode |
+      | Scenario         | Promo Code      | User         |
+      | fixed valid      | {PROMO FIXED}   | no promocode |
       | Promo percentage | {PROMO PERCENT} | no promocode |
       | valid one off    | {valid one off} | no promocode |

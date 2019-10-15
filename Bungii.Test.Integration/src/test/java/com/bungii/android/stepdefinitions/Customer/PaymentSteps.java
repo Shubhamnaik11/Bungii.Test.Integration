@@ -57,6 +57,7 @@ public class PaymentSteps extends DriverBase {
                 action.click(new Point(Button_AddNew.getLocation().getX(), Button_AddNew.getLocation().getY()));
                 break;
             case "Credit or Debit Card":
+                Thread.sleep(5000);
                 action.click(paymentPage.Select_Method_Card());
                 if (action.isElementPresent(paymentPage.Header_CardDetailsPage()))
                     log("Header card details should be displayed", "Header card details is displayed ", false);

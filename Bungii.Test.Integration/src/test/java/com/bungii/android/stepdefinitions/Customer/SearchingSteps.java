@@ -41,7 +41,7 @@ public class SearchingSteps extends DriverBase {
      * @throws InterruptedException
      */
     public void WaitForSearchingPageDisappear(int searchTime) throws InterruptedException{
-        action.hardWaitWithSwipeUp(searchTime+3);
+        action.hardWait(searchTime+3);
     }
 
 }

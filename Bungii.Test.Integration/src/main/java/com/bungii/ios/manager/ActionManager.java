@@ -343,8 +343,10 @@ public class ActionManager {
      * Wrapper for wait, clear data and clearSendKeys in Input Text box
      **/
     public void clearEnterText(WebElement element, String inputText) {
+        try {
+            element.clear();
+        }catch (Exception e){}
 
-        element.clear();
         element.sendKeys(inputText);
         logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
 

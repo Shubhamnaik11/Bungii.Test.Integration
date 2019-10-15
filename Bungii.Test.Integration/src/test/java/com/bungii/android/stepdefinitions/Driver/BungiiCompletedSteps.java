@@ -58,14 +58,23 @@ public class BungiiCompletedSteps extends DriverBase {
 
             double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
             double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
-            String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
+            String truncValue = new DecimalFormat("#.00").format(bungiiDriver);
             String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+            //Trip distance value is displayed till 1 decimanl point
+
+            int indexOfSpace=tripDistance.indexOf(" ");
+            String strDistanceValue=tripDistance.substring(0,indexOfSpace);
+            Double dblDistanceValue= new Double(strDistanceValue);
+            String truncValueMiles = new DecimalFormat("#.0").format(dblDistanceValue);
+
+            tripDistance = truncValueMiles+tripDistance.substring(indexOfSpace);
             String tripTime =utility.getActualTime();
 
-            String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),totalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
+            String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),actualTotalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
             testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" minutes") ||totalTime.equalsIgnoreCase(tripTime+" minute"),"Total time should contains "+tripTime+" minute");
-            testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
-            testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be +"+truncValue);
+           // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
+            testStepVerify.isEquals(actualTotalDistance,tripDistance);
+            testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);
 
 
         }

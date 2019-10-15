@@ -1,7 +1,9 @@
 package com.bungii.android.stepdefinitions.Customer;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.HomePage;
+import com.bungii.android.pages.customer.SignupPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -19,6 +21,7 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomeSteps.class);
     GeneralUtility utility = new GeneralUtility();
     HomePage homePage = new HomePage();
+    SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
@@ -130,43 +133,52 @@ public class HomeSteps extends DriverBase {
     @Given("^I am on Customer logged in Home page$")
     public void iAmOnCustomerLoggedInHomePage() {
         try {
+            boolean skipNormalFlow=false;
+            String currentPage = action.getText(Page_Signup.GenericHeader(true));
+            switch (currentPage.toUpperCase()) {
+                case "BUNGII":
+                    skipNormalFlow=true;
+                    break;
+                case "FAQ":
+                case "ACCOUNT":
+                case "SCHEDULED BUNGIIS":
+                case "PAYMENT":
+                case "SUPPORT":
+                case "PROMOS":
+                    skipNormalFlow=true;
+                    i_tap_on_something_something_link("Menu", "HOME");
+                    break;
+                case"SIGN UP":
+                case"LOGIN":
+                    skipNormalFlow=true;
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    break;
 
-/*            String NavigationBarName = action.getText(homePage.Title_HomePage(true));
-
-            if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
-                    || NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
-                utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer.user"),
-                        PropertyUtility.getDataProperties("customer.password"));
-            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
-                // do nothing
-            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
-              //  iClickButtonOnScreen("CANCEL", "SEARCHING");
-               // iRejectAlertMessage();
-            } else {
-                i_tap_on_something_something_link(NavigationBarName,"HOME");
-            }*/
-
+            }
+                if(!skipNormalFlow){
             //   String NavigationBarName = action.getText(homePage.Title_HomePage(true));
-
-            if (utility.isCorrectPage("Signup") || utility.isCorrectPage("Login")) {
+              if (utility.isCorrectPage("Home")) {
+                            // do nothing
+                        }
+              else if (utility.isCorrectPage("Signup") || utility.isCorrectPage("Login")) {
                 // utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
-            } else if (utility.isCorrectPage("Home")) {
-                // do nothing
             } else if (utility.isCorrectPage("Searching")) {
                 //  iClickButtonOnScreen("CANCEL", "SEARCHING");
                 // iRejectAlertMessage();
             } else {
                 i_tap_on_something_something_link("Menu", "HOME");
-            }
+            }}
             log(" I am on Customer logged in Home page", "");
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         } catch (Throwable throwable) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(throwable));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
