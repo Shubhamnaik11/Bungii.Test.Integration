@@ -34,7 +34,7 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
    //     reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), false));
-        logger.trace("LOG: For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+        logger.trace("LOG: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ResultManager {
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
       //  reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
-        logger.detail("PASS: For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+        logger.detail("PASS: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
     }
 
     /**
@@ -64,7 +64,7 @@ public class ResultManager {
     public static void fail(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
-        logger.error("FAIL: For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+        logger.error("FAIL: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
         reportManager.verificationFailed();
     }
 
@@ -79,7 +79,7 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.ERROR.toString(), screenDump));
-        logger.error("ERROR: For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+        logger.error("ERROR: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
         reportManager.verificationFailed();
         Assert.assertTrue(false, "Error in executon ,Please check logs/ report for more details");
     }
@@ -96,7 +96,7 @@ public class ResultManager {
     //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), false));
-        logger.warning("WARNING: For steps :" + name + " expected is :" + expected + " and actual is" + actual);
+        logger.warning("WARNING: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
     }
 
     /**

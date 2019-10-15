@@ -22,7 +22,6 @@ Feature: Admin_BusinessUsers
     When I click on the "Save" Button on "Business Users" popup
     Then the business user gets updated successfully and it is displayed in the Business users grid
 
-  @underconst
   @testReport
   @sanity
   @regression
@@ -35,7 +34,7 @@ Feature: Admin_BusinessUsers
     Then the business user gets saved successfully and it is displayed in the "Business users" grid
     When I click on "Business Users  > Business Users Payment" Menu
     And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Business User" dropdown
-    And I click on "Add Payment Method" button
+    And I click on "Add Payment Method" button on "Business Users Payment" page
     And I enter following card details
       |Card Number | Expiration Date | CVV | Postal Code|
       |4242424242424242 | 11/29      | 123  |      12345|
@@ -45,9 +44,9 @@ Feature: Admin_BusinessUsers
     Then the business user is displayed in Bulk Trips since payment is set
     When I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I upload image to be associated with the trip
-    And I click on "Upload" button
+    And I click on "Upload" button on "Bulk Trips" page
     Then the pickup from the csv are listed down
-    When I click on "Confirm" button
+    When I click on "Confirm" button on "Bulk Trips" page
     Then the "Trips have been requested successfully." message is displayed
 
   @testReport

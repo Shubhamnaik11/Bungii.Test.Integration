@@ -20,6 +20,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
+    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -73,7 +74,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Business Users Page":
                 testStepAssert.isElementDisplayed(admin_BusinessUsersPage.Header_BusinessUsers(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Promoters Page":
+                testStepAssert.isElementDisplayed(admin_PromoterPage.Title_PromoterPage(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
 
         }
     }
@@ -137,6 +140,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Business User":
                 action.click(admin_BusinessUsersPage.Button_CreateBusinessUser());
                 break;
+            case "New Promoter":
+                action.click(admin_PromoterPage.Button_NewPromoter());
+                break;
+
         }    }
 
 

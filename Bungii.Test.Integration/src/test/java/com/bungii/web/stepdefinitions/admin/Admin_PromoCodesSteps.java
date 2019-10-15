@@ -7,6 +7,7 @@ import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
 import com.bungii.web.pages.admin.Admin_PromoCodesPage;
+import com.bungii.web.pages.admin.Admin_PromoterPage;
 import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Optional;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,9 +35,10 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
+    Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
 
     ActionManager action = new ActionManager();
-    private static LogUtility logger = new LogUtility(EstimateSteps.class);
+    private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
 
 
@@ -59,6 +62,13 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Business Users  > Business Users Payment" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
+               break;
+           case "Promotion  > Promoters" :
+               action.click(admin_PromoterPage.Menu_Promotion());
+               break;
+           case "Promotion  > Promoter Cards" :
+               action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_PromoterPayment());
                break;
        }
         log("I click on "+link+" menu link" ,
@@ -432,6 +442,37 @@ public class Admin_PromoCodesSteps extends DriverBase {
                         break;
                 }
                 break;
+            case "Add New Promoter":
+                switch(button) {
+                    case "Cancel":
+                        action.click(admin_PromoterPage.Button_Cancel());
+                        break;
+                    case "Save":
+                        action.click(admin_PromoterPage.Button_SavePromoter());
+                        break;
+                }
+                break;
+            case "Add Promotion":
+                switch(button) {
+                    case "Cancel":
+                        action.click(admin_PromoterPage.Button_Cancel());
+                        break;
+                    case "Save":
+                        action.click(admin_PromoterPage.Button_SavePromotion());
+                        break;
+                }
+                 break;
+            case "Generate Promo Code":
+                switch(button) {
+                    case "No":
+                        action.click(admin_PromoterPage.Button_SavePromotionNo());
+                        break;
+                    case "Yes":
+                        action.JavaScriptClick(admin_PromoterPage.Button_SavePromotionYes());
+                      //  action.click(admin_PromoterPage.Button_SavePromotionYes());
+                        break;
+                }
+                break;
         }
         log("I click on "+button+" on "+ popup ,
                 "I have clicked on "+button+" on "+ popup, true);
@@ -573,28 +614,57 @@ public class Admin_PromoCodesSteps extends DriverBase {
     }
 
     @When("^I enter \"([^\"]*)\" field with below values and click Save$")
-    public void i_enter_something_field_with_below_values_and_click_save(String strArg1 , DataTable data) throws Throwable {
-        List<Map<String,String>> DataList = data.asMaps();
-        int i= 0;
-        while (i<DataList.size())
-        {
-        String Value = DataList.get(i).get("Value");
-        String Message = DataList.get(i).get("Message");
-        i++;
+    public void i_enter_something_field_with_below_values_and_click_save(String field , DataTable data) throws Throwable {
+        List<Map<String, String>> DataList = data.asMaps();
+        int i = 0;
+        switch (field) {
+            case "No of Codes":
 
-           action.sendKeys(admin_PromoCodesPage.TextBox_CodeCount(), Value);
-           action.click(admin_PromoCodesPage.Button_Save());
-            the_corresponding_message_is_displayed_beside_the_something_field(Message);
-      }
-        log("I enter data into No of Codes field on Add Promocode popup" ,
-                "I have entered data into No of Codes field on Add Promocode popup" , true);
+            while (i < DataList.size()) {
+                String Value = DataList.get(i).get("Value");
+                String Message = DataList.get(i).get("Message");
+                i++;
+
+                action.sendKeys(admin_PromoCodesPage.TextBox_CodeCount(), Value);
+                action.click(admin_PromoCodesPage.Button_Save());
+                the_corresponding_message_is_displayed_beside_the_something_field(Message,field);
+                log("I enter data into No of Codes field on Add Promocode popup" ,
+                        "I have entered data into No of Codes field on Add Promocode popup" , true);
+            }
+            break;
+            case "Code Initials":
+
+                while (i < DataList.size()) {
+                    String Value = DataList.get(i).get("Value");
+                    String Message = DataList.get(i).get("Message");
+                    i++;
+
+                    action.sendKeys(admin_PromoterPage.TextBox_CodeInitials(), Value);
+                    action.click(admin_PromoterPage.Button_SavePromoter());
+                    the_corresponding_message_is_displayed_beside_the_something_field(Message,field);
+                    log("I enter data into Code Initials field on Add Promoter popup" ,
+                            "I have entered data into Code Initials field on Add Promoter popup" , true);
+                }
+                break;
+        }
+
     }
 
-    @Then("^the corresponding message is displayed beside the \"([^\"]*)\" field$")
-    public void the_corresponding_message_is_displayed_beside_the_something_field(String message) throws Throwable {
-        if (!message.equals("respective"))
+    @Then("^the \"([^\"]*)\" message is displayed beside the \"([^\"]*)\" field$")
+    public void the_corresponding_message_is_displayed_beside_the_something_field(String message, String field) throws Throwable {
+        switch (field)
         {
+            case "respective":
+                break;
+            case "No of Codes":
           testStepAssert.isEquals(admin_PromoCodesPage.Label_CountErrorContainer().getText(),message,message +" should be displayed",message +" is displayed",message +" is not displayed");
+       break;
+            case "Code Initials":
+                testStepAssert.isEquals(admin_PromoterPage.Label_CodeInitialsContainer().getText(),message,message +" should be displayed",message +" is displayed",message +" is not displayed");
+                break;
+            default:
+                testStepAssert.isTrue(false, message + "should be displayed", message + " displayed", message + "did not displayed");
+                break;
         }
     }
 

@@ -88,4 +88,7 @@ public class Driver_RegistrationPage extends PageBase {
 
     //Logout Link
     public WebElement Link_Logout () { return findElement("//div[@class='pull-left info']/p/a[contains(text()='log out')]", LocatorType.XPath); }
+
+    public WebElement Dropdown_Location () { return findElement("location", LocatorType.Id); }
+
 }

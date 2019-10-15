@@ -86,7 +86,10 @@ public class ActionManager {
     {
         new Select(element).selectByVisibleText(text);
     }
-
+    public static String getFirstSelectedOption(WebElement element)
+    {
+      return new Select(element).getFirstSelectedOption().getText();
+    }
     public  void deleteAllCookies()
     {
         SetupManager.getDriver().manage().deleteAllCookies();
