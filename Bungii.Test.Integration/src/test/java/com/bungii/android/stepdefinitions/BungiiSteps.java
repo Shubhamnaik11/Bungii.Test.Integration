@@ -326,12 +326,12 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(Page_DriverHome.Button_OnlineOffline(), PropertyUtility.getMessage("driver.home.gooffline"), "Go offline button on driver should be enabled", "Go Offline button on driver home page is Enabled", "Go Offline button on driver home page is disabled");
                     break;
                 case "Enroute screen":
-                    testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should be high lighted ", "En route icon is high lighted", "En route icon is not high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should not be high lighted ", "Arrived icon is not high lighted", "Arrived icon is  high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_Status().getText(), Status.EN_ROUTE.toString(), "I should be navigate to En route Screen", "I am navigate to En route Screen", "I was not navigate to En route Screen");
+                    testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should be high lighted ", "En route icon is high lighted", "En route icon is not high lighted");
                     break;
 
                 case "Arrived screen":
