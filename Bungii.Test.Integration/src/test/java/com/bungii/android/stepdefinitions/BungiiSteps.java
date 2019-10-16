@@ -706,6 +706,7 @@ public class BungiiSteps extends DriverBase {
             }
             testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
             action.click(Page_DriverBungiiProgress.Alert_Accept());
+            Thread.sleep(2000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
