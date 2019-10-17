@@ -5,7 +5,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   Background:
 
-  @OD
+  @POSTDUO
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 

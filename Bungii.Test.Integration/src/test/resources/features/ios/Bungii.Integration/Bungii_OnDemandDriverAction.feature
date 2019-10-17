@@ -1,7 +1,7 @@
 @ios
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
-
+  @POSTDUO
   @regression
   Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
     When I Switch to "driver" application on "same" devices
