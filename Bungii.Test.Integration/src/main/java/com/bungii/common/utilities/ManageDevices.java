@@ -73,6 +73,7 @@ public class ManageDevices {
         if(curentThreadNumber.equals("01")){
             ManageDevices.write(System.getProperty("ALL_DEVICES"));
         }else {
+            try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
             if(ManageDevices.readFile().trim().equals("")) {
                 ManageDevices.write(System.getProperty("DEVICE"));
             }else {
