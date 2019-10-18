@@ -70,6 +70,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Promo Code":
+                    Thread.sleep(3000);
                     action.click(Page_Estimate.Link_Promo());
                     break;
 

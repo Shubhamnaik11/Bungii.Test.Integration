@@ -51,7 +51,7 @@ public class LoginSteps extends DriverBase {
             else {
                 //TODO: specify failure here
             }
-
+            log("I should be logged in","I am logged in",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("PageSource", SetupManager.getDriver().getPageSource());

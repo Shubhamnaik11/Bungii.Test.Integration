@@ -9,6 +9,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -92,8 +93,9 @@ public class ActionManager {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
         } catch (Exception Ex) {
-            logger.detail("Page source"+ SetupManager.getDriver().getPageSource());
-            Assert.fail("Following element is not displayed : " + element);
+            logger.detail("Page source "+ SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+         //   Assert.fail("Following element is not displayed : " + element);
         }
     }
 
