@@ -47,6 +47,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
     public void i_click_on_something_header_something(String header, String sortOrder , String grid) throws Throwable {
         int pageno = 2;
         String sort = null;
+        Thread.sleep(5000);
     switch (grid) {
         case "Referral Source":
 
@@ -262,7 +263,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                   testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 }
                 break;
-            case "Code Intials":
+            case "Code Initials":
                 Collections.sort(DefaultGridData.get(2));
                 if (sortOrder.equals("Ascending")) {
                     testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
