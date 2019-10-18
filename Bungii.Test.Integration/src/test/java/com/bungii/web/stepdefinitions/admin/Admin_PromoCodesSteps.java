@@ -330,14 +330,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         testStepAssert.isElementDisplayed(admin_PromoCodesPage.DropDown_PromoType().findElement(By.xpath("//option[3][@selected='selected' and text()='Delivery By Promoter']")),"Delivery By Promoter should be displayed","Delivery By Promoter is displayed","Delivery By Promoter is not displayed");
 
-
-
-
-
-
-
-
-
     }
 
     @Then("^the \"([^\"]*)\" and \"([^\"]*)\" is set to \"([^\"]*)\" by default$")
@@ -550,7 +542,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("PROMOTION_STARTDATE", admin_PromoCodesPage.TextBox_PromotionStartDate().getAttribute("value"));
                     cucumberContextManager.setScenarioContext("CODE_COUNT", NoOfCodes);
                     cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", (admin_PromoCodesPage.RadioButton_DollarsDisabled().isSelected() ? "Dollars" : "Percent"));
-
                     break;
                 case "Delivery By Promoter (M)":
                     Promoter = dataMap.get("Select Promoter").trim();

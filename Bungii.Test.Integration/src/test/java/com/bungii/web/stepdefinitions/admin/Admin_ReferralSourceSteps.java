@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.eo.Se;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +24,9 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.log;
@@ -30,14 +34,14 @@ import static com.bungii.common.manager.ResultManager.log;
 public class Admin_ReferralSourceSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
-
+    List<List<String>> DefaultGridData =  new ArrayList<>();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_ReferralSourceSteps.class);
     List<WebElement> GridColumn1, GridColumn2, GridColumn3, GridColumn4, GridColumn5;
     String[] array = new String[0];
     String[] array1 = new String[0];
-    List<List<String>> DefaultGridData =  new ArrayList<>();
-    List<List<String>> Grid = new ArrayList<>();
+    List<List<String>> GridData =  new ArrayList<>();
+
 
     @When("^I click on \"([^\"]*)\" header \"([^\"]*)\" on \"([^\"]*)\" grid$")
     public void i_click_on_something_header_something(String header, String sortOrder , String grid) throws Throwable {
@@ -117,38 +121,38 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                     switch (header) {
                         case "Name":
                             DefaultGridData = paginateAndGetGridData(3);
-                            sort = admin_PromoterPage.Header_Name().findElement(By.xpath("Span")).getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_Name().getAttribute("onclick");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.equals("ASC")) {
+                                if (!sort.contains("ASC")) {
                                     action.click(admin_PromoterPage.Header_Name());
                                }
                             } else {
-                               if (!sort.equals("DESC")) {
+                               if (!sort.contains("DESC")) {
                                     action.click(admin_PromoterPage.Header_Name());
                                }
                             }
 
                             break;
                         case "Created":
-                            sort = admin_PromoterPage.Header_Created().findElement(By.xpath("Span")).getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_Created().getAttribute("onclick");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.equals("ASC")) {
+                                if (!sort.contains("ASC")) {
                                     action.click(admin_PromoterPage.Header_Created());
                                 }
                             } else {
-                                if (!sort.equals("DESC")) {
+                                if (!sort.contains("DESC")) {
                                     action.click(admin_PromoterPage.Header_Created());
                                 }
                             }
                             break;
                         case "Code Initials":
-                            sort = admin_PromoterPage.Header_CodeInitials().findElement(By.xpath("Span")).getAttribute("onclick");
+                            sort = admin_PromoterPage.Header_CodeInitials().getAttribute("onclick");
                             if (sortOrder.equals("Ascending")) {
-                                if (!sort.equals("ASC")) {
+                                if (!sort.contains("ASC")) {
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             } else {
-                                if (!sort.equals("DESC")) {
+                                if (!sort.contains("DESC")) {
                                     action.click(admin_PromoterPage.Header_CodeInitials());
                                 }
                             }
@@ -246,8 +250,11 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                         e.printStackTrace();
                     }
                 }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 
-                Collections.sort(dateList);
+                Collections.sort(dateList, (s1, s2) -> LocalDate.parse(s1, formatter).
+                        compareTo(LocalDate.parse(s2, formatter)));
+                dateList.replaceAll(String::toUpperCase);
                 if (sortOrder.equals("Ascending")) {
                     testStepAssert.isTrue(dateList.equals(CurrentGridData.get(1)), field + " should sort by " + sortOrder, field + " is not sorted by " + sortOrder);
                 } else {
@@ -360,7 +367,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
 
     }
 
-    List<List<String>> getGridData(int columncount)
+    List<List<String>> getGridData( List<List<String>> Grid, int columncount)
     {
         for (int i=1; i<=columncount; i++) {
             try {
@@ -374,27 +381,29 @@ public class Admin_ReferralSourceSteps extends DriverBase {
 
                 if(Grid.size() < columncount) {
                     for ( WebElement e : GridColumn) {
-                        GridColumnData.add(e.getText());
+                        GridColumnData.add(e.getText().toUpperCase());
                     }
                     Grid.add(GridColumnData);
                 }
                 else
                     for ( WebElement e : GridColumn) {
-                        Grid.get(i-1).add(e.getText());
+                        Grid.get(i-1).add(e.getText().toUpperCase());
                     }
         }
 
         return Grid;
     }
 
-    List<List<String>> paginateAndGetGridData(int column)
-    {
+    List<List<String>> paginateAndGetGridData(int column) {
 
         List<List<String>> GridPageData = new ArrayList<>();
+        List<List<String>> Grid = new ArrayList<>();
+
         int pageno = 2;
-        do {
-            DefaultGridData = getGridData(column);
-            if(SetupManager.getDriver().findElements(By.id(String.valueOf(pageno))).size()!=0) {
+        if (SetupManager.getDriver().findElements(By.id(String.valueOf(pageno))).size() != 0) {
+            do {
+                GridPageData = getGridData(Grid, column);
+
                 try {
                     SetupManager.getDriver().findElement(By.id(String.valueOf(pageno)));
                 } catch (Exception e) {
@@ -402,7 +411,7 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                         pageno = pageno - 2;
                         action.click(SetupManager.getDriver().findElement(By.id(String.valueOf(pageno))));
                     }
-                    Grid = new ArrayList<>();
+
                     break;
                 }
 
@@ -412,10 +421,17 @@ public class Admin_ReferralSourceSteps extends DriverBase {
                     Thread.sleep(2000);
                 } catch (Exception ex) {
                 }
-            }
-            else
-                break;
-        } while (true);
-        return DefaultGridData;
+
+
+        } while (true) ;
+
+    }
+    else {
+
+               GridPageData = getGridData(Grid,column);
+
+        }
+
+        return GridPageData;
     }
 }

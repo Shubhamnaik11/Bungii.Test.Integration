@@ -63,10 +63,10 @@ public class Admin_PromoterPage extends PageBase {
 
     public WebElement TextBox_PostalCode( ) { return findElement("postal-code", LocatorType.Id); }
 
-    public WebElement Header_Name () { return findElement("//th[contains(text(),'Name')]", LocatorType.XPath); }
+    public WebElement Header_Name () { return findElement("//th[contains(text(),'Name')]/span", LocatorType.XPath); }
 
-    public WebElement Header_Created () { return findElement("//th[contains(text(),'Created')]", LocatorType.XPath); }
+    public WebElement Header_Created () { return findElement("//th[contains(text(),'Created')]/span", LocatorType.XPath); }
 
-    public WebElement Header_CodeInitials () { return findElement("//th[contains(text(),'Code Initials')]", LocatorType.XPath); }
+    public WebElement Header_CodeInitials () { return findElement("//th[contains(text(),'Code Initials')]/span", LocatorType.XPath); }
 
 }
