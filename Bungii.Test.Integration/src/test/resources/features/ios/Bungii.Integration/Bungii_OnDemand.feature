@@ -3,9 +3,78 @@
 Feature: Create on demand bungii
 
   Background:
-
-
   @POSTDUO
+  @sanity
+  @regression
+  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
+    Given I am on the "LOG IN" page
+    And I am on Customer logged in Home page
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
+    And I change driver status to "Online"
+    And I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location           | geofence |
+      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 15       |           |              | Now  | Default     |
+    Then I should be navigated to "SEARCHING" screen
+    And I click on notification for "Driver" for "on demand trip"
+    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+    Then I should be navigated to "EN ROUTE" trip status screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen
+
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "ARRIVED" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
+
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
+
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress
@@ -157,79 +226,6 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-#    And I Switch to "customer" application on "same" devices
-
-
-  @sanity
-  @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
-    Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           | geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then Customer should be navigated to "EN ROUTE" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Complete" screen
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    Then I should be navigated to "Promotion" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>

@@ -11,13 +11,16 @@ import java.util.UUID;
 
 
 public class ScreenshotUtility {
-	
+	private static LogUtility logger = new LogUtility(ScreenshotUtility.class);
+
 	/**
 	 * @param path_screenshot Folder Path in which screenshot will be captured
 	 * @return absolute path of screenshot
 	 * @throws IOException
 	 */
 	public String screenshot(String path_screenshot) throws IOException  {
+		try {
+
 		File srcFile = ((TakesScreenshot) DriverManager.getObject().getDriver()).getScreenshotAs(OutputType.FILE);
 		
 	    String filename=UUID.randomUUID().toString(); 
@@ -26,6 +29,11 @@ public class ScreenshotUtility {
 			FileUtils.copyFile(srcFile,targetFile);
 			return targetFile.getName();
 			//return targetFile.getPath();
+		}catch (Exception e){
+			logger.detail(" Problem capturing screenshot");
+			return "";
+		}
+
 	}
 	///TODO check feasibility
 	public void videoRecord(){

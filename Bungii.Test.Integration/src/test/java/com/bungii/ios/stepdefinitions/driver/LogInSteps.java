@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.driver;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -36,6 +37,7 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case"valid driver 2":
+                SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                 phone = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
                 password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
                 shouldLoginSucessful = true;
