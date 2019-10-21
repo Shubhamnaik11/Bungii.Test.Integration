@@ -6,6 +6,7 @@ Feature: Create on demand bungii
   @POSTDUO
   @sanity
   @regression
+    @FAILED
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page

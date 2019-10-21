@@ -31,6 +31,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
+  @FAILED
   @sanity
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.
@@ -58,6 +59,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
     And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
+  @FAILED
   @sanity
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on Arived Update Page.
