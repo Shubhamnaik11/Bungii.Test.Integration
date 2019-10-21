@@ -75,4 +75,14 @@ public class Driver_LoginSteps extends DriverBase {
             default: break;
         }
     }
+
+    @And("^I enter driver Phone number as \"([^\"]*)\" and valid password$")
+    public void i_enter_driver_phone_number_as_something_and_valid_password(String phone) throws Throwable {
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(),phone);
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("DriverPassword"));
+
+
+    }
+
+
 }
