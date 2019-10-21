@@ -175,7 +175,15 @@ public class PageBase {
                         break;
                     }
                 }
-            } catch (NoSuchElementException e) {
+            }
+            catch (StaleElementReferenceException e) {
+                //if retry is true mean this is second time in loop .so break
+                if(retry)
+                {
+                    break;
+                }
+                retry=true;
+            }catch (NoSuchElementException e) {
                 if (ignoreException.length > 0) {
                     if (ignoreException[0] == true) {
                         //ignore exception
@@ -186,13 +194,7 @@ public class PageBase {
                 } else {
                     throw new NoSuchElementException(identifier);
                 }
-            } catch (StaleElementReferenceException e) {
-                if(retry==true)
-                {
-                    break;
-                }
-                retry=true;
-            } finally {
+            }  finally {
                 updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));
 
             }
