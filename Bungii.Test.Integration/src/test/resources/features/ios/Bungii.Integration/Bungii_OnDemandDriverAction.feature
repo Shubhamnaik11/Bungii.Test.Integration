@@ -1,7 +1,7 @@
 @ios
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
-
+  @POSTDUO
   @regression
   Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
     When I Switch to "driver" application on "same" devices
@@ -31,7 +31,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
-
+  @sanity
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.
     Given that ondemand bungii is in progress
@@ -58,7 +58,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
     And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-
+  @sanity
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on Arived Update Page.
     Given that ondemand bungii is in progress

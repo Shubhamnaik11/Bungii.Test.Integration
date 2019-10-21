@@ -6,7 +6,7 @@ Feature: Login
 
   Background:
     Given I am on customer Log in page
-
+  @sanity
   @regression
   Scenario: Cust_Login_ValidCredentials
     When I enter customers "valid" Phone Number

@@ -70,6 +70,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Promo Code":
+                    Thread.sleep(3000);
                     action.click(Page_Estimate.Link_Promo());
                     break;
 
@@ -142,10 +143,13 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "OK on complete":
                     boolean isDuo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO");
                     if (isDuo) {
-                        action.waitUntilIsElementExistsAndDisplayed(Page_BungiiComplete.Button_OK());
-                        Thread.sleep(20000);
+                        Thread.sleep(100000);
                     }
-                    action.waitUntilIsElementExistsAndDisplayed(Page_BungiiComplete.Button_OK());
+                    try {
+                        if(action.getText(Page_Signup.GenericHeader(true)).equals("COMPLETE"))
+                            action.textToBePresentInElementText(Page_Signup.GenericHeader(),"BUNGII COMPLETE");
+
+                    }catch (Exception e){}
                     action.click(Page_BungiiComplete.Button_OK());
                     break;
 

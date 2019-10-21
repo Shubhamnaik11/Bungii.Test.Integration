@@ -264,7 +264,9 @@ public class ActionManager {
      */
     public void hideKeyboard() {
         try {
-            IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
+            //new method is updated appium versions
+            ((AppiumDriver) SetupManager.getDriver()).hideKeyboard();
+/*            IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
                     .findElementByClassName("XCUIElementTypeKeyboard");
             Point keyboardPoint = element.getLocation();
             TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
@@ -272,7 +274,7 @@ public class ActionManager {
 
             touchAction.tap(top).perform();
 
-            Thread.sleep(200);
+            Thread.sleep(200);*/
 
             logger.detail(" Hidded Key board");
 

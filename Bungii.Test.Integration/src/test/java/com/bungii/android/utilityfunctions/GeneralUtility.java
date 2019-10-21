@@ -7,7 +7,6 @@ import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -22,10 +21,7 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,9 +35,8 @@ import static com.bungii.common.manager.ResultManager.warning;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
-    private static LogUtility logger = new LogUtility(GeneralUtility.class);
-
     static final double MIN_COST = 39;
+    private static LogUtility logger = new LogUtility(GeneralUtility.class);
     ActionManager action = new ActionManager();
     LoginPage Page_Login = new LoginPage();
     SignupPage Page_Signup = new SignupPage();
@@ -61,9 +56,10 @@ public class GeneralUtility extends DriverBase {
     ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
     TermsPage termsPage = new TermsPage();
     SearchingPage searchingPage = new SearchingPage();
-    InProgressBungiiPages driverBungiiProgressPage= new InProgressBungiiPages();
-    BungiiCompletedPage bungiiCompletedPage= new BungiiCompletedPage();
+    InProgressBungiiPages driverBungiiProgressPage = new InProgressBungiiPages();
+    BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
+
     /**
      * Launch driver application's using package and activity
      *
@@ -126,10 +122,10 @@ public class GeneralUtility extends DriverBase {
         if (action.isElementPresent(homePage.Generic_Element(true)))
             return true;
         else {
-           // Thread.sleep(5000);
+            // Thread.sleep(5000);
             logger.detail(SetupManager.getDriver().getPageSource());
             return false;
-           // return action.isElementPresent(homePage.Generic_Element(true));
+            // return action.isElementPresent(homePage.Generic_Element(true));
         }
     }
 
@@ -144,9 +140,9 @@ public class GeneralUtility extends DriverBase {
             return true;
         else {
             logger.detail(SetupManager.getDriver().getPageSource());
-          //Thread.sleep(5000);
-           return false;
-           //return action.isElementPresent(driverHomePage.Generic_Element(true));
+            //Thread.sleep(5000);
+            return false;
+            //return action.isElementPresent(driverHomePage.Generic_Element(true));
         }
     }
 
@@ -450,7 +446,7 @@ public class GeneralUtility extends DriverBase {
         action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
 
         boolean skipNormalFlow = false;
-    //    System.out.println("Page"+SetupManager.getDriver().getPageSource());
+        //    System.out.println("Page"+SetupManager.getDriver().getPageSource());
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
         switch (currentPage.toUpperCase()) {
             case "BUNGII":
@@ -469,7 +465,7 @@ public class GeneralUtility extends DriverBase {
 
                 break;
             case "LOGIN":
-             //   action.click(Page_Signup.Link_Login());
+                //   action.click(Page_Signup.Link_Login());
                 skipNormalFlow = true;
 
                 break;
@@ -521,8 +517,8 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
-        boolean isNextScreenLogIN=false;
-     //   System.out.println(SetupManager.getDriver().getPageSource());
+        boolean isNextScreenLogIN = false;
+        //   System.out.println(SetupManager.getDriver().getPageSource());
         action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
 
         String currentPage = action.getText(Page_Signup.GenericHeader(true));
@@ -537,25 +533,25 @@ public class GeneralUtility extends DriverBase {
                 clickCustomerMenuItem("LOGOUT");
                 isNextScreenLogIN = true;
                 break;
-            case"SIGN UP":
+            case "SIGN UP":
                 action.click(Page_Signup.Link_Login());
-                isNextScreenLogIN=true;
+                isNextScreenLogIN = true;
                 break;
-            case"TERMS & CONDITIONS":
+            case "TERMS & CONDITIONS":
                 action.click(Page_CustTerms.Checkbox_Agree());
                 action.click(Page_CustTerms.Button_Continue());
                 if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
-                  // action.click(Page_CustTerms.Button_GoToSetting());
-                   action.click(Page_CustTerms.Button_PermissionsSure());
+                    // action.click(Page_CustTerms.Button_GoToSetting());
+                    action.click(Page_CustTerms.Button_PermissionsSure());
                     action.click(Page_CustTerms.Button_PermissionsAllow());
-                   // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
                 if (action.isElementPresent(homePage.Button_Closetutorials(true)))
                     action.click(homePage.Button_Closetutorials());
                 break;
 
         }
-        if (currentPage.equalsIgnoreCase("LOGIN")||isNextScreenLogIN) {
+        if (currentPage.equalsIgnoreCase("LOGIN") || isNextScreenLogIN) {
             WebElement element = Page_Login.TextField_PhoneNumber();
             if (StringUtils.isNumeric(phone)) {
                 //element.sendKeys();
@@ -568,8 +564,14 @@ public class GeneralUtility extends DriverBase {
             action.clearSendKeys(Page_Login.TextField_Password(), password);
             action.click(Page_Login.Button_Login());
             Thread.sleep(3000);
-         //   action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
-            String nextPage = action.getText(Page_Signup.Header_HomePage(true));
+            //   action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
+            String nextPage = "";
+            try {
+                action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
+                nextPage = action.getText(Page_Signup.GenericHeader(true));
+            } catch (Exception e) {
+                nextPage = action.getText(Page_Signup.GenericHeader(true));
+            }
 
             if (nextPage.equalsIgnoreCase("TERMS & CONDITIONS")) {
                 action.click(Page_CustTerms.Checkbox_Agree());
@@ -600,7 +602,7 @@ public class GeneralUtility extends DriverBase {
         action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
         if (currentPage.equals("LOGIN")) {
-       // if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
+            // if (action.isElementPresent(driverLoginPage.TextField_PhoneNumber(true))) {
             WebElement element = driverLoginPage.TextField_PhoneNumber();
 
             if (StringUtils.isNumeric(phone)) {
@@ -612,14 +614,20 @@ public class GeneralUtility extends DriverBase {
             action.sendKeys(driverLoginPage.TextField_Password(), password);
             action.click(driverLoginPage.Button_Login());
             Thread.sleep(2000);
-            currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
-            if(currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")){
+            try {
+                action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
+                currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
+            }catch (StaleElementReferenceException ex){
+                Thread.sleep(4000);
+                WebElement header=driverHomePage.Generic_HeaderElement();
+                currentPage=header.getText();
+            }
+            if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")) {
 
-            }else if(currentPage.equals("LOCATION")){
+            } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
-            }
-            else if(action.isElementPresent(driverLoginPage.Header_Location(true))){
+            } else if (action.isElementPresent(driverLoginPage.Header_Location(true))) {
                 action.click(driverLoginPage.Button_Sure());
                 action.click(driverLoginPage.Button_Allow());
             }
@@ -647,9 +655,9 @@ public class GeneralUtility extends DriverBase {
     public void goToDriverLoginPage() {
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
 
-        if (currentPage.equals("LOGIN")) {}
-        else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {}
-        else clickDriverMenuItem("LOGOUT");
+        if (currentPage.equals("LOGIN")) {
+        } else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
+        } else clickDriverMenuItem("LOGOUT");
 
     }
 
@@ -688,13 +696,13 @@ public class GeneralUtility extends DriverBase {
 
     public boolean clickOnNofitication(String appName, String notificationMessage) {
         boolean isDisplayed = false;
-     //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
-      //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
+        //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
+        //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
         System.out.println(SetupManager.getDriver().getPageSource());
 
         //FIX FOR APPIUM 1.42
         action.click(otherAppsPage.Notification_OnDemand());
-        isDisplayed=true;
+        isDisplayed = true;
 /*
         for (int i = 0; i < notificationHeader.size(); i++) {
             if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
@@ -845,103 +853,107 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Switched to Driver in recovery scenario");
             Thread.sleep(1000);
 
-        }catch (Exception e){}
-
+        } catch (Exception e) {
+        }
 
 
         try {
 
 
-     //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
-        if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
-            String screen = action.getText(driverHomePage.Generic_HeaderElement());
-            logger.detail("Driver struck screen"+screen);
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                logger.detail("Driver struck on arrived screen");
-                action.click(driverBungiiProgressPage.Button_Cancel());
-                action.click(driverBungiiProgressPage.Button_Cancel_Yes());
-                launchCustomerApplication();
-                action.click(estimatePage.Button_OK());
+            //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
+            if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
+                String screen = action.getText(driverHomePage.Generic_HeaderElement());
+                logger.detail("Driver struck screen" + screen);
+                if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+                    logger.detail("Driver struck on arrived screen");
+                    action.click(driverBungiiProgressPage.Button_Cancel());
+                    action.click(driverBungiiProgressPage.Button_Cancel_Yes());
+                    launchCustomerApplication();
+                    action.click(estimatePage.Button_OK());
 
-            } else if (screen.equals(Status.EN_ROUTE.toString())) {
-                logger.detail("Driver struck on EN_ROUTE screen");
-                action.click(driverBungiiProgressPage.Button_Cancel());
-                action.click(driverBungiiProgressPage.Button_Cancel_Yes());
-                launchCustomerApplication();
-                action.click(estimatePage.Button_OK());
-            } else if (screen.equals(Status.LOADING_ITEM.toString())) {
-                logger.detail("Driver struck on LOADING_ITEM screen");
-                action.swipeRight(driverBungiiProgressPage.Slider());
-                /*
+                } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                    logger.detail("Driver struck on EN_ROUTE screen");
+                    action.click(driverBungiiProgressPage.Button_Cancel());
+                    action.click(driverBungiiProgressPage.Button_Cancel_Yes());
+                    launchCustomerApplication();
+                    action.click(estimatePage.Button_OK());
+                } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+                    logger.detail("Driver struck on LOADING_ITEM screen");
+                    action.swipeRight(driverBungiiProgressPage.Slider());
+
                 if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
                     if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.pickup"))) {
                         action.getText(driverBungiiProgressPage.Alert_Message());
                         action.click(driverBungiiProgressPage.Alert_Accept());
                     }
-                }*/
-                action.swipeRight(driverBungiiProgressPage.Slider());
-                action.swipeRight(driverBungiiProgressPage.Slider());
-/*
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
-                    }
-                }*/
-                action.click(bungiiCompletedPage.Button_OnToTheNext());
-            } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
-                logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
-                action.swipeRight(driverBungiiProgressPage.Slider());
-                action.swipeRight(driverBungiiProgressPage.Slider());
-                /*
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
-                    }
-                }*/
-                action.click(bungiiCompletedPage.Button_OnToTheNext());
-            } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
-                logger.detail("Driver struck on UNLOADING_ITEM screen");
-                action.swipeRight(driverBungiiProgressPage.Slider());
-                /*
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
-                    }
-                }*/
-                action.click(bungiiCompletedPage.Button_OnToTheNext());
-            }else  if(screen.equals("BUNGII COMPLETED")){
-                action.click(bungiiCompletedPage.Button_OnToTheNext());
+                }
+                    action.swipeRight(driverBungiiProgressPage.Slider());
+                    action.swipeRight(driverBungiiProgressPage.Slider());
 
+                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
+                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                        action.getText(driverBungiiProgressPage.Alert_Message());
+                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    }
+                }
+                    action.click(bungiiCompletedPage.Button_OnToTheNext());
+                } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+                    logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
+                    action.swipeRight(driverBungiiProgressPage.Slider());
+                    action.swipeRight(driverBungiiProgressPage.Slider());
+
+                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
+                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                        action.getText(driverBungiiProgressPage.Alert_Message());
+                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    }
+                }
+                    action.click(bungiiCompletedPage.Button_OnToTheNext());
+                } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+                    logger.detail("Driver struck on UNLOADING_ITEM screen");
+                    action.swipeRight(driverBungiiProgressPage.Slider());
+
+                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
+                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                        action.getText(driverBungiiProgressPage.Alert_Message());
+                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    }
+                }
+                    action.click(bungiiCompletedPage.Button_OnToTheNext());
+                } else if (screen.equals("BUNGII COMPLETED")) {
+                    action.click(bungiiCompletedPage.Button_OnToTheNext());
+
+                }
+            } else if (action.isElementPresent(bungiiCompletedPage.Button_OnToTheNext(true))) {
+                logger.detail("Driver struck on bungii completed screen");
+                action.click(bungiiCompletedPage.Button_OnToTheNext());
+            }else if (action.isElementPresent(estimatePage.Button_OK(true))) {
+                logger.detail("Driver struck on  Popup message ");
+                action.click(estimatePage.Button_OK());
             }
-        }else if (action.isElementPresent(bungiiCompletedPage.Button_OnToTheNext(true))) {
-            logger.detail("Driver struck on bungii completed screen");
-            action.click(bungiiCompletedPage.Button_OnToTheNext());
-        }
 
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         SetupManager.getObject().restartApp();
         logger.detail("Switched to customer in recovery scenario");
-        String appHeader="";
+        String appHeader = "";
         try {
-            appHeader=  action.getText(Page_Signup.GenericHeader(true));
-        }catch (Exception e){}{
+            appHeader = action.getText(Page_Signup.GenericHeader(true));
+        } catch (Exception e) {
         }
-        if(appHeader.equalsIgnoreCase("BUNGII")|| appHeader.equalsIgnoreCase("SIGN UP")|| appHeader.equalsIgnoreCase("LOGIN")){
-            //do nothing
-        }
-        else if(action.isElementPresent(searchingPage.ProgressBar(true)))
         {
+        }
+        if (appHeader.equalsIgnoreCase("BUNGII") || appHeader.equalsIgnoreCase("SIGN UP") || appHeader.equalsIgnoreCase("LOGIN")) {
+            //do nothing
+        } else if (action.isElementPresent(searchingPage.ProgressBar(true))) {
             logger.detail("customer struck on searching screen");
             action.click(searchingPage.Link_CancelSearch());
             action.click(searchingPage.Button_CancelConfirm());
-        }else if(action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiComplete(true))){
+        } else if (action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiComplete(true))) {
             logger.detail("customer struck on bungii complete screen");
             action.click(customerBungiiCompletePage.CloseRateTipPage());
             action.click(wantDollar5Page.Button_NoFreeMoney());
-        }else if(action.isElementPresent(wantDollar5Page.Titlebar_WantDollar5Page(true))){
+        } else if (action.isElementPresent(wantDollar5Page.Titlebar_WantDollar5Page(true))) {
             logger.detail("Customer struck on promotion screen");
             action.click(wantDollar5Page.Button_NoFreeMoney());
         }

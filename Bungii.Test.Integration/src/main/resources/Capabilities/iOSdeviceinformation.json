@@ -13,6 +13,7 @@
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
     "useJSONSource": true,
+    "maxTypingFrequency": 30,
     "wdaLocalPort": 8110
   },
   "device1": {
@@ -28,6 +29,7 @@
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
     "useJSONSource": true,
+    "maxTypingFrequency": 30,
     "wdaLocalPort": 8100
   },
 

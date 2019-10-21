@@ -25,6 +25,7 @@ Feature: Log In
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | Empty Phone and Password Error            |LOGIN BUTTON DISABLED|
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | Empty Phone Error                         |LOGIN BUTTON DISABLED|
 
+  @sanity
   @regression
   Scenario: As Bungii driver , I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
