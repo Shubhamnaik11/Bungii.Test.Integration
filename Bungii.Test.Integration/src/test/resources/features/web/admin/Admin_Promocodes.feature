@@ -19,6 +19,7 @@ Feature: Admin_Promocodes
     When I search by Name "Promo<<CurrentDateTime>>"
     Then the promocode "Promo<<CurrentDateTime>>" is displayed in the Promocodes grid
 
+
   @testReport
   @sanity
   @regression
@@ -31,9 +32,9 @@ Feature: Admin_Promocodes
     Then the "One Off" type promocode gets saved successfully and it is displayed in the Promocodes grid
     When I search by Code "O<<CurrentDateTime>>"
     Then the promocode "OO<<CurrentDateTime>>" is displayed in the Promocodes grid
-    
+
+
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_DeliveryByPromoter
     When I click on the "New Code" Button
@@ -58,7 +59,6 @@ Feature: Admin_Promocodes
       | Delivery By Promoter (M)       | DM<<CurrentDateTime>>|   World Market Promotion  |  Promotion | M<<CurrentDateTime>>        |
     When I click on the "Save" Button
     Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
-
 
   @testReport
   @sanity
@@ -98,18 +98,14 @@ Feature: Admin_Promocodes
     And I click on the "Apply" Button
     Then the promocode grid shows the both "Active & Expired" promocodes
 
-
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Cancel
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
 
-
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Code" Button
@@ -123,6 +119,5 @@ Feature: Admin_Promocodes
     |0 | Please enter a value greater than or equal to 1.                 |
     |71                                                       |Please enter a value less than or equal to 70.       |
     Then the "corresponding" message is displayed beside the "respective" field
-
 
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented

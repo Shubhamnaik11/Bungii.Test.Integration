@@ -63,7 +63,6 @@ Feature: Admin_BusinessUsers
     Then the business user is not displayed in Bulk Trips since payment is not set
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddBusinessUser_Cancel
     When I click on the "New Business User" Button
@@ -71,7 +70,6 @@ Feature: Admin_BusinessUsers
     Then the "Business User" popup gets removed from UI
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Business User" Button

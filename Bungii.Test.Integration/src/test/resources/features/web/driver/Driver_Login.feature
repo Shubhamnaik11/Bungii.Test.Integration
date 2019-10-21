@@ -15,8 +15,7 @@ Feature: Driver_Login
     And I click "LOG IN button" on driver portal
     Then the driver should "be logged in"
     Then the driver logout from dashboard
-
-  @sanity
+    
   @regression
   Scenario: Driver_Login_Blank
     When I click "LOG IN button" on driver portal
