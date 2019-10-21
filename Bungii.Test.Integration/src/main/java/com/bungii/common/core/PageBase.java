@@ -115,79 +115,88 @@ public class PageBase {
         WebDriver driver = DriverManager.getObject().getDriver();
         updateWaitTime(ignoreException);
         WebElement element = null;
-        try {
-            switch (locatorType) {
-                case Id: {
-                    WaitUntilElementIsDisplayed(By.id(identifier));
-                    element = driver.findElement(By.id(identifier));
-                    break;
+        boolean retry=false;
+        do {
+            try {
+                switch (locatorType) {
+                    case Id: {
+                        WaitUntilElementIsDisplayed(By.id(identifier));
+                        element = driver.findElement(By.id(identifier));
+                        break;
+                    }
+                    case Name: {
+                        WaitUntilElementIsDisplayed(By.name(identifier));
+                        element = driver.findElement(By.name(identifier));
+                        break;
+                    }
+                    case ClassName: {
+                        WaitUntilElementIsDisplayed(By.className(identifier));
+                        element = driver.findElement(By.className(identifier));
+                        break;
+                    }
+                    case XPath: {
+                        WaitUntilElementIsDisplayed(By.xpath(identifier));
+                        element = driver.findElement(By.xpath(identifier));
+                        break;
+                    }
+                    case LinkText: {
+                        WaitUntilElementIsDisplayed(By.linkText(identifier));
+                        element = driver.findElement(By.linkText(identifier));
+                        break;
+                    }
+                    case PartialLinkText: {
+                        WaitUntilElementIsDisplayed(By.partialLinkText(identifier));
+                        element = driver.findElement(By.partialLinkText(identifier));
+                        break;
+                    }
+                    case CssSelector: {
+                        WaitUntilElementIsDisplayed(By.cssSelector(identifier));
+                        element = driver.findElement(By.cssSelector(identifier));
+                        break;
+                    }
+                    case TagName: {
+                        WaitUntilElementIsDisplayed(By.tagName(identifier));
+                        element = driver.findElement(By.tagName(identifier));
+                        break;
+                    }
+                    case AccessibilityId: {
+                        WaitUntilElementIsDisplayed(MobileBy.AccessibilityId(identifier));
+                        element = driver.findElement(MobileBy.AccessibilityId(identifier));
+                        break;
+                    }
+                    case Predicate: {
+                        WaitUntilElementIsDisplayed(MobileBy.iOSNsPredicateString(identifier));
+                        element = driver.findElement(MobileBy.iOSNsPredicateString(identifier));
+                        break;
+                    }
+                    case ClassChain: {
+                        WaitUntilElementIsDisplayed(MobileBy.iOSClassChain(identifier));
+                        element = driver.findElement(MobileBy.iOSClassChain(identifier));
+                        break;
+                    }
                 }
-                case Name: {
-                    WaitUntilElementIsDisplayed(By.name(identifier));
-                    element = driver.findElement(By.name(identifier));
-                    break;
-                }
-                case ClassName: {
-                    WaitUntilElementIsDisplayed(By.className(identifier));
-                    element = driver.findElement(By.className(identifier));
-                    break;
-                }
-                case XPath: {
-                    WaitUntilElementIsDisplayed(By.xpath(identifier));
-                    element = driver.findElement(By.xpath(identifier));
-                    break;
-                }
-                case LinkText: {
-                    WaitUntilElementIsDisplayed(By.linkText(identifier));
-                    element = driver.findElement(By.linkText(identifier));
-                    break;
-                }
-                case PartialLinkText: {
-                    WaitUntilElementIsDisplayed(By.partialLinkText(identifier));
-                    element = driver.findElement(By.partialLinkText(identifier));
-                    break;
-                }
-                case CssSelector: {
-                    WaitUntilElementIsDisplayed(By.cssSelector(identifier));
-                    element = driver.findElement(By.cssSelector(identifier));
-                    break;
-                }
-                case TagName: {
-                    WaitUntilElementIsDisplayed(By.tagName(identifier));
-                    element = driver.findElement(By.tagName(identifier));
-                    break;
-                }
-                case AccessibilityId: {
-                    WaitUntilElementIsDisplayed(MobileBy.AccessibilityId(identifier));
-                    element = driver.findElement(MobileBy.AccessibilityId(identifier));
-                    break;
-                }
-                case Predicate: {
-                    WaitUntilElementIsDisplayed(MobileBy.iOSNsPredicateString(identifier));
-                    element = driver.findElement(MobileBy.iOSNsPredicateString(identifier));
-                    break;
-                }
-                case ClassChain: {
-                    WaitUntilElementIsDisplayed(MobileBy.iOSClassChain(identifier));
-                    element = driver.findElement(MobileBy.iOSClassChain(identifier));
-                    break;
-                }
-            }
-        } catch (NoSuchElementException e) {
-            if (ignoreException.length > 0) {
-                if (ignoreException[0] == true) {
-                    //ignore exception
-                    //or to do action
+            } catch (NoSuchElementException e) {
+                if (ignoreException.length > 0) {
+                    if (ignoreException[0] == true) {
+                        //ignore exception
+                        //or to do action
+                    } else {
+                        throw new NoSuchElementException(identifier);
+                    }
                 } else {
                     throw new NoSuchElementException(identifier);
                 }
-            } else {
-                throw new NoSuchElementException(identifier);
-            }
-        } finally {
-            updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));
+            } catch (StaleElementReferenceException e) {
+                if(retry==true)
+                {
+                    break;
+                }
+                retry=true;
+            } finally {
+                updateWaitTime(Long.parseLong(PropertyUtility.getProp("WaitTime")));
 
-        }
+            }
+        }while(retry);
 
         return element;
     }
