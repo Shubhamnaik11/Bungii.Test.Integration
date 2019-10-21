@@ -64,6 +64,9 @@ public class HomePageSteps extends DriverBase {
         try {
             Thread.sleep(5000);
             String getNaviagationText = action.getText(homePage.Title_Status());
+            if(getNaviagationText.trim().equals("")) {
+                Thread.sleep(15000);getNaviagationText = action.getText(homePage.Title_Status());
+            }
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
             testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
         } catch (Exception e) {
