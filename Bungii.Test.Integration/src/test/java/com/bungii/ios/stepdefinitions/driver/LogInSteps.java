@@ -24,7 +24,7 @@ public class LogInSteps extends DriverBase {
 
     GeneralUtility utility = new GeneralUtility();
     @Given("^I am logged in as \"([^\"]*)\" driver$")
-    public void i_am_logged_in_as_something_driver(String option){
+    public void i_am_logged_in_as_something_driver(String option) {
         try {
         String phone, password;
         boolean shouldLoginSucessful;

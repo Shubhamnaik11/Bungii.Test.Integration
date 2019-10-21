@@ -12,7 +12,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import java.io.IOException;
-
+import java.util.Properties;
 //
 @CucumberOptions(features = "target/test-classes/features/ios", monochrome = true, tags = "@ios and @regression1", plugin = {
         "pretty", "html:target/cucumber-report/single",

@@ -23,7 +23,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "customer" application on "same" devices
     And I tap on "Cancel during search" on Bungii estimate
     And Quit Bungii Driver app
-  @testapi
+  @sanity
   @regression
   Scenario: OnDemand_DriverCancelBungii_EnrouteState
     Given that ondemand bungii is in progress
@@ -43,7 +43,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     Then "Home" page should be opened
 
-
+  @sanity
   @regression
   Scenario: OnDemand_DriverCancelBungii_ArrivedState
 

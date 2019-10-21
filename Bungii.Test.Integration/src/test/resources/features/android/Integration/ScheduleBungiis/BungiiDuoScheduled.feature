@@ -115,7 +115,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
-  @regression1
+
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
