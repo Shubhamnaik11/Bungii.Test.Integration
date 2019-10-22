@@ -5,7 +5,7 @@ Feature: CustomerForgotPassword
   Background:
     Given I am on customer Log in page
     And I tap on the "Forgot Password" Link
-  @TESTTHIS
+
   @regression
   Scenario: Cust_ForgotPassword_Success
     When I enter "valid" Phone Number

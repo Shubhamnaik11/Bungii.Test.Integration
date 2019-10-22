@@ -57,6 +57,7 @@ public class HomeSteps extends DriverBase {
                     action.click(homePage.Link_Invite());
                     break;
                 case "Drop Clear Text":
+                    Thread.sleep(3000);
                     action.click(homePage.Button_ClearDrop());
                     break;
                 case "Pick Up Clear Text":
@@ -293,10 +294,12 @@ public class HomeSteps extends DriverBase {
             switch (toDoAction.toUpperCase()) {
                 case "DROP":
                     action.click(homePage.Button_Locator());
+                    action.click(homePage.Button_Locator());
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
                     break;
                 case "PICK UP":
+                    action.click(homePage.Button_Locator());
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);

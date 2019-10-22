@@ -16,8 +16,8 @@ Feature: FORGOT PASSWORD
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
     When I click "SEND" button on FORGOT PASSWORD screen on driver app
-    Then I should see "<Send Button Status>"  on FORGOT PASSWORD on driver app
     Then I should see "<Expected Message>"  on FORGOT PASSWORD on driver app
+    Then I should see "<Send Button Status>"  on FORGOT PASSWORD on driver app
 
     Examples:
       | Scenario                  | Value      | Expected Message                | Send Button Status   |

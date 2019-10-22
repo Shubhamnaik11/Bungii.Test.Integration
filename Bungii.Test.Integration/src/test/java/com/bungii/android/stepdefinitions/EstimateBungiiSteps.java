@@ -536,6 +536,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
+            Thread.sleep(5000);
             //save load time in cucumber context
             cucumberContextManager.setScenarioContext("BUNGII_LOAD_TIME", arg0.replace(" mins", ""));
             log(" I add loading/unloading time " + arg0 + "on Estimate page",
