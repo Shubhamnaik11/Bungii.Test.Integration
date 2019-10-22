@@ -8,10 +8,12 @@ Feature: Duo
     Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid" driver
 
     When I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid driver 2" driver
     And I Select "Home" from driver App menu
     When I Switch to "customer" application on "ORIGINAL" devices
@@ -126,10 +128,12 @@ Feature: Duo
     Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid" driver
 
     When I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid driver 2" driver
 
 #    And I Select "SCHEDULED BUNGIIS" from driver App menu

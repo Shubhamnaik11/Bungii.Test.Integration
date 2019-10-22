@@ -16,6 +16,7 @@ Feature: To Test Solo - Scheduling Bungii
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu

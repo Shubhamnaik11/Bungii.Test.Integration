@@ -3,6 +3,7 @@ package com.bungii.ios.stepdefinitions.driver;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
@@ -18,6 +19,7 @@ import org.openqa.selenium.By;
 import java.math.BigDecimal;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);
@@ -72,6 +74,7 @@ public class HomePageSteps extends DriverBase {
                     goOffline();
                     break;
             }
+            ResultManager.log("I change driver status to"+status,"I change driver status"+status,true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

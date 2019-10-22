@@ -43,6 +43,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Customer should be navigated to "EN ROUTE" trip status screen
 
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     Then I should be navigated to "EN ROUTE" trip status screen
 
@@ -69,6 +70,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Customer should be navigated to "ARRIVED" trip status screen
 
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     Then I should be navigated to "ARRIVED" trip status screen
 

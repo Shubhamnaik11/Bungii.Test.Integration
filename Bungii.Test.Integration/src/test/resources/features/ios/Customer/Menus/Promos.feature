@@ -18,7 +18,7 @@ Feature: Promos
 
 #added promo code in
     Examples:
-      | Senario | Promo           | Expected Message      |
+      | Scenario | Promo           | Expected Message      |
       | Invalid | first time only | FIRST TIME ONLY PROMO |
 
   @regression

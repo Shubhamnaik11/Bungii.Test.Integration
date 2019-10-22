@@ -198,10 +198,27 @@ public class CoreServices extends DriverBase {
     public String getPickupRequest(String authToken, int numberOfDriver, String geoFence) {
         Response response = pickupRequest(authToken, numberOfDriver, geoFence);
         JsonPath jsonPathEvaluator = response.jsonPath();
+        saveAppliedPromoCode(response);
         return jsonPathEvaluator.get("PickupRequestID");
 
     }
-
+    public String  saveAppliedPromoCode(Response response){
+        String promoCode="",walletRef="";
+        JsonPath jsonPathEvaluator =response.jsonPath();
+        ArrayList availableArray = jsonPathEvaluator.get("Estimate.DiscountCost");
+        //interation to go through all promo code, will be useful in future
+        if (availableArray != null) {
+            for (int i = 0; i < availableArray.size(); i++) {
+                HashMap pickupDetails = (HashMap) availableArray.get(i);
+                promoCode = (String) pickupDetails.get("Code");
+                walletRef=(String) pickupDetails.get("WalletRef");
+                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE_WALLETREF", walletRef);
+                break;
+            }
+        }
+        return walletRef;
+    }
     public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken) {
         try {
 
@@ -259,7 +276,7 @@ public class CoreServices extends DriverBase {
 
     public Response customerConfirmation(String pickRequestID, String paymentMethodID, String authToken, String scheduledDateTime) {
         JSONObject jsonObj = new JSONObject();
-        jsonObj.put("WalletRef", "");
+        jsonObj.put("WalletRef", (String)cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"));
         jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
         jsonObj.put("PickupRequestID", pickRequestID);
         jsonObj.put("Description", "");
@@ -271,6 +288,7 @@ public class CoreServices extends DriverBase {
             jsonObj.put("IsScheduledPickup", false);
 
         }
+
         Header header = new Header("AuthorizationToken", authToken);
 
         String apiURL = null;

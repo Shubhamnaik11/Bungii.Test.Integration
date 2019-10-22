@@ -10,9 +10,11 @@ Feature: To Test Duo - Scheduled Bungii
 
 
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices
     When I logged in Customer application using  "customer-duo" user
@@ -132,9 +134,11 @@ Feature: To Test Duo - Scheduled Bungii
       | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid duo driver 1" driver
 
     And I connect to "extra1" using "Driver2" instance
+    And I am on the "LOG IN" page on driverApp
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid driver 2" driver
     And I Switch to "customer" application on "ORIGINAL" devices

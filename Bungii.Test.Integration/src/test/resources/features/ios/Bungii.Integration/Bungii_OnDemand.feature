@@ -84,6 +84,7 @@ Feature: Create on demand bungii
     When I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
 
     Then correct details should be displayed to driver on "SMS" app
@@ -169,7 +170,7 @@ Feature: Create on demand bungii
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
-
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 

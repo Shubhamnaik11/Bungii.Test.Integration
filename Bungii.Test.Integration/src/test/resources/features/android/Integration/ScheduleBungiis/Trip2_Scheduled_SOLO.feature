@@ -14,7 +14,8 @@ Feature: SoloScheduled
     Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
@@ -227,6 +228,7 @@ Feature: SoloScheduled
     Given I am logged in as "valid" customer
 
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid" driver
 
     When I open new "Chrome" browser for "ADMIN"
@@ -252,6 +254,7 @@ Feature: SoloScheduled
       | kansas      | Scheduled     | NEXT_POSSIBLE |
 
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     Given I am logged in as "valid" customer

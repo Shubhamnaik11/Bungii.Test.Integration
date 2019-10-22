@@ -8,6 +8,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Given I am on customer Log in page
     And I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     When I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
@@ -23,6 +24,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "customer" application on "same" devices
     And I tap on "Cancel during search" on Bungii estimate
     And Quit Bungii Driver app
+
   @sanity
   @regression
   Scenario: OnDemand_DriverCancelBungii_EnrouteState
@@ -35,6 +37,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then for a Bungii I should see "Enroute screen"
 
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then Bungii driver should see "Enroute screen"
     And Bungii Driver "cancels Bungii"
@@ -54,6 +57,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Given I am on customer Log in page
     And I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then Bungii driver should see "Arrived screen"
     And Bungii Driver "cancels Bungii"
