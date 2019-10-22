@@ -149,7 +149,8 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
-        ManageDevices.afterSuiteManageDevice();
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("ios") || PropertyUtility.targetPlatform.equalsIgnoreCase("android"))
+            ManageDevices.afterSuiteManageDevice();
         /*    String ClassName = this.getClass().getSimpleName();
 
         String curentThreadNumber = ClassName.substring(8, 10);
