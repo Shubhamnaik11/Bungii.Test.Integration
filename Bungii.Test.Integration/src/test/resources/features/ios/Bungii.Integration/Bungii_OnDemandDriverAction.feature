@@ -82,7 +82,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then I should be navigated to "Home" screen
+    And I should be navigated to "Home" screen
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
     
     

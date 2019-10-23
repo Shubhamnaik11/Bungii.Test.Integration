@@ -6,11 +6,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @regression
   Scenario: OnDemand_DriverRejectsBungiiRequest
     Given I am on customer Log in page
-    And I am logged in as "valid" customer
-    When I Switch to "driver" application on "same" devices
+    When I am logged in as "valid" customer
+    And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    When I tap on "Go Online button" on Driver Home page
+    And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -32,7 +32,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | kansas   | Enroute      |
 
-    Given I am on customer Log in page
+    When I am on customer Log in page
     And I am logged in as "valid" customer
     Then for a Bungii I should see "Enroute screen"
 
@@ -40,7 +40,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then Bungii driver should see "Enroute screen"
-    And Bungii Driver "cancels Bungii"
+    When Bungii Driver "cancels Bungii"
     And I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
@@ -54,13 +54,13 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | kansas   | ARRIVED      |
 
-    Given I am on customer Log in page
-    And I am logged in as "valid" customer
-    When I Switch to "driver" application on "same" devices
+    And I am on customer Log in page
+    When I am logged in as "valid" customer
+    And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then Bungii driver should see "Arrived screen"
-    And Bungii Driver "cancels Bungii"
+    When Bungii Driver "cancels Bungii"
     And I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message

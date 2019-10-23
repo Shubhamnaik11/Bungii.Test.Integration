@@ -122,7 +122,7 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
-    Given I am on the "LOG IN" page
+    And I am on the "LOG IN" page
     And I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location

@@ -4,8 +4,7 @@ Feature: Log In
   As a Bungii Driver I should be allowed to login only using valid credential
 
   Background:
- #   Given I Open "driver" application on "same" devices
-    And I Switch to "driver" application on "same" devices
+    Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
 
 
@@ -14,7 +13,7 @@ Feature: Log In
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
-    Then I should see "<Login Button Status>" on Log In screen on driver app
+    And I should see "<Login Button Status>" on Log In screen on driver app
 
   #  Then I should be navigated to "LOG IN" screen on driverApp
 
@@ -30,4 +29,4 @@ Feature: Log In
   Scenario: As Bungii driver , I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app
-    And I should be navigated to Home screen on driver app
+    Then I should be navigated to Home screen on driver app
