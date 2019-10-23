@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PaymentPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -56,6 +57,7 @@ public class PaymentSteps extends DriverBase {
                 action.click(new Point(Button_AddNew.getLocation().getX(), Button_AddNew.getLocation().getY()));
                 break;
             case "Credit or Debit Card":
+                Thread.sleep(5000);
                 action.click(paymentPage.Select_Method_Card());
                 if (action.isElementPresent(paymentPage.Header_CardDetailsPage()))
                     log("Header card details should be displayed", "Header card details is displayed ", false);
@@ -189,7 +191,12 @@ public class PaymentSteps extends DriverBase {
                 action.click(paymentPage.Year_2020());
                 SetupManager.getDriver().navigate().back();
                 break;
-
+            case "valid cvv":
+                action.sendKeys(paymentPage.Text_Cvv(),PropertyUtility.getDataProperties("valid.card.cvv"));
+                break;
+            case "valid postal code":
+                action.sendKeys(paymentPage.Text_PostalCode(),PropertyUtility.getDataProperties("valid.card.postal.code"));
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;

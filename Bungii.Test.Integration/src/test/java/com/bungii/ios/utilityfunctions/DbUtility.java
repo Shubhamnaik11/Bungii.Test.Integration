@@ -3,6 +3,9 @@ package com.bungii.ios.utilityfunctions;
 import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
 
@@ -85,5 +88,24 @@ public class DbUtility extends DbContextManager {
         rating = getDataFromMySqlServer(queryString);
         logger.detail("Rating is" + rating + ", query, " + queryString);
         return rating;
+    }
+
+    public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
+            String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
+            String driverID = getDataFromMySqlServer(queryString);
+            String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
+            boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
+
+            for(int i=0;i<30 && !isDriverEligible;i++){
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
+
+            }
+            return isDriverEligible;
+
     }
 }

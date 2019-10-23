@@ -44,20 +44,31 @@ public class InvitePage extends PageBase {
     //------Share - Samsung Msg App-------------------------------------------------------------
     public WebElement Samsung_TextMsg_TextField() { return findElement("com.android.mms:id/edit_text_bottom", LocatorType.Id); }
 
-    public WebElement TextMsg_TextField() { return findElement("com.android.mms:id/embedded_text_editor", LocatorType.Id); }
+    public WebElement TextMsg_TextField(boolean ...ignoreException) { return findElement("com.android.mms:id/embedded_text_editor", LocatorType.Id,ignoreException); }
 
     //------Share - Gmail App-------------------------------------------------------------------
     public WebElement Gmail_Referral_Subject() { return findElement("com.google.android.gm:id/subject", LocatorType.Id); }
 
-    public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath); }
+  //  public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath); }
+    public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.widget.EditText", LocatorType.XPath); }
 
     //------Share - Twitter App-----------------------------------------------------------------
     public WebElement Twitter_Referral_Body(boolean ...ignoreException) { return findElement("//*[@resource-id='status']", LocatorType.XPath,ignoreException); }
     public WebElement Twitter_Referral_BodyChrome() { return findElement("android.widget.EditText", LocatorType.ClassName); }
 
+    public WebElement Twitter_SignUP(boolean ...ignoreException) { return findElement("//android.widget.Button[@text='Sign up']", LocatorType.XPath,ignoreException); }
+    public WebElement Twitter_Login(boolean ...ignoreException) { return findElements("android.widget.Button", LocatorType.ClassName).get(1); }
+
+    public WebElement Twitter_PhoneNumber() { return findElements("android.widget.EditText", LocatorType.ClassName).get(0); }
+    public WebElement Twitter_Password() { return findElements("android.widget.EditText", LocatorType.ClassName).get(1); }
 
 
 
     public WebElement Button_Back(){return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]",LocatorType.XPath);}
+
+
+    //MOTO G4 specific
+    public WebElement Text_Receipient(boolean ...ignoreException) { return findElement("com.google.android.apps.messaging:id/recipient_text_view", LocatorType.Id,ignoreException); }
+    public WebElement Text_Body(boolean ...ignoreException) { return findElement("com.google.android.apps.messaging:id/compose_message_text", LocatorType.Id,ignoreException); }
 
 }

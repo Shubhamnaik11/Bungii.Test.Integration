@@ -11,11 +11,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -52,7 +55,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                 WebElement schDate = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_scheduleddatetime"));
                 if (action.getText(schDate).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
-                    action.click(rowViewIcom);
+                    action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
+              //      action.click(rowViewIcom);
                     isSelected = true;
                     break;
                 }
@@ -77,7 +81,11 @@ public class ScheduledBungiiSteps extends DriverBase {
           //  bungiiTime ="Dec 27, 11:00 AM";
             int mininumWaitTime = Integer.parseInt(PropertyUtility.getProp("scheduled.min.start.time"));
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
-                Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(bungiiTime);
+                DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+                formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+                Date bungiiDate = formatter.parse(bungiiTime);
+
+
                 Date currentDate = new Date();
                 bungiiDate.setYear(currentDate.getYear());//(Integer.parseInt(currentDate.getYear()));
                 long duration = bungiiDate.getTime() - currentDate.getTime();

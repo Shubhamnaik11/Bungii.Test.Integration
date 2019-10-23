@@ -17,7 +17,8 @@ public class PromoCodePage extends PageBase {
 
 
     public List<WebElement> Text_OneOffCode() {
-        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
+        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[3][text()='0']/preceding-sibling::td[5][not(contains(text(),'FBSHARE'))]",LocatorType.XPath);
+    //    return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);
     }
 
 
@@ -29,7 +30,7 @@ public class PromoCodePage extends PageBase {
 
 
     public List<WebElement> Text_UnUsedOneOffCode() {
-        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[3][.='0']/preceding-sibling::td[5]", LocatorType.XPath);
+        return findElements("//tr/td[.='One Off']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[3][.='0']/preceding-sibling::td[5][not(contains(text(),'FBSHARE'))]", LocatorType.XPath);
     }
 
 
@@ -75,5 +76,19 @@ public class PromoCodePage extends PageBase {
     public WebElement Button_Nextpage() {
         return findElement("link_Next", LocatorType.Id);
     }
+    public WebElement Button_Filter() { return findElement("btnFilter", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterAll() { return findElement("chkCodeTypeFilterAll", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterPromo() { return findElement("chkCodeTypeFilterPromo", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterReferral() { return findElement("chkCodeTypeFilterReferral", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterOneOffByAdmin() { return findElement("chkCodeTypeFilterOneOffByAdmin", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterOneOffFBShare() { return findElement("chkCodeTypeFilterOneOffFBShare", LocatorType.Id); }
+
+    public WebElement CheckBox_FilterDeliveryChargesByPromoter() { return findElement("chkCodeTypeFilterDeliveryChargesByPromoter", LocatorType.Id); }
+    public WebElement Button_Apply() { return findElement("applyFilter", LocatorType.Id); }
 
 }

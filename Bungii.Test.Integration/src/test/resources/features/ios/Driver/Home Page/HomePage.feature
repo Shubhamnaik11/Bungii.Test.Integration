@@ -1,7 +1,4 @@
 @ios
-@NONBUNGII
-
-@DriverHomePage
 Feature: Driver Home screen
 
   Background:

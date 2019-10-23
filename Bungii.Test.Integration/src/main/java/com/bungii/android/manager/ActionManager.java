@@ -9,8 +9,12 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.collections.Lists;
@@ -18,9 +22,10 @@ import org.testng.collections.Lists;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
+import static io.appium.java_client.touch.offset.ElementOption.element;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
@@ -36,16 +41,6 @@ public class ActionManager {
 
         } catch (Exception ex) {
         }
-    }
-    public String getValueAttribute(WebElement element) {
-        String value = element.getAttribute("value");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
-        return value;
-    }
-    public String getAttribute(WebElement element,String attribute) {
-        String value = element.getAttribute(attribute);
-        logger.detail(attribute+" attribute for " + element.toString() + " is " + value);
-        return value;
     }
 
     public static void clear(WebElement element) {
@@ -81,13 +76,26 @@ public class ActionManager {
         }
     }
 
+    public boolean isElementEnabled(WebElement element) {
+        //Set the timeout to something low
+        //    AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        //   driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            boolean isdisplayed = element.isEnabled();
+            return isdisplayed;
+        } catch (Exception Ex) {
+            return false;
+        }
+    }
     public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
         } catch (Exception Ex) {
-            Assert.fail("Following element is not displayed : " + element);
+            logger.detail("Page source "+ SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+         //   Assert.fail("Following element is not displayed : " + element);
         }
     }
 
@@ -100,6 +108,15 @@ public class ActionManager {
             Assert.fail("Following element is not displayed : " + element);
         }
     }
+
+/*    public static void HideKeyboard() {
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            driver.hideKeyboard();
+            logger.detail("Hide Keyboard");
+        } catch (Exception ex) {
+        }
+    }*/
 
     public static void waitUntilAlertDisplayed(WebElement element) {
         try {
@@ -118,7 +135,7 @@ public class ActionManager {
                     .ignoring(NoAlertPresentException.class)
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[contains(@resource-id,'notification_alert_message')]")));
 
-              //      .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@resource-id='com.bungii.driver:id/notification_alert_message']")));
+            //      .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//*[@resource-id='com.bungii.driver:id/notification_alert_message']")));
             isDisplayed = true;
         } catch (Exception Ex) {
             isDisplayed = false;
@@ -126,6 +143,19 @@ public class ActionManager {
         }
         return isDisplayed;
     }
+
+    public String getValueAttribute(WebElement element) {
+        String value = element.getAttribute("value");
+        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        return value;
+    }
+
+    public String getAttribute(WebElement element, String attribute) {
+        String value = element.getAttribute(attribute);
+        logger.detail(attribute + " attribute for " + element.toString() + " is " + value);
+        return value;
+    }
+
 
     /**
      * @param element , locator of field
@@ -138,11 +168,11 @@ public class ActionManager {
         logger.detail("Send  " + text + " in element" + element.toString());
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.hideKeyboard();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -168,7 +198,45 @@ public class ActionManager {
 
         return text;
     }
+    /**
+     * An expectation for checking if the given text is present in the specified
+     * elements value attribute.
+     *
+     */
+    public void eitherTextToBePresentInElementText(final WebElement element, final String text1,final String text2) {
 
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+        try {
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.textToBePresentInElement(element,text1),
+                            ExpectedConditions.textToBePresentInElement(element,text2)
+                    )
+            );        } catch (Exception e) {
+            logger.detail("Wait failed");
+        }
+    }
+    /**
+     * An expectation for checking if the given text is present in the specified
+     * elements value attribute.
+     *
+     */
+    public void textToBePresentInElementText(final WebElement element, final String text1) {
+
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(120))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+        try {
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.textToBePresentInElement(element,text1)
+                    )
+            );        } catch (Exception e) {
+            logger.detail("Wait failed");
+        }
+    }
     public void clearSendKeys(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
@@ -178,15 +246,17 @@ public class ActionManager {
 
     /**
      * SendKeys using adb shell
+     *
      * @param input
      */
-    public void sendKeys(String input){
-        AndroidDriver driver= (AndroidDriver) SetupManager.getDriver();
+    public void sendKeys(String input) {
+        AndroidDriver driver = (AndroidDriver) SetupManager.getDriver();
         Map<String, Object> args = new HashMap<>();
         args.put("command", "input");
         args.put("args", Lists.newArrayList("text", input));
         driver.executeScript("mobile: shell", args);
     }
+
     /**
      * @return boolean value according to alert existence
      */
@@ -201,6 +271,7 @@ public class ActionManager {
             return false;
         }
     }
+
     public boolean isNotificationAlertDisplayed() {
         boolean isDisplayed = false;
         try {
@@ -222,34 +293,45 @@ public class ActionManager {
         element.click();
         logger.detail("Click on locator by locator" + element.toString());
     }
-    public void click(Point p){
-        TouchAction touchAction = new TouchAction( (AndroidDriver<MobileElement>)  SetupManager.getDriver());
+    /**
+     * @param element ,locator that is to be clicked
+     */
+    public void longPress(WebElement element) {
+
+        TouchAction action = new TouchAction((AndroidDriver)SetupManager.getDriver()).longPress(longPressOptions().withElement(element(element)).withDuration(Duration.ofMillis(10000))).release().perform();
+      //  Thread.sleep(5000);
+
+
+    }
+    public void click(Point p) {
+        TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
         PointOption top = PointOption.point(p.getX(), p.getY());
         touchAction.tap(top).perform();
-        logger.detail("Clicked point at , (" + p.getX()+","+p.getY()+")");
+        logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
     }
 
     public void scrollToBottom() {
         try {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
-        //if pressX was zero it didn't work for me
-        int pressX = driver.manage().window().getSize().width / 2;
-        // 4/5 of the screen as the bottom finger-press point
-        int bottomY = driver.manage().window().getSize().height * 4 / 5;
-        // just non zero point, as it didn't scroll to zero normally
-        int topY = driver.manage().window().getSize().height / 8;
-        //scroll with TouchAction by itself
-        scroll(pressX, bottomY, pressX, topY);}catch (Exception e){
-            logger.error("Not able to scroll");}
+            //if pressX was zero it didn't work for me
+            int pressX = driver.manage().window().getSize().width / 2;
+            // 4/5 of the screen as the bottom finger-press point
+            int bottomY = driver.manage().window().getSize().height * 4 / 5;
+            // just non zero point, as it didn't scroll to zero normally
+            int topY = driver.manage().window().getSize().height / 8;
+            //scroll with TouchAction by itself
+            scroll(pressX, bottomY, pressX, topY);
+        } catch (Exception e) {
+            logger.error("Not able to scroll");
+        }
     }
 
     /**
      * An expectation for checking that an element is either invisible or not
      * present on the DOM.
      *
-     * @param element
-     *            used to find the element
+     * @param element used to find the element
      */
     public boolean invisibilityOfElementLocated(WebElement element) {
 
@@ -274,16 +356,20 @@ public class ActionManager {
     }
 
     public void scrollToTop() {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
-        //if pressX was zero it didn't work for me
-        int pressX = driver.manage().window().getSize().width / 2;
-        // 4/5 of the screen as the bottom finger-press point
-        int bottomY = driver.manage().window().getSize().height * 4 / 5;
-        // just non zero point, as it didn't scroll to zero normally
-        int topY = driver.manage().window().getSize().height / 6;
-        //scroll with TouchAction by itself
-        scroll(pressX,topY , pressX,bottomY );
+            //if pressX was zero it didn't work for me
+            int pressX = driver.manage().window().getSize().width / 2;
+            // 4/5 of the screen as the bottom finger-press point
+            int bottomY = driver.manage().window().getSize().height * 4 / 5;
+            // just non zero point, as it didn't scroll to zero normally
+            int topY = driver.manage().window().getSize().height / 6;
+            //scroll with TouchAction by itself
+            scroll(pressX, topY, pressX, bottomY);
+        } catch (Exception e) {
+            logger.detail("Failed to drap to top");
+        }
     }
 
 /*    public void swipeLeft(WebElement row) throws InterruptedException {
@@ -386,13 +472,26 @@ public class ActionManager {
         }
         action.perform();
     }
+
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
             logger.detail("Inside Hard wait , wait for " + i + " minutes");
             Thread.sleep(30000);
             scrollToTop();
             Thread.sleep(30000);
+            scrollToTop();
+        }
+    }
 
+    public void hardWait(int minutes) throws InterruptedException {
+        for (int i = minutes; i > 0; i--) {
+            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            Thread.sleep(30000);
+            //Send some command after 30 sec so that connection wont die
+            ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
+            Thread.sleep(30000);
+            //Send some command after 30 sec so that connection wont die
+            ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
         }
     }
 }

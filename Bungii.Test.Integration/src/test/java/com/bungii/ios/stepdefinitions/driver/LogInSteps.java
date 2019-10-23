@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.driver;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -15,15 +16,16 @@ import static com.bungii.common.manager.ResultManager.pass;
 
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.customer.LogInSteps.class);
-    LoginPage loginPage;
+    LoginPage loginPage = new LoginPage();
     ActionManager action = new ActionManager();
-    public LogInSteps(LoginPage loginPage){
+  /*  public LogInSteps(LoginPage loginPage){
         this.loginPage=loginPage;
-    }
+    }*/
 
     GeneralUtility utility = new GeneralUtility();
     @Given("^I am logged in as \"([^\"]*)\" driver$")
-    public void i_am_logged_in_as_something_driver(String option) throws Throwable {
+    public void i_am_logged_in_as_something_driver(String option) {
+        try {
         String phone, password;
         boolean shouldLoginSucessful;
         switch (option.toLowerCase()) {
@@ -35,11 +37,19 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             case"valid driver 2":
+                SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                 phone = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
                 password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
                 shouldLoginSucessful = true;
                 cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
+                break;
+            case"valid duo driver 1":
+                phone = PropertyUtility.getDataProperties("ios.valid.driver.duo.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver.duo.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.duo.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
             default:
                 throw new Exception("Please specify valid input");
@@ -51,6 +61,11 @@ public class LogInSteps extends DriverBase {
         else {
             //TODO: specify failure here
         }
+             } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 
     @When("^I enter phoneNumber :(.+) and  Password :(.+)$")

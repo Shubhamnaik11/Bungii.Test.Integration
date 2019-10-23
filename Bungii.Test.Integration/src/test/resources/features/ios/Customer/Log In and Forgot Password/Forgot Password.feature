@@ -1,16 +1,12 @@
 @ios
-@NONBUNGII
-@S29READY
 Feature: FORGOT PASSWORD
   As I Bungii customer
   When I click Forgot password button
   I Should able to Reset my password
 
   Background:
-  #  When I Switch to "driver" application on "same" devices
-  #  When I Select "LOGOUT" from driver App menu
     Given I am on the "LOG IN" page
-  @update1
+
   @regression
   Scenario Outline: As Bungii customer , I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen

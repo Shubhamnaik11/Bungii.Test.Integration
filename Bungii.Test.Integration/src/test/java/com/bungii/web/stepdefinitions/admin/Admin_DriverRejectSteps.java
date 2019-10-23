@@ -3,15 +3,26 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.common.core.DriverBase;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
+import com.bungii.web.pages.driver.Driver_LoginPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
 public class Admin_DriverRejectSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
+    Driver_LoginPage driver_LoginPage= new Driver_LoginPage();
+
     ActionManager action = new ActionManager();
     @When("^I click on \"([^\"]*)\" link$")
-    public void i_click_on_something_link(String strArg1) throws Throwable {
-        action.click(admin_DriverVerificationPage.Link_RejectApplication());
+    public void i_click_on_something_link(String link) throws Throwable {
+        switch(link) {
+
+            case "Reject Application":
+            action.click(admin_DriverVerificationPage.Link_RejectApplication());
+            break;
+            case "Login":
+                action.click(driver_LoginPage.Tab_LogIn());
+                break;
+        }
     }
 
     @And("^I reject the \"([^\"]*)\"confirm action$")

@@ -1,7 +1,4 @@
 @ios
-@NONBUNGII
-
-@DriverLogin
 Feature: Log In
   As a Bungii Driver I should be allowed to login only using valid credential
 
@@ -24,7 +21,7 @@ Feature: Log In
       | EMPTY PASSWORD          | {VALID}  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
-
+  @sanity
   @regression
   Scenario: As Bungii driver , I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}

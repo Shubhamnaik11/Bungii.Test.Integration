@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class SignupPage extends PageBase {
     public WebElement Header_SignUp(boolean ...ignoreException) { return findElement("//android.widget.TextView[@text='SIGN UP']", LocatorType.XPath,ignoreException); }
+        public WebElement GenericHeader(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
+        public WebElement Header_HomePage(boolean ...ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()] | //android.view.ViewGroup[@resource-id='com.bungii.customer:id/toolbar' or 'com.bungii.customer:id/toolbarSignUp']/android.widget.TextView[last()]", LocatorType.XPath,ignoreException); }
 
 
     // Login link
@@ -46,11 +48,16 @@ public class SignupPage extends PageBase {
     public WebElement Text_ReferralSourceAdded() { return findElement("com.bungii.customer:id/signup_textview_hear_about_us_choice", LocatorType.Id); }
 
     //--------------Sign up fields error messages-----------------------------------------------------------
-    public WebElement Cust_Signup_Error_Email() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_email']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+  //  public WebElement Cust_Signup_Error_Email() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_email']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+   // public WebElement Cust_Signup_Error_Phone() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_phone']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
 
-    public WebElement Cust_Signup_Error_Phone() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_phone']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+  //  public WebElement Cust_Signup_Error_Password() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_password']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
 
-    public WebElement Cust_Signup_Error_Password() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_password']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+    public WebElement Cust_Signup_Error_Email() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_email']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView", LocatorType.XPath); }
+
+    public WebElement Cust_Signup_Error_Phone() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_phone']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView", LocatorType.XPath); }
+
+    public WebElement Cust_Signup_Error_Password() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_password']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView", LocatorType.XPath); }
 
     //--------------Verification page elements---------------------------------------------------------------
 

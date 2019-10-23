@@ -13,7 +13,8 @@ public class OtherAppsPage extends PageBase {
 
     public WebElement Text_ChromeUrl(boolean... ignoreException) { return findElement("com.android.chrome:id/url_bar", LocatorType.Id,ignoreException); }
 
-    public WebElement SMS_Moto_RecipientNo(boolean... ignoreException) { return findElement("com.android.mms:id/recipients_editor", LocatorType.Id,ignoreException); }
+   // public WebElement SMS_Moto_RecipientNo(boolean... ignoreException) { return findElement("com.android.mms:id/recipients_editor", LocatorType.Id,ignoreException); }
+    public WebElement SMS_Moto_RecipientNo(boolean... ignoreException) { return findElement("//*[@resource-id='com.android.mms:id/recipients_editor'  or @resource-id='com.google.android.apps.messaging:id/conversation_title']", LocatorType.XPath,ignoreException); }
     public WebElement SMS_Moto_RecipientNo_And7(boolean... ignoreException) { return findElement("com.google.android.apps.messaging:id/conversation_title", LocatorType.Id,ignoreException); }
 
 
@@ -40,6 +41,8 @@ public class OtherAppsPage extends PageBase {
 
     public WebElement Text_TweeterPost() { return findElement("com.twitter.android:id/tweet_text", LocatorType.Id); }
     public WebElement Button_Tweet() { return findElement("com.twitter.android:id/button_tweet", LocatorType.Id); }
+    public WebElement Notification_OnDemand() { return findElement("//*[@text=\"You’re receiving a Bungii request.\"]", LocatorType.XPath); }
+    public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
 
 

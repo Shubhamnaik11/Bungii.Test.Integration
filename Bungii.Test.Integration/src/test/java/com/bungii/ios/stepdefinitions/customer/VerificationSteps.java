@@ -1,5 +1,6 @@
 package com.bungii.ios.stepdefinitions.customer;
 
+import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
@@ -13,6 +14,7 @@ import static com.bungii.common.manager.ResultManager.pass;
 
 public class VerificationSteps extends DriverBase {
 	VerificationPage verificationPage;
+	OtherAppsPage otherAppsPage = new OtherAppsPage();
 	private static LogUtility logger = new LogUtility(VerificationSteps.class);
 	ActionManager action = new ActionManager();
 	public VerificationSteps(VerificationPage verificationPage) {
@@ -24,6 +26,8 @@ public class VerificationSteps extends DriverBase {
 		try {
 			String smsCode = (String) cucumberContextManager.getScenarioContext("SMS_CODE");
 			action.clearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
+			action.swipeUP();
+		//	if(action.isElementPresent(otherAppsPage.Button_ReturnKey())){otherAppsPage.Button_ReturnKey();}
 			action.click(verificationPage.Button_Verify());
 
 			pass( "I should able to enter verification code",

@@ -1,5 +1,6 @@
 package com.bungii.android.stepdefinitions.Customer;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.ForgotPasswordPage;
 import com.bungii.android.pages.customer.LoginPage;
@@ -13,6 +14,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -56,7 +58,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
             }
             log(" I tap on the " + arg0 + "Link",
-                    "I tapped on " + arg0, true);
+                    "I tapped on " + arg0, false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -96,6 +98,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
 
             switch (string) {
                 case "valid":
+                    Thread.sleep(2000);
                     String SMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), SMSCode);
                     break;
@@ -159,16 +162,21 @@ public class CustomerForgotPasswordSteps extends DriverBase {
         try {
             String errorMessage = "";
             switch (strArg1) {
-                case "snackbar validation message for success":
-                    WebElement snackBar = forgotPasswordPage.Snackbar_ForgotPassword(true);
-                    String actualMessage = "";
-                    if (snackBar == null) {
+                case "snackbar validation message for success once I click continue":
+                    //Combined click with snackbar message
+                    action.click(forgotPasswordPage.Button_Continue());
+                    Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
+                    testStepVerify.isTrue(isMessageCorrectlyDisplayed,PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+"is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
+
+/*                    String actualMessage = SetupManager.getDriver().findElement(By.id("com.bungii.customer:id/snackbar_text")).getText();
+                    if (actualMessage == null) {
                         warning("Snackbar message for success should be displayed", "Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text");
                         break;
                     } else {
-                        actualMessage = snackBar.getText();
-                        testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
-                    }
+                     //   actualMessage = action.getText(snackBar);
+                        testStepVerify.isEquals(actualMessage,PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+                        //testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true), PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+                    }*/
                     break;
 
                 case "snackbar validation message for invalid sms code":

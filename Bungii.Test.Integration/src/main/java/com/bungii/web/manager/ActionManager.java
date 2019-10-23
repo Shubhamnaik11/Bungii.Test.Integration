@@ -15,6 +15,8 @@ import java.util.Random;
 
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
+    private long DRIVER_WAIT_TIME;
+
 
     /**
      * @param element , locator of field
@@ -47,11 +49,20 @@ public class ActionManager {
      * @param element ,locator that is to be clicked
      */
     public void click(WebElement element) {
+        DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+        new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
         try {
             element.click();
         }catch (StaleElementReferenceException ex){
-            element.click();
-        }
+            //Retry
+            try {
+            Thread.sleep(2000);
+                   element.click();
+            }
+            catch (Exception ex1) {
+            }
+            }
+
          catch(WebDriverException ex) {
                         //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
                         JavaScriptClick(element);
@@ -86,7 +97,10 @@ public class ActionManager {
     {
         new Select(element).selectByVisibleText(text);
     }
-
+    public static String getFirstSelectedOption(WebElement element)
+    {
+      return new Select(element).getFirstSelectedOption().getText();
+    }
     public  void deleteAllCookies()
     {
         SetupManager.getDriver().manage().deleteAllCookies();
