@@ -18,25 +18,25 @@ Feature: Admin_ReferralSource
   @sanity
   @regression
   Scenario: Admin_ReferralSourcegrid_Sort
-    When I click on "Source" header "Ascending"
+    When I click on "Source" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Source"
-    When I click on "Source" header "Descending"
+    When I click on "Source" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Source"
-    When I click on "Accounts Created" header "Ascending"
+    When I click on "Accounts Created" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Accounts Created"
-    When I click on "Accounts Created" header "Descending"
+    When I click on "Accounts Created" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Accounts Created"
-    When I click on "Percentage of total(Accounts Created)" header "Ascending"
+    When I click on "Percentage of total(Accounts Created)" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Percentage of total(Accounts Created)"
-    When I click on "Percentage of total(Accounts Created)" header "Descending"
+    When I click on "Percentage of total(Accounts Created)" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Accounts Created)"
-    When I click on "Trips Completed" header "Ascending"
+    When I click on "Trips Completed" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Trips Completed"
-    When I click on "Trips Completed" header "Descending"
+    When I click on "Trips Completed" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Trips Completed"
-    When I click on "Percentage of total(Trips Completed)" header "Ascending"
+    When I click on "Percentage of total(Trips Completed)" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Percentage of total(Trips Completed)"
-    When I click on "Percentage of total(Trips Completed)" header "Descending"
+    When I click on "Percentage of total(Trips Completed)" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
   @testReport

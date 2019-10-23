@@ -20,7 +20,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+  #    | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Duo    |Kansas city zoo , zoo drive  | 9351 todd rd se agency mo |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
 

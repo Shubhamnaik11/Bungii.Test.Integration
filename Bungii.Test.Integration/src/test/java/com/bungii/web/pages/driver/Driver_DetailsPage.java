@@ -14,7 +14,7 @@ public class Driver_DetailsPage extends PageBase {
     //Details - Address Information - Street Address
     public WebElement TextBox_StreetAddress () { return findElement("DriverDetails_Address1", LocatorType.Id); }
 
-    public WebElement List_StreetAddress(){return  findElement("//div[@id='divPlacesResult']/div",LocatorType.XPath);}
+    public WebElement List_StreetAddress(){return  findElement("//div[@id='divPlacesResult']/div[1]",LocatorType.XPath);}
 
     //Details - Address Information - City
     public WebElement TextBox_City () { return findElement("City", LocatorType.Id); }

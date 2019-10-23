@@ -37,9 +37,9 @@ public class Driver_DetailsSteps extends DriverBase {
             case "valid":
                 action.clearSendKeys(Page_Driver_Details.TextBox_StreetAddress(), PropertyUtility.getDataProperties("DriverStreet"));
                 Thread.sleep(2000);action.click(Page_Driver_Details.List_StreetAddress());
-                action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
-                action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
-                action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
+               // action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
+               // action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
+               // action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
 
                 action.click(Page_Driver_Details.CheckBox_Age18());
                 action.click(Page_Driver_Details.CheckBox_Lift75());

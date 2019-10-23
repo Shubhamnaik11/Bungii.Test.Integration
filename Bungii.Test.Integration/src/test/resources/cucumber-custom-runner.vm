@@ -160,7 +160,8 @@ public class $className extends AbstractTestNGCucumberTests {
             }
         }
         System.out.println(curentThreadNumber+"XXXXXXXXXXXXXXXXXXXX"+ManageDevices.readFile());*/
-                ManageDevices.afterSuiteManageDevice();
+                if (PropertyUtility.targetPlatform.equalsIgnoreCase("ios") || PropertyUtility.targetPlatform.equalsIgnoreCase("android"))
+                    ManageDevices.afterSuiteManageDevice();
 
         try {
             this.hooks.tearDown();

@@ -53,6 +53,7 @@ public class TripStatusSteps extends DriverBase {
             boolean[] statusCheck=utility.checkStatusOnCustomer();
             for(int i=0;i<statusCheck.length;i++){
                 if(activeStatus==i){
+                    Thread.sleep(5000);
                     testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
                 }else {
                     int screenNo=i+1;
