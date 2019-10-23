@@ -1,5 +1,4 @@
 @android
-
 Feature: Driver Home screen
 
   Background:
@@ -11,7 +10,7 @@ Feature: Driver Home screen
   Scenario: To verify that the default status mode is Offline
     Then the status of the driver should be "Offline"
 
-    #Not able to verify Rating value for android, Just radding bar is validated
+    #Not able to verify Rating value for android, Just ratting bar is validated
 
   @regression
   Scenario: To Verify driver information is populated correctly
