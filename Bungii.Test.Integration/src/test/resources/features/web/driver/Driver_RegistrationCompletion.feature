@@ -25,7 +25,7 @@ Feature: Driver_RegistrationCompletion
      #When I click Next on "Terms & Conditions" page
     # Then I should see blank fields validation on "Terms & Conditions" page
 
-  @TD
+
   @regression
   Scenario: Driver_VideoTraining_ViewedUnchecked
     When I click "I agree to the Terms and Conditions" on driver portal

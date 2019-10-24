@@ -50,7 +50,7 @@ Feature: Admin_DriverApplicationVerification
     # Then I should be directed to "Driver Verification Page"
     # When I verify and reject the invalid verification fields
      #Then the "Approve Application" button is not visible
-  @TD
+  @TD1
   @sanity
   @regression
   Scenario: Admin_DriverApplicationRejectionAfterVerification
@@ -74,7 +74,8 @@ Feature: Admin_DriverApplicationVerification
     # And I click on the "Resend Application" Button
     # And I confirm the "Driver Resend Application" action
     # Then the status of the driver application should be marked as "Re-sent to Driver"
-  @TD1
+  
+  @TD
   @regression
   Scenario: Admin_DriverResendApplicationWithAllApprovedFields
     When I click "Verify" button against the applicant name
@@ -90,7 +91,7 @@ Feature: Admin_DriverApplicationVerification
     # And I reject the "Driver Reject Application"confirm action
     # And I click on the "Cancel" Button
     # Then the status of the driver application should be marked as "Pending Verification"
-  @TD1
+  @TD
   @regression
   Scenario: Driver_Application_Reject_WithAllFieldsApproved
     When I click "Verify" button against the applicant name
@@ -101,7 +102,7 @@ Feature: Admin_DriverApplicationVerification
     # And I enter the reject reason
    #  And I click on the "Submit" Button
    #  Then the status of the driver application should be marked as "Rejected"
-  @TD1
+  @TD
   @regression
   Scenario: Admin_DriverVerifyStatusChange
     When I click "Verify" button against the applicant name

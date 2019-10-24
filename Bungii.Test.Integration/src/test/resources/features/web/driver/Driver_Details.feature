@@ -12,7 +12,7 @@ Feature: Driver_Details
     And I click "Submit verification code" on driver portal
     And I should see "Logged in user name" on Driver Registration
     And I click "Continue Registration" on driver portal
-  @TD
+
   @regression
   Scenario: Driver_Details_InvalidData
     When I click Next on "Driver Details" page
