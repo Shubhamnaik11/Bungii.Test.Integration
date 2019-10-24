@@ -5,7 +5,8 @@ Feature: Driver_BankDetails
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    And I enter driver Phone number as "9999997565" and valid password
+    # Driver Bryan Winds
+    And I enter driver Phone number as "8888881122" and valid password
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page

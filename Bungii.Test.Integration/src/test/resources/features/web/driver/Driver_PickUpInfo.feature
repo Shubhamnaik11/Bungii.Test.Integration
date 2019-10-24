@@ -5,7 +5,8 @@ Feature: Driver_PickupInfo
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    And I enter driver Phone number as "9999999289" and valid password
+    #Driver James JmUK
+    And I enter driver Phone number as "9999991717" and valid password
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
 
