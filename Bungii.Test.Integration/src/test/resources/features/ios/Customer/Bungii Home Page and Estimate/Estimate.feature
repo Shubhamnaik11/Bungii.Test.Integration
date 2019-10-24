@@ -79,7 +79,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check if the information icons display correct information
-#    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -96,7 +95,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check the elements of Estimate page
- #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -110,7 +108,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
- #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -122,7 +119,7 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
-    Given I am on the "LOG IN" page
+    And I am on the "LOG IN" page
     And I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location

@@ -7,7 +7,6 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I Switch to "driver" application on "same" devices
-   # Given I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
 
   @regression
@@ -16,8 +15,8 @@ Feature: FORGOT PASSWORD
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
     When I click "SEND" button on FORGOT PASSWORD screen on driver app
-    Then I should see "<Send Button Status>"  on FORGOT PASSWORD on driver app
     Then I should see "<Expected Message>"  on FORGOT PASSWORD on driver app
+    And I should see "<Send Button Status>"  on FORGOT PASSWORD on driver app
 
     Examples:
       | Scenario                  | Value      | Expected Message                | Send Button Status   |
@@ -28,13 +27,13 @@ Feature: FORGOT PASSWORD
   Scenario Outline: As Bungii driver , I should be alerted if I Enter invalid password or sms code during Forgot Password functionality. Scenario:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
-    And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
-    When I click "SEND" button on FORGOT PASSWORD screen on driver app
+    When I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
+    And I click "SEND" button on FORGOT PASSWORD screen on driver app
     And I Get SMS CODE for "<Value>" number on driver app
     And I Enter "<SMS CODE>" value in "sms code" field in FORGOT PASSWORD Page on driver app
     And I Enter "<New Password>" value in "new password" field in FORGOT PASSWORD Page on driver app
     And I Enter "<New Password>" value in "confirm password" field in FORGOT PASSWORD Page on driver app
-    When I click "CONTINUE" button on FORGOT PASSWORD screen on driver app
+    And I click "CONTINUE" button on FORGOT PASSWORD screen on driver app
     Then I should see "<Expected Message>"  on FORGOT PASSWORD on driver app
 
 
@@ -47,13 +46,13 @@ Feature: FORGOT PASSWORD
   Scenario Outline: As Bungii driver , I should be able to change my password using Forgot Password functionality
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
-    And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
-    When I click "SEND" button on FORGOT PASSWORD screen on driver app
+    When I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
+    And I click "SEND" button on FORGOT PASSWORD screen on driver app
     And I Get SMS CODE for "<Value>" number on driver app
     And I Enter "valid" value in "sms code" field in FORGOT PASSWORD Page on driver app
     And I Enter "<New Password>" value in "new password" field in FORGOT PASSWORD Page on driver app
     And I Enter "<Confirm Password>" value in "confirm password" field in FORGOT PASSWORD Page on driver app
-    When I click "CONTINUE" button on FORGOT PASSWORD screen on driver app
+    And I click "CONTINUE" button on FORGOT PASSWORD screen on driver app
     Then I should see "PASSWORD CHANGE SUCCESS"  on FORGOT PASSWORD on driver app
     And I should be navigated to Home screen on driver app
 

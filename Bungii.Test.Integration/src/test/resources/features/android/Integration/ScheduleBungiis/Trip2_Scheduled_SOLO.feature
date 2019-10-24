@@ -3,33 +3,28 @@
 Feature: SoloScheduled
   Background:
 
-
-
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas      | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
-    Given I am logged in as "valid" customer
-
-    When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
-
+    And I am logged in as "valid" customer
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    When I wait for Minimum duration for Bungii Start Time
-
+    And I wait for Minimum duration for Bungii Start Time
     And Bungii Driver "Start Schedule Bungii" request
-
-    When I Switch to "customer" application on "same" devices
-
+    And I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Enroute screen"
+
     When I tap "SMS for a solo driver" during a Bungii
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "Enroute screen"
@@ -41,7 +36,7 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "Support-SMS" app
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
-    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
@@ -52,10 +47,10 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+    And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver taps "SMS for a customer" during a Bungii
+    And Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
@@ -63,7 +58,7 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "Support-SMS" app
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
-    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
@@ -74,10 +69,10 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver taps "SMS for a customer" during a Bungii
+    And Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
@@ -85,7 +80,7 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "Support-SMS" app
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
-    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
@@ -96,10 +91,10 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver taps "SMS for a customer" during a Bungii
+    And Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
@@ -107,7 +102,7 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "Support-SMS" app
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
-    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
@@ -118,10 +113,10 @@ Feature: SoloScheduled
     Then correct details should be displayed on "SMS" app
     When I tap "Call for a solo driver" during a Bungii
     Then correct details should be displayed on "Calling" app
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver taps "SMS for a customer" during a Bungii
+    And Bungii Driver taps "SMS for a customer" during a Bungii
     Then correct details should be displayed to driver on "SMS" app
     When Bungii Driver taps "Call for a customer" during a Bungii
     Then correct details should be displayed to driver on "Calling" app
@@ -129,11 +124,10 @@ Feature: SoloScheduled
     Then correct details should be displayed to driver on "Support-SMS" app
     When Bungii Driver taps "View items" during a Bungii
     Then Bungii driver should see "Pickup Item"
-    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When Bungii Driver "slides to the next state"
-
-    When I Switch to "customer" application on "same" devices
+    And I Switch to "customer" application on "same" devices
     Then Bungii customer should see "correct details" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
@@ -148,28 +142,28 @@ Feature: SoloScheduled
   Scenario: Validate That I am able to create Schedule  bungii.
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
+    And I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
-    When I Switch to "customer" application on "same" devices
-    When I tap on "Menu" > "Home" link
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "Home" link
 
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I select Bungii Time as "next possible scheduled"
     And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    When I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
-    When I Switch to "driver" application on "same" devices
-    When I tap on "Available Trips link" on Driver Home page
+    And I Switch to "driver" application on "same" devices
+    And I tap on "Available Trips link" on Driver Home page
 
     And I Select Trip from driver available trip
-    When I tap on "ACCEPT" on driver Trip details Page
+    And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    When I wait for Minimum duration for Bungii Start Time
+    And I wait for Minimum duration for Bungii Start Time
 
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
@@ -178,43 +172,40 @@ Feature: SoloScheduled
     Then for a Bungii I should see "Enroute screen"
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Arrived screen"
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Loading Item screen"
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Driving to DropOff screen"
 
     When I Switch to "driver" application on "same" devices
-
-
-    When Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Unloading Item screen"
 
     When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
-
-    When I Switch to "customer" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
-    When I Switch to "driver" application on "same" devices
-    And Bungii Driver "completes Bungii"
+    And I Switch to "driver" application on "same" devices
+    Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
   @regression
@@ -224,24 +215,24 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   |
       | kansas      | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
-    Given I am logged in as "valid" customer
+    And I am logged in as "valid" customer
 
-    When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
-
-    When I open new "Chrome" browser for "ADMIN"
-    When I navigate to admin portal
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
     And I log in to admin portal
-    When I Select "Scheduled Trip" from admin sidebar
-    When I Cancel Bungii with following details
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
       | Charge | Comments |
       | 15     | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    Then Bungii must be removed from the List
+    And Bungii must be removed from the List
 
     When I switch to "ORIGINAL" instance
-    When I Switch to "customer" application on "same" devices
-    When I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
@@ -252,22 +243,22 @@ Feature: SoloScheduled
       | kansas      | Scheduled     | NEXT_POSSIBLE |
 
     When I Switch to "driver" application on "same" devices
-    Given I am logged in as "valid" driver
-    When I Switch to "customer" application on "same" devices
-    Given I am logged in as "valid" customer
-
-    When I tap on "Menu" > "Home" link
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid" customer
+    And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    When I tap on "Get Estimate button" on Bungii estimate
-    When I add "1" photos to the Bungii
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I select Bungii Time as "OLD BUNGII TIME"
     And I tap on "Request Bungii" on Bungii estimate
-    When I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I tap on "ok on already scheduled bungii message" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then I tap on "ok on already scheduled bungii message" on Bungii estimate
     When I tap on "back" on Bungii estimate
-    When I tap on "Menu" > "SCHEDULED BUNGIIS" link
-    When I select already scheduled bungii
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select already scheduled bungii
     Then I Cancel selected Bungii
 
   @regression
@@ -275,10 +266,10 @@ Feature: SoloScheduled
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas      | Scheduled     | NEXT_POSSIBLE |
-    Given I am logged in as "valid" customer
-    When I Switch to "customer" application on "same" devices
-    When I tap on "Menu" > "SCHEDULED BUNGIIS" link
-    When I select already scheduled bungii
-    Then I Cancel selected Bungii
-    When I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    When I am logged in as "valid" customer
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select already scheduled bungii
+    And I Cancel selected Bungii
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

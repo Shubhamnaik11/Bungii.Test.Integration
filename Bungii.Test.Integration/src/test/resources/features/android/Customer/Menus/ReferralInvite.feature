@@ -13,7 +13,6 @@ Feature: ReferralInvite
     When I tap "Share" on Invite page
     And I tap "Share by Text Message" on Invite page
     Then I should see post "on text message app"
-  #  When I Switch to "customer" application on "same" devices
 
   @regression
   Scenario: Cust_Menu_ReferralInvite_Email
@@ -30,7 +29,8 @@ Feature: ReferralInvite
     Then I should see post "on Twitter in browser"
     And I Switch to "customer" application on "same" devices
 
-  @regression
+  @notwitter
+ # @regression
   Scenario: Cust_Menu_ReferralInvite_Twitter_AppInstalled
     Given I have "twitter" app "installed"
     When I tap "Share" on Invite page

@@ -16,6 +16,7 @@ Feature: To Test Solo - Scheduling Bungii
     Given I am on the "LOG IN" page
     And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -130,7 +131,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
 #    Then Trip Information should be correctly displayed on Estimate screen
-    And I confirm trip with following details
+    When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE | Default     |
     Then I should be navigated to "Success" screen
@@ -189,10 +190,10 @@ Feature: To Test Solo - Scheduling Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | Scheduled    | NEXT_POSSIBLE |
-    Given I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
 
-    When I request for  bungii for given pickup and drop location
+    And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
@@ -211,12 +212,12 @@ Feature: To Test Solo - Scheduling Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | Scheduled    | NEXT_POSSIBLE |
-    And I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
-    When I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
-    And I Cancel selected Bungii
+    When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
@@ -224,7 +225,7 @@ Feature: To Test Solo - Scheduling Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | Scheduled    | NEXT_POSSIBLE |
-    And I am on the "LOG IN" page
+    When I am on the "LOG IN" page
     And I am on Customer logged in Home page
     And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
