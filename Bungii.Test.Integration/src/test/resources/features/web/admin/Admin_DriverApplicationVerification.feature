@@ -3,13 +3,13 @@ Feature: Admin_DriverApplicationVerification
 
   Background:
     Given I am logged in as Admin
-    And there is a pending driver verification
+    And there is a pending application for driver verification
 
   @testReport
   @sanity
   @regression
   Scenario: Admin_DriverApplicationApproval
-    When I click "Verify" button against the "James RMGJ" applicant
+    When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
     And I check if each field has an "accept" option
     And I check if each field has an "reject" option
@@ -21,7 +21,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
   Scenario: Admin_Driver_ApproveApplication_WithRejectedFields
-    When I click "Verify" button against the "James JJza" applicant
+    When I click "Verify" button against the "John owPH" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
     Then the "Approve Application" button is not visible
@@ -29,7 +29,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
   Scenario: Admin_DriverApplicationRejectionAfterVerification
-    When I click "Verify" button against the "James wjWK" applicant
+    When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
     When I click on "Reject Application" link
     And I confirm the "Driver Reject Application" action
@@ -43,7 +43,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
   Scenario: Admin_DriverResendApplication
-    When I click "Verify" button against the "James JPiZ" applicant
+    When I click "Verify" button against the "John PxLK" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
     And I click on the "Resend Application" Button

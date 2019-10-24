@@ -33,7 +33,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_am_logged_in_as_Testadmin() throws Throwable {
         utility.TestAdminLogin();
     }
-    @And("^there is a pending driver verification$")
+    @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
