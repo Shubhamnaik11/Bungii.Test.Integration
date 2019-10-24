@@ -11,7 +11,7 @@ Feature: Driver_Documentation
     And I click Next on "Pickup Information" page
 
   @regression
-  Scenario: Driver_Documentation_InvalidData
+  Scenario: Driver_Documentation_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Documentation" page
     Then I should see blank fields validation on "Documentation" page
     When I enter "invalid date" data on Documentation page

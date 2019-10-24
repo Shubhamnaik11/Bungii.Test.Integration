@@ -8,7 +8,7 @@ Feature: Admin_DriverApplicationVerification
   @testReport
   @sanity
   @regression
-  Scenario: Admin_DriverApplicationApproval
+  Scenario: DriverApplication_Approval_NonFountainFlow
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
     And I check if each field has an "accept" option
@@ -20,7 +20,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
 
   @regression
-  Scenario: Admin_Driver_ApproveApplication_WithRejectedFields
+  Scenario: DriverApplication_WithRejectedFields_NonFountainFlow
     When I click "Verify" button against the "John owPH" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
@@ -28,7 +28,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
-  Scenario: Admin_DriverApplicationRejectionAfterVerification
+  Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
     When I click on "Reject Application" link
@@ -42,7 +42,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
-  Scenario: Admin_DriverResendApplication
+  Scenario: Driver_ResendApplication_NonFountainFlow
     When I click "Verify" button against the "John PxLK" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
@@ -51,14 +51,14 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Re-sent to Driver"
 
   @regression
-  Scenario: Admin_DriverResendApplicationWithAllApprovedFields
+  Scenario: DriverApplication_ResendButtonVisibility_WithAllApprovedFields_NonFountainFlow
     When I click "Verify" button against the "James SwFw" applicant
     Then I should be directed to "Driver Verification Page"
     And I verify and approve all the verification fields
     Then the "Resend Application" button is not visible
 
   @regression
-  Scenario: Driver_Application_Reject_Cancelled
+  Scenario: DriverApplication_Reject_Cancellation_NonFountainFlow
     When I click "Verify" button against the "James zhZe" applicant
     Then I should be directed to "Driver Verification Page"
     When I click on "Reject Application" link
@@ -67,7 +67,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Pending Verification"
 
   @regression
-  Scenario: Driver_Application_Reject_WithAllFieldsApproved
+  Scenario: DriverApplication_Rejection_WithAllFieldsApproved_NonFountainFlow
     When I click "Verify" button against the "John uYOh" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve all the verification fields
@@ -78,13 +78,13 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
 
   @regression
-  Scenario: Admin_DriverVerifyStatusChange
+  Scenario: Driver_ApplicationStatusChange_NonFountainFlow
     When I click "Verify" button against the "James TquZ" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve the "Driver Picture" field
     Then the status of the field changes to "accepted"
     When I verify and reject the "Driver Picture" field
-   Then the status of the field changes to "rejected"
+    Then the status of the field changes to "rejected"
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 

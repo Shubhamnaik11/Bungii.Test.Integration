@@ -5,11 +5,11 @@ Feature: Driver_Details
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    And I enter driver Phone number as "9999994028" and valid password
+    And I enter driver Phone number as "9999991714" and valid password
     And I click "LOG IN button" on driver portal
 
   @regression
-  Scenario: Driver_Details_InvalidData
+  Scenario: Driver_Details_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Driver Details" page
     Then I should see blank fields validation on "Driver Details" page
     When I enter "invalid" data on Driver Details page
