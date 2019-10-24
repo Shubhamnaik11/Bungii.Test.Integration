@@ -113,7 +113,7 @@ Feature: Admin_Promocodes
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
 
-  @testReport
+
   @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
@@ -162,7 +162,6 @@ Feature: Admin_Promocodes
 
 
     #Promo code and name with only special characters
-  @testReport
   @sanity
   @regression
   Scenario: Admin_PromocodeGrid_ValidationsForInvalidInputs
@@ -174,8 +173,8 @@ Feature: Admin_Promocodes
     And I click on the "Save" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
     When I click on the "New Code" Button
-    And I enter following values in fields
+    And I enter the following values in fields
       | Promo Code Type   | Promo Code Name       | Code      | Discount Value  | Discount Category | Expiration Date    |
-      | Promo             | VP<<CurrentDateTime>> |  @@@$     | 5               | Dollars           | <<NextDayDateTime>>|
+      | Promo             | VP<<CurrentDateTime>> |           | 5               | Dollars           | <<NextDayDateTime>>|
     And I click on the "Save" Button
     Then the "Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only" message is displayed

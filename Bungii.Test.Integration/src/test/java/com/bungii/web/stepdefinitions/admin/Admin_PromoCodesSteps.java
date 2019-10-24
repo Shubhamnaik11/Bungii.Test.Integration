@@ -742,11 +742,62 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void the_date_gets_saved() throws Throwable {
         String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
         String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
-        String date1=utility.GetDateInFormatMMMddyyyy(date);
+        String FromFormat="MM/dd/yyyy", ToFormat="MMM dd, yyyy";
+        String date1=utility.GetDateInFormat(date, FromFormat, ToFormat);
 
         String xpath=null;
         xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
+    }
+
+    @And("^I enter the following values in fields$")
+    public void i_enter_the_following_values_in_fields(DataTable data) throws Throwable {
+
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Long now = Instant.now().toEpochMilli();
+            int i = now.intValue();
+            String Code = null, DiscountValue = null, DiscountCategory = null, Promoter = null, Promotion = null, NoOfCodes = null;
+            String PromoCodeType = dataMap.get("Promo Code Type").trim();
+            String PromoCodeName = dataMap.get("Promo Code Name").trim().replace("<<CurrentDateTime>>", Integer.toString(i));
+            Thread.sleep(5000);
+            action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), PromoCodeType);
+
+            action.sendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
+
+            cucumberContextManager.setScenarioContext("PROMOCODE_TYPE", PromoCodeType);
+            cucumberContextManager.setScenarioContext("PROMOCODE_NAME", PromoCodeName);
+
+
+            switch (PromoCodeType) {
+                case "Promo":
+                    DiscountValue = dataMap.get("Discount Value").trim();
+                    DiscountCategory = dataMap.get("Discount Category").trim();
+                    Date today = new Date();
+                    Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+                    DateFormat dateFormatFetch = new SimpleDateFormat("MMM dd, yyyy");
+                    DateFormat dateFormatInput = new SimpleDateFormat("MM/dd/yyyy");
+                    String ExpirationDate = dataMap.get("Expiration Date").trim();
+                    Code = utility.GenerateSpecialCharString();
+                    action.sendKeys(admin_PromoCodesPage.TextBox_PromoCode(), Code);
+                    cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", DiscountValue);
+                    cucumberContextManager.setScenarioContext("DISCOUNT_CATEGORY", DiscountCategory);
+                    cucumberContextManager.setScenarioContext("EXP_DATE", dateFormatFetch.format(tomorrow).toString());
+                    cucumberContextManager.setScenarioContext("PROMOCODE", admin_PromoCodesPage.TextBox_PromoCode().getAttribute("value"));
+                    action.click(admin_PromoCodesPage.TextBox_DiscountValue());
+                    action.clear(admin_PromoCodesPage.TextBox_DiscountValue());
+                    admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
+                    action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
+                    action.click(admin_PromoCodesPage.RadioButton_Dollars());
+                    action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     //EOC
