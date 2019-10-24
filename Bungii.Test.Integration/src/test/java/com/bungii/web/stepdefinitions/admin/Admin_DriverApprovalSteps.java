@@ -68,7 +68,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         Thread.sleep(4000);
         switch (strArg1) {
             case "Verify":
-                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(name[1]));
+                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
     }
