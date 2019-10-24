@@ -85,6 +85,12 @@ public class Admin_PromoCodesPage extends PageBase {
 
     public WebElement Button_Reset() { return findElement("//button[text()='Reset']", LocatorType.XPath); }
 
+//BOC
+    public WebElement Label_SelectPromoCodeType() { return findElement("//label[contains(text(),'Select Promo Code Type:')]", LocatorType.XPath);}
 
+    public WebElement Label_PromoCodeExpiryDateErrorContainer() { return findElement("//label[@id='PromoCodeItem_ExpiryDate-error']", LocatorType.XPath);}
+
+    public WebElement Label_NoPromoCodesFound(){ return findElement("//h5[@class='margintop11'][contains(text(),'No promo codes found.')]", LocatorType.XPath);}
+//EOC
 
 }

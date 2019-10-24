@@ -3,12 +3,14 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
 import com.bungii.web.pages.admin.Admin_PromoCodesPage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
 import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -40,6 +42,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    GeneralUtility utility = new GeneralUtility();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -191,7 +194,25 @@ public class Admin_PromoCodesSteps extends DriverBase {
     @When("^I select promocode type as \"([^\"]*)\"$")
     public void i_select_promocode_type_as_something(String promoCodeType) throws Throwable {
         Thread.sleep(5000);
-        action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+        switch(promoCodeType)
+        {
+            case "Delivery By Promoter":
+                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+                break;
+            //BOC
+            case "Promo":
+                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+                break;
+
+            case "One Off":
+                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+                break;
+
+            case "Delivery By Promoter (M)":
+                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
+                break;
+                //EOC
+        }
         log("I select promocode type as "+ promoCodeType ,
                 "I have selected promocode type as "+ promoCodeType, true);
     }
@@ -409,11 +430,24 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         switch(message) {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
-            testStepAssert.isEquals(admin_PromoCodesPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
-        break;
+                testStepAssert.isEquals(admin_PromoCodesPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
             case "Trips have been requested successfully.":
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_BulkTripSuccess().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
+               //BOC
+            case "Please enter a valid date.":
+                testStepAssert.isEquals(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
+
+            case "Please enter a valid Promo Code Name containing alphanumeric and special characters only":
+                testStepAssert.isEquals(admin_PromoCodesPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
+
+            case "Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only":
+                testStepAssert.isEquals(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
+                //EOC
         }
     }
 
@@ -658,6 +692,62 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
         }
     }
+//BOC
+    @And("^I change the \"([^\"]*)\" to past date$")
+    public void i_change_the_something_to_past_date(String ExpiryDate) throws Throwable {
+        String PastExpiryDate= PropertyUtility.getDataProperties("past.expiry.date");
+
+        switch (ExpiryDate)
+        {
+            case "Expiration Date":
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(),PastExpiryDate +Keys.ENTER);
+                break;
+        }
+    }
+
+    @And("^I edit the Promo Code Name$")
+    public void i_edit_the_promo_code_name() throws Throwable {
+        String PromoCodeName=null;
+
+        Long now = Instant.now().toEpochMilli();
+        int i=now.intValue();
+        PromoCodeName = "EDIT_".trim().concat(Integer.toString(i));
+        cucumberContextManager.setScenarioContext("PROMOCODE_NAME", PromoCodeName);
+
+        action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
+    }
+
+    @Then("^the edited promocode is displayed in the Promocodes grid$")
+    public void the_edited_promocode_is_displayed_in_the_promocodes_grid() throws Throwable {
+        String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
+        String xpath=null;
+        xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",PromoCodeName);
+        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
+    }
 
 
+    @And("^I change the \"([^\"]*)\" to future date$")
+    public void i_change_the_something_to_future_date(String ExpiryDate) throws Throwable {
+        switch (ExpiryDate)
+        {
+            case "Expiration Date":
+                String Date=utility.GenerateFutureDate();
+                action.clearSendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(),Date +Keys.ENTER);
+                cucumberContextManager.setScenarioContext("EXPIRY_DATE", Date);
+                break;
+        }
+    }
+
+    @Then("^the date gets saved$")
+    public void the_date_gets_saved() throws Throwable {
+        String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
+        String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
+        String date1=utility.GetDateInFormatMMMddyyyy(date);
+
+        String xpath=null;
+        xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
+        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
+    }
+
+    //EOC
 }

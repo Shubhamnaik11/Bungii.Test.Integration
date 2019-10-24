@@ -12,6 +12,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import com.bungii.common.manager.CucumberContextManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -120,5 +126,46 @@ public class GeneralUtility {
         String Lastname= RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
         return Lastname;
 
+    }
+
+    public String GenerateFutureDate()
+    {
+        String newDate=null;
+        String DATE_FORMAT = "MM/dd/yyyy";
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+        DateTimeFormatter dateFormat8 = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
+        // Get current date
+        Date currentDate = new Date();
+
+        // convert date to localdatetime
+        LocalDateTime localDateTime = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        // plus one
+        localDateTime = localDateTime.plusYears(1).plusMonths(1).plusDays(1);
+        localDateTime = localDateTime.plusHours(1).plusMinutes(2).minusMinutes(1).plusSeconds(1);
+
+        // convert LocalDateTime to date
+        Date currentDatePlusOneDay = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        newDate=dateFormat.format(currentDatePlusOneDay);
+        return newDate;
+    }
+
+    public String GetDateInFormatMMMddyyyy(String DateToFormat)
+    {
+        //date format you will get is e.g. Nov 21, 2020
+        String newDateFormat=null;
+        try{
+            String start_dt = DateToFormat;
+            DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            Date date = (Date)formatter.parse(start_dt);
+            SimpleDateFormat newFormat = new SimpleDateFormat("MMM dd, yyyy");
+            newDateFormat = newFormat.format(date);
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        return newDateFormat;
     }
 }

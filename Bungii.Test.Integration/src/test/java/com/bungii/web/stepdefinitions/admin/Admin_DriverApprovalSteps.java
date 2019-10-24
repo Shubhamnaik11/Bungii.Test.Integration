@@ -121,6 +121,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
+        String Name = null, xpath=null;
         switch (arg0)
         {
             case "Approve Application":
@@ -157,8 +158,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
-
-        }    }
+//BOC
+            case "Edit":
+                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+                cucumberContextManager.setScenarioContext("XPATH", xpath );
+                SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+                break;
+//EOC
+        }
+    }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
