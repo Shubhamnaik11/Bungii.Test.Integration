@@ -9,6 +9,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -92,8 +93,9 @@ public class ActionManager {
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
         } catch (Exception Ex) {
-            logger.detail("Page source"+ SetupManager.getDriver().getPageSource());
-            Assert.fail("Following element is not displayed : " + element);
+            logger.detail("Page source "+ SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
+         //   Assert.fail("Following element is not displayed : " + element);
         }
     }
 
@@ -206,7 +208,7 @@ public class ActionManager {
         Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(50))
                 .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
         try {
-          //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
             wait.until(
                     ExpectedConditions.or(
                             ExpectedConditions.textToBePresentInElement(element,text1),
@@ -216,7 +218,25 @@ public class ActionManager {
             logger.detail("Wait failed");
         }
     }
+    /**
+     * An expectation for checking if the given text is present in the specified
+     * elements value attribute.
+     *
+     */
+    public void textToBePresentInElementText(final WebElement element, final String text1) {
 
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(SetupManager.getDriver()).withTimeout(Duration.ofSeconds(120))
+                .pollingEvery(Duration.ofMillis(500)).ignoring(NoSuchElementException.class);
+        try {
+            //  wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            wait.until(
+                    ExpectedConditions.or(
+                            ExpectedConditions.textToBePresentInElement(element,text1)
+                    )
+            );        } catch (Exception e) {
+            logger.detail("Wait failed");
+        }
+    }
     public void clearSendKeys(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);

@@ -34,7 +34,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_am_logged_in_as_Testadmin() throws Throwable {
         utility.TestAdminLogin();
     }
-    @And("^there is a pending driver verification$")
+    @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
@@ -58,6 +58,20 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
         }
 
+    }
+    @When("^I click \"([^\"]*)\" button against the \"([^\"]*)\" applicant$")
+    public void i_click_something_button_against_the_something_applicant(String strArg1, String applicantName) throws Throwable {
+        action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
+        String[] name =  applicantName.split(" ");
+        action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),name[1]);
+        cucumberContextManager.setScenarioContext("LASTNAME",name[1]);
+        action.click(admin_GetAllBungiiDriversPage.Button_Search());
+        Thread.sleep(4000);
+        switch (strArg1) {
+            case "Verify":
+                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
+                break;
+        }
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")

@@ -940,7 +940,8 @@ public class CommonSteps extends DriverBase {
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("ONE_OFF");
                 break;
             case "used one off":
-                code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
+                code = Arrays.asList(PropertyUtility.getDataProperties("promocode.usedoneoff"));
+            //    code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
                 break;
             case "unused one off":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");

@@ -56,6 +56,8 @@ public class BungiiSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
             String geofence = dataMap.get("geofence").trim();
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+
             String state = dataMap.get("Bungii State").trim();
             String customer = dataMap.get("Customer").trim();
             String driver1 = dataMap.get("Driver1").trim();
@@ -136,8 +138,9 @@ public class BungiiSteps extends DriverBase {
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 2, geofence);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
-            coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
-            int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+                int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
@@ -265,7 +268,7 @@ public class BungiiSteps extends DriverBase {
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
-            coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
             int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 
             try {
@@ -362,7 +365,8 @@ public class BungiiSteps extends DriverBase {
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
-            coreServices.recalculateEstimate(pickupRequest, "", custAccessToken);
+            //In case of having default promo code  "ADDED_PROMOCODE_WALLETREF" hold value of wallet ref, else return empty string
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
             coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
             Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
             if (!isDriverEligibel)

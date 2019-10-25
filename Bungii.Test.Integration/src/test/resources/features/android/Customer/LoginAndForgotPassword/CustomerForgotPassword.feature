@@ -1,5 +1,4 @@
 @android
-
 Feature: CustomerForgotPassword
   Forgot password functionality in Customer app
 
@@ -13,8 +12,8 @@ Feature: CustomerForgotPassword
     And I tap on the "Send" Link
     And I enter "valid" SMS code
     And I enter customers new "valid" Password
-    And I tap on the "Continue" Link
-    Then The user should see "snackbar validation message for success" on forgot password page
+#    And I tap on the "Continue" Link
+    Then The user should see "snackbar validation message for success once I click continue" on forgot password page
     And The user should be logged in
     And I tap on "Menu" > "Logout" link
 

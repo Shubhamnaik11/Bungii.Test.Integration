@@ -24,7 +24,7 @@
     "noReset": true,
     "newCommandTimeout": "1500",
     "autoWebView": true,
-    "appPackage": "com.bungii.driver",
+    "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8110,
     "udid": "ZY2239HR8Q"

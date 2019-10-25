@@ -11,6 +11,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.PropertyConfigurator;
@@ -59,7 +60,7 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 
         try {
-            logger.detail("Device On which test will be run is :" + System.getProperty("DEVICE"));
+            logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE"));
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
@@ -82,6 +83,7 @@ public class CucumberHooks {
     @Before
     public void beforeTest(Scenario scenario) {
         this.reportManager.startTestCase(scenario.getName());
+        logger.detail("**********************************************************************************");
         logger.detail("Starting " + scenario.getName());
 /*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 			new GeneralUtility().recoverScenario();*/
@@ -132,7 +134,7 @@ public class CucumberHooks {
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
-                    logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
+                    logger.detail(" PAGE SOURCE:" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
 
                 } catch (Exception e) {
                 }
@@ -156,7 +158,7 @@ public class CucumberHooks {
                 }
             }
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
 
         }
 
@@ -173,7 +175,7 @@ public class CucumberHooks {
     public void tearDown() throws IOException {
         this.reportManager.endSuiteFile();
         //SetupManager.stopAppiumServer();
-        logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
+     //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
 
     }
 
@@ -182,7 +184,7 @@ public class CucumberHooks {
     public void afterDuoScenario() {
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
             new GeneralUtility().installDriverApp();
-            try{ new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
+            try{ SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
             new GeneralUtility().installCustomerApp();
         }
     }

@@ -28,7 +28,7 @@ Feature: Customer Estimate screen
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -79,7 +79,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check if the information icons display correct information
-#    When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -96,7 +95,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: To check the elements of Estimate page
- #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -110,7 +108,6 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
- #   When I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -122,8 +119,8 @@ Feature: Customer Estimate screen
 
   @regression
   Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
-#    When I Select "ACCOUNT" from Customer App menu
-#    And I get customer account details
+    And I am on the "LOG IN" page
+    And I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |

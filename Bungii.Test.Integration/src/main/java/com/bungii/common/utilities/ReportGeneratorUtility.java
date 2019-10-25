@@ -2,6 +2,8 @@ package com.bungii.common.utilities;
 
 
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -266,7 +268,8 @@ public class ReportGeneratorUtility {
 		String strDetails = "";
 		for (String str : strArray)
 			strDetails+="<tr>" + str + "</tr>";
-		logger.detail("Generated Report : "+strDetails);
+		final String cleansedString = StringUtils.normalizeSpace(strDetails);
+		logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
 	}
 }
