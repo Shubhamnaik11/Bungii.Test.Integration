@@ -15,10 +15,10 @@ Feature: Driver_Documentation
   @regression
   Scenario: Driver_Documentation_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Documentation" page
-     #Then I should see blank fields validation on "Documentation" page
-    # When I enter "invalid date" data on Documentation page
-    # And I click Next on "Documentation" page
-    # Then I should see individual field validations on "date on Documentation" page
-    # When I enter "invalid" data on Documentation page
-    # When I click Next on "Documentation" page
-    # Then I should see individual field validations on "Documentation" page
+     Then I should see blank fields validation on "Documentation" page
+     When I enter "invalid date" data on Documentation page
+     And I click Next on "Documentation" page
+     Then I should see individual field validations on "date on Documentation" page
+    When I enter "invalid" data on Documentation page
+     When I click Next on "Documentation" page
+     Then I should see individual field validations on "Documentation" page

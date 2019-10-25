@@ -12,7 +12,7 @@ Feature: Driver_Details
   @regression
   Scenario: Driver_Details_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Driver Details" page
-     #Then I should see blank fields validation on "Driver Details" page
-     #When I enter "invalid" data on Driver Details page
-    # And I click Next on "Driver Details" page
-     #Then I should see individual field validations on "Driver Details" page
+     Then I should see blank fields validation on "Driver Details" page
+     When I enter "invalid" data on Driver Details page
+    And I click Next on "Driver Details" page
+     Then I should see individual field validations on "Driver Details" page
