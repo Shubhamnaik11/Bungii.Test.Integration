@@ -11,7 +11,6 @@ Feature: Driver_Documentation
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
 
-
   @regression
   Scenario: Driver_Documentation_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Documentation" page

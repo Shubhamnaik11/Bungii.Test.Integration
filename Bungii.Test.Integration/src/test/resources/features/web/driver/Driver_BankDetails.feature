@@ -11,7 +11,7 @@ Feature: Driver_BankDetails
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
     And I click Next on "Documentation" page
-
+  @TD
   @regression
   Scenario: Driver_BankDetails_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Bank Details" page
