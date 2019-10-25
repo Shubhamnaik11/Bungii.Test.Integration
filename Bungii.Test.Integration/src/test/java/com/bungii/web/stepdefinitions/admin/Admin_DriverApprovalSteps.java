@@ -21,6 +21,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -77,7 +78,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Promoters Page":
                 testStepAssert.isElementDisplayed(admin_PromoterPage.Title_PromoterPage(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Geofences Page":
+                testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Geofences(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
         }
     }
 
@@ -143,7 +146,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
-
+            case "Scale":
+                action.click(admin_GeofencePage.Button_Scale());
+                break;
         }    }
 
 
