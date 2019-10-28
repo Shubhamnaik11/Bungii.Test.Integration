@@ -52,7 +52,38 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
+        } else if (geoFence.equalsIgnoreCase("boston")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("boston.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("atlanta")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("baltimore")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("miami")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("miami.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("miami.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("nashville")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("nashville.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("nashville.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("nashville.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("nashville.pickup.longitude")));
+        }else if (geoFence.equalsIgnoreCase("denver")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("denver.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("denver.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.longitude")));
         }
+
 
         jsonObj.put("DropoffLocation", dropOffCordinate);
         jsonObj.put("PickupLocation", pickupCordinates);
@@ -124,66 +155,38 @@ public class CoreServices extends DriverBase {
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickUpAddress = new JSONObject();
         JSONObject pickUpCordinate = new JSONObject();
-        if (geoFence.equalsIgnoreCase("goa")) {
-            dropOffAddress.put("Address1", PropertyUtility.getDataProperties("goa.drop.address1"));
-            dropOffAddress.put("Address2", PropertyUtility.getDataProperties("goa.drop.address2"));
-            dropOffAddress.put("City", PropertyUtility.getDataProperties("goa.drop.city"));
-            dropOffAddress.put("Country", PropertyUtility.getDataProperties("goa.drop.country"));
-            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.latitude")));
-            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
+        if (geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.equalsIgnoreCase("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")) {
+            dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1"));
+            dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city"));
+            dropOffAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.country"));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.longitude")));
             dropOffAddress.put("Location", dropOffCordinate);
-            dropOffAddress.put("State", PropertyUtility.getDataProperties("goa.drop.state"));
-            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("goa.drop.zipcode"));
+            dropOffAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
+            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.zipcode"));
 
-            pickUpAddress.put("Address1", PropertyUtility.getDataProperties("goa.pickup.address1"));
-            pickUpAddress.put("Address2", PropertyUtility.getDataProperties("goa.pickup.address2"));
-            pickUpAddress.put("City", PropertyUtility.getDataProperties("goa.pickup.city"));
-            pickUpAddress.put("Country", PropertyUtility.getDataProperties("goa.pickup.country"));
-            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
-            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
+            pickUpAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1"));
+            pickUpAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            pickUpAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city"));
+            pickUpAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country"));
+            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude")));
+            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude")));
             pickUpAddress.put("Location", pickUpCordinate);
-            pickUpAddress.put("State", PropertyUtility.getDataProperties("goa.pickup.state"));
-            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("goa.pickup.zipcode"));
+            pickUpAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode"));
 
             jsonObj.put("DropOffAddress", dropOffAddress);
             jsonObj.put("PickupAddress", pickUpAddress);
             jsonObj.put("NoOfDrivers", numberOfDriver);
 
-            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties("goa.pickup.address1") + ", " + PropertyUtility.getDataProperties("goa.pickup.address2"));
-            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties("goa.pickup.city") + ", " + PropertyUtility.getDataProperties("goa.pickup.state"));
-            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties("goa.drop.address1") + ", " + PropertyUtility.getDataProperties("goa.drop.address2"));
-            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties("goa.drop.city") + ", " + PropertyUtility.getDataProperties("goa.drop.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
             cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
-        } else if (geoFence.equalsIgnoreCase("kansas")) {
-            dropOffAddress.put("Address1", PropertyUtility.getDataProperties("kansas.drop.address1"));
-            dropOffAddress.put("Address2", PropertyUtility.getDataProperties("kansas.drop.address2"));
-            dropOffAddress.put("City", PropertyUtility.getDataProperties("kansas.drop.city"));
-            dropOffAddress.put("Country", PropertyUtility.getDataProperties("kansas.drop.country"));
-            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.latitude")));
-            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.drop.longitude")));
-            dropOffAddress.put("Location", dropOffCordinate);
-            dropOffAddress.put("State", PropertyUtility.getDataProperties("kansas.drop.state"));
-            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("kansas.drop.zipcode"));
-
-            pickUpAddress.put("Address1", PropertyUtility.getDataProperties("kansas.pickup.address1"));
-            pickUpAddress.put("Address2", PropertyUtility.getDataProperties("kansas.pickup.address2"));
-            pickUpAddress.put("City", PropertyUtility.getDataProperties("kansas.pickup.city"));
-            pickUpAddress.put("Country", PropertyUtility.getDataProperties("kansas.pickup.country"));
-            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude")));
-            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude")));
-            pickUpAddress.put("Location", pickUpCordinate);
-            pickUpAddress.put("State", PropertyUtility.getDataProperties("kansas.pickup.state"));
-            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties("kansas.pickup.zipcode"));
-
-            jsonObj.put("DropOffAddress", dropOffAddress);
-            jsonObj.put("PickupAddress", pickUpAddress);
-            jsonObj.put("NoOfDrivers", numberOfDriver);
-
-            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties("kansas.pickup.address1") + ", " + PropertyUtility.getDataProperties("kansas.pickup.address2"));
-            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties("kansas.pickup.city") + ", " + PropertyUtility.getDataProperties("kansas.pickup.state"));
-            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties("kansas.drop.address1") + ", " + PropertyUtility.getDataProperties("kansas.drop.address2"));
-            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties("kansas.drop.city") + ", " + PropertyUtility.getDataProperties("kansas.drop.state"));
-            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
+        } else {
+            logger.detail("Specify valid geofence");
         }
         Header header = new Header("AuthorizationToken", authToken);
 

@@ -1,23 +1,24 @@
 @ios
-
+  # this will run in 	nashville
 Feature: Create on demand bungii
 
   Background:
+
   @POSTDUO
   @sanity
   @regression
-    @FAILED
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
     Given I am on the "LOG IN" page
-    When I am on Customer logged in Home page
+   # When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     And I change driver status to "Online"
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           | geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+      | Driver | Pickup Location                 | Drop Location                      | geofence  |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
@@ -80,13 +81,14 @@ Feature: Create on demand bungii
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      | Enroute      |
+      | nashville      | Enroute      |
 
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+   # And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
+    And I am logged in as "valid nashville" driver
 
     Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -166,13 +168,14 @@ Feature: Create on demand bungii
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      | Enroute      |
+      | nashville      | Enroute      |
 
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+   # And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
+    And I am on the "LOG IN " page on driverApp
+    And I am logged in as "valid nashville" driver
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
@@ -229,7 +232,8 @@ Feature: Create on demand bungii
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page
-    When I am on Customer logged in Home page
+ #   When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -239,13 +243,13 @@ Feature: Create on demand bungii
 
  #   And I clear all notification
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
     When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location           | Geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
