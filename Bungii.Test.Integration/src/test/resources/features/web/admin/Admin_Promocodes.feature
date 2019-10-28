@@ -22,7 +22,6 @@ Feature: Admin_Promocodes
   @testReport
   @sanity
   @regression
-
   Scenario: Admin_AddEditNewPromocode_OneOff
     When I click on the "New Code" Button
     And I enter following values in fields
@@ -112,7 +111,15 @@ Feature: Admin_Promocodes
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
-
+    #BOC search to check pagination
+    When I search by the Code "Promo"
+    And I check if pages exists
+    And I check that "Previous" and "Next" button exists
+    Then I verify that pagination exists
+    #search for invalid data
+    When I search by the Code "@#$@@"
+    Then the "No promo codes found." message is displayed
+#EOC
 
   @sanity
   @regression
@@ -159,7 +166,6 @@ Feature: Admin_Promocodes
     And I change the "Expiration Date" to future date
     And I click on the "Save" Button
     Then the date gets saved
-
 
     #Promo code and name with only special characters
   @sanity
