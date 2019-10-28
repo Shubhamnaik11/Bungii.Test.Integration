@@ -180,7 +180,7 @@ public class PropertyUtility {
             properties.load(inputStream);
             //  update value of environment and target platform in property object
             if(!environment.equals("") && !targetPlatform.equals("")){properties.setProperty("target.platform", targetPlatform);properties.setProperty("environment", environment);}
-            properties.list(System.out);
+           // properties.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -188,7 +188,7 @@ public class PropertyUtility {
         fileLocations = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(FILE_LOCATION_PROPERTY_FILE)) {
             fileLocations.load(inputStream);
-            fileLocations.list(System.out);
+           // fileLocations.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -198,7 +198,7 @@ public class PropertyUtility {
         loginData = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(LOGIN_PROPERTY_FILE)) {
             loginData.load(inputStream);
-            loginData.list(System.out);
+            //loginData.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -214,12 +214,12 @@ public class PropertyUtility {
         //add login Data properties to main data properties
         data.putAll(loginData);
         System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
-        data.list(System.out);
+       // data.list(System.out);
 
         resultConfig = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(RESULT_CONFIG_PROPERTY_FILE)) {
             resultConfig.load(inputStream);
-            resultConfig.list(System.out);
+          //  resultConfig.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -227,7 +227,7 @@ public class PropertyUtility {
         jdbcConfig = new Properties();
         try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(JDBC_CONFIG_PROPERTY_FILE)) {
             jdbcConfig.load(inputStream);
-            jdbcConfig.list(System.out);
+           // jdbcConfig.list(System.out);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -235,7 +235,7 @@ public class PropertyUtility {
             images = new Properties();
             try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(IMAGE_PROPERTY_FILE)) {
                 images.load(inputStream);
-                images.list(System.out);
+             //   images.list(System.out);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
@@ -246,7 +246,7 @@ public class PropertyUtility {
             csv = new Properties();
             try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(CSV_PROPERTY_FILE)) {
                 csv.load(inputStream);
-                csv.list(System.out);
+              //  csv.list(System.out);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }

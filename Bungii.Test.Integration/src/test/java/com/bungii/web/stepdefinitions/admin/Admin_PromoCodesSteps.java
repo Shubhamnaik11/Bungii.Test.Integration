@@ -5,10 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
-import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
-import com.bungii.web.pages.admin.Admin_PromoCodesPage;
-import com.bungii.web.pages.admin.Admin_PromoterPage;
-import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
+import com.bungii.web.pages.admin.*;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
@@ -36,7 +33,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
-
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
@@ -70,6 +67,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_PromoterPage.Menu_Promotion());
                action.click(admin_PromoterPage.Menu_PromoterPayment());
                break;
+           case "Geofences  > Geofences" :
+               action.click(admin_GeofencePage.Menu_Geofences());
+               break;
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", true);

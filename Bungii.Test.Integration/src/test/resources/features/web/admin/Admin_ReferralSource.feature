@@ -40,7 +40,6 @@ Feature: Admin_ReferralSource
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_ReferralSourcegrid_FieldValidations
     When I click on "Search" button with entering "From" and "To" date
