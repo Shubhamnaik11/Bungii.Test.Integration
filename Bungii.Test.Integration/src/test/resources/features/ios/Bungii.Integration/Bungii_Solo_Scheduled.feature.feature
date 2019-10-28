@@ -5,8 +5,8 @@ Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
   Background:
-  @OD
-#  @POSTDUO
+
+  @POSTDUO
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
 
