@@ -113,7 +113,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
@@ -158,12 +158,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
-//BOC
+
             case "Edit":
                 Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
                 xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
                 cucumberContextManager.setScenarioContext("XPATH", xpath );
                 SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+                break;
+//BOC
+            case "Add Payment Method":
+                action.click(admin_BusinessUsersPage.Button_RequestPayment());
                 break;
 //EOC
         }
@@ -187,7 +191,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
         }    }
     @And("^the \"([^\"]*)\" button is not visible$")
-    public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
+    public void i_check_if_something_button_is_visible(String strArg1)  {
         switch (strArg1)
         {
             case "Approve Application":
@@ -202,7 +206,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
 
         @Then("^the status of the driver application should be marked as \"([^\"]*)\"$")
-        public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws Throwable {
+        public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws InterruptedException {
 
         //Search code
             String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
@@ -230,18 +234,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
 
     @Then("^the validation message \"([^\"]*)\" is displayed$")
-    public void theValidationMessageIsDisplayed(String arg0) throws Throwable {
+    public void theValidationMessageIsDisplayed(String arg0)  {
         testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
 
     }
 
     @When("^I enter the reject reason$")
-    public void iEnterTheRejectReason() throws Throwable {
+    public void iEnterTheRejectReason()  {
         action.clearSendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication(),"Invalid values found. Please review and resend the application");
     }
 
     @Then("^the status of the field changes to \"([^\"]*)\"$")
-    public void theStatusOfTheFieldChangesTo(String arg0) throws Throwable {
+    public void theStatusOfTheFieldChangesTo(String arg0) {
         switch (arg0) {
             case "Accepted":
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status of the field ","Status is accepted" , "Field is not accepted");
@@ -253,7 +257,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     }
 
     @Then("^the status of the field resets to default$")
-    public void theStatusOfTheFieldResetsToDefault() throws Throwable {
+    public void theStatusOfTheFieldResetsToDefault() {
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
 
     }

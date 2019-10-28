@@ -5,18 +5,15 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
-import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,7 +22,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Instant;
 import java.util.*;
@@ -79,8 +75,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_search_by_name_something_in_something_page(String currentdatetime, String strArg1) throws Throwable {
+        Thread.sleep(2000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
         log("I search by name in Business User list page",
                 "I searched by name in Business User list page", true);
     }
@@ -121,7 +118,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
@@ -339,10 +336,135 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     true);
         }
 
+    }
 
+    //BOC
+    @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void i_update_the_something_and_something(String PhoneNumber, String Email) {
 
+        String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
+
+        WebElement row = SetupManager.getDriver().findElement(By.xpath(Xpath));
+        //  WebElement edit = row.findElement(By.xpath("following-sibling::td/button[@id='btnEditBusinessUser']"));
+        action.click(row);
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"krishna.hoderker@creativecapsule.com");
+        cucumberContextManager.setScenarioContext("BO_EMAIL", "krishna.hoderker@creativecapsule.com");
+        String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
+        long Newphone = Long.parseLong(Phone) + 1;
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),String.valueOf(Newphone));
+        cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
 
     }
+
+    @And("^I enter above same Phone number in Phone Number fields$")
+    public void i_enter_above_same_phone_number_in_phone_number_fields() throws InterruptedException {
+        Thread.sleep(2000);
+        String PhoneNumber=cucumberContextManager.getScenarioContext("BO_PHONE").toString();
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), PhoneNumber);
+    }
+
+    @And("^I enter the following values in \"([^\"]*)\" fields$")
+    public void i_enter_the_following_values_in_something_fields(String strArg1, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Long now = Instant.now().toEpochMilli();
+            int i=now.intValue()/1000;
+            String Name = dataMap.get("Name").trim().replace("<<UniqueNo>>",Integer.toString(i));
+            String Phone = cucumberContextManager.getScenarioContext("BO_PHONE").toString();
+            String Email = dataMap.get("Email").trim();
+            if(Phone.isEmpty())
+                Phone = generatePhoneNumber();
+            action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
+
+            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
+            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
+            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
+            log("I enter values on Add Business User page",
+                    "I entered values on Add Business User page", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^the business user does not get saved successfully$")
+    public void the_business_user_does_not_get_saved_successfully() throws Throwable {
+        testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists.", "Phone number already exists." + " should be displayed", "Phone number already exists." + " is displayed", "Need to specify message" + " is not displayed");
+    }
+
+    @And("^I select the \"([^\"]*)\"$")
+    public void i_select_the_something(String strArg1) throws Throwable {
+        String BusinessUserName=cucumberContextManager.getScenarioContext("BO_NAME").toString();
+        action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),BusinessUserName);
+    }
+
+    @Then("^The payment details page is loaded$")
+    public void the_payment_details_page_is_loaded() throws Throwable {
+        String Title= admin_BusinessUsersPage.Label_PayWithCard().getText().toString();
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_PayWithCard(),"Pay with card","Pay with card","Pay with card is displayed", "Pay with card is not displayed");
+    }
+
+    @And("^I enter the card details$")
+    public void i_enter_the_card_details(DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            Thread.sleep(2000);
+            String CardNumber = dataMap.get("CardNumber").trim();
+            String ExpiryDate = dataMap.get("ExpiryDate").trim();
+            String CVV = dataMap.get("CVV").trim();
+            String PostalCode = dataMap.get("PostalCode").trim();
+
+            new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
+            String pin = SetupManager.getDriver().getPageSource();
+            action.sendKeys(admin_BusinessUsersPage.TextBox_PostalCode(),PostalCode);
+
+
+            SetupManager.getDriver().switchTo().defaultContent();
+            new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-number")));
+            action.sendKeys(admin_BusinessUsersPage.TextBox_CreditCardNumber(),CardNumber);
+            SetupManager.getDriver().switchTo().defaultContent();
+
+            new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-cvv")));
+            action.sendKeys(admin_BusinessUsersPage.TextBox_CVV(),CVV);
+            SetupManager.getDriver().switchTo().defaultContent();
+
+            new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-expirationDate")));
+            action.sendKeys(admin_BusinessUsersPage.TextBox_ExpirationDate(),ExpiryDate);
+            SetupManager.getDriver().switchTo().defaultContent();
+            log("I enter card details on Add Payment to Business user page",
+                    "I have entered card details on Add Payment to Business user page", true);
+
+            cucumberContextManager.setScenarioContext("C_NUMBER", CardNumber);
+            cucumberContextManager.setScenarioContext("EXPIRY_DATE", ExpiryDate);
+            cucumberContextManager.setScenarioContext("CVV", CVV);
+            cucumberContextManager.setScenarioContext("POSTAL_CODE", PostalCode);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I click on \"([^\"]*)\" button$")
+    public void i_click_on_something_button(String Name) throws Throwable {
+        switch(Name)
+        {
+            case "Save":
+                action.click(admin_BusinessUsersPage.Button_PaymentSave());
+                break;
+        }
+    }
+
+    @When("I change the status to {string}")
+    public void i_change_the_status_to(String string) {
+        // Write code here that turns the phrase above into concrete actions
+        action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
+    }
+
+    //EOC
     private String generatePhoneNumber()
     {
         Random rand = new Random();
@@ -356,7 +478,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         return df3.format(num1)  + df3.format(num2)  + df4.format(num3);
 
     }
-
 
 
 }

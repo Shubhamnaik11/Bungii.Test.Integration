@@ -71,6 +71,21 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Input_ImageFile( ) { return findElement("imageFile", LocatorType.Id); }
 
+//BOC
+    public WebElement Label_PayWithCard(){ return  findElement("//div[@class='braintree-sheet__text']", LocatorType.XPath);}
 
+    public WebElement Label_NoBusinessUsersFound(){ return findElement("//h5[@class='margintop11'][contains(text(),'No Business users found.')]", LocatorType.XPath);}
+
+    public WebElement Label_ErrorContainerCarNumber(){ return  findElement("//div[contains(text(),'Please fill out a card number.')]", LocatorType.XPath);}
+
+    public WebElement Label_ErrorContainerExpiryDate(){ return  findElement("//div[contains(text(),'Please fill out an expiration date.')]", LocatorType.XPath);}
+
+    public WebElement Label_ErrorContainerCVV(){ return  findElement("//div[contains(text(),'Please fill out a CVV.')]", LocatorType.XPath);}
+
+    public WebElement Label_ErrorContainerPostalCode(){ return  findElement("Please fill out a postal code.')]", LocatorType.XPath);}
+
+    public WebElement Label_PaymentMethodSavedMessage(){ return  findElement("successMessage", LocatorType.Id);}
+
+//EOC
 
 }
