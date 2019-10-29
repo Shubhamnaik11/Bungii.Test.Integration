@@ -161,11 +161,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Scale":
                 action.click(admin_GeofencePage.Button_Scale());
                 break;
-        }    }
+
 
             case "Edit":
-                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+               String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                String xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
                 cucumberContextManager.setScenarioContext("XPATH", xpath );
                 SetupManager.getDriver().findElement(By.xpath(xpath)).click();
                 break;
@@ -173,6 +173,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Add Payment Method":
                 action.click(admin_BusinessUsersPage.Button_RequestPayment());
                 break;
+
 //EOC
         }
     }
