@@ -41,7 +41,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     GeneralUtility utility = new GeneralUtility();
-    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
