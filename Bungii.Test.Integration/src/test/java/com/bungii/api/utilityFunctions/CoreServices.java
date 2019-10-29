@@ -548,5 +548,13 @@ public class CoreServices extends DriverBase {
             System.out.println("Not able to Log in" + e.getMessage());
         }
     }
+    public void driverPollingCalls(String pickupRequest, String geofence, String driverAccessToken){
+        if(!driverAccessToken.equalsIgnoreCase("")) {
+            driverView(pickupRequest, driverAccessToken);
+            updateDriverLocation(driverAccessToken, geofence);
+        }else{
+            logger.detail("Please specify valid access token");
+        }
 
+    }
 }
