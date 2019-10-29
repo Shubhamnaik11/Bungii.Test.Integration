@@ -1,5 +1,5 @@
 @android
-
+  #These feature will run in baltimore geofence
 Feature: On Demand Bungii
 
 
@@ -8,12 +8,12 @@ Feature: On Demand Bungii
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | kansas   | Enroute      |
+      | baltimore   | Enroute      |
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid baltimore" driver
 
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "valid baltimore" customer
     Then for a Bungii I should see "Enroute screen"
     When I tap "SMS for a solo driver" during a Bungii
     Then correct details should be displayed on "SMS" app
@@ -135,14 +135,14 @@ Feature: On Demand Bungii
   @regression
   Scenario: Validate That I am able to create on demand bungii.
 
-    Given I am logged in as "no promocode" customer
+    Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid baltimore" driver
     And I Select "HOME" from driver App menu
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "HOME" link
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -193,7 +193,7 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
 
-
+#no existing promocode
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>
 
@@ -202,12 +202,12 @@ Feature: On Demand Bungii
     And I am logged in as "<User>" customer
 
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid baltimore" driver
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
 
     And I tap on "Menu" > "HOME" link
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     And I tap on "Promo Code" on Bungii estimate
@@ -266,6 +266,6 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
     Examples:
       | Scenario            | Promo Code    | User         |
-      | Promo fixed         | valid         | no promocode |
-      | Promo percentage    | valid percent | no promocode |
-      | valid one off fixed | valid one off | no promocode |
+      | Promo fixed         | valid         | valid baltimore |
+      | Promo percentage    | valid percent | valid baltimore |
+      | valid one off fixed | valid one off | valid baltimore |

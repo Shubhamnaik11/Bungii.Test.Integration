@@ -1,5 +1,6 @@
 @android
 @duo
+  #These feature will run in kansas geofence
 Feature: Duo
 
   @sanity
