@@ -1,5 +1,6 @@
 @android
 @SoloScheduled
+#These feature will run in atlanta geofence
 Feature: SoloScheduled
   Background:
 
@@ -7,12 +8,12 @@ Feature: SoloScheduled
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas      | Accepted     | NEXT_POSSIBLE |
+      | atlanta      | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "valid atlanta" customer
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I wait for Minimum duration for Bungii Start Time
@@ -140,14 +141,14 @@ Feature: SoloScheduled
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.
-    Given I am logged in as "valid" customer
+    Given I am logged in as "valid atlanta" customer
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     And I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "Home" link
 
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
@@ -213,13 +214,13 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas      | Accepted     | NEXT_POSSIBLE |
+      | atlanta      | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "valid atlanta" customer
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -240,13 +241,13 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas      | Scheduled     | NEXT_POSSIBLE |
+      | atlanta      | Scheduled     | NEXT_POSSIBLE |
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "valid atlanta" customer
     And I tap on "Menu" > "Home" link
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -265,8 +266,8 @@ Feature: SoloScheduled
   Scenario: Customer should able to cancel scheduled bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas      | Scheduled     | NEXT_POSSIBLE |
-    When I am logged in as "valid" customer
+      | atlanta      | Scheduled     | NEXT_POSSIBLE |
+    When I am logged in as "valid atlanta" customer
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     And I select already scheduled bungii

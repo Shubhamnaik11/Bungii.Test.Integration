@@ -489,27 +489,49 @@ public class BungiiSteps extends DriverBase {
             String state = dataMap.get("Bungii State").trim();
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
 
-
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-                custPhoneNum = PropertyUtility.getDataProperties("customer.user");
-                custPassword = PropertyUtility.getDataProperties("customer.password");
 
-                driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
+                if(geofence.equalsIgnoreCase("denver")){
+                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("denver.customer.password");
 
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                    driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("denver.driver.password");
 
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
 
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                }
+                else {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer.user");
+                    custPassword = PropertyUtility.getDataProperties("customer.password");
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
+
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                }
             } else {
-                custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                custPassword = PropertyUtility.getDataProperties("customer_generic.password");
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
 
-                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                if(geofence.equalsIgnoreCase("atlanta")){
+                    custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
 
+                    driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                }else {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                }
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
@@ -588,24 +610,56 @@ public class BungiiSteps extends DriverBase {
 
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-                custPhoneNum = PropertyUtility.getDataProperties("customer.user");
-                custPassword = PropertyUtility.getDataProperties("customer.password");
-
-                driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
-
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
-
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
-
+                if(geofence.equalsIgnoreCase("miami")){
+                    custPhoneNum = PropertyUtility.getDataProperties("miami.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("miami.customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("miami.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("miami.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("miami.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                }else if(geofence.equalsIgnoreCase("nashville")){
+                    custPhoneNum = PropertyUtility.getDataProperties("nashville.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("nashville.customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("nashville.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("nashville.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                }
+                else {
+                    custPhoneNum = PropertyUtility.getDataProperties("customer.user");
+                    custPassword = PropertyUtility.getDataProperties("customer.password");
+                    driverPhoneNum = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("ios.valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                }
             } else {
-                custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                custPassword = PropertyUtility.getDataProperties("customer_generic.password");
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+                if (geofence.equals("boston")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("boston.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("boston.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("boston.customer.name"));
 
-                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    driverPhoneNum = PropertyUtility.getDataProperties("boston.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("boston.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver.name"));
+                }else if (geofence.equals("baltimore")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("baltimore.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("baltimore.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("baltimore.customer.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("baltimore.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver.name"));
+                }
+                else{
+                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+            }
 
             }
 

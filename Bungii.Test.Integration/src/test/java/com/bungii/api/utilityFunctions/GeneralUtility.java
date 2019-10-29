@@ -36,6 +36,24 @@ public class GeneralUtility {
         }else if(geofence.equalsIgnoreCase("kansas")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("kansas.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("boston")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("boston.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("baltimore")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("baltimore.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("baltimore.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("atlanta")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("miami")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("nashville")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("nashville.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("nashville.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("denver")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.longitude"));
         }
         Float[] driverCordinate = new Float[2];
 

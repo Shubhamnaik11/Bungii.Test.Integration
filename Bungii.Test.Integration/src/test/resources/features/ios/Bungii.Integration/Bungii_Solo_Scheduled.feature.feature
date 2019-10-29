@@ -1,5 +1,6 @@
 @ios
 @scheduled
+    # this will run in denver
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
@@ -11,13 +12,14 @@ Feature: To Test Solo - Scheduling Bungii
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | Accepted     | NEXT_POSSIBLE |
+      | denver   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid denver" user
+  #  And I am on Customer logged in Home page
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
+    And I am logged in as "valid denver" driver
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -120,13 +122,13 @@ Feature: To Test Solo - Scheduling Bungii
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
     Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid denver" user
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid denver" driver
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           | Geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+      | Driver | Pickup Location               | Drop Location                    | Geofence |
+      | Solo   | Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
@@ -189,13 +191,12 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | Scheduled    | NEXT_POSSIBLE |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-
+    And I logged in Customer application using  "valid denver" user
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Driver | Pickup Location               | Drop Location                    | Geofence |
+      | Solo   | Welton Street Denver Colorado | 16th Street Mall Denver Colorado |denver   |
     And I click "Get Estimate" button on "Home" screen
    # Then I should be navigated to "Estimate" screen
     And I confirm trip with following details
@@ -211,9 +212,9 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | Scheduled    | NEXT_POSSIBLE |
+      | denver      | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid denver" user
     And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
@@ -224,9 +225,9 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | Scheduled    | NEXT_POSSIBLE |
+      | denver      | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid denver" user
     And I Select "SCHEDULED BUNGIIS" from Customer App menu
     And I select already scheduled bungii
 
