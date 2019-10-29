@@ -12,8 +12,8 @@ Feature: Admin_Promocodes
   Scenario: Admin_AddNewPromocode_Promo
     When I click on the "New Code" Button
     And I enter following values in fields
-      | Promo Code Type   | Promo Code Name         | Code      | Discount Value  | Discount Category | Expiration Date    |
-      | Promo             | Promo<<CurrentDateTime>>|   P<<CurrentDateTime>> | 5  | Dollars           | <<NextDayDateTime>>|
+      | Promo Code Type   | Promo Code Name    | Code  | Discount Value  | Discount Category | Expiration Date |
+      | Promo                   | Promo<<CurrentDateTime>>|   P<<CurrentDateTime>> | 5  | Dollars  | <<NextDayDateTime>>           |
     When I click on the "Save" Button
     Then the "Promo" type promocode gets saved successfully and it is displayed in the Promocodes grid
     When I search by Name "Promo<<CurrentDateTime>>"
@@ -25,8 +25,8 @@ Feature: Admin_Promocodes
   Scenario: Admin_AddEditNewPromocode_OneOff
     When I click on the "New Code" Button
     And I enter following values in fields
-      | Promo Code Type   | Promo Code Name      | Code       | Discount Value  | Discount Category | Expiration Date |
-      | One Off           | OO<<CurrentDateTime>>|   O<<CurrentDateTime>> | 50  | Percent           |                 |
+      | Promo Code Type   | Promo Code Name    | Code  | Discount Value  | Discount Category | Expiration Date |
+      | One Off           | OO<<CurrentDateTime>>|   O<<CurrentDateTime>> | 50  | Percent  |           |
     When I click on the "Save" Button
     Then the "One Off" type promocode gets saved successfully and it is displayed in the Promocodes grid
     When I search by Code "O<<CurrentDateTime>>"
@@ -36,6 +36,8 @@ Feature: Admin_Promocodes
     And I edit the Promo Code Name
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
+
+
 
 
   @testReport
@@ -52,6 +54,7 @@ Feature: Admin_Promocodes
     Then the promocode is displayed in the Promocodes grid
     When I view the searched promocode
     Then the searched promocode data gets populated correctly
+
 
   @testReport
   @sanity
@@ -122,6 +125,7 @@ Feature: Admin_Promocodes
 #EOC
 
   @sanity
+  @testReport
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Code" Button
@@ -167,6 +171,7 @@ Feature: Admin_Promocodes
     And I click on the "Save" Button
     Then the date gets saved
 
+  #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
     #Promo code and name with only special characters
   @sanity
   @regression

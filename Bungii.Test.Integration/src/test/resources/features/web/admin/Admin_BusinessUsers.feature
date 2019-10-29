@@ -87,7 +87,6 @@ Feature: Admin_BusinessUsers
     Then the business user is not displayed in Bulk Trips since payment is not set
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddBusinessUser_Cancel
     When I click on the "New Business User" Button
@@ -104,7 +103,6 @@ Feature: Admin_BusinessUsers
     #EOC
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Business User" Button

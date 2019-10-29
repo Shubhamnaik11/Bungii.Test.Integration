@@ -19,6 +19,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.*;
@@ -822,7 +823,7 @@ public class GeneralUtility extends DriverBase {
     public void waitForSnackbarMessage() {
         FluentWait<AndroidDriver> wait = new FluentWait<AndroidDriver>((AndroidDriver) SetupManager.getDriver());
         wait.pollingEvery(Duration.ofMillis(1000));
-        wait.withTimeout(Duration.ofSeconds(30));
+        wait.withTimeout(Duration.ofSeconds(90));
         wait.ignoring(NoSuchElementException.class); // We need to ignore this exception.
 
 
@@ -840,6 +841,25 @@ public class GeneralUtility extends DriverBase {
         wait.until(function);
     }
 
+    public boolean isForgotPasswordMessageCorrect(){
+        final FluentWait<WebDriver> wait = new FluentWait<>(SetupManager.getDriver())
+                .withTimeout(Duration.ofSeconds(30))
+                .pollingEvery(Duration.ofMillis(10))
+                .ignoring(NoSuchElementException.class);
+        boolean isMessageCorrect=wait.until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver webDriver) {
+                try {
+                    final WebElement webElement = webDriver.findElement(By.id("com.bungii.customer:id/snackbar_text"));
+                    return webElement.getText().equals(PropertyUtility.getMessage("customer.forgotpassword.success.android"));
+
+                } catch (final StaleElementReferenceException | TimeoutException e) {
+                    return false;
+                }
+            }
+        });
+    return isMessageCorrect;
+    }
     public void acceptNotificationAlert() {
         action.click(driverHomePage.Notification_AlertAccept());
     }

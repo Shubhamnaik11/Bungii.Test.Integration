@@ -1,5 +1,6 @@
 package com.bungii.android.stepdefinitions.Customer;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.InvitePage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
@@ -131,9 +132,22 @@ public class InviteSteps extends DriverBase {
             String expectedText = "";
             switch (strArg1) {
                 case "on text message app":
+                    if (action.isElementPresent(invitePage.TextMsg_TextField(true))) {
                     action.hideKeyboard();
                     expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
                     testStepVerify.contains(action.getText(invitePage.TextMsg_TextField()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    }else{
+
+
+                        //send any phone number
+                        action.sendKeys(invitePage.Text_Receipient(),"55");
+                        ((AndroidDriver)SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+                        action.hideKeyboard();
+                        expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
+                        testStepVerify.contains(action.getText(invitePage.Text_Body()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+
+                    }
+
                     break;
 
                 case "on gmail app":

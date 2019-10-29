@@ -3,7 +3,7 @@ Feature: Bungii
 
   Background:
     Given I am on customer Log in page
-    And I am logged in as "valid" customer
+    When I am logged in as "valid" customer
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii

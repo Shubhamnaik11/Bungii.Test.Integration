@@ -271,7 +271,12 @@ public class DriverRegistrationSteps extends DriverBase {
         log("I should able to enter "+strArg1+" verification code","I entered "+strArg1, true);
 
     }
-
+    @And("^I enter driver Phone number as \"([^\"]*)\" and valid password$")
+    public void i_enter_driver_phone_number_as_something_and_valid_password(String phone) throws Throwable {
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("DriverPassword"));
+        action.click(Page_Driver_Login.Button_DriverLogin());
+    }
     @And("^I enter \"([^\"]*)\" driver phone number on Signup page$")
     public void i_enter_something_driver_phone_number_on_signup_page(String p0) throws Throwable {
         switch (p0) {

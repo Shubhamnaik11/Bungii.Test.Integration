@@ -333,8 +333,9 @@ public class CommonSteps extends DriverBase {
                 case "SHARE BY TEXT MESSAGE":
                     shareInviteCode(button);
                     break;
-                case"CLOSE BUTTON":
-                    action.click(customerBungiiCompletePage.Button_Close());;
+                case "CLOSE BUTTON":
+                    action.click(customerBungiiCompletePage.Button_Close());
+                    ;
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -469,8 +470,25 @@ public class CommonSteps extends DriverBase {
 
         if (!navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))) {
 
-            if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup")))
+            if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
                 iClickButtonOnScreen("LOG IN", "sign up");
+            } else if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+                iClickButtonOnScreen("CANCEL", "SEARCHING");
+                iAcceptAlertMessage();
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+
+            } else if (navigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                new GeneralUtility().navigateFromTermToHomeScreen();
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+            }else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+            }
             else {
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
             }
@@ -544,6 +562,7 @@ public class CommonSteps extends DriverBase {
 
         }
     }
+
     //This is same as above method except apps are not reminated before starting
     @When("^I open \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_open_something_application_on_something_devices(String appName, String device) throws Throwable {
@@ -578,8 +597,8 @@ public class CommonSteps extends DriverBase {
                 }
 
             }
-            pass("Open " + appName + " application on "+device+" devices",
-                    "Open " + appName + " application"+device+" devices", true);
+            pass("Open " + appName + " application on " + device + " devices",
+                    "Open " + appName + " application" + device + " devices", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 
         } catch (Throwable e) {
@@ -587,7 +606,8 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
-        }    }
+        }
+    }
 
     // TODO change catch to error
     @Then("^Alert message with (.+) text should be displayed$")
@@ -696,6 +716,21 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
                     password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    break;
+                case "valid miami":
+                    userName = PropertyUtility.getDataProperties("miami.customer.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                    break;
+                case "valid nashville":
+                    userName = PropertyUtility.getDataProperties("nashville.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    break;
+                case "valid denver":
+                    userName = PropertyUtility.getDataProperties("denver.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -868,7 +903,7 @@ public class CommonSteps extends DriverBase {
         try {
             LogInSteps logInSteps = new LogInSteps(new LoginPage());
             HomeSteps homeSteps = new HomeSteps(homePage);
-            GeneralUtility utility= new GeneralUtility();
+            GeneralUtility utility = new GeneralUtility();
             String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
@@ -905,8 +940,7 @@ public class CommonSteps extends DriverBase {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
-            }
-            else {
+            } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
@@ -941,7 +975,7 @@ public class CommonSteps extends DriverBase {
                 break;
             case "used one off":
                 code = Arrays.asList(PropertyUtility.getDataProperties("promocode.usedoneoff"));
-            //    code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
+                //    code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
                 break;
             case "unused one off":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
