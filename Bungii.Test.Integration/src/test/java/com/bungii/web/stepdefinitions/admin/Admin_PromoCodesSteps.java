@@ -39,6 +39,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -68,6 +69,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Promotion  > Promoter Cards" :
                action.click(admin_PromoterPage.Menu_Promotion());
                action.click(admin_PromoterPage.Menu_PromoterPayment());
+               break;
+           case "Geofences  > Geofences" :
+               action.click(admin_GeofencePage.Menu_Geofences());
                break;
        }
         log("I click on "+link+" menu link" ,
