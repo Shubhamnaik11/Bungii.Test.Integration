@@ -69,7 +69,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         Thread.sleep(4000);
         switch (strArg1) {
             case "Verify":
-                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(name[1]));
+                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
     }
@@ -92,7 +92,9 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Promoters Page":
                 testStepAssert.isElementDisplayed(admin_PromoterPage.Title_PromoterPage(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Geofences Page":
+                testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Geofences(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
         }
     }
 
@@ -114,7 +116,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
@@ -122,6 +124,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
+        String Name = null, xpath=null;
         switch (arg0)
         {
             case "Approve Application":
@@ -158,13 +161,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
-            case "Scale":
-                action.click(admin_GeofencePage.Button_Scale());
-                break;
 
             case "Edit":
-                String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                String xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
                 cucumberContextManager.setScenarioContext("XPATH", xpath );
                 SetupManager.getDriver().findElement(By.xpath(xpath)).click();
                 break;
@@ -172,9 +172,13 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Add Payment Method":
                 action.click(admin_BusinessUsersPage.Button_RequestPayment());
                 break;
+
 //EOC
-        }
-    }
+
+            case "Scale":
+                action.click(admin_GeofencePage.Button_Scale());
+                break;
+        }    }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
