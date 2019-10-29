@@ -100,12 +100,12 @@ Feature: Admin_Promoter
 
   # #this is example scenario for api test step.
     ##Need to ensure /handle customer and driver are of same geofence . or these can be parameterise too. Assumed valid user corresponds to kansas
-  @testScenario
-  @NotCOMPLETE
-  Scenario: EXAMPLE scenario for web test .
-    When I request Bungii
-      | geofence | Bungii Type | Bungii Time   | Customer |
-      | kansas   | duo         | NEXT_POSSIBLE | customer |
-    And I driver perfom this action with Bungii
-      | driver1 | driver1 state    | driver2 | driver2 state    | Bungii Type |
-      | valid   | bungii completed | valid   | bungii completed | duo         |
+#  @testScenario
+#  @NotCOMPLETE
+#  Scenario: EXAMPLE scenario for web test .
+#    When I request Bungii
+#      | geofence | Bungii Type | Bungii Time   | Customer |
+#      | washingtondc   | duo         | NEXT_POSSIBLE | customer |
+#    And I driver perfom this action with Bungii
+#      | driver1 | driver1 state    | driver2 | driver2 state    | Bungii Type |
+#      | valid   | bungii completed | valid   | bungii completed | duo         |
