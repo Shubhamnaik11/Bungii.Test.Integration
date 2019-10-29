@@ -1,23 +1,24 @@
 @ios
-
+  # this will run in 	nashville
 Feature: Create on demand bungii
 
   Background:
+
   @POSTDUO
   @sanity
   @regression
-    @FAILED
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
     Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+   # When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     And I change driver status to "Online"
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           | geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+      | Driver | Pickup Location                 | Drop Location                      | geofence  |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
@@ -80,12 +81,14 @@ Feature: Create on demand bungii
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      | Enroute      |
+      | nashville      | Enroute      |
 
     When I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+   # And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
 
     Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
@@ -93,54 +96,54 @@ Feature: Create on demand bungii
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    And correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
 
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    And correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
 
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    And correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
 
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    And correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And correct details should be displayed to driver on "SMS" app
+    Then correct details should be displayed to driver on "SMS" app
     And correct details should be displayed to driver on "Call" app
     And correct details should be displayed to driver for "SMS FOR SUPPORT"
     And correct details should be displayed to driver for "VIEW ITEMS"
 
     When I Switch to "customer" application on "same" devices
-    And correct details should be displayed to customer on "SMS" app
+    Then correct details should be displayed to customer on "SMS" app
     And correct details should be displayed to customer on "Call" app
 
     When I Switch to "driver" application on "same" devices
@@ -156,8 +159,8 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-    And I Switch to "driver" application on "same" devices
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I Switch to "driver" application on "same" devices
+    And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
 
@@ -165,50 +168,48 @@ Feature: Create on demand bungii
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      | Enroute      |
+      | nashville      | Enroute      |
 
-    Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-
-    And I am logged in as "valid" driver
-    And Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
-
-
+    When I am on the "LOG IN" page
+   # And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN " page on driverApp
+    And I am logged in as "valid nashville" driver
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices
-    And Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
-
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for driver
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
 
     When I Switch to "customer" application on "same" devices
-    And Trip Information should be correctly displayed on "ARRIVED" status screen for customer
+    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
 
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
 
     When I Switch to "customer" application on "same" devices
-    And Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    And Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
+    Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
     When I Switch to "customer" application on "same" devices
-    And Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
+    Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
@@ -222,7 +223,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
@@ -231,8 +232,9 @@ Feature: Create on demand bungii
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page
-    And I am on Customer logged in Home page
-    When I open new "Chrome" browser for "ADMIN PORTAL"
+ #   When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
+    And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Promo Code" from admin sidebar
@@ -241,13 +243,13 @@ Feature: Create on demand bungii
 
  #   And I clear all notification
     And I Switch to "driver" application on "same" devices
-    And I am logged in as "valid" driver
+    And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
+    When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location           | Geofence |
-      | Solo   | froggyland Goa  | peerbaugh Rd, Peer wadi | goa      |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -258,14 +260,12 @@ Feature: Create on demand bungii
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
     When I tap "Back" on Promos screen
-
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
-
     And I request for bungii using Request Bungii Button
-
     Then I should be navigated to "SEARCHING" screen
+
     When I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" on alert message
@@ -318,22 +318,21 @@ Feature: Create on demand bungii
   #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
   #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
 
-    When I Switch to "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
     And Bungii customer should see "correct details with promo" on Bungii completed page
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
-    When I click "On To The Next One" button on "Bungii Completed" screen
-
+    And I click "On To The Next One" button on "Bungii Completed" screen
 
     Examples:
       | Scenario         | Promo Code      | User         |

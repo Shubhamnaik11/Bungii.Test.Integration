@@ -21,6 +21,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -33,7 +34,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_am_logged_in_as_Testadmin() throws Throwable {
         utility.TestAdminLogin();
     }
-    @And("^there is a pending driver verification$")
+    @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
@@ -113,7 +114,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
@@ -121,7 +122,6 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
-        String Name = null, xpath=null;
         switch (arg0)
         {
             case "Approve Application":
@@ -158,10 +158,13 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
+            case "Scale":
+                action.click(admin_GeofencePage.Button_Scale());
+                break;
 
             case "Edit":
-                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
-                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+                String Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                String xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
                 cucumberContextManager.setScenarioContext("XPATH", xpath );
                 SetupManager.getDriver().findElement(By.xpath(xpath)).click();
                 break;
@@ -191,7 +194,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 break;
         }    }
     @And("^the \"([^\"]*)\" button is not visible$")
-    public void i_check_if_something_button_is_visible(String strArg1)  {
+    public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
         switch (strArg1)
         {
             case "Approve Application":
@@ -206,7 +209,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
 
         @Then("^the status of the driver application should be marked as \"([^\"]*)\"$")
-        public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws InterruptedException {
+        public void theStatusOfTheDriverApplicationShouldBeMarkedAs(String arg0) throws Throwable {
 
         //Search code
             String Lastname =  (String) cucumberContextManager.getScenarioContext("LASTNAME");
@@ -234,18 +237,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
 
     @Then("^the validation message \"([^\"]*)\" is displayed$")
-    public void theValidationMessageIsDisplayed(String arg0)  {
+    public void theValidationMessageIsDisplayed(String arg0) throws Throwable {
         testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Validation_Message_PleaseAddRejectionReason(),"I check if a validation message is displayed","Validation message is displayed","Validation message is not displayed");
 
     }
 
     @When("^I enter the reject reason$")
-    public void iEnterTheRejectReason()  {
+    public void iEnterTheRejectReason() throws Throwable {
         action.clearSendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejectDriverApplication(),"Invalid values found. Please review and resend the application");
     }
 
     @Then("^the status of the field changes to \"([^\"]*)\"$")
-    public void theStatusOfTheFieldChangesTo(String arg0) {
+    public void theStatusOfTheFieldChangesTo(String arg0) throws Throwable {
         switch (arg0) {
             case "Accepted":
                 testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status of the field ","Status is accepted" , "Field is not accepted");
@@ -257,7 +260,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     }
 
     @Then("^the status of the field resets to default$")
-    public void theStatusOfTheFieldResetsToDefault() {
+    public void theStatusOfTheFieldResetsToDefault() throws Throwable {
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
 
     }

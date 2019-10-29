@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
+import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -34,35 +35,76 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_BusinessUsersSteps.class);
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
-    public void i_enter_following_values_in_something_fields(String strArg1, DataTable data) throws Throwable {
-        try {
-            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-            Long now = Instant.now().toEpochMilli();
-            int i=now.intValue()/1000;
-            String Name = dataMap.get("Name").trim().replace("<<UniqueNo>>",Integer.toString(i));
-            String Phone = dataMap.get("Phone").trim().replace("<<UniquePhone>>","");
-            String Email = dataMap.get("Email").trim();
-            if(Phone.isEmpty())
-             Phone = generatePhoneNumber();
-            action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
+    public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
+        switch (fields) {
+            case "Business Users" :
+            try {
+                Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+                Long now = Instant.now().toEpochMilli();
+                int i = now.intValue() / 1000;
+                String Name = dataMap.get("Name").trim().replace("<<UniqueNo>>", Integer.toString(i));
+                String Phone = dataMap.get("Phone").trim().replace("<<UniquePhone>>", "");
+                String Email = dataMap.get("Email").trim();
+                if (Phone.isEmpty())
+                    Phone = generatePhoneNumber();
+                action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
 
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
-            action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
-            log("I enter values on Add Business User page",
-                    "I entered values on Add Business User page", true);
+                action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
+                action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
+                action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
+                log("I enter values on Add Business User page",
+                        "I entered values on Add Business User page", true);
 
-            cucumberContextManager.setScenarioContext("BO_NAME", Name);
-            cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
-            cucumberContextManager.setScenarioContext("BO_EMAIL", Email);
-            cucumberContextManager.setScenarioContext("BO_STATUS", "Active");
+                cucumberContextManager.setScenarioContext("BO_NAME", Name);
+                cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
+                cucumberContextManager.setScenarioContext("BO_EMAIL", Email);
+                cucumberContextManager.setScenarioContext("BO_STATUS", "Active");
 
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
-                    true);
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                        true);
+            }
+            break;
+            case "Geofence" :
+                try {
+                    Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+                    Long now = Instant.now().toEpochMilli();
+                    int i = now.intValue() / 1000;
+                    String Primary = dataMap.get("Primary").trim();
+                    String Secondary = dataMap.get("Secondary").trim();
+                    String GeofenceName = dataMap.get("Geo-Name").trim().replace("-<UniqueNumber>", Integer.toString(i));
+                    String GeoTimeZone = dataMap.get("Geo-TimeZone").trim();
+                    String GeoStatus = dataMap.get("Geo-Status").trim();
+
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Timezone(), GeoTimeZone);
+                    action.selectElementByText(admin_GeofencePage.Dropdown_Status(), GeoStatus);
+
+                    action.sendKeys(admin_GeofencePage.TextBox_Primary(), Primary);
+                    action.sendKeys(admin_GeofencePage.TextBox_Secondary(), Secondary);
+                    if(!GeofenceName.equals("")) {
+                        action.sendKeys(admin_GeofencePage.TextBox_GeoName(), GeofenceName);
+                        cucumberContextManager.setScenarioContext("GF_GEONAME", GeofenceName);
+                    }
+
+                    log("I enter values on Geofence page",
+                            "I entered values on Geofence page", true);
+
+                    cucumberContextManager.setScenarioContext("GF_PRIMARY", Primary);
+                    cucumberContextManager.setScenarioContext("GF_SECONDARY",Secondary);
+                    cucumberContextManager.setScenarioContext("GF_GEOTIMEZONE", GeoTimeZone);
+                    cucumberContextManager.setScenarioContext("GF_STATUS", GeoStatus);
+
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                            true);
+                }
+
+                break;
         }
     }
     @When("^I enter invalid phone number and email field$")

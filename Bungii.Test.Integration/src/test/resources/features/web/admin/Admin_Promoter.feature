@@ -19,7 +19,6 @@ Feature: Admin_Promoter
     When I search by promoter Name "PT<<CurrentDateTime>>"
     Then the promoter "PT<<Unique>>" is displayed in the Promocodes grid
 
-
   @testReport
   @sanity
   @regression
@@ -65,9 +64,7 @@ Feature: Admin_Promoter
     And I click on "Save" button on "Promoter Cards" screen
     Then the card is added to the promoter "PT<<CurrentDateTime>>"
 
-  @underconst
   @testReport
-  @sanity
   @regression
   Scenario: Admin_Promotergrid_Sort
     When I click on "Name" header "Ascending" on "Promoter" grid
@@ -84,7 +81,6 @@ Feature: Admin_Promoter
     Then the "Promoter" list should be sorted by "Descending" order of "Code Initials"
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromoter_Cancel
     When I click on the "New Promoter" Button
@@ -92,7 +88,6 @@ Feature: Admin_Promoter
     Then the "Add New Promoter" popup gets removed from UI
 
   @testReport
-  @sanity
   @regression
   Scenario: Admin_AddNewPromoter_Fieldvalidations
     When I click on the "New Promoter" Button

@@ -44,7 +44,7 @@ public class InvitePage extends PageBase {
     //------Share - Samsung Msg App-------------------------------------------------------------
     public WebElement Samsung_TextMsg_TextField() { return findElement("com.android.mms:id/edit_text_bottom", LocatorType.Id); }
 
-    public WebElement TextMsg_TextField() { return findElement("com.android.mms:id/embedded_text_editor", LocatorType.Id); }
+    public WebElement TextMsg_TextField(boolean ...ignoreException) { return findElement("com.android.mms:id/embedded_text_editor", LocatorType.Id,ignoreException); }
 
     //------Share - Gmail App-------------------------------------------------------------------
     public WebElement Gmail_Referral_Subject() { return findElement("com.google.android.gm:id/subject", LocatorType.Id); }
@@ -65,5 +65,10 @@ public class InvitePage extends PageBase {
 
 
     public WebElement Button_Back(){return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]",LocatorType.XPath);}
+
+
+    //MOTO G4 specific
+    public WebElement Text_Receipient(boolean ...ignoreException) { return findElement("com.google.android.apps.messaging:id/recipient_text_view", LocatorType.Id,ignoreException); }
+    public WebElement Text_Body(boolean ...ignoreException) { return findElement("com.google.android.apps.messaging:id/compose_message_text", LocatorType.Id,ignoreException); }
 
 }
