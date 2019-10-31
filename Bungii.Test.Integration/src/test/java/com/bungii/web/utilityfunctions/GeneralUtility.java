@@ -129,7 +129,19 @@ public class GeneralUtility {
 
     }
 
-    public String GenerateFutureDate()
+    public static String GetFormattedString(String string, String word)
+    {
+        // Check if the word is present in string
+        // If found, remove it using removeAll()
+        if (string.contains(word)) {
+            string = string.replaceAll(word, "");
+        }
+
+        // Return the resultant string
+        return string;
+    }
+
+    public String GetUniqueFutureDate()
     {
         String newDate=null;
         String DATE_FORMAT = "MM/dd/yyyy";
@@ -141,7 +153,7 @@ public class GeneralUtility {
         // create instance of Random class
         Random rand = new Random();
 
-        // Generate random integers in range 0 to 999
+        // Generate random integers in range 1 to 12 for months and 1 to 30 for days
         int months = rand.nextInt(12);
         int days = rand.nextInt(30);
 
@@ -181,7 +193,7 @@ public class GeneralUtility {
         String CHAR_LIST ="$&#@!%?+";
         StringBuffer randStr = new StringBuffer();
         for(int i=0; i<RANDOM_STRING_LENGTH; i++){
-            int number = getRandomNumber();
+            int number = GetRandomNumber();
             char ch = CHAR_LIST.charAt(number);
             randStr.append(ch);
         }
@@ -189,7 +201,7 @@ public class GeneralUtility {
         return randStr.toString();
     }
 
-    private int getRandomNumber() {
+    private int GetRandomNumber() {
          String CHAR_LIST ="$&#@!%?+";
         int randomInt = 0;
         Random randomGenerator = new Random();

@@ -195,25 +195,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     @When("^I select promocode type as \"([^\"]*)\"$")
     public void i_select_promocode_type_as_something(String promoCodeType) throws Throwable {
         Thread.sleep(5000);
-        switch(promoCodeType)
-        {
-            case "Delivery By Promoter":
-                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
-                break;
-
-            case "Promo":
-                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
-                break;
-
-            case "One Off":
-                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
-                break;
-
-            case "Delivery By Promoter (M)":
-                action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
-                break;
-
-        }
+        action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), promoCodeType);
         log("I select promocode type as "+ promoCodeType ,
                 "I have selected promocode type as "+ promoCodeType, true);
     }
@@ -234,8 +216,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
         switch (promocodetype)
         {
             case "Promo":
-
-
                  CreatedDate = dateFormat.format(tomorrow).toString();
 
                  Expires = (String)cucumberContextManager.getScenarioContext("EXP_DATE");
@@ -253,8 +233,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
 
             case "One Off":
-
-
                  Code =(String)cucumberContextManager.getScenarioContext("PROMOCODE");;
                  Status ="Active";
                  Value = (String) cucumberContextManager.getScenarioContext("DISCOUNT_VALUE");
@@ -410,8 +388,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
         testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(totalValue),String.valueOf(rows.size()) + " records should be displayed",String.valueOf(rows.size()) + " records are displayed", String.valueOf(rows.size()) + " records are not displayed");
 
     }
-
-
 
     @Then("^the \"([^\"]*)\" popup gets removed from UI$")
     public void the_something_popup_gets_removed_from_ui(String popup) throws Throwable {
@@ -748,6 +724,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isTrue(false, message + "should be displayed", message + " displayed", message + "did not displayed");
                 break;
         }
+
     }
 
     @And("^I change the \"([^\"]*)\" to past date$")
@@ -760,6 +737,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 action.clearSendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(),PastExpiryDate +Keys.ENTER);
                 break;
         }
+        log("I enter expiration date" ,
+                "I have entered expiration date" , true);
     }
 
     @And("^I edit the Promo Code Name$")
@@ -772,6 +751,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("PROMOCODE_NAME", PromoCodeName);
 
         action.clearSendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
+        log("I edit the Promo Code name" ,
+                "I have edited promo Code name" , true);
     }
 
     @Then("^the edited promocode is displayed in the Promocodes grid$")
@@ -788,11 +769,13 @@ public class Admin_PromoCodesSteps extends DriverBase {
         switch (ExpiryDate)
         {
             case "Expiration Date":
-                String Date=utility.GenerateFutureDate();
+                String Date=utility.GetUniqueFutureDate();
                 action.clearSendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(),Date +Keys.ENTER);
                 cucumberContextManager.setScenarioContext("EXPIRY_DATE", Date);
                 break;
         }
+        log("I want to change expiration date" ,
+                "I have changed expiration date" , true);
     }
 
     @Then("^the date gets saved$")
@@ -849,6 +832,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
                     break;
             }
+
+            log("I want to select "+PromoCodeType ,
+                    "I have selected "+PromoCodeType , true);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -874,13 +860,15 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 action.sendKeys(admin_BusinessUsersPage.TextBox_Search(), Code + Keys.ENTER);
                 break;
         }
+        log("I want to enter "+Code+" value " ,
+                "I have enetered  "+Code+" value " , true);
     }
 
     @And("^I check if pages exists$")
     public void i_check_if_pages_exists() throws Throwable {
         Thread.sleep(2000);
         List<WebElement> elements = SetupManager.getDriver().findElements(By.xpath("//ul[@class='pagination pagination-sm']/li/a"));
-        //List<WebElement> elements = driver.findElements(By.tagName("a"));
+
         for (int i = 0; i < elements.size(); i++) {
             String TextValue = elements.get(i).getAttribute("id");
             if (TextValue.equals("link_Next")) {
@@ -888,6 +876,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 break;
             }
         }
+        log("I check if pagination exists " ,
+                "I have checked if pagination exists" , true);
     }
 
 

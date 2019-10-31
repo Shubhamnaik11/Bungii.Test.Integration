@@ -9,6 +9,8 @@ import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
 import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
+import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -21,7 +23,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.sound.midi.SysexMessage;
+import java.awt.print.Book;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.time.Instant;
@@ -36,6 +41,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    GeneralUtility utility= new GeneralUtility();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -130,7 +136,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
        String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
 
        WebElement row = SetupManager.getDriver().findElement(By.xpath(Xpath));
-      //  WebElement edit = row.findElement(By.xpath("following-sibling::td/button[@id='btnEditBusinessUser']"));
         action.click(row);
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"krishna.hoderker@creativecapsule.com");
         cucumberContextManager.setScenarioContext("BO_EMAIL", "krishna.hoderker@creativecapsule.com");
@@ -139,7 +144,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),String.valueOf(Newphone));
         cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
 
-    }
+       }
 
     @Then("^the business user gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_business_user_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
@@ -259,6 +264,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     case "Confirm":
                         action.click(admin_BusinessUsersPage.Button_Confirm());
                         break;
+                    case "Cancel":
+                        action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
                 }
                 break;
             case "Promoter Cards":
@@ -377,9 +384,142 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-
     }
 
+    //BOC
+    @And("^I select the file with invalid data for \"([^\"]*)\"$")
+    public void i_select_the_file_with_invalid_data_for_something(String ErrorField) throws Throwable {
+        String csvFile, imagefilepath;
+        switch(ErrorField){
+            case "Pickup address":
+                csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP2"));
+                action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+                cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP2").toString());
+                imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+                action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+                break;
+
+            case"Pickup Date":
+                csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP3"));
+                action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+                cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP3").toString());
+                imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+                action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+                Thread.sleep(2000);
+                break;
+
+            case "No of Drivers":
+                csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP4"));
+                action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+                cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP4").toString());
+                imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+                action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+
+                break;
+
+            case "Loading/Unloading time":
+                csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP5"));
+                action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+                cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP5").toString());
+                imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+                action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+                Thread.sleep(2000);
+                break;
+
+        }
+        log("I upload csv file with invalid data for "+ErrorField+" and image on Bulk Trips page",
+                "I have uploaded csv and image on Bulk Trips page", true);
+    }
+
+    @Then("^I click on the error link and download the file with error$")
+    public void i_click_on_the_error_link_and_download_the_file_with_error() throws Throwable {
+
+        String errorFileName=cucumberContextManager.getScenarioContext("CSVFILE").toString();
+        errorFileName=utility.GetFormattedString(errorFileName,".csv");
+        errorFileName=errorFileName+"_errors";
+        File file = new File("C:\\Users\\richa.naik\\Downloads\\"+errorFileName+".csv");
+        if(file.exists())
+        {
+            file.delete();
+        }
+        Thread.sleep(6000);
+        action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
+        Thread.sleep(5000);
+        String dirPath= "C:\\Users\\richa.naik\\Downloads\\";
+        cucumberContextManager.setScenarioContext("DIR_PATH",dirPath);
+        //String downloadPath = "C:\\Users\\richa.naik\\Downloads\\"+errorFileName+".csv";
+        File getLatestFile = GetLatestFilefromDir(dirPath);
+        String fileName = getLatestFile.getName();
+        String filePath= getLatestFile.getAbsolutePath();
+
+        cucumberContextManager.setScenarioContext("FILE_PATH",filePath);
+        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded file name matches with expected file name","Downloaded file name is not matching with expected file name");
+
+        log("The "+errorFileName+" file should get downloaded.",
+                "I am able to download the "+errorFileName, true);
+    }
+
+    @And("^the error \"([^\"]*)\" is displayed in the csv file$")
+    public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
+
+        String filePath = cucumberContextManager.getScenarioContext("FILE_PATH").toString();
+        String line = "";
+        String csvSplitBy = ",";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            // read the first line from the text file
+            line = br.readLine();
+            while (line != null) {
+
+                String[] column = line.split("\",\"");
+                String[] column2 = column[0].split("\",");
+                String error = column[0].replace("\"", "");
+                line = br.readLine();
+                if (line != null) {
+                    switch (message) {
+                        case "Max pickup Dropoff Distance exceeded":
+                            boolean isTrue;
+                            if (line.contains(message)) {
+                                isTrue = true;
+                                testStepAssert.isTrue(isTrue, "Max pickup Dropoff Distance exceeded", message + " is not displayed.");
+                            }
+                            break;
+
+                        case "Please enter a valid date time":
+
+                            if (line.contains(message)) {
+                                isTrue = true;
+                                testStepAssert.isTrue(isTrue, "Please enter a valid date time", message + " is not displayed.");
+                            }
+                            break;
+
+                        case "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90":
+
+                            if (line.contains(message)) {
+                                isTrue = true;
+                                testStepAssert.isTrue(isTrue, "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90", message + " is not displayed.");
+                            }
+                            break;
+
+                        case "Invalid no. of drivers":
+                            if (line.contains(message)) {
+                                isTrue = true;
+                                testStepAssert.isTrue(isTrue, "Invalid no. of drivers", message + " is not displayed.");
+                            }
+                            break;
+                    }
+
+                }
+            }
+            log("The "+message+" is found.",
+                    "I am able to find the "+message, true);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
     public void i_update_the_something_and_something(String PhoneNumber, String Email) {
@@ -396,6 +536,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),String.valueOf(Newphone));
         cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
 
+        log("I enter values for PhoneNumber and Email",
+                "I entered values for PhoneNumber and Email", true);
     }
 
     @And("^I enter above same Phone number in Phone Number fields$")
@@ -403,6 +545,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         Thread.sleep(2000);
         String PhoneNumber=cucumberContextManager.getScenarioContext("BO_PHONE").toString();
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), PhoneNumber);
+        log("I enter value of PhoneNumber",
+                "I entered value of PhoneNumber", true);
     }
 
     @And("^I enter the following values in \"([^\"]*)\" fields$")
@@ -434,18 +578,24 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @Then("^the business user does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
         testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists.", "Phone number already exists." + " should be displayed", "Phone number already exists." + " is displayed", "Need to specify message" + " is not displayed");
+        log("I enter values for PhoneNumber and Email",
+                "I entered values for PhoneNumber and Email", true);
     }
 
     @And("^I select the \"([^\"]*)\"$")
     public void i_select_the_something(String strArg1) throws Throwable {
         String BusinessUserName=cucumberContextManager.getScenarioContext("BO_NAME").toString();
         action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),BusinessUserName);
+        log("I should be able to select business user.",
+                "I am able to select business user.", true);
     }
 
     @Then("^The payment details page is loaded$")
     public void the_payment_details_page_is_loaded() throws Throwable {
         String Title= admin_BusinessUsersPage.Label_PayWithCard().getText().toString();
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_PayWithCard(),"Pay with card","Pay with card","Pay with card is displayed", "Pay with card is not displayed");
+        log("I should be able to see Pay with card label.",
+                "I am able to see Pay with card label.", true);
     }
 
     @And("^I enter the card details$")
@@ -490,21 +640,37 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         }
     }
 
-    @And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String Name) throws Throwable {
-        switch(Name)
-        {
-            case "Save":
-                action.click(admin_BusinessUsersPage.Button_PaymentSave());
-                break;
+        @And("^I click on \"([^\"]*)\" button$")
+        public void i_click_on_something_button(String Name) throws Throwable {
+            switch(Name)
+            {
+                case "Save":
+                    action.click(admin_BusinessUsersPage.Button_PaymentSave());
+                    break;
+            }
         }
-    }
 
-    @When("I change the status to {string}")
-    public void i_change_the_status_to(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
-    }
+        @When("I change the status to {string}")
+        public void i_change_the_status_to(String string) {
+            // Write code here that turns the phrase above into concrete actions
+            action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
+        }
+
+    private File GetLatestFilefromDir(String dirPath){
+            File dir = new File(dirPath);
+            File[] files = dir.listFiles();
+            if (files == null || files.length == 0) {
+                return null;
+            }
+            File lastModifiedFile = files[0];
+            for (int i = 1; i < files.length; i++) {
+                if (lastModifiedFile.lastModified() < files[i].lastModified()) {
+                    lastModifiedFile = files[i];
+                }
+            }
+            return lastModifiedFile;
+        }
+
 
     //EOC
     private String generatePhoneNumber()
@@ -520,6 +686,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         return df3.format(num1)  + df3.format(num2)  + df4.format(num3);
 
     }
+
 
 
 }

@@ -59,8 +59,9 @@ public class AssertManager {
      */
     public void isEquals(String actualValue, String expectedValue, String expectedText, String sucessMessage, String errorMessage) {
         try {
-            Assert.assertEquals(expectedValue, actualValue);
-            ResultManager.pass(expectedText, sucessMessage, true);
+                Assert.assertEquals(expectedValue, actualValue);
+                ResultManager.pass(expectedText, sucessMessage, true);
+
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
