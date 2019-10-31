@@ -54,6 +54,9 @@ public class GeneralUtility {
         }else if(geofence.equalsIgnoreCase("denver")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("denver.pickup.longitude"));
+        }else if(geofence.equalsIgnoreCase("washingtondc")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.longitude"));
         }
         Float[] driverCordinate = new Float[2];
 
