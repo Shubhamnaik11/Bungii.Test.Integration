@@ -40,6 +40,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -271,6 +272,14 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
+            case "Trips":
+                    switch (button){
+                        case "Apply":
+                            action.click(admin_TripsPage.Button_Apply());
+                            break;
+                    }
+                    break;
+
             }
 
         log("I select "+button+" from Business User page",
