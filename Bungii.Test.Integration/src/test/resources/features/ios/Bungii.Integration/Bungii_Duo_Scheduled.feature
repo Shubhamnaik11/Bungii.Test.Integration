@@ -317,8 +317,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @testScenario1
-  Scenario: Create Long stack
+  @newscenario
+  Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -457,8 +457,8 @@ Feature: To Test Duo - Scheduled Bungii
 
 
 
-  @testScenario
-  Scenario: Create Long stack, base scheduled trip
+  @newscenario
+  Scenario: Create Long stack, base scheduled trip , verify decked detail/alert msgs/status of current and stacked bungii
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -595,8 +595,8 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @testScenario1
-  Scenario: Create short stack
+  @newscenario
+  Scenario: Create short stack, verify decked detail/alert msgs/status of current and stacked bungii
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
