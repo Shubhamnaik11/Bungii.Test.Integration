@@ -60,10 +60,13 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 
         try {
-            logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE"));
+            //adding ternary operator in logger is creating issue
+            String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
+            logger.detail("Device On which test will be run is : " +device );
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("Unable to create default appium driver");
         }
 
