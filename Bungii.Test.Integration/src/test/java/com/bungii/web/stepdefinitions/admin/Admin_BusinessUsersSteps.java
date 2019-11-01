@@ -163,7 +163,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
@@ -177,7 +177,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
-        action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
+        action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
