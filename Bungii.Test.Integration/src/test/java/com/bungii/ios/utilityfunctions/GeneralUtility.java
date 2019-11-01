@@ -627,6 +627,21 @@ public class GeneralUtility extends DriverBase {
             case "SEARCHING":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.searching");
                 break;
+            case"ARRIVED":
+                expectedMessage = Status.ARRIVED.toString();
+                break;
+            case"EN ROUTE":
+                expectedMessage = Status.EN_ROUTE.toString();
+                break;
+            case"LOADING ITEM":
+                expectedMessage = Status.LOADING_ITEM.toString();
+                break;
+            case"DRIVING TO DROP OFF":
+                expectedMessage = Status.DRIVING_TO_DROP_OFF.toString();
+                break;
+            case"UNLOADING ITEM":
+                expectedMessage = Status.UNLOADING_ITEM.toString();
+                break;
             default:
                 // error("Verify Screen " + screen, "UnImplemented Step or in correct screen", "UnImplemented Step", true);
                 break;

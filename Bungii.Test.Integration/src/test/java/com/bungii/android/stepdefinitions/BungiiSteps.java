@@ -25,8 +25,7 @@ import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class BungiiSteps extends DriverBase {
 
@@ -110,6 +109,23 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementSelected(Page_CustomerBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should be high lighted ", "Unloading icon is high lighted", "Unloading icon is not high lighted");
                     testStepVerify.isEquals(Page_CustomerBungiiProgress.PageTitle().getText(), Status.UNLOADING_ITEM.toString(), "I should be navigate to UNLOADING_ TEM Screen", "I am navigate to UNLOADING ITEM Screen", "I was not navigate to LOADING ITEM Screen");
                     break;
+                case "BUNGII ACCEPTED for Stack screen":
+                    String driverName=(String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Label_DriverName(),driverName.substring(0, driverName.indexOf(" ") + 2));
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Text_StackInfo(),PropertyUtility.getMessage("customer.stack.accepted.info"));
+                    testStepVerify.isElementEnabled(Page_BungiiAccepted.Image_RattingBar(),"Ratting bar should be displayed");
+                    testStepVerify.isElementEnabled(Page_BungiiAccepted.Text_BungiiAcceped()," 'Your Bungii has been accepted!' should be displayed");
+                    break;
+                case "Stack accepted screen":
+                    String driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER_1");
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Textlabel_DriverNearby(),PropertyUtility.getMessage("customer.stack.driver.neighborhood").replace("<DRIVER_NAME>",driver1Name.substring(0, driver1Name.indexOf(" ") + 2)));
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Textlabel_StackSubtitle(),PropertyUtility.getMessage("customer.stack.driver.subtitle"));
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Button_CancelBungii(),"CANCEL BUNGII");
+                    testStepVerify.isElementEnabled(Page_BungiiAccepted.Textlabel_ProjectedTime(),"Projected driver arrival time lable should be displayed");
+                    //validate stack arrival value
+                    //Textlabel_ProjectedTimeValue
+                    break;
+
                /*
             case "Bungii accepted":
                 assertManager.ElementDisplayed(Page_BungiiAccepted.PageTitle_BungiiAccepted());
@@ -231,6 +247,36 @@ public class BungiiSteps extends DriverBase {
                 Thread.sleep(5000);
                 action.scrollToBottom();
                 action.click(scheduledBungiiPage.Button_Start());
+            } else if (arg0.equalsIgnoreCase("verify stack message")) {
+                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                if (!isDisplayed)
+                    i_click_on_notification_for_something("STACK TRIP");
+                isDisplayed = action.waitUntilAlertDisplayed(180L);
+
+                if (action.isNotificationAlertDisplayed()) {
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_MsgTitle(),PropertyUtility.getMessage("driver.alert.stack.alert.header"));
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_View(),"View");
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_Cancel(),"Cancel");
+                }else{
+                    fail("I should able to see stack request message","I was not able to see stack request");
+                }
+
+            }
+            else if (arg0.equalsIgnoreCase("accepts stack message")) {
+                boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
+                if (!isDisplayed)
+                    i_click_on_notification_for_something("STACK TRIP");
+                isDisplayed = action.waitUntilAlertDisplayed(180L);
+
+                if (action.isNotificationAlertDisplayed()) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
+                        action.click(Page_BungiiRequest.AlertButton_View());
+                    }
+                }
+                Thread.sleep(5000);
+                action.scrollToBottom();
+                action.click(Page_BungiiRequest.Button_Accept());
             }
             log("Bungii driver should able to" + arg0 + " request", "Bungii driver  " + arg0,true);
 
@@ -337,12 +383,12 @@ public class BungiiSteps extends DriverBase {
                     break;
 
                 case "Arrived screen":
-                    testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
-                    testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_Status().getText(), Status.ARRIVED.toString(), "I should be navigate to ARRIVED Screen", "I am navigate to ARRIVED Screen", "I was not navigate to ARRIVED Screen");
+                    testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
+                    testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
                     break;
 
                 case "Loading Item screen":
@@ -668,7 +714,7 @@ public class BungiiSteps extends DriverBase {
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
-                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")){
+                    if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")|| currentPage.equals("EN ROUTE")){
                         //do nothing
                     }
                     else if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
@@ -702,6 +748,9 @@ public class BungiiSteps extends DriverBase {
                     break;
                 case "Reminder: both driver at drop off":
                     expectedText = PropertyUtility.getMessage("bungii.duo.driver.drop");
+                    break;
+                case"Alert: Display Stack trip after current trip":
+                    expectedText=PropertyUtility.getMessage("driver.alert.stack.after.current");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;

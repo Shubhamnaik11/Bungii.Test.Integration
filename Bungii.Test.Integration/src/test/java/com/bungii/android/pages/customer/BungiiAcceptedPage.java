@@ -36,4 +36,17 @@ public class BungiiAcceptedPage extends PageBase {
         return findElement("com.bungii.customer:id/bungii_accepted_button_ok", LocatorType.Id);
     }
 
+    //STACK
+    public WebElement Text_StackInfo() { return findElement("com.bungii.customer:id/bungii_driver_accepted_stack_info", LocatorType.Id); }
+    public WebElement Image_RattingBar() { return findElement("com.bungii.customer:id/rating_bar", LocatorType.Id); }
+    public WebElement Text_BungiiAcceped() { return findElement("//*[@text='Your Bungii has been accepted!']", LocatorType.XPath); }
+    public WebElement Textlabel_DriverNearby() { return findElement("com.bungii.customer:id/bungii_stacked_driver_name", LocatorType.Id); }
+    public WebElement Textlabel_StackSubtitle() { return findElement("com.bungii.customer:id/bungii_stacked_driver_subtitle", LocatorType.Id); }
+    public WebElement Textlabel_ProjectedTimeValue() { return findElement("com.bungii.customer:id/bungii_stacked_eta", LocatorType.Id); }
+    public WebElement Textlabel_ProjectedTime() { return findElement("//*[@text='Projected Driver Arrival:']", LocatorType.XPath); }
+    public WebElement Button_CancelBungii() { return findElement("com.bungii.customer:id/searching_view_stack_bungii_container_btn_cancel", LocatorType.Id); }
+
+
+
+
 }

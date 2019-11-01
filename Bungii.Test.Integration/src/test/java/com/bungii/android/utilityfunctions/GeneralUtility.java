@@ -19,6 +19,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
@@ -120,6 +121,9 @@ public class GeneralUtility extends DriverBase {
      * @throws InterruptedException
      */
     public boolean isCustomerApplicationOpen() throws InterruptedException {
+        //new method introduced in recent appium version to check application state
+      //  if( (((AndroidDriver)SetupManager.getDriver()).queryAppState("com.bungii.customer")).equals(ApplicationState.RUNNING_IN_FOREGROUND))
+       //     return true;
         if (action.isElementPresent(homePage.Generic_Element(true)))
             return true;
         else {
@@ -137,6 +141,9 @@ public class GeneralUtility extends DriverBase {
      * @throws InterruptedException
      */
     public boolean isDriverApplicationOpen() throws InterruptedException {
+        //new method introduced in recent appium version to check application state
+      //  if( (((AndroidDriver)SetupManager.getDriver()).queryAppState("com.bungii.driver")).equals(ApplicationState.RUNNING_IN_FOREGROUND))
+      //      return true;
         if (action.isElementPresent(driverHomePage.Generic_Element(true)))
             return true;
         else {
@@ -657,7 +664,8 @@ public class GeneralUtility extends DriverBase {
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
 
         if (currentPage.equals("LOGIN")) {
-        } else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
+        } else if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE")){ clickDriverMenuItem("LOGOUT");}
+        else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
         } else clickDriverMenuItem("LOGOUT");
 
     }
@@ -699,11 +707,21 @@ public class GeneralUtility extends DriverBase {
         boolean isDisplayed = false;
         //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
         //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
-        System.out.println(SetupManager.getDriver().getPageSource());
+      //  System.out.println(SetupManager.getDriver().getPageSource());
 
         //FIX FOR APPIUM 1.42
-        action.click(otherAppsPage.Notification_OnDemand());
-        isDisplayed = true;
+        if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand")))
+        {
+            if(action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
+                action.click(otherAppsPage.Notification_OnDemand());
+                isDisplayed = true;
+            }
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack")))
+            {   if(action.isElementPresent(otherAppsPage.Notification_Stack(true))){
+                action.click(otherAppsPage.Notification_Stack());
+                isDisplayed = true;}
+
+            }
 /*
         for (int i = 0; i < notificationHeader.size(); i++) {
             if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
@@ -739,6 +757,9 @@ public class GeneralUtility extends DriverBase {
             case "DRIVER ENROUTE":
                 text = PropertyUtility.getMessage("customer.notification.driver.accepted");
 
+                break;
+            case "STACK TRIP":
+                text = PropertyUtility.getMessage("driver.notification.stack");
                 break;
         }
         return text;

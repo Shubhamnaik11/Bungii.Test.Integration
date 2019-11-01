@@ -641,6 +641,12 @@ public class CommonSteps extends DriverBase {
                 case "DRIVER CANCEL BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
                     break;
+                case "STACK TRIP REQUEST AVAILABLE":
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.stack.alert.message.ios");
+                    break;
+                case "STACK TRIP REQUEST ACCEPTED":
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.stack.after.current");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -703,6 +709,8 @@ public class CommonSteps extends DriverBase {
                 case "existing":
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+
                     break;
                 case "new":
                     userName = PropertyUtility.getDataProperties("new.customer.user");
@@ -731,6 +739,10 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                case "valid customer2":
+                    userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                    password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

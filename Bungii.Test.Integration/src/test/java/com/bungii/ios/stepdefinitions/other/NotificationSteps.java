@@ -89,6 +89,9 @@ public class NotificationSteps extends DriverBase {
 			text=PropertyUtility.getMessage("customer.notification.driver.accepted");
 
 			break;
+		case "STACK TRIP":
+			text=PropertyUtility.getMessage("driver.notification.stack");
+			break;
 		}
 		return text;
 	}

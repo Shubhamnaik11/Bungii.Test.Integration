@@ -96,7 +96,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 case "Yes on HeadsUp pop up":
                     action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
-                    action.click(Page_Estimate.Button_RequestConfirm());
+                    action.click(Page_Estimate.Button_RequestConfirm());Thread.sleep(3000);
                     action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true), "Success!", "SEARCHING…");
                     //   action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
                     //--------*to be worked on*-------------
@@ -144,7 +144,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     boolean isDuo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO");
                     if (isDuo) {
                         Thread.sleep(100000);
-                    }
+                    }Thread.sleep(5000);
                     try {
                         if(action.getText(Page_Signup.GenericHeader(true)).equals("COMPLETE"))
                             action.textToBePresentInElementText(Page_Signup.GenericHeader(),"BUNGII COMPLETE");
@@ -311,6 +311,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer.phone"));
                     break;
+                case "valid customer 2":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("valid.name.customer.no.promocode"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("valid.customer.no.promocode"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -348,6 +353,14 @@ public class EstimateBungiiSteps extends DriverBase {
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.kansas"));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.kansas"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+                    Thread.sleep(1000);
+                    break;
+                case "kansas short pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location2.kansas"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location2.kansas"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     Thread.sleep(1000);
                     break;

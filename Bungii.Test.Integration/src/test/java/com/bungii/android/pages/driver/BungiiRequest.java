@@ -17,4 +17,7 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Button_Reject(boolean ...ignoreException) { return findElement("com.bungii.driver:id/activity_pickup_request_reject_bungii_button", LocatorType.Id,ignoreException); }
 
+
+    public WebElement Alert_MsgTitle() { return findElement("com.bungii.driver:id/notification_alert_title", LocatorType.Id); }
+
 }

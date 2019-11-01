@@ -92,4 +92,12 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][2]", LocatorType.ClassChain); }
 	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][1]", LocatorType.ClassChain); }
 
+
+	//STACK
+	public WebElement Text_NextLabel() { return findElement("NEXT", LocatorType.Name); }
+	public WebElement Text_OnDeckLabel() { return findElement("ON DECK", LocatorType.Name); }
+	public WebElement Text_StackCustomer() { return findElement("//XCUIElementTypeStaticText[@name=\"NEXT\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath); }
+	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]",LocatorType.XPath);}
+	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
+
 }
