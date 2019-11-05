@@ -30,7 +30,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  Scenario: Admin_AddEditNewBusinessUserPhoneNumber
+  Scenario: Admin_AddDuplicateBusinessUserPhoneNumber
     #Unique phone number
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
@@ -39,9 +39,9 @@ Feature: Admin_BusinessUsers
     And I enter above same Phone number in Phone Number fields
     And I click on the "Save" Button on "Business Users" popup
     Then the "Phone number already exists." message is displayed
+    When I click on the "Cancel" Button on "Business Users" popup
     #To check that a new business user cannot be added having same phone number as an existing customer and vice versa.
-    And I click on the "Cancel" Button on "Business Users" popup
-    When I click on the "New Business User" Button
+    And I click on the "New Business User" Button
     And I enter the following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
       | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
@@ -140,26 +140,26 @@ Feature: Admin_BusinessUsers
     And I click on "Upload" button on "Bulk Trips" page
     And I click on the error link and download the file with error
     Then the error "Max pickup Dropoff Distance exceeded" is displayed in the csv file
-    And I click on "Cancel" button on "Bulk Trips" page
-    When  I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I click on "Cancel" button on "Bulk Trips" page
+    And  I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I select the file with invalid data for "Pickup Date"
     And I click on "Upload" button on "Bulk Trips" page
     And I click on the error link and download the file with error
     Then the error "Please enter a valid date time" is displayed in the csv file
-    And I click on "Cancel" button on "Bulk Trips" page
-    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I click on "Cancel" button on "Bulk Trips" page
+    And I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I select the file with invalid data for "Loading/Unloading time"
     And I click on "Upload" button on "Bulk Trips" page
     And I click on the error link and download the file with error
     Then the error "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90" is displayed in the csv file
-    And I click on "Cancel" button on "Bulk Trips" page
-    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I click on "Cancel" button on "Bulk Trips" page
+    And I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I select the file with invalid data for "No of Drivers"
     And I click on "Upload" button on "Bulk Trips" page
     And I click on the error link and download the file with error
     Then the error "Invalid no. of drivers" is displayed in the csv file
-    And I click on "Cancel" button on "Bulk Trips" page
-    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    When I click on "Cancel" button on "Bulk Trips" page
+    And I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I select the file with invalid data for "Blank CSV"
     And I click on "Upload" button on "Bulk Trips" page
     Then the error "Please check the CSV for errors." is displayed in the csv file
