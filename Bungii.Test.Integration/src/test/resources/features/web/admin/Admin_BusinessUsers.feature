@@ -27,11 +27,15 @@ Feature: Admin_BusinessUsers
     And I Update the "Phone Number" and "Email"
     And I click on the "Save" Button on "Business Users" popup
     Then the business user gets updated successfully and it is displayed in the Business users grid
-#    #Unique phone number
+
+  @sanity
+  @regression
+  Scenario: Admin_AddEditNewBusinessUserPhoneNumber
+    #Unique phone number
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+      | Testcustomertywd_apple<<UniqueNo>>	  | 9999762011         | test@creativecapsule.com       |
     And I enter above same Phone number in Phone Number fields
     And I click on the "Save" Button on "Business Users" popup
     Then the "Phone number already exists." message is displayed
@@ -81,7 +85,7 @@ Feature: Admin_BusinessUsers
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
       | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
-    When I click on the "Save" Button on "Business Users" popup
+    And I click on the "Save" Button on "Business Users" popup
     Then the business user gets saved successfully and it is displayed in the "Business users" grid
     When I click on "Business Users  > Bulk Trips" Menu
     Then the business user is not displayed in Bulk Trips since payment is not set
@@ -112,5 +116,50 @@ Feature: Admin_BusinessUsers
     Then the "Oops! The phone number is invalid." message is displayed for the "Phone Number" field
     And the "Oops! The email address is invalid." message is displayed for the "Email" field
 
-
-
+  @sanity
+  @regression
+  Scenario: Admin_CheckValidationsForCSVData
+    When I click on the "New Business User" Button
+    And I enter following values in "Business Users" fields
+      | Name                                              | Phone                   | Email  |
+      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+    And I click on the "Save" Button on "Business Users" popup
+    Then the business user gets saved successfully and it is displayed in the "Business users" grid
+    When I click on "Business Users  > Business Users Payment" Menu
+    And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Business User" dropdown
+    And I click on "Add Payment Method" button on "Business Users Payment" page
+    And I enter following card details
+      |Card Number | Expiration Date | CVV | Postal Code|
+      |4242424242424242 | 11/29      | 123  |      12345|
+    And I click on "Save" button on "Business User Cards" screen
+    Then the card is added to the user "Testcustomertywd_apple<<UniqueNo>>"
+    When I click on "Business Users  > Bulk Trips" Menu
+    Then the business user is displayed in Bulk Trips since payment is set
+    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select the file with invalid data for "Pickup address"
+    And I click on "Upload" button on "Bulk Trips" page
+    And I click on the error link and download the file with error
+    Then the error "Max pickup Dropoff Distance exceeded" is displayed in the csv file
+    And I click on "Cancel" button on "Bulk Trips" page
+    When  I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select the file with invalid data for "Pickup Date"
+    And I click on "Upload" button on "Bulk Trips" page
+    And I click on the error link and download the file with error
+    Then the error "Please enter a valid date time" is displayed in the csv file
+    And I click on "Cancel" button on "Bulk Trips" page
+    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select the file with invalid data for "Loading/Unloading time"
+    And I click on "Upload" button on "Bulk Trips" page
+    And I click on the error link and download the file with error
+    Then the error "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90" is displayed in the csv file
+    And I click on "Cancel" button on "Bulk Trips" page
+    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select the file with invalid data for "No of Drivers"
+    And I click on "Upload" button on "Bulk Trips" page
+    And I click on the error link and download the file with error
+    Then the error "Invalid no. of drivers" is displayed in the csv file
+    And I click on "Cancel" button on "Bulk Trips" page
+    When I select user "Testcustomertywd_apple<<UniqueNo>>"
+    And I select the file with invalid data for "Blank CSV"
+    And I click on "Upload" button on "Bulk Trips" page
+    Then the error "Please check the CSV for errors." is displayed in the csv file

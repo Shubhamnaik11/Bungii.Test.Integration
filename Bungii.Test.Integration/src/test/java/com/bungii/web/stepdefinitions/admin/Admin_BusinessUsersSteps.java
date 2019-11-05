@@ -405,7 +405,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP3").toString());
                 imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
                 action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
-                Thread.sleep(2000);
                 break;
 
             case "No of Drivers":
@@ -423,9 +422,15 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP5").toString());
                 imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
                 action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
-                Thread.sleep(2000);
                 break;
 
+            case "Blank CSV":
+                csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP6"));
+                action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+                cucumberContextManager.setScenarioContext("CSVFILE",PropertyUtility.getCsvLocations("BULK_TRIP6").toString());
+                imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+                action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+                break;
         }
         log("I upload csv file with invalid data for "+ErrorField+" and image on Bulk Trips page",
                 "I have uploaded csv and image on Bulk Trips page", true);
@@ -433,21 +438,21 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^I click on the error link and download the file with error$")
     public void i_click_on_the_error_link_and_download_the_file_with_error() throws Throwable {
-
         String errorFileName=cucumberContextManager.getScenarioContext("CSVFILE").toString();
         errorFileName=utility.GetFormattedString(errorFileName,".csv");
         errorFileName=errorFileName+"_errors";
-        File file = new File("C:\\Users\\richa.naik\\Downloads\\"+errorFileName+".csv");
+        String home = System.getProperty("user.home");
+        File file = new File(home+"/Downloads/" + errorFileName + ".csv");
+
         if(file.exists())
         {
             file.delete();
         }
-        Thread.sleep(6000);
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
-        Thread.sleep(5000);
-        String dirPath= "C:\\Users\\richa.naik\\Downloads\\";
+        Thread.sleep(2000);
+        String dirPath= home+"/Downloads/";
+
         cucumberContextManager.setScenarioContext("DIR_PATH",dirPath);
-        //String downloadPath = "C:\\Users\\richa.naik\\Downloads\\"+errorFileName+".csv";
         File getLatestFile = GetLatestFilefromDir(dirPath);
         String fileName = getLatestFile.getName();
         String filePath= getLatestFile.getAbsolutePath();
@@ -461,51 +466,34 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
-
         String filePath = cucumberContextManager.getScenarioContext("FILE_PATH").toString();
         String line = "";
-        String csvSplitBy = ",";
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             // read the first line from the text file
             line = br.readLine();
             while (line != null) {
-
-                String[] column = line.split("\",\"");
-                String[] column2 = column[0].split("\",");
-                String error = column[0].replace("\"", "");
                 line = br.readLine();
                 if (line != null) {
                     switch (message) {
                         case "Max pickup Dropoff Distance exceeded":
-                            boolean isTrue;
-                            if (line.contains(message)) {
-                                isTrue = true;
-                                testStepAssert.isTrue(isTrue, "Max pickup Dropoff Distance exceeded", message + " is not displayed.");
-                            }
+                            testStepAssert.isTrue(line.contains(message), "Max pickup Dropoff Distance exceeded", message + " is not displayed.");
                             break;
 
                         case "Please enter a valid date time":
-
-                            if (line.contains(message)) {
-                                isTrue = true;
-                                testStepAssert.isTrue(isTrue, "Please enter a valid date time", message + " is not displayed.");
-                            }
+                            testStepAssert.isTrue(line.contains(message), "Please enter a valid date time", message + " is not displayed.");
                             break;
 
                         case "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90":
-
-                            if (line.contains(message)) {
-                                isTrue = true;
-                                testStepAssert.isTrue(isTrue, "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90", message + " is not displayed.");
-                            }
+                            testStepAssert.isTrue(line.contains(message), "Loading/Unloading time should be a multiple of 15 minutes ranging from 15 to 90", message + " is not displayed.");
                             break;
 
                         case "Invalid no. of drivers":
-                            if (line.contains(message)) {
-                                isTrue = true;
-                                testStepAssert.isTrue(isTrue, "Invalid no. of drivers", message + " is not displayed.");
-                            }
+                            testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
+                            break;
+
+                        case "Please check the CSV for errors.":
+                            testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
                             break;
                     }
 

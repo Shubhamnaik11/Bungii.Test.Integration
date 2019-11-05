@@ -91,6 +91,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 //EOC
     public WebElement Button_BulkTripCancel( ) { return findElement("//a[@class='btn btn-danger']", LocatorType.XPath); }
 
+    public WebElement Label_ErrorOnBulkTripsPage(){ return findElement("//div[@class='error mb10']", LocatorType.XPath);}
     //EOC
 
 }

@@ -60,7 +60,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BulkTrips());
                break;
-           case "Business Users > Business Users Payment" :
+           case "Business Users  > Business Users Payment" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;

@@ -32,14 +32,11 @@ Feature: Admin_Promocodes
     Then the "One Off" type promocode gets saved successfully and it is displayed in the Promocodes grid
     When I search by Code "O<<CurrentDateTime>>"
     Then the promocode "OO<<CurrentDateTime>>" is displayed in the Promocodes grid
-<<<<<<<<< Temporary merge branch 1
     #Editing the New Promocode_OneOff
     When I click on the "Edit" Button
     And I edit the Promo Code Name
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
-=========
->>>>>>>>> Temporary merge branch 2
 
 
   @testReport
@@ -185,6 +182,6 @@ Feature: Admin_Promocodes
       | Promo             | VP<<CurrentDateTime>> |           | 5               | Dollars           | <<NextDayDateTime>>|
     And I click on the "Save" Button
     Then the "Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only" message is displayed
-=========
+
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
->>>>>>>>> Temporary merge branch 2
+
