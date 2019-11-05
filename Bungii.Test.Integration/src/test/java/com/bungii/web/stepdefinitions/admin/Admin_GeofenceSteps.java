@@ -188,7 +188,7 @@ public class Admin_GeofenceSteps extends DriverBase {
                         }
 
                         i_should_see_something_in_the_dropdown_on_the_something_page(Page);
-                        i_should_not_seet_something_in_the_dropdown_on_the_something_page(Page);
+                        i_should_not_see_something_in_the_dropdown_on_the_something_page(Page);
                         i++;
                     }
 
@@ -214,8 +214,8 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
     }
 
-    @And("^I should not seet inactive zone in the dropdown on the \"([^\"]*)\" page$")
-    public void i_should_not_seet_something_in_the_dropdown_on_the_something_page(String page) throws Throwable {
+    @And("^I should not see inactive zone in the dropdown on the \"([^\"]*)\" page$")
+    public void i_should_not_see_something_in_the_dropdown_on_the_something_page(String page) throws Throwable {
         if(!page.equals("respective")) {
 
             String zone =  PropertyUtility.getDataProperties("inactive.geofence");

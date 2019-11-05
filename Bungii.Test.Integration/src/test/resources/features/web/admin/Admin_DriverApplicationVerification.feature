@@ -52,7 +52,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
   Scenario: DriverApplication_ResendButtonVisibility_WithAllApprovedFields_NonFountainFlow
-    When I click "Verify" button against the "John Edis" applicant
+    When I click "Verify" button against the "John Annie" applicant
     Then I should be directed to "Driver Verification Page"
     And I verify and approve all the verification fields
     Then the "Resend Application" button is not visible
@@ -79,7 +79,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
   Scenario: Driver_ApplicationStatusChange_NonFountainFlow
-    When I click "Verify" button against the "John James" applicant
+    When I click "Verify" button against the "John Jamie" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve the "Driver Picture" field
     Then the status of the field changes to "accepted"
