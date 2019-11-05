@@ -116,7 +116,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
@@ -124,6 +124,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
+        String Name = null, xpath=null;
         switch (arg0)
         {
             case "Approve Application":
@@ -160,6 +161,20 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Promoter":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
+
+            case "Edit":
+                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+                cucumberContextManager.setScenarioContext("XPATH", xpath );
+                SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+                break;
+//BOC
+            case "Add Payment Method":
+                action.click(admin_BusinessUsersPage.Button_RequestPayment());
+                break;
+
+//EOC
+
             case "Scale":
                 action.click(admin_GeofencePage.Button_Scale());
                 break;
