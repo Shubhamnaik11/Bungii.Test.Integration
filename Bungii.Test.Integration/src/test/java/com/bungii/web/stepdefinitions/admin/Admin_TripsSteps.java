@@ -120,16 +120,17 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
 
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String status = dataMap.get("Status").trim();
-        String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        String tripType[] = tripTypeAndCategory.split(" ");
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         cucumberContextManager.setScenarioContext("STATUS",status);
         String driver = driver1;
-        if (tripType.equalsIgnoreCase("duo"))
+        if (tripType[0].equalsIgnoreCase("duo"))
             driver = driver1 + "," + driver2;
         if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")) {
-            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType.toUpperCase(), customer);
+            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
 
             boolean retry = true;
             while (retry == true) {
@@ -154,7 +155,7 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
             testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
         } else {
-            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType), driver, customer);
+            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
 
             boolean retry = true;
             while (retry == true) {
@@ -270,7 +271,7 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
 
-     action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH"))).findElement(By.xpath("//following-sibling::td/p[@id='btnEdit']")));
+     action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
 
     }
 
@@ -301,13 +302,31 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
             case "Submit":
                 action.click(admin_ScheduledTripsPage.Button_Submit());
                 break;
-
+            case "Remove Driver":
+                action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
+                break;
+            case "Research":
+                action.click(admin_ScheduledTripsPage.Button_Research());
+                break;
         }
 
     }
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_SuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+    }
+    @Then("^Pickup should be unassigned from the driver$")
+    public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
+
+
+
+
+    }
+
+    @And("^I select the first driver$")
+    public void i_select_the_first_driver() throws Throwable {
+        String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
     }
 
 
