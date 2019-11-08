@@ -8,6 +8,7 @@ Feature: Admin_DriverApplicationVerification
   @testReport
   @sanity
   @regression
+    #test data created in base
   Scenario: DriverApplication_Approval_NonFountainFlow
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
@@ -20,6 +21,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
 
   @regression
+    #test data created in base
   Scenario: DriverApplication_WithRejectedFields_NonFountainFlow
     When I click "Verify" button against the "John owPH" applicant
     Then I should be directed to "Driver Verification Page"
@@ -28,6 +30,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
+    #test data created in base
   Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -42,6 +45,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
+    #test data created in base
   Scenario: Driver_ResendApplication_NonFountainFlow
     When I click "Verify" button against the "John PxLK" applicant
     Then I should be directed to "Driver Verification Page"
@@ -51,6 +55,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Re-sent to Driver"
 
   @regression
+    #test data created in base
   Scenario: DriverApplication_ResendButtonVisibility_WithAllApprovedFields_NonFountainFlow
     When I click "Verify" button against the "John Annie" applicant
     Then I should be directed to "Driver Verification Page"
@@ -58,6 +63,7 @@ Feature: Admin_DriverApplicationVerification
     Then the "Resend Application" button is not visible
 
   @regression
+    #test data created in base
   Scenario: DriverApplication_Reject_Cancellation_NonFountainFlow
     When I click "Verify" button against the "John Johnie" applicant
     Then I should be directed to "Driver Verification Page"
@@ -67,6 +73,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Pending Verification"
 
   @regression
+    #test data created in base
   Scenario: DriverApplication_Rejection_WithAllFieldsApproved_NonFountainFlow
     When I click "Verify" button against the "John Tony" applicant
     Then I should be directed to "Driver Verification Page"
@@ -78,6 +85,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Rejected"
 
   @regression
+        #test data created in base
   Scenario: Driver_ApplicationStatusChange_NonFountainFlow
     When I click "Verify" button against the "John Jamie" applicant
     Then I should be directed to "Driver Verification Page"

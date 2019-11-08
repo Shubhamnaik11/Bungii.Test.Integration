@@ -59,8 +59,23 @@ public String getDriverPhone(String driverName)
 {
     String phone = null;
     switch (driverName) {
-        case "Testdrivertywd_appledc_a_port Jim":
+        case "Testdrivertywd_appledc_a_web TestdriverA":
             phone = PropertyUtility.getDataProperties("web.valid.driver1.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web TestdriverB":
+            phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web TestdriverC":
+            phone = PropertyUtility.getDataProperties("web.valid.driver3.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web TestdriverD":
+            phone = PropertyUtility.getDataProperties("web.valid.driver4.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web TestdriverE":
+            phone = PropertyUtility.getDataProperties("web.valid.driver5.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web TestdriverF":
+            phone = PropertyUtility.getDataProperties("web.valid.driver6.phone");
             break;
         case "Brad Hilton":
             phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");

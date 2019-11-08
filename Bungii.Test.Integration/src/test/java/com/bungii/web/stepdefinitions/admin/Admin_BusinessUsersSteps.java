@@ -638,7 +638,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             }
         }
 
-        @When("I change the status to {string}")
+        @When("I change the status to \"([^\"]*)\"")
         public void i_change_the_status_to(String string) {
             // Write code here that turns the phrase above into concrete actions
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
