@@ -295,22 +295,7 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(),"Cancelling");
     }
 
-    @And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String button) throws Throwable {
-        switch (button)
-        {
-            case "Submit":
-                action.click(admin_ScheduledTripsPage.Button_Submit());
-                break;
-            case "Remove Driver":
-                action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
-                break;
-            case "Research":
-                action.click(admin_ScheduledTripsPage.Button_Research());
-                break;
-        }
 
-    }
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_SuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
