@@ -19,11 +19,11 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement RadioButton_RemoveDriver () { return findElement("//span[@id='researchMessage']/preceding-sibling::input", LocatorType.XPath); }
 
-    public WebElement Button_RemoveDrivers () { return findElement("//input[@value='Remove Driver(s)']", LocatorType.XPath); }
+    public WebElement Button_RemoveDrivers () { return findElement("(//input[@value='Remove Driver(s)'])[2]", LocatorType.XPath); }
 
-    public WebElement Button_Research () { return findElement("//input[@value='Re-search']", LocatorType.XPath); }
+    public WebElement Button_Research () { return findElement("(//input[@value='Re-search'])[2]", LocatorType.XPath); }
 
-    public WebElement Checkbox_driver (String driver) { return findElement("//div/label[contains(.,'"+driver+"']", LocatorType.XPath); }
+    public WebElement Checkbox_driver (String driver) { return findElement("(//div/label[contains(.,'"+driver+"')])[2]/input[1]", LocatorType.XPath); }
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
 

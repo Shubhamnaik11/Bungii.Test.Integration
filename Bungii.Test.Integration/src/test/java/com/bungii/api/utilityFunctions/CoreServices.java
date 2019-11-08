@@ -160,7 +160,7 @@ public class CoreServices extends DriverBase {
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickUpAddress = new JSONObject();
         JSONObject pickUpCordinate = new JSONObject();
-        if (geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.equalsIgnoreCase("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.equalsIgnoreCase("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
             dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1"));
             dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
             dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city"));

@@ -40,6 +40,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     GeneralUtility utility= new GeneralUtility();
+    Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -636,6 +637,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
                 case "Submit":
                     action.click(admin_ScheduledTripsPage.Button_Submit());
+                    break;
+
+                case "Remove Driver":
+                    action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
+                    break;
+                case "Research":
+                    action.click(admin_ScheduledTripsPage.Button_Research());
                     break;
             }
         }
