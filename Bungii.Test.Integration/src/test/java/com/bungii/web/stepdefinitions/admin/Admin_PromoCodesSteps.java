@@ -40,6 +40,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -73,6 +74,15 @@ public class Admin_PromoCodesSteps extends DriverBase {
                break;
            case "Geofences  > Geofences" :
                action.click(admin_GeofencePage.Menu_Geofences());
+               break;
+
+           case "Geofences  > Attributes":
+               action.click(admin_GeofencePage.Menu_Geofences());
+               action.click(admin_GeofencePage.Menu_Attributes());
+               break;
+
+           case "Customers":
+               action.click(admin_customerPage.Menu_Customers());
                break;
        }
         log("I click on "+link+" menu link" ,

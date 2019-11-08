@@ -39,7 +39,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_CustomerPage admin_CustomerPage = new Admin_CustomerPage();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
-Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
 
@@ -294,7 +294,8 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(),"Cancelling");
     }
 
-    @And("^I click on \"([^\"]*)\" button$")
+/* Moved to BusinessUsers
+@And("^I click on \"([^\"]*)\" button$")
     public void i_click_on_something_button(String button) throws Throwable {
         switch (button)
         {
@@ -304,7 +305,7 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
 
         }
 
-    }
+    }*/
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_SuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");

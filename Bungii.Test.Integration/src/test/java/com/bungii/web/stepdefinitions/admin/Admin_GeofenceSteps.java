@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -229,5 +230,31 @@ public class Admin_GeofenceSteps extends DriverBase {
                    }
                }
         }
+    }
+
+    @When("^I go to \"([^\"]*)\" page$")
+    public void i_go_to_something_page(String screen) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Attributes(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+    }
+
+    @Then("^I verify that the default settings are displayed$")
+    public void i_verify_that_the_default_settings_are_displayed() throws Throwable {
+        String CustomerFAQLink = PropertyUtility.getDataProperties("customer.faq.link");
+        String DriverFAQLink = PropertyUtility.getDataProperties("driver.faq.link");
+        String MinTimeForDuoTrip = PropertyUtility.getDataProperties("Min.time.Duo.trip");
+        String MinTimeForSoloTrip = PropertyUtility.getDataProperties("Min.time.Solo.trip");
+        String MinTripCost=PropertyUtility.getDataProperties("Minimum.trip.cost");
+        String SurveyEmailLink=PropertyUtility.getDataProperties("Survey.email.link");
+        String TripCostPerMile=PropertyUtility.getDataProperties("Trip.cost.per.mile");
+        String TripCostPerMinute=PropertyUtility.getDataProperties("Trip.cost.per.minute");
+
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_CustomerFAQLink(), CustomerFAQLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_DriverFAQLink(), DriverFAQLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute);
     }
 }

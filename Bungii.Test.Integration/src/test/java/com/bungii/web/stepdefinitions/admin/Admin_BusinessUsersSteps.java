@@ -6,10 +6,7 @@ import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
-import com.bungii.web.pages.admin.Admin_BusinessUsersPage;
-import com.bungii.web.pages.admin.Admin_GeofencePage;
-import com.bungii.web.pages.admin.Admin_PromoterPage;
-import com.bungii.web.pages.admin.Admin_ReferralSourcePage;
+import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -41,6 +38,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     GeneralUtility utility= new GeneralUtility();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
@@ -634,6 +632,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             {
                 case "Save":
                     action.click(admin_BusinessUsersPage.Button_PaymentSave());
+                    break;
+
+                case "Submit":
+                    action.click(admin_ScheduledTripsPage.Button_Submit());
                     break;
             }
         }
