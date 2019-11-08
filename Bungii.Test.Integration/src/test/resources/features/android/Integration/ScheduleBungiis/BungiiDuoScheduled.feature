@@ -519,8 +519,11 @@ Feature: Duo
       And I Switch to "driver" application on "ORIGINAL" devices
       Then Bungii Driver "completes Bungii"
 
-  @newScenario
+  @newScenario1
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
+    And I Switch to "driver" application on "same" devices
+    Then try to finish time should be correctly displayed for shot stack trip
+    Then correct message should be displayed after clicking info button
     Given I am on customer Log in page
     When I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
@@ -568,6 +571,7 @@ Feature: Duo
     And Bungii Driver "accepts stack message" request
     Then I accept Alert message for "Alert: Display Stack trip after current trip"
     And stack trip information should be displayed on deck
+    Then try to finish time should be correctly displayed
     When  I switch to "customer2" instance
     Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
     And I tap "OK on Driver Accepted screen" during a Bungii
