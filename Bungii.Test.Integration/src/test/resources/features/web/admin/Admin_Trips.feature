@@ -11,7 +11,6 @@ Scenario:  Admin_Search_TripList
   When I search by client name "Vishal"
   Then All the clients named "Vishal" should be displayed on the trip list grid
 
-@test
 @regression
 Scenario: Admin_Filter_TripList
     When I click on "Filter" icon on "Trips" Page
