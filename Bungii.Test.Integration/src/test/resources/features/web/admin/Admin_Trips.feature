@@ -16,17 +16,18 @@ Feature: Admin_Trips
     Then I should be able to see the Trip Requested count incremented in Customers Grid
     When I view the customer details page of Customer "Testcustomertywd_applekrishna Hoderker"
     Then Trip should be listed in the grid
+
   @sanity
   @regression
       #test data created in base
   Scenario: Customer List - Duo Scheduled Trip
-    And I note the Trip Requested count of Customer "Testcustomertywd_appletwo D'Silva"
+    And I note the Trip Requested count of Customer "Krishna Hoderker"
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9762678558| Testcustomertywd_appletwo D'Silva  |
+      | NEXT_POSSIBLE | 9284174823| Krishna Hoderker|
     And I view the Customer list on the admin portal
     Then I should be able to see the Trip Requested count incremented in Customers Grid
-    When I view the customer details page of Customer "Testcustomertywd_appletwo D'Silva"
+    When I view the customer details page of Customer "Krishna Hoderker"
     Then Trip should be listed in the grid
 
   @sanity
@@ -200,6 +201,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Payment Successful |
+
   @sanity
   @regression
     #test data created in base

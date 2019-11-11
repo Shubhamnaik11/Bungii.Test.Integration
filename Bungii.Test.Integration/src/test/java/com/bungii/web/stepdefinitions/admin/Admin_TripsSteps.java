@@ -60,14 +60,15 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
 
-        SetupManager.getDriver().navigate().refresh();
+      //  SetupManager.getDriver().navigate().refresh();
     }
     @And("^I view the Scheduled Trips list on the admin portal$")
     public void i_view_the_scheduled_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(),"Today");
 
-        SetupManager.getDriver().navigate().refresh();
+       // SetupManager.getDriver().navigate().refresh();
     }
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
@@ -92,8 +93,10 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
     public void i_note_the_trip_requested_count_of_customer_something(String customer) throws Throwable {
         String [] name = customer.split(" ");
         action.clearSendKeys(admin_DashboardPage.TextBox_SearchCustomer(),name[1]+Keys.ENTER);
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[2]",customer);
-        String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[3]",customer);
+
+        String XPath = String.format("//td[contains(.,\"%s\")]/following-sibling::td[2]",customer);
+        String XPath2 = String.format("//td[contains(.,\"%s\")]/following-sibling::td[3]",customer);
+
         String tripRequestedCount = SetupManager.getDriver().findElement(By.xpath(XPath)).getText();
         String tripEstimatedCount = SetupManager.getDriver().findElement(By.xpath(XPath2)).getText();
         cucumberContextManager.setScenarioContext("TRIP_REQUESTEDCOUNT",tripRequestedCount);
@@ -112,6 +115,7 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String status = "Processing Confirmation";
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(),"The Beginning of Time");
+
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",tripType,customer,status );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(XPath)), "Trip should be displayed", "Trip is displayed","Trip is not displayed");
     }
@@ -125,6 +129,12 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+        String geofenceName = getGeofence(geofence);
+        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+
         cucumberContextManager.setScenarioContext("STATUS",status);
         String driver = driver1;
         if (tripType[0].equalsIgnoreCase("duo"))
@@ -140,6 +150,8 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
                     retry = false;
                 } catch (Exception ex) {
                     SetupManager.getDriver().navigate().refresh();
+                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
                     retry = true;
                 }
 
@@ -165,6 +177,8 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
                     retry = false;
                 } catch (Exception ex) {
                     SetupManager.getDriver().navigate().refresh();
+                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
                     retry = true;
                 }
 
@@ -205,11 +219,11 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
             LocalDateTime now = LocalDateTime.now();
             String[] splitedTime = splitedDate[2].split(":");
             DecimalFormat formatter = new DecimalFormat("00");
-            int minutes = Integer.parseInt(splitedTime[1])+15;
+            int minutes = Integer.parseInt(splitedTime[1])+20;
             int hours = Integer.parseInt(splitedTime[0]);
             if (minutes > 60) {
                 hours = hours + 1;
-                minutes = minutes -15;
+                minutes = minutes -20;
             }
 
 
@@ -312,6 +326,18 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
     public void i_select_the_first_driver() throws Throwable {
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
+    }
+
+    public String getGeofence(String geofence)
+    {
+        String geofenceName = "";
+      switch(geofence) {
+          case "washingtondc":
+              geofenceName = "Washington DC";
+                break;
+
+      }
+        return geofenceName;
     }
 
 

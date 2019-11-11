@@ -64,43 +64,6 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
-  @testReport
-  @sanity
-  @regression
-  Scenario: Admin_PromocodeGrid_Filters
-    When I click on "Filter" icon
-    Then the "Code Type" and "Creation Date" is set to "All" by default
-    When I select "Code Type" as "Promo"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Promo"
-    When I click on "Filter" icon
-    And I select "Code Type" as "Referral"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Referral"
-    When I click on "Filter" icon
-    And I select "Code Type" as "One Off"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "One Off"
-    When I click on "Filter" icon
-    And I select "Code Type" as "FB Shared"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "One Off" having Code value starting with "FBSHARE"
-    When I click on "Filter" icon
-    And I select "Code Type" as "Delivery By Promoter"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Delivery By Promoter"
-    When I click on "Filter" icon
-    And I select "Code Type" as "Delivery By Promoter (M)"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the results by type "Delivery By Promoter (M)"
-    When I click on "Filter" icon
-    And I select "Active" as "Hide Expired"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the only the "Active" promocodes
-    When I click on "Filter" icon
-    And I uncheck "Hide Expired"
-    And I click on the "Apply" Button
-    Then the promocode grid shows the both "Active & Expired" promocodes
 
   @testReport
   @regression
@@ -185,3 +148,40 @@ Feature: Admin_Promocodes
 
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
 
+  @testReport
+  @sanity
+  @regression
+  Scenario: Admin_PromocodeGrid_Filters
+    When I click on "Filter" icon
+    Then the "Code Type" and "Creation Date" is set to "All" by default
+    When I select "Code Type" as "Promo"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "Promo"
+    When I click on "Filter" icon
+    And I select "Code Type" as "Referral"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "Referral"
+    When I click on "Filter" icon
+    And I select "Code Type" as "One Off"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "One Off"
+    When I click on "Filter" icon
+    And I select "Code Type" as "FB Shared"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "One Off" having Code value starting with "FBSHARE"
+    When I click on "Filter" icon
+    And I select "Code Type" as "Delivery By Promoter"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "Delivery By Promoter"
+    When I click on "Filter" icon
+    And I select "Code Type" as "Delivery By Promoter (M)"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the results by type "Delivery By Promoter (M)"
+    When I click on "Filter" icon
+    And I select "Active" as "Hide Expired"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the only the "Active" promocodes
+    When I click on "Filter" icon
+    And I uncheck "Hide Expired"
+    And I click on the "Apply" Button
+    Then the promocode grid shows the both "Active & Expired" promocodes
