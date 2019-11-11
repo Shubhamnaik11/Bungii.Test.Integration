@@ -3,12 +3,14 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.common.core.DriverBase;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
+import com.bungii.web.pages.admin.Admin_TripDetailsPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.When;
 
 public class Admin_DriverRejectSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
+    Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Driver_LoginPage driver_LoginPage= new Driver_LoginPage();
 
     ActionManager action = new ActionManager();
@@ -21,6 +23,9 @@ public class Admin_DriverRejectSteps extends DriverBase {
             break;
             case "Login":
                 action.click(driver_LoginPage.Tab_LogIn());
+                break;
+            case "Manually End Bungii":
+                action.click(admin_TripDetailsPage.Link_ManuallyEndBungii());
                 break;
         }
     }

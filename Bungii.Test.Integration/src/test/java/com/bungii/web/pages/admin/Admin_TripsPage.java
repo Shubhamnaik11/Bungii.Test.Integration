@@ -51,4 +51,5 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement CheckBox_FilterScheduled () { return findElement("chkPickupCategory-2", LocatorType.Id); }
 
+    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 }

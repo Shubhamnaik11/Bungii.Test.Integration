@@ -32,6 +32,11 @@ Feature: Admin_Promocodes
     Then the "One Off" type promocode gets saved successfully and it is displayed in the Promocodes grid
     When I search by Code "O<<CurrentDateTime>>"
     Then the promocode "OO<<CurrentDateTime>>" is displayed in the Promocodes grid
+    #Editing the New Promocode_OneOff
+    When I click on the "Edit" Button
+    And I edit the Promo Code Name
+    When I click on the "Save" Button
+    Then the edited promocode is displayed in the Promocodes grid
 
 
   @testReport
@@ -47,7 +52,6 @@ Feature: Admin_Promocodes
     Then the promocode is displayed in the Promocodes grid
     When I view the searched promocode
     Then the searched promocode data gets populated correctly
-
 
   @testReport
   @sanity
@@ -104,7 +108,17 @@ Feature: Admin_Promocodes
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
+    #BOC search to check pagination
+    When I search by the Code "Promo"
+    And I check if pages exists
+    And I check that "Previous" and "Next" button exists
+    Then I verify that pagination exists
+    #search for invalid data
+    When I search by the Code "@#$@@"
+    Then the "No promo codes found." message is displayed
+#EOC
 
+  @sanity
   @testReport
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
@@ -117,7 +131,57 @@ Feature: Admin_Promocodes
     When I enter "No of Codes" field with below values and click Save
     |Value|Message|
     |0 | Please enter a value greater than or equal to 1.                 |
-    |71                                                       |Please enter a value less than or equal to 70.       |
+    |71|Please enter a value less than or equal to 70.       |
     Then the "corresponding" message is displayed beside the "respective" field
+    #Validating all the promo codes
+    And I click on the "Cancel" Button on "Add New Promocode" popup
+    When I click on the "New Code" Button
+    And I select promocode type as "Promo"
+    And I click on the "Save" Button
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+    And I click on the "Cancel" Button on "Add New Promocode" popup
+    When I click on the "New Code" Button
+    And I select promocode type as "One Off"
+    And I click on the "Save" Button
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+    And I click on the "Cancel" Button on "Add New Promocode" popup
+    When I click on the "New Code" Button
+    And I select promocode type as "Delivery By Promoter (M)"
+    And I click on the "Save" Button
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
+    And the "Please select Promoter." message is displayed for the "Select Promoter" field
+    And the "Please select Promoter." message is displayed for the "Select Promoter" field
+    And I click on the "Cancel" Button on "Add New Promocode" popup
+    When I click on the "New Code" Button
+    And I select promocode type as "Promo"
+    And I change the "Expiration Date" to past date
+    And I click on the "Save" Button
+    Then the "Please enter a valid date." message is displayed
+    When I click on the "New Code" Button
+    And I enter following values in fields
+      | Promo Code Type   | Promo Code Name         | Code      | Discount Value  | Discount Category | Expiration Date    |
+      | Promo             | Promo<<CurrentDateTime>>|   P<<CurrentDateTime>> | 5  | Dollars           | <<NextDayDateTime>>|
+    And I change the "Expiration Date" to future date
+    And I click on the "Save" Button
+    Then the date gets saved
+
+    #Promo code and name with only special characters
+  @sanity
+  @regression
+  Scenario: Admin_PromocodeGrid_ValidationsForInvalidInputs
+    When I click on the "New Code" Button
+    And I enter following values in fields
+      | Promo Code Type | Promo Code Name | Code      | Discount Value  | Discount Category | Expiration Date    |
+      | Promo           | $*#*#*#*$       |  INP<<CurrentDateTime>> | 5 | Dollars           | <<NextDayDateTime>>|
+    Then the "Please enter a valid Promo Code Name containing alphanumeric and special characters only" message is displayed
+    And I click on the "Save" Button
+    And I click on the "Cancel" Button on "Add New Promocode" popup
+    When I click on the "New Code" Button
+    And I enter the following values in fields
+      | Promo Code Type   | Promo Code Name       | Code      | Discount Value  | Discount Category | Expiration Date    |
+      | Promo             | VP<<CurrentDateTime>> |           | 5               | Dollars           | <<NextDayDateTime>>|
+    And I click on the "Save" Button
+    Then the "Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only" message is displayed
 
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
+
