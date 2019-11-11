@@ -6,11 +6,11 @@ Feature: Duo
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
-    Given I am logged in as "valid" customer
+    Given I am logged in as "valid atlanta" customer
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices
@@ -19,7 +19,7 @@ Feature: Duo
     And I Select "Home" from driver App menu
     And I Switch to "customer" application on "ORIGINAL" devices
     And I Switch to "customer" application on "same" devices
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
@@ -124,13 +124,13 @@ Feature: Duo
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | kansas   | enroute     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | atlanta   | enroute     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid" customer
+    And I am logged in as "valid atlanta" customer
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
 
     And I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices

@@ -429,14 +429,14 @@ public String getDriverPhone(String driverName)
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
             } else {
-                custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                custPassword = PropertyUtility.getDataProperties("customer_generic.password");
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+                custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
+                custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
 
 
-                driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
                 driver2PhoneNum = PropertyUtility.getDataProperties("valid.driver2.phone");
@@ -667,6 +667,14 @@ public String getDriverPhone(String driverName)
                     driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                }else if(geofence.equalsIgnoreCase("kansas")){
+                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
+                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+
+                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
                 }else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     custPassword = PropertyUtility.getDataProperties("customer_generic.password");
