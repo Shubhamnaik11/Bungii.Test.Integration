@@ -292,7 +292,7 @@ public class CommonStepsDriver extends DriverBase {
     public void i_am_on_the_something_page_on_driverApp(String screen) {
         try {
             String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
-            switch (screen.toUpperCase()) {
+            switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
                     goToDriverLogInPage(navigationBarName);
                     break;

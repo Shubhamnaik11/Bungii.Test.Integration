@@ -128,7 +128,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location               | Drop Location                    | Geofence |
-      | Solo   | Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
