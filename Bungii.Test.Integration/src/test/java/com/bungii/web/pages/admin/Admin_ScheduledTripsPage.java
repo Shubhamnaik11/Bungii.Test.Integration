@@ -27,5 +27,5 @@ public class Admin_ScheduledTripsPage extends PageBase {
 
     public WebElement Label_SuccessMessage () { return findElement("SuccessMessage", LocatorType.Id); }
 
-
+    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
 }

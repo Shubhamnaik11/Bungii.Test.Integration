@@ -6,7 +6,6 @@ Feature: Admin_BusinessUsers
     When I click on "Business Users  > Business Users" Menu
     Then I should be directed to "Business Users Page"
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddEditNewBusinessUser
@@ -35,7 +34,7 @@ Feature: Admin_BusinessUsers
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
-      | Testcustomertywd_apple<<UniqueNo>>	  | 9999762011         | test@creativecapsule.com       |
+      | Testcustomertywd_apple<<UniqueNo>>	  | 9999839229         | test@creativecapsule.com       |
     And I enter above same Phone number in Phone Number fields
     And I click on the "Save" Button on "Business Users" popup
     Then the "Phone number already exists." message is displayed
@@ -50,7 +49,6 @@ Feature: Admin_BusinessUsers
     And the business user does not get saved successfully
     #EOC
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddPaymentToBusinessUser
@@ -77,7 +75,6 @@ Feature: Admin_BusinessUsers
     When I click on "Confirm" button on "Bulk Trips" page
     Then the "Trips have been requested successfully." message is displayed
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_BusinessUserIsNotAvailableInBulkTripsUntilPaymentIsSet
@@ -90,7 +87,6 @@ Feature: Admin_BusinessUsers
     When I click on "Business Users  > Bulk Trips" Menu
     Then the business user is not displayed in Bulk Trips since payment is not set
 
-  @testReport
   @regression
   Scenario: Admin_AddBusinessUser_Cancel
     When I click on the "New Business User" Button
@@ -106,7 +102,6 @@ Feature: Admin_BusinessUsers
     Then the "No Business users found." message is displayed
     #EOC
 
-  @testReport
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Business User" Button
