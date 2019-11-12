@@ -784,9 +784,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
         String FromFormat="MM/dd/yyyy", ToFormat="MMM dd, yyyy";
         String date1=utility.GetDateInFormat(date, FromFormat, ToFormat);
-
-        String xpath=null;
-        xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
+        action.clearSendKeys(admin_PromoCodesPage.TextBox_Search(),""+Keys.ENTER);
+        String xpath= String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
     }
 

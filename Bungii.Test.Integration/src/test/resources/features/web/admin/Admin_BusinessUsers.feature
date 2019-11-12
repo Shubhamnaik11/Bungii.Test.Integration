@@ -103,7 +103,7 @@ Feature: Admin_BusinessUsers
     #EOC
 
   @regression
-  Scenario: Admin_AddNewPromocode_Fieldvalidations
+  Scenario: Admin_AddNewBusinessUser_Fieldvalidations
     When I click on the "New Business User" Button
     And I click on the "Save" Button on "Business Users" popup
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
