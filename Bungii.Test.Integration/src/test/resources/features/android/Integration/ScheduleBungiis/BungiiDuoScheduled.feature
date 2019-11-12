@@ -1,5 +1,6 @@
 @android
 @duo
+  @failed
   #These feature will run in kansas geofence
 Feature: Duo
 
