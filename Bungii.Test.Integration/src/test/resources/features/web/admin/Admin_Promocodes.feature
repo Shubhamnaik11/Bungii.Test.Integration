@@ -53,6 +53,7 @@ Feature: Admin_Promocodes
     When I view the searched promocode
     Then the searched promocode data gets populated correctly
 
+  @testing
   @testReport
   @sanity
   @regression
@@ -72,9 +73,9 @@ Feature: Admin_Promocodes
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
     #BOC search to check pagination
-    When I search by the Code "Promo"
-    And I check if pages exists
-    And I check that "Previous" and "Next" button exists
+    #When I search by the Code "Promo"
+    When I check if pages exists
+   # And I check that "Previous" and "Next" button exists
     Then I verify that pagination exists
     #search for invalid data
     When I search by the Code "@#$@@"
@@ -129,9 +130,9 @@ Feature: Admin_Promocodes
     Then the date gets saved
 
     #Promo code and name with only special characters
-  @sanity
-  @regression
-  Scenario: Admin_PromocodeGrid_ValidationsForInvalidInputs
+  @testing1
+    #Not implemented so far this validation so keeping on hold
+  Scenario: Admin_Promocode_ValidationsForInvalidInputs
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type | Promo Code Name | Code      | Discount Value  | Discount Category | Expiration Date    |
@@ -148,7 +149,6 @@ Feature: Admin_Promocodes
 
   #Scenario: Admin_PromocodeGrid_Sort  - Not yet implemented
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_PromocodeGrid_Filters
