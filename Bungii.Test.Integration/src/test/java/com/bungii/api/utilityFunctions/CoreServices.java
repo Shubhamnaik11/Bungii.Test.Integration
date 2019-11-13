@@ -570,7 +570,7 @@ public class CoreServices extends DriverBase {
         }
 
     }
-    public Response getScheduledPickupList(String authToken) {
+    public Response getCustomersScheduledPickupList(String authToken) {
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDLIST);
         Header header = new Header("AuthorizationToken", authToken);
@@ -580,8 +580,8 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
-    public void cancelScheduledBungii(String authToken){
-        JsonPath jsonPathEvaluator = getScheduledPickupList(authToken).jsonPath();
+    public void cancelAllScheduledBungiis(String authToken){
+        JsonPath jsonPathEvaluator = getCustomersScheduledPickupList(authToken).jsonPath();
 
         ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
         if (ScheduledPickups != null) {
@@ -589,12 +589,11 @@ public class CoreServices extends DriverBase {
                 HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
-                scheduledpickupdetails(pickupRequest,authToken);
+                getScheduledPickupDetails(pickupRequest,authToken);
                 if(CanBeCancelled)
-                    cancelCustomerBungii(pickupRequest,authToken);
+                    cancelBungiiAsCustomer(pickupRequest,authToken);
                 else
-                    new WebPortal().loginToPortalAndCancelBungii(pickupRequest);
-
+                    new WebPortal().cancelBungiiAsAdmin(pickupRequest);
             }
         }
 
@@ -613,8 +612,9 @@ public class CoreServices extends DriverBase {
             int numberOfDriver = jsonPathEvaluator.get("PickupDetails.NoOfDrivers");
             //on demand searching
             if (pickupStatus == 4)
-                cancelCustomerBungii(pickupRequestID, custAccessToken);
+                cancelBungiiAsCustomer(pickupRequestID, custAccessToken);
             else if(pickupStatus == 23 || pickupStatus == 24) {
+                //cancel Bungii as driver
                 String driverPhoneCode="1";
                 String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
                 String driverPassword= ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
@@ -622,6 +622,7 @@ public class CoreServices extends DriverBase {
 
                 updateStatus(pickupRequestID, driverAccessToken, 66);
             } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
+                //complete Bungii as driver
                 String driverPhoneCode="1";
                 String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
                 String driverPassword=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
@@ -652,7 +653,7 @@ public class CoreServices extends DriverBase {
 
         }
     }
-    public Response scheduledpickupdetails(String pickuprequestid, String authToken) {
+    public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
 
         Header header = new Header("AuthorizationToken", authToken);
 
@@ -667,7 +668,7 @@ public class CoreServices extends DriverBase {
         return response;
     }
 
-    public void cancelCustomerBungii(String pickupRef, String authToken) {
+    public void cancelBungiiAsCustomer(String pickupRef, String authToken) {
         try {
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("Status", 64);

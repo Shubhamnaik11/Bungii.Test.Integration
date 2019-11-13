@@ -879,6 +879,6 @@ public String getDriverPhone(String driverName)
     }
     public void cancelScheduledBungii(String custPhoneCode,String custPhoneNum, String custPassword){
         String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
-        coreServices.cancelScheduledBungii(custAccessToken);
+        coreServices.cancelAllScheduledBungiis(custAccessToken);
     }
 }
