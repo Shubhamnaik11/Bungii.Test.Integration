@@ -564,6 +564,31 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^try to finish time should be correctly displayed for long stack trip$")
+    public void try_to_finish_time_should_be_correctly_displayed() throws Throwable {
+
+        if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
+        {
+            String[] calculatedTime=utility.getTeletTimeinLocalTimeZone();
+            cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
+            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
+            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
+        }
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"))+" "+utility.getTimeZoneBasedOnGeofence());
+    }
+
+    @Then("^try to finish time should be correctly displayed for short stack trip$")
+    public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
+        //   calculateShortStack();
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
+
+    }
+    @Then("^I calculate projected driver arrival time$")
+    public void i_calculate_projected_driver_arrival_time() throws Throwable {
+        utility.calculateShortStack();
+    }
+
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));

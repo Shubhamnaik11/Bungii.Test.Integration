@@ -66,8 +66,8 @@ public class GoogleMaps {
         JSONObject distanceInTraffic2 =elementelementsjsonEleFourZero.getJSONObject("duration_in_traffic");
 
         String timeFromDropToNewPickup =distanceInTraffic2.getString("text").toLowerCase();
-        timingInformation[0]=Integer.valueOf(timeToDropUp.replace(" min",""));
-        timingInformation[1]=Integer.valueOf(timeFromDropToNewPickup.replace(" min",""));
+        timingInformation[0]=Integer.valueOf(timeToDropUp.replace(" mins","").replace(" min",""));
+        timingInformation[1]=Integer.valueOf(timeFromDropToNewPickup.replace(" mins","").replace(" min",""));
     return timingInformation;
     }
 }

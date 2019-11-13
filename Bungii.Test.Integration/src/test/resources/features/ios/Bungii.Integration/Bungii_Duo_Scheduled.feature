@@ -317,8 +317,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @newscenario
+  @newscenario1
   Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -367,6 +368,7 @@ Feature: To Test Duo - Scheduled Bungii
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When  I switch to "Customer2" instance
     Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
@@ -377,6 +379,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "EN ROUTE" Screen
     Then I should be navigated to "ARRIVED" screen
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "ARRIVED" screen
@@ -385,6 +388,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "ARRIVED" Screen
     Then I should be navigated to "LOADING ITEM" screen
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "LOADING ITEM" screen
@@ -393,6 +397,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "DRIVING TO DROP OFF" screen
@@ -401,6 +406,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "UNLOADING ITEM" screen
@@ -511,6 +517,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "ACCEPT" button on "Bungii Request" screen
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
+    And try to finish time should be correctly displayed for long stack trip
 
     When  I switch to "Customer2" instance
     Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
@@ -645,21 +652,21 @@ Feature: To Test Duo - Scheduled Bungii
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
     When I click "VIEW" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
+    Then I calculate projected driver arrival time
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
-
+    And try to finish time should be correctly displayed for short stack trip
     When  I switch to "Customer2" instance
     Then correct details should do be displayed on BUNGII ACCEPTED screen for Stack screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
     Then correct details should do be displayed on BUNGII ACCEPTED with arrival time screen for Stack screen
 
-
-
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
     Then I should be navigated to "UNLOADING ITEM" screen
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "UNLOADING ITEM" screen

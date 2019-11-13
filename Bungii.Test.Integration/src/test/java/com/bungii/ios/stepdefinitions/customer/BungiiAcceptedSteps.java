@@ -4,11 +4,13 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.BungiiAcceptedPage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 
 public class BungiiAcceptedSteps extends DriverBase {
     BungiiAcceptedPage bungiiAcceptedPage;
     ActionManager action = new ActionManager();
+    GeneralUtility utility= new GeneralUtility();
 
     public  BungiiAcceptedSteps(BungiiAcceptedPage bungiiAcceptedPage){
         this.bungiiAcceptedPage=bungiiAcceptedPage;
@@ -31,8 +33,8 @@ public class BungiiAcceptedSteps extends DriverBase {
                 testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_StackSubtitle(),PropertyUtility.getMessage("customer.stack.driver.subtitle.ios"));
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Textlabel_ProjectedTime(),"Projected driver arrival time label should be displayed");
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Button_CancelBungii(),"Cancel Bungii should be displayed");
-                //validate stack arrival value
-                //Textlabel_ProjectedTimeValue
+                String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+utility.getTimeZoneBasedOnGeofence();
+                testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_ProjectedTimeValue(),expectedArrivalValue);
                 break;
         }
 

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -243,45 +244,29 @@ public class BungiiInProgressSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("^try to finish time should be correctly displayed$")
+    @Then("^try to finish time should be correctly displayed for long stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed() throws Throwable {
-        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
 
-        String[] calculatedTime=getTeletTimeinLocalTimeZone();
-        cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
-        cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
-        cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
-        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+calculatedTime[0]+" "+utility.getTimeZoneBasedOnGeofence());
+        if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
+        {
+            String[] calculatedTime=getTeletTimeinLocalTimeZone();
+            cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
+            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
+            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
+        }
+        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"))+" "+utility.getTimeZoneBasedOnGeofence());
     }
-    @Then("^try to finish time should be correctly displayed for shot stack trip$")
+    @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
-        int FROM_RANGE_FROM =-10;
-        int FROM_RANGE_TO =+20;
-        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-
-        String[] driverLocation = new String[2];driverLocation[0]="38.982228200";driverLocation[1]="-94.670791700";
-        String[] dropLocation = new String[2];dropLocation[0]="39.332823422";dropLocation[1]="-94.723224565";
-        String[] newPickup = new String[2];newPickup[0]="39.341431400";newPickup[1]="-94.737801100";
-
-        int[]  timeToCoverDistance=new GoogleMaps().getDurationInTraffic(driverLocation,dropLocation,newPickup);
-
-        //=if((C5<1),10,C5)+D5+E5+4
-        int loadingTime=5;
-        int FLUFF_TIME=4;
-
-        int totalTime=(loadingTime<1?10:loadingTime)+timeToCoverDistance[0]+timeToCoverDistance[1]+FLUFF_TIME;
-        int totalTime_1=(loadingTime<1?10:loadingTime)+timeToCoverDistance[0];
-        String Trip_Start_Time="2017-04-06 09:40:57";//DbUtility.getStatusTimeStampForStack("");
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //By default data is in UTC
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date tripStartTime = formatter.parse(Trip_Start_Time);
-        Date timeStamp = DateUtils.addMinutes(tripStartTime, totalTime_1);
-        Date timeStampForRange = DateUtils.addMinutes(tripStartTime, totalTime);
-        Date timeStampRangeFrom = DateUtils.addMinutes(timeStampForRange, FROM_RANGE_FROM);
-        Date timeStampRangeTo = DateUtils.addMinutes(timeStampForRange, FROM_RANGE_TO);
+     //   calculateShortStack();
+        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
 
     }
+    @Then("^I calculate projected driver arrival time$")
+    public void i_calculate_projected_driver_arrival_time() throws Throwable {
+           calculateShortStack();
+    }
+
     @Then("^correct message should be displayed after clicking info button$")
     public void correct_message_should_be_displayed_after_clicking_info_button() throws Throwable {
         action.click(bungiiProgressPage.Button_StackInfo());
@@ -294,14 +279,14 @@ public class BungiiInProgressSteps extends DriverBase {
         String[] calculatedTime=new String[3];
         try {
             String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");phoneNumber="9999991259";
+            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
             String custRef = DbUtility.getCustomerRefference(phoneNumber);
             String teletTime = DbUtility.getTELETfromDb(custRef);
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             //By default data is in UTC
             formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date teletTimeInUtc = formatter.parse(teletTime);
-            DateFormat formatterForLocalTimezone = new SimpleDateFormat("HH:mm a");
+            DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
             formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
             String teletInLocalTime = formatterForLocalTimezone.format(teletTimeInUtc);
             long t= teletTimeInUtc.getTime();
@@ -322,12 +307,64 @@ public class BungiiInProgressSteps extends DriverBase {
         return calculatedTime;
     }
 
-    public void calculateShortStack(){
-        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
-        String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");customerPhoneNumber="9999991259";
-        String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+    public void calculateShortStack() throws ParseException {
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
 
-         DbUtility.getLoadingTimeStamp(customerPhoneNumber,driverPhoneNumber);
+        int FROM_RANGE_FROM =-10;
+        int FROM_RANGE_TO =+20;
+
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
+        String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");//customer2PhoneNumber="9999991259";
+        String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");//driverPhoneNumber="9955112208";
+
+         String [] loadingTimeStamp=DbUtility.getLoadingTimeStamp(customerPhoneNumber);
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //By default data is in UTC
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date loadingStartTime = formatter.parse(loadingTimeStamp[0]);
+        Date loadingEtartTime = formatter.parse(loadingTimeStamp[1]);
+        long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
+        long loadingTime=TimeUnit.MILLISECONDS.toMinutes(duration);
+
+
+        String[] driverLocation = DbUtility.getDriverLocation(driverPhoneNumber);
+        String [] pickup1Locations=DbUtility.getPickupAndDropLocation(customerPhoneNumber);
+        String [] pickup2Locations=DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
+
+        String[] dropLocation = new String[2];dropLocation[0]=pickup1Locations[2];dropLocation[1]=pickup1Locations[3];
+        String[] newPickupLocations = new String[2];newPickupLocations[0]=pickup2Locations[0];newPickupLocations[1]=pickup2Locations[1];
+
+        int[]  timeToCoverDistance=new GoogleMaps().getDurationInTraffic(driverLocation,dropLocation,newPickupLocations);
+     //   String custRef = DbUtility.getCustomerRefference(phoneNumber);
+//
+        //=if((C5<1),10,C5)+D5+E5+4
+        int FLUFF_TIME=4;
+        loadingTime=(loadingTime<1?10:loadingTime);
+        loadingTime=10;
+        long totalTimeETAtoPickup=loadingTime+timeToCoverDistance[0]+timeToCoverDistance[1]+FLUFF_TIME;
+        long tripProjectedEndTime=loadingTime+timeToCoverDistance[0];
+        String tripStartTime=DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
+        Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
+        long ONE_MINUTE_IN_MILLIS=60000;//millisecs
+        DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
+        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        Date tryToFinishTome=new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * tripProjectedEndTime));
+        String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
+
+        Date timeStampToCalculateDate=new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * totalTimeETAtoPickup));
+
+
+        Date minTime=new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
+        String strMindate = formatterForLocalTimezone.format(minTime);
+
+        Date maxTime=new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
+        String strMaxdate = formatterForLocalTimezone.format(maxTime);
+        cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY",driverTime);
+        cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",strMindate);
+        cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",strMaxdate);
+
     }
     /**
      * Get Driver Name

@@ -433,6 +433,7 @@ Feature: Duo
       And Bungii Driver "accepts stack message" request
       And I accept Alert message for "Alert: Display Stack trip after current trip"
       And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
 
       When  I switch to "customer2" instance
       Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
@@ -445,6 +446,7 @@ Feature: Duo
       When Bungii Driver "slides to the next state"
       Then Bungii driver should see "Arrived screen"
       And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
 
       When I Switch to "customer" application on "same" devices
       Then for a Bungii I should see "Arrived screen"
@@ -453,22 +455,26 @@ Feature: Duo
       And Bungii Driver "slides to the next state"
       Then Bungii driver should see "Loading Item screen"
       And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
 
-      When I Switch to "customer" application on "same" devices
+    When I Switch to "customer" application on "same" devices
       Then for a Bungii I should see "Loading Item screen"
 
       When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
       Then Bungii driver should see "Driving to DropOff screen"
       And stack trip information should be displayed on deck
+      And try to finish time should be correctly displayed for long stack trip
 
-      When I Switch to "customer" application on "same" devices
+
+    When I Switch to "customer" application on "same" devices
       Then for a Bungii I should see "Driving to DropOff screen"
 
       When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
       Then Bungii driver should see "Unloading Item screen"
       And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
       When I Switch to "customer" application on "same" devices
       Then for a Bungii I should see "Unloading Item screen"
@@ -520,11 +526,8 @@ Feature: Duo
       And I Switch to "driver" application on "ORIGINAL" devices
       Then Bungii Driver "completes Bungii"
 
-  @newScenario1
+  @newScenario
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
-    And I Switch to "driver" application on "same" devices
-    Then try to finish time should be correctly displayed for shot stack trip
-    Then correct message should be displayed after clicking info button
     Given I am on customer Log in page
     When I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
@@ -572,7 +575,7 @@ Feature: Duo
     And Bungii Driver "accepts stack message" request
     Then I accept Alert message for "Alert: Display Stack trip after current trip"
     And stack trip information should be displayed on deck
-    Then try to finish time should be correctly displayed
+    Then try to finish time should be correctly displayed for long stack trip
     When  I switch to "customer2" instance
     Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
     And I tap "OK on Driver Accepted screen" during a Bungii
@@ -583,6 +586,7 @@ Feature: Duo
     When Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Arrived screen"
@@ -591,6 +595,7 @@ Feature: Duo
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Loading Item screen"
@@ -599,6 +604,7 @@ Feature: Duo
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Driving to DropOff screen"
@@ -607,6 +613,7 @@ Feature: Duo
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for long stack trip
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Unloading Item screen"
@@ -708,8 +715,10 @@ Feature: Duo
     And I Open "driver" application on "ORIGINAL" devices
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
+    Then I calculate projected driver arrival time
     And I accept Alert message for "Alert: Display Stack trip after current trip"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
 
     When  I switch to "customer2" instance
     Then for a Bungii I should see "BUNGII ACCEPTED for Stack screen"
@@ -720,6 +729,7 @@ Feature: Duo
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
     And stack trip information should be displayed on deck
+    And try to finish time should be correctly displayed for short stack trip
 
     When I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Unloading Item screen"

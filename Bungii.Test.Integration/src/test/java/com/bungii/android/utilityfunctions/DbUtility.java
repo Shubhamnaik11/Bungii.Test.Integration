@@ -85,10 +85,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
         return PickupID;
     }
-    public static void getLoadingTimeStamp(String customerPhone, String driverPhone){
-        String pickupRef = "",custRef=getCustomerRefference(customerPhone),driverRef=getDriverReference(driverPhone);
-        String queryString = "SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
-        pickupRef = getDataFromMySqlServer(queryString);
+    public static String[] getLoadingTimeStamp(String customerPhone){
+        String[] loadingTme= new String[2];
+        String pickupID = "",custRef=getCustomerRefference(customerPhone);
+        String queryString = "SELECT PickupID FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        pickupID = getDataFromMySqlServer(queryString);
+        loadingTme[0]=getDataFromMySqlServer("select StatusTimestamp from tripevents where pickupid ="+pickupID+" and TripStatus=25");
+        loadingTme[1]=getDataFromMySqlServer("select StatusTimestamp from tripevents where pickupid ="+pickupID+" and TripStatus=26");
+        return loadingTme;
     }
     public static String getDriverReference(String phoneNumber) {
         String driverRef = "";
@@ -109,14 +113,21 @@ public class DbUtility extends DbContextManager {
         return driverLocation;
     }
 
-    public static String[] getPickupAndDropLocation(String pickupRef){
+    public static String[] getPickupAndDropLocation(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String queryString = "SELECT PickupID FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        String pickupID = getDataFromMySqlServer(queryString);
         String tripLocation[] = new String[4];
-        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdetails pd inner join pickupdropaddress pda on pd.pickupid = pda.pickupid where pd.pickupref="+pickupRef);
-        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdetails pd inner join pickupdropaddress pda on pd.pickupid = pda.pickupid where pd.pickupref="+pickupRef);
+        tripLocation[0]=    getDataFromMySqlServer("select PickupLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[1]=    getDataFromMySqlServer("select PickupLong from pickupdropaddress  where PickupID= "+pickupID);
+        tripLocation[2]=    getDataFromMySqlServer("select DropOffLat from pickupdropaddress  where PickupID="+pickupID);
+        tripLocation[3]=    getDataFromMySqlServer("select DropOffLong from pickupdropaddress  where PickupID= "+pickupID);
         return tripLocation;
     }
 
-    public static String getStatusTimeStampForStack(String pickupRef){
+    public static String getStatusTimeStampForStack(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
         String statusTimeStamp=  getDataFromMySqlServer("select StatusTimestamp from tripevents te join pickupdetails pd on te.pickupid = pd.pickupid where pickupRef = '"+pickupRef+"' and te.TripStatus = 40");
         return statusTimeStamp;
     }
