@@ -76,7 +76,7 @@ public class BungiiCompleteSteps  extends DriverBase {
 
 
         Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,totalTime,promoValue,numberOfDriver);
-        String truncValue = new DecimalFormat("#.##").format(expectedTotalCost);
+        String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
         if(!truncValue.contains("."))truncValue=truncValue+".00";
         testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 

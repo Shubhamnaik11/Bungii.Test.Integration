@@ -174,7 +174,7 @@ Feature: Create on demand bungii
    # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN " page on driverApp
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
     When I Switch to "customer" application on "same" devices

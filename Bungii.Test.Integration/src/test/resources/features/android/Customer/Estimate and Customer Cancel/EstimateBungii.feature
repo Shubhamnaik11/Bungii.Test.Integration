@@ -8,7 +8,7 @@ Feature: EstimateBungii
   @regression
   Scenario: To check if the information icons display correct information
   #  When I enter "current location in pickup and dropoff fields" on Bungii estimate
-    When I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     Then "Load/Upload Time" information icon should display correct information
@@ -17,7 +17,7 @@ Feature: EstimateBungii
 
   @regression
   Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
-    When I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     And I tap on "back" on Bungii estimate
@@ -28,7 +28,7 @@ Feature: EstimateBungii
     When I Select "ACCOUNT" from customer app menu list
     Then I get customer account details
     When I Select "HOME" from customer app menu list
-    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     Then I should see "all elements" on Bungii estimate
@@ -42,7 +42,7 @@ Feature: EstimateBungii
 
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
-    When I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     And I get Bungii details on Bungii Estimate

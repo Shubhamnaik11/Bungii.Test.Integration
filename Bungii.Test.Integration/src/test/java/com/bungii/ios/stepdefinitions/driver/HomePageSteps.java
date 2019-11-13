@@ -19,7 +19,6 @@ import org.openqa.selenium.By;
 import java.math.BigDecimal;
 
 import static com.bungii.common.manager.ResultManager.error;
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);

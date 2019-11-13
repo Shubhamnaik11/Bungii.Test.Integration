@@ -274,7 +274,7 @@ public class DriverRegistrationSteps extends DriverBase {
     @And("^I enter driver Phone number as \"([^\"]*)\" and valid password$")
     public void i_enter_driver_phone_number_as_something_and_valid_password(String phone) throws Throwable {
         action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), phone);
-        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("DriverPassword"));
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
         action.click(Page_Driver_Login.Button_DriverLogin());
     }
     @And("^I enter \"([^\"]*)\" driver phone number on Signup page$")

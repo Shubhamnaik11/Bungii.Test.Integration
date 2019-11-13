@@ -9,4 +9,7 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
 
+    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+
+
 }
