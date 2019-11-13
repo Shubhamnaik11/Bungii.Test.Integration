@@ -868,14 +868,14 @@ public String getDriverPhone(String driverName)
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
         custPassword=custPassword.equalsIgnoreCase("")?"Cci12345":custPassword;
         if (!custPhoneNum.equalsIgnoreCase("")) {
-            cancelCurrentBungii(custPhoneCode, custPhoneNum, custPassword);
+            handleOngoingBungii(custPhoneCode, custPhoneNum, custPassword);
             cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
         }
 
     }
-    public void cancelCurrentBungii(String custPhoneCode,String custPhoneNum, String custPassword){
+    public void handleOngoingBungii(String custPhoneCode,String custPhoneNum, String custPassword){
         String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
-        coreServices.cancelOngoingBungii( custAccessToken);
+        coreServices.cancelOrCompleteOngoingBungii( custAccessToken);
     }
     public void cancelScheduledBungii(String custPhoneCode,String custPhoneNum, String custPassword){
         String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);

@@ -598,7 +598,7 @@ public class CoreServices extends DriverBase {
         }
 
     }
-    public void cancelOngoingBungii(String custAccessToken){
+    public void cancelOrCompleteOngoingBungii(String custAccessToken){
         Response response= customerView("", custAccessToken);
 
 
