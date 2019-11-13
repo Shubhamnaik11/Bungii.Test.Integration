@@ -308,8 +308,6 @@ public class BungiiInProgressSteps extends DriverBase {
     }
 
     public void calculateShortStack() throws ParseException {
-        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
-
         int FROM_RANGE_FROM =-10;
         int FROM_RANGE_TO =+20;
 

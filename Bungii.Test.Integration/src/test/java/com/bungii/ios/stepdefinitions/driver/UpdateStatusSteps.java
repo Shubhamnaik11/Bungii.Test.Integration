@@ -575,13 +575,25 @@ public class UpdateStatusSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
             cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
         }
-        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"))+" "+utility.getTimeZoneBasedOnGeofence());
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String expectedTime="";
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + " " + utility.getTimeZoneBasedOnGeofence();
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
     }
 
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
-        //   calculateShortStack();
-        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String expectedTime="";
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
+
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
 
     }
     @Then("^I calculate projected driver arrival time$")

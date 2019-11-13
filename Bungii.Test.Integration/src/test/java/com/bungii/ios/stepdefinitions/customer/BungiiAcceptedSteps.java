@@ -32,8 +32,17 @@ public class BungiiAcceptedSteps extends DriverBase {
                 testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_DriverNearby(),PropertyUtility.getMessage("customer.stack.driver.neighborhood").replace("<DRIVER_NAME>",driver1Name.substring(0, driver1Name.indexOf(" ") + 2)));
                 testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_StackSubtitle(),PropertyUtility.getMessage("customer.stack.driver.subtitle.ios"));
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Textlabel_ProjectedTime(),"Projected driver arrival time label should be displayed");
+
+                String label="";
+                String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+                if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+                    label =  PropertyUtility.getDataProperties("time.label");
+                else
+                    label =  utility.getTimeZoneBasedOnGeofence();
+
                 testStepVerify.isElementEnabled(bungiiAcceptedPage.Button_CancelBungii(),"Cancel Bungii should be displayed");
-                String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+utility.getTimeZoneBasedOnGeofence();
+                String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+label;
                 testStepVerify.isElementTextEquals(bungiiAcceptedPage.Textlabel_ProjectedTimeValue(),expectedArrivalValue);
                 break;
         }
