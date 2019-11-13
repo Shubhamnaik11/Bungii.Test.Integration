@@ -1,6 +1,7 @@
 package com.bungii.hooks;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
@@ -140,8 +141,10 @@ public class CucumberHooks {
                 }
 
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
-                    new GeneralUtility().recoverScenario();
+                {   new BungiiSteps().recoveryScenario();
+                    new GeneralUtility().recoverScenario();}
                 else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                    new BungiiSteps().recoveryScenario();
                     new com.bungii.android.utilityfunctions.GeneralUtility().recoverScenario();
                     SetupManager.getObject().useDriverInstance("ORIGINAL");
 

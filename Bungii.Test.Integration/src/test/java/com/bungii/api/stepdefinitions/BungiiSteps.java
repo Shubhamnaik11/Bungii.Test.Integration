@@ -10,9 +10,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.By;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -862,5 +860,25 @@ public String getDriverPhone(String driverName)
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    public void recoveryScenario(){
+        String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+
+        custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
+        custPassword=custPassword.equalsIgnoreCase("")?"Cci12345":custPassword;
+        if (!custPhoneNum.equalsIgnoreCase("")) {
+            cancelCurrentBungii(custPhoneCode, custPhoneNum, custPassword);
+            cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
+        }
+
+    }
+    public void cancelCurrentBungii(String custPhoneCode,String custPhoneNum, String custPassword){
+        String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+        coreServices.cancelOngoingBungii( custAccessToken);
+    }
+    public void cancelScheduledBungii(String custPhoneCode,String custPhoneNum, String custPassword){
+        String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+        coreServices.cancelScheduledBungii(custAccessToken);
     }
 }

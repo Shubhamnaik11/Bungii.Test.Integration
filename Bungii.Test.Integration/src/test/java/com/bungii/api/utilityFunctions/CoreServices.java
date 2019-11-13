@@ -6,6 +6,8 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
+import cucumber.api.junit.Cucumber;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -33,6 +35,9 @@ public class CoreServices extends DriverBase {
     private static String UPDATE_PICKUP_STATUS = "/api/pickup/updatestatus";
     private static String RATE_AND_TIP = "/api/customer/rateandtipdriver";
     private static String AVAILABLE_PICKUPLIST = "/api/driver/availablepickuplist";
+    private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
+    private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
+    private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -564,5 +569,118 @@ public class CoreServices extends DriverBase {
             logger.detail("Please specify valid access token");
         }
 
+    }
+    public Response getScheduledPickupList(String authToken) {
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDLIST);
+        Header header = new Header("AuthorizationToken", authToken);
+        Response response = ApiHelper.getRequestForDriver(apiURL, header);
+        ApiHelper.genericResponseValidation(response);
+
+        return response;
+
+    }
+    public void cancelScheduledBungii(String authToken){
+        JsonPath jsonPathEvaluator = getScheduledPickupList(authToken).jsonPath();
+
+        ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
+        if (ScheduledPickups != null) {
+            for (int i = 0; i < ScheduledPickups.size(); i++) {
+                HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
+                String pickupRequest = (String) pickupDetails.get("PickupRef");
+                boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
+                scheduledpickupdetails(pickupRequest,authToken);
+                if(CanBeCancelled)
+                    cancelCustomerBungii(pickupRequest,authToken);
+                else
+                    new WebPortal().loginToPortalAndCancelBungii(pickupRequest);
+
+            }
+        }
+
+    }
+    public void cancelOngoingBungii(String custAccessToken){
+        Response response= customerView("", custAccessToken);
+
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        Object pickupDetails = jsonPathEvaluator.get("PickupDetails");
+
+        //IF customer is has some bungii onn screen
+        if(pickupDetails != null ) {
+            String pickupRequestID = jsonPathEvaluator.get("PickupDetails.PickupRequestID");
+            int pickupStatus = jsonPathEvaluator.get("PickupDetails.PickupStatus");
+            int numberOfDriver = jsonPathEvaluator.get("PickupDetails.NoOfDrivers");
+            //on demand searching
+            if (pickupStatus == 4)
+                cancelCustomerBungii(pickupRequestID, custAccessToken);
+            else if(pickupStatus == 23 || pickupStatus == 24) {
+                String driverPhoneCode="1";
+                String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
+                String driverPassword= ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+
+                updateStatus(pickupRequestID, driverAccessToken, 66);
+            } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
+                String driverPhoneCode="1";
+                String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
+                String driverPassword=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+                switch (pickupStatus){
+                    case 25:
+                        updateStatus(pickupRequestID, driverAccessToken, 26);
+                    case 26:
+                        updateStatus(pickupRequestID, driverAccessToken, 27);
+                    case 27:
+                        updateStatus(pickupRequestID, driverAccessToken, 28);
+                    case 28:
+                        try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
+                }
+                String paymentMethod = new PaymentServices().getPaymentMethodRef(custAccessToken);
+
+                JsonPath jsonPathEvaluator1 = response.jsonPath();
+                if(numberOfDriver==1) {
+                    String driverRef = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
+                    rateAndTip(pickupRequestID, custAccessToken, driverRef, paymentMethod, 5.0, 5.0);
+                }else{
+                    String driver1Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
+                    String driver2Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[1].Driver.DriverRef");
+                    rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 5.0, driver2Ref, paymentMethod);
+
+                }
+            }
+
+        }
+    }
+    public Response scheduledpickupdetails(String pickuprequestid, String authToken) {
+
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = null;
+
+        apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDPICKUPLIST);
+        Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
+                get(apiURL);
+        response.then().log().all();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response);
+        return response;
+    }
+
+    public void cancelCustomerBungii(String pickupRef, String authToken) {
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("Status", 64);
+            jsonObj.put("StatusTimestamp", utility.getCurrentUTCTime());
+            jsonObj.put("PickupRequestID", pickupRef);
+            Header header = new Header("AuthorizationToken", authToken);
+            String apiURL = null;
+            apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CANCELPICKUPLIST);
+            Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+            ApiHelper.genericResponseValidation(response);
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
     }
 }
