@@ -35,7 +35,10 @@ public class UrlBuilder {
                     baseUrl = PropertyUtility.getDataProperties("PAYMENT_URL");
                     basePort = PropertyUtility.getDataProperties("PAYMENT_PORT");
                     break;
-
+                case "web core":
+                    baseUrl = PropertyUtility.getDataProperties("WEBCORE_URL");
+                    basePort = PropertyUtility.getDataProperties("WEBCORE_PORT");
+                    break;
             }
             String urlString = protocol + "://" + baseUrl + ":" + basePort+endpoint;
             return urlString;
