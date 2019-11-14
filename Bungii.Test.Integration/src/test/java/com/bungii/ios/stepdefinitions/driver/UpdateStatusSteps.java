@@ -578,9 +578,9 @@ public class UpdateStatusSteps extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         String expectedTime="";
         if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + " " + PropertyUtility.getDataProperties("time.label");
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + PropertyUtility.getDataProperties("time.label");
         else
-            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + " " + utility.getTimeZoneBasedOnGeofence();
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + utility.getTimeZoneBasedOnGeofence();
         testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
     }
 

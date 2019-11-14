@@ -1037,7 +1037,7 @@ public class GeneralUtility extends DriverBase {
         String[] calculatedTime=new String[3];
         try {
             String geofenceLabel = getTimeZoneBasedOnGeofenceId();
-            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); phoneNumber="9403960189";
+            String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189";
             String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
             String teletTime = com.bungii.android.utilityfunctions.DbUtility.getTELETfromDb(custRef);
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
