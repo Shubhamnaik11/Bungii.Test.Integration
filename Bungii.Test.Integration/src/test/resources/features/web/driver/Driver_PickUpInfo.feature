@@ -10,7 +10,6 @@ Feature: Driver_PickupInfo
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
 
-  @WEB_FAIL
   @regression
   Scenario: Driver_PickupInfo_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Pickup Information" page

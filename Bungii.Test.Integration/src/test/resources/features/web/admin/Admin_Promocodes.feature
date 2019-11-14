@@ -38,7 +38,6 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
 
-
   @testReport
   @regression
   Scenario: Admin_AddNewPromocode_DeliveryByPromoter
@@ -53,7 +52,6 @@ Feature: Admin_Promocodes
     When I view the searched promocode
     Then the searched promocode data gets populated correctly
 
-  @testing
   @testReport
   @sanity
   @regression
@@ -64,7 +62,6 @@ Feature: Admin_Promocodes
       | Delivery By Promoter (M)       | DM<<CurrentDateTime>>|   World Market Promotion  |  Promotion | M<<CurrentDateTime>>        |
     When I click on the "Save" Button
     Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
-
 
   @testReport
   @regression
@@ -83,7 +80,6 @@ Feature: Admin_Promocodes
 #EOC
 
   @sanity
-  @testReport
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Code" Button
@@ -130,7 +126,7 @@ Feature: Admin_Promocodes
     Then the date gets saved
 
     #Promo code and name with only special characters
-  @testing1
+
     #Not implemented so far this validation so keeping on hold
   Scenario: Admin_Promocode_ValidationsForInvalidInputs
     When I click on the "New Code" Button
