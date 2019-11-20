@@ -87,8 +87,8 @@ public class EstimateSteps extends DriverBase {
                 }
             }
 
-            testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
-                    "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
+           /* testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
+                    "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed"); */
 
             testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
