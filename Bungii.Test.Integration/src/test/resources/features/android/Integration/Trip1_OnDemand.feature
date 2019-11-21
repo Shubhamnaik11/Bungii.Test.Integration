@@ -11,6 +11,7 @@ Feature: On Demand Bungii
       | geofence | Bungii State |
       | baltimore   | Enroute      |
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
 
     And I Switch to "customer" application on "same" devices
