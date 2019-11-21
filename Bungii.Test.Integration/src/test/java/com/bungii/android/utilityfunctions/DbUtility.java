@@ -62,6 +62,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
         return PickupID;
     }
+    public static String getPickupRef(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
+
+        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        return PickupID;
+    }
     public static String getActualTime(String pickupID) {
         String queryString = "select ActualTime from triprequest  WHERE PickupID = '" + pickupID + "' order by pickupid desc limit 1";
 
@@ -132,4 +140,31 @@ public class DbUtility extends DbContextManager {
         return statusTimeStamp;
     }
 
+
+    public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
+        String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverID from eligibletripdriver where pickupid IN (select PickupID from pickupdetails where pickupRef ='" + pickupRequest + "' )";
+        boolean isDriverEligible =false;/* checkIfExpectedDataFromMySqlServer(queryString2,driverID);*/
+
+        for(int i=0;i<30 && !isDriverEligible;i++){
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            isDriverEligible = checkIfExpectedDataFromMySqlServer(queryString2,driverID);
+
+        }
+        return isDriverEligible;
+
+    }
+
+    public static String getDriverToPickupTime(String driverPhoneNumber, String pickupID){
+        String queryString = "SELECT Id FROM driver WHERE phone = " + driverPhoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverToPickupTime from eligibletripdriver where pickupid ="+pickupID+ " and  DriverID="+driverID;
+        String driverToPickupTime = getDataFromMySqlServer(queryString2);
+        return driverToPickupTime;
+    }
 }

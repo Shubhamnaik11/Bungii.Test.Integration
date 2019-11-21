@@ -38,6 +38,7 @@ public class BungiiAcceptedPage extends PageBase {
 
     //STACK
     public WebElement Text_StackInfo() { return findElement("com.bungii.customer:id/bungii_driver_accepted_stack_info", LocatorType.Id); }
+    public WebElement Text_HeaderTitle() { return findElement("com.bungii.customer:id/toolbar_title", LocatorType.Id); }
     public WebElement Image_RattingBar() { return findElement("com.bungii.customer:id/rating_bar", LocatorType.Id); }
     public WebElement Text_BungiiAcceped() { return findElement("//*[@text='Your Bungii has been accepted!']", LocatorType.XPath); }
     public WebElement Textlabel_DriverNearby() { return findElement("com.bungii.customer:id/bungii_stacked_driver_name", LocatorType.Id); }
@@ -45,6 +46,10 @@ public class BungiiAcceptedPage extends PageBase {
     public WebElement Textlabel_ProjectedTimeValue() { return findElement("com.bungii.customer:id/bungii_stacked_eta", LocatorType.Id); }
     public WebElement Textlabel_ProjectedTime() { return findElement("//*[@text='Projected Driver Arrival:']", LocatorType.XPath); }
     public WebElement Button_CancelBungii() { return findElement("com.bungii.customer:id/searching_view_stack_bungii_container_btn_cancel", LocatorType.Id); }
+    public WebElement Text_StackConfirmation() { return findElement("com.bungii.customer:id/custom_alert_hyperlink_tv_message", LocatorType.Id); }
+    public WebElement Alert_CancelBungii() { return findElement("com.bungii.customer:id/custom_alert_hyperlink_tv_cancel_bungii", LocatorType.Id); }
+    public WebElement Alert_ContactSupport() { return findElement("com.bungii.customer:id/custom_alert_hyperlink_tv_contact_support", LocatorType.Id); }
+    public WebElement Alert_Dismiss() { return findElement("com.bungii.customer:id/custom_alert_hyperlink_tv_dismiss", LocatorType.Id); }
 
 
 

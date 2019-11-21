@@ -23,6 +23,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -125,7 +126,12 @@ public class BungiiSteps extends DriverBase {
                     String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+utility.getTimeZoneBasedOnGeofence();
                     testStepVerify.isElementTextEquals(Page_BungiiAccepted.Textlabel_ProjectedTimeValue(),expectedArrivalValue);
                     break;
-
+                case "bungii accepted screen":
+                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Text_HeaderTitle(),"BUNGII ACCEPTED");
+                    break;
+                case "Bungii Home page":
+                    testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
+                    break;
                /*
             case "Bungii accepted":
                 assertManager.ElementDisplayed(Page_BungiiAccepted.PageTitle_BungiiAccepted());
@@ -263,7 +269,7 @@ public class BungiiSteps extends DriverBase {
                 }
 
             }
-            else if (arg0.equalsIgnoreCase("accepts stack message")) {
+            else if (arg0.equalsIgnoreCase("accepts stack message") ||arg0.equalsIgnoreCase("reject stack message")||arg0.equalsIgnoreCase("view stack message")) {
                 boolean isDisplayed = action.waitUntilAlertDisplayed(30L);
                 if (!isDisplayed)
                     i_click_on_notification_for_something("STACK TRIP");
@@ -276,7 +282,11 @@ public class BungiiSteps extends DriverBase {
                 }
                 Thread.sleep(5000);
                 action.scrollToBottom();
-                action.click(Page_BungiiRequest.Button_Accept());
+                if (arg0.equalsIgnoreCase("accepts stack message"))
+                    action.click(Page_BungiiRequest.Button_Accept());
+                else if(arg0.equalsIgnoreCase("reject stack message"))
+                    action.click(Page_BungiiRequest.Button_Reject());
+
             }
             log("Bungii driver should able to" + arg0 + " request", "Bungii driver  " + arg0,true);
 
@@ -299,6 +309,15 @@ public class BungiiSteps extends DriverBase {
             if (!isFound) {
                 Thread.sleep(50000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+            }
+            logger.detail(SetupManager.getDriver().getPageSource());
+            //stack take times to get notifications
+            if(strArg1.equalsIgnoreCase("STACK TRIP") && !isFound){
+                for (int i=0; i<5 &&!isFound;i++){
+                    Thread.sleep(40000);
+                    isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+                    i++;
+                }
             }
             //if no notificatiaon then hide
             if (!isFound)
@@ -444,9 +463,11 @@ public class BungiiSteps extends DriverBase {
             switch (arg0) {
                 case "Driver 1 SMS":
                 case "Driver 2 SMS":
+                    case"customer support-SMS":
                 case "SMS":
                     expectedDuoNumber=arg0.contains("2")?PropertyUtility.getMessage("twilio.number.driver2"):PropertyUtility.getMessage("twilio.number");
-
+                    if(arg0.equalsIgnoreCase("customer support-SMS"))
+                        expectedDuoNumber=PropertyUtility.getMessage("driver.support.number");
                     if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
                         utility.isPhoneNumbersEqual(Page_OtherApps.SMS_Samsung_RecipientNo(), expectedDuoNumber);
 
@@ -701,16 +722,19 @@ public class BungiiSteps extends DriverBase {
 
             switch (arg0) {
                 case "cancels Bungii":
+                    Thread.sleep(5000);
                     action.click(Page_DriverBungiiProgress.Button_Cancel());
+                    testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.cancel.bungii"));
                     action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
                     Thread.sleep(5000);
                     break;
 
                 case "slides to the next state":
+                    Thread.sleep(1000);
                     action.swipeRight(Page_DriverBungiiProgress.Slider());
                     Thread.sleep(1000);
                     break;
-
+                case "tab On to Next":
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
@@ -722,6 +746,17 @@ public class BungiiSteps extends DriverBase {
                         action.click(Page_BungiiComplete.Button_OnToTheNext());
                     }
 
+                    break;
+                case "tab on Cancel bungii":
+                   // SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    WebElement Button_Cancel=Page_DriverBungiiProgress.Button_Cancel();
+                    action.click(new Point(Button_Cancel.getLocation().getX()+Button_Cancel.getRect().getWidth()/2, Button_Cancel.getLocation().getY()+Button_Cancel.getRect().getHeight()/2));
+                    action.click(Page_DriverBungiiProgress.Button_Cancel());
+
+                    testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.cancel.bungii"));
+                    action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
+                    Thread.sleep(5000);
                     break;
 
                 default:

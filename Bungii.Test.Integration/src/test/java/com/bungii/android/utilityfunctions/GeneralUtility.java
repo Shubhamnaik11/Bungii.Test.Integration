@@ -630,7 +630,7 @@ public class GeneralUtility extends DriverBase {
                 WebElement header=driverHomePage.Generic_HeaderElement();
                 currentPage=header.getText();
             }
-            if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")) {
+            if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")|| currentPage.equals("ARRIVED")|| currentPage.equals("LOADING ITEM")|| currentPage.equals("DRIVING TO DROP OFF")|| currentPage.equals("UNLOADING ITEM")) {
 
             } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
@@ -722,6 +722,26 @@ public class GeneralUtility extends DriverBase {
                 isDisplayed = true;}
 
             }
+        else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))){
+            action.click(otherAppsPage.Notification_StackCustomerCancel());
+            isDisplayed = true;}
+
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))){
+            action.click(otherAppsPage.Notification_StackDriverAccepted());
+            isDisplayed = true;}
+
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))){
+            action.click(otherAppsPage.Notification_StackDriverStarted());
+            isDisplayed = true;}
+
+        }
+
+
+
+
 /*
         for (int i = 0; i < notificationHeader.size(); i++) {
             if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
@@ -756,10 +776,18 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "DRIVER ENROUTE":
                 text = PropertyUtility.getMessage("customer.notification.driver.accepted");
-
                 break;
             case "STACK TRIP":
                 text = PropertyUtility.getMessage("driver.notification.stack");
+                break;
+            case "CUSTOMER CANCEL STACK TRIP":
+                text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+                break;
+            case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
+                text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+                break;
+            case "CUSTOMER -DRIVER STARTED STACK BUNGII":
+                text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
                 break;
         }
         return text;

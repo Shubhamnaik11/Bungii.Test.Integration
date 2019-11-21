@@ -5,7 +5,10 @@ import org.openqa.selenium.WebElement;
 
 public class BungiiRequest extends PageBase {
 
-//------On Demand Request Alert
+    public WebElement Navigation_Header() { return findElement("//*[@resource-id='com.bungii.driver:id/pickup_request_toolbar']/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
+
+
+    //------On Demand Request Alert
     public WebElement Alert_Msg() { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id); }
 
     public WebElement AlertButton_View() { return findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id); }
@@ -19,5 +22,16 @@ public class BungiiRequest extends PageBase {
 
 
     public WebElement Alert_MsgTitle() { return findElement("com.bungii.driver:id/notification_alert_title", LocatorType.Id); }
+
+    public WebElement Text_ValueEarning() { return findElement("com.bungii.driver:id/activity_pickup_request_estimated_earnings_textview", LocatorType.Id); }
+    public WebElement Text_Earning() { return findElement("//android.widget.TextView[@text='Estimated Earnings']", LocatorType.XPath); }
+    public WebElement Text_Distance() { return findElement("//*[contains(@text,'Distance:')]", LocatorType.XPath); }
+    public WebElement Text_ValueDistance() { return findElement("//*[contains(@text,'Distance:')]/following-sibling::android.widget.TextView", LocatorType.XPath); }
+
+    public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_pickup']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_pickup']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
+
+    public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.driver:id/pickup_request_dopoff_container']/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_DropOffLocation_LineTwo () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.driver:id/pickup_request_dopoff_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
 }

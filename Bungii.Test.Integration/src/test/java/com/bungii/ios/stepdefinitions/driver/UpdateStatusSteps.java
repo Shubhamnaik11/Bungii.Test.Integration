@@ -9,6 +9,7 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -557,8 +558,20 @@ public class UpdateStatusSteps extends DriverBase {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
-            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^stack trip information should not be displayed on deck$")
+    public void stack_trip_information_should_not_be_displayed_on_deck() {
+        try {
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_NextLabel(true), "Next tag should not be enabled","Next tag is not displayed","Next tag is displayed");
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_OnDeckLabel(true), "ON DECK should not be displayed" ,"'ON DECK' text lable is not displayed","ON DECK is displayed");
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_StackCustomer(true),"stack Customer name should be not be diplayed","stack Customer name should be not be diplayed","stack Customer name is diplayed");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -601,6 +614,18 @@ public class UpdateStatusSteps extends DriverBase {
         utility.calculateShortStack();
     }
 
+    @When("^I verify that driver to pickup time is greater than 100 mins for second trip$")
+    public void i_verify_that_driver_to_pickup_time_is_greater_than_100_mins_for_second_trip() {
+        String customer2PhoneNumber=(String)cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        String driverPhoneNumber=(String)cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
+        String pickupID = DbUtility.getPickupID(custRef);
+        String pickupRef = DbUtility.getPickupRef(customer2PhoneNumber);
+        DbUtility.isDriverEligibleForTrip(driverPhoneNumber,pickupRef);
+        int driverToPickUP=Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber,pickupID));
+
+        testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
+    }
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));

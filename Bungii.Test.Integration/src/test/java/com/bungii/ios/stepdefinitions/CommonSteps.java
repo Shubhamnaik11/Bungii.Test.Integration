@@ -647,6 +647,9 @@ public class CommonSteps extends DriverBase {
                 case "STACK TRIP REQUEST ACCEPTED":
                     expectedMessage = PropertyUtility.getMessage("driver.alert.stack.after.current");
                     break;
+                case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
+                    expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -661,7 +664,25 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
+    @Then("^Alert should have \"([^\"]*)\" button$")
+    public void alert_should_have_something_button(String list) {
+        try {
+            action.waitForAlert();
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            switch (list) {
+                case "cancel,proceed":
+                    testStepVerify.isTrue(getListOfAlertButton.contains("CANCEL"),"Alert should have cancel button");
+                    testStepVerify.isTrue(getListOfAlertButton.contains("PROCEED"),"proceed should have cancel button");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String buttonLabel) {
         try {
@@ -710,7 +731,7 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
-
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "new":
                     userName = PropertyUtility.getDataProperties("new.customer.user");
@@ -724,31 +745,36 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
                     password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid miami":
                     userName = PropertyUtility.getDataProperties("miami.customer.phone");
                     password = PropertyUtility.getDataProperties("miami.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid nashville":
                     userName = PropertyUtility.getDataProperties("nashville.customer.phone");
                     password = PropertyUtility.getDataProperties("nashville.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid denver":
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
                 case "valid customer2":
                     userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
                     password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", userName);
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
             goToLogInPage(NavigationBarName);
 
             LogInSteps logInSteps = new LogInSteps(loginPage);

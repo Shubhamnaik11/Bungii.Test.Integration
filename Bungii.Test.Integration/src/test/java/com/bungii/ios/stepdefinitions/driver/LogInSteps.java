@@ -11,8 +11,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.customer.LogInSteps.class);
@@ -82,6 +81,7 @@ public class LogInSteps extends DriverBase {
         else {
             //TODO: specify failure here
         }
+        log("I am logged in as"+option+"driver","I am logged in using"+phone+"/"+password);
              } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

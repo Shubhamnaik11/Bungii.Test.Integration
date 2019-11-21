@@ -1,6 +1,8 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
@@ -11,6 +13,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -33,6 +36,7 @@ public class BungiiInProgressSteps extends DriverBase {
     InProgressBungiiPages bungiiProgressPage = new InProgressBungiiPages();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
@@ -237,8 +241,19 @@ public class BungiiInProgressSteps extends DriverBase {
         try {
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
             testStepVerify.isElementTextEquals(bungiiProgressPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
-            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_OnDeckLabel(), "ON DECK","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(bungiiProgressPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'ON DECK' text lable is displayed","'NEXT' text lable is not displayed");
             testStepVerify.isElementTextEquals(bungiiProgressPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^stack trip information should not be displayed on deck$")
+    public void stack_trip_information_should_not_be_displayed_on_deck() {
+        try {
+            testStepVerify.isElementNotEnabled(bungiiProgressPage.Text_NextLabel(true), "Next tag should not be enabled","Next tag is not displayed","Next tag is displayed");
+            testStepVerify.isElementNotEnabled(bungiiProgressPage.Text_OnDeckLabel(true), "ON DECK should not be displayed" ,"'ON DECK' text lable is not displayed","ON DECK is displayed");
+            testStepVerify.isElementNotEnabled(bungiiProgressPage.Text_StackCustomer(true),"stack Customer name should be not be diplayed","stack Customer name should be not be diplayed","stack Customer name is diplayed");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -362,6 +377,103 @@ public class BungiiInProgressSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY",driverTime);
         cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",strMindate);
         cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",strMaxdate);
+
+    }
+
+    @When("^I click \"([^\"]*)\" on bungii accepted screen$")
+    public void i_click_something_on_bungii_accepted_screen(String button) throws Throwable {
+        try {
+            switch (button) {
+                case "CANCEL BUNGII":
+                    testStepVerify.isElementTextEquals(bungiiAcceptedPage.Button_CancelBungii(),"CANCEL BUNGII");
+                    action.click(bungiiAcceptedPage.Button_CancelBungii());
+                    break;
+                case "Cantact Support on Alert message":
+                    testStepVerify.isElementTextEquals(bungiiAcceptedPage.Alert_ContactSupport(),"Contact Customer Support");
+                    action.click(bungiiAcceptedPage.Alert_ContactSupport());
+                    break;
+                case "CANCEL BUNGII on Alert message":
+                    testStepVerify.isElementTextEquals(bungiiAcceptedPage.Alert_CancelBungii(),"Cancel Bungii");
+                    action.click(bungiiAcceptedPage.Alert_CancelBungii());
+                    break;
+                case"Dismiss on Alert message":
+                    testStepVerify.isElementTextEquals(bungiiAcceptedPage.Alert_Dismiss(),"Dismiss");
+                    action.click(bungiiAcceptedPage.Alert_Dismiss());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I tap on" + button, "I tapped on actionItem"+button, true);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }    }
+
+    @Then("^I see \"([^\"]*)\" on bungii accepted screen$")
+    public void     i_see_something_on_bungii_accepted_screen(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Alert: Bungii cancel confirmation":
+                    testStepVerify.isElementTextEquals(bungiiAcceptedPage.Text_StackConfirmation(),PropertyUtility.getMessage("customer.stack.cancel.confirm.alert"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
+
+
+    @When("^I verify that driver to pickup time is greater than 100 mins for second trip$")
+    public void i_verify_that_driver_to_pickup_time_is_greater_than_100_mins_for_second_trip() {
+        String customer2PhoneNumber=(String)cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        String driverPhoneNumber=(String)cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
+        String pickupID = DbUtility.getPickupID(custRef);
+        String pickupRef = DbUtility.getPickupRef(custRef);
+        DbUtility.isDriverEligibleForTrip(driverPhoneNumber,pickupRef);
+        int driverToPickUP=Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber,pickupID));
+
+        testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
+    }
+
+    @Then("^I should not get notification for stack trip$")
+    public void i_should_not_get_notification_for_stack_trip() {
+            try {
+                //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                action.showNotifications();
+                log("Checking notifications","Checking notifications",true);
+                String expecteMessage = utility.getExpectedNotification("STACK TRIP");
+                boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+                if (!isFound) {
+                    Thread.sleep(5000);
+                    isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+                }
+                logger.detail(SetupManager.getDriver().getPageSource());
+                //stack take times to get notifications
+                    for (int i=0; i<0 &&!isFound;i++){
+                        Thread.sleep(40000);
+                        isFound = utility.clickOnNofitication("Bungii", expecteMessage);
+                        i++;
+                    }
+
+                //if no notificatiaon then hide
+                if (!isFound) {
+                    action.hideNotifications();
+                    Thread.sleep(10000);
+                }
+
+                testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notificatiob for stack trip","I got notifcation of stack trip");
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            }
+
 
     }
     /**

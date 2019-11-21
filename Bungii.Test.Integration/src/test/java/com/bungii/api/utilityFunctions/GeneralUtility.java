@@ -75,4 +75,25 @@ public class GeneralUtility {
         String dateFormatted = sdf.format(dateTime);
         return dateFormatted;
     }
+    public static String getBungiiEndTimeForManuallyEnd() {
+        //11/15/2019 12:43 AM
+        Calendar calendar = Calendar.getInstance();
+        Date dateTime = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        sdf.setTimeZone(TimeZone.getTimeZone(new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofenceId()));
+        String dateFormatted = sdf.format(dateTime);
+        return dateFormatted;
+    }
+
+    public String getBungiiTimeZoneLanel(){
+        String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+        String timeZoneCompleteText="";
+        //TODO: Add other timezone
+                switch (timeLabel.trim().toUpperCase()){
+                    case "CST":
+                        timeZoneCompleteText="Central Standard Time";
+                        break;
+                }
+        return timeZoneCompleteText;
+    }
 }

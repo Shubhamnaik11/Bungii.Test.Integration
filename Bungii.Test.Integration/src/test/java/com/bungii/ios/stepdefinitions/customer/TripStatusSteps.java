@@ -10,6 +10,7 @@ import com.bungii.ios.pages.customer.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
@@ -295,6 +296,9 @@ public class TripStatusSteps extends DriverBase {
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("twilio.number.driver2"));
                     break;
+                case "CUSTOMER SUPPORT-SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    break;
                 default:
                     throw new Exception("UN IMPLEMENTED STEPS");
             }
@@ -302,6 +306,71 @@ public class TripStatusSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }    }
+
+    @When("^I click \"([^\"]*)\" on bungii accepted screen$")
+    public void i_click_something_on_bungii_accepted_screen(String button) throws Throwable {
+        try {
+            List<String> getListOfAlertButton;
+            switch (button) {
+                case "CANCEL BUNGII":
+                    action.click(updateStatusPage.Button_CancelBungii());
+                    break;
+                case "Cantact Support on Alert message":
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Contact Customer Support"))
+                        action.clickAlertButton("Contact Customer Support");
+                    else
+                        fail("I should able to click dismiss","I was able not able to find Contact Customer Support, list of alert button"+getListOfAlertButton.toString());
+                    break;
+
+                case "CANCEL BUNGII on Alert message":
+
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Cancel Bungii"))
+                        action.clickAlertButton("Cancel Bungii");
+                    else
+                        fail("I should able to click Cancel Bungii","I was able not able to find Cancel Bungii, list of alert button"+getListOfAlertButton.toString());
+
+                    break;
+                case"Dismiss on Alert message":
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Dismiss"))
+                        action.clickAlertButton("Dismiss");
+                    else
+                        fail("I should able to click dismiss","I was able not able to find Dismiss, list of alert button"+getListOfAlertButton.toString());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I tap on" + button, "I tapped on actionItem"+button, true);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }    }
+
+
+    @Then("^I see \"([^\"]*)\" on bungii accepted screen$")
+    public void     i_see_something_on_bungii_accepted_screen(String strArg1) throws Throwable {
+        try {
+
+            switch (strArg1) {
+                case "Alert: Bungii cancel confirmation":
+                    testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.confirm.alert"));
+                    break;
+                case "Alert: Bungii cancel sucessfully":
+                    testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.success.alert"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
