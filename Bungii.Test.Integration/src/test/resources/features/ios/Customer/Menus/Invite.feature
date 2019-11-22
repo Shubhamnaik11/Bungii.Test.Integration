@@ -34,8 +34,8 @@ Feature: Customer	Referral Invite page
     And I click "SHARE" button on "INVITE" screen
     And I click "SHARE BY EMAIL" button on "INVITE" screen
     Then I should see draft post in "MAIL" application
-
-  @regression
+# this test case is to run individually not in suite
+ # @regression
   Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter but no Application is installed
     Given I have "twitter" app "not installed"
     When I Select "Home" from Customer App menu

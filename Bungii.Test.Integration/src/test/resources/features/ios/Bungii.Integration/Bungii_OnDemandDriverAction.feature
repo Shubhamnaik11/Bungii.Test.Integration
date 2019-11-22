@@ -18,7 +18,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
  #   And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
-      | Solo   | 2400 S Bayshore Dr Miami | 3500 NW 37th Ave, Miami | miami    |
+      | Solo   | 7346 coldstream drive| 2400 S Bayshore Dr Miami | miami    |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen

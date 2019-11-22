@@ -2,9 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.ForgotPasswordPage;
-import com.bungii.android.pages.customer.LoginPage;
-import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -28,6 +26,8 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbutility = new DbUtility();
+    TermsPage Page_CustTerms = new TermsPage();
+    HomePage homePage = new HomePage();
 
 
     @And("I tap on the {string} Link")
@@ -148,7 +148,18 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     @Then("The user should be logged in")
     public void the_user_should_be_logged_in() {
         try {
-            utility.isCorrectPage("Home");
+            if(utility.isCorrectPage("Terms and Conditions")){
+                action.click(Page_CustTerms.Checkbox_Agree());
+                action.click(Page_CustTerms.Button_Continue());
+                if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
+                    // action.click(Page_CustTerms.Button_GoToSetting());
+                    action.click(Page_CustTerms.Button_PermissionsSure());
+                    action.click(Page_CustTerms.Button_PermissionsAllow());
+                    // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                }
+                if (action.isElementPresent(homePage.Button_Closetutorials(true)))
+                    action.click(homePage.Button_Closetutorials());
+            }
             testStepAssert.isTrue(utility.isCorrectPage("Home"), "Home page should be displayed", "Home page is displayed", "Home page was not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
