@@ -1,7 +1,7 @@
 @android
 @duo
 @failed
-  #These feature will run in kansas geofence
+  #These feature will run in atlanta geofence
 Feature: Duo
 
   @sanity
@@ -781,19 +781,19 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @newscenario1
+  @dev
   Scenario: Verify driver can Long stack request on Arrived status
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | kansas   | ARRIVED      |
+      | atlanta   | ARRIVED      |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
         #put driver on background
     When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "view stack message" request
     Then "correct stack trip details" should be displayed on Bungii request screen
@@ -804,19 +804,19 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @newscenario
+  @dev
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | kansas   | LOADING ITEM |
+      | atlanta   | LOADING ITEM |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
     Then I click on notification for "STACK TRIP"
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
@@ -824,7 +824,7 @@ Feature: Duo
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I enter customers "9999991889" Phone Number
+    And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     Then for a Bungii I should see "bungii accepted screen"
@@ -845,19 +845,19 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @newscenario
+  @dev
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
-      | kansas   | UNLOADING ITEM |
+      | atlanta   | UNLOADING ITEM |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
     Then I click on notification for "STACK TRIP"
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
@@ -865,7 +865,7 @@ Feature: Duo
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I enter customers "9999991889" Phone Number
+    And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     Then for a Bungii I should see "bungii accepted screen"
@@ -886,23 +886,23 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @newscenario
+  @dev
   Scenario:  Verify Customer notification(Stack bungii accepted, Stack driver started, )
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
-      | kansas   | UNLOADING ITEM |
+      | atlanta   | UNLOADING ITEM |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test| 2              |
 
-    When I Switch to "customer" application on "same" devices
+    When I Open "customer" application on "same" devices
     And I am on customer Log in page
-    And I enter customers "9999991889" Phone Number
+    And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     Then I click on notification for "STACK TRIP"
@@ -917,33 +917,33 @@ Feature: Duo
     Then for a Bungii I should see "Enroute screen"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 9999991889     |                 |
+      | 9871450107     |                 |
 
 
-  @newscenario
+  @dev
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
-      | kansas   | DRIVING TO DROP OFF |
+      | atlanta   | DRIVING TO DROP OFF |
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "valid atlanta" driver
 
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
 
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
     Then I accept Alert message for "Alert: Display Stack trip after current trip"
     And stack trip information should be displayed on deck
-    When I Switch to "customer" application on "same" devices
+    When I Open "customer" application on "same" devices
     And I am on customer Log in page
-    And I enter customers "9999991889" Phone Number
+    And I enter customers "9871450107" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     Then for a Bungii I should see "bungii accepted screen"
@@ -968,7 +968,7 @@ Feature: Duo
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
-      | kansas   | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | atlanta   | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -982,9 +982,9 @@ Feature: Duo
     And I Open "customer" application on "same" devices
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
     #control driver reject stak trip
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "reject stack message" request
@@ -1030,7 +1030,7 @@ Feature: Duo
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer | Driver1 | Driver2        |
-      | kansas   | Driving To Dropoff | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | atlanta   | Driving To Dropoff | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -1046,9 +1046,9 @@ Feature: Duo
     And I Open "customer" application on "same" devices
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
 
     And I Open "customer" application on "Driver2" devices
     Then I click on notification for "STACK TRIP"
@@ -1078,19 +1078,20 @@ Feature: Duo
       |  | CUSTOMER2_PHONE |
 
   #change user login
-  @newscenario
+
+  @newscenario1
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      | LOADING ITEM |
+      | atlanta      | LOADING ITEM |
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid ios" driver
+    And I am logged in as "valid atlanta" driver
 
     And I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I am logged in as "IOS USER" customer
+    And I am logged in as "valid customer 2" customer
     And I enter "atlanta pickup and dropoff locations away from driver" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -1110,15 +1111,15 @@ Feature: Duo
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
-      | goa      |UNLOADING ITEM |
+      | atlanta      |UNLOADING ITEM |
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid ios" driver
+    And I am logged in as "valid atlanta" driver
 
     And I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I am logged in as "IOS USER" customer
+    And I am logged in as "valid customer 2" customer
     And I enter "atlanta pickup and dropoff locations away from driver" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -1140,7 +1141,7 @@ Feature: Duo
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer | Driver1 | Driver2        |
-      | kansas   | Accepted | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+      | atlanta   | Accepted | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
     And I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -1152,9 +1153,9 @@ Feature: Duo
     And Bungii Driver "Start Schedule Bungii" request
     And I Open "customer" application on "same" devices
 
-    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999991889     | Testcustomertywd_appleXii Me | 2              |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
     Then I should not get notification for stack trip
     When I Switch to "driver" application on "same" devices
     When Bungii Driver "tab on Cancel bungii"

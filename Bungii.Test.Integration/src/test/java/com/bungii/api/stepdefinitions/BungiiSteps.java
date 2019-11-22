@@ -837,10 +837,9 @@ public String getDriverPhone(String driverName)
                     custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
-
-                    driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
-                    driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                        driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
+                        cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
                 }else if (geofence.equals("goa")) {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");

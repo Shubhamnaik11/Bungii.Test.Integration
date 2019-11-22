@@ -720,7 +720,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
+  @newscenario1
   @newscenario
   Scenario:Verify driver can Long stack request on Arrived status.
     Given that ondemand bungii is in progress
@@ -732,7 +732,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     | Mike Test| 2              |
+      | now         | 9403960183     | Mark Cuban| 2              |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
     Then "correct stack trip details" should be displayed on Bungii request screen
@@ -754,7 +754,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     | Mike Test| 2              |
+      | now         | 9403960183     | Mark Cuban| 2              |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
@@ -794,7 +794,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     | Mike Test| 2              |
+      | now         | 9403960183     | Mark Cuban| 2              |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
@@ -835,10 +835,10 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     | Mike Test| 2              |
+      | now         | 9403960183     | Mark Cuban| 2              |
 
     Given I am on the "LOG IN" page
-    When I enter Username :9999990867 and  Password :{VALID}
+    When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
 
     And I click on notification for "Driver" for "stack trip"
@@ -855,7 +855,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "EN ROUTE" screen
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 9999990867     |                 |
+      | 9403960183     |                 |
 
 
   @newscenario
@@ -869,7 +869,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     | Mike Test| 2              |
+      | now         | 9403960183     | Mark Cuban| 2              |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
@@ -877,7 +877,7 @@ Feature: To Test Duo - Scheduled Bungii
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I enter Username :9999990867 and  Password :{VALID}
+    When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I Switch to "driver" application on "same" devices
@@ -917,7 +917,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     |Mike Test | 2              |
+      | now         | 9403960183     | Mark Cuban | 2              |
 
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -979,7 +979,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     |Mike Test | 2              |
+      | now         |9403960183     | Mark Cuban | 2              |
     And I Switch to "customer" application on "Driver2" devices
 
     And I click on notification for "Driver" for "stack trip"
@@ -1070,7 +1070,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @newscenario1
+  @newscenario
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
     Given that duo schedule bungii is in progress
@@ -1088,7 +1088,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time | Customer Phone | Customer Name                | Customer label |
-      | now         | 9999990867     |Mike Test | 2              |
+      | now         | 9403960183     | Mark Cuban | 2              |
     And I should not get notification for "driver" for "stack trip"
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen

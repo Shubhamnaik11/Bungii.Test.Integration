@@ -312,14 +312,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer.phone"));
                     break;
                 case "valid customer 2":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("valid.name.customer.no.promocode"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("valid.customer.no.promocode"));
-                    break;
-                case "IOS USER":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer.phone.usedin.duo"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("valid.name.customer.no.promocode"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("customer.phone.usedin.duo"));
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("atlanta.customer2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -372,9 +367,9 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "atlanta pickup and dropoff locations away from driver":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.away.goa"));
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.goa"));
-                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.away.atlanta"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
                 case "boston pickup and dropoff locations":

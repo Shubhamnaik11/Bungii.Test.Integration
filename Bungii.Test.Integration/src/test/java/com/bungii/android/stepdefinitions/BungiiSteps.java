@@ -323,7 +323,7 @@ public class BungiiSteps extends DriverBase {
             if (!isFound)
                 action.hideNotifications();
 
-            testStepVerify.isTrue(isFound, "I should able to on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+            testStepAssert.isTrue(isFound, "I should able to on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
