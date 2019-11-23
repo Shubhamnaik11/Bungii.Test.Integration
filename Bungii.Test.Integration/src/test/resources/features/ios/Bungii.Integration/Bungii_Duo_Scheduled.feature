@@ -317,7 +317,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @newscenario
+  @newscenario1
   Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
    # And try to finish time should be correctly displayed for long stack trip
 
@@ -720,7 +720,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-  @newscenario1
+  @dev
   @newscenario
   Scenario:Verify driver can Long stack request on Arrived status.
     Given that ondemand bungii is in progress
@@ -743,7 +743,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @newscenario
+  @dev
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -762,7 +762,7 @@ Feature: To Test Duo - Scheduled Bungii
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I enter Username :9999990867 and  Password :{VALID}
+    When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "CANCEL BUNGII" on bungii accepted screen
@@ -783,7 +783,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @newscenario
+  @dev
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -802,7 +802,7 @@ Feature: To Test Duo - Scheduled Bungii
     And stack trip information should be displayed on deck
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I enter Username :9999990867 and  Password :{VALID}
+    When I enter Username :9403960183 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "CANCEL BUNGII" on bungii accepted screen
@@ -824,7 +824,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
 
-  @newscenario
+  @newscenario11
   Scenario:Verify Customer notification(Stack bungii accepted, Stack driver started, )
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -858,7 +858,7 @@ Feature: To Test Duo - Scheduled Bungii
       | 9403960183     |                 |
 
 
-  @newscenario
+  @newscenario1
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -896,7 +896,7 @@ Feature: To Test Duo - Scheduled Bungii
     #move to top
     #need to do in atlanta
   @twodevices
-  @newscenario
+  @newscenario1
   Scenario: Long stack non control driver
 
     Given that duo schedule bungii is in progress
@@ -958,7 +958,7 @@ Feature: To Test Duo - Scheduled Bungii
      #need to do in atlanta
           #move to top
   @twodevices
-  @newscenario
+  @newscenario1
   Scenario: Short stack control driver
 
     Given that duo schedule bungii is in progress
@@ -1009,7 +1009,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       |  | CUSTOMER2_PHONE |
 
-  @newscenario
+  @newscenario1
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1039,7 +1039,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @newscenario
+  @newscenario1
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1070,7 +1070,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @newscenario
+  @newscenario1
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
     Given that duo schedule bungii is in progress
