@@ -4,10 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
-import com.bungii.common.utilities.FileUtility;
-import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.stepdefinitions.driver.LogInSteps;
+import com.bungii.common.utilities.*;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -61,11 +58,13 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 
         try {
+           // new MailSenderEN().send("asads@mailinator.com","ASD","asads@mailinator.com","","","","text/html");
+            new CheckingMails().checkAndFindActivationURL();
             logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE"));
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
-            logger.error("Unable to create default appium driver");
+            logger.error("Unable to create default appium driver"+e.getStackTrace());
         }
 
         try {
