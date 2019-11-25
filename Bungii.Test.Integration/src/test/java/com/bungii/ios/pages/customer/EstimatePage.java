@@ -65,7 +65,7 @@ public class EstimatePage extends PageBase {
 
 //     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
 //    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("type == 'XCUIElementTypeStaticText' AND( value CONTAINS[c] 'mins' OR value == 'SELECT')", LocatorType.Predicate);    }
-    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[10]", LocatorType.ClassChain);    }
+    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[9]", LocatorType.ClassChain);    }
 
 
     public WebElement Row_PromoCode() {
@@ -79,7 +79,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_EstimateValue() {
         //return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[6]", LocatorType.ClassChain);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[15]", LocatorType.ClassChain);
     }
 
 
@@ -90,7 +90,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[8]", LocatorType.ClassChain);
     }
 
     public List<WebElement> Text_GenericStaticText() {

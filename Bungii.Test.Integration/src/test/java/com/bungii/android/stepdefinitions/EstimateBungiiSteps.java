@@ -208,7 +208,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     int index = truncValue.indexOf(".");
                     if (truncValue.substring(index).length() == 2) truncValue = truncValue + "0";
                     String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
-                    testStepVerify.isEquals(actualValue, "$" + String.valueOf(truncValue));
+                    testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()));
 

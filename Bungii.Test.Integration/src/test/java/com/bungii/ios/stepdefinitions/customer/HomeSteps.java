@@ -481,8 +481,8 @@ public class HomeSteps extends DriverBase {
             case "ACCOUNT":
                 action.click(homePage.AppMenu_Account());
                 break;
-            case "SCHEDULED BUNGIIS":
-                action.click(homePage.AppMenu_ScheduledTrip());
+            case "MY BUNGIIS":
+                action.click(homePage.AppMenu_MyBungiisTrip());
                 break;
             case "PAYMENT":
                 action.click(homePage.AppMenu_Payment());

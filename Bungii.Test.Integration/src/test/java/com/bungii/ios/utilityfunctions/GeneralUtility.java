@@ -133,7 +133,7 @@ public class GeneralUtility extends DriverBase {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
             action.click(customerHomePage.Button_AppMenu());
-            action.click(customerHomePage.AppMenu_ScheduledTrip());
+            action.click(customerHomePage.AppMenu_MyBungiisTrip());
             List<WebElement> allschBungii = scheduledBungiiPage.List_SchBungii();
             ArrayList<String> detailsArray = new ArrayList<String>();
             if (allschBungii.size() > 0) {

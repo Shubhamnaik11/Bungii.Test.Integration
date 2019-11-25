@@ -14,7 +14,7 @@ Feature: Customer	Menu
     Then I should be navigated to "FAQ" screen
     When I Select "ACCOUNT" from Customer App menu
     Then I should be navigated to "ACCOUNT" screen
-    When I Select "SCHEDULED BUNGIIS" from Customer App menu
+    When I Select "MY BUNGIIS" from Customer App menu
     Then I should be navigated to "SCHEDULED BUNGIIS" screen
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen

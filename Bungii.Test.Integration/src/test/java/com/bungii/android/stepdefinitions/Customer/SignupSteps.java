@@ -216,6 +216,7 @@ public class SignupSteps extends DriverBase {
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
+        action.click(Page_Signup.CheckBox_Promo());
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
