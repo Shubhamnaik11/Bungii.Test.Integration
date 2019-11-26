@@ -138,7 +138,7 @@ Feature: SoloScheduled
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
-  @failed
+
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.

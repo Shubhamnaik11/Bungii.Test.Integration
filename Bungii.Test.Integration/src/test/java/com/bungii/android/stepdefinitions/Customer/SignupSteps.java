@@ -82,7 +82,7 @@ public class SignupSteps extends DriverBase {
                     action.hideKeyboard();
                     //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
-                    Page_Signup.TextField_Referral().click();
+                    Page_Signup.TextField_FirstName().click();
                     action.hideKeyboard();
                     break;
                 default:

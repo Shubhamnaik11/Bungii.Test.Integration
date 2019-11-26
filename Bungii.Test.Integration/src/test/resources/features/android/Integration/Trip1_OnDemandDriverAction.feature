@@ -47,7 +47,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then "Home" page should be opened
-
+  @failed
   @sanity
   @regression
   Scenario: OnDemand_DriverCancelBungii_ArrivedState

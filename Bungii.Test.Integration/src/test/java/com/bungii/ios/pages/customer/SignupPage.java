@@ -39,7 +39,7 @@ public class SignupPage extends PageBase {
     }
 
     public WebElement Textfield_Password() {
-        return findElement("//XCUIElementTypeImage[@name='textfield_password_1']/preceding-sibling::XCUIElementTypeSecureTextField", LocatorType.XPath);
+        return findElement("//XCUIElementTypeImage[@name='textfield_password']/preceding-sibling::XCUIElementTypeSecureTextField", LocatorType.XPath);
     }
 
     public WebElement Textfield_PromoCode() {
