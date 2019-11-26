@@ -891,7 +891,10 @@ public class GeneralUtility extends DriverBase {
                     launchCustomerApplication();
                     action.click(estimatePage.Button_OK());
 
-                } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                } else if (screen.equals("LOGIN")||screen.equals("ONLINE")||screen.equals("OFFLINE")){
+                    //do nothing
+                }
+                    else if (screen.equals(Status.EN_ROUTE.toString())) {
                     logger.detail("Driver struck on EN_ROUTE screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());

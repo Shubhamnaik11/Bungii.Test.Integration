@@ -90,7 +90,8 @@ Feature: Customer Estimate screen
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
       | 30       |           |              | NEXT_POSSIBLE | Default     | No             |
     Then "Load/Upload Time" information icon should display correct information
-    And "Total estimate" information icon should display correct information
+    #removed as part of sprint 32
+  #  And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
 
   @regression

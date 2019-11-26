@@ -207,7 +207,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
-  @TD
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     Given that solo schedule bungii is in progress
