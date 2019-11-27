@@ -11,7 +11,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -143,7 +142,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("INside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();
@@ -168,7 +167,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("inside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualDropoffLocation=actualInfo.get(1).replace(",","").replace("  "," ");
 
         String dropOffLocationLineOne=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
