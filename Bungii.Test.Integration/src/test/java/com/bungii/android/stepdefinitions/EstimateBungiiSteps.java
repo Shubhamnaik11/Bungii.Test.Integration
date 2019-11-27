@@ -742,12 +742,12 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 String newEstimateValue = action.getText(Page_Estimate.Text_TotalEstimate());
                 Thread.sleep(2000);
-                if (i == 0)
+/*                if (i == 0)
                     testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
                             "total Estimated cost is calculated considering  Loading/unloading time",
                             "Total Estimate cost for first scroll value should be same as default one, Previous cost is " + oldEstimateValue + " , new cost is " + newEstimateValue,
                             "Total Estimate cost was recalculated");
-                else
+                else*/
                     testStepVerify
                             .isFalse(newEstimateValue.equals(oldEstimateValue),
                                     "total Estimated cost is calculated considering  Loading/unloading time",
