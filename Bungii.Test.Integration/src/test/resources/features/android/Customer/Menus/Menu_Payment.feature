@@ -33,7 +33,7 @@ Scenarios on Payment Methods
     Then I should see "the card has been deleted" on Payment page
     And I tap on "Menu" > "Logout" link
 
-  @failed
+
   @regression
   Scenario Outline:  As Bungii Customer I should able to add payment card
     Given I am logged in as "valid" customer
@@ -52,7 +52,7 @@ Scenarios on Payment Methods
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
       | VALID_visa     | valid visa card number     | valid expiry date |valid cvv|valid postal code|
-  @failed
+
   @regression
   Scenario:  As Bungii Customer I should not able to add invalid payment Card
     Given I am logged in as "valid" customer

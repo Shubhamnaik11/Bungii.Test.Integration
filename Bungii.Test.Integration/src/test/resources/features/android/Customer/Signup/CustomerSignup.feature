@@ -30,7 +30,7 @@ Feature: CustomerSignup
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page
     Then the new user should see "sign up button disabled"
-  @failed
+
   @regression
   Scenario: Signup_InvalidDetails
     When I enter "invalid" customer phone number on Signup Page
@@ -60,7 +60,7 @@ Feature: CustomerSignup
     And I tap on the "Sign Up" button on Signup Page
     And I tap on the "Yes" button on Signup Page
     Then the new user should see "Signup page"
-  @failed
+
   @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number on Signup Page
