@@ -21,8 +21,9 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
     And I Select Referral source as "<Source>"
     And I click "SIGN UP" button on "SIGN UP" screen
-    Then Alert message with NO PROMO CODE text should be displayed
-    When I reject Alert message
+    #removed as part of sprint 32
+  #  Then Alert message with NO PROMO CODE text should be displayed
+  #  When I reject Alert message
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
@@ -72,9 +73,9 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
     And I Select Referral source as "<Source>"
     And I click "SIGN UP" button on "SIGN UP" screen
-
-    Then Alert message with NO PROMO CODE text should be displayed
-    When I reject Alert message
+#removed as part of sprint 32
+#    Then Alert message with NO PROMO CODE text should be displayed
+#    When I reject Alert message
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code

@@ -1,13 +1,10 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -74,7 +71,7 @@ public class BungiiCompletedSteps extends DriverBase {
             String tripTime =utility.getActualTime();
 
             String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),actualTotalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
-            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" minutes") ||totalTime.equalsIgnoreCase(tripTime+" minute"),"Total time should contains "+tripTime+" minute");
+            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" mins") ||totalTime.equalsIgnoreCase(tripTime+" mins"),"Total time should contains "+tripTime+" minute");
            // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
             testStepVerify.isEquals(actualTotalDistance,tripDistance);
             testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);

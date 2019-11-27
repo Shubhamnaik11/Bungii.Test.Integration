@@ -1,4 +1,5 @@
 @android
+@failed
 Feature: Menu_SaveMoney
 
   @regression

@@ -1,8 +1,8 @@
 package com.bungii.android.stepdefinitions.Customer;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -11,6 +11,8 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
+import java.util.Date;
+
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
 
@@ -18,6 +20,8 @@ public class ScheduledBungiiSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromosSteps.class);
     ActionManager action = new ActionManager();
     ScheduledBungiisPage scheduledBungiisPage;
+    GeneralUtility utility = new GeneralUtility();
+
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -66,8 +70,9 @@ public class ScheduledBungiiSteps extends DriverBase {
      *            Scheduled bungii time
      */
     public void selectBungii(String bungiiType, String bungiiTime) {
-        action.click(getLocatorForBungii(bungiiType, bungiiTime));
-    }
+        Date currentDate = new Date();
+        int year=currentDate.getYear()+1900;
+        action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")+" " +utility.getTimeZoneBasedOnGeofence()));    }
 
 
         /**
@@ -97,7 +102,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     public WebElement getLocatorForBungii(String bungiiType, String bungiiTime) {
         //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 
-        WebElement Image_SelectBungii=scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/scheduled_row_textview_scheduleddatetime' and @text='"+bungiiTime+"']", PageBase.LocatorType.XPath);
+        WebElement Image_SelectBungii=scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='"+bungiiTime+"']", PageBase.LocatorType.XPath);
 
         return Image_SelectBungii;
     }

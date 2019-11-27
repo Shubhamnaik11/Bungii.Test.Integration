@@ -204,7 +204,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | <OLD BUNGII TIME> | Default     | No             |
     Then user is alerted for "already scheduled bungii"
     When I click "Cancel" button on "Estimate" screen
-    And I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
@@ -215,7 +215,7 @@ Feature: To Test Solo - Scheduling Bungii
       | denver      | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    And I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
@@ -228,7 +228,7 @@ Feature: To Test Solo - Scheduling Bungii
       | denver      | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    And I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
 
     And I open new "Chrome" browser for "ADMIN"
@@ -242,5 +242,5 @@ Feature: To Test Solo - Scheduling Bungii
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
-    And I Select "SCHEDULED BUNGIIS" from Customer App menu
+    And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

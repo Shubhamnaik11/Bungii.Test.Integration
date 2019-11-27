@@ -15,14 +15,10 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -160,7 +156,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("INside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();
@@ -185,7 +181,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("inside trip info validation");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualDropoffLocation=actualInfo.get(1).replace(",","").replace("  "," ");
 
         String dropOffLocationLineOne=String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",","").replace("Rd","Road").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
@@ -269,7 +265,12 @@ public class BungiiInProgressSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
             cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
         }
-        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"))+" "+utility.getTimeZoneBasedOnGeofence());
+        String telet=((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"));
+        //Initial Zero is truncated
+        if (telet.startsWith("0"))
+            telet = telet.substring(1);
+
+        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+telet+" "+utility.getTimeZoneBasedOnGeofence());
     }
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
@@ -354,7 +355,7 @@ public class BungiiInProgressSteps extends DriverBase {
         //=if((C5<1),10,C5)+D5+E5+4
         int FLUFF_TIME=4;
         loadingTime=(loadingTime<1?10:loadingTime);
-        loadingTime=10;
+     //   loadingTime=10;
         long totalTimeETAtoPickup=loadingTime+timeToCoverDistance[0]+timeToCoverDistance[1]+FLUFF_TIME;
         long tripProjectedEndTime=loadingTime+timeToCoverDistance[0];
         String tripStartTime=DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);

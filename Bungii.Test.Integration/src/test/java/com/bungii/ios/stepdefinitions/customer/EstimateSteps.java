@@ -87,8 +87,8 @@ public class EstimateSteps extends DriverBase {
                 }
             }
 
-           /* testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
-                    "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed"); */
+            testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
+                    "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
             testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
@@ -184,7 +184,7 @@ public class EstimateSteps extends DriverBase {
         try {
             String distance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
             String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-            estimate = estimate.replace("$", "");
+            estimate = estimate.replace("~$", "");
             String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");
             GeneralUtility utility = new GeneralUtility();
             //get data from DB instead of Phone Screen
@@ -430,12 +430,12 @@ public class EstimateSteps extends DriverBase {
                         "I was not able to to select " + loadTimeValue[i] + "mins as load time");
                 String newEstimateValue = getElementValue("Total Estimate");
 
-                if (i == 0)
+/*                if (i == 0)
                     testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
                             "total Estimated cost is calculated considering  Loading/unloading time",
                             "Total Estimate cost for first scroll value should be same as default one, Previous cost is " + oldEstimateValue + " , new cost is " + newEstimateValue,
                             "Total Estimate cost was recalculated");
-                else
+                else*/
                     testStepVerify
                             .isFalse(newEstimateValue.equals(oldEstimateValue),
                                     "total Estimated cost is calculated considering  Loading/unloading time",
@@ -696,7 +696,7 @@ public class EstimateSteps extends DriverBase {
 
         if (expectedValue.equals("<IN DOLLAR>")) {
             String v = value.substring(1);
-            boolean correct = v.matches("[0-9]*\\.?[0-9]+");
+            boolean correct = v.matches("~[0-9]*\\.?[0-9]+");
 
             isValueCorrect = value.startsWith("$") && correct;
         } else if (expectedValue.equals("{PREVIOUS VALUE}")) {
@@ -813,13 +813,13 @@ public class EstimateSteps extends DriverBase {
 
         List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
 
-        details[0]=action.getValueAttribute(genericStaticText.get(1));
+        details[0]=action.getValueAttribute(genericStaticText.get(10));
       //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
-        details[1] = action.getValueAttribute(genericStaticText.get(10));//
+        details[1] = action.getValueAttribute(genericStaticText.get(7));//
      //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
-        details[2] = action.getValueAttribute(genericStaticText.get(5));//6
+        details[2] = action.getValueAttribute(genericStaticText.get(14));//6
     //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(genericStaticText.get(9));//10
+        details[3] = action.getValueAttribute(genericStaticText.get(8));//10
      //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }

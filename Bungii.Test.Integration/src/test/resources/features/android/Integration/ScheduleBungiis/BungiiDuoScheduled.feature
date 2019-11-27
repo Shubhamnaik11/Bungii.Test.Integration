@@ -666,7 +666,7 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
 
-  @newscenario
+  @dev
   Scenario: Short stack : Check status of current and stack pickup ,Verify stack request alert message and decked request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -780,7 +780,7 @@ Feature: Duo
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
-
+@TD
   @dev
   Scenario: Verify driver can Long stack request on Arrived status
     Given that ondemand bungii is in progress

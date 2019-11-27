@@ -136,7 +136,7 @@ public class GeneralUtility extends DriverBase {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
             ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
             action.click(customerHomePage.Button_AppMenu());
-            action.click(customerHomePage.AppMenu_ScheduledTrip());
+            action.click(customerHomePage.AppMenu_MyBungiisTrip());
             List<WebElement> allschBungii = scheduledBungiiPage.List_SchBungii();
             ArrayList<String> detailsArray = new ArrayList<String>();
             if (allschBungii.size() > 0) {
@@ -1096,7 +1096,7 @@ public class GeneralUtility extends DriverBase {
         int[]  timeToCoverDistance=new GoogleMaps().getDurationInTraffic(driverLocation,dropLocation,newPickupLocations);
         int FLUFF_TIME=4;
         loadingTime=(loadingTime<1?10:loadingTime);
-        loadingTime=10;
+       // loadingTime=10;
         long totalTimeETAtoPickup=loadingTime+timeToCoverDistance[0]+timeToCoverDistance[1]+FLUFF_TIME;
         long tripProjectedEndTime=loadingTime+timeToCoverDistance[0];
         String tripStartTime= com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
