@@ -17,10 +17,11 @@ import java.util.Properties;
 import java.util.stream.Stream;
 
 public class CheckingMails {
-    String host = "imap.googlemail.com";// change accordingly
+    String host = "imap.gmail.com";// change accordingly
+  //  String host = "imap.googlemail.com";// change accordingly
     String user = "vishal.bagi.cci@gmail.com";// change accordingly
     String signUpEmailAddress = "vishal.bagi@creativecapsule.com";// change accordingly
-    String password = "password";// change accordingly
+    String password = "@BLAbla3";// change accordingly
 
     public String checkAndFindActivationURL( ) {
         String activationURL = null;
@@ -28,10 +29,11 @@ public class CheckingMails {
         long t = System.currentTimeMillis();
         long end = t + (5 * 60 * 1000);//run for 5 min 5*60*1000 in milli seconds
         boolean EmailwithLinkFound = false;
-        String JAVA_HOME="C:\\Program Files\\Java\\jdk1.8.0_131";
         while ((System.currentTimeMillis() < end)) {
 
             try {
+                System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.8.0_131/jre/lib/security/cacerts");
+                System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
 
                 Properties properties = new Properties();
                 properties.setProperty("mail.store.protocol", "imaps");
@@ -65,9 +67,8 @@ public class CheckingMails {
                     System.out.println("*****************************************************************************");
                     System.out.println("MESSAGE " + (i + 1) + ":");
                     Message msg = messages[i];
-                    //System.out.println(msg.getMessageNumber());
+                    System.out.println(msg.getMessageNumber());
                     //Object String;
-                    //System.out.println(folder.getUID(msg)
 
                     String subject = msg.getSubject();//important value
 
