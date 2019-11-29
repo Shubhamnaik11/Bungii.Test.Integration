@@ -63,7 +63,7 @@ public class BungiiCompleteSteps extends DriverBase {
 		int tripActualTime=Integer.parseInt(utility.getActualTime());
 		String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
-		testStepVerify.isTrue(totalTime.contains(tripActualTime+ "  minute")||totalTime.contains(tripActualTime+ " minute"),"Total time should contains"+tripActualTime+" minute");
+		testStepVerify.isTrue(totalTime.contains(tripActualTime+ "  mins")||totalTime.contains(tripActualTime+ " mins"),"Total time should contains"+tripActualTime+" minute");
 		testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
 		//Vishal[2503]:TODO: add more
 	}

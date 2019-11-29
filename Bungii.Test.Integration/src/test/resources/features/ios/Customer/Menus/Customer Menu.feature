@@ -5,6 +5,7 @@ Feature: Customer	Menu
 
   Background: 
     Given I am on Customer logged in Home page
+
 @POSTDUO
   @regression
   Scenario: As Bungii customer I want to check all menu links
@@ -15,7 +16,7 @@ Feature: Customer	Menu
     When I Select "ACCOUNT" from Customer App menu
     Then I should be navigated to "ACCOUNT" screen
     When I Select "MY BUNGIIS" from Customer App menu
-    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    Then I should be navigated to "MY BUNGIIS" screen
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I Select "SUPPORT" from Customer App menu

@@ -33,7 +33,7 @@ Feature: EstimateBungii
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     Then I should see "all elements" on Bungii estimate
-  @failed
+
   @regression
   Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
     When I Select "HOME" from customer app menu list

@@ -7,7 +7,6 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
-import cucumber.api.junit.Cucumber;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -15,7 +14,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -250,9 +248,10 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response);
             cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
             String bungiiDistance="";
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+            //now two decimal point are shown
+/*            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
                 bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
-            else
+            else*/
                 bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
 
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);

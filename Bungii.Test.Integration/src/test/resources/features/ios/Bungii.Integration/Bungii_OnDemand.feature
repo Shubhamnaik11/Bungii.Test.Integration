@@ -1,9 +1,10 @@
 @ios
+@RAN
   # this will run in 	nashville
 Feature: Create on demand bungii
 
   Background:
-
+  @IOSFAILED
   @POSTDUO
   @sanity
   @regression
@@ -163,7 +164,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-
+  @IOSFAILED
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
     Given that ondemand bungii is in progress
@@ -228,7 +229,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-
+  @IOSFAILED
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page

@@ -1,5 +1,5 @@
 @ios
-
+@RAN
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
@@ -23,7 +23,7 @@ Feature: Customer Estimate screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
-
+  @IOSFAILED
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
@@ -42,7 +42,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     And Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           |            | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
+      | {PREVIOUS VALUE} | SELECT           |            | {PREVIOUS VALUE} | **** 4242/**** 1117    |      | UNCHECK             | DISABLED       |
 
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
@@ -104,7 +104,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on Estimate screen
     And Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242/x1117    | Now  | UNCHECK             | DISABLED       |
+      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | **** 4242/**** 1117    | Now  | UNCHECK             | DISABLED       |
 
 
   @regression

@@ -11,7 +11,7 @@ public class SignupPage extends PageBase {
         return findElement("LOGIN", LocatorType.Name);
     }
     public WebElement Button_CheckBox_Referral() {
-        return findElement("check box on", LocatorType.Name);
+        return findElement("check box off", LocatorType.Name);
     }
 
     public WebElement Button_Verify() {

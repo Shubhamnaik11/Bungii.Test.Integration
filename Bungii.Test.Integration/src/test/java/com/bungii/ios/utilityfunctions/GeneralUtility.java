@@ -563,6 +563,7 @@ public class GeneralUtility extends DriverBase {
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.account");
                 break;
             case "SCHEDULED BUNGIIS":
+            case "MY BUNGIIS":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.scheduled.bungii");
                 break;
             case "PAYMENT":

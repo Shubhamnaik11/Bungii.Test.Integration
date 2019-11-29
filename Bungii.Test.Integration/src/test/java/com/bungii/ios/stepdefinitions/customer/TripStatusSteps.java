@@ -112,7 +112,7 @@ public class TripStatusSteps extends DriverBase {
                 fail(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",
-                        "Trip Information is correctly displayed and driver name :" + expectedDriverName
+                        "Trip Information is not correctly displayed and driver name :" + getCustomerName()
                                 + "is displayed correctly");
 
             }
