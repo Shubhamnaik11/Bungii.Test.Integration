@@ -5,7 +5,7 @@ Feature: CustomerSignup
   Background:
 
     Given I am on Sign up page
-  @failed
+
   @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -37,7 +37,7 @@ Feature: CustomerSignup
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-  @failed
+  
   @regression
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page
