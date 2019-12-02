@@ -209,27 +209,31 @@ public class CheckingMails {
 
         List<String> listF1 = Files.readAllLines(p1);
         List<String> listF2 = Arrays.asList(emailValue.split("\r\n"));
-        if(listF1.size()==listF2.size())
-        for(int i=0;i<listF1.size();i++){
 
-            if(listF1.get(i).equals(listF2.get(i))){
-                System.out.println("Subject: match found");
+        if(listF1.size()==listF2.size()){
+            if ((listF1.equals(listF2)))
+            {
+                System.out.println("Both list are matching");
 
             }else{
-                System.out.println(listF1.get(i));
-                System.out.println(listF2.get(i));
+                //both list are not matching ,iterate over all line to check value
+                for(int i=0;i<listF1.size();i++){
 
+                    if(listF1.get(i).equals(listF2.get(i))){
+                  //      System.out.println("Subject: match found");
+
+                    }else{
+                        System.out.println("Both list are matching");
+
+                        System.out.println(listF1.get(i));
+                        System.out.println(listF2.get(i));
+
+                    }
+                }
             }
         }
-        if ((listF1.equals(listF2)))
-        {
-            System.out.println("Subject: match found");
 
-        }else{
 
-            System.out.println("Subject: not found"+contentBuilder.toString().compareTo(emailValue));
-
-        }
         return contentBuilder.toString();
     }
 
