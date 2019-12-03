@@ -9,7 +9,7 @@ Feature: Menu_SaveMoney
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
     And I tap on "Menu" > "Logout" link
-    q
+    
   @regression
   Scenario: Menu_SaveMoney_AddValid
     Given I am logged in as "existing" customer
