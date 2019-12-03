@@ -250,7 +250,7 @@ Feature: Create on demand bungii
     When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location           | Geofence |
-      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States| nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen

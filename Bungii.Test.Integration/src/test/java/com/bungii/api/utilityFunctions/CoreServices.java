@@ -14,6 +14,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -253,9 +254,10 @@ public class CoreServices extends DriverBase {
                 bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
             else*/
                 bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
+            String truncValue = new DecimalFormat("#.00").format(jsonPathEvaluator.get("Estimate.Cost"));
 
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
-            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "$" + jsonPathEvaluator.get("Estimate.Cost"));
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
@@ -340,9 +342,9 @@ public class CoreServices extends DriverBase {
         String[] nextAvailableBungii = getScheduledBungiiTime();
         Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
-
-        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
             String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");

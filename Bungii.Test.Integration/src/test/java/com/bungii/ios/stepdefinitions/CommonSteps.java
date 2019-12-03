@@ -134,6 +134,7 @@ public class CommonSteps extends DriverBase {
 
             switch (messageElement.toUpperCase()) {
                 case "BUNGII CANCEL":
+                    Thread.sleep(35000);
                     messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
                     break;
                 case "ADD NEW CARD":

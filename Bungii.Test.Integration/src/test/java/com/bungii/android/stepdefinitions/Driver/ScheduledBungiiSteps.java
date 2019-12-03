@@ -51,9 +51,11 @@ public class ScheduledBungiiSteps extends DriverBase {
         if(!skipNormalFlow) {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             List<WebElement> listOfScheduledTrip = scheduledBungiiPage.List_ScheduledBungiis();
+            String timeZone=utility.getTimeZoneBasedOnGeofence();
             for (WebElement element : listOfScheduledTrip) {
                 WebElement schDate = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_scheduleddatetime"));
                 WebElement schTimeZone = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_timezone_label"));
+                if(!tripTime.contains(timeZone))tripTime=tripTime+" "+timeZone;
                 if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
                     action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
