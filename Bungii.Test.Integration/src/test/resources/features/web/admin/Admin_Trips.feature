@@ -31,7 +31,6 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
 
 
-  @testing
   @sanity
   @regression
     #test data created in base
@@ -61,7 +60,6 @@ Feature: Admin_Trips
       | Status |
       | Payment Successful |
 
-  @testing2
   @sanity
   @regression
     #test data created in base
@@ -91,8 +89,6 @@ Feature: Admin_Trips
       | Payment Successful |
 
 
-
-  @testing
   @sanity
   @regression
     #test data created in base
@@ -117,15 +113,15 @@ Feature: Admin_Trips
       | Status |
       | Admin Cancelled |
 
-  @testing
   @sanity
   @regression
     #test data created in base
+    #changed driver name
   Scenario: Remove driver and Research As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     And I view the Scheduled Trips list on the admin portal
@@ -138,16 +134,16 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
 
-  @testing
   @sanity
   @regression
     #test data created in base
+    #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Trips List Statuses - Solo Ondemand
-    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000004 | Testcustomertywd_appleweb CustD|
     And I view the Live Trips list on the admin portal
@@ -197,7 +193,6 @@ Feature: Admin_Trips
       | Status |
       | Payment Successful |
 
-  @testing
   @sanity
   @regression
     #test data created in base
