@@ -315,20 +315,18 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
 
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
-        testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_SuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
     }
     @Then("^Pickup should be unassigned from the driver$")
     public void pickup_should_be_unassigned_from_the_driver() throws Throwable {
-
-
-
 
     }
 
     @And("^I select the first driver$")
     public void i_select_the_first_driver() throws Throwable {
-        String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-        action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
+        //String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        //action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
+        action.click(admin_ScheduledTripsPage.Checkbox_driver());
     }
 
     public String getGeofence(String geofence)
