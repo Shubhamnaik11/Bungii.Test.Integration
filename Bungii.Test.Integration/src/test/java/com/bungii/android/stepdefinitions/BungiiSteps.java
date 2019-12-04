@@ -208,7 +208,7 @@ public class BungiiSteps extends DriverBase {
                             break;
 
                         case "rejects On Demand Bungii":
-                            Thread.sleep(2000);
+                            Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
                     }
