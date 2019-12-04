@@ -56,7 +56,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 if (Phone.isEmpty())
                     Phone = generatePhoneNumber();
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
-
+                Thread.sleep(1000);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
@@ -147,6 +147,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the business user gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_business_user_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
+        Thread.sleep(1000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");

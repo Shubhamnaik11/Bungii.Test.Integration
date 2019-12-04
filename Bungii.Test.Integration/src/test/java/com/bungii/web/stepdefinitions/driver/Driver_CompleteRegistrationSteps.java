@@ -109,9 +109,9 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
                 break;
 
             case "invalid":
-                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber_Existing"));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseExpiry(), PropertyUtility.getDataProperties("Date_2015"));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("Date_2015"));
+                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber_Existing"));//ZH5J56W3
                 break;
             default:
                 break;
