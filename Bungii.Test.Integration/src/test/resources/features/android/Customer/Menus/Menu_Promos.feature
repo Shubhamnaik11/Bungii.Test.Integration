@@ -1,5 +1,5 @@
 @android
-@failed1
+
 Feature: Menu_SaveMoney
   @regression
   Scenario: Menu_SaveMenu_FirstTimePromo_Not a first time user

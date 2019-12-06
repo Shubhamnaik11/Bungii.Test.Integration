@@ -1,5 +1,4 @@
 @ios
-
 Feature: Customer	Menu
   As a Bungii customer I want to check all menu links
 

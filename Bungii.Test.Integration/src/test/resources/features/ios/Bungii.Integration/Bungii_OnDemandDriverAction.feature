@@ -1,5 +1,4 @@
 @ios
-@RAN
   # this will run in miami
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
@@ -38,7 +37,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
 
-  @FAILED
   @sanity
   @regression
   Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.

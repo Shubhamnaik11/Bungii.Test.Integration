@@ -5,7 +5,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
   Background:
     Given I am on the "SIGN UP" page
-  #@IOSFAILED
+
   @regression
   Scenario Outline: Referral source should be incremented by 1 if a customer registered by selecting Referral source. Scenario :<Scenario>
 
@@ -36,7 +36,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | Source :OTHER | Mike     | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
-#  @IOSFAILED
+
   @regression
   Scenario Outline:As a new Bungii Customer I should submit registration form with Promo code
     When I open new "Chrome" browser for "ADMIN"

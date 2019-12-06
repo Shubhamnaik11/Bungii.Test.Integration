@@ -1,12 +1,11 @@
 @ios
 @scheduled
-@RAN
     # this will run in denver
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
   Background:
-  @IOSFAILED
+
   @POSTDUO
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
@@ -187,7 +186,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @IOSFAILED
+
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
     Given that solo schedule bungii is in progress
@@ -208,7 +207,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then I Cancel selected Bungii
-  @IOSFAILED
+
   @regression
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     Given that solo schedule bungii is in progress
@@ -221,7 +220,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
-  @IOSFAILED
+
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress

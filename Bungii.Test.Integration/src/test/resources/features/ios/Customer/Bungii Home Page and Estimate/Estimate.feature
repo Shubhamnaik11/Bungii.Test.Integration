@@ -1,5 +1,4 @@
 @ios
-@RAN
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
@@ -23,7 +22,7 @@ Feature: Customer Estimate screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
-  @IOSFAILED
+
   @regression
   Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location

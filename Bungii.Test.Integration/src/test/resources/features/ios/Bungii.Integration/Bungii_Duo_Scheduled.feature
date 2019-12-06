@@ -1,7 +1,5 @@
 @ios
 @DUO
-  @RAN
-  @IOSFAILED1
 @scheduled
 Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
