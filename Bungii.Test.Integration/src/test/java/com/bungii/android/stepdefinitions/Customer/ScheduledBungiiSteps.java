@@ -72,7 +72,12 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void selectBungii(String bungiiType, String bungiiTime) {
         Date currentDate = new Date();
         int year=currentDate.getYear()+1900;
-        action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")+" " +utility.getTimeZoneBasedOnGeofence()));    }
+        if(!bungiiTime.contains(utility.getTimeZoneBasedOnGeofence()))
+            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")+" " +utility.getTimeZoneBasedOnGeofence()));
+        else
+            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
+
+    }
 
 
         /**

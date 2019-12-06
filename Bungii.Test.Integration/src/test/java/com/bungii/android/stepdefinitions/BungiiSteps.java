@@ -11,7 +11,6 @@ import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -25,6 +24,7 @@ import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -232,7 +232,7 @@ public class BungiiSteps extends DriverBase {
                             break;
 
                         case "rejects On Demand Bungii":
-                            Thread.sleep(2000);
+                            Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Reject());
                             break;
                     }
@@ -405,6 +405,8 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_LoadingItem(), " Loading icon should not be high lighted ", " Loading icon is not high lighted", "Loading icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_DrivingToDropOff(), " Driving to Drop Off icon should not be high lighted ", " Driving to Drop Off icon is not high lighted", " Driving to Drop Off icon is high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_UnloadingItem(), " Unloading icon should not be high lighted ", "Unloading icon is not high lighted", "Unloading icon is  high lighted");
+                    testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");
+                    testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
                     testStepVerify.isEquals(Page_DriverBungiiProgress.Title_Status().getText(), Status.ARRIVED.toString(), "I should be navigate to ARRIVED Screen", "I am navigate to ARRIVED Screen", "I was not navigate to ARRIVED Screen");
                     testStepVerify.isElementSelected(Page_DriverBungiiProgress.BungiiStatus_Arrived(), " Arrived icon should be high lighted ", "Arrived icon is high lighted", "Arrived icon is not  high lighted");
                     testStepVerify.isElementNotSelected(Page_DriverBungiiProgress.BungiiStatus_Enroute(), " En route icon should not be high lighted ", "En route icon is not high lighted", "En route icon is high lighted");

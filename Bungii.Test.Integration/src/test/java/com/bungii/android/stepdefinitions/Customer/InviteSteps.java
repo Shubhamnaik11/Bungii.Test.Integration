@@ -16,7 +16,6 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -154,7 +153,10 @@ public class InviteSteps extends DriverBase {
                     action.hideKeyboard();
                     testStepVerify.isElementTextEquals(invitePage.Gmail_Referral_Subject(), PropertyUtility.getMessage("customer.invite.mailsub"));
                     expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", referralCode);
-                    testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    if(action.isElementPresent(invitePage.Gmail_Referral_Body_other(true)))
+                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body_other()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    else
+                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     break;
 
                 case "on Twitter in browser":

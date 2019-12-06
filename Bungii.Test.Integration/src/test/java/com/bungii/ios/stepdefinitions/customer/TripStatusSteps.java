@@ -80,7 +80,7 @@ public class TripStatusSteps extends DriverBase {
 
             String expectedDriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             expectedDriverName = expectedDriverName.substring(0, expectedDriverName.indexOf(" ") + 2);
-            boolean isDriverDisplayed = getCustomerName().equals(expectedDriverName);
+            boolean isDriverDisplayed = getCustomerName().replace("  "," ").equals(expectedDriverName);
             logger.detail("after driver name");
 
             switch (key) {
@@ -113,7 +113,7 @@ public class TripStatusSteps extends DriverBase {
                 fail(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",
-                        "Trip Information is correctly displayed and driver name :" + expectedDriverName
+                        "Trip Information is not correctly displayed and driver name :" + getCustomerName().replace("  "," ")
                                 + "is displayed correctly");
 
             }

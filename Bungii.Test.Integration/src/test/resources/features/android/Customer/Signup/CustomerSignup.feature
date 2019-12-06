@@ -5,7 +5,7 @@ Feature: CustomerSignup
   Background:
 
     Given I am on Sign up page
-  @failed
+
   @regression
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -30,14 +30,14 @@ Feature: CustomerSignup
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page
     Then the new user should see "sign up button disabled"
-  @failed
+
   @regression
   Scenario: Signup_InvalidDetails
     When I enter "invalid" customer phone number on Signup Page
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-  @failed
+  
   @regression
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page
@@ -61,7 +61,7 @@ Feature: CustomerSignup
     And I tap on the "Yes" button on Signup Page
     Then the new user should see "Signup page"
 
-  @failed
+
   @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number on Signup Page

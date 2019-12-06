@@ -196,7 +196,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I logged in Customer application using  "valid denver" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location               | Drop Location                    | Geofence |
-      | Solo   | Welton Street Denver Colorado | 16th Street Mall Denver Colorado |denver   |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado |denver   |
     And I click "Get Estimate" button on "Home" screen
    # Then I should be navigated to "Estimate" screen
     And I confirm trip with following details
@@ -237,7 +237,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
       | Charge | Comments |
-      | 15     | TEST     |
+      | 0     | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance

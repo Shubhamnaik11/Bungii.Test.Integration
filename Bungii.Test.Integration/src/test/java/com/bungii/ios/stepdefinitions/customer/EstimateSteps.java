@@ -689,16 +689,17 @@ public class EstimateSteps extends DriverBase {
      * @param expectedValue expected value for Total Estimate
      */
     public void checkEstimate(String expectedValue) {
+        action.swipeUP();
         boolean isElementPresent = checkIfElementIsPresent("Total Estimate");
         String value = getElementValue("Total Estimate");
         System.err.println("Value is " + value);
         boolean isValueCorrect = false;
 
         if (expectedValue.equals("<IN DOLLAR>")) {
-            String v = value.substring(1);
-            boolean correct = v.matches("~[0-9]*\\.?[0-9]+");
+            String v = value.substring(2);
+            boolean correct = v.matches("[0-9]*\\.?[0-9]+");
 
-            isValueCorrect = value.startsWith("$") && correct;
+            isValueCorrect = value.startsWith("~$") && correct;
         } else if (expectedValue.equals("{PREVIOUS VALUE}")) {
 
             isValueCorrect = value.equals((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
@@ -713,7 +714,7 @@ public class EstimateSteps extends DriverBase {
         testStepVerify.isTrue(isValueCorrect,
                 " Total Estimate value Should be " + expectedValue, " Time value is " + value + " as expected",
                 "' Total Estimate' value is not matching ,expected is" + expectedValue + "but actual is" + value);
-
+        action.swipeDown();
     }
 
     /**
@@ -774,6 +775,7 @@ public class EstimateSteps extends DriverBase {
      * @param expectedValue expected value for trip distance
      */
     public void checkTripDistance(String expectedValue) {
+        action.swipeUP();
         boolean isElementPresent = checkIfElementIsPresent("Trip Distance");
         String value = getElementValue("Trip Distance");
         System.err.println("Value is " + value);
@@ -799,7 +801,7 @@ public class EstimateSteps extends DriverBase {
         testStepVerify.isTrue(isValueCorrect,
                 " Trip Distance value Should be " + expectedValue, " Trip Distance value is " + value + " as expected",
                 "'Trip Distance' value is not matching ,expected is" + expectedValue + "but actual is" + value);
-
+        action.swipeDown();
     }
 
 

@@ -267,8 +267,9 @@ public class BungiiInProgressSteps extends DriverBase {
         }
         String telet=((String)cucumberContextManager.getScenarioContext("DRIVER_TELET"));
         //Initial Zero is truncated
-        if (telet.startsWith("0"))
-            telet = telet.substring(1);
+        //Sprint 32 , Initial zero are displayed
+/*        if (telet.startsWith("0"))
+            telet = telet.substring(1);*/
 
         testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+telet+" "+utility.getTimeZoneBasedOnGeofence());
     }

@@ -1,7 +1,8 @@
 @android
 @duo
-@failed
+
   #These feature will run in atlanta geofence
+
 Feature: Duo
 
   @sanity
@@ -392,7 +393,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-  @newScenario
+    @regression
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -526,7 +527,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @newScenario
+  @newScenario7
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -666,7 +667,7 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
 
-  @dev
+  @regression
   Scenario: Short stack : Check status of current and stack pickup ,Verify stack request alert message and decked request
     Given I am on customer Log in page
     When I am logged in as "valid" customer

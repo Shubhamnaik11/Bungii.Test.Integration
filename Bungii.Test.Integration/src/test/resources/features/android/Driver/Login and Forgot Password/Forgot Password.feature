@@ -8,7 +8,7 @@ Feature: FORGOT PASSWORD
   Background:
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-  @failed
+
   @regression
   Scenario Outline: As Bungii driver, I should be alerted if I add invalid phone number during Forgot Password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app

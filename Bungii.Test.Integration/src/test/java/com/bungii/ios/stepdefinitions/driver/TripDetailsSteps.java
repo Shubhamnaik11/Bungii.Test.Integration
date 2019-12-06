@@ -52,9 +52,10 @@ public class TripDetailsSteps extends DriverBase {
             String timeValue = expectedTripTime.split(",")[1].trim();
            // timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
             String expectedDate = expectedTripTime.split(",")[0].trim();
-            int leadingZero = expectedDate.indexOf(" ") + 1;
+            //earlier initial Zero was displayed , Not it is getting displayed
+/*            int leadingZero = expectedDate.indexOf(" ") + 1;
             if (expectedDate.substring(leadingZero, leadingZero + 1).startsWith("0"))
-                expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);
+                expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);*/
             boolean isDateCorrect = expectedDate.trim().equals(actualDetails[2].split("-")[0].trim());
             boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("-")[1].trim());
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
