@@ -527,7 +527,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @newScenario7
+
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -782,7 +782,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 @TD
-  @dev
+
   Scenario: Verify driver can Long stack request on Arrived status
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -805,7 +805,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @dev
+  @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -920,7 +920,7 @@ Feature: Duo
       | Customer Phone | Customer2 Phone |
       | 9871450107     |                 |
 
-
+  @newScenario7
   @dev
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
 

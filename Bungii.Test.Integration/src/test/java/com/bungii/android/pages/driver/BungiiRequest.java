@@ -33,7 +33,7 @@ public class BungiiRequest extends PageBase {
     public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_pickup']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_PickupLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_pickup']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
 
-    public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/android.widget.TextView[1]", LocatorType.XPath); }
-    public WebElement Text_DropOffLocation_LineTwo () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Text_DropOffLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
 
 }

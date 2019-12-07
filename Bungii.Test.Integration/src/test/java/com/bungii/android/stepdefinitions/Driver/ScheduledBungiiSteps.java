@@ -83,10 +83,11 @@ public class ScheduledBungiiSteps extends DriverBase {
             Date currentDate = new Date();
 
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-            bungiiTime =bungiiTime+" "+(currentDate.getYear()+1900);
+      //      bungiiTime =bungiiTime+" "+(currentDate.getYear()+1900);
             int mininumWaitTime = Integer.parseInt(PropertyUtility.getProp("scheduled.min.start.time"));
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
-                DateFormat formatter = new SimpleDateFormat("MMM dd, hh:mm a yyyy");
+                DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+          //      DateFormat formatter = new SimpleDateFormat("MMM dd, hh:mm a yyyy");
              //   formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
                 formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
                 Date bungiiDate = formatter.parse(bungiiTime);
