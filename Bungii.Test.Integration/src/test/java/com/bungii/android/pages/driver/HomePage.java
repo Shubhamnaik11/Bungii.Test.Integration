@@ -33,5 +33,15 @@ public class HomePage extends PageBase {
     public WebElement Notification_AlertAccept () { return findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id); }
     public WebElement Notification_AlertReject () { return findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id); }
 
+    public WebElement Text_CommonQuestions () { return findElement("//android.view.View[@text='COMMON QUESTIONS']",LocatorType.XPath); }
+    public WebElement Text_Leaderboard () { return findElement("//*[@resource-id='content']/android.view.View[2]/descendant::android.view.View[last()]", LocatorType.XPath); }
+    public WebElement Text_ScheduledBungiis () { return findElement("//android.widget.TextView[@text='No Bungiis']",LocatorType.XPath); }
+    public WebElement Text_AvailableTrips () { return findElement("//android.widget.TextView[@text='No Trips Available']",LocatorType.XPath); }
+    public WebElement Text_Earnings () { return findElement("//android.view.View[@text='DRIVER INFO']",LocatorType.XPath); }
+    public WebElement Text_Account () { return findElement("//*[@resource-id='com.bungii.driver:id/account_info_textview_name']",LocatorType.XPath); }
+    public WebElement Text_TripAlertSettings () { return findElement("//*[@resource-id='com.bungii.driver:id/text_settings_radio_trip_alerts']",LocatorType.XPath); }
+    public WebElement Text_Feedback() { return findElement("//*[@resource-id='com.bungii.driver:id/feedback_text_view_title']",LocatorType.XPath); }
+    public WebElement Text_Store () { return findElement("//android.view.View[@text='BUNGII STORE']",LocatorType.XPath); }
+    public WebElement Text_Logout () { return findElement("//android.widget.TextView[@text='LOGIN']",LocatorType.XPath); }
 
 }

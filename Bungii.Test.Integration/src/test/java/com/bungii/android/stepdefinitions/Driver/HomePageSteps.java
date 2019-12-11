@@ -44,12 +44,17 @@ public class HomePageSteps extends DriverBase {
             boolean isClicked = false;
             action.click(homePage.Button_NavigationBar());
             List<WebElement> elements = homePage.Button_NavigationBarText();
+
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
                     action.click(element);
                     isClicked = true;
                     break;
                 }
+            }
+            if (!isClicked) {
+                action.scrollToBottom();
+                isClicked = utility.clickDriverMenu(menuItem);
             }
             testStepAssert.isTrue(isClicked, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
         } catch (Exception e) {

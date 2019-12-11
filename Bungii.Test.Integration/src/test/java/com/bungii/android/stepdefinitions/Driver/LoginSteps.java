@@ -127,11 +127,11 @@ public class LoginSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            log("I click "+option+ " button on Log In screen on driver app","I clicked"+option+ " button on Log In screen on driver app",true);
+            log("I click "+option+ " button on Log In screen on driver app","I clicked"+option+ " button on Log In screen on driver app",false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", false);
         }
     }
 
@@ -158,6 +158,16 @@ public class LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError2()), PropertyUtility.getMessage("driver.login.password.error"));
                     break;
+                case "Your account registration is still under process.":
+                    //testStepVerify.isEquals(action.getText(driverLogInPage.Text_PendingDriverLoginError()), PropertyUtility.getMessage("driver.login.payment.pending.error"));
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Your account registration is still under process.");
+                    break;
+
+                case "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.");
+                    System.out.println("Test test test  "+utility.getDriverSnackBarMessage().toString());
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -167,5 +177,21 @@ public class LoginSteps extends DriverBase {
         }
     }
 
+    @When("^I enter phoneNumber$")
+    public void i_enter_phonenumber() {
+        String phone = PropertyUtility.getDataProperties("driver.locked.login.phone");
+        action.sendKeys(driverLogInPage.TextField_PhoneNumber(), phone);
+    }
+
+    @And("^I enter invalid password and click on \"([^\"]*)\" button for 5 times on Log In screen on driver app$")
+    public void i_enter_invalid_password_and_click_on_something_button_for_5_times_on_log_in_screen_on_driver_app(String strArg1) throws Throwable {
+
+        String password = PropertyUtility.getDataProperties("driver.locked.login.password");
+        action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+        for(int i=0; i<5; i++){
+            action.click(driverLogInPage.Button_Login());
+        }
+    }
 
 }
