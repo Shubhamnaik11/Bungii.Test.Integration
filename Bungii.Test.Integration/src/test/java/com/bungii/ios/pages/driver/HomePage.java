@@ -64,5 +64,9 @@ public class HomePage extends PageBase {
     public List<WebElement> HalfFilledStar() {return findElements("//*[contains(@name, 'rating half filled star icon')]", LocatorType.XPath);}
     public List<WebElement> UnselectedStars() {return findElements("//*[contains(@name, 'rating unselected star icon')]", LocatorType.XPath);}
 
+    public WebElement Text_CommonQuestions() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'COMMON QUESTIONS'", PageBase.LocatorType.Predicate); }
+
+
+
 
 }

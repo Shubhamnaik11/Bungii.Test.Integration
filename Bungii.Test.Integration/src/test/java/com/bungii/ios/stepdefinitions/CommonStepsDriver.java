@@ -261,6 +261,9 @@ public class CommonStepsDriver extends DriverBase {
                 case "EMPTY_FIELD":
                     expectedMessage = PropertyUtility.getMessage("driver.error.emptyfield");
                     break;
+                case "YOUR ACCOUNT REGISTRATION IS STILL UNDER PROCESS.":
+                    expectedMessage = PropertyUtility.getMessage("driver.error.pending.status");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
