@@ -6,13 +6,14 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
-import cucumber.api.java.en.And;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
+
+import java.util.Date;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -22,7 +23,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 	ScheduledBungiiPage scheduledBungiiPage;
 	ActionManager action = new ActionManager();
 	String Image_Solo = "bungii_type-solo";
-
+	GeneralUtility utility= new GeneralUtility();
 	private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
 
 	public ScheduledBungiiSteps(ScheduledBungiiPage scheduledBungiiPage) {
@@ -37,6 +38,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 			selectBungii(tripNoOfDriver, tripTime);
 			pass("I select already scheduled bungii", "I selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
+			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
@@ -96,10 +98,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii;
 	//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
+				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		else
-			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/preceding-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 
 		return Image_SelectBungii;
 	}
@@ -112,7 +114,9 @@ public class ScheduledBungiiSteps extends DriverBase {
 	 *            Scheduled bungii time
 	 */
 	public void selectBungii(String bungiiType, String bungiiTime) {
-		action.click(getLocatorForBungii(bungiiType, bungiiTime));
+		Date currentDate = new Date();
+		int year=currentDate.getYear()+1900;
+		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
 
 	/**

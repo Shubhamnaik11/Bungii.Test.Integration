@@ -12,8 +12,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -295,6 +293,7 @@ public class HomeSteps extends DriverBase {
                 case "DROP":
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_Locator());
+                    Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
                     break;

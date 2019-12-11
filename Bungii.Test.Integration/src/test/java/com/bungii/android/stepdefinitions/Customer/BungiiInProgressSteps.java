@@ -2,13 +2,11 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiProgressPage;
-import com.bungii.android.pages.customer.SearchingPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,7 +131,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minute");
+                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualDroplocation=actualInfo.get(1).replace(",","").replace("  "," ");
 
         //country is not displayed now
@@ -195,7 +193,7 @@ public class BungiiInProgressSteps extends DriverBase {
         logger.detail("customer trip info");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION"),
-                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation=actualInfo.get(1).replace(",","").replace("  "," ");
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace("  "," ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace("  "," ").trim();

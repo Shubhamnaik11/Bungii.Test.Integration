@@ -1,6 +1,15 @@
 @android
-Feature: Menu_SaveMoney
 
+Feature: Menu_SaveMoney
+  @regression
+  Scenario: Menu_SaveMenu_FirstTimePromo_Not a first time user
+    Given I am logged in as "existing" customer
+    When I tap on "Menu" > "Promos" link
+    And I add "first time" PromoCode
+    And I tap "Add" on Save Money page
+    Then I should see "snackbar stating first time code is for new users" on Save Money page
+    And I tap on "Menu" > "Logout" link
+    
   @regression
   Scenario: Menu_SaveMoney_AddValid
     Given I am logged in as "existing" customer
@@ -48,14 +57,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar stating referrals are only for new users" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
-  Scenario: Menu_SaveMenu_FirstTimePromo_Not a first time user
-    Given I am logged in as "existing" customer
-    When I tap on "Menu" > "Promos" link
-    And I add "first time" PromoCode
-    And I tap "Add" on Save Money page
-    Then I should see "snackbar stating first time code is for new users" on Save Money page
-    And I tap on "Menu" > "Logout" link
+
 
   @regression
   Scenario: Menu_SaveMenu_OneOff code that has been used

@@ -17,6 +17,7 @@ public class SignupPage extends PageBase {
     public WebElement TextField_LastName() { return findElement("com.bungii.customer:id/signup_field_last_name", LocatorType.Id); }
 
    public WebElement TextField_Email() { return findElement("com.bungii.customer:id/signup_field_email", LocatorType.Id); }
+   public WebElement CheckBox_Promo() { return findElement("com.bungii.customer:id/checkbox_signup_promo_referral", LocatorType.Id); }
 
  //   public WebElement TextField_Email() { return findElement("com.bungii.customer:id/signup_textinputlayout_email", LocatorType.Id); }
 

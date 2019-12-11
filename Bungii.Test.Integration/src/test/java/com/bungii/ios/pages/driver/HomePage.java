@@ -1,8 +1,6 @@
 package com.bungii.ios.pages.driver;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.PageBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -55,6 +53,8 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_AvailableTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'AVAILABLE TRIPS'", LocatorType.Predicate); }
     public WebElement AppMenu_Home() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'HOME'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }
+
+
     public WebElement AppMenu_ScheduledTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LogOut1(boolean ...ignoreException) { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'LOGOUT'", PageBase.LocatorType.Predicate,ignoreException); }
   //  public WebElement AppMenu_LogOut() { return findElement("//XCUIElementTypeStaticText[@name=\"LOGOUT\"]", PageBase.LocatorType.XPath); }

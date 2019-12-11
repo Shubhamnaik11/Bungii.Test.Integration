@@ -23,9 +23,9 @@ public class EstimatePage extends PageBase {
     //------Trip Details-------------------------------------------------------------------------
     public WebElement Text_TripTime () { return findElement("com.bungii.customer:id/estimate_value_time", LocatorType.Id); }
 
-    public WebElement Text_TripDistance () { return findElement("com.bungii.customer:id/estimate_value_distance", LocatorType.Id); }
+    public WebElement Text_TripDistance () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
-    public WebElement Text_TotalEstimate () { return findElement("com.bungii.customer:id/estimate_value_total", LocatorType.Id); }
+    public WebElement Text_TotalEstimate () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
     //------loading/unloading time---------------------------------------------------------------
     public WebElement Link_LoadingUnloadingTime () { return findElement("com.bungii.customer:id/pickup_estimate_textview_loadunloadtime", LocatorType.Id); }

@@ -409,7 +409,7 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
         boolean isPickUpDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);
@@ -437,7 +437,7 @@ public class UpdateStatusSteps extends DriverBase {
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualDropoffLocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
         boolean isDropDisplayed = actualDropoffLocation.contains(dropOffLocationLineOne) && actualDropoffLocation.contains(dropOffLocationLineTwo);
 

@@ -1,6 +1,5 @@
 package com.bungii.ios.stepdefinitions.customer;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -80,7 +79,7 @@ public class TripStatusSteps extends DriverBase {
 
             String expectedDriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             expectedDriverName = expectedDriverName.substring(0, expectedDriverName.indexOf(" ") + 2);
-            boolean isDriverDisplayed = getCustomerName().equals(expectedDriverName);
+            boolean isDriverDisplayed = getCustomerName().replace("  "," ").equals(expectedDriverName);
             logger.detail("after driver name");
 
             switch (key) {
@@ -113,7 +112,7 @@ public class TripStatusSteps extends DriverBase {
                 fail(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",
-                        "Trip Information is correctly displayed and driver name :" + expectedDriverName
+                        "Trip Information is not correctly displayed and driver name :" + getCustomerName().replace("  "," ")
                                 + "is displayed correctly");
 
             }
@@ -130,7 +129,7 @@ public class TripStatusSteps extends DriverBase {
         String actualDropOfflocation=actualInfo.get(1).replace(",","").replace("  "," ");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
+                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins"),
                 //country is not displayed now
                 isDropLocationDisplayed = actualDropOfflocation
                         .contains(dropOffLocationLineOne) &&actualDropOfflocation
@@ -195,7 +194,7 @@ public class TripStatusSteps extends DriverBase {
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION"),
-                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String pickUpValue=actualInfo.get(1).replace(",","").replace("  "," ");
         boolean isPickUpCorrect = pickUpValue.contains(pickUpLocationLineOne) &&pickUpValue.contains(pickUpLocationLineTwo);
         if (isTagDisplayed && isEtaCorrect && isPickUpCorrect) {

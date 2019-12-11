@@ -164,7 +164,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String custName = tripDetails.get("CUSTOMER");
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
 		String label=utility.getTimeZoneBasedOnGeofence();
-
+		if(!scheduledDate.contains(label))
 		scheduledDate=scheduledDate+" "+label;
 		scheduledDate=scheduledDate.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST");
 		int rowNumber=999;
@@ -215,6 +215,7 @@ public class ScheduledTripSteps extends DriverBase {
 
 			switch (messageElement.toUpperCase()) {
 				case "BUNGII CANCEL":
+					Thread.sleep(35000);
 					messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
 					break;
 				default:
