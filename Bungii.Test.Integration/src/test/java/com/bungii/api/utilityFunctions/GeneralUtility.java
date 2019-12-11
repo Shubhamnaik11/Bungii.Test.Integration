@@ -93,6 +93,9 @@ public class GeneralUtility {
                     case "CST":
                         timeZoneCompleteText="Central Standard Time";
                         break;
+                    case "IST":
+                        timeZoneCompleteText="India Standard Time";
+                        break;
                 }
         return timeZoneCompleteText;
     }

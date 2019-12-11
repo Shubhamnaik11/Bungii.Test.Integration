@@ -8,6 +8,8 @@ import java.util.List;
 
 public class OtherAppsPage extends PageBase {
 
+   public WebElement Status_Bar() { return findElement("com.android.systemui:id/status_bar_contents", LocatorType.Id); }
+
     //------SMS---------------------------------------------------------------------------------------
     public WebElement SMS_Samsung_RecipientNo() { return findElement("com.android.mms:id/recipients_editor_to", LocatorType.Id); }
 

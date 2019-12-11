@@ -23,11 +23,11 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Alert_MsgTitle() { return findElement("com.bungii.driver:id/notification_alert_title", LocatorType.Id); }
 
-    public WebElement Text_ValueEarning() { return findElement("//android.widget.TextView[@text='Estimated EARNINGS']/following-sibling::android.widget.TextView", LocatorType.XPath); }
+    public WebElement Text_ValueEarning() { return findElement("//android.widget.TextView[@text='EARNINGS']/following-sibling::android.widget.TextView", LocatorType.XPath); }
   //REMOVE THIS
-    public WebElement Text_Earning() { return findElement("//android.widget.TextView[@text='Estimated EARNINGS']", LocatorType.XPath); }
+    public WebElement Text_Earning() { return findElement("//android.widget.TextView[@text='EARNINGS']", LocatorType.XPath); }
 
-    public WebElement Text_Distance() { return findElement("//*[contains(@text,'Distance:')]", LocatorType.XPath); }
+    public WebElement Text_Distance() { return findElement("//*[contains(@text,'TO PICKUP')]", LocatorType.XPath); }
     public WebElement Text_ValueDistance() { return findElement("//android.widget.TextView[@resource-id='com.bungii.driver:id/pickup_request_tv_estimated_duration']/preceding-sibling::android.widget.TextView", LocatorType.XPath); }
 
     public WebElement Text_PickupLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_pickup']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }

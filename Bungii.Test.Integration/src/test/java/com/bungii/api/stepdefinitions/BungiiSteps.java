@@ -752,15 +752,18 @@ public String getDriverPhone(String driverName)
             if (state.equalsIgnoreCase("Accepted")) {
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
             } else if (state.equalsIgnoreCase("enroute")) {
-                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
-            } else if (state.equalsIgnoreCase("Scheduled")) {
-                //do nothing, already in scheduled state
-            } else {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+
                 try {
                     Thread.sleep(wait);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+            } else if (state.equalsIgnoreCase("Scheduled")) {
+                //do nothing, already in scheduled state
+            } else {
+
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
@@ -790,6 +793,8 @@ public String getDriverPhone(String driverName)
             String geofence = dataMap.get("geofence").trim();
             String state = dataMap.get("Bungii State").trim();
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+            String driverLabel="";
+            try {driverLabel = dataMap.get("Driver label").trim();   logger.detail("Label is  specified as input"+driverLabel);} catch (Exception e) { }
 
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
@@ -837,9 +842,15 @@ public String getDriverPhone(String driverName)
                     custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
                     custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
+                    if (driverLabel.equalsIgnoreCase("far away atlanta driver")) {
+                       driverPhoneNum = PropertyUtility.getDataProperties("atlanta.far.away.driver.phone");
+                        driverPassword = PropertyUtility.getDataProperties("atlanta.far.away.driver.password");
+                        cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.far.away.driver.name"));
+                    } else {
                         driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
                         driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
                         cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    }
                 }else if (geofence.equals("goa")) {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");
@@ -990,7 +1001,8 @@ public String getDriverPhone(String driverName)
     @When("^bungii admin manually end bungii created by \"([^\"]*)\"$")
     public void i_request_something_bungii_as_a_customer_in_something_geofence( String customer) {
         try {
-
+            //wait for trip to be reflected
+            Thread.sleep(120000);
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "",cust2PhoneNum = "", cust2Password = "";
 
             if(customer.equalsIgnoreCase("CUSTOMER1")){

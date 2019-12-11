@@ -36,15 +36,16 @@ public class BungiiRequestSteps extends DriverBase {
 
                             "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
                             "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
-                    testStepVerify.isElementEnabled(bungiiRequestPage.Text_DistanceTag(),"Distance tag should be displayed");
+                    testStepVerify.isElementEnabled(bungiiRequestPage.Text_DistanceTag(),"TO PICKUP tag should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_EstimatedEarningTag(),"Earning tag should be displayed");
+
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    double flestimate=Double.valueOf(estimate.replace("$","").trim());
+                    double flestimate=Double.valueOf(estimate.replace("~$","").trim());
                     double transactionFee=(flestimate*0.029)+0.3;
                     double estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_EstimatedEarningValue(),"$"+truncValue);
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_EstimatedEarningValue(),"~$"+truncValue);
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_NavigationBar(),"STACKED BUNGII REQUEST");

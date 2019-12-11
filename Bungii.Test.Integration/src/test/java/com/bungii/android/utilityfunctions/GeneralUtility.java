@@ -61,6 +61,7 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages driverBungiiProgressPage = new InProgressBungiiPages();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
 
     /**
      * Launch driver application's using package and activity
@@ -205,6 +206,21 @@ public class GeneralUtility extends DriverBase {
                 if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
                     Thread.sleep(5000);
                 isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
+                break;
+            case "Enroute screen":
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.EN_ROUTE.toString());
+                break;
+            case "Arrived screen":
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.ARRIVED.toString());
+                break;
+            case "Loading Item screen":
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.LOADING_ITEM.toString());
+                break;
+            case "Driving to DropOff screen":
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                break;
+            case "Unloading Item screen":
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.UNLOADING_ITEM.toString());
                 break;
             default:
                 break;

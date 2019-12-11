@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -14,7 +15,11 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Dimension;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -33,6 +38,7 @@ public class BungiiInProgressSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
+    OtherAppsPage otherAppsPage = new OtherAppsPage();
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
@@ -467,7 +473,18 @@ public class BungiiInProgressSteps extends DriverBase {
                 //if no notificatiaon then hide
                 if (!isFound) {
                     action.hideNotifications();
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
+
+                    action.click(otherAppsPage.Status_Bar());
+/*                    SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
+                    int yMargin = 5;
+                    int xMid = screenSize.width / 2;
+                    PointOption top = PointOption.point(xMid, yMargin);
+
+                    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
+                        action.longPress(top);*/
                 }
 
                 testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notificatiob for stack trip","I got notifcation of stack trip");

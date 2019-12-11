@@ -9,11 +9,11 @@ public class BungiiRequestPage extends PageBase {
 	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.Name); }
 	public WebElement Button_Reject() { return findElement("REJECT", LocatorType.Name); }
 
-	public WebElement Text_DistanceTag() { return findElement("Distance : ", PageBase.LocatorType.Name); }
-	public WebElement Text_ValueDistance() { return findElement("//XCUIElementTypeStaticText[@name='Distance : ']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_DistanceTag() { return findElement("TO PICKUP", PageBase.LocatorType.Name); }
+	public WebElement Text_ValueDistance() { return findElement("//XCUIElementTypeStaticText[@name='Estimated Duration: ']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-	public WebElement Text_EstimatedEarningTag() { return findElement("Estimated Earnings", LocatorType.Name); }
-	public WebElement Text_EstimatedEarningValue() { return findElement("//XCUIElementTypeStaticText[@name='Estimated Earnings']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
+	public WebElement Text_EstimatedEarningTag() { return findElement("EARNINGS", LocatorType.Name); }
+	public WebElement Text_EstimatedEarningValue() { return findElement("//XCUIElementTypeStaticText[@name='EARNINGS']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath); }
 	public WebElement Text_TimeToPickup() { return findElement("//XCUIElementTypeStaticText[@name='Time to Pickup']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
 

@@ -317,40 +317,23 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @newscenario1
+  @regression
   Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
-   # And try to finish time should be correctly displayed for long stack trip
 
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa   | Enroute |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I change driver status to "Online"
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I logged in Customer application using  "existing" user
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo    | cipla goa unit 5  |Indoco remedies verna |
-    And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | Now  | Default     | No             |
-    Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    When I click "YES" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "customer" application on "same" devices
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "customer" application on "Customer2" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo    |Creative capsule verna  | Old Goa Road, Velha Goa, Goa |
@@ -462,50 +445,28 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
 
-
-  @newscenario
+  @regression
   Scenario: Create Long stack, base scheduled trip , verify decked detail/alert msgs/status of current and stacked bungii
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa   | enroute    | NEXT_POSSIBLE |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I change driver status to "Online"
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I logged in Customer application using  "existing" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo    | cipla goa |Indoco remedies verna |
+      | Solo    |Creative capsule verna  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | NEXT_POSSIBLE  | Default     | No             |
-    And I click "Done" button on "Success" screen
-
-    Then I Select "Home" from Customer App menu
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from available trip
-    When I accept selected Bungii
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    When I wait for Minimum duration for Bungii Start Time
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo    | Indoco remedies verna | Creative capsule verna |
-    And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following detail
+    When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
@@ -602,45 +563,26 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @newscenario
+  @regression
   Scenario: Create short stack, verify decked detail/alert msgs/status of current and stacked bungii
 
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa   | DRIVING TO DROP OFF |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid duo driver 1" driver
-    And I change driver status to "Online"
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "existing" user
+
 
     And I connect to "extra1" using "Customer2" instance
     And I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid customer2" user
-
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I logged in Customer application using  "existing" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo    | cipla goa unit 5  | Creative capsule verna  |
-    And I click "Get Estimate" button on "Home" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
-      | 15       |           |              | Now  | Default     | No             |
-    Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    When I click "YES" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" screen
-    And I slide update button on "EN ROUTE" Screen
-    And I slide update button on "ARRIVED" Screen
-    And I slide update button on "LOADING ITEM" Screen
-
-    When I Switch to "customer" application on "same" devices
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-
-    When I Switch to "customer" application on "Customer2" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo    |Indoco remedies verna  | cipla goa unit 5 |
+      | Solo    |Creative capsule verna  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -720,8 +662,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-  @dev
-  @newscenario
+
+  @regression
   Scenario:Verify driver can Long stack request on Arrived status.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -742,7 +684,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
+#
   @dev
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -783,7 +725,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @dev
+  @dev1
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -823,8 +765,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-
-  @newscenario11
+  @regression
   Scenario:Verify Customer notification(Stack bungii accepted, Stack driver started, )
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -858,7 +799,7 @@ Feature: To Test Duo - Scheduled Bungii
       | 9403960183     |                 |
 
 
-  @newscenario1
+  @regression
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -895,8 +836,8 @@ Feature: To Test Duo - Scheduled Bungii
 
     #move to top
     #need to do in atlanta
-  @twodevices
-  @newscenario1
+
+  @regression
   Scenario: Long stack non control driver
 
     Given that duo schedule bungii is in progress
@@ -949,16 +890,17 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     And I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+    And I open "driver" application on "Driver2" devices
+    When I click "On To The Next One" button on "Bungii Completed" screen
     Then I should be navigated to "EN ROUTE" screen
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       |  | CUSTOMER2_PHONE |
 
 
-     #need to do in atlanta
-          #move to top
-  @twodevices
-  @newscenario1
+
+  @regression
+
   Scenario: Short stack control driver
 
     Given that duo schedule bungii is in progress
@@ -1009,7 +951,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       |  | CUSTOMER2_PHONE |
 
-  @newscenario1
+  @regression
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1039,7 +981,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @newscenario1
+  @regression
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1070,7 +1012,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @newscenario1
+  @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
     Given that duo schedule bungii is in progress

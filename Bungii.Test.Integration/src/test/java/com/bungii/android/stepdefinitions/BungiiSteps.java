@@ -739,6 +739,7 @@ public class BungiiSteps extends DriverBase {
                 case "tab On to Next":
                 case "completes Bungii":
                     action.click(Page_BungiiComplete.Button_OnToTheNext());
+                    try{
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
                     if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")|| currentPage.equals("EN ROUTE")){
                         //do nothing
@@ -746,7 +747,7 @@ public class BungiiSteps extends DriverBase {
                     else if(action.isElementPresent(Page_BungiiComplete.Button_OnToTheNext(true))){
                         Thread.sleep(5000);
                         action.click(Page_BungiiComplete.Button_OnToTheNext());
-                    }
+                    }}catch (Exception e){}
 
                     break;
                 case "tab on Cancel bungii":
@@ -754,7 +755,8 @@ public class BungiiSteps extends DriverBase {
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     WebElement Button_Cancel=Page_DriverBungiiProgress.Button_Cancel();
                     action.click(new Point(Button_Cancel.getLocation().getX()+Button_Cancel.getRect().getWidth()/2, Button_Cancel.getLocation().getY()+Button_Cancel.getRect().getHeight()/2));
-                    action.click(Page_DriverBungiiProgress.Button_Cancel());
+                    if(!action.isElementPresent(Page_DriverBungiiProgress.Alert_Message(true)))
+                        action.click(Page_DriverBungiiProgress.Button_Cancel());
 
                     testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.cancel.bungii"));
                     action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
