@@ -44,4 +44,5 @@ public class HomePage extends PageBase {
     public WebElement Text_Store () { return findElement("//android.view.View[@text='BUNGII STORE']",LocatorType.XPath); }
     public WebElement Text_Logout () { return findElement("//android.widget.TextView[@text='LOGIN']",LocatorType.XPath); }
 
+    public WebElement Text_ErrorMessage(){ return findElement("//android.widget.TextView[@text='It looks like we ran into a hiccup. Please contact support@bungii.com for more information.']", LocatorType.XPath);}
 }

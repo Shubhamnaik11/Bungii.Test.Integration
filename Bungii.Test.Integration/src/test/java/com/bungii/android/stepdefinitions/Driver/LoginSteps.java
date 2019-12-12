@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -20,6 +21,7 @@ public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
+    HomePage homePage=new HomePage();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
@@ -127,11 +129,11 @@ public class LoginSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-            log("I click "+option+ " button on Log In screen on driver app","I clicked"+option+ " button on Log In screen on driver app",false);
+            log("I click "+option+ " button on Log In screen on driver app","I clicked"+option+ " button on Log In screen on driver app",true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", false);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
@@ -158,6 +160,11 @@ public class LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError2()), PropertyUtility.getMessage("driver.login.password.error"));
                     break;
+
+                case "It looks like we ran into a hiccup. Please contact support@bungii.com for more information.":
+                    testStepVerify.isEquals(action.getText(homePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    break;
+
                 case "Your account registration is still under process.":
                     //testStepVerify.isEquals(action.getText(driverLogInPage.Text_PendingDriverLoginError()), PropertyUtility.getMessage("driver.login.payment.pending.error"));
                     testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Your account registration is still under process.");

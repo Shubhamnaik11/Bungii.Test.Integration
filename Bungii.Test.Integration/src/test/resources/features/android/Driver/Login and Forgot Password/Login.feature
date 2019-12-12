@@ -33,6 +33,34 @@ Feature: Log In
     Then I should be navigated to Home screen on driver app
 
   @regression
+  Scenario Outline: Driver canNot login on driver app before admin verification
+    When I enter phoneNumber :<Username> and  Password :<Password>
+    And I click "Log In" button on Log In screen on driver app
+    Then I should see "<Expected Message>" on Log In screen on driver app
+    And I should see "<Login Button Status>" on Log In screen on driver app
+    Examples:
+      | Scenario        | Username   | Password | Expected Message                                  | Login Button Status  |
+      | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
+
+  @regression
+  Scenario Outline: Alert should be displayed and driver should be locked when customer enters incorrect password 5 times.
+    When I enter phoneNumber
+    And I enter invalid password and click on "Log In" button for 5 times on Log In screen on driver app
+    Then I should see "<Expected Message>" on Log In screen on driver app
+    Examples:
+      | Expected Message                                                                                                      |
+      | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
+
+    @regression
+      Scenario Outline: New driver with payment status Inactive/Pending should Not be able to go Online
+      When I enter phoneNumber :<Username> and  Password :<Password>
+      And I click "Log In" button on Log In screen on driver app
+      And I tap on "Go Online button" on Driver Home page
+      Then I should see "<Expected Message>" on Log In screen on driver app
+      Examples:
+        | Scenario        | Username   | Password | Expected Message                                  |
+        | PENDING PAYMENT | 8989890909 | Cci12345 | It looks like we ran into a hiccup. Please contact support@bungii.com for more information. |
+  @regression
   Scenario Outline: As a Bungii driver with Pending payment status, I should not be able to login to application using valid credentials
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app

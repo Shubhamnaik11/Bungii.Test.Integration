@@ -662,7 +662,7 @@ public class GeneralUtility extends DriverBase {
 
     }
 
-    private boolean clickDriverMenu(String menuItem) {
+    public boolean clickDriverMenu(String menuItem) {
         Boolean isClicked = false;
         List<WebElement> elements = driverHomePage.Button_NavigationBarText();
         for (WebElement element : elements) {
