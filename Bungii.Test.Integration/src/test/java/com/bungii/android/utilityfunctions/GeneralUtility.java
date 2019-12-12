@@ -208,19 +208,20 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
                 break;
             case "Enroute screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.EN_ROUTE.toString());
+                Thread.sleep(5000);
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
                 break;
             case "Arrived screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.ARRIVED.toString());
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());
                 break;
             case "Loading Item screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.LOADING_ITEM.toString());
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
                 break;
             case "Driving to DropOff screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
                 break;
             case "Unloading Item screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status()).equals(Status.UNLOADING_ITEM.toString());
+                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
                 break;
             default:
                 break;

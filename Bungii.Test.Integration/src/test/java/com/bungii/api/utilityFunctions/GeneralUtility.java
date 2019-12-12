@@ -45,7 +45,11 @@ public class GeneralUtility {
         }else if(geofence.equalsIgnoreCase("atlanta")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.longitude"));
-        }else if(geofence.equalsIgnoreCase("miami")){
+        }else if(geofence.equalsIgnoreCase("atlanta.far")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.longitude"));
+        }
+        else if(geofence.equalsIgnoreCase("miami")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.longitude"));
         }else if(geofence.equalsIgnoreCase("nashville")){
