@@ -1,6 +1,6 @@
 @android
 @SoloScheduled
-@failed
+
 #These feature will run in kansas geofence
 Feature: SoloScheduled
   Background:
@@ -228,7 +228,7 @@ Feature: SoloScheduled
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
       | Charge | Comments |
-      | 15     | TEST     |
+      | 0     | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
 

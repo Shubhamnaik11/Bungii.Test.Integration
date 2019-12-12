@@ -134,6 +134,7 @@ public class CommonSteps extends DriverBase {
 
             switch (messageElement.toUpperCase()) {
                 case "BUNGII CANCEL":
+                    Thread.sleep(35000);
                     messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
                     break;
                 case "ADD NEW CARD":
@@ -1043,6 +1044,8 @@ public class CommonSteps extends DriverBase {
                     action.clearEnterText(signupPage.Textfield_Password(), inputValue);
                     break;
                 case "REFERRAL CODE":
+                    action.hideKeyboard();
+                    action.click(signupPage.Button_CheckBox_Referral());
                     List<String> inputValueList = getRefferalCode(inputValue);
                     action.clearEnterText(signupPage.Textfield_PromoCode(), inputValueList.get(0));
                     // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);

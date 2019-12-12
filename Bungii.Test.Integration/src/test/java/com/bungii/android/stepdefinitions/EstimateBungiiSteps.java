@@ -208,7 +208,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     int index = truncValue.indexOf(".");
                     if (truncValue.substring(index).length() == 2) truncValue = truncValue + "0";
                     String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
-                    testStepVerify.isEquals(actualValue, "$" + String.valueOf(truncValue));
+                    testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()));
 
@@ -742,12 +742,12 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 String newEstimateValue = action.getText(Page_Estimate.Text_TotalEstimate());
                 Thread.sleep(2000);
-                if (i == 0)
+/*                if (i == 0)
                     testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
                             "total Estimated cost is calculated considering  Loading/unloading time",
                             "Total Estimate cost for first scroll value should be same as default one, Previous cost is " + oldEstimateValue + " , new cost is " + newEstimateValue,
                             "Total Estimate cost was recalculated");
-                else
+                else*/
                     testStepVerify
                             .isFalse(newEstimateValue.equals(oldEstimateValue),
                                     "total Estimated cost is calculated considering  Loading/unloading time",

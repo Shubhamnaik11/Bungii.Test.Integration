@@ -49,7 +49,7 @@ public class InvitePage extends PageBase {
     //------Share - Gmail App-------------------------------------------------------------------
     public WebElement Gmail_Referral_Subject() { return findElement("com.google.android.gm:id/subject", LocatorType.Id); }
 
-  //  public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath); }
+    public WebElement Gmail_Referral_Body_other(boolean ...ignoreException) { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.view.View", LocatorType.XPath,ignoreException); }
     public WebElement Gmail_Referral_Body() { return findElement("//*[@resource-id='com.google.android.gm:id/body_wrapper']/descendant::android.widget.EditText", LocatorType.XPath); }
 
     //------Share - Twitter App-----------------------------------------------------------------
