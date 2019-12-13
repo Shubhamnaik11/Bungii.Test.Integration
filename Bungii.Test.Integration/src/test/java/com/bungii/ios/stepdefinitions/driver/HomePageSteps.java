@@ -7,7 +7,9 @@ import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.driver.AccountPage;
 import com.bungii.ios.pages.driver.HomePage;
+import com.bungii.ios.pages.driver.TripAlertSettingsPage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -15,15 +17,20 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(UpdateStatusSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homepage;
+    private AccountPage accountPage = new AccountPage();
+    private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
 
     public HomePageSteps(HomePage homepage) {
         this.homepage = homepage;
@@ -73,7 +80,7 @@ public class HomePageSteps extends DriverBase {
                     goOffline();
                     break;
             }
-            ResultManager.log("I change driver status to"+status,"I change driver status"+status,true);
+            ResultManager.log("I change driver status to" + status, "I change driver status" + status, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -86,12 +93,13 @@ public class HomePageSteps extends DriverBase {
      */
     public void goOnline() {
 
-        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+        String navigationHeaderName = action.getNameAttribute(homepage.NavigationBar_Status());
 
         if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
-        else if(navigationHeaderName.equals("OFFLINE")){action.click(homepage.Button_GoOnline());}
-        else if (action.isElementPresent(homepage.Button_GoOnline(true)))
+        else if (navigationHeaderName.equals("OFFLINE")) {
+            action.click(homepage.Button_GoOnline());
+        } else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             action.click(homepage.Button_GoOnline());
         else
             logger.error("Not able to get driver status");
@@ -101,14 +109,13 @@ public class HomePageSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        String navigationHeaderName=action.getNameAttribute(homepage.NavigationBar_Status());
+        String navigationHeaderName = action.getNameAttribute(homepage.NavigationBar_Status());
 
-        if(navigationHeaderName.equals("OFFLINE")){
+        if (navigationHeaderName.equals("OFFLINE")) {
             logger.warning("driver Status is already offline");
-        }else if(navigationHeaderName.equals("ONLINE")){
+        } else if (navigationHeaderName.equals("ONLINE")) {
             action.click(homepage.Button_GoOffline());
-        }
-        else if (action.isElementPresent(homepage.Button_GoOffline(true)))
+        } else if (action.isElementPresent(homepage.Button_GoOffline(true)))
             action.click(homepage.Button_GoOffline());
         else if (action.isElementPresent(homepage.Button_GoOnline(true)))
             logger.warning("driver Status is already offline");
@@ -160,14 +167,32 @@ public class HomePageSteps extends DriverBase {
                 case "SCHEDULED BUNGIIS":
                     action.click(homepage.AppMenu_ScheduledTrip());
                     break;
+                case "FAQ":
+                    action.click(homepage.AppMenu_FAQ());
+                    break;
+                case "EARNINGS":
+                    action.click(homepage.AppMenu_EARNINGS());
+                    break;
+                case "TRIP ALERT SETTINGS":
+                    action.click(homepage.AppMenu_TripAlertSettings());
+                    break;
+                case "FEEDBACK":
+                    action.click(homepage.AppMenu_Feedback());
+                    break;
+                case "STORE":
+                    action.click(homepage.AppMenu_Store());
+                    break;
+                case "LEADERBOARD":
+                    action.click(homepage.AppMenu_LEADERBOARD());
+                    break;
                 case "LOGOUT":
                     action.swipeUP();
                     Thread.sleep(1000);
                     action.click(homepage.AppMenu_LogOut1());
-                    if(action.isElementPresent(homepage.AppMenu_LogOut1(true)))
+                    if (action.isElementPresent(homepage.AppMenu_LogOut1(true)))
                         action.tapByElement(homepage.AppMenu_LogOut1());
-                //    action.click(homepage.AppMenu_LogOut());
-                 //   action.tapByElement(homepage.AppMenu_LogOut());
+                    //    action.click(homepage.AppMenu_LogOut());
+                    //   action.tapByElement(homepage.AppMenu_LogOut());
                     break;
                 default:
                     logger.error("Please specify valid application menu item");
@@ -315,59 +340,196 @@ public class HomePageSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Then("^I should be able to see data on \"([^\"]*)\" page$")
     public void i_should_be_able_to_see_data_on_something_page(String strArg1) throws Throwable {
-        String data = null;
-        Thread.sleep(5000);
-        switch (strArg1) {
-            case "FAQ":
-                testStepAssert.isElementTextEquals(homepage.Text_CommonQuestions(), "COMMON QUESTIONS", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+        try {
+            Thread.sleep(5000);
+            switch (strArg1) {
+                case "FAQ":
+                    testStepAssert.isElementNameEquals(homepage.Text_CommonQuestions(), "COMMON QUESTIONS", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is displayed", "COMMON QUESTIONS is not displayed");
+                    break;
 
-            case "LEADERBOARD":
-                testStepAssert.isElementTextEquals(homePage.Text_Leaderboard(), PropertyUtility.getDataProperties("menu.leaderboard.text"), data + " is displayed", data + " is displayed", data + " is not displayed");
+                case "LEADERBOARD":
+                    testStepAssert.isElementNameEquals(homepage.Text_Leaderboard(), PropertyUtility.getMessage("driver.menu.leaderboard.text"), " is displayed", " is displayed", " is not displayed");
+                    break;
 
-                break;
+                case "SCHEDULED BUNGIIS":
+                    testStepAssert.isElementNameEquals(homepage.Text_ScheduledBungiis(), "No Bungiis, You don't have any scheduled\u2028Bungiis at this time.", "No Bungiis, You don't have any scheduled\u2028Bungiis at this time. is displayed", " is displayed", " is not displayed");
+                    break;
 
-            case "SCHEDULED BUNGIIS":
-                data = action.getText(homePage.Text_ScheduledBungiis()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_ScheduledBungiis(), "No Bungiis", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "AVAILABLE TRIPS":
+                    testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Trips Available", " is displayed", "No Trips Available is displayed", " is not displayed");
+                    break;
 
-            case "AVAILABLE TRIPS":
-                data = action.getText(homePage.Text_AvailableTrips()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Trips Available", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "EARNINGS":
+                    testStepAssert.isElementNameEquals(homepage.Text_Earnings(), "DRIVER INFO", "DRIVER INFO is displayed", "DRIVER INFO is displayed", "DRIVER INFO is not displayed");
+                    break;
+                case "ITEMIZED EARNINGS":
+                    testStepVerify.isFalse(action.isElementPresent(homepage.Text_ApplicationError(true))," Application error should not be displayed","Application error is not displayed","Application error is displayed");
+                    action.swipeUP();
+                    testStepVerify.isElementEnabled(homepage.Text_MyStat(),"My stats  should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_TotalTrip(),"Total Trips  should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_TripMonths(),"Trips/Months  should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_EarningMonth(),"Earnings / Month  should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_Total_Earnings(),"Total Tips should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_Total_Tips(),"Total Earnings should be displayed");
+                    testStepVerify.isElementEnabled(homepage.Text_My_Rating(),"My Rating should be displayed");
+                    break;
+                case "ACCOUNT":
+                    testStepAssert.isElementNameEquals(accountPage.Text_Name(), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
+                    break;
 
-            case "EARNINGS":
-                data = action.getText(homePage.Text_Earnings()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "TRIP ALERT SETTINGS":
+                    testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Trip Alerts", "Trip Alerts is displayed", "Trip Alerts is displayed", "Trip Alerts is not displayed");
+                    testStepAssert.isElementNameEquals(homepage.Text_SMSAlertSettings(), "SMS Alerts", "SMS Alerts is displayed", "SMS Alerts is displayed", "SMS Alerts is not displayed");
+                    break;
 
-            case "ACCOUNT":
-                data = action.getText(homePage.Text_Account()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Account(), PropertyUtility.getDataProperties("driver.login.name1"), data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "FEEDBACK":
+                    testStepAssert.isElementNameEquals(homepage.Text_Feedback(), "Send us your feedback", "Send us your feedback is displayed", "Send us your feedback is displayed", "Send us your feedback is not displayed");
+                    break;
 
-            case "TRIP ALERT SETTINGS":
-                data = action.getText(homePage.Text_TripAlertSettings()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Trip Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "STORE":
+                    testStepAssert.isElementNameEquals(homepage.Text_Store(), "BUNGII STORE", "BUNGII STORE is displayed", "BUNGII STORE is displayed", "BUNGII STORE is not displayed");
+                    break;
 
-            case "FEEDBACK":
-                data = action.getText(homePage.Text_Feedback()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Feedback(), "Send us your feedback", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
-
-            case "STORE":
-                data = action.getText(homePage.Text_Store()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Store(), "BUNGII STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
-
-            case "LOGOUT":
-                data = action.getText(homePage.Text_Logout()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Logout(), "LOGIN", data + " is displayed", data + " is displayed", data + " is not displayed");
-                break;
+                case "LOGOUT":
+                    testStepAssert.isElementNameEquals(homepage.NavigationBar_Status(), "LOG IN", "LOGIN is displayed", "LOGIN is displayed", "LOGIN is not displayed");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Then("^I should be able to see default data on \"([^\"]*)\" page$")
+    public void i_should_be_able_to_see_default_data_on_something_page(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(5000);
+            switch (strArg1) {
+                case "TRIP ALERT":
+                    List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
+                    for (WebElement row : timeData) {
+                        String currentRowData = action.getNameAttribute(row);
+                        testStepAssert.isEquals(currentRowData, "07:00 AM - 09:00 PM  CST", "default trip data 07:00 AM - 09:00 PM  CST should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                    }
+                    testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.trip.alert.settings"), "TRIP Alerts info is displayed", "TRIP Alerts info is displayed", "TRIP Alerts info is not displayed");
+                    break;
+                case "SMS ALERT":
+                    List<WebElement> timeDataSms = tripAlertSettingsPage.Row_TripTime();
+                    for (WebElement row : timeDataSms) {
+                        String currentRowData = action.getNameAttribute(row);
+                        testStepAssert.isEquals(currentRowData, "07:00 AM - 09:00 PM  CST", "default trip data 07:00 AM - 09:00 PM  CST should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                    }
+                    testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.sms.alert.settings"), PropertyUtility.getMessage("driver.sms.alert.settings") + "should be displayed", "SMS Alerts info is displayed", "SMS Alerts info is not displayed");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^previous \"([^\"]*)\" data should be retained$")
+    public void previous_something_data_should_be_retained(String strArg1) throws Throwable {
+        try {
+            int day = 0;
+            switch (strArg1) {
+                case "TRIP ALERT":
+                    List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
+                    for (WebElement row : timeData) {
+                        String currentRowData = action.getNameAttribute(row);
+                        testStepAssert.isEquals(currentRowData, (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day), (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day) + " should be displayed for day " + day, (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day) + " is displayed", (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day) + " not displayed");
+                        day++;
+                    }
+                    break;
+                case "SMS ALERT":
+                    List<WebElement> timeDataSms = tripAlertSettingsPage.Row_TripTime();
+                    for (WebElement row : timeDataSms) {
+                        String currentRowData = action.getNameAttribute(row);
+                        testStepAssert.isEquals(currentRowData, (String) cucumberContextManager.getScenarioContext("SMS_ALERT_" + day), (String) cucumberContextManager.getScenarioContext("SMS_ALERT_" + day) + " should be displayed for day " + day, (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day) + " is displayed", (String) cucumberContextManager.getScenarioContext("TRIP_ALERT_" + day) + " not displayed");
+                        day++;
+                    }
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I save \"([^\"]*)\" settings data$")
+    public void i_save_trip_alert_settings_data(String strArg1) throws Throwable {
+        try {
+            List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
+            int day = 0;
+            switch (strArg1) {
+                case "TRIP ALERT":
+                    for (WebElement row : timeData) {
+                        String currentRowData = action.getNameAttribute(row);
+                        cucumberContextManager.setScenarioContext("TRIP_ALERT_" + day, currentRowData);
+                        day++;
+                    }
+                    break;
+                case "SMS ALERT":
+                    for (WebElement row : timeData) {
+                        String currentRowData = action.getNameAttribute(row);
+                        cucumberContextManager.setScenarioContext("SMS_ALERT_" + day, currentRowData);
+                        day++;
+                    }
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I update sms setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_sms_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+        try {
+            switch (strArg0.toUpperCase()) {
+                case "SUNDAY":
+                    action.click(tripAlertSettingsPage.Text_Sunday());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            String from = (strArg1.split(":")[0]);
+            from = from.startsWith("0") ? from.substring(1) : from;
+            action.click(tripAlertSettingsPage.Text_CurrentFromTime());
+            action.sendKeys(tripAlertSettingsPage.Scroll_Hour(), from);
+            action.sendKeys(tripAlertSettingsPage.Scroll_Min(), ((strArg1.split(" ")[0]).split(":")[1]).trim());
+            action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg1.split(" ")[1]).trim());
+            action.click(tripAlertSettingsPage.Button_Done());
+
+            String toHour = (strArg2.split(":")[0]);
+            toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
+            action.click(tripAlertSettingsPage.Text_CurrentToTime());
+            action.sendKeys(tripAlertSettingsPage.Scroll_Hour(), toHour);
+            action.sendKeys(tripAlertSettingsPage.Scroll_Min(), ((strArg2.split(" ")[0]).split(":")[1]).trim());
+            action.sendKeys(tripAlertSettingsPage.Scroll_Marid(), (strArg2.split(" ")[1]).trim());
+            action.click(tripAlertSettingsPage.Button_Done());
+            action.click(tripAlertSettingsPage.Button_Save());
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I update trip setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_trip_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+
+        i_update_sms_setting_of_sunday_to_something_to_something(strArg0, strArg1, strArg2);
     }
 }
