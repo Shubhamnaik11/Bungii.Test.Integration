@@ -41,7 +41,7 @@ Feature: DriverMenu
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
     Then I should be able to see data on "EARNINGS" page
-  
+
   @regression
   Scenario: As Bungii driver I should able to access EARNINGS menu item
     When I Select "EARNINGS" from driver App menu
