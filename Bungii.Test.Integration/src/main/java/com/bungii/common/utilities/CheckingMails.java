@@ -6,19 +6,20 @@ import org.jsoup.nodes.Document;
 
 import javax.mail.*;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.search.ComparisonTerm;
+import javax.mail.search.ReceivedDateTerm;
+import javax.mail.search.SearchTerm;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class CheckingMails {
     String host = "imap.gmail.com";// change accordingly
-  //  String host = "imap.googlemail.com";// change accordingly
+ //   String host = "imap.googlemail.com";// change accordingly
     String user = "vishal.bagi.cci@gmail.com";// change accordingly
     String signUpEmailAddress = "vishal.bagi@creativecapsule.com";// change accordingly
     String password = "@BLAbla3";// change accordingly
@@ -26,6 +27,8 @@ public class CheckingMails {
     public String checkAndFindActivationURL( ) {
         String activationURL = null;
         //run the email checking code in a time loop
+        long t_minus_5 = System.currentTimeMillis()- (5 * 60 * 1000);
+
         long t = System.currentTimeMillis();
         long end = t + (5 * 60 * 1000);//run for 5 min 5*60*1000 in milli seconds
         boolean EmailwithLinkFound = false;
@@ -57,12 +60,19 @@ public class CheckingMails {
                 if (!folder.isOpen())
                     folder.open(Folder.READ_WRITE);
                 Message[] messages = folder.getMessages();
+                Calendar cal = Calendar.getInstance();
+                cal.roll(Calendar.DATE,-5);
+                Date date =cal.getTime();
+
+                SearchTerm st = new ReceivedDateTerm(ComparisonTerm.GT,date);
+                Message[] oldMsgs = folder.search(st, messages);
+
                 System.out.println("No of Messages : " + folder.getMessageCount());
                 System.out.println("No of Unread Messages : " + folder.getUnreadMessageCount());
                 System.out.println(messages.length);
 
 
-                for (int i = 0; i < messages.length; i++) {
+                for (int i = 0; i < oldMsgs.length; i++) {
 
                     System.out.println("*****************************************************************************");
                     System.out.println("MESSAGE " + (i + 1) + ":");
