@@ -59,3 +59,11 @@ Feature: DriverMenu
   Scenario: As Bungii driver I should able to access LOGOUT menu item
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
+
+  @regression
+  Scenario: As Bungii driver I should be able to see the trip histoy page upon clicking Itemised earnings hyperlink
+    When I Select "EARNINGS" from driver App menu
+    And the "EARNINGS" page is opened
+    Then I should be able to see data on "EARNINGS" page
+    When I click on "Click here to view itemized earnings" hyperlink
+    Then I am redirected to "Trip History Page"

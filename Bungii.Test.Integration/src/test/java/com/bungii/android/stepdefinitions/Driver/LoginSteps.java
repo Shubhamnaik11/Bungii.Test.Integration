@@ -171,8 +171,11 @@ public class LoginSteps extends DriverBase {
                     break;
 
                 case "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.":
-                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.");
-                    System.out.println("Test test test  "+utility.getDriverSnackBarMessage().toString());
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
+                    break;
+
+                case "Invalid login credentials. You have exhausted 3 out of 5 attempts of entering the correct credentials.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
                     break;
 
                 default:
@@ -190,14 +193,40 @@ public class LoginSteps extends DriverBase {
         action.sendKeys(driverLogInPage.TextField_PhoneNumber(), phone);
     }
 
-    @And("^I enter invalid password and click on \"([^\"]*)\" button for 5 times on Log In screen on driver app$")
-    public void i_enter_invalid_password_and_click_on_something_button_for_5_times_on_log_in_screen_on_driver_app(String strArg1) throws Throwable {
+    @And("^I enter invalid password and click on \"([^\"]*)\" button for \"([^\"]*)\" times on Log In screen on driver app$")
+    public void i_enter_invalid_password_and_click_on_something_button_for_something_times_on_log_in_screen_on_driver_app(String strArg1, String count) throws Throwable {
+        try {
+            String password=null;
+            switch(count) {
+                case "5":
+                    password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                    action.sendKeys(driverLogInPage.TextField_Password(), password);
 
-        String password = PropertyUtility.getDataProperties("driver.locked.login.password");
-        action.sendKeys(driverLogInPage.TextField_Password(), password);
+                    for (int i = 0; i < 5; i++) {
+                        action.click(driverLogInPage.Button_Login());
+                    }
+                    break;
 
-        for(int i=0; i<5; i++){
-            action.click(driverLogInPage.Button_Login());
+                case "3":
+                password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+                for (int i = 0; i < 3; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+
+            case "2":
+                for (int i = 0; i < 2; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 
