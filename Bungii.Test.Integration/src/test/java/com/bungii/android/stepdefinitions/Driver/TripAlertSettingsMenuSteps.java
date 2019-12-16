@@ -40,19 +40,58 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
         switch (tab){
             case "Trip Alerts":
                 data=action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                testStepVerify.isEquals(data, PropertyUtility.getDataProperties("trip.alert.text"));
+                testStepVerify.isEquals(data, PropertyUtility.getMessage("trip.alert.text"));
                  b=clickDriverMenu(time);
                 testStepVerify.isEquals(b.toString(), "true");
                 break;
 
             case "SMS Alerts":
                 data=action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                testStepVerify.isEquals(data, PropertyUtility.getDataProperties("sms.alert.text"));
+                testStepVerify.isEquals(data, PropertyUtility.getMessage("sms.alert.text"));
                  b=clickDriverMenu(time);
                 testStepVerify.isEquals(b.toString(), "true");
                 break;
         }
     }
+
+
+    @And("^I click on time and change \"([^\"]*)\" time$")
+    public void i_click_on_time_and_change_something_time(String strArg1) throws Throwable {
+
+        action.click(tripAlertSettingsPage.Image_TimeSettingsArrow());
+        action.click(tripAlertSettingsPage.Text_TimeSettingsFromTime());
+        action.click(tripAlertSettingsPage.TimePicker_ChangeTime());
+
+    }
+
+    @And("^I click on \"([^\"]*)\" button$")
+    public void i_click_on_something_button(String Name) throws Throwable {
+        switch(Name)
+        {
+            case "SAVE TIME":
+                action.click(tripAlertSettingsPage.TimePicker_OK());
+                break;
+        }
+    }
+
+    @Then("^I verify that changes in time are saved$")
+    public void i_verify_that_changes_in_time_are_saved() throws Throwable {
+        Boolean b=clickDriverMenu("08:00 - 21:00");
+        testStepVerify.isEquals(b.toString(), "true");
+    }
+
+    public boolean checkTime(String time) {
+        Boolean isClicked = false;
+        List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
+        for (WebElement element : elements) {
+            if (element.getText().equals(time)) {
+                isClicked = true;
+                break;
+            }
+        }
+        return isClicked;
+    }
+
 
     public boolean clickDriverMenu(String time) {
         Boolean isClicked = false;

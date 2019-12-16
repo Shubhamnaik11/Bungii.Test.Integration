@@ -72,6 +72,9 @@ public class HomePage extends PageBase {
     public WebElement TextBox_DropOff(boolean ...ignoreException){return findElement("//*[@resource-id='com.bungii.customer:id/places_autocomplete_dropoff_location']/descendant::*[@resource-id='com.bungii.customer:id/address_ll_container']",LocatorType.XPath,ignoreException);}
     public WebElement TextBox_DropOffTextBox(){return findElement("//*[@resource-id='com.bungii.customer:id/places_autocomplete_dropoff_location']/descendant::*[@resource-id='com.bungii.customer:id/autocomplete_textview']",LocatorType.XPath);}
 
+    public WebElement Text_ErrorMessage150Miles() {return findElement("android:id/message", LocatorType.Id);}
+    public WebElement Button_ErrorMessage150Miles() {return findElement("android:id/button1", LocatorType.Id);}
 
+    public WebElement Text_ErrorNonGeofence() { return findElement("//*[@resource-id='com.bungii.customer:id/eta_bar_error_where_to_next']/android.widget.TextView[2]", LocatorType.XPath);}
 
 }

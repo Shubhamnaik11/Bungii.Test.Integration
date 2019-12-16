@@ -26,9 +26,9 @@ public class EarningsMenuSteps extends DriverBase {
     @Then("^I am redirected to \"([^\"]*)\"$")
     public void i_am_redirected_to_something(String strArg1) throws Throwable {
 
-        testStepAssert.isElementTextEquals(earningsPage.Text_HistoryData(), PropertyUtility.getDataProperties("history.data"),
-                PropertyUtility.getDataProperties("history.data") + " is displayed",
-                PropertyUtility.getDataProperties("history.data") + " is displayed",
-                PropertyUtility.getDataProperties("history.data") + " is not displayed");
+        testStepAssert.isElementTextEquals(earningsPage.Text_HistoryDataTotalEarnings(), PropertyUtility.getMessage("history.data"),
+                PropertyUtility.getMessage("history.data") + " is displayed",
+                PropertyUtility.getMessage("history.data") + " is displayed",
+                PropertyUtility.getMessage("history.data") + " is not displayed");
     }
 }

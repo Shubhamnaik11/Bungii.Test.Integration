@@ -7,6 +7,6 @@ public class EarningsPage extends PageBase {
 
     public WebElement Link_ItemisedEarnings() { return findElement("//android.view.View[@text='Click here to view itemized earnings Itemized Earnings']", LocatorType.XPath); }
 
-    public WebElement Text_HistoryData() { return findElement("//*[@resource-id='tblDriverTrips']/android.view.View[6]", LocatorType.XPath);}
+    public WebElement Text_HistoryDataTotalEarnings() { return findElement("//*[@resource-id='tblDriverTrips']/android.view.View[6]", LocatorType.XPath);}
 
 }

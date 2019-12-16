@@ -65,7 +65,7 @@ public class DriverMenuSteps extends DriverBase {
 
             case "LEADERBOARD":
                 data = action.getText(homePage.Text_Leaderboard()).toString();
-                testStepAssert.isElementTextEquals(homePage.Text_Leaderboard(), PropertyUtility.getDataProperties("menu.leaderboard.text"), data + " is displayed", data + " is displayed", data + " is not displayed");
+                testStepAssert.isElementTextEquals(homePage.Text_Leaderboard(), PropertyUtility.getMessage("menu.leaderboard.text"), data + " is displayed", data + " is displayed", data + " is not displayed");
 
                 break;
 

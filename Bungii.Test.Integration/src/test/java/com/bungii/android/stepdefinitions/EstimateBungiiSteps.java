@@ -44,6 +44,7 @@ public class EstimateBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     PropertyUtility properties = new PropertyUtility();
     SignupPage Page_Signup = new SignupPage();
+    HomePage homePage = new HomePage();
     private String[] loadTimeValue = {"15 mins", "30 mins", "45 mins", "60 mins", "75 mins", "90+ mins"};
 
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
@@ -406,6 +407,18 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
 
                     break;
+
+                case "Goa pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(),"Less than 30mins", "Less than 30mins","More than 30mins");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
