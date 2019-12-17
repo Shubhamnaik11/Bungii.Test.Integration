@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.BungiiDetails;
+import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -13,7 +14,7 @@ import static com.bungii.common.manager.ResultManager.error;
 public class BungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(BungiiDetailsSteps.class);
     ActionManager action = new ActionManager();
-
+    ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
     BungiiDetails bungiiDetails;
 
     public BungiiDetailsSteps(BungiiDetails bungiiDetails) {
@@ -28,6 +29,60 @@ public class BungiiDetailsSteps extends DriverBase {
             action.waitForAlert();
             SetupManager.getDriver().switchTo().alert().accept();
         } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^trips status should be \"([^\"]*)\"$")
+    public void trips_status_should_be_something(String key) throws Throwable {
+        try {
+            String tripStatus="";
+            switch (key.toLowerCase()) {
+                case "contacting drivers":
+                    tripStatus=action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus,"Contacting Drivers");
+                    break;
+                case "estimated cost":
+                    tripStatus=action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus,(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }    }
+    @Then("^trips status on bungii details should be \"([^\"]*)\"$")
+    public void trips_status_on_bungii_details_should_be_something(String strArg1) throws Throwable {
+        try {
+            String tripStatus="";
+            switch (strArg1.toLowerCase()) {
+                case "driver 1 - contacting drivers":
+                    tripStatus=action.getNameAttribute(bungiiDetails.Text_Driver1Status_iOS11_2());
+                    testStepVerify.isEquals(tripStatus,"Contacting");
+                    testStepVerify.isElementEnabled(bungiiDetails.Text_Driver1Status_iOS11_Tag()," Driver # 1 tag should be displayed");
+                    break;
+                case "driver 2 - contacting drivers":
+                    tripStatus=action.getNameAttribute(bungiiDetails.Text_Driver2Status_iOS11_2());
+                    testStepVerify.isEquals(tripStatus,"Contacting");
+                    testStepVerify.isElementEnabled(bungiiDetails.Text_Driver2Status_iOS11_Tag()," Driver # 2 tag should be displayed");
+                    break;
+                case"driver1 name":
+                    tripStatus=action.getNameAttribute(bungiiDetails.Text_Driver1Name());
+                    String expectedDriverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    expectedDriverName = expectedDriverName.substring(0, expectedDriverName.indexOf(" ") + 2);
+                    testStepVerify.isEquals(tripStatus,expectedDriverName);
+                    break;
+                case"driver2 name":
+                    tripStatus=action.getNameAttribute(bungiiDetails.Text_Driver2Name());
+                    String expectedDriver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                    expectedDriverName = expectedDriver2Name.substring(0, expectedDriver2Name.indexOf(" ") + 2);
+                    testStepVerify.isEquals(tripStatus,expectedDriver2Name);
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }

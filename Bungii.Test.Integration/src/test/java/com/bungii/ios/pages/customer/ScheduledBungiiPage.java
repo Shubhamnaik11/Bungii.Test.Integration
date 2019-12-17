@@ -45,5 +45,8 @@ public class ScheduledBungiiPage extends PageBase {
         return findElements("//XCUIElementTypeImage[@name='disclosure-arrow-right']/preceding-sibling::XCUIElementTypeStaticText[last()]", LocatorType.XPath);
     }
 
+    public WebElement Trip_Status() {
+        return findElement("//XCUIElementTypeImage[@name=\"disclosure-arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath);
+    }
 
 }

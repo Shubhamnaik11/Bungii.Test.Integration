@@ -98,10 +98,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii;
 	//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
+				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		else
-			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 
 		return Image_SelectBungii;
 	}

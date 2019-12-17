@@ -127,7 +127,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I am logged in as "valid denver" driver
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location               | Drop Location                    | Geofence |
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
 
     And I click "Get Estimate" button on "Home" screen
@@ -195,8 +195,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location               | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado |denver   |
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
     And I click "Get Estimate" button on "Home" screen
    # Then I should be navigated to "Estimate" screen
     And I confirm trip with following details
@@ -212,7 +212,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: Customer cancel bungii , Verify trip details in Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver      | Scheduled    | NEXT_POSSIBLE |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
@@ -225,7 +225,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver      | Scheduled    | NEXT_POSSIBLE |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
@@ -237,10 +237,72 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
       | Charge | Comments |
-      | 0     | TEST     |
+      | 0      | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression
+  Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:SOLO
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+ #   And I logged in Customer application using  "valid" user
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then trips status should be "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
+
+  @regression
+  Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then trips status should be "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
+    Then trips status on bungii details should be "driver 2 - contacting drivers"
+
+
+  @regression
+  Scenario: To check  status in Scheduled Bungiis page when only one driver accepts trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then trips status should be "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver 2 - contacting drivers"
+
+  @regression
+  Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |    Accepted           |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then trips status should be "estimated cost"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver1 name"

@@ -78,6 +78,12 @@ public String getDriverPhone(String driverName)
         case "Brad Hilton":
             phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");
             break;
+        case "Testdrivertywd_appledv_b_matt Stark_dvOnE":
+            phone = PropertyUtility.getDataProperties("denver.driver.phone");
+            break;
+        case "Testdrivertywd_appledv_b_seni Stark_dvThree":
+            phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+            break;
     }
 
     return phone;
@@ -344,16 +350,22 @@ public String getDriverPhone(String driverName)
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
+            String customerPasswordLabel="";
+            try { customerPasswordLabel= dataMap.get("Customer Password").trim();}catch (Exception e){}
 
             int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
-            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            if(customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            else
+                custPassword=customerPasswordLabel;
 
             cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
