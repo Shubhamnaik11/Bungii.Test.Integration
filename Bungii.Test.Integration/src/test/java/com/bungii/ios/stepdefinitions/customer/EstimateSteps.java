@@ -208,6 +208,28 @@ public class EstimateSteps extends DriverBase {
         String custRef = DbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
+    @When("^I try to schedule bungii for \"([^\"]*)\"$")
+    public void i_try_to_schedule_bungii_for_something(String strArg1) throws Throwable {
+        try {
+
+            switch (strArg1.toLowerCase()) {
+                case "today - after working hour":
+                    selectBungiiTime(0, "11", "45", "PM");
+                    log("I select time for trip as 11:45  pm","I selected time for trip as 11:45  pm");
+                    break;
+                case "tommorow - before working hour":
+                    selectBungiiTime(1, "12", "00", "AM");
+                    log("I select time for trip tomorrow 12 00 AM","I selected time for trip as  tomorrow 12 00 AM");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     public String enterTime(String time) {
         String strTime = "";

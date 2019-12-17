@@ -481,7 +481,7 @@ public class CommonSteps extends DriverBase {
             } else if (navigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
-            }else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+            } else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
@@ -489,8 +489,7 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("Allow");
                 }
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
-            }
-            else {
+            } else {
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
             }
         }
@@ -1163,6 +1162,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CANCEL BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
+                    break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

@@ -336,3 +336,16 @@ Feature: To Test Solo - Scheduling Bungii
       | driver1 state | driver2 state |
       | Accepted      |    Accepted           |
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+
+  @regression1
+  Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today - after working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+    When I try to schedule bungii for "tommorow - before working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"

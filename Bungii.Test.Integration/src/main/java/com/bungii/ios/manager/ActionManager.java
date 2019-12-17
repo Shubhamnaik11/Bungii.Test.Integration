@@ -207,7 +207,10 @@ public class ActionManager {
         Columns.get(2).sendKeys(minutes);
 
         Columns.get(1).sendKeys(hour);
-        logger.detail("CDT  " + Columns.get(0).getAttribute("value") + " , "
+
+        if(!Columns.get(3).getAttribute("value").equals(meridiem))
+            Columns.get(3).sendKeys(meridiem);
+        logger.detail("Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
                 + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
                 + Columns.get(3).getAttribute("value"));
 
