@@ -59,7 +59,7 @@ public class CucumberHooks {
 
         try {
            // new MailSenderEN().send("asads@mailinator.com","ASD","asads@mailinator.com","","","","text/html");
-            new CheckingMails().checkAndFindActivationURL();
+            new CheckingMails().verifyEmail("vishal.bagi@creativecapsule.com","vishal.bagi.cci@gmail.com","FW: BUNGII: Application Received.");
             logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE"));
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();

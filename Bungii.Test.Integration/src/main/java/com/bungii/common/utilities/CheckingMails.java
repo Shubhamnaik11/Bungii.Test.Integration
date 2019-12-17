@@ -24,16 +24,14 @@ public class CheckingMails {
     String signUpEmailAddress = "vishal.bagi@creativecapsule.com";// change accordingly
     String password = "@BLAbla3";// change accordingly
 
-    public String checkAndFindActivationURL( ) {
+    public String verifyEmail(String expectedFromAddress,String expectedToAddress, String expectedSubject) {
         String activationURL = null;
         //run the email checking code in a time loop
-        long t_minus_5 = System.currentTimeMillis()- (5 * 60 * 1000);
 
         long t = System.currentTimeMillis();
         long end = t + (5 * 60 * 1000);//run for 5 min 5*60*1000 in milli seconds
         boolean EmailwithLinkFound = false;
         while ((System.currentTimeMillis() < end)) {
-
             try {
                 System.setProperty("javax.net.ssl.trustStore", "C:/Program Files/Java/jdk1.8.0_131/jre/lib/security/cacerts");
                 System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
@@ -60,23 +58,24 @@ public class CheckingMails {
                 if (!folder.isOpen())
                     folder.open(Folder.READ_WRITE);
                 Message[] messages = folder.getMessages();
+                //Limit message from yesterday only
                 Calendar cal = Calendar.getInstance();
-                cal.roll(Calendar.DATE,-5);
+                cal.roll(Calendar.DATE,-1);
                 Date date =cal.getTime();
 
                 SearchTerm st = new ReceivedDateTerm(ComparisonTerm.GT,date);
-                Message[] oldMsgs = folder.search(st, messages);
+                Message[] recentMessages = folder.search(st, messages);
 
-                System.out.println("No of Messages : " + folder.getMessageCount());
-                System.out.println("No of Unread Messages : " + folder.getUnreadMessageCount());
-                System.out.println(messages.length);
+                System.out.println("No of Total Messages : " + folder.getMessageCount());
+                System.out.println("No of Total Unread Messages : " + folder.getUnreadMessageCount());
+                System.out.println("No of Total recent Messages : " +recentMessages.length);
 
 
-                for (int i = 0; i < oldMsgs.length; i++) {
+                for (int i = recentMessages.length; i > 0; i--) {
 
                     System.out.println("*****************************************************************************");
-                    System.out.println("MESSAGE " + (i + 1) + ":");
-                    Message msg = messages[i];
+                    System.out.println("MESSAGE " + (i) + ":");
+                    Message msg = recentMessages[i-1];
                     System.out.println(msg.getMessageNumber());
                     //Object String;
 
@@ -86,14 +85,12 @@ public class CheckingMails {
                     System.out.println("From: " + msg.getFrom()[0]);
                     System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                     System.out.println("Date: " + msg.getReceivedDate());
-                    System.out.println("Plain text: " + getText(msg));
-                    System.out.println("Alrtnayove: " + getTextFromMessage(msg));
+                    System.out.println("Message with Multipart: " + getText(msg));
+                    System.out.println("Plain text: " + getTextFromMessage(msg));
                     readLineByLineJava8("D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\BungiiReceipt.txt", getText(msg));
                     //System.out.println("Size: "+msg.getSize());
                     //System.out.println(msg.getFlags());
-
-                    //if To Email address has same address as the address used during sign up and subject is same as "Activate Account"
-                    if ((/*msg.getFrom()[0].toString().equals(signUpEmailAddress)) &&*/ (!subject.equals("Activate account")))) {
+                    if ((msg.getFrom()[0].toString().contains(expectedFromAddress)) && (subject.equals(expectedSubject)) &&(msg.getAllRecipients()[0].toString().contains(expectedToAddress)) ) {
                         String EmailContent = msg.getContent().toString();
                         System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
                         //Invoke jSoupHTMLToString object
