@@ -55,6 +55,7 @@ Feature: Customer Home screen
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
+    And I tap on "Cancel during search" on Bungii estimate
 
   @regression
   Scenario: Long Haul(>150 miles) alert shown (dist bet. pickup and drop off should be >150 miles)
