@@ -306,3 +306,33 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver1 name"
+
+  @regression
+  Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name |Customer Password |
+      | NEXT_POSSIBLE | 8888889917 | Testcustomertywd_appleZTDafc Stark| Cci12345          |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
+      | driver1 state|
+      |Accepted |
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+
+  @regression
+  Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:DUO
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |    Accepted           |
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"

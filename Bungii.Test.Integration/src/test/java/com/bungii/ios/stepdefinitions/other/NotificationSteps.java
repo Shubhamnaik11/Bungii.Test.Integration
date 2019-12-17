@@ -87,8 +87,10 @@ public class NotificationSteps extends DriverBase {
 			break;
 		case "DRIVER ENROUTE":
 			text=PropertyUtility.getMessage("customer.notification.driver.accepted");
-
 			break;
+			case "SCHEDULED PICKUP ACCEPTED":
+				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
+				break;
 		}
 		return text;
 	}
