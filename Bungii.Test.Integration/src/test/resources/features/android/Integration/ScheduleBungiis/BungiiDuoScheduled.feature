@@ -6,7 +6,7 @@
 Feature: Duo
 
   @sanity
- # @regression
+  @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
     Given I am logged in as "valid atlanta" customer
 
@@ -121,7 +121,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii Driver "completes Bungii"
 
- # @regression
+  @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
     Given that duo schedule bungii is in progress
@@ -1136,8 +1136,8 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @newScenario7
-  @newscenario
+
+  @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
