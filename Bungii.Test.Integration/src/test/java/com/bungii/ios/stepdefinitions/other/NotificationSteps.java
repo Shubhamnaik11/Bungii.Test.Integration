@@ -43,7 +43,7 @@ public class NotificationSteps extends DriverBase {
 		try{
 		String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
 		String appHeaderName=getAppHeader(appName);
-			boolean notificationClickRetry=false;
+		boolean notificationClickRetry=false;
 		String bunddleId=getBundleId(currentApplication);
 
 
@@ -51,7 +51,10 @@ public class NotificationSteps extends DriverBase {
 			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
-		//	logger.detail(SetupManager.getDriver().getPageSource());
+
+            log("Checking notifications","Checking notifications",true);
+
+            //	logger.detail(SetupManager.getDriver().getPageSource());
 		boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 		if(!notificationClick){
 			Thread.sleep(80000);
@@ -75,7 +78,46 @@ public class NotificationSteps extends DriverBase {
 
 	}
 	}
-	
+	@Then("^I should not get notification for \"([^\"]*)\" for \"([^\"]*)\"$")
+	public void i_should_not_get_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
+
+		//Thread.sleep(20000);
+		Thread.sleep(10000);
+		try{
+			String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+			String appHeaderName=getAppHeader(appName);
+			String bunddleId=getBundleId(currentApplication);
+
+
+
+			cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
+			action.showNotifications();
+
+			log("Checking notifications","Checking notifications",true);
+
+			//	logger.detail(SetupManager.getDriver().getPageSource());
+			boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
+			if(!notificationClick){
+				Thread.sleep(80000);
+				notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
+
+			}
+			if(notificationClick){
+				fail("I should not get notification for "+expectedNotification,"I should not get notification for "+getExpectedNotification(expectedNotification),true);
+			}else{
+				pass("I should not able to click notification for"+expectedNotification,"I was not able t notifications with text"+getExpectedNotification(expectedNotification),true);
+				action.hideNotifications();
+			}
+
+			//temp fixed for iOS  device
+			utility.handleIosUpdateMessage();
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+		}
+	}
 	private String getExpectedNotification(String identifier){
 		String text="";
 		switch (identifier.toUpperCase()) {
@@ -91,10 +133,22 @@ public class NotificationSteps extends DriverBase {
 			case "SCHEDULED PICKUP ACCEPTED":
 				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
 				break;
+		case "STACK TRIP":
+			text=PropertyUtility.getMessage("driver.notification.stack");
+			break;
+			case "CUSTOMER CANCEL STACK TRIP":
+				text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+				break;
+			case "DRIVER ACCEPTED STACK BUNGII":
+				text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+				break;
+			case "DRIVER STARTED STACK BUNGII":
+				text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
+				break;
 		}
 		return text;
 	}
-	
+
 	private String getAppHeader(String appName){
 		String appHeaderName="";
 		switch (appName.toUpperCase()) {
@@ -117,7 +171,7 @@ public class NotificationSteps extends DriverBase {
 		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
 		((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 		action.showNotifications();
-		
+
     	String expectedMessage=getExpectedNotification(actionToPerfrom);
     	boolean isDisplayed=checkNotification(getAppHeader(actor),expectedMessage );
 
@@ -132,7 +186,7 @@ public class NotificationSteps extends DriverBase {
 
 	}
     	}
-    
+
 	@When("^I clear all notification$")
 	public void i_clear_all_notification() {
 		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
@@ -141,14 +195,14 @@ public class NotificationSteps extends DriverBase {
 			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
 
-			
+
 			boolean cleared = clearAllNotifcation();
 			if (cleared)
 				log( "I should able cleared all notification", "I cleared all notification");
 			else
 				log( "I should able cleared all notification",
 						"Not notification found on device");
-		
+
 			action.hideNotifications();
 			((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
 		} catch (Exception e) {
@@ -170,7 +224,7 @@ public class NotificationSteps extends DriverBase {
 		default:
 			bundleID = PropertyUtility.getProp("bundleId_Customer");
 			break;
-			
+
 		}
 		return bundleID;
 	}
