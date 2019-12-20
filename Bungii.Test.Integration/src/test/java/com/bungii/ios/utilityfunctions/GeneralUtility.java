@@ -565,6 +565,24 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.account");
                 break;
+            case "SCHEDULED BUNGII":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.scheduled.bungii");
+                break;
+            case "LEADERBOARD":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.leaderboard");
+                break;
+            case"FEEDBACK":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.feedback");
+                break;
+            case "EARNINGS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.earnings");
+                break;
+            case "TRIP ALERT SETTINGS":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.alert.settings");
+                break;
+            case "STORE":
+                expectedMessage = PropertyUtility.getMessage("driver.navigation.store");
+                break;
             case "SCHEDULED BUNGIIS":
             case "MY BUNGIIS":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.scheduled.bungii");

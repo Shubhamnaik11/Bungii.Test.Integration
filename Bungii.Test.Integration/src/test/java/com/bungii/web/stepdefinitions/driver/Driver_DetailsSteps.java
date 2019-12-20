@@ -36,10 +36,12 @@ public class Driver_DetailsSteps extends DriverBase {
         switch (strArg1) {
             case "valid":
                 action.clearSendKeys(Page_Driver_Details.TextBox_StreetAddress(), PropertyUtility.getDataProperties("DriverStreet"));
-                Thread.sleep(2000);action.click(Page_Driver_Details.List_StreetAddress());
-               // action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
-               // action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
-               // action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
+                Thread.sleep(5000);
+                action.click(Page_Driver_Details.List_StreetAddress());
+                Thread.sleep(2000);
+                action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
+                action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
+                action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
 
                 action.click(Page_Driver_Details.CheckBox_Age18());
                 action.click(Page_Driver_Details.CheckBox_Lift75());
@@ -149,6 +151,7 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_PickupInfo.Button_PickUpNext());
                 break;
             case "Documentation":
+                Thread.sleep(6000);
                 action.click(Page_Driver_Doc.Button_DocNext());
                 break;
             case "Bank Details":

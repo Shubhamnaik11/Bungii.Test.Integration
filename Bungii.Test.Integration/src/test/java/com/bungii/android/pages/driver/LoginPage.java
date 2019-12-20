@@ -22,6 +22,6 @@ public class LoginPage extends PageBase {
     public WebElement Text_LoginError2() { return findElements("com.bungii.driver:id/textinput_error", LocatorType.Id).get(1); }
     public WebElement Button_ForgotPassword(boolean ...ignoreException) { return findElement("com.bungii.driver:id/login_button_forgot_password", LocatorType.Id,ignoreException); }
 
-
+    public WebElement Text_PendingDriverLoginError() { return findElement("//android.widget.TextView[@resource-id='com.bungii.driver:id/snackbar_text'", LocatorType.XPath); }
 
 }
