@@ -256,7 +256,10 @@ public class CommonSteps extends DriverBase {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
                     break;
-
+                case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
+                    expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    logger.detail("PAGE SOURCE"+SetupManager.getDriver().getPageSource());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -277,7 +280,12 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String strArg1) throws Throwable {
         try {
-            action.click(estimatePage.Button_OK());
+            if(strArg1.equalsIgnoreCase("cancel"))
+                action.click(estimatePage.Button_Cancel());
+            else
+                action.click(estimatePage.Button_OK());
+
+
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
         } catch (Exception e) {
@@ -286,7 +294,18 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @Then("^Alert should have \"([^\"]*)\" button$")
+    public void alert_should_have_something_button(String list) throws Throwable {
+        switch (list) {
+            case "cancel,proceed":
+                testStepVerify.isElementEnabled(estimatePage.Button_Cancel(true),"Cancel button should be displayed");
+                testStepVerify.isElementEnabled(estimatePage.Button_Proceed(true)," Proceed button should be displayed");
+                break;
 
+            default:
+                throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }
     @Given("^I newly installed \"([^\"]*)\" app$")
     public void i_newly_installed_something_app(String strArg1) throws Throwable {
         try {
