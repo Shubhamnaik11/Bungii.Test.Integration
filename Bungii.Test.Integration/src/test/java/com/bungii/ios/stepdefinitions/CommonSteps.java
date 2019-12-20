@@ -255,6 +255,9 @@ public class CommonSteps extends DriverBase {
                 case "PICK UP CLEAR TEXT":
                     action.click(homePage.Button_ClearPickup());
                     break;
+                case "PICK UP CLEAR BUTTON":
+                    action.clickMiddlePoint(homePage.Button_ClearPickup());
+                    break;
                 case "DROP CLEAR TEXT":
                     action.click(homePage.Button_ClearDrop());
                     break;
@@ -327,6 +330,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "REJECT":
                     action.click(bungiiRequestPage.Button_Reject());
+                    break;
+                case "REQUEST YOUR CITY":
+                    action.click(homePage.Text_OutOfOffice_RequestCity());
                     break;
                 case "SHARE ON FACEBOOK":
                 case "SHARE ON TWITTER":
@@ -1164,6 +1170,10 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
                     break;
+                case "LONG HAUL":
+                    expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
