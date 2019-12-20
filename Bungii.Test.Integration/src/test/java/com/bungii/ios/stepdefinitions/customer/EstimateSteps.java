@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -221,6 +222,10 @@ public class EstimateSteps extends DriverBase {
                     selectBungiiTime(1, "12", "00", "AM");
                     log("I select time for trip tomorrow 12 00 AM","I selected time for trip as  tomorrow 12 00 AM");
                     break;
+                case "today+5":
+                    selectBungiiTime(5, "", "", "");
+                    log("I select time for trip today+5 1:00 pm","I selected time for trip as today+5 1:00 pm");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -231,7 +236,7 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
-    public String enterTime(String time) {
+    public String enterTime(String time) throws ParseException {
         String strTime = "";
         if (time.equalsIgnoreCase("NOW")) {
             //    selectBungiiTimeNow();
@@ -243,7 +248,50 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        } else if (time.equals("<OLD BUNGII TIME>")) {
+        }else if(time.equalsIgnoreCase("<TIME WITHIN TELET>")){
+
+            String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date teletTimeInUtc = null;
+            try {
+                teletTimeInUtc = formatter.parse(teletTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(teletTimeInUtc);
+            int mnts = calendar.get(Calendar.MINUTE);
+
+            calendar.set(Calendar.MINUTE, mnts - 30);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            Date nextQuatter = calendar.getTime();
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+            DateFormat formatterForLocalTimezone  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            String strdate = formatter.format(calendar.getTime());
+            Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
+
+
+
+            String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
+            strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
+            action.click(estimatePage.Row_TimeSelect());
+            selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            action.click(estimatePage.Button_Set());
+
+        }
+        else if (time.equals("<OLD BUNGII TIME>")) {
             String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             String tripDay = expectedTripTime.split(",")[0];
             String tripTime = expectedTripTime.split(",")[1];
@@ -255,7 +303,16 @@ public class EstimateSteps extends DriverBase {
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             selectBungiiTime();
-        } else {
+        }else if(time.equalsIgnoreCase("Today+1 1:00 PM")){
+            selectBungiiTime(1, "1", "00", "PM");
+        }else if(time.equalsIgnoreCase("Today+2 1:00 PM")){
+            selectBungiiTime(2, "1", "00", "PM");
+        }else if(time.equalsIgnoreCase("Today+3 1:00 PM")){
+            selectBungiiTime(3, "1", "00", "PM");
+        }else if(time.equalsIgnoreCase("Today+4 1:00 PM")){
+            selectBungiiTime(4, "1", "00", "PM");
+        }
+        else {
             selectBungiiTime(0, "", "", "");
             strTime = "Now";
         }

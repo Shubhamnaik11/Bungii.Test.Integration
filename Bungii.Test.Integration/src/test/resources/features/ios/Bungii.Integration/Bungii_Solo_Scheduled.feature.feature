@@ -4,8 +4,9 @@
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
-  Background:
+  #Background:
 
+  @DUO_SCH_DONOT_ACCEPT
   @POSTDUO
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
@@ -297,7 +298,7 @@ Feature: To Test Solo - Scheduling Bungii
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      |    Accepted           |
+      | Accepted      | Accepted      |
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
@@ -305,21 +306,21 @@ Feature: To Test Solo - Scheduling Bungii
     Then trips status should be "estimated cost"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
-    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver2 name"
 
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name |Customer Password |
-      | NEXT_POSSIBLE | 8888889917 | Testcustomertywd_appleZTDafc Stark| Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
-      | driver1 state|
-      |Accepted |
+      | driver1 state |
+      | Accepted      |
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
 
   @regression
@@ -334,11 +335,11 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      |    Accepted           |
+      | Accepted      | Accepted      |
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
 
-  @regression1
-  Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours
+  @regression
+  Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     And I request for  bungii for given pickup and drop location
@@ -349,3 +350,194 @@ Feature: To Test Solo - Scheduling Bungii
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
     When I try to schedule bungii for "tommorow - before working hour"
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+
+  @regression
+  Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today - after working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+    When I try to schedule bungii for "tommorow - before working hour"
+    Then user is alerted for "OUTSIDE BUISSNESS HOUR"
+
+
+  @regression
+  Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+1 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+2 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+3 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+4 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today+5"
+    Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+
+  @regression
+  Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+1 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+2 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+3 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time            | PickUpImage |
+      | 30       |           |              | Today+4 1:00 PM | Default     |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    And I Select "Home" from Customer App menu
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I try to schedule bungii for "today+5"
+    Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+
+    #comment below tag and  add to first scenario
+  @DUO_SCH_DONOT_ACCEPT
+  #@regression1
+  Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
+    Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Select "Home" from Customer App menu
+    And I wait for Minimum duration for "DUO_SCH_DONOT_ACCEPT" Bungii to be in Driver not accepted state
+    When I Switch to "driver" application on "same" devices
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I verify status and researches Bungii with following details
+      | label                | Status of Trip                 |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) didn't accept pickup |
+
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state | label                |
+      | Accepted      | Accepted      | DUO_SCH_DONOT_ACCEPT |
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+
+  @regression1
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+
+    And I get TELET time of of the current trip
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"
+
+  @regression1
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I get TELET time of of the current trip
+
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"

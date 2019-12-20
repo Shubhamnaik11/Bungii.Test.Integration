@@ -62,6 +62,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
         return PickupID;
     }
+    public static String getPickupReff(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
+
+        logger.detail("For customer reference is " + custRef + " PickupRef is " + PickupID);
+        return PickupID;
+    }
     public static String getActualTime(String pickupID) {
         String queryString = "select ActualTime from triprequest  WHERE PickupID = '" + pickupID + "' order by pickupid desc limit 1";
 

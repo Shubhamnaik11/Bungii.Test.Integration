@@ -13,6 +13,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -225,7 +226,12 @@ public String getDriverPhone(String driverName)
                         String driverAccessToken = "", driver2AccessToken = "";
                         //get geofence and pickup request from context
                         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        String tripLabel="",pickupRequest="";
+                        try { tripLabel= DataList.get(i).get("label").trim();}catch (Exception e){}
+                        if(tripLabel.equals(""))
+                            pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        else
+                            pickupRequest = (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST_"+tripLabel);
 
                         driverPhoneNum = getDriverPhone(driverAName);
                         driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
@@ -401,6 +407,65 @@ public String getDriverPhone(String driverName)
         }
 
     }
+
+    public void createTripAndSaveInFeatureContext(String bungiiType, String geofence, String customer, String customerName, String customerPasswordLabel,String scenarioLabel) {
+        try {
+
+            scenarioLabel="_"+scenarioLabel;
+            int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
+
+            custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            if(customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            else
+                custPassword=customerPasswordLabel;
+
+            cucumberContextManager.setFeatureContextContext("CUSTOMER"+scenarioLabel, customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setFeatureContextContext("CUSTOMER_PHONE"+scenarioLabel, custPhoneNum);
+            cucumberContextManager.setFeatureContextContext("GEOFENCE"+scenarioLabel, geofence);
+            cucumberContextManager.setFeatureContextContext("BUNGII_GEOFENCE"+scenarioLabel, geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String custRef = customerServices.getCustomerRef(custAccessToken);
+
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
+            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest+scenarioLabel);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"+scenarioLabel), custAccessToken);
+            if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
+                coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            else {
+                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+                cucumberContextManager.setFeatureContextContext("MIN_WAIT_BUNGII_START"+scenarioLabel,wait);
+                cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME"+scenarioLabel, System.currentTimeMillis() / 1000L);
+
+            }
+            cucumberContextManager.setFeatureContextContext("BUNGII_TIME"+scenarioLabel,cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+          //  log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+    @Given("^I have already scheduled bungii with \"([^\"]*)\" label$")
+    public void i_have_already_scheduled_bungii_with_something_label(String scenarioLabel) throws Throwable {
+        testStepAssert.isTrue(!((String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+"_"+scenarioLabel)).equals(""),"I should have already scheduled bungii","I should have already scheduled bungii,pickid"+(String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+scenarioLabel));
+    }
+
     @Given("that duo schedule bungii is in progress")
     public void thatduoScheduleBungiiIsInProgress(DataTable data) {
         try {

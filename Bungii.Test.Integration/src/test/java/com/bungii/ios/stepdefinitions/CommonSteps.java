@@ -26,9 +26,9 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -73,6 +73,7 @@ public class CommonSteps extends DriverBase {
     private EnableNotificationPage enableNotificationPage;
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
+    private DbUtility dbUtility = new DbUtility();
 
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
@@ -1166,6 +1167,9 @@ public class CommonSteps extends DriverBase {
                 case "OUTSIDE BUISSNESS HOUR":
                     expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     break;
+                case "SCHEDULED ONLY 5 DAYS":
+                    expectedText=PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -1178,6 +1182,15 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+    @And("^I get TELET time of of the current trip$")
+    public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+       //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime=dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
 
 
