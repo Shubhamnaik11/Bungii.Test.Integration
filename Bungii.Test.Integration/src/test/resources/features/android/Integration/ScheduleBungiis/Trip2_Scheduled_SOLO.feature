@@ -275,3 +275,97 @@ Feature: SoloScheduled
     And I Cancel selected Bungii
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+    @regression
+  Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
+      Given that solo schedule bungii is in progress
+        | geofence | Bungii State | Bungii Time   |
+        | kansas      | Scheduled     | NEXT_POSSIBLE |
+      When I am logged in as "valid" customer
+      And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+      Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+
+  @regression
+  Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                        | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test     | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
+    Then trips status on bungii details should be "driver 2 - contacting drivers"
+
+  @regression
+  Scenario: To check  status in Scheduled Bungiis page when only one driver accepts trip
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver 2 - contacting drivers1"
+
+  @regression
+  Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |    Accepted   |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    #Then The status on "MY BUNGIIS" should be displayed as "estimated cost"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver1 name"
+    Then trips status on bungii details should be "driver2 name"
+
+  @regression
+  @test1
+  Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
+    When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state|
+      |Accepted |
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    #And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+
+  @regression
+  Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:DUO
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |    Accepted           |
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"

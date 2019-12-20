@@ -1,11 +1,14 @@
 package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.BungiiDetailsPage;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.ios.pages.customer.BungiiDetails;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -22,6 +25,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage;
     GeneralUtility utility = new GeneralUtility();
 
+    BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -59,6 +63,64 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Then("^The status on \"([^\"]*)\" should be displayed as \"([^\"]*)\"$")
+    public void the_status_on_something_should_be_displayed_as_something(String strArg1, String status) throws Throwable {
+    try{
+                testStepVerify.isElementTextEquals(scheduledBungiisPage.Text_TripStatus(),status);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+   @Then("^trips status on bungii details should be \"([^\"]*)\"$")
+    public void trips_status_on_bungii_details_should_be_something(String strArg1) throws Throwable {
+
+        try {
+            String tripStatus="",actualDriverName="";
+            switch (strArg1.toLowerCase()) {
+                case "driver 1 - contacting drivers":
+                    tripStatus=action.getText(bungiiDetailsPage.Text_Driver1Status());
+                    testStepVerify.isEquals(tripStatus,"Contacting");
+                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_Driver1StatusTag()," Driver # 1 tag should be displayed");
+                    break;
+                case "driver 2 - contacting drivers":
+                    tripStatus=action.getText(bungiiDetailsPage.Text_Driver2Status());
+                    testStepVerify.isEquals(tripStatus,"Contacting");
+                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_Driver2StatusTag()," Driver # 2 tag should be displayed");
+                    break;
+
+                case"driver1 name":
+                    actualDriverName=action.getText(bungiiDetailsPage.Text_Driver1Name());
+                    String expectedDriver1Name=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+                    if(expectedDriver1Name.contains(actualDriverName)) {
+                        testStepVerify.isElementDisplayed(bungiiDetailsPage.Text_Driver1Name()," Driver # 1 Name should be displayed","Driver # 1 Name should be displayed","Driver # 1 Name is not displayed");
+                    }
+                    break;
+
+                case"driver2 name":
+                    actualDriverName=action.getText(bungiiDetailsPage.Text_Driver2Name());
+                    String expectedDriver2Name=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+                    if(expectedDriver2Name.contains(actualDriverName)) {
+                        testStepVerify.isElementEnabled(bungiiDetailsPage.Text_Driver2Name()," Driver # 2 Name should be displayed");
+                    }
+                    break;
+
+                case "driver 2 - contacting drivers1":
+                    tripStatus=action.getText(bungiiDetailsPage.Text_Driver2Status1());
+                    testStepVerify.isEquals(tripStatus,"Contacting");
+                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_Driver2StatusTag1()," 1Driver # 2 tag should be displayed");
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 
 

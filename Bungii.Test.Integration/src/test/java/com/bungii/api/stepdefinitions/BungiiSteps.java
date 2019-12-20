@@ -78,6 +78,19 @@ public String getDriverPhone(String driverName)
         case "Brad Hilton":
             phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");
             break;
+
+        case "Testdrivertywd_appleks_ra_four Kent":
+            phone = PropertyUtility.getDataProperties("android.valid.driver1.phone");
+            break;
+
+        case "Testdrivertywd_appleks_rathree Test":
+            phone = PropertyUtility.getDataProperties("android.valid.driver2.phone");
+            break;
+
+        case "Testdrivertywd_appleks_a_vic Klumm":
+            phone = PropertyUtility.getDataProperties("android.valid.driver3.phone");
+            break;
+
     }
 
     return phone;
@@ -344,16 +357,25 @@ public String getDriverPhone(String driverName)
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
+            String customerpassword="";
+            try { customerpassword = dataMap.get("Customer Password").trim();} catch (Exception e){}
 
             int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
-            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            if(customerpassword.isEmpty()==true) {
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            }
+            else
+            {
+                custPassword = dataMap.get("Customer Password").trim();
+            }
 
             cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
 
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
