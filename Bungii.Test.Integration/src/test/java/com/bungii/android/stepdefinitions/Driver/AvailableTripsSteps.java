@@ -94,7 +94,16 @@ public class AvailableTripsSteps extends DriverBase {
     }
     @Then("^I should be navigated to Available Trip screen on driver app$")
     public void i_should_be_navigated_to_something_screen_on_driver_app() throws Throwable {
-        String getNaviagationText=action.getText(availableTrips.NavigationBar_Text());
-        testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"),getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is"+getNaviagationText);    }
-}
+        try {
+            String getNaviagationText = action.getText(availableTrips.NavigationBar_Text());
+            testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"), getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is" + getNaviagationText);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    }
 
