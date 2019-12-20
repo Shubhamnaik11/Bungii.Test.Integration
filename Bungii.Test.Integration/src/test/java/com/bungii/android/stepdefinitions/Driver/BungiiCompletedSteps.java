@@ -27,6 +27,9 @@ public class BungiiCompletedSteps extends DriverBase {
                     verifyBungiiCompletedPage();
                     verifyTripValue();
                     break;
+                case "summary":
+                    verifyBungiiCompletedPage();
+                    break;
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
             }

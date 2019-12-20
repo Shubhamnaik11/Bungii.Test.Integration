@@ -101,9 +101,9 @@ public class HomeSteps extends DriverBase {
                 selectDropLocation(dragFactor);
             }
             selectTripDriver(tripDriverType);
-            String bungiiType=saveBungiiHomeDetails(tripDriverType);
-            boolean isbungiiTypeCorrect=false;
-            isbungiiTypeCorrect=(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) ||(tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
+            String bungiiType = saveBungiiHomeDetails(tripDriverType);
+            boolean isbungiiTypeCorrect = false;
+            isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
 
 /*            testStepVerify.isTrue(verifyNoOfDriver(tripDriverType), "I Requested Bungii",
                     "Number of driver for Bungii should be " + tripDriverType,
@@ -111,7 +111,6 @@ public class HomeSteps extends DriverBase {
             testStepVerify.isTrue(isbungiiTypeCorrect, "I Requested Bungii",
                     "Number of driver for Bungii should be " + tripDriverType,
                     "Number of driver for Bungii is not " + tripDriverType);
-
 
 
         } catch (Exception e) {
@@ -140,12 +139,44 @@ public class HomeSteps extends DriverBase {
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
 
-            String bungiiType=saveBungiiHomeDetails(tripDriverType);
-            boolean isbungiiTypeCorrect=false;
-            isbungiiTypeCorrect=(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) ||(tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
+            String bungiiType = saveBungiiHomeDetails(tripDriverType);
+            boolean isbungiiTypeCorrect = false;
+            isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
                     "Number of driver for Bungii is not " + tripDriverType);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @And("^I enter pickup location$")
+    public void i_request_for_bungii_for_given_pickup_location(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String pickup = dataMap.get("Pickup Location").trim();
+            selectBungiiLocation("PICK UP", pickup);
+            log("I enter pickup location", " I entered location" + pickup);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+    @And("^I enter drop location$")
+    public void i_request_for_bungii_for_given_drop_location(DataTable data) {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String drop = dataMap.get("Drop Location").trim();
+            selectBungiiLocation("DROP", drop);
+            log("I enter DROP location", " I entered location" + drop);
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -170,7 +201,7 @@ public class HomeSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
 
-        return  bungiiLocation[4];
+        return bungiiLocation[4];
 
     }
 
@@ -196,8 +227,11 @@ public class HomeSteps extends DriverBase {
                     selectDropLocation(1);
                     break;
                 case "PICK UP":
-                       selectPickUpLocation(1);
-                 //   action.click(homePage.BUTTON_SET());
+                    selectPickUpLocation(1);
+                    //   action.click(homePage.BUTTON_SET());
+                    break;
+                case "CURRENT PICK UP":
+                    action.click(homePage.BUTTON_SET());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
@@ -352,6 +386,62 @@ public class HomeSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+    @Then("^drop off field should be \"([^\"]*)\"$")
+    public void drop_off_field_should_be_something(String strArg1) throws Throwable {
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "not be displayed":
+                    testStepVerify.isFalse(action.isElementPresent(homePage.TextBox_Drop(true)), "Drop off field should be displayed", "Drop off field is displayed", "Drop off field is not displayed");
+                    break;
+                case "displayed":
+                    testStepVerify.isTrue(action.isElementPresent(homePage.TextBox_Drop(true)), "Drop off field should be displayed");
+                    break;
+                default:
+                    throw new Exception(" UN IMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^driver eta should be \"([^\"]*)\"$")
+    public void driver_eta_should_be_something(String strArg1) throws Throwable {
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "less than 30 mins":
+                    String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
+                    int intMinValue = Integer.parseInt(minsValue.replace(" MINS", ""));
+                    testStepVerify.isTrue(minsValue.contains(" MINS"), "Mins should displayed");
+                    testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
+                    break;
+                case "not be displayed":
+                    testStepVerify.isFalse(action.isElementPresent(homePage.Text_eta_mins(true)), "Driver eta should bot be displayed", "Driver ETA is not displayed", "Driver ETA is displayed");
+                    break;
+                default:
+                    throw new Exception(" UN IMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+
+    @Then("^geofence not active message should be displayed$")
+    public void geofence_not_active_message_should_be_displayed() throws Throwable {
+        try {
+            testStepVerify.isElementEnabled(homePage.Text_OutOfOffice(),"'Whoops! Sorry, we’re not operating here yet.' should be displayed");
+            testStepVerify.isElementEnabled(homePage.Text_OutOfOffice_RequestCity(),"'Request your city' should be displayed");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     /**
@@ -524,12 +614,12 @@ public class HomeSteps extends DriverBase {
      * @return value of selected pickup drop location
      */
     public String[] getPickUpAndDropLocation() {
-        List<WebElement> staticFields=homePage.TextBox_AddressGeneric();
+        List<WebElement> staticFields = homePage.TextBox_AddressGeneric();
         String[] pickUpLocation = new String[5];
-        if(staticFields.size()!=5)
+        if (staticFields.size() != 5)
             error("i should able to get all information from home screen", "Not able to get all information from home screen", true);
-        for(int i=0;i<5;i++){
-            pickUpLocation[i]=staticFields.get(i).getAttribute("value");
+        for (int i = 0; i < 5; i++) {
+            pickUpLocation[i] = staticFields.get(i).getAttribute("value");
 
         }
         return pickUpLocation;
@@ -566,8 +656,8 @@ public class HomeSteps extends DriverBase {
 
         int offset = 70 * dragFactor;
         Point initial = homePage.Image_eta_bar().getLocation();
-        boolean isPickupLineDisplayed=action.isElementPresent(homePage.TextBox_Pickup(true));
-        if(isPickupLineDisplayed) {
+        boolean isPickupLineDisplayed = action.isElementPresent(homePage.TextBox_Pickup(true));
+        if (isPickupLineDisplayed) {
             while (action.getValueAttribute(homePage.TextBox_Pickup(true)).contains("Pick")) {
                 action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
 
@@ -593,7 +683,7 @@ public class HomeSteps extends DriverBase {
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();
         try {
-           // wait for loading to disappear
+            // wait for loading to disappear
 /*            if (action.isElementPresent(homePage.Image_Loading(true))) {
                 action.invisibilityOfElementLocated(homePage.Image_Loading(true));
             }*/
@@ -601,9 +691,9 @@ public class HomeSteps extends DriverBase {
 
 
             action.click(homePage.BUTTON_SET());
-            if(!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
+            if (!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
                 Point initial = homePage.Image_eta_bar().getLocation();
-                 action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
+                action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
                 //action.dragFromToForDuration(82, 262, 82, 300, 2);
                 action.click(homePage.BUTTON_SET());
             }

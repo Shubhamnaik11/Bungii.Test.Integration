@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -11,6 +12,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -20,6 +24,7 @@ public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
+    HomePage homePage=new HomePage();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
@@ -63,6 +68,22 @@ public class LoginSteps extends DriverBase {
                     phone = PropertyUtility.getDataProperties("atlanta.driver.phone");
                     password = PropertyUtility.getDataProperties("atlanta.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid ios":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone =PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    password = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid far away atlanta":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("atlanta.far.away.driver.phone");
+                    password = PropertyUtility.getDataProperties("atlanta.far.away.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.far.away.driver.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
@@ -158,6 +179,24 @@ public class LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError2()), PropertyUtility.getMessage("driver.login.password.error"));
                     break;
+
+                case "It looks like we ran into a hiccup. Please contact support@bungii.com for more information.":
+                    testStepVerify.isEquals(action.getText(homePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    break;
+
+                case "Your account registration is still under process.":
+                    //testStepVerify.isEquals(action.getText(driverLogInPage.Text_PendingDriverLoginError()), PropertyUtility.getMessage("driver.login.payment.pending.error"));
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Your account registration is still under process.");
+                    break;
+
+                case "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
+                    break;
+
+                case "Invalid login credentials. You have exhausted 3 out of 5 attempts of entering the correct credentials.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -167,5 +206,47 @@ public class LoginSteps extends DriverBase {
         }
     }
 
+    @When("^I enter phoneNumber$")
+    public void i_enter_phonenumber() {
+        String phone = PropertyUtility.getDataProperties("driver.locked.login.phone");
+        action.sendKeys(driverLogInPage.TextField_PhoneNumber(), phone);
+    }
+
+    @And("^I enter invalid password and click on \"([^\"]*)\" button for \"([^\"]*)\" times on Log In screen on driver app$")
+    public void i_enter_invalid_password_and_click_on_something_button_for_something_times_on_log_in_screen_on_driver_app(String strArg1, String count) throws Throwable {
+        try {
+            String password=null;
+            switch(count) {
+                case "5":
+                    password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                    action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+                    for (int i = 0; i < 5; i++) {
+                        action.click(driverLogInPage.Button_Login());
+                    }
+                    break;
+
+                case "3":
+                password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+                for (int i = 0; i < 3; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+
+            case "2":
+                for (int i = 0; i < 2; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 }

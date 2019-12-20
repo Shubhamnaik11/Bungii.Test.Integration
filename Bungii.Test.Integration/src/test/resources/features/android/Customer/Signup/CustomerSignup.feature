@@ -61,6 +61,7 @@ Feature: CustomerSignup
     And I tap on the "Yes" button on Signup Page
     Then the new user should see "Signup page"
 
+
   @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number on Signup Page

@@ -4,17 +4,23 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import io.restassured.http.Cookies;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.collections.map.HashedMap;
 
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.fail;
+import static com.bungii.common.manager.ResultManager.log;
 import static io.restassured.RestAssured.given;
 
 
 public class WebPortal {
     private static Cookies adminCookies;
     private static String CUSTOMER_CANCELPICKUP = "/BungiiReports/CustomerCancelPickup";
+    private static String CAN_EDIT_PICKUP = "/BungiiReports/CanEditPickup";
+    private static String CALCULATE_COST = "/BungiiReports/CalculateCost";
+    private static String MANUALLY_END = "/BungiiReports/ManuallyEndPickup";
 
 
     public Response AdminLogin() {
@@ -51,5 +57,66 @@ public class WebPortal {
     public void cancelBungiiAsAdmin(String pickupRequestId) {
         AdminLogin();
         cancelScheduledBungii(pickupRequestId);
+    }
+
+    public void asAdminManuallyEndBungii(String pickupRequestId) {
+        AdminLogin();
+        try {Thread.sleep(30000);} catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        com.bungii.api.utilityFunctions.GeneralUtility utility = new com.bungii.api.utilityFunctions.GeneralUtility();
+        String bungiiEndTime=utility.getBungiiEndTimeForManuallyEnd();
+        String bungiiTimeZoneLabel=utility.getBungiiTimeZoneLanel();
+        canEditPickup(pickupRequestId);
+        calculateManuallyEndCost(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
+        calculateManuallyBungii(pickupRequestId,bungiiEndTime,bungiiTimeZoneLabel);
+    }
+
+
+    public void canEditPickup(String pickupRequestId) {
+        String cancelBungii = UrlBuilder.createApiUrl("web core", CAN_EDIT_PICKUP);
+        Response response = given().cookies(adminCookies)
+                .param("pickupRequestID", pickupRequestId)
+                .log().all().
+                        when().
+                        get(cancelBungii);
+        response.then().log().all();
+        JsonPath jsonPathEvaluator1 = response.jsonPath();
+
+        boolean isSuccess = jsonPathEvaluator1.get("Success");
+        if(!isSuccess)
+            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+
+
+    }
+
+    public void calculateManuallyEndCost(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
+        String cancelBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
+        Response response = given().cookies(adminCookies)
+                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
+                .log().all().
+                        when().
+                        post(cancelBungii);
+        response.then().log().all();
+        JsonPath jsonPathEvaluator1 = response.jsonPath();
+        boolean isSuccess = jsonPathEvaluator1.get("Success");
+        if(!isSuccess)
+            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+    }
+
+    public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
+        String cancelBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
+        Response response = given().cookies(adminCookies)
+                .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
+                .log().all().
+                        when().
+                        post(cancelBungii);
+        response.then().log().all();
+
+        JsonPath jsonPathEvaluator1 = response.jsonPath();
+        boolean isSuccess = jsonPathEvaluator1.get("Success");
+        if(!isSuccess)
+            fail("I should able to end bungii"+pickupRequestId, "I was not able to edit bungii"+pickupRequestId);
+
     }
 }
