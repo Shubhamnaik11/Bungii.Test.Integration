@@ -16,6 +16,7 @@ import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.common.manager.ResultManager.fail;
 
 public class BungiiSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(BungiiSteps.class);
@@ -1037,8 +1038,6 @@ public String getDriverPhone(String driverName)
                 fail("bungii admin manually end bungii created by "+customer, "Not able to find customer" , false);
 
             }
-
-
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

@@ -284,6 +284,9 @@ Feature: SoloScheduled
       When I am logged in as "valid" customer
       And I tap on "Menu" > "SCHEDULED BUNGIIS" link
       Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+      Then I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -299,6 +302,9 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver 1 - contacting drivers"
     Then trips status on bungii details should be "driver 2 - contacting drivers"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
 
   @regression
   Scenario: To check  status in Scheduled Bungiis page when only one driver accepts trip
@@ -317,6 +323,9 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver 2 - contacting drivers1"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
 
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
@@ -335,11 +344,13 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver2 name"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
 
   @regression
-  @test1
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
-    When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
     Given I am on customer Log in page
@@ -348,11 +359,13 @@ Feature: SoloScheduled
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
-      |Accepted |
+      |Accepted      |
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
-    #And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
 
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:DUO
@@ -365,7 +378,24 @@ Feature: SoloScheduled
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     When I Switch to "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      |    Accepted           |
+      | Accepted      |    Accepted   |
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
+
+  @regression
+  Scenario:  To check that Customer cannot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I try to schedule bungii for "today - after working hour"
+    Then Alert message with OUTSIDE BUISSNESS HOUR text should be displayed
+    When I try to schedule bungii for "tommorow - before working hour"
+    Then Alert message with OUTSIDE BUISSNESS HOUR text should be displayed

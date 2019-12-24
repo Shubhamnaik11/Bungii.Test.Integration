@@ -260,6 +260,9 @@ public class CommonSteps extends DriverBase {
                     expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
                     logger.detail("PAGE SOURCE"+SetupManager.getDriver().getPageSource());
                     break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
