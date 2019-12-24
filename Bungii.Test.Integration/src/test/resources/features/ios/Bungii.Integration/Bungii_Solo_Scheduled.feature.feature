@@ -3,9 +3,7 @@
     # this will run in denver
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
-
-  #Background:
-
+  
   @DUO_SCH_DONOT_ACCEPT
   @POSTDUO
   @regression
@@ -253,11 +251,13 @@ Feature: To Test Solo - Scheduling Bungii
       | denver   | Scheduled    | NEXT_POSSIBLE |
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
- #   And I logged in Customer application using  "valid" user
     And I Select "MY BUNGIIS" from Customer App menu
     Then trips status should be "Contacting Drivers"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver 1 - contacting drivers"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -272,6 +272,10 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver 1 - contacting drivers"
     Then trips status on bungii details should be "driver 2 - contacting drivers"
+    Then message stating contact driver should be "not be displayed"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
 
   @regression
@@ -290,6 +294,10 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver 2 - contacting drivers"
+    Then message stating contact driver should be "not be displayed"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
@@ -307,6 +315,11 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver2 name"
+    Then message stating contact driver should be "displayed"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
@@ -322,6 +335,12 @@ Feature: To Test Solo - Scheduling Bungii
       | driver1 state |
       | Accepted      |
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    Then message stating contact driver should be "displayed"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:DUO
@@ -337,6 +356,9 @@ Feature: To Test Solo - Scheduling Bungii
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
   @regression
   Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
@@ -379,6 +401,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+1 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    And I Switch to "customer" application on "same" devices
 
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
@@ -390,6 +413,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+2 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    And I Switch to "customer" application on "same" devices
 
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
@@ -401,6 +425,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+3 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    And I Switch to "customer" application on "same" devices
 
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
@@ -412,6 +437,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+4 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
+    And I Switch to "customer" application on "same" devices
 
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
@@ -420,6 +446,9 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     When I try to schedule bungii for "today+5"
     Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
@@ -435,7 +464,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+1 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-
+    And I Switch to "customer" application on "same" devices
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -446,7 +475,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+2 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-
+    And I Switch to "customer" application on "same" devices
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -457,7 +486,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+3 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-
+    And I Switch to "customer" application on "same" devices
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -468,7 +497,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 30       |           |              | Today+4 1:00 PM | Default     |
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
-
+    And I Switch to "customer" application on "same" devices
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -476,10 +505,64 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     When I try to schedule bungii for "today+5"
     Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+
+  @regression
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+
+    And I get TELET time of of the current trip
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"
+    And I click "Cancel" button on "Estimate" screen
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
+      | 30       |           |              | <AFTER TELET> | Default     | No             |
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
+
+  @regression
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I get TELET time of of the current trip
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
   @DUO_SCH_DONOT_ACCEPT
-  #@regression1
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
     When I am on the "LOG IN" page
@@ -501,43 +584,93 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
 
-  @regression1
-  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled    | NEXT_POSSIBLE |
-
-    And I get TELET time of of the current trip
-    And I am on the "LOG IN" page
+  @regression
+    # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
+  Scenario:Trip limit (150 miles)
+    When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
-
+    And I enter pickup location
+      | Driver | Pickup Location |
+      | Solo   | Margoa Railway  |
+    And I enter drop location
+      | Driver | Drop Location       |
+      | Solo   | Devghali Beach road |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
-      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
-    Then user is alerted for "already scheduled bungii"
 
-  @regression1
-  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
+  @regression
+  Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 0.75 hour ahead |
+    And I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    Then I change driver status to "Online"
+    And I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+    And I click on notification for "Driver" for "on demand trip"
+    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    When I click "ACCEPT" button on "Bungii Request" screen
+    And I Switch to "customer" application on "same" devices
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select 1st trip from scheduled bungii
+    When I wait for 1 hour for Bungii Schedule Time
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "driver finishing current bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8888889917      |
+
+  @regression
+  Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 1 hour ahead |
+    And I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I try to contact driver using "sms driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct support details should be displayed to customer on "SMS" app
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct support details should be displayed to customer on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:Customer should be able to contact control driver when Non-control driver has started the trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And I get TELET time of of the current trip
-
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      |               | Enroute       |
     Given I am on the "LOG IN" page
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
-
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
-      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
-    Then user is alerted for "already scheduled bungii"
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I try to contact driver using "call driver2"
+    Then correct support details should be displayed to customer on "call" app
+    When I try to contact driver using "call driver1"
+    Then correct support details should be displayed to customer on "call" app
+    When I try to contact driver using "sms driver1"
+    Then correct support details should be displayed to customer on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct support details should be displayed to customer on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |

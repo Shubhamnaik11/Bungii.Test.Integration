@@ -1,6 +1,5 @@
 @android
 @SoloScheduled
-
 #These feature will run in kansas geofence
 Feature: SoloScheduled
   Background:
@@ -17,7 +16,7 @@ Feature: SoloScheduled
     And I am logged in as "valid" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+   # And I wait for Minimum duration for Bungii Start Time
     And Bungii Driver "Start Schedule Bungii" request
     And I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Enroute screen"
@@ -165,7 +164,7 @@ Feature: SoloScheduled
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+  #  And I wait for Minimum duration for Bungii Start Time
 
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"

@@ -31,7 +31,12 @@ public class BungiiDetails extends PageBase {
 
 	public WebElement Row_TimeSelect() {return findElement("//XCUIElementTypeStaticText[@name='Time']/parent::XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 	public WebElement Button_Back() {return findElement("Back", LocatorType.Name); }
+	public WebElement Text_MessageToCustomer(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/preceding-sibling::XCUIElementTypeStaticText", LocatorType.XPath,ignoreException); }
+	public WebElement Button_Driver1Call() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeButton[@name=\"Button\"][1]", LocatorType.XPath); }
+	public WebElement Button_Driver1SMS() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[1]/XCUIElementTypeButton[@name=\"Button\"][2]", LocatorType.XPath); }
 
 
+	public WebElement Button_Driver2Call() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"Button\"][1]", LocatorType.XPath); }
+	public WebElement Button_Driver2SMS() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"Button\"][2]", LocatorType.XPath); }
 
 }

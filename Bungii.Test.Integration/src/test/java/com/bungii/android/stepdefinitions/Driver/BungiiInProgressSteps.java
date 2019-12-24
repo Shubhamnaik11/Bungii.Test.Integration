@@ -443,7 +443,7 @@ public class BungiiInProgressSteps extends DriverBase {
         String driverPhoneNumber=(String)cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
         String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
         String pickupID = DbUtility.getPickupID(custRef);
-        String pickupRef = DbUtility.getPickupRef(custRef);
+        String pickupRef = DbUtility.getPickupReff(custRef);
         DbUtility.isDriverEligibleForTrip(driverPhoneNumber,pickupRef);
         int driverToPickUP=Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber,pickupID));
 

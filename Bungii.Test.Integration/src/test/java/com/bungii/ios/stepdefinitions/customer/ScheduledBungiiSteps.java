@@ -44,6 +44,18 @@ public class ScheduledBungiiSteps extends DriverBase {
 		}
 	}
 
+	@When("^I select 1st trip from scheduled bungii$")
+	public void i_select_first_already_scheduled_bungii() {
+		try {
+			action.click(scheduledBungiiPage.Cell_FirstTrip());
+			pass("I select already scheduled bungii", "I selected first already scheduled bungii" , true);
+		} catch (Exception e) {
+			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+		}
+	}
+
 
 	@Then("^Bungii must be removed from \"([^\"]*)\" screen$")
 	public void bungii_must_be_removed_from_something_screen(String screen) {

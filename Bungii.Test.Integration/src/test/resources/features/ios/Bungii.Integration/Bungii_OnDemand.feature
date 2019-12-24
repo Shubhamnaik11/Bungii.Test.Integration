@@ -2,8 +2,6 @@
   # this will run in 	nashville
 Feature: Create on demand bungii
 
-  Background:
-
   @POSTDUO
   @sanity
   @regression

@@ -288,8 +288,47 @@ public class EstimateSteps extends DriverBase {
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
             action.click(estimatePage.Row_TimeSelect());
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
-            action.click(estimatePage.Button_Set());
 
+        }else if(time.equals("<AFTER TELET>")){
+
+            String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            //By default data is in UTC
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date teletTimeInUtc = null;
+            try {
+                teletTimeInUtc = formatter.parse(teletTime);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(teletTimeInUtc);
+            int mnts = calendar.get(Calendar.MINUTE);
+
+            calendar.set(Calendar.MINUTE, mnts);
+            int unroundedMinutes = calendar.get(Calendar.MINUTE);
+            int mod = unroundedMinutes % 15;
+            calendar.add(Calendar.MINUTE, (15 - mod));
+            calendar.set(Calendar.SECOND, 0);
+
+            Date nextQuatter = calendar.getTime();
+            String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+            DateFormat formatterForLocalTimezone  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+            String strdate = formatter.format(calendar.getTime());
+            Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
+
+
+
+            String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
+            strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
+            action.click(estimatePage.Row_TimeSelect());
+            selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
         }
         else if (time.equals("<OLD BUNGII TIME>")) {
             String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
@@ -413,11 +452,34 @@ public class EstimateSteps extends DriverBase {
         String strdate = formatter.format(calendar.getTime());
         return strdate;
     }
+    public String getDateForTimeZone(int minuteDifferance) {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime+minuteDifferance);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
 
     public Date getFormatedTime() {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+    public Date getFormatedTime(int minuteDifferance) {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone(minuteDifferance));
             System.out.println("\t" + date1);
         } catch (Exception e) {
         }
@@ -432,20 +494,15 @@ public class EstimateSteps extends DriverBase {
      */
     public Date getNextScheduledBungiiTime() {
         return getFormatedTime();
-/*        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
-        Calendar calendar = Calendar.getInstance();
-        // int mnts = calendar.get(Calendar.MINUTE);
-        String geofenceLabel="CST6CDT";utility.getTimeZoneBasedOnGeofence().toUpperCase();
+    }
 
-        calendar.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
-        int unroundedMinutes = calendar.get(Calendar.MINUTE);
-        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
-
-        Date nextQuatter = calendar.getTime();
-
-        return nextQuatter;*/
+    /**
+     * Read property file for minimum difference for next bunii time
+     *
+     * @return next possible valid bungii time
+     */
+    public Date getNextScheduledBungiiTime(int minuteDifferance) {
+        return getFormatedTime(minuteDifferance);
     }
 
     public Date getScheduledBungiiTime(int minuteDifferance) {
@@ -1052,6 +1109,7 @@ public class EstimateSteps extends DriverBase {
      * Click request bungii
      */
     public void clickRequestBungii() {
+        action.swipeUP();
         action.click(estimatePage.Button_RequestBungii());
     }
 

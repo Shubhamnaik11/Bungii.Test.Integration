@@ -81,7 +81,40 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I wait for 1 hour for Bungii Schedule Time$")
+    public void i_wait_for_one_hour_for_bungii_start_time() {
+        try {
+            String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            int mininumWaitTime = 60;
+            if (!bungiiTime.equalsIgnoreCase("NOW")) {
+                String geofenceLabel=utility.getTimeZoneBasedOnGeofence().toUpperCase();
 
+                DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+                formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+                Date bungiiDate = formatter.parse(bungiiTime);
+
+
+                Date currentDate = new Date();
+                bungiiDate.setYear(currentDate.getYear());//(Integer.parseInt(currentDate.getYear()));
+                long duration = bungiiDate.getTime() - currentDate.getTime();
+
+                long diffInMinutes;
+                if (duration > 0) {
+                    diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
+                    //1 min extra buffer
+                    diffInMinutes = diffInMinutes > 0 ? diffInMinutes+1 : 0;
+
+                } else {
+                    diffInMinutes = 1;
+                }
+                action.hardWaitWithSwipeUp((int)diffInMinutes);
+                log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+" (with Extra buffer)", true);
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
         try {

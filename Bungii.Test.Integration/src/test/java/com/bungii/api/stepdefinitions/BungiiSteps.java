@@ -252,8 +252,10 @@ public String getDriverPhone(String driverName)
 
                         if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
 
-                            coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
-                            coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
+                            if(driver1State.equalsIgnoreCase("Accepted"))
+                                coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+                            if(driver2State.equalsIgnoreCase("Accepted"))
+                                coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
 
                             if (driver1State.equalsIgnoreCase("Accepted") || driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Arrived") || driver1State.equalsIgnoreCase("Loading Item") || driver1State.equalsIgnoreCase("Driving To Dropoff") || driver1State.equalsIgnoreCase("Unloading Item") || driver1State.equalsIgnoreCase("Bungii Completed")) {
                                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -269,7 +271,9 @@ public String getDriverPhone(String driverName)
                                 int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                                 try {
                                     logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                    Thread.sleep(wait);
+                                    //from sprint 32 min time is changed to  1 hour
+                                    //Thread.sleep(wait);
+                                    Thread.sleep(1000);
                                     waitedForMinTime = true;
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -282,7 +286,9 @@ public String getDriverPhone(String driverName)
                                     int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                                     try {
                                         logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                        Thread.sleep(wait);
+                                        //Thread.sleep(wait);
+                                        //from sprint 32 min time is changed to  1 hour
+                                        Thread.sleep(1000);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -371,8 +377,8 @@ public String getDriverPhone(String driverName)
             else
                 custPassword=customerPasswordLabel;
 
-            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+/*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
 
 
             if(customerLabel.equalsIgnoreCase("")) {
@@ -398,11 +404,16 @@ public String getDriverPhone(String driverName)
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
-            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            if(customerLabel.equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken,customerLabel);
+
             if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
                 coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
             else {
-                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
+                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START",wait);
             }
 
@@ -743,6 +754,8 @@ public String getDriverPhone(String driverName)
             String geofence = dataMap.get("geofence").trim();
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
             String state = dataMap.get("Bungii State").trim();
+            String scheduleTime = dataMap.get("Bungii Time").trim();
+
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
@@ -819,7 +832,19 @@ public String getDriverPhone(String driverName)
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
-            int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+            int wait=0;
+
+            if(scheduleTime.equalsIgnoreCase("1 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,60);
+            else if(scheduleTime.equalsIgnoreCase("2 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,120);
+            else if(scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,45);
+            else if(scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,30);
+            else
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
 
             try {
                 Thread.sleep(5000);
@@ -835,7 +860,9 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //sprint 32 driver can start bungii 1 hour before
+                    //Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

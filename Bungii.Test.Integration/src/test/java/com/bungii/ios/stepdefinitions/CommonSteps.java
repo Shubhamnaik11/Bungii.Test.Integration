@@ -1217,6 +1217,12 @@ public class CommonSteps extends DriverBase {
                 case "LONG HAUL":
                     expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
                     break;
+                case "DRIVER FINISHING CURRENT BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.driver.bungii.inprogress");
+                    break;
+                case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
+                    expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
