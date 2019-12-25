@@ -90,6 +90,7 @@ public class LoginSteps extends DriverBase {
                 default:
                     throw new Exception("Please specify valid input");
             }
+            Thread.sleep(4000);
             utility.loginToDriverApp(phone, password);
             if (shouldLoginSucessful)
                 utility.isDriverLoginSucessful();

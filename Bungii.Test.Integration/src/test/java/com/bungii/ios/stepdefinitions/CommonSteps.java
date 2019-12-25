@@ -26,9 +26,9 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -73,6 +73,7 @@ public class CommonSteps extends DriverBase {
     private EnableNotificationPage enableNotificationPage;
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
+    private DbUtility dbUtility = new DbUtility();
 
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
@@ -487,7 +488,7 @@ public class CommonSteps extends DriverBase {
             } else if (navigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
-            }else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+            } else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
@@ -495,8 +496,7 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("Allow");
                 }
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
-            }
-            else {
+            } else {
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
             }
         }
@@ -1208,10 +1208,21 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
                     break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    break;
+                case "SCHEDULED ONLY 5 DAYS":
+                    expectedText=PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    break;
                 case "LONG HAUL":
                     expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
                     break;
-
+                case "DRIVER FINISHING CURRENT BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.driver.bungii.inprogress");
+                    break;
+                case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
+                    expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -1224,6 +1235,15 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+    @And("^I get TELET time of of the current trip$")
+    public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+       //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime=dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
 
 
