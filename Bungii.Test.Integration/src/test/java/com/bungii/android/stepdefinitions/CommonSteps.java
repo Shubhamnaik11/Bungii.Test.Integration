@@ -13,6 +13,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Point;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -63,11 +64,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -127,11 +136,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
