@@ -204,7 +204,7 @@ public class CucumberHooks {
         }
     }
 
-    //Create a du
+    //Create a duo
     @Before("@DUO_SCH_DONOT_ACCEPT")
     public void createDuoBungii() {
         //create trip for denver and keep

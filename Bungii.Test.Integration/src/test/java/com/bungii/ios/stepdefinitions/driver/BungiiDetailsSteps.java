@@ -10,10 +10,12 @@ import com.bungii.ios.pages.driver.BungiiDetailsPage;
 import com.bungii.ios.stepdefinitions.customer.SignupSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -81,6 +83,10 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
+    }
     @When("^I wait for 1 hour for Bungii Schedule Time$")
     public void i_wait_for_one_hour_for_bungii_start_time() {
         try {
@@ -129,6 +135,53 @@ public class BungiiDetailsSteps extends DriverBase {
 
             }
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^\"([^\"]*)\" should be displayed on Bungii Details screen$")
+    public void something_should_be_displayed_on_bungii_request_screen(String option) throws Throwable {
+        try {
+            String expectedPickUpLocationLineOne="",expectedPickUpLocationLineTwo="",expectedDropLocationLineOne="",expectedDropLocationLineTwo="",expectedTripNoOfDriver="";
+            String pickUpLocationLine1="",pickUpLocationLine2="",dropUpLocationLine1="",dropUpLocationLine2="",estimate="",truncValue="";
+            double flestimate,transactionFee,estimatedDriverCut;
+
+            switch (option) {
+                case "correct duo scheduled trip details":
+                    logger.detail(SetupManager.getDriver().getPageSource());
+                    expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")); expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
+                    pickUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineOne());pickUpLocationLine2= action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineTwo());
+                    dropUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineOne());dropUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineTwo());
+                    testStepVerify.isTrue(pickUpLocationLine1.equals(expectedPickUpLocationLineOne) && pickUpLocationLine2.equals(expectedPickUpLocationLineTwo),
+
+                            "Pick up address should be " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocationLine1+pickUpLocationLine2,
+                            "Expected pickup address is " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocationLine1+pickUpLocationLine2);
+                    testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) &&  dropUpLocationLine2.equals(expectedDropLocationLineTwo),
+
+                            "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
+                            "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
+                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_EstimatedEarningTag(),"Earning tag should be displayed");
+
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+                    estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    //transaction fee different for solo and duo
+                    transactionFee=((flestimate*0.029*0.5)+0.3)*2;
+                    estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    //divide by 2 for individual driver value
+                    truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(),"~$"+truncValue);
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(),((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(","," -"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(),"BUNGII DETAILS");
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(),"Type");
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(),"Bungii Duo");
+
+                    break;
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

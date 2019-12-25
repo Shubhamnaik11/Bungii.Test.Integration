@@ -158,7 +158,10 @@ public String getDriverPhone(String driverName)
                             int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             try {
                                 logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                Thread.sleep(wait);
+                              //  Thread.sleep(wait);
+                                //sprint 32 changes
+                                Thread.sleep(5000);
+
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -511,7 +514,14 @@ public String getDriverPhone(String driverName)
                     custPassword = PropertyUtility.getDataProperties("customer.password.usedin.duo");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
 
-                } else {
+                }
+                if (customer.equalsIgnoreCase("denver customer")) {
+                    custPhoneNum = PropertyUtility.getDataProperties("denver.customer.phone");
+                    custPassword = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+
+                }
+                else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer.user");
                     custPassword = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
@@ -596,6 +606,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                 coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+            } if (state.equalsIgnoreCase("Scheduled")) {
+
             } else if (state.equalsIgnoreCase("enroute")) {
 
                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -842,6 +854,8 @@ public String getDriverPhone(String driverName)
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,45);
             else if(scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,30);
+            else if(scheduleTime.equalsIgnoreCase("15 min ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,15);
             else
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 

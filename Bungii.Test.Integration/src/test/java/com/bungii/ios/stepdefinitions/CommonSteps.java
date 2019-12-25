@@ -657,6 +657,9 @@ public class CommonSteps extends DriverBase {
                 case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
                     expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
                     break;
+                case "ACCEPT SCHEDULED BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -1222,6 +1225,12 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
+                case "PICKUP REQUEST NO LONGER AVAILABLE":
+                    expectedText = PropertyUtility.getMessage("driver.request.unavailable");
+                    break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText=PropertyUtility.getMessage("driver.request.already.accepted");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

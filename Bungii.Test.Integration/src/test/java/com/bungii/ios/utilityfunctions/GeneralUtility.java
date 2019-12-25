@@ -124,6 +124,11 @@ public class GeneralUtility extends DriverBase {
                     action.clickAlertButton("Close");
                 }
             }
+            else if (alertMessage.contains("Failed to fetch your profile")) {
+                if (getListOfAlertButton.contains("OK")) {
+                    action.clickAlertButton("OK");
+                }
+            }
         }
     }
 

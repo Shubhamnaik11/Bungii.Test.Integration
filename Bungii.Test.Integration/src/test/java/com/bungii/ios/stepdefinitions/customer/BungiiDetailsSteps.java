@@ -10,6 +10,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.text.DecimalFormat;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 public class BungiiDetailsSteps extends DriverBase {
@@ -47,6 +49,21 @@ public class BungiiDetailsSteps extends DriverBase {
                 case "estimated cost":
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
                     testStepVerify.isEquals(tripStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+                case "estimated cost of duo trip":
+                    String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    double flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    //transaction fee different for solo and duo
+                    double transactionFee=((flestimate*0.029*0.5)+0.3)*2;
+                    double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    //divide by 2 for individual driver value
+                    String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
+                    tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus,"~$"+truncValue);
+                    break;
+                case "contacting other driver":
+                    tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus, "Contacting Other Driver");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

@@ -20,11 +20,16 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
-
+import static java.util.TimeZone.getTimeZone;
+import static com.google.common.base.Preconditions.*;
 
 
 public class NotificationSteps extends DriverBase {
@@ -145,10 +150,66 @@ public class NotificationSteps extends DriverBase {
 			case "DRIVER STARTED STACK BUNGII":
 				text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
 				break;
+			case"DRIVERS ARE ENROUTE":
+				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.started");
+				break;
+			case "SCHEDULED PICKUP AVAILABLE":
+				text=PropertyUtility.getMessage("driver.notification.scheduled");
+			//	$<Day>, $<MONTH> <$Date>
+
+				String schDate=(String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+				String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+
+			//	DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
+				DateFormat format = new SimpleDateFormat("MMM dd, HH:mm a zzz", Locale.ENGLISH);
+				try {
+					format.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+					Date date = format.parse(schDate);
+					Date currentDate = new Date();
+					//int year=currentDate.getYear()+1900;
+					date.setYear(currentDate.getYear());
+					int month = date.getMonth();
+					String strMonth=getMonthForInt(month);
+					int dayOfMonth = date.getDate();
+					String dayOfMonthStr = String.valueOf(dayOfMonth)+getDayOfMonthSuffix(dayOfMonth);
+
+					SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+					String dayOfWeek=simpleDateformat.format(date);
+
+					text=text.replace("$<Day>",dayOfWeek);
+					text=text.replace("$<MONTH>",strMonth);
+					text=text.replace("$<Date>",dayOfMonthStr);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
+				break;
 		}
 		return text;
 	}
-
+	String getMonthForInt(int num) {
+		String month = "wrong";
+		DateFormatSymbols dfs = new DateFormatSymbols();
+		String[] months = dfs.getMonths();
+		if (num >= 0 && num <= 11 ) {
+			month = months[num];
+		}
+		return month;
+	}
+	String getDayOfMonthSuffix(final int n) {
+		checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+		if (n >= 11 && n <= 13) {
+			return "th";
+		}
+		switch (n % 10) {
+			case 1:  return "st";
+			case 2:  return "nd";
+			case 3:  return "rd";
+			default: return "th";
+		}
+	}
 	private String getAppHeader(String appName){
 		String appHeaderName="";
 		switch (appName.toUpperCase()) {
@@ -204,6 +265,7 @@ public class NotificationSteps extends DriverBase {
 						"Not notification found on device");
 
 			action.hideNotifications();
+			utility.handleIosUpdateMessage();
 			((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
