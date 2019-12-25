@@ -204,5 +204,12 @@ public class CucumberHooks {
         }
     }
 
-
+    //Create a du
+    @Before("@DUO_SCH_DONOT_ACCEPT")
+    public void createDuoBungii() {
+        //create trip for denver and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"");
+        }
+    }
 }

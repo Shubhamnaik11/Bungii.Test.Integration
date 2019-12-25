@@ -97,7 +97,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("phoneNumber is" + phoneNumber + ", query, " + queryString);
         return phoneNumber;
     }
+    public static String getTELETfromDb(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
 
+        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        return PickupID;
+    }
     public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
             String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
             String driverID = getDataFromMySqlServer(queryString);

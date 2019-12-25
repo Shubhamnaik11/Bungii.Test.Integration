@@ -44,6 +44,18 @@ public class ScheduledBungiiSteps extends DriverBase {
 		}
 	}
 
+	@When("^I select 1st trip from scheduled bungii$")
+	public void i_select_first_already_scheduled_bungii() {
+		try {
+			action.click(scheduledBungiiPage.Cell_FirstTrip());
+			pass("I select already scheduled bungii", "I selected first already scheduled bungii" , true);
+		} catch (Exception e) {
+			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+		}
+	}
+
 
 	@Then("^Bungii must be removed from \"([^\"]*)\" screen$")
 	public void bungii_must_be_removed_from_something_screen(String screen) {
@@ -98,10 +110,10 @@ public class ScheduledBungiiSteps extends DriverBase {
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 		WebElement Image_SelectBungii;
 	//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
+				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 		else
-			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
 
 		return Image_SelectBungii;
 	}

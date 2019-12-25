@@ -13,10 +13,9 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
-import static com.bungii.common.manager.ResultManager.fail;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class BungiiSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(BungiiSteps.class);
@@ -92,6 +91,12 @@ public String getDriverPhone(String driverName)
             phone = PropertyUtility.getDataProperties("android.valid.driver3.phone");
             break;
 
+        case "Testdrivertywd_appledv_b_matt Stark_dvOnE":
+            phone = PropertyUtility.getDataProperties("denver.driver.phone");
+            break;
+        case "Testdrivertywd_appledv_b_seni Stark_dvThree":
+            phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+            break;
     }
 
     return phone;
@@ -233,7 +238,12 @@ public String getDriverPhone(String driverName)
                         String driverAccessToken = "", driver2AccessToken = "";
                         //get geofence and pickup request from context
                         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                        String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        String tripLabel="",pickupRequest="";
+                        try { tripLabel= DataList.get(i).get("label").trim();}catch (Exception e){}
+                        if(tripLabel.equals(""))
+                            pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        else
+                            pickupRequest = (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST_"+tripLabel);
 
                         driverPhoneNum = getDriverPhone(driverAName);
                         driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
@@ -255,8 +265,10 @@ public String getDriverPhone(String driverName)
 
                         if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
 
-                            coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
-                            coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
+                            if(driver1State.equalsIgnoreCase("Accepted"))
+                                coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+                            if(driver2State.equalsIgnoreCase("Accepted"))
+                                coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
 
                             if (driver1State.equalsIgnoreCase("Accepted") || driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Arrived") || driver1State.equalsIgnoreCase("Loading Item") || driver1State.equalsIgnoreCase("Driving To Dropoff") || driver1State.equalsIgnoreCase("Unloading Item") || driver1State.equalsIgnoreCase("Bungii Completed")) {
                                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -272,7 +284,9 @@ public String getDriverPhone(String driverName)
                                 int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                                 try {
                                     logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                    Thread.sleep(wait);
+                                    //from sprint 32 min time is changed to  1 hour
+                                    //Thread.sleep(wait);
+                                    Thread.sleep(1000);
                                     waitedForMinTime = true;
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
@@ -285,7 +299,9 @@ public String getDriverPhone(String driverName)
                                     int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                                     try {
                                         logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                        Thread.sleep(wait);
+                                        //Thread.sleep(wait);
+                                        //from sprint 32 min time is changed to  1 hour
+                                        Thread.sleep(1000);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -361,15 +377,23 @@ public String getDriverPhone(String driverName)
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
+            String customerPasswordLabel="";
+            try { customerPasswordLabel= dataMap.get("Customer Password").trim();}catch (Exception e){}
 
             int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
-            if(PropertyUtility.targetPlatform.equalsIgnoreCase("web"))
-            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+
+            if(customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
             else
-            custPassword = PropertyUtility.getDataProperties("customer.password");
+                custPassword=customerPasswordLabel;
+
+/*            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);*/
+
+
             if(customerLabel.equalsIgnoreCase("")) {
                 cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
                 cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
@@ -393,11 +417,16 @@ public String getDriverPhone(String driverName)
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
             cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
-            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            if(customerLabel.equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken,customerLabel);
+
             if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
                 coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
             else {
-                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
+                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START",wait);
             }
 
@@ -415,6 +444,65 @@ public String getDriverPhone(String driverName)
         }
 
     }
+
+    public void createTripAndSaveInFeatureContext(String bungiiType, String geofence, String customer, String customerName, String customerPasswordLabel,String scenarioLabel) {
+        try {
+
+            scenarioLabel="_"+scenarioLabel;
+            int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
+
+            custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            if(customerPasswordLabel.equals(""))
+                custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            else
+                custPassword=customerPasswordLabel;
+
+            cucumberContextManager.setFeatureContextContext("CUSTOMER"+scenarioLabel, customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setFeatureContextContext("CUSTOMER_PHONE"+scenarioLabel, custPhoneNum);
+            cucumberContextManager.setFeatureContextContext("GEOFENCE"+scenarioLabel, geofence);
+            cucumberContextManager.setFeatureContextContext("BUNGII_GEOFENCE"+scenarioLabel, geofence);
+            cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String custRef = customerServices.getCustomerRef(custAccessToken);
+
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
+            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest+scenarioLabel);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"+scenarioLabel), custAccessToken);
+            if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
+                coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            else {
+                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+                cucumberContextManager.setFeatureContextContext("MIN_WAIT_BUNGII_START"+scenarioLabel,wait);
+                cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME"+scenarioLabel, System.currentTimeMillis() / 1000L);
+
+            }
+            cucumberContextManager.setFeatureContextContext("BUNGII_TIME"+scenarioLabel,cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+          //  log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+
+    }
+    @Given("^I have already scheduled bungii with \"([^\"]*)\" label$")
+    public void i_have_already_scheduled_bungii_with_something_label(String scenarioLabel) throws Throwable {
+        testStepAssert.isTrue(!((String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+"_"+scenarioLabel)).equals(""),"I should have already scheduled bungii","I should have already scheduled bungii,pickid"+(String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+scenarioLabel));
+    }
+
     @Given("that duo schedule bungii is in progress")
     public void thatduoScheduleBungiiIsInProgress(DataTable data) {
         try {
@@ -679,6 +767,8 @@ public String getDriverPhone(String driverName)
             String geofence = dataMap.get("geofence").trim();
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
             String state = dataMap.get("Bungii State").trim();
+            String scheduleTime = dataMap.get("Bungii Time").trim();
+
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
 
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
@@ -755,7 +845,19 @@ public String getDriverPhone(String driverName)
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
-            int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+            int wait=0;
+
+            if(scheduleTime.equalsIgnoreCase("1 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,60);
+            else if(scheduleTime.equalsIgnoreCase("2 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,120);
+            else if(scheduleTime.equalsIgnoreCase("0.75 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,45);
+            else if(scheduleTime.equalsIgnoreCase("0.5 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,30);
+            else
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
 
             try {
                 Thread.sleep(5000);
@@ -771,7 +873,9 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //sprint 32 driver can start bungii 1 hour before
+                    //Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -887,7 +991,6 @@ public String getDriverPhone(String driverName)
 
             }
 
-
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
@@ -939,7 +1042,7 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
-            log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
+            log("that  bungii is in progress", "that   bungii is on" + state, false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1038,6 +1141,8 @@ public String getDriverPhone(String driverName)
                 fail("bungii admin manually end bungii created by "+customer, "Not able to find customer" , false);
 
             }
+
+
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

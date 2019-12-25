@@ -268,6 +268,38 @@ public class CoreServices extends DriverBase {
             System.out.println("Not able to Log in" + e.getMessage());
         }
     }
+    public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken,String customerLabel) {
+        try {
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupRequestID", pickupRequestID);
+            jsonObj.put("WalletRef", walletReferance);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", RECALCULATE_ESTIMAT);
+            Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+            JsonPath jsonPathEvaluator = response.jsonPath();
+
+            ApiHelper.genericResponseValidation(response);
+            cucumberContextManager.setScenarioContext("BUNGII_TIME"+customerLabel, "NOW");
+            String bungiiDistance="";
+            //now two decimal point are shown
+/*            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+                bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
+            else*/
+            bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
+            String truncValue = new DecimalFormat("#.00").format(jsonPathEvaluator.get("Estimate.Cost"));
+
+            cucumberContextManager.setScenarioContext("BUNGII_DISTANCE"+customerLabel, bungiiDistance);
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE"+customerLabel, "~$" +truncValue);
+            cucumberContextManager.setScenarioContext("BUNGII_LOADTIME"+customerLabel, "15 mins");
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+    }
 /*
     public void customerConfirmation(String pickRequestID, String paymentMethodID, String authToken) {
         try {
@@ -341,7 +373,29 @@ public class CoreServices extends DriverBase {
         return rtnArray;
 
     }
+    public String[] getScheduledBungiiTime(int minuteDifferance) {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
 
+        calendar.set(Calendar.MINUTE, mnts + 30+minuteDifferance);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate;
+        rtnArray[1] = wait;
+        return rtnArray;
+
+    }
     public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken) {
         //get utc time and time for bungii to start
         String[] nextAvailableBungii = getScheduledBungiiTime();
@@ -365,7 +419,46 @@ public class CoreServices extends DriverBase {
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
         return waitDuraton;
     }
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) {
+        //get utc time and time for bungii to start
+        String[] nextAvailableBungii = getScheduledBungiiTime(minDiff);
+        Date date = new EstimateSteps().getNextScheduledBungiiTime(minDiff);
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,String label) {
+        //get utc time and time for bungii to start
+        String[] nextAvailableBungii = getScheduledBungiiTime();
+        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime);
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
     public Response customerView(String pickuprequestid, String authToken) {
 
         Header header = new Header("AuthorizationToken", authToken);

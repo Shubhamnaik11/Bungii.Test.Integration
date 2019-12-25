@@ -794,8 +794,8 @@ Feature: Duo
         #put driver on background
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "view stack message" request
     Then "correct stack trip details" should be displayed on Bungii request screen
@@ -817,8 +817,8 @@ Feature: Duo
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     Then I click on notification for "STACK TRIP"
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
@@ -858,8 +858,8 @@ Feature: Duo
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     Then I click on notification for "STACK TRIP"
     Then Bungii Driver "verify stack message" request
     And Bungii Driver "accepts stack message" request
@@ -899,8 +899,8 @@ Feature: Duo
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
 
     When I Open "customer" application on "same" devices
     And I am on customer Log in page
@@ -935,8 +935,8 @@ Feature: Duo
     #switch to customer so that driver app is in background :Click by notification
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
 
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "accepts stack message" request
@@ -984,8 +984,8 @@ Feature: Duo
 
     When I Switch to "customer" application on "ORIGINAL" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     #control driver reject stak trip
     Then I click on notification for "STACK TRIP"
     And Bungii Driver "reject stack message" request
@@ -1048,8 +1048,8 @@ Feature: Duo
 
     When I Switch to "customer" application on "ORIGINAL" devices
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
 
     And I Open "customer" application on "Driver2" devices
     Then I click on notification for "STACK TRIP"
@@ -1154,8 +1154,8 @@ Feature: Duo
     And I Open "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
-      | Bungii Time | Customer Phone | Customer Name                      | Customer label |
-      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              |
+      | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
+      | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     Then I should not get notification for stack trip
   #  When I Open "customer" application on "same" devices
     When I Switch to "driver" application on "same" devices

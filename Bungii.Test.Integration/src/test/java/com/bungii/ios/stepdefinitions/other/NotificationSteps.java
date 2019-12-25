@@ -129,8 +129,10 @@ public class NotificationSteps extends DriverBase {
 			break;
 		case "DRIVER ENROUTE":
 			text=PropertyUtility.getMessage("customer.notification.driver.accepted");
-
 			break;
+			case "SCHEDULED PICKUP ACCEPTED":
+				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
+				break;
 		case "STACK TRIP":
 			text=PropertyUtility.getMessage("driver.notification.stack");
 			break;
@@ -146,7 +148,7 @@ public class NotificationSteps extends DriverBase {
 		}
 		return text;
 	}
-	
+
 	private String getAppHeader(String appName){
 		String appHeaderName="";
 		switch (appName.toUpperCase()) {
@@ -169,7 +171,7 @@ public class NotificationSteps extends DriverBase {
 		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
 		((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 		action.showNotifications();
-		
+
     	String expectedMessage=getExpectedNotification(actionToPerfrom);
     	boolean isDisplayed=checkNotification(getAppHeader(actor),expectedMessage );
 
@@ -184,7 +186,7 @@ public class NotificationSteps extends DriverBase {
 
 	}
     	}
-    
+
 	@When("^I clear all notification$")
 	public void i_clear_all_notification() {
 		String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
@@ -193,14 +195,14 @@ public class NotificationSteps extends DriverBase {
 			((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
 			action.showNotifications();
 
-			
+
 			boolean cleared = clearAllNotifcation();
 			if (cleared)
 				log( "I should able cleared all notification", "I cleared all notification");
 			else
 				log( "I should able cleared all notification",
 						"Not notification found on device");
-		
+
 			action.hideNotifications();
 			((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
 		} catch (Exception e) {
@@ -222,7 +224,7 @@ public class NotificationSteps extends DriverBase {
 		default:
 			bundleID = PropertyUtility.getProp("bundleId_Customer");
 			break;
-			
+
 		}
 		return bundleID;
 	}

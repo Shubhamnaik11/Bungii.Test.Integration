@@ -200,7 +200,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "all elements":
-                    //  utility.getEstimateTime();
+                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(Page_Estimate.Time()));
                     testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 
@@ -221,7 +221,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isElementNotEnabled(Page_Estimate.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
                     action.scrollToBottom();
                     testStepVerify.isTrue(Page_Estimate.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
-                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(Page_Estimate.Time()));
                     break;
 
                 case "driver cancelled":

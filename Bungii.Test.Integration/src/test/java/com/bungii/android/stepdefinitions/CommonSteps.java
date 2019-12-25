@@ -20,6 +20,7 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.openqa.selenium.Point;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -72,11 +73,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -136,11 +145,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -318,7 +335,6 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
 
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String strArg1) throws Throwable {

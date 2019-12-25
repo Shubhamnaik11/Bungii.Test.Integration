@@ -444,6 +444,12 @@ public class GeneralUtility extends DriverBase {
         return actualTime;
     }
 
+    public String getPickupRef(String phoneNumber) {
+
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String pickupReff = DbUtility.getPickupReff(custRef);
+        return pickupReff;
+    }
 
     public void goToSignupPage() {
         action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));

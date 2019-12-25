@@ -271,6 +271,24 @@ public class TripStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^correct support details should be displayed to customer on \"([^\"]*)\" app$")
+    public void correct_support_details_should_be_displayed_to_customer_on_something_app(String key) {
+        try {
+            switch (key.toUpperCase()) {
+                case "SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("scheduled.support.number"));
+                    break;
+                case "CALL":
+                    validateCallButtonAction(PropertyUtility.getMessage("scheduled.support.number"));
+                    break;
+                default:
+                    throw new Exception("UN IMPLEMENTED STEPS");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^correct details should be displayed to customer for \"([^\"]*)\"$")
     public void correct_details_should_be_displayed_to_customer_for_something_app(String key) throws Throwable {
         try {
@@ -403,6 +421,7 @@ public class TripStatusSteps extends DriverBase {
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
 
         action.click(messagesPage.Button_Cancel());
+        try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
     }
 
     private void validateCallButtonAction() {
