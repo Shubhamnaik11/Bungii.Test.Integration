@@ -243,7 +243,6 @@ Feature: SoloScheduled
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas      | Scheduled     | NEXT_POSSIBLE |
-
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -395,7 +394,244 @@ Feature: SoloScheduled
     And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
-    When I try to schedule bungii for "today - after working hour"
-    Then Alert message with OUTSIDE BUISSNESS HOUR text should be displayed
-    When I try to schedule bungii for "tommorow - before working hour"
-    Then Alert message with OUTSIDE BUISSNESS HOUR text should be displayed
+    When I try to schedule bungii for "today - after working hour" for "SOLO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+    When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+
+  @regression
+  Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    Then I tap on "Get Estimate button" on Bungii estimate
+    When I try to schedule bungii for "today - after working hour" for "DUO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+    When I try to schedule bungii for "tommorow - before working hour" for "DUO"
+    Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+
+  @regression
+  Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I confirm trip with following detail
+      |Day|Trip Type |
+      |1  |SOLO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I confirm trip with following detail
+      |Day|Trip Type |
+      |2  |SOLO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I confirm trip with following detail
+      |Day|Trip Type |
+      |3  |SOLO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    When I confirm trip with following detail
+      |Day|Trip Type |
+      |4  |SOLO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then I try to schedule bungii for "today+5"
+      |Day|Trip Type |
+      |5  |SOLO      |
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
+
+  @regression
+  Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following detail
+      |Day|Trip Type |
+      |1  |DUO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following detail
+      |Day|Trip Type |
+      |2  |DUO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following detail
+      |Day|Trip Type |
+      |3  |DUO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following detail
+      |Day|Trip Type |
+      |4  |DUO      |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+    When I tap on "Get Estimate button" on Bungii estimate
+    Then I try to schedule bungii for "today+5"
+      |Day|Trip Type |
+      |5  |DUO      |
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
+
+  @regression
+  Scenario:Trip limit (150 miles)
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+
+    And I click on device "Back" button
+    And I enter "kansas pickup and dropoff locations equal to 150 miles" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+
+    And I click on device "Back" button
+    And I enter the "kansas pickup and dropoff locations greater than 150 miles" on the Bungii estimate
+    Then Alert message with Oops! We focus on local deliveries within 150 miles of pickup. It looks like this trip is a little outside our scope. text should be displayed
+
+
+  @regression
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And I get TELET time of of the current trip
+
+    And I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations less than 150 miles" on Bungii estimate
+
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+    And I confirm trip with following details
+      |Day|Trip Type |Time               |
+      |0  |SOLO       |<TIME WITHIN TELET>|
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then Alert message with Hmm, it looks like you already have a Bungii scheduled. At this time, our system only allows one Bungii at a time. text should be displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
+  @regression
+  Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And I get TELET time of of the current trip
+
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    Then I should see "two drivers selected" on Bungii estimate
+
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+    And I confirm trip with following details
+      |Day|Trip Type |Time               |
+      |0  |DUO       |<TIME WITHIN TELET>|
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then Alert message with Hmm, it looks like you already have a Bungii scheduled. At this time, our system only allows one Bungii at a time. text should be displayed
+

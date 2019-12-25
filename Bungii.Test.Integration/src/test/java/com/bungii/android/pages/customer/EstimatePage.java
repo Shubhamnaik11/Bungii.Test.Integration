@@ -144,7 +144,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_OKOnTimePicker(){ return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id);}
     public WebElement Text_Month() {return findElement("android:id/date_picker_month", LocatorType.Id);}
     public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
-
+    public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
 
 }

@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.EstimatePage;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -11,8 +12,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -21,6 +28,8 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
+
+    private DbUtility dbUtility = new DbUtility();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -260,8 +269,11 @@ public class CommonSteps extends DriverBase {
                     expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
                     logger.detail("PAGE SOURCE"+SetupManager.getDriver().getPageSource());
                     break;
-                case "OUTSIDE BUISSNESS HOUR":
-                    expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                case "OOPS! WE FOCUS ON LOCAL DELIVERIES WITHIN 150 MILES OF PICKUP. IT LOOKS LIKE THIS TRIP IS A LITTLE OUTSIDE OUR SCOPE.":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+                case "HMM, IT LOOKS LIKE YOU ALREADY HAVE A BUNGII SCHEDULED. AT THIS TIME, OUR SYSTEM ONLY ALLOWS ONE BUNGII AT A TIME.":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.alreadyscheduled");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -279,6 +291,33 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^User should see message \"([^\"]*)\" text on the screen$")
+    public void user_should_see_message_something_text_on_the_screen(String message) throws Throwable {
+        try {
+            String actualMessage = utility.getSnackBarMessage();
+            String expectedMessage;
+            switch (message.toUpperCase()) {
+                    case "OUTSIDE BUISSNESS HOUR":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+
+            testStepVerify.isEquals(actualMessage, expectedMessage,
+                    "Alert with text" + expectedMessage + "should be displayed",
+                    "Alert with text ," + expectedMessage + " should be displayed",
+                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                            + expectedMessage);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String strArg1) throws Throwable {
@@ -320,5 +359,38 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @And("^I click on device \"([^\"]*)\" button$")
+    public void i_click_on_device_something_button(String strArg1) throws Throwable {
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            driver.navigate().back();
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I get TELET time of of the current trip$")
+    public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime=dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET",teletTime);
+    }
+
+    public String[] bungiiTimeForScroll(Date date) {
+        //get timezone
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
+        String formattedDate = sdf.format(date);
+        String[] SplitDate = formattedDate.split("\\|");
+        if (DateUtils.isSameDay(date, new Date())) {
+            SplitDate[0] = "Today";
+        }
+        return SplitDate;
     }
 }
