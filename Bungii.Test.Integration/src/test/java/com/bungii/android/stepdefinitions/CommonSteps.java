@@ -274,6 +274,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "HMM, IT LOOKS LIKE YOU ALREADY HAVE A BUNGII SCHEDULED. AT THIS TIME, OUR SYSTEM ONLY ALLOWS ONE BUNGII AT A TIME.":
                     expectedMessage=PropertyUtility.getMessage("customer.alert.alreadyscheduled");
+                    action.click(estimatePage.Button_SystemCalenderOK());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

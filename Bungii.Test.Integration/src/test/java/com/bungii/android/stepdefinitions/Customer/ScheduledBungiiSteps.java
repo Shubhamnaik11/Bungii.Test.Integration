@@ -214,13 +214,46 @@ public class ScheduledBungiiSteps extends DriverBase {
                 String strdate = formatter.format(calendar.getTime());
                 Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
 
-
-
                 String[] dateScroll = commonSteps.bungiiTimeForScroll(teletTimeInLocal);
-                //String strTime = commonSteps.bungiiTimeDisplayInTextArea(teletTimeInLocal);
-                //action.click(estimatePage.Row_TimeSelect());
                 selectBungiiTime(Integer.parseInt(day), dateScroll[1], dateScroll[2], dateScroll[3], tripType);
 
+            }
+            else if(time.equals("<AFTER TELET>")){
+
+                String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                //By default data is in UTC
+                formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+                Date teletTimeInUtc = null;
+                try {
+                    teletTimeInUtc = formatter.parse(teletTime);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(teletTimeInUtc);
+                int mnts = calendar.get(Calendar.MINUTE);
+
+                calendar.set(Calendar.MINUTE, mnts);
+                int unroundedMinutes = calendar.get(Calendar.MINUTE);
+                int mod = unroundedMinutes % 15;
+                calendar.add(Calendar.MINUTE, (15 - mod));
+                calendar.set(Calendar.SECOND, 0);
+
+                Date nextQuatter = calendar.getTime();
+                String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+                DateFormat formatterForLocalTimezone  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+                formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+                formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+                String strdate = formatter.format(calendar.getTime());
+                Date teletTimeInLocal = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(strdate);
+
+                String[] dateScroll = commonSteps.bungiiTimeForScroll(teletTimeInLocal);
+                selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3],tripType);
             }
 
         } catch (Exception e) {

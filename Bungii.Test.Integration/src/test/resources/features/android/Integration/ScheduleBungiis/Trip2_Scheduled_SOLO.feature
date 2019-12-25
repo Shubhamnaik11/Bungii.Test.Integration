@@ -595,7 +595,7 @@ Feature: SoloScheduled
 
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
-    And I confirm trip with following details
+    When I confirm trip with following details
       |Day|Trip Type |Time               |
       |0  |SOLO       |<TIME WITHIN TELET>|
     And I add loading/unloading time of "30 mins"
@@ -604,6 +604,21 @@ Feature: SoloScheduled
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then Alert message with Hmm, it looks like you already have a Bungii scheduled. At this time, our system only allows one Bungii at a time. text should be displayed
+
+    When I click on device "Back" button
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+
+    When I confirm trip with following details
+      |Day|Trip Type |Time               |
+      |0  |SOLO       |<AFTER TELET>|
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
@@ -634,4 +649,24 @@ Feature: SoloScheduled
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then Alert message with Hmm, it looks like you already have a Bungii scheduled. At this time, our system only allows one Bungii at a time. text should be displayed
+
+    When I click on device "Back" button
+    And I should see "two drivers selected" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+
+    When I confirm trip with following details
+      |Day|Trip Type |Time               |
+      |0  |DUO       |<AFTER TELET>|
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I click "Done" button on "Success" screen
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
 
