@@ -22,7 +22,7 @@ public class CheckingMails {
  //   String host = "imap.googlemail.com";// change accordingly
     String user = "vishal.bagi.cci@gmail.com";// change accordingly
     String signUpEmailAddress = "vishal.bagi@creativecapsule.com";// change accordingly
-    String password = "@BLAbla3";// change accordingly
+    String password = "@TestMail5";// change accordingly
 
     public String verifyEmail(String expectedFromAddress,String expectedToAddress, String expectedSubject) {
         String activationURL = null;
