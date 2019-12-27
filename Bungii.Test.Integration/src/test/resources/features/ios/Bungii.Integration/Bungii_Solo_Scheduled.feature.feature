@@ -1,6 +1,6 @@
 @ios
 @scheduled
-#@regression1
+
     # this will run in denver
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
@@ -563,7 +563,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
-  @DUO_SCH_DONOT_ACCEPT
+#  @DUO_SCH_DONOT_ACCEPT
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
     When I am on the "LOG IN" page
@@ -814,7 +814,7 @@ Feature: To Test Solo - Scheduling Bungii
     Given I Switch to "customer" application on "same" devices
 
     Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Password | Customer Name |
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
       | NEXT_POSSIBLE | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
 
     Then I wait for "2" mins
@@ -829,8 +829,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "View" on alert message
     Then user is alerted for "PICKUP ALREADY ACCEPTED BY YOU"
     And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 8888889917 |       |
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
 
   @regression
@@ -842,7 +842,7 @@ Feature: To Test Solo - Scheduling Bungii
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      |       |
+      | Accepted      |               |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -866,7 +866,7 @@ Feature: To Test Solo - Scheduling Bungii
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Accepted      |  Accepted     |
+      | Accepted      | Accepted      |
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -882,6 +882,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @regression
+  @regression
   Scenario: Check that customer received Notification when control driver starts bungii duo
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -893,7 +894,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
-      | Enroute      | Accepted      |
+      | Enroute       | Accepted      |
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
@@ -912,8 +913,96 @@ Feature: To Test Solo - Scheduling Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
-      | Enroute      |
+      | Enroute       |
     And I click on notification for "Customer" for "DRIVERS ARE ENROUTE"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
+#########################
+  @regression11
+  Scenario: Check to see if a driver deosn't receive scheduled trip request if his home is over 30 mins away from PU location
+ #   When I clear all notification
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid denver" driver
+    And I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                        | Drop Location                    | Geofence |
+      | Solo   | Edmondson Trail Head  Colorado Springs | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
+    Then I should be navigated to "Success" screen
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression11
+  Scenario: Driver should Not receive scheduled request if the request is sent outside of the time that is set for Trip Alert settings.
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update denvers driver todays trip alert setting to outside current time
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should be navigated to "AVAILABLE TRIPS" screen
+    And I should able to see "zero" available trip
+    And I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
+
+  @regression11
+  @regression
+  Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted     | NEXT_POSSIBLE |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    When I Switch to "customer" application on "same" devices
+    And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
+
+
+  @regression
+  Scenario: Check that re-searched trip request does Not show Urgent Notification text if is more than one hour from the scheduled trip time
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 2 hour ahead |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
+    When I Switch to "customer" application on "same" devices
+
+    And Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
+

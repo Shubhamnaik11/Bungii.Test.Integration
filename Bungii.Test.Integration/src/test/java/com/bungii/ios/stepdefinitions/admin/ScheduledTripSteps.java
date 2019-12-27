@@ -11,6 +11,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -120,6 +121,45 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 
 	}
+	@And("^I remove current driver and researches Bungii$")
+	public void i_remove_current_driver_and_researches_bungii() throws Throwable {
+		try {
+			Map<String, String> tripDetails = new HashMap<String, String>();
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
+			tripDetails.put("CUSTOMER", custName);
+
+			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+			//On admin panel CST time use to show
+			//	getPortalTime("Aug 09, 06:15 AM CDT");
+			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
+			tripDetails.put("BUNGII_DISTANCE", tripDistance);
+
+
+			int rowNumber = getTripRowNumber(tripDetails);
+			// it takes max 2.5 mins to appear
+			for (int i = 0; i < 5 && rowNumber == 999; i++) {
+				Thread.sleep(30000);
+				SetupManager.getDriver().navigate().refresh();
+				scheduledTripsPage.waitForPageLoad();
+				rowNumber = getTripRowNumber(tripDetails);
+			}
+			RemoveSoloDriverAndresearchBungii(tripDetails);
+			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			Thread.sleep(30000);
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+
+			log( "I should able to cancel bungii", "I was able to cancel bungii",
+					true);
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
 	private String getCstTime(String bungiiTime) throws ParseException {
 		//Dec 21, 11:15 AM IST
 		Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(bungiiTime);
@@ -268,6 +308,27 @@ public class ScheduledTripSteps extends DriverBase {
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
 		editButton.click();
+		action.click(scheduledTripsPage.Button_Research());
+		scheduledTripsPage.waitForPageLoad();
+	}
+	/**
+	 * Find bungii and research it
+	 * @param tripDetails Trip information
+	 */
+	public void RemoveSoloDriverAndresearchBungii(Map<String,String> tripDetails){
+		int rowNumber =getTripRowNumber(tripDetails);
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		WebElement editButton;
+		if(rowNumber==0){
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
+		}else
+			//vishal[1403] : Updated xpath
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+		editButton.click();
+		action.click(scheduledTripsPage.CheckBox_Driver1());
+		action.click(scheduledTripsPage.Button_Remove());
+		scheduledTripsPage.waitForPageLoad();try{Thread.sleep(5000);}catch (Exception e ){}
 		action.click(scheduledTripsPage.Button_Research());
 		scheduledTripsPage.waitForPageLoad();
 	}

@@ -144,7 +144,7 @@ public class BungiiDetailsSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "displayed":
                     tripStatus = action.getNameAttribute(bungiiDetails.Text_MessageToCustomer());
-                    testStepVerify.isEquals(tripStatus, "You will have the ability to contact your drivers when the bungii begins");
+                    testStepVerify.isEquals(tripStatus, "Your driver will contact you when they are en-route.");
                     testStepVerify.isElementEnabled(bungiiDetails.Text_MessageToCustomer(), " text stating that driver can be contacted on the Bungii Details page should be displayed");
                     break;
                 case "not be displayed":

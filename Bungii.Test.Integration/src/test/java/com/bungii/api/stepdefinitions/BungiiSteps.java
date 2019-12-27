@@ -437,7 +437,7 @@ public String getDriverPhone(String driverName)
 
     public void createTripAndSaveInFeatureContext(String bungiiType, String geofence, String customer, String customerName, String customerPasswordLabel,String scenarioLabel) {
         try {
-
+            logger.detail("Inside before hook");
             scenarioLabel="_"+scenarioLabel;
             int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
@@ -464,7 +464,7 @@ public String getDriverPhone(String driverName)
             //request Bungii
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
-            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest+scenarioLabel);
+            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"+scenarioLabel), custAccessToken);
             if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
@@ -490,6 +490,7 @@ public String getDriverPhone(String driverName)
     }
     @Given("^I have already scheduled bungii with \"([^\"]*)\" label$")
     public void i_have_already_scheduled_bungii_with_something_label(String scenarioLabel) throws Throwable {
+        logger.detail("cucumberContextManager"+cucumberContextManager.toString());
         testStepAssert.isTrue(!((String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+"_"+scenarioLabel)).equals(""),"I should have already scheduled bungii","I should have already scheduled bungii,pickid"+(String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+scenarioLabel));
     }
 
@@ -606,7 +607,7 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                 coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
-            } if (state.equalsIgnoreCase("Scheduled")) {
+            } else if (state.equalsIgnoreCase("Scheduled")) {
 
             } else if (state.equalsIgnoreCase("enroute")) {
 

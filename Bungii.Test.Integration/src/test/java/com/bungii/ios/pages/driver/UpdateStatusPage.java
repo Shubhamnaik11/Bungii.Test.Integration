@@ -99,5 +99,6 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Text_StackCustomer(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name=\"NEXT\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath,ignoreException); }
 	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]",LocatorType.XPath);}
 	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
+	public WebElement Text_ETAValue(){return findElement("//XCUIElementTypeStaticText[contains(@name,\"ETA:\")]",LocatorType.XPath);}
 
 }

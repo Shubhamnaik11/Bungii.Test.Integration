@@ -153,6 +153,9 @@ public class NotificationSteps extends DriverBase {
 			case"DRIVERS ARE ENROUTE":
 				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.started");
 				break;
+			case"URGENT SCHEDULED PICKUP AVAILABLE":
+				text=PropertyUtility.getMessage("driver.notification.scheduled.urgent");
+				break;
 			case "SCHEDULED PICKUP AVAILABLE":
 				text=PropertyUtility.getMessage("driver.notification.scheduled");
 			//	$<Day>, $<MONTH> <$Date>
