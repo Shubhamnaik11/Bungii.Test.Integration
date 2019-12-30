@@ -293,6 +293,9 @@ public class CommonSteps extends DriverBase {
                     expectedMessage=PropertyUtility.getMessage("customer.alert.alreadyscheduled");
                     action.click(estimatePage.Button_SystemCalenderOK());
                     break;
+                case "ACCEPT BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -307,6 +310,103 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             fail("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^user is alerted for \"([^\"]*)\"$")
+    public void user_is_alerted_for_something(String key) {
+        try {
+            //action.waitForAlert();
+            if (!action.isAlertPresent())
+                action.waitForAlert();
+            String expectedText = "";
+            switch (key.toUpperCase()) {
+                case "ALREADY SCHEDULED BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.alreadyscheduled");
+                    break;
+                case "SUPPORT QUESTION SUBMITTED":
+                    expectedText = PropertyUtility.getMessage("customer.support.submitted");
+                    break;
+                case "EMPTY SUPPORT QUESTION":
+                    expectedText = PropertyUtility.getMessage("customer.support.emptyfield");
+                    break;
+                case "NO TWITTER INSTALLED":
+                    expectedText = PropertyUtility.getMessage("customer.invite.notwitter");
+                    break;
+                case "EXPIRED PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.expired");
+                    break;
+                case "INVALID PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.invalid");
+                    break;
+                case "EMPTY SIGNUP FIELD":
+                    expectedText = PropertyUtility.getMessage("customer.signup.emptyfield");
+                    break;
+                case "EXISTING USER":
+                    expectedText = PropertyUtility.getMessage("customer.signup.existinguser");
+                    break;
+                case "INVALID EMAIL WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidemail");
+                    break;
+                case "INVALID PHONE WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidphonenumber");
+                    break;
+                case "INVALID PASSWORD WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidpassword");
+                    break;
+                case "INVALID PROMO WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidpromo");
+                    break;
+                case "REFERRAL FOR NEW USER":
+                    expectedText = PropertyUtility.getMessage("customer.promos.referral.error");
+                    break;
+                case "FIRST TIME ONLY PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.first.time.error");
+                    break;
+                case "ALREADY EXISTING CODE":
+                    expectedText = PropertyUtility.getMessage("customer.promos.already.existing.code");
+                    break;
+                case "FAILED TO SEND TOKEN":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    break;
+                case "PASSWORD CHANGE SUCCESS":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.sucess");
+                    break;
+                case "INVALID SMS CODE":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.invalid.code");
+                    break;
+                case "INVALID PASSWORD WHILE RESET":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.invalid.password");
+                    break;
+                case "CANCEL BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
+                    break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    break;
+                case "SCHEDULED ONLY 5 DAYS":
+                    expectedText=PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    break;
+                case "LONG HAUL":
+                    expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+                case "DRIVER FINISHING CURRENT BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.driver.bungii.inprogress");
+                    break;
+                case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
+                    expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+            testStepVerify.isEquals(alertText, expectedText);
+            SetupManager.getDriver().switchTo().alert().accept();
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 

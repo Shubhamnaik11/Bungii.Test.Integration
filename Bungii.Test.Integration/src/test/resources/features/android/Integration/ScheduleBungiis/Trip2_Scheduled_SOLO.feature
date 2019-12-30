@@ -3,7 +3,7 @@
 #These feature will run in kansas geofence
 Feature: SoloScheduled
   Background:
-
+  @DUO_SCH_DONOT_ACCEPT
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     Given that solo schedule bungii is in progress
@@ -669,3 +669,135 @@ Feature: SoloScheduled
       | 8805368840 |    |
 
 
+  @DUO_SCH_DONOT_ACCEPT
+    @regression
+  Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
+    Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
+    When I am on customer Log in page
+    When I enter customers "8888888881" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I wait for Minimum duration for "DUO_SCH_DONOT_ACCEPT" Bungii to be in Driver not accepted state
+    When I Switch to "driver" application on "same" devices
+    When I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I verify status and researches Bungii with following details
+      | label                | Status of Trip                 |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) didn't accept pickup |
+
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state | label                |
+      | Accepted      | Accepted      | DUO_SCH_DONOT_ACCEPT |
+    When I Switch to "driver" application on "ORIGINAL" devices
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8888888881 |    |
+
+
+  @regression1
+  Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Accepted     | 0.75 hour ahead |
+    And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    When I am logged in as "valid" customer
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    Then I click "Go Online" button on Home screen on driver app
+    And I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   | 2              |
+    And I click on notification for "Driver" for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    And I click "ACCEPT" button on "Bungii Request" screen
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select 1st trip from scheduled bungii
+    When I wait for 1 hour for Bungii Schedule Time
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "driver finishing current bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8805368840      |
+
+  @regression1
+  Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Accepted     | 1 hour ahead |
+    And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I am logged in as "valid" customer
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select already scheduled bungii
+    When I try to contact driver using "sms driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct details should be displayed to driver on "Support-SMS" app
+    When I try to contact driver using "call driver1"
+    Then user is alerted for "more than 1 hour from scheduled time"
+    Then correct details should be displayed to driver on "Support-SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+
+  @regression
+  Scenario:Customer should be able to contact control driver when Non-control driver has started the trip
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_five Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+      |               | Enroute       |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select already scheduled bungii
+    When I try to contact driver using "call driver2"
+    Then correct details should be displayed to driver on "Calling" app
+    When I try to contact driver using "call driver1"
+    Then correct details should be displayed to driver on "Calling" app
+    When I try to contact driver using "sms driver1"
+    Then correct details should be displayed to driver on "SMS" app
+    When I try to contact driver using "sms driver2"
+    Then correct details should be displayed to driver on "SMS" app
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+  @regression
+  Scenario: Customer should be able to see text stating that driver can be contacted on the Bungii Details page, only when the trip has been accepted by required number of drivers.
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    When I Switch to "driver" application on "same" devices
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |    Accepted   |
+    And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I select already scheduled bungii
+    Then I verify that text "You will have the ability to contact your drivers when the Bungii begins" is displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |

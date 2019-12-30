@@ -1,10 +1,12 @@
 package com.bungii.android.stepdefinitions.Customer;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiDetailsPage;
 import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.customer.HomePage;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
+import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.stepdefinitions.CommonSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -34,6 +36,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     EstimatePage estimatePage=new EstimatePage();
+    ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
+    //ScheduledBungiisPage scheduledBungiiPage = new ScheduledBungiisPage();
      HomePage homePage=new HomePage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
@@ -285,6 +289,18 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+        }
+    }
+
+    @When("^I select 1st trip from scheduled bungii$")
+    public void i_select_first_already_scheduled_bungii() {
+        try {
+            action.click(scheduledBungiiPage.Cell_FirstTrip());
+            pass("I select already scheduled bungii", "I selected first already scheduled bungii" , true);
+        } catch (Exception e) {
+            logger.error("Error performing step", SetupManager.getDriver().getPageSource());
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
     /**

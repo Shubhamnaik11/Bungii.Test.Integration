@@ -20,4 +20,10 @@ public class BungiiDetailsPage extends PageBase {
     public WebElement Text_Driver1Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(0);}
     public WebElement Text_Driver2Name(){ return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_tv_drivername_value']", LocatorType.XPath).get(1);}
 
+    public WebElement Button_Driver1Call(){return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_ib_call']", LocatorType.XPath).get(0);}
+    public WebElement Button_Driver2Call(){return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_ib_call']", LocatorType.XPath).get(1);}
+    public WebElement Button_Driver1SMS(){return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_bt_sms']", LocatorType.XPath).get(0);}
+    public WebElement Button_Driver2SMS(){return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_bt_sms']", LocatorType.XPath).get(1);}
+
+    public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
 }

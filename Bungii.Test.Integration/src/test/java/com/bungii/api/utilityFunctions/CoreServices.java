@@ -431,7 +431,7 @@ public class CoreServices extends DriverBase {
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
-        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -451,7 +451,8 @@ public class CoreServices extends DriverBase {
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
-        cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime);
+
+        cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime.replace("am", "AM").replace("pm","PM"));
         //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
         //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
