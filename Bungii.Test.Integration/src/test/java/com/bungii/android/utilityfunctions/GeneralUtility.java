@@ -209,7 +209,11 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "Enroute screen":
                 Thread.sleep(5000);
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                String currentPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true));
+                if(!currentPage.equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
                 break;
             case "Arrived screen":
                 isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());

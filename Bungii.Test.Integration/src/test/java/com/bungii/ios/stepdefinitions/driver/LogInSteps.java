@@ -88,7 +88,7 @@ public class LogInSteps extends DriverBase {
         else {
             //TODO: specify failure here
         }
-        log("I am logged in as"+option+"driver","I am logged in using"+phone+"/"+password);
+        log("I am logged in as"+option+"driver","I am logged in using"+phone+"/"+password,true);
              } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
