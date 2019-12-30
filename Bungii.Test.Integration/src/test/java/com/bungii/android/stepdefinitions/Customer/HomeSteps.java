@@ -304,8 +304,8 @@ public class HomeSteps extends DriverBase {
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
-                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
-                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");
+/*                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
+                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");*/
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
