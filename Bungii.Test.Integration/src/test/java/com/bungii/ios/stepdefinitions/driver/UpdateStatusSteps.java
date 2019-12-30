@@ -49,7 +49,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^I check ETA of \"([^\"]*)\"$")
     public void i_check_eta_of_something(String strArg1){
         try {
-            switch (strArg1.toUpperCase()) {
+            switch (strArg1.toLowerCase()) {
                 case "control driver":
                     cucumberContextManager.setScenarioContext("ETA_VALUE",action.getNameAttribute(updateStatusPage.Text_ETAValue()));
                     break;
@@ -65,7 +65,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^\"([^\"]*)\" eta should be displayed to customer$")
     public void something_eta_should_be_displayed_to_customer(String strArg1) throws Throwable {
         try {
-            switch (strArg1.toUpperCase()) {
+            switch (strArg1.toLowerCase()) {
                 case "control driver":
                     String controlDriverEta=(String) cucumberContextManager.getScenarioContext("ETA_VALUE");
                     testStepVerify.isTrue(action.getNameAttribute(updateStatusPage.Text_ETAValue()).equals(controlDriverEta),controlDriverEta+" should be displayed");

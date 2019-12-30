@@ -10,6 +10,7 @@ Feature: Create on demand bungii
    # When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     And I change driver status to "Online"

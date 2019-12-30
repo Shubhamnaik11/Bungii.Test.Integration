@@ -147,11 +147,14 @@ public class ScheduledTripSteps extends DriverBase {
 				scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
 			}
-			RemoveSoloDriverAndresearchBungii(tripDetails);
-			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
-			Thread.sleep(30000);
-			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+			String pickupRequestOld=utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 
+			RemoveSoloDriverAndresearchBungii(tripDetails);
+			Thread.sleep(30000);
+
+			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+			testStepVerify.isTrue(!pickupRequestOld.equalsIgnoreCase(pickupRequest)," Pickup request should be updated, Old pickup ref:"+pickupRequestOld+" , new pickup ref:"+pickupRequest);
 			log( "I should able to cancel bungii", "I was able to cancel bungii",
 					true);
 

@@ -57,6 +57,7 @@ public class EstimateSteps extends DriverBase {
             strTime = enterTime(time);
             String actualTime = "";
             String[] details = new String[4];
+          //  action.swipeUP();
             if (saveDetails) {
                 details = getEstimateDetails();
                 isCorrectTime = details[1].equals(strTime);
@@ -951,13 +952,13 @@ public class EstimateSteps extends DriverBase {
 
         List<WebElement> genericStaticText = estimatePage.Text_GenericStaticText();
 
-        details[0]=action.getValueAttribute(genericStaticText.get(10));
+        details[0]=action.getValueAttribute(genericStaticText.get(1));
       //  details[0] = action.getValueAttribute(estimatePage.Text_DistanceValue());//2
-        details[1] = action.getValueAttribute(genericStaticText.get(7));//
+        details[1] = action.getValueAttribute(genericStaticText.get(13));//
      //   details[1] = action.getValueAttribute(estimatePage.Text_TimeValue());//11
-        details[2] = action.getValueAttribute(genericStaticText.get(14));//6
+        details[2] = action.getValueAttribute(genericStaticText.get(5));//6
     //    details[2] = action.getValueAttribute(estimatePage.Text_EstimateValue());//6
-        details[3] = action.getValueAttribute(genericStaticText.get(8));//10
+        details[3] = action.getValueAttribute(genericStaticText.get(14));//10
      //   details[3] = action.getValueAttribute(estimatePage.Text_LoadUnLoadTimeValue());//10
         return details;
     }

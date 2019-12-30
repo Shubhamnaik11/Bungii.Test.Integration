@@ -3,7 +3,8 @@
 @scheduled
 Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
-@regression1
+
+  @regression11
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -61,9 +62,11 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "LOADING ITEM" Screen
     Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then I check ETA of "control driver"
 
     When I Switch to "customer" application on "same" devices
     Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then "control driver" eta should be displayed to customer
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "LOADING ITEM" Screen
@@ -74,24 +77,28 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then I should be navigated to "UNLOADING ITEM" screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
     When I click "On To The Next One" button on "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Completed" screen
+    Then I wait for "2" mins
+    Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
-
+  @failed
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -134,7 +141,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
-    When I wait for Minimum duration for Bungii Start Time
+  #  When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" trip status screen
 
@@ -235,7 +242,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
-    When I wait for Minimum duration for Bungii Start Time
+#    When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
 
     And I Switch to "driver" application on "ORIGINAL" devices
@@ -760,7 +767,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -782,7 +789,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -822,7 +829,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -862,7 +869,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     Given I am on the "LOG IN" page
@@ -896,7 +903,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -944,7 +951,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "ORIGINAL" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     And I click on notification for "Driver" for "stack trip"
@@ -1006,7 +1013,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "ORIGINAL" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I Switch to "customer" application on "Driver2" devices
 
@@ -1111,7 +1118,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am logged in as "valid driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
-    When I wait for Minimum duration for Bungii Start Time
+ #   When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence

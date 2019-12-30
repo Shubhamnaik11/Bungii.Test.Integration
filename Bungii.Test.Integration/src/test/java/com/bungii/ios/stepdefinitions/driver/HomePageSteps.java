@@ -551,7 +551,7 @@ public class HomePageSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","denver");
         String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
         Calendar calendar = Calendar.getInstance();
-        //current time minus 60 mins
+        //current time plus 60 mins
         calendar.add(Calendar.MINUTE, +60);
         DateFormat formatter = new SimpleDateFormat("hh:mm aa");
         formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
@@ -561,7 +561,7 @@ public class HomePageSteps extends DriverBase {
 
         String dayOfWeek=simpleDateformat.format(calendar.getTime());
         i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
-
+        Thread.sleep(5000);
     }
 
 }

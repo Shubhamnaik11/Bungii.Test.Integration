@@ -117,13 +117,14 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-
+  @failed1
   @regression
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
@@ -919,9 +920,9 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 #########################
-  @regression11
+  @regression
   Scenario: Check to see if a driver deosn't receive scheduled trip request if his home is over 30 mins away from PU location
- #   When I clear all notification
+    When I clear all notification
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -965,9 +966,9 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression11
   @regression
   Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
+    When I clear all notification
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
@@ -975,19 +976,23 @@ Feature: To Test Solo - Scheduling Bungii
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     When I Switch to "customer" application on "same" devices
-
+    Then I wait for "1" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I remove current driver and researches Bungii
+    When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     When I Switch to "customer" application on "same" devices
     And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
-
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: Check that re-searched trip request does Not show Urgent Notification text if is more than one hour from the scheduled trip time
+    When I clear all notification
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | denver   | Accepted     | 2 hour ahead |
@@ -995,14 +1000,146 @@ Feature: To Test Solo - Scheduling Bungii
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
     When I Switch to "customer" application on "same" devices
-
+    Then I wait for "1" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I remove current driver and researches Bungii
+    When I switch to "ORIGINAL" instance
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
     When I Switch to "customer" application on "same" devices
-
     And Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
+
+  @regression
+  Scenario: To check validation message shown if driver tries to start a Bungii more than 60 mins before the scheduled time
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 1 hour ahead |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "60 MINS BEFORE SCHEDULE TRIP TIME"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that driver is not allowed to start Bungii within 60 mins of the scheduled time if required number of Drivers have not accepted
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "REQUIRED DRIVER NOT ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     |
+      | denver   | Accepted     | 0.75 hour ahead |
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State | Driver label | Trip Label |
+      | denver   | Enroute      | driver 2     | 2          |
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    When I wait for 1 hour for Bungii Schedule Time
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression1
+  Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
+      | denver   | Accepted     | 0.75 hour ahead | customer-duo | denver driver 1 | denver driver 2 |
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State | Driver label | Trip Label |
+      | denver   | Enroute      | driver 2     | 2          |
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    When I wait for 1 hour for Bungii Schedule Time
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "60 MINS BEFORE SCHEDULE TRIP TIME"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression11
+  Scenario:  To check if control driver is allowed to complete the trip and proper summary is shown
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
+      | denver   | Accepted     | unloading items | customer-duo | valid duo driver 1 | valid driver 2 |
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "Logout" from driver App menu
+
+
+  @regression11
+  Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
+      | denver   | Accepted     | unloading items | customer-duo | valid duo driver 1 | valid driver 2 |
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver driver 2" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "Logout" from driver App menu

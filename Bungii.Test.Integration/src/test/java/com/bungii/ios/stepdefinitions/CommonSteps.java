@@ -1232,6 +1232,15 @@ public class CommonSteps extends DriverBase {
                 case "PICKUP ALREADY ACCEPTED BY YOU":
                     expectedText=PropertyUtility.getMessage("driver.request.already.accepted");
                     break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedText=PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
+                case "REQUIRED DRIVER NOT ACCEPTED":
+                    expectedText=PropertyUtility.getMessage("driver.required.not.accepted");
+                    break;
+                case "CUSTOMER HAS ONGOING BUNGII":
+                    expectedText=PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
