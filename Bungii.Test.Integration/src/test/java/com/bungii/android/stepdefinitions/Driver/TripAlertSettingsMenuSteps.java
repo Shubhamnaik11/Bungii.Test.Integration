@@ -51,14 +51,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (tab) {
                 case "Trip Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data, PropertyUtility.getMessage("trip.alert.text"));
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;
 
                 case "SMS Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data, PropertyUtility.getMessage("sms.alert.text"));
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;

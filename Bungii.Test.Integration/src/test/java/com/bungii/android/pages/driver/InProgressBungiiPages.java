@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 public class InProgressBungiiPages extends PageBase {
 
     public WebElement Title_Status_Generic(boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_title' or 'com.bungii.customer:id/toolbar_title']", LocatorType.XPath,ignoreException); }
+    public WebElement Title_Status_Generic_Alt(boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar' or 'com.bungii.customer:id/toolbar']/android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 
     //------Page Titles--------------------------------------------------------------

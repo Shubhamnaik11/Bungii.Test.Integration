@@ -1,10 +1,12 @@
 @android
+@regression32
 Feature: DriverMenu
   In Bungii Driver
   As a logged in driver
   I want to check all menu links
 
   Background:
+    Given I Switch to "driver" application on "same" devices
     Given I am on Driver logged in Home page
 
   @regression
@@ -14,7 +16,7 @@ Feature: DriverMenu
     Then I should be able to see data on "FAQ" page
 
   @regression
-  Scenario: As Bungii driver I should able to access FAQ menu item
+  Scenario: As Bungii driver I should able to access LEADERBOARD menu item
     When I Select "LEADERBOARD" from driver App menu
     And the "LEADERBOARD" page is opened
     Then I should be able to see data on "LEADERBOARD" page
