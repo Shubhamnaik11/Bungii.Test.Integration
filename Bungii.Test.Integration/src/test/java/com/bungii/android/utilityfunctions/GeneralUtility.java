@@ -209,19 +209,40 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "Enroute screen":
                 Thread.sleep(5000);
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                String currentPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true));
+                if(!currentPage.equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
                 break;
             case "Arrived screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
                 break;
             case "Loading Item screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
+
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
                 break;
             case "Driving to DropOff screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
                 break;
             case "Unloading Item screen":
-                isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
                 break;
             default:
                 break;

@@ -348,6 +348,7 @@ public class ActionManager {
 
         TouchAction touchAction = new TouchAction(driver);
         touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
+
     }
 
     public void scrollUntilElementDisplayed(WebElement element) {
@@ -366,7 +367,7 @@ public class ActionManager {
             // just non zero point, as it didn't scroll to zero normally
             int topY = driver.manage().window().getSize().height / 6;
             //scroll with TouchAction by itself
-            scroll(pressX, topY, pressX, bottomY);
+            scroll(pressX, topY+180, pressX, bottomY);
         } catch (Exception e) {
             logger.detail("Failed to drap to top");
         }

@@ -45,7 +45,7 @@ Feature: Duo
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+  #  And I wait for Minimum duration for Bungii Start Time
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
 
@@ -558,7 +558,7 @@ Feature: Duo
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+#    And I wait for Minimum duration for Bungii Start Time
 
     And Bungii Driver "Start Schedule Bungii" request
     Then "Enroute screen" page should be opened
@@ -920,7 +920,7 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 9871450107     |                 |
-
+  @duo1
   @regression
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
 
@@ -960,7 +960,7 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-
+  @duo1
 
     #move to top
     #need to do in atlanta
@@ -1025,7 +1025,7 @@ Feature: Duo
       |                | CUSTOMER2_PHONE |
  #need to do in atlanta
           #move to top
-
+  @duo1
   @regression
   Scenario: Short stack control driver
 
@@ -1136,7 +1136,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-
+  @duo1
   @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
     Given that duo schedule bungii is in progress
@@ -1148,7 +1148,7 @@ Feature: Duo
     And I am logged in as "valid driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+ #   And I wait for Minimum duration for Bungii Start Time
     #non control driver start the trip
     And Bungii Driver "Start Schedule Bungii" request
     And I Open "customer" application on "same" devices
