@@ -146,5 +146,7 @@ public class EstimatePage extends PageBase {
     public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
     public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
+    public WebElement Button_AcceptRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id);}
+    public WebElement Button_CancelRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id);}
 
 }

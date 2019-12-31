@@ -315,6 +315,16 @@ public class BungiiSteps extends DriverBase {
                     log("Checking notifications","Checking notifications",true);
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
                     break;
+
+                case "SCHEDULED PICKUP AVAILABLE":
+                    action.showNotifications();
+                    log("Checking notifications","Checking notifications",true);
+                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+                    break;
+
+                case "":
+
+                    break;
             }
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {

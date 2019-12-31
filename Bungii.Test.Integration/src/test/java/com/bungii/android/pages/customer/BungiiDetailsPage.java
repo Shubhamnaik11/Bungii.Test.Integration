@@ -26,4 +26,5 @@ public class BungiiDetailsPage extends PageBase {
     public WebElement Button_Driver2SMS(){return findElements("//*[@resource-id='com.bungii.customer:id/driver_details_row_bt_sms']", LocatorType.XPath).get(1);}
 
     public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
+    public WebElement Text_BungiiRequestAccepted(){return findElement("//android.widget.TextView[@text='BUNGII REQUEST']", LocatorType.XPath);}
 }

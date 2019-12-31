@@ -1,39 +1,28 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
+import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.manager.ActionManager;
-import com.bungii.ios.pages.other.NotificationPage;
-import com.bungii.ios.utilityfunctions.GeneralUtility;
+import com.bungii.android.manager.ActionManager;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 import static com.bungii.common.manager.ResultManager.error;
 
 public class NotificationSteps extends DriverBase {
-    NotificationPage notificationPage;
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.other.NotificationSteps.class);
     ActionManager action = new ActionManager();
-    public NotificationSteps(NotificationPage notificationPage){
-        this.notificationPage=notificationPage;
-    }
     GeneralUtility utility = new GeneralUtility();
+    OtherAppsPage otherAppsPage=new OtherAppsPage();
 
 
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
@@ -46,16 +35,19 @@ public class NotificationSteps extends DriverBase {
             boolean notificationClickRetry=false;
             String bunddleId=getBundleId(currentApplication);
 
-
-
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
 
+            switch (expectedNotification)
+            {
+                case "SCHEDULED PICKUP AVAILABLE":
+                    break;
+            }
             log("Checking notifications","Checking notifications",true);
 
             //	logger.detail(SetupManager.getDriver().getPageSource());
-            boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
+           /* boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
             if(!notificationClick){
                 Thread.sleep(80000);
                 notificationClickRetry=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
@@ -67,11 +59,7 @@ public class NotificationSteps extends DriverBase {
             }else{
                 pass("I should able to click notification for"+expectedNotification,"I clicked on notifications with text"+getExpectedNotification(expectedNotification),true);
 
-            }
-
-
-            //temp fixed for iOS  device
-            utility.handleIosUpdateMessage();
+            }*/
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -143,107 +131,60 @@ public class NotificationSteps extends DriverBase {
         return bundleID;
     }
 
-    /**
-     * Get all notification list,
-     * @return List of all notifications
-     */
-    public List<String> getNotifcationList() {
-        List<String> notificationList = new ArrayList<String>();
-        List<WebElement> elements = notificationPage.Cell_Notification();
-        for (WebElement notifcation : elements) {
-            notificationList.add(notifcation.getAttribute("label"));
+    @When("^I clear all notification$")
+    public void i_clear_all_notification() {
+        String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
+
+        try {
+            boolean cleared=false;
+            ((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
+            action.showNotifications();
+            boolean isPresent=action.isElementPresent(otherAppsPage.Button_NotificationClear());
+            if(isPresent==true) {
+                cleared = clearAllNotifcation();
+            }
+            else {
+                action.hideNotifications();
+            }
+
+        if (cleared)
+                log( "I should able cleared all notification", "I cleared all notification");
+            else
+                log( "I should able cleared all notification",
+                        "Not notification found on device");
+
+            action.hideNotifications();
+            ((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
         }
-        return notificationList;
     }
 
-    /**
-     * Click notification
-     * @param application Application name of which notification is to clicked
-     * @param Message Notification text
-     * @return Did we click notification text or not
-     */
-    public boolean clickNotification(String application, String Message) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, InterruptedException {
-        boolean clicked = false;
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-
-        String androidVersion = driver.getCapabilities().getCapability("platformVersion").toString();
-        List<WebElement> elements = new ArrayList<WebElement>();
-        if(androidVersion.contains("10")) {
-            for (int i=0;i<=3;i++) {
-                String xml=driver.getPageSource();
-                Point p= utility.getCordinatesForNotification(xml,Message);
-                if(p!=null) {
-                    action.click(p);
-                    clicked = true;
-                    break;
-                }
-                Thread.sleep(10000);
-            }
-        }
-        else
-            elements = notificationPage.Cell_Notification();
-
-        for (WebElement notifcation : elements) {
-            String[] info = notifcation.getAttribute("label").split(",", 3);
-            System.err.println(info[0] + " ||  " + info[2]);
-            if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
-                action.swipeRight(notifcation);
-                clicked = true;
-                break;
-            }
-        }
-        return clicked;
-
-    }
-
-    /**
-     * Check if given notification is displayed
-     * @param application Application name of which notification is to checked
-     * @param Message Notification text
-     * @return Did we find notification text or not
-     */
-    public boolean checkNotification(String application, String Message) {
-        List<String> notificationList = getNotifcationList();
-        boolean isFound = false;
-
-        for (String notification : notificationList) {
-            String[] info = notification.split(",", 3);
-
-            if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
-                isFound = true;
-                break;
-            }
-        }
-        return isFound;
-    }
-
-    public boolean clearAllNotifcation() {
+    public boolean clearAllNotifcation() throws InterruptedException {
         boolean cleared = false;
         //click on clear button on notification page
-        List<WebElement> clearButtons = notificationPage.Button_NotificationClear();
-        for (WebElement clearButton : clearButtons) {
-            action.click(clearButton);
-            action.click(notificationPage.Button_NotificationClearConfirm(true));
-            cleared = true;
-        }
-
-        List<WebElement> elements = notificationPage.Cell_Notification();
-
-        for (WebElement notifcation : elements) {
-            String notificationText = notifcation.getAttribute("label");
-            logger.detail("Cleared notification :" + notificationText);
-
-            action.swipeLeft(notifcation);
-            if (notifcation.isDisplayed())
-                action.swipeLeft(notifcation);
+            action.click(otherAppsPage.Button_NotificationClear());
             cleared = true;
 
-        }
-        //minimum 3 notification are shown on all iOS screen , If earlier notification had  more than 3 notification then only search for notification agiain . This will save time .
-        if(elements.size()>3) {
-            while (notificationPage.Cell_Notification().size() > 0)
-                clearAllNotifcation();
-        }
+            if(cleared==false) {
+                List<WebElement> elements = otherAppsPage.Cell_Notification();
+
+                for (WebElement notifcation : elements) {
+                    action.swipeLeft(notifcation);
+                    if (notifcation.isDisplayed())
+                        action.swipeLeft(notifcation);
+                    cleared = true;
+                }
+
+                //minimum 3 notification are shown on all iOS screen , If earlier notification had  more than 3 notification then only search for notification agiain . This will save time .
+                if (elements.size() > 3) {
+                    while (otherAppsPage.Cell_Notification().size() > 0)
+                        clearAllNotifcation();
+                }
+            }
+
         return cleared;
 
     }

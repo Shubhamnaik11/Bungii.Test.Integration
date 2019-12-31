@@ -11,6 +11,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.enums.Status;
+import com.bungii.ios.pages.driver.BungiiRequestPage;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -64,6 +65,8 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+    BungiiRequestPage bungiiRequestPage=new BungiiRequestPage();
 
     /**
      * Launch driver application's using package and activity
@@ -823,6 +826,10 @@ public class GeneralUtility extends DriverBase {
                 case "SCHEDULED PICKUP ACCEPTED":
                     text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
                     break;
+
+                case "SCHEDULED PICKUP AVAILABLE":
+                    text="You're receiving a Bungii request.";
+                    break;
             }
 
         }
@@ -953,6 +960,30 @@ public class GeneralUtility extends DriverBase {
     public void acceptNotificationAlert() {
         action.click(driverHomePage.Notification_AlertAccept());
     }
+
+    public boolean verifyPageHeader(String key) {
+        boolean isCorrectPage = false;
+        switch (key)
+        {
+            case "BUNGII REQUEST":
+                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiRequestAccepted(),key);
+                isCorrectPage=true;
+                break;
+
+            case "SCHEDULED BUNGII":
+                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiRequestAccepted(),key);
+                isCorrectPage=true;
+                break;
+        }
+        return isCorrectPage;
+    }
+
+    public boolean Acceptbungii(){
+        boolean isAccepted = false;
+        action.click(bungiiRequestPage.Button_Accept());
+        return isAccepted;
+    }
+
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");

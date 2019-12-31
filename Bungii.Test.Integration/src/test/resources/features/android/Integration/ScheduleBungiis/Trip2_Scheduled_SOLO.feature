@@ -697,7 +697,8 @@ Feature: SoloScheduled
       | 8888888881 |    |
 
 
-  @regression1
+  @regression
+
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -728,7 +729,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-  @regression1
+  @regression
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -801,3 +802,26 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
+
+  @regression1
+  Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
+    #When I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    Then I click "Go Online" button on Home screen on driver app
+    When I Switch to "customer" application on "same" devices
+
+    And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | now           | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Then I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGII" screen
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |

@@ -441,6 +441,8 @@ public class CommonSteps extends DriverBase {
         try {
             if(strArg1.equalsIgnoreCase("cancel"))
                 action.click(estimatePage.Button_Cancel());
+            else if(strArg1.equalsIgnoreCase("View"))
+                action.click(estimatePage.Button_AcceptRequest());
             else
                 action.click(estimatePage.Button_OK());
 
@@ -453,6 +455,25 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+
+    @Then("^I should be navigated to \"([^\"]*)\" screen$")
+    public void i_should_be_naviagated_to_something_screen(String screen) {
+        try {
+            boolean isCorrectPage = false;
+
+            isCorrectPage = utility.verifyPageHeader(screen);
+            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
     @Then("^Alert should have \"([^\"]*)\" button$")
     public void alert_should_have_something_button(String list) throws Throwable {
         switch (list) {

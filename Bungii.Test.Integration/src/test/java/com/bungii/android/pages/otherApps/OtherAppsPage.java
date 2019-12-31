@@ -52,6 +52,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
-
+   public WebElement Button_NotificationClear(){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath);}
+   public List<WebElement> Cell_Notification() { return findElements("\tcom.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
 
 }
