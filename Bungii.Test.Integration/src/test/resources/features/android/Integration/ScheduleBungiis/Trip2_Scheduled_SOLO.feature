@@ -275,3 +275,27 @@ Feature: SoloScheduled
     And I Cancel selected Bungii
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression
+  Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
+    When I clear all notification
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "same" devices
+
+    And I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark |
+
+    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGII" screen
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
