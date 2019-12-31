@@ -568,10 +568,10 @@ public String getDriverPhone(String driverName)
             }
             if(driver2.equalsIgnoreCase("denver driver 2"))
             {
-                driverPhoneNum = PropertyUtility.getDataProperties("denver.driver2.phone");
-                driverPassword = PropertyUtility.getDataProperties("denver.driver2.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver2.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+                driver2PhoneNum = PropertyUtility.getDataProperties("denver.driver2.phone");
+                driver2Password = PropertyUtility.getDataProperties("denver.driver2.password");
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("denver.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driverPhoneNum);
             }
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);

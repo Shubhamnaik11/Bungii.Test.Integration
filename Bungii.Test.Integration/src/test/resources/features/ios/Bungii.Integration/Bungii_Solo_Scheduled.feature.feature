@@ -1071,11 +1071,11 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
-      | denver   | Accepted     | 0.75 hour ahead | customer-duo | denver driver 1 | denver driver 2 |
+      | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
       | denver   | Enroute      | driver 2     | 2          |
@@ -1086,7 +1086,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    Then user is alerted for "60 MINS BEFORE SCHEDULE TRIP TIME"
+    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
