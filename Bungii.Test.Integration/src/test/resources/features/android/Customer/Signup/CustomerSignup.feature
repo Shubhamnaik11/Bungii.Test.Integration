@@ -17,7 +17,7 @@ Feature: CustomerSignup
     And I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I tap on the "Sign Up" button on Signup Page
-    And I tap on the "No, Continue" button on Signup Page
+#    And I tap on the "No, Continue" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
@@ -37,7 +37,7 @@ Feature: CustomerSignup
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-
+  
   @regression
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page
@@ -61,11 +61,12 @@ Feature: CustomerSignup
     And I tap on the "Yes" button on Signup Page
     Then the new user should see "Signup page"
 
+
   @regression
   Scenario: Signup_ExistingPhoneNumber
     When I enter "existing" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I tap on the "Sign Up" button on Signup Page
-    And I tap on the "No, Continue" button on Signup Page
+  #  And I tap on the "No, Continue" button on Signup Page
     Then the new user should see "snackbar validation message for existing user"
     And the new user should see "Signup page"

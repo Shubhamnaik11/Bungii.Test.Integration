@@ -8,12 +8,11 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebElement;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -118,6 +117,7 @@ public class HomeSteps extends DriverBase {
      */
     public boolean verifyNoOfDriver(String strDriverType) {
         String expectedText = "";
+
         switch (strDriverType.toUpperCase()) {
             case "SOLO":
                 expectedText = "1";
@@ -295,6 +295,7 @@ public class HomeSteps extends DriverBase {
                 case "DROP":
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_Locator());
+                    Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
                     break;
@@ -303,6 +304,8 @@ public class HomeSteps extends DriverBase {
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
+                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
+                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
@@ -368,4 +371,147 @@ public class HomeSteps extends DriverBase {
                     true);
         }
     }
+
+    @Then("^\"([^\"]*)\" address text box should be displayed on app screen$")
+    public void something_address_text_box_should_be_displayed_on_app_screen(String strArg1) throws Throwable {
+        switch (strArg1) {
+            case "Drop Off":
+                testStepVerify.isTrue(action.isElementPresent(homePage.TextBox_DropOff()), "true");
+                break;
+        }
+    }
+
+    @When("^I clear \"([^\"]*)\" location$")
+    public void i_clear_something_location(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Pick up":
+                    action.click(homePage.Button_ClearPickUp());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @Then("^The ETA bar is seen on screen$")
+    public void the_eta_bar_is_seen_on_screen() throws Throwable {
+        try {
+            testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I select \"([^\"]*)\" location to check driver within 30mins$")
+    public void i_select_something_location_to_check_driver_within_30mins(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Pick up":
+                    action.click(homePage.Button_Locator());
+                    action.click(homePage.Button_Locator());
+                    Thread.sleep(3000);
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
+            }
+            pass(strArg1 + " location should be selected",
+                    strArg1 + " location is selected", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("The ETA bar is seen on screen with less then {int} mins")
+    public void theETABarIsSeenOnScreenWithLessThenMins(int arg0) {
+        try {
+            String minutes = homePage.Text_ETAvalue().getText();
+            minutes = minutes.replace(" MINS", "");
+            int ETA = Integer.parseInt(minutes);
+            if (ETA <= 30) {
+                testStepAssert.isElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
+            } else {
+                fail(minutes + " Driver not present.",
+                        minutes + " Driver not present.", true);
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I enter \"([^\"]*)\" on Bungii estimate screen$")
+    public void i_enter_something_on_bungii_estimate_screen(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Goa pickup and dropoff locations":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaA"));
+                    Thread.sleep(2000);
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaA"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    Thread.sleep(5000);
+                    break;
+
+                case "Atlanta pickup and Indiana dropoff location":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaB"));
+                    Thread.sleep(2000);
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaB"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
+                    Thread.sleep(5000);
+                    break;
+
+                case "Non Geofence pickup location":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.nongeofence"));
+                    Thread.sleep(5000);
+                    break;
+
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I get the error popup message for \"([^\"]*)\"$")
+    public void i_get_the_error_popup_message_for_something(String message) throws Throwable {
+        try {
+            switch (message) {
+                case "More than 150 miles trip":
+                    testStepAssert.isElementTextEquals(homePage.Text_ErrorMessage150Miles(), PropertyUtility.getMessage("Err_Trip150Miles"),
+                            "Trip greater then 150 miles message should be displayed.", "Error message is displayed", "Error message is not displayed");
+                    action.click(homePage.Button_ErrorMessage150Miles());
+                    break;
+
+                case "Non Geofence Location":
+                    testStepAssert.isElementTextEquals(homePage.Text_ErrorNonGeofence(), PropertyUtility.getMessage("Err_TripNonGeofence"),
+                            "Not operating in selected location should be displayed.", "Error message is displayed", "Error message is not displayed");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 }

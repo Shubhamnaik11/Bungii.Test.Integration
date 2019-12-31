@@ -49,7 +49,7 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(loginPage.TextField_PhoneNumber(), "");
                     break;
                 default:
-                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
                     break;
             }
         } catch (Exception e) {

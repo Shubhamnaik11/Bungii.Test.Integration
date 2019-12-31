@@ -1,16 +1,17 @@
 package com.bungii.ios.pages.driver;
 
 import com.bungii.common.core.PageBase;
-import org.openqa.selenium.WebElement;
 
 
 public class DriverBungiiDetailsPage extends PageBase{
+	//can delete this page, Test this by deleting it
+	/*
 	public WebElement Button_Accept() {return findElement("START BUNGII", LocatorType.Name); }
 	public WebElement Button_Cancel() {return findElement("CANCEL BUNGII", LocatorType.Name); }
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
-/*	*//**
+	*//**
 	 * Start bungii
 	 *//*
 	public void startBungii(){

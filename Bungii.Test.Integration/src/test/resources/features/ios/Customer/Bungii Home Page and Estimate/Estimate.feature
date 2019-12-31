@@ -1,5 +1,4 @@
 @ios
-
 Feature: Customer Estimate screen
   As a Bungii customer
   when I request for Bungii
@@ -42,7 +41,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     And Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           |            | {PREVIOUS VALUE} | x4242/x1117    |      | UNCHECK             | DISABLED       |
+      | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1881    |      | UNCHECK             | DISABLED       |
 
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
@@ -90,7 +89,8 @@ Feature: Customer Estimate screen
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
       | 30       |           |              | NEXT_POSSIBLE | Default     | No             |
     Then "Load/Upload Time" information icon should display correct information
-    And "Total estimate" information icon should display correct information
+    #removed as part of sprint 32
+  #  And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
 
   @regression
@@ -103,7 +103,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on Estimate screen
     And Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | x4242/x1117    | Now  | UNCHECK             | DISABLED       |
+      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | **** 4242/**** 1117    | Now  | UNCHECK             | DISABLED       |
 
 
   @regression

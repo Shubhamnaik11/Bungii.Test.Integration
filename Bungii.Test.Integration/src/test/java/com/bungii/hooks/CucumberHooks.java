@@ -61,10 +61,13 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 
         try {
-            logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE"));
+            //adding ternary operator in logger is creating issue
+            String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
+            logger.detail("Device On which test will be run is : " +device );
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("Unable to create default appium driver");
         }
 
@@ -201,5 +204,19 @@ public class CucumberHooks {
         }
     }
 
+    //Create a du
+    @Before("@DUO_SCH_DONOT_ACCEPT")
+    public void createDuoBungii() {
+        //create trip for denver and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),
+                    PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"DUO_SCH_DONOT_ACCEPT");
+        }
 
+        //create trip for Kansas and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("android")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "Kansas", PropertyUtility.getDataProperties("kansas.customer1.phone"),
+                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"),"DUO_SCH_DONOT_ACCEPT");
+        }
+    }
 }

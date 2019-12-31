@@ -3,14 +3,6 @@ Feature: Menu_Payment
 Scenarios on Payment Methods
 
   @regression
-  Scenario: Cust_Menu_Payment_NoPaymentMethodExists
-    Given I am on customer Log in page
-    And I am logged in as "newly registered" customer
-    When I tap on "Menu" > "Payment" link
-    Then I should see "message when no payment methods exist" on Payment page
-    And I tap on "Menu" > "Logout" link
-
-  @regression
   Scenario: As Bungii Customer I should able to change my default payment card
     Given I am on customer Log in page
     And I am logged in as "valid" customer
@@ -20,6 +12,15 @@ Scenarios on Payment Methods
     And I tap on "Save" on Payment page
     Then I should see "default payment set" on Payment page
     And I tap on "Menu" > "Logout" link
+
+  @regression
+  Scenario: Cust_Menu_Payment_NoPaymentMethodExists
+    Given I am on customer Log in page
+    And I am logged in as "newly registered" customer
+    When I tap on "Menu" > "Payment" link
+    Then I should see "message when no payment methods exist" on Payment page
+    And I tap on "Menu" > "Logout" link
+
 
   #commented this due to base to auto data issue
   #@regression
