@@ -117,6 +117,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+
   @failed1
   @regression
   @sanity
@@ -1074,7 +1075,7 @@ Feature: To Test Solo - Scheduling Bungii
   @regression
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
     Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
@@ -1095,7 +1096,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario:  To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
-      | denver   | Accepted     | unloading items | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa   |  unloading items     | NEXT_POSSIBLE| customer-duo | valid duo driver 1 | valid driver 2 |
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -1122,7 +1123,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer     | Driver1            | Driver2        |
-      | denver   | Accepted     | unloading items | customer-duo | valid duo driver 1 | valid driver 2 |
+      | denver   |  unloading items     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -1143,3 +1144,67 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
+
+
+  @regression11
+  Scenario: check if re-searched driver can cancel trip after starting Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 15 min ahead |
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    And I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on alert message
+    Then I should be navigated to "Home" screen
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression11
+  Scenario: check if re-searched driver can cancel trip after starting Duo
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    And I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on alert message
+    Then I should be navigated to "Home" screen
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
