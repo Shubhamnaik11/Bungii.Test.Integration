@@ -84,6 +84,13 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appledv_b_seni Stark_dvThree":
             phone = PropertyUtility.getDataProperties("denver.driver2.phone");
             break;
+        case "Testdrivertywd_appledc_a_jack Smith":
+            phone = PropertyUtility.getDataProperties("web.valid.driver7.phone");
+            break;
+        case "Testdrivertywd_appledc_a_john Smith":
+            phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
+            break;
+
     }
 
     return phone;
@@ -146,7 +153,7 @@ public String getDriverPhone(String driverName)
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
-                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")) {
+                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")|bungiiType.equalsIgnoreCase("Duo")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
                             coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);

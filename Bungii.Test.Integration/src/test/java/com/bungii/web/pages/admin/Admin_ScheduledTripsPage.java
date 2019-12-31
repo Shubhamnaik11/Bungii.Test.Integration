@@ -34,4 +34,8 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Label_CancelSuccessMessage () { return findElement("//p[@id='cancel-success-message']", LocatorType.XPath); }
 
     public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+
+    public WebElement Checkbox_NonControlDriver () { return findElement( "//span[contains(text(),'Testdrivertywd_appledc_a_jack Smith')]/parent::div/label/input[@type='checkbox']", LocatorType.XPath);}
+
+    public WebElement Label_DriverRemovalSuccessMessage () { return findElement( "//p/i[text()='Driver(s) removed successfully']" , LocatorType.XPath); }
 }

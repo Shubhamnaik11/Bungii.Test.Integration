@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -39,7 +40,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_CustomerPage admin_CustomerPage = new Admin_CustomerPage();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
-Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
 
@@ -341,5 +342,13 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         return geofenceName;
     }
 
+    @And("^I remove non control driver 'Testdrivertywd_appledc_a_jack Smith'$")
+    public void i_remove_non_control_driver_testdrivertywdappledcajack_smith() throws Throwable {
+        admin_ScheduledTripsPage.Checkbox_NonControlDriver().click();
+    }
 
+    @Then("^the driver should get removed successfully$")
+    public void the_driver_should_get_removed_successfully() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Non-control driver removed successfully","Pass", "Fail");
+    }
 }
