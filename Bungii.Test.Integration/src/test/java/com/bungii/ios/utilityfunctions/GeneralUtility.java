@@ -128,7 +128,12 @@ public class GeneralUtility extends DriverBase {
                 if (getListOfAlertButton.contains("OK")) {
                     action.clickAlertButton("OK");
                 }
+            }else if (alertMessage.contains("we are not operating in your area")) {
+                if (getListOfAlertButton.contains("Done")) {
+                    action.clickAlertButton("Done");
+                }
             }
+
         }
     }
 

@@ -30,6 +30,7 @@ public class BungiiDetailsSteps extends DriverBase {
         try {
             action.swipeUP();
             action.click(bungiiDetails.Button_CancelBungii());
+            Thread.sleep(1000);
             action.waitForAlert();
             SetupManager.getDriver().switchTo().alert().accept();
         } catch (Exception e) {

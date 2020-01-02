@@ -1199,3 +1199,33 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  @regression11
+    Scenario: To check that other driver and customer are Notified when one of the driver cancels
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | enroute    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I logged in Customer application using  "customer-duo" user
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver driver 2" driver
+
+    And I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on alert message
+
+    When I switch to "ORIGINAL" instance
+    #message to driver
+    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
+    When I Switch to "driver" application on "same" devices
+    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"

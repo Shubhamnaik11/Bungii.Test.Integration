@@ -1260,7 +1260,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression11
+  @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1277,14 +1277,14 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
-    Then I should be navigated to "SCHEDULED BUNGII" screen
+    Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  @regression11
+  @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1292,7 +1292,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    Then I should be navigated to "EN ROUTE" screen
+    Then I should be navigated to "ARRIVED" screen
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1301,7 +1301,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
-    Then I should be navigated to "SCHEDULED BUNGII" screen
+    Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
@@ -1309,7 +1309,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "Home" screen
 
 
-  @regression11
+  @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1327,14 +1327,14 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
-    Then I should be navigated to "SCHEDULED BUNGII" screen
+    Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  @regression1
+  @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1342,7 +1342,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
-    Then I should be navigated to "EN ROUTE" screen
+    Then I should be navigated to "ARRIVED" screen
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1352,23 +1352,23 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
-    Then I should be navigated to "SCHEDULED BUNGII" screen
+    Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  @regression11
-  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).
+  @regression1
+  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | Accepted     | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I logged in Customer application using  "customer-duo" user
+    And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
-    Then I wait for "1" mins
+    #Then I wait for "1" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
@@ -1387,14 +1387,15 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @regression11
+  @regression1
+  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | goa      | Accepted     | NEXT_POSSIBLE |
+      | denver      | Accepted     | NEXT_POSSIBLE |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
-    When I logged in Customer application using  "existing" user
+    And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
  #   Then I wait for "1" mins
     And I select already scheduled bungii
@@ -1414,3 +1415,4 @@ Feature: To Test Solo - Scheduling Bungii
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
