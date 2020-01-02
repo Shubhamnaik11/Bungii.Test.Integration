@@ -277,6 +277,20 @@ public class ScheduledBungiiSteps extends DriverBase {
         }
     }
 
+    @When("^I click \"([^\"]*)\" button on Bungii Request screen$")
+    public void i_click_something_button_on_bungii_request_screen(String buttonName) throws Throwable {
+       try{
+           switch (buttonName){
+               case "REJECT":
+                   action.click(estimatePage.Button_CancelRequest());
+                   break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+       }
+    }
+
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1, DataTable tripInformation) throws Throwable {
         try {

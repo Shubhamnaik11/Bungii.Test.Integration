@@ -825,3 +825,57 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
+  @regression
+  Scenario:To check if driver recieves Bungii scheduled request even while in the Offline state (assuming he does Not have Bungiis overlapping the TELET time)
+    #When I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    Then I click "Go Offline" button on Home screen on driver app
+    When I Switch to "customer" application on "same" devices
+    And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   |
+    Then I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "REJECT" button on Bungii Request screen
+    When I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+    And I Switch to "customer" application on "same" devices
+    And I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+    And I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "REJECT" button on Bungii Request screen
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+  @regression
+  Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+
+    And I click "ACCEPT" button on "Bungii Request" screen
+    Then user is alerted for "PICKUP REQUEST NO LONGER AVAILABLE"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |

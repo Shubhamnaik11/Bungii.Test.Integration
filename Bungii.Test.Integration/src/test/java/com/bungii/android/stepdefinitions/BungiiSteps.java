@@ -24,6 +24,12 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -303,32 +309,15 @@ public class BungiiSteps extends DriverBase {
     public void i_click_on_notification_for_something(String strArg1) {
         try {
             String expecteMessage="";
-            switch (strArg1){
-                case "SCHEDULED PICKUP ACCEPTED":
+
                     action.showNotifications();
                     log("Checking notifications","Checking notifications",true);
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-                   break;
 
-                case "ACCEPT BUNGII QUESTION":
-                    action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
-                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-                    break;
 
-                case "SCHEDULED PICKUP AVAILABLE":
-                    action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
-                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-                    break;
-
-                case "":
-
-                    break;
-            }
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
-                Thread.sleep(50000);
+                //Thread.sleep(70000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
             logger.detail(SetupManager.getDriver().getPageSource());

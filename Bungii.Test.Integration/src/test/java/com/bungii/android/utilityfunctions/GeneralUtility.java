@@ -31,9 +31,18 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.function.Function;
+
+import static com.google.common.base.Preconditions.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
@@ -771,7 +780,12 @@ public class GeneralUtility extends DriverBase {
             isDisplayed = true;}
 
         }
+        else if(notificationMessage.equalsIgnoreCase(notificationMessage))
+        {    if(action.isElementPresent(otherAppsPage.Notification_Stack(true))){
+            action.click(otherAppsPage.Notification_Stack());
+            isDisplayed = true;}
 
+        }
 
 
 /*
@@ -828,9 +842,39 @@ public class GeneralUtility extends DriverBase {
                     break;
 
                 case "SCHEDULED PICKUP AVAILABLE":
-                    text="You're receiving a Bungii request.";
+                    text=PropertyUtility.getMessage("driver.notification.scheduled");
+                    //	$<Day>, $<MONTH> <$Date>
+
+                    String schDate=(String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String geofenceLabel = getTimeZoneBasedOnGeofenceId();
+
+                    //	DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
+                    DateFormat format = new SimpleDateFormat("MMM dd, HH:mm a zzz", Locale.ENGLISH);
+                    try {
+                        format.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+                        Date date = format.parse(schDate);
+                        Date currentDate = new Date();
+                        //int year=currentDate.getYear()+1900;
+                        date.setYear(currentDate.getYear());
+                        int month = date.getMonth();
+                        String strMonth=getMonthForInt(month);
+                        int dayOfMonth = date.getDate();
+                        String dayOfMonthStr = String.valueOf(dayOfMonth)+getDayOfMonthSuffix(dayOfMonth);
+
+                        SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                        String dayOfWeek=simpleDateformat.format(date);
+
+                        text=text.replace("$<Day>",dayOfWeek);
+                        text=text.replace("$<MONTH>",strMonth);
+                        text=text.replace("$<Date>",dayOfMonthStr);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
+
+            return text;
 
         }
         catch (Exception e) {
@@ -841,6 +885,26 @@ public class GeneralUtility extends DriverBase {
         return text;
     }
 
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11 ) {
+            month = months[num];
+        }
+        return month;
+    }
+    String getDayOfMonthSuffix(final int n) {checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
+    }
     public void selectBungiiTime() {
         action.click(estimatePage.Time());
         action.click(estimatePage.Button_Later());
