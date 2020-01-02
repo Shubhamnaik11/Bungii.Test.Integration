@@ -47,6 +47,19 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I try to cancel selected Bungii$")
+    public void i_cancel_selected_bungii() {
+        try {
+            if(action.isAlertPresent())
+                SetupManager.getDriver().switchTo().alert().accept();
+
+            action.click(bungiiDetailsPage.Button_CancelBungii());
+            log("I try to cancel selected Bungii ", "I tried cancel selected Bungii", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {

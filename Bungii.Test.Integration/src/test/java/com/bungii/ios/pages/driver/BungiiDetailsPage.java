@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 
 public class BungiiDetailsPage extends PageBase {
 	public WebElement Button_StartBungii() { return findElement("START BUNGII", LocatorType.Name); }
+	public WebElement Button_CancelBungii() { return findElement("//XCUIElementTypeStaticText[@name=\"CANCEL BUNGII\"]/preceding-sibling::XCUIElementTypeButton[not(contains(@name, 'START'))]", LocatorType.XPath); }
+
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
 	public WebElement TextBox_Pickup_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }

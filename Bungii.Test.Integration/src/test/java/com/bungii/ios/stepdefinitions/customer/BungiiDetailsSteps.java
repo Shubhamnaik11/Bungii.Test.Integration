@@ -28,6 +28,7 @@ public class BungiiDetailsSteps extends DriverBase {
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
+            action.swipeUP();
             action.click(bungiiDetails.Button_CancelBungii());
             action.waitForAlert();
             SetupManager.getDriver().switchTo().alert().accept();

@@ -98,6 +98,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+
   @failed
   @regression
   @sanity
@@ -1135,3 +1136,66 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+  @regression
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I logged in Customer application using  "customer-duo" user
+
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+
+    When I Switch to "customer" application on "ORIGINAL" devices
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+
+    When I switch to "Driver1" instance
+    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
+    When I click "OK" on alert message
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I logged in Customer application using  "customer-duo" user
+
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    #put driver on background
+    When I open "customer" application on "same" devices
+
+    When I Switch to "customer" application on "ORIGINAL" devices
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+
+    When I open "customer" application on "Driver1" devices
+    And I click on notification for "Driver" for "CUSTOMER CANCELLED SCHEDULED BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |

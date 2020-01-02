@@ -660,6 +660,9 @@ public class CommonSteps extends DriverBase {
                 case "ACCEPT SCHEDULED BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
                     break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -1240,6 +1243,12 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CUSTOMER HAS ONGOING BUNGII":
                     expectedText=PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
+                case "FOR EMERGENCY CONTACT SUPPORT LINE":
+                    expectedText=PropertyUtility.getMessage("driver.cancel.support.contact");
+                    break;
+                case "CONTACT SUPPORT TO CANCEL":
+                    expectedText=PropertyUtility.getMessage("customer.support.contact.to.cancel");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

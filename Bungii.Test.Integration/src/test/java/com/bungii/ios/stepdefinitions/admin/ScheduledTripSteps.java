@@ -330,6 +330,10 @@ public class ScheduledTripSteps extends DriverBase {
 		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.CheckBox_Driver1());
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+		if(numberOfDriver.equalsIgnoreCase("duo"))
+			action.click(scheduledTripsPage.CheckBox_Driver2());
+
 		action.click(scheduledTripsPage.Button_Remove());
 		scheduledTripsPage.waitForPageLoad();try{Thread.sleep(5000);}catch (Exception e ){}
 		action.click(scheduledTripsPage.Button_Research());

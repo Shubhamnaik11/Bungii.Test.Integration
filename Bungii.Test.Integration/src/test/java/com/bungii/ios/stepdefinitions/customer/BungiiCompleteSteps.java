@@ -41,6 +41,10 @@ public class BungiiCompleteSteps extends DriverBase {
 				case "correct details":
 					verifyTripValue();
 					break;
+				case "correct details for duo trip":
+					action.swipeUP();
+					verifyTripValue();
+					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
 					break;
@@ -76,7 +80,7 @@ public class BungiiCompleteSteps extends DriverBase {
 	public void verifyTripValue(){        action.swipeDown();
 		double tripActualTime=Double.parseDouble(utility.getActualTime());
 
-		String totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+		String totalCost="";
 
 	//	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
 		String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -88,6 +92,11 @@ public class BungiiCompleteSteps extends DriverBase {
 		Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,String.valueOf(tripActualTime),promoValue,numberOfDriver);
 		String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
 	//	if(!truncValue.contains("."))truncValue=truncValue+".00";
+
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost_Duo()).split(" ")[0];
+		else
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
 
 		testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);

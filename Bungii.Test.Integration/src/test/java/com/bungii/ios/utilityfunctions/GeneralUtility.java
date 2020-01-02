@@ -805,8 +805,10 @@ public class GeneralUtility extends DriverBase {
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double tripActualTime = Double.parseDouble(tripTime);
         double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
-        if (tripType.equalsIgnoreCase("DUO"))
+        if (tripType.equalsIgnoreCase("DUO")){
             tripValue = tripValue * 2;
+            minCost=minCost*2;
+        }
         Promo = Promo.contains("ADD") ? "0" : Promo;
 
         double discount = 0;

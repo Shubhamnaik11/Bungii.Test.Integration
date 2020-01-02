@@ -92,6 +92,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][2]", LocatorType.ClassChain); }
 	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][1]", LocatorType.ClassChain); }
 
+	public WebElement Activity_loader(boolean ...ignoreException) { return findElement("In progress", LocatorType.Name,ignoreException); }
+	public WebElement Text_WaitingForDriver(){return findElement("//XCUIElementTypeStaticText[@name=\"Waiting for the other driver to end Bungii.\"]",LocatorType.XPath);}
 
 	//STACK
 	public WebElement Text_NextLabel(boolean ...ignoreException) { return findElement("NEXT", LocatorType.Name,ignoreException); }

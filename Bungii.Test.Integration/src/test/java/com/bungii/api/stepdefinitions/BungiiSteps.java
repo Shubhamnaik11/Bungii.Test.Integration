@@ -84,6 +84,9 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appledv_b_seni Stark_dvThree":
             phone = PropertyUtility.getDataProperties("denver.driver2.phone");
             break;
+        case "testdriver4 Test":
+            phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+            break;
     }
 
     return phone;
@@ -146,7 +149,7 @@ public String getDriverPhone(String driverName)
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
-                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")) {
+                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")||bungiiType.equalsIgnoreCase("Duo Scheduled")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
                             coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
@@ -646,21 +649,42 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                  //  Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
-            }else if (state.equalsIgnoreCase("Driving To Dropoff")) {
+            }else if (state.equalsIgnoreCase("arrived")) {
+
                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                 coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //  Thread.sleep(wait);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
+                coreServices.updateStatus(pickupRequest, driver2AccessToken, 23);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driver2AccessToken, 24);
+            }
+            else if (state.equalsIgnoreCase("Driving To Dropoff")) {
+                coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+                coreServices.pickupdetails(pickupRequest, driver2AccessToken, geofence);
+                coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
+
+                try {
+                    //  Thread.sleep(wait);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -681,7 +705,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //  Thread.sleep(wait);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -709,7 +734,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //  Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
