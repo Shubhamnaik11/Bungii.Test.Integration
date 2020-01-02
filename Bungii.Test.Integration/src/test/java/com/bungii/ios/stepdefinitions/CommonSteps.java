@@ -663,6 +663,9 @@ public class CommonSteps extends DriverBase {
                 case "CUSTOMER CANCELLED SCHEDULED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
+                case"OTHER DRIVER CANCELLED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

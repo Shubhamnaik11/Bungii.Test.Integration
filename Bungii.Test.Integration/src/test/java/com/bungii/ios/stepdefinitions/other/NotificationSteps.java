@@ -159,6 +159,12 @@ public class NotificationSteps extends DriverBase {
 			case "CUSTOMER CANCELLED SCHEDULED BUNGII":
 				text=PropertyUtility.getMessage("driver.notification.customer.scheduled.cancel");
 				break;
+			case "DRIVER CANCELLED BUNGII":
+				text=PropertyUtility.getMessage("customer.notification.scheduled.driver.canceled");
+				break;
+			case"OTHER DRIVER CANCELLED BUNGII":
+				text = PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification");
+				break;
 			case "SCHEDULED PICKUP AVAILABLE":
 				text=PropertyUtility.getMessage("driver.notification.scheduled");
 			//	$<Day>, $<MONTH> <$Date>

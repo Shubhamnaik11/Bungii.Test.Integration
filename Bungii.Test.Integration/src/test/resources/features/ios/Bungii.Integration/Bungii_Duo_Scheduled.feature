@@ -1200,11 +1200,11 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression11
-    Scenario: To check that other driver and customer are Notified when one of the driver cancels
+  @regression
+  Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
-      | goa      | enroute    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
 
 
     When I Switch to "customer" application on "same" devices
@@ -1218,7 +1218,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver driver 2" driver
+    And I am logged in as "valid driver 2" driver
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -1226,6 +1226,54 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I switch to "ORIGINAL" instance
     #message to driver
-    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     When I Switch to "driver" application on "same" devices
-    And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
+
+
+  @regression
+  Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    When I Switch to "customer" application on "same" devices
+  #driver1 in background
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+
+    And I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on alert message
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+
+  @regression
+  Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | goa      | enroute      | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+  #driver1 in foregroundground
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+
+    And I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on alert message
+
+    When I switch to "ORIGINAL" instance
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed

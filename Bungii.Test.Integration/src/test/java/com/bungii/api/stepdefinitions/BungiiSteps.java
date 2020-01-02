@@ -79,13 +79,13 @@ public String getDriverPhone(String driverName)
             phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");
             break;
         case "Testdrivertywd_appledv_b_matt Stark_dvOnE":
-            phone = PropertyUtility.getDataProperties("denver.driver.phone");
+            phone = PropertyUtility.getDataProperties("denver.common.driver.phone");
             break;
         case "Testdrivertywd_appledv_b_seni Stark_dvThree":
-            phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+            phone = PropertyUtility.getDataProperties("denver.common.driver2.phone");
             break;
         case "testdriver4 Test":
-            phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+            phone = PropertyUtility.getDataProperties("ios.common.valid.driver.phone");
             break;
     }
 

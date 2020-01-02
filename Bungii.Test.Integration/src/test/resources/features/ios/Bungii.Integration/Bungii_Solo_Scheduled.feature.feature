@@ -1359,7 +1359,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  @regression1
+  @regression
   Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1387,7 +1387,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @regression1
+  @regression
   Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
