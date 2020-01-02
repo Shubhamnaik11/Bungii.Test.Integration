@@ -276,6 +276,10 @@ Feature: Admin_Trips
       | driver1 state|
       | Enroute |
     When I click on "Edit" link beside scheduled bungii
-    And I remove non control driver 'Testdrivertywd_appledc_a_jack Smith'
-    Then the driver should get removed successfully
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I remove non control driver "Testdrivertywd_appledc_a_jack Smith"
+    Then The driver should get removed successfully
+    And I should be able to see the respective bungii with the below status
+      |  Status |
+      | Driver Removed|
 

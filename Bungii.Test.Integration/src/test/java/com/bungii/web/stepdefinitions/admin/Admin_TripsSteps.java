@@ -140,7 +140,7 @@ public class Admin_TripsSteps extends DriverBase {
         String driver = driver1;
         if (tripType[0].equalsIgnoreCase("duo"))
             driver = driver1 + "," + driver2;
-        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")) {
+        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
             String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
             int retrycount =10;
 
@@ -342,13 +342,16 @@ public class Admin_TripsSteps extends DriverBase {
         return geofenceName;
     }
 
-    @And("^I remove non control driver 'Testdrivertywd_appledc_a_jack Smith'$")
-    public void i_remove_non_control_driver_testdrivertywdappledcajack_smith() throws Throwable {
-        admin_ScheduledTripsPage.Checkbox_NonControlDriver().click();
+    @And("^I remove non control driver \"([^\"]*)\"$")
+    public void i_remove_non_control_driver_something(String driver) throws Throwable {
+
+                action.click(admin_ScheduledTripsPage.Checkbox_NonControlDriver());
+                action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
+                action.click((admin_ScheduledTripsPage.Button_Close()));
     }
 
-    @Then("^the driver should get removed successfully$")
+    @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Non-control driver removed successfully","Pass", "Fail");
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Driver(s) removed successfully","Pass", "Fail");
     }
 }
