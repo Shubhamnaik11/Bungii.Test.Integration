@@ -8,6 +8,7 @@ import java.util.List;
 public class PromosPage extends PageBase {
 
     public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+    public WebElement Button_Info() { return findElement("//XCUIElementTypeButton[@name=\"info\"]", PageBase.LocatorType.XPath); }
 
     public WebElement Button_Add() {
         return findElement("ADD", PageBase.LocatorType.Name);

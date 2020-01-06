@@ -131,3 +131,24 @@ Feature: Customer Estimate screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |              | Now  | Default     |
     Then Estimate value for trip should be properly displayed
+
+  @regression
+  Scenario: To check that customer is prompted to go to Add payment page if No payment exists (on request Bungii)
+    Given I am on the "LOG IN" page
+    When I enter Username :9999990216 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                | Geofence  |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+    And I click "Get Estimate" button on "Home" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
+    And I click "REQUEST BUNGII" button on "Estimate" screen
+    Then user is alerted for "ADD CARD BEFORE REQUEST BUNGII"
+    Then I should be navigated to "PAYMENT MODE" screen
+    And "Add New Card" message should be displayed on "PAYMENT" page
+    And "Add Image" should be present in "PAYMENT" screen
+    And "ADD" should be present in "PAYMENT" screen
+    When I Switch to "customer" application on "same" devices
+    And I Select "LOGOUT" from Customer App menu

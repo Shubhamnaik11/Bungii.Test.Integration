@@ -26,9 +26,9 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -206,6 +206,15 @@ public class CommonSteps extends DriverBase {
             switch (button.toUpperCase()) {
                 case "GET ESTIMATE":
                     action.click(homePage.Button_GetEstimate());
+                    break;
+                case "RESEND":
+                    action.click(forgotPasswordPage.Button_Resend());
+                    break;
+                case"ADD-BUTTON":
+                    action.click(paymentPage.Button_ADD());
+                    break;
+                case "INFO":
+                    action.click(promosPage.Button_Info());
                     break;
                 case "INVITE REFERRALS":
                     action.click(homePage.Button_Invite());
@@ -655,7 +664,7 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("driver.alert.stack.after.current");
                     break;
                 case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
-                    expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
                     break;
                 case "ACCEPT SCHEDULED BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
@@ -663,7 +672,7 @@ public class CommonSteps extends DriverBase {
                 case "CUSTOMER CANCELLED SCHEDULED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
-                case"OTHER DRIVER CANCELLED BUNGII":
+                case "OTHER DRIVER CANCELLED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
                     break;
                 default:
@@ -680,6 +689,7 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Then("^Alert should have \"([^\"]*)\" button$")
     public void alert_should_have_something_button(String list) {
         try {
@@ -687,8 +697,8 @@ public class CommonSteps extends DriverBase {
             List<String> getListOfAlertButton = action.getListOfAlertButton();
             switch (list) {
                 case "cancel,proceed":
-                    testStepVerify.isTrue(getListOfAlertButton.contains("CANCEL"),"Alert should have cancel button");
-                    testStepVerify.isTrue(getListOfAlertButton.contains("PROCEED"),"proceed should have cancel button");
+                    testStepVerify.isTrue(getListOfAlertButton.contains("CANCEL"), "Alert should have cancel button");
+                    testStepVerify.isTrue(getListOfAlertButton.contains("PROCEED"), "proceed should have cancel button");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -699,6 +709,7 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String buttonLabel) {
         try {
@@ -1055,7 +1066,7 @@ public class CommonSteps extends DriverBase {
     }
 
     @When("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
-    public void iEnterValueInFieldInPage(String value, String field, String screen) {
+    public void     iEnterValueInFieldInPage(String value, String field, String screen) {
 
         try {
             String inputValue = RandomGeneratorUtility.getData(value, 10);
@@ -1073,9 +1084,11 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "FIRST NAME":
                     action.clearEnterText(signupPage.Textfield_FirstName(), inputValue);
+                    cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME", inputValue);
                     break;
                 case "LAST NAME":
                     action.clearEnterText(signupPage.Textfield_LastName(), inputValue);
+                    cucumberContextManager.setScenarioContext("NEW_USER_LAST_NAME", inputValue);
                     action.hideKeyboard();
                     break;
                 case "EMAIL":
@@ -1111,7 +1124,7 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));
                     break;
                 case "SMS CODE":
-                    inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
+                    inputValue = inputValue.equalsIgnoreCase("valid") || inputValue.equalsIgnoreCase("old") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
                             : "111";
                     action.clearEnterText(forgotPasswordPage.Text_SmsCode(), inputValue);
                     action.hideKeyboard();
@@ -1221,7 +1234,7 @@ public class CommonSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     break;
                 case "SCHEDULED ONLY 5 DAYS":
-                    expectedText=PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    expectedText = PropertyUtility.getMessage("customer.alert.six.day.ahead");
                     break;
                 case "LONG HAUL":
                     expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
@@ -1236,22 +1249,40 @@ public class CommonSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("driver.request.unavailable");
                     break;
                 case "PICKUP ALREADY ACCEPTED BY YOU":
-                    expectedText=PropertyUtility.getMessage("driver.request.already.accepted");
+                    expectedText = PropertyUtility.getMessage("driver.request.already.accepted");
                     break;
                 case "60 MINS BEFORE SCHEDULE TRIP TIME":
-                    expectedText=PropertyUtility.getMessage("driver.start.60.mins.before");
+                    expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 case "REQUIRED DRIVER NOT ACCEPTED":
-                    expectedText=PropertyUtility.getMessage("driver.required.not.accepted");
+                    expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
                     break;
                 case "CUSTOMER HAS ONGOING BUNGII":
-                    expectedText=PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
                     break;
                 case "FOR EMERGENCY CONTACT SUPPORT LINE":
-                    expectedText=PropertyUtility.getMessage("driver.cancel.support.contact");
+                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;
                 case "CONTACT SUPPORT TO CANCEL":
-                    expectedText=PropertyUtility.getMessage("customer.support.contact.to.cancel");
+                    expectedText = PropertyUtility.getMessage("customer.support.contact.to.cancel");
+                    break;
+                case "SMS CODE SENT":
+                    expectedText = PropertyUtility.getMessage("customer.sms.code.sent");
+                    break;
+                case "3 OUT OF 5 ATTEMPT":
+                    expectedText = PropertyUtility.getMessage("customer.3.out.5.attempt.login");
+                    break;
+                case "USER ACCOUNT LOCKED":
+                    expectedText = PropertyUtility.getMessage("customer.user.account.locked");
+                    break;
+                case "MINIMUM COST STILL APPLIES":
+                    expectedText = PropertyUtility.getMessage("customer.promos.minimum.info");
+                    break;
+                case "FIRST TIME PROMO CODE":
+                    expectedText = PropertyUtility.getMessage("customer.first.time.promos.info");
+                    break;
+                case "ADD CARD BEFORE REQUEST BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.add.card.before.request");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -1266,14 +1297,15 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @And("^I get TELET time of of the current trip$")
     public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
-       //    phoneNumber="8888889907";
+        //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
-        String teletTime=dbUtility.getTELETfromDb(custRef);
+        String teletTime = dbUtility.getTELETfromDb(custRef);
 
-        cucumberContextManager.setScenarioContext("TELET",teletTime);
+        cucumberContextManager.setScenarioContext("TELET", teletTime);
     }
 
 

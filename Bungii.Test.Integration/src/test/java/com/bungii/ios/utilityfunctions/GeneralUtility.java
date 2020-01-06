@@ -625,6 +625,9 @@ public class GeneralUtility extends DriverBase {
             case "LOG IN":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.login");
                 break;
+            case "PAYMENT MODE":
+                expectedMessage="PAYMENT MODE";
+                break;
             case "INVITE":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.invite");
                 break;

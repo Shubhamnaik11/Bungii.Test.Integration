@@ -72,8 +72,8 @@ Feature: Log In
 
 
     Examples:
-      | Scenario             | Username   | InCorrectPassword | Correct Password | Expected Message | Expected Message 3 Times |Expected Message 5 Times |
-      | PENDING VERIFICATION | 8888881010 | cci12345          | Cci12345        | INVALID_PASSWORD  |INVALID_PASSWORD_3_TIMES |INVALID_PASSWORD_5_TIMES |
+      | Username   | InCorrectPassword | Correct Password | Expected Message | Expected Message 3 Times | Expected Message 5 Times |
+      | 8888881010 | cci12345          | Cci12345         | INVALID_PASSWORD | INVALID_PASSWORD_3_TIMES | INVALID_PASSWORD_5_TIMES |
 
 
   @regression

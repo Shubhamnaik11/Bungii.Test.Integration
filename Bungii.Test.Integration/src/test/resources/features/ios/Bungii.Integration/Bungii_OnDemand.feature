@@ -79,8 +79,8 @@ Feature: Create on demand bungii
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | nashville      | Enroute      |
+      | geofence  | Bungii State |
+      | nashville | Enroute      |
 
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
@@ -166,8 +166,8 @@ Feature: Create on demand bungii
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
     Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | nashville      | Enroute      |
+      | geofence  | Bungii State |
+      | nashville | Enroute      |
 
     When I am on the "LOG IN" page
    # And I am on Customer logged in Home page
@@ -247,8 +247,8 @@ Feature: Create on demand bungii
     Then I change driver status to "Online"
     When I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location           | Geofence |
-      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States| nashville |
+      | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen

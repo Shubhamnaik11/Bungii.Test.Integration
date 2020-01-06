@@ -1362,7 +1362,7 @@ Feature: To Test Solo - Scheduling Bungii
   @regression
   Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
     Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
       | denver   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1391,7 +1391,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver      | Accepted     | NEXT_POSSIBLE |
+      | denver   | Accepted     | NEXT_POSSIBLE |
 
     When I Switch to "customer" application on "same" devices
     Given I am on the "LOG IN" page
@@ -1416,3 +1416,82 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+  @regression11
+    #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
+  Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
+    Given I am on the "SIGN UP" page
+    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    Then I should be navigated to "Home" screen
+    When I Select "PAYMENT" from Customer App menu
+    Then I should be navigated to "PAYMENT" screen
+    When I click "Add-Button" button on "PAYMENT" screen
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
+    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
+    Then I should see "new card" on Payment page
+
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone  | Customer Name |  | Customer Password |
+      | NEXT_POSSIBLE | NEW_USER_NUMBER |               |  | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
+      | driver1 state      |
+      | Accepted           |
+      | Enroute            |
+      | Arrived            |
+      | Loading Item       |
+      | Driving To Dropoff |
+      | Unloading Item     |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    Examples:
+       | First Name                  | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
+          | Testcustomertywd_apple_XXXX | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+
+  @regression11
+  Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | goa      | Scheduled    | NEXT_POSSIBLE |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    And I logged in Customer application using  "existing" user
+  #    And I logged in Customer application using  "valid denver" user
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+
+ #   Then I wait for "1" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct support details should be displayed to customer on "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I Select "MY BUNGIIS" from Customer App menu
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

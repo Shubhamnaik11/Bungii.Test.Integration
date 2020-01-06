@@ -4,7 +4,7 @@
 Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
-  @regression11
+  @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |

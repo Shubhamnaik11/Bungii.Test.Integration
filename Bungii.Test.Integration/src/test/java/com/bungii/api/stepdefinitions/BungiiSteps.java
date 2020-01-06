@@ -377,6 +377,8 @@ public String getDriverPhone(String driverName)
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            if(custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER"))
+                custPhoneNum=(String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
 
             if(customerPasswordLabel.equals(""))
                 custPassword = PropertyUtility.getDataProperties("web.customer.password");
@@ -941,6 +943,8 @@ public String getDriverPhone(String driverName)
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,15);
             else
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+
+            cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
 
 
             try {

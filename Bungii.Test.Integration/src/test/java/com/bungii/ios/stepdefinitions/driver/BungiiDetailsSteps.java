@@ -137,14 +137,18 @@ public class BungiiDetailsSteps extends DriverBase {
     @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
         try {
-            long initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long initialTime;
+            if(strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
-            if(diffInMinutes>30){
+            if(diffInMinutes>15){
                 //do nothing
             }else{
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(30-(int) diffInMinutes);
+                action.hardWaitWithSwipeUp(15-(int) diffInMinutes);
 
             }
 
