@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.EstimatePage;
+import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -29,6 +30,7 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
+    HomePage homePage=new HomePage();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -277,6 +279,10 @@ public class CommonSteps extends DriverBase {
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
             String actualMessage = utility.getAlertMessage();
+            if(actualMessage.equals(""))
+            {
+                actualMessage= action.getText(homePage.Alert_NewBungii());
+            }
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
@@ -316,9 +322,9 @@ public class CommonSteps extends DriverBase {
     @Then("^user is alerted for \"([^\"]*)\"$")
     public void user_is_alerted_for_something(String key) {
         try {
-            //action.waitForAlert();
+            /*action.waitForAlert();
             if (!action.isAlertPresent())
-                action.waitForAlert();
+                action.waitForAlert();*/
             String expectedText = "";
             switch (key.toUpperCase()) {
                 case "ALREADY SCHEDULED BUNGII":
@@ -395,6 +401,10 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
+
+                case "PICKUP REQUEST NO LONGER AVAILABLE":
+                    expectedText=PropertyUtility.getMessage("driver.request.unavailable");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

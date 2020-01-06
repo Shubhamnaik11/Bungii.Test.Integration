@@ -54,5 +54,6 @@ public class OtherAppsPage extends PageBase {
 
    public WebElement Button_NotificationClear(){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath);}
    public List<WebElement> Cell_Notification() { return findElements("\tcom.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
+   public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
 
 }

@@ -105,5 +105,17 @@ public class AvailableTripsSteps extends DriverBase {
         }
     }
 
+    @And("^I Select Trip from available trip$")
+    public void i_select_trip_from_available_trip() throws Throwable {
+        try{
+        action.click(availableTrips.Row_AvailableTrip());
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     }
 

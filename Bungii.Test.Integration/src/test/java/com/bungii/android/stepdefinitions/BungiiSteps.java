@@ -317,7 +317,7 @@ public class BungiiSteps extends DriverBase {
 
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
-                //Thread.sleep(70000);
+                Thread.sleep(80000);
                 isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             }
             logger.detail(SetupManager.getDriver().getPageSource());

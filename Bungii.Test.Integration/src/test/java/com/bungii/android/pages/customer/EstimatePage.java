@@ -147,6 +147,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
     public WebElement Button_AcceptRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id);}
+    public WebElement Button_BungiiAccept() {return  findElement("//*[@resource-id='com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button']", LocatorType.XPath);}
     public WebElement Button_CancelRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id);}
 
 }

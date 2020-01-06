@@ -137,6 +137,7 @@ Feature: SoloScheduled
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
+
   @failed
   @sanity
   @regression
@@ -209,6 +210,7 @@ Feature: SoloScheduled
     Then Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
+
   @regression
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
@@ -236,6 +238,7 @@ Feature: SoloScheduled
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
 
@@ -261,6 +264,7 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
+
   @regression
   Scenario: Customer should able to cancel scheduled bungii
     Given that solo schedule bungii is in progress
@@ -274,7 +278,8 @@ Feature: SoloScheduled
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-    @regression
+
+  @regression1
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
       Given that solo schedule bungii is in progress
         | geofence | Bungii State | Bungii Time   |
@@ -285,6 +290,7 @@ Feature: SoloScheduled
       Then I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -303,6 +309,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
+
 
   @regression
   Scenario: To check  status in Scheduled Bungiis page when only one driver accepts trip
@@ -325,6 +332,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
+
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -346,6 +354,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
+
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:Solo
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
@@ -364,6 +373,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
+
 
   @regression
   Scenario: Check to see if customer receive Notification once both/required No of  drivers have accepted scheduled trip.Scenario:DUO
@@ -398,6 +408,7 @@ Feature: SoloScheduled
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
+
   @regression
   Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
     Given I am on customer Log in page
@@ -412,6 +423,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
+
 
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
@@ -622,6 +634,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
+
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -698,7 +711,6 @@ Feature: SoloScheduled
 
 
   @regression
-
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -728,6 +740,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
+
 
   @regression
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
@@ -777,6 +790,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
+
   @regression
   Scenario: Customer should be able to see text stating that driver can be contacted on the Bungii Details page, only when the trip has been accepted by required number of drivers.
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -803,7 +817,8 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
-  @regression1
+
+  @regression
   Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
     #When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -825,6 +840,7 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
 
   @regression
   Scenario:To check if driver recieves Bungii scheduled request even while in the Offline state (assuming he does Not have Bungiis overlapping the TELET time)
@@ -858,6 +874,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
+
   @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
@@ -874,8 +891,8 @@ Feature: SoloScheduled
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
 
-    And I click "ACCEPT" button on "Bungii Request" screen
+    And I click "ACCEPT" button on Bungii Request screen
     Then user is alerted for "PICKUP REQUEST NO LONGER AVAILABLE"
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+      | 8805368840     |                 |

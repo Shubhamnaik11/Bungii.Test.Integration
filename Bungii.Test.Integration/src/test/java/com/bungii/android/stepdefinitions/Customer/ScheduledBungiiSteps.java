@@ -281,6 +281,11 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_click_something_button_on_bungii_request_screen(String buttonName) throws Throwable {
        try{
            switch (buttonName){
+
+               case "ACCEPT":
+                   action.click(estimatePage.Button_BungiiAccept());
+                   break;
+
                case "REJECT":
                    action.click(estimatePage.Button_CancelRequest());
                    break;

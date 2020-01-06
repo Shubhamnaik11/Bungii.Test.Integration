@@ -35,4 +35,15 @@ public class ScheduledBungiiSteps {
 		//By Image_SelectBungii = MobileBy.xpath();
 		action.click(Image_SelectBungii);
 	}
+
+    public WebElement getLocatorForNotification(String notificationMessage) {
+		WebElement element;
+		element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
+
+		if (action.isElementPresent(element) == true) {
+			element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
+		}
+
+		return  element;
+    }
 }

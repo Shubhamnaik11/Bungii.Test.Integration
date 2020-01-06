@@ -7,11 +7,15 @@ import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.enums.Status;
+import com.bungii.ios.pages.customer.ScheduledBungiiPage;
 import com.bungii.ios.pages.driver.BungiiRequestPage;
+import com.bungii.ios.stepdefinitions.driver.ScheduledBungiiSteps;
+import com.bungii.ios.stepdefinitions.driver.UpdateStatusSteps;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -25,6 +29,7 @@ import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.logging.Log;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -50,7 +55,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
     static final double MIN_COST = 39;
-    private static LogUtility logger = new LogUtility(GeneralUtility.class);
+
+    private static LogUtility logger;
     ActionManager action = new ActionManager();
     LoginPage Page_Login = new LoginPage();
     SignupPage Page_Signup = new SignupPage();
@@ -76,6 +82,8 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiRequestPage bungiiRequestPage=new BungiiRequestPage();
+    ScheduledBungiiSteps sbs;
+
 
     /**
      * Launch driver application's using package and activity
@@ -742,50 +750,60 @@ public class GeneralUtility extends DriverBase {
 
     public boolean clickOnNofitication(String appName, String notificationMessage) {
         boolean isDisplayed = false;
-        //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
-        //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
-      //  System.out.println(SetupManager.getDriver().getPageSource());
+        try {
 
-        //FIX FOR APPIUM 1.42
-        if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand")))
-        {
-            if(action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
-                action.click(otherAppsPage.Notification_OnDemand());
+            //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
+            //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
+            //  System.out.println(SetupManager.getDriver().getPageSource());
+
+            //FIX FOR APPIUM 1.42
+            if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
+                    action.click(otherAppsPage.Notification_OnDemand());
+                    isDisplayed = true;
+                }
+            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_Stack(true))) {
+                    action.click(otherAppsPage.Notification_Stack());
+                    isDisplayed = true;
+                }
+
+            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))) {
+                    action.click(otherAppsPage.Notification_StackCustomerCancel());
+                    isDisplayed = true;
+                }
+
+            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))) {
+                    action.click(otherAppsPage.Notification_StackDriverAccepted());
+                    isDisplayed = true;
+                }
+
+            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))) {
+                    action.click(otherAppsPage.Notification_StackDriverStarted());
+                    isDisplayed = true;
+                }
+
+            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))) {
+                    action.click(otherAppsPage.Notification_StackDriverAccepted1());
+                    isDisplayed = true;
+                }
+
+            } else if (notificationMessage.equalsIgnoreCase(notificationMessage)) {
+//                WebElement element;
+//                element=estimatePage.findElement( "//*[@text='"+ notificationMessage + "']" , PageBase.LocatorType.XPath);
+//
+//                if (action.isElementPresent(element) == true) {
+//                    action.click(otherAppsPage.Notification_ScheduledBungiiAvailable());
+//                    isDisplayed = true;
+//                }
+                action.click(sbs.getLocatorForNotification(notificationMessage));
                 isDisplayed = true;
-            }
-        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack")))
-            {   if(action.isElementPresent(otherAppsPage.Notification_Stack(true))){
-                action.click(otherAppsPage.Notification_Stack());
-                isDisplayed = true;}
 
             }
-        else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel")))
-        {   if(action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))){
-            action.click(otherAppsPage.Notification_StackCustomerCancel());
-            isDisplayed = true;}
-
-        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack")))
-        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))){
-            action.click(otherAppsPage.Notification_StackDriverAccepted());
-            isDisplayed = true;}
-
-        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack")))
-        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))){
-            action.click(otherAppsPage.Notification_StackDriverStarted());
-            isDisplayed = true;}
-
-        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack")))
-        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))){
-            action.click(otherAppsPage.Notification_StackDriverAccepted1());
-            isDisplayed = true;}
-
-        }
-        else if(notificationMessage.equalsIgnoreCase(notificationMessage))
-        {    if(action.isElementPresent(otherAppsPage.Notification_Stack(true))){
-            action.click(otherAppsPage.Notification_Stack());
-            isDisplayed = true;}
-
-        }
 
 
 /*
@@ -808,7 +826,25 @@ public class GeneralUtility extends DriverBase {
 
         }*/
 
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
         return isDisplayed;
+    }
+
+    public WebElement getLocatorForNotification(String notificationMessage) {
+        WebElement element;
+        element = estimatePage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
+
+        if (action.isElementPresent(element) == true) {
+            element = estimatePage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
+        }
+
+        return  element;
     }
 
     public String getExpectedNotification(String identifier) {
@@ -873,8 +909,6 @@ public class GeneralUtility extends DriverBase {
                     }
                     break;
             }
-
-            return text;
 
         }
         catch (Exception e) {
