@@ -4,14 +4,13 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.EstimatePage;
 
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.DbUtility;
 
-//import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.customer.HomePage;
 
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -20,7 +19,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -40,8 +38,8 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
-    HomePage homePage=new HomePage();
-
+    com.bungii.android.pages.customer.HomePage homePage=new com.bungii.android.pages.customer.HomePage();
+    DriverHomePage driverHomePage= new DriverHomePage();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -359,7 +357,7 @@ public class CommonSteps extends DriverBase {
             String actualMessage = utility.getAlertMessage();
             if(actualMessage.equals(""))
             {
-                actualMessage= action.getText(homePage.Alert_NewBungii());
+                actualMessage= action.getText(driverHomePage.Alert_NewBungii());
             }
             String expectedMessage;
             switch (message.toUpperCase()) {

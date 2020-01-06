@@ -3,9 +3,9 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -17,14 +17,12 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
-import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 
@@ -38,7 +36,7 @@ public class EstimateBungiiSteps extends DriverBase {
     EstimatePage bungiiEstimatePage = new EstimatePage();
     SearchingPage Page_DriverSearch = new SearchingPage();
     HomePage Page_CustHome = new HomePage();
-    com.bungii.android.pages.driver.HomePage Page_DriverHome = new com.bungii.android.pages.driver.HomePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
     EstimatePage Page_Estimate = new EstimatePage();
     BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
     WantDollar5Page Page_WantDollar5 = new WantDollar5Page();

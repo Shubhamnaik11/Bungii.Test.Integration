@@ -5,7 +5,7 @@ import com.bungii.android.enums.Status;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.pages.driver.HomePage;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -24,12 +24,6 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -42,7 +36,7 @@ public class BungiiSteps extends DriverBase {
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
-    HomePage Page_DriverHome = new HomePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
     com.bungii.android.pages.customer.HomePage customerHomePage = new com.bungii.android.pages.customer.HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();

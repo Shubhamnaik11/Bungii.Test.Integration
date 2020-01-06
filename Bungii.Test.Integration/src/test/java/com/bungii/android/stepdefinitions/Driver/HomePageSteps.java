@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.HomePage;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -19,7 +19,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
-    HomePage homePage = new HomePage();
+    DriverHomePage driverHomePage = new DriverHomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
 
@@ -42,8 +42,8 @@ public class HomePageSteps extends DriverBase {
 
             }
             boolean isClicked = false;
-            action.click(homePage.Button_NavigationBar());
-            List<WebElement> elements = homePage.Button_NavigationBarText();
+            action.click(driverHomePage.Button_NavigationBar());
+            List<WebElement> elements = driverHomePage.Button_NavigationBarText();
 
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
@@ -68,8 +68,8 @@ public class HomePageSteps extends DriverBase {
     public void i_should_be_navigated_to_home_screen_on_driver_app() throws Throwable {
         try {
             Thread.sleep(2000);
-            action.waitUntilIsElementExistsAndDisplayed(homePage.Generic_HeaderElement(true));
-            String getNaviagationText = action.getText(homePage.Generic_HeaderElement());
+            action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
+            String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
             testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
         } catch (Exception e) {
@@ -84,14 +84,14 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (button) {
                 case "Go Online":
-                    action.click(homePage.Button_OnlineOffline());
+                    action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
                     break;
                 case "Go Offline":
-                    action.click(homePage.Button_OnlineOffline());
+                    action.click(driverHomePage.Button_OnlineOffline());
                     break;
                 case "Available Trips":
-                    action.click(homePage.Link_AvailableTrips());
+                    action.click(driverHomePage.Link_AvailableTrips());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -108,12 +108,12 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.goonline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.goonline"));
                     break;
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.gooffline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.gooffline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -140,13 +140,13 @@ public class HomePageSteps extends DriverBase {
 
             switch (info.toLowerCase()) {
                 case "name":
-                    testStepVerify.isEquals(action.getText(homePage.Text_DriverName()), driverName);
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverName()), driverName);
                     break;
                 case "vehicle info":
-                    testStepVerify.isEquals(action.getText(homePage.Text_DriverInfo()), driverVehicle);
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverInfo()), driverVehicle);
                     break;
                 case "rating":
-                    testStepVerify.isElementEnabled(homePage.Text_RattingBar(), "Ratting bar Should be correctly displayed");
+                    testStepVerify.isElementEnabled(driverHomePage.Text_RattingBar(), "Ratting bar Should be correctly displayed");
                     break;
 
                 default:
@@ -165,10 +165,10 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (buttonTitle.toUpperCase()) {
                 case "GO ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
                     break;
                 case "GO OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -186,8 +186,8 @@ public class HomePageSteps extends DriverBase {
     @And("^Info text should be updated$")
     public void info_text_should_be_updated() throws Throwable {
         try {
-            testStepVerify.isEquals(action.getText(homePage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
-            testStepVerify.isEquals(action.getText(homePage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo.android"));
+            testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
+            testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo.android"));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -200,10 +200,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
