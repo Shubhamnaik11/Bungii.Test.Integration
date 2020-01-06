@@ -1,5 +1,6 @@
 @android
 @SoloScheduled
+
 #These feature will run in kansas geofence
 Feature: SoloScheduled
   Background:
@@ -138,12 +139,12 @@ Feature: SoloScheduled
     And I Select "HOME" from driver App menu
 
 
-  @failed
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
