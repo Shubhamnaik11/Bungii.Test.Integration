@@ -322,6 +322,45 @@ public class ScheduledBungiiSteps extends DriverBase {
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+
+    @Then("^trips status should be \"([^\"]*)\"$")
+    public void trips_status_should_be_something(String status) throws Throwable {
+        try{
+            String actualStatus="";
+            switch (status){
+                case "Contacting Other Driver":
+                    actualStatus=action.getText(scheduledBungiiPage.Text_ScheduledBungiiStatus());
+                    testStepVerify.isEquals(actualStatus,status);
+                    break;
+
+                case "estimated cost":
+                   // tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    System.out.println((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    testStepVerify.isEquals(actualStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @And("^I Select Trip from scheduled trip$")
+    public void i_select_trip_from_scheduled_trip() throws Throwable {
+        try{
+            action.click(scheduledBungiiPage.Cell_FirstTrip());
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
     /**
      * Select Bungii time in scroll wheel
      *

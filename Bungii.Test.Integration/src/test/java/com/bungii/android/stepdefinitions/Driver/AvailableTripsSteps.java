@@ -108,6 +108,7 @@ public class AvailableTripsSteps extends DriverBase {
     @And("^I Select Trip from available trip$")
     public void i_select_trip_from_available_trip() throws Throwable {
         try{
+            Thread.sleep(6000);
         action.click(availableTrips.Row_AvailableTrip());
         }
         catch (Exception e) {
@@ -117,5 +118,5 @@ public class AvailableTripsSteps extends DriverBase {
         }
     }
 
-    }
+}
 

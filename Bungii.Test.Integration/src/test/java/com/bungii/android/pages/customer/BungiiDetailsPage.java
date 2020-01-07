@@ -27,4 +27,8 @@ public class BungiiDetailsPage extends PageBase {
 
     public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
     public WebElement Text_BungiiRequestAccepted(){return findElement("//android.widget.TextView[@text='BUNGII REQUEST']", LocatorType.XPath);}
+    public WebElement Text_ScheduledBungiis(){return findElement("//android.widget.TextView[@text='SCHEDULED BUNGIIS']", LocatorType.XPath);}
+    public WebElement Text_AvailableTrips(){return findElement("//android.widget.TextView[@text='AVAILABLE TRIPS']", LocatorType.XPath);}
+    public WebElement Text_BungiiDetails(){return findElement("//android.widget.TextView[@text='BUNGII DETAILS']", LocatorType.XPath);}
+
 }

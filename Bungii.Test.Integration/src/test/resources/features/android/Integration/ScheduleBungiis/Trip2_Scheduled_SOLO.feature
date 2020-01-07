@@ -280,7 +280,7 @@ Feature: SoloScheduled
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
 
-  @regression1
+  @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
       Given that solo schedule bungii is in progress
         | geofence | Bungii State | Bungii Time   |
@@ -897,3 +897,102 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
+
+  @regression
+  Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:Solo
+    Given I Switch to "customer" application on "same" devices
+    #trip 1
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Scheduled    | 15 min ahead |
+     #trip 2
+    Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   | 2              |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should able to see "two" available trip
+    And I Select Trip from available trip
+    And I click "ACCEPT" button on Bungii Request screen
+    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should able to see "zero" available trip
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8805368840      |
+
+  @regression
+  Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
+    Given I Switch to "customer" application on "same" devices
+    #trip 1
+    Given I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time  | Customer Phone | Customer Password | Customer Name                    |
+      | 15 min ahead | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
+     #trip 2
+    Given I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | NEXT_POSSIBLE | 8888888881     | Cci12345          | Testcustomertywd_appleRicha1 Test  | 2              |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should able to see "two" available trip
+    And I Select Trip from available trip
+    And I click "ACCEPT" button on Bungii Request screen
+    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should able to see "zero" available trip
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | 8888888881      |
+
+
+  @regression1
+  Scenario: To check the status of scheduled Bungii in the scheduled trip page when only one driver has accepted
+    And I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    Then trips status should be "Contacting Other Driver"
+    And I Select Trip from scheduled trip
+    Then I should be navigated to "BUNGII DETAILS" screen
+    And "correct duo scheduled trip details" should be displayed on Bungii request screen
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+    @regression1
+    Scenario:To check all details in the Bungii Details page when required number of drivers have accepted
+
+      And I request "duo" Bungii as a customer in "denver" geofence
+        | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+        | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+
+      And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I enter phoneNumber :8888881019 and  Password :Cci12345
+      And I click "Log In" button on Log In screen on driver app
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then trips status should be "estimated cost of duo trip"
+      And I Select Trip from scheduled trip
+      Then I should be navigated to "BUNGII DETAILS" screen
+      And "correct duo scheduled trip details" should be displayed on Bungii request screen
+      Then I cancel all bungiis of customer
+        | Customer Phone | Customer2 Phone |
+        | 8805368840     |                 |

@@ -811,17 +811,21 @@ public class GeneralUtility extends DriverBase {
                 }
 
             } else if (notificationMessage.equalsIgnoreCase(notificationMessage)) {
-//                WebElement element;
-//                element=estimatePage.findElement( "//*[@text='"+ notificationMessage + "']" , PageBase.LocatorType.XPath);
-//
-//                if (action.isElementPresent(element) == true) {
-//                    action.click(otherAppsPage.Notification_ScheduledBungiiAvailable());
-//                    isDisplayed = true;
-//                }
-                action.click(sbs.getLocatorForNotification(notificationMessage));
-                isDisplayed = true;
+                try {
+                    Thread.sleep(12000);
+                    if (action.isElementPresent(sbs.getLocatorForNotification(notificationMessage)) == true) {
+                        action.click(sbs.getLocatorForNotification(notificationMessage));
+                        isDisplayed = true;
+                    }
+                }
+               catch (Exception e) {
+                   logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                   error("Step  Should be successful", "Error performing step, Please check logs for more details",
+                           true);
+                }
 
             }
+
 
 
 /*
@@ -843,8 +847,6 @@ public class GeneralUtility extends DriverBase {
             }
 
         }*/
-
-
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -902,7 +904,7 @@ public class GeneralUtility extends DriverBase {
                     String schDate=(String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
                     String geofenceLabel = getTimeZoneBasedOnGeofenceId();
 
-                    //	DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
+                    //DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
                     DateFormat format = new SimpleDateFormat("MMM dd, HH:mm a zzz", Locale.ENGLISH);
                     try {
                         format.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
@@ -1087,7 +1089,17 @@ public class GeneralUtility extends DriverBase {
                 break;
 
             case "SCHEDULED BUNGII":
-                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiRequestAccepted(),key);
+                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ScheduledBungiis(),key);
+                isCorrectPage=true;
+                break;
+
+            case "AVAILABLE TRIPS":
+                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_AvailableTrips(),key);
+                isCorrectPage=true;
+                break;
+
+            case "BUNGII DETAILS":
+                testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiDetails(),key);
                 isCorrectPage=true;
                 break;
         }

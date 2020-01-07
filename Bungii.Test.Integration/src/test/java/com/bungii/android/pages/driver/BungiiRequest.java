@@ -36,4 +36,9 @@ public class BungiiRequest extends PageBase {
     public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_DropOffLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
 
+    public WebElement Text_PickupLocation_LineOne1 () { return findElements("//android.widget.LinearLayout/following::android.widget.TextView", LocatorType.XPath).get(2);}
+    public WebElement Text_PickupLocation_LineTwo2 () { return findElements("//android.widget.LinearLayout/following::android.widget.TextView", LocatorType.XPath).get(3);}
+    public WebElement Text_DropOffLocation_LineOne1 () { return findElements("//android.widget.LinearLayout/following::android.widget.TextView", LocatorType.XPath).get(4);}
+    public WebElement Text_DropOffLocation_LineTwo2 () { return findElements("//android.widget.LinearLayout/following::android.widget.TextView", LocatorType.XPath).get(5);}
+
 }

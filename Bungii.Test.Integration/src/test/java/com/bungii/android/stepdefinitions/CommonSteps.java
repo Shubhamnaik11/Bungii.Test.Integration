@@ -2,6 +2,8 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.BungiiDetailsPage;
+import com.bungii.android.pages.customer.DriverNotAvailablePage;
 import com.bungii.android.pages.customer.EstimatePage;
 
 import com.bungii.android.pages.driver.DriverHomePage;
@@ -40,6 +42,8 @@ public class CommonSteps extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     com.bungii.android.pages.customer.HomePage homePage=new com.bungii.android.pages.customer.HomePage();
     DriverHomePage driverHomePage= new DriverHomePage();
+    DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -486,9 +490,9 @@ public class CommonSteps extends DriverBase {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+            String alertText = driverNotAvailablePage.Alert_ConfirmRequestMessage().getText();
             testStepVerify.isEquals(alertText, expectedText);
-            SetupManager.getDriver().switchTo().alert().accept();
+            action.click(bungiiDetailsPage.Button_Yes());
             Thread.sleep(1000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
