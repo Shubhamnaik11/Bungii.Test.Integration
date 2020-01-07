@@ -90,7 +90,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[8]", LocatorType.ClassChain);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[14]", LocatorType.ClassChain);
     }
 
     public List<WebElement> Text_GenericStaticText() {

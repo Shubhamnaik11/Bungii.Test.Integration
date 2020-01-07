@@ -231,7 +231,6 @@ Feature: Create on demand bungii
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page
- #   When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -251,7 +250,7 @@ Feature: Create on demand bungii
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    And Trip Information should be correctly displayed on Estimate screen
+    #And Trip Information should be correctly displayed on Estimate screen
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
     And I should be navigated to "PROMOS" screen
@@ -270,60 +269,30 @@ Feature: Create on demand bungii
     When I click "YES" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
     When I click "ACCEPT" button on "Bungii Request" screen
- #   Then I should be navigated to "EN ROUTE" trip status screen
- #   Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     When I click "Ok" button on "BUNGII ACCEPTED" screen
-  #  Then Customer should be navigated to "EN ROUTE" trip status screen
-  #  Then Trip Information should be correctly displayed on "EN ROUTE" status screen for customer
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-  #  Then I should be navigated to "ARRIVED" trip status screen
-  #  Then Trip Information should be correctly displayed on "ARRIVED" status screen for driver
 
-#    And I Switch to "customer" application on "same" devices
-#    Then Customer should be navigated to "ARRIVED" trip status screen
-#    Then Trip Information should be correctly displayed on "ARRIVED" status screen for customer
-
-
-    And I Switch to "driver" application on "same" devices
+ #   And I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-#    Then I should be navigated to "LOADING ITEM" trip status screen
-#    Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for driver
 
-
- #   And I Switch to "customer" application on "same" devices
-  #  Then Customer should be navigated to "LOADING ITEM" trip status screen
-  #  Then Trip Information should be correctly displayed on "LOADING ITEM" status screen for customer
-
-    And I Switch to "driver" application on "same" devices
+  #  And I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-  #  Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for driver
 
- #   And I Switch to "customer" application on "same" devices
- #   Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
- #   Then Trip Information should be correctly displayed on "DRIVING TO DROP OFF" status screen for customer
-
-    And I Switch to "driver" application on "same" devices
+ #   And I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
- #   Then I should be navigated to "UNLOADING ITEM" trip status screen
- #   Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for driver
 
-  #  And I Switch to "customer" application on "same" devices
-  #  Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-  #  Then Trip Information should be correctly displayed on "UNLOADING ITEM" status screen for customer
-
-    And I Switch to "driver" application on "same" devices
+ #   And I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen
-    And Bungii customer should see "correct details with promo" on Bungii completed page
+    And Bungii customer should see "<Expected Details>" on Bungii completed page
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
@@ -334,7 +303,63 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
     Examples:
-      | Scenario         | Promo Code      | User         |
-      | fixed valid      | {PROMO FIXED}   | no promocode |
-      | Promo percentage | {PROMO PERCENT} | no promocode |
-      | valid one off    | {valid one off} | no promocode |
+      | Scenario            | Promo Code          | User         | Expected Details           |
+      | fixed valid         | {PROMO FIXED}       | no promocode |correct details with promo|
+     | Promo percentage    | {PROMO PERCENT}     | no promocode |correct details with promo|
+      | valid one off       | {valid one off}     | no promocode |correct details with promo|
+      | PROMOTER_TYPE_PROMO | PROMOTER_TYPE_PROMO | no promocode | correct details with delivery promo |
+
+  @regression
+  Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
+    Given that ondemand bungii is in progress
+  | geofence  | Bungii State |
+  | nashville | Enroute      |
+
+    When I am on the "LOG IN" page
+   # And I am on Customer logged in Home page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select trip from live trips
+
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Trip Started"
+    Then manually end bungii should be "disabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "EN ROUTE" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driver(s) Arrived"
+    Then manually end bungii should be "disabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "ARRIVED" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Loading Items"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "LOADING ITEM" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driving To Dropoff"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Unloading Items"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen

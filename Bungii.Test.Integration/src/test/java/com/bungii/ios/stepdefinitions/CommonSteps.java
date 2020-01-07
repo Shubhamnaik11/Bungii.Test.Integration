@@ -207,10 +207,16 @@ public class CommonSteps extends DriverBase {
                 case "GET ESTIMATE":
                     action.click(homePage.Button_GetEstimate());
                     break;
+                case "PROMO CODE LINE":
+                    action.click(estimatePage.Row_PromoCode());
+                    break;
+                case "SAVE MONEY":
+                    action.click(scheduledBungiiPage.Button_SaveMoney());
+                    break;
                 case "RESEND":
                     action.click(forgotPasswordPage.Button_Resend());
                     break;
-                case"ADD-BUTTON":
+                case "ADD-BUTTON":
                     action.click(paymentPage.Button_ADD());
                     break;
                 case "INFO":
@@ -645,6 +651,9 @@ public class CommonSteps extends DriverBase {
                 case "NO PROMO CODE":
                     expectedMessage = PropertyUtility.getMessage("customer.signup.nopromo");
                     break;
+                case "CARD IS ASSOCIATED TO TRIP":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.associated.to.trip");
+                    break;
                 case "SCHEDULE BUNGII OPTION":
                     expectedMessage = PropertyUtility.getMessage("customer.driver.unavailable.schedule");
                     break;
@@ -1066,7 +1075,7 @@ public class CommonSteps extends DriverBase {
     }
 
     @When("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
-    public void     iEnterValueInFieldInPage(String value, String field, String screen) {
+    public void iEnterValueInFieldInPage(String value, String field, String screen) {
 
         try {
             String inputValue = RandomGeneratorUtility.getData(value, 10);
@@ -1153,6 +1162,21 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             boolean isNewInstalled = utility.installCustomerApp();
             testStepAssert.isTrue(isNewInstalled, "I should able to install bungii App again", "I was not able to install bungii app again");
+            log("I install Bungii",
+                    "I installed Bungii", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("^I install Bungii Driver App again$")
+    public void i_install_bungii_app_data() {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            boolean isNewInstalled = utility.installDriverApp();
+            testStepAssert.isTrue(isNewInstalled, "I should able to install bungii Driver App again", "I was not able to install bungii Driver app again");
             log("I install Bungii",
                     "I installed Bungii", true);
 
@@ -1283,6 +1307,15 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "ADD CARD BEFORE REQUEST BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.add.card.before.request");
+                    break;
+                case "ADD IMAGE OF ITEM":
+                    expectedText = PropertyUtility.getMessage("customer.request.add.image");
+                    break;
+                case "CHOSSING NON FIRST TIME CODE":
+                    expectedText = PropertyUtility.getMessage("customer.select.other.than.first.time.code");
+                    break;
+                case "PLEASE ENABLE LOCATION SERVICES":
+                    expectedText = PropertyUtility.getMessage("driver.enable.location.services");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

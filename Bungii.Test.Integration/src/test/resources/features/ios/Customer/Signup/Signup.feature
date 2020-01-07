@@ -162,9 +162,9 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     And I should able to see expected promo code in available promo code
+    Then I should see "first time code subtext" on Promos page
     And I click "INFO" button on "PROMOS" screen
     Then user is alerted for "FIRST TIME PROMO CODE"
-
 
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |

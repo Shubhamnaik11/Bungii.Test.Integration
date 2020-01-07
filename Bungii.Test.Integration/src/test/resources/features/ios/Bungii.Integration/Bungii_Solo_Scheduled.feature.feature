@@ -1,11 +1,10 @@
 @ios
 @scheduled
-
     # this will run in denver
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
-  @DUO_SCH_DONOT_ACCEPT
+#  @DUO_SCH_DONOT_ACCEPT
   @POSTDUO
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii, Verify details
@@ -1387,38 +1386,30 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
+#use customer with only one card
   @regression
-  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : Solo
-    Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted     | NEXT_POSSIBLE |
-
+  Scenario: Customer canNot delete payment method linked to any on-going/scheduled trips
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8877995598     | VishalIHHnZkrz Test| Cci12345          |
     When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I Select "MY BUNGIIS" from Customer App menu
- #   Then I wait for "1" mins
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
-    Then correct support details should be displayed to customer on "ADMIN-SMS" app
+    And I am on the "LOG IN" page
+    When I enter Username :8877995598 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    When I Select "PAYMENT" from Customer App menu
+    When I swipe "other" card on the payment page
+    And I tap on "Delete" on Payment page
+    Then Alert message with Delete Warning text should be displayed
+    When I accept Alert message
+    Then Alert message with CARD IS ASSOCIATED TO TRIP text should be displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8877995598 |                 |
 
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
-    And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
-    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
-    And Bungii must be removed from the List
-    When I switch to "ORIGINAL" instance
-    And I Switch to "customer" application on "same" devices
-    And I Select "MY BUNGIIS" from Customer App menu
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
-  @regression11
+  @regression
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
+
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -1439,10 +1430,10 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
     Then I should see "new card" on Payment page
 
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+    When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone  | Customer Name |  | Customer Password |
       | NEXT_POSSIBLE | NEW_USER_NUMBER |               |  | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "testdriver4 Test" perform below action with respective "Solo Scheduled" trip
       | driver1 state      |
       | Accepted           |
       | Enroute            |
@@ -1452,17 +1443,21 @@ Feature: To Test Solo - Scheduling Bungii
       | Unloading Item     |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I enter phoneNumber :9955112203 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I slide update button on "UNLOADING ITEM" Screen
     Then I should be navigated to "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii Completed" screen
+    Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    And I Select "customers" from admin sidebar
+    Then trips requested count should be "1"
     Examples:
-       | First Name                  | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
-          | Testcustomertywd_apple_XXXX | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+      | First Name                  | Last Name       | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
+      | Donaldd | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+
 
   @regression11
   Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Solo

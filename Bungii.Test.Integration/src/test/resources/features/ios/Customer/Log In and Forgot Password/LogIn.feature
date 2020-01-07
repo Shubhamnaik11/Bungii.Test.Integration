@@ -37,10 +37,14 @@ Feature: Log In
     When I accept Term and Condition agreement
     Then I should be navigated to "ALLOW NOTIFICATIONS" screen
     And I should see "all details" on allow notifications screen
-    When I allow access of Notification from Bungii application
+    When I verify and allow access of Notification from Bungii application
     Then I should be navigated to "ALLOW LOCATION" screen
     And I should see "all details" on allow location screen
-    When I allow access of Location from Bungii application
+    When I verify and allow access of Location from Bungii application
     And I close tutorial Page
     Then User should be successfully logged in to the application
     And I Select "LOGOUT" from Customer App menu
+    When I am on the "LOG IN" page
+    And I enter Username :{VALID} and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    Then I should be navigated to "Home" screen

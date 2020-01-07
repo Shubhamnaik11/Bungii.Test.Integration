@@ -137,4 +137,17 @@ public class DbUtility extends DbContextManager {
         String driverToPickupTime = getDataFromMySqlServer(queryString2);
         return driverToPickupTime;
     }
+    public static String getReference(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT Reference FROM customer WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Reference code is" + smsCode + ", query, " + queryString);
+        return smsCode;
+    }
+    public static String getActiveFlag(String phoneNumber){
+        String UserRef = getReference(phoneNumber);
+        String queryString2 = "select Active from device where UserRef ='"+UserRef+ "' order by devid desc limit 1";
+        String activeFlag = getDataFromMySqlServer(queryString2);
+        return activeFlag;
+    }
 }

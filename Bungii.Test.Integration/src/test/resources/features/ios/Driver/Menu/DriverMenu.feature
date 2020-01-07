@@ -67,6 +67,12 @@ Feature: DriverMenu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
+  #failing due to BCKD-1103
+  @regression
+  Scenario: Logout (check deregister device token) (Driver & Customer)
+    Then I driver active flag should be "1"
+    When I Select "LOGOUT" from driver App menu
+    Then I driver active flag should be "0"
 
   @regression
   Scenario: As Bungii driver I should able to access STORE  menu item

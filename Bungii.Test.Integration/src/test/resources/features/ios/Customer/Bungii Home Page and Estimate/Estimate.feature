@@ -152,3 +152,29 @@ Feature: Customer Estimate screen
     And "ADD" should be present in "PAYMENT" screen
     When I Switch to "customer" application on "same" devices
     And I Select "LOGOUT" from Customer App menu
+
+    @regression
+    Scenario: To check that Customer is able to add at least one and maximum 4 images of Items
+      When I request for  bungii for given pickup and drop location
+        | Driver | Pickup Location | Drop Location                |
+        | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      And I click "Get Estimate" button on "Home" screen
+      When I enter following details on "Estimate" screen
+        | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
+        | 30       |           |              | Now  | No image     | No             |
+      And I click "REQUEST BUNGII" button on "Estimate" screen
+      Then user is alerted for "ADD IMAGE OF ITEM"
+      When i add "4 images" of pickup item
+      And I click "REQUEST BUNGII" button on "Estimate" screen
+      When I click "YES" on alert message
+      Then I should be navigated to "SEARCHING" screen
+      When I click "Cancel" button on "SEARCHING" screen
+      Then user is alerted for "CANCEL BUNGII"
+
+  @regression
+      Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+      And I request for  bungii for given pickup and drop location
+        | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+        | Duo    |Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then correct details next available scheduled time should be displayed

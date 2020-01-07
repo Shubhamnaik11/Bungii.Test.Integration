@@ -38,6 +38,10 @@ public class BungiiCompleteSteps extends DriverBase {
 					verifyTripValue();
 					verifyDiscount();
 					break;
+				case "correct details with delivery promo":
+					verifyPromoterValue();
+					verifyPromoterDiscount();
+					break;
 				case "correct details":
 					verifyTripValue();
 					break;
@@ -102,6 +106,31 @@ public class BungiiCompleteSteps extends DriverBase {
 		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
 
 	}
+	public void verifyPromoterValue(){    action.swipeDown();
+		double tripActualTime=Double.parseDouble(utility.getActualTime());
+
+		String totalCost="";
+
+		//	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+		String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+		String totalDistance=utility.getEstimateDistance();
+
+
+		Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,String.valueOf(tripActualTime),"ADD",numberOfDriver);
+		String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
+
+
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost_Duo()).split(" ")[0];
+		else
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+
+		testStepVerify.isEquals(totalCost,"$0.00");
+		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",expectedTotalCost+"");
+
+	}
 	public  void verifyDiscount(){
 		//get current geofence
 		String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
@@ -137,9 +166,43 @@ public class BungiiCompleteSteps extends DriverBase {
 
 		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
 
-	//	if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
 
-		//  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
+		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
+	}
+	public  void verifyPromoterDiscount(){
+		//get current geofence
+		String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+		//get minimum cost,Mile value,Minutes value of Geofence
+		double minCost =Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.minimum.cost")),
+				perMileValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.miles")),
+				perMinutesValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.minutes"));
+
+		double tripActualTime=Double.parseDouble(utility.getActualTime());
+		String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0];
+		String Promo=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+		Double promoValue=0.0;
+		String distanceValueDB=utility.getEstimateDistance();
+
+		double distance =Double.parseDouble(distanceValueDB);// Double.parseDouble(totalDistance.replace(" miles", ""));
+
+		//double tripActualTime = Double.parseDouble(totalTime);
+		double tripValue = distance *perMileValue + tripActualTime *perMinutesValue;
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			tripValue=tripValue*2;
+
+		if(Promo.contains("$"))
+			promoValue=Double.valueOf(Promo.replace("-$", ""));
+		else if(Promo.contains("%"))
+			promoValue=Double.valueOf(tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100);
+
+
+		String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
+
+		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
+
+
 		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
 	}
 	//TODO: Handle Duo
