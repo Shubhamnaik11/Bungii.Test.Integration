@@ -234,7 +234,7 @@ Feature: SoloScheduled
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
@@ -259,7 +259,7 @@ Feature: SoloScheduled
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then I tap on "ok on already scheduled bungii message" on Bungii estimate
     When I tap on "back" on Bungii estimate
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
@@ -270,8 +270,8 @@ Feature: SoloScheduled
       | kansas      | Scheduled     | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     And I Cancel selected Bungii
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
