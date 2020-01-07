@@ -109,7 +109,33 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
+    public Response validatePickupRequestOfPartnerFirm(String authToken, String geoFence) {
 
+        JSONObject jsonObj = new JSONObject();
+        JSONObject dropOffCordinate = new JSONObject();
+        JSONObject pickupCordinates = new JSONObject();
+
+       if (geoFence.equalsIgnoreCase("washingtondc")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.latitude.PartnerFirm")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.longitude.PartnerFirm")));
+        }
+
+        jsonObj.put("DropoffLocation", dropOffCordinate);
+        jsonObj.put("PickupLocation", pickupCordinates);
+
+
+        Header header = new Header("AuthorizationToken", authToken);
+
+
+        String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
+        Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+        logger.detail(response.then().log().all());
+        ApiHelper.genericResponseValidation(response);
+        return response;
+
+    }
     public Response availablePickupList(String authToken) {
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", AVAILABLE_PICKUPLIST);
@@ -207,9 +233,66 @@ public class CoreServices extends DriverBase {
 
 
     }
+    public Response pickupRequestPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
+
+        JSONObject jsonObj = new JSONObject();
+        JSONObject dropOffAddress = new JSONObject();
+        JSONObject dropOffCordinate = new JSONObject();
+        JSONObject pickUpAddress = new JSONObject();
+        JSONObject pickUpCordinate = new JSONObject();
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.equalsIgnoreCase("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
+            dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1"));
+            dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city"));
+            dropOffAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.country"));
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.longitude")));
+            dropOffAddress.put("Location", dropOffCordinate);
+            dropOffAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
+            dropOffAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.zipcode"));
+
+            pickUpAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1.PartnerFirm"));
+            pickUpAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2.PartnerFirm"));
+            pickUpAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city.PartnerFirm"));
+            pickUpAddress.put("Country", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.country.PartnerFirm"));
+            pickUpCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.latitude.PartnerFirm")));
+            pickUpCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.longitude.PartnerFirm")));
+            pickUpAddress.put("Location", pickUpCordinate);
+            pickUpAddress.put("State", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state.PartnerFirm"));
+            pickUpAddress.put("ZipPostalCode", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.zipcode.PartnerFirm"));
+
+            jsonObj.put("DropOffAddress", dropOffAddress);
+            jsonObj.put("PickupAddress", pickUpAddress);
+            jsonObj.put("NoOfDrivers", numberOfDriver);
+
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".pickup.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city") + ", " + PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.state"));
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", numberOfDriver == 1 ? "SOLO" : "DUO");
+        } else {
+            logger.detail("Specify valid geofence");
+        }
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = UrlBuilder.createApiUrl("core", PICKUP_REQUEST);
+        Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response);
+        return response;
+
+
+    }
 
     public String getPickupRequest(String authToken, int numberOfDriver, String geoFence) {
         Response response = pickupRequest(authToken, numberOfDriver, geoFence);
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        saveAppliedPromoCode(response);
+        return jsonPathEvaluator.get("PickupRequestID");
+
+    }
+
+    public String getPickupRequestOfPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
+        Response response = pickupRequestPartnerFirm(authToken, numberOfDriver, geoFence);
         JsonPath jsonPathEvaluator = response.jsonPath();
         saveAppliedPromoCode(response);
         return jsonPathEvaluator.get("PickupRequestID");

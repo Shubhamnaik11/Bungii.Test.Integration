@@ -31,6 +31,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
     #test data created in base
+    @test1
   Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -42,6 +43,7 @@ Feature: Admin_DriverApplicationVerification
     When I enter the reject reason
     And I click on the "Submit" Button
     Then the status of the driver application should be marked as "Rejected"
+    And I should receive "Your application has been rejected." email
 
   @sanity
   @regression

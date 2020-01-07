@@ -11,6 +11,7 @@ Feature: Driver_Application
 
   @sanity
   @regression
+    @test
   Scenario: Verify Driver Signup and Form completion - General Non Fountain Flow
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal
@@ -37,5 +38,6 @@ Feature: Driver_Application
     Then I should be directed to "Finish" on Driver portal
     When I click "Continue on Finish page" on driver portal
     Then I should be directed to "Dashboard" on Driver portal
+    And I should receive "BUNGII: Application Received." email
     And the driver logout from dashboard
 

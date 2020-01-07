@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -42,6 +43,7 @@ public class Admin_TripsSteps extends DriverBase {
 Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     ActionManager action = new ActionManager();
+    GeneralUtility utility = new GeneralUtility();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -343,5 +345,27 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         return geofenceName;
     }
 
+    @Then("^Partner firm should receive \"([^\"]*)\" email$")
+    public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
+
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+
+        String message = null;
+        switch (emailSubject)
+        {
+            case "Bungii Delivery Pickup Scheduled":
+                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Scheduled").toString();
+                break;
+            case "Bungii Delivery Pickup Updated":
+                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Updated").toString();
+                break;
+            case "Bungii Delivery Pickup Canceled":
+                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Canceled").toString();
+                break;
+        }
+
+        testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+
+    }
 
 }

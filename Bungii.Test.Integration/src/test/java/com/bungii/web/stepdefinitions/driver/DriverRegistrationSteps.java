@@ -13,6 +13,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.jsoup.nodes.Document;
 
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -298,5 +299,26 @@ public class DriverRegistrationSteps extends DriverBase {
         log("I should able to enter "+p0+" driver phone number on Signup page","I entered "+p0 +" driver phone number on signup page", true);
 
     }
+
+    @And("^I should receive \"([^\"]*)\" email$")
+    public void i_should_receive_something_email(String emailSubject) throws Throwable {
+
+       String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+
+       String message = null;
+       switch (emailSubject)
+       {
+           case "Your application has been rejected.":
+               message = PropertyUtility.getMessage("Email.Message.Driver.Application.Rejection").toString();
+               break;
+           case "BUNGII: Application Received.":
+               message = PropertyUtility.getMessage("Email.Message.Driver.Registration.Submission").toString();
+               break;
+       }
+
+       testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+
+    }
+
 
 }

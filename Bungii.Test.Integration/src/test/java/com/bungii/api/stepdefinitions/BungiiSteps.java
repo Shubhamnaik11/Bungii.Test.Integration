@@ -881,4 +881,58 @@ public String getDriverPhone(String driverName)
         String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
         coreServices.cancelAllScheduledBungiis(custAccessToken);
     }
+
+
+        @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence from a partner location$")
+        public void i_request_something_bungii_as_a_customer_in_something_geofence_from_a_partner_location(String bungiiType, String geofence, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String bungiiTime = dataMap.get("Bungii Time").trim();
+            String customer = dataMap.get("Customer Phone").trim();
+            String customerName = dataMap.get("Customer Name").trim();
+
+            int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
+
+            custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
+            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+
+            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);//PropertyUtility.getDataProperties("web.customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String custRef = customerServices.getCustomerRef(custAccessToken);
+
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequestOfPartnerFirm(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequestOfPartnerFirm(custAccessToken, numberOfDriver, geofence);
+            cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
+                coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            else {
+                int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
+                cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START",wait);
+            }
+
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
 }

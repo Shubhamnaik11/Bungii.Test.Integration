@@ -7,6 +7,7 @@ import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -22,11 +23,16 @@ import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import java.net.MalformedURLException;
 import java.time.Duration;
 import java.util.List;
@@ -60,7 +66,7 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages driverBungiiProgressPage = new InProgressBungiiPages();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
-
+     EmailUtility emailUtility = new EmailUtility();
     /**
      * Launch driver application's using package and activity
      *
@@ -901,44 +907,44 @@ public class GeneralUtility extends DriverBase {
                     logger.detail("Driver struck on LOADING_ITEM screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.pickup"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
+                        if (action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.pickup"))) {
+                            action.getText(driverBungiiProgressPage.Alert_Message());
+                            action.click(driverBungiiProgressPage.Alert_Accept());
+                        }
                     }
-                }
                     action.swipeRight(driverBungiiProgressPage.Slider());
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
+                        if (action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                            action.getText(driverBungiiProgressPage.Alert_Message());
+                            action.click(driverBungiiProgressPage.Alert_Accept());
+                        }
                     }
-                }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                 } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
                     logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
+                        if (action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                            action.getText(driverBungiiProgressPage.Alert_Message());
+                            action.click(driverBungiiProgressPage.Alert_Accept());
+                        }
                     }
-                }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                 } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
                     logger.detail("Driver struck on UNLOADING_ITEM screen");
                     action.swipeRight(driverBungiiProgressPage.Slider());
 
-                if(action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))){
-                    if(action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
-                        action.getText(driverBungiiProgressPage.Alert_Message());
-                        action.click(driverBungiiProgressPage.Alert_Accept());
+                    if (action.isElementPresent(driverBungiiProgressPage.Alert_Message(true))) {
+                        if (action.getText(driverBungiiProgressPage.Alert_Message()).equalsIgnoreCase(PropertyUtility.getMessage("bungii.duo.driver.drop"))) {
+                            action.getText(driverBungiiProgressPage.Alert_Message());
+                            action.click(driverBungiiProgressPage.Alert_Accept());
+                        }
                     }
-                }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                 } else if (screen.equals("BUNGII COMPLETED")) {
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
@@ -947,7 +953,7 @@ public class GeneralUtility extends DriverBase {
             } else if (action.isElementPresent(bungiiCompletedPage.Button_OnToTheNext(true))) {
                 logger.detail("Driver struck on bungii completed screen");
                 action.click(bungiiCompletedPage.Button_OnToTheNext());
-            }else if (action.isElementPresent(estimatePage.Button_OK(true))) {
+            } else if (action.isElementPresent(estimatePage.Button_OK(true))) {
                 logger.detail("Driver struck on  Popup message ");
                 action.click(estimatePage.Button_OK());
             }
@@ -977,7 +983,10 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Customer struck on promotion screen");
             action.click(wantDollar5Page.Button_NoFreeMoney());
         }
-
-
     }
+
+
+
+
+
 }

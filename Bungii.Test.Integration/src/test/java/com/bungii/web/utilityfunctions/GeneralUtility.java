@@ -1,6 +1,7 @@
 package com.bungii.web.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
@@ -8,10 +9,15 @@ import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import com.bungii.common.manager.CucumberContextManager;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -29,6 +35,7 @@ public class GeneralUtility {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
+    EmailUtility emailUtility = new EmailUtility();
 
     private String GetDriverUrl()
 {
@@ -212,5 +219,90 @@ public class GeneralUtility {
             return randomInt - 1;
         }
     }
+    public String GetSpecificPlainTextEmailIfReceived(String expectedFromAddress,String expectedToAddress, String expectedSubject) {
 
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress,  expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " +recentMessages.length);
+            String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
+            boolean emailFound = false;
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("*****************************************************************************");
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i-1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) &&(msg.getAllRecipients()[0].toString().contains(expectedToAddress)) ) {
+                   // String EmailContent = msg.getContent().toString();
+                    //testStepAssert.isEquals(expectedEmailContent, EmailContent,"Email Content should match", "Email content matches", "Email content doesn't match");
+                  //  Document emailContent=Jsoup.parse(EmailContent);
+                    //emailFound = true;
+                  //  break;
+                    return emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                }
+            }
+            return null;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return null;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+    public void GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress,String expectedToAddress, String expectedSubject, String expectedEmailContent) {
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
+
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("*****************************************************************************");
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                //  System.out.println("Message with Multipart: " + getText(msg));
+
+                //  readLineByLineJava8("D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\BungiiReceipt.txt", getText(msg));
+                //System.out.println("Size: "+msg.getSize());
+                //System.out.println(msg.getFlags());
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                    String EmailContent = msg.getContent().toString();
+                    // System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
+                    //Invoke jSoupHTMLToString object
+                    Document emailContent = Jsoup.parse(EmailContent);
+
+                }
+
+
+            }
+
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
