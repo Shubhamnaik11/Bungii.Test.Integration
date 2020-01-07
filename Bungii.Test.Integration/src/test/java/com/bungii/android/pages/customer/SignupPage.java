@@ -66,7 +66,7 @@ public class SignupPage extends PageBase {
 
     public WebElement Button_VerifyContinue() { return findElement("com.bungii.customer:id/smsVerifyContinue", LocatorType.Id); }
 
-    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='RESEND']", LocatorType.XPath); }
+    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='Resend code']", LocatorType.XPath); }
 
     public WebElement Title_Verification() { return findElement("//android.widget.TextView[@text='VERIFICATION']", LocatorType.XPath); }
 }
