@@ -392,7 +392,7 @@ public class HomeSteps extends DriverBase {
     public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
         try {
             String phone=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
-            String actualActiveFlag=DbUtility.getActiveFlag(phone);
+            String actualActiveFlag=DbUtility.getDriverActiveFlag(phone);
             testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

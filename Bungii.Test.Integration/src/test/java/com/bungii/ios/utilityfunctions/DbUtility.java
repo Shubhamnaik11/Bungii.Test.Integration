@@ -150,4 +150,18 @@ public class DbUtility extends DbContextManager {
         String activeFlag = getDataFromMySqlServer(queryString2);
         return activeFlag;
     }
+
+    public static String getDriverReference(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT Reference FROM driver WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Reference code is" + smsCode + ", query, " + queryString);
+        return smsCode;
+    }
+    public static String getDriverActiveFlag(String phoneNumber){
+        String UserRef = getDriverReference(phoneNumber);
+        String queryString2 = "select Active from device where UserRef ='"+UserRef+ "' order by devid desc limit 1";
+        String activeFlag = getDataFromMySqlServer(queryString2);
+        return activeFlag;
+    }
 }
