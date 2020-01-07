@@ -183,5 +183,8 @@ public class AssertManager {
     public void isElementValueEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
         isTrue(element.getAttribute("value").equals(expectedText), expectedMessage, successMessage, errorMessage);
     }
+    public void isElementNameEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
+        isTrue(element.getAttribute("name").equals(expectedText), expectedMessage, successMessage, errorMessage);
+    }
 
 }

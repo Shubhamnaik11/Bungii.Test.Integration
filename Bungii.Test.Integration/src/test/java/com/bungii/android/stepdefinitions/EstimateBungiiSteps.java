@@ -44,6 +44,7 @@ public class EstimateBungiiSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     PropertyUtility properties = new PropertyUtility();
     SignupPage Page_Signup = new SignupPage();
+    HomePage homePage = new HomePage();
     private String[] loadTimeValue = {"15 mins", "30 mins", "45 mins", "60 mins", "75 mins", "90+ mins"};
 
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
@@ -96,7 +97,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 case "Yes on HeadsUp pop up":
                     action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
-                    action.click(Page_Estimate.Button_RequestConfirm());
+                    action.click(Page_Estimate.Button_RequestConfirm());Thread.sleep(3000);
                     action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true), "Success!", "SEARCHING…");
                     //   action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
                     //--------*to be worked on*-------------
@@ -144,7 +145,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     boolean isDuo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO");
                     if (isDuo) {
                         Thread.sleep(100000);
-                    }
+                    }Thread.sleep(5000);
                     try {
                         if(action.getText(Page_Signup.GenericHeader(true)).equals("COMPLETE"))
                             action.textToBePresentInElementText(Page_Signup.GenericHeader(),"BUNGII COMPLETE");
@@ -194,7 +195,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "all elements":
-                    //  utility.getEstimateTime();
+                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(Page_Estimate.Time()));
                     testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 
@@ -208,14 +209,13 @@ public class EstimateBungiiSteps extends DriverBase {
                     int index = truncValue.indexOf(".");
                     if (truncValue.substring(index).length() == 2) truncValue = truncValue + "0";
                     String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
-                    testStepVerify.isEquals(actualValue, "$" + String.valueOf(truncValue));
+                    testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()));
 
                     testStepVerify.isElementNotEnabled(Page_Estimate.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
                     action.scrollToBottom();
                     testStepVerify.isTrue(Page_Estimate.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
-                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(Page_Estimate.Time()));
                     break;
 
                 case "driver cancelled":
@@ -311,6 +311,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer.phone"));
                     break;
+                case "valid customer 2":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("atlanta.customer2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -349,6 +354,22 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.kansas"));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.kansas"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+                    Thread.sleep(1000);
+                    break;
+                case "kansas short pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location2.kansas"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location2.kansas"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+                    Thread.sleep(1000);
+                    break;
+                case "atlanta pickup and dropoff locations away from driver":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.away.atlanta"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
                 case "boston pickup and dropoff locations":
@@ -406,6 +427,18 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
 
                     break;
+
+                case "Goa pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(),"Less than 30mins", "Less than 30mins","More than 30mins");
+                    break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -742,12 +775,12 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 String newEstimateValue = action.getText(Page_Estimate.Text_TotalEstimate());
                 Thread.sleep(2000);
-                if (i == 0)
+/*                if (i == 0)
                     testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
                             "total Estimated cost is calculated considering  Loading/unloading time",
                             "Total Estimate cost for first scroll value should be same as default one, Previous cost is " + oldEstimateValue + " , new cost is " + newEstimateValue,
                             "Total Estimate cost was recalculated");
-                else
+                else*/
                     testStepVerify
                             .isFalse(newEstimateValue.equals(oldEstimateValue),
                                     "total Estimated cost is calculated considering  Loading/unloading time",

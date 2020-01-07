@@ -23,9 +23,9 @@ public class EstimatePage extends PageBase {
     //------Trip Details-------------------------------------------------------------------------
     public WebElement Text_TripTime () { return findElement("com.bungii.customer:id/estimate_value_time", LocatorType.Id); }
 
-    public WebElement Text_TripDistance () { return findElement("com.bungii.customer:id/estimate_value_distance", LocatorType.Id); }
+    public WebElement Text_TripDistance () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
-    public WebElement Text_TotalEstimate () { return findElement("com.bungii.customer:id/estimate_value_total", LocatorType.Id); }
+    public WebElement Text_TotalEstimate () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
     //------loading/unloading time---------------------------------------------------------------
     public WebElement Link_LoadingUnloadingTime () { return findElement("com.bungii.customer:id/pickup_estimate_textview_loadunloadtime", LocatorType.Id); }
@@ -123,6 +123,8 @@ public class EstimatePage extends PageBase {
     public WebElement Button_RequestConfirmCancel () { return findElement("android:id/button2", LocatorType.Id); }
 
     public WebElement Button_OK (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='Cancel']", LocatorType.XPath,ignoreException); }
+      public WebElement Button_Proceed (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='PROCEED']", LocatorType.XPath,ignoreException); }
 
 
     public WebElement Alert_DelayRequestingTrip () { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath); }

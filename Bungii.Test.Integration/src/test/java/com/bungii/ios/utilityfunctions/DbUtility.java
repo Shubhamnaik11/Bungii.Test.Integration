@@ -97,7 +97,14 @@ public class DbUtility extends DbContextManager {
         logger.detail("phoneNumber is" + phoneNumber + ", query, " + queryString);
         return phoneNumber;
     }
+    public static String getTELETfromDb(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
 
+        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        return PickupID;
+    }
     public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
             String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
             String driverID = getDataFromMySqlServer(queryString);
@@ -115,5 +122,19 @@ public class DbUtility extends DbContextManager {
             }
             return isDriverEligible;
 
+    }
+
+    public static String getPickupRef(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
+
+    public static String getDriverToPickupTime(String driverPhoneNumber, String pickupID){
+        String queryString = "SELECT Id FROM driver WHERE phone = " + driverPhoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverToPickupTime from eligibletripdriver where pickupid ="+pickupID+ " and  DriverID="+driverID;
+        String driverToPickupTime = getDataFromMySqlServer(queryString2);
+        return driverToPickupTime;
     }
 }

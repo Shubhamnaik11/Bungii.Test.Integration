@@ -7,10 +7,10 @@ public class TripDetailsPage extends PageBase {
 //	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
 	public WebElement Button_Accept() { return findElement("ACCEPT", LocatorType.AccessibilityId); }
-	public WebElement Text_Distance() { return findElement("//XCUIElementTypeStaticText[@name=\"Distance : \"]/following::XCUIElementTypeStaticText[contains(@name,'miles')]", PageBase.LocatorType.XPath); }
-	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeStaticText[@name='Estimated Earnings']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_ScheduledDate() { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Date']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
-	public WebElement Text_ScheduledTime () { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Time']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_Distance() { return findElement("//XCUIElementTypeStaticText[contains(@name,'miles')]", PageBase.LocatorType.XPath); }
+	public WebElement Text_EstimatedEarnings() { return findElement("//XCUIElementTypeStaticText[@name='EARNINGS']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+	public WebElement Text_ScheduledDateTime() { return findElement("//XCUIElementTypeStaticText[@name='WHEN']/following-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+//	public WebElement Text_ScheduledTime () { return findElement("//XCUIElementTypeStaticText[@name='Trip Scheduled Time']/following::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
 
 }

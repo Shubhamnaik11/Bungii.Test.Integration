@@ -8,6 +8,8 @@ import java.util.List;
 
 public class OtherAppsPage extends PageBase {
 
+   public WebElement Status_Bar() { return findElement("com.android.systemui:id/status_bar_contents", LocatorType.Id); }
+
     //------SMS---------------------------------------------------------------------------------------
     public WebElement SMS_Samsung_RecipientNo() { return findElement("com.android.mms:id/recipients_editor_to", LocatorType.Id); }
 
@@ -41,7 +43,12 @@ public class OtherAppsPage extends PageBase {
 
     public WebElement Text_TweeterPost() { return findElement("com.twitter.android:id/tweet_text", LocatorType.Id); }
     public WebElement Button_Tweet() { return findElement("com.twitter.android:id/button_tweet", LocatorType.Id); }
-    public WebElement Notification_OnDemand() { return findElement("//*[@text=\"You’re receiving a Bungii request.\"]", LocatorType.XPath); }
+    public WebElement Notification_OnDemand(boolean... ignoreException) { return findElement("//*[@text=\"You’re receiving a Bungii request.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_Stack(boolean... ignoreException) { return findElement("//*[@text=\"We have another trip lined up for you when your current one ends. Tap to view details.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackCustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackDriverAccepted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii has been accepted\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
 

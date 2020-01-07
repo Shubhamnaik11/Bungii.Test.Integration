@@ -1,6 +1,6 @@
 @android
 @SoloScheduled
-@failed
+
 #These feature will run in kansas geofence
 Feature: SoloScheduled
   Background:
@@ -17,7 +17,7 @@ Feature: SoloScheduled
     And I am logged in as "valid" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+   # And I wait for Minimum duration for Bungii Start Time
     And Bungii Driver "Start Schedule Bungii" request
     And I Switch to "customer" application on "same" devices
     Then for a Bungii I should see "Enroute screen"
@@ -138,12 +138,12 @@ Feature: SoloScheduled
     And Bungii Driver "completes Bungii"
     And I Select "HOME" from driver App menu
 
-  @failed
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule  bungii.
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     And I Select "HOME" from driver App menu
     And I Switch to "customer" application on "same" devices
@@ -165,7 +165,7 @@ Feature: SoloScheduled
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
-    And I wait for Minimum duration for Bungii Start Time
+  #  And I wait for Minimum duration for Bungii Start Time
 
     And Bungii Driver "Start Schedule Bungii" request
     Then Bungii driver should see "Enroute screen"
@@ -228,7 +228,7 @@ Feature: SoloScheduled
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
       | Charge | Comments |
-      | 15     | TEST     |
+      | 0     | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
 

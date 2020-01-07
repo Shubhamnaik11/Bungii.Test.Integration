@@ -58,12 +58,17 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 
         try {
+            //adding ternary operator in logger is creating issue
+            String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
+            logger.detail("Device On which test will be run is : " +device );
            // new MailSenderEN().send("asads@mailinator.com","ASD","asads@mailinator.com","","","","text/html");
             new CheckingMails().verifyEmail("vishal.bagi@creativecapsule.com","vishal.bagi.cci@gmail.com","FW: BUNGII: Application Received.");
             logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE"));
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("Unable to create default appium driver");
             logger.error("Unable to create default appium driver"+e.getStackTrace());
         }
 
@@ -200,5 +205,12 @@ public class CucumberHooks {
         }
     }
 
-
+    //Create a du
+    @Before("@DUO_SCH_DONOT_ACCEPT")
+    public void createDuoBungii() {
+        //create trip for denver and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"");
+        }
+    }
 }

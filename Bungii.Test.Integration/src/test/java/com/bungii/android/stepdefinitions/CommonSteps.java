@@ -3,8 +3,10 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.EstimatePage;
+import com.bungii.android.pages.customer.HomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -13,6 +15,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.*;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -21,6 +26,7 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
+    HomePage homePage=new HomePage();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -63,11 +69,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -127,11 +141,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -246,6 +268,72 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I check that \"([^\"]*)\" pages of turotial are present$")
+    public void i_check_that_something_pages_of_turotial_are_present(String strArg1) throws Throwable {
+        try {
+            List<WebElement> xpath = homePage.Button_PdfPages();
+            int xpathCount = xpath.size();
+            if(xpathCount==5){
+                testStepAssert.isTrue(true,"There should be 5 pdf pages", "There are 5 pdf pages.");
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I check that if i can swipe the pages$")
+    public void i_check_that_if_i_can_swipe_the_pages() throws Throwable {
+        try {
+            List<WebElement> xpath = homePage.Button_PdfPages();
+            WebDriver driver = null;
+            WebElement ele = null;
+            int xpathCount = xpath.size();
+            boolean isClicked = false, isSwiped = false;
+            for (WebElement tutorialPage : xpath) {
+                action.click(tutorialPage);
+                isClicked = true;
+            }
+            testStepAssert.isTrue(isClicked, "5 pages are present.", "5 pages are not present.");
+            action.click(homePage.Text_TutorialPdfPage1());
+            for (int i = 0; i < xpathCount-1; i++) {
+                action.swipeLeft(homePage.Text_TutorialPdf());
+                isSwiped = true;
+            }
+
+            testStepAssert.isTrue(isSwiped, "Swiped through the pages.", "Couldn't swipe through the pages.");
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    @And("^I tap the \"([^\"]*)\" button is present on last page$")
+    public void i_tap_the_something_button_is_present_on_last_page(String strArg1) throws Throwable {
+        try {
+            testStepVerify.isElementEnabled(homePage.Button_StartApp(), "START button enabled", "START button enabled", "START button not enabled");
+            action.click(homePage.Button_StartApp());
+            testStepAssert.isElementTextEquals(homePage.Title_HomePage(), "BUNGII", "Expected Text is present.", "Expected Text is present.", "Expected Text is not present.");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I verify that the tutorial is displayed only once$")
+    public void i_verify_that_the_tutorial_is_displayed_only_once() throws Throwable {
+        try {
+            testStepAssert.isElementTextEquals(homePage.Title_HomePage(), "BUNGII", "Expected Text is present.", "Expected Text is present.", "Expected Text is not present.");
+
+            // testStepAssert.isNotElementDisplayed(homePage.Text_TutorialPdf(), "Tutorials should not be displayed.", "Tutorials should not be displayed.", "Tutorials are displayed.");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     // TODO change catch to error
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
@@ -256,7 +344,10 @@ public class CommonSteps extends DriverBase {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
                     break;
-
+                case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
+                    expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    logger.detail("PAGE SOURCE"+SetupManager.getDriver().getPageSource());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -277,7 +368,12 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String strArg1) throws Throwable {
         try {
-            action.click(estimatePage.Button_OK());
+            if(strArg1.equalsIgnoreCase("cancel"))
+                action.click(estimatePage.Button_Cancel());
+            else
+                action.click(estimatePage.Button_OK());
+
+
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
         } catch (Exception e) {
@@ -286,7 +382,18 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @Then("^Alert should have \"([^\"]*)\" button$")
+    public void alert_should_have_something_button(String list) throws Throwable {
+        switch (list) {
+            case "cancel,proceed":
+                testStepVerify.isElementEnabled(estimatePage.Button_Cancel(true),"Cancel button should be displayed");
+                testStepVerify.isElementEnabled(estimatePage.Button_Proceed(true)," Proceed button should be displayed");
+                break;
 
+            default:
+                throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }
     @Given("^I newly installed \"([^\"]*)\" app$")
     public void i_newly_installed_something_app(String strArg1) throws Throwable {
         try {

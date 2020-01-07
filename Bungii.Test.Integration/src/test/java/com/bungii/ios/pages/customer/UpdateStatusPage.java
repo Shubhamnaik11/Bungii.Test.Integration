@@ -50,4 +50,9 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.AccessibilityId); }
 
+
+
+	//STACK
+	public WebElement Button_CancelBungii() { return findElement("Cancel Bungii", LocatorType.AccessibilityId); }
+
 }

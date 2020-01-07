@@ -1,4 +1,5 @@
 @android
+
 Feature: EstimateBungii
 
   Background:
@@ -12,7 +13,8 @@ Feature: EstimateBungii
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     Then "Load/Upload Time" information icon should display correct information
-    And "Total estimate" information icon should display correct information
+     #removed as part of sprint 32
+  #  And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
 
   @regression
