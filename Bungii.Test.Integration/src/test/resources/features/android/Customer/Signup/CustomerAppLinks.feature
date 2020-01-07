@@ -5,7 +5,7 @@ Feature: CustomerApplicationLinks
   Background:
     Given I newly installed "Bungii Customer" app
 
-  @regression1
+  @regression
     #Following scenario also covered:
     #Tutorials should only be displayed on the app on first installation.
     #Tutorials - 5 pages
