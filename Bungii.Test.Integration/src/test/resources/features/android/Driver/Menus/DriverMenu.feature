@@ -1,5 +1,4 @@
 @android
-@regression32
 Feature: DriverMenu
   In Bungii Driver
   As a logged in driver
@@ -7,6 +6,7 @@ Feature: DriverMenu
 
   Background:
     Given I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
     Given I am on Driver logged in Home page
 
   @regression
