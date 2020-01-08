@@ -2,9 +2,6 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SearchingPage;
-import com.bungii.android.pages.customer.SignupPage;
-import com.bungii.android.utilityfunctions.DbUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;

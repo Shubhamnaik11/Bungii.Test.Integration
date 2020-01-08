@@ -12,9 +12,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
-import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);

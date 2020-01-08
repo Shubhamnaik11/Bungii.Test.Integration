@@ -1017,7 +1017,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression1
+  @regression
   Scenario: Check that customer received Notification when driver starts bungii solo
     When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1037,9 +1037,9 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  @regression1
   Scenario: Check to see if a driver deosn't receive scheduled trip request if his home is over 30 mins away from PU location
-    When I clear all notification
+   # When I clear all notification
     When I Switch to "customer" application on "same" devices
     Given  I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -1050,9 +1050,8 @@ Feature: SoloScheduled
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     And I Switch to "customer" application on "same" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                          | Drop Location                           | Geofence |
-      | Solo   | 8500 Santa Fe Dr, Overland Park, KS, USA | 1303 Monroe St, Jefferson City, MO, USA | kansas   |
+
+    And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then I should be navigated to "Estimate" screen
     And I add "1" photos to the Bungii
