@@ -126,6 +126,7 @@ public class SignupSteps extends DriverBase {
         try {
             if (!action.isElementPresent(Page_Signup.Header_SignUp(true)))
                 utility.goToSignupPage();
+            Thread.sleep(5000);
             testStepVerify.isElementDisplayed(Page_Signup.Header_SignUp(true), "Signup button should be displayed ", "Sign up button is displayed", "Sign up button is not displayed");
 
         } catch (Exception e) {
