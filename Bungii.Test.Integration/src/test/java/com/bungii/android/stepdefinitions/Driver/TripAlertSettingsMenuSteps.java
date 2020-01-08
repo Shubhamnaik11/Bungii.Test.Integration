@@ -51,14 +51,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (tab) {
                 case "Trip Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data, PropertyUtility.getMessage("trip.alert.text"));
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("trip.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;
 
                 case "SMS Alerts":
                     data = action.getText(tripAlertSettingsPage.Text_TripAndSMSAlertsText());
-                    testStepVerify.isEquals(data, PropertyUtility.getMessage("sms.alert.text"));
+                    testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;
@@ -140,13 +140,18 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     }
 
     public boolean clickDriverMenu(String time) {
-        Boolean isClicked = false;
+        Boolean isCorrectTime = true;
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
         for (WebElement element : elements) {
-            if (element.getText().equals(time)) {
-                isClicked = true;
-                 }
+            if (element.getText().equals(time) && isCorrectTime) {
+                isCorrectTime = true;
+                 }else{
+                isCorrectTime = false;
+            }
         }
-        return isClicked;
+        if(elements.size()==0)
+            isCorrectTime=false;
+
+        return isCorrectTime;
     }
 }

@@ -3,6 +3,8 @@ package com.bungii.android.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class HomePage extends PageBase {
 
     public WebElement Generic_Element (boolean... ignoreException) { return findElement("//*[contains(@resource-id,\"com.bungii.customer\")]", LocatorType.XPath,ignoreException); }
@@ -77,4 +79,8 @@ public class HomePage extends PageBase {
 
     public WebElement Text_ErrorNonGeofence() { return findElement("//*[@resource-id='com.bungii.customer:id/eta_bar_error_where_to_next']/android.widget.TextView[2]", LocatorType.XPath);}
 
+    //Tutuorial
+    public List<WebElement> Button_PdfPages(){return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath);}
+    public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
+    public WebElement Button_StartApp() { return findElement("com.bungii.customer:id/tutorials_screen_five_btn_start",LocatorType.Id); }
 }

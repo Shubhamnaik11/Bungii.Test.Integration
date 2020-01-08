@@ -13,7 +13,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-
+import com.bungii.android.utilityfunctions.DbUtility;
 import static com.bungii.common.manager.ResultManager.*;
 
 public class HomeSteps extends DriverBase {
@@ -47,6 +47,31 @@ public class HomeSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^Customer active flag should be \"([^\"]*)\"$")
+    public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
+        try {
+            String phone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            String actualActiveFlag = DbUtility.getActiveFlag(phone);
+            testStepVerify.isEquals(strArg1, actualActiveFlag, "Active flag should be :" + strArg1, "Active flag is :" + actualActiveFlag);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Driver active flag should be \"([^\"]*)\"$")
+    public void i_active_flag_should_be_something(String strArg1) throws Throwable {
+        try {
+            String phone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String actualActiveFlag = DbUtility.getDriverActiveFlag(phone);
+            testStepVerify.isEquals(strArg1, actualActiveFlag, "Active flag should be :" + strArg1, "Active flag is :" + actualActiveFlag);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @When("^I tap \"([^\"]*)\" on Home page$")
     public void i_tap_something_on_home_page(String strArg1) throws Throwable {
@@ -153,6 +178,7 @@ public class HomeSteps extends DriverBase {
                 case"LOGIN":
                     skipNormalFlow=true;
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     break;
 
             }
@@ -164,7 +190,8 @@ public class HomeSteps extends DriverBase {
               else if (utility.isCorrectPage("Signup") || utility.isCorrectPage("Login")) {
                 // utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.phone"), PropertyUtility.getDataProperties("valid.customer.password"));
                 utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
-            } else if (utility.isCorrectPage("Searching")) {
+                  cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
+              } else if (utility.isCorrectPage("Searching")) {
                 //  iClickButtonOnScreen("CANCEL", "SEARCHING");
                 // iRejectAlertMessage();
             } else {
@@ -304,8 +331,8 @@ public class HomeSteps extends DriverBase {
                     action.click(homePage.Button_Locator());
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
-                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
-                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");
+/*                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
+                            "Drop Off TextBox is displayed.","Drop Off TextBox is not displayed.");*/
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");

@@ -1,5 +1,4 @@
 @android
-
 Feature: Log In
   As a Bungii Driver I should be allowed to login only using valid credential
 

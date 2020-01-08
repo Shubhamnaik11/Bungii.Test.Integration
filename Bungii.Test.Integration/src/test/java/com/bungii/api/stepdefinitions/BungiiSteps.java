@@ -621,7 +621,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                  //  Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -635,7 +636,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //  Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -657,7 +659,8 @@ public String getDriverPhone(String driverName)
                 coreServices.updateStatus(pickupRequest, driver2AccessToken, 21);
 
                 try {
-                    Thread.sleep(wait);
+                    //  Thread.sleep(wait);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
