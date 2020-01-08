@@ -342,7 +342,7 @@ public class CommonSteps extends DriverBase {
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
             String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
-            String expectedMessage;
+            String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
@@ -355,6 +355,10 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
 
+                case "Please install a browser in order to access this link.":
+                    expectedMessage=PropertyUtility.getMessage("browser.uninstalled.message");
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

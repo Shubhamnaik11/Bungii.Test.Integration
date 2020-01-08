@@ -44,12 +44,13 @@ Feature: CustomerApplicationLinks
       Then "MY BUNGIIS" page should be opened
       When I click on "SAVE MONEY" button
       Then "INVITE" page should be opened
-      When I tap on "Menu" > "PROMOS" link
-      Then "PROMOS" page should be opened
+      When I tap on "back page" on Bungii estimate
+      And I tap on "Menu" > "PROMOS" link
+      Then "Promos" page should be opened
       When I click on "GET MORE MONEY" button
       Then "INVITE" page should be opened
 
-      @regression1
+      @regression
       Scenario: Customer canNot delete payment method linked to any on-going/scheduled trips
         Given I am logged in as "valid" customer
         When I Switch to "driver" application on "same" devices
@@ -73,3 +74,17 @@ Feature: CustomerApplicationLinks
         And I tap on "Delete" on Payment page
         Then Alert message with Delete Warning text should be displayed
         And I should see "Payment Method is already associated to a trip" on Payment page
+
+        @nobrowser
+        Scenario: Sign Up to Drive - when No browser is present on device
+          When I tap on the "Log in" button on Signup Page
+          And I enter customers "8805368840" Phone Number
+          And I enter customers "valid" Password
+          And I tap on the "Log in" Button on Login screen
+          Then "Terms and Conditions" page should be opened
+          And I should see "all details" on Term and Condition agreement
+          When I accept Term and Condition agreement
+          And I check that if i can swipe the pages
+          And I tap the "START" button is present on last page
+          When I tap on "Menu" > "SIGN UP TO DRIVE" link
+          Then Alert message with Please install a browser in order to access this link. text should be displayed
