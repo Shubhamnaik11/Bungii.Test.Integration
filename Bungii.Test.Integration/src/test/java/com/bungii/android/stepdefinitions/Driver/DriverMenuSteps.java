@@ -3,8 +3,8 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.EarningsPage;
-import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.stepdefinitions.Customer.HomeSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -22,7 +22,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class DriverMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomeSteps.class);
     GeneralUtility utility = new GeneralUtility();
-    HomePage homePage = new HomePage();
+    DriverHomePage homePage = new DriverHomePage();
     SignupPage Page_Signup = new SignupPage();
     EarningsPage earningsPage = new EarningsPage();
     ActionManager action = new ActionManager();

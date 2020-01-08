@@ -819,7 +819,7 @@ Feature: SoloScheduled
       | 8805368840      |                 |
 
 
-  @regression1
+  @regression
   Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
     #When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -843,7 +843,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression1
+  @regression
   Scenario:To check if driver recieves Bungii scheduled request even while in the Offline state (assuming he does Not have Bungiis overlapping the TELET time)
     #When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -876,7 +876,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression1
+  @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -899,7 +899,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression1
+  @regression
   Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:Solo
     Given I Switch to "customer" application on "same" devices
     #trip 1
@@ -924,7 +924,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-  @regression1
+  @regression
   Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
     Given I Switch to "customer" application on "same" devices
     #trip 1
@@ -950,7 +950,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8888888881      |
 
 
-  @regression1
+  @regression
   Scenario: To check the status of scheduled Bungii in the scheduled trip page when only one driver has accepted
     And I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -974,7 +974,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-    @regression1
+    @regression
     Scenario:To check all details in the Bungii Details page when required number of drivers have accepted
 
       And I request "duo" Bungii as a customer in "kansas" geofence
@@ -998,7 +998,7 @@ Feature: SoloScheduled
         | Customer Phone | Customer2 Phone |
         | 8805368840     |                 |
 
-  @regression1
+  @regression
   Scenario: Check that customer received Notification when control driver starts bungii duo
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1028,7 +1028,7 @@ Feature: SoloScheduled
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "MY BUNGIIS" link
     When I Open "driver" application on "same" devices
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
       | Accepted      |
       | Enroute       |
@@ -1036,3 +1036,30 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
+  @regression
+  Scenario: Check to see if a driver deosn't receive scheduled trip request if his home is over 30 mins away from PU location
+    When I clear all notification
+    When I Switch to "customer" application on "same" devices
+    Given  I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                        | Drop Location                    | Geofence |
+      | Solo   | Edmondson Trail Head  Colorado Springs | 16th Street Mall Denver Colorado | denver   |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE | Default     |
+    Then I should be navigated to "Success" screen
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
