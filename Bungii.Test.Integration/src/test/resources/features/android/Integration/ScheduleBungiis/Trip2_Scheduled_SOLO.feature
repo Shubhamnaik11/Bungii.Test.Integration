@@ -236,7 +236,7 @@ Feature: SoloScheduled
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
 
@@ -261,7 +261,7 @@ Feature: SoloScheduled
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then I tap on "ok on already scheduled bungii message" on Bungii estimate
     When I tap on "back" on Bungii estimate
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I Cancel selected Bungii
 
@@ -273,7 +273,7 @@ Feature: SoloScheduled
       | kansas      | Scheduled     | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     And I Cancel selected Bungii
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
@@ -1051,15 +1051,19 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                        | Drop Location                    | Geofence |
-      | Solo   | Edmondson Trail Head  Colorado Springs | 16th Street Mall Denver Colorado | denver   |
-    And I click "Get Estimate" button on "Home" screen
+      | Driver | Pickup Location                          | Drop Location                           | Geofence |
+      | Solo   | 8500 Santa Fe Dr, Overland Park, KS, USA | 1303 Monroe St, Jefferson City, MO, USA | kansas   |
+    And I tap on "Get Estimate button" on Bungii estimate
     Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
-    Then I should be navigated to "Success" screen
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen

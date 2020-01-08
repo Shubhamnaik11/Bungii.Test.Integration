@@ -81,6 +81,8 @@ public class GeneralUtility extends DriverBase {
     BungiiRequestPage bungiiRequestPage=new BungiiRequestPage();
     ScheduledBungiiSteps sbs;
 
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
+    InvitePage invitePage=new InvitePage();
 
     /**
      * Launch driver application's using package and activity
@@ -189,6 +191,9 @@ public class GeneralUtility extends DriverBase {
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
                 break;
+            case "MY BUNGIIS":
+                isCorrectPage=action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
+                break;
             case "Payment":
                 isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
                 break;
@@ -262,6 +267,9 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
                 else
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                break;
+            case "INVITE":
+                isCorrectPage=action.isElementPresent(invitePage.Header_Invite());
                 break;
             default:
                 break;
@@ -434,6 +442,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "ACCOUNT":
                 action.click(homePage.Button_NavAccount());
+                break;
+            case "MY BUNGIIS":
+                action.click(homePage.Button_NavSchBungii());
                 break;
             case "PAYMENT":
                 action.click(homePage.Button_NavPayment());

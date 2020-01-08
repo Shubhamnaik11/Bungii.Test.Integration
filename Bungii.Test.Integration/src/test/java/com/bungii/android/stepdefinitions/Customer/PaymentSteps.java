@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PaymentPage;
+import com.bungii.android.pages.customer.SupportPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -21,6 +22,7 @@ public class PaymentSteps extends DriverBase {
     PaymentPage paymentPage = new PaymentPage();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(PaymentSteps.class);
+    SupportPage supportPage=new SupportPage();
 
     @And("^I tap on \"([^\"]*)\" on Payment page$")
     public void i_tap_on_something_on_payment_page(String strArg1) throws Throwable {
@@ -152,6 +154,10 @@ public class PaymentSteps extends DriverBase {
                 break;
             case "no delete button":
                 testStepVerify.isElementNotEnabled(paymentPage.Button_Delete(true),"Delete button should not be visible for default card","Delete button is not enabled","Delete button is enabled");
+                break;
+            case "Payment Method is already associated to a trip":
+                String message= action.getText(supportPage.Snackbar());
+                testStepVerify.isEquals(message,PropertyUtility.getMessage("payment.method.association"));
                 break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
