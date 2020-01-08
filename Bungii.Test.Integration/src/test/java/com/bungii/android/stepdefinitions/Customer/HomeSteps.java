@@ -39,7 +39,6 @@ public class HomeSteps extends DriverBase {
     @When("^I tap on \"([^\"]*)\" > \"([^\"]*)\" link$")
     public void i_tap_on_something_something_link(String strArg1, String strArg2) throws Throwable {
         try {
-            //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {

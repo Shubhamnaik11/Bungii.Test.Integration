@@ -32,34 +32,41 @@ public class NotificationSteps extends DriverBase {
         try{
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
             String appHeaderName=getAppHeader(appName);
-            boolean notificationClickRetry=false;
+            boolean notificationClick=false;
             String bunddleId=getBundleId(currentApplication);
 
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-            ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
+            //((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
-
+            Thread.sleep(3000);
+            log("Checking notifications","Checking notifications",true);
             switch (expectedNotification)
             {
                 case "SCHEDULED PICKUP AVAILABLE":
+
+                    break;
+
+                case "DRIVERS ARE ENROUTE":
+                    action.click(otherAppsPage.Notification_DriverEnroute());
+                    notificationClick=true;
+                    break;
+
+                case "ON DEMAND TRIP":
+                    action.click(otherAppsPage.Notification_ReceiveBungiiRequest());
+                    notificationClick=true;
                     break;
             }
-            log("Checking notifications","Checking notifications",true);
 
-            //	logger.detail(SetupManager.getDriver().getPageSource());
-           /* boolean notificationClick=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
-            if(!notificationClick){
-                Thread.sleep(80000);
-                notificationClickRetry=clickNotification(appHeaderName,getExpectedNotification(expectedNotification));
 
-            }
-            if(!notificationClick &&!notificationClickRetry){
+            if(notificationClick==false){
                 fail("I should able to click notification for"+expectedNotification,"I was not clicked on notifications with text"+getExpectedNotification(expectedNotification),true);
                 action.hideNotifications();
             }else{
                 pass("I should able to click notification for"+expectedNotification,"I clicked on notifications with text"+getExpectedNotification(expectedNotification),true);
 
-            }*/
+            }
+
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -82,18 +89,7 @@ public class NotificationSteps extends DriverBase {
             case "SCHEDULED PICKUP ACCEPTED":
                 text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
                 break;
-            case "STACK TRIP":
-                text=PropertyUtility.getMessage("driver.notification.stack");
-                break;
-            case "CUSTOMER CANCEL STACK TRIP":
-                text = PropertyUtility.getMessage("driver.notification.stack.cancel");
-                break;
-            case "DRIVER ACCEPTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
-                break;
-            case "DRIVER STARTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
-                break;
+
         }
         return text;
     }
@@ -188,4 +184,6 @@ public class NotificationSteps extends DriverBase {
         return cleared;
 
     }
+
+
 }

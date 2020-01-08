@@ -23,8 +23,8 @@ public class BungiiRequestSteps extends DriverBase {
     BungiiRequest bungiiRequestPage = new BungiiRequest();
 
 
-    @Then("\"([^\"]*)\" should be displayed on Bungii request screen")
-    public void i_click_something_button_on_forgot_password_screen_on_driver_app(String option) {
+    @And("^\"([^\"]*)\" should be displayed on Bungii request screen$")
+    public void something_should_be_displayed_on_bungii_request_screen(String option) throws Throwable {
         try {
             String expectedPickUpLocationLineOne ="", expectedPickUpLocationLineTwo="", expectedDropLocationLineOne="",expectedDropLocationLineTwo="",expectedTripNoOfDriver="",
                     pickUpLocationLine1="", pickUpLocationLine2="", dropUpLocationLine1="", dropUpLocationLine2="",estimate = "",truncValue="";
@@ -49,15 +49,15 @@ public class BungiiRequestSteps extends DriverBase {
                             "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
                     //testStepVerify.isElementEnabled(bungiiRequestPage.Text_Distance(),"TO PICKUP tag should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_DistanceValue(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    flestimate=Double.valueOf(estimate.replace("$","").trim());
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"~$"+truncValue);
-                    testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
-                    testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
+                    testStepVerify.isElementEnabled(bungiiRequestPage.Button_StartBungii(),"START BUNGII button should be displayed");
+                    testStepVerify.isElementEnabled(bungiiRequestPage.Button_CancelBungii(),"CANCEL BUNGII button should be displayed");
                     break;
 
                 case "correct scheduled trip details":
@@ -80,11 +80,11 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    flestimate=Double.valueOf(estimate.replace("$","").trim());
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"~$"+truncValue);
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Navigation_Header(),"STACKED BUNGII REQUEST");

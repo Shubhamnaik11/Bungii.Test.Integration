@@ -21,6 +21,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -338,6 +339,18 @@ public class ScheduledBungiiSteps extends DriverBase {
                    // tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
                     System.out.println((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
                     testStepVerify.isEquals(actualStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+
+                case "estimated cost of duo trip":
+                    String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    double flestimate=Double.valueOf(estimate.replace("$","").trim());
+                    //transaction fee different for solo and duo
+                    double transactionFee=((flestimate*0.029*0.5)+0.3)*2;
+                    double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    //divide by 2 for individual driver value
+                    String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
+                    actualStatus = action.getText(scheduledBungiiPage.Text_ScheduledBungiiStatus());
+                    testStepVerify.isEquals(actualStatus,"~$"+truncValue);
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

@@ -447,7 +447,7 @@ public class GeneralUtility extends DriverBase {
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
                 break;
-            case "SCHEDULED BUNGIIS":
+            case "MY BUNGIIS":
                 action.click(homePage.Button_NavSchBungii());
                 break;
             case "SIGN UP TO DRIVE":
