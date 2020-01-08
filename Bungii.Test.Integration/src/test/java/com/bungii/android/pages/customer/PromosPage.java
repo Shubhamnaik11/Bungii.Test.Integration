@@ -25,6 +25,7 @@ public class PromosPage extends PageBase {
 
     public List<WebElement> List_PromoCode(){return  findElements("com.bungii.customer:id/promo_code_label",LocatorType.Id);}
     public WebElement Snackbar () { return findElement("com.bungii.customer:id/snackbar_text", LocatorType.Id); }
-
+    public WebElement Icon_i () { return findElement("com.bungii.customer:id/promo_code_more_info", LocatorType.Id); }
+    public WebElement Button_OK () { return findElement("android:id/button1", LocatorType.Id); }
 
 }
