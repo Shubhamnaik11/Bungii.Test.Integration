@@ -3,8 +3,8 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
-import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.EarningsPage;
+import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.stepdefinitions.Customer.HomeSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -22,7 +22,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class DriverMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomeSteps.class);
     GeneralUtility utility = new GeneralUtility();
-    DriverHomePage driverHomePage = new DriverHomePage();
+    HomePage homePage = new HomePage();
     SignupPage Page_Signup = new SignupPage();
     EarningsPage earningsPage = new EarningsPage();
     ActionManager action = new ActionManager();
@@ -42,6 +42,7 @@ public class DriverMenuSteps extends DriverBase {
             else {
                 //TODO: specify failure here
             }
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE",phone);
             log("I should be logged in", "I am logged in", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -54,7 +55,7 @@ public class DriverMenuSteps extends DriverBase {
     @And("^the \"([^\"]*)\" page is opened$")
     public void the_something_page_is_opened(String Title) throws Throwable {
         try {
-            testStepVerify.isElementTextEquals(driverHomePage.Title_Status(), Title);
+            testStepVerify.isElementTextEquals(homePage.Title_Status(), Title);
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -70,54 +71,55 @@ public class DriverMenuSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "FAQ":
-                    data = action.getText(driverHomePage.Text_CommonQuestions()).toString();
-                    testStepAssert.isEquals(data, "COMMON QUESTIONS", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    Thread.sleep(10000);
+                    data = action.getText(homePage.Text_CommonQuestions()).toString();
+                    testStepAssert.isEquals(data, "WHAT IS THIS PAGE FOR?", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "LEADERBOARD":
-                    data = action.getText(driverHomePage.Text_Leaderboard()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Leaderboard(), PropertyUtility.getMessage("menu.leaderboard.text"), data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Leaderboard()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Leaderboard(), PropertyUtility.getMessage("menu.leaderboard.text"), data + " is displayed", data + " is displayed", data + " is not displayed");
 
                     break;
 
                 case "SCHEDULED BUNGIIS":
-                    data = action.getText(driverHomePage.Text_ScheduledBungiis()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_ScheduledBungiis(), "No Bungiis", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_ScheduledBungiis()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_ScheduledBungiis(), "No Bungiis", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "AVAILABLE TRIPS":
-                    data = action.getText(driverHomePage.Text_AvailableTrips()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_AvailableTrips(), "No Trips Available", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_AvailableTrips()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Trips Available", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "EARNINGS":
-                    data = action.getText(driverHomePage.Text_Earnings()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Earnings()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "ACCOUNT":
-                    data = action.getText(driverHomePage.Text_Account()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Account(), PropertyUtility.getDataProperties("driver.login.name1"), data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Account()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Account(), PropertyUtility.getDataProperties("driver.login.name1"), data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "TRIP ALERT SETTINGS":
-                    data = action.getText(driverHomePage.Text_TripAlertSettings()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_TripAlertSettings(), "Trip Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_TripAlertSettings()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Trip Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "FEEDBACK":
-                    data = action.getText(driverHomePage.Text_Feedback()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Feedback(), "Send us your feedback", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Feedback()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Feedback(), "Send us your feedback", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "STORE":
-                    data = action.getText(driverHomePage.Text_Store()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Store(), "BUNGII STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Store()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Store(), "BUNGII STORE", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "LOGOUT":
-                    data = action.getText(driverHomePage.Text_Logout()).toString();
-                    testStepAssert.isElementTextEquals(driverHomePage.Text_Logout(), "LOGIN", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_Logout()).toString();
+                    testStepAssert.isElementTextEquals(homePage.Text_Logout(), "LOGIN", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
             }
         }
@@ -144,7 +146,7 @@ public class DriverMenuSteps extends DriverBase {
     @Then("^I am redirected to \"([^\"]*)\"$")
     public void i_am_redirected_to_something(String strArg1) throws Throwable {
         try {
-            testStepAssert.isElementTextEquals(earningsPage.Text_HistoryDataTotalEarnings(), PropertyUtility.getMessage("history.data"),
+            testStepAssert.isTrue(action.getText(earningsPage.Text_HistoryDataTotalEarnings()).contains(PropertyUtility.getMessage("history.data")),
                     PropertyUtility.getMessage("history.data") + " is displayed",
                     PropertyUtility.getMessage("history.data") + " is displayed",
                     PropertyUtility.getMessage("history.data") + " is not displayed");

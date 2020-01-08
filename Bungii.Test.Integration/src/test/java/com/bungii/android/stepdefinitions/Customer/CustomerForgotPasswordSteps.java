@@ -28,6 +28,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     DbUtility dbutility = new DbUtility();
     TermsPage Page_CustTerms = new TermsPage();
     HomePage homePage = new HomePage();
+    String PreviousSMSCode = "";
 
 
     @And("I tap on the {string} Link")
@@ -52,6 +53,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
                 case "Verification Continue":
                     action.click(Page_Signup.Button_VerifyContinue());
+                    break;
+                case "Resend Code":
+                    action.click(Page_Signup.Link_Resend());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -104,6 +108,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
                 case "invalid":
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PropertyUtility.getDataProperties("verificationcode.incorrect"));
+                    break;
+                case "previous":
+                    action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PreviousSMSCode);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -209,7 +216,6 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), errorMessage);
                     break;
 
-
                 default:
                     throw new Exception("Unimplemented step");
             }
@@ -218,5 +224,11 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @And("^I record the SMS Code$")
+    public void i_record_the_sms_code() throws Throwable {
+        Thread.sleep(2000);
+        PreviousSMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
     }
 }
