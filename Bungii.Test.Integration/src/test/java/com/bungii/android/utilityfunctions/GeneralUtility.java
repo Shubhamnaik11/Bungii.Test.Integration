@@ -44,10 +44,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.function.Function;
 
-import static com.google.common.base.Preconditions.*;
-
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
@@ -62,7 +61,7 @@ public class GeneralUtility extends DriverBase {
     DriverHomePage driverHomePage = new DriverHomePage();
     BungiiCompletePage customerBungiiCompletePage = new BungiiCompletePage();
     MenuPage Page_Menu = new MenuPage();
-    OtherAppsPage otherAppsPage = new OtherAppsPage();
+    com.bungii.android.pages.otherApps.OtherAppsPage otherAppsPage = new com.bungii.android.pages.otherApps.OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
     AccountPage cutomerAccountPage = new AccountPage();
     PaymentPage paymentPage = new PaymentPage();
