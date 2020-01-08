@@ -2,10 +2,11 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 
-
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -28,6 +29,7 @@ import org.openqa.selenium.Point;
 
 import org.openqa.selenium.*;
 
+import java.lang.invoke.SwitchPoint;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -38,6 +40,7 @@ public class CommonSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
     HomePage homePage=new HomePage();
+    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -347,12 +350,12 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-    // TODO change catch to error
+
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = utility.getAlertMessage();
-            String expectedMessage;
+            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+            String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
@@ -493,6 +496,14 @@ public class CommonSteps extends DriverBase {
             switch (message.toUpperCase()) {
                     case "OUTSIDE BUISSNESS HOUR":
                     expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
+
+                case "DELETE WARNING":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
+                    break;
+
+                case "Please install a browser in order to access this link.":
+                    expectedMessage=PropertyUtility.getMessage("browser.uninstalled.message");
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -553,17 +564,33 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
     @And("^I click on device \"([^\"]*)\" button$")
     public void i_click_on_device_something_button(String strArg1) throws Throwable {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.navigate().back();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I click \"([^\"]*)\" on Confirmation Popup$")
+    public void i_click_something_on_confirmation_popup(String option) throws Throwable {
+        try {
+            switch (option){
+                case "Yes":
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+            }
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @And("^I get TELET time of of the current trip$")
     public void i_get_telet_time_of_of_the_current_trip() throws Throwable {

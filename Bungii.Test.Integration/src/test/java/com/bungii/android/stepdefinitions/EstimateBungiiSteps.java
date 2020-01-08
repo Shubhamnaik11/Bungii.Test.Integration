@@ -176,6 +176,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(bungiiEstimatePage.Alert_ConfirmRequestMessage()), PropertyUtility.getMessage("customer.alert.alreadyscheduled"));
                     action.click(bungiiEstimatePage.Button_RequestConfirm());
                     break;
+
+                case "back page":
+                    action.click(Page_CustHome.Button_BackOfPage());
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

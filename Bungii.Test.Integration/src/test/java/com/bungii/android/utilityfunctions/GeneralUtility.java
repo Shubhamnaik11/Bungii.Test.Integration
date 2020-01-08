@@ -64,6 +64,8 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
+    InvitePage invitePage=new InvitePage();
 
     /**
      * Launch driver application's using package and activity
@@ -172,6 +174,9 @@ public class GeneralUtility extends DriverBase {
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
                 break;
+            case "MY BUNGIIS":
+                isCorrectPage=action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
+                break;
             case "Payment":
                 isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
                 break;
@@ -245,6 +250,9 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
                 else
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                break;
+            case "INVITE":
+                isCorrectPage=action.isElementPresent(invitePage.Header_Invite());
                 break;
             default:
                 break;
@@ -418,6 +426,9 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT":
                 action.click(homePage.Button_NavAccount());
                 break;
+            case "MY BUNGIIS":
+                action.click(homePage.Button_NavSchBungii());
+                break;
             case "PAYMENT":
                 action.click(homePage.Button_NavPayment());
                 break;
@@ -429,9 +440,6 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
-                break;
-            case "SCHEDULED BUNGIIS":
-                action.click(homePage.Button_NavSchBungii());
                 break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
