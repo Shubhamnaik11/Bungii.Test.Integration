@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
@@ -34,6 +35,8 @@ import java.util.regex.Matcher;
 
 
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.web.utilityfunctions.DbUtility.getCustomerEmail;
+import static com.bungii.web.utilityfunctions.DbUtility.getCustomerPhone;
 
 public class Admin_TripsSteps extends DriverBase {
     Admin_DashboardPage admin_DashboardPage = new Admin_DashboardPage();
@@ -121,6 +124,84 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",tripType,customer,status );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(XPath)), "Trip should be displayed", "Trip is displayed","Trip is not displayed");
     }
+    @Then("^I should be able to see the business user requested bungii with the below status$")
+    public void i_should_be_able_to_see_the_business_user_requested_bungii_with_the_below_status(DataTable data) throws Throwable {
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        String status = dataMap.get("Status").trim();
+        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        String tripType[] = tripTypeAndCategory.split(" ");
+        String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+        String geofenceName = getGeofence(geofence);
+        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+
+        cucumberContextManager.setScenarioContext("STATUS",status);
+        String driver = driver1;
+        if (tripType[0].equalsIgnoreCase("duo"))
+            driver = driver1 + "," + driver2;
+        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")) {
+            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+            int retrycount =10;
+
+            boolean retry = true;
+            while (retry == true && retrycount >0) {
+                try {
+                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                    retry = false;
+                } catch (Exception ex) {
+                    SetupManager.getDriver().navigate().refresh();
+                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                    retrycount--;
+                    retry = true;
+                }
+
+            }
+            int retryCount = 1;
+            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
+                if (retryCount >= 20) break;
+                Thread.sleep(15000); //Wait for 15 seconds
+                retryCount++;
+                SetupManager.getDriver().navigate().refresh();
+            }
+            cucumberContextManager.setScenarioContext("XPATH",xpath);
+            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+
+        } else {
+            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+            int retrycount =10;
+            boolean retry = true;
+            while (retry == true && retrycount >0) {
+                try {
+                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+                    retry = false;
+                } catch (Exception ex) {
+                    SetupManager.getDriver().navigate().refresh();
+                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
+                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                    retrycount--;
+                    retry = true;
+                }
+
+            }
+            int retryCount = 1;
+            while (!SetupManager.getDriver().findElement(By.xpath(XPath)).getText().equalsIgnoreCase(status)) {
+                if (retryCount >= 20) break;
+                Thread.sleep(15000); //Wait for 15 seconds
+                retryCount++;
+                SetupManager.getDriver().navigate().refresh();
+            }
+            cucumberContextManager.setScenarioContext("XPATH",XPath);
+            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+        }
+    }
+
     @Then("^I should be able to see the respective bungii with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_with_the_below_status(DataTable data) throws Throwable {
 
@@ -347,23 +428,47 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
 
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+       if(emailBody== null)
+       {
+           testStepAssert.isFail("Email : "+ emailSubject + " not received");
+       }
+        String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
+        String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
+        String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+        String driverPhone = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String driverLicencePlate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
+        String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
+        String customerName = null;
+        if (!name.isEmpty())
+         customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")+ " Business User";
+        else
+            customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"));
+        String customerEmail = getCustomerEmail((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"));
+        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
 
         String message = null;
         switch (emailSubject)
         {
             case "Bungii Delivery Pickup Scheduled":
-                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Scheduled").toString();
+                message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate,customerName,customerPhone,customerEmail,driverName,driverPhone,driverLicencePlate,  supportNumber,  firmName);
                 break;
             case "Bungii Delivery Pickup Updated":
-                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Updated").toString();
+                message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName,customerPhone,customerEmail,driverName,  supportNumber,  firmName);
                 break;
             case "Bungii Delivery Pickup Canceled":
                 message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Canceled").toString();
                 break;
         }
 
-        testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n",""), message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
     }
+    @And("^I note the Pickupref of trip$")
+    public void i_note_the_pickupref_of_trip() throws Throwable {
 
+        String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
+        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", new DbUtility().getLatestPickupRefOfCustomer(customerRef));
+
+    }
 }

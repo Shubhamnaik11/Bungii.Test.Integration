@@ -64,6 +64,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
+                cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
 
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));
@@ -304,15 +305,17 @@ public class DriverRegistrationSteps extends DriverBase {
     public void i_should_receive_something_email(String emailSubject) throws Throwable {
 
        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
-
+        String driverName ="";
        String message = null;
        switch (emailSubject)
        {
            case "Your application has been rejected.":
-               message = PropertyUtility.getMessage("Email.Message.Driver.Application.Rejection").toString();
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverRejectionEmailContent(driverName);
                break;
            case "BUNGII: Application Received.":
-               message = PropertyUtility.getMessage("Email.Message.Driver.Registration.Submission").toString();
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverSubmissionEmailContent(driverName);
                break;
        }
 

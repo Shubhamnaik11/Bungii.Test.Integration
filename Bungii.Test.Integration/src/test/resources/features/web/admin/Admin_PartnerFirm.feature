@@ -2,20 +2,19 @@
 Feature: Admin_PartnerFirm
 
   Background:
-    Given I am logged in as Admin
+    Given I am logged in as TestAdmin
 
   @sanity
   @regression
       #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research- Duo Scheduled
-    And I note the Trip Requested count of Customer "Krishna Hoderker"
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284174823| Krishna Hoderker|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Duo Scheduled" trip
+      | NEXT_POSSIBLE | 7507800001 | Testcustomertywd_appleWashingtonE Sundar|
+    And As a driver "Testdrivertywd_appledc_a_web SundarE1" perform below action with respective "Duo Scheduled" trip
       | driver1 state|
       |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Duo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web SundarE2" perform below action with respective "Duo Scheduled" trip
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -25,7 +24,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web SundarE3" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -33,13 +32,12 @@ Feature: Admin_PartnerFirm
   @testing
   @sanity
   @regression
-
     #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Scheduled" trip
+      | NEXT_POSSIBLE | 7507800002 | Testcustomertywd_appleWashingtonD Sundar|
+    And As a driver "Testdrivertywd_appledc_a_web SundarD1" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -49,7 +47,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web SundarD2" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -58,13 +56,12 @@ Feature: Admin_PartnerFirm
   @testing
   @sanity
   @regression
-
     #test data created in base
   Scenario: Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverB" perform below action with respective "Solo Ondemand" trip
+      | NEXT_POSSIBLE | 7507800003 | Testcustomertywd_appleWashingtonC Sundar|
+    And As a driver "Testdrivertywd_appledc_a_web SundarC" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -72,13 +69,12 @@ Feature: Admin_PartnerFirm
   @testing
   @sanity
   @regression
-  @testPF
     #test data created in base
   Scenario: Partner Email When Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+      | NEXT_POSSIBLE | 7507800004 |Testcustomertywd_appleWashingtonB Sundar|
+    And As a driver "Testdrivertywd_appledc_a_web SundarB" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     And I view the Scheduled Trips list on the admin portal
@@ -97,56 +93,71 @@ Feature: Admin_PartnerFirm
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  @testing
+  @sanity
+  @regression
+  Scenario: Partner Firm Scheduled Email - Ondemand Bulk Trip
+    When I click on "Business Users  > Bulk Trips" Menu
+    And I select business user "Testcustomertywd_apple-Jd1"
+    And I upload image and csv file associated with the "Ondemand" trip
+    And I click on "Upload" button on "Bulk Trips" page
+    When I click on "Confirm" button on "Bulk Trips" page
+    Then the "Trips have been requested successfully." message is displayed
+    And I note the Pickupref of trip
+    When As a driver "Testdrivertywd_appledc_a_web TestdriverC" perform below action with respective "Solo Ondemand" trip
+      | driver1 state|
+      | Accepted  |
+    Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
 
 
   @testing
   @sanity
   @regression
-    #test data created in base
-  Scenario: Remove driver and Research As an Admin
-    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
+
+  Scenario: Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
+    When I click on "Business Users  > Bulk Trips" Menu
+    And I select business user "Testcustomertywd_apple-Jd1"
+    And I upload image and csv file associated with the "Solo Scheduled" trip
+    And I click on "Upload" button on "Bulk Trips" page
+    When I click on "Confirm" button on "Bulk Trips" page
+    Then the "Trips have been requested successfully." message is displayed
+    And I note the Pickupref of trip
+    When As a driver "Testdrivertywd_appledc_a_web TestdriverC" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
-    And I view the Scheduled Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      |  Status |
-      | Scheduled |
-    When I click on "Edit" link beside scheduled bungii
-    And I click on "Remove driver(s) and re-search" radiobutton
-    And I select the first driver
-    And I click on "Remove Driver" button
-    And I click on "Research" button
-    Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
-      | driver1 state|
-      | Accepted  |
+    Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+
+
+  @testing
+  @sanity
+  @regression
+  @testPF
+  Scenario: Failed Trip Email - Ondemand Bulk Trip
+    When I click on "Business Users  > Bulk Trips" Menu
+    And I select business user "Testcustomertywd_apple-jd3"
+    And I upload image and csv file associated with the "Ondemand" trip
+    And I click on "Upload" button on "Bulk Trips" page
+    When I click on "Confirm" button on "Bulk Trips" page
+    Then the "Trips have been requested successfully." message is displayed
+    And I note the Pickupref of trip
+    When I ensure no driver accepts the trip
+    Then Admin receives "Failed On-Demand Trips" trip email for "Driver Not Found" status
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

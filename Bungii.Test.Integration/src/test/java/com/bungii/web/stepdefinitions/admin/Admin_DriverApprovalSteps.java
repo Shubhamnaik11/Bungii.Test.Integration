@@ -64,6 +64,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
         String[] name =  applicantName.split(" ");
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),name[1]);
+        cucumberContextManager.setScenarioContext("FIRSTNAME",name[0]);
         cucumberContextManager.setScenarioContext("LASTNAME",name[1]);
         action.click(admin_GetAllBungiiDriversPage.Button_Search());
         Thread.sleep(4000);
