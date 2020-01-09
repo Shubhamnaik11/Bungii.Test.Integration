@@ -26,5 +26,10 @@ public class PromosPage extends PageBase {
     public List<WebElement> List_PromoCode(){return  findElements("com.bungii.customer:id/promo_code_label",LocatorType.Id);}
     public WebElement Snackbar () { return findElement("com.bungii.customer:id/snackbar_text", LocatorType.Id); }
 
-
+    public  WebElement Image_InfoIcon(){return findElement("com.bungii.customer:id/promo_code_more_info", LocatorType.Id);}
+    public WebElement Text_InformationMessage() {return findElement("android:id/message", LocatorType.Id);}
+    public WebElement Button_Ok () { return findElement("android:id/button1", LocatorType.Id); }
+    public WebElement Button_AddPromoCode() { return findElements("//android.widget.Button", LocatorType.XPath).get(0);}
+    public WebElement Text_First() { return findElement("//android.widget.TextView[@text='FIRST']", LocatorType.XPath);}
+    public WebElement Text_FirstTimeInfo() { return  findElement("com.bungii.customer:id/promo_code_tv_firsttime_info", LocatorType.Id);}
 }

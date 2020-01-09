@@ -8,6 +8,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -174,4 +175,65 @@ public class PromosSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @When("^I enter \"([^\"]*)\" promo code$")
+    public void i_enter_something_promo_code(String promoCode) throws Throwable {
+        try{
+            switch (promoCode) {
+                case "PROMO1":
+                    action.sendKeys(promoPage.Textfield_PromoCode(), promoCode);
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @When("^I click on \"([^\"]*)\" icon$")
+    public void i_click_on_something_icon(String icon) throws Throwable {
+        try{
+            switch (icon) {
+                case "i":
+                    action.click(promoPage.Image_InfoIcon());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^The \"([^\"]*)\" is displayed$")
+    public void the_something_is_displayed(String info) throws Throwable {
+        try{
+            switch (info) {
+                case "Info Message":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("promo.codes.info.message"));
+                    action.click(promoPage.Button_Ok());
+                    break;
+
+                case "This code is only available for your first Bungii.":
+                    testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(), "FIRST");
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 }

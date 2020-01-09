@@ -7,6 +7,7 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -88,8 +89,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     //  if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
                     action.scrollToBottom();
                     action.scrollToBottom();
-                    action.click(Page_Estimate.Checkbox_AgreeEstimate());
 
+                    String checked="checked";
+                    checked=action.getAttribute(Page_Estimate.Checkbox_AgreeEstimate(), checked);
+                    if(checked.equals("false")) {
+                        action.click(Page_Estimate.Checkbox_AgreeEstimate());
+                    }
                     if (!action.isElementPresent(Page_Estimate.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(Page_Estimate.Button_RequestBungii());
