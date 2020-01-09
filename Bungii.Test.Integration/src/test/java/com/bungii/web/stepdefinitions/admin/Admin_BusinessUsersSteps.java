@@ -645,6 +645,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(admin_ScheduledTripsPage.Button_Research());
                     break;
             }
+            log("I click on the "+Name+" button",
+                    "I clicked the "+Name+" button", true);
         }
 
         @When("I change the status to \"([^\"]*)\"")

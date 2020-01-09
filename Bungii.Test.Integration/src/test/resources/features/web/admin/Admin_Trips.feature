@@ -117,7 +117,8 @@ Feature: Admin_Trips
   @regression
     #test data created in base
     #changed driver name
-  Scenario: Remove driver and Research As an Admin
+    #First time promo code added
+  Scenario: Remove driver, Research and Cancel As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
@@ -134,9 +135,21 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
+    When I click on "Close" icon
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully cancelled." message should be displayed
+    When I view the Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Admin Cancelled |
+
+
 
   @sanity
   @regression
@@ -255,7 +268,7 @@ Feature: Admin_Trips
       | Payment Successful |
 
 
-  @test
+  @sanity
   @regression
    Scenario: Status on admin portal - Duo - Both drivers have accepted trip
     When I request "duo" Bungii as a customer in "washingtondc" geofence
@@ -282,4 +295,4 @@ Feature: Admin_Trips
     And I should be able to see the respective bungii with the below status
       |  Status |
       | Driver Removed|
-
+    
