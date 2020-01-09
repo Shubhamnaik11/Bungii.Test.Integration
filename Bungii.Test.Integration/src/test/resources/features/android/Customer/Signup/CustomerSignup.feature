@@ -95,6 +95,7 @@ Feature: CustomerSignup
       And I Select "HOME" from driver App menu
       And I Switch to "customer" application on "same" devices
       #create new customer
+    
       When I enter "unique" customer phone number on Signup Page
       And I enter "valid" data in mandatory fields on Signup Page
       And I enter "ValidPercent" promo code on Signup Page
