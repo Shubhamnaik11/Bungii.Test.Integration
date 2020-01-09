@@ -217,10 +217,17 @@ public class PromosSteps extends DriverBase {
                 case "Promo code for first Bungii selected by default":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.info");
                     testStepAssert.isEquals(utilities.getCustomerPromoInfoMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    action.click(promoPage.Button_OK());
                     break;
                 case "Promo codes are automatically applied":
                     expectedMessage = PropertyUtility.getMessage("customer.promos.info");
                     testStepAssert.isEquals(utilities.getCustomerPromoInfoMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    action.click(promoPage.Button_OK());
+                    break;
+                case "First time promo code not used":
+                    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.unused.info");
+                    testStepAssert.isEquals(utilities.getCustomerPromoInfoMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    action.click(promoPage.Button_Cancel());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -231,6 +238,29 @@ public class PromosSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-        action.click(promoPage.Button_OK());
+    }
+
+    @And("^I should see the \"([^\"]*)\" PromoCode selected by default$")
+    public void i_should_see_the_something_promocode_selected_by_default(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "first time":
+                    testStepAssert.isElementDisplayed(promoPage.FirstTime_PromoCode_SelectedByDefault(), "Invite page header should be displayed", "Invite page is displayed", "Invite page is not displayed");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @And("^I select \"([^\"]*)\" on the Promos page$")
+    public void i_select_something_on_the_promos_page(String strArg1) throws Throwable {
+        Thread.sleep(3000);
+        action.click(promoPage.PromoCode_R0D1());
     }
 }
