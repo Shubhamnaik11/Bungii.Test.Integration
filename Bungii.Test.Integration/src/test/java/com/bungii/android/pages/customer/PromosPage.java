@@ -32,4 +32,7 @@ public class PromosPage extends PageBase {
     public WebElement Button_AddPromoCode() { return findElements("//android.widget.Button", LocatorType.XPath).get(0);}
     public WebElement Text_First() { return findElement("//android.widget.TextView[@text='FIRST']", LocatorType.XPath);}
     public WebElement Text_FirstTimeInfo() { return  findElement("com.bungii.customer:id/promo_code_tv_firsttime_info", LocatorType.Id);}
+    public WebElement Icon_i () { return findElement("com.bungii.customer:id/promo_code_more_info", LocatorType.Id); }
+    public WebElement Button_OK () { return findElement("android:id/button1", LocatorType.Id); }
+
 }

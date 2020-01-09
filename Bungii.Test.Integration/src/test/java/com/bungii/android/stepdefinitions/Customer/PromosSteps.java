@@ -196,7 +196,7 @@ public class PromosSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" icon$")
     public void i_click_on_something_icon(String icon) throws Throwable {
-        try{
+        try {
             switch (icon) {
                 case "i":
                     action.click(promoPage.Image_InfoIcon());
@@ -205,12 +205,45 @@ public class PromosSteps extends DriverBase {
                     error("Implemented Step", "UnImplemented Step");
                     break;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
+
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+
+    @Then("^I should see \"([^\"]*)\" on Bungii estimate page$")
+    public void i_should_see_something_on_bungii_estimate_page(String strArg1) throws Throwable {
+        i_should_see_something_on_save_money_page(strArg1);
+    }
+
+    @And("^I tap \"([^\"]*)\" on Promos page$")
+    public void i_tap_something_on_promos_page(String strArg1) throws Throwable {
+        iTapOnSaveMoneyPage(strArg1);
+    }
+
+    @When("^I tap on the \"([^\"]*)\" icon$")
+    public void i_tap_on_the_something_icon(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "i":
+                    Thread.sleep(3000);
+                    action.click(promoPage.Icon_i());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect icon name", "UnImplemented Step");
+                    break;
+            }
+            log(" I should able to tap " + strArg1 + " icon",
+                    "I tapped on " + strArg1 + " icon", false);
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @Then("^The \"([^\"]*)\" is displayed$")
     public void the_something_is_displayed(String info) throws Throwable {
@@ -234,6 +267,33 @@ public class PromosSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+
+    @Then("^I should see \"([^\"]*)\" message on the Promos page$")
+    public void i_should_see_something_message_on_the_promos_page(String strArg1) throws Throwable {
+        try {
+            String expectedMessage = "";
+            String actualMessage = "";
+            switch (strArg1) {
+                case "Promo code for first Bungii selected by default":
+                    expectedMessage = PropertyUtility.getMessage("customer.promos.first.time.info");
+                    testStepAssert.isEquals(utilities.getCustomerPromoInfoMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    break;
+                case "Promo codes are automatically applied":
+                    expectedMessage = PropertyUtility.getMessage("customer.promos.info");
+                    testStepAssert.isEquals(utilities.getCustomerPromoInfoMessage(), expectedMessage, "Validation message :'" + expectedMessage + "' should be displayed", "'" + expectedMessage + "' message should be displayed", "'" + expectedMessage + "' message should be displayed");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+        action.click(promoPage.Button_OK());
     }
 
 }
