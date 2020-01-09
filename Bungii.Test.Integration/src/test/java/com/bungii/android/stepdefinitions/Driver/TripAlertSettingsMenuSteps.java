@@ -152,13 +152,18 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     }
 
     public boolean clickDriverMenu(String time) {
-        Boolean isClicked = false;
+        Boolean isCorrectTime = true;
         List<WebElement> elements = tripAlertSettingsPage.Text_TripAlertsTime();
         for (WebElement element : elements) {
-            if (element.getText().equals(time)) {
-                isClicked = true;
-                 }
+            if (element.getText().equals(time) && isCorrectTime) {
+                isCorrectTime = true;
+                 }else{
+                isCorrectTime = false;
+            }
         }
-        return isClicked;
+        if(elements.size()==0)
+            isCorrectTime=false;
+
+        return isCorrectTime;
     }
 }

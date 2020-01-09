@@ -143,7 +143,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             action.sendKeys(forgotPasswordPage.TextField_NewPassword(), newPassword);
 
             log(" I enter customers new " + string + "Password",
-                    "I entered " + newPassword + "as customers new " + string + " Password", true);
+                    "I entered " + newPassword + "as customers new " + string + " Password", false  );
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

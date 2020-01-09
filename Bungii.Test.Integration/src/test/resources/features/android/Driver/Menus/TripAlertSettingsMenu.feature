@@ -16,9 +16,11 @@ Feature: DriverMenu
     And the "TRIP ALERT SETTINGS" page is opened
     And I click on "Trip Alerts" tab
     Then I should be able to see "Trip Alerts" Text and Time
+    When I Select "LOGOUT" from driver App menu
+
     Examples:
       | Username   | Password   |
-      | 8989890909 | Cci12345   |
+      | 8888882020 | Cci12345   |
 
   @regression
   Scenario Outline: Trip Alert Settings : SMS Alerts tab ( default: 7.00AM-9.00PM)
