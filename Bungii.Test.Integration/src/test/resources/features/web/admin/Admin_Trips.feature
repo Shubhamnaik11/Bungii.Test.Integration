@@ -135,7 +135,7 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     When I click on "Close" icon
@@ -295,4 +295,3 @@ Feature: Admin_Trips
     And I should be able to see the respective bungii with the below status
       |  Status |
       | Driver Removed|
-    

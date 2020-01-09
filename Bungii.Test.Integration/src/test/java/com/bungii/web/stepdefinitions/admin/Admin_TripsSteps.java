@@ -139,7 +139,6 @@ public class Admin_TripsSteps extends DriverBase {
         String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-//        Boolean driverremoved = (Boolean) cucumberContextManager.getScenarioContext("DRIVERREMOVED");
 
         String geofenceName = getGeofence(geofence);
         action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
@@ -147,8 +146,6 @@ public class Admin_TripsSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("STATUS",status);
         String driver = driver1;
-//        if(status.equalsIgnoreCase("Driver Removed"))
-//            cucumberContextManager.setScenarioContext("DRIVERREMOVED",true);
         if (tripType[0].equalsIgnoreCase("duo"))
             driver = driver1 + "," + driver2;
         if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
