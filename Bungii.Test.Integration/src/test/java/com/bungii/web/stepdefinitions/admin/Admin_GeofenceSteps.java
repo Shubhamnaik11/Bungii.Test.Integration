@@ -66,6 +66,8 @@ public class Admin_GeofenceSteps extends DriverBase {
                         action.click(admin_GeofencePage.Button_SaveGeofenceSettings());
                 }
         }
+        log("And I click on the "+button+" Button on "+screen ,
+                "I have clicked on the "+button+" Button on " +screen, true);
     }
 
     @When("^I click on the geofence name \"([^\"]*)\"$")
@@ -290,6 +292,8 @@ public class Admin_GeofenceSteps extends DriverBase {
             }
             break;
         }
+        log("I "+action1+" option "+trip_type+" for Scheduled trip" ,
+                "I have "+action1+" option "+trip_type+" for Scheduled trip", true);
     }
 
 
@@ -313,6 +317,9 @@ public class Admin_GeofenceSteps extends DriverBase {
     public void i_click_on_the_geofence_something(String GeofenceName) throws Throwable {
         String Xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
         action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
+        log("I click on the geofence" ,
+                "I have clicked on the geofence", true);
+
     }
 
     @When("^I uncheck both on demand and Scheduled for a geofence$")
@@ -320,6 +327,8 @@ public class Admin_GeofenceSteps extends DriverBase {
         i_something_option_something_for_scheduled_trip("uncheck","Duo");
         i_something_option_something_for_scheduled_trip("uncheck","Solo");
         i_something_option_something_for_scheduled_trip("uncheck","Ondemand");
+        log("I uncheck both on demand and Scheduled for a geofence" ,
+                "I have unchecked both on demand and Scheduled for a geofence", true);
     }
 
     @Then("^The validation error message is displayed$")
