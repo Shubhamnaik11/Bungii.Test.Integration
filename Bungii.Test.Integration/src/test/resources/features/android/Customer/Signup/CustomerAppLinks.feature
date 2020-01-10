@@ -29,7 +29,7 @@ Feature: CustomerApplicationLinks
     And I tap on the "Log in" Button on Login screen
     And I verify that the tutorial is displayed only once
 
-    @regression1
+    @regression
     Scenario: Scheduled Bungiis: Save Money Button redirect to invite page
       When I tap on the "Log in" button on Signup Page
       And I enter customers "8805368840" Phone Number

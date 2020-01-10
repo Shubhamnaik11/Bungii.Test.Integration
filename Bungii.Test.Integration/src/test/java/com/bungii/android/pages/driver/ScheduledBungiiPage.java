@@ -10,5 +10,6 @@ public class ScheduledBungiiPage extends  PageBase {
     public List<WebElement> List_ScheduledBungiis() { return findElements("com.bungii.driver:id/container_scheduled_trip_row", PageBase.LocatorType.Id); }
     public WebElement Button_Start() { return findElement("//android.widget.Button", LocatorType.XPath); }
 
+    public WebElement Cell_FirstTrip() { return findElement("com.bungii.driver:id/container_scheduled_trip_row", LocatorType.Id);}
 
 }
