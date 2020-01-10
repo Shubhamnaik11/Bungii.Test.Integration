@@ -1038,6 +1038,13 @@ public class GeneralUtility extends DriverBase {
         return action.getText(element);
     }
 
+    public String getCustomerPromoInfoMessage() {
+
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/message")));
+        return action.getText(element);
+    }
+
     public String getDriverSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
