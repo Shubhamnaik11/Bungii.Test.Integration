@@ -1,9 +1,9 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
-import com.bungii.android.manager.ActionManager;
+import com.bungii.android.manager.*;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -104,30 +104,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
                     action.click(Page_Estimate.Button_RequestConfirm());Thread.sleep(3000);
                     action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true), "Success!", "SEARCHING…");
-                    //   action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
-                    //--------*to be worked on*-------------
-                    //If time has passed
-                    /*if (DriverAction.isElementPresent(Page_Estimate.Alert_DelayRequestingTrip))
-                    {
-                        if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
-                        {
-                            DriverAction.click(Page_Estimate.Button_DelayRequestingTrip_OK);
-                            DriverAction.click(Page_Estimate.Time);
-
-                            //choose current date
-                            DriverAction.click(Page_Estimate.Samsung_CurrentSelectedDate);
-                            DriverAction.click(Page_Estimate.Samsung_Date_OK);
-
-                            //set time with 15 mins delay
-                            DriverAction.click(Page_Estimate.Samsung_SetTime_Min_Next);
-                            UtilFunctions.ScrollUp(Page_Estimate.Samsung_SetTime_Min_Next);
-                            if (Page_Estimate.Samsung_SetTime_Min_Current.Text == "00" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "15" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "30")
-                                DriverAction.click(Page_Estimate.Samsung_SetTime_Hour_Next);
-
-                            DriverAction.click(Page_Estimate.Button_RequestConfirm);
-                        }
-                        Thread.Sleep(2000);
-                    }*/
                     break;
 
                 case "Done after requesting a Scheduled Bungii":
@@ -636,16 +612,19 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
                     action.scrollToBottom();
-
+                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)) && i >= 3)
+                {
+                    testStepAssert.isFalse(action.isElementPresent(Page_Estimate.Link_AddPhoto(true)),"False","True" );
+                    break;
+                }
                 action.click(Page_Estimate.Link_AddPhoto());
                 Thread.sleep(2000);
                 //adding most probable outcome first
                 if (action.isElementPresent(Page_Estimate.Option_Camera(true))) {
                     //do nothing,
-                } else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
+                }
+                else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
                     action.click(Page_Estimate.Permissions_CameraAllow());
-
-                ;
 
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
@@ -675,6 +654,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_Estimate.Button_Camera_OK());
                 }
                 Thread.sleep(2000);
+
                 i++;
             } while (i < Integer.parseInt(arg0));
 
@@ -798,6 +778,21 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+        String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
     }
 
 }

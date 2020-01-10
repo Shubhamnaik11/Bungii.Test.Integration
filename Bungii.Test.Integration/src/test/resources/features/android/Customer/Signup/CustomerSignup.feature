@@ -87,7 +87,7 @@ Feature: CustomerSignup
     And I click on "ADD" button
     Then The "This code is only available for your first Bungii." is displayed
 
-  @regression1
+  @regression
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -191,14 +191,3 @@ Feature: CustomerSignup
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
-    @regression1
-    Scenario: To check that Customer is able to add at least one and maximum 4 images of Items
-      When I Switch to "customer" application on "same" devices
-      Given  I am on customer Log in page
-      When I enter customers "8805368840" Phone Number
-      And I enter customers "valid" Password
-      And I tap on the "Log in" Button on Login screen
-      And I enter "kansas pickup and dropoff locations greater than 30mins" on Bungii estimate
-      And I tap on "Get Estimate button" on Bungii estimate
-      Then I should be navigated to "Estimate" screen
-      And I add "4" photos to the Bungii

@@ -72,5 +72,25 @@ Feature: EstimateBungii
     And I tap "Add" on Promos page
     Then I should see "promocode added" on Bungii estimate page
 
+  @regression
+  Scenario: To check that Customer is able to add at least one and maximum 4 images of Items
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened
+    And I add "1" photos to the Bungii
+    And I add "4" photos to the Bungii
+
+  @regression1
+  Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    Then I verify that selected time is next available time
 
 
