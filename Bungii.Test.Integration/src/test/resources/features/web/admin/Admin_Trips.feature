@@ -148,7 +148,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Admin Cancelled |
-
+    Then The first time promo code should get released
 
 
   @sanity
