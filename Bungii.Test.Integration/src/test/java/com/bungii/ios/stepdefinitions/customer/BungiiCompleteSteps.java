@@ -166,7 +166,7 @@ public class BungiiCompleteSteps extends DriverBase {
 
 		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
 
-
+		cucumberContextManager.setScenarioContext("DISCOUNT_VALUE",promoDiscountValue);
 		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
 	}
 	public  void verifyPromoterDiscount(){
@@ -202,6 +202,7 @@ public class BungiiCompleteSteps extends DriverBase {
 
 		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
 
+		cucumberContextManager.setScenarioContext("DISCOUNT_VALUE",promoDiscountValue);
 
 		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
 	}

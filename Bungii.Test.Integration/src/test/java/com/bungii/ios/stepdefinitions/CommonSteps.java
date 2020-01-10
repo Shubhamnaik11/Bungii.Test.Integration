@@ -74,6 +74,7 @@ public class CommonSteps extends DriverBase {
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
     private DbUtility dbUtility = new DbUtility();
+    private BungiiDetails bungiiDetails = new BungiiDetails();
 
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
@@ -268,6 +269,9 @@ public class CommonSteps extends DriverBase {
                 case "I DON'T LIKE FREE MONEY":
                     takeActionOnPromotion("REJECT");
                     break;
+                case "YES, I'LL TAKE $5":
+                    takeActionOnPromotion("ACCEPT");
+                    break;
                 case "PICK UP CLEAR TEXT":
                     action.click(homePage.Button_ClearPickup());
                     break;
@@ -359,6 +363,9 @@ public class CommonSteps extends DriverBase {
                 case "CLOSE BUTTON":
                     action.click(customerBungiiCompletePage.Button_Close());
                     ;
+                    break;
+                case "TOP BACK":
+                    action.click(bungiiDetails.Button_Back());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -769,6 +776,11 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
+                case"newly created user":
+                    userName = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
                 case "new":
                     userName = PropertyUtility.getDataProperties("new.customer.user");
                     password = PropertyUtility.getDataProperties("new.customer.password");
@@ -1054,6 +1066,9 @@ public class CommonSteps extends DriverBase {
             case "unused one off":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
                 break;
+            case "referral code":
+                code = Arrays.asList((String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
+                break;
             case "first time only":
                 code = Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
                 break;
@@ -1064,6 +1079,50 @@ public class CommonSteps extends DriverBase {
         return code;
     }
 
+    @Then("^I save customer phone and referral code in feature context$")
+    public void i_save_customer_phone_and_referral_code_in_feature_context() throws Throwable {
+        try {
+            cucumberContextManager.setFeatureContextContext("INVITE_CODE", (String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
+            cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("^I have customer with referral code$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Given("^I have customer with referral code received$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEreceived() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     public String generateMobileNumber() {
 
         String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
@@ -1316,6 +1375,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "PLEASE ENABLE LOCATION SERVICES":
                     expectedText = PropertyUtility.getMessage("driver.enable.location.services");
+                    break;
+                case "PLEASE INSTALL A BROWSER":
+                    expectedText = PropertyUtility.getMessage("customer.install.browser");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

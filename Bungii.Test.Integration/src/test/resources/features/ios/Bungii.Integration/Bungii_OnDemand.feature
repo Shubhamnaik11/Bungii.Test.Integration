@@ -232,14 +232,6 @@ Feature: Create on demand bungii
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "valid nashville" user
-    And I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "<Promo Code>"
-    When I switch to "ORIGINAL" instance
-
- #   And I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
@@ -250,7 +242,6 @@ Feature: Create on demand bungii
       | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-    #And Trip Information should be correctly displayed on Estimate screen
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
     And I should be navigated to "PROMOS" screen
@@ -276,17 +267,9 @@ Feature: Create on demand bungii
 
     And I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-
- #   And I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
-
-  #  And I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-
- #   And I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-
- #   And I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
 
@@ -301,22 +284,98 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+    Then I wait for "2" mins
 
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select trip from trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
-      | Scenario            | Promo Code          | User         | Expected Details           |
-      | fixed valid         | {PROMO FIXED}       | no promocode |correct details with promo|
-     | Promo percentage    | {PROMO PERCENT}     | no promocode |correct details with promo|
-      | valid one off       | {valid one off}     | no promocode |correct details with promo|
-      | PROMOTER_TYPE_PROMO | PROMOTER_TYPE_PROMO | no promocode | correct details with delivery promo |
+      | Scenario      | Promo Code | User         | Expected Details           | Expected value in admin |
+      | fixed valid      | PROMO DOLLAR OFF  | no promocode | correct details with promo | promo    |
+      | Promo percentage | PROMO PERCENT OFF | no promocode | correct details with promo | promo    |
+      | valid one off | ONE OFF    | no promocode | correct details with promo | oneoff                  |
+   #   | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | no promocode | correct details with delivery promo |promoter|
+
+
+  @regression
+  Scenario:on demand with fb share
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State   |
+      | nashville | UNLOADING ITEM |
+
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I should be navigated to "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    When I click "YES, I'LL TAKE $5" button on "Promotion" screen
+    When I enter "valid data" on Overlay Facebook screen
+    And I tap "Next" button on Overlay Facebook screen
+    When I tap "Share" button on Overlay Facebook screen
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    And I should be navigated to "PROMOS" screen
+    Then I should able to see facebook promo code in available promo code
+    When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      |          |           |              | Now  | Default     |
+    And I request for bungii using Request Bungii Button
+    Then I should be navigated to "SEARCHING" screen
+
+    When I click on notification for "Driver" for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I should be navigated to "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
 
   @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
     Given that ondemand bungii is in progress
-  | geofence  | Bungii State |
-  | nashville | Enroute      |
+      | geofence  | Bungii State |
+      | nashville | Enroute      |
 
     When I am on the "LOG IN" page
-   # And I am on Customer logged in Home page
     And I logged in Customer application using  "valid nashville" user
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -363,3 +422,153 @@ Feature: Create on demand bungii
     And I Switch to "customer" application on "same" devices
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+
+  #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
+  @regression
+  Scenario Outline:Referral code signup
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I click "Invite referrals" button on "HOME" screen
+    Then I should be navigated to "Invite" screen
+    When I get Invite Code
+    When I Select "LOGOUT" from Customer App menu
+    Given I am on the "SIGN UP" page
+    When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Enter "<Promo Code>" value in "Referral code" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    Then I should be navigated to "Home" screen
+    When I Select "PROMOS" from Customer App menu
+    And I should able to see expected promo code in available promo code
+    Then I should see "first time code subtext" on Promos page
+    When I Select "PAYMENT" from Customer App menu
+    Then I should be navigated to "PAYMENT" screen
+    When I click "Add-Button" button on "PAYMENT" screen
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
+    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
+    Then I should see "new card" on Payment page
+    When I Select "LOGOUT" from Customer App menu
+    Then I save customer phone and referral code in feature context
+
+    Examples:
+      | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
+      | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+
+  @regression
+  Scenario:on demand with referral code
+    Given I have customer with referral code
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid nashville" driver
+    And I Select "HOME" from driver App menu
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "newly created user" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    Then I should able to see expected promo code in available promo code
+    When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      |          |           |              | Now  | Default     |
+    And I request for bungii using Request Bungii Button
+    Then I should be navigated to "SEARCHING" screen
+
+    When I click on notification for "Driver" for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+
+    And I should be navigated to "Bungii Completed" screen
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression
+  Scenario:on demand with referred code promo received
+    Given I have customer with referral code received
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid nashville" driver
+    And I Select "HOME" from driver App menu
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    Then I should able to see expected promo code in available promo code
+    Then I should see "referral code received with out first time tag" on Promos page
+    When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      |          |           |              | Now  | Default     |
+    And I request for bungii using Request Bungii Button
+    Then I should be navigated to "SEARCHING" screen
+
+    When I click on notification for "Driver" for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I should be navigated to "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen

@@ -12,6 +12,9 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
+    "wdaStartupRetries": "4",
+    "iosInstallPause": "8000",
+    "wdaStartupRetryInterval": "20000",
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaLocalPort": 8110
@@ -28,6 +31,9 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
+    "wdaStartupRetries": "4",
+    "iosInstallPause": "8000",
+    "wdaStartupRetryInterval": "20000",
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaLocalPort": 8100

@@ -81,11 +81,11 @@ public class ScheduledTripSteps extends DriverBase {
 	public void i_researches_bungii_with_following_details(DataTable cancelDetails)  {
 		try {
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
-			String label = "_"+data.get("label"), status_of_trip = data.get("Status of Trip");
+			String status_of_trip = data.get("Status of Trip");
 			Map<String, String> tripDetails = new HashMap<String, String>();
-			String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER"+label);
-			String tripDistance = (String)  cucumberContextManager.getFeatureContextContext("BUNGII_DISTANCE"+label);
-			String bungiiTime = (String)  cucumberContextManager.getFeatureContextContext("BUNGII_TIME"+label);
+			String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+			String tripDistance = (String)  cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
@@ -107,9 +107,9 @@ public class ScheduledTripSteps extends DriverBase {
 			}
 			verifyTripStatus(tripDetails,status_of_trip);
 			researchBungii(tripDetails);
-			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getFeatureContextContext("CUSTOMER_PHONE"+label));
+			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
 			Thread.sleep(30000);
-			cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+label,pickupRequest);
+			cucumberContextManager.setScenarioContext("PICKUP_REQUEST",pickupRequest);
 
 			log( "I should able to cancel bungii", "I was able to cancel bungii",
 					true);

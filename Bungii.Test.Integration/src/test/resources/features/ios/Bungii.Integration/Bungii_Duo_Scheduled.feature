@@ -1277,3 +1277,4 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+

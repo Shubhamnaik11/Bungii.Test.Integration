@@ -77,3 +77,9 @@ Feature: Customer	Menu
     Then I customers active flag should be "1"
     When I Select "LOGOUT" from Customer App menu
     Then I customers active flag should be "0"
+
+    #enable restriction on iphone , disable safari. Not to be run with normal regression
+  @safaridisabled
+  Scenario: Logout (check deregister device token) (Driver & Customer)
+    When I Select "DRIVE WITH BUNGII" from Customer App menu
+    Then user is alerted for "PLEASE INSTALL A BROWSER"

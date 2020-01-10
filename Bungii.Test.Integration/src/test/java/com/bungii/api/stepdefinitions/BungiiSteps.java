@@ -424,6 +424,7 @@ public String getDriverPhone(String driverName)
                 int wait =coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START",wait);
             }
+            cucumberContextManager.setFeatureContextContext("BUNGII_INITIAL_SCH_TIME", System.currentTimeMillis() / 1000L);
 
             try {
                 Thread.sleep(10000);
@@ -941,6 +942,8 @@ public String getDriverPhone(String driverName)
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,30);
             else if(scheduleTime.equalsIgnoreCase("15 min ahead"))
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,15);
+            else if(scheduleTime.equalsIgnoreCase("1.5 hour ahead"))
+                wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken,90);
             else
                 wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken);
 

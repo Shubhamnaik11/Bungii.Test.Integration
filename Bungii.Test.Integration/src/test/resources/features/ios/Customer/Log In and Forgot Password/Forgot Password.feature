@@ -75,6 +75,7 @@ Feature: FORGOT PASSWORD
     And I Enter "valid" value in "sms code" field in "FORGOT PASSWORD" Page
     And I click "Continue" button on "Forgot Password" screen
     Then user is alerted for "<Expected Message>"
+    And I should be navigated to "Home" screen
     And I Select "LOGOUT" from Customer App menu
 
     Examples:
@@ -120,4 +121,5 @@ Feature: FORGOT PASSWORD
 
     And I click "Continue" button on "Forgot Password" screen
     Then user is alerted for "PASSWORD CHANGE SUCCESS"
+    And I should be navigated to "Home" screen
     And I Select "LOGOUT" from Customer App menu

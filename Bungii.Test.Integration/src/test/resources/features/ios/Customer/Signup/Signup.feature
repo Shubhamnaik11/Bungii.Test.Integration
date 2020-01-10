@@ -168,4 +168,5 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
-      | Ron       | testerr    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | ONETESTTIM            | facebook |
+      | Ron        | testerr   | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | ONETESTTIM | facebook |
+

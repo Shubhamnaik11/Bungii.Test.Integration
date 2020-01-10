@@ -3,6 +3,7 @@ package com.bungii.ios.stepdefinitions.customer;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.PromosPage;
 import cucumber.api.java.en.And;
@@ -13,6 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -49,6 +51,18 @@ public class PromoSteps extends DriverBase {
                     break;
                 case "PROMOTER_TYPE_PROMO":
                     codeList = (List<String>) cucumberContextManager.getFeatureContextContext("PROMOTER_TYPE_PROMO");
+                    break;
+                case "PROMO DOLLAR OFF":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.dollar.off"));
+                    break;
+                case "PROMO PERCENT OFF":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.percent.off"));
+                    break;
+                case "ONE OFF":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.one.off.ios"));
+                    break;
+                case "PROMOTER TYPE PROMO":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.promotor.off"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -96,6 +110,10 @@ public class PromoSteps extends DriverBase {
                 testStepVerify.isTrue(action.isElementPresent(promosPage.Text_FirstTimeSubtext(true)),"'This code is only available for your first Bungii.' should be displayed");
                 testStepVerify.isTrue(action.isElementPresent(promosPage.Text_FirstTag(true)),"First tag should be displayed");
                 break;
+                case"referral code received with out first time tag":
+                    testStepVerify.isTrue(!action.isElementPresent(promosPage.Text_FirstTimeSubtext(true)),"'This code is only available for your first Bungii.' should not displayed");
+                    testStepVerify.isTrue(!action.isElementPresent(promosPage.Text_FirstTag(true)),"First tag should not be displayed");
+                    break;
                 default:
                     fail("Step  Should be successful",
                             "UnImplemented STEP , please verify test step", true);
@@ -113,6 +131,27 @@ public class PromoSteps extends DriverBase {
         try {
             String usedPromoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
             testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I should able to see facebook promo code in available promo code$")
+    public void i_should_able_to_see_facebookexpected_promo_code_in_available_promo_code() {
+        try {
+            boolean isPresent=false;
+            String currentPromo="";
+            List<WebElement> codes = promosPage.List_AvailablePromoCode();
+            for (WebElement code : codes) {
+                currentPromo=action.getValueAttribute(code);
+                if (currentPromo.contains("FBSHARE")) {
+                    isPresent = true;
+                    break;
+                }
+            }
+            String usedPromoCode=currentPromo.split("-")[1].trim();
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE",usedPromoCode);
+            testStepVerify.isTrue(isPresent, "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
