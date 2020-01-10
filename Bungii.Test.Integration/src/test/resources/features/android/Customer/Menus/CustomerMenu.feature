@@ -16,6 +16,12 @@ Feature: CustomerMenu
     When I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "Logout" link
     Then "Login" page should be opened
+#failing due to BCKD-1103
+  @regression
+  Scenario: Logout (check deregister device token) (Driver & Customer)
+    Then Customer active flag should be "1"
+    And I tap on "Menu" > "Logout" link
+    Then Customer active flag should be "0"
 
   @regression
   Scenario: As Bungii customer I should able to access FAQ page

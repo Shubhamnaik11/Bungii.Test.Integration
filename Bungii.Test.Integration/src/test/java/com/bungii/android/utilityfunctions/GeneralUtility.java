@@ -23,6 +23,7 @@ import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -33,6 +34,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -62,6 +64,8 @@ public class GeneralUtility extends DriverBase {
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
+    InvitePage invitePage=new InvitePage();
 
     /**
      * Launch driver application's using package and activity
@@ -170,6 +174,9 @@ public class GeneralUtility extends DriverBase {
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
                 break;
+            case "MY BUNGIIS":
+                isCorrectPage=action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
+                break;
             case "Payment":
                 isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
                 break;
@@ -243,6 +250,9 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
                 else
                     isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                break;
+            case "INVITE":
+                isCorrectPage=action.isElementPresent(invitePage.Header_Invite());
                 break;
             default:
                 break;
@@ -416,6 +426,9 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT":
                 action.click(homePage.Button_NavAccount());
                 break;
+            case "MY BUNGIIS":
+                action.click(homePage.Button_NavSchBungii());
+                break;
             case "PAYMENT":
                 action.click(homePage.Button_NavPayment());
                 break;
@@ -427,9 +440,6 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
-                break;
-            case "SCHEDULED BUNGIIS":
-                action.click(homePage.Button_NavSchBungii());
                 break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
@@ -781,8 +791,12 @@ public class GeneralUtility extends DriverBase {
             action.click(otherAppsPage.Notification_StackDriverStarted());
             isDisplayed = true;}
 
-        }
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))){
+            action.click(otherAppsPage.Notification_StackDriverAccepted1());
+            isDisplayed = true;}
 
+        }
 
 
 
@@ -811,28 +825,40 @@ public class GeneralUtility extends DriverBase {
 
     public String getExpectedNotification(String identifier) {
         String text = "";
-        switch (identifier.toUpperCase()) {
-            case "ON DEMAND TRIP":
-                text = PropertyUtility.getMessage("driver.notification.ondemand");
-                break;
-            case "DRIVER CANCELLED":
-                text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
-                break;
-            case "DRIVER ENROUTE":
-                text = PropertyUtility.getMessage("customer.notification.driver.accepted");
-                break;
-            case "STACK TRIP":
-                text = PropertyUtility.getMessage("driver.notification.stack");
-                break;
-            case "CUSTOMER CANCEL STACK TRIP":
-                text = PropertyUtility.getMessage("driver.notification.stack.cancel");
-                break;
-            case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
-                break;
-            case "CUSTOMER -DRIVER STARTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
-                break;
+        try {
+
+            switch (identifier.toUpperCase()) {
+                case "ON DEMAND TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.ondemand");
+                    break;
+                case "DRIVER CANCELLED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "DRIVER ENROUTE":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted");
+                    break;
+                case "STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack");
+                    break;
+                case "CUSTOMER CANCEL STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+                    break;
+                case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+                    break;
+                case "CUSTOMER -DRIVER STARTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.started.stack");
+                    break;
+                case "SCHEDULED PICKUP ACCEPTED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
         return text;
     }
@@ -903,6 +929,13 @@ public class GeneralUtility extends DriverBase {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
+        return action.getText(element);
+    }
+
+    public String getCustomerPromoInfoMessage() {
+
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/message")));
         return action.getText(element);
     }
 

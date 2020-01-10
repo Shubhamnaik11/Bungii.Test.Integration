@@ -5,6 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -16,14 +17,16 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.List;
+import java.util.*;
 
 import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
@@ -45,6 +48,8 @@ public class EstimateBungiiSteps extends DriverBase {
     PropertyUtility properties = new PropertyUtility();
     SignupPage Page_Signup = new SignupPage();
     HomePage homePage = new HomePage();
+    EstimatePage estimatePage= new EstimatePage();
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     private String[] loadTimeValue = {"15 mins", "30 mins", "45 mins", "60 mins", "75 mins", "90+ mins"};
 
     @When("^I tap on \"([^\"]*)\" on Bungii estimate$")
@@ -170,6 +175,10 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "ok on already scheduled bungii message":
                     testStepVerify.isEquals(action.getText(bungiiEstimatePage.Alert_ConfirmRequestMessage()), PropertyUtility.getMessage("customer.alert.alreadyscheduled"));
                     action.click(bungiiEstimatePage.Button_RequestConfirm());
+                    break;
+
+                case "back page":
+                    action.click(Page_CustHome.Button_BackOfPage());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -439,6 +448,37 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(),"Less than 30mins", "Less than 30mins","More than 30mins");
                     break;
 
+                case "kansas pickup and dropoff locations less than 150 miles":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.less.150"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.150"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(),"Less than 150 miles", "Less than 150 miles","More than 150 miles");
+                    break;
+
+                case "kansas pickup and dropoff locations equal to 150 miles":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.equal.150"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.equal.150"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    testStepAssert.isElementDisplayed(Page_CustHome.Button_GetEstimate(),"Equal to 150 miles", "Equal to 150 miles","Not equal to 150 miles");
+                    break;
+
+                case "kansas pickup and dropoff locations greater than 150 miles":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.more.150"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -465,6 +505,31 @@ public class EstimateBungiiSteps extends DriverBase {
             testStepAssert.isFalse(pickUpLocationLine1.equals(""), "I should able to select pickup location", "Pickup location was selected , Pickup value is " + pickUpLocationLine1, "I was not able select pickup location");
             testStepAssert.isFalse(dropUpLocationLine2.equals(""), "I should able to select drop location", "drop location was selected , drop value is " + dropUpLocationLine1, "I was not able select pickup location");
         } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I enter the \"([^\"]*)\" on the Bungii estimate$")
+    public void i_enter_the_something_on_the_bungii_estimate(String strArg1) throws Throwable {
+        try{
+            switch (strArg1)
+            {
+            case "kansas pickup and dropoff locations greater than 150 miles":
+                if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                    action.click(Page_CustHome.Button_ClearPickUp());
+                utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.more.150"));
+                utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
+                cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                Thread.sleep(2000);
+                break;
+            default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                break;
+        }
+
+    }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
@@ -794,5 +859,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     true);
         }
     }
+
 
 }

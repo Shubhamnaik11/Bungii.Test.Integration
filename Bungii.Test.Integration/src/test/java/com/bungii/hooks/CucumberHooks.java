@@ -210,6 +210,13 @@ public class CucumberHooks {
         //create trip for denver and keep
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
             new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"DUO_SCH_DONOT_ACCEPT");
+
+        }
+
+        //create trip for Kansas and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("android")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "Kansas", PropertyUtility.getDataProperties("kansas.customer1.phone"),
+                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"),"DUO_SCH_DONOT_ACCEPT");
         }
     }
 }

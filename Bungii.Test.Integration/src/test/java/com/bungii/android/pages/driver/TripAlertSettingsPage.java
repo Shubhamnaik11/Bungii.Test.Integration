@@ -19,7 +19,7 @@ public class TripAlertSettingsPage extends PageBase {
 
     public WebElement Text_TripAndSMSAlertsText(){return findElement("//*[@resource-id='com.bungii.driver:id/text_settings_heading']", LocatorType.XPath);}
 
-    public List<WebElement> Text_TripAlertsTime () { return findElements("//android.widget.TextView[@text='07:00 - 21:00']", LocatorType.XPath); }
+    public List<WebElement> Text_TripAlertsTime () { return findElements("com.bungii.driver:id/text_settings_row_text_time", LocatorType.Id); }
 
     public WebElement Text_SMSAlertsTime(){ return findElement("//[@resource-id='com.bungii.driver:id/text_settings_row_text_time']", LocatorType.XPath);}
 

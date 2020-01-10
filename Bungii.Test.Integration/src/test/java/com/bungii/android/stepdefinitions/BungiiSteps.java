@@ -3,11 +3,9 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.enums.Status;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiAcceptedPage;
-import com.bungii.android.pages.customer.BungiiProgressPage;
-import com.bungii.android.pages.customer.SearchingPage;
-import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.otherApps.OtherAppsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -26,6 +24,8 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 
+import java.util.concurrent.TimeUnit;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 public class BungiiSteps extends DriverBase {
@@ -42,6 +42,7 @@ public class BungiiSteps extends DriverBase {
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     SignupPage Page_Signup = new SignupPage();
+    BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -301,10 +302,20 @@ public class BungiiSteps extends DriverBase {
     @Then("^I click on notification for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something(String strArg1) {
         try {
-         //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-            action.showNotifications();
-            log("Checking notifications","Checking notifications",true);
-            String expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+            String expecteMessage="";
+            switch (strArg1){
+                case "SCHEDULED PICKUP ACCEPTED":
+                    action.showNotifications();
+                    log("Checking notifications","Checking notifications",true);
+                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+                   break;
+
+                case "ACCEPT BUNGII QUESTION":
+                    action.showNotifications();
+                    log("Checking notifications","Checking notifications",true);
+                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+                    break;
+            }
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
                 Thread.sleep(50000);
@@ -323,8 +334,10 @@ public class BungiiSteps extends DriverBase {
             if (!isFound)
                 action.hideNotifications();
 
-            testStepAssert.isTrue(isFound, "I should able to on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
-        } catch (Exception e) {
+            testStepAssert.isTrue(isFound, "I should be able to click on notification for " + strArg1, "I clicked on notification for " + strArg1 + " with message" + expecteMessage, "I was not able to find notification with " + expecteMessage + " message");
+
+            //SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                   } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
@@ -801,6 +814,41 @@ public class BungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
+        try {
+            long initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long currentTime = System.currentTimeMillis() / 1000L;
+            long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
+            if(diffInMinutes>30){
+                //do nothing
+            }else{
+                // minimum wait of 30 mins
+                action.hardWaitWithSwipeUp(30-(int) diffInMinutes);
+
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I verify that text \"([^\"]*)\" is displayed$")
+    public void i_verify_that_text_something_is_displayed(String message) throws Throwable {
+        try{
+            switch(message)
+            {
+                case "You will have the ability to contact your drivers when the Bungii begins":
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ContactDriverMessage(),message,"Expected message is displayed.","Expected message is displayed.","Expected message is not displayed.");
+                    break;
+            }
+        }catch (Exception e){
+
+        }
+
     }
 
     @And("^Quit Bungii Driver app$")

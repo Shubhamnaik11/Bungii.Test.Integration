@@ -61,3 +61,16 @@ Feature: EstimateBungii
     When I add loading/unloading time of "30 mins"
     Then I should see "previous values" on Bungii estimate
     And I tap on "back" on Bungii estimate
+
+  @regression
+  Scenario: Estimate_AddPromoCode
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add loading/unloading time of "30 mins"
+    And I tap on "Promo Code" on Bungii estimate
+    And I add "valid" PromoCode
+    And I tap "Add" on Promos page
+    Then I should see "promocode added" on Bungii estimate page
+
+
+
