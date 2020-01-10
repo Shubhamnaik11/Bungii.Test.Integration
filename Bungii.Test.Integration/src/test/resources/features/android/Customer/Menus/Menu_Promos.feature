@@ -57,8 +57,6 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar stating referrals are only for new users" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-
-
   @regression
   Scenario: Menu_SaveMenu_OneOff code that has been used
     Given I am logged in as "existing" customer
@@ -75,6 +73,8 @@ Feature: Menu_SaveMoney
     And I add "referral" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar message stating referral already exists" on Save Money page
+    When I tap on the "i" icon
+    Then I should see "Promo code for first Bungii selected by default" message on the Promos page
     And I tap on "Menu" > "Logout" link
 
   @regression
