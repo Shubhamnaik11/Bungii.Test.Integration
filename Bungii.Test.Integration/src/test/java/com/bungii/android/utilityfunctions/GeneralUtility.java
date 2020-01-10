@@ -23,6 +23,7 @@ import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -33,6 +34,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -789,8 +791,12 @@ public class GeneralUtility extends DriverBase {
             action.click(otherAppsPage.Notification_StackDriverStarted());
             isDisplayed = true;}
 
-        }
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))){
+            action.click(otherAppsPage.Notification_StackDriverAccepted1());
+            isDisplayed = true;}
 
+        }
 
 
 
@@ -819,28 +825,40 @@ public class GeneralUtility extends DriverBase {
 
     public String getExpectedNotification(String identifier) {
         String text = "";
-        switch (identifier.toUpperCase()) {
-            case "ON DEMAND TRIP":
-                text = PropertyUtility.getMessage("driver.notification.ondemand");
-                break;
-            case "DRIVER CANCELLED":
-                text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
-                break;
-            case "DRIVER ENROUTE":
-                text = PropertyUtility.getMessage("customer.notification.driver.accepted");
-                break;
-            case "STACK TRIP":
-                text = PropertyUtility.getMessage("driver.notification.stack");
-                break;
-            case "CUSTOMER CANCEL STACK TRIP":
-                text = PropertyUtility.getMessage("driver.notification.stack.cancel");
-                break;
-            case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
-                break;
-            case "CUSTOMER -DRIVER STARTED STACK BUNGII":
-                text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
-                break;
+        try {
+
+            switch (identifier.toUpperCase()) {
+                case "ON DEMAND TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.ondemand");
+                    break;
+                case "DRIVER CANCELLED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "DRIVER ENROUTE":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted");
+                    break;
+                case "STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack");
+                    break;
+                case "CUSTOMER CANCEL STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+                    break;
+                case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+                    break;
+                case "CUSTOMER -DRIVER STARTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.started.stack");
+                    break;
+                case "SCHEDULED PICKUP ACCEPTED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
         return text;
     }

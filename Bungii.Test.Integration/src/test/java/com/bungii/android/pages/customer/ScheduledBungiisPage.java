@@ -27,5 +27,6 @@ public class ScheduledBungiisPage extends PageBase {
 
     public WebElement Text_BungiiStatus_01 () { return findElement("com.bungii.customer:id/scheduled_row_textview_status", LocatorType.Id); }
 
+    public WebElement Text_TripStatus() { return findElement("com.bungii.customer:id/item_my_bungii_tv_pickup_cost", LocatorType.Id);}
 
 }

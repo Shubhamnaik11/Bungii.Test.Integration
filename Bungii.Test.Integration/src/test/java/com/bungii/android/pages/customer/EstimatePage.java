@@ -137,6 +137,17 @@ public class EstimatePage extends PageBase {
     public WebElement Button_InfoTime () { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_datetime_container']/android.widget.ImageView", LocatorType.XPath); }
     public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
 
+
     public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
+
+    public WebElement Button_SystemCalenderOK() { return  findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Text_TimeHourPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeMinutesPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(1);}
+    public WebElement Text_TimeMeridian() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(2);}
+    public WebElement Button_OKOnTimePicker(){ return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id);}
+    public WebElement Text_Month() {return findElement("android:id/date_picker_month", LocatorType.Id);}
+    public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
+    public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
+
 
 }

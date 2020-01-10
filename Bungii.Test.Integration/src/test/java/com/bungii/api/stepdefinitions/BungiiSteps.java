@@ -78,11 +78,28 @@ public String getDriverPhone(String driverName)
         case "Brad Hilton":
             phone = PropertyUtility.getDataProperties("web.valid.driver2.phone");
             break;
+
+        case "Testdrivertywd_appleks_ra_four Kent":
+            phone = PropertyUtility.getDataProperties("android.valid.driver1.phone");
+            break;
+
+        case "Testdrivertywd_appleks_rathree Test":
+            phone = PropertyUtility.getDataProperties("android.valid.driver2.phone");
+            break;
+
+        case "Testdrivertywd_appleks_a_vic Klumm":
+            phone = PropertyUtility.getDataProperties("android.valid.driver3.phone");
+            break;
+
         case "Testdrivertywd_appledv_b_matt Stark_dvOnE":
             phone = PropertyUtility.getDataProperties("denver.driver.phone");
             break;
         case "Testdrivertywd_appledv_b_seni Stark_dvThree":
             phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+            break;
+
+        case "Testdrivertywd_appleks_ra_five Test":
+            phone=PropertyUtility.getDataProperties("valid.driver.kansas.phone");
             break;
     }
 
@@ -461,7 +478,7 @@ public String getDriverPhone(String driverName)
             //request Bungii
             coreServices.validatePickupRequest(custAccessToken, geofence);
             String pickupRequest = coreServices.getPickupRequest(custAccessToken, numberOfDriver, geofence);
-            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest+scenarioLabel);
+            cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+scenarioLabel,pickupRequest);
             String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
             coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"+scenarioLabel), custAccessToken);
             if(bungiiType.equalsIgnoreCase("Solo Ondemand"))
@@ -803,7 +820,8 @@ public String getDriverPhone(String driverName)
                     driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
-                }else {
+                }
+                else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
                     custPassword = PropertyUtility.getDataProperties("customer_generic.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));

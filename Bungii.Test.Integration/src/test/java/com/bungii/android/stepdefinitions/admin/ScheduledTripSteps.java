@@ -134,6 +134,51 @@ public class ScheduledTripSteps extends DriverBase {
 
 	}
 
+	@Then("^I verify status and researches Bungii with following details$")
+	public void i_researches_bungii_with_following_details(DataTable cancelDetails)  {
+		try {
+			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
+			String label = "_"+data.get("label"), status_of_trip = data.get("Status of Trip");
+			Map<String, String> tripDetails = new HashMap<String, String>();
+			String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER"+label);
+			String tripDistance = (String)  cucumberContextManager.getFeatureContextContext("BUNGII_DISTANCE"+label);
+			String bungiiTime = (String)  cucumberContextManager.getFeatureContextContext("BUNGII_TIME"+label);
+			tripDetails.put("CUSTOMER", custName);
+
+			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+			//On admin panel CST time use to show
+			//	getPortalTime("Aug 09, 06:15 AM CDT");
+			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
+			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
+			tripDetails.put("BUNGII_DISTANCE", tripDistance);
+
+
+			int rowNumber = getTripRowNumber(tripDetails);
+			// it takes max 2.5 mins to appear
+			for (int i = 0; i < 5 && rowNumber == 999; i++) {
+				Thread.sleep(30000);
+				SetupManager.getDriver().navigate().refresh();
+				scheduledTripsPage.waitForPageLoad();
+				rowNumber = getTripRowNumber(tripDetails);
+			}
+			verifyTripStatus(tripDetails,status_of_trip);
+			researchBungii(tripDetails);
+			String pickupRequest=utility.getPickupRef((String) cucumberContextManager.getFeatureContextContext("CUSTOMER_PHONE"+label));
+			Thread.sleep(30000);
+			cucumberContextManager.setFeatureContextContext("PICKUP_REQUEST"+label,pickupRequest);
+
+			log( "I should able to cancel bungii", "I was able to cancel bungii",
+					true);
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}
+
+	}
+
 	/**
 	 * Got to trip details from list of scheduled list
 	 * @param tripDetails customer infomation
@@ -230,5 +275,37 @@ public class ScheduledTripSteps extends DriverBase {
 			error("Step  Should be successful",
 					"Error performing step,Please check logs for more details", true);
 		}
+	}
+
+	/**
+	 * Find bungii and research it
+	 * @param tripDetails Trip information
+	 */
+	public void researchBungii(Map<String,String> tripDetails){
+		int rowNumber =getTripRowNumber(tripDetails);
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		WebElement editButton;
+		if(rowNumber==0){
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
+		}else
+			//vishal[1403] : Updated xpath
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+		editButton.click();
+		action.click(scheduledTripsPage.Button_Research());
+		scheduledTripsPage.waitForPageLoad();
+	}
+
+	/**
+	 * Find bungii and  verify status
+	 * @param tripDetails Trip information
+	 */
+	public void verifyTripStatus(Map<String,String> tripDetails,String status){
+		int rowNumber =getTripRowNumber(tripDetails);
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		WebElement tripStatus;
+
+		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[9]"));
+		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 }
