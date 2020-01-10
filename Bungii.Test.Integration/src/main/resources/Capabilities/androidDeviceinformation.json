@@ -7,7 +7,7 @@
     "platformVersion": "5.0",
     "noReset": true,
     "newCommandTimeout": "9000",
-    "autoWebView": true, 
+    "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8100,
@@ -34,14 +34,14 @@
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
     "deviceName": "Moto G",
-    "platformVersion": "5.1",
+    "platformVersion": "5.0.2",
     "noReset": true,
     "newCommandTimeout": "1500",
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8110,
-    "udid": "TA93401OLE"
+    "udid": "TA93402GOQ"
   },
   "extra2": {
     "platformName": "android",
