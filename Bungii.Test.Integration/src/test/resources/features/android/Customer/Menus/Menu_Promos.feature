@@ -104,3 +104,23 @@ Feature: Menu_SaveMoney
     And I tap "Share on Twitter" on Invite page
     Then I should see post "on Twitter in browser"
     And I Switch to "customer" application on "same" devices
+
+  @regression
+  Scenario: PromoCode_Unused_UponCancellation
+    Given I am on customer Log in page
+    When I am logged in as "valid" customer
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I tap on "Promo Code" on Bungii estimate
+    And I add "valid" PromoCode
+    And I tap "Add" on Promos page
+    And I select the added promo code
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+    When I tap on "Cancel during search" on Bungii estimate
+    Then for a Bungii I should see "Bungii Home page with locations"
+    When I tap on "Menu" > "Promos" link
+    Then I should see the unused promo code

@@ -263,4 +263,18 @@ public class PromosSteps extends DriverBase {
         Thread.sleep(3000);
         action.click(promoPage.PromoCode_R0D1());
     }
+
+    @Then("^I should see the unused promo code$")
+    public void i_should_see_the_unused_promo_code() throws Throwable {
+        testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+
+    }
+
+    @And("^I select the added promo code$")
+    public void i_select_the_added_promo_code() throws Throwable {
+        Thread.sleep(3000);
+        action.click(promoPage.PromoCode_R0D1());
+    }
+
+
 }
