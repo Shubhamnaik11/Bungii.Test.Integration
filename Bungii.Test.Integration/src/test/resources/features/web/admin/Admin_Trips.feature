@@ -139,7 +139,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Accepted  |
     When I click on "Close" icon
-    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
     And I click on "Submit" button
@@ -148,7 +148,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Admin Cancelled |
-    Then The first time promo code should get released
+    And The first time promo code should get released
 
 
   @sanity
