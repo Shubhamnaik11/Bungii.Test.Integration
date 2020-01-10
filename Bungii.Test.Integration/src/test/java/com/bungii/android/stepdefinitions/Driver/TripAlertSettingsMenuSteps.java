@@ -1,6 +1,8 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.PromosPage;
+import com.bungii.android.pages.customer.ScheduledBungiisPage;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -20,6 +22,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage= new TripAlertSettingsPage();
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
+    PromosPage promosPage=new PromosPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -93,6 +97,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
             switch (Name) {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
+                    break;
+
+                case "SAVE MONEY":
+                    action.click(scheduledBungiisPage.Button_SaveMoney());
+                    break;
+
+                case "GET MORE MONEY":
+                    action.click(promosPage.Button_GetMoreMoney());
                     break;
             }
         }
