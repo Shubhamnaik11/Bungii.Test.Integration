@@ -41,6 +41,8 @@ public class CommonSteps extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     HomePage homePage=new HomePage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
+    DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -394,9 +396,6 @@ public class CommonSteps extends DriverBase {
     @Then("^user is alerted for \"([^\"]*)\"$")
     public void user_is_alerted_for_something(String key) {
         try {
-            //action.waitForAlert();
-            if (!action.isAlertPresent())
-                action.waitForAlert();
             String expectedText = "";
             switch (key.toUpperCase()) {
                 case "ALREADY SCHEDULED BUNGII":
@@ -478,9 +477,9 @@ public class CommonSteps extends DriverBase {
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+            String alertText = driverNotAvailablePage.Alert_ConfirmRequestMessage().getText();
             testStepVerify.isEquals(alertText, expectedText);
-            SetupManager.getDriver().switchTo().alert().accept();
+            action.click(bungiiDetailsPage.Button_Yes());
             Thread.sleep(1000);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

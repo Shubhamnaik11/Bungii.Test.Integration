@@ -143,18 +143,6 @@ public class NotificationSteps extends DriverBase {
         return bundleID;
     }
 
-    /**
-     * Get all notification list,
-     * @return List of all notifications
-     */
-    public List<String> getNotifcationList() {
-        List<String> notificationList = new ArrayList<String>();
-        List<WebElement> elements = notificationPage.Cell_Notification();
-        for (WebElement notifcation : elements) {
-            notificationList.add(notifcation.getAttribute("label"));
-        }
-        return notificationList;
-    }
 
     /**
      * Click notification
@@ -196,55 +184,6 @@ public class NotificationSteps extends DriverBase {
 
     }
 
-    /**
-     * Check if given notification is displayed
-     * @param application Application name of which notification is to checked
-     * @param Message Notification text
-     * @return Did we find notification text or not
-     */
-    public boolean checkNotification(String application, String Message) {
-        List<String> notificationList = getNotifcationList();
-        boolean isFound = false;
 
-        for (String notification : notificationList) {
-            String[] info = notification.split(",", 3);
 
-            if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
-                isFound = true;
-                break;
-            }
-        }
-        return isFound;
-    }
-
-    public boolean clearAllNotifcation() {
-        boolean cleared = false;
-        //click on clear button on notification page
-        List<WebElement> clearButtons = notificationPage.Button_NotificationClear();
-        for (WebElement clearButton : clearButtons) {
-            action.click(clearButton);
-            action.click(notificationPage.Button_NotificationClearConfirm(true));
-            cleared = true;
-        }
-
-        List<WebElement> elements = notificationPage.Cell_Notification();
-
-        for (WebElement notifcation : elements) {
-            String notificationText = notifcation.getAttribute("label");
-            logger.detail("Cleared notification :" + notificationText);
-
-            action.swipeLeft(notifcation);
-            if (notifcation.isDisplayed())
-                action.swipeLeft(notifcation);
-            cleared = true;
-
-        }
-        //minimum 3 notification are shown on all iOS screen , If earlier notification had  more than 3 notification then only search for notification agiain . This will save time .
-        if(elements.size()>3) {
-            while (notificationPage.Cell_Notification().size() > 0)
-                clearAllNotifcation();
-        }
-        return cleared;
-
-    }
 }

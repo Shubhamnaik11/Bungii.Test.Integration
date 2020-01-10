@@ -254,15 +254,16 @@ public class CoreServices extends DriverBase {
             JsonPath jsonPathEvaluator = response.jsonPath();
 
             ApiHelper.genericResponseValidation(response);
-            cucumberContextManager.setScenarioContext("", "NOW");
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
             String bungiiDistance="";
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+           /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
                 bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
-            else
+            else*/
                 bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
+                String truncValue = new DecimalFormat("#.00").format(jsonPathEvaluator.get("Estimate.Cost"));
 
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
-            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "$" + jsonPathEvaluator.get("Estimate.Cost"));
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());

@@ -339,7 +339,7 @@ Feature: SoloScheduled
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "SCHEDULED BUNGIIS" link
-    #Then The status on "MY BUNGIIS" should be displayed as "estimated cost"
+    Then The status on "MY BUNGIIS" should be displayed as "estimated cost"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver2 name"
