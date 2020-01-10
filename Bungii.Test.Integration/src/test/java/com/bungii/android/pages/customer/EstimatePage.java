@@ -137,6 +137,6 @@ public class EstimatePage extends PageBase {
     public WebElement Button_InfoTime () { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_datetime_container']/android.widget.ImageView", LocatorType.XPath); }
     public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
 
-    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/date_time_picker_textview_selectedtime", LocatorType.Id);}
+    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
 
 }

@@ -90,7 +90,6 @@ Feature: EstimateBungii
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "MY BUNGIIS" link
-    And I select already scheduled bungii
     Then I verify that selected time is next available time
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |

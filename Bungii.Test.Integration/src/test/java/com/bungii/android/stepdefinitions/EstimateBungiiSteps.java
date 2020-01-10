@@ -24,6 +24,7 @@ import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.bungii.SetupManager.getDriver;
@@ -788,6 +789,7 @@ public class EstimateBungiiSteps extends DriverBase {
     public void i_verify_that_selected_time_is_next_available_time(){
         try{
         String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
         String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
         testStepVerify.isEquals(time, actualtime);
         }
@@ -797,6 +799,27 @@ public class EstimateBungiiSteps extends DriverBase {
                     true);
         }
 
+    }
+
+    public String formatDate(String date,int position){
+        Calendar calOne = Calendar.getInstance();
+        int year = calOne.get(Calendar.YEAR);
+        String stringToBeInserted=year+" - ";
+
+        // Create a new string
+        String newDate = new String();
+
+        for (int i = 0; i < date.length(); i++) {
+            if (i == position) {
+                // Insert the string to be inserted
+                // into the new string
+                newDate += stringToBeInserted;
+            }
+            // Insert the original string character
+            // into the new string
+            newDate += date.charAt(i);
+        }
+        return newDate;
     }
 
 }
