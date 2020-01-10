@@ -6,7 +6,7 @@ import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -61,7 +61,7 @@ public class GeneralUtility extends DriverBase {
     DriverHomePage driverHomePage = new DriverHomePage();
     BungiiCompletePage customerBungiiCompletePage = new BungiiCompletePage();
     MenuPage Page_Menu = new MenuPage();
-    com.bungii.android.pages.otherApps.OtherAppsPage otherAppsPage = new com.bungii.android.pages.otherApps.OtherAppsPage();
+    OtherAppsPage otherAppsPage = new OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
     AccountPage cutomerAccountPage = new AccountPage();
     PaymentPage paymentPage = new PaymentPage();
@@ -457,9 +457,6 @@ public class GeneralUtility extends DriverBase {
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
                 break;
-            case "MY BUNGIIS":
-                action.click(homePage.Button_NavSchBungii());
-                break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
                 break;
@@ -779,85 +776,70 @@ public class GeneralUtility extends DriverBase {
     public boolean clickOnNofitication(String appName, String notificationMessage) {
         boolean isDisplayed = false;
         try {
-
-            //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
-            //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
-            //  System.out.println(SetupManager.getDriver().getPageSource());
-
             //FIX FOR APPIUM 1.42
             if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
                     action.click(otherAppsPage.Notification_OnDemand());
                     isDisplayed = true;
                 }
-            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack"))) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_Stack(true))) {
                     action.click(otherAppsPage.Notification_Stack());
                     isDisplayed = true;
                 }
 
-            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel"))) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))) {
                     action.click(otherAppsPage.Notification_StackCustomerCancel());
                     isDisplayed = true;
                 }
 
-            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack"))) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))) {
                     action.click(otherAppsPage.Notification_StackDriverAccepted());
                     isDisplayed = true;
                 }
 
-            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack"))) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))) {
                     action.click(otherAppsPage.Notification_StackDriverStarted());
                     isDisplayed = true;
                 }
 
-            } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack"))) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack"))) {
                 if (action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))) {
                     action.click(otherAppsPage.Notification_StackDriverAccepted1());
                     isDisplayed = true;
                 }
-
-            } else if (notificationMessage.equalsIgnoreCase(notificationMessage)) {
+            }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.scheduled.urgent"))) {
+                Thread.sleep(10000);
+                if (action.isElementPresent(otherAppsPage.Notification_ScheduledUrgent(true))) {
+                    action.click(otherAppsPage.Notification_ScheduledUrgent());
+                    isDisplayed = true;
+                }
+            }
+            else if (notificationMessage.equalsIgnoreCase(notificationMessage)) {
                 try {
                     Thread.sleep(12000);
                     if (action.isElementPresent(sbs.getLocatorForNotification(notificationMessage)) == true) {
                         action.click(sbs.getLocatorForNotification(notificationMessage));
                         isDisplayed = true;
                     }
-                }
-               catch (Exception e) {
-                   logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-                   error("Step  Should be successful", "Error performing step, Please check logs for more details",
-                           true);
-                }
-
-            }
-
-
-
-/*
-        for (int i = 0; i < notificationHeader.size(); i++) {
-            if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
-                String currentNotificationText = notificationText.get(i).getText();
-                if (currentNotificationText.equalsIgnoreCase(notificationMessage)) {
-                    //FIX FOR APPIUM 1.42
-                    action.click(otherAppsPage.Notification_OnDemand());
-               //     int xAxisStartPoint = otherAppsPage.Notification_OnDemand().getLocation().getX()+5 ;
-          //   //       int yAxis = otherAppsPage.Notification_OnDemand().getLocation().getY() -5;
-              //      action.click(new Point(xAxisStartPoint, yAxis));
-
-                    //   SetupManager.getDriver().findElement(By.xpath("//*[@text=\"You’re receiving a Bungii request.\"]")).click();
-                   // action.click(notificationText.get(i));
-                    isDisplayed = true;
-                    break;
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful", "Error performing step, Please check logs for more details",
+                            true);
                 }
             }
 
-        }*/
-        }
+                }
+
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -905,6 +887,10 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "SCHEDULED PICKUP ACCEPTED":
                     text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
+                    break;
+
+                case "URGENT SCHEDULED PICKUP AVAILABLE":
+                    text = PropertyUtility.getMessage("driver.notification.scheduled.urgent");
                     break;
 
                 case "SCHEDULED PICKUP AVAILABLE":

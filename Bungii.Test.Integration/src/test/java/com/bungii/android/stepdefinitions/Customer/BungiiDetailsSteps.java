@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiDetailsPage;
+import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -23,6 +24,7 @@ public class BungiiDetailsSteps extends DriverBase {
     ActionManager action = new ActionManager();
     BungiiDetailsPage bungiiDetailsPage ;
     GeneralUtility utility=new GeneralUtility();
+    BungiiRequest bungiiRequest=new BungiiRequest();
 
     public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage){
         this.bungiiDetailsPage=bungiiDetailsPage;
@@ -101,4 +103,19 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @When("^I start selected Bungii$")
+    public void i_start_selected_bungii() {
+        try {
+            if(action.isAlertPresent())
+                SetupManager.getDriver().switchTo().alert().accept();
+
+            action.click(bungiiRequest.Button_StartBungii());
+            log("I start selected Bungii ", "I started selected Bungii", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 }

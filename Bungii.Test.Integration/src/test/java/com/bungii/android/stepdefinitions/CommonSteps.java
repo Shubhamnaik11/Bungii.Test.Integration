@@ -486,6 +486,9 @@ public class CommonSteps extends DriverBase {
                 case "PICKUP REQUEST NO LONGER AVAILABLE":
                     expectedText=PropertyUtility.getMessage("driver.request.unavailable");
                     break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -516,6 +519,9 @@ public class CommonSteps extends DriverBase {
                 case "Please install a browser in order to access this link.":
                     expectedMessage=PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -630,6 +636,11 @@ public class CommonSteps extends DriverBase {
         String teletTime=dbUtility.getTELETfromDb(custRef);
 
         cucumberContextManager.setScenarioContext("TELET",teletTime);
+    }
+
+    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
     }
 
     public String[] bungiiTimeForScroll(Date date) {

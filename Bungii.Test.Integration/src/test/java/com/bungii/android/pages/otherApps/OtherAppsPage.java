@@ -53,9 +53,11 @@ public class OtherAppsPage extends PageBase {
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
    public WebElement Button_NotificationClear(){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath);}
-   public List<WebElement> Cell_Notification() { return findElements("\tcom.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
+   public List<WebElement> Cell_Notification() { return findElements("com.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
    public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
 
    public WebElement Notification_DriverEnroute(){return findElement("//android.widget.TextView[@text='Your Bungii driver(s) are en route!']", LocatorType.XPath);}
    public WebElement Notification_ReceiveBungiiRequest() {return findElement("//*[@resource-id='android:id/text' and @text='You’re receiving a Bungii request.']",LocatorType.XPath);}
+
+   public WebElement Notification_ScheduledUrgent(boolean... ignoreException) { return findElement("//*[@text=\"URGENT: A Bungii driver had an emergency & needs coverage for their trip. Please accept if available.\"]", LocatorType.XPath,ignoreException); }
 }

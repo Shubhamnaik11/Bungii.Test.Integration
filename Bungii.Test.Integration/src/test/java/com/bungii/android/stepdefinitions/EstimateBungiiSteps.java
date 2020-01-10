@@ -477,6 +477,16 @@ public class EstimateBungiiSteps extends DriverBase {
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
                     break;
+
+                case "kansas pickup and dropoff locations greater than 30mins":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.less.30"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.30"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

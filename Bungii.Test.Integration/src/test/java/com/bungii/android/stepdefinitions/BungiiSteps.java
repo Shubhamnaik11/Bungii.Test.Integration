@@ -6,7 +6,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -37,7 +37,7 @@ public class BungiiSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
     DriverHomePage Page_DriverHome = new DriverHomePage();
-    com.bungii.android.pages.customer.HomePage customerHomePage = new com.bungii.android.pages.customer.HomePage();
+    HomePage customerHomePage = new HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
@@ -333,6 +333,59 @@ public class BungiiSteps extends DriverBase {
                    } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should not get notification for \"([^\"]*)\" for \"([^\"]*)\"$")
+    public void i_should_not_get_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
+
+        //Thread.sleep(20000);
+        Thread.sleep(10000);
+        try {
+            String expecteMessage="";
+            String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
+            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+
+            action.showNotifications();
+
+            log("Checking notifications", "Checking notifications", true);
+            expecteMessage = utility.getExpectedNotification(expectedNotification.toUpperCase());
+            //	logger.detail(SetupManager.getDriver().getPageSource());
+            boolean notificationClick = utility.clickOnNofitication("Bungii", expecteMessage);
+            if (!notificationClick) {
+                Thread.sleep(80000);
+                notificationClick = utility.clickOnNofitication("Bungii", expecteMessage);
+
+            }
+            if (notificationClick) {
+                fail("I should not get notification for " + expectedNotification, "I should not get notification for " + expecteMessage, true);
+            } else {
+                pass("I should not able to click notification for" + expectedNotification, "I was not able t notifications with text" + expecteMessage, true);
+                action.hideNotifications();
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
+
+    @Then("^Notification for \"([^\"]*)\" for \"([^\"]*)\" should be displayed$")
+    public void notification_for_something_for_something_should_be_displayed(String actor, String actionToPerfrom) {
+        try {
+            action.showNotifications();
+
+            String expectedMessage = utility.getExpectedNotification(actionToPerfrom);
+            boolean isDisplayed = true;
+                    //action.isElementPresent();
+
+            testStepVerify.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
+            action.hideNotifications();
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
         }
     }
 
@@ -843,6 +896,8 @@ public class BungiiSteps extends DriverBase {
         }
 
     }
+
+
 
     @And("^Quit Bungii Driver app$")
     public void quitBungiiDriverApp() throws Throwable {

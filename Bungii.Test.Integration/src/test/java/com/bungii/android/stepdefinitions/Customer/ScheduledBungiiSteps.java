@@ -2,9 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiDetailsPage;
-import com.bungii.android.pages.customer.EstimatePage;
-import com.bungii.android.pages.customer.HomePage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.stepdefinitions.CommonSteps;

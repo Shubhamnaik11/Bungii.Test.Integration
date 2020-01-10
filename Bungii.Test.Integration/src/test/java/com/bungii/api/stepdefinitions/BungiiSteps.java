@@ -376,7 +376,7 @@ public String getDriverPhone(String driverName)
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String customerLabel="";
-            try {customerLabel = dataMap.get("Customer label").trim();   logger.detail("customerLabel is  specified as input"+customerLabel);} catch (Exception e) { }
+            try {customerLabel = dataMap.get("Customer label").trim();   logger.detail("customerLabel is specified as input"+customerLabel);} catch (Exception e) { }
 
             String bungiiTime = dataMap.get("Bungii Time").trim();
             String customer = dataMap.get("Customer Phone").trim();

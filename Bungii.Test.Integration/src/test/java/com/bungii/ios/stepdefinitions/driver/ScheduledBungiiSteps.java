@@ -38,11 +38,11 @@ public class ScheduledBungiiSteps {
 
     public WebElement getLocatorForNotification(String notificationMessage) {
 		WebElement element;
-		element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
+		element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath,true);
 
-		if (action.isElementPresent(element) == true) {
+		/*if (action.isElementPresent(element) == true) {
 			element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath);
-		}
+		}*/
 
 		return  element;
     }

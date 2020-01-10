@@ -55,6 +55,10 @@ public class NotificationSteps extends DriverBase {
                     action.click(otherAppsPage.Notification_ReceiveBungiiRequest());
                     notificationClick=true;
                     break;
+
+                case "URGENT SCHEDULED PICKUP AVAILABLE":
+                    action.click(otherAppsPage.Notification_ScheduledUrgent());
+                    break;
             }
 
 
@@ -89,7 +93,9 @@ public class NotificationSteps extends DriverBase {
             case "SCHEDULED PICKUP ACCEPTED":
                 text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
                 break;
-
+            case "URGENT SCHEDULED PICKUP AVAILABLE":
+                text = PropertyUtility.getMessage("driver.notification.scheduled.urgent");
+                break;
         }
         return text;
     }
