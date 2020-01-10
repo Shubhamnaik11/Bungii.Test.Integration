@@ -92,5 +92,9 @@ Feature: EstimateBungii
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I verify that selected time is next available time
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
 
 
