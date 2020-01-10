@@ -2,15 +2,13 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiDetailsPage;
 import com.bungii.android.pages.customer.DriverNotAvailablePage;
-import com.bungii.android.pages.customer.EstimatePage;
 
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.DbUtility;
 
-import com.bungii.android.pages.customer.HomePage;
-
+import com.bungii.android.pages.customer.*;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -42,15 +40,15 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
-    com.bungii.android.pages.customer.HomePage homePage=new com.bungii.android.pages.customer.HomePage();
     DriverHomePage driverHomePage= new DriverHomePage();
+
+    HomePage homePage=new HomePage();
+    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     private DbUtility dbUtility = new DbUtility();
 
-    HomePage homePage=new HomePage();
-    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -362,13 +360,12 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = utility.getAlertMessage();
+            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
             if(actualMessage.equals(""))
             {
                 actualMessage= action.getText(driverHomePage.Alert_NewBungii());
             }
-            String expectedMessage;
-            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+
             String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
@@ -408,9 +405,6 @@ public class CommonSteps extends DriverBase {
     @Then("^user is alerted for \"([^\"]*)\"$")
     public void user_is_alerted_for_something(String key) {
         try {
-            /*action.waitForAlert();
-            if (!action.isAlertPresent())
-                action.waitForAlert();*/
             String expectedText = "";
             switch (key.toUpperCase()) {
                 case "ALREADY SCHEDULED BUNGII":
@@ -514,6 +508,7 @@ public class CommonSteps extends DriverBase {
             switch (message.toUpperCase()) {
                     case "OUTSIDE BUISSNESS HOUR":
                     expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
+
                 case "DELETE WARNING":
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
@@ -607,8 +602,12 @@ public class CommonSteps extends DriverBase {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             driver.navigate().back();
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-        catch (Exception e) {
+    }
     @And("^I click \"([^\"]*)\" on Confirmation Popup$")
     public void i_click_something_on_confirmation_popup(String option) throws Throwable {
         try {

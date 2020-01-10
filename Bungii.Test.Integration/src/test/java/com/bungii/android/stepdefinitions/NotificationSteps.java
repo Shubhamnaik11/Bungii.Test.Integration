@@ -1,7 +1,7 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -154,7 +154,6 @@ public class NotificationSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
-
         }
     }
 
@@ -184,6 +183,5 @@ public class NotificationSteps extends DriverBase {
         return cleared;
 
     }
-
 
 }
