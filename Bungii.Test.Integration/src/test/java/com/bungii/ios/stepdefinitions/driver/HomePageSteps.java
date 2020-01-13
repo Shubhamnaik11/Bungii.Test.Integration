@@ -314,7 +314,7 @@ public class HomePageSteps extends DriverBase {
                     break;
                 case "rating":
                     String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
-
+                    cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
                     BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
                     int ratingInt = bigDecimal.intValue();
                     BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));

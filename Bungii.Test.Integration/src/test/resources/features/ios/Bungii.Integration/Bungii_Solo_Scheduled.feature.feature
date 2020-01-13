@@ -564,7 +564,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
-  @regression2
+  @regression22
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -574,7 +574,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Log In" button on "Log In" screen
     And I Select "Home" from Customer App menu
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "2" mins
+    Then I wait for "3" mins
 
     When I Switch to "driver" application on "same" devices
     And I open new "Chrome" browser for "ADMIN"
@@ -582,8 +582,8 @@ Feature: To Test Solo - Scheduling Bungii
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I verify status and researches Bungii with following details
-      | label                | Status of Trip                 |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found|
+      | label                | Status of Trip      |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -1605,3 +1605,35 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:Check if driver rating is shown to customer on Bungii Details page when driver accepts scheduled Bungii
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+    And I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I Select "MY BUNGIIS" from Customer App menu
+    And I select already scheduled bungii
+    Then ratting should be correctly displayed on Bungii detail page
+
+  @regression1
+  Scenario: Check if customer is allowed to rate driver for duo trip
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state      | driver2 state      |
+      | Bungii Completed    | Bungii Completed     |
+    When I Switch to "customer" application on "same" devices
+   # And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3"rd Ratting star for Driver 1
+    Then "3" starts should be highlighted
+

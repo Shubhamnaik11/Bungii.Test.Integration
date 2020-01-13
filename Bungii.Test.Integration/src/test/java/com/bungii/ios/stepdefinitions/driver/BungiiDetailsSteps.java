@@ -17,17 +17,19 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class BungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(SignupSteps.class);
     ActionManager action = new ActionManager();
-    private BungiiDetailsPage bungiiDetailsPage;
     GeneralUtility utility = new GeneralUtility();
+    private BungiiDetailsPage bungiiDetailsPage;
 
     public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage) {
         this.bungiiDetailsPage = bungiiDetailsPage;
@@ -37,7 +39,7 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I start selected Bungii$")
     public void i_start_selected_bungii() {
         try {
-            if(action.isAlertPresent())
+            if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
 
             action.click(bungiiDetailsPage.Button_StartBungii());
@@ -47,10 +49,11 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @When("^I try to cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
-            if(action.isAlertPresent())
+            if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
 
             action.click(bungiiDetailsPage.Button_CancelBungii());
@@ -65,10 +68,10 @@ public class BungiiDetailsSteps extends DriverBase {
     public void i_wait_for_minimum_duration_for_bungii_start_time() {
         try {
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-        //    bungiiTime="Aug 09, 12:45 AM CDT";
+            //    bungiiTime="Aug 09, 12:45 AM CDT";
             int mininumWaitTime = Integer.parseInt(PropertyUtility.getProp("scheduled.min.start.time"));
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
-                String geofenceLabel=utility.getTimeZoneBasedOnGeofence().toUpperCase();
+                String geofenceLabel = utility.getTimeZoneBasedOnGeofence().toUpperCase();
 
                 DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
                 formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
@@ -83,30 +86,54 @@ public class BungiiDetailsSteps extends DriverBase {
                 if (duration > 0) {
                     diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
                     //1 min extra buffer
-                    diffInMinutes = diffInMinutes > 0 ? diffInMinutes+1 : 0;
+                    diffInMinutes = diffInMinutes > 0 ? diffInMinutes + 1 : 0;
 
                 } else {
                     diffInMinutes = 1;
                 }
-                action.hardWaitWithSwipeUp((int)diffInMinutes);
-                log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+" (with Extra buffer)", true);
+                action.hardWaitWithSwipeUp((int) diffInMinutes);
+                log("I wait for " + diffInMinutes + " Minutes for Bungii Start Time ", "I waited for " + diffInMinutes + " (with Extra buffer)", true);
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @Then("^I wait for \"([^\"]*)\" mins$")
     public void i_wait_for_something_mins(String strArg1) throws Throwable {
         action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
     }
+
+    @Then("^I wait for promoter job to run$")
+    public void i_wait_for_promoter_mins() throws Throwable {
+
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
+
+        calendar.set(Calendar.MINUTE, mnts + 30);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+
+
+        int wait = (15 - mod) + bufferTimeToStartTrip;
+        logger.detail("I wait for " + wait + " Minutes for Bungii Start Time ");
+
+        for (int i = 0; i <= wait; i++) {
+            SetupManager.getDriver().navigate().refresh();
+            Thread.sleep(60000);
+        }
+    }
+
     @When("^I wait for 1 hour for Bungii Schedule Time$")
     public void i_wait_for_one_hour_for_bungii_start_time() {
         try {
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
             int mininumWaitTime = 60;
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
-                String geofenceLabel=utility.getTimeZoneBasedOnGeofence().toUpperCase();
+                String geofenceLabel = utility.getTimeZoneBasedOnGeofence().toUpperCase();
 
                 DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
                 formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
@@ -121,34 +148,35 @@ public class BungiiDetailsSteps extends DriverBase {
                 if (duration > 0) {
                     diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
                     //1 min extra buffer
-                    diffInMinutes = diffInMinutes > 0 ? diffInMinutes+1 : 0;
+                    diffInMinutes = diffInMinutes > 0 ? diffInMinutes + 1 : 0;
 
                 } else {
                     diffInMinutes = 1;
                 }
-                action.hardWaitWithSwipeUp((int)diffInMinutes);
-                log("I wait for "+diffInMinutes+" Minutes for Bungii Start Time ", "I waited for "+diffInMinutes+" (with Extra buffer)", true);
+                action.hardWaitWithSwipeUp((int) diffInMinutes);
+                log("I wait for " + diffInMinutes + " Minutes for Bungii Start Time ", "I waited for " + diffInMinutes + " (with Extra buffer)", true);
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
         try {
             long initialTime;
-            if(strArg1.equalsIgnoreCase("current"))
+            if (strArg1.equalsIgnoreCase("current"))
                 initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
             else
                 initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
-            if(diffInMinutes>15){
+            if (diffInMinutes > 15) {
                 //do nothing
-            }else{
+            } else {
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(15-(int) diffInMinutes);
+                action.hardWaitWithSwipeUp(15 - (int) diffInMinutes);
 
             }
 
@@ -157,6 +185,7 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
     @And("^I wait for Minimum duration for current Bungii to be T-2 hours$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_t_minus2() {
         try {
@@ -178,10 +207,10 @@ public class BungiiDetailsSteps extends DriverBase {
 
             diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
             //minimum 1  min wait
-            diffInMinutes=diffInMinutes+1;
-            if(diffInMinutes>0){
-                action.hardWaitWithSwipeUp((int)diffInMinutes);
-            }else{
+            diffInMinutes = diffInMinutes + 1;
+            if (diffInMinutes > 0) {
+                action.hardWaitWithSwipeUp((int) diffInMinutes);
+            } else {
                 // minimum wait of 30 mins
 
             }
@@ -195,41 +224,46 @@ public class BungiiDetailsSteps extends DriverBase {
     @And("^\"([^\"]*)\" should be displayed on Bungii Details screen$")
     public void something_should_be_displayed_on_bungii_request_screen(String option) throws Throwable {
         try {
-            String expectedPickUpLocationLineOne="",expectedPickUpLocationLineTwo="",expectedDropLocationLineOne="",expectedDropLocationLineTwo="",expectedTripNoOfDriver="";
-            String pickUpLocationLine1="",pickUpLocationLine2="",dropUpLocationLine1="",dropUpLocationLine2="",estimate="",truncValue="";
-            double flestimate,transactionFee,estimatedDriverCut;
+            String expectedPickUpLocationLineOne = "", expectedPickUpLocationLineTwo = "", expectedDropLocationLineOne = "", expectedDropLocationLineTwo = "", expectedTripNoOfDriver = "";
+            String pickUpLocationLine1 = "", pickUpLocationLine2 = "", dropUpLocationLine1 = "", dropUpLocationLine2 = "", estimate = "", truncValue = "";
+            double flestimate, transactionFee, estimatedDriverCut;
 
             switch (option) {
                 case "correct duo scheduled trip details":
                     logger.detail(SetupManager.getDriver().getPageSource());
-                    expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
-                    expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")); expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
-                    pickUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineOne());pickUpLocationLine2= action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineTwo());
-                    dropUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineOne());dropUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineTwo());
+                    expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+                    expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+                    expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
+                    pickUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineOne());
+                    pickUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Pickup_LineTwo());
+                    dropUpLocationLine1 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineOne());
+                    dropUpLocationLine2 = action.getNameAttribute(bungiiDetailsPage.TextBox_Drop_LineTwo());
                     testStepVerify.isTrue(pickUpLocationLine1.equals(expectedPickUpLocationLineOne) && pickUpLocationLine2.equals(expectedPickUpLocationLineTwo),
 
-                            "Pick up address should be " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocationLine1+pickUpLocationLine2,
-                            "Expected pickup address is " + expectedPickUpLocationLineOne +expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocationLine1+pickUpLocationLine2);
-                    testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) &&  dropUpLocationLine2.equals(expectedDropLocationLineTwo),
+                            "Pick up address should be " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo, "Pick up address is " + pickUpLocationLine1 + pickUpLocationLine2,
+                            "Expected pickup address is " + expectedPickUpLocationLineOne + expectedPickUpLocationLineTwo + ", but actual is" + pickUpLocationLine1 + pickUpLocationLine2);
+                    testStepVerify.isTrue(dropUpLocationLine1.equals(expectedDropLocationLineOne) && dropUpLocationLine2.equals(expectedDropLocationLineTwo),
 
-                            "Drop address should be " + expectedDropLocationLineOne +expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 +dropUpLocationLine2,
-                            "Expected Drop address is " + expectedDropLocationLineOne +expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 +dropUpLocationLine2);
-                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_EstimatedEarningTag(),"Earning tag should be displayed");
+                            "Drop address should be " + expectedDropLocationLineOne + expectedDropLocationLineTwo, "Drop address is " + dropUpLocationLine1 + dropUpLocationLine2,
+                            "Expected Drop address is " + expectedDropLocationLineOne + expectedDropLocationLineTwo + ", but actual is" + dropUpLocationLine1 + dropUpLocationLine2);
+                    testStepVerify.isElementEnabled(bungiiDetailsPage.Text_EstimatedEarningTag(), "Earning tag should be displayed");
 
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    flestimate = Double.valueOf(estimate.replace("~$", "").trim());
                     //transaction fee different for solo and duo
-                    transactionFee=((flestimate*0.029*0.5)+0.3)*2;
-                    estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    transactionFee = ((flestimate * 0.029 * 0.5) + 0.3) * 2;
+                    estimatedDriverCut = (0.7 * flestimate) - transactionFee;
                     //divide by 2 for individual driver value
-                    truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(),"~$"+truncValue);
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(),((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(","," -"));
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(),"BUNGII DETAILS");
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(),"Type");
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(),"Bungii Duo");
+                    truncValue = new DecimalFormat("#.00").format(estimatedDriverCut / 2);
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(), "~$" + truncValue);
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " -"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "Bungii Duo");
 
                     break;
             }

@@ -44,6 +44,9 @@ public class DashBoardSteps extends DriverBase {
                 case "customers":
                     action.click(dashBoardPage.Button_Customers());
                     break;
+                case "drivers":
+                    action.click(dashBoardPage.Button_Drivers());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

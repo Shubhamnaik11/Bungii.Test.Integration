@@ -231,7 +231,7 @@ Feature: Create on demand bungii
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     Given I am on the "LOG IN" page
-    When I logged in Customer application using  "valid nashville" user
+    When I logged in Customer application using  "<User>" user
     And I Switch to "driver" application on "same" devices
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
@@ -293,12 +293,97 @@ Feature: Create on demand bungii
     And I select trip from trips
     Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
-      | Scenario      | Promo Code | User         | Expected Details           | Expected value in admin |
-      | fixed valid      | PROMO DOLLAR OFF  | no promocode | correct details with promo | promo    |
-      | Promo percentage | PROMO PERCENT OFF | no promocode | correct details with promo | promo    |
-      | valid one off | ONE OFF    | no promocode | correct details with promo | oneoff                  |
-   #   | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | no promocode | correct details with delivery promo |promoter|
+      | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
+      | fixed valid      | PROMO DOLLAR OFF  | valid nashville            | correct details with promo | promo                   |
+      | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
+      | valid one off    | ONE OFF           | valid nashville            | correct details with promo | oneoff                  |
+      | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
 
+  @regression22
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+    Given I am on the "LOG IN" page
+    When I logged in Customer application using  "<User>" user
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid nashville" driver
+    And I Select "HOME" from driver App menu
+    Then I change driver status to "Online"
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
+      | Solo   | Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    And I should be navigated to "PROMOS" screen
+    And I add "<Promo Code>" PromoCode
+    And I click "ADD" button on "PROMOS" screen
+    Then I should able to see expected promo code in available promo code
+    When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      |          |           |              | Now  | Default     |
+    And I request for bungii using Request Bungii Button
+    Then I should be navigated to "SEARCHING" screen
+
+    When I click on notification for "Driver" for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    Then ratting should be correctly displayed on Bungii accepted page
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I should be navigated to "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "<Expected Details>" on Bungii completed page
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+  #  Then I wait for "2" mins
+
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select trip from trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+    Examples:
+      | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
+      | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | valid nashville | correct details with delivery promo | promoter |
+
+  @regression
+  Scenario: Check if Driver rating is correctly shown on customer app when Bungii is in progress
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State   |
+      | nashville | UNLOADING ITEM |
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    Then ratting should be correctly displayed on Bungii progress page
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario:on demand with fb share
@@ -572,3 +657,4 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+

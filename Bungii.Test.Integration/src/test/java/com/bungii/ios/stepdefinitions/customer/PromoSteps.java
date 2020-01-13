@@ -64,6 +64,9 @@ public class PromoSteps extends DriverBase {
                 case "PROMOTER TYPE PROMO":
                     codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.promotor.off"));
                     break;
+                case "FIRST TIME":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.first.time"));
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

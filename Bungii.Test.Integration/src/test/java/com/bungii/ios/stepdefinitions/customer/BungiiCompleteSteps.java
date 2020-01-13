@@ -49,6 +49,21 @@ public class BungiiCompleteSteps extends DriverBase {
 					action.swipeUP();
 					verifyTripValue();
 					break;
+				case "correct rating detail for duo":
+					testStepVerify.isElementEnabled(bungiiCompletePage.Image_Profile1Placeholder()," Driver 1 image placeholder should be displayed"	);
+					testStepVerify.isElementEnabled(bungiiCompletePage.Image_Profile2Placeholder()," Driver 2 image placeholder should be displayed"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_GiveATip(),"Give a tip"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2GiveATip(),"Give a tip"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_RateDriver(),"Rate Your Driver"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2RateDriver(),"Rate Your Driver"	);
+					String driver1=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+					driver1=driver1.substring(0, driver1.indexOf(" ") + 2);
+					String driver2=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+					driver2=driver2.substring(0, driver2.indexOf(" ") + 2);
+
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver1Name(),driver1	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2Name(),driver2);
+					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
 					break;
@@ -60,6 +75,46 @@ public class BungiiCompleteSteps extends DriverBase {
 					true);
 		}
 	}
+	@When("^I select \"([^\"]*)\"rd Ratting star for Driver 1$")
+	public void i_select_somethingrd_ratting_star_for_driver_1(String strArg1) throws Throwable {
+		try {
+			List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
+			switch (strArg1) {
+				case "3":
+						action.clickMiddlePoint(star.get(3));
+						action.click(star.get(3));
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
+
+	@Then("^\"([^\"]*)\" starts should be highlighted$")
+	public void something_starts_should_be_highlighted(String strArg1) throws Throwable {
+        try {
+            List<WebElement> star= bungiiCompletePage.Button_Driver1Filled();
+            List<WebElement> unfilledStar= bungiiCompletePage.Button_Driver1Empty();
+            switch (strArg1) {
+                case "3":
+                    testStepVerify.isTrue(star.size()==3,strArg1+" starts are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size()==(5-Integer.parseInt(strArg1)),strArg1+" starts are displayed ");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }	}
 	/**
 	 * Verify Static texts on Bungii Completed page
 	 */
@@ -218,7 +273,7 @@ public class BungiiCompleteSteps extends DriverBase {
 			//give tip and fetch actual tip
 			giveTip(Integer.parseInt(tip));
 			String actualTip = bungiiCompletePage.Text_TipValue().getAttribute("value").replace("$","");
-			
+
 			giveRatting(Integer.parseInt(ratting));
 
 			switch (button.toUpperCase()) {

@@ -807,6 +807,12 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
+                case "valid nashville first time":
+                    userName = PropertyUtility.getDataProperties("nashville.common.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.common.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.common.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
                 case "valid denver":
                     userName = PropertyUtility.getDataProperties("denver.customer.phone");
                     password = PropertyUtility.getDataProperties("denver.customer.password");

@@ -6,10 +6,13 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.BungiiDetails;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -203,6 +206,38 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+    @Then("^ratting should be correctly displayed on Bungii detail page$")
+    public void ratting_should_be_correctly_displayed_on_bungii_accepted_page() throws Throwable {
+        try {
+            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+
+            String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
+            cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
+            int ratingInt = bigDecimal.intValue();
+            BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
+
+            System.out.println("ratingString: " + ratingString);
+            System.out.println("Integer Part: " + ratingInt);
+            System.out.println("Decimal Part: " + ratingDecimal);
+
+            bungiiDetails.WaitUntilElementIsDisplayed(By.xpath("//XCUIElementTypeButton[@name=\"rating filled star icon\"])"));
+
+            int filledStarCount = bungiiDetails.FilledStars().size();
+            int HalfFilledStarCount = bungiiDetails.HalfFilledStar().size();
+
+            testStepVerify.isEquals(filledStarCount, ratingInt);
+
+            if (ratingDecimal.doubleValue() >= 0.5) {
+                testStepVerify.isEquals(HalfFilledStarCount, 1);
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     /**

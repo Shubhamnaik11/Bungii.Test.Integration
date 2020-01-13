@@ -41,4 +41,22 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Button_Driver2Plus() {return findElements("+", PageBase.LocatorType.AccessibilityId).get(1); }
 	public WebElement Button_Driver2Minus() {return findElements("-", PageBase.LocatorType.AccessibilityId).get(1); }
 
+	public WebElement Image_Profile1Placeholder() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]", LocatorType.XPath).get(0); }
+	public WebElement Text_Driver1Name() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
+	public WebElement Text_GiveATip() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(0); }
+	public WebElement Text_RateDriver() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(0); }
+	public List<WebElement> Button_GenericDriver1star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath); }
+
+	public WebElement Image_Profile2Placeholder() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2Name() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2GiveATip() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2RateDriver() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(1); }
+	public List<WebElement> Button_GenericDriver2star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath); }
+
+	public WebElement Text_EmailSend() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'A detailed receipt will be emailed to you.'", LocatorType.Predicate); }
+	public WebElement Text_TabStar() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
+	public List<WebElement> Button_Driver1Filled() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[@name=\"rating filled star icon\"]", LocatorType.XPath); }
+	public List<WebElement> Button_Driver1Empty() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[@name=\"rating unselected star icon\"]", LocatorType.XPath); }
+
+
 }
