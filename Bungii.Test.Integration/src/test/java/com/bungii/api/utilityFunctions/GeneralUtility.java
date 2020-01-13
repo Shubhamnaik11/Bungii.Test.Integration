@@ -24,8 +24,8 @@ public class GeneralUtility {
     }
 
     public Float[] getDriverLocation(String geofence) {
-        Float maxChange = 0.003f;
-        Float minChange = -0.003f;
+        Float maxChange = 0.004f;
+        Float minChange = -0.004f;
         Float pickupLat = 0f, pickupLong = 0f;
         // Add random float to  driver location
         Random rand = new Random();

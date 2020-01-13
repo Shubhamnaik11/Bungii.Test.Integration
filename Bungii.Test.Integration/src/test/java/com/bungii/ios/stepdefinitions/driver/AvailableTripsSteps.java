@@ -7,12 +7,16 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.AvailableTripsPage;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
+import java.awt.*;
+import java.util.List;
+
+import static com.bungii.common.manager.ResultManager.*;
 
 
 public class AvailableTripsSteps extends DriverBase {
@@ -45,7 +49,25 @@ public class AvailableTripsSteps extends DriverBase {
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
 		}
 	}
-
+	@Then("^I should able to see \"([^\"]*)\" available trip$")
+	public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
+		try {
+			List<WebElement> listOfBungii=availableTripsPage.Image_SelectBungiis();
+			switch (strArg1) {
+				case "two":
+					testStepVerify.isTrue(listOfBungii.size()==2,"There should be two available trip");
+					break;
+				case "zero":
+					testStepVerify.isTrue(listOfBungii.size()==0,"There should be two available trip");
+					break;
+				default:
+					throw new Exception(" UNIMPLEMENTED STEP");
+			}
+		} catch (Throwable e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			fail("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}	}
 	/**
 	 * Select first bungii from the list
 	 */

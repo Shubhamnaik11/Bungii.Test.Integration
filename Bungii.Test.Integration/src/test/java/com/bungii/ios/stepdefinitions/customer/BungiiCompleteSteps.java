@@ -38,8 +38,31 @@ public class BungiiCompleteSteps extends DriverBase {
 					verifyTripValue();
 					verifyDiscount();
 					break;
+				case "correct details with delivery promo":
+					verifyPromoterValue();
+					verifyPromoterDiscount();
+					break;
 				case "correct details":
 					verifyTripValue();
+					break;
+				case "correct details for duo trip":
+					action.swipeUP();
+					verifyTripValue();
+					break;
+				case "correct rating detail for duo":
+					testStepVerify.isElementEnabled(bungiiCompletePage.Image_Profile1Placeholder()," Driver 1 image placeholder should be displayed"	);
+					testStepVerify.isElementEnabled(bungiiCompletePage.Image_Profile2Placeholder()," Driver 2 image placeholder should be displayed"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_GiveATip(),"Give a tip"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2GiveATip(),"Give a tip"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_RateDriver(),"Rate Your Driver"	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2RateDriver(),"Rate Your Driver"	);
+					String driver1=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+					driver1=driver1.substring(0, driver1.indexOf(" ") + 2);
+					String driver2=(String) cucumberContextManager.getScenarioContext("DRIVER_2");
+					driver2=driver2.substring(0, driver2.indexOf(" ") + 2);
+
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver1Name(),driver1	);
+					testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2Name(),driver2);
 					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -52,6 +75,82 @@ public class BungiiCompleteSteps extends DriverBase {
 					true);
 		}
 	}
+	@When("^I select \"([^\"]*)\" Ratting star for duo Driver 1$")
+	public void i_select_somethingrd_ratting_star_for_driver_1(String strArg1) throws Throwable {
+		try {
+			//List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
+			switch (strArg1) {
+				case "3":
+						action.click(bungiiCompletePage.Button_DuoDriver13star());
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
+	@When("^I select \"([^\"]*)\" Ratting star for duo Driver 2$")
+	public void i_select_somethingrd_ratting_star_for_driver_2(String strArg1) throws Throwable {
+		try {
+			//List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
+			switch (strArg1) {
+				case "4":
+					action.click(bungiiCompletePage.Button_DuoDriver2_4star());
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
+	@Then("^\"([^\"]*)\" starts should be highlighted for Driver 1$")
+	public void something_starts_should_be_highlighted(String strArg1) throws Throwable {
+        try {
+            List<WebElement> star= bungiiCompletePage.Button_Driver1Filled();
+            List<WebElement> unfilledStar= bungiiCompletePage.Button_Driver1Empty();
+            switch (strArg1) {
+                case "3":
+                    testStepVerify.isTrue(star.size()==3,strArg1+" starts are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size()==(5-Integer.parseInt(strArg1)),strArg1+" starts are displayed ");
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }	}
+	@Then("^\"([^\"]*)\" starts should be highlighted for Driver 2$")
+	public void something_starts_should_be_highlightedDriver2(String strArg1) throws Throwable {
+		try {
+			List<WebElement> star= bungiiCompletePage.Button_Driver2Filled();
+			List<WebElement> unfilledStar= bungiiCompletePage.Button_Driver2Empty();
+			switch (strArg1) {
+				case "4":
+					testStepVerify.isTrue(star.size()==4,strArg1+" starts are displayed ");
+					testStepVerify.isTrue(unfilledStar.size()==(5-Integer.parseInt(strArg1)),strArg1+" starts are displayed ");
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
 	/**
 	 * Verify Static texts on Bungii Completed page
 	 */
@@ -76,7 +175,7 @@ public class BungiiCompleteSteps extends DriverBase {
 	public void verifyTripValue(){        action.swipeDown();
 		double tripActualTime=Double.parseDouble(utility.getActualTime());
 
-		String totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+		String totalCost="";
 
 	//	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
 		String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -89,8 +188,38 @@ public class BungiiCompleteSteps extends DriverBase {
 		String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
 	//	if(!truncValue.contains("."))truncValue=truncValue+".00";
 
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost_Duo()).split(" ")[0];
+		else
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+
 		testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
+
+	}
+	public void verifyPromoterValue(){    action.swipeDown();
+		double tripActualTime=Double.parseDouble(utility.getActualTime());
+
+		String totalCost="";
+
+		//	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+		String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+		String totalDistance=utility.getEstimateDistance();
+
+
+		Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,String.valueOf(tripActualTime),"ADD",numberOfDriver);
+		String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
+
+
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost_Duo()).split(" ")[0];
+		else
+			totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+
+		testStepVerify.isEquals(totalCost,"$0.00");
+		cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",expectedTotalCost+"");
 
 	}
 	public  void verifyDiscount(){
@@ -128,9 +257,44 @@ public class BungiiCompleteSteps extends DriverBase {
 
 		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
 
-	//	if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
+		cucumberContextManager.setScenarioContext("DISCOUNT_VALUE",promoDiscountValue);
+		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
+	}
+	public  void verifyPromoterDiscount(){
+		//get current geofence
+		String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+		//get minimum cost,Mile value,Minutes value of Geofence
+		double minCost =Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.minimum.cost")),
+				perMileValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.miles")),
+				perMinutesValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.minutes"));
 
-		//  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
+		double tripActualTime=Double.parseDouble(utility.getActualTime());
+		String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0];
+		String Promo=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+		Double promoValue=0.0;
+		String distanceValueDB=utility.getEstimateDistance();
+
+		double distance =Double.parseDouble(distanceValueDB);// Double.parseDouble(totalDistance.replace(" miles", ""));
+
+		//double tripActualTime = Double.parseDouble(totalTime);
+		double tripValue = distance *perMileValue + tripActualTime *perMinutesValue;
+		if(numberOfDriver.equalsIgnoreCase("DUO"))
+			tripValue=tripValue*2;
+
+		if(Promo.contains("$"))
+			promoValue=Double.valueOf(Promo.replace("-$", ""));
+		else if(Promo.contains("%"))
+			promoValue=Double.valueOf(tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100);
+
+
+		String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
+
+		if(promoDiscountValue.indexOf(".")==0)promoDiscountValue="0"+promoDiscountValue;
+
+		cucumberContextManager.setScenarioContext("DISCOUNT_VALUE",promoDiscountValue);
+
 		testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
 	}
 	//TODO: Handle Duo
@@ -145,7 +309,7 @@ public class BungiiCompleteSteps extends DriverBase {
 			//give tip and fetch actual tip
 			giveTip(Integer.parseInt(tip));
 			String actualTip = bungiiCompletePage.Text_TipValue().getAttribute("value").replace("$","");
-			
+
 			giveRatting(Integer.parseInt(ratting));
 
 			switch (button.toUpperCase()) {

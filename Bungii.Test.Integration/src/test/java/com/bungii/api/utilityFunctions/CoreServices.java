@@ -265,6 +265,9 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
+            int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
+            estimateTripDuration=estimateTripDuration/60000;
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+estimateTripDuration+"  mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
         }
