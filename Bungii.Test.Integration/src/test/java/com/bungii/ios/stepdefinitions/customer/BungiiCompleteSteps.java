@@ -75,14 +75,13 @@ public class BungiiCompleteSteps extends DriverBase {
 					true);
 		}
 	}
-	@When("^I select \"([^\"]*)\"rd Ratting star for Driver 1$")
+	@When("^I select \"([^\"]*)\" Ratting star for duo Driver 1$")
 	public void i_select_somethingrd_ratting_star_for_driver_1(String strArg1) throws Throwable {
 		try {
-			List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
+			//List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
 			switch (strArg1) {
 				case "3":
-						action.clickMiddlePoint(star.get(3));
-						action.click(star.get(3));
+						action.click(bungiiCompletePage.Button_DuoDriver13star());
 					break;
 				default:
 					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -94,8 +93,25 @@ public class BungiiCompleteSteps extends DriverBase {
 			error("Step  Should be successful", "Error performing step,Please check logs for more details",
 					true);
 		}	}
+	@When("^I select \"([^\"]*)\" Ratting star for duo Driver 2$")
+	public void i_select_somethingrd_ratting_star_for_driver_2(String strArg1) throws Throwable {
+		try {
+			//List<WebElement> star= bungiiCompletePage.Button_GenericDriver1star();
+			switch (strArg1) {
+				case "4":
+					action.click(bungiiCompletePage.Button_DuoDriver2_4star());
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
 
-	@Then("^\"([^\"]*)\" starts should be highlighted$")
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
+	@Then("^\"([^\"]*)\" starts should be highlighted for Driver 1$")
 	public void something_starts_should_be_highlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star= bungiiCompletePage.Button_Driver1Filled();
@@ -115,6 +131,26 @@ public class BungiiCompleteSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }	}
+	@Then("^\"([^\"]*)\" starts should be highlighted for Driver 2$")
+	public void something_starts_should_be_highlightedDriver2(String strArg1) throws Throwable {
+		try {
+			List<WebElement> star= bungiiCompletePage.Button_Driver2Filled();
+			List<WebElement> unfilledStar= bungiiCompletePage.Button_Driver2Empty();
+			switch (strArg1) {
+				case "4":
+					testStepVerify.isTrue(star.size()==4,strArg1+" starts are displayed ");
+					testStepVerify.isTrue(unfilledStar.size()==(5-Integer.parseInt(strArg1)),strArg1+" starts are displayed ");
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+
+		} catch (Exception e) {
+			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+			error("Step  Should be successful", "Error performing step,Please check logs for more details",
+					true);
+		}	}
 	/**
 	 * Verify Static texts on Bungii Completed page
 	 */

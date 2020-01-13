@@ -564,7 +564,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
-  @regression22
+  @regression11
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1621,7 +1621,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then ratting should be correctly displayed on Bungii detail page
 
-  @regression1
+  @regression22
   Scenario: Check if customer is allowed to rate driver for duo trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1630,10 +1630,127 @@ Feature: To Test Solo - Scheduling Bungii
     When I enter Username :8888889917 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state      | driver2 state      |
-      | Bungii Completed    | Bungii Completed     |
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
     When I Switch to "customer" application on "same" devices
    # And Bungii customer should see "correct rating detail for duo" on Bungii completed page
-    When I select "3"rd Ratting star for Driver 1
-    Then "3" starts should be highlighted
+    When I select "3" Ratting star for duo Driver 1
+    Then "3" starts should be highlighted for Driver 1
+    When I select "4" Ratting star for duo Driver 2
+    Then "4" starts should be highlighted for Driver 2
+    When I click "DONE" button on "BUNGII COMPLETE" screen
 
+  #its scheduled time not initial request time
+  @regression
+  Scenario: check to ensure TELET is calculated correctly (Initial request time +  (Estimated Duration(1.5)) + 30 minutes).Solo
+
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+    And I get TELET time of of the current trip
+    Then Telet time of current trip should be correctly calculated
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+  #its scheduled time not initial request time
+  @regression
+  Scenario: check to ensure TELET is calculated correctly (Initial request time +  (Estimated Duration(1.5)) + 30 minutes).duo
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I get TELET time of of the current trip
+    Then Telet time of current trip should be correctly calculated
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: Customer shouldn't be allowed to request Bungii if TELET time of the new Bungii overlaps with already scheduled Bungiis
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+
+    And I get TELET time of of the current trip
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid denver" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET> | Default     | No             |
+    Then user is alerted for "already scheduled bungii"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression1
+  Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted    | NEXT_POSSIBLE |
+    And I get TELET time of of the current trip
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                                    | PickUpImage | Save Trip Info |
+      | 30       |           |              | <START TIME WITHIN TELET OF CUSTOMER 1> | Default     | No             |
+
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should able to see "zero" available trip
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone      |
+      | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
+
+  @regression11
+  Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted    | 15 min ahead |
+    And I get TELET time of of the current trip
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following detail
+      | LoadTime | PromoCode | Payment Card | Time                                    | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> | Default     | No             |
+
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should able to see "zero" available trip
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone      |
+      | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |

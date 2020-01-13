@@ -26,9 +26,9 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -1409,5 +1409,28 @@ public class CommonSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("TELET", teletTime);
     }
 
+    @Then("^Telet time of current trip should be correctly calculated$")
+    public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
+        GeneralUtility utility= new GeneralUtility();
+        String teletTimeLocal =utility.calculateTeletTime();
+        String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date Db = formatter.parse(teletTimeDB);
+
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String strdateDB = formatter.format(Db);
+        String strdatelocal = teletTimeLocal;
+        testStepVerify.isEquals(strdateDB,strdatelocal);
+
+    }
 
 }
