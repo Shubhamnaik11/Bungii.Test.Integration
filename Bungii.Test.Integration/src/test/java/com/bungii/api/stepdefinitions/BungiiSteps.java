@@ -1227,6 +1227,8 @@ public String getDriverPhone(String driverName)
             cust2PhoneNum = dataMap.get("Customer2 Phone").trim();
             if(cust2PhoneNum.equalsIgnoreCase("CUSTOMER2_PHONE")){
                 cust2PhoneNum=(String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+            } else if(cust2PhoneNum.equalsIgnoreCase("CUSTOMER_PHONE_EXTRA")){
+                cust2PhoneNum=(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA");
             }
             cust2Password = PropertyUtility.getDataProperties("customer.password");
 

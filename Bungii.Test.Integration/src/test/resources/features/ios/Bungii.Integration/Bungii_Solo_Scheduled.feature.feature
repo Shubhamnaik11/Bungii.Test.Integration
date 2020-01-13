@@ -1621,7 +1621,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I select already scheduled bungii
     Then ratting should be correctly displayed on Bungii detail page
 
-  @regression22
+  @regression
   Scenario: Check if customer is allowed to rate driver for duo trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1639,6 +1639,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I select "4" Ratting star for duo Driver 2
     Then "4" starts should be highlighted for Driver 2
     When I click "DONE" button on "BUNGII COMPLETE" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
   #its scheduled time not initial request time
   @regression
@@ -1687,7 +1688,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -1721,7 +1722,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  @regression11
+  @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
