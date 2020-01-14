@@ -47,5 +47,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
+    public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
    // wait
 }

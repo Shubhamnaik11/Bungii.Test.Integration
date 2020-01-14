@@ -46,7 +46,37 @@ public class UpdateStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
     }
 
+    @Then("^I check ETA of \"([^\"]*)\"$")
+    public void i_check_eta_of_something(String strArg1){
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    cucumberContextManager.setScenarioContext("ETA_VALUE",action.getNameAttribute(updateStatusPage.Text_ETAValue()));
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+    @Then("^\"([^\"]*)\" eta should be displayed to customer$")
+    public void something_eta_should_be_displayed_to_customer(String strArg1) throws Throwable {
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    String controlDriverEta=(String) cucumberContextManager.getScenarioContext("ETA_VALUE");
+                    testStepVerify.isTrue(action.getNameAttribute(updateStatusPage.Text_ETAValue()).equals(controlDriverEta),controlDriverEta+" should be displayed");
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }    }
     @When("^I slide update button on \"([^\"]*)\" Screen$")
     public void i_start_selected_bungii(String screen) {
         try {
@@ -85,7 +115,17 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^non control driver should see \"([^\"]*)\" screen$")
+    public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
+        try{
+            testStepVerify.isElementEnabled(updateStatusPage.Activity_loader(true)," Driver should be shown loader screen");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_WaitingForDriver(),"Waiting for the other driver to end Bungii.");
 
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
     @When("^I verify and slide update button on \"([^\"]*)\" Screen$")
     public void i_verify_and_start_selected_bungii(String screen) {
         try {
@@ -197,6 +237,9 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "SMS FOR SUPPORT":
                     clickSMSToSupport();
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
+                    break;
+                case "SMS FOR CANCEL INCASE OF EMERGENCEY":
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO CUSTOMER-VIEW ITEM":

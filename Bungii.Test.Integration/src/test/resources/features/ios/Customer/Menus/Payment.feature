@@ -78,3 +78,4 @@ Feature: Payment page
     Examples:
       | Scenario          | Username       | Password       |
       | New_Register_User | {with no card} | {with no card} |
+
