@@ -6,6 +6,15 @@ Feature: Admin_Geofence
     When I click on "Geofences  > Geofences" Menu
     Then I should be directed to "Geofences Page"
 
+
+  @sanity
+  @regression
+  Scenario: Admin_VerifyDeaultGeofencesAttributes
+   When I click on "Geofences  > Attributes" Menu
+    Then I should be directed to "Attributes Page"
+    When I go to "Geofence Attributes" page
+    Then I verify that the default settings are displayed
+    
   @sanity
   @regression
   Scenario: Admin_AddEditNewGeofence
@@ -69,6 +78,5 @@ Feature: Admin_Geofence
     When I uncheck both on demand and Scheduled for a geofence
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then The validation error message is displayed
-
 
 

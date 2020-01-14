@@ -7,7 +7,11 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Menu_Geofences () { return findElement("adminmenu-geofences", LocatorType.Id); }
 
+    public WebElement Menu_Attributes(){return findElement("//a[contains(text(),'Attributes')]", LocatorType.XPath);}
+
     public WebElement Header_Geofences() { return findElement("//div/h4", LocatorType.XPath); }
+
+    public WebElement Header_Attributes() { return findElement("//div/h4", LocatorType.XPath); }
 
     public WebElement TextBox_Primary() { return findElement("PolylineForServiceArea", LocatorType.Id); }
 
@@ -39,6 +43,23 @@ public class Admin_GeofencePage extends PageBase {
 
     public WebElement Button_Settings() { return findElement("btnEditSettings", LocatorType.Id); }
 
+
+    public WebElement Label_CustomerFAQLink() { return findElement("//td[contains(text(),'Customer FAQ link')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_DriverFAQLink() { return findElement("//td[contains(text(),'Driver FAQ link')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_MinTimeForDuoTrip() { return findElement("//td[contains(text(),'Minimum scheduled time for Duo trip')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_MinTimeForSoloTrip() { return findElement("//td[contains(text(),'Minimum scheduled time for Solo trip')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_MinTripCost() { return findElement("//td[contains(text(),'Minimum trip cost')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_SurveyEmailLink() { return findElement("//td[contains(text(),'Survey email link')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_TripCostPerMile() { return findElement("//td[contains(text(),'Trip cost per mile')]//following-sibling::td[2]", LocatorType.XPath); }
+
+    public WebElement Label_TripCostPerMinute() { return findElement("//td[contains(text(),'Trip cost per minute')]//following-sibling::td[2]", LocatorType.XPath); }
+
     public WebElement Checkbox_Solo() {return  findElement("//label[normalize-space()=\"1 Driver\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]",LocatorType.XPath);}
 
     public WebElement Checkbox_Duo() {return  findElement("//label[normalize-space()=\"2 Drivers\"][1]/input[@name='attributeValueScheduledNoOfDrivers'][1]", LocatorType.XPath);}
@@ -48,5 +69,6 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Label_SettingsError() {return  findElement("//p[text()=\"Active geofence should allow either Scheduled or On demand trip.\"]", LocatorType.XPath);}
 
     public WebElement Button_SaveGeofenceSettings() {return findElement("btnCreateAttribute" , LocatorType.Id);}
+
 
 }

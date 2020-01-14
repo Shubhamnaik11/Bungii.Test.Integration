@@ -329,7 +329,18 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have entered cancellation fee amount and comments", true);
     }
 
+/* Moved to BusinessUsers
+@And("^I click on \"([^\"]*)\" button$")
+    public void i_click_on_something_button(String button) throws Throwable {
+        switch (button)
+        {
+            case "Submit":
+                action.click(admin_ScheduledTripsPage.Button_Submit());
+                break;
 
+        }
+
+    }*/
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
