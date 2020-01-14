@@ -10,6 +10,9 @@ public class SignupPage extends PageBase {
     public WebElement Button_Login() {
         return findElement("LOGIN", LocatorType.Name);
     }
+    public WebElement Button_CheckBox_Referral() {
+        return findElement("check box off", LocatorType.Name);
+    }
 
     public WebElement Button_Verify() {
         return findElement("VERIFY", LocatorType.Name);
@@ -36,7 +39,7 @@ public class SignupPage extends PageBase {
     }
 
     public WebElement Textfield_Password() {
-        return findElement("//XCUIElementTypeImage[@name='textfield_password_1']/preceding-sibling::XCUIElementTypeSecureTextField", LocatorType.XPath);
+        return findElement("//XCUIElementTypeImage[@name='textfield_password']/preceding-sibling::XCUIElementTypeSecureTextField", LocatorType.XPath);
     }
 
     public WebElement Textfield_PromoCode() {

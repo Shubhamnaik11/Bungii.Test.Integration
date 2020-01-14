@@ -48,8 +48,10 @@ public class LoginSteps extends DriverBase {
                 case "blank":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), "");
                     break;
+                case "Valid_ToBeLocked":
+                    action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
                 default:
-                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
                     break;
             }
         } catch (Exception e) {
@@ -122,6 +124,12 @@ public class LoginSteps extends DriverBase {
                     break;
                 case "login button disabled":
                     testStepVerify.isElementNotEnabled(loginPage.Button_Login(), "Login button should not be enabled", "Login button is not enabled", "Login button is Enabled");
+                    break;
+                case "Invalid login credentials. 3 out of 5 attempts exhausted message":
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.threeoutoffive.attemptsexhausted"));
+                    break;
+                case "Invalid login credentials. Your account has been locked message":
+                    testStepVerify.isEquals(utility.getCustomerSnackBarMessage(), PropertyUtility.getMessage("customer.error.accountlocked"));
                     break;
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");

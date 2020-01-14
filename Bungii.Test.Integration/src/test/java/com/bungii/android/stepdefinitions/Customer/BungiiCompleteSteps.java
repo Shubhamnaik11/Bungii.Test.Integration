@@ -1,19 +1,16 @@
 package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.AccountPage;
 import com.bungii.android.pages.customer.BungiiCompletePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.log;
 
 public class BungiiCompleteSteps  extends DriverBase {
     private static LogUtility logger = new LogUtility(AccountSteps.class);
@@ -57,8 +54,8 @@ public class BungiiCompleteSteps  extends DriverBase {
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
         String expectedTime="";
-        if (tripActualTime>1)expectedTime=tripActualTime+ " minutes";
-        else expectedTime=tripActualTime+ " minute";
+        if (tripActualTime>1)expectedTime=tripActualTime+ " mins";
+        else expectedTime=tripActualTime+ " mins";
         testStepVerify.isEquals(totalTime,expectedTime,"Total time should contains"+tripActualTime+" minute" ,"Total time is"+totalTime);
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
         //Vishal[2503]:TODO: add more
@@ -76,7 +73,7 @@ public class BungiiCompleteSteps  extends DriverBase {
 
 
         Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,totalTime,promoValue,numberOfDriver);
-        String truncValue = new DecimalFormat("#.##").format(expectedTotalCost);
+        String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
         if(!truncValue.contains("."))truncValue=truncValue+".00";
         testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 

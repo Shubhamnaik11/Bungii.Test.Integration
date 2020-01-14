@@ -8,6 +8,7 @@ import java.util.List;
 public class PromosPage extends PageBase {
 
     public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
+    public WebElement Button_Info() { return findElement("//XCUIElementTypeButton[@name=\"info\"]", PageBase.LocatorType.XPath); }
 
     public WebElement Button_Add() {
         return findElement("ADD", PageBase.LocatorType.Name);
@@ -18,6 +19,8 @@ public class PromosPage extends PageBase {
     }
 
     public WebElement Button_NavigationBack(){return findElement("//XCUIElementTypeButton[@name=\"ESTIMATE\"]",LocatorType.XPath);}
+    public WebElement Text_FirstTimeSubtext(boolean ignoreException){return findElement("//XCUIElementTypeStaticText[@name=\"This code is only available for your first Bungii.\"]",LocatorType.XPath,ignoreException);}
+    public WebElement Text_FirstTag(boolean ignoreException){return findElement("//XCUIElementTypeStaticText[@name=\" FIRST \"]",LocatorType.XPath,ignoreException);}
 
     public WebElement TextBox_EnterCode() {
         return findElement("//XCUIElementTypeTextField", PageBase.LocatorType.XPath);

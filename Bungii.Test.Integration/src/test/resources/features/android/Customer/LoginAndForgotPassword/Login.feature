@@ -57,3 +57,22 @@ Feature: Login
     When I close tutorial Page
     Then The user should be logged in
     And I tap on "Menu" > "Logout" link
+
+  @regression
+  Scenario: Cust_Login_InvalidPassword_FiveTimes
+    When I enter customers "Valid_ToBeLocked" Phone Number
+    And I enter customers "invalid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then The user should see "snackbar validation message invalid password" on log in page
+    When I enter customers "invalid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then The user should see "snackbar validation message invalid password" on log in page
+    When I enter customers "invalid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then The user should see "Invalid login credentials. 3 out of 5 attempts exhausted message" on log in page
+    When I enter customers "invalid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then The user should see "snackbar validation message invalid password" on log in page
+    When I enter customers "invalid" Password
+    And I tap on the "Log in" Button on Login screen
+    Then The user should see "Invalid login credentials. Your account has been locked message" on log in page

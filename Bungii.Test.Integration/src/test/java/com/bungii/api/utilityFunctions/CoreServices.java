@@ -6,6 +6,8 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
+import cucumber.api.junit.Cucumber;
 import io.restassured.http.Header;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -33,6 +35,9 @@ public class CoreServices extends DriverBase {
     private static String UPDATE_PICKUP_STATUS = "/api/pickup/updatestatus";
     private static String RATE_AND_TIP = "/api/customer/rateandtipdriver";
     private static String AVAILABLE_PICKUPLIST = "/api/driver/availablepickuplist";
+    private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
+    private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
+    private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -62,7 +67,13 @@ public class CoreServices extends DriverBase {
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.latitude")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.longitude")));
-        }else if (geoFence.equalsIgnoreCase("baltimore")) {
+        }else if (geoFence.equalsIgnoreCase("atlanta.far")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.longitude")));
+        }
+        else if (geoFence.equalsIgnoreCase("baltimore")) {
             dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.drop.latitude")));
             dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.drop.longitude")));
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("baltimore.pickup.latitude")));
@@ -160,7 +171,7 @@ public class CoreServices extends DriverBase {
         JSONObject dropOffCordinate = new JSONObject();
         JSONObject pickUpAddress = new JSONObject();
         JSONObject pickUpCordinate = new JSONObject();
-        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.equalsIgnoreCase("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
+        if (geoFence.equalsIgnoreCase("nashville")||geoFence.equalsIgnoreCase("goa")||geoFence.equalsIgnoreCase("kansas")||geoFence.equalsIgnoreCase("boston")||geoFence.contains("atlanta")||geoFence.equalsIgnoreCase("baltimore") ||geoFence.equalsIgnoreCase("miami")||geoFence.equalsIgnoreCase("denver")||geoFence.equalsIgnoreCase("washingtondc")) {
             dropOffAddress.put("Address1", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address1"));
             dropOffAddress.put("Address2", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.address2"));
             dropOffAddress.put("City", PropertyUtility.getDataProperties(geoFence.toLowerCase()+".drop.city"));
@@ -245,14 +256,50 @@ public class CoreServices extends DriverBase {
             ApiHelper.genericResponseValidation(response);
             cucumberContextManager.setScenarioContext("BUNGII_TIME", "NOW");
             String bungiiDistance="";
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+           /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
                 bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
-            else
+            else*/
                 bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
+                String truncValue = new DecimalFormat("#.00").format(jsonPathEvaluator.get("Estimate.Cost"));
 
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
-            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "$" + jsonPathEvaluator.get("Estimate.Cost"));
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
+            int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
+            estimateTripDuration=estimateTripDuration/60000;
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+estimateTripDuration+"  mins");
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
+    }
+    public void recalculateEstimate(String pickupRequestID, String walletReferance, String authToken,String customerLabel) {
+        try {
+
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("PickupRequestID", pickupRequestID);
+            jsonObj.put("WalletRef", walletReferance);
+            jsonObj.put("EstLoadUnloadTimeInMilliseconds", 900000);
+            Header header = new Header("AuthorizationToken", authToken);
+
+            String apiURL = null;
+
+            apiURL = UrlBuilder.createApiUrl("core", RECALCULATE_ESTIMAT);
+            Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+            JsonPath jsonPathEvaluator = response.jsonPath();
+
+            ApiHelper.genericResponseValidation(response);
+            cucumberContextManager.setScenarioContext("BUNGII_TIME"+customerLabel, "NOW");
+            String bungiiDistance="";
+            //now two decimal point are shown
+/*            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
+                bungiiDistance = new DecimalFormat("#.0").format(jsonPathEvaluator.get("Estimate.DistancePickupToDropOff")) + " miles";
+            else*/
+            bungiiDistance = jsonPathEvaluator.get("Estimate.DistancePickupToDropOff") + " miles";
+            String truncValue = new DecimalFormat("#.00").format(jsonPathEvaluator.get("Estimate.Cost"));
+
+            cucumberContextManager.setScenarioContext("BUNGII_DISTANCE"+customerLabel, bungiiDistance);
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE"+customerLabel, "~$" +truncValue);
+            cucumberContextManager.setScenarioContext("BUNGII_LOADTIME"+customerLabel, "15 mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
         }
@@ -330,20 +377,45 @@ public class CoreServices extends DriverBase {
         return rtnArray;
 
     }
+    public String[] getScheduledBungiiTime(int minuteDifferance) {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
 
+        calendar.set(Calendar.MINUTE, mnts + 30+minuteDifferance);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate;
+        rtnArray[1] = wait;
+        return rtnArray;
+
+    }
     public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken) {
         //get utc time and time for bungii to start
         String[] nextAvailableBungii = getScheduledBungiiTime();
         Date date = new EstimateSteps().getNextScheduledBungiiTime();
         String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
 
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
-        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")){
-            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+
+            String timeLabel=" " + new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
-            cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
      //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
     //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
 
@@ -351,7 +423,47 @@ public class CoreServices extends DriverBase {
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
         return waitDuraton;
     }
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,int minDiff) {
+        //get utc time and time for bungii to start
+        String[] nextAvailableBungii = getScheduledBungiiTime(minDiff);
+        Date date = new EstimateSteps().getNextScheduledBungiiTime(minDiff);
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
+    public int customerConfirmationScheduled(String pickRequestID, String paymentMethodID, String authToken,String label) {
+        //get utc time and time for bungii to start
+        String[] nextAvailableBungii = getScheduledBungiiTime();
+        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+
+        cucumberContextManager.setScenarioContext("BUNGII_TIME"+label, strTime.replace("am", "AM").replace("pm","PM"));
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
     public Response customerView(String pickuprequestid, String authToken) {
 
         Header header = new Header("AuthorizationToken", authToken);
@@ -564,5 +676,119 @@ public class CoreServices extends DriverBase {
             logger.detail("Please specify valid access token");
         }
 
+    }
+    public Response getCustomersScheduledPickupList(String authToken) {
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDLIST);
+        Header header = new Header("AuthorizationToken", authToken);
+        Response response = ApiHelper.getRequestForDriver(apiURL, header);
+        ApiHelper.genericResponseValidation(response);
+
+        return response;
+
+    }
+    public void cancelAllScheduledBungiis(String authToken){
+        JsonPath jsonPathEvaluator = getCustomersScheduledPickupList(authToken).jsonPath();
+
+        ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
+        if (ScheduledPickups != null) {
+            for (int i = 0; i < ScheduledPickups.size(); i++) {
+                HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
+                String pickupRequest = (String) pickupDetails.get("PickupRef");
+                boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
+                getScheduledPickupDetails(pickupRequest,authToken);
+                if(CanBeCancelled)
+                    cancelBungiiAsCustomer(pickupRequest,authToken);
+                else
+                    new WebPortal().cancelBungiiAsAdmin(pickupRequest);
+            }
+        }
+
+    }
+    public void cancelOrCompleteOngoingBungii(String custAccessToken){
+        Response response= customerView("", custAccessToken);
+
+
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        Object pickupDetails = jsonPathEvaluator.get("PickupDetails");
+
+        //IF customer is has some bungii onn screen
+        if(pickupDetails != null ) {
+            String pickupRequestID = jsonPathEvaluator.get("PickupDetails.PickupRequestID");
+            int pickupStatus = jsonPathEvaluator.get("PickupDetails.PickupStatus");
+            int numberOfDriver = jsonPathEvaluator.get("PickupDetails.NoOfDrivers");
+            //on demand searching
+            if (pickupStatus == 4)
+                cancelBungiiAsCustomer(pickupRequestID, custAccessToken);
+            else if(pickupStatus == 23 || pickupStatus == 24) {
+                //cancel Bungii as driver
+                String driverPhoneCode="1";
+                String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
+                String driverPassword= ((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+
+                updateStatus(pickupRequestID, driverAccessToken, 66);
+            } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
+                //complete Bungii as driver
+                String driverPhoneCode="1";
+                String driverPhoneNum=new DbUtility().getDriverAssignedForTrip(pickupRequestID);
+                String driverPassword=((String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD")).equals("")? "Cci12345":(String) cucumberContextManager.getScenarioContext("DRIVER_1_PASSWORD");
+                String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+                switch (pickupStatus){
+                    case 25:
+                        updateStatus(pickupRequestID, driverAccessToken, 26);
+                    case 26:
+                        updateStatus(pickupRequestID, driverAccessToken, 27);
+                    case 27:
+                        updateStatus(pickupRequestID, driverAccessToken, 28);
+                    case 28:
+                        try {Thread.sleep(35000); } catch (InterruptedException e) {e.printStackTrace();}
+                }
+                String paymentMethod = new PaymentServices().getPaymentMethodRef(custAccessToken);
+
+                JsonPath jsonPathEvaluator1 = response.jsonPath();
+                if(numberOfDriver==1) {
+                    String driverRef = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
+                    rateAndTip(pickupRequestID, custAccessToken, driverRef, paymentMethod, 5.0, 5.0);
+                }else{
+                    String driver1Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
+                    String driver2Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[1].Driver.DriverRef");
+                    rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 5.0, driver2Ref, paymentMethod);
+
+                }
+            }
+
+        }
+    }
+    public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
+
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = null;
+
+        apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDPICKUPLIST);
+        Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
+                get(apiURL);
+        response.then().log().all();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response);
+        return response;
+    }
+
+    public void cancelBungiiAsCustomer(String pickupRef, String authToken) {
+        try {
+            JSONObject jsonObj = new JSONObject();
+            jsonObj.put("Status", 64);
+            jsonObj.put("StatusTimestamp", utility.getCurrentUTCTime());
+            jsonObj.put("PickupRequestID", pickupRef);
+            Header header = new Header("AuthorizationToken", authToken);
+            String apiURL = null;
+            apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_CANCELPICKUPLIST);
+            Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
+            ApiHelper.genericResponseValidation(response);
+
+        } catch (Exception e) {
+            System.out.println("Not able to Log in" + e.getMessage());
+        }
     }
 }

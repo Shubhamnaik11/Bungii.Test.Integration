@@ -17,6 +17,7 @@ public class SignupPage extends PageBase {
     public WebElement TextField_LastName() { return findElement("com.bungii.customer:id/signup_field_last_name", LocatorType.Id); }
 
    public WebElement TextField_Email() { return findElement("com.bungii.customer:id/signup_field_email", LocatorType.Id); }
+   public WebElement CheckBox_Promo() { return findElement("com.bungii.customer:id/checkbox_signup_promo_referral", LocatorType.Id); }
 
  //   public WebElement TextField_Email() { return findElement("com.bungii.customer:id/signup_textinputlayout_email", LocatorType.Id); }
 
@@ -65,7 +66,7 @@ public class SignupPage extends PageBase {
 
     public WebElement Button_VerifyContinue() { return findElement("com.bungii.customer:id/smsVerifyContinue", LocatorType.Id); }
 
-    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='RESEND']", LocatorType.XPath); }
+    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='Resend code']", LocatorType.XPath); }
 
     public WebElement Title_Verification() { return findElement("//android.widget.TextView[@text='VERIFICATION']", LocatorType.XPath); }
 }

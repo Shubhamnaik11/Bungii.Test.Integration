@@ -11,8 +11,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.common.manager.ResultManager.error;
-import static com.bungii.common.manager.ResultManager.pass;
+import static com.bungii.common.manager.ResultManager.*;
 
 public class LogInSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.customer.LogInSteps.class);
@@ -72,6 +71,20 @@ public class LogInSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                 break;
+            case "valid denver driver 2":
+                phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+                password = PropertyUtility.getDataProperties("denver.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "new driver":
+                phone = PropertyUtility.getDataProperties("new.driver.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
             default:
                 throw new Exception("Please specify valid input");
         }
@@ -82,6 +95,7 @@ public class LogInSteps extends DriverBase {
         else {
             //TODO: specify failure here
         }
+        log("I am logged in as"+option+"driver","I am logged in using"+phone+"/"+password,true);
              } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

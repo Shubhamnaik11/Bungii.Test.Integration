@@ -50,19 +50,20 @@ public class TripDetailsSteps extends DriverBase {
             String expectedTripDistance = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
             //Leading zero is not present in time, Check if zero is present and delete it
             String timeValue = expectedTripTime.split(",")[1].trim();
-            timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
+           // timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
             String expectedDate = expectedTripTime.split(",")[0].trim();
-            int leadingZero = expectedDate.indexOf(" ") + 1;
+            //earlier initial Zero was displayed , Not it is getting displayed
+/*            int leadingZero = expectedDate.indexOf(" ") + 1;
             if (expectedDate.substring(leadingZero, leadingZero + 1).startsWith("0"))
-                expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);
-            boolean isDateCorrect = expectedDate.trim().equals(actualDetails[2].trim());
-            boolean isTimeCorrect = timeValue.trim().equals(actualDetails[3].trim());
+                expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);*/
+            boolean isDateCorrect = actualDetails[2].split("\\|")[0].trim().contains(expectedDate.trim());
+            boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("\\|")[1].trim());
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
             testStepVerify.isTrue(isTimeCorrect,
                     "Trip Information should be correctly displayed on TRIP DETAILS screen",
                     "Trip Time should be correctly displayed ",
-                    "Trip Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[3].trim());
+                    "Trip Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[2].trim());
 
             testStepVerify.isTrue(isDateCorrect,
                     "Trip Information should be correctly displayed on TRIP DETAILS screen",
@@ -103,18 +104,18 @@ public class TripDetailsSteps extends DriverBase {
 
             tripDetails[0] = action.getValueAttribute(tripDetailsPage.Text_Distance());
             tripDetails[1] = action.getValueAttribute(tripDetailsPage.Text_EstimatedEarnings());
-            tripDetails[2] = action.getValueAttribute(tripDetailsPage.Text_ScheduledDate());
-            action.swipeUP();
-            tripDetails[3] = action.getValueAttribute(tripDetailsPage.Text_ScheduledTime());
+            tripDetails[2] = action.getValueAttribute(tripDetailsPage.Text_ScheduledDateTime());
+          //  action.swipeUP();
+           // tripDetails[3] = action.getValueAttribute(tripDetailsPage.Text_ScheduledTime());
         } catch (Exception e) {
             if (action.isAlertPresent()) {
                 SetupManager.getDriver().switchTo().alert().dismiss();
             }
             tripDetails[0] = action.getValueAttribute(tripDetailsPage.Text_Distance());
             tripDetails[1] = action.getValueAttribute(tripDetailsPage.Text_EstimatedEarnings());
-            tripDetails[2] = action.getValueAttribute(tripDetailsPage.Text_ScheduledDate());
-            action.swipeUP();
-            tripDetails[3] = action.getValueAttribute(tripDetailsPage.Text_ScheduledTime());
+            tripDetails[2] = action.getValueAttribute(tripDetailsPage.Text_ScheduledDateTime());
+       //     action.swipeUP();
+       //     tripDetails[3] = action.getValueAttribute(tripDetailsPage.Text_ScheduledTime());
         }
         return tripDetails;
     }

@@ -6,6 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class InProgressBungiiPages extends PageBase {
 
+    public WebElement Title_Status_Generic(boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_title' or 'com.bungii.customer:id/toolbar_title']", LocatorType.XPath,ignoreException); }
+    public WebElement Title_Status_Generic_Alt(boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar' or 'com.bungii.customer:id/toolbar']/android.widget.TextView", LocatorType.XPath,ignoreException); }
+
+
     //------Page Titles--------------------------------------------------------------
     public WebElement Title_Status(boolean ... ignoreException) { return findElement("com.bungii.driver:id/toolbar_title", LocatorType.Id,ignoreException); }
 
@@ -88,5 +92,14 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Text_DuoCustomer_Name() { return findElements("com.bungii.driver:id/pickup_details_person_name", LocatorType.Id).get(0); }
     public WebElement Text_DuoDriver_Title() { return findElements("com.bungii.driver:id/pickup_details_person_title", LocatorType.Id).get(1); }
     public WebElement Text_DuoDriver_Name() { return findElements("com.bungii.driver:id/pickup_details_person_name", LocatorType.Id).get(1); }
+
+
+    //STACK
+    public WebElement Text_NextLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_widget_tv_next", LocatorType.Id,ignoreException); }
+    public WebElement Text_OnDeckLabel(boolean ... ignoreException) { return findElement("com.bungii.driver:id/textView3", LocatorType.Id,ignoreException); }
+    public WebElement Text_StackCustomer(boolean ... ignoreException) { return findElement("com.bungii.driver:id/stack_customer_name_textview", LocatorType.Id,ignoreException); }
+    public WebElement Text_FinishBy() { return findElement("com.bungii.driver:id/pickup_details_status_tv_pickup_end_time", LocatorType.Id); }
+    public WebElement Button_StackInfo() { return findElement("com.bungii.driver:id/pickup_details_iv_stack_info", LocatorType.Id); }
+
 
 }

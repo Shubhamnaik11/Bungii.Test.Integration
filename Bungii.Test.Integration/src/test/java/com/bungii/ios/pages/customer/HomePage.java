@@ -78,7 +78,8 @@ public class HomePage extends PageBase {
     public WebElement AppMenu_Promos() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PROMOS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_DriveWithBungii() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SIGN UP TO DRIVE'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Payment() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PAYMENT'", LocatorType.Predicate); }
-    public WebElement AppMenu_ScheduledTrip() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
+    //public WebElement AppMenu_ScheduledTrip() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SCHEDULED BUNGIIS'", PageBase.LocatorType.Predicate); }
+    public WebElement AppMenu_MyBungiisTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'MY BUNGIIS'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_LogOut() {return findElement("LOGOUT", LocatorType.AccessibilityId); }
     public WebElement Text_NavigationBar() {return findElement("XCUIElementTypeNavigationBar", LocatorType.ClassName); }
     public WebElement Indicator_Loading(boolean ... ignoreError) {return findElement("In progress", PageBase.LocatorType.AccessibilityId,ignoreError); }
@@ -90,6 +91,9 @@ public class HomePage extends PageBase {
     public WebElement Button_DuoDeActive() {return findElement("bungii duo deactive", PageBase.LocatorType.AccessibilityId); }
     public WebElement Image_Loading(boolean ...ignoreException) {return findElement("In progress", PageBase.LocatorType.AccessibilityId,ignoreException); }
     public WebElement Image_eta_bar() {return findElement("eta_bar_bg", PageBase.LocatorType.AccessibilityId); }
+    public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Set Pickup Location\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath,ignoreException); }
+    public WebElement Text_OutOfOffice(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Whoops! Sorry, we’re not operating here yet.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Text_OutOfOffice_RequestCity(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name=\"Request your city\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }
     public WebElement AppMenu_Home() {return findElement("HOME", LocatorType.AccessibilityId); }
     public WebElement Application_Name(boolean ...ignoreException) {return findElement("XCUIElementTypeApplication", LocatorType.ClassName,ignoreException); }

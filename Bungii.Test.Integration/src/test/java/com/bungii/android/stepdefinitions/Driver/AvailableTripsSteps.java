@@ -8,7 +8,6 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.appium.java_client.MobileElement;
@@ -18,7 +17,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-import static com.bungii.common.manager.ResultManager.*;
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class AvailableTripsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(AvailableTripsSteps.class);
@@ -87,14 +87,23 @@ public class AvailableTripsSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        //    error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
         return isSelected;
 
     }
     @Then("^I should be navigated to Available Trip screen on driver app$")
     public void i_should_be_navigated_to_something_screen_on_driver_app() throws Throwable {
-        String getNaviagationText=action.getText(availableTrips.NavigationBar_Text());
-        testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"),getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is"+getNaviagationText);    }
-}
+        try {
+            String getNaviagationText = action.getText(availableTrips.NavigationBar_Text());
+            testStepVerify.isEquals(PropertyUtility.getMessage("driver.navigation.available.trips"), getNaviagationText, "I should be navigated to Available Trip page", "I am not navigated to Available Trip, Title is" + getNaviagationText);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    }
 
