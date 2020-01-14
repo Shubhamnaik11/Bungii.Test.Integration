@@ -56,8 +56,8 @@ public class TripDetailsSteps extends DriverBase {
 /*            int leadingZero = expectedDate.indexOf(" ") + 1;
             if (expectedDate.substring(leadingZero, leadingZero + 1).startsWith("0"))
                 expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);*/
-            boolean isDateCorrect = expectedDate.trim().equals(actualDetails[2].split("-")[0].trim());
-            boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("-")[1].trim());
+            boolean isDateCorrect = actualDetails[2].split("\\|")[0].trim().contains(expectedDate.trim());
+            boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("\\|")[1].trim());
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
             testStepVerify.isTrue(isTimeCorrect,
