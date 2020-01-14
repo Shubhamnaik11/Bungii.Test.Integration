@@ -38,6 +38,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
@@ -275,6 +276,14 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
+            case "Trips":
+                    switch (button){
+                        case "Apply":
+                            action.click(admin_TripsPage.Button_Apply());
+                            break;
+                    }
+                    break;
+
             }
 
         log("I select "+button+" from Business User page",
