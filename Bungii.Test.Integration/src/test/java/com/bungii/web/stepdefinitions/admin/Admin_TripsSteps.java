@@ -1,6 +1,7 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -44,6 +45,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
+    Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
 
     @And("^I view the Customer list on the admin portal$")
@@ -57,6 +59,9 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(admin_TripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
+        log("I view the Trips list on the admin portal",
+                "I viewed the Trips list on the admin portal", true);
+
     }
     @And("^I view the Live Trips list on the admin portal$")
     public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
@@ -64,6 +69,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
 
       //  SetupManager.getDriver().navigate().refresh();
+        log("I view the Live Trips list on the admin portal",
+                "I viewed the Live Trips list on the admin portal", true);
     }
     @And("^I view the Scheduled Trips list on the admin portal$")
     public void i_view_the_scheduled_trips_list_on_the_admin_portal() throws Throwable {
@@ -72,6 +79,8 @@ public class Admin_TripsSteps extends DriverBase {
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(),"Today");
 
        // SetupManager.getDriver().navigate().refresh();
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
     }
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
@@ -142,7 +151,7 @@ public class Admin_TripsSteps extends DriverBase {
         String driver = driver1;
         if (tripType[0].equalsIgnoreCase("duo"))
             driver = driver1 + "," + driver2;
-        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")) {
+        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
             String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
             int retrycount =10;
 
@@ -292,7 +301,8 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
 
      action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
-
+        log(" I click on Edit link besides the scheduled bungii",
+                "I have clicked on Edit link besides the scheduled bungii", true);
     }
 
     @And("^I click on \"([^\"]*)\" radiobutton$")
@@ -307,12 +317,16 @@ public class Admin_TripsSteps extends DriverBase {
                 action.click(admin_ScheduledTripsPage.RadioButton_RemoveDriver());
                 break;
         }
+        log("I click on Remove driver(s) and re-search radio button",
+                "I have clicked on Remove driver(s) and re-search radio button", true);
     }
 
     @And("^I enter cancellation fee and Comments$")
     public void i_enter_cancellation_fee_and_comments() throws Throwable {
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(),"0");
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(),"Cancelling");
+        log("I enter cancellation fee amount and comments",
+                "I have entered cancellation fee amount and comments", true);
     }
 
 
@@ -330,6 +344,8 @@ public class Admin_TripsSteps extends DriverBase {
         //String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         //action.click(admin_ScheduledTripsPage.Checkbox_driver(driver1));
         action.click(admin_ScheduledTripsPage.Checkbox_driver());
+        log("I select the driver",
+                "I selected the driver", true);
     }
 
     public String getGeofence(String geofence)
@@ -343,6 +359,20 @@ public class Admin_TripsSteps extends DriverBase {
       }
         return geofenceName;
     }
+
+
+    @And("^I remove non control driver \"([^\"]*)\"$")
+    public void i_remove_non_control_driver_something(String driver) throws Throwable {
+        action.click(admin_ScheduledTripsPage.Checkbox_NonControlDriver());
+        action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
+        log("I remove non control driver",
+                "I have removed non control driver", true);
+    }
+
+    @Then("^The driver should get removed successfully$")
+    public void the_driver_should_get_removed_successfully() throws Throwable {
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Driver(s) removed successfully","Pass", "Fail");
+        action.click((admin_ScheduledTripsPage.Button_Close()));
 
     @When("^I search by client name \"([^\"]*)\"$")
     public void i_search_by_client_name_something(String searchString) throws Throwable {
@@ -622,5 +652,6 @@ public class Admin_TripsSteps extends DriverBase {
                 testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
                 break;
         }
+
     }
 }

@@ -117,7 +117,8 @@ Feature: Admin_Trips
   @regression
     #test data created in base
     #changed driver name
-  Scenario: Remove driver and Research As an Admin
+    #First time promo code added
+  Scenario: Remove driver, Research and Cancel As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
@@ -137,6 +138,18 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
+    When I click on "Close" icon
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully cancelled." message should be displayed
+    When I view the Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Admin Cancelled |
+    And The first time promo code should get released
+
 
   @sanity
   @regression
@@ -253,6 +266,35 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Payment Successful |
+
+  @sanity
+  @regression
+   Scenario: Status on admin portal - Duo - Both drivers have accepted trip
+    When I request "duo" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999995001 | Testcustomertywd_appleweb CustZ|
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Searching Drivers|
+    When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled|
+    # Non-Control driver starts the trip
+    When As a driver "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo" trip
+      | driver1 state|
+      | Enroute |
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I remove non control driver "Testdrivertywd_appledc_a_jack Smith"
+    Then The driver should get removed successfully
+    And I should be able to see the respective bungii with the below status
+      |  Status |
+      | Driver Removed|
+
       
   @regression
   Scenario:  Admin_Search_TripList
@@ -311,4 +353,5 @@ Feature: Admin_Trips
     When I select filter "Category" as "Scheduled"
     And I click on "Apply" button on "Trips" page
     Then the triplist grid shows the results by type "Scheduled Category"
+
 
