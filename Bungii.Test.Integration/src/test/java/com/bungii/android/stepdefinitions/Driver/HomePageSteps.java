@@ -1,8 +1,10 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.DriverHomePage;
+import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -11,9 +13,14 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -24,6 +31,7 @@ public class HomePageSteps extends DriverBase {
     DriverHomePage driverHomePage = new DriverHomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
+    TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
@@ -215,4 +223,77 @@ public class HomePageSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @And("^I update sms setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_sms_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+        try {
+            switch (strArg0.toUpperCase()) {
+                case "SUNDAY":
+                    action.click(tripAlertSettingsPage.Text_Sunday());
+                    break;
+                case "TODAY":
+
+                    String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                    simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+                    String dayOfWeek=simpleDateformat.format(calendar.getTime());
+                    WebElement element=SetupManager.getDriver().findElement(By.xpath("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='"+dayOfWeek+"']"));
+                    action.click(element);
+                    break;
+                default:
+                    String from = (strArg1.split(":")[0]);
+                    from = from.startsWith("0") ? from.substring(1) : from;
+                    String test=((strArg1.split(" ")[0]).split(":")[1]).trim();
+                    String test1=(strArg1.split(" ")[1]).trim();
+
+                    String toHour = (strArg2.split(":")[0]);
+                    toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
+                    String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
+                    String tohour2=(strArg2.split(" ")[1]).trim();
+
+                    WebElement element1=SetupManager.getDriver().findElement(By.xpath("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='"+strArg0+"']"));
+                    action.click(element1);
+                    break;
+            }
+            String from = (strArg1.split(":")[0]);
+            from = from.startsWith("0") ? from.substring(1) : from;
+            String test=((strArg1.split(" ")[0]).split(":")[1]).trim();
+            String test1=(strArg1.split(" ")[1]).trim();
+
+            String toHour = (strArg2.split(":")[0]);
+            toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
+            String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
+            String tohour2=(strArg2.split(" ")[1]).trim();
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I update trip setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_trip_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+
+        i_update_sms_setting_of_sunday_to_something_to_something(strArg0, strArg1, strArg2);
+    }
+
+    @And("^I update kansas driver todays trip alert setting to outside current time$")
+    public void i_update_todays_trip_alert_setting_of_today_to_outside_current_time() throws Throwable {
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","Kansas");
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        Calendar calendar = Calendar.getInstance();
+        //current time plus 60 mins
+        calendar.add(Calendar.MINUTE, +60);
+        DateFormat formatter = new SimpleDateFormat("hh:mm aa");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        String strdate = formatter.format(calendar.getTime());
+        SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String dayOfWeek=simpleDateformat.format(calendar.getTime());
+        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
+        Thread.sleep(5000);
+    }
+
 }

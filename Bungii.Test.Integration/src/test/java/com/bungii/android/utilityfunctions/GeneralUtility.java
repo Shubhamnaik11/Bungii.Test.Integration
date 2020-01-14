@@ -78,7 +78,7 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiRequestPage bungiiRequestPage=new BungiiRequestPage();
-    ScheduledBungiiSteps sbs;
+    ScheduledBungiiSteps sbs = new ScheduledBungiiSteps();
 
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     InvitePage invitePage=new InvitePage();
@@ -555,6 +555,7 @@ public class GeneralUtility extends DriverBase {
             else if (action.isElementPresent(Page_Login.Header_LoginPage(true))) {
                 //do nothing
             } else
+                action.scrollToBottom();
                 clickCustomerMenuItem("LOGOUT");
         }
     }

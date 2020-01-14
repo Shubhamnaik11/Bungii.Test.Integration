@@ -141,7 +141,7 @@ public class NotificationSteps extends DriverBase {
             boolean cleared=false;
             ((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
-            boolean isPresent=action.isElementPresent(otherAppsPage.Button_NotificationClear());
+            boolean isPresent=action.isElementPresent(otherAppsPage.Button_NotificationClear(true));
             if(isPresent==true) {
                 cleared = clearAllNotifcation();
             }
@@ -155,7 +155,7 @@ public class NotificationSteps extends DriverBase {
                 log( "I should able cleared all notification",
                         "Not notification found on device");
 
-            action.hideNotifications();
+            //action.hideNotifications();
             ((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -166,7 +166,7 @@ public class NotificationSteps extends DriverBase {
     public boolean clearAllNotifcation() throws InterruptedException {
         boolean cleared = false;
         //click on clear button on notification page
-            action.click(otherAppsPage.Button_NotificationClear());
+            action.click(otherAppsPage.Button_NotificationClear(true));
             cleared = true;
 
             if(cleared==false) {

@@ -339,7 +339,6 @@ public class BungiiSteps extends DriverBase {
     @Then("^I should not get notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_should_not_get_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-        //Thread.sleep(20000);
         Thread.sleep(10000);
         try {
             String expecteMessage="";

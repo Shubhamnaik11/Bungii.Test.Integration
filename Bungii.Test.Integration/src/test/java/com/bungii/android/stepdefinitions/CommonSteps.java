@@ -64,7 +64,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-
+                    Thread.sleep(5000);
                     //  utility.launchDriverApplication();
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
@@ -73,7 +73,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    Thread.sleep(5000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -385,6 +385,11 @@ public class CommonSteps extends DriverBase {
                 case "ACCEPT BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
                     break;
+
+                case "ACCEPT SCHEDULED BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -482,12 +487,20 @@ public class CommonSteps extends DriverBase {
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
                     break;
-
                 case "PICKUP REQUEST NO LONGER AVAILABLE":
                     expectedText=PropertyUtility.getMessage("driver.request.unavailable");
                     break;
                 case "60 MINS BEFORE SCHEDULE TRIP TIME":
                     expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText = PropertyUtility.getMessage("driver.request.already.accepted");
+                    break;
+                case "REQUIRED DRIVER NOT ACCEPTED":
+                    expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                    break;
+                case "CUSTOMER HAS ONGOING BUNGII":
+                    expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");

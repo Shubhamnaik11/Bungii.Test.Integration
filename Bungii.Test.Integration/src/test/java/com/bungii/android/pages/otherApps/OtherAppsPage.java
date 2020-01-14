@@ -52,7 +52,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
-   public WebElement Button_NotificationClear(){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath);}
+   public WebElement Button_NotificationClear(boolean... ignoreException){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath,ignoreException);}
    public List<WebElement> Cell_Notification() { return findElements("com.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
    public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
 

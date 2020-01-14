@@ -1067,7 +1067,7 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @regression1
+  @regression
   Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -1077,7 +1077,7 @@ Feature: SoloScheduled
     And I enter phoneNumber :8888881016 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     When I Switch to "customer" application on "same" devices
-    Then I wait for "1" mins
+    Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -1091,18 +1091,18 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: Check that re-searched trip request does Not show Urgent Notification text if is more than one hour from the scheduled trip time
     When I clear all notification
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | denver   | Accepted     | 2 hour ahead |
+      | Kansas   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881016 and  Password :Cci12345
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     When I Switch to "customer" application on "same" devices
-    Then I wait for "1" mins
+    Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -1128,6 +1128,120 @@ Feature: SoloScheduled
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression1
+  Scenario: Driver should Not receive scheduled request if the request is sent outside of the time that is set for Trip Alert settings.
+    When I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update kansas driver todays trip alert setting to outside current time
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should be navigated to "AVAILABLE TRIPS" screen
+    And I should able to see "zero" available trip
+    And I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+  @regression
+  Scenario: Driver should receive alert stating that the trip has already been accepted by him, if he receives request Notification after accepting the trip from Available trips.
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    Given I Switch to "customer" application on "same" devices
+
+    Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
+      | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   |
+
+    Then I wait for "2" mins
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    Then I should be navigated to "TRIP DETAILS" screen
+    When I accept selected Bungii
+    And I Switch to "customer" application on "same" devices
+    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then user is alerted for "PICKUP ALREADY ACCEPTED BY YOU"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
+
+  @regression
+  Scenario: To check that driver is not allowed to start Bungii within 60 mins of the scheduled time if required number of Drivers have not accepted
+    When I request "duo" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      |               |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "REQUIRED DRIVER NOT ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     |
+      | Kansas   | Accepted     | 0.75 hour ahead |
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State | Driver label | Trip Label |
+      | Kansas   | Enroute      | driver 2     | 2          |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    When I wait for 1 hour for Bungii Schedule Time
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
+      | Kansas   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State | Driver label | Trip Label |
+      | Kansas   | Enroute      | driver 2     | 2          |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    When I wait for 1 hour for Bungii Schedule Time
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
