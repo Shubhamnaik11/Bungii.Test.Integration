@@ -7,12 +7,15 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -278,6 +281,9 @@ public class TripStatusSteps extends DriverBase {
                 case "SMS":
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("scheduled.support.number"));
                     break;
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    break;
                 case "CALL":
                     validateCallButtonAction(PropertyUtility.getMessage("scheduled.support.number"));
                     break;
@@ -386,6 +392,38 @@ public class TripStatusSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
 
+        }
+    }
+
+    @Then("^ratting should be correctly displayed on Bungii progress page$")
+    public void ratting_should_be_correctly_displayed_on_bungii_progress_page() throws Throwable {
+        try {
+            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+
+            String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
+            cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
+            int ratingInt = bigDecimal.intValue();
+            BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
+
+            System.out.println("ratingString: " + ratingString);
+            System.out.println("Integer Part: " + ratingInt);
+            System.out.println("Decimal Part: " + ratingDecimal);
+
+            updateStatusPage.WaitUntilElementIsDisplayed(By.xpath("//XCUIElementTypeButton[@name=\"rating filled star icon\"])"));
+
+            int filledStarCount = updateStatusPage.FilledStars().size();
+            int HalfFilledStarCount = updateStatusPage.HalfFilledStar().size();
+
+            testStepVerify.isEquals(filledStarCount, ratingInt);
+
+            if (ratingDecimal.doubleValue() >= 0.5) {
+                testStepVerify.isEquals(HalfFilledStarCount, 1);
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
     private void validateSMSNumber(String actualValue) {

@@ -90,7 +90,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[8]", LocatorType.ClassChain);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[14]", LocatorType.ClassChain);
     }
 
     public List<WebElement> Text_GenericStaticText() {
@@ -141,7 +141,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Row_TimeSelect() {
         return findElement(
-                "//XCUIElementTypeStaticText[@name='Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
     }
 /*    public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.Name);
@@ -196,10 +196,10 @@ public class EstimatePage extends PageBase {
     }*/
 
     public WebElement Button_AddPhoto() {
-        return findElement("ADD ITEM PHOTO", LocatorType.AccessibilityId);
+        return findElement("ADD ITEM & RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Button_AddPhotoAdditional() {
-        return findElement("ADD ITEM OR RECEIPT PHOTO", LocatorType.AccessibilityId);
+        return findElement("ADD ITEM & RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Text_Time() {
         return findElement("Time", LocatorType.AccessibilityId);
