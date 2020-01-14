@@ -26,8 +26,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -264,14 +263,18 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
+        String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        String formattedDate = scheduled_time.substring(0, 7) + "  " + scheduled_time.substring(8, 13) + ":00" + scheduled_time.substring(13, scheduled_time.length());
+        String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+formattedDate+"']";
+
 
         String pickupLine = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1") +" "+ (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
         String dropOffLine = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")+" "+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
         pickupLine = pickupLine.replace(",","");
         dropOffLine =  dropOffLine.replace(",","");
 
-
-
+        //Verify that the time the customer scheduled the trip for is added to Trip Details page
+        testStepAssert.isElementDisplayed(admin_TripDetailsPage.Label_ScheduledTime(xpath_scheduled_time),"Bungii Scheduled Time should be displayed correctly","Pass","Fail");
 
         testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Client"), customer, "Client " + customer + " should be updated", "Client " + customer + " is updated", "Client " + customer + " is not updated");
         testStepAssert.isTrue(admin_TripDetailsPage.Label_TripDetails("Pickup Location").getText().contains(pickupLine), "Pickup Location " + pickupLine + " should be updated", "Pickup Location " + pickupLine + " is updated", "Pickup Location " + pickupLine + " is not updated");
