@@ -156,6 +156,7 @@ public class NotificationSteps extends DriverBase {
 
         String androidVersion = driver.getCapabilities().getCapability("platformVersion").toString();
         List<WebElement> elements = new ArrayList<WebElement>();
+        
         if(androidVersion.contains("10")) {
             for (int i=0;i<=3;i++) {
                 String xml=driver.getPageSource();
