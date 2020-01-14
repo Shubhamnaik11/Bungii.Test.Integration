@@ -24,8 +24,8 @@ public class GeneralUtility {
     }
 
     public Float[] getDriverLocation(String geofence) {
-        Float maxChange = 0.003f;
-        Float minChange = -0.003f;
+        Float maxChange = 0.004f;
+        Float minChange = -0.004f;
         Float pickupLat = 0f, pickupLong = 0f;
         // Add random float to  driver location
         Random rand = new Random();
@@ -45,7 +45,11 @@ public class GeneralUtility {
         }else if(geofence.equalsIgnoreCase("atlanta")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("atlanta.pickup.longitude"));
-        }else if(geofence.equalsIgnoreCase("miami")){
+        }else if(geofence.equalsIgnoreCase("atlanta.far")){
+            pickupLat = Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.latitude"));
+            pickupLong = Float.valueOf(PropertyUtility.getDataProperties("atlanta.far.pickup.longitude"));
+        }
+        else if(geofence.equalsIgnoreCase("miami")){
             pickupLat = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.latitude"));
             pickupLong = Float.valueOf(PropertyUtility.getDataProperties("miami.pickup.longitude"));
         }else if(geofence.equalsIgnoreCase("nashville")){
@@ -74,5 +78,29 @@ public class GeneralUtility {
         sdf.setTimeZone(TimeZone.getTimeZone("GTM"));
         String dateFormatted = sdf.format(dateTime);
         return dateFormatted;
+    }
+    public static String getBungiiEndTimeForManuallyEnd() {
+        //11/15/2019 12:43 AM
+        Calendar calendar = Calendar.getInstance();
+        Date dateTime = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        sdf.setTimeZone(TimeZone.getTimeZone(new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofenceId()));
+        String dateFormatted = sdf.format(dateTime);
+        return dateFormatted;
+    }
+
+    public String getBungiiTimeZoneLanel(){
+        String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+        String timeZoneCompleteText="";
+        //TODO: Add other timezone
+                switch (timeLabel.trim().toUpperCase()){
+                    case "CST":
+                        timeZoneCompleteText="Central Standard Time";
+                        break;
+                    case "IST":
+                        timeZoneCompleteText="India Standard Time";
+                        break;
+                }
+        return timeZoneCompleteText;
     }
 }

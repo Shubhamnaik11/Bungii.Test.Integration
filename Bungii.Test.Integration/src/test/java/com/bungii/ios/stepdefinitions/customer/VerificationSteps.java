@@ -26,6 +26,7 @@ public class VerificationSteps extends DriverBase {
 		try {
 			String smsCode = (String) cucumberContextManager.getScenarioContext("SMS_CODE");
 			action.clearEnterText(verificationPage.TextBox_SmsCode(),smsCode);
+			action.hideKeyboard();
 			action.swipeUP();
 		//	if(action.isElementPresent(otherAppsPage.Button_ReturnKey())){otherAppsPage.Button_ReturnKey();}
 			action.click(verificationPage.Button_Verify());

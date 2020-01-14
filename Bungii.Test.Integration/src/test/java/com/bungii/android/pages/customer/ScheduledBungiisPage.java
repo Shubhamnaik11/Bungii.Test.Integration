@@ -12,7 +12,7 @@ public class ScheduledBungiisPage extends PageBase {
 
     public WebElement Text_NoBungiis_msg () { return findElement("//android.widget.LinearLayout[@id='com.bungii.customer:id/scheduled_bungii_list_rl_container_nobungii']/android.widget.TextView[@instance='2']", LocatorType.XPath); }
 
-    public WebElement Button_SaveMoney () { return findElement("com.bungii.customer:id/scheduled_bungii_list_button_savemoney", LocatorType.Id); }
+    public WebElement Button_SaveMoney () { return findElement("com.bungii.customer:id/my_bungii_save_money", LocatorType.Id); }
 
     public WebElement Text_TimeToNextBungii() { return findElement("com.bungii.customer:id/fragment_scheduled_bungii_textview_hours", LocatorType.Id); }
 
@@ -26,4 +26,7 @@ public class ScheduledBungiisPage extends PageBase {
     public WebElement Text_BungiiScheduledTime_01 () { return findElement("com.bungii.customer:id/scheduled_row_textview_scheduleddatetime", LocatorType.Id); }
 
     public WebElement Text_BungiiStatus_01 () { return findElement("com.bungii.customer:id/scheduled_row_textview_status", LocatorType.Id); }
+
+    public WebElement Text_TripStatus() { return findElement("com.bungii.customer:id/item_my_bungii_tv_pickup_cost", LocatorType.Id);}
+
 }

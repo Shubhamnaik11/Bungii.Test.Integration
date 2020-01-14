@@ -19,9 +19,11 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -32,6 +34,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -60,6 +63,9 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages driverBungiiProgressPage = new InProgressBungiiPages();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
+    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
+    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
+    InvitePage invitePage=new InvitePage();
 
     /**
      * Launch driver application's using package and activity
@@ -120,6 +126,9 @@ public class GeneralUtility extends DriverBase {
      * @throws InterruptedException
      */
     public boolean isCustomerApplicationOpen() throws InterruptedException {
+        //new method introduced in recent appium version to check application state
+      //  if( (((AndroidDriver)SetupManager.getDriver()).queryAppState("com.bungii.customer")).equals(ApplicationState.RUNNING_IN_FOREGROUND))
+       //     return true;
         if (action.isElementPresent(homePage.Generic_Element(true)))
             return true;
         else {
@@ -137,6 +146,9 @@ public class GeneralUtility extends DriverBase {
      * @throws InterruptedException
      */
     public boolean isDriverApplicationOpen() throws InterruptedException {
+        //new method introduced in recent appium version to check application state
+      //  if( (((AndroidDriver)SetupManager.getDriver()).queryAppState("com.bungii.driver")).equals(ApplicationState.RUNNING_IN_FOREGROUND))
+      //      return true;
         if (action.isElementPresent(driverHomePage.Generic_Element(true)))
             return true;
         else {
@@ -161,6 +173,9 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "Account":
                 isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
+                break;
+            case "MY BUNGIIS":
+                isCorrectPage=action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
                 break;
             case "Payment":
                 isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
@@ -198,6 +213,46 @@ public class GeneralUtility extends DriverBase {
                 if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
                     Thread.sleep(5000);
                 isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
+                break;
+            case "Enroute screen":
+                Thread.sleep(5000);
+                String currentPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true));
+                if(!currentPage.equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
+                break;
+            case "Arrived screen":
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
+                break;
+            case "Loading Item screen":
+
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
+                break;
+            case "Driving to DropOff screen":
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                break;
+            case "Unloading Item screen":
+                Thread.sleep(5000);
+                if(!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
+                else
+                    isCorrectPage=action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                break;
+            case "INVITE":
+                isCorrectPage=action.isElementPresent(invitePage.Header_Invite());
                 break;
             default:
                 break;
@@ -371,6 +426,9 @@ public class GeneralUtility extends DriverBase {
             case "ACCOUNT":
                 action.click(homePage.Button_NavAccount());
                 break;
+            case "MY BUNGIIS":
+                action.click(homePage.Button_NavSchBungii());
+                break;
             case "PAYMENT":
                 action.click(homePage.Button_NavPayment());
                 break;
@@ -382,9 +440,6 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "LOGOUT":
                 action.click(homePage.Button_Navlogout());
-                break;
-            case "SCHEDULED BUNGIIS":
-                action.click(homePage.Button_NavSchBungii());
                 break;
             case "SIGN UP TO DRIVE":
                 action.click(homePage.Button_NavDrives());
@@ -418,6 +473,12 @@ public class GeneralUtility extends DriverBase {
         return actualTime;
     }
 
+    public String getPickupRef(String phoneNumber) {
+
+        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String pickupReff = DbUtility.getPickupReff(custRef);
+        return pickupReff;
+    }
 
     public void goToSignupPage() {
         action.waitUntilIsElementExistsAndDisplayed(Page_Signup.GenericHeader(true));
@@ -564,7 +625,7 @@ public class GeneralUtility extends DriverBase {
 
             action.clearSendKeys(Page_Login.TextField_Password(), password);
             action.click(Page_Login.Button_Login());
-            Thread.sleep(3000);
+            Thread.sleep(4000);
             //   action.invisibilityOfElementLocated(Page_Login.Button_Login(true));
             String nextPage = "";
             try {
@@ -623,7 +684,7 @@ public class GeneralUtility extends DriverBase {
                 WebElement header=driverHomePage.Generic_HeaderElement();
                 currentPage=header.getText();
             }
-            if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")) {
+            if (currentPage.equals("ONLINE") || currentPage.equals("OFFLINE") || currentPage.equals("EN ROUTE")|| currentPage.equals("ARRIVED")|| currentPage.equals("LOADING ITEM")|| currentPage.equals("DRIVING TO DROP OFF")|| currentPage.equals("UNLOADING ITEM")) {
 
             } else if (currentPage.equals("LOCATION")) {
                 action.click(driverLoginPage.Button_Sure());
@@ -657,12 +718,13 @@ public class GeneralUtility extends DriverBase {
         String currentPage = action.getText(driverHomePage.Generic_HeaderElement(true));
 
         if (currentPage.equals("LOGIN")) {
-        } else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
+        } else if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE")){ clickDriverMenuItem("LOGOUT");}
+        else if (action.isElementEnabled(driverLoginPage.Button_ForgotPassword(true))) {
         } else clickDriverMenuItem("LOGOUT");
 
     }
 
-    private boolean clickDriverMenu(String menuItem) {
+    public boolean clickDriverMenu(String menuItem) {
         Boolean isClicked = false;
         List<WebElement> elements = driverHomePage.Button_NavigationBarText();
         for (WebElement element : elements) {
@@ -699,11 +761,45 @@ public class GeneralUtility extends DriverBase {
         boolean isDisplayed = false;
         //   List<WebElement> notificationHeader = otherAppsPage.Text_NotificationTitle();
         //  List<WebElement> notificationText = otherAppsPage.Text_Notification();
-        System.out.println(SetupManager.getDriver().getPageSource());
+      //  System.out.println(SetupManager.getDriver().getPageSource());
 
         //FIX FOR APPIUM 1.42
-        action.click(otherAppsPage.Notification_OnDemand());
-        isDisplayed = true;
+        if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.ondemand")))
+        {
+            if(action.isElementPresent(otherAppsPage.Notification_OnDemand(true))) {
+                action.click(otherAppsPage.Notification_OnDemand());
+                isDisplayed = true;
+            }
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack")))
+            {   if(action.isElementPresent(otherAppsPage.Notification_Stack(true))){
+                action.click(otherAppsPage.Notification_Stack());
+                isDisplayed = true;}
+
+            }
+        else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.notification.stack.cancel")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackCustomerCancel(true))){
+            action.click(otherAppsPage.Notification_StackCustomerCancel());
+            isDisplayed = true;}
+
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.accepted.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted(true))){
+            action.click(otherAppsPage.Notification_StackDriverAccepted());
+            isDisplayed = true;}
+
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.started.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverStarted(true))){
+            action.click(otherAppsPage.Notification_StackDriverStarted());
+            isDisplayed = true;}
+
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack")))
+        {   if(action.isElementPresent(otherAppsPage.Notification_StackDriverAccepted1(true))){
+            action.click(otherAppsPage.Notification_StackDriverAccepted1());
+            isDisplayed = true;}
+
+        }
+
+
+
 /*
         for (int i = 0; i < notificationHeader.size(); i++) {
             if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
@@ -729,17 +825,40 @@ public class GeneralUtility extends DriverBase {
 
     public String getExpectedNotification(String identifier) {
         String text = "";
-        switch (identifier.toUpperCase()) {
-            case "ON DEMAND TRIP":
-                text = PropertyUtility.getMessage("driver.notification.ondemand");
-                break;
-            case "DRIVER CANCELLED":
-                text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
-                break;
-            case "DRIVER ENROUTE":
-                text = PropertyUtility.getMessage("customer.notification.driver.accepted");
+        try {
 
-                break;
+            switch (identifier.toUpperCase()) {
+                case "ON DEMAND TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.ondemand");
+                    break;
+                case "DRIVER CANCELLED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "DRIVER ENROUTE":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted");
+                    break;
+                case "STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack");
+                    break;
+                case "CUSTOMER CANCEL STACK TRIP":
+                    text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+                    break;
+                case "CUSTOMER -DRIVER ACCEPTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+                    break;
+                case "CUSTOMER -DRIVER STARTED STACK BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.started.stack");
+                    break;
+                case "SCHEDULED PICKUP ACCEPTED":
+                    text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
         return text;
     }
@@ -810,6 +929,13 @@ public class GeneralUtility extends DriverBase {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
+        return action.getText(element);
+    }
+
+    public String getCustomerPromoInfoMessage() {
+
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("android:id/message")));
         return action.getText(element);
     }
 
@@ -891,7 +1017,10 @@ public class GeneralUtility extends DriverBase {
                     launchCustomerApplication();
                     action.click(estimatePage.Button_OK());
 
-                } else if (screen.equals(Status.EN_ROUTE.toString())) {
+                } else if (screen.equals("LOGIN")||screen.equals("ONLINE")||screen.equals("OFFLINE")){
+                    //do nothing
+                }
+                    else if (screen.equals(Status.EN_ROUTE.toString())) {
                     logger.detail("Driver struck on EN_ROUTE screen");
                     action.click(driverBungiiProgressPage.Button_Cancel());
                     action.click(driverBungiiProgressPage.Button_Cancel_Yes());

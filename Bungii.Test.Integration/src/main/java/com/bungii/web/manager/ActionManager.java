@@ -4,12 +4,11 @@ import com.bungii.SetupManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.util.Random;
 
@@ -115,5 +114,15 @@ catch(Exception ex)
     return true;
 }
 
+    }
+
+    public void waitUntilIsElementExistsAndDisplayed(WebElement element, Long waitTime) {
+        try {
+            WebDriver driver = SetupManager.getDriver();
+            WebDriverWait wait = new WebDriverWait(driver, waitTime);
+            wait.until((ExpectedConditions.visibilityOf(element)));
+        } catch (Exception Ex) {
+            Assert.fail("Following element is not displayed : " + element);
+        }
     }
 }

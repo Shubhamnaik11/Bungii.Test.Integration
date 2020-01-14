@@ -1,6 +1,5 @@
 package com.bungii.ios.stepdefinitions.customer;
 
-import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -8,11 +7,15 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +83,7 @@ public class TripStatusSteps extends DriverBase {
 
             String expectedDriverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
             expectedDriverName = expectedDriverName.substring(0, expectedDriverName.indexOf(" ") + 2);
-            boolean isDriverDisplayed = getCustomerName().equals(expectedDriverName);
+            boolean isDriverDisplayed = getCustomerName().replace("  "," ").equals(expectedDriverName);
             logger.detail("after driver name");
 
             switch (key) {
@@ -113,7 +116,7 @@ public class TripStatusSteps extends DriverBase {
                 fail(
                         "Trip Information should be correctly displayed and driver name :" + expectedDriverName
                                 + "should be displayed",
-                        "Trip Information is correctly displayed and driver name :" + expectedDriverName
+                        "Trip Information is not correctly displayed and driver name :" + getCustomerName().replace("  "," ")
                                 + "is displayed correctly");
 
             }
@@ -130,7 +133,7 @@ public class TripStatusSteps extends DriverBase {
         String actualDropOfflocation=actualInfo.get(1).replace(",","").replace("  "," ");
 
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION"),
-                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes"),
+                isEtaDisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins"),
                 //country is not displayed now
                 isDropLocationDisplayed = actualDropOfflocation
                         .contains(dropOffLocationLineOne) &&actualDropOfflocation
@@ -195,7 +198,7 @@ public class TripStatusSteps extends DriverBase {
         String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",","").replace(PropertyUtility.getDataProperties("bungii.country.name"),"").replace("  "," ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION"),
-                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+                isEtaCorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String pickUpValue=actualInfo.get(1).replace(",","").replace("  "," ");
         boolean isPickUpCorrect = pickUpValue.contains(pickUpLocationLineOne) &&pickUpValue.contains(pickUpLocationLineTwo);
         if (isTagDisplayed && isEtaCorrect && isPickUpCorrect) {
@@ -271,6 +274,27 @@ public class TripStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^correct support details should be displayed to customer on \"([^\"]*)\" app$")
+    public void correct_support_details_should_be_displayed_to_customer_on_something_app(String key) {
+        try {
+            switch (key.toUpperCase()) {
+                case "SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("scheduled.support.number"));
+                    break;
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    break;
+                case "CALL":
+                    validateCallButtonAction(PropertyUtility.getMessage("scheduled.support.number"));
+                    break;
+                default:
+                    throw new Exception("UN IMPLEMENTED STEPS");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     @Then("^correct details should be displayed to customer for \"([^\"]*)\"$")
     public void correct_details_should_be_displayed_to_customer_for_something_app(String key) throws Throwable {
         try {
@@ -295,6 +319,9 @@ public class TripStatusSteps extends DriverBase {
                     action.click(updateStatusPage.Button_SmsDriver());
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("twilio.number.driver2"));
                     break;
+                case "CUSTOMER SUPPORT-SMS":
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    break;
                 default:
                     throw new Exception("UN IMPLEMENTED STEPS");
             }
@@ -302,6 +329,103 @@ public class TripStatusSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }    }
+
+    @When("^I click \"([^\"]*)\" on bungii accepted screen$")
+    public void i_click_something_on_bungii_accepted_screen(String button) throws Throwable {
+        try {
+            List<String> getListOfAlertButton;
+            switch (button) {
+                case "CANCEL BUNGII":
+                    action.click(updateStatusPage.Button_CancelBungii());
+                    break;
+                case "Cantact Support on Alert message":
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Contact Customer Support"))
+                        action.clickAlertButton("Contact Customer Support");
+                    else
+                        fail("I should able to click dismiss","I was able not able to find Contact Customer Support, list of alert button"+getListOfAlertButton.toString());
+                    break;
+
+                case "CANCEL BUNGII on Alert message":
+
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Cancel Bungii"))
+                        action.clickAlertButton("Cancel Bungii");
+                    else
+                        fail("I should able to click Cancel Bungii","I was able not able to find Cancel Bungii, list of alert button"+getListOfAlertButton.toString());
+
+                    break;
+                case"Dismiss on Alert message":
+                    getListOfAlertButton = action.getListOfAlertButton();
+                    if (getListOfAlertButton.contains("Dismiss"))
+                        action.clickAlertButton("Dismiss");
+                    else
+                        fail("I should able to click dismiss","I was able not able to find Dismiss, list of alert button"+getListOfAlertButton.toString());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I tap on" + button, "I tapped on actionItem"+button, true);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }    }
+
+
+    @Then("^I see \"([^\"]*)\" on bungii accepted screen$")
+    public void     i_see_something_on_bungii_accepted_screen(String strArg1) throws Throwable {
+        try {
+
+            switch (strArg1) {
+                case "Alert: Bungii cancel confirmation":
+                    testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.confirm.alert"));
+                    break;
+                case "Alert: Bungii cancel sucessfully":
+                    testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.success.alert"));
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+
+        }
+    }
+
+    @Then("^ratting should be correctly displayed on Bungii progress page$")
+    public void ratting_should_be_correctly_displayed_on_bungii_progress_page() throws Throwable {
+        try {
+            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+
+            String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
+            cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
+            int ratingInt = bigDecimal.intValue();
+            BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
+
+            System.out.println("ratingString: " + ratingString);
+            System.out.println("Integer Part: " + ratingInt);
+            System.out.println("Decimal Part: " + ratingDecimal);
+
+            updateStatusPage.WaitUntilElementIsDisplayed(By.xpath("//XCUIElementTypeButton[@name=\"rating filled star icon\"])"));
+
+            int filledStarCount = updateStatusPage.FilledStars().size();
+            int HalfFilledStarCount = updateStatusPage.HalfFilledStar().size();
+
+            testStepVerify.isEquals(filledStarCount, ratingInt);
+
+            if (ratingDecimal.doubleValue() >= 0.5) {
+                testStepVerify.isEquals(HalfFilledStarCount, 1);
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     private void validateSMSNumber(String actualValue) {
         String expectedNumber = PropertyUtility.getMessage("twilio.number").replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
@@ -335,6 +459,7 @@ public class TripStatusSteps extends DriverBase {
                     "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
 
         action.click(messagesPage.Button_Cancel());
+        try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
     }
 
     private void validateCallButtonAction() {

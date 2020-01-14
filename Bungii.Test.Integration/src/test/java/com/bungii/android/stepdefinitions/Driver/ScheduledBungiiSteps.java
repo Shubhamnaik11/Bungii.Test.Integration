@@ -51,9 +51,12 @@ public class ScheduledBungiiSteps extends DriverBase {
         if(!skipNormalFlow) {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             List<WebElement> listOfScheduledTrip = scheduledBungiiPage.List_ScheduledBungiis();
+            String timeZone=utility.getTimeZoneBasedOnGeofence();
             for (WebElement element : listOfScheduledTrip) {
                 WebElement schDate = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_scheduleddatetime"));
-                if (action.getText(schDate).equalsIgnoreCase(tripTime)) {
+                WebElement schTimeZone = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_timezone_label"));
+                if(!tripTime.contains(timeZone))tripTime=tripTime+" "+timeZone;
+                if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
                     action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
               //      action.click(rowViewIcom);
@@ -77,16 +80,19 @@ public class ScheduledBungiiSteps extends DriverBase {
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {
         try {
+            Date currentDate = new Date();
+
             String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
-          //  bungiiTime ="Dec 27, 11:00 AM";
+      //      bungiiTime =bungiiTime+" "+(currentDate.getYear()+1900);
             int mininumWaitTime = Integer.parseInt(PropertyUtility.getProp("scheduled.min.start.time"));
             if (!bungiiTime.equalsIgnoreCase("NOW")) {
                 DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+          //      DateFormat formatter = new SimpleDateFormat("MMM dd, hh:mm a yyyy");
+             //   formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
                 formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
                 Date bungiiDate = formatter.parse(bungiiTime);
 
 
-                Date currentDate = new Date();
                 bungiiDate.setYear(currentDate.getYear());//(Integer.parseInt(currentDate.getYear()));
                 long duration = bungiiDate.getTime() - currentDate.getTime();
 

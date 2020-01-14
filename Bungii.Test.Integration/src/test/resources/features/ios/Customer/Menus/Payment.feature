@@ -1,4 +1,5 @@
 @ios
+
 Feature: Payment page
   As a Bungii customer
   I Should able to add/remove/change payment card
@@ -20,8 +21,7 @@ Feature: Payment page
       | Scenario       | CardNo       | Expiry | Expected Message | Postal Code       | Cvv       |
       | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" | VALID POSTAL CODE | VALID CVV |
       | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
-
-
+    
   @regression
   Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
@@ -37,9 +37,9 @@ Feature: Payment page
       | Scenario           | CardNo        | Expiry | Postal Code       | Cvv       |
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
-
+  #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
-  @regression
+#  @regression
   Scenario: As Bungii customer I should able to delete card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -78,3 +78,4 @@ Feature: Payment page
     Examples:
       | Scenario          | Username       | Password       |
       | New_Register_User | {with no card} | {with no card} |
+

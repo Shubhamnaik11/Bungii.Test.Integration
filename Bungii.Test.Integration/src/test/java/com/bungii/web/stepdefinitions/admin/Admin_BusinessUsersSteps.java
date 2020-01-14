@@ -38,7 +38,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
+    Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
+
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
 
@@ -56,7 +59,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 if (Phone.isEmpty())
                     Phone = generatePhoneNumber();
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Active");
-
+                Thread.sleep(1000);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserName(), Name);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(), Phone);
                 action.sendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(), Email);
@@ -147,6 +150,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @Then("^the business user gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
     public void the_business_user_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
+        Thread.sleep(1000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
@@ -274,6 +278,14 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
+            case "Trips":
+                    switch (button){
+                        case "Apply":
+                            action.click(admin_TripsPage.Button_Apply());
+                            break;
+                    }
+                    break;
+
             }
 
         log("I select "+button+" from Business User page",
@@ -646,6 +658,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(admin_ScheduledTripsPage.Button_Research());
                     break;
             }
+            log("I click on the "+Name+" button",
+                    "I clicked the "+Name+" button", true);
         }
 
         @When("I change the status to {string}")

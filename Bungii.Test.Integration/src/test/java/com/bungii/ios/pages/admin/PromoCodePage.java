@@ -46,6 +46,9 @@ public class PromoCodePage extends PageBase {
         return findElements("//tr/td[.='Promo']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[1]/span[contains(text(),'%')]/parent::td/preceding-sibling::td[3]", LocatorType.XPath);
     }
 
+    public List<WebElement> Text_PromoCodePromoter() {
+        return findElements("//tr/td[.='Delivery By Promoter']/following-sibling::td[1]/span[text()='Active']/parent::td/following-sibling::td[1]/span[contains(text(),'%')]/parent::td/preceding-sibling::td[3]", LocatorType.XPath);
+    }
 
     public List<WebElement> Text_ReferralCode() {
         return findElements("//tr/td[.='Referral']/following-sibling::td[1]/span[text()='Active']/parent::td/preceding-sibling::td[2]", LocatorType.XPath);

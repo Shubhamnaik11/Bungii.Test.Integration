@@ -12,15 +12,13 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.collections.Lists;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
@@ -30,7 +28,12 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
+    private final long DRIVER_WAIT_TIME;
 
+    public ActionManager() {
+        DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+
+    }
     public static void keyBoardEvent(int eventNumber) {
         try {
             String strCmdText;
@@ -348,6 +351,7 @@ public class ActionManager {
 
         TouchAction touchAction = new TouchAction(driver);
         touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
+
     }
 
     public void scrollUntilElementDisplayed(WebElement element) {
@@ -366,7 +370,7 @@ public class ActionManager {
             // just non zero point, as it didn't scroll to zero normally
             int topY = driver.manage().window().getSize().height / 6;
             //scroll with TouchAction by itself
-            scroll(pressX, topY, pressX, bottomY);
+            scroll(pressX, topY+180, pressX, bottomY);
         } catch (Exception e) {
             logger.detail("Failed to drap to top");
         }
@@ -483,6 +487,10 @@ public class ActionManager {
         }
     }
 
+    public void waitForAlert() {
+        (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
+    }
+
     public void hardWait(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
             logger.detail("Inside Hard wait , wait for " + i + " minutes");
@@ -494,4 +502,5 @@ public class ActionManager {
             ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
         }
     }
+
 }

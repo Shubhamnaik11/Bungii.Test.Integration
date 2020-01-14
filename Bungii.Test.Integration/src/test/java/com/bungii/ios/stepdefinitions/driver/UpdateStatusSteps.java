@@ -9,7 +9,9 @@ import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.driver.UpdateStatusPage;
 import com.bungii.ios.pages.other.MessagesPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
@@ -44,7 +46,37 @@ public class UpdateStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
     }
 
+    @Then("^I check ETA of \"([^\"]*)\"$")
+    public void i_check_eta_of_something(String strArg1){
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    cucumberContextManager.setScenarioContext("ETA_VALUE",action.getNameAttribute(updateStatusPage.Text_ETAValue()));
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+    @Then("^\"([^\"]*)\" eta should be displayed to customer$")
+    public void something_eta_should_be_displayed_to_customer(String strArg1) throws Throwable {
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    String controlDriverEta=(String) cucumberContextManager.getScenarioContext("ETA_VALUE");
+                    testStepVerify.isTrue(action.getNameAttribute(updateStatusPage.Text_ETAValue()).equals(controlDriverEta),controlDriverEta+" should be displayed");
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }    }
     @When("^I slide update button on \"([^\"]*)\" Screen$")
     public void i_start_selected_bungii(String screen) {
         try {
@@ -83,7 +115,17 @@ public class UpdateStatusSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^non control driver should see \"([^\"]*)\" screen$")
+    public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
+        try{
+            testStepVerify.isElementEnabled(updateStatusPage.Activity_loader(true)," Driver should be shown loader screen");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_WaitingForDriver(),"Waiting for the other driver to end Bungii.");
 
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
     @When("^I verify and slide update button on \"([^\"]*)\" Screen$")
     public void i_verify_and_start_selected_bungii(String screen) {
         try {
@@ -195,6 +237,9 @@ public class UpdateStatusSteps extends DriverBase {
                     break;
                 case "SMS FOR SUPPORT":
                     clickSMSToSupport();
+                    validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
+                    break;
+                case "SMS FOR CANCEL INCASE OF EMERGENCEY":
                     validateSMSNumber(action.getValueAttribute(messagesPage.Text_ToField()), PropertyUtility.getMessage("driver.support.number"));
                     break;
                 case "DUO CUSTOMER-VIEW ITEM":
@@ -409,7 +454,7 @@ public class UpdateStatusSteps extends DriverBase {
         String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
 
         boolean isTagDisplayed = actualInfo.get(0).equals("PICKUP LOCATION");
-        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETACorrect = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualPickuplocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
         boolean isPickUpDisplayed = actualPickuplocation
                 .contains(pickUpLocationLineOne) && actualPickuplocation.contains(pickUpLocationLineTwo);
@@ -437,7 +482,7 @@ public class UpdateStatusSteps extends DriverBase {
         String dropOffLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         String dropOffLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2")).replace(",", "").replace("Rd", "Road").replace(PropertyUtility.getDataProperties("bungii.country.name"), "").replace("  ", " ").trim();
         boolean isTagDisplayed = actualInfo.get(0).equals("DROP OFF LOCATION");
-        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("minutes");
+        boolean isETAdisplayed = actualInfo.get(2).contains("ETA:") && actualInfo.get(2).contains("mins");
         String actualDropoffLocation = actualInfo.get(1).replace(",", "").replace("  ", " ");
         boolean isDropDisplayed = actualDropoffLocation.contains(dropOffLocationLineOne) && actualDropoffLocation.contains(dropOffLocationLineTwo);
 
@@ -551,7 +596,79 @@ public class UpdateStatusSteps extends DriverBase {
         testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
         action.clickAlertButton("INITIATE");
     }
+    @And("^stack trip information should be displayed on deck$")
+    public void stack_trip_information_should_be_displayed_on_deck() {
+        try {
+            String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER2");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_NextLabel(), "NEXT","'NEXT' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_OnDeckLabel(), "ON DECK","'ON DECK' text lable should be displayed","'NEXT' text lable is displayed","'NEXT' text lable is not displayed");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_StackCustomer(), customerName.substring(0, customerName.indexOf(" ") + 2));
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
+    @And("^stack trip information should not be displayed on deck$")
+    public void stack_trip_information_should_not_be_displayed_on_deck() {
+        try {
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_NextLabel(true), "Next tag should not be enabled","Next tag is not displayed","Next tag is displayed");
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_OnDeckLabel(true), "ON DECK should not be displayed" ,"'ON DECK' text lable is not displayed","ON DECK is displayed");
+            testStepVerify.isElementNotEnabled(updateStatusPage.Text_StackCustomer(true),"stack Customer name should be not be diplayed","stack Customer name should be not be diplayed","stack Customer name is diplayed");
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^try to finish time should be correctly displayed for long stack trip$")
+    public void try_to_finish_time_should_be_correctly_displayed() throws Throwable {
+
+        if(((String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")).equalsIgnoreCase(""))
+        {
+            String[] calculatedTime=utility.getTeletTimeinLocalTimeZone();
+            cucumberContextManager.setScenarioContext("DRIVER_TELET",calculatedTime[0]);
+            cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL",calculatedTime[1]);
+            cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL",calculatedTime[2]);
+        }
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String expectedTime="";
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + PropertyUtility.getDataProperties("time.label");
+        else
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + utility.getTimeZoneBasedOnGeofence();
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
+    }
+
+    @Then("^try to finish time should be correctly displayed for short stack trip$")
+    public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String expectedTime="";
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
+
+        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
+
+    }
+    @Then("^I calculate projected driver arrival time$")
+    public void i_calculate_projected_driver_arrival_time() throws Throwable {
+        utility.calculateShortStack();
+    }
+
+    @When("^I verify that driver to pickup time is greater than 100 mins for second trip$")
+    public void i_verify_that_driver_to_pickup_time_is_greater_than_100_mins_for_second_trip() {
+        String customer2PhoneNumber=(String)cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        String driverPhoneNumber=(String)cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String custRef = DbUtility.getCustomerRefference(customer2PhoneNumber);
+        String pickupID = DbUtility.getPickupID(custRef);
+        String pickupRef = DbUtility.getPickupRef(customer2PhoneNumber);
+        DbUtility.isDriverEligibleForTrip(driverPhoneNumber,pickupRef);
+        int driverToPickUP=Integer.valueOf(DbUtility.getDriverToPickupTime(driverPhoneNumber,pickupID));
+
+        testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
+    }
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
         return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));

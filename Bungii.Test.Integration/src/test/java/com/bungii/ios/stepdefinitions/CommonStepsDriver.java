@@ -7,10 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
-import com.bungii.ios.pages.driver.BungiiCompletedPage;
-import com.bungii.ios.pages.driver.BungiiRequestPage;
-import com.bungii.ios.pages.driver.DriverBungiiDetailsPage;
-import com.bungii.ios.pages.driver.TripDetailsPage;
+import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
@@ -28,7 +25,7 @@ public class CommonStepsDriver extends DriverBase {
     private static LogUtility logger = new LogUtility(CommonSteps.class);
     ActionManager action = new ActionManager();
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
-
+    private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
     private com.bungii.ios.pages.driver.LoginPage driverLoginPage;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
@@ -120,6 +117,15 @@ public class CommonStepsDriver extends DriverBase {
                 case "AVAILABLE TRIPS":
                     action.click(driverHomePage.Text_AvailableTrips());
                     break;
+                case "SMS ALERT":
+                    action.click(tripAlertSettingsPage.Button_SMSAlerts());
+                    break;
+                case "TRIP ALERT":
+                    action.click(tripAlertSettingsPage.Button_TripAlerts());
+                    break;
+                case "ITEMIZED EARNINGS":
+                    action.click(driverHomePage.Link_Itemized_Earnings());
+                        break;
                 default:
                     error("UnImplemented Step or incorrect button name",
                             "UnImplemented Step");
@@ -261,6 +267,18 @@ public class CommonStepsDriver extends DriverBase {
                 case "EMPTY_FIELD":
                     expectedMessage = PropertyUtility.getMessage("driver.error.emptyfield");
                     break;
+                case "YOUR ACCOUNT REGISTRATION IS STILL UNDER PROCESS.":
+                    expectedMessage = PropertyUtility.getMessage("driver.error.pending.status");
+                    break;
+                case "INVALID_PASSWORD_3_TIMES":
+                    expectedMessage=PropertyUtility.getMessage("driver.error.invalidpassword.three.times");
+                    break;
+                case "INVALID_PASSWORD_5_TIMES":
+                    expectedMessage=PropertyUtility.getMessage("driver.error.invalidpassword.five.times");
+                    break;
+                case "HICCUP MESSAGE":
+                    expectedMessage=PropertyUtility.getMessage("driver.error.payment.status.pending");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -292,7 +310,7 @@ public class CommonStepsDriver extends DriverBase {
     public void i_am_on_the_something_page_on_driverApp(String screen) {
         try {
             String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
-            switch (screen.toUpperCase()) {
+            switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
                     goToDriverLogInPage(navigationBarName);
                     break;

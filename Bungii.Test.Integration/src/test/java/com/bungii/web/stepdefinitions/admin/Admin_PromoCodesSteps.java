@@ -37,6 +37,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+    Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
@@ -84,6 +87,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Customers":
                action.click(admin_customerPage.Menu_Customers());
                break;
+
+           case "Trips > Trips" :
+               action.click(admin_TripsPage.Menu_Trips());
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", true);
@@ -158,10 +165,12 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Filter":
                 action.click(admin_PromoCodesPage.Button_Filter());
                 break;
-
+            case "Close":
+                action.click((admin_ScheduledTripsPage.Button_Close()));
+                break;
         }
-        log("I click on Filter icon" ,
-                "I have clicked on Filter icon", true);
+        log("I click on "+button+" icon" ,
+                "I have clicked on "+button+" icon", true);
     }
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
@@ -539,9 +548,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
             String Code =  null,  DiscountValue = null,DiscountCategory = null, Promoter= null, Promotion= null,NoOfCodes= null;
             String PromoCodeType = dataMap.get("Promo Code Type").trim();
             String PromoCodeName = dataMap.get("Promo Code Name").trim().replace("<<CurrentDateTime>>",Integer.toString(i));
-            Thread.sleep(5000);
+            Thread.sleep(10000);
             action.selectElementByText(admin_PromoCodesPage.DropDown_PromoType(), PromoCodeType);
-
+            Thread.sleep(5000);
             action.sendKeys(admin_PromoCodesPage.TextBox_PromoCodeName(), PromoCodeName);
 
             cucumberContextManager.setScenarioContext("PROMOCODE_TYPE", PromoCodeType);
@@ -794,9 +803,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
         String FromFormat="MM/dd/yyyy", ToFormat="MMM dd, yyyy";
         String date1=utility.GetDateInFormat(date, FromFormat, ToFormat);
-
-        String xpath=null;
-        xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
+        action.clear(admin_PromoCodesPage.TextBox_Search());
+        String xpath= String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
     }
 

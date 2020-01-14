@@ -2,17 +2,35 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.EstimatePage;
+
+import com.bungii.android.pages.customer.*;
+import com.bungii.android.utilityfunctions.DbUtility;
+
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import org.apache.commons.lang3.time.DateUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.openqa.selenium.Point;
+
+import org.openqa.selenium.*;
+
+import java.lang.invoke.SwitchPoint;
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -21,6 +39,12 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
+    HomePage homePage=new HomePage();
+    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
+    DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+
+    private DbUtility dbUtility = new DbUtility();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -63,11 +87,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -127,11 +159,19 @@ public class CommonSteps extends DriverBase {
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isDriverApplicationOpen();
+                        }
                         break;
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        if (!isApplicationIsInForeground) {
+                            action.click(new Point(0,0));
+                            isApplicationIsInForeground = utility.isCustomerApplicationOpen();
+                        }
                         break;
                     default:
                         error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -246,17 +286,224 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-    // TODO change catch to error
+    @And("^I check that \"([^\"]*)\" pages of turotial are present$")
+    public void i_check_that_something_pages_of_turotial_are_present(String strArg1) throws Throwable {
+        try {
+            List<WebElement> xpath = homePage.Button_PdfPages();
+            int xpathCount = xpath.size();
+            if(xpathCount==5){
+                testStepAssert.isTrue(true,"There should be 5 pdf pages", "There are 5 pdf pages.");
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I check that if i can swipe the pages$")
+    public void i_check_that_if_i_can_swipe_the_pages() throws Throwable {
+        try {
+            List<WebElement> xpath = homePage.Button_PdfPages();
+            WebDriver driver = null;
+            WebElement ele = null;
+            int xpathCount = xpath.size();
+            boolean isClicked = false, isSwiped = false;
+            for (WebElement tutorialPage : xpath) {
+                action.click(tutorialPage);
+                isClicked = true;
+            }
+            testStepAssert.isTrue(isClicked, "5 pages are present.", "5 pages are not present.");
+            action.click(homePage.Text_TutorialPdfPage1());
+            for (int i = 0; i < xpathCount-1; i++) {
+                action.swipeLeft(homePage.Text_TutorialPdf());
+                isSwiped = true;
+            }
+
+            testStepAssert.isTrue(isSwiped, "Swiped through the pages.", "Couldn't swipe through the pages.");
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    @And("^I tap the \"([^\"]*)\" button is present on last page$")
+    public void i_tap_the_something_button_is_present_on_last_page(String strArg1) throws Throwable {
+        try {
+            testStepVerify.isElementEnabled(homePage.Button_StartApp(), "START button enabled", "START button enabled", "START button not enabled");
+            action.click(homePage.Button_StartApp());
+            testStepAssert.isElementTextEquals(homePage.Title_HomePage(), "BUNGII", "Expected Text is present.", "Expected Text is present.", "Expected Text is not present.");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I verify that the tutorial is displayed only once$")
+    public void i_verify_that_the_tutorial_is_displayed_only_once() throws Throwable {
+        try {
+            testStepAssert.isElementTextEquals(homePage.Title_HomePage(), "BUNGII", "Expected Text is present.", "Expected Text is present.", "Expected Text is not present.");
+
+            // testStepAssert.isNotElementDisplayed(homePage.Text_TutorialPdf(), "Tutorials should not be displayed.", "Tutorials should not be displayed.", "Tutorials are displayed.");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = utility.getAlertMessage();
-            String expectedMessage;
+            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+            String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
                     break;
+                case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
+                    expectedMessage=PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    logger.detail("PAGE SOURCE"+SetupManager.getDriver().getPageSource());
+                    break;
+                case "OOPS! WE FOCUS ON LOCAL DELIVERIES WITHIN 150 MILES OF PICKUP. IT LOOKS LIKE THIS TRIP IS A LITTLE OUTSIDE OUR SCOPE.":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+                case "HMM, IT LOOKS LIKE YOU ALREADY HAVE A BUNGII SCHEDULED. AT THIS TIME, OUR SYSTEM ONLY ALLOWS ONE BUNGII AT A TIME.":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.alreadyscheduled");
+                    action.click(estimatePage.Button_SystemCalenderOK());
+                    break;
+                case "ACCEPT BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
 
+            testStepVerify.isEquals(actualMessage, expectedMessage,
+                    "Alert with text" + expectedMessage + "should be displayed",
+                    "Alert with text ," + expectedMessage + " should be displayed",
+                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                            + expectedMessage);
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^user is alerted for \"([^\"]*)\"$")
+    public void user_is_alerted_for_something(String key) {
+        try {
+            String expectedText = "";
+            switch (key.toUpperCase()) {
+                case "ALREADY SCHEDULED BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.alreadyscheduled");
+                    break;
+                case "SUPPORT QUESTION SUBMITTED":
+                    expectedText = PropertyUtility.getMessage("customer.support.submitted");
+                    break;
+                case "EMPTY SUPPORT QUESTION":
+                    expectedText = PropertyUtility.getMessage("customer.support.emptyfield");
+                    break;
+                case "NO TWITTER INSTALLED":
+                    expectedText = PropertyUtility.getMessage("customer.invite.notwitter");
+                    break;
+                case "EXPIRED PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.expired");
+                    break;
+                case "INVALID PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.invalid");
+                    break;
+                case "EMPTY SIGNUP FIELD":
+                    expectedText = PropertyUtility.getMessage("customer.signup.emptyfield");
+                    break;
+                case "EXISTING USER":
+                    expectedText = PropertyUtility.getMessage("customer.signup.existinguser");
+                    break;
+                case "INVALID EMAIL WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidemail");
+                    break;
+                case "INVALID PHONE WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidphonenumber");
+                    break;
+                case "INVALID PASSWORD WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidpassword");
+                    break;
+                case "INVALID PROMO WHILE SIGNUP":
+                    expectedText = PropertyUtility.getMessage("customer.signup.invalidpromo");
+                    break;
+                case "REFERRAL FOR NEW USER":
+                    expectedText = PropertyUtility.getMessage("customer.promos.referral.error");
+                    break;
+                case "FIRST TIME ONLY PROMO":
+                    expectedText = PropertyUtility.getMessage("customer.promos.first.time.error");
+                    break;
+                case "ALREADY EXISTING CODE":
+                    expectedText = PropertyUtility.getMessage("customer.promos.already.existing.code");
+                    break;
+                case "FAILED TO SEND TOKEN":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.failed.reset");
+                    break;
+                case "PASSWORD CHANGE SUCCESS":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.sucess");
+                    break;
+                case "INVALID SMS CODE":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.invalid.code");
+                    break;
+                case "INVALID PASSWORD WHILE RESET":
+                    expectedText = PropertyUtility.getMessage("customer.forgotpassword.invalid.password");
+                    break;
+                case "CANCEL BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
+                    break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    break;
+                case "SCHEDULED ONLY 5 DAYS":
+                    expectedText=PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    break;
+                case "LONG HAUL":
+                    expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+                case "DRIVER FINISHING CURRENT BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.driver.bungii.inprogress");
+                    break;
+                case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
+                    expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            String alertText = driverNotAvailablePage.Alert_ConfirmRequestMessage().getText();
+            testStepVerify.isEquals(alertText, expectedText);
+            action.click(bungiiDetailsPage.Button_Yes());
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^User should see message \"([^\"]*)\" text on the screen$")
+    public void user_should_see_message_something_text_on_the_screen(String message) throws Throwable {
+        try {
+            String actualMessage = utility.getSnackBarMessage();
+            String expectedMessage;
+            switch (message.toUpperCase()) {
+                    case "OUTSIDE BUISSNESS HOUR":
+                    expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
+
+                case "DELETE WARNING":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
+                    break;
+
+                case "Please install a browser in order to access this link.":
+                    expectedMessage=PropertyUtility.getMessage("browser.uninstalled.message");
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -277,7 +524,12 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String strArg1) throws Throwable {
         try {
-            action.click(estimatePage.Button_OK());
+            if(strArg1.equalsIgnoreCase("cancel"))
+                action.click(estimatePage.Button_Cancel());
+            else
+                action.click(estimatePage.Button_OK());
+
+
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
         } catch (Exception e) {
@@ -286,7 +538,18 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+    @Then("^Alert should have \"([^\"]*)\" button$")
+    public void alert_should_have_something_button(String list) throws Throwable {
+        switch (list) {
+            case "cancel,proceed":
+                testStepVerify.isElementEnabled(estimatePage.Button_Cancel(true),"Cancel button should be displayed");
+                testStepVerify.isElementEnabled(estimatePage.Button_Proceed(true)," Proceed button should be displayed");
+                break;
 
+            default:
+                throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }
     @Given("^I newly installed \"([^\"]*)\" app$")
     public void i_newly_installed_something_app(String strArg1) throws Throwable {
         try {
@@ -298,5 +561,54 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+
+    @And("^I click on device \"([^\"]*)\" button$")
+    public void i_click_on_device_something_button(String strArg1) throws Throwable {
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            driver.navigate().back();
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @And("^I click \"([^\"]*)\" on Confirmation Popup$")
+    public void i_click_something_on_confirmation_popup(String option) throws Throwable {
+        try {
+            switch (option){
+                case "Yes":
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+            }
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
+    @And("^I get TELET time of of the current trip$")
+    public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime=dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET",teletTime);
+    }
+
+    public String[] bungiiTimeForScroll(Date date) {
+        //get timezone
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
+        String formattedDate = sdf.format(date);
+        String[] SplitDate = formattedDate.split("\\|");
+        if (DateUtils.isSameDay(date, new Date())) {
+            SplitDate[0] = "Today";
+        }
+        return SplitDate;
     }
 }

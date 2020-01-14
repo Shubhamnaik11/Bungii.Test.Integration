@@ -27,7 +27,7 @@ public class Driver_LoginPage extends PageBase {
     public WebElement TextBox_DriverLogin_Password() { return findElement("//div[@id='login']/form/div/input[@id='password']", LocatorType.XPath); }
 
     //driver Login - Login Button
-    public WebElement Button_DriverLogin() { return findElement("//form[@id='Login']/button[contains(text(), 'LOG')]", LocatorType.XPath); }
+    public WebElement Button_DriverLogin() { return findElement("//form[@id='Login']/button[contains(text(),'LOG IN')]", LocatorType.XPath); }
 
     //Password reset success message
     public WebElement Text_PasswordResetSuccess() { return findElement("password-reset-success-summary", LocatorType.Id); }
