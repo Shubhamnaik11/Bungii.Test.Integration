@@ -37,6 +37,7 @@ public class CoreServices extends DriverBase {
     private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
     private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
     private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
+    private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -492,6 +493,8 @@ public class CoreServices extends DriverBase {
             if(strTime.contains(timeLabel))
                 strTime=strTime.replace(timeLabel,"");
         }
+        //TimeZone.setDefault(TimeZone.getTimeZone(timezone));
+       // pickupdate = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z").parse(pickupdate).toString();
             cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
      //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
     //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
@@ -597,7 +600,21 @@ public class CoreServices extends DriverBase {
         return response;
 
     }
+    public Response stackedPickupConfirmation(String pickuprequestid, String authToken) {
 
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("DeviceName", "XT1092");
+        //make status online
+        jsonObj.put("PickupRequestID", pickuprequestid);
+        jsonObj.put("DeviceToken", "fYUrbPrSXAo:APAS1bFc7QqYIWYyYaIvlcu1Nz30Swc67UDBg75rwUlNbPZDIi2dLdrsgdplYB5GmJqOihXVB64bwVmfEqZAF0DkTOsYX8b8VrjleMHjkSVdQy3ao2nWrCot_HcXx6jYY7pksq3JbKCHP0QYyvmywSA6HRNIhXgiSa" + utility.genearateRandomString());
+        Header header = new Header("AuthorizationToken", authToken);
+
+        String apiURL = null;
+
+        apiURL = UrlBuilder.createApiUrl("core", STACKED_PICKUP_CONFIRMATION);
+        Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+        return response;
+    }
 
     public Response updateDriverStatus(String authToken) {
 

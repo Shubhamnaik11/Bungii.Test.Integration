@@ -84,6 +84,36 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appledv_b_seni Stark_dvThree":
             phone = PropertyUtility.getDataProperties("denver.driver2.phone");
             break;
+        case "Testdrivertywd_appledc_a_web Sundara":
+            phone = PropertyUtility.getDataProperties("web.valid.driver7.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarb":
+            phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarc":
+            phone = PropertyUtility.getDataProperties("web.valid.driver9.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundard":
+            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundare":
+            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarf":
+            phone = PropertyUtility.getDataProperties("web.valid.driver12.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarj":
+            phone = PropertyUtility.getDataProperties("web.valid.driver13.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundark":
+            phone = PropertyUtility.getDataProperties("web.valid.driver14.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarl":
+            phone = PropertyUtility.getDataProperties("web.valid.driver15.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarm":
+            phone = PropertyUtility.getDataProperties("web.valid.driver16.phone");
+            break;
     }
 
     return phone;
@@ -123,7 +153,10 @@ public String getDriverPhone(String driverName)
 
 
                         //for on demand enroute and accepted are same
-                        if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Accepted")) {
+                        if (driver1State.equalsIgnoreCase("Stacked Pickup Accepted")) {
+                            coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+                            coreServices.stackedPickupConfirmation(pickupRequest, driverAccessToken);
+                        } else if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                         } else if (driver1State.equalsIgnoreCase("Arrived")) {
@@ -157,8 +190,12 @@ public String getDriverPhone(String driverName)
                             // coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             try {
-                                logger.detail("Waiting for " + wait / 60000 + " minutes before Scheduled trip can be started");
-                                Thread.sleep(wait);
+                                while(wait>0) {
+                                    logger.detail("Waiting for " + wait / (60000 * 4) + " minute(s) before Scheduled trip can be started");
+                                    Thread.sleep(60000);
+                                    wait = wait - 60000*4;
+                                }
+
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -1164,7 +1201,7 @@ public String getDriverPhone(String driverName)
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
             String custRef = customerServices.getCustomerRef(custAccessToken);
-
+            cucumberContextManager.setScenarioContext("CUSTOMER_REF",custRef);
             //CUSTOMER& DRIVER VIEW
             coreServices.customerView("", custAccessToken);
 
@@ -1193,6 +1230,20 @@ public String getDriverPhone(String driverName)
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+    @When("^I cancel bungii as a customer \"([^\"]*)\" with phone number \"([^\"]*)\"$")
+    public void i_cancel_bungii_as_a_customer_something_with_phone_number_something(String customerName, String customerPhone) throws Throwable {
+        //throw new PendingException();
+        String pickupRequest= (String)  cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String customerPhoneCode = "1", customerPassword = "";
+
+        customerPassword = PropertyUtility.getDataProperties("web.customer.password");
+
+        String custAccessToken = authServices.getCustomerToken(customerPhoneCode, customerPhone, customerPassword);
+
+        coreServices.cancelBungiiAsCustomer(pickupRequest, custAccessToken);
 
     }
+
+
 }

@@ -335,6 +335,7 @@ public class GeneralUtility extends DriverBase {
         }
         String pickupTime = pickuptimeformatter.format(target);
         cucumberContextManager.setScenarioContext("PICKUP_TIME" , pickupTime);
+        cucumberContextManager.setScenarioContext("TIMEZONE" , timezone);
 
         String newFilePath = new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\BulkTrip_Runtime_" + dateformatterFile.format(date) + ".csv";
         String Line;
@@ -394,7 +395,38 @@ public class GeneralUtility extends DriverBase {
                             .replaceAll("%DriverName%",driverName)
                             .replaceAll("%DriverPhone%",driverPhone)
                             .replaceAll("%DriverLicencePlate%",driverLicencePlate)
-                            .replaceAll("%SupportName%",supportNumber)
+                            .replaceAll("%SupportNumber%",supportNumber)
+                            .replaceAll("%FirmName%",firmName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String getExpectedPartnerFirmUpdatedEmailContent(String pickupdate, String customerName, String customerPhone, String customerEmail, String driverName, String driverPhone, String driverLicencePlate, String supportNumber, String firmName)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmUpdatedEmail.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%TimeStamp%", pickupdate)
+                            .replaceAll("%CustomerName%",customerName)
+                            .replaceAll("%CustomerPhone%",customerPhone)
+                            .replaceAll("%CustomerEmail%",customerEmail)
+                            .replaceAll("%DriverName%",driverName)
+                            .replaceAll("%DriverPhone%",driverPhone)
+                            .replaceAll("%DriverLicencePlate%",driverLicencePlate)
+                            .replaceAll("%SupportNumber%",supportNumber)
                             .replaceAll("%FirmName%",firmName);
                     emailMessage += s;
                 }
@@ -411,7 +443,7 @@ public class GeneralUtility extends DriverBase {
         String emailMessage = "";
 
         try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmScheduledEmail.txt");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PartnerFirmCanceledEmail.txt");
             String s;
             try (
 
@@ -422,7 +454,7 @@ public class GeneralUtility extends DriverBase {
                             .replaceAll("%CustomerPhone%",customerPhone)
                             .replaceAll("%CustomerEmail%",customerEmail)
                             .replaceAll("%DriverName%",driverName)
-                            .replaceAll("%SupportName%",supportNumber)
+                            .replaceAll("%SupportNumber%",supportNumber)
                             .replaceAll("%FirmName%",firmName);
                     emailMessage += s;
                 }
@@ -510,6 +542,28 @@ public class GeneralUtility extends DriverBase {
         }
 
         return emailMessage;
+    }
+
+    public String getTripTimezone(String geofence)
+    {
+        String timezone = null;
+        switch (geofence)
+        {
+                case "Washington DC":
+                case "washingtondc":
+                timezone = "EST";
+                break;
+            case "Goa":
+                timezone = "IST";
+                break;
+            default:
+            case "Kansas City":
+                timezone = "CST";
+                break;
+
+        }
+        return timezone;
+
     }
 }
 

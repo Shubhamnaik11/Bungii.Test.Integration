@@ -35,18 +35,18 @@ public class DbUtility extends DbContextManager {
         logger.detail("Pickup Reference " + pickupRef + " of customer " + customerRef );
         return pickupRef;
     }
-    public static String getCustomerPhone(String customerName) {
+    public static String getCustomerPhone(String firstName, String lastName) {
         String phone = "";
-        String queryString = "SELECT Phone FROM customer WHERE FirstName like'" + customerName +"'LIMIT 1";
+        String queryString = "SELECT Phone FROM customer WHERE FirstName like'" + firstName +"' OR Lastname like '"+lastName+"'LIMIT 1";
         phone =getDataFromMySqlServer(queryString);
-        logger.detail("Phone  " + phone + " of customer " + customerName );
+        logger.detail("Phone  " + phone + " of customer " + firstName+ " " + lastName );
         return phone;
     }
-    public static String getCustomerEmail(String customerName) {
+    public static String getCustomerEmail(String firstName, String lastName) {
         String email = "";
-        String queryString = "SELECT EmailAddress FROM customer WHERE FirstName like'" + customerName +"'LIMIT 1";
+        String queryString = "SELECT EmailAddress FROM customer WHERE FirstName like'" + firstName +"' OR Lastname like '"+lastName+"'LIMIT 1";
         email =getDataFromMySqlServer(queryString);
-        logger.detail("Email  " + email + " of customer " + customerName );
+        logger.detail("Email  " + email + " of customer " + firstName+ " " + lastName );
         return email;
     }
     public static String getPickupId(String pickupRef) {

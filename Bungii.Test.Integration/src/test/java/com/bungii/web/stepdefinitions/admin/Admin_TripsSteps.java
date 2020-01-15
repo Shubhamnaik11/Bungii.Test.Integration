@@ -15,6 +15,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -28,6 +29,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
@@ -427,11 +429,10 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
     @Then("^Partner firm should receive \"([^\"]*)\" email$")
     public void partner_firm_should_receive_something_email(String emailSubject) throws Throwable {
 
-        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
-       if(emailBody== null)
-       {
-           testStepAssert.isFail("Email : "+ emailSubject + " not received");
-       }
+        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        if (emailBody == null) {
+          //  testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
@@ -439,29 +440,43 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String driverLicencePlate = PropertyUtility.getDataProperties("partnerfirm.driver1.LicencePlate");
         String name = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME");
         String customerName = null;
-        if (!name.isEmpty())
-         customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")+ " Business User";
-        else
+        String customerPhone = null;
+        String customerEmail = null;
+        if (!name.isEmpty()){
+            customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
+            customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"),"Business User");
+            customerEmail = getCustomerEmail((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"),"Business User");
+           }
+        else {
             customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"));
-        String customerEmail = getCustomerEmail((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"));
-        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
+            String[] Name = customerName.split(" ");
+            customerPhone = getCustomerPhone(Name[0],Name[1]);
+            customerEmail = getCustomerEmail(Name[0],Name[1]);
+        }
 
+        String pickupdate = (String) cucumberContextManager.getScenarioContext("PICKUP_TIME");
+        if(pickupdate == "") {
+            pickupdate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+            TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
+            Date date = new SimpleDateFormat("MMM dd, hh:mm a z").parse(pickupdate);
+            pickupdate = new SimpleDateFormat("EEEE, MMMM dd, yyyy hh:mm a z").format(date).toString();
+
+        }
         String message = null;
-        switch (emailSubject)
+       switch (emailSubject)
         {
             case "Bungii Delivery Pickup Scheduled":
                 message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate,customerName,customerPhone,customerEmail,driverName,driverPhone,driverLicencePlate,  supportNumber,  firmName);
                 break;
             case "Bungii Delivery Pickup Updated":
-                message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName,customerPhone,customerEmail,driverName,  supportNumber,  firmName);
+                message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate,customerName,customerPhone,customerEmail,driverName,driverPhone,driverLicencePlate,  supportNumber,  firmName);
                 break;
             case "Bungii Delivery Pickup Canceled":
-                message = PropertyUtility.getMessage("Email.Message.Bungii.Delivery.Pickup.Canceled").toString();
+                message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName,customerPhone,customerEmail,driverName,  supportNumber,  firmName);
                 break;
         }
 
-        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n",""), message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
     }
     @And("^I note the Pickupref of trip$")
@@ -470,5 +485,13 @@ Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage(
         String customerRef = (String) cucumberContextManager.getScenarioContext("CUSTOMER_REF");
         cucumberContextManager.setScenarioContext("PICKUP_REQUEST", new DbUtility().getLatestPickupRefOfCustomer(customerRef));
 
+    }
+
+    @Then("^Partner firm should not receive \"([^\"]*)\" email$")
+    public void partner_firm_should_not_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        if (emailBody != null) {
+             testStepAssert.isFail("Email : " + emailSubject + " received to partner firm though required number of drivers not accepted the trip");
+        }
     }
 }
