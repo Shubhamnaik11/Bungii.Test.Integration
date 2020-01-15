@@ -9,10 +9,11 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -104,6 +105,13 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appleks_ra_five Test":
             phone=PropertyUtility.getDataProperties("valid.driver.kansas.phone");
             break;
+        case "Testdrivertywd_appledc_a_jack Smith":
+            phone = PropertyUtility.getDataProperties("web.valid.driver7.phone");
+            break;
+        case "Testdrivertywd_appledc_a_john Smith":
+            phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
+            break;
+
     }
 
     return phone;
@@ -166,6 +174,7 @@ public String getDriverPhone(String driverName)
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
+
                     } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")||bungiiType.equalsIgnoreCase("Duo Scheduled")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
@@ -423,6 +432,7 @@ public String getDriverPhone(String driverName)
 
             //CUSTOMER& DRIVER VIEW
             coreServices.customerView("", custAccessToken);
+            cucumberContextManager.setScenarioContext("CUSTOMER_TOKEN", custAccessToken);
 
             //request Bungii
             coreServices.validatePickupRequest(custAccessToken, geofence);
@@ -1278,4 +1288,27 @@ public String getDriverPhone(String driverName)
         }
     }
 
+    @And("^The first time promo code should get released$")
+    public void the_first_time_promo_code_should_get_released() throws Throwable {
+        String custAccessToken = (String) cucumberContextManager.getScenarioContext("CUSTOMER_TOKEN");
+        Response promoData=coreServices.getPromoCodes(custAccessToken,"");
+        String promo=getPromoCode(promoData,"");
+        testStepAssert.isTrue(promo.equalsIgnoreCase("PROMO1"),"First time promo code is released","Pass");
+    }
+
+    public String  getPromoCode(Response response, String codeType){
+        String promoCode="";
+        JsonPath jsonPathEvaluator =response.jsonPath();
+        ArrayList availableArray = jsonPathEvaluator.get("PromoCodes");
+        //interation to go through all promo code
+        if (availableArray != null) {
+            for (int i = 0; i < availableArray.size(); i++) {
+                HashMap pickupDetails = (HashMap) availableArray.get(i);
+                promoCode = (String) pickupDetails.get("Code");
+                cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+                break;
+            }
+        }
+        return promoCode;
+    }
 }

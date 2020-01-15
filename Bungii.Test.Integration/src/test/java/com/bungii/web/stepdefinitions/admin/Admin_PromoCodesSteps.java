@@ -37,9 +37,13 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
+    Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
+    Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -74,6 +78,19 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Geofences  > Geofences" :
                action.click(admin_GeofencePage.Menu_Geofences());
                break;
+
+           case "Geofences  > Attributes":
+               action.click(admin_GeofencePage.Menu_Geofences());
+               action.click(admin_GeofencePage.Menu_Attributes());
+               break;
+
+           case "Customers":
+               action.click(admin_customerPage.Menu_Customers());
+               break;
+
+           case "Trips > Trips" :
+               action.click(admin_TripsPage.Menu_Trips());
+
        }
         log("I click on "+link+" menu link" ,
                 "I have clicked on "+link+" menu link", true);
@@ -148,10 +165,12 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Filter":
                 action.click(admin_PromoCodesPage.Button_Filter());
                 break;
-
+            case "Close":
+                action.click((admin_ScheduledTripsPage.Button_Close()));
+                break;
         }
-        log("I click on Filter icon" ,
-                "I have clicked on Filter icon", true);
+        log("I click on "+button+" icon" ,
+                "I have clicked on "+button+" icon", true);
     }
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
