@@ -352,6 +352,7 @@ Feature: On Demand Bungii
     When I tap on "Menu" > "Promos" link
     And I should able to see expected promo code in available promo code
     Then I should see "first time code subtext" on Promos page
+    Then The "This code is only available for your first Bungii." is displayed
 #    When I Select "PAYMENT" from Customer App menu
 #    Then I should be navigated to "PAYMENT" screen
 #    When I click "Add-Button" button on "PAYMENT" screen
