@@ -382,9 +382,9 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Driver(s) removed successfully","Pass", "Fail");
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
         action.click((admin_ScheduledTripsPage.Button_Close()));
-
+    }
     @When("^I search by client name \"([^\"]*)\"$")
     public void i_search_by_client_name_something(String searchString) throws Throwable {
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod() , "The Beginning of Time" );
