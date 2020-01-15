@@ -35,6 +35,8 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_ReferralSource());
                     break;
+                case "Customers":
+                    action.click(dashBoardPage.Button_Customers());
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
