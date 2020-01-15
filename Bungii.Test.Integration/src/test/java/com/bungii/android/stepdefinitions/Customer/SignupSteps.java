@@ -213,11 +213,21 @@ public class SignupSteps extends DriverBase {
             case "Referral":
                 strPromoCode = PropertyUtility.getDataProperties("referral.code");
                 break;
+            case "Code":
+                strPromoCode= (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
+
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
         action.click(Page_Signup.CheckBox_Promo());
+        String isChecked=action.getAttribute(Page_Signup.CheckBox_Promo(), "checked");
+        if(isChecked.equals("false"))
+        {
+            action.click(Page_Signup.CheckBox_Promo());
+        }
+
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);

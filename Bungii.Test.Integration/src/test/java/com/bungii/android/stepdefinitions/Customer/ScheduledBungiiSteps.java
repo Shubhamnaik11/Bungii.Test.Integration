@@ -2,9 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiDetailsPage;
-import com.bungii.android.pages.customer.EstimatePage;
-import com.bungii.android.pages.customer.HomePage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.stepdefinitions.CommonSteps;
@@ -33,6 +31,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage;
     GeneralUtility utility = new GeneralUtility();
     CommonSteps commonSteps = new CommonSteps();
+    InvitePage invitePage=new InvitePage();
 
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     EstimatePage estimatePage=new EstimatePage();
@@ -276,6 +275,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
     }
+
 
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1, DataTable tripInformation) throws Throwable {

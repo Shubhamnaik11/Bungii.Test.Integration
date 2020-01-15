@@ -10,6 +10,9 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -232,5 +235,34 @@ public class PromosSteps extends DriverBase {
                     true);
         }
         action.click(promoPage.Button_OK());
+    }
+
+    @Then("^I should able to see expected promo code in available promo code$")
+    public void i_should_able_to_see_expected_promo_code_in_available_promo_code() {
+        try {
+            String usedPromoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+            testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    /**
+     * Check if promo code is present in available promocode
+     *
+     * @param expectedCode Promo code that is to be checked
+     * @return boolean value if promocode is present
+     */
+    public boolean isPromoCodePresent(String expectedCode) {
+        boolean isPresent = false;
+        List<WebElement> codes = promoPage.List_PromoCode();
+        for (WebElement code : codes) {
+            if (action.getValueAttribute(code).contains(expectedCode)) {
+                isPresent = true;
+                break;
+            }
+        }
+        return isPresent;
     }
 }

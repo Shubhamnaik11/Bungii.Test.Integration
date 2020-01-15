@@ -46,9 +46,7 @@ public class NotificationSteps extends DriverBase {
             boolean notificationClickRetry=false;
             String bunddleId=getBundleId(currentApplication);
 
-
-
-            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+         cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
 
@@ -156,7 +154,7 @@ public class NotificationSteps extends DriverBase {
 
         String androidVersion = driver.getCapabilities().getCapability("platformVersion").toString();
         List<WebElement> elements = new ArrayList<WebElement>();
-        
+
         if(androidVersion.contains("10")) {
             for (int i=0;i<=3;i++) {
                 String xml=driver.getPageSource();

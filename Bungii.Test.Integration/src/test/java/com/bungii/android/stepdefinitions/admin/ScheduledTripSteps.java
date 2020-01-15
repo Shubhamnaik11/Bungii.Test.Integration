@@ -308,4 +308,6 @@ public class ScheduledTripSteps extends DriverBase {
 		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[9]"));
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
+
+
 }

@@ -5,7 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -439,6 +439,7 @@ public class GeneralUtility extends DriverBase {
                 action.click(homePage.Button_NavPromos());
                 break;
             case "LOGOUT":
+                action.scrollToTop();
                 action.click(homePage.Button_Navlogout());
                 break;
             case "SIGN UP TO DRIVE":
@@ -446,6 +447,7 @@ public class GeneralUtility extends DriverBase {
                 break;
         }
     }
+
 
     public String getEstimateTime() {
 
@@ -797,29 +799,6 @@ public class GeneralUtility extends DriverBase {
             isDisplayed = true;}
 
         }
-
-
-
-/*
-        for (int i = 0; i < notificationHeader.size(); i++) {
-            if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
-                String currentNotificationText = notificationText.get(i).getText();
-                if (currentNotificationText.equalsIgnoreCase(notificationMessage)) {
-                    //FIX FOR APPIUM 1.42
-                    action.click(otherAppsPage.Notification_OnDemand());
-               //     int xAxisStartPoint = otherAppsPage.Notification_OnDemand().getLocation().getX()+5 ;
-          //   //       int yAxis = otherAppsPage.Notification_OnDemand().getLocation().getY() -5;
-              //      action.click(new Point(xAxisStartPoint, yAxis));
-
-                    //   SetupManager.getDriver().findElement(By.xpath("//*[@text=\"You’re receiving a Bungii request.\"]")).click();
-                   // action.click(notificationText.get(i));
-                    isDisplayed = true;
-                    break;
-                }
-            }
-
-        }*/
-
         return isDisplayed;
     }
 
@@ -944,6 +923,24 @@ public class GeneralUtility extends DriverBase {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
         return action.getText(element);
+    }
+
+    public void addSliderValueToFeatureContext(String appKey, Rectangle rectangle) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        cucumberContextManager.setFeatureContextContext(key + "_RECT", rectangle);
+    }
+
+    public boolean isSliderValueContainsInContext(String appKey) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        return cucumberContextManager.isFeatureContextContains(key + "_RECT");
+    }
+
+    public Rectangle getSliderValueFromContext(String appKey) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        return (Rectangle) cucumberContextManager.getFeatureContextContext(key + "_RECT");
     }
 
     public void waitForSnackbarMessage() {

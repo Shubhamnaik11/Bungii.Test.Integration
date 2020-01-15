@@ -601,6 +601,16 @@ public class CommonSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
 
+    @And("^I click on \"([^\"]*)\" button of android mobile$")
+    public void i_click_on_something_button_of_android_mobile(String strArg1) throws Throwable {
+        action.NavigateBack();
+    }
+
+    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
+    }
+
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
