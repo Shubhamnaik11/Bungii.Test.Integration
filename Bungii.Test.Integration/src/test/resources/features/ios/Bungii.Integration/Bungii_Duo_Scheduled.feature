@@ -244,7 +244,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @regression20
+  @regression
   Scenario Outline:Customer amount for duo with promo
 
     When I Switch to "driver" application on "same" devices
@@ -296,34 +296,35 @@ Feature: To Test Duo - Scheduled Bungii
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "EN ROUTE" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    When I Switch to "driver" application on "ORIGINAL" devices
+
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    And I Switch to "customer" application on "ORIGINAL" devices
+    Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "EN ROUTE" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    When I Switch to "driver" application on "ORIGINAL" devices
-
-    And I slide update button on "LOADING ITEM" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
 
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
@@ -363,7 +364,7 @@ Feature: To Test Duo - Scheduled Bungii
     Examples:
     |PROMO CODE|
     |PROMO DOLLAR OFF|
-  #  |PROMO PERCENT OFF|
+    |PROMO PERCENT OFF|
 
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer

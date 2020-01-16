@@ -165,7 +165,7 @@ public class LiveTripsSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

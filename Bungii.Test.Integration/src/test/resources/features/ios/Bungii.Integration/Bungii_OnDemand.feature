@@ -300,7 +300,7 @@ Feature: Create on demand bungii
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
 
   @regression22a
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
     And I Switch to "driver" application on "same" devices
@@ -332,7 +332,8 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII REQUEST" screen
     When I click "ACCEPT" button on "Bungii Request" screen
 
-    And I Switch to "customer" application on "same" devices
+    Then I click on notification for "Customer" for "DRIVER ENROUTE"
+ #   And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     Then ratting should be correctly displayed on Bungii accepted page
     When I click "Ok" button on "BUNGII ACCEPTED" screen
@@ -680,7 +681,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
 
-  @regression99
+  @regression
   Scenario:DRIVER Notification - Tip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -699,3 +700,4 @@ Feature: Create on demand bungii
       | 5       | 5   |
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
 
+    And I click "On To The Next One" button on "Bungii Completed" screen
