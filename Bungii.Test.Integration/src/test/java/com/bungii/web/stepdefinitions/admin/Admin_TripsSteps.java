@@ -382,18 +382,17 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^The driver should get removed successfully$")
     public void the_driver_should_get_removed_successfully() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(),"Driver(s) removed successfully","Pass", "Fail");
+        testStepAssert.isElementDisplayed(admin_ScheduledTripsPage.Label_DriverRemovalSuccessMessage(), "Driver(s) removed successfully", "Pass", "Fail");
         action.click((admin_ScheduledTripsPage.Button_Close()));
-
+    }
     @When("^I search by client name \"([^\"]*)\"$")
     public void i_search_by_client_name_something(String searchString) throws Throwable {
-        action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod() , "The Beginning of Time" );
-        action.sendKeys(admin_TripsPage.TextBox_Search() , searchString + Keys.ENTER);
-        log("I search "+ searchString + "Client Name" ,
-                "I have on searched "+ searchString+" Client Name", true);
+        action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod(), "The Beginning of Time");
+        action.sendKeys(admin_TripsPage.TextBox_Search(), searchString + Keys.ENTER);
+        log("I search " + searchString + "Client Name",
+                "I have on searched " + searchString + " Client Name", true);
     }
-
-    @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
+        @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
         try{
             for (WebElement e : admin_TripsPage.Client_names())
@@ -444,34 +443,10 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterScheduled().isSelected(),"Category Scheduled should be selected","Category Scheduled is selected","Category Scheduled is NOT selected");
     }
 
-    void uncheck_all_statuses()
-    {
-        if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
-        if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
-        if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
-            admin_TripsPage.CheckBox_FilterPickupWithError().click();
-        if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
-            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
-        if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
-            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
-        if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
-        if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
-        if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
-            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
-    }
+
 
     @When("^I select filter \"([^\"]*)\" as \"([^\"]*)\"$")
-    public void i_select_filter_something_as_something(String filter, String value) throws Throwable {
+    public void i_select_filter_something_as_something(String filter, String value) {
         switch (filter)
         {
             case "Statuses" :
@@ -564,6 +539,7 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
 
         }
+
     }
 
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
@@ -664,5 +640,30 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
 
+    }
+    public void uncheck_all_statuses()
+    {
+        if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
+            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+        if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
+            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+        if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
+            admin_TripsPage.CheckBox_FilterPickupWithError().click();
+        if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
+            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+        if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
+            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+        if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
+        if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
+        if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
+            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
     }
 }

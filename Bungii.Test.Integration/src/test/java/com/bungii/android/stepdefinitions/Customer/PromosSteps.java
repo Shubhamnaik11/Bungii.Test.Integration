@@ -6,6 +6,7 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.android.pages.customer.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -21,6 +22,7 @@ public class PromosSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromosSteps.class);
     ActionManager action = new ActionManager();
     PromosPage promoPage = new PromosPage();
+    EstimatePage estimatePage=new EstimatePage();
     GeneralUtility utilities = new GeneralUtility();
 
     @And("^I add \"([^\"]*)\" PromoCode$")
@@ -261,6 +263,11 @@ public class PromosSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
                     testStepVerify.isElementTextEquals(promoPage.Text_First(), "FIRST");
                     break;
+
+                case"referral code received with out first time tag":
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
+                    break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
                     break;
@@ -332,7 +339,7 @@ public class PromosSteps extends DriverBase {
         boolean isPresent = false;
         List<WebElement> codes = promoPage.List_PromoCode();
         for (WebElement code : codes) {
-            if (action.getValueAttribute(code).contains(expectedCode)) {
+            if (action.getText(code).contains(expectedCode)) {
                 isPresent = true;
                 break;
             }
@@ -383,6 +390,34 @@ public class PromosSteps extends DriverBase {
     @Then("^I should see the previously added promo code present for current Bungii request$")
     public void i_should_see_the_previously_added_promo_code_present_for_current_bungii_request() throws Throwable {
         testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1_OnEstimate(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+    }
+
+    @And("^I tap on \"([^\"]*)\" on Estimate screen$")
+    public void i_tap_on_something_on_estimate_screen(String strArg1) throws Throwable {
+        try{
+            switch (strArg1)
+            {
+                case "Promo code":
+                    Thread.sleep(3000);
+                    action.isElementPresent(estimatePage.Link_Promo(true));
+                    estimatePage.Link_Promo(true);
+                    break;
+                case "Promo code value":
+                    Thread.sleep(3000);
+                    action.isElementPresent(estimatePage.Link_PromoValue(true));
+                    estimatePage.Link_PromoValue(true);
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 

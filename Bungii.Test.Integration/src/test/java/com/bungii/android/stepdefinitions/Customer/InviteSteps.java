@@ -149,8 +149,6 @@ public class InviteSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
                     testStepVerify.contains(action.getText(invitePage.TextMsg_TextField()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     }else{
-
-
                         //send any phone number
                         action.sendKeys(invitePage.Text_Receipient(),"55");
                         ((AndroidDriver)SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));

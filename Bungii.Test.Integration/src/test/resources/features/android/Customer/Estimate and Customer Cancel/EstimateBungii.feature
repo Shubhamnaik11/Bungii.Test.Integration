@@ -80,7 +80,7 @@ Feature: EstimateBungii
     And I add "1" photos to the Bungii
     And I add "4" photos to the Bungii
 
-  @regression1
+  @regression
   Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
