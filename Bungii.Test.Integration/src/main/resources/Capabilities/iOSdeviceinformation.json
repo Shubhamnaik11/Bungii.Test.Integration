@@ -16,7 +16,7 @@
     "waitForQuiescence": false,
     "useJSONSource": true,
     "maxTypingFrequency": 30,
-    "wdaLocalPort": 8111
+    "wdaLocalPort": 8110
   },
   "device1": {
     "platformName": "iOS",
