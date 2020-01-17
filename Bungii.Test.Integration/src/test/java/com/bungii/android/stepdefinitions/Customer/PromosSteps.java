@@ -57,6 +57,9 @@ public class PromosSteps extends DriverBase {
                 case "used one off":
                     promoCode = PropertyUtility.getDataProperties("promocode.usedoneoff");
                     break;
+                case "PROMOTER TYPE PROMO":
+                    promoCode=PropertyUtility.getDataProperties("promocode.type.promoter");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -322,6 +325,7 @@ public class PromosSteps extends DriverBase {
     public void i_should_able_to_see_expected_promo_code_in_available_promo_code() {
         try {
             String usedPromoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+
             testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -399,13 +403,11 @@ public class PromosSteps extends DriverBase {
             {
                 case "Promo code":
                     Thread.sleep(3000);
-                    action.isElementPresent(estimatePage.Link_Promo(true));
-                    estimatePage.Link_Promo(true);
+                    action.click(estimatePage.Link_Promo(true));
                     break;
                 case "Promo code value":
                     Thread.sleep(3000);
-                    action.isElementPresent(estimatePage.Link_PromoValue(true));
-                    estimatePage.Link_PromoValue(true);
+                    action.click(estimatePage.Link_PromoValue(true));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

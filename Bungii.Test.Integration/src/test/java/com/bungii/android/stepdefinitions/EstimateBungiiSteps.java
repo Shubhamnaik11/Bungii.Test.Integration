@@ -95,7 +95,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Request Bungii":
-                    //  if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
+                    String cost=action.getText(bungiiEstimatePage.Text_GetCost());
+                    cost=cost.replace("~","");
+                    cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",cost);
+                    cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(estimatePage.Link_Promo(true)));
                     action.scrollToBottom();
                     action.scrollToBottom();
 
