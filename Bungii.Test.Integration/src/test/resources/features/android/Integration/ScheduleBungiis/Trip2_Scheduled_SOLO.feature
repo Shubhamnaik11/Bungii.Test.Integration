@@ -833,11 +833,11 @@ Feature: SoloScheduled
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 9871450107     | Testcustomertywd_apple_AGQFCg Test | Cci12345          |
+      | NEXT_POSSIBLE |8805368840     | Testcustomertywd_appleRicha Test| Cci12345          |
     And I get TELET time of of the current trip
 
     Given I am on customer Log in page
-    When I enter customers "9871450107" Phone Number
+    When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
@@ -869,7 +869,7 @@ Feature: SoloScheduled
     And I tap on "Go Online button" on Driver Home page
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+      | now         | 8805368840     | Cci12345          |  Testcustomertywd_appleRicha Test| 2              |
 
     Then I should not get notification for ON DEMAND TRIP
     Then I cancel all bungiis of customer
@@ -925,6 +925,7 @@ Feature: SoloScheduled
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
     And I Switch to "driver" application on "same" devices
     And I tap on "Available Trips link" on Driver Home page
     Then I should able to see "zero" available trip
@@ -962,9 +963,46 @@ Feature: SoloScheduled
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
     And I Switch to "driver" application on "same" devices
     And I tap on "Available Trips link" on Driver Home page
     Then I should able to see "zero" available trip
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
+
+    @regression
+    Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
+      Given that solo schedule bungii is in progress
+        | geofence | Bungii State | Bungii Time    |
+        | kansas   | Accepted     | NEXT_POSSIBLE |
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid" driver
+      And I tap on "Go Online button" on Driver Home page
+      When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+        | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+        | now         | 8805368840     | Cci12345          |  Testcustomertywd_appleRicha Test| 2              |
+
+      Then I should not get notification for ON DEMAND TRIP
+      Then I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+
+  @regression123
+  Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | 1.5 hour ahead | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    When I enter customers "8888889917" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I wait for Minimum duration for current Bungii to be T-2 hours
+    And I Switch to "driver" application on "same" devices
+    Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |

@@ -487,6 +487,40 @@ public class BungiiInProgressSteps extends DriverBase {
 
 
     }
+    @And("^I wait for Minimum duration for current Bungii to be T-2 hours$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_t_minus2() {
+        try {
+
+            String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+
+            DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+            formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+            Date bungiiDate = formatter.parse(bungiiTime);
+
+
+            Date currentDate = new Date();
+            bungiiDate.setYear(currentDate.getYear());//(Integer.parseInt(currentDate.getYear()));
+            long duration = bungiiDate.getTime() - currentDate.getTime();
+
+            long diffInMinutes;
+            int mininumWaitTime = 120;
+
+            diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
+            //minimum 1  min wait
+            diffInMinutes = diffInMinutes + 1;
+            if (diffInMinutes > 0) {
+                action.hardWaitWithSwipeUp((int) diffInMinutes);
+            } else {
+                // minimum wait of 30 mins
+
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     /**
      * Get Driver Name
      *

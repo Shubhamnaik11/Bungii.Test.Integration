@@ -796,7 +796,12 @@ public class GeneralUtility extends DriverBase {
             action.click(otherAppsPage.Notification_StackDriverAccepted1());
             isDisplayed = true;}
 
-        }
+        }else if(notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2")))
+    {   if(action.isElementPresent(otherAppsPage.Notification_TMinus2(true))){
+        action.click(otherAppsPage.Notification_TMinus2());
+        isDisplayed = true;}
+
+    }
 
 
 
@@ -851,6 +856,9 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "SCHEDULED PICKUP ACCEPTED":
                     text = PropertyUtility.getMessage("customer.notification.driver.bungii.accepted.stack");
+                    break;
+                case "T-2 BEFORE SCHEDULED TRIP":
+                    text = PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2");
                     break;
             }
 

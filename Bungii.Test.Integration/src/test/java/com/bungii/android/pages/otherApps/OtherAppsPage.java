@@ -52,6 +52,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
+  public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"BUNGII: Heads up! T minus 2 hours till pickup.\"]", LocatorType.XPath,ignoreException); }
 
 
 }
