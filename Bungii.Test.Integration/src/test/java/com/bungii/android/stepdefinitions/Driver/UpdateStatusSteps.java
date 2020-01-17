@@ -7,6 +7,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
@@ -70,4 +71,15 @@ public class UpdateStatusSteps extends DriverBase {
         action.swipeRight(updateStatusPage.Slider());
     }
 
+    @Then("^non control driver should see \"([^\"]*)\" screen$")
+    public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
+        try{
+            //testStepVerify.isElementEnabled(updateStatusPage.Activity_loader(true)," Driver should be shown loader screen");
+           // testStepVerify.isElementTextEquals(updateStatusPage.Text_WaitingForDriver(),"Waiting for the other driver to end Bungii.");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 }

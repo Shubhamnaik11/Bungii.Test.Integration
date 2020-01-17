@@ -273,7 +273,7 @@ Feature: On Demand Bungii
       | Promo percentage    | valid percent | valid baltimore |
       | valid one off fixed | valid one off | valid baltimore |
 
-  @regression1
+  @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -329,7 +329,7 @@ Feature: On Demand Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @regression1
+  @regression
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -368,7 +368,7 @@ Feature: On Demand Bungii
       | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
-  @regression1
+  @regression
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -412,7 +412,7 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression1
+  @regression
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -458,7 +458,7 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression1
+  @regression
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

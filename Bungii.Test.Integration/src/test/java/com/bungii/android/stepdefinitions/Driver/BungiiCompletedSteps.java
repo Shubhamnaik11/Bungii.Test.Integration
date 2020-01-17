@@ -27,6 +27,10 @@ public class BungiiCompletedSteps extends DriverBase {
                     verifyBungiiCompletedPage();
                     verifyTripValue();
                     break;
+                case "correct details for duo trip":
+                    action.scrollToBottom();
+                    verifyTripValue();
+                    break;
                 case "summary":
                     verifyBungiiCompletedPage();
                     break;

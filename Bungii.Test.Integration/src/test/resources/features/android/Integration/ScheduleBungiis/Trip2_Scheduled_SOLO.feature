@@ -1091,7 +1091,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Check that re-searched trip request does Not show Urgent Notification text if is more than one hour from the scheduled trip time
     When I clear all notification
     Given that solo schedule bungii is in progress
@@ -1099,7 +1099,7 @@ Feature: SoloScheduled
       | Kansas   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I enter phoneNumber :8888881016 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
@@ -1246,39 +1246,65 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
-  Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
+  @regression
+  Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | Kansas   | Accepted     | NEXT_POSSIBLE   | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+      | Kansas   | unloading items     | NEXT_POSSIBLE   | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid kansas" customer
 
     When I Switch to "driver" application on "same" devices
-    And I am logged in as "valid kansas" driver
-
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :8888881019 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
     And Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "customer" application on "same" devices
-    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
+    Then Bungii customer should see "correct details for duo trip" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
 
-    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
-
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     When I Switch to "driver" application on "same" devices
-    Then Bungii driver should see "correct details" on Bungii completed page
+    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-    And I tap on "Go Online button" on Driver Home page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    And I start selected Bungii
-    Then Bungii driver should see "Enroute screen"
-    Then I check ETA of "control driver"
+  @regression1
+  Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state  | driver2 state  |
+      | Unloading Item | Unloading Item |
+
+    And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I enter phoneNumber :9999999991 and  Password :Cci12345
+    And I click "Log In" button on Log In screen on driver app
+    And Bungii Driver "slides to the next state"
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    Then non control driver should see "waiting for other driver" screen
 
     When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Enroute screen"
-    Then "control driver" eta should be displayed to customer
+    Then I should be navigated to "UNLOADING ITEM" screen
+	#control driver complete bungii
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
+      | driver1 state    |
+      | Bungii Completed |
+    Then Bungii customer should see "correct details for duo trip" on Bungii completed page
+    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen

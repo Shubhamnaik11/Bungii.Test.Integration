@@ -78,7 +78,7 @@ public class ReportGeneratorUtility {
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
-	        totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
+	        totalStr = totalStr.replaceAll("<!--DILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");

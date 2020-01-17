@@ -1127,6 +1127,10 @@ public class GeneralUtility extends DriverBase {
                 testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiDetails(),key);
                 isCorrectPage=true;
                 break;
+            case "UNLOADING ITEM":
+                testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_Status_Generic(true),key);
+                isCorrectPage=true;
+                break;
         }
         return isCorrectPage;
     }

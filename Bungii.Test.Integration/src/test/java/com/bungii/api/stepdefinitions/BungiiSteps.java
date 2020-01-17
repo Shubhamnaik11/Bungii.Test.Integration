@@ -551,7 +551,7 @@ public String getDriverPhone(String driverName)
 
                 }
                 else if (customer.equalsIgnoreCase("Kansas customer")) {
-                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
+                    custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
                     custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
                 }
@@ -580,9 +580,9 @@ public String getDriverPhone(String driverName)
 
             }
             else if (customer.equalsIgnoreCase("Kansas customer")) {
-                custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer.phone");
-                custPassword = PropertyUtility.getDataProperties("Kansas.customer.password");
-                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer.name"));
+                custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
+                custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
             }
             else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");

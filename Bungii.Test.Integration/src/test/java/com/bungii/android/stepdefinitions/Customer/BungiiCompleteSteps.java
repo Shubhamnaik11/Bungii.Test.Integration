@@ -36,6 +36,10 @@ public class BungiiCompleteSteps  extends DriverBase {
                 case "correct details":
                     verifyTripValue();
                     break;
+                case "correct details for duo trip":
+                    action.scrollToBottom();
+                    verifyTripValue();
+                break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
