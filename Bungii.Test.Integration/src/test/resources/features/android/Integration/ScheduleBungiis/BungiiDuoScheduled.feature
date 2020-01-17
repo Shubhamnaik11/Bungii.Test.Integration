@@ -4,10 +4,11 @@
   #These feature will run in atlanta geofence
 
 Feature: Duo
-
+  @regression12
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
+  #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
 
     When I Switch to "driver" application on "same" devices

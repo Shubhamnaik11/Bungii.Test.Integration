@@ -450,13 +450,13 @@ public class BungiiInProgressSteps extends DriverBase {
         testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
     }
 
-    @Then("^I should not get notification for stack trip$")
-    public void i_should_not_get_notification_for_stack_trip() {
+    @Then("^I should not get notification for ([^\"]*)$")
+    public void i_should_not_get_notification_for_stack_trip(String message) {
             try {
                 //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                 action.showNotifications();
                 log("Checking notifications","Checking notifications",true);
-                String expecteMessage = utility.getExpectedNotification("STACK TRIP");
+                String expecteMessage = utility.getExpectedNotification(message.toUpperCase());
                 boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
                 if (!isFound) {
                     Thread.sleep(5000);
@@ -476,15 +476,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(5000);
 
                     action.click(otherAppsPage.Status_Bar());
-/*                    SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
-                    int yMargin = 5;
-                    int xMid = screenSize.width / 2;
-                    PointOption top = PointOption.point(xMid, yMargin);
 
-                    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
-                        action.longPress(top);*/
                 }
 
                 testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notificatiob for stack trip","I got notifcation of stack trip");

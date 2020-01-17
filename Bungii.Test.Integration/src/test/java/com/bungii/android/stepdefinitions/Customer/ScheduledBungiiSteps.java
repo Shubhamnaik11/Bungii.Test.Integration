@@ -184,7 +184,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String day = data.get("Day"),
                     tripType=data.get("Trip Type"),
                     time=data.get("Time");
-            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")){
+            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 1>")){
 
                 String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -221,6 +221,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                 String[] dateScroll = commonSteps.bungiiTimeForScroll(teletTimeInLocal);
                 selectBungiiTime(Integer.parseInt(day), dateScroll[1], dateScroll[2], dateScroll[3], tripType);
 
+            }else if(time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")){
+                //do nothing, for duo  trip already required time is selected
             }
             else if(time.equals("<AFTER TELET>")){
 
