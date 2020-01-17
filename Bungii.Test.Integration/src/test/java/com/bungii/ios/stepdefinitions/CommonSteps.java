@@ -1432,5 +1432,16 @@ public class CommonSteps extends DriverBase {
         testStepVerify.isEquals(strdateDB,strdatelocal);
 
     }
+    @Then("^Telet time of research trip should be not be same as previous trips$")
+    public void telet_time_of_current_trip_should_be_correctly_calculatedtrip() throws Throwable {
 
+        String previousTelet = (String) cucumberContextManager.getScenarioContext("TELET");
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String newTeletTime = dbUtility.getTELETfromDb(custRef);
+        testStepVerify.isEquals(previousTelet,newTeletTime);
+
+
+    }
 }
