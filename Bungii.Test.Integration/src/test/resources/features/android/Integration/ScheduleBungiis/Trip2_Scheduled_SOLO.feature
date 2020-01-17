@@ -1132,7 +1132,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: Driver should Not receive scheduled request if the request is sent outside of the time that is set for Trip Alert settings.
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -1229,7 +1229,7 @@ Feature: SoloScheduled
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | Kansas   | Accepted     | 0.75 hour ahead | denver customer | denver driver 1 | denver driver 2 |
+      | Kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
       | Kansas   | Enroute      | driver 2     | 2          |
@@ -1245,3 +1245,40 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  @regression1
+  Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
+      | Kansas   | Accepted     | NEXT_POSSIBLE   | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    And I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I am logged in as "valid kansas" driver
+
+    And Bungii Driver "slides to the next state"
+    Then I accept Alert message for "Reminder: both driver at drop off"
+
+    When I Switch to "customer" application on "same" devices
+    Then Bungii driver should see "correct details for duo trip" on Bungii completed page
+
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+
+    And I tap on "Go Online button" on Driver Home page
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then Bungii driver should see "Enroute screen"
+    Then I check ETA of "control driver"
+
+    When I Switch to "customer" application on "same" devices
+    Then for a Bungii I should see "Enroute screen"
+    Then "control driver" eta should be displayed to customer
