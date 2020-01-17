@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PromosPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -199,6 +199,10 @@ public class PromosSteps extends DriverBase {
         try {
             switch (icon) {
                 case "i":
+                    if(action.isElementPresent(promoPage.Text_First(true)))
+                    {
+                        action.click(promoPage.Text_First(true));
+                    }
                     action.click(promoPage.Image_InfoIcon());
                     break;
                 default:
@@ -256,7 +260,11 @@ public class PromosSteps extends DriverBase {
 
                 case "This code is only available for your first Bungii.":
                     testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
-                    testStepVerify.isElementTextEquals(promoPage.Text_First(), "FIRST");
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
+                    break;
+                case "Info":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));
+                    action.click(promoPage.Button_Ok());
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
