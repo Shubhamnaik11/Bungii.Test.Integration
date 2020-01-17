@@ -13,9 +13,7 @@
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
-    "uiautomator2ServerLaunchTimeout": 30000,
-    "appWaitDuration": 35000,
-    "udid": "TA93401OLE"
+    "udid": "TA99301YVZ"
   },
   "extra3": {
     "platformName": "android",
