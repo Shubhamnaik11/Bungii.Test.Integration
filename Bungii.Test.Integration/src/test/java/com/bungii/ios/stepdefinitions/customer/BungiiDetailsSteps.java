@@ -182,7 +182,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
             boolean isPickUpAddressCorrect = tripInfo[0].equals(pickUpLocationLineOne) && tripInfo[1].equals(pickUpLocationLineTwo),
                     isDropAddressCorrect = tripInfo[5].equals(dropOffLocationLineOne) && tripInfo[6].equals(dropOffLocationLineTwo),
-                    isTimeCorrect = tripInfo[3].equals(tripTime.replace(",", " -")),
+                    isTimeCorrect = tripInfo[3].contains(tripTime.replace(",", " |")),
                     isEstimateCorrect = tripInfo[4].equals(estimate);
 
             if (!tripNoOfDriver.toUpperCase().equals("SOLO")) {
@@ -197,7 +197,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     "Expected Drop address is " + dropOffLocationLineOne + dropOffLocationLineTwo + ", but actual is" + tripInfo[1]);
             testStepVerify.isTrue(isTimeCorrect,
                     "Trip time should be " + tripTime, "Trip time is " + tripTime,
-                    "Expected Trip time is " + tripTime + ", but actual is" + tripInfo[5] + tripInfo[6]);
+                    "Expected Trip time is " + tripTime + ", but actual is" + tripInfo[3]);
             testStepVerify.isTrue(isEstimateCorrect,
                     "Trip Estimate should be " + estimate, "Trip Estimate is " + estimate,
                     "Expected Trip Estimate is " + estimate + ", but actual is" + tripInfo[4]);

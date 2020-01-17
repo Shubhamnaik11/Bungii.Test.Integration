@@ -64,7 +64,7 @@ public class BungiiAcceptedSteps extends DriverBase {
     @Then("^ratting should be correctly displayed on Bungii accepted page$")
     public void ratting_should_be_correctly_displayed_on_bungii_accepteed_page() throws Throwable {
         try {
-            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
 
             String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
             cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
