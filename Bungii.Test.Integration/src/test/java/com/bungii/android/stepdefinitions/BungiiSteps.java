@@ -303,7 +303,6 @@ public class BungiiSteps extends DriverBase {
     public void i_click_on_notification_for_something(String strArg1) {
         try {
             String expecteMessage="";
-
                     action.showNotifications();
                     log("Checking notifications","Checking notifications",true);
                     expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
