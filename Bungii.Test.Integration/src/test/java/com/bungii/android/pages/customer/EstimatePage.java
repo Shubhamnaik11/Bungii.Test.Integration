@@ -45,7 +45,7 @@ public class EstimatePage extends PageBase {
     public List<WebElement> LoadingUnloadingTime () { return findElements("//android.widget.ListView[@resource-id='com.bungii.customer:id/select_dialog_listview']/android.widget.CheckedTextView[@resource-id='android:id/text1']", LocatorType.XPath); }
 
     //------Promo Code--------------------------------------------------------------------------
-    public WebElement Link_Promo () { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id); }
+    public WebElement Link_Promo (boolean ignoreException) { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id,ignoreException); }
 
     public WebElement Select_PromoCode () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$10.00 - NEW01']", LocatorType.XPath); }
 
@@ -137,6 +137,9 @@ public class EstimatePage extends PageBase {
     public WebElement Button_InfoTime () { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_datetime_container']/android.widget.ImageView", LocatorType.XPath); }
     public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
 
+
+    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
+
     public WebElement Button_SystemCalenderOK() { return  findElement("android:id/button1", LocatorType.Id);}
     public WebElement Text_TimeHourPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(0);}
     public WebElement Text_TimeMinutesPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(1);}
@@ -150,4 +153,8 @@ public class EstimatePage extends PageBase {
     public WebElement Button_BungiiAccept() {return  findElement("//*[@resource-id='com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button']", LocatorType.XPath);}
     public WebElement Button_CancelRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id);}
 
+  public WebElement Link_PromoValue(boolean ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_promocode_container']/child::android.widget.ImageView", LocatorType.XPath,ignoreException);}
+  public WebElement Text_GetDistance() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Text_GetCost() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath,ignoreException);}
 }

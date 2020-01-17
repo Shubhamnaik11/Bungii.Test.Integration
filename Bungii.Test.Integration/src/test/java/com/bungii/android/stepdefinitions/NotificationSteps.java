@@ -10,9 +10,12 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -25,6 +28,7 @@ public class NotificationSteps extends DriverBase {
     OtherAppsPage otherAppsPage=new OtherAppsPage();
 
 
+
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
         //Thread.sleep(20000);
@@ -35,8 +39,8 @@ public class NotificationSteps extends DriverBase {
             boolean notificationClick=false;
             String bunddleId=getBundleId(currentApplication);
 
-            cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-            //((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
+         cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
+            ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
             Thread.sleep(3000);
             log("Checking notifications","Checking notifications",true);
@@ -136,32 +140,56 @@ public class NotificationSteps extends DriverBase {
     @When("^I clear all notification$")
     public void i_clear_all_notification() {
         String bunddleId=getBundleId((String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION"));
-
         try {
-            boolean cleared=false;
-            ((AppiumDriver)SetupManager.getDriver()).terminateApp(bunddleId);
+            boolean cleared = false;
+            ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
-            boolean isPresent=action.isElementPresent(otherAppsPage.Button_NotificationClear(true));
-            if(isPresent==true) {
+            boolean isPresent = action.isElementPresent(otherAppsPage.Button_NotificationClear(true));
+            if (isPresent == true) {
                 cleared = clearAllNotifcation();
-            }
-            else {
+            } else {
                 action.hideNotifications();
             }
-
-        if (cleared)
-                log( "I should able cleared all notification", "I cleared all notification");
-            else
-                log( "I should able cleared all notification",
-                        "Not notification found on device");
-
-            //action.hideNotifications();
-            ((AppiumDriver)SetupManager.getDriver()).activateApp(bunddleId);
-        } catch (Exception e) {
+        }catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+
+    /*public boolean clickNotification(String application, String Message) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, InterruptedException {
+        boolean clicked = false;
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+
+            String androidVersion = driver.getCapabilities().getCapability("platformVersion").toString();
+            List<WebElement> elements = new ArrayList<WebElement>();
+
+            elements = notificationPage.Cell_Notification();
+
+            for (WebElement notifcation : elements) {
+                String[] info = notifcation.getAttribute("label").split(",", 3);
+                System.err.println(info[0] + " ||  " + info[2]);
+                if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
+                    action.swipeRight(notifcation);
+                    clicked = true;
+                    break;
+                }
+
+                if (cleared)
+                    log("I should able cleared all notification", "I cleared all notification");
+                else
+                    log("I should able cleared all notification",
+                            "Not notification found on device");
+
+                //action.hideNotifications();
+                ((AppiumDriver) SetupManager.getDriver()).activateApp(bunddleId);
+            }
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }*/
 
     public boolean clearAllNotifcation() throws InterruptedException {
         boolean cleared = false;

@@ -29,6 +29,7 @@ public class SignupSteps extends DriverBase {
             switch (strArg1) {
                 case "unique":
                     customerPhone = utility.generateMobileNumber();
+                    cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
                     break;
                 case "blank":
                     break;
@@ -57,7 +58,10 @@ public class SignupSteps extends DriverBase {
 
             switch (strArg1) {
                 case "valid":
-                    action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                    String firstName="";
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                     firstName= Page_Signup.TextField_FirstName().getText();
+                            cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
                     action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
@@ -213,11 +217,21 @@ public class SignupSteps extends DriverBase {
             case "Referral":
                 strPromoCode = PropertyUtility.getDataProperties("referral.code");
                 break;
+            case "Code":
+                strPromoCode= (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
+
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
         action.click(Page_Signup.CheckBox_Promo());
+        String isChecked=action.getAttribute(Page_Signup.CheckBox_Promo(), "checked");
+        if(isChecked.equals("false"))
+        {
+            action.click(Page_Signup.CheckBox_Promo());
+        }
+
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);

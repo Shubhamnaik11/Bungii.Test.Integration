@@ -455,6 +455,7 @@ public class GeneralUtility extends DriverBase {
                 action.click(homePage.Button_NavPromos());
                 break;
             case "LOGOUT":
+                action.scrollToTop();
                 action.click(homePage.Button_Navlogout());
                 break;
             case "SIGN UP TO DRIVE":
@@ -462,6 +463,7 @@ public class GeneralUtility extends DriverBase {
                 break;
         }
     }
+
 
     public String getEstimateTime() {
 
@@ -845,6 +847,7 @@ public class GeneralUtility extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
+
         }
         return isDisplayed;
     }
@@ -1037,6 +1040,24 @@ public class GeneralUtility extends DriverBase {
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
         return action.getText(element);
+    }
+
+    public void addSliderValueToFeatureContext(String appKey, Rectangle rectangle) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        cucumberContextManager.setFeatureContextContext(key + "_RECT", rectangle);
+    }
+
+    public boolean isSliderValueContainsInContext(String appKey) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        return cucumberContextManager.isFeatureContextContains(key + "_RECT");
+    }
+
+    public Rectangle getSliderValueFromContext(String appKey) {
+        String instanceName = SetupManager.getObject().getCurrentInstanceKey().toUpperCase();
+        String key = instanceName + "_" + appKey;
+        return (Rectangle) cucumberContextManager.getFeatureContextContext(key + "_RECT");
     }
 
     public void waitForSnackbarMessage() {
