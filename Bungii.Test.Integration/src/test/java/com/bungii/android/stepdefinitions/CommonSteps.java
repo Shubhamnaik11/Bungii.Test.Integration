@@ -10,8 +10,10 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.google.common.collect.ImmutableMap;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,14 +25,16 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+
 import org.openqa.selenium.Point;
 
 import org.openqa.selenium.*;
 
 import java.lang.invoke.SwitchPoint;
-import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -45,7 +49,27 @@ public class CommonSteps extends DriverBase {
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
     private DbUtility dbUtility = new DbUtility();
+    private static String ANDROID_PHOTO_PATH = "/sdcard/Pictures";
 
+    @Given("^I have Large image on my device$")
+    public void i_have_large_image_on_my_device() throws Throwable {
+        List<String> removePicsArgs = Arrays.asList(
+
+                "/sdcard/ALARGE_IMAGE/"
+        );
+        Map<String, Object> removePicsCmd = ImmutableMap.of(
+                "command", "ls ",
+                "args", removePicsArgs
+        );
+        ((AndroidDriver)SetupManager.getDriver()).executeScript("mobile: shell", removePicsCmd);
+
+        String pickupImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LARGE_IMAGE"));
+
+        File img = new File( pickupImage);
+
+        ((AndroidDriver)SetupManager.getDriver()).pushFile(ANDROID_PHOTO_PATH + "/" + img.getName(), img);
+
+    }
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         boolean isApplicationIsInForeground = false;
@@ -600,7 +624,41 @@ public class CommonSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
+    @Then("^Telet time of current trip should be correctly calculated$")
+    public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
+        com.bungii.ios.utilityfunctions.GeneralUtility utility= new com.bungii.ios.utilityfunctions.GeneralUtility();
+        String teletTimeLocal =utility.calculateTeletTime();
+        String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
 
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date Db = formatter.parse(teletTimeDB);
+
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String strdateDB = formatter.format(Db);
+        String strdatelocal = teletTimeLocal;
+        testStepVerify.isEquals(strdateDB,strdatelocal);
+
+    }
+    @Then("^Telet time of research trip should be not be same as previous trips$")
+    public void telet_time_of_current_trip_should_be_correctly_calculatedtrip() throws Throwable {
+
+        String previousTelet = (String) cucumberContextManager.getScenarioContext("TELET");
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String newTeletTime = dbUtility.getTELETfromDb(custRef);
+        testStepVerify.isEquals(previousTelet,newTeletTime);
+
+
+    }
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
