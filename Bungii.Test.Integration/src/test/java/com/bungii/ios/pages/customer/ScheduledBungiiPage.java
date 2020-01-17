@@ -10,7 +10,7 @@ public class ScheduledBungiiPage extends PageBase {
 
 
     public WebElement Button_SaveMoney() {
-        return findElement("SAVE MONEY'", LocatorType.Name);
+        return findElement("SAVE MONEY", LocatorType.Name);
     }
 
     public WebElement Cell_TripInformation() {

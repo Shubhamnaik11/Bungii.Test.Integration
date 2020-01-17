@@ -50,7 +50,8 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement Button_CallDriver() { return findElement("Call driver", PageBase.LocatorType.AccessibilityId); }
 	public WebElement Button_SmsDriver() { return findElement("Text driver", PageBase.LocatorType.AccessibilityId); }
 
-
+	public List<WebElement> FilledStars() {return findElements("//*[contains(@name, 'rating filled star icon')]", LocatorType.XPath);}
+	public List<WebElement> HalfFilledStar() {return findElements("//*[contains(@name, 'rating half filled star icon')]", LocatorType.XPath);}
 
 	//STACK
 	public WebElement Button_CancelBungii() { return findElement("Cancel Bungii", LocatorType.AccessibilityId); }

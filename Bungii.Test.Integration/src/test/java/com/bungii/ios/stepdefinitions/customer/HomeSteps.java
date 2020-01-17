@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.HomePage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -25,7 +26,7 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homePage;
-
+    DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
         this.homePage = homePage;
     }
@@ -369,6 +370,30 @@ public class HomeSteps extends DriverBase {
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",
                     menuItem + " is selected sucessfully", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I customers active flag should be \"([^\"]*)\"$")
+    public void i_active_flag_should_be_something(String strArg1) throws Throwable {
+        try {
+            String phone=(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            String actualActiveFlag=DbUtility.getActiveFlag(phone);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I driver active flag should be \"([^\"]*)\"$")
+    public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
+        try {
+            String phone=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            String actualActiveFlag=DbUtility.getDriverActiveFlag(phone);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

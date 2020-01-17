@@ -72,8 +72,8 @@ Feature: Log In
 
 
     Examples:
-      | Scenario             | Username   | InCorrectPassword | Correct Password | Expected Message | Expected Message 3 Times |Expected Message 5 Times |
-      | PENDING VERIFICATION | 8888881010 | cci12345          | Cci12345        | INVALID_PASSWORD  |INVALID_PASSWORD_3_TIMES |INVALID_PASSWORD_5_TIMES |
+      | Username   | InCorrectPassword | Correct Password | Expected Message | Expected Message 3 Times | Expected Message 5 Times |
+      | 8888881010 | cci12345          | Cci12345         | INVALID_PASSWORD | INVALID_PASSWORD_3_TIMES | INVALID_PASSWORD_5_TIMES |
 
 
   @regression
@@ -85,3 +85,37 @@ Feature: Log In
     Then Alert message with HICCUP MESSAGE text should be displayed on driverApp
     And I accept Alert message on driverApp
     When I Select "LOGOUT" from driver App menu
+
+  @regression
+  Scenario: Permission - iOS Driver - Turn off location permission - View alert on app
+    Given I install Bungii Driver App again
+    And I Switch to "driver" application on "same" devices
+    When I enter phoneNumber :{VALID} and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    Then I should be navigated to "ALLOW NOTIFICATIONS" screen
+    And I should see "all details" on allow notifications driver screen
+    When I verify and allow access of Notification from Bungii driver application
+    Then I should be navigated to "ALLOW LOCATION" screen
+    And I should see "all details" on allow location driver screen
+    When I verify and deny access of Location from Bungii driver application
+    And I Switch to "driver" application on "same" devices
+    Then user is alerted for "PLEASE ENABLE LOCATION SERVICES"
+    Given I install Bungii Driver App again
+
+  @regression
+  Scenario: Permission - iOS Driver - Notifications
+    Given I install Bungii Driver App again
+    And I Switch to "driver" application on "same" devices
+    When I enter phoneNumber :{VALID} and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    Then I should be navigated to "ALLOW NOTIFICATIONS" screen
+    And I should see "all details" on allow notifications driver screen
+    When I verify and allow access of Notification from Bungii driver application
+    Then I should be navigated to "ALLOW LOCATION" screen
+    And I should see "all details" on allow location driver screen
+    When I verify and allow access of Location from Bungii driver application
+    When I Select "LOGOUT" from driver App menu
+    When I enter phoneNumber :{VALID} and  Password :Cci12345
+    And I click "Log In" button on "Log In" screen on driverApp
+    Then I should be navigated to "Home" screen
+

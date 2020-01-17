@@ -3,6 +3,8 @@ package com.bungii.ios.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class BungiiDetails extends PageBase {
 
 
@@ -39,4 +41,6 @@ public class BungiiDetails extends PageBase {
 	public WebElement Button_Driver2Call() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"Button\"][1]", LocatorType.XPath); }
 	public WebElement Button_Driver2SMS() {return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII DRIVERS\"]/parent::XCUIElementTypeCell/following-sibling::XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"Button\"][2]", LocatorType.XPath); }
 
+	public List<WebElement> FilledStars() {return findElements("//*[contains(@name, 'rating filled star icon')]", LocatorType.XPath);}
+	public List<WebElement> HalfFilledStar() {return findElements("//*[contains(@name, 'rating half filled star icon')]", LocatorType.XPath);}
 }

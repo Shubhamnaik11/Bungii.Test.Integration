@@ -15,10 +15,11 @@ public class EnabledNotificationSteps extends DriverBase {
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     private static LogUtility logger = new LogUtility(EnabledNotificationSteps.class);
 
-    @Then("^I allow access of Notification from Bungii application$")
+    @Then("^I verify and allow access of Notification from Bungii application$")
     public void i_allow_access_of_notification_from_bungii_application() throws Throwable {
         try {
             action.click(enableNotificationPage.Button_Sure());
+            testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.notifications.alert.text"));
             action.clickAlertButton("Allow");
             pass("I allow access of Notification from Bungii application", "I clicked on allow button",
                     true);
@@ -37,6 +38,41 @@ public class EnabledNotificationSteps extends DriverBase {
                 case "all details":
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.notifications.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("customer.navigation.allow.notifications.text"));
+
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }    }
+
+    @Then("^I verify and allow access of Notification from Bungii driver application$")
+    public void i_allow_access_of_notification_from_bungiidriver_application() throws Throwable {
+        try {
+            action.click(enableNotificationPage.Button_Sure());
+            testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("driver.notifications.alert.text"));
+            action.clickAlertButton("Allow");
+            pass("I allow access of Notification from Bungii application", "I clicked on allow button",
+                    true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @Then("^I should see \"([^\"]*)\" on allow notifications driver screen$")
+    public void i_should_see_something_on_allow_notificationsdriver_screen(String identifier) throws Throwable {
+        try {
+
+            switch (identifier.toLowerCase()) {
+                case "all details":
+                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.notifications.header"));
+                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("driver.navigation.allow.notifications.text"));
 
                     break;
 

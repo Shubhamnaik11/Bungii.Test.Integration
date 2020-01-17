@@ -303,19 +303,12 @@ public class BungiiSteps extends DriverBase {
     public void i_click_on_notification_for_something(String strArg1) {
         try {
             String expecteMessage="";
-            switch (strArg1){
-                case "SCHEDULED PICKUP ACCEPTED":
-                    action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
-                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-                   break;
 
-                case "ACCEPT BUNGII QUESTION":
-                    action.showNotifications();
-                    log("Checking notifications","Checking notifications",true);
-                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
-                    break;
-            }
+            action.showNotifications();
+            log("Checking notifications","Checking notifications",true);
+
+            expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
                 Thread.sleep(50000);
