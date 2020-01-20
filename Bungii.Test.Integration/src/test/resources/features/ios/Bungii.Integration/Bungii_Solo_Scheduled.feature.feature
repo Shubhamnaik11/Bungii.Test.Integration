@@ -564,7 +564,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
-  @regression11
+  @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
