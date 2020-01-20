@@ -25,6 +25,7 @@ import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 
 import java.util.*;

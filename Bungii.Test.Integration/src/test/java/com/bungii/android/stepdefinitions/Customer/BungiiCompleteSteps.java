@@ -57,6 +57,7 @@ public class BungiiCompleteSteps  extends DriverBase {
     public void verifyBungiiCompletedPage(){
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
+        action.scrollToBottom();
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
         int tripActualTime=Integer.parseInt(utility.getActualTime());
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");

@@ -1131,6 +1131,10 @@ public class GeneralUtility extends DriverBase {
                 testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_Status_Generic(true),key);
                 isCorrectPage=true;
                 break;
+            case "EN ROUTE":
+                testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_Status_Generic(true),key);
+                isCorrectPage=true;
+                break;
         }
         return isCorrectPage;
     }
