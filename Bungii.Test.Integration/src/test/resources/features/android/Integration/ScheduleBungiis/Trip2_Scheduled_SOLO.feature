@@ -698,7 +698,7 @@ Feature: SoloScheduled
       | 8888888881 |    |
 
 
-  @regression1
+  @regression
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -729,7 +729,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-  @regression1
+  @regression
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |

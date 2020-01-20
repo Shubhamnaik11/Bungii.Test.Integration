@@ -1,13 +1,14 @@
 package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
-import com.bungii.android.manager.ActionManager;
+import com.bungii.android.manager.*;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -23,9 +24,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+
 import java.util.*;
 
 import static com.bungii.SetupManager.getDriver;
@@ -93,8 +96,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     //  if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
                     action.scrollToBottom();
                     action.scrollToBottom();
-                    action.click(Page_Estimate.Checkbox_AgreeEstimate());
 
+                    String checked="checked";
+                    checked=action.getAttribute(Page_Estimate.Checkbox_AgreeEstimate(), checked);
+                    if(checked.equals("false")) {
+                        action.click(Page_Estimate.Checkbox_AgreeEstimate());
+                    }
                     if (!action.isElementPresent(Page_Estimate.Button_RequestBungii(true)))
                         action.scrollToBottom();
                     action.click(Page_Estimate.Button_RequestBungii());
@@ -104,30 +111,6 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
                     action.click(Page_Estimate.Button_RequestConfirm());Thread.sleep(3000);
                     action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true), "Success!", "SEARCHING…");
-                    //   action.invisibilityOfElementLocated(Page_Estimate.Alert_ConfirmRequestMessage(true));Thread.sleep(2000);
-                    //--------*to be worked on*-------------
-                    //If time has passed
-                    /*if (DriverAction.isElementPresent(Page_Estimate.Alert_DelayRequestingTrip))
-                    {
-                        if (deviceType.Equals("SamsungS5") || deviceType.Equals("SamsungS6"))
-                        {
-                            DriverAction.click(Page_Estimate.Button_DelayRequestingTrip_OK);
-                            DriverAction.click(Page_Estimate.Time);
-
-                            //choose current date
-                            DriverAction.click(Page_Estimate.Samsung_CurrentSelectedDate);
-                            DriverAction.click(Page_Estimate.Samsung_Date_OK);
-
-                            //set time with 15 mins delay
-                            DriverAction.click(Page_Estimate.Samsung_SetTime_Min_Next);
-                            UtilFunctions.ScrollUp(Page_Estimate.Samsung_SetTime_Min_Next);
-                            if (Page_Estimate.Samsung_SetTime_Min_Current.Text == "00" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "15" || Page_Estimate.Samsung_SetTime_Min_Current.Text == "30")
-                                DriverAction.click(Page_Estimate.Samsung_SetTime_Hour_Next);
-
-                            DriverAction.click(Page_Estimate.Button_RequestConfirm);
-                        }
-                        Thread.Sleep(2000);
-                    }*/
                     break;
 
                 case "Done after requesting a Scheduled Bungii":
@@ -701,16 +684,19 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
                     action.scrollToBottom();
-
+                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)) && i >= 3)
+                {
+                    testStepAssert.isFalse(action.isElementPresent(Page_Estimate.Link_AddPhoto(true)),"False","True" );
+                    break;
+                }
                 action.click(Page_Estimate.Link_AddPhoto());
                 Thread.sleep(2000);
                 //adding most probable outcome first
                 if (action.isElementPresent(Page_Estimate.Option_Camera(true))) {
                     //do nothing,
-                } else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
+                }
+                else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
                     action.click(Page_Estimate.Permissions_CameraAllow());
-
-                ;
 
                 action.click(Page_Estimate.Option_Camera());
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
@@ -740,6 +726,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_Estimate.Button_Camera_OK());
                 }
                 Thread.sleep(2000);
+
                 i++;
             } while (i < Integer.parseInt(arg0));
 
@@ -870,5 +857,130 @@ public class EstimateBungiiSteps extends DriverBase {
         testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
     }
 
+
+ /*   @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
+        String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+*/
+    @Then("^correct details next available scheduled time should be displayed$")
+    public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
+        try {
+            Date date = getNextScheduledBungiiTime();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            String displayedTime = getElementValue("TIME");
+            testStepVerify.isEquals(strTime, displayedTime);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    public String formatDate(String date,int position){
+        Calendar calOne = Calendar.getInstance();
+        int year = calOne.get(Calendar.YEAR);
+        String stringToBeInserted=year+" - ";
+
+        // Create a new string
+        String newDate = new String();
+
+        for (int i = 0; i < date.length(); i++) {
+            if (i == position) {
+                // Insert the string to be inserted
+                // into the new string
+                newDate += stringToBeInserted;
+            }
+            // Insert the original string character
+            // into the new string
+            newDate += date.charAt(i);
+        }
+        return newDate;
+    }
+
+    public String getDateForTimeZone() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+
+    public Date getFormatedTime() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+    /**
+     * Read property file for minimum difference for next bunii time
+     *
+     * @return next possible valid bungii time
+     */
+    public Date getNextScheduledBungiiTime() {
+        return getFormatedTime();
+    }
+
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String bungiiTimeDisplayInTextArea(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        String formattedDate = sdf.format(date);
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+        return formattedDate;
+    }
+
+    /**
+     * Return value of element displayed on screen
+     *
+     * @param key Element identifier
+     * @return
+     */
+    public String getElementValue(String key) {
+        String value = "";
+        switch (key.toUpperCase()) {
+            case "TIME":
+                value = action.getText(estimatePage.Time());
+                break;
+
+            default:
+                System.err.println("ELEMENT not found in case" + key);
+                break;
+        }
+        return value;
+    }
 
 }

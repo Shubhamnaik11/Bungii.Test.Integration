@@ -564,7 +564,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
     #comment below tag and  add to first scenario
-  @regression11
+  @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1633,7 +1633,7 @@ Feature: To Test Solo - Scheduling Bungii
       | driver1 state    | driver2 state    |
       | Bungii Completed | Bungii Completed |
     When I Switch to "customer" application on "same" devices
-   # And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
     When I select "3" Ratting star for duo Driver 1
     Then "3" starts should be highlighted for Driver 1
     When I select "4" Ratting star for duo Driver 2
@@ -1692,7 +1692,7 @@ Feature: To Test Solo - Scheduling Bungii
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted    | NEXT_POSSIBLE |
+      | denver   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1725,8 +1725,8 @@ Feature: To Test Solo - Scheduling Bungii
   @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   |
-      | denver   | Accepted    | 15 min ahead |
+      | geofence | Bungii State | Bungii Time  |
+      | denver   | Accepted     | 15 min ahead |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1744,14 +1744,79 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following detail
-      | LoadTime | PromoCode | Payment Card | Time                                    | PickUpImage | Save Trip Info |
+      | LoadTime | PromoCode | Payment Card | Time                                               | PickUpImage | Save Trip Info |
       | 30       |           |              | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> | Default     | No             |
 
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE TRIPS" from driver App menu
     Then I should able to see "zero" available trip
-
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
+
+  @regression
+  Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted     | NEXT_POSSIBLE |
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    Then I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+
+    And I should not get notification for "driver" for "ON DEMAND TRIP"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+  @regression
+  Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | denver   | Accepted     | 0.5 hour ahead |
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    Then I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
+
+    And I should not get notification for "driver" for "ON DEMAND TRIP"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+  #KNOW ISSUE , TELET TIME IS NOT RECALCULATED
+  @regression
+  Scenario: check TELET of re-searched trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Accepted     | NEXT_POSSIBLE |
+    And I get TELET time of of the current trip
+    Then Telet time of current trip should be correctly calculated
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+    Then I wait for "1" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    When I switch to "ORIGINAL" instance
+    When I Switch to "driver" application on "same" devices
+    Then Telet time of research trip should be not be same as previous trips

@@ -496,7 +496,7 @@ public class CommonSteps extends DriverBase {
             switch (message.toUpperCase()) {
                     case "OUTSIDE BUISSNESS HOUR":
                     expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
-
+                    break;
                 case "DELETE WARNING":
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
