@@ -19,6 +19,7 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Text_FinalCost() {return findElement("//XCUIElementTypeStaticText[@name='Final Cost']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_FinalCost_Duo() {return findElement("//XCUIElementTypeStaticText[@name='Final cost for two drivers']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_Discount() {return findElement("//XCUIElementTypeStaticText[@name='Discount']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
+	public WebElement Text_Discount_Duo() {return findElement("//XCUIElementTypeStaticText[@name='Promo code']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);}
 	public WebElement Text_Email() {return findElement("//XCUIElementTypeStaticText[@name='A detailed receipt will be emailed to you.']", LocatorType.XPath);}
 
 /*	public WebElement PageTitle_BungiiComplete() { return findElement("//XCUIElementTypeOther[@name=\"BUNGII COMPLETE\"]", PageBase.LocatorType.XPath); }
@@ -64,5 +65,15 @@ public class BungiiCompletePage extends PageBase {
 
 	public List<WebElement> Button_Driver2Filled() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"rating filled star icon\"]", LocatorType.XPath); }
 	public List<WebElement> Button_Driver2Empty() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[@name=\"rating unselected star icon\"]", LocatorType.XPath); }
+
+	//Solo
+	public WebElement Text_TabStarToRate() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
+	public WebElement Text_Rate1Driver() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Rate Your Driver'", LocatorType.Predicate); }
+	public WebElement Text_DriversoloName() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
+	public WebElement Button_Solo3Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(2); }
+
+
+	public List<WebElement> Button_DriverSoloFilled() {return findElements("//XCUIElementTypeButton[@name=\"rating filled star icon\"]", LocatorType.XPath); }
+	public List<WebElement> Button_DriverSoloUnFilled() {return findElements("//XCUIElementTypeButton[@name=\"rating unselected star icon\"]", LocatorType.XPath); }
 
 }

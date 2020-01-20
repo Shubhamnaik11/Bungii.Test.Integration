@@ -299,8 +299,8 @@ Feature: Create on demand bungii
       | valid one off    | ONE OFF           | valid nashville            | correct details with promo | oneoff                  |
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
 
-  @regression22
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  @regression22a
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
     And I Switch to "driver" application on "same" devices
@@ -332,7 +332,8 @@ Feature: Create on demand bungii
     Then I should be navigated to "BUNGII REQUEST" screen
     When I click "ACCEPT" button on "Bungii Request" screen
 
-    And I Switch to "customer" application on "same" devices
+    Then I click on notification for "Customer" for "DRIVER ENROUTE"
+ #   And I Switch to "customer" application on "same" devices
     Then I should be navigated to "BUNGII ACCEPTED" screen
     Then ratting should be correctly displayed on Bungii accepted page
     When I click "Ok" button on "BUNGII ACCEPTED" screen
@@ -658,3 +659,45 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
+  @regression
+  Scenario: Check if customer is allowed to rate driver for solo trip
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | nashville | UNLOADING ITEM      |
+
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct rating detail for solo" on Bungii completed page
+    When I select "3" Ratting star for solo Driver 1
+    Then "3" starts should be highlighted for solo Driver 1
+    When I click "OK" button on "BUNGII COMPLETE" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+
+
+  @regression
+  Scenario:DRIVER Notification - Tip
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | nashville | UNLOADING ITEM      |
+
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click on notification for "customer" for "BUNGII FINISHED -RATE DRIVER"
+
+    When I rate Bungii Driver  with following details and Press "OK" Button
+      | Ratting | Tip |
+      | 5       | 5   |
+    And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
+
+    And I click "On To The Next One" button on "Bungii Completed" screen

@@ -86,6 +86,9 @@ Feature: CustomerSignup
     When I enter "PROMO1" promo code
     And I click on "ADD" button
     Then The "This code is only available for your first Bungii." is displayed
+    When I click on "i" icon
+    Then The "Info" is displayed
+
 
   @regression
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
