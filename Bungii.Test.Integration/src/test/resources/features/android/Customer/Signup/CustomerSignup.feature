@@ -73,6 +73,14 @@ Feature: CustomerSignup
     And the new user should see "Signup page"
 
   @regression
+  Scenario: Signup_FutureActivePromoCode
+    When I enter "unique" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I enter "FutureActive" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    Then the new user should see "Inactive Promo Code message"
+
+  @regression
   Scenario: Text on Promos page when first time promo code is added
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -86,6 +94,9 @@ Feature: CustomerSignup
     When I enter "PROMO1" promo code
     And I click on "ADD" button
     Then The "This code is only available for your first Bungii." is displayed
+    When I click on "i" icon
+    Then The "Info" is displayed
+
 
   @regression
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.

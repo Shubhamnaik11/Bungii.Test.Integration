@@ -99,7 +99,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
-  @failed
+
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -144,82 +144,227 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "BUNGII DETAILS" screen
   #  When I wait for Minimum duration for Bungii Start Time
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+ #   Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "ORIGINAL" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" trip status screen
+  #  Then I should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "EN ROUTE" trip status screen
+  #  Then Customer should be navigated to "EN ROUTE" trip status screen
+    Then I should be navigated to "EN ROUTE" screen
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+ #   Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
+ #   Then I should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
+#    Then Customer should be navigated to "ARRIVED" trip status screen
+    Then I should be navigated to "ARRIVED" screen
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-    And I should be navigated to "LOADING ITEM" trip status screen
+ #   And I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "ARRIVED" Screen
     Then I accept Alert message for "Reminder: both driver at pickup"
-    And I should be navigated to "LOADING ITEM" trip status screen
+  #  And I should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
+ #   Then Customer should be navigated to "LOADING ITEM" trip status screen
+    Then I should be navigated to "LOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+  #  Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+#    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
+  #  Then I should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+#    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    Then I should be navigated to "UNLOADING ITEM" screen
 
     When I Switch to "driver" application on "same" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    And I click "On To The Next One" button on "Bungii Completed" screen
 
     When I Switch to "driver" application on "Driver2" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
-    And I Select "HOME" from driver App menu
+
 
     And I Switch to "customer" application on "ORIGINAL" devices
     Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details" on Bungii completed page
     When I rate Bungii Driver  with following details and Press "CLOSE" Button
       | Ratting | Tip |
       | 5       | 5   |
     And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
 
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+
+    When I Switch to "driver" application on "Driver2" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "HOME" from driver App menu
+
+  @regression
+  Scenario Outline:Customer amount for duo with promo
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid duo driver 1" driver
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid driver 2" driver
+    And I Switch to "customer" application on "ORIGINAL" devices
+    And I logged in Customer application using  "customer-duo" user
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location           |
+      | Duo    | Margoa Railway  | peerbaugh Rd, Peer wadi |
+    And I click "Get Estimate" button on "Home" screen
+
+    When I select load time as "15" mins
+    And I tap "Promo code" on Estimate screen
+    And I should be navigated to "PROMOS" screen
+    And I add "<PROMO CODE>" PromoCode
+    And I click "ADD" button on "PROMOS" screen
+    Then I should able to see expected promo code in available promo code
+    When I tap "Back" on Promos screen
+    And I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
+      |          |           |              | NEXT_POSSIBLE | Default     |
+    And I request for bungii using Request Bungii Button
+
+
+    When I click "Done" button on "Success" screen
+    And I Select "Home" from Customer App menu
+    And I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Switch to "driver" application on "Driver2" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+  #  Then Trip Information should be correctly displayed on TRIP DETAILS screen
+    When I accept selected Bungii
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+  #  Then I should be navigated to "BUNGII DETAILS" screen
+  #  When I wait for Minimum duration for Bungii Start Time
+    And I start selected Bungii
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    And I slide update button on "EN ROUTE" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "EN ROUTE" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    When I Switch to "driver" application on "ORIGINAL" devices
+
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    And I Switch to "customer" application on "ORIGINAL" devices
+    Then I should be navigated to "UNLOADING ITEM" screen
+
+    When I Switch to "driver" application on "same" devices
+
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+
+    When I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+
+    And I Switch to "customer" application on "ORIGINAL" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I rate Bungii Driver  with following details and Press "CLOSE" Button
+      | Ratting | Tip |
+      | 5       | 5   |
+    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    And I Switch to "driver" application on "ORIGINAL" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+
+    When I Switch to "driver" application on "Driver2" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    When I click "On To The Next One" button on "Bungii Completed" screen
+    And I Select "HOME" from driver App menu
+    Then I wait for "1" mins
+
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select "The Beginning of Time" from search peroid
+    And I select trip from trips
+    Then On admin trip details page "promo" should be displayed
+
+    Examples:
+    |PROMO CODE|
+    |PROMO DOLLAR OFF|
+    |PROMO PERCENT OFF|
 
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
@@ -937,9 +1082,6 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-
-
-
 
 
   @regression

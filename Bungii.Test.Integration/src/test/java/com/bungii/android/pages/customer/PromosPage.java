@@ -31,6 +31,7 @@ public class PromosPage extends PageBase {
     public WebElement Text_InformationMessage() {return findElement("android:id/message", LocatorType.Id);}
     public WebElement Button_Ok () { return findElement("android:id/button1", LocatorType.Id); }
     public WebElement Button_AddPromoCode() { return findElements("//android.widget.Button", LocatorType.XPath).get(0);}
+
     public WebElement Text_First(boolean ...ignoreException) { return findElement("//android.widget.TextView[@text='FIRST']", LocatorType.XPath, ignoreException);}
     public WebElement Text_FirstTimeInfo(boolean...ignoreException ) { return  findElement("com.bungii.customer:id/promo_code_tv_firsttime_info", LocatorType.Id, ignoreException);}
     public WebElement Icon_i () { return findElement("com.bungii.customer:id/promo_code_more_info", LocatorType.Id); }

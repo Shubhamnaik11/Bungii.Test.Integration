@@ -46,6 +46,8 @@ public class CommonSteps extends DriverBase {
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiRequest bungiiRequest=new BungiiRequest();
+    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
+
     private DbUtility dbUtility = new DbUtility();
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
@@ -503,7 +505,7 @@ public class CommonSteps extends DriverBase {
             switch (message.toUpperCase()) {
                     case "OUTSIDE BUISSNESS HOUR":
                     expectedMessage=PropertyUtility.getMessage("customer.alert.outsidebuissnesshour.android");
-
+                    break;
                 case "DELETE WARNING":
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
@@ -688,4 +690,14 @@ public class CommonSteps extends DriverBase {
         }
         return SplitDate;
     }
+
+    @And("^I click \"([^\"]*)\" on the alert message$")
+    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
+        action.click(bungiiAcceptedPage.Button_OK());
+
+
+        log("I should able to click " + strArg1 + "on Alert Message",
+                "I clicked " + strArg1 + "on Alert Message", true);
+    }
+
 }

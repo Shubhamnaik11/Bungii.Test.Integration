@@ -6,8 +6,12 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.pages.admin.LiveTripsPage;
 import com.bungii.web.manager.ActionManager;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.support.ui.Select;
+
+import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -40,7 +44,17 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I select \"([^\"]*)\" from search peroid$")
+    public void i_select_something_from_search_peroid(String strArg1) throws Throwable {
+        try {
+            Select dropdown = new Select(liveTripsPage.Text_SearchPeroid());
+            dropdown.selectByVisibleText("The Beginning of Time");
 
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }    }
     @Then("^I search driver from drivers$")
     public void i_select_driver_from_drivers() throws Throwable {
         try {
@@ -109,42 +123,49 @@ public class LiveTripsSteps extends DriverBase {
             String Promo = String.valueOf(cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE"));
             String discountValue = String.valueOf(cucumberContextManager.getScenarioContext("DISCOUNT_VALUE"));
             String bungiiCostCustomer = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER"));
+
+            double dblDiscountValue=Double.parseDouble((discountValue).replace("$",""));
+            String truncValue = new DecimalFormat("#.00").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
+            bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+            logger.detail("bungii cost to customer "+bungiiCostCustomer);
             switch (strArg1.toLowerCase()) {
                 case "promo":
-                    bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+                    logger.detail("bungii cost to customer after replacing"+bungiiCostCustomer);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
                     break;
                 case "fbshare":
+                    bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
                     break;
                 case "oneoff":
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
                     break;
                 case "referral":
+
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
                     break;
                 case "promoter":
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter");
                     testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

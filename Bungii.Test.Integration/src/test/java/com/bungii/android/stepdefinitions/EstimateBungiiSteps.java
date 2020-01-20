@@ -24,6 +24,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -107,7 +108,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if(checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
-                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
+                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))           
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());
                     break;
@@ -316,6 +317,10 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "newly created user":
                     utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+                case "New":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -688,6 +693,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
                     action.scrollToBottom();
+
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)) && i >= 3)
                 {
                     testStepAssert.isFalse(action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)),"False","True" );
@@ -699,10 +705,12 @@ public class EstimateBungiiSteps extends DriverBase {
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
                 }
+
                 else if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
                     action.click(bungiiEstimatePage.Permissions_CameraAllow());
 
                 action.click(bungiiEstimatePage.Option_Camera());
+
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
@@ -856,6 +864,136 @@ public class EstimateBungiiSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see the \"([^\"]*)\" no more displayed on the estimates page$")
+    public void i_should_see_the_something_no_more_displayed_on_the_estimates_page(String strArg1) throws Throwable {
+        testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
+    }
+
+
+ /*   @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
+        String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+*/
+    @Then("^correct details next available scheduled time should be displayed$")
+    public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
+        try {
+            Date date = getNextScheduledBungiiTime();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            String displayedTime = getElementValue("TIME");
+            testStepVerify.isEquals(strTime, displayedTime);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    public String formatDate(String date,int position){
+        Calendar calOne = Calendar.getInstance();
+        int year = calOne.get(Calendar.YEAR);
+        String stringToBeInserted=year+" - ";
+
+        // Create a new string
+        String newDate = new String();
+
+        for (int i = 0; i < date.length(); i++) {
+            if (i == position) {
+                // Insert the string to be inserted
+                // into the new string
+                newDate += stringToBeInserted;
+            }
+            // Insert the original string character
+            // into the new string
+            newDate += date.charAt(i);
+        }
+        return newDate;
+    }
+
+    public String getDateForTimeZone() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+
+    public Date getFormatedTime() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+    /**
+     * Read property file for minimum difference for next bunii time
+     *
+     * @return next possible valid bungii time
+     */
+    public Date getNextScheduledBungiiTime() {
+        return getFormatedTime();
+    }
+
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String bungiiTimeDisplayInTextArea(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        String formattedDate = sdf.format(date);
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+        return formattedDate;
+    }
+
+    /**
+     * Return value of element displayed on screen
+     *
+     * @param key Element identifier
+     * @return
+     */
+    public String getElementValue(String key) {
+        String value = "";
+        switch (key.toUpperCase()) {
+            case "TIME":
+                value = action.getText(estimatePage.Time());
+                break;
+
+            default:
+                System.err.println("ELEMENT not found in case" + key);
+                break;
+        }
+        return value;
+    }
 
     @Then("^I verify that selected time is next available time$")
     public void i_verify_that_selected_time_is_next_available_time(){
