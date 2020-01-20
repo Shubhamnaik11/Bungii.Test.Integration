@@ -237,11 +237,23 @@ public class EmailUtility extends DriverBase {
             e.printStackTrace();
        }
     }
-    public void deleteEmailWithSubject(String subject,Store store)
+    public void deleteEmailWithSubject(String subject, Store store)
     {
         try
         {
-            Folder emailFolder = store.getFolder("INBOX");
+            Store newStore = null;
+            Folder emailFolder = null;
+            if (store==null)
+            {
+                String host = PropertyUtility.getEmailProperties("email.host");
+                String username = PropertyUtility.getEmailProperties("email.client.id");
+                String password = PropertyUtility.getEmailProperties("email.client.password");
+                newStore = authenticateEmailClientAndGetStore(host, username, password);
+                emailFolder = newStore.getFolder("INBOX");
+            }
+            else
+                emailFolder = store.getFolder("INBOX");
+
             emailFolder.open(Folder.READ_WRITE);
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     System.in));
@@ -262,6 +274,8 @@ public class EmailUtility extends DriverBase {
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }

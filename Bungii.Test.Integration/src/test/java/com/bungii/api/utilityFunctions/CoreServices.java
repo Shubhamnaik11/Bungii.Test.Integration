@@ -37,6 +37,7 @@ public class CoreServices extends DriverBase {
     private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
     private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
     private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
+    private static String DRIVER_CANCELPICKUPLIST = "/api/driver/cancelpickup";
     private static String STACKED_PICKUP_CONFIRMATION = "/api/driver/stackedpickupconfirmation";
     GeneralUtility utility = new GeneralUtility();
 
@@ -884,4 +885,6 @@ public class CoreServices extends DriverBase {
             System.out.println("Not able to Log in" + e.getMessage());
         }
     }
-}
+
+    }
+

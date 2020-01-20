@@ -306,7 +306,7 @@ public class DriverRegistrationSteps extends DriverBase {
 
        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         String driverName ="";
-       String message = null;
+       String message = "";
        switch (emailSubject)
        {
            case "Your application has been rejected.":
@@ -317,9 +317,35 @@ public class DriverRegistrationSteps extends DriverBase {
                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
                message = utility.getExpectedDriverSubmissionEmailContent(driverName);
                break;
+           case "BUNGII: Time to Hit the Road!":
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverApprovalEmailContent(driverName);
+               break;
        }
 
-       testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+       testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+
+    }
+    @And("^Admin should receive \"([^\"]*)\" email$")
+    public void admin_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+
+        String driverName ="";
+        String driverPhone = "";
+        String message = "";
+        switch (emailSubject)
+        {
+            case "New driver registration complete!":
+                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+                driverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
+                message = utility.getExpectedDriverRegistrationCompleteEmailContent(driverName, driverPhone);
+                break;
+
+        }
+
+        testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+
+
 
     }
 

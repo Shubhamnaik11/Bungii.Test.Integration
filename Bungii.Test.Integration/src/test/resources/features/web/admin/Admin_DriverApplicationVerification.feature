@@ -19,6 +19,7 @@ Feature: Admin_DriverApplicationVerification
     And I click on the "Approve Application" Button
     And I confirm the "Driver Application Approval" action
     Then the status of the driver application should be marked as "Active"
+    And I should receive "BUNGII: Time to Hit the Road!" email
 
   @regression
     #test data created in base
@@ -31,7 +32,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
     #test data created in base
-    @test1
+
   Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"

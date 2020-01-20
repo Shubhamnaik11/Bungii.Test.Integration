@@ -253,6 +253,7 @@ public class GeneralUtility extends DriverBase {
                 if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
                    // String EmailContent = msg.getContent().toString();
                     emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
                     return emailContent;
                 }
             }
@@ -543,7 +544,55 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+    public String getExpectedDriverApprovalEmailContent(String driverName)
+    {
+        String emailMessage = "";
 
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverApprovalEmail.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%", driverName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedDriverRegistrationCompleteEmailContent(String driverName, String driverPhone)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverRegistrationCompleteEmail.txt");
+            String s;
+
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%", driverName)
+                            .replaceAll("%DriverPhone%",driverPhone);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
     public String getTripTimezone(String geofence)
     {
         String timezone = null;

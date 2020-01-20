@@ -97,22 +97,34 @@ public String getDriverPhone(String driverName)
             phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
             break;
         case "Testdrivertywd_appledc_a_web Sundare":
-            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            phone = PropertyUtility.getDataProperties("web.valid.driver11.phone");
             break;
         case "Testdrivertywd_appledc_a_web Sundarf":
             phone = PropertyUtility.getDataProperties("web.valid.driver12.phone");
             break;
-        case "Testdrivertywd_appledc_a_web Sundarj":
+        case "Testdrivertywd_appledc_a_web Sundarg":
             phone = PropertyUtility.getDataProperties("web.valid.driver13.phone");
             break;
-        case "Testdrivertywd_appledc_a_web Sundark":
+        case "Testdrivertywd_appledc_a_web Sundarh":
             phone = PropertyUtility.getDataProperties("web.valid.driver14.phone");
             break;
-        case "Testdrivertywd_appledc_a_web Sundarl":
+        case "Testdrivertywd_appledc_a_web Sundari":
             phone = PropertyUtility.getDataProperties("web.valid.driver15.phone");
             break;
-        case "Testdrivertywd_appledc_a_web Sundarm":
+        case "Testdrivertywd_appledc_a_web Sundarj":
             phone = PropertyUtility.getDataProperties("web.valid.driver16.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundark":
+            phone = PropertyUtility.getDataProperties("web.valid.driver17.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarl":
+            phone = PropertyUtility.getDataProperties("web.valid.driver18.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarm":
+            phone = PropertyUtility.getDataProperties("web.valid.driver19.phone");
+            break;
+        case "Testdrivertywd_appledc_a_web Sundarn":
+            phone = PropertyUtility.getDataProperties("web.valid.driver20.phone");
             break;
     }
 
@@ -146,7 +158,7 @@ public String getDriverPhone(String driverName)
                     coreServices.updateDriverLocation(driverAccessToken, geofence);
                     coreServices.updateDriverStatus(driverAccessToken);
 
-                    if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND")) {
+                    if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND") ) {
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
                         if (!isDriverEligible)
                             error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
@@ -179,7 +191,7 @@ public String getDriverPhone(String driverName)
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
                         }
-                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")) {
+                    } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")||bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
                             coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
@@ -1188,7 +1200,7 @@ public String getDriverPhone(String driverName)
             String customer = dataMap.get("Customer Phone").trim();
             String customerName = dataMap.get("Customer Name").trim();
 
-            int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
+            int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo scheduled")?2:1;
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
             custPhoneNum = customer;// PropertyUtility.getDataProperties("web.customer.user");
@@ -1242,6 +1254,17 @@ public String getDriverPhone(String driverName)
         String custAccessToken = authServices.getCustomerToken(customerPhoneCode, customerPhone, customerPassword);
 
         coreServices.cancelBungiiAsCustomer(pickupRequest, custAccessToken);
+
+    }
+
+    @When("^I cancel bungii as a driver \"([^\"]*)\"$")
+    public void i_cancel_bungii_as_a_driver_something(String driverName) throws Throwable {
+        String pickupRequest= (String)  cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+        String driverPhoneCode = "1", driverPassword = "";
+        driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+        String driverPhone = getDriverPhone(driverName);
+        String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhone, driverPassword);
+        coreServices.updateStatus(pickupRequest, driverAccessToken, 66);;
 
     }
 

@@ -37,14 +37,14 @@ public class DbUtility extends DbContextManager {
     }
     public static String getCustomerPhone(String firstName, String lastName) {
         String phone = "";
-        String queryString = "SELECT Phone FROM customer WHERE FirstName like'" + firstName +"' OR Lastname like '"+lastName+"'LIMIT 1";
+        String queryString = "SELECT Phone FROM customer WHERE FirstName like'" + firstName +"' and Lastname like '"+lastName+"'LIMIT 1";
         phone =getDataFromMySqlServer(queryString);
         logger.detail("Phone  " + phone + " of customer " + firstName+ " " + lastName );
         return phone;
     }
     public static String getCustomerEmail(String firstName, String lastName) {
         String email = "";
-        String queryString = "SELECT EmailAddress FROM customer WHERE FirstName like'" + firstName +"' OR Lastname like '"+lastName+"'LIMIT 1";
+        String queryString = "SELECT EmailAddress FROM customer WHERE FirstName like'" + firstName +"' and Lastname like '"+lastName+"'LIMIT 1";
         email =getDataFromMySqlServer(queryString);
         logger.detail("Email  " + email + " of customer " + firstName+ " " + lastName );
         return email;
@@ -65,5 +65,12 @@ public class DbUtility extends DbContextManager {
        // location = pickupLat+","+pickupLong;
         logger.detail("Location  " + location + " of PickupId " + pickupId );
         return location;
+    }
+    public static String getOndemandStartTime(String pickupref) {
+        String ondemandStartTime = "";
+        String queryString = "SELECT StatusTimestamp  FROM tripevents where TripStatus = 23 and pickupid in (SELECT pickupid FROM pickupdetails WHERE pickupref ='" + pickupref+"')";
+        ondemandStartTime =getDataFromMySqlServer(queryString);
+        logger.detail("Ondemand Start time  " + ondemandStartTime + " of PickupRef " + pickupref );
+        return ondemandStartTime;
     }
 }

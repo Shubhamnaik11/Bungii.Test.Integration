@@ -379,7 +379,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     {
         case "Ondemand":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_ONDEMAND"));
-            break;
+            cucumberContextManager.setScenarioContext("GEOFENCE","washingtondc");
+             break;
         case "Solo Scheduled":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_SCHEDULED"));
              csvFile =   utility.generateScheduledBungiiCSV(csvFile,"EST",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
