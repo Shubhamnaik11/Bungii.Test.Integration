@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PromosPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -176,6 +176,45 @@ public class PromosSteps extends DriverBase {
         }
     }
 
+    @When("^I enter \"([^\"]*)\" promo code$")
+    public void i_enter_something_promo_code(String promoCode) throws Throwable {
+        try{
+            switch (promoCode) {
+                case "PROMO1":
+                    action.sendKeys(promoPage.Textfield_PromoCode(), promoCode);
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @When("^I click on \"([^\"]*)\" icon$")
+    public void i_click_on_something_icon(String icon) throws Throwable {
+        try {
+            switch (icon) {
+                case "i":
+                    if(action.isElementPresent(promoPage.Text_First(true)))
+                    {
+                        action.click(promoPage.Text_First(true));
+                    }
+                    action.click(promoPage.Image_InfoIcon());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate page$")
@@ -203,10 +242,41 @@ public class PromosSteps extends DriverBase {
             log(" I should able to tap " + strArg1 + " icon",
                     "I tapped on " + strArg1 + " icon", false);
         } catch (Exception e) {
+
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+
+    @Then("^The \"([^\"]*)\" is displayed$")
+    public void the_something_is_displayed(String info) throws Throwable {
+        try{
+            switch (info) {
+                case "Info Message":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("promo.codes.info.message"));
+                    action.click(promoPage.Button_Ok());
+                    break;
+
+                case "This code is only available for your first Bungii.":
+                    testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
+                    break;
+                case "Info":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));
+                    action.click(promoPage.Button_Ok());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @Then("^I should see \"([^\"]*)\" message on the Promos page$")
     public void i_should_see_something_message_on_the_promos_page(String strArg1) throws Throwable {

@@ -29,5 +29,6 @@ public class DashBoardPage extends PageBase {
         return findElement("adminmenu-livetrips", LocatorType.Id);
     }
 
+    public  WebElement Button_Customers() { return findElement("adminmenu-customers", LocatorType.Id);}
 
 }
