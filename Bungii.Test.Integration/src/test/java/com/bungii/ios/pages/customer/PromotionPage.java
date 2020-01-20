@@ -23,5 +23,10 @@ public class PromotionPage extends PageBase {
     public WebElement Button_AcceptPromo() {
         return findElement("YES, I'LL TAKE $5", PageBase.LocatorType.AccessibilityId);
     }
-
+    public WebElement Button_NextFacebook() {
+        return findElement("Next", LocatorType.Name);
+    }
+    public WebElement Button_ShareFacebook() {
+        return findElement("Share", LocatorType.Name);
+    }
 }

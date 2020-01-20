@@ -3,6 +3,8 @@ package com.bungii.ios.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class BungiiAcceptedPage extends PageBase {
     public WebElement Text_NavigationBar() {
         return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath);
@@ -27,5 +29,7 @@ public WebElement Button_Ok() {
     public WebElement Textlabel_ProjectedTimeValue(){ return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(3); }
     public WebElement Textlabel_ProjectedTime() { return findElements("XCUIElementTypeStaticText", LocatorType.ClassName).get(2); }
     public WebElement Button_CancelBungii() { return findElement("Cancel Bungii", LocatorType.Name); }
+    public List<WebElement> FilledStars() {return findElements("//*[contains(@name, 'rating filled star icon')]", LocatorType.XPath);}
+    public List<WebElement> HalfFilledStar() {return findElements("//*[contains(@name, 'rating half filled star icon')]", LocatorType.XPath);}
 
 }

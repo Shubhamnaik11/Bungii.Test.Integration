@@ -20,7 +20,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -31,7 +35,7 @@ public class HomePageSteps extends DriverBase {
     private HomePage homepage;
     private AccountPage accountPage = new AccountPage();
     private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
-
+    GeneralUtility utility= new GeneralUtility();
     public HomePageSteps(HomePage homepage) {
         this.homepage = homepage;
     }
@@ -310,7 +314,7 @@ public class HomePageSteps extends DriverBase {
                     break;
                 case "rating":
                     String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
-
+                    cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
                     BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
                     int ratingInt = bigDecimal.intValue();
                     BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
@@ -501,8 +505,17 @@ public class HomePageSteps extends DriverBase {
                 case "SUNDAY":
                     action.click(tripAlertSettingsPage.Text_Sunday());
                     break;
+                case "TODAY":
+                    String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                    simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+                    String dayOfWeek=simpleDateformat.format(calendar.getTime());
+                    action.click((WebElement) SetupManager.getDriver().findElement(By.name(dayOfWeek)));
+                    break;
                 default:
-                    throw new Exception(" UNIMPLEMENTED STEP");
+                    action.click((WebElement)SetupManager.getDriver().findElement(By.name(strArg0)));
+                    break;
             }
             String from = (strArg1.split(":")[0]);
             from = from.startsWith("0") ? from.substring(1) : from;
@@ -532,4 +545,23 @@ public class HomePageSteps extends DriverBase {
 
         i_update_sms_setting_of_sunday_to_something_to_something(strArg0, strArg1, strArg2);
     }
+
+    @And("^I update denvers driver todays trip alert setting to outside current time$")
+    public void i_update_todays_trip_alert_setting_of_today_to_outside_current_time() throws Throwable {
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","denver");
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        Calendar calendar = Calendar.getInstance();
+        //current time plus 60 mins
+        calendar.add(Calendar.MINUTE, +60);
+        DateFormat formatter = new SimpleDateFormat("hh:mm aa");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        String strdate = formatter.format(calendar.getTime());
+        SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String dayOfWeek=simpleDateformat.format(calendar.getTime());
+        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
+        Thread.sleep(5000);
+    }
+
 }

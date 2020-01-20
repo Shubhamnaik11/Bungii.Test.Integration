@@ -38,6 +38,7 @@ public class CoreServices extends DriverBase {
     private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
     private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
     private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
+    private static String GET_PROMOCODE = "/api/customer/getpromocodes";
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -265,6 +266,9 @@ public class CoreServices extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", bungiiDistance);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", "~$" +truncValue);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", "15 mins");
+            int estimateTripDuration=jsonPathEvaluator.get("Estimate.TimePickupToDropOff");
+            estimateTripDuration=estimateTripDuration/60000;
+            cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME", "~"+estimateTripDuration+"  mins");
         } catch (Exception e) {
             System.out.println("Not able to Log in" + e.getMessage());
         }
@@ -788,4 +792,17 @@ public class CoreServices extends DriverBase {
             System.out.println("Not able to Log in" + e.getMessage());
         }
     }
+
+    public Response getPromoCodes(String authToken,String pickupRequestid) {
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core", GET_PROMOCODE);
+        Header header = new Header("AuthorizationToken", authToken);
+        Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickupRequestid).when().
+                get(apiURL);
+        response.then().log().all();
+        JsonPath jsonPathEvaluator = response.jsonPath();
+        ApiHelper.genericResponseValidation(response);
+        return response;
+     }
 }
+
