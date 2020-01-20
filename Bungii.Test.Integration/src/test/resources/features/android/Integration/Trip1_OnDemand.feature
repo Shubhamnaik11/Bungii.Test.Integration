@@ -266,14 +266,24 @@ Feature: On Demand Bungii
     When I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "same" devices
-    And Bungii Driver "completes Bungii"
-    Examples:
-      | Scenario            | Promo Code    | User         |
-      | Promo fixed         | valid         | valid baltimore |
-      | Promo percentage    | valid percent | valid baltimore |
-      | valid one off fixed | valid one off | valid baltimore |
+    #And Bungii Driver "completes Bungii"
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
 
-  @regression1
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select trip from trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+    Examples:
+      | Scenario            | Promo Code    | User            |Expected value in admin |
+      | Promo fixed         | valid         | valid baltimore |promo                   |
+      | Promo percentage    | valid percent | valid baltimore |promo                   |
+      | valid one off fixed | valid one off | valid baltimore |oneoff                  |
+
+  @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -329,7 +339,7 @@ Feature: On Demand Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @regression1
+  @regression
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -368,7 +378,7 @@ Feature: On Demand Bungii
       | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
-  @regression1
+  @regression
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -412,7 +422,7 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression1
+  @regression
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -458,7 +468,7 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression1
+  @regression
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -515,7 +525,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-  Scenario: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
     And I Switch to "driver" application on "same" devices
@@ -565,4 +575,9 @@ Feature: On Demand Bungii
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     And I select trip from live trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+
+    Examples:
+      | Expected value in admin |
+      | promo                   |
 
