@@ -2,6 +2,7 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
@@ -127,6 +128,8 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         try {
+            //clear scenario context
+            CucumberContextManager.getObject().clearSecnarioContextMap();
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
