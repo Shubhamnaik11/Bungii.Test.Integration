@@ -1,10 +1,13 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.android.manager.ActionManager;
+import com.bungii.android.manager.*;
+import com.bungii.android.pages.customer.PromosPage;
+
 import com.bungii.android.pages.customer.PromosPage;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
+
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -22,6 +25,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage= new TripAlertSettingsPage();
+
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     PromosPage promosPage=new PromosPage();
 
@@ -98,6 +102,15 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "SAVE TIME":
                     action.click(tripAlertSettingsPage.TimePicker_OK());
                     break;
+
+                case "ADD":
+                    action.click(promosPage.Button_AddPromoCode());
+                    break;
+                case "OK":
+                    action.click(promosPage.Button_Ok());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
 
                 case "SAVE MONEY":
                     action.click(scheduledBungiisPage.Button_SaveMoney());
