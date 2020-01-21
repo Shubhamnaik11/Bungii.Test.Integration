@@ -12,10 +12,10 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
-    "usePrebuiltWDA": true,
-    "waitForQuiescence": false,
     "useJSONSource": true,
     "maxTypingFrequency": 30,
+    "wdaStartupRetries": "4",
+    "waitForQuiescence": false,
     "wdaLocalPort": 8110
   },
   "device1": {
@@ -30,10 +30,10 @@
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
     "useNewWDA": false,
-    "usePrebuiltWDA": true,
-    "waitForQuiescence": false,
     "useJSONSource": true,
     "maxTypingFrequency": 30,
+    "wdaStartupRetries": "4",
+    "waitForQuiescence": false,
     "wdaLocalPort": 8100
   },
 
