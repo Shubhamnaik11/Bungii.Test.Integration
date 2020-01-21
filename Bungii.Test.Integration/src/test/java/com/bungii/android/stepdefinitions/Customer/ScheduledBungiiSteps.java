@@ -184,7 +184,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String day = data.get("Day"),
                     tripType=data.get("Trip Type"),
                     time=data.get("Time");
-            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 1>")){
+            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 1>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")){
 
                 String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

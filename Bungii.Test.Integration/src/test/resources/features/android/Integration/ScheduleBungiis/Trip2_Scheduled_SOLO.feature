@@ -832,8 +832,8 @@ Feature: SoloScheduled
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE |8805368840     | Testcustomertywd_appleRicha Test| Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     And I get TELET time of of the current trip
 
     Given I am on customer Log in page
@@ -868,8 +868,8 @@ Feature: SoloScheduled
     And I am logged in as "valid" driver
     And I tap on "Go Online button" on Driver Home page
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-      | now         | 8805368840     | Cci12345          |  Testcustomertywd_appleRicha Test| 2              |
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
 
     Then I should not get notification for ON DEMAND TRIP
     Then I cancel all bungiis of customer
@@ -917,7 +917,7 @@ Feature: SoloScheduled
 
     And I tap on "Get Estimate button" on Bungii estimate
     And I confirm trip with following details
-      | Day | Trip Type | Time                |
+      | Day | Trip Type | Time                              |
       | 0   | DUO       | <TIME WITHIN TELET OF CUSTOMER 1> |
     And I add loading/unloading time of "30 mins"
     And I get Bungii details on Bungii Estimate
@@ -955,7 +955,7 @@ Feature: SoloScheduled
 
     And I tap on "Get Estimate button" on Bungii estimate
     And I confirm trip with following details
-      | Day | Trip Type | Time                |
+      | Day | Trip Type | Time                                               |
       | 0   | DUO       | <TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1> |
     And I add loading/unloading time of "30 mins"
     And I get Bungii details on Bungii Estimate
@@ -971,23 +971,23 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-    @regression
-    Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
-      Given that solo schedule bungii is in progress
-        | geofence | Bungii State | Bungii Time    |
-        | kansas   | Accepted     | NEXT_POSSIBLE |
-      And I Switch to "driver" application on "same" devices
-      And I am on the LOG IN page on driver app
-      And I am logged in as "valid" driver
-      And I tap on "Go Online button" on Driver Home page
-      When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
-        | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
-        | now         | 8805368840     | Cci12345          |  Testcustomertywd_appleRicha Test| 2              |
+  @regression
+  Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I tap on "Go Online button" on Driver Home page
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
 
-      Then I should not get notification for ON DEMAND TRIP
-      Then I cancel all bungiis of customer
-        | Customer Phone  | Customer2 Phone |
-        | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+    Then I should not get notification for ON DEMAND TRIP
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
   @regression1232
@@ -1004,3 +1004,46 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  @regression121
+  Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | kansas   | Enroute      |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+
+    Then I click on notification for "STACK TRIP"
+    And Bungii Driver "view stack message" request
+    And I tap on the "ACCEPT" Button on Bungii Request screen
+    And I get TELET time of currrent trip of customer 2
+
+    And I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    When I enter customers "9999990069" Phone Number
+
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I confirm trip with following details
+      | Day | Trip Type | Time                              |
+      | 0   | SOLO      | <TIME WITHIN TELET OF CUSTOMER 2> |
+    And I add loading/unloading time of "30 mins"
+    And I get Bungii details on Bungii Estimate
+    And I add "1" photos to the Bungii
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+    Then I should not get notification for STACK TRIP
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |     8805368840            |
