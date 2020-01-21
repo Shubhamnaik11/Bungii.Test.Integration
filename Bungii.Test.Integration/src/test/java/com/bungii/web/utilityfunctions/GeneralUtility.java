@@ -250,7 +250,8 @@ public class GeneralUtility extends DriverBase {
                 System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println("Date: " + msg.getReceivedDate());
                 System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
-                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
+                {
                    // String EmailContent = msg.getContent().toString();
                     emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
                     emailUtility.deleteEmailWithSubject(expectedSubject,null);
@@ -581,7 +582,7 @@ public class GeneralUtility extends DriverBase {
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%DriverName%", driverName)
+                    s = s.replaceAll("%DriverFullName%", driverName)
                             .replaceAll("%DriverPhone%",driverPhone);
                     emailMessage += s;
                 }
