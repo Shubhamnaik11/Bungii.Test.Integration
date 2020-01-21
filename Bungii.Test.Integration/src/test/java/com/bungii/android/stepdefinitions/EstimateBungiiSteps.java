@@ -282,6 +282,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     break;
                 case "no promocode":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("valid.customer.no.promocode"), PropertyUtility.getDataProperties("valid.customer.password.no.promocode"));
@@ -302,6 +303,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer.phone"), PropertyUtility.getDataProperties("atlanta.customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer.phone"));
+                    break;
+                case "valid kansas":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("kansas.customer1.phone"), PropertyUtility.getDataProperties("kansas.customer1.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("kansas.customer1.phone"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", PropertyUtility.getDataProperties("kansas.customer1.phone"));
                     break;
                 case "valid customer 2":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));

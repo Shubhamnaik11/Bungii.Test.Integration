@@ -45,6 +45,7 @@ public class BungiiSteps extends DriverBase {
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    MessagesPage messagesPage=new MessagesPage();
 
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
@@ -516,7 +517,14 @@ public class BungiiSteps extends DriverBase {
 
                     break;
 
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
@@ -528,6 +536,34 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^correct details should be displayed on the \"([^\"]*)\" app$")
+    public void correct_details_should_be_displayed_on_the_something_app(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(3000);
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            String expectedDuoNumber;
+            String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
+            switch (strArg1) {
+
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
@@ -867,5 +903,17 @@ public class BungiiSteps extends DriverBase {
     public void simulatorBungiiDriver(String arg0) throws Throwable {
 
     }
+    private void validateSMSNumber(String actualValue,String expectedValue) {
+        String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
+                .replace("-", "");
+        boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
+        testStepVerify.isTrue(isPhoneNumCorrect,
+                "To Field should contains " + expectedNumber,
+                "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
+                "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+
+        //action.click(messagesPage.Button_Cancel());
+        try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
+    }
 }

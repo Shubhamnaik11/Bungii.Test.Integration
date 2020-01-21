@@ -21,18 +21,21 @@ import static com.bungii.common.manager.ResultManager.*;
 public class BungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromosSteps.class);
     ActionManager action = new ActionManager();
-    BungiiDetailsPage bungiiDetailsPage ;
     GeneralUtility utility=new GeneralUtility();
-
-    public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage){
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+    /*public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage){
         this.bungiiDetailsPage=bungiiDetailsPage;
-    }
+    }*/
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
             Thread.sleep(5000);
+            action.scrollToBottom();
+            Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_CancelBungii());
-            action.click(bungiiDetailsPage.Button_CancelAccept());
+            Thread.sleep(2000);
+            //action.click(bungiiDetailsPage.Button_CancelAccept());
+           // Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_Yes());
             pass("I should able to cancel bungii","I cancelled bungii",true);
         } catch (Exception e) {

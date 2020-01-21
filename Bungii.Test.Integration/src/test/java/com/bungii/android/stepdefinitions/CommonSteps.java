@@ -232,7 +232,6 @@ public class CommonSteps extends DriverBase {
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
-
             SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
             SetupManager.getObject().useDriverInstance(instanceName);
             log(
@@ -376,6 +375,18 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "ACCEPT BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
+                    break;
+                case "DRIVER CANCEL BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
+                    break;
+                case "ACCEPT SCHEDULED BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
+                    break;
+                case "OTHER DRIVER CANCELLED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");

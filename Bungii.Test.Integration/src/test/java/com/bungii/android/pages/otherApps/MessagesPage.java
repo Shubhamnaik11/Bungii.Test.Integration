@@ -8,7 +8,7 @@ public class MessagesPage extends PageBase {
         return findElement("Cancel", LocatorType.AccessibilityId);
     }
     public WebElement Text_ToField() {
-        return findElement("To:", LocatorType.AccessibilityId);
+        return findElement("//*[@resource-id='android:id/action_bar']/child::android.widget.TextView", LocatorType.XPath);
     }
     public WebElement Button_RemindMeLater(boolean... ignoreException){return findElement("Remind Me Later",LocatorType.AccessibilityId,ignoreException);}
 }

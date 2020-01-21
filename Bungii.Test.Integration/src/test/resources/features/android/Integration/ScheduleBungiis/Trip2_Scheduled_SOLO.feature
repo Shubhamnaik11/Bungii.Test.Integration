@@ -824,7 +824,7 @@ Feature: SoloScheduled
     Then I wait for "2" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
-    Then correct support details should be displayed to customer on "ADMIN-SMS" app
+    Then correct details should be displayed on the "ADMIN-SMS" app
 
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -835,6 +835,131 @@ Feature: SoloScheduled
       | 0      | TEST     |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression1
+  Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas   | Scheduled    | NEXT_POSSIBLE |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+ #   And I click "TOP BACK" button on "Bungii Details" screen
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression1
+  Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Duo
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression1
+  Scenario: To check that Customer can request cancel through SMS to ADMIN even if one driver accepts but processing is over (Trip not started) (cancellation on admin side)
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+
+  @regression1
+  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
+      | kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link

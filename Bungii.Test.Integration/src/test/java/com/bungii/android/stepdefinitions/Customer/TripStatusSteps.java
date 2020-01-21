@@ -29,9 +29,7 @@ public class TripStatusSteps extends DriverBase {
                 case "SMS":
                     validateSMSNumber(action.getText(messagesPage.Text_ToField()), PropertyUtility.getMessage("scheduled.support.number"));
                     break;
-                case "ADMIN-SMS":
-                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
-                    break;
+
                 case "CALL":
                     validateCallButtonAction(PropertyUtility.getMessage("scheduled.support.number"));
                     break;
