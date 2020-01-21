@@ -128,8 +128,7 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         try {
-            //clear scenario context
-            CucumberContextManager.getObject().clearSecnarioContextMap();
+
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
@@ -166,6 +165,8 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+            //clear scenario context
+            CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
 
