@@ -30,6 +30,7 @@ public class GenerateSummaryReport {
         try {
             if (args.length > 0) {
                 String mainFolder = args[0];
+                String platform = args[1];
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
@@ -80,7 +81,7 @@ public class GenerateSummaryReport {
                         summaryData.add(data);
                     }
                 }
-                createResultFileFromTemplate();
+                createResultFileFromTemplate(platform);
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
@@ -150,7 +151,7 @@ public class GenerateSummaryReport {
     /**
      * Create Summery File for parallel test
      */
-    public static void createResultFileFromTemplate() {
+    public static void createResultFileFromTemplate(String platform) {
 
         try {
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_SUMMARY_FILE"));
@@ -169,7 +170,7 @@ public class GenerateSummaryReport {
                 totalStr += s;
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
-            totalStr = totalStr.replaceAll("<!--PLATFORM-->",  System.getProperty("Platform"));
+            totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
             totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
