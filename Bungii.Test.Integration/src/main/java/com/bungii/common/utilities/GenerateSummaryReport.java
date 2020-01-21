@@ -51,7 +51,7 @@ public class GenerateSummaryReport {
                     Element table = doc.select("table").get(0); //select the first table.
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=5><a href=" + subFolder + "/" + in.getName() + ">TEST SUITE SUMMARY : " + in.getName() + "</td>");
+                    summaryData.add(" <td colspan=5><a href=" + subFolder + "/" + in.getName() + ">TEST SUITE EXECUTION SUMMARY : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
                     passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
@@ -158,6 +158,7 @@ public class GenerateSummaryReport {
             String s;
             String totalStr = "";
             String listString = String.join("", summaryData);
+
             //if start time is null due to any reason then set it to current time
             if (startTime == null) {
                 startTime = new Date();
@@ -168,6 +169,7 @@ public class GenerateSummaryReport {
                 totalStr += s;
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
+            totalStr = totalStr.replaceAll("<!--PLATFORM-->",  System.getProperty("Platform"));
             totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");

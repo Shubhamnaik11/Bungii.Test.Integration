@@ -285,6 +285,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the promocode \"([^\"]*)\" is displayed in the Promocodes grid$")
     public void the_promocode_something_is_displayed_in_the_promocodes_grid(String strArg1) throws Throwable {
+        Thread.sleep(2000);
         String xpath = (String)cucumberContextManager.getScenarioContext("XPath");
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
 

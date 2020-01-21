@@ -156,7 +156,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-
+        Thread.sleep(2000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
