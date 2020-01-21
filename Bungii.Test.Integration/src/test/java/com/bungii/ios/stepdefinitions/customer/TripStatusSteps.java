@@ -34,7 +34,6 @@ public class TripStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
     }
 
-
     @Then("^Customer should be navigated to \"([^\"]*)\" trip status screen$")
     public void customerShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
