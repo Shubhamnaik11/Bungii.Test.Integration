@@ -4,7 +4,7 @@
   #These feature will run in atlanta geofence
 
 Feature: Duo
-  @regression12
+  @regression123
   @sanity
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii.
@@ -29,6 +29,7 @@ Feature: Duo
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I select Bungii Time as "next possible scheduled for duo"
+    And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
@@ -114,12 +115,16 @@ Feature: Duo
     Then I accept Alert message for "Reminder: both driver at drop off"
 
     When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct details" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+
     When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
 
     When I Switch to "driver" application on "Driver2" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
 
   @regression

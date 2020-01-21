@@ -990,16 +990,14 @@ Feature: SoloScheduled
         | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @regression123
+  @regression1232
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | 1.5 hour ahead | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time    |
+      | kansas   | Accepted     | 1.5 hour ahead |
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
-    When I enter customers "8888889917" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
+    And I am logged in as "valid" customer
     And I wait for Minimum duration for current Bungii to be T-2 hours
     And I Switch to "driver" application on "same" devices
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
