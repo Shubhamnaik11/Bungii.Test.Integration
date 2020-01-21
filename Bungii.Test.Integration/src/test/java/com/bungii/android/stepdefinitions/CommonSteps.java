@@ -43,6 +43,7 @@ public class CommonSteps extends DriverBase {
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -611,4 +612,14 @@ public class CommonSteps extends DriverBase {
         }
         return SplitDate;
     }
+
+    @And("^I click \"([^\"]*)\" on the alert message$")
+    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
+        action.click(bungiiAcceptedPage.Button_OK());
+
+
+        log("I should able to click " + strArg1 + "on Alert Message",
+                "I clicked " + strArg1 + "on Alert Message", true);
+    }
+
 }

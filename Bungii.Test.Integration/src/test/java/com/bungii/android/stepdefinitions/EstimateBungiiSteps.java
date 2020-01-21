@@ -308,6 +308,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("atlanta.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
                     break;
+                case "New":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -845,6 +850,11 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^I should see the \"([^\"]*)\" no more displayed on the estimates page$")
+    public void i_should_see_the_something_no_more_displayed_on_the_estimates_page(String strArg1) throws Throwable {
+        testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
     }
 
 

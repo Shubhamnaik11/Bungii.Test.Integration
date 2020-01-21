@@ -188,6 +188,9 @@ public class SignupSteps extends DriverBase {
             case "snackbar validation message for existing user":
                 testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
                 break;
+            case "Inactive Promo Code message":
+                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
+                break;
 
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -214,6 +217,9 @@ public class SignupSteps extends DriverBase {
                 break;
             case "Referral":
                 strPromoCode = PropertyUtility.getDataProperties("referral.code");
+                break;
+            case "FutureActive":
+                strPromoCode = PropertyUtility.getDataProperties("promocode.futureactive");
                 break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
