@@ -624,6 +624,15 @@ public class CommonSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
+    @And("^I get TELET time of currrent trip of customer 2$")
+    public void i_get_telet_time_of_of_the_currewnt_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime = dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET", teletTime);
+    }
     @Then("^Telet time of current trip should be correctly calculated$")
     public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
         com.bungii.ios.utilityfunctions.GeneralUtility utility= new com.bungii.ios.utilityfunctions.GeneralUtility();

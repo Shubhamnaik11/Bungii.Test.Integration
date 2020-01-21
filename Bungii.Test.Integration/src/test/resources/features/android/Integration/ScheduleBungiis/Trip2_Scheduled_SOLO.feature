@@ -1031,8 +1031,6 @@ Feature: SoloScheduled
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
-    And I tap on "two drivers selector" on Bungii estimate
-
     And I tap on "Get Estimate button" on Bungii estimate
     And I confirm trip with following details
       | Day | Trip Type | Time                              |
