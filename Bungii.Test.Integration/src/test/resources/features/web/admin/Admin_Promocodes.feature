@@ -6,7 +6,6 @@ Feature: Admin_Promocodes
     When I click on "Marketing  > Promocode" Menu
     Then I should be directed to "Promo Code Page"
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Promo
@@ -19,8 +18,6 @@ Feature: Admin_Promocodes
     When I search by Name "Promo<<CurrentDateTime>>"
     Then the promocode "Promo<<CurrentDateTime>>" is displayed in the Promocodes grid
 
-
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddEditNewPromocode_OneOff
@@ -38,7 +35,6 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the edited promocode is displayed in the Promocodes grid
 
-  @testReport
   @regression
   Scenario: Admin_AddNewPromocode_DeliveryByPromoter
     When I click on the "New Code" Button
@@ -52,7 +48,6 @@ Feature: Admin_Promocodes
     When I view the searched promocode
     Then the searched promocode data gets populated correctly
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddEditNewPromocode_DeliveryByPromoterMultiple
@@ -63,7 +58,6 @@ Feature: Admin_Promocodes
     When I click on the "Save" Button
     Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
-  @testReport
   @regression
   Scenario: Admin_AddNewPromocode_Cancel
     When I click on the "New Code" Button
@@ -79,7 +73,6 @@ Feature: Admin_Promocodes
     Then the "No promo codes found." message is displayed
 #EOC
 
-  @sanity
   @regression
   Scenario: Admin_AddNewPromocode_Fieldvalidations
     When I click on the "New Code" Button
