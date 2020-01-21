@@ -1191,6 +1191,7 @@ Feature: Duo
     And I Select Trip from available trip
     When I accept selected Bungii
 
+    
     #put driver on background
     When I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
