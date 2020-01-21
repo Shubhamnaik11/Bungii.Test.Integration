@@ -6,7 +6,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.HomePage;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -37,7 +37,7 @@ public class BungiiSteps extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
     HomePage Page_DriverHome = new HomePage();
-    com.bungii.android.pages.customer.HomePage customerHomePage = new com.bungii.android.pages.customer.HomePage();
+    HomePage customerHomePage = new HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
@@ -55,11 +55,11 @@ public class BungiiSteps extends DriverBase {
                 case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
                     //Sprint 29 changes
-                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    /*testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-
+*/
                     break;
 
                 case "Bungii search screen":
@@ -213,6 +213,11 @@ public class BungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+//temporary
+    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
     }
 
     @And("^Bungii Driver \"([^\"]*)\" request$")
@@ -812,14 +817,18 @@ public class BungiiSteps extends DriverBase {
     @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
         try {
-            long initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long initialTime;
+            if (strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
-            if(diffInMinutes>30){
+            if (diffInMinutes > 15) {
                 //do nothing
-            }else{
+            } else {
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(30-(int) diffInMinutes);
+                action.hardWaitWithSwipeUp(15 - (int) diffInMinutes);
 
             }
 
@@ -858,4 +867,5 @@ public class BungiiSteps extends DriverBase {
     public void simulatorBungiiDriver(String arg0) throws Throwable {
 
     }
+
 }
