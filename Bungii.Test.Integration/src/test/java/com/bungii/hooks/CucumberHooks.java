@@ -2,6 +2,7 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
@@ -163,6 +164,8 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+            //clear scenario context
+            CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
 
