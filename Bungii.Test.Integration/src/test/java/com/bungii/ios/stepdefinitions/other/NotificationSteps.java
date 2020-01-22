@@ -168,6 +168,15 @@ public class NotificationSteps extends DriverBase {
             case "OTHER DRIVER CANCELLED BUNGII":
                 text = PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification");
                 break;
+            case "TIP RECEIVED 5 DOLLAR":
+                String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                String expectedCustomerName = custName.substring(0, custName.indexOf(" ") + 2);
+                text = PropertyUtility.getMessage("driver.received.5.dollar.tip");
+                text=text.replace("<Customer Name>", expectedCustomerName);
+                break;
+            case "BUNGII FINISHED -RATE DRIVER":
+                text = PropertyUtility.getMessage("customer.bungii.finished.rate.driver");
+                break;
             case "SCHEDULED PICKUP AVAILABLE":
                 text = PropertyUtility.getMessage("driver.notification.scheduled");
                 //	$<Day>, $<MONTH> <$Date>

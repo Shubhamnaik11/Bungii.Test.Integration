@@ -293,6 +293,17 @@ public class GeneralUtility extends DriverBase {
         return actualMessage;
     }
 
+    public String getSignupAlertMessage() {
+        WebElement snackBar = Page_Signup.Cust_Signup_Error_InactivePromo();
+        String actualMessage = "";
+        if (snackBar == null) {
+            warning("Alert message for inactive promo code should be displayed", "Alert message for inactive promo code was not displayed or was displayed for small amount of time to capture Alert message text");
+        } else {
+            actualMessage = snackBar.getText();
+        }
+        return actualMessage;
+    }
+
     /**
      * Check if  phone number is correct
      *
