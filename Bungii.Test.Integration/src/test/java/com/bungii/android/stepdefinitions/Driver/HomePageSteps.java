@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.HomePage;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -19,7 +19,7 @@ import static com.bungii.common.manager.ResultManager.*;
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
-    HomePage homePage = new HomePage();
+    DriverHomePage homePage = new DriverHomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
 

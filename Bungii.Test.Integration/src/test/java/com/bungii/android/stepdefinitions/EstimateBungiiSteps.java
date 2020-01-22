@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.*;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -41,7 +42,7 @@ public class EstimateBungiiSteps extends DriverBase {
     EstimatePage bungiiEstimatePage = new EstimatePage();
     SearchingPage Page_DriverSearch = new SearchingPage();
     HomePage Page_CustHome = new HomePage();
-    com.bungii.android.pages.driver.HomePage Page_DriverHome = new com.bungii.android.pages.driver.HomePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
     //EstimatePage Page_Estimate = new EstimatePage();
     BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
     WantDollar5Page Page_WantDollar5 = new WantDollar5Page();

@@ -16,7 +16,7 @@ import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class UpdateStatusSteps extends DriverBase {
-    private static LogUtility logger = new LogUtility(com.bungii.ios.stepdefinitions.driver.UpdateStatusSteps.class);
+    private static LogUtility logger = new LogUtility(com.bungii.android.stepdefinitions.Driver.UpdateStatusSteps.class);
 
     Rectangle initial;
     ActionManager action = new ActionManager();

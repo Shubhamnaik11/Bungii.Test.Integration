@@ -3,6 +3,8 @@ package com.bungii.android.pages.driver;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 public class BungiiRequest extends PageBase {
 
     public WebElement Navigation_Header() { return findElement("//*[@resource-id='com.bungii.driver:id/pickup_request_toolbar']/android.widget.LinearLayout/android.widget.TextView", LocatorType.XPath); }
@@ -35,5 +37,6 @@ public class BungiiRequest extends PageBase {
 
     public WebElement Text_DropOffLocation_LineOne () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[1]", LocatorType.XPath); }
     public WebElement Text_DropOffLocation_LineTwo () { return findElement("//android.widget.ImageView[@resource-id='com.bungii.driver:id/pickup_request_iv_dropoff']/following-sibling::android.widget.LinearLayout/android.widget.TextView[2]", LocatorType.XPath); }
+
 
 }

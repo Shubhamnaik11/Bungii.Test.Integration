@@ -657,7 +657,6 @@ public class CommonSteps extends DriverBase {
             //cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.getStackTrace();
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -673,7 +672,6 @@ public class CommonSteps extends DriverBase {
             testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.getStackTrace();
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }

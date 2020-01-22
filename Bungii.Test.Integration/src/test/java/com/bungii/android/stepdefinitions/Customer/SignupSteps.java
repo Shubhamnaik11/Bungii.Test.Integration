@@ -62,8 +62,6 @@ public class SignupSteps extends DriverBase {
                     String firstName="";
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                      firstName= Page_Signup.TextField_FirstName().getText();
-                    action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
-                    String firstName= Page_Signup.TextField_FirstName().getText();
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());

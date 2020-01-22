@@ -52,7 +52,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
         Thread.sleep(120000); //Wait for 2 minutes
         SetupManager.getDriver().navigate().refresh();
-      //  action.click(admin_DashboardPage.Menu_Dashboard());
+        //  action.click(admin_DashboardPage.Menu_Dashboard());
     }
     @And("^I view the Trips list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
@@ -68,7 +68,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
 
-      //  SetupManager.getDriver().navigate().refresh();
+        //  SetupManager.getDriver().navigate().refresh();
         log("I view the Live Trips list on the admin portal",
                 "I viewed the Live Trips list on the admin portal", true);
     }
@@ -78,7 +78,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(),"Today");
 
-       // SetupManager.getDriver().navigate().refresh();
+        // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
@@ -211,49 +211,49 @@ public class Admin_TripsSteps extends DriverBase {
 
 
     }
-        @When("^I view the trip details$")
-        public void i_view_the_trip_details() throws Throwable {
+    @When("^I view the trip details$")
+    public void i_view_the_trip_details() throws Throwable {
 
-            String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
-            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
 
+    }
+
+    @Then("^the amount is calculated and shown to admin$")
+    public void the_amount_is_calculated_and_shown_to_admin() throws Throwable {
+
+    }
+
+    @And("^Enter the End Date and Time$")
+    public void enter_the_end_date_time() throws Throwable {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+
+
+        String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
+        String[] splitedDate = RequestTime.split(" ");
+        LocalDateTime now = LocalDateTime.now();
+        String[] splitedTime = splitedDate[2].split(":");
+        DecimalFormat formatter = new DecimalFormat("00");
+        int minutes = Integer.parseInt(splitedTime[1])+20;
+        int hours = Integer.parseInt(splitedTime[0]);
+        if (minutes > 60) {
+            hours = hours + 1;
+            minutes = minutes -20;
         }
 
-        @Then("^the amount is calculated and shown to admin$")
-        public void the_amount_is_calculated_and_shown_to_admin() throws Throwable {
 
-        }
-
-        @And("^Enter the End Date and Time$")
-        public void enter_the_end_date_time() throws Throwable {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
 
 
-            String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
-            String[] splitedDate = RequestTime.split(" ");
-            LocalDateTime now = LocalDateTime.now();
-            String[] splitedTime = splitedDate[2].split(":");
-            DecimalFormat formatter = new DecimalFormat("00");
-            int minutes = Integer.parseInt(splitedTime[1])+20;
-            int hours = Integer.parseInt(splitedTime[0]);
-            if (minutes > 60) {
-                hours = hours + 1;
-                minutes = minutes -20;
-            }
-
-
-           // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-
-
-            action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndDate(),dtf.format(now));
+        action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndDate(),dtf.format(now));
         action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
         action.selectElementByText(admin_TripDetailsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
 
 
-        }
+    }
 
-        @And("^Click on \"([^\"]*)\" button$")
-        public void click_on_something_button(String button) throws Throwable {
+    @And("^Click on \"([^\"]*)\" button$")
+    public void click_on_something_button(String button) throws Throwable {
 
         switch (button)
         {
@@ -262,14 +262,14 @@ public class Admin_TripsSteps extends DriverBase {
 
                 break;
             case "Confirm":
-            action.click(admin_TripDetailsPage.Button_Confirm());
-            break;
+                action.click(admin_TripDetailsPage.Button_Confirm());
+                break;
             case "Cancel":
                 action.click(admin_TripDetailsPage.Button_Cancel());
                 break;
         }
 
-        }
+    }
     @Then("^the Bungii details is displayed successfully$")
     public void the_bungii_details_is_displayed_successfully() throws Throwable {
 
@@ -289,8 +289,8 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isTrue(admin_TripDetailsPage.Label_TripDetails("Pickup Location").getText().contains(pickupLine), "Pickup Location " + pickupLine + " should be updated", "Pickup Location " + pickupLine + " is updated", "Pickup Location " + pickupLine + " is not updated");
         testStepAssert.isTrue(admin_TripDetailsPage.Label_TripDetails("Drop Off Location").getText().contains(dropOffLine), "Drop Off Location " + dropOffLine + " should be updated", "Drop Off Location " + dropOffLine + " is updated", "Drop Off Location " + dropOffLine + " is not updated");
         testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Status"), status, "Status " + status + " should be updated", "Status " + status + " is updated", "Status " + status + " is not updated");
-       // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Trip Distance"), customer, "Trip Distance " + customer + " should be updated", "Trip Distance " + customer + " is updated", "Trip Distance " + customer + " is not updated");
-       // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
+        // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Trip Distance"), customer, "Trip Distance " + customer + " should be updated", "Trip Distance " + customer + " is updated", "Trip Distance " + customer + " is not updated");
+        // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
         String xpath = String.format("option[text()='%s']",driver1);
         testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath))," Driver "+ driver1+" should be displayed", " Driver "+ driver1+" is displayed", " Driver "+ driver1+" is not displayed");
 
@@ -300,7 +300,7 @@ public class Admin_TripsSteps extends DriverBase {
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
 
-     action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
         log(" I click on Edit link besides the scheduled bungii",
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
@@ -311,8 +311,8 @@ public class Admin_TripsSteps extends DriverBase {
         switch (radiobutton)
         {
             case "Cancel entire Bungii and notify driver(s)":
-        action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());
-        break;
+                action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());
+                break;
             case "Remove driver(s) and re-search":
                 action.click(admin_ScheduledTripsPage.RadioButton_RemoveDriver());
                 break;
@@ -329,18 +329,18 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have entered cancellation fee amount and comments", true);
     }
 
-/* Moved to BusinessUsers
-@And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String button) throws Throwable {
-        switch (button)
-        {
-            case "Submit":
-                action.click(admin_ScheduledTripsPage.Button_Submit());
-                break;
+    /* Moved to BusinessUsers
+    @And("^I click on \"([^\"]*)\" button$")
+        public void i_click_on_something_button(String button) throws Throwable {
+            switch (button)
+            {
+                case "Submit":
+                    action.click(admin_ScheduledTripsPage.Button_Submit());
+                    break;
 
-        }
+            }
 
-    }*/
+        }*/
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
@@ -362,12 +362,12 @@ public class Admin_TripsSteps extends DriverBase {
     public String getGeofence(String geofence)
     {
         String geofenceName = "";
-      switch(geofence) {
-          case "washingtondc":
-              geofenceName = "Washington DC";
+        switch(geofence) {
+            case "washingtondc":
+                geofenceName = "Washington DC";
                 break;
 
-      }
+        }
         return geofenceName;
     }
 
@@ -387,12 +387,13 @@ public class Admin_TripsSteps extends DriverBase {
     }
     @When("^I search by client name \"([^\"]*)\"$")
     public void i_search_by_client_name_something(String searchString) throws Throwable {
-        action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod(), "The Beginning of Time");
-        action.sendKeys(admin_TripsPage.TextBox_Search(), searchString + Keys.ENTER);
-        log("I search " + searchString + "Client Name",
-                "I have on searched " + searchString + " Client Name", true);
+        action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod() , "The Beginning of Time" );
+        action.sendKeys(admin_TripsPage.TextBox_Search() , searchString + Keys.ENTER);
+        log("I search "+ searchString + "Client Name" ,
+                "I have on searched "+ searchString+" Client Name", true);
     }
-        @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
+
+    @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
         try{
             for (WebElement e : admin_TripsPage.Client_names())
@@ -443,10 +444,34 @@ public class Admin_TripsSteps extends DriverBase {
         testStepAssert.isTrue(admin_TripsPage.CheckBox_FilterScheduled().isSelected(),"Category Scheduled should be selected","Category Scheduled is selected","Category Scheduled is NOT selected");
     }
 
-
+    void uncheck_all_statuses()
+    {
+        if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
+            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+        if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
+            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+        if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+        if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
+            admin_TripsPage.CheckBox_FilterPickupWithError().click();
+        if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
+            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+        if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
+            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+        if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
+        if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
+            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
+        if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
+            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
+    }
 
     @When("^I select filter \"([^\"]*)\" as \"([^\"]*)\"$")
-    public void i_select_filter_something_as_something(String filter, String value) {
+    public void i_select_filter_something_as_something(String filter, String value) throws Throwable {
         switch (filter)
         {
             case "Statuses" :
@@ -539,7 +564,6 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
 
         }
-
     }
 
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
@@ -640,30 +664,5 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
 
-    }
-    public void uncheck_all_statuses()
-    {
-        if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
-        if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
-        if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
-        if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
-            admin_TripsPage.CheckBox_FilterPickupWithError().click();
-        if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
-            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
-        if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
-            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
-        if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
-        if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
-        if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
-            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
     }
 }
