@@ -211,8 +211,8 @@ public class Driver_DetailsSteps extends DriverBase {
         }
     }
 
-    @Then("^The 'My Sats' section should be shown on the Dashboard page$")
-    public void the_my_sats_section_should_be_shown_on_the_dashboard_page() throws Throwable {
+    @Then("^The 'My Stats' section should be shown on the Dashboard page$")
+    public void the_my_stats_section_should_be_shown_on_the_dashboard_page() throws Throwable {
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_Header_MyStats(),"My Stats section should be displayed", "My Stats sesction is displayed","My Stats section is not displayed");
     }
 
@@ -247,4 +247,27 @@ public class Driver_DetailsSteps extends DriverBase {
         testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "Total trip count is not incremented");
     }
 
+    @When("^I click on calendar to select date range$")
+    public void i_click_on_calendar_to_select_date_range() throws Throwable {
+        action.click(Page_Driver_ViewDetails.Calendar_TripsDaterange());
+        log("I select the date range",
+                "I selected the date range ", true);
+    }
+
+    @Then("^I can select date range for one year$")
+    public void i_can_select_date_range_for_one_year() throws Throwable {
+        while(!Page_Driver_ViewDetails.Calendar_FromDateMonth().getText().equalsIgnoreCase("Jan 2019"))
+        {
+            action.click(Page_Driver_ViewDetails.Calendar_PreviousMonth());
+        }
+        action.click(Page_Driver_ViewDetails.Calendar_FromDate());
+        while(!Page_Driver_ViewDetails.Calendar_ToDateMonth().getText().equalsIgnoreCase("Jan 2020"))
+        {
+            action.click(Page_Driver_ViewDetails.Calendar_NextMonth());
+        }
+        action.click(Page_Driver_ViewDetails.Calendar_ToDate());
+        testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SelectedDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
+        action.click(Page_Driver_ViewDetails.Button_Apply());
+        testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SearchResultDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
+    }
 }

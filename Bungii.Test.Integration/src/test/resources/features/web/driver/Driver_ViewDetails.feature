@@ -11,7 +11,9 @@ Feature: Driver_ViewDetails
   Scenario: Driver_Verify_MyStats_Section
     When I enter driver Phone number as "8888881014" and valid password
     And I click "LOG IN button" on driver portal
-    Then The 'My Sats' section should be shown on the Dashboard page
+    When I click on calendar to select date range
+    Then I can select date range for one year
+    And The 'My Stats' section should be shown on the Dashboard page
     And Below stats are displayed correctly
     |Statistics|
     |Total trips|
@@ -33,4 +35,3 @@ Feature: Driver_ViewDetails
       | Unloading Item |
       | Bungii Completed |
     Then The My Stats section should be updated
-
