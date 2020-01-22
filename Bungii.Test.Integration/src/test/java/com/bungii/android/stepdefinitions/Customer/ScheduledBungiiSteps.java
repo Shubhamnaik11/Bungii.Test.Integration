@@ -275,6 +275,16 @@ public class ScheduledBungiiSteps extends DriverBase {
         }
     }
 
+    @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
+    public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
+        try {
+            action.scrollToBottom();
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1, DataTable tripInformation) throws Throwable {
         try {

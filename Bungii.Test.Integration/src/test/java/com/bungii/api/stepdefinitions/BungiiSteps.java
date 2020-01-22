@@ -954,6 +954,7 @@ public String getDriverPhone(String driverName)
                 }
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
             //LOGIN

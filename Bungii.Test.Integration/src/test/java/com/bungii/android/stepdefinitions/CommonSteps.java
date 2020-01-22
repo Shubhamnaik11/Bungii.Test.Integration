@@ -485,6 +485,9 @@ public class CommonSteps extends DriverBase {
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
                     break;
+                case "FOR EMERGENCY CONTACT SUPPORT LINE":
+                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -613,6 +616,15 @@ public class CommonSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
 
+    @And("^I click \"([^\"]*)\" on the alert message$")
+    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
+        action.click(bungiiAcceptedPage.Button_OK());
+
+
+        log("I should able to click " + strArg1 + "on Alert Message",
+                "I clicked " + strArg1 + "on Alert Message", true);
+    }
+
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
@@ -623,14 +635,4 @@ public class CommonSteps extends DriverBase {
         }
         return SplitDate;
     }
-
-    @And("^I click \"([^\"]*)\" on the alert message$")
-    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
-        action.click(bungiiAcceptedPage.Button_OK());
-
-
-        log("I should able to click " + strArg1 + "on Alert Message",
-                "I clicked " + strArg1 + "on Alert Message", true);
-    }
-
 }
