@@ -1,9 +1,12 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.DriverManager;
+import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -11,6 +14,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.Random;
+
+import static com.bungii.common.manager.ResultManager.error;
 
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
@@ -59,6 +64,10 @@ public class ActionManager {
                    element.click();
             }
             catch (Exception ex1) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
+                error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                        true);
+
             }
             }
 
@@ -86,6 +95,8 @@ public class ActionManager {
         int itemCount = s.getOptions().size(); // get the count of elements in ddlWebElement
          int randomnumber= random.nextInt( itemCount-1);
         s.selectByIndex(randomnumber==0 ? (randomnumber+1 <= itemCount ? randomnumber+1 : randomnumber ) : randomnumber );
+        logger.detail(" Selected Random "+randomnumber+" from Dropdown: " + DropdownField.toString());
+
     }
 
     public void navigateTo(String url) {
