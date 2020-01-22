@@ -1005,7 +1005,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression121
+  @regression
   Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1040,8 +1040,8 @@ Feature: SoloScheduled
     And I add "1" photos to the Bungii
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    Then for a Bungii I should see "Bungii search screen"
-    Then I should not get notification for STACK TRIP
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    Then I should not get notification for SCHEDULED PICKUP AVAILABLE
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |     8805368840            |
