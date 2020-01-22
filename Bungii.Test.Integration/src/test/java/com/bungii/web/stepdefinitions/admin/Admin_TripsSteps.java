@@ -3,6 +3,7 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
@@ -14,6 +15,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -36,6 +38,7 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_TripsSteps extends DriverBase {
@@ -47,6 +50,7 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
+    private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
@@ -395,19 +399,30 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
+        Thread.sleep(4000);
         try{
             for (WebElement e : admin_TripsPage.Client_names())
             {
                 testStepAssert.isTrue(e.getText().contains(searchString),"Client Name contains "+ searchString, "Client Name is " + e.getText());
             }
+            action.clear(admin_TripsPage.TextBox_Search());
+
+
         }
         catch (StaleElementReferenceException e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
+        action.clear(admin_TripsPage.TextBox_Search());
+
+
     }
 
     @When("^I click on \"([^\"]*)\" icon on \"([^\"]*)\" Page$")
     public void i_click_on_something_icon_on_something_page(String icon, String page) throws Throwable {
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod() , "The Beginning of Time" );
+        action.clear(admin_TripsPage.TextBox_Search());
         switch(page)
         {
             case "Trips":
@@ -419,6 +434,8 @@ public class Admin_TripsSteps extends DriverBase {
                 }
                 break;
         }
+        log("I click on "+ icon +" on " +page+" page",
+                "I have clicked on "+ icon +" on " +page+" page", true);
     }
 
     @Then("^All statuses except \"([^\"]*)\" are selected$")
@@ -447,27 +464,30 @@ public class Admin_TripsSteps extends DriverBase {
     void uncheck_all_statuses()
     {
         if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+            action.click( admin_TripsPage.CheckBox_FilterPaymentUnsuccessful());
         if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+            action.click(  admin_TripsPage.CheckBox_FilterPaymentSuccessful());
         if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterCustomerCancelled());
         if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterAdminCancelled());
         if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterDriverCancelled());
         if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
-            admin_TripsPage.CheckBox_FilterPickupWithError().click();
+            action.click( admin_TripsPage.CheckBox_FilterPickupWithError());
         if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
-            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+            action.click( admin_TripsPage.CheckBox_FilterPriceEstimated());
         if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
-            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+            action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
         if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
+            action.click( admin_TripsPage.CheckBox_FilterDriverNotArrived());
         if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
+            action.click(admin_TripsPage.CheckBox_FilterDriverRemoved());
         if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
-            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
+            action.click(admin_TripsPage.CheckBox_FilterPromoterPaymentPending());
+
+        log("I uncheck all filter from trips page",
+                "I have unchecked all filter from trips page", true);
     }
 
     @When("^I select filter \"([^\"]*)\" as \"([^\"]*)\"$")
@@ -478,57 +498,57 @@ public class Admin_TripsSteps extends DriverBase {
                 switch (value){
                     case "Payment Unsuccessful":
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful());
                         break;
                     case("Payment Successful"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentSuccessful());
                         break;
                     case ("Customer Cancelled"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterCustomerCancelled());
                         break;
                     case ("Driver Cancelled"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterDriverCancelled());
                         break;
                     case "Admin Cancelled":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterAdminCancelled());
                         break;
                     case "Pickup with Error":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPickupWithError().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPickupWithError());
                         break;
                     case "Price Estimated":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPriceEstimated());
                         break;
                     case "Driver(s) Not Found":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+                        action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
                         break;
                     case "Driver Not Arrived":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverNotArrived().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterDriverNotArrived());
                         break;
                     case "Driver Removed":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverRemoved().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterDriverRemoved());;
                         break;
                     case "Promoter Payment Pending":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterPromoterPaymentPending());;
                         break;
                 }
                 break;
@@ -536,14 +556,14 @@ public class Admin_TripsSteps extends DriverBase {
             case "Type":
                 switch (value){
                     case "Solo":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
-                        admin_TripsPage.CheckBox_FilterDuo().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentSuccessful());
+                        action.click(admin_TripsPage.CheckBox_FilterDuo());
                         break;
                     case "Duo" :
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterSolo().click();
-                        admin_TripsPage.CheckBox_FilterDuo().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click( admin_TripsPage.CheckBox_FilterSolo());
+                        action.click( admin_TripsPage.CheckBox_FilterDuo());
                         break;
                 }
                 break;
@@ -551,19 +571,21 @@ public class Admin_TripsSteps extends DriverBase {
             case "Category":
                 switch (value){
                     case "On-Demand":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterSolo().click();
-                        admin_TripsPage.CheckBox_FilterScheduled().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterSolo());
+                        action.click(admin_TripsPage.CheckBox_FilterScheduled());
                         break;
                     case "Scheduled":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterScheduled().click();
-                        admin_TripsPage.CheckBox_FilterOnDemand().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterScheduled());
+                        action.click(admin_TripsPage.CheckBox_FilterOnDemand());
                         break;
                 }
                 break;
 
         }
+        log("I select filter " +filter+" as " + value ,
+                "I have selected filter " +filter+" as " + value, true);
     }
 
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
