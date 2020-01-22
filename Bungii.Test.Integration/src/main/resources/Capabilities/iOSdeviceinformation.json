@@ -15,7 +15,6 @@
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaStartupRetries": "4",
-    "waitForQuiescence": false,
     "wdaLocalPort": 8110
   },
   "device1": {
@@ -33,7 +32,6 @@
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaStartupRetries": "4",
-    "waitForQuiescence": false,
     "wdaLocalPort": 8100
   },
 
