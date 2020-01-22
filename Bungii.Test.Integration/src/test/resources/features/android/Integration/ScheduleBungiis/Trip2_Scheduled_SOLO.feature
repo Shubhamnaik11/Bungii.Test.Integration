@@ -211,6 +211,7 @@ Feature: SoloScheduled
     And I Select "HOME" from driver App menu
 
   @regression
+    @reg1
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
     Given that solo schedule bungii is in progress
@@ -236,6 +237,8 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    And I tap on "Menu" > "Promos" link
+    And I should see the unused promo code
 
   @regression
   Scenario: To check that Customer cannot schedule a Bungii at same time as an already scheduled bungii
