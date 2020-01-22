@@ -1,5 +1,6 @@
 package com.bungii.api.stepdefinitions;
 
+import com.bungii.SetupManager;
 import com.bungii.api.utilityFunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -12,6 +13,9 @@ import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -111,7 +115,12 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appledc_a_john Smith":
             phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
             break;
-
+        case "Macy Chang":
+            phone = PropertyUtility.getDataProperties("web.valid.driver9.phone");
+            break;
+        case "Ethan Edison":
+            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            break;
     }
 
     return phone;
@@ -1310,5 +1319,25 @@ public String getDriverPhone(String driverName)
             }
         }
         return promoCode;
+    }
+
+    public Boolean waitforElement(String xpath)
+    {
+        int retrycount =10;
+        boolean retry = true;
+        boolean isElementPresent = false;
+        while (retry == true && retrycount >0) {
+            try {
+                WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                retry = false;
+                isElementPresent = true;
+            } catch (Exception ex) {
+                SetupManager.getDriver().navigate().refresh();
+                retrycount--;
+                retry = true;
+            }
+        }
+        return isElementPresent;
     }
 }
