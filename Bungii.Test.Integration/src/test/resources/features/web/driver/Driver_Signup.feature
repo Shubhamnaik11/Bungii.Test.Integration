@@ -15,6 +15,7 @@ Feature: Driver_Signup
     Then I should see "field validation for short password" on Driver Registration
 
   @regression
+  @test
   Scenario: DriverSignUp_BlankFields
     When I click "Signup button" on driver portal
     Then I should see "Global validation message" on Driver Registration

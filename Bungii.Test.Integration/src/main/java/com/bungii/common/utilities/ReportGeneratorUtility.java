@@ -123,7 +123,13 @@ public class ReportGeneratorUtility {
 		testStepEnd = new Date();
 
 		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
-		str = str + "<td>" + eventData.get("type").toString() + "</td>";
+		if (eventData.get("type").toString() == "PASSED") {
+			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
+		}
+		else {
+			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
+		}
+
 		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
 		str = str + "<td>" + testStepStart + "</td>";
@@ -169,11 +175,11 @@ public class ReportGeneratorUtility {
 		String status = "";
 		//check testng assert and local flag as well
 		if (!isFailed &&!isTcVerifyFailed){
-			status = "Passed";
+			status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
 			passed++;
 		}
 		else {
-			status = "Failed";
+			status = "<td style='background-color:pink;'>Fail</td>";
 			failed++;
 		}
 
@@ -182,7 +188,7 @@ public class ReportGeneratorUtility {
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td>" + tcName + "</td><td>" + status + "</td>" + str;
+		str1 = "<td cursor:'pointer;'>" + tcName + "</td>" + status  + str;
 		summaryArray.add(str1);
 	}
 
@@ -226,7 +232,6 @@ public class ReportGeneratorUtility {
 		return time;
 	}
 
-
 	/**
 	 * Close summary file
 	 */
@@ -246,8 +251,6 @@ public class ReportGeneratorUtility {
 		}
 	}
 
-
-	
 	/**
 	 * Write input string to output stream
 	 * @param lines String that is to be written
@@ -262,14 +265,13 @@ public class ReportGeneratorUtility {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
-	
-	
+
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";
 		for (String str : strArray)
 			strDetails+="<tr>" + str + "</tr>";
 		final String cleansedString = StringUtils.normalizeSpace(strDetails);
-		logger.detail("Generated Report : "+cleansedString);
+		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
 	}
 }
