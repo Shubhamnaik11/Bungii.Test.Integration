@@ -37,9 +37,11 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -822,9 +824,13 @@ public class GeneralUtility extends DriverBase {
         double discount = 0;
         if (Promo.contains("$"))
             discount = Double.parseDouble(Promo.replace("-$", ""));
-        else if (Promo.contains("%"))
+        else if (Promo.contains("%")) {
             discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
-
+            //discount is rounded to floor
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(RoundingMode.FLOOR);
+            discount = new Double(df.format(discount));
+        }
         double costToCustomer = tripValue - discount;
         costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
 
