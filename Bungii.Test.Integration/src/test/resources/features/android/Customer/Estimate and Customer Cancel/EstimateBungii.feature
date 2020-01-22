@@ -82,11 +82,25 @@ Feature: EstimateBungii
 
   @regression
   Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+
+    When I request "duo" Bungii as a customer in "Kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then I verify that selected time is next available time
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
     Then correct details next available scheduled time should be displayed
+
 
 
 

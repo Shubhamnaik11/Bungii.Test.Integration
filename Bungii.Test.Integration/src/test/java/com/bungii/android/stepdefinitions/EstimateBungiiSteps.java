@@ -108,7 +108,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if(checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
-                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
+                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))           
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());
                     break;
@@ -694,6 +694,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
                     action.scrollToBottom();
+
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)) && i >= 3)
                 {
                     testStepAssert.isFalse(action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)),"False","True" );
@@ -705,10 +706,12 @@ public class EstimateBungiiSteps extends DriverBase {
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
                 }
+
                 else if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
                     action.click(bungiiEstimatePage.Permissions_CameraAllow());
 
                 action.click(bungiiEstimatePage.Option_Camera());
+
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
@@ -873,7 +876,7 @@ public class EstimateBungiiSteps extends DriverBase {
         try{
         String time= (String) cucumberContextManager.getScenarioContext("TIME");
           time=formatDate(time,8);
-        String actualtime=action.getText(bungiiEstimatePage.Text_BungiiTime());
+        String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
         testStepVerify.isEquals(time, actualtime);
         }
         catch (Exception e) {
@@ -992,5 +995,23 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         return value;
     }
+
+    @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
+        String actualtime=action.getText(bungiiEstimatePage.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+
 
 }
