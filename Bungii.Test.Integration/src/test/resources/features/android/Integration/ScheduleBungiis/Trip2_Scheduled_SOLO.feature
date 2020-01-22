@@ -211,7 +211,6 @@ Feature: SoloScheduled
     And I Select "HOME" from driver App menu
 
   @regression
-    @reg1
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
     Given that solo schedule bungii is in progress
