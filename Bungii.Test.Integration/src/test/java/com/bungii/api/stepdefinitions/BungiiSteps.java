@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
@@ -111,7 +112,9 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appledc_a_john Smith":
             phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
             break;
-
+        case "Testdrivertywd_appledc_a_web TestdriverY":
+            phone = PropertyUtility.getDataProperties("web.valid.driver11.phone");
+            break;
     }
 
     return phone;
@@ -1310,5 +1313,53 @@ public String getDriverPhone(String driverName)
             }
         }
         return promoCode;
+    }
+
+
+    @Then("^The driver \"([^\"]*)\" should receive On Demand requests as he is assigned to \"([^\"]*)\" geofence$")
+    public void the_driver_something_should_receive_on_demand_requests_as_he_is_assigned_to_something_geofence(String driverName, String geofence) throws Throwable {
+        cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
+        String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+        String driverAccessToken = "";
+        //get pickup request from context
+        String pickupRequest= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+        driverPhoneNum = getDriverPhone(driverName);
+        driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+        cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+        driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+        coreServices.updateDriverStatus(driverAccessToken);
+        Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+        testStepAssert.isTrue(isDriverEligible,"Driver should be eligible for the trip in " + geofence + " geofence","Driver is eligible for the trip in "+geofence+" geofence","Driver is NOT eligible for the trip in "+geofence+" geofence");
+    }
+
+    @Then("^the driver \"([^\"]*)\" should not receive On Demand requests as he is assigned NOT to \"([^\"]*)\" geofence$")
+    public void the_driver_something_should_not_receive_on_demand_requests_as_he_is_assigned_not_to_something_geofence(String driverName, String geofence) throws Throwable {
+        cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
+            Boolean isDriverEligible = true;
+            String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+            String driverAccessToken = "";
+            //get pickup request from context
+            String pickupRequest= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+            driverPhoneNum = getDriverPhone(driverName);
+            driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            coreServices.updateDriverStatus(driverAccessToken);
+            isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+            testStepAssert.isTrue(!isDriverEligible,"Driver should NOT be eligible for the trip in " + geofence + " geofence","Driver is NOT eligible for the trip in "+geofence+" geofence","Driver is eligible for the trip in "+geofence+" geofence");
+
+    }
+
+    @When("^I cancel \"([^\"]*)\" of customer \"([^\"]*)\"$")
+    public void i_cancel_something_of_customer_something(String bungii_type, String customer) throws Throwable {
+            String custPhoneCode = "1", custPassword = "";
+            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            if (!customer.equalsIgnoreCase("")) {
+                handleOngoingBungii(custPhoneCode, customer, custPassword);
+        }
+        log("I cancel the trip for the customer" ,
+                "I have cancelled the trip for the customer");
     }
 }
