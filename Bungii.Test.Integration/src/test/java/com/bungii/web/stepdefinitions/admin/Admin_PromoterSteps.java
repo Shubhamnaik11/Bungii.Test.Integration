@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -97,7 +98,10 @@ public class Admin_PromoterSteps extends DriverBase {
     @When("^I search by promoter Name \"([^\"]*)\"$")
     public void i_search_by_promoter_name_something(String strArg1) throws Throwable {
         String PromoterName =(String)cucumberContextManager.getScenarioContext("PROMOTER_NAME");;
-        action.sendKeys(admin_PromoterPage.TextBox_Search(),PromoterName);
+        action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
+        log("I search by "+ PromoterName ,
+                "I search by "+ PromoterName, true);
+
     }
 
     @Then("^the promoter \"([^\"]*)\" is displayed in the Promocodes grid$")
@@ -153,6 +157,8 @@ public class Admin_PromoterSteps extends DriverBase {
                 }
                 break;
         }
+        log("I click on "+ button ,
+                "I have clicked on " +button, true);
     }
 
     @Then("^the \"([^\"]*)\" is displayed$")

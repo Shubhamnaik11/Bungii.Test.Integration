@@ -9,6 +9,7 @@ Feature: Driver_Login
   @smoke
   @sanity
   @regression
+    @test
   Scenario: Driver_Login_Success
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal
@@ -17,6 +18,7 @@ Feature: Driver_Login
     Then the driver logout from dashboard
 
   @regression
+  @test
   Scenario: Driver_Login_Blank
     When I click "LOG IN button" on driver portal
     Then the driver should "see validation message for blank fields"

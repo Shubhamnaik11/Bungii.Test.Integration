@@ -2,8 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.HomePage;
-import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -78,6 +77,7 @@ public class HomeSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Referral Invite link":
+                    Thread.sleep(3000);
                     action.click(homePage.Link_Invite());
                     break;
                 case "Drop Clear Text":

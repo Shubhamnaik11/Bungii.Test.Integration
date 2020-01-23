@@ -2,14 +2,18 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PromosPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.android.pages.customer.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -18,6 +22,7 @@ public class PromosSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromosSteps.class);
     ActionManager action = new ActionManager();
     PromosPage promoPage = new PromosPage();
+    EstimatePage estimatePage=new EstimatePage();
     GeneralUtility utilities = new GeneralUtility();
 
     @And("^I add \"([^\"]*)\" PromoCode$")
@@ -51,6 +56,9 @@ public class PromosSteps extends DriverBase {
                     break;
                 case "used one off":
                     promoCode = PropertyUtility.getDataProperties("promocode.usedoneoff");
+                    break;
+                case "PROMOTER TYPE PROMO":
+                    promoCode=PropertyUtility.getDataProperties("promocode.type.promoter");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -176,6 +184,45 @@ public class PromosSteps extends DriverBase {
         }
     }
 
+    @When("^I enter \"([^\"]*)\" promo code$")
+    public void i_enter_something_promo_code(String promoCode) throws Throwable {
+        try{
+            switch (promoCode) {
+                case "PROMO1":
+                    action.sendKeys(promoPage.Textfield_PromoCode(), promoCode);
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @When("^I click on \"([^\"]*)\" icon$")
+    public void i_click_on_something_icon(String icon) throws Throwable {
+        try {
+            switch (icon) {
+                case "i":
+                    if(action.isElementPresent(promoPage.Text_First(true)))
+                    {
+                        action.click(promoPage.Text_First(true));
+                    }
+                    action.click(promoPage.Image_InfoIcon());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate page$")
@@ -203,10 +250,45 @@ public class PromosSteps extends DriverBase {
             log(" I should able to tap " + strArg1 + " icon",
                     "I tapped on " + strArg1 + " icon", false);
         } catch (Exception e) {
+
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+
+    @Then("^The \"([^\"]*)\" is displayed$")
+    public void the_something_is_displayed(String info) throws Throwable {
+        try{
+            switch (info) {
+                case "Info Message":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("promo.codes.info.message"));
+                    action.click(promoPage.Button_Ok());
+                    break;
+                case "This code is only available for your first Bungii.":
+                    testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(), "FIRST");
+                    break;
+                case"referral code received with out first time tag":
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
+                    break;
+                case "Info":
+                    testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));
+                    action.click(promoPage.Button_Ok());
+                    break;
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @Then("^I should see \"([^\"]*)\" message on the Promos page$")
     public void i_should_see_something_message_on_the_promos_page(String strArg1) throws Throwable {
@@ -244,6 +326,36 @@ public class PromosSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @Then("^I should able to see expected promo code in available promo code$")
+    public void i_should_able_to_see_expected_promo_code_in_available_promo_code() {
+        try {
+            String usedPromoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+
+            testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    /**
+     * Check if promo code is present in available promocode
+     *
+     * @param expectedCode Promo code that is to be checked
+     * @return boolean value if promocode is present
+     */
+    public boolean isPromoCodePresent(String expectedCode) {
+        boolean isPresent = false;
+        List<WebElement> codes = promoPage.List_PromoCode();
+        for (WebElement code : codes) {
+            if (action.getText(code).contains(expectedCode)) {
+                isPresent = true;
+                break;
+            }
+        }
+        return isPresent;
     }
 
     @And("^I should see the \"([^\"]*)\" PromoCode selected by default$")
@@ -289,6 +401,32 @@ public class PromosSteps extends DriverBase {
     @Then("^I should see the previously added promo code present for current Bungii request$")
     public void i_should_see_the_previously_added_promo_code_present_for_current_bungii_request() throws Throwable {
         testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1_OnEstimate(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+    }
+
+    @And("^I tap on \"([^\"]*)\" on Estimate screen$")
+    public void i_tap_on_something_on_estimate_screen(String strArg1) throws Throwable {
+        try{
+            switch (strArg1)
+            {
+                case "Promo code":
+                    Thread.sleep(3000);
+                    action.click(estimatePage.Link_Promo(true));
+                    break;
+                case "Promo code value":
+                    Thread.sleep(3000);
+                    action.click(estimatePage.Link_PromoValue(true));
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 }

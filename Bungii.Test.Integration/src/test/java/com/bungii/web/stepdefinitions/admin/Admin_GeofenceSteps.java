@@ -270,7 +270,7 @@ public class Admin_GeofenceSteps extends DriverBase {
 
     @Then("^I cannot uncheck \"([^\"]*)\" for \"([^\"]*)\" settings when \"([^\"]*)\" is checked$")
     public void i_cannot_uncheck_something_for_something_settings_when_something_is_checked(String strArg1, String strArg2, String strArg3) throws Throwable {
-        testStepVerify.isElementNotEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox is enabled","Pass","Fail");
+        testStepVerify.isElementNotEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
     }
 
     @When("^I \"([^\"]*)\" option \"([^\"]*)\" for Scheduled trip$")

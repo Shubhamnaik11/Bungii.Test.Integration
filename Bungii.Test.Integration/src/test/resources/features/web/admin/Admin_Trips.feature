@@ -4,7 +4,6 @@ Feature: Admin_Trips
   Background:
     Given I am logged in as Admin
 
-  @sanity
   @regression
     #test data created in base
   Scenario: Customer List - Solo Scheduled Trip
@@ -17,7 +16,6 @@ Feature: Admin_Trips
     When I view the customer details page of Customer "Testcustomertywd_applekrishna Hoderker"
     Then Trip should be listed in the grid
 
-  @sanity
   @regression
       #test data created in base
   Scenario: Customer List - Duo Scheduled Trip

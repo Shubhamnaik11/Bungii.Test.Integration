@@ -103,8 +103,8 @@ public class ReportManager {
 	/**
 	 * Set test case failed flag to true
 	 */
-	public void verificationFailed(){
-		htmlReportManager.verificationFailed();
+	public void verificationFailed(Map<String, String> eventData){
+		htmlReportManager.verificationFailed(eventData);
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
