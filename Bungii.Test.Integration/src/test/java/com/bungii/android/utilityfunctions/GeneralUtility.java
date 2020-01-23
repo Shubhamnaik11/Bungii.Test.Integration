@@ -4,8 +4,10 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -19,7 +21,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
@@ -46,7 +47,7 @@ public class GeneralUtility extends DriverBase {
     SignupPage Page_Signup = new SignupPage();
     TermsPage Page_CustTerms = new TermsPage();
     HomePage homePage = new HomePage();
-    com.bungii.android.pages.driver.HomePage driverHomePage = new com.bungii.android.pages.driver.HomePage();
+    DriverHomePage driverHomePage = new DriverHomePage();
     BungiiCompletePage customerBungiiCompletePage = new BungiiCompletePage();
     MenuPage Page_Menu = new MenuPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
@@ -458,6 +459,7 @@ public class GeneralUtility extends DriverBase {
         }
     }
 
+
     public String getEstimateTime() {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
@@ -808,29 +810,6 @@ public class GeneralUtility extends DriverBase {
             isDisplayed = true;}
 
         }
-
-
-
-/*
-        for (int i = 0; i < notificationHeader.size(); i++) {
-            if (notificationHeader.get(i).getText().equalsIgnoreCase(appName)) {
-                String currentNotificationText = notificationText.get(i).getText();
-                if (currentNotificationText.equalsIgnoreCase(notificationMessage)) {
-                    //FIX FOR APPIUM 1.42
-                    action.click(otherAppsPage.Notification_OnDemand());
-               //     int xAxisStartPoint = otherAppsPage.Notification_OnDemand().getLocation().getX()+5 ;
-          //   //       int yAxis = otherAppsPage.Notification_OnDemand().getLocation().getY() -5;
-              //      action.click(new Point(xAxisStartPoint, yAxis));
-
-                    //   SetupManager.getDriver().findElement(By.xpath("//*[@text=\"You’re receiving a Bungii request.\"]")).click();
-                   // action.click(notificationText.get(i));
-                    isDisplayed = true;
-                    break;
-                }
-            }
-
-        }*/
-
         return isDisplayed;
     }
 
@@ -957,26 +936,6 @@ public class GeneralUtility extends DriverBase {
         return action.getText(element);
     }
 
-    public void waitForSnackbarMessage() {
-        FluentWait<AndroidDriver> wait = new FluentWait<AndroidDriver>((AndroidDriver) SetupManager.getDriver());
-        wait.pollingEvery(Duration.ofMillis(1000));
-        wait.withTimeout(Duration.ofSeconds(90));
-        wait.ignoring(NoSuchElementException.class); // We need to ignore this exception.
-
-
-        Function<AndroidDriver, MobileElement> function = new Function<AndroidDriver, MobileElement>() {
-            public MobileElement apply(AndroidDriver arg0) {
-                System.out.println("Checking for the object!!");
-                MobileElement element = (MobileElement) arg0.findElement(MobileBy.xpath("//*[text()='Password is successfully reset.']"));
-                if (element != null) {
-                    System.out.println("A new dynamic object is found." + element.getText());
-                }
-                return element;
-            }
-        };
-
-        wait.until(function);
-    }
 
     public boolean isForgotPasswordMessageCorrect(){
         final FluentWait<WebDriver> wait = new FluentWait<>(SetupManager.getDriver())
@@ -997,6 +956,7 @@ public class GeneralUtility extends DriverBase {
         });
     return isMessageCorrect;
     }
+
     public void acceptNotificationAlert() {
         action.click(driverHomePage.Notification_AlertAccept());
     }

@@ -77,6 +77,7 @@ public class HomeSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Referral Invite link":
+                    Thread.sleep(3000);
                     action.click(homePage.Link_Invite());
                     break;
                 case "Drop Clear Text":

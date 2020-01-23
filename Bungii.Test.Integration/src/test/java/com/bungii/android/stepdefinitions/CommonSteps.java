@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.utilityfunctions.DbUtility;
 
 import com.bungii.android.pages.driver.InProgressBungiiPages;
@@ -12,6 +13,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -43,6 +45,7 @@ public class CommonSteps extends DriverBase {
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+    BungiiRequest bungiiRequest=new BungiiRequest();
     BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
 
     private DbUtility dbUtility = new DbUtility();
@@ -357,7 +360,13 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+            String actualMessage =null;
+            if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
+            }
+            else{
+                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
+            }
             String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
@@ -539,6 +548,24 @@ public class CommonSteps extends DriverBase {
         }
 
     }
+
+    @When("^I click \"([^\"]*)\" button on alert message$")
+    public void i_click_something_button_on_alert_message(String strArg1) throws Throwable {
+        try{
+            switch (strArg1) {
+            case "YES":
+                action.click(bungiiRequest.AlertButton_View());
+                break;
+
+            default:
+                throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
+    }
     @Then("^Alert should have \"([^\"]*)\" button$")
     public void alert_should_have_something_button(String list) throws Throwable {
         switch (list) {
@@ -601,6 +628,55 @@ public class CommonSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
+
+    @And("^I tap on \"([^\"]*)\" button of android mobile$")
+    public void i_tap_on_something_button_of_android_mobile(String strArg1) throws Throwable {
+        action.NavigateBack();
+    }
+
+    @And("^I tap on \"([^\"]*)\" icon of page$")
+    public void i_tap_on_something_icon_of_page(String strArg1) throws Throwable {
+        if (!action.isElementPresent(estimatePage.Button_Back(true)))
+        {
+            action.NavigateBack();
+        }
+        else {
+            action.click(estimatePage.Button_Back(true));
+        }
+    }
+
+    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
+    }
+
+    @Then("^I save customer phone and referral code in feature context$")
+    public void i_save_customer_phone_and_referral_code_in_feature_context() throws Throwable {
+        try {
+            cucumberContextManager.setFeatureContextContext("INVITE_CODE", (String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
+            //cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("^I have customer with referral code$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
+        try {
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
 
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
