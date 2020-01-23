@@ -274,7 +274,7 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     And I Cancel selected Bungii
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
@@ -283,11 +283,13 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+      | CUSTOMER1_PHONE |  |
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -298,7 +300,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver 1 - contacting drivers"
@@ -319,7 +321,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
@@ -327,7 +329,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-
+  
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -340,7 +342,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "estimated cost"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver1 name"
@@ -358,7 +360,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "Solo Scheduled" trip
       | driver1 state |
@@ -377,7 +379,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -387,7 +389,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
+  1
   @regression
   Scenario:  To check that Customer cannot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
     Given I am on customer Log in page
@@ -400,7 +402,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-
+  
   @regression
   Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
     Given I am on customer Log in page
@@ -415,7 +417,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-
+  
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     Given I am on customer Log in page
@@ -483,7 +485,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
+  
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
     Given I am on customer Log in page
@@ -722,7 +724,7 @@ Feature: SoloScheduled
     When I click "YES" on alert message
     And I click "ACCEPT" button on "Bungii Request" screen
     And I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time
     When I try to contact driver using "call driver1"
@@ -739,7 +741,7 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid" customer
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
     Then user is alerted for "more than 1 hour from scheduled time"
@@ -765,7 +767,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     When I try to contact driver using "call driver2"
     Then correct details should be displayed to driver on "Calling" app
@@ -788,7 +790,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     When I Switch to "driver" application on "same" devices
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
@@ -798,7 +800,7 @@ Feature: SoloScheduled
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I verify that text "You will have the ability to contact your drivers when the Bungii begins" is displayed
     Then I cancel all bungiis of customer
