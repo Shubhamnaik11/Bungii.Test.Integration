@@ -2,7 +2,8 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.HomePage;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
@@ -21,7 +22,7 @@ public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
-    HomePage homePage=new HomePage();
+    DriverHomePage homePage=new DriverHomePage();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {

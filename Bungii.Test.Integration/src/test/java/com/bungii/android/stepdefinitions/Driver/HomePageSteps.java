@@ -1,9 +1,9 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.*;
-import com.bungii.android.pages.driver.HomePage;
-import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.DriverHomePage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -19,20 +19,13 @@ import static com.bungii.common.manager.ResultManager.*;
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
-    HomePage homePage = new HomePage();
+    DriverHomePage homePage = new DriverHomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
-/*
-            if (action.isNotificationAlertDisplayed()) {
-                action.click(Page_BungiiRequest.AlertButton_Cancel(true));
-                Thread.sleep(1000);
-            }
-*/
-
             if (action.isNotificationAlertDisplayed()) {
                 if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();

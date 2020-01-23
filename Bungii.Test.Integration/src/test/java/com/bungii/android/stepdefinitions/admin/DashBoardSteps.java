@@ -15,10 +15,6 @@ public class DashBoardSteps extends DriverBase {
     DashBoardPage dashBoardPage=new DashBoardPage();
     ActionManager action = new ActionManager();
 
-    /*public DashBoardSteps(DashBoardPage dashBoardPage) {
-        this.dashBoardPage = dashBoardPage;
-    }*/
-
     @When("^I Select \"([^\"]*)\" from admin sidebar$")
     public void i_select_something_from_admin_sidebar(String option) {
         try {
@@ -26,6 +22,10 @@ public class DashBoardSteps extends DriverBase {
                 case "scheduled trip":
                     action.click(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "promo code":
                     action.click(dashBoardPage.Button_Marketing());

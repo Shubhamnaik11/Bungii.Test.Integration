@@ -5,12 +5,12 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class HomePage extends PageBase {
+public class DriverHomePage extends PageBase {
 
     public WebElement Generic_Element (boolean... ignoreException) { return findElement("//*[contains(@resource-id,\"com.bungii.driver\")]", LocatorType.XPath,ignoreException); }
     public WebElement Generic_HeaderElement (boolean... ignoreException) { return findElement("//android.view.View[@resource-id='com.bungii.driver:id/toolbar' or 'com.bungii.driver:id/toolbarLogin' or 'com.bungii.driver:id/toolbar_title']/android.widget.TextView | //android.view.ViewGroup[@resource-id='com.bungii.driver:id/toolbar' or 'com.bungii.driver:id/toolbarLogin']/android.widget.TextView", LocatorType.XPath,ignoreException); }
 
-   // public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title' or 'com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
+    // public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title' or 'com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
     public WebElement Title_Status (boolean ... ignoreException) { return findElement("//*[@resource-id='com.bungii.driver:id/toolbar_main_title'] | //*[@resource-id='com.bungii.driver:id/toolbar_title']", LocatorType.XPath ,ignoreException    ); }
 
     public WebElement Button_NavigationBar () { return findElement("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]", LocatorType.XPath); }

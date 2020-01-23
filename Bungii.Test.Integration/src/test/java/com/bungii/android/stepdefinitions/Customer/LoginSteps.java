@@ -41,6 +41,7 @@ public class LoginSteps extends DriverBase {
             switch (strArg1) {
                 case "valid":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer_generic.phonenumber"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     break;
                 case "invalid":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer_Invalid.phonenumber"));
@@ -52,8 +53,11 @@ public class LoginSteps extends DriverBase {
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
                 default:
                     action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA",strArg1);
+
                     break;
             }
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

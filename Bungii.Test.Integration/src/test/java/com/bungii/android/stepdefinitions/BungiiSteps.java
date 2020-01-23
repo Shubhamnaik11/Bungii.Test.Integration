@@ -5,9 +5,10 @@ import com.bungii.android.enums.Status;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.pages.otherApps.*;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
@@ -36,7 +37,7 @@ public class BungiiSteps extends DriverBase {
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
-    HomePage Page_DriverHome = new HomePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
     HomePage customerHomePage = new HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
@@ -56,11 +57,11 @@ public class BungiiSteps extends DriverBase {
                 case "Bungii Home page with locations":
                     testStepVerify.isTrue(utility.isCorrectPage("Home"), "I should be navigated to Home Page", "I was navigated to Home Page", "I was not navigate to Home page");
                     //Sprint 29 changes
-                    /*testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_PickUpLocLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine1(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(customerHomePage.TextBox_DropOffLine2(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-*/
+
                     break;
 
                 case "Bungii search screen":
@@ -309,11 +310,9 @@ public class BungiiSteps extends DriverBase {
     public void i_click_on_notification_for_something(String strArg1) {
         try {
             String expecteMessage="";
-
-            action.showNotifications();
-            log("Checking notifications","Checking notifications",true);
-
-            expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+                    action.showNotifications();
+                    log("Checking notifications","Checking notifications",true);
+                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
 
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {

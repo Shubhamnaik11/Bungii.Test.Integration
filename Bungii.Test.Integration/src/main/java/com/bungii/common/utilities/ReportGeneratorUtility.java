@@ -195,8 +195,9 @@ public class ReportGeneratorUtility {
 	/**
 	 * Mark test case as failed.  Dont stop test, use in case of verify
 	 */
-	public void verificationFailed(){
+	public void verificationFailed(Map<String, String> eventData){
 		this.isTcVerifyFailed=true;
+		endTestDataContainer(eventData);
 		logger.trace("Marked test case :"+this.tcName +" failed as verification got failed"  );
 	}
 	
@@ -273,5 +274,17 @@ public class ReportGeneratorUtility {
 		final String cleansedString = StringUtils.normalizeSpace(strDetails);
 		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
+	}
+
+	public void endTestDataContainer(Map<String, String> eventData)
+	{
+		String str = "<tr><td + rightSpan + >Some steps are skipped due to error ..</td>";
+		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
+
+	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
+	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+
+		detailsArray.add(str);
+
 	}
 }

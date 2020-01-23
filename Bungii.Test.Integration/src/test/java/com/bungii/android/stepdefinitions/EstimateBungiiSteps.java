@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.*;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -41,8 +42,8 @@ public class EstimateBungiiSteps extends DriverBase {
     EstimatePage bungiiEstimatePage = new EstimatePage();
     SearchingPage Page_DriverSearch = new SearchingPage();
     HomePage Page_CustHome = new HomePage();
-    com.bungii.android.pages.driver.HomePage Page_DriverHome = new com.bungii.android.pages.driver.HomePage();
-    EstimatePage Page_Estimate = new EstimatePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
+    //EstimatePage Page_Estimate = new EstimatePage();
     BungiiCompletePage Page_BungiiComplete = new BungiiCompletePage();
     WantDollar5Page Page_WantDollar5 = new WantDollar5Page();
     PromosPage Page_SaveMoney = new PromosPage();
@@ -70,6 +71,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (!action.isElementPresent(Page_CustHome.Button_GetEstimate()))
                         Thread.sleep(5000);
                     action.click(Page_CustHome.Button_GetEstimate());
+                    Thread.sleep(2000);
+                    String distance=action.getText(estimatePage.Text_GetDistance());
+                    cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", distance);
                     break;
 
                 case "Cancel during search":
@@ -79,7 +83,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 case "Promo Code":
                     Thread.sleep(3000);
-                    action.click(Page_Estimate.Link_Promo());
+                    action.click(bungiiEstimatePage.Link_Promo(true));
                     break;
 
                 case "desired Promo Code":
@@ -88,28 +92,31 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Payment Mode":
-                    action.click(Page_Estimate.Select_PaymentMode());
+                    action.click(bungiiEstimatePage.Select_PaymentMode());
                     break;
 
                 case "Request Bungii":
-                    //  if (!action.isElementPresent(Page_Estimate.Checkbox_AgreeEstimate(true)))
+                    String cost=action.getText(bungiiEstimatePage.Text_GetCost());
+                    cost=cost.replace("~","");
+                    cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",cost);
+                    cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(estimatePage.Link_Promo(true)));
                     action.scrollToBottom();
                     action.scrollToBottom();
 
                     String checked="checked";
-                    checked=action.getAttribute(Page_Estimate.Checkbox_AgreeEstimate(), checked);
+                    checked=action.getAttribute(bungiiEstimatePage.Checkbox_AgreeEstimate(), checked);
                     if(checked.equals("false")) {
-                        action.click(Page_Estimate.Checkbox_AgreeEstimate());
+                        action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
-                    if (!action.isElementPresent(Page_Estimate.Button_RequestBungii(true)))
+                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))           
                         action.scrollToBottom();
-                    action.click(Page_Estimate.Button_RequestBungii());
+                    action.click(bungiiEstimatePage.Button_RequestBungii());
                     break;
 
                 case "Yes on HeadsUp pop up":
-                    action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
-                    action.click(Page_Estimate.Button_RequestConfirm());Thread.sleep(3000);
-                    action.eitherTextToBePresentInElementText(Page_Estimate.GenericHeader(true), "Success!", "SEARCHING…");
+                    action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Alert_ConfirmRequestMessage(), 120L);
+                    action.click(bungiiEstimatePage.Button_RequestConfirm());Thread.sleep(3000);
+                    action.eitherTextToBePresentInElementText(bungiiEstimatePage.GenericHeader(true), "Success!", "SEARCHING…");
                     break;
 
                 case "Done after requesting a Scheduled Bungii":
@@ -120,8 +127,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "Cancel on HeadsUp pop up":
-                    action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage());
-                    action.click(Page_Estimate.Button_RequestConfirmCancel());
+                    action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Alert_ConfirmRequestMessage());
+                    action.click(bungiiEstimatePage.Button_RequestConfirmCancel());
                     break;
 
                 case "X on complete":
@@ -150,7 +157,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "back":
                     Thread.sleep(2000);
-                    if (!action.isElementPresent(Page_Estimate.Header_Estimate(true)))
+                    if (!action.isElementPresent(bungiiEstimatePage.Header_Estimate(true)))
                         Thread.sleep(5000);
                     ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                     break;
@@ -186,15 +193,15 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "all elements":
-                    testStepVerify.isEquals(action.getText(Page_Estimate.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(Page_Estimate.Time()));
-                    testStepAssert.isElementDisplayed(Page_Estimate.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
+                    testStepVerify.isEquals(action.getText(bungiiEstimatePage.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(bungiiEstimatePage.Time()));
+                    testStepAssert.isElementDisplayed(bungiiEstimatePage.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
 
 
                     //        testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
                     //       testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
-                    cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(Page_Estimate.Link_Promo()));
-                    double expectedTotalEstimate = utility.bungiiEstimate(action.getText(Page_Estimate.Text_TripDistance()), action.getText(Page_Estimate.Link_LoadingUnloadingTime()), utility.getEstimateTime(), action.getText(Page_Estimate.Link_Promo()));
-                    String loadTime = action.getText(Page_Estimate.Text_TotalEstimate());
+                    cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(bungiiEstimatePage.Link_Promo(true)));
+                    double expectedTotalEstimate = utility.bungiiEstimate(action.getText(bungiiEstimatePage.Text_TripDistance()), action.getText(bungiiEstimatePage.Link_LoadingUnloadingTime()), utility.getEstimateTime(), action.getText(bungiiEstimatePage.Link_Promo(true)));
+                    String loadTime = action.getText(bungiiEstimatePage.Text_TotalEstimate());
                     String truncValue = new DecimalFormat("#.##").format(expectedTotalEstimate);
                     if (!truncValue.contains(".")) truncValue = truncValue + ".00";
                     int index = truncValue.indexOf(".");
@@ -202,11 +209,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     String actualValue = loadTime;//vishal[2503]2 digit verification//loadTime.substring(0, loadTime.length() - 1);
                     testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
-                    testStepVerify.isTrue(action.getText(Page_Estimate.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(Page_Estimate.Text_TripDistance()));
+                    testStepVerify.isTrue(action.getText(bungiiEstimatePage.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()));
 
-                    testStepVerify.isElementNotEnabled(Page_Estimate.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
+                    testStepVerify.isElementNotEnabled(bungiiEstimatePage.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
                     action.scrollToBottom();
-                    testStepVerify.isTrue(Page_Estimate.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
+                    testStepVerify.isTrue(bungiiEstimatePage.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
                     break;
 
                 case "driver cancelled":
@@ -217,12 +224,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(Page_CustHome.Image_Tick(), "Bungii Posted image should be displayed ", "Bungii posted image is displayed ", "Bungii posted image is not displayed");
                     break;
                 case "previous values":
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
 //                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
 
                     //    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
                     //   testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
@@ -230,15 +237,15 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "Bungii Estimate page with all details":
                     action.scrollToTop();
-                    testStepVerify.isElementTextEquals(Page_Estimate.Time(), (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Time(), (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TotalEstimate(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Link_LoadingUnloadingTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
 
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
-                    testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
 
                     break;
                 default:
@@ -311,6 +318,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("atlanta.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
+                    break;
+                case "newly created user":
+                    utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
@@ -603,15 +614,15 @@ public class EstimateBungiiSteps extends DriverBase {
     public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
         action.scrollToTop();
         // SAVE required values in scenario context
-        cucumberContextManager.setScenarioContext("BUNGII_TIME", action.getText(Page_Estimate.Time()));
-        cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", action.getText(Page_Estimate.Text_TripDistance()));
-        cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", action.getText(Page_Estimate.Text_TotalEstimate()));
-        cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", action.getText(Page_Estimate.Link_LoadingUnloadingTime()));
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", action.getText(bungiiEstimatePage.Time()));
+        cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", action.getText(bungiiEstimatePage.Text_TripDistance()));
+        cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", action.getText(bungiiEstimatePage.Text_TotalEstimate()));
+        cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", action.getText(bungiiEstimatePage.Link_LoadingUnloadingTime()));
         //Sprint 29 change
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", action.getText(Page_Estimate.Text_PickupLocation_LineOne()));
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(Page_Estimate.Text_PickupLocation_LineTwo()));
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(Page_Estimate.Text_DropOffLocation_LineOne()));
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(Page_Estimate.Text_DropOffLocation_LineTwo()));
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_PickupLocation_LineOne()));
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_PickupLocation_LineTwo()));
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineOne()));
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineTwo()));
 
     }
 
@@ -619,45 +630,45 @@ public class EstimateBungiiSteps extends DriverBase {
     public void i_get_bungii_locations_details_on_bungii_estimate() throws Throwable {
         // SAVE required values in scenario context
         //Sprint 29 change
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", action.getText(Page_Estimate.Text_PickupLocation_LineOne()));
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(Page_Estimate.Text_PickupLocation_LineTwo()));
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(Page_Estimate.Text_DropOffLocation_LineOne()));
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(Page_Estimate.Text_DropOffLocation_LineTwo()));
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_PickupLocation_LineOne()));
+        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_PickupLocation_LineTwo()));
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineOne()));
+        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineTwo()));
     }
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")
     public void iAddLoadingUnloadingTimeOf(String arg0) throws Throwable {
         try {
-            if (!action.isElementPresent(Page_Estimate.Header_Estimate(true)))
+            if (!action.isElementPresent(bungiiEstimatePage.Header_Estimate(true)))
                 Thread.sleep(5000);
 
-            action.click(Page_Estimate.Link_LoadingUnloadingTime());
-            if (!action.isElementPresent(Page_Estimate.LoadingUnloadingTime_15(true)))
-                action.click(Page_Estimate.Link_LoadingUnloadingTime());
+            action.click(bungiiEstimatePage.Link_LoadingUnloadingTime());
+            if (!action.isElementPresent(bungiiEstimatePage.LoadingUnloadingTime_15(true)))
+                action.click(bungiiEstimatePage.Link_LoadingUnloadingTime());
 
             switch (arg0) {
                 case "15 mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_15());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_15());
                     break;
 
                 case "30 mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_30());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_30());
                     break;
 
                 case "45 mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_45());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_45());
                     break;
 
                 case "60 mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_60());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_60());
                     break;
 
                 case "75 mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_75());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_75());
                     break;
 
                 case "90+ mins":
-                    action.click(Page_Estimate.LoadingUnloadingTime_90());
+                    action.click(bungiiEstimatePage.LoadingUnloadingTime_90());
                     break;
 
                 default:
@@ -678,31 +689,34 @@ public class EstimateBungiiSteps extends DriverBase {
     @When("^I add \"([^\"]*)\" photos to the Bungii$")
     public void iAddPhotosToTheBungii(String arg0) throws Throwable {
         try {
-            action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Header_Estimate(), 30L);
+            action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Header_Estimate(), 30L);
             int i = 0;
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             //    action.scrollToBottom();
             do {
-                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
-                    action.swipeLeft(Page_Estimate.Row_Images());
+                if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
+                    action.swipeLeft(bungiiEstimatePage.Row_Images());
 
-                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)))
+                if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
                     action.scrollToBottom();
-                if (!action.isElementPresent(Page_Estimate.Link_AddPhoto(true)) && i >= 3)
+
+                if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)) && i >= 3)
                 {
-                    testStepAssert.isFalse(action.isElementPresent(Page_Estimate.Link_AddPhoto(true)),"False","True" );
+                    testStepAssert.isFalse(action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)),"False","True" );
                     break;
                 }
-                action.click(Page_Estimate.Link_AddPhoto());
+                action.click(bungiiEstimatePage.Link_AddPhoto());
                 Thread.sleep(2000);
                 //adding most probable outcome first
-                if (action.isElementPresent(Page_Estimate.Option_Camera(true))) {
+                if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
                 }
-                else if (action.isElementPresent(Page_Estimate.Message_CameraPermissions(true)))
-                    action.click(Page_Estimate.Permissions_CameraAllow());
 
-                action.click(Page_Estimate.Option_Camera());
+                else if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
+                    action.click(bungiiEstimatePage.Permissions_CameraAllow());
+
+                action.click(bungiiEstimatePage.Option_Camera());
+
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
@@ -711,23 +725,23 @@ public class EstimateBungiiSteps extends DriverBase {
                             .tap(point(100, 500))
                             .waitAction(waitOptions(Duration.ofMillis(250))).perform();
                     Thread.sleep(2000);
-                    if (action.isElementPresent(Page_Estimate.Button_Review(true)))
-                        action.click(Page_Estimate.Button_Review());
+                    if (action.isElementPresent(bungiiEstimatePage.Button_Review(true)))
+                        action.click(bungiiEstimatePage.Button_Review());
                     else if (driver.getCapabilities().getCapability("deviceModel").toString().contains("Moto G") &&driver.getCapabilities().getCapability("deviceModel").toString().contains("4")) {
                         action.click(new Point(644, 1562));
                         Thread.sleep(2000);
                         logger.detail("clicked by cordinate");
-                        if (!action.isElementPresent(Page_Estimate.Header_Estimate(true))) {
+                        if (!action.isElementPresent(bungiiEstimatePage.Header_Estimate(true))) {
                             Thread.sleep(120000);//wait for auto approve
                             logger.detail("wait to auto approve");
                         }
                     }
                 }
                 if (manufacturer.equalsIgnoreCase("") || manufacturer.equalsIgnoreCase("SAMSUNG")) {
-                    action.click(Page_Estimate.Button_Camera_ClickAlternate());
+                    action.click(bungiiEstimatePage.Button_Camera_ClickAlternate());
                     //DriverAction.keyBoardEvent(AndroidKeyCode.Keycode_CAMERA);
                     Thread.sleep(2000);
-                    action.click(Page_Estimate.Button_Camera_OK());
+                    action.click(bungiiEstimatePage.Button_Camera_OK());
                 }
                 Thread.sleep(2000);
 
@@ -739,7 +753,7 @@ public class EstimateBungiiSteps extends DriverBase {
             }*/
 
 
-            testStepVerify.isElementDisplayed(Page_Estimate.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
+            testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -801,11 +815,11 @@ public class EstimateBungiiSteps extends DriverBase {
                             "UnImplemented STEP , please verify test step", true);
                     break;
             }
-            action.waitUntilIsElementExistsAndDisplayed(Page_Estimate.Alert_ConfirmRequestMessage(), 120L);
-            actualMessage = action.getText(Page_Estimate.Alert_ConfirmRequestMessage());
+            action.waitUntilIsElementExistsAndDisplayed(bungiiEstimatePage.Alert_ConfirmRequestMessage(), 120L);
+            actualMessage = action.getText(bungiiEstimatePage.Alert_ConfirmRequestMessage());
             testStepVerify.isEquals(actualMessage, expectedMessage);
 
-            action.click(Page_Estimate.Button_RequestConfirm());
+            action.click(bungiiEstimatePage.Button_RequestConfirm());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -816,13 +830,13 @@ public class EstimateBungiiSteps extends DriverBase {
     @Then("^check if I have ability to select different load time and Estimate cost is re calculated$")
     public void check_if_i_have_ability_to_select_different_load_time_and_estimate_cost_is_re_calculated() {
         try {
-            String oldEstimateValue = action.getText(Page_Estimate.Text_TotalEstimate());
-            action.click(Page_Estimate.Link_LoadingUnloadingTime());
+            String oldEstimateValue = action.getText(bungiiEstimatePage.Text_TotalEstimate());
+            action.click(bungiiEstimatePage.Link_LoadingUnloadingTime());
             for (int i = 0; i < loadTimeValue.length; i++) {
 
                 if (i != 0)
-                    action.click(Page_Estimate.Link_LoadingUnloadingTime());
-                List<WebElement> loadTime = Page_Estimate.LoadingUnloadingTime();
+                    action.click(bungiiEstimatePage.Link_LoadingUnloadingTime());
+                List<WebElement> loadTime = bungiiEstimatePage.LoadingUnloadingTime();
                 String optionText = action.getText(loadTime.get(i));
                 boolean flag = optionText.equals(loadTimeValue[i]);
 
@@ -834,7 +848,7 @@ public class EstimateBungiiSteps extends DriverBase {
                         "I was able to to select " + loadTimeValue[i] + " as load time",
                         "I was not able to to select " + loadTimeValue[i] + " as load time");
 
-                String newEstimateValue = action.getText(Page_Estimate.Text_TotalEstimate());
+                String newEstimateValue = action.getText(bungiiEstimatePage.Text_TotalEstimate());
                 Thread.sleep(2000);
 /*                if (i == 0)
                     testStepVerify.isTrue(newEstimateValue.equals(oldEstimateValue),
@@ -858,7 +872,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @Then("^I should see the \"([^\"]*)\" no more displayed on the estimates page$")
     public void i_should_see_the_something_no_more_displayed_on_the_estimates_page(String strArg1) throws Throwable {
-        testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
+        testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(true),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
     }
 
 
@@ -986,5 +1000,23 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         return value;
     }
+
+    @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
+        String actualtime=action.getText(bungiiEstimatePage.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+
 
 }
