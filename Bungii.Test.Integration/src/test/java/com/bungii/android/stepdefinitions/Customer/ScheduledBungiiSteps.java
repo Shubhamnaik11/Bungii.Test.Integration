@@ -2,10 +2,10 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiDetailsPage;
-import com.bungii.android.pages.customer.EstimatePage;
-import com.bungii.android.pages.customer.HomePage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
+import com.bungii.android.pages.driver.BungiiCompletedPage;
+import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.stepdefinitions.CommonSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -33,11 +33,15 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage;
     GeneralUtility utility = new GeneralUtility();
     CommonSteps commonSteps = new CommonSteps();
+    InvitePage invitePage=new InvitePage();
 
+    BungiiRequest bungiiRequest=new BungiiRequest();
+    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
+    BungiiCompletedPage bungiiCompletedPage=new BungiiCompletedPage();
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     EstimatePage estimatePage=new EstimatePage();
     ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
-    //ScheduledBungiisPage scheduledBungiiPage = new ScheduledBungiisPage();
+    WantDollar5Page wantDollar5Page=new WantDollar5Page();
      HomePage homePage=new HomePage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
@@ -184,7 +188,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             String day = data.get("Day"),
                     tripType=data.get("Trip Type"),
                     time=data.get("Time");
-            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")){
+            if(time.equalsIgnoreCase("<TIME WITHIN TELET>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 1>")||time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")){
 
                 String teletTime=(String) cucumberContextManager.getScenarioContext("TELET");
                 DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -221,6 +225,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                 String[] dateScroll = commonSteps.bungiiTimeForScroll(teletTimeInLocal);
                 selectBungiiTime(Integer.parseInt(day), dateScroll[1], dateScroll[2], dateScroll[3], tripType);
 
+            }else if(time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")){
+                //do nothing, for duo  trip already required time is selected
             }
             else if(time.equals("<AFTER TELET>")){
 
@@ -276,6 +282,31 @@ public class ScheduledBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }
     }
+
+    @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
+    public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {
+        try {
+            switch (strArg1){
+                case "ACCEPT":
+                    action.click(bungiiRequest.Button_Accept());
+                    break;
+                case "Ok":
+                    action.click(bungiiAcceptedPage.Button_OK());
+                    break;
+                case "On To The Next One":
+                    action.click(bungiiCompletedPage.Button_OnToTheNext());
+                    break;
+                case "YES, I'LL TAKE $5":
+                    action.click(wantDollar5Page.Button_Take5());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
 
     @When("^I try to schedule bungii for \"([^\"]*)\"$")
     public void i_try_to_schedule_bungii_for_something(String strArg1, DataTable tripInformation) throws Throwable {

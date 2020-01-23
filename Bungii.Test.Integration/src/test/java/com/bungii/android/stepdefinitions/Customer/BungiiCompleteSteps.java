@@ -29,6 +29,10 @@ public class BungiiCompleteSteps  extends DriverBase {
                     verifyTripValue();
                     verifyDiscount();
                     break;
+                case "correct details with promoter":
+                    verifyPromoterValue();
+                    verifyPromoterDiscount();
+                    break;
                 case "correct details":
                     verifyTripValue();
                     break;
@@ -47,6 +51,7 @@ public class BungiiCompleteSteps  extends DriverBase {
      * Verify Static texts on Bungii Completed page
      */
     public void verifyBungiiCompletedPage(){
+        action.scrollToBottom();
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
@@ -55,7 +60,7 @@ public class BungiiCompleteSteps  extends DriverBase {
 
         String expectedTime="";
         if (tripActualTime>1)expectedTime=tripActualTime+ " mins";
-        else expectedTime=tripActualTime+ " mins";
+        else expectedTime=tripActualTime+ " min";
         testStepVerify.isEquals(totalTime,expectedTime,"Total time should contains"+tripActualTime+" minute" ,"Total time is"+totalTime);
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
         //Vishal[2503]:TODO: add more
@@ -64,13 +69,11 @@ public class BungiiCompleteSteps  extends DriverBase {
     /**
      * Verify variable texts in Bungii Complete Page
      */
-    public void verifyTripValue(){        action.scrollToBottom();
-
+    public void verifyTripValue(){
+        action.scrollToBottom();
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];
         String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
         String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-
-
 
         Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,totalTime,promoValue,numberOfDriver);
         String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
@@ -80,6 +83,7 @@ public class BungiiCompleteSteps  extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
     }
     public  void verifyDiscount(){
+        action.scrollToBottom();
         double tripActualTime=Double.parseDouble(utility.getActualTime());
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
         String Promo=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -106,6 +110,68 @@ public class BungiiCompleteSteps  extends DriverBase {
         if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
 
       //  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
-        testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+Promo,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
+        testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),
+                "$" + promoDiscountValue,"Discount value should be promo Value"+Promo,
+                "Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
     }
+
+    public void verifyPromoterValue(){
+        action.scrollToBottom();
+        double tripActualTime=Double.parseDouble(utility.getActualTime());
+
+        String totalCost="";
+        //	String totalTime=action.getValueAttribute(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getValueAttribute(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getValueAttribute(bungiiCompletePage.Text_FinalCost()).split(" ")[0];
+        String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+        String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+        String totalDistance=utility.getEstimateDistance();
+
+        Double expectedTotalCost=utility.bungiiCustomerCost(totalDistance,String.valueOf(tripActualTime),"ADD",numberOfDriver);
+        String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
+
+        if(numberOfDriver.equalsIgnoreCase("DUO"))
+            totalCost=action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];//TO BE HANDLED FOR DUO
+        else
+            totalCost=action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];
+
+        testStepVerify.isEquals(totalCost,"$0.00");
+        cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",expectedTotalCost+"");
+    }
+
+    public  void verifyPromoterDiscount(){
+        //get current geofence
+        String currentGeofence=(String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost =Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.minimum.cost")),
+                perMileValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.miles")),
+                perMinutesValue=Double.parseDouble(utility.getGeofenceData(currentGeofence,"geofence.dollar.per.minutes"));
+
+        double tripActualTime=Double.parseDouble(utility.getActualTime());
+        String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
+        String Promo=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+        String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+        Double promoValue=0.0;
+        //String distanceValueDB=utility.getEstimateDistance();
+
+        double //distance =Double.parseDouble(distanceValueDB);
+         distance = Double.parseDouble(totalDistance.replace(" miles", ""));
+        double tripValue = distance *perMileValue + tripActualTime *perMinutesValue;
+        if(numberOfDriver.equalsIgnoreCase("DUO"))
+            tripValue=tripValue*2;
+
+        if(Promo.contains("$"))
+            promoValue=Double.valueOf(Promo.replace("-$", ""));
+        else if(Promo.contains("%"))
+            promoValue=Double.valueOf(tripValue*Double.parseDouble(Promo.replace("-", "").replace("%", ""))/100);
+
+        String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
+
+        if(promoDiscountValue.indexOf(".")==0)
+            promoDiscountValue="0"+promoDiscountValue;
+
+        cucumberContextManager.setScenarioContext("DISCOUNT_VALUE",promoDiscountValue);
+
+        testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),"$" + promoDiscountValue,"Discount value should be promo Value"+promoDiscountValue,"Discount value is "+promoDiscountValue,"Discount value is not "+promoDiscountValue);
+    }
+
 }
