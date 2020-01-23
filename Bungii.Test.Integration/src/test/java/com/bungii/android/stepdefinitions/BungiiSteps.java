@@ -5,8 +5,7 @@ import com.bungii.android.enums.Status;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.pages.driver.HomePage;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -36,8 +35,8 @@ public class BungiiSteps extends DriverBase {
     BungiiProgressPage Page_CustomerBungiiProgress = new BungiiProgressPage();
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     OtherAppsPage Page_OtherApps = new OtherAppsPage();
-    HomePage Page_DriverHome = new HomePage();
-    com.bungii.android.pages.customer.HomePage customerHomePage = new com.bungii.android.pages.customer.HomePage();
+    DriverHomePage Page_DriverHome = new DriverHomePage();
+    HomePage customerHomePage = new HomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     BungiiCompletedPage Page_BungiiComplete = new BungiiCompletedPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
@@ -228,7 +227,7 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
-                            Thread.sleep(2000);
+                            Thread.sleep(5000);
                             action.click(Page_BungiiRequest.Button_Accept());
                             break;
 
@@ -303,11 +302,9 @@ public class BungiiSteps extends DriverBase {
     public void i_click_on_notification_for_something(String strArg1) {
         try {
             String expecteMessage="";
-
-            action.showNotifications();
-            log("Checking notifications","Checking notifications",true);
-
-            expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
+                    action.showNotifications();
+                    log("Checking notifications","Checking notifications",true);
+                    expecteMessage = utility.getExpectedNotification(strArg1.toUpperCase());
 
             boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
             if (!isFound) {
@@ -828,7 +825,10 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
+/*    @Then("^I wait for \"([^\"]*)\" mins$")
+    public void i_wait_for_something_mins(String strArg1) throws Throwable {
+        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
+    }*/
     @Then("^I verify that text \"([^\"]*)\" is displayed$")
     public void i_verify_that_text_something_is_displayed(String message) throws Throwable {
         try{

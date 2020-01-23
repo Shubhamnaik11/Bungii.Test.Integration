@@ -82,11 +82,21 @@ Feature: EstimateBungii
 
   @regression
   Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+    Given I am on customer Log in page
+    When I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
     Then correct details next available scheduled time should be displayed
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |    |
+
+
 
 
 
