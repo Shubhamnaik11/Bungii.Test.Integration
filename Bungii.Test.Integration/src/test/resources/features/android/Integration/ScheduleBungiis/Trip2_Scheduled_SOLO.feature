@@ -389,7 +389,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  1
+  
   @regression
   Scenario:  To check that Customer cannot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
     Given I am on customer Log in page
