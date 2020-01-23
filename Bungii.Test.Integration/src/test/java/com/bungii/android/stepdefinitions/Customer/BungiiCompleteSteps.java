@@ -51,6 +51,7 @@ public class BungiiCompleteSteps  extends DriverBase {
      * Verify Static texts on Bungii Completed page
      */
     public void verifyBungiiCompletedPage(){
+        action.scrollToBottom();
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
