@@ -92,8 +92,8 @@ public class CucumberHooks {
     @Before
     public void beforeTest(Scenario scenario) {
 
-        logger.detail("**********************************************************************************"+ scenario.getId());
-        String[] rawFeatureName = scenario.getId().split("target")[1].split("/")[4].split(":");
+        logger.detail("**********************************************************************************");
+        String[] rawFeatureName = scenario.getId().split("features/")[1].split("/")[2].split(":");
 
         logger.detail("Feature: " + rawFeatureName[0]);
         logger.detail("Starting Scenario: " + scenario.getName());
