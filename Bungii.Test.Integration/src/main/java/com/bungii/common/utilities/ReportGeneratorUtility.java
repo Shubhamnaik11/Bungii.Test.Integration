@@ -37,6 +37,7 @@ public class ReportGeneratorUtility {
 
 	private Date testStepStart, testStepEnd;
 	private String tcName;
+	private String featureName;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -68,7 +69,8 @@ public class ReportGeneratorUtility {
 	
 	public void createResultFileFromTemplate(){
 	    try {
-			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature",".html")); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -77,6 +79,7 @@ public class ReportGeneratorUtility {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
+            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
 	        totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
@@ -96,20 +99,21 @@ public class ReportGeneratorUtility {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
+	public void startTestCase(String tcName , String featureName) {
 		this.tcName = tcName;
+		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
-		addTestCaseEntryInDetailsTable(tcName);
+		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
 
 	/**
 	 * @param name Add Test case entry to details table
 	 */
-	public void addTestCaseEntryInDetailsTable(String name) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case:   "+ name + "</td></tr>"; ;
+	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
+		String str = "<tr class='header'><td colspan='7'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 

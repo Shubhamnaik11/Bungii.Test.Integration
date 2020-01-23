@@ -2,17 +2,21 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
+import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
 import com.bungii.ios.stepdefinitions.driver.LogInSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import io.cucumber.datatable.dependency.com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -87,9 +91,13 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
-        this.reportManager.startTestCase(scenario.getName());
+
         logger.detail("**********************************************************************************");
-        logger.detail("Starting " + scenario.getName());
+        String[] rawFeatureName = scenario.getId().split("/")[5].split(":");
+
+        logger.detail("Feature: " + rawFeatureName[0]);
+        logger.detail("Starting Scenario: " + scenario.getName());
+        this.reportManager.startTestCase(scenario.getName(),rawFeatureName[0]);
 /*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 			new GeneralUtility().recoverScenario();*/
         //Set original instance as default instance at start of each test case
