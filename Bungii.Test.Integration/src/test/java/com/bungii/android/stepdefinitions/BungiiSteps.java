@@ -825,10 +825,10 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("^I wait for \"([^\"]*)\" mins$")
+/*    @Then("^I wait for \"([^\"]*)\" mins$")
     public void i_wait_for_something_mins(String strArg1) throws Throwable {
         action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
-    }
+    }*/
     @Then("^I verify that text \"([^\"]*)\" is displayed$")
     public void i_verify_that_text_something_is_displayed(String message) throws Throwable {
         try{
