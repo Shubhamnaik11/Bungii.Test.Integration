@@ -29,10 +29,10 @@ public class Driver_ViewDetailsPage extends PageBase {
 
     public WebElement Calendar_ToDate () {return findElement("//th[text()='Jan 2020']/parent::tr/parent::thead/parent::table/tbody/tr/td[text()='23']",LocatorType.XPath);}
 
-    public WebElement Label_SelectedDateRange () {return findElement("//span[text()='01/21/2019 - 01/22/2020']",LocatorType.XPath);}
+    public WebElement Label_SelectedDateRange () {return findElement("//span[text()='01/22/2019 - 01/23/2020']",LocatorType.XPath);}
 
     public WebElement Button_Apply () {return findElement("//button[text()='Apply']",LocatorType.XPath);}
 
-    public WebElement Label_SearchResultDateRange () {return findElement("//p[contains(text(),\"(Jan 21, 2019 - Jan 22, 2020)\")]",LocatorType.XPath);}
+    public WebElement Label_SearchResultDateRange () {return findElement("//p[contains(text(),\"(Jan 22, 2019 - Jan 23, 2020)\")]",LocatorType.XPath);}
 
 }
