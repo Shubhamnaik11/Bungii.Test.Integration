@@ -60,7 +60,6 @@ public class EstimateBungiiSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "two drivers selector":
-
                     action.click(Page_CustHome.Selector_Duo());
                     cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", "DUO");
                     break;
@@ -254,9 +253,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
-
         try {
-
             Thread.sleep(2000);
             switch (arg0) {
                 case "existing":

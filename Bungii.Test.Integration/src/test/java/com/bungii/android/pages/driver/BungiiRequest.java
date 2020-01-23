@@ -9,7 +9,7 @@ public class BungiiRequest extends PageBase {
 
 
     //------On Demand Request Alert
-    public WebElement Alert_Msg() { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id); }
+    public WebElement Alert_Msg(boolean ignoreException) { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id,ignoreException); }
 
     public WebElement AlertButton_View() { return findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id); }
 

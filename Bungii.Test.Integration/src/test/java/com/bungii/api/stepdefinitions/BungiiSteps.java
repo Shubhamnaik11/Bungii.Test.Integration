@@ -578,6 +578,7 @@ public String getDriverPhone(String driverName)
                 custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
                 custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", custPhoneNum);
             }
             else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
@@ -939,9 +940,9 @@ public String getDriverPhone(String driverName)
                     custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
 
-                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                 }
                 else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");

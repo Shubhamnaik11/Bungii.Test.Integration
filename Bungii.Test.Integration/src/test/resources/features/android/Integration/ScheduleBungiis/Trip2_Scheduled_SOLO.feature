@@ -717,7 +717,7 @@ Feature: SoloScheduled
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   | 2              |
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
+    When I click "YES" on the alert message
     And I click "ACCEPT" button on "Bungii Request" screen
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
@@ -972,10 +972,10 @@ Feature: SoloScheduled
       | kansas   | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid kansas" driver
+    And I am logged in as "valid" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I select already scheduled bungii
-    When I Cancel selected Bungii
+    And I Select Trip from driver scheduled trip
+    When Bungii Driver "cancels Bungii request"
     Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
     And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
 
@@ -991,10 +991,10 @@ Feature: SoloScheduled
 
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid kansas" driver
+    And I am logged in as "Kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
-    And I try to cancel selected Bungii
+    And I Select Trip from driver scheduled trip
+    When Bungii Driver "cancels Bungii request"
     Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
     And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
 
@@ -1002,7 +1002,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1019,13 +1019,18 @@ Feature: SoloScheduled
 
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
@@ -1041,15 +1046,20 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
     Then Bungii driver should see "Arrived screen"
-    And I click "Cancel" button on "update" screen
+    And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
@@ -1064,17 +1074,22 @@ Feature: SoloScheduled
      #non control driver
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
-    Then Bungii driver should see "Arrived screen"
-    And I click "Cancel" button on "update" screen
+    And I am logged in as "Kansas driver 2" driver
+    Then Bungii driver should see "Enroute screen"
+    And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
@@ -1082,21 +1097,41 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
       | kansas   | arrived      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
     When I Switch to "customer" application on "same" devices
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
     Then for a Bungii I should see "Arrived screen"
 
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    #non control driver
-    And I am logged in as "valid denver driver 2" driver
-    Then I should be navigated to "ARRIVED" screen
-    And I click "Cancel" button on "update" screen
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 2" driver
+    Then Bungii driver should see "Arrived screen"
+    And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
     Then Bungii driver should see "Home screen"
 
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: Check if customer is allowed to rate driver for duo trip
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3" Ratting star for duo "Driver 1"
+    And I select "5" Ratting star for duo "Driver 2"
+    Then I tap on "OK" on Bungii Complete

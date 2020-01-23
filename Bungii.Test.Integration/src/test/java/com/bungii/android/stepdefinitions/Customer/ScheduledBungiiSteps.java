@@ -4,15 +4,17 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ScheduledBungiisPage;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
 import com.bungii.android.stepdefinitions.CommonSteps;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.sl.In;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
@@ -31,7 +33,6 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage;
     GeneralUtility utility = new GeneralUtility();
     CommonSteps commonSteps = new CommonSteps();
-
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     EstimatePage estimatePage=new EstimatePage();
     ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
@@ -270,16 +271,6 @@ public class ScheduledBungiiSteps extends DriverBase {
         try {
             action.scrollToBottom();
             action.click(estimatePage.Button_DoneOnSuccess());
-        } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-        }
-    }
-
-    @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
-    public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
-        try {
-            action.scrollToBottom();
-
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         }

@@ -7,7 +7,7 @@ import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.pages.otherApps.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
@@ -230,7 +230,7 @@ public class BungiiSteps extends DriverBase {
                     i_click_on_notification_for_something("on demand trip");
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
+                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
@@ -248,7 +248,7 @@ public class BungiiSteps extends DriverBase {
                 boolean skipClick = false;
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                         utility.acceptNotificationAlert();
                         skipClick = true;
                     } else {
@@ -267,7 +267,7 @@ public class BungiiSteps extends DriverBase {
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
-                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(true),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_MsgTitle(),PropertyUtility.getMessage("driver.alert.stack.alert.header"));
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_View(),"View");
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_Cancel(),"Cancel");
@@ -283,7 +283,7 @@ public class BungiiSteps extends DriverBase {
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
                         action.click(Page_BungiiRequest.AlertButton_View());
                     }
                 }
@@ -773,6 +773,13 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
+                case "cancels Bungii request":
+                    Thread.sleep(5000);
+                    action.click(Page_DriverBungiiProgress.Button_CancelBungii());
+                    //testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.cancel.bungii"));
+                   // action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
+                    Thread.sleep(5000);
+                    break;
                 case "cancels Bungii":
                     Thread.sleep(5000);
                     action.click(Page_DriverBungiiProgress.Button_Cancel());

@@ -5,9 +5,9 @@ import com.bungii.android.manager.ActionManager;
 
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.DbUtility;
-
 import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.pages.driver.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -39,11 +39,13 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
-    HomePage homePage=new HomePage();
+    com.bungii.android.pages.customer.HomePage homePage=new com.bungii.android.pages.customer.HomePage();
+    com.bungii.android.pages.driver.HomePage driverHomePage = new com.bungii.android.pages.driver.HomePage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
+    BungiiRequest bungiiRequest=new BungiiRequest();
 
     private DbUtility dbUtility = new DbUtility();
 
@@ -356,7 +358,17 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+            String actualMessage = "";
+            if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+                actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
+            }
+            else if(actualMessage.equals(""))
+            {
+                actualMessage= action.getText(driverHomePage.Alert_NewBungii());
+            }
+            else{
+                actualMessage = bungiiRequest.Alert_Msg(true).getText();
+            }
             String expectedMessage=null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
@@ -618,11 +630,19 @@ public class CommonSteps extends DriverBase {
 
     @And("^I click \"([^\"]*)\" on the alert message$")
     public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
-        action.click(bungiiAcceptedPage.Button_OK());
-
-
-        log("I should able to click " + strArg1 + "on Alert Message",
-                "I clicked " + strArg1 + "on Alert Message", true);
+        try {
+            switch (strArg1) {
+                case "OK":
+                    action.click(bungiiAcceptedPage.Button_OK());
+                    break;
+                case "YES":
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+            }
+        } catch (Exception e) {
+            log("I should able to click " + strArg1 + "on Alert Message",
+                    "I clicked " + strArg1 + "on Alert Message", true);
+        }
     }
 
     public String[] bungiiTimeForScroll(Date date) {

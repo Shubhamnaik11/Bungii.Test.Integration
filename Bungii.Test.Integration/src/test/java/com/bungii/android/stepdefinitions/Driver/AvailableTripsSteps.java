@@ -3,8 +3,8 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.AvailableTripsPage;
-import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -37,7 +37,7 @@ public class AvailableTripsSteps extends DriverBase {
             if(!isSelected){
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                         utility.acceptNotificationAlert();
 
                     } else {

@@ -1207,13 +1207,13 @@ Feature: Duo
       | atlanta      | Scheduled    | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
 
     When I Switch to "customer" application on "same" devices
-    And I am on the "LOG IN" page
+    And I am on customer Log in page
     And I am logged in as "valid" customer
 
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid duo driver 1" driver
+    And I am logged in as "valid" driver
     And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
@@ -1229,3 +1229,34 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+
+  @regression1
+  Scenario: To check that other driver and customer are Notified when one of the driver cancels
+    Given that duo schedule bungii is in progress
+      | geofence     | Bungii State | Bungii Time   | Customer     | Driver1 | Driver2        |
+      | atlanta      | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
+
+
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "valid" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid driver 2" driver
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+
+    When I switch to "ORIGINAL" instance
+    #message to driver
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+    When I Switch to "driver" application on "same" devices
+    And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
