@@ -52,6 +52,9 @@ public class PromosSteps extends DriverBase {
                 case "used one off":
                     promoCode = PropertyUtility.getDataProperties("promocode.usedoneoff");
                     break;
+                case "promoter type":
+                    promoCode = PropertyUtility.getDataProperties("promocode.promotor.off");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

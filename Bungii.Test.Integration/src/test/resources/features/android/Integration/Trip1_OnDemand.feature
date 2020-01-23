@@ -272,3 +272,4 @@ Feature: On Demand Bungii
       | Promo fixed         | valid         | valid baltimore |
       | Promo percentage    | valid percent | valid baltimore |
       | valid one off fixed | valid one off | valid baltimore |
+      |Promoter type        |promoter type  |valid baltimore  |
