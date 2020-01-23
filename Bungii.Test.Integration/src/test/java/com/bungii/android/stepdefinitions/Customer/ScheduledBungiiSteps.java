@@ -15,6 +15,8 @@ import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Point;
@@ -146,11 +148,11 @@ public class ScheduledBungiiSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "today - after working hour":
                     selectBungiiTime(0, "11", "45", "PM", tripType);
-                    //log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
+                    log("I select time for trip as 11:45  pm", "I selected time for trip as 11:45  pm");
                     break;
                 case "tommorow - before working hour":
                     selectBungiiTime(1, "12", "00", "AM",tripType);
-                    //log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
+                    log("I select time for trip tomorrow 12 00 AM", "I selected time for trip as  tomorrow 12 00 AM");
                     break;
                 case "today+5":
                     selectBungiiTime(5, "", "", "",tripType);
@@ -161,7 +163,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
             } }catch(Exception e){
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-               // error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+                error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
             }
         }
 
@@ -353,7 +355,10 @@ public class ScheduledBungiiSteps extends DriverBase {
                 action.sendKeys(estimatePage.Text_TimeHourPicker(), hour);
                 action.sendKeys(estimatePage.Text_TimeMinutesPicker(), minutes);
                 action.sendKeys(estimatePage.Text_TimeMeridian(), meridiem);
-                action.click(estimatePage.Button_OKOnTimePicker());
+                Thread.sleep(2000);
+                action.click(estimatePage.Button_TimeConfirm());
+
+
             } else if (nextDate > 0 && nextDate < 5) {
                 String month = getCurrentMonthName();
                 String dayValue = generateNextDay();

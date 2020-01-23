@@ -353,7 +353,7 @@ Feature: On Demand Bungii
     Given I am on Sign up page
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
-    And I enter "ValidPercent" promo code on Signup Page
+ #   And I enter "ValidPercent" promo code on Signup Page
     And I enter "Code" promo code on Signup Page
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
