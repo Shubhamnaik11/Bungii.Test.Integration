@@ -578,7 +578,21 @@ public class CommonSteps extends DriverBase {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
+            }
+            new GeneralUtility().handleIosUpdateMessage();
+            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+                logger.error("Retrying to start app 3rd time :Page source:", SetupManager.getDriver().getPageSource());
 
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
             }
             pass("Switch to " + appName + " application",
                     "Switch to " + appName + " application", true);
@@ -586,6 +600,7 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
@@ -632,6 +647,7 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
@@ -1032,6 +1048,8 @@ public class CommonSteps extends DriverBase {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
+            }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
+                takeActionOnPromotion("REJECT");
             } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }

@@ -826,10 +826,12 @@ public class GeneralUtility extends DriverBase {
             discount = Double.parseDouble(Promo.replace("-$", ""));
         else if (Promo.contains("%")) {
             discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
-            //discount is rounded to floor
-            DecimalFormat df = new DecimalFormat("#.##");
-            df.setRoundingMode(RoundingMode.FLOOR);
-            discount = new Double(df.format(discount));
+            if (tripType.equalsIgnoreCase("DUO")) {
+                //discount is rounded to floor
+                DecimalFormat df = new DecimalFormat("#.##");
+                df.setRoundingMode(RoundingMode.FLOOR);
+                discount = new Double(df.format(discount));
+            }
         }
         double costToCustomer = tripValue - discount;
         costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
@@ -1130,7 +1132,7 @@ public class GeneralUtility extends DriverBase {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         //By default data is in UTC
-     //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String teletTimeInUtc = null;
 
         teletTimeInUtc = dateFormat.format(telet);
