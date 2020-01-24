@@ -34,7 +34,7 @@ public class GenerateSummaryReport {
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
-
+                int testCount = 1;
                 //Iterate over all HTML file
                 for (String path : listOfResultFile) {
 
@@ -52,8 +52,8 @@ public class GenerateSummaryReport {
                     Element table = doc.select("table").get(0); //select the first table.
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=1> FEATURE : " + in.getName().toString().replace(".html","") + "</td>");
-                    summaryData.add(" <td colspan=4><a href=" + subFolder + "/" + in.getName() + "> TEST SUITE EXECUTION REPORT : " + in.getName() + "</td>");
+                    summaryData.add(" <td colspan=3> FEATURE : " + in.getName().toString().replace(".html","") + "</td>");
+                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> TEST SUITE EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
                     passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
@@ -78,9 +78,11 @@ public class GenerateSummaryReport {
                             storeEndTime(startTime);
                         }
                         System.out.println(data);
-                        summaryData.add("<tr></tr>");
+                        summaryData.add("<tr></tr><td>"+testCount+"</td>");
                         summaryData.add(data);
+                        testCount++;
                     }
+
                 }
                 createResultFileFromTemplate(platform);
                 newName(configFilePath,"MavenRun");
