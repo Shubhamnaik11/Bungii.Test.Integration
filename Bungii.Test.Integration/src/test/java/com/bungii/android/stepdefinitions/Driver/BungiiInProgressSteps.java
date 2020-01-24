@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.stepdefinitions.Customer.SignupSteps;
 import com.bungii.android.utilityfunctions.DbUtility;
@@ -293,9 +293,7 @@ public class BungiiInProgressSteps extends DriverBase {
     @Then("^correct message should be displayed after clicking info button$")
     public void correct_message_should_be_displayed_after_clicking_info_button() throws Throwable {
         action.click(bungiiProgressPage.Button_StackInfo());
-        InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
-
-        testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.stack.info.button.alert"));
+        testStepVerify.isElementTextEquals(bungiiProgressPage.Alert_Message(),PropertyUtility.getMessage("driver.stack.info.button.alert"));
     }
 
     public String[] getTeletTimeinLocalTimeZone(){

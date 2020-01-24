@@ -3,9 +3,11 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -815,8 +817,12 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
-
-
+        }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+                    action.click(otherAppsPage.Notification_OtherDriverCancel());
+                    isDisplayed = true;
+                }
         }
         return isDisplayed;
     }

@@ -149,7 +149,6 @@ public String getDriverPhone(String driverName)
                         if (!isDriverEligible)
                             error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
 
-
                         //for on demand enroute and accepted are same
                         if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -223,9 +222,6 @@ public String getDriverPhone(String driverName)
                         }
 
                     }
-
-
-
                     i++;
                 } catch (Exception e) {
 

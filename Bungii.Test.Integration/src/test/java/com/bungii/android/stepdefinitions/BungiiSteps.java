@@ -6,8 +6,6 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
-import com.bungii.android.utilityfunctions.*;
-import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.manager.DriverManager;
@@ -215,11 +213,6 @@ public class BungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
-    }
-//temporary
-    @Then("^I wait for \"([^\"]*)\" mins$")
-    public void i_wait_for_something_mins(String strArg1) throws Throwable {
-        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
     }
 
     @And("^Bungii Driver \"([^\"]*)\" request$")
@@ -455,6 +448,9 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_DriverBungiiProgress.Button_CancelImage());
                 break;
 
+                case "Scheduled Bungii screen":
+                    testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_Status(true), "SCHEDULED BUNGII");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

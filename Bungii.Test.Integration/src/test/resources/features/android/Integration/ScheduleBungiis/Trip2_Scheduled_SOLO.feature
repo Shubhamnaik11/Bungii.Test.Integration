@@ -1354,6 +1354,7 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
   @regression
   Scenario: Check if customer is allowed to rate driver for duo trip
     When I request "duo" Bungii as a customer in "kansas" geofence
@@ -1369,3 +1370,72 @@ Feature: SoloScheduled
     When I select "3" Ratting star for duo "Driver 1"
     And I select "5" Ratting star for duo "Driver 2"
     Then I tap on "OK" on Bungii Complete
+
+  @regression1
+  Scenario: check if re-searched driver can cancel trip after starting Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | kansas   | Accepted     | 15 min ahead |
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+
+    When I switch to "ORIGINAL" instance
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "kansas driver 1" driver
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on the alert message
+    Then Bungii driver should see "Scheduled Bungii screen"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression1
+  Scenario: check if re-searched driver can cancel trip after starting Duo
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+
+    When I switch to "ORIGINAL" instance
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "kansas driver 2" driver
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "Yes" on the alert message
+    Then Bungii driver should see "Scheduled Bungii screen"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |
