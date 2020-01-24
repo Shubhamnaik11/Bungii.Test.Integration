@@ -174,6 +174,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         try {
             switch (button) {
                 case "Filter":
+                    action.clear(admin_PromoCodesPage.TextBox_Search());
                     action.click(admin_PromoCodesPage.Button_Filter());
                     break;
                 case "Close":
@@ -181,27 +182,18 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     break;
                 case "Driver Trips":
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER");
-                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Trips']",driver);
+                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Trips']", driver);
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
+            }}
+        catch(StaleElementReferenceException e){
             }
-
-        switch (button)
-        {
-            case "Filter":
-                action.clear(admin_PromoCodesPage.TextBox_Search());
-                action.click(admin_PromoCodesPage.Button_Filter());
-                break;
-            case "Close":
-                action.click((admin_ScheduledTripsPage.Button_Close()));
-                break;
-
+            log("I click on " + button + " icon",
+                    "I have clicked on " + button + " icon", true);
         }
-        catch (StaleElementReferenceException e){}
-            log("I click on "+button+" icon" ,
-                "I have clicked on "+button+" icon", true);
-    }
+
+    
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_something_as_something1(String CodeType, String value) throws Throwable {
