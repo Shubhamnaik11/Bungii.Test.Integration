@@ -209,11 +209,11 @@ public class EstimateSteps extends DriverBase {
     public void i_should_see_first_time_only_code_selected_on_bungii_estimate(String strArg1) throws Throwable {
         try {
             String value = getElementValue("Promo Code");
-            String expectedPromoValue="";
-            if(strArg1.equalsIgnoreCase("first time only"))
+            String expectedPromoValue = "";
+            if (strArg1.equalsIgnoreCase("first time only"))
                 expectedPromoValue = "-$11.00";
-            else if(strArg1.equalsIgnoreCase("selected"))
-                expectedPromoValue = "-"+cucumberContextManager.getScenarioContext("PROMO_CODE_VALUE");
+            else if (strArg1.equalsIgnoreCase("selected"))
+                expectedPromoValue = "-" + cucumberContextManager.getScenarioContext("PROMO_CODE_VALUE");
 
             testStepVerify.isEquals(value, expectedPromoValue);
         } catch (Exception e) {
@@ -271,7 +271,7 @@ public class EstimateSteps extends DriverBase {
         } else if (time.equalsIgnoreCase("<TIME WITHIN TELET>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
-                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
             //By default data is in UTC
             formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date teletTimeInUtc = null;
@@ -308,7 +308,7 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
-        }else if (time.equalsIgnoreCase("<START TIME WITHIN TELET OF CUSTOMER 1>")) {
+        } else if (time.equalsIgnoreCase("<START TIME WITHIN TELET OF CUSTOMER 1>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -348,15 +348,14 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
-        }else if(time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")){
+        } else if (time.equals("<TELET TIME OVERLAP WITH START TIME OF CUSTOMER 1>")) {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        }
-        else if (time.equals("<AFTER TELET>")) {
+        } else if (time.equals("<AFTER TELET>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -1155,6 +1154,8 @@ public class EstimateSteps extends DriverBase {
             addImage(1);
         } else if (option.equalsIgnoreCase("No image")) {
             addImage(0);
+        } else if (option.equalsIgnoreCase("large image")) {
+            addLargeImage();
         } else
             addImage(1);
 
@@ -1183,7 +1184,14 @@ public class EstimateSteps extends DriverBase {
             List<WebElement> folder = estimatePage.Cell_Photo();
             folder.get(folder.size() - 1).click();*/
         }
+    }
 
+    private void addLargeImage() {
+        estimatePage.Button_AddPhoto().click();
+        action.click(estimatePage.Button_Gallary());
+        action.click(estimatePage.LargeImagePhotosFolder());
+        List<WebElement> folder = estimatePage.Cell_Photo();
+        folder.get(folder.size() - 1).click();
     }
 
     /**
