@@ -113,7 +113,7 @@ public class ReportGeneratorUtility {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case: "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='8'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 
@@ -126,7 +126,7 @@ public class ReportGeneratorUtility {
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
 
-		String str = "<tr><td + rightSpan + >" + testStepCount + "</td>";
+		String str = "<tr><td + rightSpan + >" + testStepCount+1 + "</td>";
 		str = str + "<td>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
