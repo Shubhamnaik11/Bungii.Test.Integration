@@ -1175,7 +1175,7 @@ Feature: Duo
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @regression
+  @regression1
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence    | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |

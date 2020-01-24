@@ -1450,7 +1450,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |

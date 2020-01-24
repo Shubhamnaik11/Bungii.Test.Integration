@@ -3,9 +3,11 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -47,7 +49,7 @@ public class GeneralUtility extends DriverBase {
     DriverHomePage driverHomePage = new DriverHomePage();
     BungiiCompletePage customerBungiiCompletePage = new BungiiCompletePage();
     MenuPage Page_Menu = new MenuPage();
-    com.bungii.android.pages.otherApps.OtherAppsPage otherAppsPage = new com.bungii.android.pages.otherApps.OtherAppsPage();
+    OtherAppsPage otherAppsPage = new OtherAppsPage();
     EstimatePage estimatePage = new EstimatePage();
     AccountPage cutomerAccountPage = new AccountPage();
     PaymentPage paymentPage = new PaymentPage();
@@ -61,7 +63,6 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages driverBungiiProgressPage = new InProgressBungiiPages();
     BungiiCompletedPage bungiiCompletedPage = new BungiiCompletedPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
-    InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     InvitePage invitePage = new InvitePage();
 
@@ -214,40 +215,40 @@ public class GeneralUtility extends DriverBase {
                 break;
             case "Enroute screen":
                 Thread.sleep(5000);
-                String currentPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true));
+                String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
                 if (!currentPage.equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
                 else
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
                 break;
             case "Arrived screen":
                 Thread.sleep(5000);
-                if (!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.ARRIVED.toString());
                 else
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
                 break;
             case "Loading Item screen":
 
                 Thread.sleep(5000);
-                if (!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
                 else
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
                 break;
             case "Driving to DropOff screen":
                 Thread.sleep(5000);
-                if (!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
                 else
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
                 break;
             case "Unloading Item screen":
                 Thread.sleep(5000);
-                if (!action.getText(Page_DriverBungiiProgress.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
                 else
-                    isCorrectPage = action.getText(Page_DriverBungiiProgress.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
                 break;
             case "INVITE":
                 isCorrectPage = action.isElementPresent(invitePage.Header_Invite());
