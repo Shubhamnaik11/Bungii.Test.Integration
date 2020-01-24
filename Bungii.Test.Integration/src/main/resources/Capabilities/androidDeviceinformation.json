@@ -1,12 +1,12 @@
 {
   "device1": {
     "platformName": "Android",
-    "automationName": "UiAutomator2",
+    "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
-    "deviceName": "Moto G",
-    "platformVersion": "5.0.2",
+    "deviceName": "Moto X",
+    "platformVersion": "5.0",
     "noReset": true,
-    "newCommandTimeout": "1500",
+    "newCommandTimeout": "9000",
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",

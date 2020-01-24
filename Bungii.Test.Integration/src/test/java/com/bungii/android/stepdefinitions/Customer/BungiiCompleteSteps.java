@@ -55,6 +55,7 @@ public class BungiiCompleteSteps  extends DriverBase {
      * Verify Static texts on Bungii Completed page
      */
     public void verifyBungiiCompletedPage(){
+        action.scrollToBottom();
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
         action.scrollToBottom();
@@ -64,7 +65,7 @@ public class BungiiCompleteSteps  extends DriverBase {
 
         String expectedTime="";
         if (tripActualTime>1)expectedTime=tripActualTime+ " mins";
-        else expectedTime=tripActualTime+ " mins";
+        else expectedTime=tripActualTime+ " min";
         testStepVerify.isEquals(totalTime,expectedTime,"Total time should contains"+tripActualTime+" minute" ,"Total time is"+totalTime);
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total distance should contains "+tripDistance );
         //Vishal[2503]:TODO: add more

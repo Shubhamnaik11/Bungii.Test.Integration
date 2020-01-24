@@ -29,7 +29,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenCustConfig() {
-        return given().log().all()
+        return given() //.log().all()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("CUST_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("CUST_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -45,7 +45,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenDriverConfig() {
-        return given().log().all()
+        return given() //.log().all()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("DRIVER_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("DRIVER_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -301,9 +301,9 @@ public class ApiHelper {
         HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            System.out.println("pass");
+            System.out.println("**** API Call Pass ****");
         } else {
-            System.out.println("failed" + error.toString());
+            System.out.println("**** API Call failed : " + error.toString());
 
         }
         response.then().statusCode(200);

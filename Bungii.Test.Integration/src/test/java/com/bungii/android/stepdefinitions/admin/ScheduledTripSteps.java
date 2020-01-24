@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.common.utilities.PropertyUtility;
@@ -47,7 +47,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
 			//On admin panel CST time use to show
-		//	getPortalTime("Dec 21, 11:15 AM IST");
+			//	getPortalTime("Dec 21, 11:15 AM IST");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
@@ -125,7 +125,7 @@ public class ScheduledTripSteps extends DriverBase {
 			testStepVerify.isTrue(rowNumber == 999,
 					"Bungii should be removed from the List", "Bungii is removed from the List",
 					"Bungii is not removed from the List");
-			
+
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -179,7 +179,6 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 
 	}
-
 	@And("^I remove current driver and researches Bungii$")
 	public void i_remove_current_driver_and_researches_bungii() throws Throwable {
 		try {
@@ -221,7 +220,52 @@ public class ScheduledTripSteps extends DriverBase {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 			error( "Step  Should be successful", "Error performing step,Please check logs for more details",
 					true);
+		}	}
+	/**
+	 * Find bungii and research it
+	 * @param tripDetails Trip information
+	 */
+	public void RemoveSoloDriverAndresearchBungii(Map<String,String> tripDetails){
+		int rowNumber =getTripRowNumber(tripDetails);
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		WebElement editButton;
+		if(rowNumber==0){
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
+		}else
+			//vishal[1403] : Updated xpath
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
+		editButton.click();
+		action.click(scheduledTripsPage.CheckBox_Driver1());
+		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+		if(numberOfDriver.equalsIgnoreCase("duo"))
+			action.click(scheduledTripsPage.CheckBox_Driver2());
+
+		action.click(scheduledTripsPage.Button_Remove());
+		scheduledTripsPage.waitForPageLoad();try{Thread.sleep(5000);}catch (Exception e ){}
+		action.click(scheduledTripsPage.Button_Research());
+		scheduledTripsPage.waitForPageLoad();
+	}
+	/**
+	 * Got to trip details from list of scheduled list
+	 * @param tripDetails customer infomation
+	 * @return boolean value if trip was found or not
+	 */
+	public boolean gotToTripDetailsPage(Map<String,String> tripDetails){
+		String custName = tripDetails.get("CUSTOMER");
+		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
+		boolean isFound=false;
+		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
+		for(WebElement row:rows){
+			String rowCustName=row.findElement(By.xpath("//td[5]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[4]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[6]")).getText();
+
+			if(rowCustName.equals(custName) && rowEstimatedDistance.equals(estimatedDistance)){
+				WebElement tripDetailsLink=row.findElement(By.xpath("//td[4]/a"));
+				action.click(tripDetailsLink);
+				isFound=true;
+			}
 		}
+		return isFound;
 	}
 
 	/**
@@ -233,7 +277,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
 		String label=utility.getTimeZoneBasedOnGeofence();
 		if(!scheduledDate.contains(label))
-		scheduledDate=scheduledDate+" "+label;
+			scheduledDate=scheduledDate+" "+label;
 		scheduledDate=scheduledDate.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST");
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
@@ -265,7 +309,7 @@ public class ScheduledTripSteps extends DriverBase {
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
 		}else
 			//vishal[1403] : Updated xpath
-		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
@@ -332,30 +376,5 @@ public class ScheduledTripSteps extends DriverBase {
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 
-	/**
-	 * Find bungii and research it
-	 * @param tripDetails Trip information
-	 */
-	public void RemoveSoloDriverAndresearchBungii(Map<String,String> tripDetails){
-		int rowNumber =getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
-		WebElement editButton;
-		if(rowNumber==0){
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
-		}else
-			//vishal[1403] : Updated xpath
-			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
-		//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
-		editButton.click();
-		action.click(scheduledTripsPage.CheckBox_Driver1());
-		String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
-		if(numberOfDriver.equalsIgnoreCase("duo"))
-			action.click(scheduledTripsPage.CheckBox_Driver2());
-
-		action.click(scheduledTripsPage.Button_Remove());
-		scheduledTripsPage.waitForPageLoad();try{Thread.sleep(5000);}catch (Exception e ){}
-		action.click(scheduledTripsPage.Button_Research());
-		scheduledTripsPage.waitForPageLoad();
-	}
 
 }

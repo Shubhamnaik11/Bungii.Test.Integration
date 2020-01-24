@@ -37,6 +37,7 @@ public class ReportGeneratorUtility {
 
 	private Date testStepStart, testStepEnd;
 	private String tcName;
+	private String featureName;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -68,7 +69,8 @@ public class ReportGeneratorUtility {
 	
 	public void createResultFileFromTemplate(){
 	    try {
-			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -77,6 +79,7 @@ public class ReportGeneratorUtility {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
+            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
 	        totalStr = totalStr.replaceAll("<!--DILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
@@ -96,20 +99,21 @@ public class ReportGeneratorUtility {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
+	public void startTestCase(String tcName , String featureName) {
 		this.tcName = tcName;
+		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
-		addTestCaseEntryInDetailsTable(tcName);
+		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
 
 	/**
 	 * @param name Add Test case entry to details table
 	 */
-	public void addTestCaseEntryInDetailsTable(String name) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case:   "+ name + "</td></tr>"; ;
+	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
+		String str = "<tr class='header'><td colspan='8'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 
@@ -121,9 +125,16 @@ public class ReportGeneratorUtility {
 
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
+		int stepCount= testStepCount+1;
+		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
+		str = str + "<td>" + eventData.get("name").toString() + "</td>";
+		if (eventData.get("type").toString() == "PASSED") {
+			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
+		}
+		else {
+			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
+		}
 
-		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
-		str = str + "<td>" + eventData.get("type").toString() + "</td>";
 		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
 		str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
 		str = str + "<td>" + testStepStart + "</td>";
@@ -169,11 +180,11 @@ public class ReportGeneratorUtility {
 		String status = "";
 		//check testng assert and local flag as well
 		if (!isFailed &&!isTcVerifyFailed){
-			status = "Passed";
+			status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
 			passed++;
 		}
 		else {
-			status = "Failed";
+			status = "<td style='background-color:pink;'>Fail</td>";
 			failed++;
 		}
 
@@ -182,15 +193,16 @@ public class ReportGeneratorUtility {
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td>" + tcName + "</td><td>" + status + "</td>" + str;
+		str1 = "<td cursor:'pointer;'>" + tcName + "</td>" + status  + str;
 		summaryArray.add(str1);
 	}
 
 	/**
 	 * Mark test case as failed.  Dont stop test, use in case of verify
 	 */
-	public void verificationFailed(){
+	public void verificationFailed(Map<String, String> eventData){
 		this.isTcVerifyFailed=true;
+		endTestDataContainer(eventData);
 		logger.trace("Marked test case :"+this.tcName +" failed as verification got failed"  );
 	}
 	
@@ -226,7 +238,6 @@ public class ReportGeneratorUtility {
 		return time;
 	}
 
-
 	/**
 	 * Close summary file
 	 */
@@ -246,8 +257,6 @@ public class ReportGeneratorUtility {
 		}
 	}
 
-
-	
 	/**
 	 * Write input string to output stream
 	 * @param lines String that is to be written
@@ -262,14 +271,25 @@ public class ReportGeneratorUtility {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
-	
-	
+
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";
 		for (String str : strArray)
 			strDetails+="<tr>" + str + "</tr>";
 		final String cleansedString = StringUtils.normalizeSpace(strDetails);
-		logger.detail("Generated Report : "+cleansedString);
+		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
+	}
+
+	public void endTestDataContainer(Map<String, String> eventData)
+	{
+		String str = "<tr><td + rightSpan + ><td>Some steps are skipped due to error ..</td>";
+		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
+
+	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
+	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+
+		detailsArray.add(str);
+
 	}
 }

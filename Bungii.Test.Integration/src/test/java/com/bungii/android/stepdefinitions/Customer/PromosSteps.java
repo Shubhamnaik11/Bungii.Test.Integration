@@ -265,19 +265,18 @@ public class PromosSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("promo.codes.info.message"));
                     action.click(promoPage.Button_Ok());
                     break;
-
                 case "This code is only available for your first Bungii.":
                     testStepVerify.isElementTextEquals(promoPage.Text_FirstTimeInfo(), PropertyUtility.getMessage("promo.code.first.time.message"));
+                    testStepVerify.isElementTextEquals(promoPage.Text_First(), "FIRST");
+                    break;
+                case"referral code received with out first time tag":
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
+                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
                     testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
                     break;
                 case "Info":
                     testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));
                     action.click(promoPage.Button_Ok());
-                    break;
-
-                case"referral code received with out first time tag":
-                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
-                    testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
                     break;
                 default:
                     error("Implemented Step", "UnImplemented Step");
@@ -429,6 +428,5 @@ public class PromosSteps extends DriverBase {
                     true);
         }
     }
-
 
 }

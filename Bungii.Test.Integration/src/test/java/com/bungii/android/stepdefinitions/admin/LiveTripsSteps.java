@@ -20,12 +20,18 @@ public class LiveTripsSteps extends DriverBase {
 
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
-        String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
-        action.click(liveTripsPage.Button_Search());
-        Thread.sleep(5000);
-        action.click(liveTripsPage.Button_StartDateSort());
-        action.click(liveTripsPage.Button_RowOne());
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(liveTripsPage.Button_StartDateSort());
+            action.click(liveTripsPage.Button_RowOne());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^manually end bungii should be \"([^\"]*)\"$")
@@ -67,5 +73,57 @@ public class LiveTripsSteps extends DriverBase {
         }
     }
 
-
+    @Then("^On admin trip details page \"([^\"]*)\" should be displayed$")
+    public void verifyTrip(String strArg1) throws Throwable {
+        try {
+            String PromoValue = String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE")).replace("-", "").replace(".00", "");
+            String Promo = String.valueOf(cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE"));
+            String discountValue = String.valueOf(cucumberContextManager.getScenarioContext("DISCOUNT_VALUE"));
+            String bungiiCostCustomer = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER"));
+            switch (strArg1.toLowerCase()) {
+                case "promo":
+                    bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    break;
+                case "fbshare":
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    break;
+                case "oneoff":
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    break;
+                case "referral":
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    break;
+                case "promoter":
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + discountValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

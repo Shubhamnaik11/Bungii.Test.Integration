@@ -8,7 +8,6 @@ import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -107,7 +106,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if(checked.equals("false")) {
                         action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
                     }
-                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
+                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))           
                         action.scrollToBottom();
                     action.click(bungiiEstimatePage.Button_RequestBungii());
                     break;
@@ -321,6 +320,11 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "newly created user":
                     utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+                    break;
+                case "New":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -703,6 +707,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)))
                     action.scrollToBottom();
+
                 if (!action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)) && i >= 3)
                 {
                     testStepAssert.isFalse(action.isElementPresent(bungiiEstimatePage.Link_AddPhoto(true)),"False","True" );
@@ -714,10 +719,12 @@ public class EstimateBungiiSteps extends DriverBase {
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
                 }
+
                 else if (action.isElementPresent(bungiiEstimatePage.Message_CameraPermissions(true)))
                     action.click(bungiiEstimatePage.Permissions_CameraAllow());
 
                 action.click(bungiiEstimatePage.Option_Camera());
+
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
@@ -871,13 +878,18 @@ public class EstimateBungiiSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see the \"([^\"]*)\" no more displayed on the estimates page$")
+    public void i_should_see_the_something_no_more_displayed_on_the_estimates_page(String strArg1) throws Throwable {
+        testStepAssert.isElementDisplayed(bungiiEstimatePage.Link_Promo(true),"Promo Code should not be displayed", "Promo Code is not displayed","Promo Code is displayed");
+    }
+
 
  /*   @Then("^I verify that selected time is next available time$")
     public void i_verify_that_selected_time_is_next_available_time(){
         try{
         String time= (String) cucumberContextManager.getScenarioContext("TIME");
           time=formatDate(time,8);
-        String actualtime=action.getText(bungiiEstimatePage.Text_BungiiTime());
+        String actualtime=action.getText(Page_Estimate.Text_BungiiTime());
         testStepVerify.isEquals(time, actualtime);
         }
         catch (Exception e) {
@@ -996,5 +1008,23 @@ public class EstimateBungiiSteps extends DriverBase {
         }
         return value;
     }
+
+    @Then("^I verify that selected time is next available time$")
+    public void i_verify_that_selected_time_is_next_available_time(){
+        try{
+        String time= (String) cucumberContextManager.getScenarioContext("TIME");
+          time=formatDate(time,8);
+        String actualtime=action.getText(bungiiEstimatePage.Text_BungiiTime());
+        testStepVerify.isEquals(time, actualtime);
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+
+
 
 }

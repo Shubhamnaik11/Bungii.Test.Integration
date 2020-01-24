@@ -58,10 +58,11 @@ public class SignupSteps extends DriverBase {
 
             switch (strArg1) {
                 case "valid":
+
                     String firstName="";
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                      firstName= Page_Signup.TextField_FirstName().getText();
-                            cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
+                    cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
                     action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
@@ -183,12 +184,14 @@ public class SignupSteps extends DriverBase {
 
             case "Signup page":
                 testStepVerify.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
-
                 testStepVerify.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
                 break;
 
             case "snackbar validation message for existing user":
                 testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
+                break;
+            case "Inactive Promo Code message":
+                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
                 break;
 
             default:
@@ -219,7 +222,9 @@ public class SignupSteps extends DriverBase {
                 break;
             case "Code":
                 strPromoCode= (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
-
+                break;
+            case "FutureActive":
+                strPromoCode = PropertyUtility.getDataProperties("promocode.futureactive");
                 break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");

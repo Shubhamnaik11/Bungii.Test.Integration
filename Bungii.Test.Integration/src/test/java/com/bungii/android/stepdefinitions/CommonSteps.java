@@ -5,13 +5,15 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.DriverNotAvailablePage;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.DbUtility;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.google.common.collect.ImmutableMap;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -23,14 +25,16 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
+
 import org.openqa.selenium.Point;
 
 import org.openqa.selenium.*;
 
 import java.lang.invoke.SwitchPoint;
-import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -46,8 +50,30 @@ public class CommonSteps extends DriverBase {
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiRequest bungiiRequest=new BungiiRequest();
-    private DbUtility dbUtility = new DbUtility();
+    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
 
+    private DbUtility dbUtility = new DbUtility();
+    private static String ANDROID_PHOTO_PATH = "/sdcard/Pictures";
+
+    @Given("^I have Large image on my device$")
+    public void i_have_large_image_on_my_device() throws Throwable {
+        List<String> removePicsArgs = Arrays.asList(
+
+                "/sdcard/ALARGE_IMAGE/"
+        );
+        Map<String, Object> removePicsCmd = ImmutableMap.of(
+                "command", "ls ",
+                "args", removePicsArgs
+        );
+        ((AndroidDriver)SetupManager.getDriver()).executeScript("mobile: shell", removePicsCmd);
+
+        String pickupImage = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LARGE_IMAGE"));
+
+        File img = new File( pickupImage);
+
+        ((AndroidDriver)SetupManager.getDriver()).pushFile(ANDROID_PHOTO_PATH + "/" + img.getName(), img);
+
+    }
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -676,7 +702,49 @@ public class CommonSteps extends DriverBase {
 
         cucumberContextManager.setScenarioContext("TELET",teletTime);
     }
+    @And("^I get TELET time of currrent trip of customer 2$")
+    public void i_get_telet_time_of_of_the_currewnt_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime = dbUtility.getTELETfromDb(custRef);
 
+        cucumberContextManager.setScenarioContext("TELET", teletTime);
+    }
+    @Then("^Telet time of current trip should be correctly calculated$")
+    public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
+        com.bungii.ios.utilityfunctions.GeneralUtility utility= new com.bungii.ios.utilityfunctions.GeneralUtility();
+        String teletTimeLocal =utility.calculateTeletTime();
+        String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date Db = formatter.parse(teletTimeDB);
+
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String strdateDB = formatter.format(Db);
+        String strdatelocal = teletTimeLocal;
+        testStepVerify.isEquals(strdateDB,strdatelocal);
+
+    }
+    @Then("^Telet time of research trip should be not be same as previous trips$")
+    public void telet_time_of_current_trip_should_be_correctly_calculatedtrip() throws Throwable {
+        String previousTelet = (String) cucumberContextManager.getScenarioContext("TELET");
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String newTeletTime = dbUtility.getTELETfromDb(custRef);
+        testStepVerify.isEquals(previousTelet,newTeletTime);
+
+
+    }
     @And("^I tap on \"([^\"]*)\" button of android mobile$")
     public void i_tap_on_something_button_of_android_mobile(String strArg1) throws Throwable {
         action.NavigateBack();
@@ -705,7 +773,6 @@ public class CommonSteps extends DriverBase {
             //cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.getStackTrace();
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -721,7 +788,6 @@ public class CommonSteps extends DriverBase {
             testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            e.getStackTrace();
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -736,4 +802,14 @@ public class CommonSteps extends DriverBase {
         }
         return SplitDate;
     }
+
+    @And("^I click \"([^\"]*)\" on the alert message$")
+    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
+        action.click(bungiiAcceptedPage.Button_OK());
+
+
+        log("I should able to click " + strArg1 + "on Alert Message",
+                "I clicked " + strArg1 + "on Alert Message", true);
+    }
+
 }

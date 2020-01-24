@@ -134,17 +134,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     @When("^I edit the \"([^\"]*)\" and \"([^\"]*)\"$")
     public void i_edit_the_something_and_something(String strArg1, String strArg2) throws Throwable {
-
+        Thread.sleep(3000);
        String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
-
+       testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Search should return the customer", "Search returns the customer", "Search doesn't return the customer");
        WebElement row = SetupManager.getDriver().findElement(By.xpath(Xpath));
         action.click(row);
+
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserEmailAddress(),"krishna.hoderker@creativecapsule.com");
         cucumberContextManager.setScenarioContext("BO_EMAIL", "krishna.hoderker@creativecapsule.com");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
          long Newphone = Long.parseLong(Phone) + 1;
        action.clearSendKeys(admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo(),String.valueOf(Newphone));
         cucumberContextManager.setScenarioContext("BO_PHONE", admin_BusinessUsersPage.TextBox_BusinessUserPhoneNo().getAttribute("value"));
+        log("I edit " + strArg1 +" and "+ strArg2,
+                "I edited " + strArg1 +" and "+ strArg2, true);
 
        }
 
@@ -156,7 +159,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-
+        Thread.sleep(2000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
@@ -182,6 +185,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
+        Thread.sleep(4000);
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
 
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
@@ -288,8 +292,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
             }
 
-        log("I select "+button+" from Business User page",
-                "I have selected "+button+" from Business User page", true);
+        log("I select "+button+" from "+page+ " page",
+                "I have selected "+button+" from "+page+ " page", true);
 
     }
 
@@ -389,6 +393,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 }
                 rowIndex++;
             }
+            log("the pickup from the csv should be listed down",
+                    "the pickup from the csv are listed down", true);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -521,8 +527,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void i_update_the_something_and_something(String PhoneNumber, String Email) {
-
+    public void i_update_the_something_and_something(String PhoneNumber, String Email) throws InterruptedException {
+        Thread.sleep(3000);
         String Xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
 
         WebElement row = SetupManager.getDriver().findElement(By.xpath(Xpath));
@@ -577,8 +583,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @Then("^the business user does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
         testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists.", "Phone number already exists." + " should be displayed", "Phone number already exists." + " is displayed", "Need to specify message" + " is not displayed");
-        log("I enter values for PhoneNumber and Email",
-                "I entered values for PhoneNumber and Email", true);
+
     }
 
     @And("^I select the \"([^\"]*)\"$")
@@ -666,6 +671,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         public void i_change_the_status_to(String string) {
             // Write code here that turns the phrase above into concrete actions
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");
+            log("I change the status to "+ string,
+                    "I changed the status to "+ string, true);
         }
 
     private File GetLatestFilefromDir(String dirPath){

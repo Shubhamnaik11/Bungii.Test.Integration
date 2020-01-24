@@ -266,12 +266,22 @@ Feature: On Demand Bungii
     When I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "same" devices
-    And Bungii Driver "completes Bungii"
+    #And Bungii Driver "completes Bungii"
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select trip from trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
-      | Scenario            | Promo Code    | User         |
-      | Promo fixed         | valid         | valid baltimore |
-      | Promo percentage    | valid percent | valid baltimore |
-      | valid one off fixed | valid one off | valid baltimore |
+      | Scenario            | Promo Code    | User            |Expected value in admin |
+      | Promo fixed         | valid         | valid baltimore |promo                   |
+      | Promo percentage    | valid percent | valid baltimore |promo                   |
+      | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
   @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
@@ -343,7 +353,7 @@ Feature: On Demand Bungii
     Given I am on Sign up page
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
-    And I enter "ValidPercent" promo code on Signup Page
+ #   And I enter "ValidPercent" promo code on Signup Page
     And I enter "Code" promo code on Signup Page
     And I tap on the "Sign Up" button on Signup Page
     And I enter "valid" Verification code
@@ -515,7 +525,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-  Scenario: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
     And I Switch to "driver" application on "same" devices
@@ -565,4 +575,9 @@ Feature: On Demand Bungii
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     And I select trip from live trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+
+    Examples:
+      | Expected value in admin |
+      | promo                   |
 

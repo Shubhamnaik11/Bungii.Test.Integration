@@ -3,7 +3,7 @@ package com.bungii.common.enums;
 
 public  enum ResultType {
 	PASSED("PASSED", 1), FAILED("FAILED", 3), WARNING("WARNING", 2), ERROR(
-			"ERROR", 4), DONE("DONE", 0);
+			"ERROR", 4), DONE("PASSED", 0);
 
 	public final String name;
 
@@ -18,7 +18,6 @@ public  enum ResultType {
 
 	/**
 	 * Returns true/false depending on TestCase passed or failed
-	 * 
 	 * @return true/false
 	 */
 	public boolean isPassed() {

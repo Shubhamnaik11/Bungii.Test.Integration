@@ -8,7 +8,7 @@ Feature: Menu_SaveMoney
     And I add "first time" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
-    And I should see the "first time" PromoCode selected by default
+  #  And I should see the "first time" PromoCode selected by default
     And I tap on "Menu" > "Logout" link
     
   @regression
@@ -144,3 +144,11 @@ Feature: Menu_SaveMoney
     Then for a Bungii I should see "Bungii Home page with locations"
     When I tap on "Get Estimate button" on Bungii estimate
     Then I should see the previously added promo code present for current Bungii request
+
+  @regression
+  Scenario: Expired_PromoCode_UsedForBungii
+    Given I am on customer Log in page
+    When I am logged in as "New" customer
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then I should see the "expired promo code" no more displayed on the estimates page
