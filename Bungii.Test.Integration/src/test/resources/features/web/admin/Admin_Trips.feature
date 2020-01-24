@@ -46,13 +46,13 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Loading Items |
-   When I view the trip details
+    When I view the trip details
     Then the Bungii details is displayed successfully
     And I click on "Manually End Bungii" link
-  And Enter the End Date and Time
-  And Click on "Calculate Cost" button
-  Then the amount is calculated and shown to admin
-  And Click on "Confirm" button
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    Then the amount is calculated and shown to admin
+    And Click on "Confirm" button
     And I view the Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |

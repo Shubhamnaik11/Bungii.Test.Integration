@@ -23,4 +23,6 @@ public class Admin_TripDetailsPage extends PageBase {
 
     public WebElement Dropdown_Drivers () { return findElement("Drivers", LocatorType.Id); }
 
+    public WebElement Label_ScheduledTime(String xpath_scheduled_time) { return findElement( xpath_scheduled_time, LocatorType.XPath);}
+
 }
