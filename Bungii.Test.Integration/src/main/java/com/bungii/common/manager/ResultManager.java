@@ -32,8 +32,8 @@ public class ResultManager {
      */
     public static void log(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
-   //     reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), false));
+    //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), false));
         logger.trace("LOG: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
     }
 
@@ -46,9 +46,9 @@ public class ResultManager {
      */
     public static void pass(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
-        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
+       // reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
-      //  reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
+        reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
         logger.detail("PASS: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
     }
 
@@ -65,7 +65,7 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
         logger.error("FAIL: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
-        reportManager.verificationFailed();
+        reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.FAILED.toString()));
     }
 
     /**
@@ -80,7 +80,7 @@ public class ResultManager {
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.ERROR.toString(), screenDump));
         logger.error("ERROR: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
-        reportManager.verificationFailed();
+        reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.ERROR.toString()));
         Assert.assertTrue(false, "Error in executon ,Please check logs/ report for more details");
     }
 
@@ -107,7 +107,7 @@ public class ResultManager {
      * @param screenDump capture screenshot or not
      * @return combine input data and return it as map
      */
-    private static Map<String, String> getDataMap(String name, String expected, String actual, String logType,
+    public static Map<String, String> getDataMap(String name, String expected, String actual, String logType,
                                                   Boolean... screenDump) {
 
         ScreenshotUtility screenshotManager = new ScreenshotUtility();

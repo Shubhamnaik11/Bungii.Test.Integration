@@ -5,7 +5,6 @@ Feature: Admin_DriverApplicationVerification
     Given I am logged in as Admin
     And there is a pending application for driver verification
 
-  @testReport
   @sanity
   @regression
     #test data created in base

@@ -2,6 +2,8 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.common.enums.ResultType;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.*;
@@ -9,6 +11,7 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import io.cucumber.datatable.dependency.com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -61,15 +64,11 @@ public class CucumberHooks {
             //adding ternary operator in logger is creating issue
             String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
             logger.detail("Device On which test will be run is : " +device );
-           // new MailSenderEN().send("asads@mailinator.com","ASD","asads@mailinator.com","","","","text/html");
-            new CheckingMails().verifyEmail("vishal.bagi@creativecapsule.com","vishal.bagi.cci@gmail.com","FW: BUNGII: Application Received.");
-            logger.detail("Device On which test will be run is : " + System.getProperty("DEVICE"));
             //Create new default driver instance and save it
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("Unable to create default appium driver");
-            logger.error("Unable to create default appium driver"+e.getStackTrace());
         }
 
         try {
@@ -87,9 +86,13 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
-        this.reportManager.startTestCase(scenario.getName());
+
         logger.detail("**********************************************************************************");
-        logger.detail("Starting " + scenario.getName());
+        String[] rawFeatureName = scenario.getId().split("features/")[1].split("/")[2].split(":");
+
+        logger.detail("Feature: " + rawFeatureName[0]);
+        logger.detail("Starting Scenario: " + scenario.getName());
+        this.reportManager.startTestCase(scenario.getName(),rawFeatureName[0]);
 /*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 			new GeneralUtility().recoverScenario();*/
         //Set original instance as default instance at start of each test case
@@ -128,6 +131,7 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         try {
+
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
@@ -164,6 +168,8 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+            //clear scenario context
+            CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
 
@@ -205,12 +211,19 @@ public class CucumberHooks {
         }
     }
 
-    //Create a du
+    //Create a duo
     @Before("@DUO_SCH_DONOT_ACCEPT")
     public void createDuoBungii() {
         //create trip for denver and keep
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"");
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"DUO_SCH_DONOT_ACCEPT");
+
+        }
+
+        //create trip for Kansas and keep
+        if (PropertyUtility.targetPlatform.equalsIgnoreCase("android")) {
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "Kansas", PropertyUtility.getDataProperties("kansas.customer1.phone"),
+                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"),"DUO_SCH_DONOT_ACCEPT");
         }
     }
 }

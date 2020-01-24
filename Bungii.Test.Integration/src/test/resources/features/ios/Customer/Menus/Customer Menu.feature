@@ -58,3 +58,28 @@ Feature: Customer	Menu
     When I tap on "first question" on FAQ page
     Then I should see "first answer dropdown close" on FAQ page
  #   And I should see "social media links" on FAQ page
+  @regression
+  Scenario: Get More Money button link - Redirect to Invite page
+    When I Select "PROMOS" from Customer App menu
+    Then I should be navigated to "PROMOS" screen
+    When I click "GET MORE MONEY" button on "PROMOS" screen
+    Then I should be navigated to "Invite" screen
+
+  @regression
+  Scenario: Scheduled Bungiis: Save Money Button redirect to invite page
+    When I Select "MY BUNGIIS" from Customer App menu
+    When I click "SAVE MONEY" button on "MY BUNGIIS" screen
+    Then I should be navigated to "Invite" screen
+
+  #failing due to BCKD-1103
+  @regression
+  Scenario: Logout (check deregister device token) (Driver & Customer)
+    Then I customers active flag should be "1"
+    When I Select "LOGOUT" from Customer App menu
+    Then I customers active flag should be "0"
+
+    #enable restriction on iphone , disable safari. Not to be run with normal regression
+  @safaridisabled
+  Scenario: Logout (check deregister device token) (Driver & Customer)
+    When I Select "DRIVE WITH BUNGII" from Customer App menu
+    Then user is alerted for "PLEASE INSTALL A BROWSER"

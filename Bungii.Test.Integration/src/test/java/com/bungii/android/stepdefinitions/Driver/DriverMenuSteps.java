@@ -3,8 +3,9 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.EarningsPage;
-import com.bungii.android.pages.driver.HomePage;
 import com.bungii.android.stepdefinitions.Customer.HomeSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -22,7 +23,7 @@ import static com.bungii.common.manager.ResultManager.log;
 public class DriverMenuSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomeSteps.class);
     GeneralUtility utility = new GeneralUtility();
-    HomePage homePage = new HomePage();
+    DriverHomePage homePage = new DriverHomePage();
     SignupPage Page_Signup = new SignupPage();
     EarningsPage earningsPage = new EarningsPage();
     ActionManager action = new ActionManager();
@@ -42,6 +43,7 @@ public class DriverMenuSteps extends DriverBase {
             else {
                 //TODO: specify failure here
             }
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE",phone);
             log("I should be logged in", "I am logged in", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -70,8 +72,9 @@ public class DriverMenuSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "FAQ":
+                    Thread.sleep(10000);
                     data = action.getText(homePage.Text_CommonQuestions()).toString();
-                    testStepAssert.isEquals(data, "COMMON QUESTIONS", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    testStepAssert.isEquals(data, "WHAT IS THIS PAGE FOR?", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "LEADERBOARD":
@@ -144,7 +147,7 @@ public class DriverMenuSteps extends DriverBase {
     @Then("^I am redirected to \"([^\"]*)\"$")
     public void i_am_redirected_to_something(String strArg1) throws Throwable {
         try {
-            testStepAssert.isElementTextEquals(earningsPage.Text_HistoryDataTotalEarnings(), PropertyUtility.getMessage("history.data"),
+            testStepAssert.isTrue(action.getText(earningsPage.Text_HistoryDataTotalEarnings()).contains(PropertyUtility.getMessage("history.data")),
                     PropertyUtility.getMessage("history.data") + " is displayed",
                     PropertyUtility.getMessage("history.data") + " is displayed",
                     PropertyUtility.getMessage("history.data") + " is not displayed");

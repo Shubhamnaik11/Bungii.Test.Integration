@@ -6,9 +6,14 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.BungiiDetails;
 import com.bungii.ios.pages.customer.ScheduledBungiiPage;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -26,7 +31,9 @@ public class BungiiDetailsSteps extends DriverBase {
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
+            action.swipeUP();
             action.click(bungiiDetails.Button_CancelBungii());
+            Thread.sleep(1000);
             action.waitForAlert();
             SetupManager.getDriver().switchTo().alert().accept();
         } catch (Exception e) {
@@ -47,6 +54,21 @@ public class BungiiDetailsSteps extends DriverBase {
                 case "estimated cost":
                     tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
                     testStepVerify.isEquals(tripStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+                case "estimated cost of duo trip":
+                    String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    double flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    //transaction fee different for solo and duo
+                    double transactionFee=((flestimate*0.029*0.5)+0.3)*2;
+                    double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    //divide by 2 for individual driver value
+                    String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
+                    tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus,"~$"+truncValue);
+                    break;
+                case "contacting other driver":
+                    tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    testStepVerify.isEquals(tripStatus, "Contacting Other Driver");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -127,7 +149,7 @@ public class BungiiDetailsSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "displayed":
                     tripStatus = action.getNameAttribute(bungiiDetails.Text_MessageToCustomer());
-                    testStepVerify.isEquals(tripStatus, "You will have the ability to contact your drivers when the bungii begins");
+                    testStepVerify.isEquals(tripStatus, "Your driver will contact you when they are en-route.");
                     testStepVerify.isElementEnabled(bungiiDetails.Text_MessageToCustomer(), " text stating that driver can be contacted on the Bungii Details page should be displayed");
                     break;
                 case "not be displayed":
@@ -160,7 +182,7 @@ public class BungiiDetailsSteps extends DriverBase {
 
             boolean isPickUpAddressCorrect = tripInfo[0].equals(pickUpLocationLineOne) && tripInfo[1].equals(pickUpLocationLineTwo),
                     isDropAddressCorrect = tripInfo[5].equals(dropOffLocationLineOne) && tripInfo[6].equals(dropOffLocationLineTwo),
-                    isTimeCorrect = tripInfo[3].equals(tripTime.replace(",", " -")),
+                    isTimeCorrect = tripInfo[3].contains(tripTime.replace(",", " |")),
                     isEstimateCorrect = tripInfo[4].equals(estimate);
 
             if (!tripNoOfDriver.toUpperCase().equals("SOLO")) {
@@ -175,7 +197,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     "Expected Drop address is " + dropOffLocationLineOne + dropOffLocationLineTwo + ", but actual is" + tripInfo[1]);
             testStepVerify.isTrue(isTimeCorrect,
                     "Trip time should be " + tripTime, "Trip time is " + tripTime,
-                    "Expected Trip time is " + tripTime + ", but actual is" + tripInfo[5] + tripInfo[6]);
+                    "Expected Trip time is " + tripTime + ", but actual is" + tripInfo[3]);
             testStepVerify.isTrue(isEstimateCorrect,
                     "Trip Estimate should be " + estimate, "Trip Estimate is " + estimate,
                     "Expected Trip Estimate is " + estimate + ", but actual is" + tripInfo[4]);
@@ -184,6 +206,38 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+    @Then("^ratting should be correctly displayed on Bungii detail page$")
+    public void ratting_should_be_correctly_displayed_on_bungii_accepted_page() throws Throwable {
+        try {
+            String    driverPhoneNumber=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+
+            String ratingString = DbUtility.getDriverRating(driverPhoneNumber);
+            cucumberContextManager.setScenarioContext("DRIVER_CURRENT_RATTING",ratingString);
+            BigDecimal bigDecimal = new BigDecimal(String.valueOf(ratingString));
+            int ratingInt = bigDecimal.intValue();
+            BigDecimal ratingDecimal = bigDecimal.subtract(new BigDecimal(ratingInt));
+
+            System.out.println("ratingString: " + ratingString);
+            System.out.println("Integer Part: " + ratingInt);
+            System.out.println("Decimal Part: " + ratingDecimal);
+
+            bungiiDetails.WaitUntilElementIsDisplayed(By.xpath("//XCUIElementTypeButton[@name=\"rating filled star icon\"])"));
+
+            int filledStarCount = bungiiDetails.FilledStars().size();
+            int HalfFilledStarCount = bungiiDetails.HalfFilledStar().size();
+
+            testStepVerify.isEquals(filledStarCount, ratingInt);
+
+            if (ratingDecimal.doubleValue() >= 0.5) {
+                testStepVerify.isEquals(HalfFilledStarCount, 1);
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     /**

@@ -47,10 +47,12 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_Stack(boolean... ignoreException) { return findElement("//*[@text=\"We have another trip lined up for you when your current one ends. Tap to view details.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackCustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverAccepted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii has been accepted\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_StackDriverAccepted1(boolean... ignoreException) { return findElement("//*[@text=\"Scheduled trip accepted! This Bungii now lives in your Scheduled Bungiis page.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
+  public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"BUNGII: Heads up! T minus 2 hours till pickup.\"]", LocatorType.XPath,ignoreException); }
 
 
 }

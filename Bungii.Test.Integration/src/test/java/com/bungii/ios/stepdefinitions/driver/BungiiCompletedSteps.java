@@ -61,6 +61,11 @@ public class BungiiCompletedSteps extends DriverBase {
     public void verifyTripValue(){
         double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
         double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
+        String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+        if(numberOfDriver.equalsIgnoreCase("duo"))
+            bungiiDriver=((DRIVER_SHARE*bungiiCostCustomer-((TRANSACTION_FEE*bungiiCostCustomer*0.5+TR_COST)*2))/2);
+
         String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 

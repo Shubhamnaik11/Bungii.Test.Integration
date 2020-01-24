@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.Then;
@@ -57,7 +57,12 @@ public class BungiiCompletedSteps extends DriverBase {
         public void verifyTripValue(){
 
             double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
+
             double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
+            String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+            if(numberOfDriver.equalsIgnoreCase("duo"))
+                bungiiDriver=((DRIVER_SHARE*bungiiCostCustomer-((TRANSACTION_FEE*bungiiCostCustomer*0.5+TR_COST)*2))/2);
+
             String truncValue = new DecimalFormat("#.00").format(bungiiDriver);
             String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
             //Trip distance value is displayed till 1 decimanl point

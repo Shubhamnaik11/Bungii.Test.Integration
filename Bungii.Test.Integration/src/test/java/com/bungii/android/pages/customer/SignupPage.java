@@ -60,13 +60,14 @@ public class SignupPage extends PageBase {
 
     public WebElement Cust_Signup_Error_Password() { return findElement("//*[@resource-id='com.bungii.customer:id/signup_field_password']/parent::*/following-sibling::android.widget.LinearLayout/android.widget.FrameLayout/android.widget.TextView", LocatorType.XPath); }
 
+    public WebElement Cust_Signup_Error_InactivePromo() { return findElement("//android.widget.TextView[@text='The added promo code is not active. Would you like to enter a new one?']", LocatorType.XPath); }
     //--------------Verification page elements---------------------------------------------------------------
 
     public WebElement Textfield_SMSCode() { return findElement("com.bungii.customer:id/field_sms_code", LocatorType.Id); }
 
     public WebElement Button_VerifyContinue() { return findElement("com.bungii.customer:id/smsVerifyContinue", LocatorType.Id); }
 
-    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='RESEND']", LocatorType.XPath); }
+    public WebElement Link_Resend() { return findElement("//android.widget.Button[@text='Resend code']", LocatorType.XPath); }
 
     public WebElement Title_Verification() { return findElement("//android.widget.TextView[@text='VERIFICATION']", LocatorType.XPath); }
 }

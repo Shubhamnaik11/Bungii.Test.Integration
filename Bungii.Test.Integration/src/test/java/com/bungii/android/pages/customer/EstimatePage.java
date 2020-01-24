@@ -45,7 +45,7 @@ public class EstimatePage extends PageBase {
     public List<WebElement> LoadingUnloadingTime () { return findElements("//android.widget.ListView[@resource-id='com.bungii.customer:id/select_dialog_listview']/android.widget.CheckedTextView[@resource-id='android:id/text1']", LocatorType.XPath); }
 
     //------Promo Code--------------------------------------------------------------------------
-    public WebElement Link_Promo () { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id); }
+    public WebElement Link_Promo (boolean ignoreException) { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id,ignoreException); }
 
     public WebElement Select_PromoCode () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$10.00 - NEW01']", LocatorType.XPath); }
 
@@ -99,6 +99,9 @@ public class EstimatePage extends PageBase {
     public WebElement Option_Camera (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Camera']", LocatorType.XPath,ignoreException); }
 
     public WebElement Option_Gallery () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']", LocatorType.XPath); }
+    public WebElement Option_OverLayPhotos () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Photos']", LocatorType.XPath); }
+    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='ALARGE_IMAGE']", LocatorType.XPath); }
+    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.View[contains(@content-desc,\"Photo taken on \")]", LocatorType.XPath); }
 
     public WebElement Button_Camera_ClickAlternate () { return findElement("com.sec.android.app.camera:id/camera_preview", LocatorType.Id); }
 
@@ -138,7 +141,20 @@ public class EstimatePage extends PageBase {
     public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
 
 
+    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
+
+    public WebElement Button_SystemCalenderOK() { return  findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Text_TimeHourPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeMinutesPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(1);}
+    public WebElement Text_TimeMeridian() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(2);}
+    public WebElement Button_OKOnTimePicker(){ return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id);}
+    public WebElement Text_Month() {return findElement("android:id/date_picker_month", LocatorType.Id);}
+    public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
+    public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
 
-
+  public WebElement Link_PromoValue(boolean ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_promocode_container']/child::android.widget.ImageView", LocatorType.XPath,ignoreException);}
+  public WebElement Text_GetDistance() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Text_GetCost() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath,ignoreException);}
 }

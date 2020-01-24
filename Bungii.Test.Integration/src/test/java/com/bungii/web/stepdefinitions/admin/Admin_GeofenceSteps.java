@@ -2,6 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -54,10 +55,20 @@ public class Admin_GeofenceSteps extends DriverBase {
                     case "Cancel":
                         action.click(admin_GeofencePage.Button_Cancel());
                         break;
+                    case "Settings":
+                        action.click((admin_GeofencePage.Button_Settings()));
+                        break;
                 }
             break;
-        }
 
+            case "Geofence Settings":
+                switch (button) {
+                    case "Save":
+                        action.click(admin_GeofencePage.Button_SaveGeofenceSettings());
+                }
+        }
+        log("And I click on the "+button+" Button on "+screen ,
+                "I have clicked on the "+button+" Button on " +screen, true);
     }
 
     @When("^I click on the geofence name \"([^\"]*)\"$")
@@ -230,4 +241,126 @@ public class Admin_GeofenceSteps extends DriverBase {
                }
         }
     }
+
+    @When("^I go to \"([^\"]*)\" page$")
+    public void i_go_to_something_page(String screen) throws Throwable {
+        testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Attributes(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+    }
+
+    @Then("^I verify that the default settings are displayed$")
+    public void i_verify_that_the_default_settings_are_displayed() throws Throwable {
+        String CustomerFAQLink = PropertyUtility.getDataProperties("customer.faq.link");
+        String DriverFAQLink = PropertyUtility.getDataProperties("driver.faq.link");
+        String MinTimeForDuoTrip = PropertyUtility.getDataProperties("Min.time.Duo.trip");
+        String MinTimeForSoloTrip = PropertyUtility.getDataProperties("Min.time.Solo.trip");
+        String MinTripCost=PropertyUtility.getDataProperties("Minimum.trip.cost");
+        String SurveyEmailLink=PropertyUtility.getDataProperties("Survey.email.link");
+        String TripCostPerMile=PropertyUtility.getDataProperties("Trip.cost.per.mile");
+        String TripCostPerMinute=PropertyUtility.getDataProperties("Trip.cost.per.minute");
+
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_CustomerFAQLink(), CustomerFAQLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_DriverFAQLink(), DriverFAQLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile);
+        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute);
+    }
+
+    @Then("^I cannot uncheck \"([^\"]*)\" for \"([^\"]*)\" settings when \"([^\"]*)\" is checked$")
+    public void i_cannot_uncheck_something_for_something_settings_when_something_is_checked(String strArg1, String strArg2, String strArg3) throws Throwable {
+        testStepVerify.isElementNotEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
+    }
+
+    @When("^I \"([^\"]*)\" option \"([^\"]*)\" for Scheduled trip$")
+    public void i_something_option_something_for_scheduled_trip(String action1, String trip_type) throws Throwable {
+        switch (trip_type){
+            case "Duo":
+            {
+                switch (action1)
+                {
+                    case "check":
+                        if(!admin_GeofencePage.Checkbox_Duo().isSelected())
+                            action.click(admin_GeofencePage.Checkbox_Duo());
+                        break;
+                    case "uncheck":
+                        if(admin_GeofencePage.Checkbox_Duo().isSelected())
+                            action.click(admin_GeofencePage.Checkbox_Duo());
+                        break;
+                }
+            }
+            break;
+
+            case "Solo":
+            {
+                switch (action1)
+                {
+                    case "check":
+                        if(!admin_GeofencePage.Checkbox_Solo().isSelected())
+                            action.click(admin_GeofencePage.Checkbox_Solo());
+                        break;
+                    case "uncheck":
+                        if(admin_GeofencePage.Checkbox_Solo().isSelected())
+                            action.click(admin_GeofencePage.Checkbox_Solo());
+                        break;
+                }
+            }
+            break;
+
+            case "Ondemand":
+            {
+                switch(action1)
+                {
+                    case "uncheck":
+                        if(admin_GeofencePage.Checkbox_OnDemand().isSelected())
+                            action.click((admin_GeofencePage.Checkbox_OnDemand()));
+                }
+            }
+            break;
+        }
+        log("I "+action1+" option "+trip_type+" for Scheduled trip" ,
+                "I have "+action1+" option "+trip_type+" for Scheduled trip", true);
+    }
+
+
+    @Then("^I can deselect \"([^\"]*)\" option for Scheduled trip$")
+    public void i_can_deselect_something_option_for_scheduled_trip(String strArg1)  {
+        testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo is enabled","Solo is enabled","Solo is disbled");
+        action.click(admin_GeofencePage.Checkbox_Solo());
+    }
+
+    @When("^I check \"([^\"]*)\" option$")
+    public void i_check_something_option(String strArg1) throws Throwable {
+        action.click(admin_GeofencePage.Checkbox_Duo());
+    }
+
+    @Then("^The \"([^\"]*)\" gets selected automatically$")
+    public void the_something_gets_selected_automatically(String strArg1) throws Throwable {
+        testStepVerify.isElementSelected(admin_GeofencePage.Checkbox_Solo(),"Solo should be selected","Pass","Fail");
+    }
+
+    @When("^I click on the geofence \"([^\"]*)\"$")
+    public void i_click_on_the_geofence_something(String GeofenceName) throws Throwable {
+        String Xpath =String.format("//td[contains(text(),'%s')]/following-sibling::td[text()='%s']",GeofenceName,"Active");
+        action.click( SetupManager.getDriver().findElement(By.xpath(Xpath)));
+        log("I click on the geofence" ,
+                "I have clicked on the geofence", true);
+
+    }
+
+    @When("^I uncheck both on demand and Scheduled for a geofence$")
+    public void i_uncheck_both_on_demand_and_scheduled_for_a_geofence() throws Throwable {
+        i_something_option_something_for_scheduled_trip("uncheck","Duo");
+        i_something_option_something_for_scheduled_trip("uncheck","Solo");
+        i_something_option_something_for_scheduled_trip("uncheck","Ondemand");
+        log("I uncheck both on demand and Scheduled for a geofence" ,
+                "I have unchecked both on demand and Scheduled for a geofence", true);
+    }
+
+    @Then("^The validation error message is displayed$")
+    public void the_validation_error_message_is_displayed() throws Throwable {
+          testStepAssert.isElementDisplayed(admin_GeofencePage.Label_SettingsError(),"Active geofence should allow either Scheduled or On demand trip. - message is displayed","Pass","fail");
+    }
+
 }

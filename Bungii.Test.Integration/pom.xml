@@ -320,6 +320,7 @@
                     <mainClass>com.bungii.common.utilities.GenerateSummaryReport</mainClass>
                     <arguments>
                         <argument>${ResultFolder}</argument>
+                        <argument>${test.Platform}</argument>
                     </arguments>
                 </configuration>
             </plugin>
