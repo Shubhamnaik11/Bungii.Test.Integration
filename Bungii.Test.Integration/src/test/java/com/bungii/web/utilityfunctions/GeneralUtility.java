@@ -213,4 +213,27 @@ public class GeneralUtility {
         }
     }
 
+    public String getTripTimezone(String geofence)
+    {
+        String timezone = null;
+        switch (geofence)
+        {
+            case "Washington DC":
+            case "washingtondc":
+                timezone = "EST";
+                break;
+            case "Goa":
+            case "goa":
+                timezone = "IST";
+                break;
+            default:
+            case "Kansas City":
+                timezone = "CST";
+                break;
+
+        }
+        return timezone;
+
+    }
+
 }
