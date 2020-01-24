@@ -383,7 +383,6 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-
             String actualMessage = "";
             if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
@@ -766,6 +765,7 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on the alert message$")
     public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
         try {
+            Thread.sleep(2000);
             switch (strArg1) {
                 case "OK":
                     action.click(bungiiAcceptedPage.Button_OK());

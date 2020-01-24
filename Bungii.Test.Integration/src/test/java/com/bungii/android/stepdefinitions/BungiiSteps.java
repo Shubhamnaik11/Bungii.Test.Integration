@@ -449,7 +449,7 @@ public class BungiiSteps extends DriverBase {
                 break;
 
                 case "Scheduled Bungii screen":
-                    testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Title_Status(true), "SCHEDULED BUNGII");
+                    testStepVerify.isElementTextEquals(scheduledBungiiPage.Text_PageTitle(), "SCHEDULED BUNGIIS");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

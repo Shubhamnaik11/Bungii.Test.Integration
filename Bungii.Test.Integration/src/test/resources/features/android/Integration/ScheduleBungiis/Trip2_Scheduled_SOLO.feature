@@ -1373,7 +1373,7 @@ Feature: SoloScheduled
     And I select "5" Ratting star for duo "Driver 2"
     Then I tap on "OK" on Bungii Complete
 
-  @regression1
+  @regression
   Scenario: check if re-searched driver can cancel trip after starting Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -1399,18 +1399,19 @@ Feature: SoloScheduled
     And Bungii Driver "Start Schedule Bungii" request
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on the alert message
+    When I click "YES" on the alert message
     Then Bungii driver should see "Scheduled Bungii screen"
 
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: check if re-searched driver can cancel trip after starting Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -1435,7 +1436,7 @@ Feature: SoloScheduled
     And Bungii Driver "Start Schedule Bungii" request
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on the alert message
+    When I click "YES" on the alert message
     Then Bungii driver should see "Scheduled Bungii screen"
 
     Then I cancel all bungiis of customer

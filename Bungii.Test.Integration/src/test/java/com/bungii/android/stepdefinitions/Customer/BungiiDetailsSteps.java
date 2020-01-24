@@ -31,12 +31,12 @@ public class BungiiDetailsSteps extends DriverBase {
         try {
             Thread.sleep(5000);
             action.scrollToBottom();
-            Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_CancelBungii());
             Thread.sleep(2000);
-            //action.click(bungiiDetailsPage.Button_CancelAccept());
-           // Thread.sleep(2000);
+            action.click(bungiiDetailsPage.Button_CancelAccept());
+            Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_Yes());
+
             pass("I should able to cancel bungii","I cancelled bungii",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

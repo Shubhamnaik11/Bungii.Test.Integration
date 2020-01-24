@@ -54,7 +54,7 @@ public class OtherAppsPage extends PageBase {
 
    public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"Looks like driver ran into a problem.\"]", LocatorType.XPath,ignoreException); }
    public WebElement Notification_OtherDriverCancel(boolean... ignoreException) { return findElement("//*[@text=\"Looks like driver ran into a problem.\"]", LocatorType.XPath,ignoreException); }
-
+   public WebElement Notification_CustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency, this trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
 
 
 }

@@ -42,11 +42,12 @@ public class AvailableTripsSteps extends DriverBase {
                     } else {
                         //  action.click(Page_BungiiRequest.Button_Reject());
                         action.click(Page_BungiiRequest.AlertButton_Cancel());
+                        isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
                     }
 
                 }
             }
-            isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
+
             log("I Select Trip from driver available trip","I Select Trip from driver available trip");
           //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Estimate and Customer Cancel type " + numberOfDriver);
         } catch (Exception e) {
