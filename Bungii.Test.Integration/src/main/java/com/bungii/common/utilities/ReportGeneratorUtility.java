@@ -126,7 +126,8 @@ public class ReportGeneratorUtility {
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
 
-		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
+		String str = "<tr><td + rightSpan + >" + testStepCount + "</td>";
+		str = str + "<td>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
