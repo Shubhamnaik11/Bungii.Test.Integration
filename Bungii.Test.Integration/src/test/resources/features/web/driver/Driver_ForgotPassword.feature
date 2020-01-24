@@ -13,6 +13,7 @@ Feature: Driver_ForgotPassword
     Then I should be directed to "LOG IN tab" on Driver portal
 
   @regression
+    @test
   Scenario: Driver_ForgotPassword_Blank
     When I click "Send Verification Code" on driver portal
     Then I should see blank fields validation on "Forgot Password" page

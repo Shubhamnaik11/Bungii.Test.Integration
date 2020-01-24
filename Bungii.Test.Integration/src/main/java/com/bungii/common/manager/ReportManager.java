@@ -89,8 +89,8 @@ public class ReportManager {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
-		htmlReportManager.startTestCase(tcName);
+	public void startTestCase(String tcName, String featureName) {
+		htmlReportManager.startTestCase(tcName, featureName);
 	}
 
 	/**

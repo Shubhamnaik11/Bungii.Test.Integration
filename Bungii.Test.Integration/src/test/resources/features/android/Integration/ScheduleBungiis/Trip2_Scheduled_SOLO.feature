@@ -283,11 +283,13 @@ Feature: SoloScheduled
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
-    And I tap on "Menu" > "SCHEDULED BUNGIIS" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
+    And I select already scheduled bungii
+    Then trips status on bungii details should be "driver 1 - contacting drivers"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+      | CUSTOMER1_PHONE |  |
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -298,7 +300,7 @@ Feature: SoloScheduled
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I tap on "Menu" > "S" link
+    And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
     And I select already scheduled bungii
     Then trips status on bungii details should be "driver 1 - contacting drivers"
@@ -327,7 +329,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-
+  
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -387,7 +389,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
+  
   @regression
   Scenario:  To check that Customer cannot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
     Given I am on customer Log in page
@@ -400,7 +402,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-
+  
   @regression
   Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
     Given I am on customer Log in page
@@ -415,7 +417,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-
+  
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     Given I am on customer Log in page
@@ -483,7 +485,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
+  
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
     Given I am on customer Log in page
