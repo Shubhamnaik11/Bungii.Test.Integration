@@ -136,6 +136,7 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         try {
+
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
