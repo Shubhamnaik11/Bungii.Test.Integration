@@ -360,7 +360,7 @@ Feature: Admin_Trips
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
     Then The driver "Testdrivertywd_appledc_a_web TestdriverY" should receive On Demand requests as he is assigned to "washingtondc" geofence
-    When I cancel "On Demand" of customer "9999995001"
+    When I cancel "On Demand" of customer "9999995002"
     And I request "Solo Ondemand" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
