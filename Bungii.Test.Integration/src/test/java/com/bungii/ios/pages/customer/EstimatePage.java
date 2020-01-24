@@ -60,12 +60,12 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeImage[@name=\"input_icon_dropoff\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath);
     }
 
-  //  public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
-    public WebElement Text_DistanceValue() {       return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);    }
+    public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
+ //   public WebElement Text_DistanceValue() {       return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);    }
 
-//     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
+     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
 //    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("type == 'XCUIElementTypeStaticText' AND( value CONTAINS[c] 'mins' OR value == 'SELECT')", LocatorType.Predicate);    }
-    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[9]", LocatorType.ClassChain);    }
+//    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[9]", LocatorType.ClassChain);    }
 
 
     public WebElement Row_PromoCode() {
@@ -78,8 +78,8 @@ public class EstimatePage extends PageBase {
 
 
     public WebElement Text_EstimateValue() {
-        //return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[15]", LocatorType.ClassChain);
+        return findElement("///XCUIElementTypeStaticText[@name='ESTIMATED COST']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+       // return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[15]", LocatorType.ClassChain);
     }
 
 
@@ -107,7 +107,7 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Button_InfoTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Pickup Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
     }
 
 
@@ -202,7 +202,7 @@ public class EstimatePage extends PageBase {
         return findElement("ADD ITEM & RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Text_Time() {
-        return findElement("Time", LocatorType.AccessibilityId);
+        return findElement("Pickup Time", LocatorType.AccessibilityId);
     }
     public WebElement Text_PaymentMethod() {        return findElement("Payment Mode", LocatorType.AccessibilityId);    }
     public WebElement Text_PromoCode() {

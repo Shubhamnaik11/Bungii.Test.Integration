@@ -123,6 +123,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
     }
     @When("^I search by first code generated for above promocode$")
     public void i_search_by_any_code_generated_for_above_promocode() throws Throwable {
+        action.click(admin_PromoCodesPage.Button_Filter());
+        action.click(admin_PromoCodesPage.Button_Reset());
         String LastCode = (String) cucumberContextManager.getScenarioContext("LASTCODE");
         action.sendKeys(admin_PromoCodesPage.TextBox_Search(), LastCode+Keys.ENTER);
         log("I search "+ LastCode + "prmocode" ,
@@ -160,6 +162,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     @When("^I view the searched promocode$")
     public void i_view_the_searched_promocode() throws Throwable {
        String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
+       Thread.sleep(4000);
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("following-sibling::td[1]")));
         log("I click on View link" ,
                 "I have clicked on View link", true);
@@ -167,6 +170,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" icon$")
     public void i_click_on_something_icon(String button) throws Throwable {
+
         try {
             switch (button) {
                 case "Filter":
@@ -182,6 +186,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
             }
+
+        switch (button)
+        {
+            case "Filter":
+                action.clear(admin_PromoCodesPage.TextBox_Search());
+                action.click(admin_PromoCodesPage.Button_Filter());
+                break;
+            case "Close":
+                action.click((admin_ScheduledTripsPage.Button_Close()));
+                break;
+
         }
         catch (StaleElementReferenceException e){}
             log("I click on "+button+" icon" ,
@@ -300,6 +315,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @Then("^the promocode \"([^\"]*)\" is displayed in the Promocodes grid$")
     public void the_promocode_something_is_displayed_in_the_promocodes_grid(String strArg1) throws Throwable {
+        Thread.sleep(2000);
         String xpath = (String)cucumberContextManager.getScenarioContext("XPath");
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
 
@@ -818,7 +834,9 @@ public class Admin_PromoCodesSteps extends DriverBase {
         String date=cucumberContextManager.getScenarioContext("EXPIRY_DATE").toString();
         String FromFormat="MM/dd/yyyy", ToFormat="MMM dd, yyyy";
         String date1=utility.GetDateInFormat(date, FromFormat, ToFormat);
-        action.clear(admin_PromoCodesPage.TextBox_Search());
+        Thread.sleep(5000);
+        action.clearSendKeys(admin_PromoCodesPage.TextBox_Search(),""+Keys.ENTER);
+
         String xpath= String.format("//tr[1]/td[text()='%s']/following-sibling::td[2][contains(text(),'%s')]",PromoCodeName, date1);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
     }

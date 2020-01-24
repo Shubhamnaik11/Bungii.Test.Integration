@@ -450,13 +450,13 @@ public class BungiiInProgressSteps extends DriverBase {
         testStepVerify.isTrue(driverToPickUP>100,"Driver to pickp value should be greater that 100 ", "Driver to pickup value is "+driverToPickUP +" min","Driver to pickup value is "+driverToPickUP +" min");
     }
 
-    @Then("^I should not get notification for stack trip$")
-    public void i_should_not_get_notification_for_stack_trip() {
+    @Then("^I should not get notification for ([^\"]*)$")
+    public void i_should_not_get_notification_for_stack_trip(String message) {
             try {
                 //   SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
                 action.showNotifications();
                 log("Checking notifications","Checking notifications",true);
-                String expecteMessage = utility.getExpectedNotification("STACK TRIP");
+                String expecteMessage = utility.getExpectedNotification(message.toUpperCase());
                 boolean isFound = utility.clickOnNofitication("Bungii", expecteMessage);
                 if (!isFound) {
                     Thread.sleep(5000);
@@ -476,15 +476,7 @@ public class BungiiInProgressSteps extends DriverBase {
                     Thread.sleep(5000);
 
                     action.click(otherAppsPage.Status_Bar());
-/*                    SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-                    Dimension screenSize = SetupManager.getDriver().manage().window().getSize();
-                    int yMargin = 5;
-                    int xMid = screenSize.width / 2;
-                    PointOption top = PointOption.point(xMid, yMargin);
 
-                    TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
-                        action.longPress(top);*/
                 }
 
                 testStepVerify.isFalse(isFound, "I should not get notification for stack trip" ," I didnt get notificatiob for stack trip","I got notifcation of stack trip");
@@ -494,6 +486,40 @@ public class BungiiInProgressSteps extends DriverBase {
             }
 
 
+    }
+    @And("^I wait for Minimum duration for current Bungii to be T-2 hours$")
+    public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_t_minus2() {
+        try {
+
+            String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+
+            DateFormat formatter = new SimpleDateFormat("MMM d, h:mm a");
+            formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()));
+            Date bungiiDate = formatter.parse(bungiiTime);
+
+
+            Date currentDate = new Date();
+            bungiiDate.setYear(currentDate.getYear());//(Integer.parseInt(currentDate.getYear()));
+            long duration = bungiiDate.getTime() - currentDate.getTime();
+
+            long diffInMinutes;
+            int mininumWaitTime = 120;
+
+            diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(duration) - mininumWaitTime;
+            //minimum 1  min wait
+            diffInMinutes = diffInMinutes + 1;
+            if (diffInMinutes > 0) {
+                action.hardWaitWithSwipeUp((int) diffInMinutes);
+            } else {
+                // minimum wait of 30 mins
+
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     /**
      * Get Driver Name

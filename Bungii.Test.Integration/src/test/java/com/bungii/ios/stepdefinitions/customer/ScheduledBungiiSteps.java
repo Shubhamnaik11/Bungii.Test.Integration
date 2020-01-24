@@ -118,6 +118,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 		return Image_SelectBungii;
 	}
 
+
 	/**
 	 * select bungii
 	 * @param bungiiType

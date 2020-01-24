@@ -6,7 +6,6 @@ Feature: Admin_Promoter
     When I click on "Promotion  > Promoters" Menu
     Then I should be directed to "Promoters Page"
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddNewPromoter
@@ -19,7 +18,6 @@ Feature: Admin_Promoter
     When I search by promoter Name "PT<<CurrentDateTime>>"
     Then the promoter "PT<<Unique>>" is displayed in the Promocodes grid
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddPromotion_To_Promoter_And_Add_Promocodes
@@ -45,7 +43,6 @@ Feature: Admin_Promoter
     When I search by first code generated for above promocode
     Then the promocode is displayed in the Promocodes grid
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_AddPaymentToPromoter
@@ -64,7 +61,6 @@ Feature: Admin_Promoter
     And I click on "Save" button on "Promoter Cards" screen
     Then the card is added to the promoter "PT<<CurrentDateTime>>"
 
-  @testReport
   @regression
   Scenario: Admin_Promotergrid_Sort
     When I click on "Name" header "Ascending" on "Promoter" grid
@@ -80,14 +76,12 @@ Feature: Admin_Promoter
     When I click on "Code Initials" header "Descending" on "Promoter" grid
     Then the "Promoter" list should be sorted by "Descending" order of "Code Initials"
 
-  @testReport
   @regression
   Scenario: Admin_AddNewPromoter_Cancel
     When I click on the "New Promoter" Button
     And I click on the "Cancel" Button on "Add New Promoter" popup
     Then the "Add New Promoter" popup gets removed from UI
 
-  @testReport
   @regression
   Scenario: Admin_AddNewPromoter_Fieldvalidations
     When I click on the "New Promoter" Button
