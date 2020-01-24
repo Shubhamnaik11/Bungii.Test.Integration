@@ -46,6 +46,7 @@ public class $className extends AbstractTestNGCucumberTests {
 		String ClassName =this.getClass().getSimpleName();
          lstallDevice=device;
         System.setProperty("ALL_DEVICES",lstallDevice);
+        System.setProperty("Platform", Platform);
 
 
          if (Platform.equalsIgnoreCase("ios") || Platform.equalsIgnoreCase("android")) {
