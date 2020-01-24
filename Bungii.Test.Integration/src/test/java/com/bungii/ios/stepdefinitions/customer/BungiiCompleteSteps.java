@@ -11,6 +11,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
@@ -316,8 +317,15 @@ public class BungiiCompleteSteps extends DriverBase {
         if ((tripValue - promoValue) < minCost)
             promoValue = tripValue - minCost;
 
-        String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
+        String promoDiscountValue="";
+        if (numberOfDriver.equalsIgnoreCase("DUO")) {
+            DecimalFormat df = new DecimalFormat("#.00");
+            df.setRoundingMode(RoundingMode.FLOOR);
+            promoDiscountValue = df.format(promoValue);
+        }else{
+            promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
 
+        }
         if (promoDiscountValue.indexOf(".") == 0) promoDiscountValue = "0" + promoDiscountValue;
 
         cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", promoDiscountValue);
