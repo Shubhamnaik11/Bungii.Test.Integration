@@ -277,4 +277,30 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
 
     }
+
+    @And("^I verify all the field except \"([^\"]*)\"$")
+    public void i_verify_all_the_field_except_something(String strArg1) throws Throwable {
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+        action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
+        action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+    }
 }

@@ -11,6 +11,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.Keys;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -200,5 +201,26 @@ public class Driver_DetailsSteps extends DriverBase {
             default:
                 break;
         }
+    }
+
+    @And("^I update the rejected \"([^\"]*)\" field$")
+    public void i_update_the_rejected_something_field(String strArg1) throws Throwable {
+       // action.clear(Page_Driver_Details.Textbox_DriverDetails_DOB());
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),Keys.chord(Keys.BACK_SPACE));
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),"2");
+    }
+
+    @And("^I update the accepted \"([^\"]*)\" field$")
+    public void i_update_the_accepted_something_field(String str){
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),Keys.chord(Keys.BACK_SPACE));
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"4");
+    }
+
+
+    @And("^I submit the updated application$")
+    public void i_submit_the_updated_application() throws Throwable {
+        action.click(Page_Driver_Details.Button_Submit());
+        action.click(Page_Driver_Details.Button_ConfirmSubmit());
+
     }
 }

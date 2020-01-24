@@ -95,3 +95,23 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 
+  @testrun
+    #test data created in base
+  Scenario: Driver_ApplicationStatusChange
+#    When I click "Verify" button against the "Melvin Johnson" applicant
+#    And I verify all the field except "Date of Birth"
+#    And I click on the "Resend Application" Button
+#    And I confirm the "Driver Resend Application" action
+    And I navigate to "Bungii Driver URL"
+    And I click "LOG IN link" on driver portal
+    And I enter driver Phone number as "8888885004" and valid password
+    And I click "LOG IN button" on driver portal
+    And I navigate to "Driver Details"
+    And I update the rejected "Date of Birth" field
+    And I update the accepted "Social Security Number" field
+    And I click on "Update" button
+    And I submit the updated application
+    And I am logged in as Admin
+    And there is a pending application for driver verification
+    When I click "Verify" button against the "Melvin Johnson" applicant
+

@@ -92,6 +92,18 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement Wrapper_Spinner () { return findElement("//div[@class='modal fade loader in' and @style='display: block;']", LocatorType.XPath, true); }
 
-    public WebElement loading_Wrapper(boolean...ignoreException){return  findElement("modal-backdrop fade in",LocatorType.ClassName,ignoreException);}
+    public WebElement loading_Wrapper(boolean...ignoreException){ return  findElement("modal-backdrop fade in",LocatorType.ClassName,ignoreException); }
+
+    public  WebElement Menu_DriverDetails () { return findElement("//li[@id='driver-details']/a", LocatorType.XPath); }
+
+    public WebElement Textbox_DriverDetails_SSN () { return findElement("SocialSecurityNumber", LocatorType.Id); }
+
+    public WebElement Textbox_DriverDetails_DOB () { return findElement("DateOfBirth", LocatorType.Id); }
+
+    public WebElement Button_Update () { return findElement("btnUpdate", LocatorType.Id); }
+
+    public WebElement Button_Submit () {return findElement("btnsend",LocatorType.Id);}
+
+    public WebElement Button_ConfirmSubmit () {return findElement("btnsendagree",LocatorType.Id);}
 
 }
