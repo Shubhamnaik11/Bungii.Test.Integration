@@ -23,6 +23,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -99,11 +100,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Attributes Page":
                 testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Attributes(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
             case "Customers Page":
                 testStepAssert.isElementDisplayed(admin_customerPage.Label_CustomerList(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Drivers Page":
+                testStepAssert.isElementDisplayed(admin_DriverPage.Label_DriversPageHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
+                break;
         }
     }
 

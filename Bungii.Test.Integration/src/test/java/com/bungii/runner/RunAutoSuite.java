@@ -48,7 +48,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
             }
         }
         if(multipleLoginFile.trim().equalsIgnoreCase("true")){
-           // ClassName="Parallel02IT";
+            // ClassName="Parallel02IT";
             String threadNumber = ClassName.substring(8, 10);
             System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
             System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);

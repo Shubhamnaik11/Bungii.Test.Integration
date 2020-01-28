@@ -317,10 +317,15 @@ public class BungiiCompleteSteps extends DriverBase {
         if ((tripValue - promoValue) < minCost)
             promoValue = tripValue - minCost;
 
-     //   String promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
-        DecimalFormat df = new DecimalFormat("#.00");df.setRoundingMode(RoundingMode.FLOOR);
-        String promoDiscountValue = df.format(promoValue);
+        String promoDiscountValue="";
+        if (numberOfDriver.equalsIgnoreCase("DUO")) {
+            DecimalFormat df = new DecimalFormat("#.00");
+            df.setRoundingMode(RoundingMode.FLOOR);
+            promoDiscountValue = df.format(promoValue);
+        }else{
+            promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
 
+        }
         if (promoDiscountValue.indexOf(".") == 0) promoDiscountValue = "0" + promoDiscountValue;
 
         cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", promoDiscountValue);

@@ -46,13 +46,13 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Loading Items |
-   When I view the trip details
+    When I view the trip details
     Then the Bungii details is displayed successfully
     And I click on "Manually End Bungii" link
-  And Enter the End Date and Time
-  And Click on "Calculate Cost" button
-  Then the amount is calculated and shown to admin
-  And Click on "Confirm" button
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    Then the amount is calculated and shown to admin
+    And Click on "Confirm" button
     And I view the Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
@@ -353,3 +353,15 @@ Feature: Admin_Trips
     Then the triplist grid shows the results by type "Scheduled Category"
 
 
+  @sanity
+  @regression
+  Scenario: Driver - Driver Does Not receive On Demand requests if he is Not assigned to the geofence in which his current location is
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
+    Then The driver "Testdrivertywd_appledc_a_web TestdriverY" should receive On Demand requests as he is assigned to "washingtondc" geofence
+    When I cancel "On Demand" of customer "9999995002"
+    And I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
+    Then the driver "Testdrivertywd_appledc_a_web TestdriverY" should not receive On Demand requests as he is assigned NOT to "goa" geofence

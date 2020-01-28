@@ -282,6 +282,7 @@ Feature: On Demand Bungii
       | Promo fixed         | valid         | valid baltimore |promo                   |
       | Promo percentage    | valid percent | valid baltimore |promo                   |
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
+      | Promoter type       | promoter type | valid baltimore |promoter                |
 
   @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
@@ -580,4 +581,3 @@ Feature: On Demand Bungii
     Examples:
       | Expected value in admin |
       | promo                   |
-

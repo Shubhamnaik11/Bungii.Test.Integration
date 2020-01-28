@@ -15,6 +15,7 @@ public class InProgressBungiiPages extends PageBase {
 
     //------Cancel Bungii------------------------------------------------------------
     public WebElement Button_Cancel() { return findElement("com.bungii.driver:id/toolbar_button_cancel", LocatorType.Id); }
+    public WebElement Button_CancelBungii() { return findElement("com.bungii.driver:id/scheduled_bungii_details_tv_cancel_bungii", LocatorType.Id); }
 
     public WebElement Button_Cancel_Yes() { return findElement("android:id/button1", LocatorType.Id); }
 

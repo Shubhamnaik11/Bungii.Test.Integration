@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
@@ -112,6 +113,13 @@ public String getDriverPhone(String driverName)
             phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
             break;
 
+        case "Macy Chang":
+            phone = PropertyUtility.getDataProperties("web.valid.driver9.phone");
+
+        case "Testdrivertywd_appledc_a_web TestdriverY":
+            phone = PropertyUtility.getDataProperties("web.valid.driver11.phone");
+
+            break;
     }
 
     return phone;
@@ -148,7 +156,6 @@ public String getDriverPhone(String driverName)
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
                         if (!isDriverEligible)
                             error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
-
 
                         //for on demand enroute and accepted are same
                         if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Accepted")) {
@@ -223,9 +230,6 @@ public String getDriverPhone(String driverName)
                         }
 
                     }
-
-
-
                     i++;
                 } catch (Exception e) {
 
@@ -573,7 +577,14 @@ public String getDriverPhone(String driverName)
                 cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
-            } else {
+            }
+            else if (customer.equalsIgnoreCase("Kansas customer")) {
+                custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
+                custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            }
+            else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
                 custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
@@ -591,7 +602,18 @@ public String getDriverPhone(String driverName)
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
             }
-
+            if(driver1.equalsIgnoreCase("Kansas driver 1"))
+            {
+                driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            }
+            if(driver2.equalsIgnoreCase("Kansas driver 2")) {
+                driver2PhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                driver2Password = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+            }
             if(driver1.equalsIgnoreCase("denver driver 1"))
             {
                 driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");
@@ -917,14 +939,17 @@ public String getDriverPhone(String driverName)
                     driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
-                }else if(geofence.equalsIgnoreCase("kansas")){
-                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+                }
+                else if(geofence.equalsIgnoreCase("kansas1")){
+                    geofence="kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("kansas.customer1.phone");
+                    custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
 
-                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                 }
                 else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
@@ -1310,5 +1335,53 @@ public String getDriverPhone(String driverName)
             }
         }
         return promoCode;
+    }
+
+
+    @Then("^The driver \"([^\"]*)\" should receive On Demand requests as he is assigned to \"([^\"]*)\" geofence$")
+    public void the_driver_something_should_receive_on_demand_requests_as_he_is_assigned_to_something_geofence(String driverName, String geofence) throws Throwable {
+        cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
+        String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+        String driverAccessToken = "";
+        //get pickup request from context
+        String pickupRequest= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+        driverPhoneNum = getDriverPhone(driverName);
+        driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+        cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+        driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+        coreServices.updateDriverStatus(driverAccessToken);
+        Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+        testStepAssert.isTrue(isDriverEligible,"Driver should be eligible for the trip in " + geofence + " geofence","Driver is eligible for the trip in "+geofence+" geofence","Driver is NOT eligible for the trip in "+geofence+" geofence");
+    }
+
+    @Then("^the driver \"([^\"]*)\" should not receive On Demand requests as he is assigned NOT to \"([^\"]*)\" geofence$")
+    public void the_driver_something_should_not_receive_on_demand_requests_as_he_is_assigned_not_to_something_geofence(String driverName, String geofence) throws Throwable {
+        cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
+            Boolean isDriverEligible = true;
+            String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+            String driverAccessToken = "";
+            //get pickup request from context
+            String pickupRequest= (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+
+            driverPhoneNum = getDriverPhone(driverName);
+            driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            coreServices.updateDriverStatus(driverAccessToken);
+            isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+            testStepAssert.isTrue(!isDriverEligible,"Driver should NOT be eligible for the trip in " + geofence + " geofence","Driver is NOT eligible for the trip in "+geofence+" geofence","Driver is eligible for the trip in "+geofence+" geofence");
+
+    }
+
+    @When("^I cancel \"([^\"]*)\" of customer \"([^\"]*)\"$")
+    public void i_cancel_something_of_customer_something(String bungii_type, String customer) throws Throwable {
+            String custPhoneCode = "1", custPassword = "";
+            custPassword = PropertyUtility.getDataProperties("web.customer.password");
+            if (!customer.equalsIgnoreCase("")) {
+                handleOngoingBungii(custPhoneCode, customer, custPassword);
+        }
+        log("I cancel the trip for the customer" ,
+                "I have cancelled the trip for the customer");
     }
 }

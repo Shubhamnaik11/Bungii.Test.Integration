@@ -309,6 +309,8 @@ public class CommonStepsDriver extends DriverBase {
     @Given("^I am on the \"([^\"]*)\" page on driverApp$")
     public void i_am_on_the_something_page_on_driverApp(String screen) {
         try {
+            //adding temp page source , can remove later
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
             switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
