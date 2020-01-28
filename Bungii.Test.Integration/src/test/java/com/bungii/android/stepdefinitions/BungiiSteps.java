@@ -553,9 +553,6 @@ public class BungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-
-
-
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -771,8 +768,6 @@ public class BungiiSteps extends DriverBase {
                 case "cancels Bungii request":
                     Thread.sleep(5000);
                     action.click(Page_DriverBungiiProgress.Button_CancelBungii());
-                    //testStepVerify.isElementTextEquals(Page_DriverBungiiProgress.Alert_Message(),PropertyUtility.getMessage("driver.cancel.bungii"));
-                   // action.click(Page_DriverBungiiProgress.Button_Cancel_Yes());
                     Thread.sleep(5000);
                     break;
                 case "cancels Bungii":
@@ -889,7 +884,8 @@ public class BungiiSteps extends DriverBase {
                     break;
             }
         }catch (Exception e){
-
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
     }
@@ -909,16 +905,21 @@ public class BungiiSteps extends DriverBase {
 
     }
     private void validateSMSNumber(String actualValue,String expectedValue) {
-        String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
-                .replace("-", "");
-        boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
+        try {
+            String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
+                    .replace("-", "");
+            boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
-        testStepVerify.isTrue(isPhoneNumCorrect,
-                "To Field should contains " + expectedNumber,
-                "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
-                "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+            testStepVerify.isTrue(isPhoneNumCorrect,
+                    "To Field should contains " + expectedNumber,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+        }
+        catch (Exception e)
+        {
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
 
-        //action.click(messagesPage.Button_Cancel());
-        try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
     }
 }

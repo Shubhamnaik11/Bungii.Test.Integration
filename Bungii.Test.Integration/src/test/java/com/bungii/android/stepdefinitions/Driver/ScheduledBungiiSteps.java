@@ -81,9 +81,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
             action.click(inProgressBungiiPages.Button_Cancel());
-
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 

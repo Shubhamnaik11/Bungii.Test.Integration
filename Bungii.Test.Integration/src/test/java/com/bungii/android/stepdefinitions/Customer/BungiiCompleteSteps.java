@@ -45,8 +45,8 @@ public class BungiiCompleteSteps  extends DriverBase {
                     verifyTripValue();
                     break;
                 case "correct rating detail for duo":
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName1(),"");
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName2(),"");
+                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName1(), (String) cucumberContextManager.getScenarioContext("DRIVER_1"));
+                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName2(), (String) cucumberContextManager.getScenarioContext("DRIVER_2"));
                     testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar1(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
                     testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar2(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
                     break;

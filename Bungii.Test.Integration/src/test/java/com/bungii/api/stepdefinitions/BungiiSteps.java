@@ -582,7 +582,7 @@ public String getDriverPhone(String driverName)
                 custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
                 custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
-                cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", custPhoneNum);
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             }
             else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
@@ -939,7 +939,10 @@ public String getDriverPhone(String driverName)
                     driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
-                }else if(geofence.equalsIgnoreCase("kansas")){
+                }
+                else if(geofence.equalsIgnoreCase("kansas1")){
+                    geofence="kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
                     custPhoneNum = PropertyUtility.getDataProperties("kansas.customer1.phone");
                     custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
@@ -959,7 +962,6 @@ public String getDriverPhone(String driverName)
                 }
             }
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
-            cucumberContextManager.setScenarioContext("CUSTOMER1_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
             //LOGIN
