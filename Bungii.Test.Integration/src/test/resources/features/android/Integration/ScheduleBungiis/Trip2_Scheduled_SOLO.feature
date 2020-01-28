@@ -1434,7 +1434,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @regression1232
+  @regression
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -1450,7 +1450,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression12
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -1477,7 +1477,7 @@ Feature: SoloScheduled
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  @regression1
+  @regression12
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

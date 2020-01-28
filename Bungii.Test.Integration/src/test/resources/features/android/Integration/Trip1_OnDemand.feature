@@ -581,3 +581,62 @@ Feature: On Demand Bungii
     Examples:
       | Expected value in admin |
       | promo                   |
+
+
+  @regression1
+  Scenario Outline: on demand with first time promo
+    When I am on customer Log in page
+    And I am logged in as "valid baltimore" customer
+    And I Switch to "driver" application on "same" devices
+    And I am logged in as "valid baltimore" driver
+    And I Select "HOME" from driver App menu
+    Then I tap on "Go Online button" on Driver Home page
+
+    When I Switch to "customer" application on "same" devices
+    And I enter "baltimore pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "15 mins"
+    And I tap on "Promo code value" on Estimate screen
+
+    And I add "first time" PromoCode
+    And I tap "Add" on Save Money page
+    Then I should able to see expected promo code in available promo code
+    And I tap on "Back" icon of page
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    Then for a Bungii I should see "Bungii search screen"
+
+    When I click on notification for "on demand trip"
+    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" button on alert message
+    Then I click "ACCEPT" button on the "Bungii Request" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I click "Ok" button on the "BUNGII ACCEPTED" screen
+
+    When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct details with promoter" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+
+    Then I wait for "2" mins
+
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select trip from live trips
+    Then On admin trip details page "<Expected value in admin>" should be displayed
+    Examples:
+      | Scenario         | Expected value in admin |
+      | First time       | promo                   |

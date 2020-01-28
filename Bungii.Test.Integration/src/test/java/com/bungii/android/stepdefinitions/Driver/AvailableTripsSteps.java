@@ -2,8 +2,7 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.AvailableTripsPage;
-import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -54,7 +53,7 @@ public class AvailableTripsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("^I should able to see \"([^\"]*)\" available trip$")
+   /* @Then("^I should able to see \"([^\"]*)\" available trip$")
     public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
         try {
             List<WebElement> listOfBungii=availableTrips.List_AvailableBungiis();
@@ -72,7 +71,7 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             fail("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
-        }	}
+        }	}*/
     public boolean selectBungiiFromList(String bungiiType, String customerName) {
         boolean isSelected = false;
 
