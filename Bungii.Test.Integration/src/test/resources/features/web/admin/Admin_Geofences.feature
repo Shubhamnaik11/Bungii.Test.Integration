@@ -9,7 +9,8 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-  Scenario: Admin_VerifyDeaultGeofencesAttributes
+    @fail
+  Scenario: Admin_VerifyDefaultGeofencesAttributes
    When I click on "Geofences  > Attributes" Menu
     Then I should be directed to "Attributes Page"
     When I go to "Geofence Attributes" page
@@ -67,6 +68,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
+    @fail
     Scenario: Admin_GeofenceSettings
     When I click on the geofence "Denver"
     And I click on the "Settings" Button on "Geofence" Screen
