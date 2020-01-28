@@ -125,8 +125,8 @@ public class ReportGeneratorUtility {
 
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
-
-		String str = "<tr><td + rightSpan + >" + testStepCount+1 + "</td>";
+		int stepCount= testStepCount+1;
+		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
 		str = str + "<td>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
@@ -283,7 +283,7 @@ public class ReportGeneratorUtility {
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
-		String str = "<tr><td + rightSpan + >Some steps are skipped due to error ..</td>";
+		String str = "<tr><td + rightSpan + ><td>Some steps are skipped due to error ..</td>";
 		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
 
 	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";

@@ -1049,6 +1049,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |     8805368840            |
+
 #####################################################################################################################
   @regression
   Scenario: To check that Customer can request cancel scheduled trip via admin SMS after 2 hour processing is over (No. of required drivers accepted or Not)
