@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -35,17 +36,18 @@ public class AvailableTripsSteps extends DriverBase {
             if(!isSelected){
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                         utility.acceptNotificationAlert();
 
                     } else {
                         //  action.click(Page_BungiiRequest.Button_Reject());
                         action.click(Page_BungiiRequest.AlertButton_Cancel());
+                        isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
                     }
 
                 }
             }
-            isSelected = selectBungiiFromList(numberOfDriver, customerName.substring(0, customerName.indexOf(" ") + 2));
+
             log("I Select Trip from driver available trip","I Select Trip from driver available trip");
           //  testStepVerify.isTrue(isSelected, "I should able to select trip from available trip", "I was not able find available trip for customer " + customerName + " Estimate and Customer Cancel type " + numberOfDriver);
         } catch (Exception e) {

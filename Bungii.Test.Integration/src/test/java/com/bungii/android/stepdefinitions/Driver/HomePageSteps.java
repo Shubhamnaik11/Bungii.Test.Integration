@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -36,7 +37,7 @@ public class HomePageSteps extends DriverBase {
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
             if (action.isNotificationAlertDisplayed()) {
-                if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());

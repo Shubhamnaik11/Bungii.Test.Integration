@@ -58,7 +58,6 @@ public class EstimateBungiiSteps extends DriverBase {
         try {
             switch (arg0) {
                 case "two drivers selector":
-
                     action.click(Page_CustHome.Selector_Duo());
                     cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", "DUO");
                     break;
@@ -258,9 +257,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @Given("^I am logged in as \"([^\"]*)\" customer$")
     public void iAmLoggedInAsCustomer(String arg0) throws Throwable {
-
         try {
-
             Thread.sleep(2000);
             switch (arg0) {
                 case "existing":
@@ -308,9 +305,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer.phone"));
                     break;
                 case "valid kansas":
-                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer2.phone"), PropertyUtility.getDataProperties("Kansas.customer2.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer2.phone"));
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("kansas.customer1.phone"), PropertyUtility.getDataProperties("kansas.customer1.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("kansas.customer1.phone"));
                     break;
                 case "valid customer 2":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));

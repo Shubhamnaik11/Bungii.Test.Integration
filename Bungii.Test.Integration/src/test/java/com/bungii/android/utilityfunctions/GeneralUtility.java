@@ -816,8 +816,18 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
-
-
+        }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+                    action.click(otherAppsPage.Notification_OtherDriverCancel());
+                    isDisplayed = true;
+                }
+        }
+        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
+                action.click(otherAppsPage.Notification_CustomerCancel());
+                isDisplayed = true;
+            }
         }
         return isDisplayed;
     }
@@ -853,6 +863,12 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "T-2 BEFORE SCHEDULED TRIP":
                     text = PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2");
+                    break;
+                case "DRIVER CANCELLED BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    text = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
             }
 

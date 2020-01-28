@@ -1174,7 +1174,6 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-
   @regression12
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -1269,3 +1268,96 @@ Feature: Duo
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
+    Given that duo schedule bungii is in progress
+      | geofence     | Bungii State | Bungii Time   | Customer     | Driver1  | Driver2        |
+      | atlanta      | Scheduled    | NEXT_POSSIBLE | valid        | valid    | valid driver 2 |
+
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "valid atlanta" customer
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+
+    #put driver on background
+    When I Open "customer" application on "same" devices
+    When I Switch to "customer" application on "ORIGINAL" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+
+    When I Switch to "customer" application on "Driver1" devices
+    And I click on notification for "CUSTOMER CANCELLED SCHEDULED BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
+    Given that duo schedule bungii is in progress
+      | geofence     | Bungii State | Bungii Time   | Customer     | Driver1 | Driver2        |
+      | atlanta      | Scheduled    | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
+
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "valid atlanta" customer
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+
+    When I Switch to "customer" application on "ORIGINAL" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+
+    When I switch to "Driver1" instance
+    Then Alert message with CUSTOMER CANCELLED SCHEDULED BUNGII text should be displayed
+    When I click "OK" on alert message
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+
+   @regression
+  Scenario: To check that other driver and customer are Notified when one of the driver cancels
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer     | Driver1 | Driver2        |
+      | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
+
+    When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "valid atlanta" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid driver 2" driver
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+
+    When I switch to "ORIGINAL" instance
+    #message to driver
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+    When I Switch to "driver" application on "same" devices
+    And I click on notification for "DRIVER CANCELLED BUNGII"

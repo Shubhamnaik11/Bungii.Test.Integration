@@ -5,6 +5,8 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -90,6 +92,22 @@ public class LoginSteps extends DriverBase {
                     phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
                     password = PropertyUtility.getDataProperties("valid.driver.kansas.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "kansas driver 1":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                    password = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "kansas driver 2":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    password = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;

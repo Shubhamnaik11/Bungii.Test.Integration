@@ -239,7 +239,7 @@ Feature: SoloScheduled
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    Then Bungii must be removed from "MY BUNGIIS" screen
 
 
   @regression
@@ -279,7 +279,7 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     And I Cancel selected Bungii
     And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    Then Bungii must be removed from "MY BUNGIIS" screen
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
@@ -297,7 +297,7 @@ Feature: SoloScheduled
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Scheduled    | NEXT_POSSIBLE |
+      | kansas1   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
@@ -648,7 +648,6 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -695,7 +694,6 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
   @DUO_SCH_DONOT_ACCEPT
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
@@ -723,12 +721,11 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8888888881     |                 |
 
-
   @regression
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 0.75 hour ahead |
+      | Kansas1   | Accepted     | 0.75 hour ahead |
     And I Open "customer" application on "same" devices
     When I am on customer Log in page
     When I am logged in as "valid" customer
@@ -743,7 +740,7 @@ Feature: SoloScheduled
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
+    When I click "YES" on the alert message
     And I click "ACCEPT" button on "Bungii Request" screen
 
     And I Open "customer" application on "same" devices
@@ -758,12 +755,11 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-
   @regression
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Accepted     | 1 hour ahead |
+      | Kansas1   | Accepted     | 1 hour ahead |
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid" customer
@@ -778,7 +774,6 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
 
   @regression
   Scenario:Customer should be able to contact control driver when Non-control driver has started the trip
@@ -807,7 +802,6 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-
   @regression
   Scenario: Customer should be able to see text stating that driver can be contacted on the Bungii Details page, only when the trip has been accepted by required number of drivers.
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -835,7 +829,6 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840      |                 |
 
-
   @regression
   Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
     #When I clear all notification
@@ -858,7 +851,6 @@ Feature: SoloScheduled
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-
 
   @regression
   Scenario:To check if driver recieves Bungii scheduled request even while in the Offline state (assuming he does Not have Bungiis overlapping the TELET time)
@@ -1082,7 +1074,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
     And I tap on "Menu" > "MY BUNGIIS" link
-    Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
+    Then Bungii must be removed from "MY BUNGIIS" screen
 
   @regression
   Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
@@ -1306,7 +1298,7 @@ Feature: SoloScheduled
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas   | Accepted     | 0.5 hour ahead |
+      | kansas1   | Accepted     | 0.5 hour ahead |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1324,13 +1316,14 @@ Feature: SoloScheduled
   Scenario: check TELET of re-searched trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
+      | kansas1   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
     Then Telet time of current trip should be correctly calculated
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then I wait for "1" mins
+
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -1345,7 +1338,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
+      | kansas1   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1383,7 +1376,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
+      | kansas1   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1419,7 +1412,7 @@ Feature: SoloScheduled
   Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas   | Accepted     | NEXT_POSSIBLE |
+      | kansas1   | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1438,7 +1431,7 @@ Feature: SoloScheduled
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas   | Accepted     | 1.5 hour ahead |
+      | kansas1   | Accepted     | 1.5 hour ahead |
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
@@ -1552,3 +1545,397 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |     8805368840            |
+
+#####################################################################################################################
+  @regression
+  Scenario: To check that Customer can request cancel scheduled trip via admin SMS after 2 hour processing is over (No. of required drivers accepted or Not)
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I enter customers "8805368840" Phone Number
+    And I enter customers "valid" Password
+    And I tap on the "Log in" Button on Login screen
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
+  @regression
+  Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas1   | Scheduled    | NEXT_POSSIBLE |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+ #   And I click "TOP BACK" button on "Bungii Details" screen
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
+  @regression
+  Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Duo
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
+  @regression
+  Scenario: To check that Customer can request cancel through SMS to ADMIN even if one driver accepts but processing is over (Trip not started) (cancellation on admin side)
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
+  @regression
+  Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
+      | kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "MY BUNGIIS" link
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "2" mins
+    And I select already scheduled bungii
+    When I Cancel selected Bungii
+    Then correct details should be displayed on the "ADMIN-SMS" app
+
+    And I Cancel Bungii with following details
+      | Charge | Comments |
+      | 0      | TEST     |
+    Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And Bungii must be removed from the List
+
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I tap on "Menu" > "MY BUNGIIS" link
+    Then Bungii must be removed from "MY BUNGIIS" screen
+
+   #Date: 22-01-2020
+  @regression
+  Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | kansas1   | Accepted     | NEXT_POSSIBLE |
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    When Bungii Driver "cancels Bungii request"
+    Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
+    And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.duo
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    When Bungii Driver "cancels Bungii request"
+    Then user is alerted for "FOR EMERGENCY CONTACT SUPPORT LINE"
+    And correct details should be displayed on the "SMS FOR CANCEL INCASE OF EMERGENCEY" app
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    Then for a Bungii I should see "Enroute screen"
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    Then Bungii driver should see "Enroute screen"
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
+    Then Bungii driver should see "Home screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | arrived      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    Then for a Bungii I should see "Arrived screen"
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    Then Bungii driver should see "Arrived screen"
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
+    Then Bungii driver should see "Home screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    Then for a Bungii I should see "Enroute screen"
+
+     #non control driver
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 2" driver
+    Then Bungii driver should see "Enroute screen"
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
+    Then Bungii driver should see "Home screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    Then for a Bungii I should see "Bungii Home page with locations"
+
+  @regression
+  Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | kansas   | arrived      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+    When I Switch to "customer" application on "same" devices
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    Then for a Bungii I should see "Arrived screen"
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 2" driver
+    Then Bungii driver should see "Arrived screen"
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    And I Select "HOME" from driver App menu
+    Then Bungii driver should see "Home screen"
+
+    When I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    Then for a Bungii I should see "Bungii Home page with locations"
+
+    And I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: Check if customer is allowed to rate driver for duo trip
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+    Given I am on customer Log in page
+    And I am logged in as "valid kansas" customer
+    And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state    | driver2 state    |
+      | Bungii Completed | Bungii Completed |
+    When I Switch to "customer" application on "same" devices
+    And Bungii customer should see "correct rating detail for duo" on Bungii completed page
+    When I select "3" Ratting star for duo "Driver 1"
+    And I select "5" Ratting star for duo "Driver 2"
+    Then I tap on "OK" on Bungii Complete
+
+  @regression
+  Scenario: check if re-searched driver can cancel trip after starting Solo
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | kansas1   | Accepted     | 15 min ahead |
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state |
+      | Accepted      |
+
+    When I switch to "ORIGINAL" instance
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "kansas driver 1" driver
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    Then Bungii driver should see "Scheduled Bungii screen"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+
+  @regression
+  Scenario: check if re-searched driver can cancel trip after starting Duo
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
+
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I remove current driver and researches Bungii
+    And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+
+    When I switch to "ORIGINAL" instance
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "kansas driver 2" driver
+
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+    Then Bungii driver should see "Scheduled Bungii screen"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8805368840     |                 |

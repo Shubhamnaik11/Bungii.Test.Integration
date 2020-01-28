@@ -174,6 +174,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         try {
             switch (button) {
                 case "Filter":
+                    action.clear(admin_PromoCodesPage.TextBox_Search());
                     action.click(admin_PromoCodesPage.Button_Filter());
                     break;
                 case "Close":
@@ -186,11 +187,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
             }
-        } catch (StaleElementReferenceException e) {
+            log("I click on " + button + " icon",
+                    "I have clicked on " + button + " icon", true);
+        }catch (StaleElementReferenceException e) {
             log("I click on " + button + " icon",
                     "I have clicked on " + button + " icon", true);
         }
+
+
     }
+    
+
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_something_as_something1(String CodeType, String value) throws Throwable {
         switch (CodeType)

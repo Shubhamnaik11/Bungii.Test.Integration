@@ -44,7 +44,6 @@ public class CommonSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
     DriverHomePage driverHomePage= new DriverHomePage();
-
     HomePage homePage=new HomePage();
     InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
@@ -260,7 +259,6 @@ public class CommonSteps extends DriverBase {
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
         try {
-
             SetupManager.getObject().createNewWebdriverInstance(instanceName, browser);
             SetupManager.getObject().useDriverInstance(instanceName);
             log(
@@ -385,18 +383,20 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-
             String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
-
             if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
-                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
+                actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
+            }
+            else if(actualMessage.equals(""))
+            {
+                actualMessage= action.getText(driverHomePage.Alert_NewBungii());
             }
             else if(actualMessage.equals(""))
             {
                 actualMessage= action.getText(driverHomePage.Alert_NewBungii());
             }
             else{
-                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
+                actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
 
             String expectedMessage=null;
@@ -418,11 +418,18 @@ public class CommonSteps extends DriverBase {
                 case "ACCEPT BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
                     break;
-
                 case "ACCEPT SCHEDULED BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
                     break;
-
+                case "DRIVER CANCEL BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
+                    break;
+                case "OTHER DRIVER CANCELLED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -534,6 +541,8 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CUSTOMER HAS ONGOING BUNGII":
                     expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                case "FOR EMERGENCY CONTACT SUPPORT LINE":
+                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -773,6 +782,24 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I click \"([^\"]*)\" on the alert message$")
+    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(2000);
+            switch (strArg1) {
+                case "OK":
+                    action.click(bungiiAcceptedPage.Button_OK());
+                    break;
+                case "YES":
+                    action.click(inProgressBungiiPages.Button_Cancel_Yes());
+                    break;
+            }
+        } catch (Exception e) {
+            log("I should able to click " + strArg1 + "on Alert Message",
+                    "I clicked " + strArg1 + "on Alert Message", true);
+        }
+    }
+
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
@@ -783,14 +810,4 @@ public class CommonSteps extends DriverBase {
         }
         return SplitDate;
     }
-
-    @And("^I click \"([^\"]*)\" on the alert message$")
-    public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
-        action.click(bungiiAcceptedPage.Button_OK());
-
-
-        log("I should able to click " + strArg1 + "on Alert Message",
-                "I clicked " + strArg1 + "on Alert Message", true);
-    }
-
 }
