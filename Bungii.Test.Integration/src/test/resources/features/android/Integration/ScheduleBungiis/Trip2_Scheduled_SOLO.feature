@@ -1008,8 +1008,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-
-
+  @regression
   Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1443,3 +1442,4 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
