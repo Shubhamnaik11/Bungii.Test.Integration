@@ -268,7 +268,7 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        } else if (time.equalsIgnoreCase("<TIME WITHIN TELET>")) {
+        } else if (time.equalsIgnoreCase("<TIME WITHIN TELET>") || time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");

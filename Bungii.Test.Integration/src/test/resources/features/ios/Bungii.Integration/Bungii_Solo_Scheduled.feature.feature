@@ -1820,3 +1820,45 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
+
+  @regression1234
+  Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
+
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | denver   | Enroute      |
+    When I clear all notification
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8888889917     | Cci12345          |Testcustomertywd_appleZTDafc Stark | 2              |
+
+    And I click on notification for "Driver" for "stack trip"
+    When I click "VIEW" on alert message
+    When I click "ACCEPT" button on "Bungii Request" screen
+    When I click "OK" on alert message
+    And I get TELET time of currrent trip of customer 2
+
+    And I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889907 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
+      | 30       |           |              |  <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
+    When I click "Done" button on "Success" screen
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |     8888889917            |
