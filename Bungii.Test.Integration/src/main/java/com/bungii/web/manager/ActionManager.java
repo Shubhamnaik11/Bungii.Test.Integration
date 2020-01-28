@@ -125,4 +125,24 @@ catch(Exception ex)
             Assert.fail("Following element is not displayed : " + element);
         }
     }
+
+    public Boolean waitForElement(String xpath)
+    {
+        int retrycount =10;
+        boolean retry = true;
+        boolean isElementPresent = false;
+        while (retry == true && retrycount >0) {
+            try {
+                WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                retry = false;
+                isElementPresent = true;
+            } catch (Exception ex) {
+                SetupManager.getDriver().navigate().refresh();
+                retrycount--;
+                retry = true;
+            }
+        }
+        return isElementPresent;
+    }
 }

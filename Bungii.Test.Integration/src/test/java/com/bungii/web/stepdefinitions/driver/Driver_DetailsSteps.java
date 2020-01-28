@@ -243,7 +243,7 @@ public class Driver_DetailsSteps extends DriverBase {
         int old_count = Integer.parseInt(old_count_string);
         int new_count = old_count + 1 ;
         String xpath = String.format("//p[contains(text(),'Total trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
-        Boolean isCountIncremented = bungiiSteps.waitforElement(xpath);
+        Boolean isCountIncremented = action.waitForElement(xpath);
         testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "Total trip count is not incremented");
     }
 
