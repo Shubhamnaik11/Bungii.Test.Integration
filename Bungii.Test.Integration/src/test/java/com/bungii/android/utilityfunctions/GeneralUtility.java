@@ -3,10 +3,12 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -815,8 +817,18 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
-
-
+        }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+                    action.click(otherAppsPage.Notification_OtherDriverCancel());
+                    isDisplayed = true;
+                }
+        }
+        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
+                action.click(otherAppsPage.Notification_CustomerCancel());
+                isDisplayed = true;
+            }
         }
         return isDisplayed;
     }
@@ -852,6 +864,12 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "T-2 BEFORE SCHEDULED TRIP":
                     text = PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2");
+                    break;
+                case "DRIVER CANCELLED BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    text = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
             }
 

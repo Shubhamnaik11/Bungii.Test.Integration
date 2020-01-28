@@ -157,7 +157,6 @@ public String getDriverPhone(String driverName)
                         if (!isDriverEligible)
                             error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
 
-
                         //for on demand enroute and accepted are same
                         if (driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Accepted")) {
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -231,9 +230,6 @@ public String getDriverPhone(String driverName)
                         }
 
                     }
-
-
-
                     i++;
                 } catch (Exception e) {
 
@@ -581,7 +577,14 @@ public String getDriverPhone(String driverName)
                 cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
-            } else {
+            }
+            else if (customer.equalsIgnoreCase("Kansas customer")) {
+                custPhoneNum = PropertyUtility.getDataProperties("Kansas.customer2.phone");
+                custPassword = PropertyUtility.getDataProperties("Kansas.customer2.password");
+                cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
+                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            }
+            else {
                 custPhoneNum = PropertyUtility.getDataProperties("atlanta.customer.phone");
                 custPassword = PropertyUtility.getDataProperties("atlanta.customer.password");
                 cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer.name"));
@@ -599,7 +602,18 @@ public String getDriverPhone(String driverName)
                 cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
             }
-
+            if(driver1.equalsIgnoreCase("Kansas driver 1"))
+            {
+                driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+            }
+            if(driver2.equalsIgnoreCase("Kansas driver 2")) {
+                driver2PhoneNum = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                driver2Password = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+            }
             if(driver1.equalsIgnoreCase("denver driver 1"))
             {
                 driverPhoneNum = PropertyUtility.getDataProperties("denver.driver.phone");
@@ -799,7 +813,7 @@ public String getDriverPhone(String driverName)
                 String driverPaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driverAccessToken);
                 String driver2PaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driver2AccessToken);
 
-                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0, driver2Ref, driver2PaymentMethod);
+                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
             log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
@@ -925,14 +939,17 @@ public String getDriverPhone(String driverName)
                     driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
                     driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
-                }else if(geofence.equalsIgnoreCase("kansas")){
-                    custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
-                    custPassword = PropertyUtility.getDataProperties("customer_generic.password");
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+                }
+                else if(geofence.equalsIgnoreCase("kansas1")){
+                    geofence="kansas";
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
+                    custPhoneNum = PropertyUtility.getDataProperties("kansas.customer1.phone");
+                    custPassword = PropertyUtility.getDataProperties("kansas.customer1.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
 
-                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    driverPhoneNum = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                    driverPassword = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
                 }
                 else {
                     custPhoneNum = PropertyUtility.getDataProperties("customer_generic.phonenumber");
@@ -1023,7 +1040,7 @@ public String getDriverPhone(String driverName)
                 coreServices.driverView(pickupRequest, driverAccessToken);
                 String driverPaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driverAccessToken);
 
-                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0);
+                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
             log("that solo schedule bungii is in progress", "that solo schedule bungii is on" + state, false);
         } catch (Exception e) {
