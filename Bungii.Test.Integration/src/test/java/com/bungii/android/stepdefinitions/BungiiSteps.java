@@ -44,6 +44,7 @@ public class BungiiSteps extends DriverBase {
     BungiiDetailsPage bungiiDetailsPage= new BungiiDetailsPage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    MessagesPage messagesPage=new MessagesPage();
 
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
@@ -223,7 +224,7 @@ public class BungiiSteps extends DriverBase {
                     i_click_on_notification_for_something("on demand trip");
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
-                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg())) {
+                if (action.isElementPresent(Page_BungiiRequest.Alert_Msg(true))) {
                     action.click(Page_BungiiRequest.AlertButton_View());
                     switch (arg0) {
                         case "accepts On Demand Bungii":
@@ -241,7 +242,7 @@ public class BungiiSteps extends DriverBase {
                 boolean skipClick = false;
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                         utility.acceptNotificationAlert();
                         skipClick = true;
                     } else {
@@ -260,7 +261,7 @@ public class BungiiSteps extends DriverBase {
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
-                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
+                    testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_Msg(true),PropertyUtility.getMessage("driver.alert.stack.alert.message"));
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.Alert_MsgTitle(),PropertyUtility.getMessage("driver.alert.stack.alert.header"));
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_View(),"View");
                     testStepVerify.isElementTextEquals(Page_BungiiRequest.AlertButton_Cancel(),"Cancel");
@@ -276,7 +277,7 @@ public class BungiiSteps extends DriverBase {
                 isDisplayed = action.waitUntilAlertDisplayed(180L);
 
                 if (action.isNotificationAlertDisplayed()) {
-                    if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
+                    if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.stack.alert.message"))) {
                         action.click(Page_BungiiRequest.AlertButton_View());
                     }
                 }
@@ -447,6 +448,9 @@ public class BungiiSteps extends DriverBase {
                     action.click(Page_DriverBungiiProgress.Button_CancelImage());
                 break;
 
+                case "Scheduled Bungii screen":
+                    testStepVerify.isElementTextEquals(scheduledBungiiPage.Text_PageTitle(), "SCHEDULED BUNGIIS");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -508,7 +512,14 @@ public class BungiiSteps extends DriverBase {
 
                     break;
 
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+
                 default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
 
@@ -520,6 +531,34 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^correct details should be displayed on the \"([^\"]*)\" app$")
+    public void correct_details_should_be_displayed_on_the_something_app(String strArg1) throws Throwable {
+        try {
+            Thread.sleep(3000);
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+            String expectedDuoNumber;
+            String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
+            switch (strArg1) {
+
+                case "ADMIN-SMS":
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+                case "SMS FOR CANCEL INCASE OF EMERGENCEY":
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("driver.support.number"));
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 
     @When("^Bungii Driver taps \"([^\"]*)\" during a Bungii$")
     public void bungiiDriverTapsDuringABungii(String arg0) throws Throwable {
@@ -726,6 +765,11 @@ public class BungiiSteps extends DriverBase {
         try {
 
             switch (arg0) {
+                case "cancels Bungii request":
+                    Thread.sleep(5000);
+                    action.click(Page_DriverBungiiProgress.Button_CancelBungii());
+                    Thread.sleep(5000);
+                    break;
                 case "cancels Bungii":
                     Thread.sleep(5000);
                     action.click(Page_DriverBungiiProgress.Button_Cancel());
@@ -809,14 +853,18 @@ public class BungiiSteps extends DriverBase {
     @And("^I wait for Minimum duration for \"([^\"]*)\" Bungii to be in Driver not accepted state$")
     public void i_wait_for_minimum_duration_for_something_bungii_to_be_in_driver_not_accepted_state(String strArg1) {
         try {
-            long initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
+            long initialTime;
+            if (strArg1.equalsIgnoreCase("current"))
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME");
+            else
+                initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
-            if(diffInMinutes>30){
+            if (diffInMinutes > 15) {
                 //do nothing
-            }else{
+            } else {
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(30-(int) diffInMinutes);
+                action.hardWaitWithSwipeUp(15 - (int) diffInMinutes);
 
             }
 
@@ -825,10 +873,7 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-/*    @Then("^I wait for \"([^\"]*)\" mins$")
-    public void i_wait_for_something_mins(String strArg1) throws Throwable {
-        action.hardWaitWithSwipeUp(Integer.parseInt(strArg1));
-    }*/
+
     @Then("^I verify that text \"([^\"]*)\" is displayed$")
     public void i_verify_that_text_something_is_displayed(String message) throws Throwable {
         try{
@@ -839,7 +884,8 @@ public class BungiiSteps extends DriverBase {
                     break;
             }
         }catch (Exception e){
-
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
     }
@@ -856,6 +902,24 @@ public class BungiiSteps extends DriverBase {
 
     @And("^Simulator Bungii Driver \"([^\"]*)\"$")
     public void simulatorBungiiDriver(String arg0) throws Throwable {
+
+    }
+    private void validateSMSNumber(String actualValue,String expectedValue) {
+        try {
+            String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
+                    .replace("-", "");
+            boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
+
+            testStepVerify.isTrue(isPhoneNumCorrect,
+                    "To Field should contains " + expectedNumber,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
+                    "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
+        }
+        catch (Exception e)
+        {
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
 
     }
 }
