@@ -813,7 +813,7 @@ public String getDriverPhone(String driverName)
                 String driverPaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driverAccessToken);
                 String driver2PaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driver2AccessToken);
 
-                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0, driver2Ref, driver2PaymentMethod);
+                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0, driver2Ref, driver2PaymentMethod);
                 System.out.println(pickupRequest);
             }
             log("that duo schedule bungii is in progress", "that duo schedule bungii is on" + state, false);
@@ -1040,7 +1040,7 @@ public String getDriverPhone(String driverName)
                 coreServices.driverView(pickupRequest, driverAccessToken);
                 String driverPaymentMethod = coreServices.driverPaymentMethod(pickupRequest, driverAccessToken);
 
-                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 5.0);
+                coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
             log("that solo schedule bungii is in progress", "that solo schedule bungii is on" + state, false);
         } catch (Exception e) {
