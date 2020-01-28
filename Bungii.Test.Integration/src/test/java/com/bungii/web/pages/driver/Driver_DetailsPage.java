@@ -102,8 +102,10 @@ public class Driver_DetailsPage extends PageBase {
 
     public WebElement Button_Update () { return findElement("btnUpdate", LocatorType.Id); }
 
-    public WebElement Button_Submit () {return findElement("btnsend",LocatorType.Id);}
+    public WebElement Button_Submit () { return findElement("btnsend", LocatorType.Id);}
 
-    public WebElement Button_ConfirmSubmit () {return findElement("btnsendagree",LocatorType.Id);}
+    public WebElement Button_ConfirmSubmit () { return findElement("btnsendagree", LocatorType.Id);}
+
+    public WebElement Link_Logout () { return findElement("//a[text()='log out']", LocatorType.XPath); }
 
 }

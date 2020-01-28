@@ -123,6 +123,20 @@ public class ActionManager {
                 true);
     }
     }
+
+    public void JavaScriptClear(WebElement element) {
+        try{
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].value = '';", element);
+            logger.detail(" JS Clear on locator" + element.toString());
+
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     public void navigateToPreviousPageUsingBrowserBackButton() {
         SetupManager.getDriver().navigate().back();
     }

@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
     Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
@@ -74,6 +76,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
+        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
@@ -189,7 +192,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Scale":
                 action.click(admin_GeofencePage.Button_Scale());
                 break;
-        }    }
+        }
+        log("I click on the "+arg0+ " button" ,
+                "I have clicked on the "+arg0+ " button");
+    }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
@@ -207,7 +213,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Driver Reject Application":
                 action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
                 break;
-        }    }
+        }
+        log("I can confirm " + strArg1 + " action" ,
+                "I have confirmed " + strArg1 + " action");
+    }
     @And("^the \"([^\"]*)\" button is not visible$")
     public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
         switch (strArg1)
@@ -280,8 +289,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     }
 
-    @And("^I verify all the field except \"([^\"]*)\"$")
-    public void i_verify_all_the_field_except_something(String strArg1) throws Throwable {
+    @And("^I verify all the fields except \"([^\"]*)\"$")
+    public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
@@ -304,5 +313,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        log("I can verify all the fields except DOB" ,
+                "I have verified all the fields except DOB");
     }
 }

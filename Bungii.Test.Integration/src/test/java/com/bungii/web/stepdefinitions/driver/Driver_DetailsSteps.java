@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.driver;
 
+import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
@@ -11,7 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -27,6 +28,7 @@ public class Driver_DetailsSteps extends DriverBase {
     Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage();
     Driver_TermsPage Page_Driver_Terms = new Driver_TermsPage();
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
+    DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
@@ -205,15 +207,18 @@ public class Driver_DetailsSteps extends DriverBase {
 
     @And("^I update the rejected \"([^\"]*)\" field$")
     public void i_update_the_rejected_something_field(String strArg1) throws Throwable {
-       // action.clear(Page_Driver_Details.Textbox_DriverDetails_DOB());
-        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),Keys.chord(Keys.BACK_SPACE));
-        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),"2");
-    }
+        driverRegistrationSteps.i_navigate_to_something("Driver Details");
+        action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_DOB());
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),"01/01/1992");
+        log("I update the rejected DOB field" ,
+                "I have updated the rejected DOB field");    }
 
     @And("^I update the accepted \"([^\"]*)\" field$")
     public void i_update_the_accepted_something_field(String str){
-        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),Keys.chord(Keys.BACK_SPACE));
-        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"4");
+        action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_SSN());
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"1111111111");
+        log("I update the approved SSN field" ,
+                "I have updated teh approved SSN field");
     }
 
 
@@ -221,6 +226,15 @@ public class Driver_DetailsSteps extends DriverBase {
     public void i_submit_the_updated_application() throws Throwable {
         action.click(Page_Driver_Details.Button_Submit());
         action.click(Page_Driver_Details.Button_ConfirmSubmit());
+        log("I can submit the updated application" ,
+                "I have submitted the updated application");
+    }
 
+    @And("^I logout of driver portal$")
+    public void i_logout_of_driver_portal() throws Throwable {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Link_Logout(),(long) 5000);
+            action.click(Page_Driver_Details.Link_Logout());
+        }catch (StaleElementReferenceException e){ action.click(Page_Driver_Details.Link_Logout());}
     }
 }

@@ -6,6 +6,7 @@ import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_MenuLinksPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 
 public class Admin_DriverVerificationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
@@ -139,5 +140,10 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         testStepAssert.isElementDisplayed(admin_MenuLinksPage.Menu_Dashboard(),"","","");
     }
 
-
+    @Then("^The accepted tick is removed for \"([^\"]*)\" field previously accepted by admin$")
+    public void the_accepted_tick_is_removed_for_something_field_previously_accepted_by_admin(String strArg1) throws Throwable {
+        String s = admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class");
+        testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"Pass","Fail");
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textbox_SSNComment(),"Comment box for SSN should be hidden","Comment box for SSN is hidden","Comment box for SSN is visible");
+    }
 }

@@ -1,5 +1,6 @@
 package com.bungii.web.stepdefinitions.driver;
 
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
@@ -17,6 +18,8 @@ public class Driver_LoginSteps extends DriverBase {
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     Driver_DashboardPage Page_Driver_Dashboard = new Driver_DashboardPage();
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
+    BungiiSteps bungiiSteps = new BungiiSteps();
     ActionManager action = new ActionManager();
 
 
@@ -74,5 +77,14 @@ public class Driver_LoginSteps extends DriverBase {
                 break;
             default: break;
         }
+    }
+
+    @And("^I login to the driver portal as driver \"([^\"]*)\"$")
+    public void i_login_to_the_driver_portal_as_driver_something(String strArg1) throws Throwable {
+        String phone = bungiiSteps.getDriverPhone(strArg1);
+        driverRegistrationSteps.i_navigate_to_something("Bungii Driver URL");
+        driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN link");
+        driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password(phone);
+        driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN button");
     }
 }
