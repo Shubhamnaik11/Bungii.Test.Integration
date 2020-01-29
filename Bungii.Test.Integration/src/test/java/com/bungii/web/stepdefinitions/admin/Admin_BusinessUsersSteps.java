@@ -470,12 +470,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String dirPath= home+"/Downloads/";
 
         cucumberContextManager.setScenarioContext("DIR_PATH",dirPath);
-        File getLatestFile = GetLatestFilefromDir(dirPath);
-        String fileName = getLatestFile.getName();
+        String fileName = "";
+        File getLatestFile;
+        do {
+           getLatestFile = GetLatestFilefromDir(dirPath);
+           fileName = getLatestFile.getName();
+           if(fileName.equalsIgnoreCase(errorFileName))
+               break;
+        }
+        while (fileName.contains(".crdownload"));
+
         String filePath= getLatestFile.getAbsolutePath();
 
         cucumberContextManager.setScenarioContext("FILE_PATH",filePath);
-        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded ("+ fileName +") file name matches with expected ("+errorFileName+")file name","Downloaded ("+ fileName +") file name is not matching with expected ("+errorFileName+") file name");
+        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded ("+ fileName +") file name matches with expected ("+errorFileName+".csv)file name","Downloaded ("+ fileName +") file name is not matching with expected ("+errorFileName+".csv) file name");
 
         log("The "+errorFileName+" file should get downloaded.",
                 "I am able to download the "+errorFileName, true);

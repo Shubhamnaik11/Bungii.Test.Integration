@@ -155,10 +155,14 @@ public class ReportGeneratorUtility {
 	 * @param eventData Map that contains test details
 	 */
 	public void addStackTrace(Map<String, String> eventData) {
-
-		String str = "<tr><td + rightSpan + ></td>";
-		str = str + "<td colspan=8 align='left'> StackTrace : " + eventData.get("actual").toString() + "</td>";
-		stackTraceArray.add(str);
+   if(eventData.get("actual").toString()!= "") {
+       String str = "<tr><td + rightSpan + ></td>";
+       str = str + "<td colspan=8 align='left'>" + eventData.get("actual").toString() + "</td>";
+       stackTraceArray.add(str);
+   }
+   else {
+       stackTraceArray.add("");
+         }
 	}
 
 	/**
