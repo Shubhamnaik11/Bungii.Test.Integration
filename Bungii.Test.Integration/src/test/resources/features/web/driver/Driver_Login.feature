@@ -18,7 +18,6 @@ Feature: Driver_Login
     Then the driver logout from dashboard
 
   @regression
-  @test
   Scenario: Driver_Login_Blank
     When I click "LOG IN button" on driver portal
     Then the driver should "see validation message for blank fields"

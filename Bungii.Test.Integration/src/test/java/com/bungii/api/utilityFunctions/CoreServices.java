@@ -750,11 +750,11 @@ public class CoreServices extends DriverBase {
                 JsonPath jsonPathEvaluator1 = response.jsonPath();
                 if(numberOfDriver==1) {
                     String driverRef = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
-                    rateAndTip(pickupRequestID, custAccessToken, driverRef, paymentMethod, 5.0, 5.0);
+                    rateAndTip(pickupRequestID, custAccessToken, driverRef, paymentMethod, 5.0, 0.0);
                 }else{
                     String driver1Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[0].Driver.DriverRef");
                     String driver2Ref = jsonPathEvaluator1.get("PickupDetails.TripDetails[1].Driver.DriverRef");
-                    rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 5.0, driver2Ref, paymentMethod);
+                    rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 0.0, driver2Ref, paymentMethod);
 
                 }
             }

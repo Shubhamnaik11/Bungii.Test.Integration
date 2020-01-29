@@ -10,6 +10,7 @@ Feature: Driver_Details
     And I click "LOG IN button" on driver portal
 
   @regression
+    @fail
   Scenario: Driver_Details_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Driver Details" page
      Then I should see blank fields validation on "Driver Details" page

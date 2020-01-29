@@ -8,6 +8,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+    @fail
   Scenario: Admin_AddNewPromoter
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
@@ -20,6 +21,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+    @fail
   Scenario: Admin_AddPromotion_To_Promoter_And_Add_Promocodes
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup

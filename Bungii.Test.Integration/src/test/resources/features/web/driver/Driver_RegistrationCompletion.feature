@@ -14,6 +14,7 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Bank Details" page
 
   @regression
+    @fail
   Scenario: Driver_Terms_AgreeUnchecked_ExisitingNonFountainApplication
     When I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page

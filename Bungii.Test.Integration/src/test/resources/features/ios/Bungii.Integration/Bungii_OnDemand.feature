@@ -299,7 +299,7 @@ Feature: Create on demand bungii
       | valid one off    | ONE OFF           | valid nashville            | correct details with promo | oneoff                  |
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
 
-  @regression22a
+  @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user

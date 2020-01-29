@@ -7,6 +7,7 @@ Feature: Admin_BusinessUsers
     Then I should be directed to "Customers Page"
 
   @regression
+  @fail
   Scenario: Admin_SortColumnsOnCustomerDashboard
     When I click on "Name" header for "Ascending" order in the "Customer List" table
     Then The column "Name" data gets sorted in "Ascending" order in the "Customer List" table
