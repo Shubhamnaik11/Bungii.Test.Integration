@@ -733,19 +733,18 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then I click "Go Online" button on Home screen on driver app
-    And I Open "customer" application on "same" devices
+    And I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
+    And I Switch to "customer" application on "same" devices
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" on the alert message
     And I click "ACCEPT" button on "Bungii Request" screen
 
-    And I Open "customer" application on "same" devices
     And I Switch to "customer" application on "same" devices
-
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select 1st trip from scheduled bungii
     When I wait for 1 hour for Bungii Schedule Time
@@ -1443,7 +1442,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression12
+  @regression
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -1470,7 +1469,7 @@ Feature: SoloScheduled
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  @regression12
+  @regression
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1506,6 +1505,7 @@ Feature: SoloScheduled
     Then Bungii driver should see "correct details for duo trip" on Bungii completed page
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
+    @regression
   Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
