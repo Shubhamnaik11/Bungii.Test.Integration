@@ -390,6 +390,13 @@ public class PromosSteps extends DriverBase {
 
     }
 
+
+
+    @Then("^I should not see the expired promo code on the Promos page$")
+    public void i_should_not_see_the_expired_promo_code_on_the_promos_page() throws Throwable {
+        testStepAssert.isNotElementDisplayed(promoPage.PromoCode_J0W1(true), "Promo code should not be displayed", "Promo code is not displayed", "Promo code is displayed");
+    }
+
     @And("^I select the added promo code$")
     public void i_select_the_added_promo_code() throws Throwable {
         Thread.sleep(3000);
