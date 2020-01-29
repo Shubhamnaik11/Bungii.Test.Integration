@@ -829,6 +829,18 @@ public class GeneralUtility extends DriverBase {
                 isDisplayed = true;
             }
         }
+        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel(true))) {
+                action.click(otherAppsPage.Notification_DriverBungiiCancel());
+                isDisplayed = true;
+            }
+        }
+        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.finish.bungii"))) {
+        if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii(true))) {
+            action.click(otherAppsPage.Notification_CustomerFinsihBungii());
+            isDisplayed = true;
+        }
+    }
         return isDisplayed;
     }
 
@@ -869,6 +881,18 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "CUSTOMER CANCELLED SCHEDULED BUNGII":
                     text = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
+                    break;
+                case "OTHER DRIVER CANCELLED BUNGII":
+                    text = PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification");
+                    break;
+                case "CUSTOMER-JUST FINISHED BUNGII":
+                    text=PropertyUtility.getMessage("customer.finish.bungii");
+                    break;
+                case "TIP RECEIVED 5 DOLLAR":
+                    String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    String expectedCustomerName = custName.substring(0, custName.indexOf(" ") + 2);
+                    text = PropertyUtility.getMessage("driver.received.5.dollar.tip");
+                    text=text.replace("<Customer Name>", expectedCustomerName);
                     break;
             }
 

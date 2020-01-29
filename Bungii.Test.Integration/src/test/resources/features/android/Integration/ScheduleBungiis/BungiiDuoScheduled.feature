@@ -1174,7 +1174,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression12
+  @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence    | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
@@ -1361,3 +1361,48 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     When I Switch to "driver" application on "same" devices
     And I click on notification for "DRIVER CANCELLED BUNGII"
+
+  @regression
+  Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
+      | Kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1    | Kansas driver 2 |
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    When I Switch to "customer" application on "same" devices
+    #driver1 in background
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 2" driver
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+
+    When I switch to "ORIGINAL" instance
+    Then I click on notification for "OTHER DRIVER CANCELLED BUNGII"
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+
+  @regression
+  Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
+      | Kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1    | Kansas driver 2 |
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    #driver1 in foregroundground
+    And I connect to "extra1" using "Driver1" instance
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 2" driver
+
+    And I click the "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on the alert message
+
+    When I switch to "ORIGINAL" instance
+    Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed

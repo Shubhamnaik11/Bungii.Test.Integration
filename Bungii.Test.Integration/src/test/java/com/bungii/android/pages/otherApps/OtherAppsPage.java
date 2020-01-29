@@ -57,4 +57,6 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_DriverEnroute(){return findElement("//android.widget.TextView[@text='Your Bungii driver(s) are en route!']", LocatorType.XPath);}
     public WebElement Notification_ReceiveBungiiRequest() {return findElement("//*[@resource-id='android:id/text' and @text='You’re receiving a Bungii request.']",LocatorType.XPath);}
     public WebElement Notification_ScheduledUrgent(boolean... ignoreException) { return findElement("//*[@text=\"URGENT: A Bungii driver had an emergency & needs coverage for their trip. Please accept if available.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_DriverBungiiCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency one of the drivers had to cancel the trip. The trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_CustomerFinsihBungii(boolean... ignoreException) { return findElement("//*[@text=\"Just finished? Don’t forget to rate your driver.\"]", LocatorType.XPath,ignoreException); }
 }

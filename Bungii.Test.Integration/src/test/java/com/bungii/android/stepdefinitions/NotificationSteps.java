@@ -3,6 +3,7 @@ package com.bungii.android.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.android.manager.ActionManager;
@@ -13,6 +14,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
@@ -46,8 +48,14 @@ public class NotificationSteps extends DriverBase {
             log("Checking notifications","Checking notifications",true);
             switch (expectedNotification)
             {
-                case "SCHEDULED PICKUP AVAILABLE":
-
+                case "TIP RECEIVED 5 DOLLAR":
+                    String text=null;
+                    String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+                    String expectedCustomerName = custName.substring(0, custName.indexOf(" ") + 2);
+                    text = PropertyUtility.getMessage("driver.received.5.dollar.tip");
+                    text=text.replace("<Customer Name>", expectedCustomerName);
+                    action.click(getLocatorForBungii(text));
+                    notificationClick=true;
                     break;
 
                 case "DRIVERS ARE ENROUTE":
@@ -157,39 +165,11 @@ public class NotificationSteps extends DriverBase {
     }
 
 
-    /*public boolean clickNotification(String application, String Message) throws XPathExpressionException, ParserConfigurationException, IOException, SAXException, InterruptedException {
-        boolean clicked = false;
-        try {
-            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
+    public WebElement getLocatorForBungii(String message) {
+        WebElement Select_notification = otherAppsPage.findElement("//*[@text='" + message + "']", PageBase.LocatorType.XPath);
 
-            String androidVersion = driver.getCapabilities().getCapability("platformVersion").toString();
-            List<WebElement> elements = new ArrayList<WebElement>();
-
-            elements = notificationPage.Cell_Notification();
-
-            for (WebElement notifcation : elements) {
-                String[] info = notifcation.getAttribute("label").split(",", 3);
-                System.err.println(info[0] + " ||  " + info[2]);
-                if (application.equalsIgnoreCase(info[0].trim()) && Message.equals(info[2].trim())) {
-                    action.swipeRight(notifcation);
-                    clicked = true;
-                    break;
-                }
-
-                if (cleared)
-                    log("I should able cleared all notification", "I cleared all notification");
-                else
-                    log("I should able cleared all notification",
-                            "Not notification found on device");
-
-                //action.hideNotifications();
-                ((AppiumDriver) SetupManager.getDriver()).activateApp(bunddleId);
-            }
-        }catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }
-    }*/
+        return Select_notification;
+    }
 
     public boolean clearAllNotifcation() throws InterruptedException {
         boolean cleared = false;

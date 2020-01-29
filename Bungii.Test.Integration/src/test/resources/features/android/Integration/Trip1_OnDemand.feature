@@ -332,7 +332,7 @@ Feature: On Demand Bungii
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
@@ -722,3 +722,44 @@ Feature: On Demand Bungii
     Examples:
       | Scenario            | Promo Code    | User            |Expected value in admin |
       | Promoter type       | promoter type | valid baltimore |promoter                |
+
+
+  @regression
+  Scenario:CUSTOMER Notification - Bungii Complete
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | baltimore | Enroute      |
+
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+    Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+
+  @regression
+  Scenario:DRIVER Notification - Tip
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | baltimore | UNLOADING ITEM      |
+
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid baltimore" customer
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid baltimore" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+    When I give tip to Bungii Driver with following tip and Press "OK" Button
+      | Tip |
+      | 5   |
+    And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
+    And I click "On To The Next One" button on the "Bungii Completed" screen

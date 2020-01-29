@@ -13,6 +13,7 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.google.common.collect.ImmutableMap;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import cucumber.api.java.en.And;
@@ -21,6 +22,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -50,6 +52,7 @@ public class CommonSteps extends DriverBase {
     BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
     BungiiRequest bungiiRequest=new BungiiRequest();
     BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
+    SignupPage Page_Signup = new SignupPage();
 
     private DbUtility dbUtility = new DbUtility();
     private static String ANDROID_PHOTO_PATH = "/sdcard/Pictures";
@@ -798,6 +801,32 @@ public class CommonSteps extends DriverBase {
         } catch (Exception e) {
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
+        }
+    }
+
+    @And("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
+    public void i_enter_something_value_in_something_field_in_something_page(String value, String field, String screen, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+            String referralCode=dataMap.get("Referral Code").trim();
+
+            switch (field.toUpperCase()) {
+                case "REFERRAL CODE":
+                    action.click(Page_Signup.CheckBox_Promo());
+                    action.click(Page_Signup.TextField_Referral());
+                    action.sendKeys(Page_Signup.TextField_Referral(),referralCode);
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            log("I should able to Enter " + referralCode + " value in " + field + " field in " + screen + " Page",
+                    "I Entered " + referralCode + " in " + field + " field", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
 
