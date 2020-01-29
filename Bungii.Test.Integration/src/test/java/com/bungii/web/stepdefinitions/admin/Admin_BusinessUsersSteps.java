@@ -475,7 +475,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String filePath= getLatestFile.getAbsolutePath();
 
         cucumberContextManager.setScenarioContext("FILE_PATH",filePath);
-        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded file name matches with expected file name","Downloaded file name is not matching with expected file name");
+        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded ("+ fileName +") file name matches with expected ("+errorFileName+")file name","Downloaded ("+ fileName +") file name is not matching with expected ("+errorFileName+") file name");
 
         log("The "+errorFileName+" file should get downloaded.",
                 "I am able to download the "+errorFileName, true);
@@ -667,7 +667,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     "I clicked the "+Name+" button", true);
         }
 
-        @When("I change the status to {string}")
+        @When("I change the status to \"([^\"]*)\"")
         public void i_change_the_status_to(String string) {
             // Write code here that turns the phrase above into concrete actions
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");

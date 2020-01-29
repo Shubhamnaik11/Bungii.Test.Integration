@@ -193,7 +193,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     "I have clicked on " + button + " icon", true);
         }
 
-    
+
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_something_as_something1(String CodeType, String value) throws Throwable {

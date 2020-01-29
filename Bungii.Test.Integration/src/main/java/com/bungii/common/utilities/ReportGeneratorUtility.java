@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -22,6 +23,7 @@ public class ReportGeneratorUtility {
 	private Writer bufWriter1, fileWriter;
 	private ArrayList<String> detailsArray = new ArrayList<String>();
 	private ArrayList<String> summaryArray = new ArrayList<String>();
+	private ArrayList<String> stackTraceArray = new ArrayList<String>();
 
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
@@ -142,8 +144,21 @@ public class ReportGeneratorUtility {
 		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 
 		detailsArray.add(str);
+		if (eventData.get("type").toString() != "PASSED") {
+			detailsArray.addAll(stackTraceArray);
+		}
 		//increase step count ;
 		testStepCount++;
+	}
+	/**
+	 * Add test case step data to file buffer
+	 * @param eventData Map that contains test details
+	 */
+	public void addStackTrace(Map<String, String> eventData) {
+
+		String str = "<tr><td + rightSpan + ></td>";
+		str = str + "<td colspan=8 align='left'> StackTrace : " + eventData.get("actual").toString() + "</td>";
+		stackTraceArray.add(str);
 	}
 
 	/**
