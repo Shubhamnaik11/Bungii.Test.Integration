@@ -283,21 +283,9 @@ Feature: SoloScheduled
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
-      Given that solo schedule bungii is in progress
-        | geofence | Bungii State | Bungii Time   |
-        | kansas      | Scheduled     | NEXT_POSSIBLE |
-      When I am logged in as "valid" customer
-      And I tap on "Menu" > "MY BUNGIIS" link
-      Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
-      Then I cancel all bungiis of customer
-        | Customer Phone  | Customer2 Phone |
-        | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-
-  @regression
-  Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Scheduled    | NEXT_POSSIBLE |
+      | kansas   | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
@@ -349,7 +337,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
-  @regression
+  @regression1
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -725,7 +713,7 @@ Feature: SoloScheduled
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | Kansas1   | Accepted     | 0.75 hour ahead |
+      | Kansas   | Accepted     | 0.75 hour ahead |
     And I Open "customer" application on "same" devices
     When I am on customer Log in page
     When I am logged in as "valid" customer
@@ -758,7 +746,7 @@ Feature: SoloScheduled
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas1   | Accepted     | 1 hour ahead |
+      | Kansas   | Accepted     | 1 hour ahead |
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid" customer
@@ -1297,7 +1285,7 @@ Feature: SoloScheduled
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas1   | Accepted     | 0.5 hour ahead |
+      | kansas   | Accepted     | 0.5 hour ahead |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1315,7 +1303,7 @@ Feature: SoloScheduled
   Scenario: check TELET of re-searched trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
     Then Telet time of current trip should be correctly calculated
     And I Switch to "driver" application on "same" devices
@@ -1337,7 +1325,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1375,7 +1363,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -1411,7 +1399,7 @@ Feature: SoloScheduled
   Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas   | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1430,7 +1418,7 @@ Feature: SoloScheduled
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas1   | Accepted     | 1.5 hour ahead |
+      | kansas   | Accepted     | 1.5 hour ahead |
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
@@ -1446,7 +1434,7 @@ Feature: SoloScheduled
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | Kansas   | unloading items     | NEXT_POSSIBLE   | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+      | Kansas  | unloading items     | NEXT_POSSIBLE   | Kansas customer | Kansas driver 1 | Kansas driver 2 |
 
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -1469,7 +1457,7 @@ Feature: SoloScheduled
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  @regression
+  @regression1
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

@@ -76,6 +76,7 @@ public class UpdateStatusSteps extends DriverBase {
     @Then("^non control driver should see \"([^\"]*)\" screen$")
     public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
         try{
+            System.out.println(strArg1);
             //testStepVerify.isElementEnabled(updateStatusPage.Activity_loader(true)," Driver should be shown loader screen");
            // testStepVerify.isElementTextEquals(updateStatusPage.Text_WaitingForDriver(),"Waiting for the other driver to end Bungii.");
 

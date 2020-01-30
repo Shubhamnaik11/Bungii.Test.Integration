@@ -533,7 +533,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Home" screen
     When I Select "PROMOS" from Customer App menu
     And I should able to see expected promo code in available promo code
-    Then I should see "first time code subtext" on Promos
+    Then I should see "first time code subtext" on Promos page
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add-Button" button on "PAYMENT" screen

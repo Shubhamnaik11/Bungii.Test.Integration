@@ -354,7 +354,7 @@ public class BungiiSteps extends DriverBase {
 
             }
             if (notificationClick) {
-                fail("I should not get notification for " + expectedNotification, "I should not get notification for " + expecteMessage, true);
+                fail("I should get notification for " + expectedNotification, "I should not get notification for " + expecteMessage, true);
             } else {
                 pass("I should not able to click notification for" + expectedNotification, "I was not able t notifications with text" + expecteMessage, true);
                 action.hideNotifications();
@@ -372,9 +372,8 @@ public class BungiiSteps extends DriverBase {
         try {
             action.showNotifications();
 
-            String expectedMessage = utility.getExpectedNotification(actionToPerfrom);
-            boolean isDisplayed = true;
-                    //action.isElementPresent();
+            boolean isDisplayed = isNotificationTextPresent(actionToPerfrom);
+            String expectedMessage= (String) cucumberContextManager.getScenarioContext("EXPECTED_MESSAGE");
 
             testStepVerify.isTrue(isDisplayed, actor + " should be notified for " + expectedMessage, actor + " was notified for " + expectedMessage, "Not able to get notification with text for '" + expectedMessage + "' for" + actor);
             action.hideNotifications();
@@ -974,5 +973,27 @@ public class BungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+    private boolean isNotificationTextPresent(String actionToPerfrom){
+        boolean isDisplayed = false;
+        try{
+
+        String expectedMessage=utility.getExpectedNotification(actionToPerfrom);
+        if(expectedMessage.isEmpty())
+        {
+            isDisplayed=false;
+        }
+        else {
+            isDisplayed = true;
+            cucumberContextManager.setScenarioContext("EXPECTED_MESSAGE", expectedMessage);
+        }
+    }
+        catch (Exception e)
+    {
+        logger.error("Error performing step", e);
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+        return isDisplayed;
     }
 }

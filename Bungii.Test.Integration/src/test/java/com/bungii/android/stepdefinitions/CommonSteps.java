@@ -91,7 +91,6 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-                    Thread.sleep(5000);
                     //  utility.launchDriverApplication();
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
@@ -100,7 +99,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-                    Thread.sleep(5000);
+
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -544,6 +543,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CUSTOMER HAS ONGOING BUNGII":
                     expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
                 case "FOR EMERGENCY CONTACT SUPPORT LINE":
                     expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;

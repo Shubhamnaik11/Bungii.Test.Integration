@@ -105,6 +105,18 @@ public class NotificationSteps extends DriverBase {
             case "SCHEDULED PICKUP ACCEPTED":
                 text=PropertyUtility.getMessage("customer.notification.scheduled.driver.accepted");
                 break;
+            case "STACK TRIP":
+                text=PropertyUtility.getMessage("driver.notification.stack");
+                break;
+            case "CUSTOMER CANCEL STACK TRIP":
+                text = PropertyUtility.getMessage("driver.notification.stack.cancel");
+                break;
+            case "DRIVER ACCEPTED STACK BUNGII":
+                text=PropertyUtility.getMessage("customer.notification.driver.accepted.stack");
+                break;
+            case "DRIVER STARTED STACK BUNGII":
+                text=PropertyUtility.getMessage("customer.notification.driver.started.stack");
+                break;
             case "URGENT SCHEDULED PICKUP AVAILABLE":
                 text = PropertyUtility.getMessage("driver.notification.scheduled.urgent");
                 break;
