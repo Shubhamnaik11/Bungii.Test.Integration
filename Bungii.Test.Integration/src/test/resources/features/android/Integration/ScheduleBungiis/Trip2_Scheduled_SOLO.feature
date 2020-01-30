@@ -690,7 +690,7 @@ Feature: SoloScheduled
     And I Select "Scheduled Trip" from admin sidebar
     And I verify status and researches Bungii with following details
       | label                | Status of Trip                 |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) didn't accept pickup |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
 
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state | label                |
@@ -1267,7 +1267,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -1296,7 +1296,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -1326,7 +1326,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
@@ -1351,7 +1351,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
