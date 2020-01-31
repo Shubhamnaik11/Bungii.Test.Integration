@@ -489,7 +489,10 @@ catch (Exception ex){}
         log("The "+errorFileName+" file should get downloaded.",
                 "I am able to download the "+errorFileName, true);
     }
-
+    @Then("^the error \"([^\"]*)\" is displayed$")
+    public void the_error_something_is_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
+    }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
         String filePath = cucumberContextManager.getScenarioContext("FILE_PATH").toString();
@@ -518,9 +521,7 @@ catch (Exception ex){}
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-                        case "Please check the CSV for errors.":
-                            testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
-                            break;
+
                     }
 
 
