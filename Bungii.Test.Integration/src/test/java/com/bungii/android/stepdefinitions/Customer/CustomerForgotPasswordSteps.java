@@ -84,6 +84,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                 case "less than 10 digit":
                     action.sendKeys(forgotPasswordPage.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer_LessThan10.phonenumber"));
                     break;
+                case "Valid_ToBeLocked":
+                    action.sendKeys(forgotPasswordPage.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -105,6 +108,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     Thread.sleep(2000);
                     String SMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), SMSCode);
+                    break;
+                case "valid code for locked":
+                    action.sendKeys(forgotPasswordPage.TextField_SMSCode(), dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer.ValidToBeLockedUser")));
                     break;
                 case "invalid":
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PropertyUtility.getDataProperties("verificationcode.incorrect"));

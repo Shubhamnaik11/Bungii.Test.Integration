@@ -7,10 +7,7 @@ import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.manager.ResultManager;
-import com.bungii.common.utilities.FileUtility;
-import com.bungii.common.utilities.LogUtility;
-import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
+import com.bungii.common.utilities.*;
 import com.bungii.ios.stepdefinitions.driver.LogInSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
@@ -69,7 +66,7 @@ public class CucumberHooks {
             //adding ternary operator in logger is creating issue
             String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
             logger.detail("Device On which test will be run is : " +device );
-            //Create new default driver instance and save it
+
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,10 +87,12 @@ public class CucumberHooks {
      * @param scenario Scenario that is being executed
      */
     @Before
-    public void beforeTest(Scenario scenario) {
+    public void beforeTest( Scenario scenario) {
 
         logger.detail("**********************************************************************************");
-        String[] rawFeatureName = scenario.getId().split("features/")[1].split("/")[2].split(":");
+        String[] rawFeature = scenario.getId().split("features/")[1].split("/");
+        String[] rawFeatureName = rawFeature[rawFeature.length-1].split(":");
+
 
         logger.detail("Feature: " + rawFeatureName[0]);
         logger.detail("Starting Scenario: " + scenario.getName());
@@ -148,7 +147,8 @@ public class CucumberHooks {
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
-                    logger.detail(" PAGE SOURCE:" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.detail(" PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.detail(" FAILED TEST SCENARIO : " + scenario.getName());
 
                 } catch (Exception e) {
                 }

@@ -72,7 +72,7 @@ public class ReportGeneratorUtility {
 	public void createResultFileFromTemplate(){
 	    try {
 
-			File result= new File(detailsFolderPath+this.featureName.replace(".feature","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature","").replace(" ","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";

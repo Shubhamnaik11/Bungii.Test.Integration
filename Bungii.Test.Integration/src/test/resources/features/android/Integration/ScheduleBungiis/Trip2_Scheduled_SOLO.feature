@@ -674,15 +674,19 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @DUO_SCH_DONOT_ACCEPT
+  #@DUO_SCH_DONOT_ACCEPT
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
-    Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
+  #  Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
+    When I request "duo" Bungii as a customer in "kansas" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
+      | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
     When I am on customer Log in page
-    When I enter customers "8888888881" Phone Number
+    When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
-    And I wait for Minimum duration for "DUO_SCH_DONOT_ACCEPT" Bungii to be in Driver not accepted state
+    And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
+    Then I wait for "3" mins
     When I Switch to "driver" application on "same" devices
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -690,16 +694,16 @@ Feature: SoloScheduled
     And I Select "Scheduled Trip" from admin sidebar
     And I verify status and researches Bungii with following details
       | label                | Status of Trip                 |
-      | DUO_SCH_DONOT_ACCEPT | Driver(s) didn't accept pickup |
+      | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
 
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
-      | driver1 state | driver2 state | label                |
-      | Accepted      | Accepted      | DUO_SCH_DONOT_ACCEPT |
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
     When I Switch to "driver" application on "ORIGINAL" devices
     Then I click on notification for "SCHEDULED PICKUP ACCEPTED"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8888888881     |                 |
+      | 8805368840     |                 |
 
 
   @regression
@@ -1267,7 +1271,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -1296,7 +1300,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
@@ -1326,7 +1330,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
@@ -1351,7 +1355,7 @@ Feature: SoloScheduled
     When I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
-    Then for a Bungii I should see "Bungii Home page with locations"
+    Then "Home" page should be opened
 
     And I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |

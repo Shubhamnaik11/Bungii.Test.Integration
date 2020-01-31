@@ -76,3 +76,14 @@ Feature: Login
     When I enter customers "invalid" Password
     And I tap on the "Log in" Button on Login screen
     Then The user should see "Invalid login credentials. Your account has been locked message" on log in page
+    And I tap on the "Forgot Password" Link
+    When I enter "Valid_ToBeLocked" Phone Number
+    And I tap on the "Send" Link
+    And I enter "valid code for locked" SMS code
+    And I enter customers new "valid" Password
+    And I tap on the "Continue" Link
+ #   Then The user should see "snackbar validation message for success once I click continue" on forgot password page
+    And The user should be logged in
+    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then "Estimate" page should be opened

@@ -76,7 +76,7 @@ public class BungiiCompletedSteps extends DriverBase {
             String tripTime =utility.getActualTime();
 
             String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),actualTotalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
-            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" mins") ||totalTime.equalsIgnoreCase(tripTime+" mins"),"Total time should contains "+tripTime+" minute");
+            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" mins") ||totalTime.equalsIgnoreCase(tripTime+" min"),"Total time should contains "+tripTime+" minute");
            // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
             testStepVerify.isEquals(actualTotalDistance,tripDistance);
             testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);

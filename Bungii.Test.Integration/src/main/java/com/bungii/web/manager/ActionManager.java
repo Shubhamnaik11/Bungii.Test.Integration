@@ -46,7 +46,7 @@ public class ActionManager {
      */
     public void sendKeys(WebElement element, String text) {
         try {
-            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            //new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.(element));
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element" + element.toString());
         }
