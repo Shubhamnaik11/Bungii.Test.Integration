@@ -1,10 +1,11 @@
 @web
-Feature: Admin_Trips
+Feature: Admin_Trips aaa
 
   Background:
     Given I am logged in as Admin
 
   @regression
+  @fail
     #test data created in base
   Scenario: Customer List - Solo Scheduled Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -31,6 +32,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -60,6 +62,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -89,6 +92,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
     #test data created in base
   Scenario: Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -113,6 +117,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
     #test data created in base
     #changed driver name
     #First time promo code added
@@ -151,6 +156,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+    @fail
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Trips List Statuses - Solo Ondemand
@@ -206,6 +212,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
     #test data created in base
   Scenario: Trips List Statuses - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -267,6 +274,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
    Scenario: Status on admin portal - Duo - Both drivers have accepted trip
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -301,6 +309,7 @@ Feature: Admin_Trips
     Then All the clients named "Vishal" should be displayed on the trip list grid
 
   @regression
+  @fail
   Scenario: Admin_Filter_TripList
     When I click on "Trips > Trips" Menu
     And I click on "Filter" icon on "Trips" Page
@@ -309,6 +318,9 @@ Feature: Admin_Trips
     When I select filter "Statuses" as "Payment Unsuccessful"
     And I click on "Apply" button on "Trips" page
     Then the triplist grid shows the results by type "Payment Unsuccessful Status"
+    When I select filter "Statuses" as "Driver Not Arrived"
+    And I click on "Apply" button on "Trips" page
+    Then the triplist grid shows the results by type "Driver Not Arrived Status"
     When I select filter "Statuses" as "Payment Successful"
     And I click on "Apply" button on "Trips" page
     Then the triplist grid shows the results by type "Payment Successful Status"
@@ -330,9 +342,6 @@ Feature: Admin_Trips
     When I select filter "Statuses" as "Driver(s) Not Found"
     And I click on "Apply" button on "Trips" page
     Then the triplist grid shows the results by type "Driver(s) Not Found Status"
-    When I select filter "Statuses" as "Driver Not Arrived"
-    And I click on "Apply" button on "Trips" page
-    Then the triplist grid shows the results by type "Driver Not Arrived Status"
     When I select filter "Statuses" as "Driver Removed"
     And I click on "Apply" button on "Trips" page
     Then the triplist grid shows the results by type "Driver Removed Status"
@@ -355,6 +364,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @fail
   Scenario: Driver - Driver Does Not receive On Demand requests if he is Not assigned to the geofence in which his current location is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

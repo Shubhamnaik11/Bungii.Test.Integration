@@ -460,11 +460,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         errorFileName=errorFileName+"_errors";
         String home = System.getProperty("user.home");
         File file = new File(home+"/Downloads/" + errorFileName + ".csv");
-
-        if(file.exists())
-        {
-            file.delete();
-        }
+try {
+    if (file.exists()) {
+        file.delete();
+    }
+}
+catch (Exception ex){}
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
         Thread.sleep(2000);
         String dirPath= home+"/Downloads/";
@@ -534,8 +535,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
-        File file = new File(filePath);
-        file.delete();
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        catch (Exception ex){}
     }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
