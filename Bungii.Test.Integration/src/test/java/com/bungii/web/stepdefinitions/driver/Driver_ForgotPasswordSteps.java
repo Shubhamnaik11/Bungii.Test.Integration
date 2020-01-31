@@ -111,6 +111,7 @@ public class Driver_ForgotPasswordSteps extends DriverBase {
                 break;
             case "new verification code":
                 String Code_Initial =(String) cucumberContextManager.getScenarioContext("Code_Initial");
+                Thread.sleep(4000);
                 String Code_New = DbUtility.getVerificationCode(PropertyUtility.getDataProperties("DriverPhoneNumber"));
                 testStepAssert.isFalse(Code_Initial.equals(Code_New),"New Code should not be equal to old code ","New code is equal to old code");
                 break;

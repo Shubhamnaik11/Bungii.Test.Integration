@@ -187,7 +187,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         Thread.sleep(4000);
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-
+        Thread.sleep(4000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
@@ -478,7 +478,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
            if(fileName.equalsIgnoreCase(errorFileName))
                break;
         }
-        while (fileName.contains(".crdownload"));
+        while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
 
         String filePath= getLatestFile.getAbsolutePath();
 
@@ -522,7 +522,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
 
+
                 }
+
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -532,6 +534,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+        File file = new File(filePath);
+        file.delete();
     }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")

@@ -113,7 +113,7 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        logger.detail(response.then().log().all());
+        logger.detail(response.then().log().body());
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -141,7 +141,7 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        logger.detail(response.then().log().all());
+        logger.detail(response.then().log().body());
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -577,7 +577,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_VIEW);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().all();
+        response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;
@@ -594,7 +594,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_VIEW);
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().all();
+        response.then().log().body();
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -902,7 +902,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDPICKUPLIST);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().all();
+        response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;
@@ -935,7 +935,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickupRequestid).when().
                 get(apiURL);
-        response.then().log().all();
+        response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;

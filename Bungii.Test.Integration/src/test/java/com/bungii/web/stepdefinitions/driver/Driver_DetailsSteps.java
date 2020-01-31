@@ -158,6 +158,8 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_Bank.Button_BankNext());
                 break;
             case "Terms & Conditions":
+                if(Page_Driver_Terms.CheckBox_Agree().isSelected())
+                action.click(Page_Driver_Terms.CheckBox_Agree());
                 action.click(Page_Driver_Terms.Button_TermsNext());
                 break;
             case "Video Training":
