@@ -80,3 +80,20 @@ Feature: Log In
     Examples:
       | Expected Message                                                                                                      |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
+
+  @regression1
+  Scenario: Permission - Android Driver - Location
+    Given I have device which has location permission
+    Given I install Bungii Driver App again
+    Given I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    When I enter phoneNumber :{VALID} and  Password :{VALID}
+    And I click "Log In" button on Log In screen on driver app
+    Then "DRIVER's LOCATION" page should be opened
+    And I should see "all details" on allow location driver screen
+    When I verify and allow access of Location from Bungii driver application
+    Then I should be navigated to Home screen on driver app
+    When I Select "LOGOUT" from driver App menu
+    When I enter phoneNumber :{VALID} and  Password :{VALID}
+    And I click "Log In" button on Log In screen on driver app
+    Then I should be navigated to Home screen on driver app
