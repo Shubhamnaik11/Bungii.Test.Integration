@@ -81,7 +81,7 @@ Feature: Log In
       | Expected Message                                                                                                      |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
 
-  @regression1
+  @regression
   Scenario: Permission - Android Driver - Location
     Given I have device which has location permission
     Given I install Bungii Driver App again
