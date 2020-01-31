@@ -31,11 +31,19 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.warning;
+import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
@@ -253,7 +261,27 @@ public class GeneralUtility extends DriverBase {
             case "INVITE":
                 isCorrectPage = action.isElementPresent(invitePage.Header_Invite());
                 break;
+            case "SCHEDULED BUNGII":
+                isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiiSolo(true));
+                break;
+            case "SCHEDULED BUNGIIS":
+                isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiisSolo(true));
+            break;
             default:
+                String expectedMessage = p0;
+                try {
+                    if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
+                        Thread.sleep(9000);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
+                isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+                if (!isCorrectPage) {
+                    action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
+                    isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+                }
                 break;
         }
         return isCorrectPage;
@@ -816,31 +844,28 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
-        }
-            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
-                if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
-                    action.click(otherAppsPage.Notification_OtherDriverCancel());
-                    isDisplayed = true;
-                }
-        }
-        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
+        } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+                action.click(otherAppsPage.Notification_OtherDriverCancel());
+                isDisplayed = true;
+            }
+        } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
             if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
                 action.click(otherAppsPage.Notification_CustomerCancel());
                 isDisplayed = true;
             }
-        }
-        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification"))) {
+        } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.other.driver.bungii.cancel.notification"))) {
             if (action.isElementPresent(otherAppsPage.Notification_DriverBungiiCancel(true))) {
                 action.click(otherAppsPage.Notification_DriverBungiiCancel());
                 isDisplayed = true;
             }
+        } else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.finish.bungii"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii(true))) {
+                action.click(otherAppsPage.Notification_CustomerFinsihBungii());
+                isDisplayed = true;
+            }
+
         }
-        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.finish.bungii"))) {
-        if (action.isElementPresent(otherAppsPage.Notification_CustomerFinsihBungii(true))) {
-            action.click(otherAppsPage.Notification_CustomerFinsihBungii());
-            isDisplayed = true;
-        }
-    }
         return isDisplayed;
     }
 
@@ -894,6 +919,39 @@ public class GeneralUtility extends DriverBase {
                     text = PropertyUtility.getMessage("driver.received.5.dollar.tip");
                     text=text.replace("<Customer Name>", expectedCustomerName);
                     break;
+                case "SCHEDULED PICKUP AVAILABLE":
+                    text = PropertyUtility.getMessage("driver.notification.scheduled");
+                    //	$<Day>, $<MONTH> <$Date>
+
+                    String schDate = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+                    String geofenceLabel = getTimeZoneBasedOnGeofenceId();
+
+
+                    //	DateFormat format = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyyy", Locale.ENGLISH);
+                    DateFormat format = new SimpleDateFormat("MMM dd, HH:mm a zzz", Locale.ENGLISH);
+                    try {
+                        format.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+                        Date date = format.parse(schDate);
+                        Date currentDate = new Date();
+                        //int year=currentDate.getYear()+1900;
+                        date.setYear(currentDate.getYear());
+                        int month = date.getMonth();
+                        String strMonth = getMonthForInt(month);
+                        int dayOfMonth = date.getDate();
+                        String dayOfMonthStr = String.valueOf(dayOfMonth) + getDayOfMonthSuffix(dayOfMonth);
+
+                        SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                        String dayOfWeek = simpleDateformat.format(date);
+
+                        text = text.replace("$<Day>", dayOfWeek);
+                        text = text.replace("$<MONTH>", strMonth);
+                        text = text.replace("$<Date>", dayOfMonthStr);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
             }
 
         } catch (Exception e) {
@@ -903,7 +961,32 @@ public class GeneralUtility extends DriverBase {
         }
         return text;
     }
+    String getMonthForInt(int num) {
+        String month = "wrong";
+        DateFormatSymbols dfs = new DateFormatSymbols();
+        String[] months = dfs.getMonths();
+        if (num >= 0 && num <= 11) {
+            month = months[num];
+        }
+        return month;
+    }
 
+    String getDayOfMonthSuffix(final int n) {
+        checkArgument(n >= 1 && n <= 31, "illegal day of month: " + n);
+        if (n >= 11 && n <= 13) {
+            return "th";
+        }
+        switch (n % 10) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
     public void selectBungiiTime() {
         action.click(estimatePage.Time());
         action.click(estimatePage.Button_Later());

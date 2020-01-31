@@ -337,7 +337,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8805368840 |    |
 
-  @regression1
+  @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -828,13 +828,13 @@ Feature: SoloScheduled
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | now           | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
-    Then I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    Then I click on notification for the "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "View" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    And "correct scheduled trip details" should be displayed on Bungii request screen
-    When I accept selected Bungii
     Then I should be navigated to "SCHEDULED BUNGII" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I click "ACCEPT" button on Bungii Request screen
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
     And I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
@@ -850,7 +850,7 @@ Feature: SoloScheduled
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   |
-    Then I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    Then I click on notification for the "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
@@ -862,7 +862,7 @@ Feature: SoloScheduled
     And I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
-    And I click on notification for "SCHEDULED PICKUP AVAILABLE"
+    And I click on notification for the "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
@@ -1141,6 +1141,7 @@ Feature: SoloScheduled
     And I Select Trip from driver scheduled trip
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
 
+  @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1457,7 +1458,7 @@ Feature: SoloScheduled
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  @regression1
+  @regression
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1481,7 +1482,7 @@ Feature: SoloScheduled
     Then non control driver should see "waiting for other driver" screen
 
     When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
+    Then for a Bungii I should see "Unloading Item screen"
 	#control driver complete bungii
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
       | driver1 state    |

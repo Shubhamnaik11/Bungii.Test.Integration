@@ -1174,14 +1174,14 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression
+  @regression1
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence    | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
       | Kansas      | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1    | Kansas driver 2 |
 
     And I Switch to "customer" application on "same" devices
-    And I am logged in as "Kansas customer" customer
+    And I am logged in as "valid kansas" customer
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

@@ -830,6 +830,22 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @Then("^I should be navigated to \"([^\"]*)\" screen$")
+    public void i_should_be_naviagated_to_something_screen(String screen) {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage(screen);
+            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
         SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");

@@ -51,7 +51,7 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_DistanceValue(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    flestimate=Double.valueOf(estimate.replace("$","").trim());
+                    flestimate=Double.valueOf(estimate.replace("$","").replace("~","").trim());
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
@@ -80,7 +80,7 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isElementEnabled(bungiiRequestPage.Text_Earning(),"Earning tag should be displayed");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueDistance(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    flestimate=Double.valueOf(estimate.replace("$","").trim());
+                    flestimate=Double.valueOf(estimate.replace("$","").replace("~","").trim());
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
