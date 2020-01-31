@@ -83,7 +83,10 @@ public class ScheduledBungiiSteps extends DriverBase {
     @Then("^The status on \"([^\"]*)\" should be displayed as \"([^\"]*)\"$")
     public void the_status_on_something_should_be_displayed_as_something(String strArg1, String status) throws Throwable {
         try {
-            testStepVerify.isElementTextEquals(scheduledBungiisPage.Text_TripStatus(), status);
+            if(status.equalsIgnoreCase("estimated cost"))
+                testStepVerify.isElementTextEquals(scheduledBungiisPage.Text_TripStatus(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+            else
+                testStepVerify.isElementTextEquals(scheduledBungiisPage.Text_TripStatus(), status);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

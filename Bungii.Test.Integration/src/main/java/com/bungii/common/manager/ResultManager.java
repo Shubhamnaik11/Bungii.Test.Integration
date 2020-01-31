@@ -134,4 +134,10 @@ public class ResultManager {
     public static String getScreenShotFolder() {
         return reportManager.getTestScreenShotFolderName();
     }
+
+    public static void setStacktrace(String stackTrace)
+    {
+        reportManager.addStackTrace(getDataMap("", "", stackTrace,"", false));
+
+    }
 }

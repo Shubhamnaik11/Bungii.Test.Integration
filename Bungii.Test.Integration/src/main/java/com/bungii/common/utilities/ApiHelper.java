@@ -7,6 +7,7 @@ import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -15,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.restassured.RestAssured.given;
 
 
@@ -295,10 +297,10 @@ public class ApiHelper {
     }
 
     public static void genericResponseValidation(Response response) {
-        logger.detail(response.print());
-
-        JsonPath jsonPathEvaluator = response.jsonPath();
-        HashMap error = jsonPathEvaluator.get("Error");
+        try {
+            logger.detail(response.print());
+            JsonPath jsonPathEvaluator = response.jsonPath();
+            HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
             System.out.println("**** API Call Pass ****");
@@ -306,7 +308,15 @@ public class ApiHelper {
             System.out.println("**** API Call failed : " + error.toString());
 
         }
-        response.then().statusCode(200);
+
+            response.then().statusCode(200);
+        }
+        catch (AssertionError ex)
+        {
+            logger.error("Error performing step"," API RESPONSE : "+ response.print());
+            error("Step should be successful", "Error performing step, Please check logs for more details",
+                    true);
+        }
 
     }
 

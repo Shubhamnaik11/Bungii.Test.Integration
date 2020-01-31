@@ -10,6 +10,7 @@ import com.bungii.web.pages.driver.Driver_DocumentationPage;
 import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Keys;
 
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -111,7 +112,7 @@ public class Driver_CompleteRegistrationSteps extends DriverBase {
             case "invalid":
                 action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseExpiry(), PropertyUtility.getDataProperties("Date_2015"));
                 action.clearSendKeys(Page_Driver_Doc.TextBox_InsuranceExpiry(), PropertyUtility.getDataProperties("Date_2015"));
-                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber_Existing"));//ZH5J56W3
+                action.clearSendKeys(Page_Driver_Doc.TextBox_LicenseNumber(), PropertyUtility.getDataProperties("DriverLicenseNumber_Existing")+ Keys.TAB);//ZH5J56W3
                 break;
             default:
                 break;

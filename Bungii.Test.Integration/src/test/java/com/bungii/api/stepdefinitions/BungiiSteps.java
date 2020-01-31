@@ -126,7 +126,7 @@ public String getDriverPhone(String driverName)
 }
 
     @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" trip$")
-    public void as_a_driver_something_perform_below_action_with_respective_something_trip(String driverName, String bungiiType, DataTable data) throws Throwable {
+    public void as_a_driver_something_perform_below_action_with_respective_something_trip(String driverName, String bungiiType, DataTable data)  {
         {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             List<Map<String, String>> DataList = data.asMaps();
@@ -244,7 +244,7 @@ public String getDriverPhone(String driverName)
     }
 
         @And("^As a driver \"([^\"]*)\" and \"([^\"]*)\" perform below action with respective \"([^\"]*)\" trip$")
-        public void as_a_driver_something_and_something_perform_below_action_with_respective_something_trip(String driverAName,String driverBName, String bungiiType, DataTable data) throws Throwable {
+        public void as_a_driver_something_and_something_perform_below_action_with_respective_something_trip(String driverAName,String driverBName, String bungiiType, DataTable data){
             {
                 List<Map<String, String>> DataList = data.asMaps();
                 int i = 0;
@@ -391,7 +391,7 @@ public String getDriverPhone(String driverName)
             }
         }
     @When("^I request \"([^\"]*)\" Bungii as a customer in \"([^\"]*)\" geofence$")
-    public void i_request_something_bungii_as_a_customer_in_something_geofence(String bungiiType, String geofence, DataTable data) throws Throwable {
+    public void i_request_something_bungii_as_a_customer_in_something_geofence(String bungiiType, String geofence, DataTable data) {
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String customerLabel="";
@@ -526,7 +526,7 @@ public String getDriverPhone(String driverName)
 
     }
     @Given("^I have already scheduled bungii with \"([^\"]*)\" label$")
-    public void i_have_already_scheduled_bungii_with_something_label(String scenarioLabel) throws Throwable {
+    public void i_have_already_scheduled_bungii_with_something_label(String scenarioLabel)  {
         logger.detail("cucumberContextManager"+cucumberContextManager.toString());
         testStepAssert.isTrue(!((String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+"_"+scenarioLabel)).equals(""),"I should have already scheduled bungii","I should have already scheduled bungii,pickid"+(String)cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST"+scenarioLabel));
     }
@@ -831,7 +831,7 @@ public String getDriverPhone(String driverName)
 
     }
     @When("^I request below Bungiis as a customer$")
-    public void i_request_below_bungiis_as_a_customer(DataTable data) throws Throwable {
+    public void i_request_below_bungiis_as_a_customer(DataTable data)  {
         List<Map<String, String>> DataList = data.asMaps();
         int i =0;
                 while (i < DataList.size()) {
@@ -1349,7 +1349,7 @@ public String getDriverPhone(String driverName)
     }
 
     @And("^The first time promo code should get released$")
-    public void the_first_time_promo_code_should_get_released() throws Throwable {
+    public void the_first_time_promo_code_should_get_released() {
         String custAccessToken = (String) cucumberContextManager.getScenarioContext("CUSTOMER_TOKEN");
         Response promoData=coreServices.getPromoCodes(custAccessToken,"");
         String promo=getPromoCode(promoData,"");
@@ -1374,7 +1374,7 @@ public String getDriverPhone(String driverName)
 
 
     @Then("^The driver \"([^\"]*)\" should receive On Demand requests as he is assigned to \"([^\"]*)\" geofence$")
-    public void the_driver_something_should_receive_on_demand_requests_as_he_is_assigned_to_something_geofence(String driverName, String geofence) throws Throwable {
+    public void the_driver_something_should_receive_on_demand_requests_as_he_is_assigned_to_something_geofence(String driverName, String geofence)  {
         cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
         String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
         String driverAccessToken = "";
@@ -1391,7 +1391,7 @@ public String getDriverPhone(String driverName)
     }
 
     @Then("^the driver \"([^\"]*)\" should not receive On Demand requests as he is assigned NOT to \"([^\"]*)\" geofence$")
-    public void the_driver_something_should_not_receive_on_demand_requests_as_he_is_assigned_not_to_something_geofence(String driverName, String geofence) throws Throwable {
+    public void the_driver_something_should_not_receive_on_demand_requests_as_he_is_assigned_not_to_something_geofence(String driverName, String geofence)  {
         cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
             Boolean isDriverEligible = true;
             String driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
@@ -1410,7 +1410,7 @@ public String getDriverPhone(String driverName)
     }
 
     @When("^I cancel \"([^\"]*)\" of customer \"([^\"]*)\"$")
-    public void i_cancel_something_of_customer_something(String bungii_type, String customer) throws Throwable {
+    public void i_cancel_something_of_customer_something(String bungii_type, String customer){
             String custPhoneCode = "1", custPassword = "";
             custPassword = PropertyUtility.getDataProperties("web.customer.password");
             if (!customer.equalsIgnoreCase("")) {
