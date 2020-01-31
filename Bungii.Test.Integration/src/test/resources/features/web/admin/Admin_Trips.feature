@@ -1,5 +1,5 @@
 @web
-Feature: Admin_Trips aaa
+Feature: Admin_Trips
 
   Background:
     Given I am logged in as Admin
