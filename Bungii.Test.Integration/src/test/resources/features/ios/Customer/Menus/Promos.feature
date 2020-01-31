@@ -238,7 +238,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression1
+  @regression
   Scenario: Cancel after using Promo code, should Not get utilized
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -247,6 +247,7 @@ Feature: Promos
     Then I get promo code for "VALID"
     And I Select "Promo Code" from admin sidebar
     Then I get promo code for "one off"
+
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I enter Username :8877995512 and  Password :{VALID}
@@ -271,3 +272,89 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
+
+  @regression
+  Scenario: Re-search after using Promo code, should be used for re-searched trip
+      When I open new "Chrome" browser for "ADMIN PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Promo Code" from admin sidebar
+      Then I get promo code for "VALID"
+      And I Select "Promo Code" from admin sidebar
+      Then I get promo code for "one off"
+
+      When I switch to "ORIGINAL" instance
+      And I am on the "LOG IN" page
+      And I enter Username :8877995512 and  Password :{VALID}
+      And I click "Log In" button on "Log In" screen
+      And I request for  bungii for given pickup and drop location
+        | Driver | Pickup Location            | Drop Location                | Geofence  |
+        | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+      And I click "Get Estimate" button on "Home" screen
+      When I enter following details on "Estimate" screen
+        | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+        | 30       |           |              | Now  | Default     |
+      And I click "PROMO CODE LINE" button on "Estimate" screen
+      And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+      And I click "ADD" button on "PROMOS" screen
+      When I tap "Back" on Promos screen
+      And I should be navigated to "Estimate" screen
+      And I request for bungii using Request Bungii Button
+      And I should be navigated to "SEARCHING" screen
+      And I click "Cancel" button on "SEARCHING" screen
+      Then user is alerted for "CANCEL BUNGII"
+      And for a Bungii I should see "Bungii Home page with locations"
+
+      When I click "Get Estimate" button on "Home" screen
+      When I enter following details on "Estimate" screen
+        | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+        | 30       |           |              | Now  | Default     |
+      And I click "PROMO CODE LINE" button on "Estimate" screen
+      Then I should see the previously added promo code present for current Bungii request
+
+  @regression
+  Scenario Outline: Already applied Promo code used after its expiry
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "EXPIRED"
+
+    When I switch to "ORIGINAL" instance
+    And I am on the "LOG IN" page
+    And I enter Username :8805368850 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location            | Drop Location                | Geofence  |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
+    And I click "Get Estimate" button on "Home" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    Then I should see the "<expired promo code>" no more displayed on the promos page
+    Examples:
+      | expired promo code   |
+      | PREXP01              |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

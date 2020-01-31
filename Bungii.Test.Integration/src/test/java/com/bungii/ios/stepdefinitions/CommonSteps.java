@@ -658,6 +658,7 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
+            Thread.sleep(4000);
             action.waitForAlert();
             String actualMessage = action.getAlertMessage();
             String expectedMessage;
@@ -706,6 +707,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "OTHER DRIVER CANCELLED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
+                case "INACTIVE PROMO CODE MESSAGE":
+                    expectedMessage=PropertyUtility.getMessage("customer.signup.inactivepromo.android");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -1175,6 +1179,12 @@ public class CommonSteps extends DriverBase {
                     action.clearEnterText(supportPage.TextBox_Support(), inputValue);
                     break;
                 case "FIRST NAME":
+                    if(inputValue.equalsIgnoreCase("RandomTestcustomertywd_apple"))
+                    {
+                        String randomString= generateMobileNumber();
+                        action.clearEnterText(signupPage.Textfield_FirstName(), inputValue+"_"+randomString);
+                        cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME", inputValue+"_"+randomString);
+                    }
                     action.clearEnterText(signupPage.Textfield_FirstName(), inputValue);
                     cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME", inputValue);
                     break;
@@ -1459,7 +1469,36 @@ public class CommonSteps extends DriverBase {
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
         testStepVerify.isEquals(previousTelet,newTeletTime);
+    }
 
+    @Then("^for a Bungii I should see \"([^\"]*)\"$")
+    public void for_a_bungii_i_should_see_something(String strArg1) throws Throwable {
+        try{
+            switch (strArg1)
+            {
+                case "Bungii Home page with locations":
+                    String addressPickUPline1= (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1");
+                    String addressDropOffline1= (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1");
+                    String pickUpAddress=homePage.TextBox_Pickup_LineOne().getText();
+                    String DropOffAddress=homePage.TextBox_Drop_LineOne().getText();
 
+                    if(pickUpAddress.contains(addressPickUPline1) && DropOffAddress.contains(addressDropOffline1))
+                    {
+                        pass(addressPickUPline1,DropOffAddress,true);
+                    }
+                    else{
+                        fail(addressPickUPline1,DropOffAddress,true);
+                    }
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 }
