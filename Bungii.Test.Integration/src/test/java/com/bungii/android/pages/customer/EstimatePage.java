@@ -144,9 +144,14 @@ public class EstimatePage extends PageBase {
     public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
 
     public WebElement Button_SystemCalenderOK() { return  findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Text_TimeHourPickerBack() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/preceding-sibling::android.widget.Button", LocatorType.XPath).get(0);}
     public WebElement Text_TimeHourPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeHourPickerNext() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/following-sibling::android.widget.Button", LocatorType.XPath).get(0);}
     public WebElement Text_TimeMinutesPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(1);}
-    public WebElement Text_TimeMeridian() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(2);}
+  public WebElement Text_TimeMinutesPickerNext() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/following-sibling::android.widget.Button", LocatorType.XPath).get(1);}
+
+  public WebElement Text_TimeMeridian() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(2);}
+  public WebElement Text_TimeMeridianNext() { return  findElements("//android.widget.NumberPicker[last()]/android.widget.Button", LocatorType.XPath).get(2);}
     public WebElement Button_OKOnTimePicker(){ return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id);}
     public WebElement Text_Month() {return findElement("android:id/date_picker_month", LocatorType.Id);}
     public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}

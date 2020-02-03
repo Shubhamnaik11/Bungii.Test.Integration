@@ -36,7 +36,7 @@ public class ActionManager {
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error performing step, Please check logs for more details",
                     true);
         }
     }
@@ -46,14 +46,14 @@ public class ActionManager {
      */
     public void sendKeys(WebElement element, String text) {
         try {
-            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            //new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.(element));
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element" + element.toString());
         }
           catch(Exception ex)
             {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-                error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                error("Step should be successful", "Error performing step, Please check logs for more details",
                         true);
             }
     }
@@ -63,7 +63,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step should be successful", "Error performing step, Please check logs for more details",
                 true);
     }
     }
@@ -77,7 +77,7 @@ public class ActionManager {
         }  catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error performing step, Please check logs for more details",
                     true);
             return null;
         }
@@ -98,7 +98,7 @@ public class ActionManager {
             }
             catch (Exception ex1) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
-                error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                error("Step should be successful", "Error performing step, Please check logs for more details",
                         true);
 
             }
@@ -119,7 +119,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step should be successful", "Error performing step, Please check logs for more details",
                 true);
     }
     }
@@ -139,7 +139,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+        error("Step should be successful", "Error performing step, Please check logs for more details",
                 true);
     }
     }
@@ -180,7 +180,7 @@ catch(Exception ex)
         } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error performing step, Please check logs for more details",
                     true);
         }
     }

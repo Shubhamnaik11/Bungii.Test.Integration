@@ -258,19 +258,19 @@ public class Admin_GeofenceSteps extends DriverBase {
         String TripCostPerMile=PropertyUtility.getDataProperties("Trip.cost.per.mile");
         String TripCostPerMinute=PropertyUtility.getDataProperties("Trip.cost.per.minute");
 
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_CustomerFAQLink(), CustomerFAQLink);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_DriverFAQLink(), DriverFAQLink);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile);
-        testStepVerify.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute);
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_CustomerFAQLink(), CustomerFAQLink, CustomerFAQLink+" should be displayed", CustomerFAQLink+" is displayed", CustomerFAQLink+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_DriverFAQLink(), DriverFAQLink ,DriverFAQLink+" should be displayed", DriverFAQLink+" is displayed", DriverFAQLink+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForDuoTrip(), MinTimeForDuoTrip,MinTimeForDuoTrip+" should be displayed", MinTimeForDuoTrip+" is displayed", MinTimeForDuoTrip+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTimeForSoloTrip(), MinTimeForSoloTrip,MinTimeForSoloTrip+" should be displayed", MinTimeForSoloTrip+" is displayed", MinTimeForSoloTrip+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_MinTripCost(), MinTripCost,MinTripCost+" should be displayed", MinTripCost+" is displayed", MinTripCost+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_SurveyEmailLink(), SurveyEmailLink,SurveyEmailLink+" should be displayed", SurveyEmailLink+" is displayed", SurveyEmailLink+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMile(), TripCostPerMile,TripCostPerMile+" should be displayed", TripCostPerMile+" is displayed", TripCostPerMile+" is not displayed");
+        testStepAssert.isElementTextEquals(admin_GeofencePage.Label_TripCostPerMinute(), TripCostPerMinute,TripCostPerMinute+" should be displayed", TripCostPerMinute+" is displayed", TripCostPerMinute+" is not displayed");
     }
 
     @Then("^I cannot uncheck \"([^\"]*)\" for \"([^\"]*)\" settings when \"([^\"]*)\" is checked$")
     public void i_cannot_uncheck_something_for_something_settings_when_something_is_checked(String strArg1, String strArg2, String strArg3) throws Throwable {
-        testStepVerify.isElementNotEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
+        testStepAssert.isElementEnabled(admin_GeofencePage.Checkbox_Solo(),"Solo Checkbox should be enabled","Solo Checkbox is enabled","Solo Checkbox is not enabled");
     }
 
     @When("^I \"([^\"]*)\" option \"([^\"]*)\" for Scheduled trip$")

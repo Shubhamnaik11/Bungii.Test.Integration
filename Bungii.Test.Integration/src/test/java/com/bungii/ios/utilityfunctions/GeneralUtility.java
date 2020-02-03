@@ -182,9 +182,14 @@ public class GeneralUtility extends DriverBase {
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 
-        if (action.isElementPresent(customerHomePage.Application_Name())) {
+        if (action.isElementPresent(customerHomePage.Application_Name(true))) {
             //do nothing
-        } else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        }else if(action.isElementPresent(customerHomePage.AppIcon_Phone(true))){
+            //if app is closed and just phone screen is present then restart app
+            SetupManager.getObject().restartApp();
+        }
+      //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
             //Remove notification screen
             action.hideNotifications();
             logger.detail("Notification page is removed");

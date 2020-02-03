@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -22,6 +23,7 @@ public class ReportGeneratorUtility {
 	private Writer bufWriter1, fileWriter;
 	private ArrayList<String> detailsArray = new ArrayList<String>();
 	private ArrayList<String> summaryArray = new ArrayList<String>();
+	private ArrayList<String> stackTraceArray = new ArrayList<String>();
 
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
@@ -70,7 +72,7 @@ public class ReportGeneratorUtility {
 	public void createResultFileFromTemplate(){
 	    try {
 
-			File result= new File(detailsFolderPath+this.featureName.replace(".feature","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature","").replace(" ","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -113,7 +115,7 @@ public class ReportGeneratorUtility {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case: "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='8'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 
@@ -125,8 +127,9 @@ public class ReportGeneratorUtility {
 
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
-
-		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
+		int stepCount= testStepCount+1;
+		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
+		str = str + "<td>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
@@ -141,8 +144,25 @@ public class ReportGeneratorUtility {
 		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 
 		detailsArray.add(str);
+		if (eventData.get("type").toString() != "PASSED") {
+			detailsArray.addAll(stackTraceArray);
+		}
 		//increase step count ;
 		testStepCount++;
+	}
+	/**
+	 * Add test case step data to file buffer
+	 * @param eventData Map that contains test details
+	 */
+	public void addStackTrace(Map<String, String> eventData) {
+   if(eventData.get("actual").toString()!= "") {
+       String str = "<tr><td + rightSpan + ></td>";
+       str = str + "<td colspan=8 align='left'>" + eventData.get("actual").toString() + "</td>";
+       stackTraceArray.add(str);
+   }
+   else {
+       stackTraceArray.add("");
+         }
 	}
 
 	/**
@@ -282,7 +302,7 @@ public class ReportGeneratorUtility {
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
-		String str = "<tr><td + rightSpan + >Some steps are skipped due to error ..</td>";
+		String str = "<tr><td + rightSpan + ><td>Some steps are skipped due to error ..</td>";
 		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
 
 	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";

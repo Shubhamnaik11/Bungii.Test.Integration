@@ -110,6 +110,7 @@ public class Admin_PromoterSteps extends DriverBase {
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
+        action.clearSendKeys(admin_PromoterPage.TextBox_Search(),PromoterName+Keys.ENTER);
 
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
@@ -121,7 +122,7 @@ public class Admin_PromoterSteps extends DriverBase {
     @When("^I view Details of promoter Name \"([^\"]*)\"$")
     public void i_view_details_of_promoter_name_something(String currentdatetime) throws Throwable {
 
-
+        Thread.sleep(4000);
         String xpath = (String) cucumberContextManager.getScenarioContext("XPath");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)).findElement(By.xpath("parent::td/following-sibling::td/button[@id='btnEditPromotionDetails']")));
         log("I click on Details link" ,
@@ -137,6 +138,7 @@ public class Admin_PromoterSteps extends DriverBase {
         String CodeInitials = (String) cucumberContextManager.getScenarioContext("CODE_INITIALS");
         String Description = (String) cucumberContextManager.getScenarioContext("DESCRIPTION");
         String Status = (String)cucumberContextManager.getScenarioContext("STATUS");
+        Thread.sleep(4000);
         i_search_by_promoter_name_something(PromoterName);
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");

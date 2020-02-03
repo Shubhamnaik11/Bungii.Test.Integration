@@ -9,7 +9,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-  Scenario: Admin_VerifyDeaultGeofencesAttributes
+  Scenario: Admin_VerifyDefaultGeofencesAttributes
    When I click on "Geofences  > Attributes" Menu
     Then I should be directed to "Attributes Page"
     When I go to "Geofence Attributes" page
