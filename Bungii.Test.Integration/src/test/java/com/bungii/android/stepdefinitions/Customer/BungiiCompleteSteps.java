@@ -170,6 +170,7 @@ public class BungiiCompleteSteps  extends DriverBase {
         String promoDiscountValue = new DecimalFormat("#.##").format(promoValue);
 
         if(!promoDiscountValue.contains("."))promoDiscountValue=promoDiscountValue+".00";
+        cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", promoDiscountValue);
 
       //  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
         testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),

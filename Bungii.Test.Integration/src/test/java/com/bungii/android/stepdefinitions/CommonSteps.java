@@ -521,7 +521,7 @@ public class CommonSteps extends DriverBase {
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
@@ -555,6 +555,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "OTHER DRIVER CANCELLED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
+                case "DELETE WARNING":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -680,9 +683,7 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
-                case "DELETE WARNING":
-                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
-                    break;
+
 
                 case "Please install a browser in order to access this link.":
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");

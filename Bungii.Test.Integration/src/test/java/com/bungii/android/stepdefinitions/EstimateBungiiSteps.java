@@ -266,6 +266,9 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "existing":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
                     break;
+                case "new test customer":
+                    utility.loginToCustomerApp((String)cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    break;
                 case "newly registered":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_newlyregistered.password"));
                     break;

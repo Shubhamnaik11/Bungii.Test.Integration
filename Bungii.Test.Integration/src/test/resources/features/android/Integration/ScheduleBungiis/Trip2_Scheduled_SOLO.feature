@@ -281,7 +281,7 @@ Feature: SoloScheduled
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Scheduled    | NEXT_POSSIBLE |
+      | kansas1  | Scheduled    | NEXT_POSSIBLE |
     When I am logged in as "valid" customer
     And I tap on "Menu" > "MY BUNGIIS" link
     Then The status on "MY BUNGIIS" should be displayed as "Contacting Drivers"
@@ -289,7 +289,7 @@ Feature: SoloScheduled
     Then trips status on bungii details should be "driver 1 - contacting drivers"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |  |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: To check status of Scheduled Bungii trip in Scheduled Bungiis menu page when required drivers have Not accepted it.Scenario:DUO
@@ -329,7 +329,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-  
+
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
@@ -389,7 +389,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  
+
   @regression
   Scenario:  To check that Customer cannot Schedule Bungii for a time that is outside working hours.Scenario:SOLO
     Given I am on customer Log in page
@@ -402,7 +402,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-  
+
   @regression
   Scenario:  To check that Customer canNot Schedule Bungii for a time that is outside working hours.Scenario:DUO
     Given I am on customer Log in page
@@ -417,7 +417,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
     When I try to schedule bungii for "tommorow - before working hour" for "DUO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
-  
+
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     Given I am on customer Log in page
@@ -485,7 +485,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  
+
   @regression
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:Duo
     Given I am on customer Log in page
@@ -693,7 +693,7 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I verify status and researches Bungii with following details
-      | label                | Status of Trip                 |
+      | label                | Status of Trip      |
       | DUO_SCH_DONOT_ACCEPT | Driver(s) Not Found |
 
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
@@ -710,7 +710,7 @@ Feature: SoloScheduled
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | Kansas1   | Accepted     | 0.75 hour ahead |
+      | Kansas1  | Accepted     | 0.75 hour ahead |
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     When I am logged in as "valid" customer
@@ -741,7 +741,7 @@ Feature: SoloScheduled
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas1   | Accepted     | 1 hour ahead |
+      | Kansas1  | Accepted     | 1 hour ahead |
     And I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "valid" customer
@@ -868,7 +868,7 @@ Feature: SoloScheduled
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas1   | Accepted     | 0.5 hour ahead |
+      | kansas1  | Accepted     | 0.5 hour ahead |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -886,7 +886,7 @@ Feature: SoloScheduled
   Scenario: check TELET of re-searched trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
     Then Telet time of current trip should be correctly calculated
     And I Switch to "driver" application on "same" devices
@@ -908,7 +908,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -946,7 +946,7 @@ Feature: SoloScheduled
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
 
     And I Switch to "driver" application on "same" devices
@@ -982,7 +982,7 @@ Feature: SoloScheduled
   Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1001,7 +1001,7 @@ Feature: SoloScheduled
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas1   | Accepted     | 1.5 hour ahead |
+      | kansas1  | Accepted     | 1.5 hour ahead |
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
@@ -1051,14 +1051,14 @@ Feature: SoloScheduled
     Then I should not get notification for SCHEDULED PICKUP AVAILABLE
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |     8805368840            |
+      | CUSTOMER1_PHONE | 8805368840      |
 
 #####################################################################################################################
   @regression
   Scenario: To check that Customer can request cancel scheduled trip via admin SMS after 2 hour processing is over (No. of required drivers accepted or Not)
     When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
@@ -1092,7 +1092,7 @@ Feature: SoloScheduled
   Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Scheduled    | NEXT_POSSIBLE |
+      | kansas1  | Scheduled    | NEXT_POSSIBLE |
 
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
@@ -1122,7 +1122,7 @@ Feature: SoloScheduled
   @regression
   Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
 
     When I Switch to "customer" application on "same" devices
@@ -1152,8 +1152,8 @@ Feature: SoloScheduled
   @regression
   Scenario: To check that Customer can request cancel through SMS to ADMIN even if one driver accepts but processing is over (Trip not started) (cancellation on admin side)
     When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
     And As a driver "Testdrivertywd_appleks_rathree Test" perform below action with respective "Duo Scheduled" trip
       | driver1 state |
       | Accepted      |
@@ -1214,7 +1214,7 @@ Feature: SoloScheduled
   Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | kansas1   | Accepted     | NEXT_POSSIBLE |
+      | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
@@ -1364,8 +1364,8 @@ Feature: SoloScheduled
   @regression
   Scenario: Check if customer is allowed to rate driver for duo trip
     When I request "duo" Bungii as a customer in "kansas" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test   | Cci12345          |
+      | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
+      | NEXT_POSSIBLE | 8888888881     | Testcustomertywd_appleRicha Test | Cci12345          |
     Given I am on customer Log in page
     And I am logged in as "valid kansas" customer
     And As a driver "Testdrivertywd_appleks_rathree Test" and "Testdrivertywd_appleks_ra_four Kent" perform below action with respective "DUO SCHEDULED" trip
@@ -1381,7 +1381,7 @@ Feature: SoloScheduled
   Scenario: check if re-searched driver can cancel trip after starting Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | kansas1   | Accepted     | 15 min ahead |
+      | kansas1  | Accepted     | 15 min ahead |
 
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -1446,4 +1446,52 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+    #keep this scenario at last
+#CMA 1513: delete card once trip is cancel
+  @regression
+  Scenario Outline: Customer canNot delete payment method linked to any on-going/scheduled trips
+    Given I am on Sign up page
+    When I enter "unique" customer phone number on Signup Page
+    And I enter "valid test" data in mandatory fields on Signup Page
+    And I enter "ValidPercent" promo code on Signup Page
+  #  And I enter "Referral" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    Then The user should be logged in
 
+    When I tap on "Menu" > "Payment" link
+    And I tap on "Add" on Payment page
+    And I tap on "Credit or Debit Card" on Payment page
+    And I enter "<Card Detail>" on Card Details page
+    And I enter "<Card Expiry>" on Card Details page
+    And I enter "<CVV>" on Card Details page
+    And I enter "<Postal Code>" on Card Details page
+
+    And I tap on "Add Card" on Payment page
+    Then I should see "the card has been added" on Payment page
+
+    When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      | Bungii Time   | Customer Phone  | Customer Name | Customer Password |
+      | NEXT_POSSIBLE | NEW_USER_NUMBER |               | Cci12345          |
+
+    Given I am on customer Log in page
+    And I am logged in as "new test customer" customer
+    When I tap on "Menu" > "PAYMENT" link
+    Then "Payment" page should be opened
+    When I swipe "default" card on the payment page
+    And I tap on "Delete" on Payment page
+  #  Then Alert message with Delete Warning text should be displayed
+    And I should see "Payment Method is already associated to a trip" on Payment page
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | NEW_USER_NUMBER     |                 |
+    Given I am on customer Log in page
+    And I am logged in as "new test customer" customer
+    When I tap on "Menu" > "PAYMENT" link
+    When I swipe "default" card on the payment page
+    And I tap on "Delete" on Payment page
+    Then I should see "message when no payment methods exist" on Payment page
+    Examples:
+      | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
+      | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
