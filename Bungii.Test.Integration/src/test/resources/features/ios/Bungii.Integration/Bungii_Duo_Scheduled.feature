@@ -98,8 +98,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
-
-
+  #this scenario also include large image test case
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -121,8 +120,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "Estimate" screen
 
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
-      | 30       |           |              | NEXT_POSSIBLE | 1 images    | Yes            |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
+      | 30       |           |              | NEXT_POSSIBLE | large image | Yes            |
     Then I should be navigated to "Success" screen
     When I click "Done" button on "Success" screen
     And I Select "Home" from Customer App menu
@@ -362,9 +361,9 @@ Feature: To Test Duo - Scheduled Bungii
     Then On admin trip details page "promo" should be displayed
 
     Examples:
-    |PROMO CODE|
-    |PROMO DOLLAR OFF|
-    |PROMO PERCENT OFF|
+      | PROMO CODE        |
+      | PROMO DOLLAR OFF  |
+      | PROMO PERCENT OFF |
 
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
