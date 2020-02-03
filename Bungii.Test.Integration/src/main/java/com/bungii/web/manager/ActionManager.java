@@ -147,7 +147,9 @@ public class ActionManager {
     public void navigateTo(String url) {
         SetupManager.getDriver().navigate().to(url);
     }
-
+    public void refreshPage() {
+        SetupManager.getDriver().navigate().refresh();
+    }
     public static void selectElementByText(WebElement element, String text)
     {
         new Select(element).selectByVisibleText(text);

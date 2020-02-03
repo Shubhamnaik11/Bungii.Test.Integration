@@ -8,7 +8,7 @@ Feature: Admin_DriverDetails
 
   @sanity
   @regression
-    @fail
+  @fail
   Scenario: Admin_ViewDriversTripList
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon

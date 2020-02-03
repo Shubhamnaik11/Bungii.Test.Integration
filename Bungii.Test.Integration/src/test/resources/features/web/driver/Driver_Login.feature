@@ -9,7 +9,6 @@ Feature: Driver_Login
   @smoke
   @sanity
   @regression
-  @test
   Scenario: Driver_Login_Success
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal

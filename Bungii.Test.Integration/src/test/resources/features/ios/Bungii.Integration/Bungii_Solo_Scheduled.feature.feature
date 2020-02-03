@@ -1390,17 +1390,34 @@ Feature: To Test Solo - Scheduling Bungii
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
+#CMA1513
 #use customer with only one card
   @regression
-  Scenario: Customer canNot delete payment method linked to any on-going/scheduled trips
+  Scenario Outline: Customer canNot delete payment method linked to any on-going/scheduled trips
+    Given I am on the "SIGN UP" page
+    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    Then I should be navigated to "Home" screen
+    When I Select "PAYMENT" from Customer App menu
+    When I click "ADD" button on "PAYMENT" screen
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
+    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
+    Then I should see "new card" on Payment page
+
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name       | Customer Password |
-      | NEXT_POSSIBLE | 8877995598     | VishalIHHnZkrz Test | Cci12345          |
+      | NEXT_POSSIBLE | NEW_USER_NUMBER     | VishalIHHnZkrz Test | Cci12345          |
     When I Switch to "customer" application on "same" devices
-    And I am on the "LOG IN" page
-    When I enter Username :8877995598 and  Password :{VALID}
-    And I click "Log In" button on "Log In" screen
+    And I logged in Customer application using  "newly created user" user
     When I Select "PAYMENT" from Customer App menu
     When I swipe "other" card on the payment page
     And I tap on "Delete" on Payment page
@@ -1409,7 +1426,18 @@ Feature: To Test Solo - Scheduling Bungii
     Then Alert message with CARD IS ASSOCIATED TO TRIP text should be displayed
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
-      | 8877995598     |                 |
+      | NEW_USER_NUMBER     |                 |
+    When I Switch to "customer" application on "same" devices
+    And I logged in Customer application using  "newly created user" user
+    When I Select "PAYMENT" from Customer App menu
+    When I swipe "other" card on the payment page
+    And I tap on "Delete" on Payment page
+    Then Alert message with Delete Warning text should be displayed
+    When I accept Alert message
+    Then I should see "the card has been deleted" on Payment page
+    Examples:
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
+      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @regression
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1821,7 +1849,6 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
 
-
   @regression1
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -2072,3 +2099,46 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression1234
+  Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
+
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | denver   | Enroute      |
+    When I clear all notification
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Switch to "customer" application on "same" devices
+
+    When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
+      | now         | 8888889917     | Cci12345          |Testcustomertywd_appleZTDafc Stark | 2              |
+
+    And I click on notification for "Driver" for "stack trip"
+    When I click "VIEW" on alert message
+    When I click "ACCEPT" button on "Bungii Request" screen
+    When I click "OK" on alert message
+    And I get TELET time of currrent trip of customer 2
+
+    And I Switch to "customer" application on "same" devices
+    Given I am on the "LOG IN" page
+    When I enter Username :8888889907 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
+
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                    | Drop Location                    | Geofence |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+
+    And I click "Get Estimate" button on "Home" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
+      | 30       |           |              |  <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
+    When I click "Done" button on "Success" screen
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |     8888889917            |
+

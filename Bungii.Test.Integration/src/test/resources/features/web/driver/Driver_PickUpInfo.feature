@@ -11,7 +11,6 @@ Feature: Driver_PickupInfo
     And I click Next on "Driver Details" page
 
   @regression
-    @fail
   Scenario: Driver_PickupInfo_InvalidData_ExisitingNonFountainApplication
     When I click Next on "Pickup Information" page
      Then I should see blank fields validation on "Pickup Information" page
