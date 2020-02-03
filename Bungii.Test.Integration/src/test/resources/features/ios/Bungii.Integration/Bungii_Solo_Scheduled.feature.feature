@@ -1820,3 +1820,255 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
+
+
+  @regression1
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "PROMO"
+
+    When I switch to "ORIGINAL" instance
+    And I am on the "LOG IN" page
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Loading Items |
+    When I view the trip details
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "ONE OFF"
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | DRIVING TO DROP OFF |
+    When I view the trip details
+
+    When I switch to "ORIGINAL" instance
+    And I Open "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+
+  @regression
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "promoter_type_promo"
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | UNLOADING ITEMS |
+    When I view the trip details
+
+    When I switch to "ORIGINAL" instance
+    And I Open "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen

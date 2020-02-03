@@ -193,7 +193,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | R1D2            | facebook | INVALID PROMO WHILE SIGNUP |
 
-  @regression1
+  @regression
   Scenario Outline: To check that Promoter type Promo codes active in future canNot be added by customer through sign up page
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page

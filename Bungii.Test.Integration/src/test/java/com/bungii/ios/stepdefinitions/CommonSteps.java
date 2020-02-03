@@ -24,7 +24,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1500,5 +1503,50 @@ public class CommonSteps extends DriverBase {
             logger.error("Error performing step", e);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Then("^I manually end bungii created by \"([^\"]*)\" with stage as \"([^\"]*)\"$")
+    public void i_manually_end_bungii_created_by_something_with_stage_as_something(String customer, String bungiiStage) throws Throwable {
+
+        String status =bungiiStage;
+        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        String tripType[] = tripTypeAndCategory.split(" ");
+        customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+        cucumberContextManager.setScenarioContext("STATUS",status);
+        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")
+                || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
+            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+            int retrycount =10;
+
+            boolean retry = true;
+            while (retry == true && retrycount >0) {
+                try {
+                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                    retry = false;
+                } catch (Exception ex) {
+                    SetupManager.getDriver().navigate().refresh();
+                    retrycount--;
+                    retry = true;
+                }
+
+            }
+            int retryCount = 1;
+            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
+                if (retryCount >= 20) break;
+                Thread.sleep(15000); //Wait for 15 seconds
+                retryCount++;
+                SetupManager.getDriver().navigate().refresh();
+            }
+            cucumberContextManager.setScenarioContext("XPATH",xpath);
+            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+        }
+
+        //Select the trip
+        String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+        action.click((WebElement) SetupManager.getDriver().findElement(By.xpath(xpath)));
+
     }
 }
