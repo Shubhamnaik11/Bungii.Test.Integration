@@ -26,7 +26,7 @@ public class BungiiSteps extends DriverBase {
     PaymentServices paymentServices = new PaymentServices();
     DriverServices driverServices = new DriverServices();
     CustomerServices customerServices = new CustomerServices();
-
+     DbUtility dbUtility= new DbUtility();
 
     public void givenIamOnSearchingpage() {
         String custPhoneCode = "1", custPhoneNum = "9871450101", custPassword = "Cci12345";
@@ -46,7 +46,6 @@ public class BungiiSteps extends DriverBase {
         //update location and driver status
         coreServices.updateDriverLocation(driverAccessToken, "goa");
         coreServices.updateDriverStatus(driverAccessToken);
-
         //request Bungii
         coreServices.validatePickupRequest(custAccessToken, "goa");
         String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, "goa");
@@ -134,7 +133,14 @@ public String getDriverPhone(String driverName)
             while (i < DataList.size()) {
                 try {
                     String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
+                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
+                    if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched")||bungiiType.equalsIgnoreCase("Duo Scheduled Researched"))
+                    {
+                        pickupRequest =  new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
+                        cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+                        bungiiType = bungiiType.replace(" Researched","");
+                    }
                     cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                     cucumberContextManager.setScenarioContext("DRIVER_1", driverName);
 
@@ -142,12 +148,12 @@ public String getDriverPhone(String driverName)
                     String driverAccessToken = "", driver2AccessToken = "";
                     //get geofence and pickup request from context
                     String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                    String pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
 
                     driverPhoneNum = getDriverPhone(driverName);
                     driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
                     //cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+                   // authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
                     driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                     coreServices.updateDriverLocation(driverAccessToken, geofence);
                     coreServices.updateDriverStatus(driverAccessToken);
@@ -253,6 +259,18 @@ public String getDriverPhone(String driverName)
 
                         String driver1State = DataList.get(i).get("driver1 state").trim();//status like accepted/enroute etc
                         String driver2State = DataList.get(i).get("driver2 state").trim();//status like accepted/enroute etc
+                        String tripLabel="",pickupRequest="";
+                        try { tripLabel= DataList.get(i).get("label").trim();}catch (Exception e){}
+                        if(tripLabel.equals(""))
+                            pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
+                        else
+                            pickupRequest = (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST_"+tripLabel);
+                        if (bungiiType.equalsIgnoreCase("Solo Scheduled Researched")||bungiiType.equalsIgnoreCase("Duo Scheduled Researched"))
+                        {
+                            pickupRequest =  new DbUtility().getResarchedPickupReference(pickupRequest); //researched pickup ref
+                            cucumberContextManager.setScenarioContext("PICKUP_REQUEST", pickupRequest);
+                            bungiiType = bungiiType.replace("Researched","");
+                        }
                         cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
                         cucumberContextManager.setScenarioContext("DRIVER_1", driverAName);
                         cucumberContextManager.setScenarioContext("DRIVER_2", driverBName);
@@ -261,17 +279,13 @@ public String getDriverPhone(String driverName)
                         String driverAccessToken = "", driver2AccessToken = "";
                         //get geofence and pickup request from context
                         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                        String tripLabel="",pickupRequest="";
-                        try { tripLabel= DataList.get(i).get("label").trim();}catch (Exception e){}
-                        if(tripLabel.equals(""))
-                            pickupRequest = (String) cucumberContextManager.getScenarioContext("PICKUP_REQUEST");
-                        else
-                            pickupRequest = (String) cucumberContextManager.getFeatureContextContext("PICKUP_REQUEST_"+tripLabel);
+
 
                         driverPhoneNum = getDriverPhone(driverAName);
                         driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
                       //  cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
                         cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+                      //  authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
                         driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                         coreServices.updateDriverLocation(driverAccessToken, geofence);
                         coreServices.updateDriverStatus(driverAccessToken);
@@ -282,6 +296,7 @@ public String getDriverPhone(String driverName)
                     driver2Password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
                    // cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("web.valid.driver2.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
+                        authServices.driverLogin(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     coreServices.updateDriverLocation(driver2AccessToken, geofence);
                     coreServices.updateDriverStatus(driver2AccessToken);
@@ -466,7 +481,7 @@ public String getDriverPhone(String driverName)
             log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
 
@@ -1286,6 +1301,8 @@ public String getDriverPhone(String driverName)
             custPhoneNum = dataMap.get("Customer Phone").trim();
             if(custPhoneNum.equalsIgnoreCase("CUSTOMER1_PHONE")){
                 custPhoneNum=(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            }else if(custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER")){
+                custPhoneNum=(String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
             }
             custPassword = PropertyUtility.getDataProperties("customer.password");
 
@@ -1419,4 +1436,9 @@ public String getDriverPhone(String driverName)
         log("I cancel the trip for the customer" ,
                 "I have cancelled the trip for the customer");
     }
+    @When("^I wait for 2 minutes$")
+    public void i_wait_for_2_minutes() throws Throwable {
+        Thread.sleep (120000);
+    }
+
 }

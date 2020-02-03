@@ -4,12 +4,13 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LocationPage;
 import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
-import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -22,6 +23,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.functions.ExpectedCondition;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -35,6 +37,8 @@ import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
@@ -73,7 +77,8 @@ public class GeneralUtility extends DriverBase {
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     InvitePage invitePage = new InvitePage();
-
+    LocationPage locationPage= new LocationPage();
+    com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
     /**
      * Launch driver application's using package and activity
      *
@@ -267,6 +272,12 @@ public class GeneralUtility extends DriverBase {
             case "SCHEDULED BUNGIIS":
                 isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiisSolo(true));
             break;
+            case "LOCATION":
+                isCorrectPage = action.getText(locationPage.Header_Location()).equals("LOCATION");
+                break;
+            case"DRIVER's LOCATION":
+                isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
+                break;
             default:
                 String expectedMessage = p0;
                 try {
@@ -290,7 +301,60 @@ public class GeneralUtility extends DriverBase {
     public void resetApp() {
         ((AndroidDriver) SetupManager.getDriver()).resetApp();
     }
+    public boolean installCustomerApp() {
+        boolean isInstalled = false;
+        try {
 
+            String customerApkFile =PropertyUtility.getDataProperties("customer.apk.file.location").replace("{ENVT}", PropertyUtility.environment);
+
+
+            logger.detail("apk file Location " + customerApkFile);
+            if (!Files.exists(Paths.get(customerApkFile))) {
+                logger.detail("apk file doesnot exist " + customerApkFile);
+
+/*                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, false);*/
+            }
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).installApp(customerApkFile);
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled = true;
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+        return isInstalled;
+
+
+    }
+
+    public boolean installDriverApp() {
+        boolean isInstalled = false;
+        try {
+
+            String driverApkFile = PropertyUtility.getDataProperties("driver.apk.file.location").replace("{ENVT}", PropertyUtility.environment);
+
+            logger.detail("apk file Location " + driverApkFile);
+            if (!Files.exists(Paths.get(driverApkFile))) {
+                logger.detail("apk file doesnot exist " + driverApkFile);
+
+/*                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, false);*/
+            }
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).installApp(driverApkFile);
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled = true;
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+        return isInstalled;
+
+
+    }
     /**
      * Verification that correct page is displayed
      *

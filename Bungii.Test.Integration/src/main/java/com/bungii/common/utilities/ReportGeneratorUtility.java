@@ -157,7 +157,7 @@ public class ReportGeneratorUtility {
 	public void addStackTrace(Map<String, String> eventData) {
    if(eventData.get("actual").toString()!= "") {
        String str = "<tr><td + rightSpan + ></td>";
-       str = str + "<td colspan=8 align='left'>" + eventData.get("actual").toString() + "</td>";
+       str = str + "<td colspan=8 align='left'>Error Logs : <button onclick='myFunction()' id='myBtn'>Read more </button><span id='dots'> . </span><span id='more'> " + eventData.get("actual").toString() + "</span></td>";
        stackTraceArray.add(str);
    }
    else {

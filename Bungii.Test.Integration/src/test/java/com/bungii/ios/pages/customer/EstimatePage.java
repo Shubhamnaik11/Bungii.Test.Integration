@@ -264,4 +264,8 @@ public class EstimatePage extends PageBase {
     public WebElement PhotosFolder() {
         return findElement("Moments", LocatorType.AccessibilityId);
     }
+
+    public WebElement LargeImagePhotosFolder() {
+        return findElement("ALARGEIMAGE", LocatorType.AccessibilityId);
+    }
 }

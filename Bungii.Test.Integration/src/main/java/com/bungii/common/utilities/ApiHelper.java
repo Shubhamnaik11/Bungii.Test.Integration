@@ -31,7 +31,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenCustConfig() {
-        return given() //.log().all()
+        return given()//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("CUST_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("CUST_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -47,7 +47,7 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenDriverConfig() {
-        return given() //.log().all()
+        return given()//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("DRIVER_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("DRIVER_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
@@ -134,14 +134,14 @@ public class ApiHelper {
             Response response = givenCustConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().all();
+            response.then().log().body();
             return response;
         } else {
             Response response = givenCustConfig().
                     when().
                     get(path);
 
-            response.then().log().all();
+            response.then().log().body();
             return response;
         }
     }
@@ -161,14 +161,14 @@ public class ApiHelper {
             Response response = givenDriverConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().all();
+            response.then().log().body();
             return response;
         } else {
             Response response = givenDriverConfig().
                     when().
                     get(path);
 
-            response.then().log().all();
+            response.then().log().body();
             return response;
         }
     }
@@ -186,7 +186,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+            response.then().log().body();
             return response;
 
         } else {
@@ -194,7 +194,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+            response.then().log().body();
 
             return response;
         }
@@ -213,7 +213,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+            response.then().log().body();
             return response;
 
         } else {
@@ -221,7 +221,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+            response.then().log().body();
 
             return response;
         }
@@ -297,24 +297,24 @@ public class ApiHelper {
     }
 
     public static void genericResponseValidation(Response response) {
+        JsonPath jsonPathEvaluator;
         try {
             logger.detail(response.print());
-            JsonPath jsonPathEvaluator = response.jsonPath();
+            jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            System.out.println("**** API Call Pass ****");
-        } else {
-            System.out.println("**** API Call failed : " + error.toString());
-
+            logger.detail("***API Call Pass***");
         }
 
             response.then().statusCode(200);
         }
         catch (AssertionError ex)
         {
-            logger.error("Error performing step"," API RESPONSE : "+ response.print());
-            error("Step should be successful", "Error performing step, Please check logs for more details",
+            jsonPathEvaluator = response.jsonPath();
+            HashMap error = jsonPathEvaluator.get("Error");
+            logger.error("API Call failed : "," Failed due to : "+ error.get("Message").toString());
+            error("Step should be successful", "Failed due to :  "+ error.get("Message").toString(),
                     true);
         }
 

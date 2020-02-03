@@ -26,7 +26,7 @@ public class WebPortal {
     public Response AdminLogin() {
 
         String loginURL = new GeneralUtility().GetAdminUrl();
-        Response response = given().log().all()
+        Response response = given().log().body()
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -47,10 +47,10 @@ public class WebPortal {
         String cancelBungii = UrlBuilder.createApiUrl("web core", CUSTOMER_CANCELPICKUP);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "CancellationFee", "6", "CancelComments", "test")
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
+        response.then().log().body();
 
     }
 
@@ -77,10 +77,10 @@ public class WebPortal {
         String cancelBungii = UrlBuilder.createApiUrl("web core", CAN_EDIT_PICKUP);
         Response response = given().cookies(adminCookies)
                 .param("pickupRequestID", pickupRequestId)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         get(cancelBungii);
-        response.then().log().all();
+        response.then().log().body();
         JsonPath jsonPathEvaluator1 = response.jsonPath();
 
         boolean isSuccess = jsonPathEvaluator1.get("Success");
@@ -94,10 +94,10 @@ public class WebPortal {
         String cancelBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
+        response.then().log().body();
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
@@ -108,10 +108,10 @@ public class WebPortal {
         String cancelBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
+        response.then().log().body();
 
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
