@@ -679,6 +679,7 @@ catch (Exception ex){}
                     action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
                     break;
                 case "Research":
+                    Thread.sleep(4000);
                     action.click(admin_ScheduledTripsPage.Button_Research());
                     break;
             }

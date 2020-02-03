@@ -645,7 +645,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response updateDriverStatus(String authToken) {
-        logger.detail("API REQUEST : Update Driver Status of Authtoken : "+ authToken);
+        logger.detail("API REQUEST : Make Driver with Authtoken Online: "+ authToken);
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("DeviceName", "XT1092");
