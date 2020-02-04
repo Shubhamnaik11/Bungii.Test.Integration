@@ -21,7 +21,9 @@ import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 //Cannot be moved Framework as it has to call recovery secnario
@@ -82,6 +84,17 @@ public class CucumberHooks {
 
                 String[] args = new String[]{"/bin/bash", "-c", "ideviceinstaller", "-u", udid, "--uninstall", "--uninstall com.apple.test.WebDriverAgentRunner-Runner"};
                 Process proc = new ProcessBuilder(args).start();
+            // blocked :(
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+
+            int exitCode = proc.waitFor();
+            System.out.println("\nExited with error code : " + exitCode);
                 logger.detail("Removed app ",proc);
 
           //  }
