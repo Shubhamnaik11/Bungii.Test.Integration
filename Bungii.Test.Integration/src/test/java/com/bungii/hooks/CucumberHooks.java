@@ -64,7 +64,7 @@ public class CucumberHooks {
     public synchronized void start(String resultFolder) {
 //ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
         try {
-            if (SystemUtils.IS_OS_MAC) {
+          //  if (SystemUtils.IS_OS_MAC) {
 
             String deviceInfoFileKey = "ios.capabilities.file";
             String deviceId = System.getProperty("DEVICE");
@@ -82,7 +82,9 @@ public class CucumberHooks {
 
                 String[] args = new String[]{"/bin/bash", "-c", "ideviceinstaller", "-u", udid, "--uninstall", "--uninstall com.apple.test.WebDriverAgentRunner-Runner"};
                 Process proc = new ProcessBuilder(args).start();
-            }
+                logger.detail("Removed app ",proc);
+
+          //  }
         } catch (Exception e) {
             logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
 
