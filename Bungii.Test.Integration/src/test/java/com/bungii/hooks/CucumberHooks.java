@@ -95,7 +95,8 @@ public class CucumberHooks {
 
             int exitCode = proc.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
-                logger.detail("Removed app ",proc);
+                logger.detail("Removed app ",proc.getErrorStream());
+            Runtime.getRuntime().exec("/bin/bash -c ideviceinstaller -u "+ udid+" --uninstall com.apple.test.WebDriverAgentRunner-Runner");
 
           //  }
         } catch (Exception e) {
