@@ -1174,7 +1174,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression1
+  @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
       | geofence    | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
@@ -1269,7 +1269,7 @@ Feature: Duo
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
-  @regression
+  @regression1
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
     Given that duo schedule bungii is in progress
       | geofence     | Bungii State | Bungii Time   | Customer     | Driver1  | Driver2        |
@@ -1366,16 +1366,16 @@ Feature: Duo
   Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-      | Kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1    | Kansas driver 2 |
+      | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
+    And I am logged in as "valid atlanta" driver
     When I Switch to "customer" application on "same" devices
     #driver1 in background
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 2" driver
+    And I am logged in as "valid driver 2" driver
 
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
@@ -1389,16 +1389,16 @@ Feature: Duo
   Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
-      | Kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1    | Kansas driver 2 |
+      | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
+    And I am logged in as "valid atlanta" driver
     #driver1 in foregroundground
     And I connect to "extra1" using "Driver1" instance
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 2" driver
+    And I am logged in as "valid driver 2" driver
 
     And I click the "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
