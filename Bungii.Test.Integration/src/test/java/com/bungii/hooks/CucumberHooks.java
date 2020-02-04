@@ -82,7 +82,7 @@ public class CucumberHooks {
             String udid = jsonCaps.getString("udid");
 
 
-                String[] args = new String[]{"/bin/bash", "-c", "ideviceinstaller", "-u", udid, "--uninstall", "--uninstall com.apple.test.WebDriverAgentRunner-Runner"};
+                String[] args = new String[]{"/bin/bash", "-c", "ideviceinstaller", "-u", udid, "--uninstall", "com.apple.test.WebDriverAgentRunner-Runner"};
                 Process proc = new ProcessBuilder(args).start();
             // blocked :(
             BufferedReader reader =
