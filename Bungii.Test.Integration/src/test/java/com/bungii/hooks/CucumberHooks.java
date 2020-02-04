@@ -92,6 +92,7 @@ public class CucumberHooks {
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
+            Runtime.getRuntime().exec("/Users/for-bungiiqa/jenkins/workspace/Bungii-QAAuto/Bungii_QA_Auto_iOS/Bungii-QA-Automation/Bungii.Test.Integration/src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh "+udid);
 
             int exitCode = proc.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
