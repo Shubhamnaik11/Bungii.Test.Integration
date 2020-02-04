@@ -82,7 +82,7 @@ public class CucumberHooks {
             String udid = jsonCaps.getString("udid");
 
 
-                String[] args = new String[]{"/bin/bash", "-c", "ideviceinstaller -u "+ udid+ " --uninstall com.apple.test.WebDriverAgentRunner-Runner"};
+                String[] args = new String[]{"/bin/bash", "-c", "ios-deploy -u "+ udid+ " --uninstall com.apple.test.WebDriverAgentRunner-Runner"};
                 Process proc = new ProcessBuilder(args).start();
             // blocked :(
             BufferedReader reader =
@@ -92,7 +92,7 @@ public class CucumberHooks {
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
-            Runtime.getRuntime().exec("/Users/for-bungiiqa/jenkins/workspace/Bungii-QAAuto/Bungii_QA_Auto_iOS/Bungii-QA-Automation/Bungii.Test.Integration/src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh "+udid);
+            Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh "+udid);
 
             int exitCode = proc.waitFor();
             System.out.println("\nExited with error code : " + exitCode);
