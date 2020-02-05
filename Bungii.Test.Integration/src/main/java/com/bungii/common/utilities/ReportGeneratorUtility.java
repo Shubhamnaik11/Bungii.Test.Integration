@@ -146,6 +146,7 @@ public class ReportGeneratorUtility {
 		detailsArray.add(str);
 		if (eventData.get("type").toString() != "PASSED") {
 			detailsArray.addAll(stackTraceArray);
+			stackTraceArray.clear();
 		}
 		//increase step count ;
 		testStepCount++;
