@@ -348,7 +348,8 @@ public class BungiiSteps extends DriverBase {
                 notificationClick=true;
             }
             if (!notificationClick) {
-                Thread.sleep(120000);
+                Thread.sleep(90000);
+                message=Page_BungiiSearch.findElement("//*[@text='" + expecteMessage + "']", PageBase.LocatorType.XPath,true);
                 action.click(message);
                 notificationClick=true;
             }

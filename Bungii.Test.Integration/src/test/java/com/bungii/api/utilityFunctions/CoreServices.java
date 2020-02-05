@@ -187,9 +187,9 @@ public class CoreServices extends DriverBase {
                 }
 
             }
-            if (!foundPickup)
-                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip", false);
+            if (!foundPickup) {
                 error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip Or Driver is not eligible", false);
+            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

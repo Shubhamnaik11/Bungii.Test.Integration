@@ -48,7 +48,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
 
-    public WebElement Button_NotificationClear(boolean... ignoreException){return findElement("//android.widget.Button[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath,ignoreException);}
+    public WebElement Button_NotificationClear(boolean... ignoreException){return findElement("//android.widget.ImageButton[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath,ignoreException);}
     public List<WebElement> Cell_Notification() { return findElements("com.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
     public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
     public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"BUNGII: Heads up! T minus 2 hours till pickup.\"]", LocatorType.XPath,ignoreException); }

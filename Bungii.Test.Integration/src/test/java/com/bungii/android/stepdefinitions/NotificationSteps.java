@@ -44,7 +44,7 @@ public class NotificationSteps extends DriverBase {
          cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
-            Thread.sleep(3000);
+            Thread.sleep(30000);
             log("Checking notifications","Checking notifications",true);
             switch (expectedNotification)
             {

@@ -519,8 +519,7 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-
-            String actualMessage = estimatePage.Alert_ConfirmRequestMessage().getText();
+            String actualMessage = null;
             if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             }

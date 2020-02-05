@@ -304,6 +304,27 @@ public class ScheduledBungiiSteps extends DriverBase {
        }
     }
 
+    @When("^I click \"([^\"]*)\" button on SCHEDULED BUNGII screen$")
+    public void i_click_something_button_on_scheduled_bungii_screen(String buttonName) throws Throwable {
+
+        try{
+            switch (buttonName){
+
+                case "ACCEPT":
+                    action.click(estimatePage.Button_AcceptRequestScheduledBungii());
+                    break;
+
+                case "REJECT":
+                    action.click(estimatePage.Button_RejectRequestScheduledBungii());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
     @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
     public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
@@ -417,7 +438,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 
                 case "estimated cost of duo trip":
                     String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
-                    double flestimate=Double.valueOf(estimate.replace("$","").trim());
+                    double flestimate=Double.valueOf(estimate.replace("~$","").trim());
                     //transaction fee different for solo and duo
                     double transactionFee=((flestimate*0.029*0.5)+0.3)*2;
                     double estimatedDriverCut=(0.7*flestimate)-transactionFee;
