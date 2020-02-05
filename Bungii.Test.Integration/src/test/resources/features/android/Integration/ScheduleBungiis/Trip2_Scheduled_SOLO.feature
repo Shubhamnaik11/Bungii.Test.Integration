@@ -821,7 +821,6 @@ Feature: SoloScheduled
       | 8805368840      |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -845,7 +844,6 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
- # @driverScheduleBungii
   Scenario:To check if driver recieves Bungii scheduled request even while in the Offline state (assuming he does Not have Bungiis overlapping the TELET time)
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -879,7 +877,6 @@ Feature: SoloScheduled
 
 
   @regression
-   @driverScheduleBungii
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -903,7 +900,6 @@ Feature: SoloScheduled
 
 
   @regression
-  @driverScheduleBungii
   Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:Solo
     Given I Switch to "customer" application on "same" devices
     #trip 1
@@ -929,7 +925,6 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
-  @driverScheduleBungii
   Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
     Given I Switch to "customer" application on "same" devices
     #trip 1
@@ -956,7 +951,6 @@ Feature: SoloScheduled
 
 
   @regression
-  @driverScheduleBungii
   Scenario: To check the status of scheduled Bungii in the scheduled trip page when only one driver has accepted
     And I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -981,7 +975,6 @@ Feature: SoloScheduled
 
 
     @regression
-    @driverScheduleBungii
     Scenario:To check all details in the Bungii Details page when required number of drivers have accepted
 
       When I request "duo" Bungii as a customer in "kansas" geofence
@@ -1006,7 +999,6 @@ Feature: SoloScheduled
         | 8805368840     |                 |
 
   @regression
-    @driverScheduleBungii
   Scenario: Check that customer received Notification when control driver starts bungii duo
     When I clear all notification
     And I request "duo" Bungii as a customer in "kansas" geofence
@@ -1029,7 +1021,6 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-    @driverScheduleBungii
   Scenario: Check that customer received Notification when driver starts bungii solo
     When I clear all notification
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
@@ -1053,7 +1044,6 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario: Check to see if a driver deosn't receive scheduled trip request if his home is over 30 mins away from PU location
     When I clear all notification
     When I Switch to "customer" application on "same" devices
@@ -1089,7 +1079,6 @@ Feature: SoloScheduled
     Then Bungii must be removed from "MY BUNGIIS" screen
 
   @regression
-  @driverScheduleBungii
   Scenario: Re-searched trip request should show Urgent Notification text if admin re-searches less than one hour from scheduled trip time or for trip time between 24 hours prior to current time
     When I clear all notification
     Given that solo schedule bungii is in progress
@@ -1124,8 +1113,6 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  @driverScheduleBungii
-
   Scenario: Check that re-searched trip request does Not show Urgent Notification text if is more than one hour from the scheduled trip time
     When I clear all notification
     Given that solo schedule bungii is in progress
@@ -1160,7 +1147,6 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @driverScheduleBungii
   Scenario: To check validation message shown if driver tries to start a Bungii more than 60 mins before the scheduled time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -1204,7 +1190,6 @@ Feature: SoloScheduled
 
 
   @regression
-  @driverScheduleBungii
   Scenario: Driver should Not receive scheduled request if the request is sent outside of the time that is set for Trip Alert settings.
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -1230,7 +1215,6 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario: Driver should receive alert stating that the trip has already been accepted by him, if he receives request Notification after accepting the trip from Available trips.
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -1238,16 +1222,15 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     Given I Switch to "customer" application on "same" devices
 
-    Given I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+    Given I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Password | Customer Name                      |
       | NEXT_POSSIBLE | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test   |
 
-    Then I wait for "2" mins
+    Then I wait for "1" mins
     And I Switch to "driver" application on "same" devices
     And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from available trip
-    Then I should be navigated to "TRIP DETAILS" screen
-    When I accept selected Bungii
+    When I click "ACCEPT" button on Bungii Request screen
     And I Switch to "customer" application on "same" devices
     And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
@@ -1258,9 +1241,8 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario: To check that driver is not allowed to start Bungii within 60 mins of the scheduled time if required number of Drivers have not accepted
-    When I request "duo" Bungii as a customer in "denver" geofence
+    When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test   | Cci12345          |
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
@@ -1273,17 +1255,16 @@ Feature: SoloScheduled
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    Then user is alerted for "REQUIRED DRIVER NOT ACCEPTED"
+    Then I should see "REQUIRED DRIVER NOT ACCEPTED" on screen
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
-      | Kansas   | Accepted     | 0.75 hour ahead |
+      | Kansas   | Accepted     | 1 hour ahead |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
       | Kansas   | Enroute      | driver 2     | 2          |
@@ -1295,17 +1276,16 @@ Feature: SoloScheduled
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
+    Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
-      | Kansas   | Accepted     | 0.75 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+      | Kansas   | Accepted     | 1 hour ahead | Kansas customer | Kansas driver 1 | Kansas driver 2 |
     Given that ondemand bungii is in progress
       | geofence | Bungii State | Driver label | Trip Label |
       | Kansas   | Enroute      | driver 2     | 2          |
@@ -1317,7 +1297,10 @@ Feature: SoloScheduled
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from scheduled trip
     And I start selected Bungii
-    Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
+    Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
@@ -1469,7 +1452,6 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  @driverScheduleBungii
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     | Customer        | Driver1         | Driver2         |
@@ -1497,7 +1479,6 @@ Feature: SoloScheduled
 
 
   @regression
-    @driverScheduleBungii
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1969,7 +1950,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-  @driverScheduleBungii
+
 
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -1994,7 +1975,7 @@ Feature: SoloScheduled
 
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
+    And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip

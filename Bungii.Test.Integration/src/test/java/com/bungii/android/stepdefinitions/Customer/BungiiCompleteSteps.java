@@ -50,16 +50,6 @@ public class BungiiCompleteSteps  extends DriverBase {
                     action.scrollToBottom();
                     verifyTripValue();
                 break;
-                case "correct rating detail for duo":
-                    String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-                    driver1 = driver1.substring(0, driver1.indexOf(" ") + 2);
-                    String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-                    driver2 = driver2.substring(0, driver2.indexOf(" ") + 2);
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName1(), driver1);
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName2(), driver2);
-                    testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar1(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
-                    testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar2(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
-                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -180,6 +170,9 @@ public class BungiiCompleteSteps  extends DriverBase {
      * Verify variable texts in Bungii Complete Page
      */
     public void verifyTripValue(){
+        try {
+            Thread.sleep(10000);
+
         action.scrollToBottom();
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];
         String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -191,6 +184,10 @@ public class BungiiCompleteSteps  extends DriverBase {
         testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 
         cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
+        } catch (InterruptedException e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     public  void verifyDiscount(){
         action.scrollToBottom();

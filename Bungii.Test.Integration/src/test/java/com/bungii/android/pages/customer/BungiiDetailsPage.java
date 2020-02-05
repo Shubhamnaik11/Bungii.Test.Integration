@@ -31,4 +31,5 @@ public class BungiiDetailsPage extends PageBase {
     public WebElement Text_AvailableTrips(){return findElement("//android.widget.TextView[@text='AVAILABLE TRIPS']", LocatorType.XPath);}
     public WebElement Text_BungiiDetails(){return findElement("//android.widget.TextView[@text='BUNGII DETAILS']", LocatorType.XPath);}
 
+    public WebElement Text_snackbarmessage() {return findElement("com.bungii.driver:id/snackbar_text", LocatorType.Id);}
 }

@@ -8,6 +8,7 @@ import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -109,9 +110,6 @@ public class BungiiDetailsSteps extends DriverBase {
     @When("^I start selected Bungii$")
     public void i_start_selected_bungii() {
         try {
-            if(action.isAlertPresent())
-                SetupManager.getDriver().switchTo().alert().accept();
-
             action.click(bungiiRequest.Button_StartBungii());
             log("I start selected Bungii ", "I started selected Bungii", true);
         } catch (Exception e) {
@@ -119,5 +117,26 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+    @Then("^I should see \"([^\"]*)\" on screen$")
+    public void i_should_see_something_on_screen(String strArg1) throws Throwable {
+        try {
+            String expectedText=null; String actualText =null;
+            switch(strArg1)
+            {
+            case "REQUIRED DRIVER NOT ACCEPTED":
+                 expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                 break;
+            case "CUSTOMER HAS ONGOING BUNGII":
+                 expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                 break;
+        }
+            actualText = action.getText(bungiiDetailsPage.Text_snackbarmessage());
+            testStepVerify.isEquals(actualText, expectedText);
+         } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
+        }
 
 }

@@ -291,6 +291,7 @@ public class ScheduledBungiiSteps extends DriverBase {
            switch (buttonName){
 
                case "ACCEPT":
+                   Thread.sleep(6000);
                    action.click(estimatePage.Button_BungiiAccept());
                    break;
 

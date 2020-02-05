@@ -107,7 +107,7 @@ public class UpdateStatusSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "control driver":
                     String controlDriverEta=(String) cucumberContextManager.getScenarioContext("ETA_VALUE");
-                    testStepVerify.isTrue(action.getText(inProgressBungiiPages.Bungii_ETA()).equals(controlDriverEta),controlDriverEta+" should be displayed");
+                    testStepVerify.isTrue(action.getText(inProgressBungiiPages.Bungii_ETACustomer()).equals(controlDriverEta),controlDriverEta+" should be displayed");
                     break;
                 default:
                     throw new Exception("Not Implemented");
