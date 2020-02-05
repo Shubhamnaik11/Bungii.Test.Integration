@@ -32,7 +32,7 @@ public class BungiiCompleteSteps extends DriverBase {
         try {
             String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
             if (numberOfDriver.equalsIgnoreCase("DUO")) {
-                action.hardWaitWithSwipeUp(2);
+                action.hardWaitWithSwipeUp(1);
             }
             switch (identifier) {
                 case "correct details with promo":
