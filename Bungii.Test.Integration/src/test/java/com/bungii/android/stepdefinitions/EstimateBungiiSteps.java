@@ -24,12 +24,14 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
+import java.time.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static com.bungii.SetupManager.getDriver;
@@ -181,6 +183,46 @@ public class EstimateBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Then("^I should see the minimum scheduled time displayed on the Estimate page$")
+    public void i_should_see_the_minimum_scheduled_time_displayed_on_the_estimate_page()throws Throwable{
+        ZoneId zoneId = ZoneId.of("America/Los_Angeles");
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.now(), zoneId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        String actualTime = zonedDateTime.format(formatter);
+        System.out.println("Original Time"+ actualTime);
+        zonedDateTime = zonedDateTime.plusMinutes(45);
+        actualTime = zonedDateTime.format(formatter);
+        System.out.println("Plus 45 Original Time"+ actualTime);
+        int minutes = zonedDateTime.getMinute();
+        int difference = 0;
+        if(minutes > 0 && minutes < 15) {
+            difference = 15 - minutes;
+        } else if (minutes > 15 && minutes < 30) {
+            difference = 30 - minutes;
+        } else if (minutes > 30  && minutes < 45) {
+            difference = 45 - minutes;
+        } else if(minutes > 45) {
+            difference = 60 - minutes;
+        }
+        zonedDateTime =  zonedDateTime.plusMinutes(difference);
+        actualTime = zonedDateTime.format(formatter);
+        System.out.println("Actual Time"+actualTime);
+            String pickupDateTime = action.getText(bungiiEstimatePage.Time());
+            String pickupTime = pickupDateTime.substring(8,16);
+            System.out.println("Pickup time " + pickupTime);
+
+        Assert.assertEquals(actualTime, pickupTime);
+        }
+
+    @Then("^I should see the minimum scheduled time for Solo Bungii displayed on the Estimate page$")
+    public void i_should_see_the_minimum_scheduled_time_for_solo_bungii_displayed_on_the_estimate_page() throws Throwable {
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        action.click(estimatePage.Button_TimeConfirm());
+        i_should_see_the_minimum_scheduled_time_displayed_on_the_estimate_page();
     }
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
@@ -477,6 +519,14 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
+                    break;
+                case "San Francisco pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.sanFrancisco"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.sanFrancisco"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "San Francisco");
+                    Thread.sleep(1000);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
