@@ -39,17 +39,34 @@ Feature: Payment page
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
-#  @regression
-  Scenario: As Bungii customer I should able to delete card
+  @regression
+  Scenario Outline: As Bungii customer I should able to delete card
+    Given I am on the "SIGN UP" page
+    When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    Then I should be navigated to "Home" screen
     When I Select "PAYMENT" from Customer App menu
-    Then I should be navigated to "PAYMENT" screen
-  #  When I swipe "default" card on the payment page
-  #  Then I should see "no delete button" on Payment page
+    When I click "ADD" button on "PAYMENT" screen
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
+    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I click "ADD PAYMENT METHOD" button on "PAYMENT" screen
+    Then I should see "new card" on Payment page
     When I swipe "other" card on the payment page
     And I tap on "Delete" on Payment page
     Then Alert message with Delete Warning text should be displayed
     When I accept Alert message
     Then I should see "the card has been deleted" on Payment page
+    Examples:
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
+      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @regression
   Scenario: As Bungii customer I should able to change default card

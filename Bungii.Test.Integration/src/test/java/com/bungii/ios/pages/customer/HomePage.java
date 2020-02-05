@@ -101,6 +101,7 @@ public class HomePage extends PageBase {
     public WebElement Image_PickupIcon() {return findElement("input_icon_pickup", LocatorType.AccessibilityId); }
     public WebElement Image_DropOffIcon() {return findElement("input_icon_dropoff", LocatorType.AccessibilityId); }
 
+    public WebElement AppIcon_Phone(boolean ...ignoreException) {return findElement("type == 'XCUIElementTypeIcon' AND name == 'Phone'", PageBase.LocatorType.Predicate,ignoreException); }
 
 
 }

@@ -3,11 +3,15 @@ package com.bungii.android.utilityfunctions;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.customer.ForgotPasswordPage;
+import com.bungii.android.pages.customer.LocationPage;
+import com.bungii.android.pages.customer.LoginPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
 import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -20,6 +24,7 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.functions.ExpectedCondition;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -29,6 +34,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.List;
 
@@ -64,7 +71,8 @@ public class GeneralUtility extends DriverBase {
     InProgressBungiiPages Page_DriverBungiiProgress = new InProgressBungiiPages();
     ScheduledBungiisPage scheduledBungiisPage = new ScheduledBungiisPage();
     InvitePage invitePage = new InvitePage();
-
+    LocationPage locationPage= new LocationPage();
+    com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
     /**
      * Launch driver application's using package and activity
      *
@@ -252,6 +260,12 @@ public class GeneralUtility extends DriverBase {
             case "INVITE":
                 isCorrectPage = action.isElementPresent(invitePage.Header_Invite());
                 break;
+            case "LOCATION":
+                isCorrectPage = action.getText(locationPage.Header_Location()).equals("LOCATION");
+                break;
+            case"DRIVER's LOCATION":
+                isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
+                break;
             default:
                 break;
         }
@@ -261,7 +275,60 @@ public class GeneralUtility extends DriverBase {
     public void resetApp() {
         ((AndroidDriver) SetupManager.getDriver()).resetApp();
     }
+    public boolean installCustomerApp() {
+        boolean isInstalled = false;
+        try {
 
+            String customerApkFile =PropertyUtility.getDataProperties("customer.apk.file.location").replace("{ENVT}", PropertyUtility.environment);
+
+
+            logger.detail("apk file Location " + customerApkFile);
+            if (!Files.exists(Paths.get(customerApkFile))) {
+                logger.detail("apk file doesnot exist " + customerApkFile);
+
+/*                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, false);*/
+            }
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Customer"));
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).installApp(customerApkFile);
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled = true;
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+        return isInstalled;
+
+
+    }
+
+    public boolean installDriverApp() {
+        boolean isInstalled = false;
+        try {
+
+            String driverApkFile = PropertyUtility.getDataProperties("driver.apk.file.location").replace("{ENVT}", PropertyUtility.environment);
+
+            logger.detail("apk file Location " + driverApkFile);
+            if (!Files.exists(Paths.get(driverApkFile))) {
+                logger.detail("apk file doesnot exist " + driverApkFile);
+
+/*                warning("IPA file doesnot exist on local machine",
+                        "File " + customerIPAFile, false);*/
+            }
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).closeApp();
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).removeApp(PropertyUtility.getProp("bundleId_Driver"));
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).installApp(driverApkFile);
+            ((AndroidDriver<MobileElement>) SetupManager.getDriver()).launchApp();
+            isInstalled = true;
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+        return isInstalled;
+
+
+    }
     /**
      * Verification that correct page is displayed
      *
@@ -815,8 +882,18 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_TMinus2());
                 isDisplayed = true;
             }
-
-
+        }
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("customer.notification.driver.cancelled"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_OtherDriverCancel(true))) {
+                    action.click(otherAppsPage.Notification_OtherDriverCancel());
+                    isDisplayed = true;
+                }
+        }
+        else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel"))) {
+            if (action.isElementPresent(otherAppsPage.Notification_CustomerCancel(true))) {
+                action.click(otherAppsPage.Notification_CustomerCancel());
+                isDisplayed = true;
+            }
         }
         return isDisplayed;
     }
@@ -852,6 +929,12 @@ public class GeneralUtility extends DriverBase {
                     break;
                 case "T-2 BEFORE SCHEDULED TRIP":
                     text = PropertyUtility.getMessage("customer.notification.scheduled.t.minus.2");
+                    break;
+                case "DRIVER CANCELLED BUNGII":
+                    text = PropertyUtility.getMessage("customer.notification.driver.cancelled");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    text = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
             }
 
@@ -928,7 +1011,8 @@ public class GeneralUtility extends DriverBase {
     public String getCustomerSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
+        WebElement element = wait.ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.customer:id/snackbar_text")));
         return action.getText(element);
     }
 
@@ -942,7 +1026,7 @@ public class GeneralUtility extends DriverBase {
     public String getDriverSnackBarMessage() {
 
         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), Long.parseLong(PropertyUtility.getProp("WaitTime")));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
+        WebElement element = wait.ignoring(StaleElementReferenceException.class).until(ExpectedConditions.visibilityOfElementLocated(By.id("com.bungii.driver:id/snackbar_text")));
         return action.getText(element);
     }
 
