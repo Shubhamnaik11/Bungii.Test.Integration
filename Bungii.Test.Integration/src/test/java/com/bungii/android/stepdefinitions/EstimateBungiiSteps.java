@@ -409,6 +409,14 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
+                case"atlanta long pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlanta"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
+                    Thread.sleep(1000);
+                    break;
                 case "current location in pickup and dropoff fields":
                     //string a = driver.PageSource;
                     action.click(Page_CustHome.Button_Locator());

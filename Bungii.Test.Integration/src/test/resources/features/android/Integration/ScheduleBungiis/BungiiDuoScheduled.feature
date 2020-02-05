@@ -144,7 +144,7 @@ Feature: Duo
     And I Select "Home" from driver App menu
     And I Switch to "customer" application on "ORIGINAL" devices
     And I Switch to "customer" application on "same" devices
-    And I enter "atlanta pickup and dropoff locations" on Bungii estimate
+    And I enter "atlanta long pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
@@ -163,9 +163,6 @@ Feature: Duo
     And I tap on "Available Trips link" on Driver Home page
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And Bungii Driver "Start Schedule Bungii" request
 
     And I Switch to "driver" application on "Driver2" devices
     And I tap on "Available Trips link" on Driver Home page
@@ -179,6 +176,9 @@ Feature: Duo
     And Bungii Driver "slides to the next state"
 
     When I Switch to "driver" application on "ORIGINAL" devices
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
     And Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
@@ -242,7 +242,7 @@ Feature: Duo
     Examples:
       | PROMO CODE       |
       | PROMO DOLLAR OFF |
-        |PROMO PERCENT OFF|
+    #    |PROMO PERCENT OFF|
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
