@@ -82,24 +82,9 @@ public class CucumberHooks {
             String udid = jsonCaps.getString("udid");
 
 
-/*                String[] args = new String[]{"/bin/bash", "-c", "ios-deploy -u "+ udid+ " --uninstall com.facebook.WebDriverAgentRunner.xctrunner"};
-                Process proc = new ProcessBuilder(args).start();
-            // blocked :(
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(proc.getInputStream()));
 
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
-            }*/
             Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh "+udid);
-
-/*            int exitCode = proc.waitFor();
-            System.out.println("\nExited with error code : " + exitCode);
-                logger.detail("Removed app ",proc.getErrorStream());
-            Runtime.getRuntime().exec("/bin/bash -c ideviceinstaller -u "+ udid+" --uninstall com.apple.test.WebDriverAgentRunner-Runner");*/
-
-          //  }
+            
         } catch (Exception e) {
             logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
 
