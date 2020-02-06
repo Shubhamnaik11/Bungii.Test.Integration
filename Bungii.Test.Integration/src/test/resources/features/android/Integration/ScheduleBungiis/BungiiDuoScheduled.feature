@@ -127,10 +127,9 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
-
-  @regression1
+  #given i have large image on phone
+  @regression
   Scenario Outline:Customer amount for duo with promo
-  #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
 
     When I Switch to "driver" application on "same" devices
@@ -148,7 +147,7 @@ Feature: Duo
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
-    And I add "1" photos to the Bungii
+    And I add large image photos to the Bungii
     And I add loading/unloading time of "30 mins"
     And I tap on "Promo Code" on Bungii estimate
     And I add "<PROMO CODE>" PromoCode
@@ -239,10 +238,20 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
+    Then I wait for "1" mins
+
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "trips" from admin sidebar
+    And I select "The Beginning of Time" from search peroid
+    And I select trip from trips
+    Then On admin trip details page "promo" should be displayed
     Examples:
       | PROMO CODE       |
       | PROMO DOLLAR OFF |
-    #    |PROMO PERCENT OFF|
+      #  |PROMO PERCENT OFF|
+
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 

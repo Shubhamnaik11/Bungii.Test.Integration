@@ -997,11 +997,11 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @regression1232
+  @regression
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | kansas1  | Accepted     | 1.5 hour ahead |
+      | kansas  | Accepted     | 1.5 hour ahead |
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
     And I am logged in as "valid" customer
