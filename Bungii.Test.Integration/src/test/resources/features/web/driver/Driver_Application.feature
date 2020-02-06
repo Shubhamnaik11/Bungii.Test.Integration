@@ -11,7 +11,6 @@ Feature: Driver_Application
 
   @sanity
   @regression
-  @failed
   Scenario: Verify Driver Signup and Form completion - General Non Fountain Flow
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal

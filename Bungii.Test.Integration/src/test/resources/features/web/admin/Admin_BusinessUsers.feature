@@ -8,7 +8,6 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  @failed
   Scenario: Admin_AddEditNewBusinessUser
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
