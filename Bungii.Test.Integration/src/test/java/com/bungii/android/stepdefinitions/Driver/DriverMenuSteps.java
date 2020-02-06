@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Driver;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
-import com.bungii.android.pages.driver.BungiiRequest;
+
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.EarningsPage;
 import com.bungii.android.stepdefinitions.Customer.HomeSteps;

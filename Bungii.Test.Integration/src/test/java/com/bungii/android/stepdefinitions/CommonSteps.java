@@ -2,16 +2,17 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.DriverNotAvailablePage;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.pages.customer.LocationPage;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.google.common.collect.ImmutableMap;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -19,6 +20,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Point;
@@ -38,13 +40,14 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
-    HomePage homePage = new HomePage();
-    DriverHomePage driverHomePage = new DriverHomePage();
-    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
-    DriverNotAvailablePage driverNotAvailablePage = new DriverNotAvailablePage();
-    BungiiDetailsPage bungiiDetailsPage = new BungiiDetailsPage();
-    BungiiRequest bungiiRequest = new BungiiRequest();
-    BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
+    DriverHomePage driverHomePage= new DriverHomePage();
+    HomePage homePage=new HomePage();
+    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
+    DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
+    BungiiRequest bungiiRequest=new BungiiRequest();
+    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
+    SignupPage Page_Signup = new SignupPage();
     LocationPage locationPage = new LocationPage();
     private DbUtility dbUtility = new DbUtility();
 
@@ -82,7 +85,6 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
-
                     //  utility.launchDriverApplication();
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
@@ -517,15 +519,21 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = "";
-            if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+            String actualMessage = null;
+            if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
-            } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
-            } else {
+            }
+            else if(actualMessage.equals(""))
+            {
+                actualMessage= action.getText(driverHomePage.Alert_NewBungii());
+            }
+
+            else{
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
-            String expectedMessage = null;
+
+            String expectedMessage=null;
+
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
@@ -544,11 +552,11 @@ public class CommonSteps extends DriverBase {
                 case "ACCEPT BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
                     break;
-                case "DRIVER CANCEL BUNGII":
-                    expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
-                    break;
                 case "ACCEPT SCHEDULED BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
+                    break;
+                case "DRIVER CANCEL BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
                     break;
                 case "CUSTOMER CANCELLED SCHEDULED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
@@ -653,6 +661,21 @@ public class CommonSteps extends DriverBase {
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
                     break;
+                case "PICKUP REQUEST NO LONGER AVAILABLE":
+                    expectedText=PropertyUtility.getMessage("driver.request.unavailable");
+                    break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText = PropertyUtility.getMessage("driver.request.already.accepted");
+                    break;
+                case "REQUIRED DRIVER NOT ACCEPTED":
+                    expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                    break;
+                case "CUSTOMER HAS ONGOING BUNGII":
+                    expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
                 case "FOR EMERGENCY CONTACT SUPPORT LINE":
                     expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;
@@ -688,6 +711,9 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
                     break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -710,6 +736,8 @@ public class CommonSteps extends DriverBase {
         try {
             if (strArg1.equalsIgnoreCase("cancel"))
                 action.click(estimatePage.Button_Cancel());
+            else if(strArg1.equalsIgnoreCase("View"))
+                action.click(estimatePage.Button_AcceptRequest());
             else
                 action.click(estimatePage.Button_OK());
 
@@ -767,7 +795,6 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-
     @And("^I click on device \"([^\"]*)\" button$")
     public void i_click_on_device_something_button(String strArg1) throws Throwable {
         try {
@@ -789,12 +816,10 @@ public class CommonSteps extends DriverBase {
                     break;
             }
         } catch (Exception e) {
-
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-
 
     @And("^I get TELET time of of the current trip$")
     public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
@@ -897,7 +922,6 @@ public class CommonSteps extends DriverBase {
         }
     }
 
-
     @And("^I click \"([^\"]*)\" on the alert message$")
     public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
         try {
@@ -913,6 +937,48 @@ public class CommonSteps extends DriverBase {
         } catch (Exception e) {
             log("I should able to click " + strArg1 + "on Alert Message",
                     "I clicked " + strArg1 + "on Alert Message", true);
+        }
+    }
+
+    @And("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
+    public void i_enter_something_value_in_something_field_in_something_page(String value, String field, String screen, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+            String referralCode=dataMap.get("Referral Code").trim();
+
+            switch (field.toUpperCase()) {
+                case "REFERRAL CODE":
+                    action.click(Page_Signup.CheckBox_Promo());
+                    action.click(Page_Signup.TextField_Referral());
+                    action.sendKeys(Page_Signup.TextField_Referral(),referralCode);
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            log("I should able to Enter " + referralCode + " value in " + field + " field in " + screen + " Page",
+                    "I Entered " + referralCode + " in " + field + " field", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should be navigated to \"([^\"]*)\" screen$")
+    public void i_should_be_naviagated_to_something_screen(String screen) {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage(screen);
+            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
     }
 

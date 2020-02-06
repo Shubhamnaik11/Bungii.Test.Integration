@@ -67,26 +67,26 @@ public class CucumberHooks {
 //ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
         try {
           //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
-            String deviceInfoFileKey = "ios.capabilities.file";
-            String deviceId = System.getProperty("DEVICE");
-
-
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
-
-            ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
-            JSONObject jsonParsed, jsonCaps;
-            jsonParsed = jsonParser.getObjectFromJSON();
-            jsonCaps = jsonParsed.getJSONObject(deviceId);
-            String udid = jsonCaps.getString("udid");
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
 
 
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
 
-            Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh "+udid);
-            
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+            }
         } catch (Exception e) {
-            logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+           // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
 
         }
         try {

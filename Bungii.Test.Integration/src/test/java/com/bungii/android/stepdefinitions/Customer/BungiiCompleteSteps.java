@@ -12,10 +12,12 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -44,16 +46,10 @@ public class BungiiCompleteSteps  extends DriverBase {
                     verifyBungiiCompletedPage();
                     verifyTripValue();
                     break;
-                case "correct rating detail for duo":
-                    String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-                    driver1 = driver1.substring(0, driver1.indexOf(" ") + 2);
-                    String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-                    driver2 = driver2.substring(0, driver2.indexOf(" ") + 2);
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName1(), driver1);
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriverName2(), driver2);
-                    testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar1(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
-                    testStepVerify.isElementDisplayed(bungiiCompletePage.RatingBar2(),"Rating bar should be displayed", "Rating bar is displayed", "Rating bar is not displayed");
-                    break;
+                case "correct details for duo trip":
+                    action.scrollToBottom();
+                    verifyTripValue();
+                break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -109,6 +105,47 @@ public class BungiiCompleteSteps  extends DriverBase {
         }
     }
 
+
+    @When("^I give tip to Bungii Driver with following tip and Press \"([^\"]*)\" Button$")
+    public void i_give_tip_to_bungii_driver_with_following_tip_and_press_something_button(String button, DataTable tipInformation) {
+        try {
+            String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+            //Input from user
+            Map<String, String> data = tipInformation.transpose().asMap(String.class, String.class);
+            String tip = data.get("Tip");
+            //give tip and fetch actual tip
+            giveTip(Integer.parseInt(tip));
+            String actualTip = bungiiCompletePage.Text_TipValue().getText().replace("$", "");
+
+            switch (button.toUpperCase()) {
+                case "OK":
+                    action.scrollToBottom();
+                    action.click(bungiiCompletePage.Button_Ok());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            if (!numberOfDriver.toUpperCase().equals("DUO"))
+                testStepVerify.isTrue((int) Double.parseDouble(actualTip) == Integer.parseInt(tip), "driver should be given tip for " + tip, "Bungii driver is given tip for" + actualTip,
+                        "Bungii driver is given tip for" + actualTip);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    /**
+     * Give Tip to driver
+     *
+     * @param tipAmmount tip ammount
+     */
+    public void giveTip(int tipAmmount) {
+        for (int i = 0; i < tipAmmount; i++) {
+            action.click(bungiiCompletePage.Button_Plus());
+        }
+    }
+
     /**
      * Verify Static texts on Bungii Completed page
      */
@@ -116,6 +153,7 @@ public class BungiiCompleteSteps  extends DriverBase {
         action.scrollToBottom();
         testStepVerify.isElementEnabled(bungiiCompletePage.PageTitle_BungiiComplete(),"Bungii Complete Page should be displayed");
    //     testStepVerify.isElementEnabled(bungiiCompletePage.Title_RateYourDriver(),"'Rate Your driver'  should be displayed");
+        action.scrollToBottom();
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()),totalDistance=action.getText(bungiiCompletePage.Text_Distance());
         int tripActualTime=Integer.parseInt(utility.getActualTime());
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
@@ -132,6 +170,9 @@ public class BungiiCompleteSteps  extends DriverBase {
      * Verify variable texts in Bungii Complete Page
      */
     public void verifyTripValue(){
+        try {
+            Thread.sleep(10000);
+
         action.scrollToBottom();
         String totalTime=action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],totalDistance=action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0],totalCost=action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];
         String promoValue=String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
@@ -143,6 +184,10 @@ public class BungiiCompleteSteps  extends DriverBase {
         testStepVerify.isEquals(totalCost,"$" + String.valueOf(truncValue));
 
         cucumberContextManager.setScenarioContext("BUNGII_COST_CUSTOMER",totalCost);
+        } catch (InterruptedException e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
     public  void verifyDiscount(){
         action.scrollToBottom();
