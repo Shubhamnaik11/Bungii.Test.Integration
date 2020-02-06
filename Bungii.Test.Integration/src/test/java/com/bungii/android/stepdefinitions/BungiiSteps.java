@@ -1035,7 +1035,13 @@ public class BungiiSteps extends DriverBase {
             isDisplayed=false;
         }
         else {
-            isDisplayed = true;
+            WebElement message=Page_BungiiSearch.findElement("//*[@text='" + expectedMessage + "']", PageBase.LocatorType.XPath,true);
+            if(action.isElementPresent(message)) {
+               // action.click(message);
+                isDisplayed = true;
+            }else{
+               // action.hideNotifications();
+            }
             cucumberContextManager.setScenarioContext("EXPECTED_MESSAGE", expectedMessage);
         }
     }
