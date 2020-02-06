@@ -5,7 +5,7 @@ import com.bungii.common.utilities.ApiHelper;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
-import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
+import com.bungii.ios.stepdefinitions.customer.*;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import cucumber.api.junit.Cucumber;
 import io.restassured.http.Header;
@@ -187,8 +187,9 @@ public class CoreServices extends DriverBase {
                 }
 
             }
-            if (!foundPickup)
+            if (!foundPickup) {
                 error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip Or Driver is not eligible", false);
+            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -645,7 +646,7 @@ public class CoreServices extends DriverBase {
     }
 
     public Response updateDriverStatus(String authToken) {
-        logger.detail("API REQUEST : Update Driver Status of Authtoken : "+ authToken);
+        logger.detail("API REQUEST : Make Driver with Authtoken Online: "+ authToken);
 
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("DeviceName", "XT1092");
@@ -658,6 +659,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_STATUS);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 

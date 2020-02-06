@@ -13,4 +13,6 @@ public class ScheduledBungiiPage extends  PageBase {
 
     public WebElement Cell_FirstTrip() { return findElement("com.bungii.driver:id/container_scheduled_trip_row", LocatorType.Id);}
 
+    public WebElement Text_ScheduledBungiiStatus() { return  findElement("com.bungii.driver:id/scheduled_row_textview_status", LocatorType.Id);}
+
 }

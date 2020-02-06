@@ -8,9 +8,11 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
+import com.bungii.ios.enums.REFERRAL_SOURCE;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -260,4 +262,18 @@ public class SignupSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^I Select Referral source$")
+    public void i_select_referral_source() throws Throwable {
+            try {
+                action.click(Page_Signup.Select_ReferralSource());
+                action.click(Page_Signup.Option_ReferralSource());
+                action.click(Page_Signup.Link_ReferralSourceDone());
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error( "Step  Should be successful",
+                        "Error performing step,Please check logs for more details", true);
+            }
+        }
+
 }

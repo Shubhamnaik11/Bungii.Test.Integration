@@ -2,6 +2,9 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.driver.DriverHomePage;
+import com.bungii.android.pages.driver.LoginPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
@@ -20,7 +23,7 @@ public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
-    DriverHomePage homePage=new DriverHomePage();
+    DriverHomePage driverHomePage =new DriverHomePage();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
@@ -203,7 +206,7 @@ public class LoginSteps extends DriverBase {
                     break;
 
                 case "It looks like we ran into a hiccup. Please contact support@bungii.com for more information.":
-                    testStepVerify.isEquals(action.getText(homePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
                     break;
 
                 case "Your account registration is still under process.":

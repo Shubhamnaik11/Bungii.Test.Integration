@@ -9,6 +9,7 @@ public class BungiiDetailsPage extends PageBase {
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
+	public WebElement Text_ContactDriverMessage(){return findElement("//android.widget.TextView[@text='You will have the ability to contact your drivers when the Bungii begins']", LocatorType.XPath);}
 	public WebElement TextBox_Pickup_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[5]", LocatorType.XPath); }
 	public WebElement TextBox_Pickup_LineTwo(boolean ...ignoreException) {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[6]", LocatorType.XPath,ignoreException); }
 	public WebElement TextBox_Drop_LineOne() {return findElement("//XCUIElementTypeOther[@name=\"WHEN\"]/XCUIElementTypeStaticText[7]", LocatorType.XPath); }

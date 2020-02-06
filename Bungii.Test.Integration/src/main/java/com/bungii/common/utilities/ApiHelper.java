@@ -297,24 +297,24 @@ public class ApiHelper {
     }
 
     public static void genericResponseValidation(Response response) {
+        JsonPath jsonPathEvaluator;
         try {
             logger.detail(response.print());
-            JsonPath jsonPathEvaluator = response.jsonPath();
+            jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            System.out.println("**** API Call Pass ****");
-        } else {
-            System.out.println("**** API Call failed : " + error.toString());
-
+            logger.detail("***API Call Pass***");
         }
 
             response.then().statusCode(200);
         }
         catch (AssertionError ex)
         {
-            logger.error("Error performing step"," API RESPONSE : "+ response.print());
-            error("Step should be successful", "Error performing step, Please check logs for more details",
+            jsonPathEvaluator = response.jsonPath();
+            HashMap error = jsonPathEvaluator.get("Error");
+            logger.error("API Call failed : "," Failed due to : "+ error.get("Message").toString());
+            error("Step should be successful", "Failed due to :  "+ error.get("Message").toString(),
                     true);
         }
 

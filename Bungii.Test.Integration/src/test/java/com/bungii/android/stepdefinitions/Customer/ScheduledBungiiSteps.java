@@ -3,9 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.pages.driver.BungiiCompletedPage;
-import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.ScheduledBungiiPage;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.stepdefinitions.CommonSteps;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -19,6 +17,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -286,6 +285,47 @@ public class ScheduledBungiiSteps extends DriverBase {
         }
     }
 
+    @When("^I click \"([^\"]*)\" button on Bungii Request screen$")
+    public void i_click_something_button_on_bungii_request_screen(String buttonName) throws Throwable {
+       try{
+           switch (buttonName){
+
+               case "ACCEPT":
+                   Thread.sleep(6000);
+                   action.click(estimatePage.Button_BungiiAccept());
+                   break;
+
+               case "REJECT":
+                   action.click(estimatePage.Button_CancelRequest());
+                   break;
+           }
+       }
+       catch (Exception e) {
+           logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+       }
+    }
+
+    @When("^I click \"([^\"]*)\" button on SCHEDULED BUNGII screen$")
+    public void i_click_something_button_on_scheduled_bungii_screen(String buttonName) throws Throwable {
+
+        try{
+            switch (buttonName){
+
+                case "ACCEPT":
+                    action.click(estimatePage.Button_AcceptRequestScheduledBungii());
+                    break;
+
+                case "REJECT":
+                    action.click(estimatePage.Button_RejectRequestScheduledBungii());
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
+
     @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
     public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
@@ -377,6 +417,58 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
             }
         }
+    }
+
+
+
+    @Then("^trips status should be \"([^\"]*)\"$")
+    public void trips_status_should_be_something(String status) throws Throwable {
+        try{
+            String actualStatus="";
+            switch (status){
+                case "Contacting Other Driver":
+                    actualStatus=action.getText(scheduledBungiiPage.Text_ScheduledBungiiStatus());
+                    testStepVerify.isEquals(actualStatus,status);
+                    break;
+
+                case "estimated cost":
+                   // tripStatus = action.getNameAttribute(scheduledBungiiPage.Trip_Status());
+                    System.out.println((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    testStepVerify.isEquals(actualStatus, (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+                    break;
+
+                case "estimated cost of duo trip":
+                    String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+                    double flestimate=Double.valueOf(estimate.replace("~$","").trim());
+                    //transaction fee different for solo and duo
+                    double transactionFee=((flestimate*0.029*0.5)+0.3)*2;
+                    double estimatedDriverCut=(0.7*flestimate)-transactionFee;
+                    //divide by 2 for individual driver value
+                    String truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
+                    actualStatus = action.getText(scheduledBungiiPage.Text_ScheduledBungiiStatus());
+                    testStepVerify.isEquals(actualStatus,"~$"+truncValue);
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @And("^I Select Trip from scheduled trip$")
+    public void i_select_trip_from_scheduled_trip() throws Throwable {
+        try{
+            action.click(scheduledBungiiPage.Cell_FirstTrip());
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 
     private void selectMeridean(String Meridian) {

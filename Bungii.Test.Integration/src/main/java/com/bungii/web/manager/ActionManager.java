@@ -28,7 +28,8 @@ public class ActionManager {
      */
     public void clearSendKeys(WebElement element, String text) {
         try {
-            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            Thread.sleep(2000);
             element.clear();
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element" + element.toString());
@@ -60,6 +61,8 @@ public class ActionManager {
     public void clear(WebElement element) {
         try {
             logger.detail("Clear  element" + element.toString());
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            element.clear();
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
@@ -70,6 +73,8 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         try {
+         Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
         logger.detail("text Value is  " + text + " for element" + element.toString());
 
@@ -123,6 +128,20 @@ public class ActionManager {
                 true);
     }
     }
+
+    public void JavaScriptClear(WebElement element) {
+        try{
+            JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+            executor.executeScript("arguments[0].value = '';", element);
+            logger.detail(" JS Clear on locator" + element.toString());
+
+        }  catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     public void navigateToPreviousPageUsingBrowserBackButton() {
         SetupManager.getDriver().navigate().back();
     }
@@ -147,10 +166,20 @@ public class ActionManager {
     public void navigateTo(String url) {
         SetupManager.getDriver().navigate().to(url);
     }
-
+    public void refreshPage() {
+        SetupManager.getDriver().navigate().refresh();
+    }
     public static void selectElementByText(WebElement element, String text)
-    {
+    { try{
+        Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+        new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
         new Select(element).selectByVisibleText(text);
+    }  catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Error performing step, Please check logs for more details",
+                true);
+    }
     }
     public static String getFirstSelectedOption(WebElement element)
     {
@@ -183,5 +212,25 @@ catch(Exception ex)
             error("Step should be successful", "Error performing step, Please check logs for more details",
                     true);
         }
+    }
+
+    public Boolean waitForElement(String xpath)
+    {
+        int retrycount =10;
+        boolean retry = true;
+        boolean isElementPresent = false;
+        while (retry == true && retrycount >0) {
+            try {
+                WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                retry = false;
+                isElementPresent = true;
+            } catch (Exception ex) {
+                SetupManager.getDriver().navigate().refresh();
+                retrycount--;
+                retry = true;
+            }
+        }
+        return isElementPresent;
     }
 }

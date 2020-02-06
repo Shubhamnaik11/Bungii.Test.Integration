@@ -1,12 +1,12 @@
 /**
- * 
+ *
  */
 package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.common.utilities.PropertyUtility;
@@ -47,7 +47,7 @@ public class ScheduledTripSteps extends DriverBase {
 			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
 			//On admin panel CST time use to show
-		//	getPortalTime("Dec 21, 11:15 AM IST");
+			//	getPortalTime("Dec 21, 11:15 AM IST");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
 			tripDetails.put("SCHEDULED_DATE", getPortalTime(bungiiTime.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST")));
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
@@ -125,7 +125,7 @@ public class ScheduledTripSteps extends DriverBase {
 			testStepVerify.isTrue(rowNumber == 999,
 					"Bungii should be removed from the List", "Bungii is removed from the List",
 					"Bungii is not removed from the List");
-			
+
 
 		} catch (Exception e) {
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -278,7 +278,7 @@ public class ScheduledTripSteps extends DriverBase {
 		String scheduledDate= tripDetails.get("SCHEDULED_DATE"),estimatedDistance=tripDetails.get("BUNGII_DISTANCE");
 		String label=utility.getTimeZoneBasedOnGeofence();
 		if(!scheduledDate.contains(label))
-		scheduledDate=scheduledDate+" "+label;
+			scheduledDate=scheduledDate+" "+label;
 		scheduledDate=scheduledDate.replace("CDT","CST").replace("EDT","EST").replace("MDT","MST");
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
@@ -310,7 +310,7 @@ public class ScheduledTripSteps extends DriverBase {
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
 		}else
 			//vishal[1403] : Updated xpath
-		editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
+			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
 		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);

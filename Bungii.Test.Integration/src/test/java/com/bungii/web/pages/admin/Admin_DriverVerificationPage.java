@@ -126,4 +126,8 @@ public class Admin_DriverVerificationPage extends PageBase {
     public WebElement Button_Cancel () { return findElement("//*[@id='btncancel']", LocatorType.XPath); }
 
     public WebElement Popup_ConfirmCancelDriverVerificationApplication () { return findElement("//*[@id='cancelApp']//p[2]", LocatorType.XPath); }
+
+    public WebElement Button_VerifySSN () { return findElement("//td[text()='Social Security Number']/following-sibling::td/div/button[starts-with(@id,'btnok')]", LocatorType.XPath); }
+
+    public WebElement Textbox_SSNComment () { return findElement("//input[@id='DriverDetails_DriverVerification_DriverVerificationDetails_8__Comment']", LocatorType.XPath); }
 }

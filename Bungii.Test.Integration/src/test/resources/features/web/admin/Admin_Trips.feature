@@ -4,35 +4,9 @@ Feature: Admin_Trips
   Background:
     Given I am logged in as Admin
 
-  @regression
-  @fail
-    #test data created in base
-  Scenario: Customer List - Solo Scheduled Trip
-    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
-    And I note the Trip Requested count of Customer "Testcustomertywd_applekrishna Hoderker"
-     And I view the Customer list on the admin portal
-    Then I should be able to see the Trip Requested count incremented in Customers Grid
-    When I view the customer details page of Customer "Testcustomertywd_applekrishna Hoderker"
-    Then Trip should be listed in the grid
-
-  @regression
-      #test data created in base
-  Scenario: Customer List - Duo Scheduled Trip
-    And I note the Trip Requested count of Customer "Krishna Hoderker"
-    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284174823| Krishna Hoderker|
-    And I view the Customer list on the admin portal
-    Then I should be able to see the Trip Requested count incremented in Customers Grid
-    When I view the customer details page of Customer "Krishna Hoderker"
-    Then Trip should be listed in the grid
-
-
   @sanity
   @regression
-  @fail
+  @failed
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -62,7 +36,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
+  @failed
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -92,13 +66,12 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
     #test data created in base
   Scenario: Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     And I view the Scheduled Trips list on the admin portal
@@ -117,7 +90,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
     #test data created in base
     #changed driver name
     #First time promo code added
@@ -138,10 +110,14 @@ Feature: Admin_Trips
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" trip
       | driver1 state|
       | Accepted  |
-    When I click on "Close" icon
+    When I wait for 2 minutes
+    And I click on "Close" icon
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Scheduled |
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
@@ -156,7 +132,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-    @fail
+  @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Trips List Statuses - Solo Ondemand
@@ -212,7 +188,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
+  @failed
     #test data created in base
   Scenario: Trips List Statuses - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -274,7 +250,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
+  @failed
    Scenario: Status on admin portal - Duo - Both drivers have accepted trip
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -309,7 +285,6 @@ Feature: Admin_Trips
     Then All the clients named "Vishal" should be displayed on the trip list grid
 
   @regression
-  @fail
   Scenario: Admin_Filter_TripList
     When I click on "Trips > Trips" Menu
     And I click on "Filter" icon on "Trips" Page
@@ -364,7 +339,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
   Scenario: Driver - Driver Does Not receive On Demand requests if he is Not assigned to the geofence in which his current location is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -375,3 +349,29 @@ Feature: Admin_Trips
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
     Then the driver "Testdrivertywd_appledc_a_web TestdriverY" should not receive On Demand requests as he is assigned NOT to "goa" geofence
+
+  @regression
+  @failed
+    #test data created in base
+  Scenario: Customer List - Solo Scheduled Trip
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
+    And I note the Trip Requested count of Customer "Testcustomertywd_applekrishna Hoderker"
+    And I view the Customer list on the admin portal
+    Then I should be able to see the Trip Requested count incremented in Customers Grid
+    When I view the customer details page of Customer "Testcustomertywd_applekrishna Hoderker"
+    Then Trip should be listed in the grid
+
+  @regression
+  @failed
+      #test data created in base
+  Scenario: Customer List - Duo Scheduled Trip
+    And I note the Trip Requested count of Customer "Krishna Hoderker"
+    When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9284174823| Krishna Hoderker|
+    And I view the Customer list on the admin portal
+    Then I should be able to see the Trip Requested count incremented in Customers Grid
+    When I view the customer details page of Customer "Krishna Hoderker"
+    Then Trip should be listed in the grid
