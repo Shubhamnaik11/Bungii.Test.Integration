@@ -15,12 +15,14 @@ Feature: Driver_RegistrationCompletion
 
   @regression
   Scenario: Driver_Terms_AgreeUnchecked_ExisitingNonFountainApplication
-    When I click Next on "Terms & Conditions" page
+    When I uncheck "agree to the Terms and Conditions." checkbox
+    And I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page
 
   @regression
   Scenario: Driver_VideoTraining_ViewedUnchecked_ExisitingNonFountainApplication
     When I click "I agree to the Terms and Conditions" on driver portal
+    And I check "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
     Then I should be directed to "Video Training" on Driver portal
     When I click Next on "Video Training" page

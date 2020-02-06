@@ -172,7 +172,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
 
     #used one off
   #Know issue, no alert
-  @regression123
+  @regression
   Scenario Outline: To check that validation is displayed on signing up with invalid/used One off promo codes
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page

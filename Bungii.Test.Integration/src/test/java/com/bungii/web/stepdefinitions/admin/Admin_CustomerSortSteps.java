@@ -46,26 +46,26 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(),"go"+ Keys.ENTER);
                         Thread.sleep(2000);
                         DefaultGridData = admin_ReferralSourceSteps.paginateAndGetGridData(6);
-                        sort = admin_customerPage.Header_Name().getAttribute("class");
-                        if (order.equals("Ascending")) {
-                            if (!sort.equals("sorting_asc")) {
+                        sort = admin_customerPage.Header_Name().getAttribute("onclick");
+                        if (order.equalsIgnoreCase("Ascending")) {
+                            if (!sort.contains("ASC")) {
                                 action.click(admin_customerPage.Header_Name());
                             }
                         } else {
-                            if (!sort.equals("sorting_desc")) {
+                            if (!sort.equals("DESC")) {
                                 action.click(admin_customerPage.Header_Name());
                             }
                         }
                         break;
                     case "Customer Join Date (CST)":
-                        sort = admin_customerPage.Header_CustomerJoinDate().getAttribute("class");
+                        sort = admin_customerPage.Header_CustomerJoinDate().getAttribute("onclick");
                         if (order.equals("Ascending")) {
-                            if (!sort.equals("sorting_asc")) {
+                            if (!sort.contains("ASC")) {
                                 action.click(admin_customerPage.Header_CustomerJoinDate());
 
                             }
                         } else {
-                            if (!sort.equals("sorting_desc")) {
+                            if (!sort.contains("DESC")) {
                                 action.click(admin_customerPage.Header_CustomerJoinDate());
                             }
                         }
@@ -179,14 +179,14 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         Collections.sort(dateList, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
                         dateList.replaceAll(String::toUpperCase);
 
-                        Collections.sort(gridData, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
+                      //  Collections.sort(gridData, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
                         gridData.replaceAll(String::toUpperCase);
 
                         if (order.equals("Ascending")) {
-                            testStepAssert.isTrue(dateList.equals(gridData.get(1)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            testStepAssert.isTrue(gridData.equals(dateList), field + " should sort by " + order, field + " is not sorted by " + order);
                         } else {
-                            Collections.reverse(dateList);
-                            testStepAssert.isTrue(dateList.equals(gridData.get(1)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            Collections.reverse(gridData);
+                            testStepAssert.isTrue(gridData.equals(dateList), field + " should sort by " + order, field + " is not sorted by " + order);
                         }
                         break;
                     case "Trips Requested":

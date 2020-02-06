@@ -186,13 +186,14 @@ public class Admin_PromoCodesSteps extends DriverBase {
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
-            }}
-        catch(StaleElementReferenceException e){
             }
             log("I click on " + button + " icon",
                     "I have clicked on " + button + " icon", true);
+        }catch (StaleElementReferenceException e) {
+            log("I click on " + button + " icon",
+                    "I have clicked on " + button + " icon", true);
         }
-
+    }
 
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
@@ -219,8 +220,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     case "Delivery By Promoter (M)":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoterMultipleUse());
                         break;
-
-
                 }
                 break;
             case "Active":

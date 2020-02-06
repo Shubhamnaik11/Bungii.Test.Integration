@@ -83,7 +83,7 @@ public class ReportGeneratorUtility {
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
             totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
-	        totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
+			totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
@@ -146,6 +146,7 @@ public class ReportGeneratorUtility {
 		detailsArray.add(str);
 		if (eventData.get("type").toString() != "PASSED") {
 			detailsArray.addAll(stackTraceArray);
+			stackTraceArray.clear();
 		}
 		//increase step count ;
 		testStepCount++;
@@ -157,7 +158,7 @@ public class ReportGeneratorUtility {
 	public void addStackTrace(Map<String, String> eventData) {
    if(eventData.get("actual").toString()!= "") {
        String str = "<tr><td + rightSpan + ></td>";
-       str = str + "<td colspan=8 align='left'>Error Logs : <button onclick='myFunction()' id='myBtn'>Read more </button><span id='dots'> . </span><span id='more'> " + eventData.get("actual").toString() + "</span></td>";
+       str = str + "<td colspan=8 align='left'>Error Log : <div class='maincontent'><div class='content'>" + eventData.get("actual").toString() + "</div><div class='txtcol'><a>Show More</a></div></div></td>";
        stackTraceArray.add(str);
    }
    else {
