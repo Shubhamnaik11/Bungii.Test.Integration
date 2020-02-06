@@ -821,6 +821,41 @@ public class EstimateSteps extends DriverBase {
 
     }
 
+
+    @And("^I select pickup time$")
+    public void i_select_pickup_time() throws Throwable {
+        try {
+            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+            try {
+                Date date = getNextScheduledBungiiTime();
+                String strTime = bungiiTimeDisplayInTextArea(date);
+                String displayedTime = getElementValue("TIME");
+                testStepVerify.isEquals(strTime, displayedTime);
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error("Step  Should be successful",
+                        "Error performing step,Please check logs for more details", true);
+            }
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^correct next available scheduled time should be displayed$")
+    public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
+        try {
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     /**
      * Verify if request bungii button is enabled or disabled
      *

@@ -82,14 +82,4 @@ public class GeofenceSteps extends DriverBase {
             }
     }
 
-    @And("^I select pickup time$")
-    public void i_select_pickup_time() throws Throwable {
-
-    }
-
-    @Then("^correct next available scheduled time should be displayed$")
-    public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
-
-    }
-
 }
