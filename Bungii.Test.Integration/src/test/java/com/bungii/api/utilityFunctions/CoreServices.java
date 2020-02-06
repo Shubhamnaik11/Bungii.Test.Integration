@@ -658,6 +658,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_STATUS);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 

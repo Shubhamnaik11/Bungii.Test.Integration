@@ -140,7 +140,17 @@ public class Driver_DetailsSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I uncheck \"([^\"]*)\" checkbox$")
+    public void i_uncheck_something_checkbox(String strArg1) throws Throwable {
+        if(Page_Driver_Terms.CheckBox_Agree().isSelected())
+            action.click(Page_Driver_Terms.CheckBox_Agree());
+    }
 
+    @And("^I check \"([^\"]*)\" checkbox$")
+    public void i_check_something_checkbox(String strArg1) throws Throwable {
+        if(!Page_Driver_Terms.CheckBox_Agree().isSelected())
+            action.click(Page_Driver_Terms.CheckBox_Agree());
+    }
     @And("^I click Next on \"([^\"]*)\" page$")
     public void i_click_next_on_something_page(String strArg1) throws Throwable {
         switch (strArg1) {
@@ -158,8 +168,7 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_Bank.Button_BankNext());
                 break;
             case "Terms & Conditions":
-                if(Page_Driver_Terms.CheckBox_Agree().isSelected())
-                action.click(Page_Driver_Terms.CheckBox_Agree());
+
                 action.click(Page_Driver_Terms.Button_TermsNext());
                 break;
             case "Video Training":

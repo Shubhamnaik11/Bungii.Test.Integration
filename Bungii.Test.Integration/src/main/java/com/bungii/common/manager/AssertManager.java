@@ -29,6 +29,7 @@ public class AssertManager {
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
+
         }
     }
 

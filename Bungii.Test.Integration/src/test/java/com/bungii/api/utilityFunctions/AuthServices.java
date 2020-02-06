@@ -23,7 +23,7 @@ public class AuthServices {
      * @return access token
      */
     public Response customerLogin(String custPhoneCode, String custPhoneNum, String custPassword) {
-        logger.detail("API REQUEST : Customer Login of " + custPhoneCode);
+        logger.detail("API REQUEST : Customer Login of " + custPhoneNum);
         String token = "";
             Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", custPhoneCode);
@@ -35,7 +35,7 @@ public class AuthServices {
     }
     //get customer access token
     public String getCustomerToken(String custPhoneCode, String custPhoneNum, String custPassword){
-        logger.detail("API REQUEST : Get Customer Token of " + custPhoneCode);
+        logger.detail("API REQUEST : Get Customer Token of " + custPhoneNum);
         Response response=customerLogin( custPhoneCode, custPhoneNum, custPassword);
         ApiHelper.genericResponseValidation(response);
 

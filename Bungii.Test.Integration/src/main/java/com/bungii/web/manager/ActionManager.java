@@ -28,7 +28,8 @@ public class ActionManager {
      */
     public void clearSendKeys(WebElement element, String text) {
         try {
-            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+            Thread.sleep(2000);
             element.clear();
             element.sendKeys(text);
             logger.detail("Send  " + text + " in element" + element.toString());
@@ -60,6 +61,8 @@ public class ActionManager {
     public void clear(WebElement element) {
         try {
             logger.detail("Clear  element" + element.toString());
+            new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
+            element.clear();
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
@@ -70,6 +73,8 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         try {
+         Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
         logger.detail("text Value is  " + text + " for element" + element.toString());
 
@@ -151,8 +156,16 @@ public class ActionManager {
         SetupManager.getDriver().navigate().refresh();
     }
     public static void selectElementByText(WebElement element, String text)
-    {
+    { try{
+        Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+        new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeSelected(element));
         new Select(element).selectByVisibleText(text);
+    }  catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Error performing step, Please check logs for more details",
+                true);
+    }
     }
     public static String getFirstSelectedOption(WebElement element)
     {
