@@ -1,5 +1,6 @@
 package com.bungii.api.stepdefinitions;
 
+import com.bungii.SetupManager;
 import com.bungii.api.utilityFunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -13,6 +14,9 @@ import io.cucumber.datatable.DataTable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -115,10 +119,11 @@ public String getDriverPhone(String driverName)
         case "Macy Chang":
             phone = PropertyUtility.getDataProperties("web.valid.driver9.phone");
             break;
-
+        case "Ethan Edison":
+            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            break;
         case "Testdrivertywd_appledc_a_web TestdriverY":
             phone = PropertyUtility.getDataProperties("web.valid.driver11.phone");
-
             break;
     }
 
