@@ -157,9 +157,15 @@ public class EstimatePage extends PageBase {
     public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
     public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
+    public WebElement Button_AcceptRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id);}
+    public WebElement Button_BungiiAccept() {return  findElement("//*[@resource-id='com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button']", LocatorType.XPath);}
+    public WebElement Button_CancelRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id);}
 
   public WebElement Link_PromoValue(boolean ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_promocode_container']/child::android.widget.ImageView", LocatorType.XPath,ignoreException);}
   public WebElement Text_GetDistance() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
   public WebElement Text_GetCost() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
   public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath,ignoreException);}
+
+  public WebElement Button_AcceptRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button']", LocatorType.XPath).get(1);}
+  public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
 }

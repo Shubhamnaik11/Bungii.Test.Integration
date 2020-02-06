@@ -33,5 +33,6 @@ public class TripAlertSettingsPage extends PageBase {
 
     public WebElement TimePicker_OK(){return findElement("//*[@resource-id='android:id/button1']", LocatorType.XPath);}
 
+    public WebElement Text_Sunday() {return findElement("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='Sunday']", LocatorType.XPath);}
 
 }
