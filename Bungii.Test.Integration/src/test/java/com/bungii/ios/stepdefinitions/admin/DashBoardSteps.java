@@ -47,7 +47,7 @@ public class DashBoardSteps extends DriverBase {
                 case "drivers":
                     action.click(dashBoardPage.Button_Drivers());
                     break;
-                case "Geofence":
+                case "geofence":
                     action.click(dashBoardPage.Menu_Geofences());
                     break;
                 default:

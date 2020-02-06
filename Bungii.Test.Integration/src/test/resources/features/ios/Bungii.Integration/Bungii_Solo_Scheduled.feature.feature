@@ -1849,7 +1849,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
 
-  @regression1
+  @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal

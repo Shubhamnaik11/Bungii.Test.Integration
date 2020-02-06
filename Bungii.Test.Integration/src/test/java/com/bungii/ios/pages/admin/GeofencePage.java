@@ -1,6 +1,7 @@
 package com.bungii.ios.pages.admin;
 
 import com.bungii.common.core.PageBase;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 
 public class GeofencePage extends PageBase {
@@ -13,6 +14,15 @@ public class GeofencePage extends PageBase {
 
     public WebElement TextBox_MinimumScheduledtimeforduo(){return findElement("attributeValueEarliestScheduleTimeDuo",LocatorType.Id);}
     public WebElement TextBox_MinimumScheduledtimeforsolo(){return findElement("attributeValueEarliestScheduleTimeSolo",LocatorType.Id);}
+    public WebElement Dropdown_Status() { return findElement("drpStatus", LocatorType.Id); }
 
+    public WebElement Button_Scale() { return findElement("btnAddGeofence", LocatorType.Id); }
 
+    public WebElement Button_Save() { return findElement("btnSave", LocatorType.Id); }
+    public WebElement Text_ErrorScheduleTimeForDuo() { return findElement("attributeValueEarliestScheduleTimeDuo-error", LocatorType.Id);}
+    public WebElement Text_ErrorScheduleTimeForSolo() { return findElement("attributeValueEarliestScheduleTimeSolo-error", LocatorType.Id);}
+
+    public WebElement Button_Cancel() { return findElement("btnCancel", LocatorType.Id);}
+
+    public WebElement Button_Edit() { return findElement("btnEdit", LocatorType.Id); }
 }
