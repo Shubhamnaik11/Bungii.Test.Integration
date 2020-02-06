@@ -14,6 +14,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.StaleElementReferenceException;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,10 @@ public class Driver_DetailsSteps extends DriverBase {
     Driver_BankDetailsPage Page_Driver_Bank = new Driver_BankDetailsPage();
     Driver_TermsPage Page_Driver_Terms = new Driver_TermsPage();
     Driver_VideoTrainingPage Page_Driver_Video = new Driver_VideoTrainingPage();
+
+    DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
     Driver_ViewDetailsPage Page_Driver_ViewDetails = new Driver_ViewDetailsPage();
+
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
@@ -222,6 +226,41 @@ public class Driver_DetailsSteps extends DriverBase {
         }
     }
 
+
+    @And("^I update the rejected \"([^\"]*)\" field$")
+    public void i_update_the_rejected_something_field(String strArg1) throws Throwable {
+        driverRegistrationSteps.i_navigate_to_something("Driver Details");
+        action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_DOB());
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_DOB(),"01/01/1992");
+        log("I update the rejected DOB field" ,
+                "I have updated the rejected DOB field");    }
+
+    @And("^I update the accepted \"([^\"]*)\" field$")
+    public void i_update_the_accepted_something_field(String str){
+        action.JavaScriptClear(Page_Driver_Details.Textbox_DriverDetails_SSN());
+        action.sendKeys(Page_Driver_Details.Textbox_DriverDetails_SSN(),"1111111111");
+        log("I update the approved SSN field" ,
+                "I have updated teh approved SSN field");
+    }
+
+
+    @And("^I submit the updated application$")
+    public void i_submit_the_updated_application() throws Throwable {
+        action.click(Page_Driver_Details.Button_Submit());
+        action.click(Page_Driver_Details.Button_ConfirmSubmit());
+        log("I can submit the updated application" ,
+                "I have submitted the updated application");
+    }
+
+    @And("^I logout of driver portal$")
+    public void i_logout_of_driver_portal() throws Throwable {
+        try{
+            action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Link_Logout(),(long) 5000);
+            action.click(Page_Driver_Details.Link_Logout());
+        }catch (StaleElementReferenceException e){ action.click(Page_Driver_Details.Link_Logout());
+                                                 }
+    }
+
     @Then("^The 'My Stats' section should be shown on the Dashboard page$")
     public void the_my_stats_section_should_be_shown_on_the_dashboard_page() throws Throwable {
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_Header_MyStats(),"My Stats section should be displayed", "My Stats sesction is displayed","My Stats section is not displayed");
@@ -280,5 +319,6 @@ public class Driver_DetailsSteps extends DriverBase {
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SelectedDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
         action.click(Page_Driver_ViewDetails.Button_Apply());
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SearchResultDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
+
     }
 }

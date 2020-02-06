@@ -35,10 +35,18 @@ public class DriverRegistrationSteps extends DriverBase {
     ActionManager action = new ActionManager();
 
     @Given("^I navigate to \"([^\"]*)\"$")
-    public void i_navigate_to_something(String p0) throws Throwable {
-        utility.NavigateToDriverLogin();
-        pass("I should be navigate to " + p0,
-                "I am navigate to " + p0, true);
+    public void i_navigate_to_something(String page) throws Throwable {
+        switch (page)
+        {
+            case "Bungii Driver URL":
+                utility.NavigateToDriverLogin();
+                break;
+            case "Driver Details":
+                action.click(Page_Driver_Details.Menu_DriverDetails());
+                break;
+        }
+        pass("I should be navigate to " + page,
+                "I am navigate to " + page, true);
     }
 
     @Given("^I am logged in as driver$")
