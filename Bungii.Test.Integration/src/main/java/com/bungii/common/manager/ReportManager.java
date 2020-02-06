@@ -117,6 +117,13 @@ public class ReportManager {
 		htmlReportManager.addTestData(eventData);
 	}
 	/**
+	 *Add row in Result
+	 * @param eventData map of information
+	 */
+	public void addStackTrace(Map<String, String> eventData){
+		htmlReportManager.addStackTrace(eventData);
+	}
+	/**
 	 * Method that will be called at end of Test Suite
 	 */
 	public void endSuiteFile() {

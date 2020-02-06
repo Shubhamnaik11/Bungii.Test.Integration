@@ -202,3 +202,19 @@ Feature: CustomerSignup
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
+  #used one off
+  #Know issue, no alert
+  @regression
+  Scenario: To check that validation is displayed on signing up with invalid/used One off promo codes
+    When I Switch to "customer" application on "same" devices
+    And I enter "unique" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+    And I Enter "Referral Code" value in "Referral code" field in "SIGN UP" Page
+      | Referral Code |
+      | R1D2          |
+    And I Select Referral source
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    Then The user should be logged in
+

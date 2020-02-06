@@ -51,6 +51,7 @@ public class LoginSteps extends DriverBase {
                     break;
                 case "Valid_ToBeLocked":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
+                    break;
                 default:
                     action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA",strArg1);

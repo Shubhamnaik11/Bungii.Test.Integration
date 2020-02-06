@@ -29,6 +29,7 @@ public class AssertManager {
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
+
         }
     }
 
@@ -185,6 +186,22 @@ public class AssertManager {
     }
     public void isElementNameEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
         isTrue(element.getAttribute("name").equals(expectedText), expectedMessage, successMessage, errorMessage);
+    }
+
+    /**
+     * @param element Web element object return from PageBase
+     * @param expectedText Expected Message to that is to be update in report
+     * @param successMessage If success this message will be published
+     * @param errorMessage If failed this message will be published
+     */
+    public void isElementNotEnabled(WebElement element, String expectedText, String successMessage, String errorMessage) {
+        Boolean isEnabled;
+        try {
+            isEnabled= element.isEnabled();
+        } catch (Exception e) {
+            isEnabled= false;
+        }
+        isFalse(isEnabled,expectedText,successMessage, errorMessage);
     }
 
 }

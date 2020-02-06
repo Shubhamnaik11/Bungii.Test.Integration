@@ -1,5 +1,6 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.android.pages.driver.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -7,6 +8,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.pages.driver.UpdateStatusPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.Rectangle;
@@ -20,7 +22,8 @@ public class UpdateStatusSteps extends DriverBase {
 
     Rectangle initial;
     ActionManager action = new ActionManager();
-    UpdateStatusPage updateStatusPage=new UpdateStatusPage();
+    UpdateStatusPage updateStatusPage = new UpdateStatusPage();
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     GeneralUtility utility = new GeneralUtility();
 
     @When("^I slide update button on \"([^\"]*)\" Screen$")
@@ -70,4 +73,47 @@ public class UpdateStatusSteps extends DriverBase {
         action.swipeRight(updateStatusPage.Slider());
     }
 
+    @Then("^non control driver should see \"([^\"]*)\" screen$")
+    public void non_control_driver_should_see_something_screen(String strArg1) throws Throwable {
+        try{
+            testStepVerify.isElementEnabled(updateStatusPage.Activity_loader(true)," Driver should be shown loader screen");
+            testStepVerify.isElementTextEquals(updateStatusPage.Text_WaitingForDriver(true),"Waiting for the other driver to end Bungii.");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I check ETA of \"([^\"]*)\"$")
+    public void i_check_eta_of_something(String strArg1){
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    cucumberContextManager.setScenarioContext("ETA_VALUE",action.getText(inProgressBungiiPages.Bungii_ETA()));
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^\"([^\"]*)\" eta should be displayed to customer$")
+    public void something_eta_should_be_displayed_to_customer(String strArg1) throws Throwable {
+        try {
+            switch (strArg1.toLowerCase()) {
+                case "control driver":
+                    String controlDriverEta=(String) cucumberContextManager.getScenarioContext("ETA_VALUE");
+                    testStepVerify.isTrue(action.getText(inProgressBungiiPages.Bungii_ETACustomer()).equals(controlDriverEta),controlDriverEta+" should be displayed");
+                    break;
+                default:
+                    throw new Exception("Not Implemented");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }    }
 }

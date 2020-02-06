@@ -81,7 +81,7 @@ public class ResultManager {
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.ERROR.toString(), screenDump));
         logger.error("ERROR: For steps : " + name + " expected is : " + expected + " and actual is : " + actual);
         reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.ERROR.toString()));
-        Assert.assertTrue(false, "Error in executon ,Please check logs/ report for more details");
+        Assert.assertTrue(false, " Error in executon , Please check logs/ report for more details ");
     }
 
     /**
@@ -133,5 +133,11 @@ public class ResultManager {
 
     public static String getScreenShotFolder() {
         return reportManager.getTestScreenShotFolderName();
+    }
+
+    public static void setStacktrace(String stackTrace)
+    {
+        reportManager.addStackTrace(getDataMap("", "", stackTrace,"", false));
+
     }
 }
