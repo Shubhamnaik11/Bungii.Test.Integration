@@ -158,7 +158,7 @@ public class ActionManager {
     public static void selectElementByText(WebElement element, String text)
     { try{
         Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
-        new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeSelected(element));
+        new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
         new Select(element).selectByVisibleText(text);
     }  catch(Exception ex)
     {
