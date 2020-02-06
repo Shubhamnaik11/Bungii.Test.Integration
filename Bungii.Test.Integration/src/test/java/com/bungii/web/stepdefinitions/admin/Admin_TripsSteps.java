@@ -3,17 +3,20 @@ package com.bungii.web.stepdefinitions.admin;
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -29,13 +32,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_TripsSteps extends DriverBase {
@@ -47,12 +49,14 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
+    private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
+    GeneralUtility utility=new GeneralUtility();
 
     @And("^I view the Customer list on the admin portal$")
     public void i_view_the_customer_list_on_the_admin_portal() throws Throwable {
         Thread.sleep(120000); //Wait for 2 minutes
         SetupManager.getDriver().navigate().refresh();
-      //  action.click(admin_DashboardPage.Menu_Dashboard());
+        //  action.click(admin_DashboardPage.Menu_Dashboard());
     }
     @And("^I view the Trips list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
@@ -68,7 +72,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
 
-      //  SetupManager.getDriver().navigate().refresh();
+        //  SetupManager.getDriver().navigate().refresh();
         log("I view the Live Trips list on the admin portal",
                 "I viewed the Live Trips list on the admin portal", true);
     }
@@ -78,7 +82,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(),"Today");
 
-       // SetupManager.getDriver().navigate().refresh();
+        // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
@@ -90,8 +94,8 @@ public class Admin_TripsSteps extends DriverBase {
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[2]",cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
         String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[3]",cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
 
-        String tripRequestedCount = SetupManager.getDriver().findElement(By.xpath(XPath)).getText();
-        String tripEstimatedCount = SetupManager.getDriver().findElement(By.xpath(XPath2)).getText();
+        String tripRequestedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
+        String tripEstimatedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath2)));
         String oldtripRequestedCount = (String)cucumberContextManager.getScenarioContext("TRIP_REQUESTEDCOUNT");
         String oldtripEstimatedCount = (String)cucumberContextManager.getScenarioContext("TRIP_ESTIMATEDCOUNT");
 
@@ -134,126 +138,134 @@ public class Admin_TripsSteps extends DriverBase {
     @Then("^I should be able to see the respective bungii with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_with_the_below_status(DataTable data) throws Throwable {
 
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-        String status = dataMap.get("Status").trim();
-        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-        String tripType[] = tripTypeAndCategory.split(" ");
-        String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-        String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String status = dataMap.get("Status").trim();
+            String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            String tripType[] = tripTypeAndCategory.split(" ");
+            String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
 
-        String geofenceName = getGeofence(geofence);
-        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
-        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+            String geofenceName = getGeofence(geofence);
+            action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+            action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
 
-        cucumberContextManager.setScenarioContext("STATUS",status);
-        String driver = driver1;
-        if (tripType[0].equalsIgnoreCase("duo"))
-            driver = driver1 + "," + driver2;
-        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
-            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
-            int retrycount =10;
+            cucumberContextManager.setScenarioContext("STATUS", status);
+            String driver = driver1;
+            if (tripType[0].equalsIgnoreCase("duo"))
+                driver = driver1 + "," + driver2;
+            if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
+                String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+                int retrycount = 10;
 
-            boolean retry = true;
-            while (retry == true && retrycount >0) {
-                try {
-                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
-                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
-                    retry = false;
-                } catch (Exception ex) {
-                    SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
-                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
-                    retrycount--;
-                    retry = true;
+                boolean retry = true;
+                while (retry == true && retrycount > 0) {
+                    try {
+                        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                        retry = false;
+                    } catch (Exception ex) {
+                        SetupManager.getDriver().navigate().refresh();
+                        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        retrycount--;
+                        retry = true;
+                    }
+
                 }
-
-            }
-            int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
-                if (retryCount >= 20) break;
-                Thread.sleep(15000); //Wait for 15 seconds
-                retryCount++;
-                SetupManager.getDriver().navigate().refresh();
-            }
-            cucumberContextManager.setScenarioContext("XPATH",xpath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
-
-        } else {
-            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
-            int retrycount =10;
-            boolean retry = true;
-            while (retry == true && retrycount >0) {
-                try {
-                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
-                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
-                    retry = false;
-                } catch (Exception ex) {
-                    SetupManager.getDriver().navigate().refresh();
-                    action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(),geofenceName);
-                    action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
-                    retrycount--;
-                    retry = true;
+                int retryCount = 1;
+                while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
+                    if (retryCount >= 20) break;
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
+                   action.refreshPage();
                 }
+                cucumberContextManager.setScenarioContext("XPATH", xpath);
+                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
+            } else {
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+                int retrycount = 10;
+                boolean retry = true;
+                while (retry == true && retrycount > 0) {
+                    try {
+                        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+                        retry = false;
+                    } catch (Exception ex) {
+                        SetupManager.getDriver().navigate().refresh();
+                        action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
+                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        retrycount--;
+                        retry = true;
+                    }
+
+                }
+                int retryCount = 1;
+                while (!action.getText(SetupManager.getDriver().findElement(By.xpath(XPath))).equalsIgnoreCase(status)) {
+                    if (retryCount >= 20) break;
+                    Thread.sleep(12000); //Wait for 15 seconds
+                    retryCount++;
+                    action.refreshPage();
+                    Thread.sleep(3000);
+                }
+                cucumberContextManager.setScenarioContext("XPATH", XPath);
+                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
-            int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(XPath)).getText().equalsIgnoreCase(status)) {
-                if (retryCount >= 20) break;
-                Thread.sleep(15000); //Wait for 15 seconds
-                retryCount++;
-                SetupManager.getDriver().navigate().refresh();
-            }
-            cucumberContextManager.setScenarioContext("XPATH",XPath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         }
-
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
-        @When("^I view the trip details$")
-        public void i_view_the_trip_details() throws Throwable {
+    @When("^I view the trip details$")
+    public void i_view_the_trip_details() throws Throwable {
 
-            String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
-            action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
+        String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+        action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
 
+    }
+
+    @Then("^the amount is calculated and shown to admin$")
+    public void the_amount_is_calculated_and_shown_to_admin() throws Throwable {
+
+    }
+
+    @And("^Enter the End Date and Time$")
+    public void enter_the_end_date_time() throws Throwable {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+
+
+        String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
+        String[] splitedDate = RequestTime.split(" ");
+        LocalDateTime now = LocalDateTime.now();
+        String[] splitedTime = splitedDate[2].split(":");
+        DecimalFormat formatter = new DecimalFormat("00");
+        int minutes = Integer.parseInt(splitedTime[1])+20;
+        int hours = Integer.parseInt(splitedTime[0]);
+        if (minutes > 60) {
+            hours = hours + 1;
+            minutes = minutes -20;
         }
 
-        @Then("^the amount is calculated and shown to admin$")
-        public void the_amount_is_calculated_and_shown_to_admin() throws Throwable {
 
-        }
-
-        @And("^Enter the End Date and Time$")
-        public void enter_the_end_date_time() throws Throwable {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
 
 
-            String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
-            String[] splitedDate = RequestTime.split(" ");
-            LocalDateTime now = LocalDateTime.now();
-            String[] splitedTime = splitedDate[2].split(":");
-            DecimalFormat formatter = new DecimalFormat("00");
-            int minutes = Integer.parseInt(splitedTime[1])+20;
-            int hours = Integer.parseInt(splitedTime[0]);
-            if (minutes > 60) {
-                hours = hours + 1;
-                minutes = minutes -20;
-            }
-
-
-           // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-
-
-            action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndDate(),dtf.format(now));
+        action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndDate(),dtf.format(now));
         action.clearSendKeys(admin_TripDetailsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
         action.selectElementByText(admin_TripDetailsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
 
 
-        }
+    }
 
-        @And("^Click on \"([^\"]*)\" button$")
-        public void click_on_something_button(String button) throws Throwable {
+    @And("^Click on \"([^\"]*)\" button$")
+    public void click_on_something_button(String button) throws Throwable {
 
         switch (button)
         {
@@ -262,35 +274,45 @@ public class Admin_TripsSteps extends DriverBase {
 
                 break;
             case "Confirm":
-            action.click(admin_TripDetailsPage.Button_Confirm());
-            break;
+                action.click(admin_TripDetailsPage.Button_Confirm());
+                break;
             case "Cancel":
                 action.click(admin_TripDetailsPage.Button_Cancel());
                 break;
         }
 
-        }
+    }
     @Then("^the Bungii details is displayed successfully$")
     public void the_bungii_details_is_displayed_successfully() throws Throwable {
 
         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String status = (String) cucumberContextManager.getScenarioContext("STATUS");
+        String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        String timezone = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
 
-        String pickupLine = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1") +" "+ (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
-        String dropOffLine = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")+" "+ (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
-        pickupLine = pickupLine.replace(",","");
-        dropOffLine =  dropOffLine.replace(",","");
+        if(!scheduled_time.equalsIgnoreCase("NOW")) {
+            TimeZone.setDefault(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
+            DateFormat formatter = new SimpleDateFormat("MMM dd, h:mm a");
+            formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
+            Date bungiiDate = formatter.parse(scheduled_time);
+            Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
+            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate);
+            String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
 
-
-
-
+            //Verify that the time the customer scheduled the trip for is added to Trip Details page
+            testStepAssert.isElementDisplayed(admin_TripDetailsPage.Label_ScheduledTime(xpath_scheduled_time), "Bungii Scheduled Time should be displayed correctly", "Pass", "Fail");
+        }
+        String pickupLine = (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1") + " " + (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
+        String dropOffLine = (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1") + " " + (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
+        pickupLine = pickupLine.replace(",", "");
+        dropOffLine = dropOffLine.replace(",", "");
         testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Client"), customer, "Client " + customer + " should be updated", "Client " + customer + " is updated", "Client " + customer + " is not updated");
         testStepAssert.isTrue(admin_TripDetailsPage.Label_TripDetails("Pickup Location").getText().contains(pickupLine), "Pickup Location " + pickupLine + " should be updated", "Pickup Location " + pickupLine + " is updated", "Pickup Location " + pickupLine + " is not updated");
         testStepAssert.isTrue(admin_TripDetailsPage.Label_TripDetails("Drop Off Location").getText().contains(dropOffLine), "Drop Off Location " + dropOffLine + " should be updated", "Drop Off Location " + dropOffLine + " is updated", "Drop Off Location " + dropOffLine + " is not updated");
         testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Status"), status, "Status " + status + " should be updated", "Status " + status + " is updated", "Status " + status + " is not updated");
-       // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Trip Distance"), customer, "Trip Distance " + customer + " should be updated", "Trip Distance " + customer + " is updated", "Trip Distance " + customer + " is not updated");
-       // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
+        // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Trip Distance"), customer, "Trip Distance " + customer + " should be updated", "Trip Distance " + customer + " is updated", "Trip Distance " + customer + " is not updated");
+        // testStepAssert.isElementTextEquals(admin_TripDetailsPage.Label_TripDetails("Loading + Unloading Time"), customer, "Loading + Unloading Time " + customer + " should be updated", "Loading + Unloading Time " + customer + " is updated", "Loading + Unloading Time " + customer + " is not updated");
         String xpath = String.format("option[text()='%s']",driver1);
         testStepAssert.isElementDisplayed(admin_TripDetailsPage.Dropdown_Drivers().findElement(By.xpath(xpath))," Driver "+ driver1+" should be displayed", " Driver "+ driver1+" is displayed", " Driver "+ driver1+" is not displayed");
 
@@ -299,8 +321,8 @@ public class Admin_TripsSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" link beside scheduled bungii$")
     public void i_click_on_something_link_beside_scheduled_bungii(String link) throws Throwable {
-
-     action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
+        Thread.sleep(4000);
+        action.click(SetupManager.getDriver().findElement(By.xpath((String)cucumberContextManager.getScenarioContext("XPATH")+"/parent::tr")).findElement(By.xpath("td/p[@id='btnEdit']")));
         log(" I click on Edit link besides the scheduled bungii",
                 "I have clicked on Edit link besides the scheduled bungii", true);
     }
@@ -311,8 +333,8 @@ public class Admin_TripsSteps extends DriverBase {
         switch (radiobutton)
         {
             case "Cancel entire Bungii and notify driver(s)":
-        action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());
-        break;
+                action.click(admin_ScheduledTripsPage.RadioButton_CancelBungii());
+                break;
             case "Remove driver(s) and re-search":
                 action.click(admin_ScheduledTripsPage.RadioButton_RemoveDriver());
                 break;
@@ -329,18 +351,18 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have entered cancellation fee amount and comments", true);
     }
 
-/* Moved to BusinessUsers
-@And("^I click on \"([^\"]*)\" button$")
-    public void i_click_on_something_button(String button) throws Throwable {
-        switch (button)
-        {
-            case "Submit":
-                action.click(admin_ScheduledTripsPage.Button_Submit());
-                break;
+    /* Moved to BusinessUsers
+    @And("^I click on \"([^\"]*)\" button$")
+        public void i_click_on_something_button(String button) throws Throwable {
+            switch (button)
+            {
+                case "Submit":
+                    action.click(admin_ScheduledTripsPage.Button_Submit());
+                    break;
 
-        }
+            }
 
-    }*/
+        }*/
     @Then("^The \"([^\"]*)\" message should be displayed$")
     public void the_something_message_should_be_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_ScheduledTripsPage.Label_CancelSuccessMessage(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
@@ -362,12 +384,12 @@ public class Admin_TripsSteps extends DriverBase {
     public String getGeofence(String geofence)
     {
         String geofenceName = "";
-      switch(geofence) {
-          case "washingtondc":
-              geofenceName = "Washington DC";
+        switch(geofence) {
+            case "washingtondc":
+                geofenceName = "Washington DC";
                 break;
 
-      }
+        }
         return geofenceName;
     }
 
@@ -395,19 +417,30 @@ public class Admin_TripsSteps extends DriverBase {
 
     @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
+        Thread.sleep(4000);
         try{
             for (WebElement e : admin_TripsPage.Client_names())
             {
                 testStepAssert.isTrue(e.getText().contains(searchString),"Client Name contains "+ searchString, "Client Name is " + e.getText());
             }
+            action.clear(admin_TripsPage.TextBox_Search());
+
+
         }
         catch (StaleElementReferenceException e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
+        action.clear(admin_TripsPage.TextBox_Search());
+
+
     }
 
     @When("^I click on \"([^\"]*)\" icon on \"([^\"]*)\" Page$")
     public void i_click_on_something_icon_on_something_page(String icon, String page) throws Throwable {
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod() , "The Beginning of Time" );
+        action.clear(admin_TripsPage.TextBox_Search());
         switch(page)
         {
             case "Trips":
@@ -419,6 +452,8 @@ public class Admin_TripsSteps extends DriverBase {
                 }
                 break;
         }
+        log("I click on "+ icon +" on " +page+" page",
+                "I have clicked on "+ icon +" on " +page+" page", true);
     }
 
     @Then("^All statuses except \"([^\"]*)\" are selected$")
@@ -447,88 +482,92 @@ public class Admin_TripsSteps extends DriverBase {
     void uncheck_all_statuses()
     {
         if(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+            action.click( admin_TripsPage.CheckBox_FilterPaymentUnsuccessful());
         if(admin_TripsPage.CheckBox_FilterPaymentSuccessful().isSelected())
-            admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+            action.click(  admin_TripsPage.CheckBox_FilterPaymentSuccessful());
         if(admin_TripsPage.CheckBox_FilterCustomerCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterCustomerCancelled());
         if(admin_TripsPage.CheckBox_FilterAdminCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterAdminCancelled());
         if(admin_TripsPage.CheckBox_FilterDriverCancelled().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+            action.click( admin_TripsPage.CheckBox_FilterDriverCancelled());
         if(admin_TripsPage.CheckBox_FilterPickupWithError().isSelected())
-            admin_TripsPage.CheckBox_FilterPickupWithError().click();
+            action.click( admin_TripsPage.CheckBox_FilterPickupWithError());
         if(admin_TripsPage.CheckBox_FilterPriceEstimated().isSelected())
-            admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+            action.click( admin_TripsPage.CheckBox_FilterPriceEstimated());
         if(admin_TripsPage.CheckBox_FilterDriversNotFound().isSelected())
-            admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+            action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
         if(admin_TripsPage.CheckBox_FilterDriverNotArrived().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverNotArrived().click();
+            action.click( admin_TripsPage.CheckBox_FilterDriverNotArrived());
         if(admin_TripsPage.CheckBox_FilterDriverRemoved().isSelected())
-            admin_TripsPage.CheckBox_FilterDriverRemoved().click();
+            action.click(admin_TripsPage.CheckBox_FilterDriverRemoved());
         if(admin_TripsPage.CheckBox_FilterPromoterPaymentPending().isSelected())
-            admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();
+            action.click(admin_TripsPage.CheckBox_FilterPromoterPaymentPending());
+
+        log("I uncheck all filter from trips page",
+                "I have unchecked all filter from trips page", true);
     }
 
     @When("^I select filter \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_filter_something_as_something(String filter, String value) throws Throwable {
+        Thread.sleep(5000);
         switch (filter)
         {
             case "Statuses" :
                 switch (value){
                     case "Payment Unsuccessful":
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPaymentUnsuccessful().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentUnsuccessful());
                         break;
                     case("Payment Successful"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentSuccessful());
                         break;
                     case ("Customer Cancelled"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterCustomerCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterCustomerCancelled());
                         break;
                     case ("Driver Cancelled"):
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterDriverCancelled());
                         break;
                     case "Admin Cancelled":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterAdminCancelled().click();
+                        action.click(admin_TripsPage.CheckBox_FilterAdminCancelled());
                         break;
                     case "Pickup with Error":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPickupWithError().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPickupWithError());
                         break;
                     case "Price Estimated":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPriceEstimated().click();
+                        action.click(admin_TripsPage.CheckBox_FilterPriceEstimated());
                         break;
                     case "Driver(s) Not Found":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriversNotFound().click();
+                        action.click(admin_TripsPage.CheckBox_FilterDriversNotFound());
                         break;
                     case "Driver Not Arrived":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverNotArrived().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterDriverNotArrived());
                         break;
                     case "Driver Removed":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterDriverRemoved().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterDriverRemoved());;
                         break;
                     case "Promoter Payment Pending":
-                        admin_TripsPage.Button_Filter().click();
+                        action.click(admin_TripsPage.Button_Filter());
                         uncheck_all_statuses();
-                        admin_TripsPage.CheckBox_FilterPromoterPaymentPending().click();;
+                        action.click(admin_TripsPage.CheckBox_FilterPromoterPaymentPending());;
                         break;
                 }
                 break;
@@ -536,14 +575,14 @@ public class Admin_TripsSteps extends DriverBase {
             case "Type":
                 switch (value){
                     case "Solo":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterPaymentSuccessful().click();
-                        admin_TripsPage.CheckBox_FilterDuo().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterPaymentSuccessful());
+                        action.click(admin_TripsPage.CheckBox_FilterDuo());
                         break;
                     case "Duo" :
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterSolo().click();
-                        admin_TripsPage.CheckBox_FilterDuo().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click( admin_TripsPage.CheckBox_FilterSolo());
+                        action.click( admin_TripsPage.CheckBox_FilterDuo());
                         break;
                 }
                 break;
@@ -551,118 +590,130 @@ public class Admin_TripsSteps extends DriverBase {
             case "Category":
                 switch (value){
                     case "On-Demand":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterSolo().click();
-                        admin_TripsPage.CheckBox_FilterScheduled().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterSolo());
+                        action.click(admin_TripsPage.CheckBox_FilterScheduled());
                         break;
                     case "Scheduled":
-                        admin_TripsPage.Button_Filter().click();
-                        admin_TripsPage.CheckBox_FilterScheduled().click();
-                        admin_TripsPage.CheckBox_FilterOnDemand().click();
+                        action.click(admin_TripsPage.Button_Filter());
+                        action.click(admin_TripsPage.CheckBox_FilterScheduled());
+                        action.click(admin_TripsPage.CheckBox_FilterOnDemand());
                         break;
                 }
                 break;
 
         }
+        log("I select filter " +filter+" as " + value ,
+                "I have selected filter " +filter+" as " + value, true);
     }
 
     @Then("^the triplist grid shows the results by type \"([^\"]*)\"$")
     public void the_triplist_grid_shows_the_results_by_type_something(String filter) throws Throwable {
-        String xpath = null;
-        List<WebElement> rowswithstatus = null;
-        List<WebElement> rows = null;
-        switch (filter){
-            case "Payment Unsuccessful Status" :
-                xpath = String.format("//td[text()='Payment Pending']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Payment Successful Status" :
-                xpath = String.format("//td[text()='Payment Successful']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Customer Cancelled Status" :
-                xpath = String.format("//td[text()='Customer Cancelled']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Driver Cancelled Status":
-                xpath = String.format("//td[text()='Driver Cancelled']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Admin Cancelled Status":
-                xpath = String.format("//td[text()='Admin Cancelled']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Pickup with Error Status":
-                xpath = String.format("//td[9][text()='Pickup with Error' | text() = 'Unable To Estimate']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Price Estimated Status":
-                xpath = String.format("//td[text()='Price Estimated']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Driver(s) Not Found Status":
-                xpath = String.format("//td[text()='Driver(s) Not Found']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Driver Not Arrived Status":
-                xpath = String.format("//td[text()='Driver Not Arrived']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Driver Removed Status":
-                xpath = String.format("//td[text()='Driver Removed']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Promoter Payment Pending Status":
-                xpath = String.format("//td[text()='Promoter Payment Pending']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Solo Type" :
-                xpath = String.format("//td[3][text()='Solo']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Duo Type" :
-                xpath = String.format("//td[3][text()='Duo']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "On-Demand Category" :
-                xpath = String.format("//td[4][text()='On-Demand']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
-            case "Scheduled Category" :
-                xpath = String.format("//td[4][text()='Scheduled']");
-                rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
-                rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
-                testStepAssert.isEquals(String.valueOf(rows.size()-1),String.valueOf(rowswithstatus.size()),filter + " records should be displayed",filter + " records is displayed", filter + " records is not displayed");
-                break;
+        Thread.sleep(4000);
+        if(SetupManager.getDriver().getPageSource().contains("No trips found.")) {
+            testStepAssert.isTrue(true, "", "No trips found.");
+        }
+        else{
+            String xpath = null;
+            List<WebElement> rowswithstatus = null;
+            List<WebElement> rows = null;
+            switch (filter) {
+                case "Payment Unsuccessful Status":
+                    xpath = String.format("//td[text()='Payment Pending']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Payment Successful Status":
+                    xpath = String.format("//td[text()='Payment Successful']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Customer Cancelled Status":
+                    xpath = String.format("//td[text()='Customer Cancelled']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Driver Cancelled Status":
+                    xpath = String.format("//td[text()='Driver Cancelled']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Admin Cancelled Status":
+                    xpath = String.format("//td[text()='Admin Cancelled']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Pickup with Error Status":
+                    xpath = String.format("//td[9][text()='Pickup with Error' | text() = 'Unable To Estimate']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Price Estimated Status":
+                    xpath = String.format("//td[text()='Price Estimated']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Driver(s) Not Found Status":
+                    xpath = String.format("//td[text()='Driver(s) Not Found']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Driver Not Arrived Status":
+                    xpath = String.format("//td[text()='Driver Not Arrived']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Driver Removed Status":
+                    xpath = String.format("//td[text()='Driver Removed']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Promoter Payment Pending Status":
+                    xpath = String.format("//td[text()='Promoter Payment Pending']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Solo Type":
+                    xpath = String.format("//td[3][text()='Solo']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Duo Type":
+                    xpath = String.format("//td[3][text()='Duo']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "On-Demand Category":
+                    xpath = String.format("//td[4][text()='On-Demand']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+                case "Scheduled Category":
+                    xpath = String.format("//td[4][text()='Scheduled']");
+                    rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
+                    rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
+                    testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
+                    break;
+            }
         }
 
+    }
+    @And("^I refresh the page$")
+    public void i_refresh_the_page() throws Throwable {
+       action.refreshPage();
     }
 }

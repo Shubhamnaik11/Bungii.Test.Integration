@@ -8,7 +8,7 @@ Feature: Menu_SaveMoney
     And I add "first time" PromoCode
     And I tap "Add" on Save Money page
     Then I should see "snackbar stating first time code is for new users" on Save Money page
-    And I should see the "first time" PromoCode selected by default
+  #  And I should see the "first time" PromoCode selected by default
     And I tap on "Menu" > "Logout" link
     
   @regression
@@ -128,7 +128,7 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: PromoCode_Used_ForRe-searchedBungii
     Given I am on customer Log in page
-    When I am logged in as "valid" customer
+    When I am logged in as "no promocode" customer
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii

@@ -6,16 +6,12 @@ Feature: Admin_ReferralSource
     When I click on "Marketing  > Referral Source" Menu
     Then I should be directed to "Referral Source Page"
 
-  @testReport
   @sanity
   @regression
   Scenario: Admin_ReferralSourcegrid_Calculations
     Then the "Percentage of total(Accounts Created)" should display accurate value for each Source
     And  the "Percentage of total(Trips Completed)" should display accurate value for each Source
 
-
-  @testReport
-  @sanity
   @regression
   Scenario: Admin_ReferralSourcegrid_Sort
     When I click on "Source" header "Ascending" on "Referral Source" grid
@@ -39,7 +35,6 @@ Feature: Admin_ReferralSource
     When I click on "Percentage of total(Trips Completed)" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
-  @testReport
   @regression
   Scenario: Admin_ReferralSourcegrid_FieldValidations
     When I click on "Search" button with entering "From" and "To" date

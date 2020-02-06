@@ -7,14 +7,10 @@ import com.bungii.ios.pages.driver.ScheduledBungiiPage;
 import org.openqa.selenium.WebElement;
 
 public class ScheduledBungiiSteps {
-	private ScheduledBungiiPage scheduledBungiipage;
+	private ScheduledBungiiPage scheduledBungiipage = new ScheduledBungiiPage();
 	ActionManager action = new ActionManager();
 	String Image_Solo="bungii_type-solo";
 
-	public ScheduledBungiiSteps(ScheduledBungiiPage scheduledBungiipage){
-    	this.scheduledBungiipage=scheduledBungiipage;
-
-	}
 
 
 
@@ -35,4 +31,11 @@ public class ScheduledBungiiSteps {
 		//By Image_SelectBungii = MobileBy.xpath();
 		action.click(Image_SelectBungii);
 	}
+
+    public WebElement getLocatorForNotification(String notificationMessage) {
+		WebElement element;
+		element = scheduledBungiipage.findElement("//*[@text='" + notificationMessage + "']", PageBase.LocatorType.XPath,true);
+
+		return  element;
+    }
 }

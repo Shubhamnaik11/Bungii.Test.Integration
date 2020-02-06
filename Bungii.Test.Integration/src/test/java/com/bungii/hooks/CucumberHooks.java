@@ -2,12 +2,13 @@ package com.bungii.hooks;
 
 import com.bungii.SetupManager;
 import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ReportManager;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.ParseUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.ios.stepdefinitions.driver.LogInSteps;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -16,9 +17,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.PropertyConfigurator;
+import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 
 //Cannot be moved Framework as it has to call recovery secnario
@@ -59,12 +64,36 @@ public class CucumberHooks {
      * This method will be called at start of each test suite
      */
     public synchronized void start(String resultFolder) {
+//ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
+        try {
+          //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
+
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
+
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+            }
+        } catch (Exception e) {
+           // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+
+        }
         try {
             //adding ternary operator in logger is creating issue
-            String device=System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
-            logger.detail("Device On which test will be run is : " +device );
-            //Create new default driver instance and save it
+            String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
+            logger.detail("Device On which test will be run is : " + device);
+
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,9 +115,15 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
-        this.reportManager.startTestCase(scenario.getName());
+
         logger.detail("**********************************************************************************");
-        logger.detail("Starting " + scenario.getName());
+        String[] rawFeature = scenario.getId().split("features/")[1].split("/");
+        String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
+
+
+        logger.detail("Feature: " + rawFeatureName[0]);
+        logger.detail("Starting Scenario: " + scenario.getName());
+        this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
 /*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 			new GeneralUtility().recoverScenario();*/
         //Set original instance as default instance at start of each test case
@@ -127,6 +162,7 @@ public class CucumberHooks {
     @After
     public void afterTest(Scenario scenario) {
         try {
+
             //if first test case flag is ste to true then change it to false
             if (isFirstTestCase) isFirstTestCase = false;
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
@@ -138,15 +174,16 @@ public class CucumberHooks {
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
-                    logger.detail(" PAGE SOURCE:" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.detail(" PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.detail(" FAILED TEST SCENARIO : " + scenario.getName());
 
                 } catch (Exception e) {
                 }
 
-                if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
-                {   new BungiiSteps().recoveryScenario();
-                    new GeneralUtility().recoverScenario();}
-                else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                    new BungiiSteps().recoveryScenario();
+                    new GeneralUtility().recoverScenario();
+                } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
                     new BungiiSteps().recoveryScenario();
                     new com.bungii.android.utilityfunctions.GeneralUtility().recoverScenario();
                     SetupManager.getObject().useDriverInstance("ORIGINAL");
@@ -163,13 +200,15 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+            //clear scenario context
+            CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
             logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
 
         }
 
 
-}
+    }
 
     // @AfterSuite
 
@@ -181,7 +220,7 @@ public class CucumberHooks {
     public void tearDown() throws IOException {
         this.reportManager.endSuiteFile();
         //SetupManager.stopAppiumServer();
-     //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
+        //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
 
     }
 
@@ -189,9 +228,9 @@ public class CucumberHooks {
     @Before("@POSTDUO")
     public void afterDuoScenario() {
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-           // new GeneralUtility().installDriverApp();
-           // try{ SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
-           // new GeneralUtility().installCustomerApp();
+            // new GeneralUtility().installDriverApp();
+            // try{ SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
+            // new GeneralUtility().installCustomerApp();
         }
     }
 
@@ -200,7 +239,7 @@ public class CucumberHooks {
     public void afterScheduledBungii(Scenario scenario) {
         //This scenario is not complete/full prof
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS") && scenario.isFailed()) {
-           //   new GeneralUtility().recoverScenarioscheduled();
+            //   new GeneralUtility().recoverScenarioscheduled();
         }
     }
 
@@ -209,14 +248,14 @@ public class CucumberHooks {
     public void createDuoBungii() {
         //create trip for denver and keep
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"),PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"),"DUO_SCH_DONOT_ACCEPT");
+            new BungiiSteps().createTripAndSaveInFeatureContext("duo", "denver", PropertyUtility.getDataProperties("denver.customer2.phone"), PropertyUtility.getDataProperties("denver.customer2.name"), PropertyUtility.getDataProperties("denver.customer2.password"), "DUO_SCH_DONOT_ACCEPT");
 
         }
 
         //create trip for Kansas and keep
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("android")) {
             new BungiiSteps().createTripAndSaveInFeatureContext("duo", "Kansas", PropertyUtility.getDataProperties("kansas.customer1.phone"),
-                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"),"DUO_SCH_DONOT_ACCEPT");
+                    PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"), "DUO_SCH_DONOT_ACCEPT");
         }
     }
 }

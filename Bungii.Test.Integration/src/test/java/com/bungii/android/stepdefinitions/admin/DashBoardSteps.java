@@ -3,7 +3,8 @@ package com.bungii.android.stepdefinitions.admin;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.admin.DashBoardPage;
+import com.bungii.android.pages.admin.*;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -12,12 +13,9 @@ import static com.bungii.common.manager.ResultManager.log;
 
 public class DashBoardSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.android.stepdefinitions.admin.DashBoardSteps.class);
-    DashBoardPage dashBoardPage;
+    DashBoardPage dashBoardPage=new DashBoardPage();
     ActionManager action = new ActionManager();
-
-    public DashBoardSteps(DashBoardPage dashBoardPage) {
-        this.dashBoardPage = dashBoardPage;
-    }
+    LiveTripsPage liveTripsPage=new LiveTripsPage();
 
     @When("^I Select \"([^\"]*)\" from admin sidebar$")
     public void i_select_something_from_admin_sidebar(String option) {
@@ -26,6 +24,10 @@ public class DashBoardSteps extends DriverBase {
                 case "scheduled trip":
                     action.click(dashBoardPage.Button_Trips());
                     action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "live trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "promo code":
                     action.click(dashBoardPage.Button_Marketing());
@@ -48,5 +50,18 @@ public class DashBoardSteps extends DriverBase {
         }
     }
 
-
+    @Then("^I select trip from trips$")
+    public void i_select_trip_from_trips() throws Throwable {
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(liveTripsPage.Button_RowOne());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

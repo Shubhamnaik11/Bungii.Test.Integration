@@ -28,7 +28,7 @@ public class GoogleMaps {
         String strDestinations = dropCoordinate[0]+","+dropCoordinate[1]+"|"+stackPickupCoordinate[0]+","+stackPickupCoordinate[1];
         Map<String, String> data = new HashedMap();
 
-        Response response =given().log().all()
+        Response response =given()//.log().body()
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
@@ -43,7 +43,7 @@ public class GoogleMaps {
                 .when()
                 .get(DISTANCE_MATRIX_API);
 
-        response.then().log().all();
+        response.then().log().body();
         return  getStackDuration(response);
     }
 

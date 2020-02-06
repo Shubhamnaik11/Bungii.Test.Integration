@@ -12,6 +12,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.touch.TouchActions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.collections.Lists;
@@ -503,4 +504,41 @@ public class ActionManager {
         }
     }
 
+    public Rectangle getLocatorRectangle(WebElement element) {
+
+        // MobileElement element = (MobileElement) waitForExpectedElement(by);
+        Point elementLocation = element.getLocation();
+        Dimension elementSize = element.getSize();
+        int leftX = elementLocation.getX();
+        int width = leftX + elementSize.getWidth();
+        int upperY = elementLocation.getY();
+        int hight = upperY + elementSize.getHeight();
+        Rectangle area = new Rectangle(leftX, upperY, width, hight);
+        return area;
+
+    }
+    /**
+     * Drag from one point to andother IOS SPECIFIC
+     *
+     * @param startx   X coordinate for initial location of swipe
+     * @param starty   Y coordinate for initial location of swipe
+     * @param endx     X coordinate for end location of swipe
+     * @param endy     Y coordinate for end location of swipe
+     * @param duration time duration in which swipe should be performed
+     * @param element  Reference element for all the coordinate
+     */
+    public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
+        logger.detail("Slide started");
+
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+        Map<String, Object> params = new HashMap<>();
+        params.put("duration", duration);
+        params.put("fromX", startx);
+        params.put("fromY", starty);
+        params.put("toX", endx);
+        params.put("toY", endy);
+        params.put("element", ((RemoteWebElement) element).getId());
+        js.executeScript("mobile: dragFromToForDuration", params);
+        logger.detail("Slide ended");
+    }
 }

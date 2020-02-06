@@ -1,9 +1,9 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.driver.ScheduledBungiiPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -29,6 +29,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
     private static LogUtility logger = new LogUtility(ScheduledBungiiSteps.class);
 
     @And("I Select Trip from driver scheduled trip")
@@ -37,7 +38,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         boolean skipNormalFlow = false;
         boolean isSelected = false;
         if(action.isNotificationAlertDisplayed()){
-            if(action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
+            if(action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))){
                 utility.acceptNotificationAlert();
                 skipNormalFlow=true;
             }
@@ -76,6 +77,15 @@ public class ScheduledBungiiSteps extends DriverBase {
     }
     }
 
+    @And("^I click the \"([^\"]*)\" button on \"([^\"]*)\" screen$")
+    public void i_click_the_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
+        try {
+            action.click(inProgressBungiiPages.Button_Cancel());
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @When("^I wait for Minimum duration for Bungii Start Time$")
     public void i_wait_for_minimum_duration_for_bungii_start_time() {

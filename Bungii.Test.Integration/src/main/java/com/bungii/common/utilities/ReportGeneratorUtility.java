@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -22,6 +23,7 @@ public class ReportGeneratorUtility {
 	private Writer bufWriter1, fileWriter;
 	private ArrayList<String> detailsArray = new ArrayList<String>();
 	private ArrayList<String> summaryArray = new ArrayList<String>();
+	private ArrayList<String> stackTraceArray = new ArrayList<String>();
 
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
@@ -37,6 +39,7 @@ public class ReportGeneratorUtility {
 
 	private Date testStepStart, testStepEnd;
 	private String tcName;
+	private String featureName;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -68,7 +71,8 @@ public class ReportGeneratorUtility {
 	
 	public void createResultFileFromTemplate(){
 	    try {
-			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature","").replace(" ","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -77,8 +81,9 @@ public class ReportGeneratorUtility {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
+            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
-	        totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
+			totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
@@ -96,20 +101,21 @@ public class ReportGeneratorUtility {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
+	public void startTestCase(String tcName , String featureName) {
 		this.tcName = tcName;
+		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
-		addTestCaseEntryInDetailsTable(tcName);
+		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
 
 	/**
 	 * @param name Add Test case entry to details table
 	 */
-	public void addTestCaseEntryInDetailsTable(String name) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case:   "+ name + "</td></tr>"; ;
+	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
+		String str = "<tr class='header'><td colspan='8'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 	}
 
@@ -121,8 +127,9 @@ public class ReportGeneratorUtility {
 
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
-
-		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
+		int stepCount= testStepCount+1;
+		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
+		str = str + "<td>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}
@@ -137,8 +144,26 @@ public class ReportGeneratorUtility {
 		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 
 		detailsArray.add(str);
+		if (eventData.get("type").toString() != "PASSED") {
+			detailsArray.addAll(stackTraceArray);
+			stackTraceArray.clear();
+		}
 		//increase step count ;
 		testStepCount++;
+	}
+	/**
+	 * Add test case step data to file buffer
+	 * @param eventData Map that contains test details
+	 */
+	public void addStackTrace(Map<String, String> eventData) {
+   if(eventData.get("actual").toString()!= "") {
+       String str = "<tr><td + rightSpan + ></td>";
+       str = str + "<td colspan=8 align='left'>Error Log : <div class='maincontent'><div class='content'>" + eventData.get("actual").toString() + "</div><div class='txtcol'><a>Show More</a></div></div></td>";
+       stackTraceArray.add(str);
+   }
+   else {
+       stackTraceArray.add("");
+         }
 	}
 
 	/**
@@ -195,8 +220,9 @@ public class ReportGeneratorUtility {
 	/**
 	 * Mark test case as failed.  Dont stop test, use in case of verify
 	 */
-	public void verificationFailed(){
+	public void verificationFailed(Map<String, String> eventData){
 		this.isTcVerifyFailed=true;
+		endTestDataContainer(eventData);
 		logger.trace("Marked test case :"+this.tcName +" failed as verification got failed"  );
 	}
 	
@@ -273,5 +299,17 @@ public class ReportGeneratorUtility {
 		final String cleansedString = StringUtils.normalizeSpace(strDetails);
 		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
+	}
+
+	public void endTestDataContainer(Map<String, String> eventData)
+	{
+		String str = "<tr><td + rightSpan + ><td>Some steps are skipped due to error ..</td>";
+		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
+
+	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
+	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+
+		detailsArray.add(str);
+
 	}
 }

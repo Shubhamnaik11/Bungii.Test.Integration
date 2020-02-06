@@ -19,8 +19,6 @@ public class OtherAppsPage extends PageBase {
     public WebElement SMS_Moto_RecipientNo(boolean... ignoreException) { return findElement("//*[@resource-id='com.android.mms:id/recipients_editor'  or @resource-id='com.google.android.apps.messaging:id/conversation_title']", LocatorType.XPath,ignoreException); }
     public WebElement SMS_Moto_RecipientNo_And7(boolean... ignoreException) { return findElement("com.google.android.apps.messaging:id/conversation_title", LocatorType.Id,ignoreException); }
 
-
-
     //------Call--------------------------------------------------------------------------------------
     public WebElement Call_Samsung_Number() { return findElement("com.android.contacts:id/digits", LocatorType.Id); }
 
@@ -30,7 +28,6 @@ public class OtherAppsPage extends PageBase {
     public List<WebElement> Text_NotificationTitle(){ return findElements("//*[@resource-id='android:id/big_text' or @resource-id='android:id/text']/parent::android.widget.LinearLayout/preceding-sibling::android.widget.LinearLayout/*[@resource-id='android:id/title']", LocatorType.XPath); }
 
     public List<WebElement> Text_Notification() { return findElements("//*[@resource-id='android:id/big_text' or @resource-id='android:id/text']", LocatorType.XPath); }
-
 
     //FB
     public WebElement Button_Options() { return findElement("//android.view.View[@content-desc=\"Selected, More, Tab 5 of 5\"]", LocatorType.XPath); }
@@ -50,8 +47,16 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_StackDriverAccepted1(boolean... ignoreException) { return findElement("//*[@text=\"Scheduled trip accepted! This Bungii now lives in your Scheduled Bungiis page.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriverStarted(boolean... ignoreException) { return findElement("//*[@text=\"Your Bungii driver is on his way!\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_StackDriver (boolean... ignoreException) { return findElement("//*[@text=\"Drats! Your next customer has cancelled the delivery.\"]", LocatorType.XPath,ignoreException); }
-    public WebElement Button_ReturnKey(boolean... ignoreException) { return findElement("//XCUIElementTypeButton[@name=\"Return\"]", LocatorType.XPath,ignoreException); }
 
-
-
+    public WebElement Button_NotificationClear(boolean... ignoreException){return findElement("//android.widget.ImageButton[@content-desc=\"Clear all notifications.\"]", LocatorType.XPath,ignoreException);}
+    public List<WebElement> Cell_Notification() { return findElements("com.android.systemui:id/notification_stack_scroller", LocatorType.Id);};
+    public WebElement Notification_ScheduledBungiiAvailable(boolean... ignoreException) { return findElements("//*[@resource-id='android:id/status_bar_latest_event_content']", LocatorType.XPath).get(0); }
+    public WebElement Notification_TMinus2(boolean... ignoreException) { return findElement("//*[@text=\"BUNGII: Heads up! T minus 2 hours till pickup.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_OtherDriverCancel(boolean... ignoreException) { return findElement("//*[@text=\"Looks like driver ran into a problem.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_CustomerCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency, this trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_DriverEnroute(boolean... ignoreException){return findElement("//android.widget.TextView[@text='Your Bungii driver(s) are en route!']", LocatorType.XPath,ignoreException);}
+    public WebElement Notification_ReceiveBungiiRequest(boolean... ignoreException) {return findElement("//*[@resource-id='android:id/text' and @text='You’re receiving a Bungii request.']",LocatorType.XPath,ignoreException);}
+    public WebElement Notification_ScheduledUrgent(boolean... ignoreException) { return findElement("//*[@text=\"URGENT: A Bungii driver had an emergency & needs coverage for their trip. Please accept if available.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_DriverBungiiCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency one of the drivers had to cancel the trip. The trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_CustomerFinsihBungii(boolean... ignoreException) { return findElement("//*[@text=\"Just finished? Don’t forget to rate your driver.\"]", LocatorType.XPath,ignoreException); }
 }

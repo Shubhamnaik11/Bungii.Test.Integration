@@ -8,9 +8,11 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
+import com.bungii.ios.enums.REFERRAL_SOURCE;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -29,6 +31,7 @@ public class SignupSteps extends DriverBase {
             switch (strArg1) {
                 case "unique":
                     customerPhone = utility.generateMobileNumber();
+                    cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
                     break;
                 case "blank":
                     break;
@@ -57,9 +60,11 @@ public class SignupSteps extends DriverBase {
 
             switch (strArg1) {
                 case "valid":
-                    action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
-                    String firstName= Page_Signup.TextField_FirstName().getText();
-                            cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
+
+                    String firstName="";
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                     firstName= Page_Signup.TextField_FirstName().getText();
+                    cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
                     action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
@@ -181,7 +186,6 @@ public class SignupSteps extends DriverBase {
 
             case "Signup page":
                 testStepVerify.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
-
                 testStepVerify.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
                 break;
 
@@ -218,6 +222,9 @@ public class SignupSteps extends DriverBase {
             case "Referral":
                 strPromoCode = PropertyUtility.getDataProperties("referral.code");
                 break;
+            case "Code":
+                strPromoCode= (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
+                break;
             case "FutureActive":
                 strPromoCode = PropertyUtility.getDataProperties("promocode.futureactive");
                 break;
@@ -226,6 +233,12 @@ public class SignupSteps extends DriverBase {
                 break;
         }
         action.click(Page_Signup.CheckBox_Promo());
+        String isChecked=action.getAttribute(Page_Signup.CheckBox_Promo(), "checked");
+        if(isChecked.equals("false"))
+        {
+            action.click(Page_Signup.CheckBox_Promo());
+        }
+
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
@@ -235,4 +248,18 @@ public class SignupSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^I Select Referral source$")
+    public void i_select_referral_source() throws Throwable {
+            try {
+                action.click(Page_Signup.Select_ReferralSource());
+                action.click(Page_Signup.Option_ReferralSource());
+                action.click(Page_Signup.Link_ReferralSourceDone());
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error( "Step  Should be successful",
+                        "Error performing step,Please check logs for more details", true);
+            }
+        }
+
 }

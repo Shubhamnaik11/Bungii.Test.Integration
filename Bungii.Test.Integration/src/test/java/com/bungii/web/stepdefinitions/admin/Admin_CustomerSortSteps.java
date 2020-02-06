@@ -46,26 +46,26 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(),"go"+ Keys.ENTER);
                         Thread.sleep(2000);
                         DefaultGridData = admin_ReferralSourceSteps.paginateAndGetGridData(6);
-                        sort = admin_customerPage.Header_Name().getAttribute("class");
-                        if (order.equals("Ascending")) {
-                            if (!sort.equals("sorting_asc")) {
+                        sort = admin_customerPage.Header_Name().getAttribute("onclick");
+                        if (order.equalsIgnoreCase("Ascending")) {
+                            if (!sort.contains("ASC")) {
                                 action.click(admin_customerPage.Header_Name());
                             }
                         } else {
-                            if (!sort.equals("sorting_desc")) {
+                            if (!sort.equals("DESC")) {
                                 action.click(admin_customerPage.Header_Name());
                             }
                         }
                         break;
                     case "Customer Join Date (CST)":
-                        sort = admin_customerPage.Header_CustomerJoinDate().getAttribute("class");
+                        sort = admin_customerPage.Header_CustomerJoinDate().getAttribute("onclick");
                         if (order.equals("Ascending")) {
-                            if (!sort.equals("sorting_asc")) {
+                            if (!sort.contains("ASC")) {
                                 action.click(admin_customerPage.Header_CustomerJoinDate());
 
                             }
                         } else {
-                            if (!sort.equals("sorting_desc")) {
+                            if (!sort.contains("DESC")) {
                                 action.click(admin_customerPage.Header_CustomerJoinDate());
                             }
                         }
@@ -133,6 +133,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
     @Then("^The column \"([^\"]*)\" data gets sorted in \"([^\"]*)\" order in the \"([^\"]*)\" table$")
     public void the_column_something_data_gets_sorted_in_something_order_in_the_something_table(String field, String order, String table) throws Throwable {
         ArrayList<String> dateList = new ArrayList<String>();
+        ArrayList<String> amountList = new ArrayList<String>();
         DateFormat parser = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
         DateFormat parser2 = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
         int pageno = 2;
@@ -178,14 +179,14 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         Collections.sort(dateList, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
                         dateList.replaceAll(String::toUpperCase);
 
-                        Collections.sort(gridData, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
+                      //  Collections.sort(gridData, (s1, s2) -> LocalDate.parse(s1, formatter).compareTo(LocalDate.parse(s2, formatter)));
                         gridData.replaceAll(String::toUpperCase);
 
                         if (order.equals("Ascending")) {
-                            testStepAssert.isTrue(dateList.equals(gridData.get(1)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            testStepAssert.isTrue(gridData.equals(dateList), field + " should sort by " + order, field + " is not sorted by " + order);
                         } else {
-                            Collections.reverse(dateList);
-                            testStepAssert.isTrue(dateList.equals(gridData.get(1)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            Collections.reverse(gridData);
+                            testStepAssert.isTrue(gridData.equals(dateList), field + " should sort by " + order, field + " is not sorted by " + order);
                         }
                         break;
                     case "Trips Requested":
@@ -208,24 +209,60 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         }
                         break;
                     case "Spent":
-                        Collections.sort(DefaultGridData.get(4), Comparator.comparingInt(Integer::parseInt));
+                        for (String amountString : CurrentGridData.get(4)) {
+                                gridData.add(amountString.replace("$",""));
+                        }
+
+                        for (String amountString : DefaultGridData.get(4)) {
+                            amountList.add(amountString.replace("$",""));
+                        }
+
+                        Collections.sort(amountList, Comparator.comparingDouble(Double::parseDouble));
                         if (order.equals("Ascending")) {
 
-                            testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            testStepAssert.isTrue(gridData.equals(amountList), field + " should sort by " + order, field + " is not sorted by " + order);
                         } else {
-                            Collections.reverse(DefaultGridData.get(4));
-                            testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            Collections.reverse(amountList);
+                            testStepAssert.isTrue(gridData.equals(amountList), field + " should sort by " + order, field + " is not sorted by " + order);
                         }
                         break;
-                    case "Last Activity (CST)":
-                        Collections.sort(DefaultGridData.get(5), Comparator.comparingDouble(Double::parseDouble));
+                   /* case "Last Activity (CST)":
+                        for (String dateString : CurrentGridData.get(5)) {
+                            try {
+                                Date convertedDate = parser.parse(dateString);
+                                String date = parser2.format(convertedDate);
+                                gridData.add(date);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        for (String dateString : DefaultGridData.get(5)) {
+                            try {
+                                Date convertedDate = parser.parse(dateString);
+                                String date = parser2.format(convertedDate);
+                                //date=utility.FirstAndLast(date);
+                                dateList.add(date);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm:ss a");
+                        Collections.sort(dateList, (s1, s2) -> LocalDate.parse(s1, formatter1).compareTo(LocalDate.parse(s2, formatter1)));
+                        dateList.replaceAll(String::toUpperCase);
+
+                        Collections.sort(gridData, (s1, s2) -> LocalDate.parse(s1, formatter1).compareTo(LocalDate.parse(s2, formatter1)));
+                        gridData.replaceAll(String::toUpperCase);
+
+                     //   Collections.sort(DefaultGridData.get(5), Comparator.comparingDouble(Double::parseDouble));
                         if (order.equals("Ascending")) {
-                            testStepAssert.isTrue(DefaultGridData.get(5).equals(CurrentGridData.get(5)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            testStepAssert.isTrue(dateList.equals(gridData.get(5)), field + " should sort by " + order, field + " is not sorted by " + order);
                         } else {
-                            Collections.reverse(DefaultGridData.get(5));
-                            testStepAssert.isTrue(DefaultGridData.get(5).equals(CurrentGridData.get(5)), field + " should sort by " + order, field + " is not sorted by " + order);
+                            Collections.reverse(dateList);
+                            testStepAssert.isTrue(dateList.equals(gridData.get(5)), field + " should sort by " + order, field + " is not sorted by " + order);
                         }
                         break;
+                        */
                 }
                 break;
         }

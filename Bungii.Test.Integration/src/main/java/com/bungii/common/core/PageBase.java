@@ -4,11 +4,14 @@ import com.bungii.SetupManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.MobileBy;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+
+import static com.bungii.common.manager.ResultManager.error;
 
 
 public class PageBase {
@@ -180,6 +183,8 @@ public class PageBase {
                 //if retry is true mean this is second time in loop .so break
                 if(retry)
                 {
+                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                            true);
                     break;
                 }
                 retry=true;

@@ -2,10 +2,13 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiDetailsPage;
+import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.customer.*;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -21,19 +24,21 @@ import static com.bungii.common.manager.ResultManager.*;
 public class BungiiDetailsSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PromosSteps.class);
     ActionManager action = new ActionManager();
-    BungiiDetailsPage bungiiDetailsPage ;
     GeneralUtility utility=new GeneralUtility();
+    BungiiRequest bungiiRequest=new BungiiRequest();
+    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
 
-    public BungiiDetailsSteps(BungiiDetailsPage bungiiDetailsPage){
-        this.bungiiDetailsPage=bungiiDetailsPage;
-    }
     @Then("^I Cancel selected Bungii$")
     public void i_cancel_selected_bungii() {
         try {
             Thread.sleep(5000);
+            action.scrollToBottom();
             action.click(bungiiDetailsPage.Button_CancelBungii());
+            Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_CancelAccept());
+            Thread.sleep(2000);
             action.click(bungiiDetailsPage.Button_Yes());
+
             pass("I should able to cancel bungii","I cancelled bungii",true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -101,4 +106,37 @@ public class BungiiDetailsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @When("^I start selected Bungii$")
+    public void i_start_selected_bungii() {
+        try {
+            action.click(bungiiRequest.Button_StartBungii());
+            log("I start selected Bungii ", "I started selected Bungii", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^I should see \"([^\"]*)\" on screen$")
+    public void i_should_see_something_on_screen(String strArg1) throws Throwable {
+        try {
+            String expectedText=null; String actualText =null;
+            switch(strArg1)
+            {
+            case "REQUIRED DRIVER NOT ACCEPTED":
+                 expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                 break;
+            case "CUSTOMER HAS ONGOING BUNGII":
+                 expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                 break;
+        }
+            actualText = action.getText(bungiiDetailsPage.Text_snackbarmessage());
+            testStepVerify.isEquals(actualText, expectedText);
+         } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+
+        }
+
 }

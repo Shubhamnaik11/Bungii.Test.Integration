@@ -46,7 +46,7 @@ public class Driver_DetailsSteps extends DriverBase {
             case "valid":
                 action.clearSendKeys(Page_Driver_Details.TextBox_StreetAddress(), PropertyUtility.getDataProperties("DriverStreet"));
                 Thread.sleep(5000);
-                action.click(Page_Driver_Details.List_StreetAddress());
+                action.JavaScriptClick(Page_Driver_Details.List_StreetAddress());
                 Thread.sleep(2000);
                 action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
                 action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
@@ -149,7 +149,17 @@ public class Driver_DetailsSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I uncheck \"([^\"]*)\" checkbox$")
+    public void i_uncheck_something_checkbox(String strArg1) throws Throwable {
+        if(Page_Driver_Terms.CheckBox_Agree().isSelected())
+            action.click(Page_Driver_Terms.CheckBox_Agree());
+    }
 
+    @And("^I check \"([^\"]*)\" checkbox$")
+    public void i_check_something_checkbox(String strArg1) throws Throwable {
+        if(!Page_Driver_Terms.CheckBox_Agree().isSelected())
+            action.click(Page_Driver_Terms.CheckBox_Agree());
+    }
     @And("^I click Next on \"([^\"]*)\" page$")
     public void i_click_next_on_something_page(String strArg1) throws Throwable {
         switch (strArg1) {
@@ -167,6 +177,7 @@ public class Driver_DetailsSteps extends DriverBase {
                 action.click(Page_Driver_Bank.Button_BankNext());
                 break;
             case "Terms & Conditions":
+
                 action.click(Page_Driver_Terms.Button_TermsNext());
                 break;
             case "Video Training":

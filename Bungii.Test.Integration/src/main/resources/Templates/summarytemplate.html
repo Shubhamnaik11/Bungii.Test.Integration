@@ -1,7 +1,7 @@
 <html>
 <head>
     <style>
-        body {background-color: #FFFFCC;}table {background-color: #DCDCDC; text-align: center;}th { background-color: #003399;text-align: center;  color: #FFFFFF; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 15px;}tr { background-color: #E6E6E6; color: #1F1F7A;  font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px;}tr.d0 td { background-color: #01A9DB; }h1 { align=center; text-align: center; color: #003399; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 25px; }h4 {text-align=right;font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px; }.column {
+        body {background-color: white;}table {background-color: #DCDCDC; text-align: center;}th { background-color: #003399;text-align: center;  color: #FFFFFF; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 15px;}tr { background-color: #E6E6E6; color: #1F1F7A;  font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px;}tr.d0 td { background-color: #01A9DB; }h1 { align=center; text-align: center; color: #003399; font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 25px; }h4 {text-align=right;font-family:  Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif;font-size: 13px; }.column {
     float: left;
     width: 50%;
 }
@@ -11,7 +11,7 @@
     content: "";
     display: table;
     clear: both;
-}<title>TEST SUMMARY REPORT</title>
+}<title>TEST EXECUTION SUMMARY REPORT</title>
 
 
     </style>
@@ -26,7 +26,7 @@
     <u> BUNGII <!--PLATFORM--> TEST SUITE EXECUTION REPORT</u></h1>
 <div class="container">
     <div class="column"></br></br></br></br></br></br>
-        <table align=center border=3 width=90%>
+        <table align=center border=3 width=90% style="font-weight: bold;">
             <th colspan=6>TEST SUMMARY</th>
             <tr class=d0>
                 <td><b>&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPASS&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</b></td>
@@ -48,13 +48,14 @@
     </div>
     <div align=center id='status_chart' width=30% class="column"></div>
 </div>
-<table align=left border=3 width=100%>
+<table align=left border=3 width=100%  style="font-weight: bold;">
     <th colspan=6>TEST SUITE EXECUTION SUMMARY</th>
     <tr class=d0>
-        <td><b>TestCase Name</b></td>
+        <td><b>Sr. #</b></td>
+        <td><b>Testcase Title</b></td>
         <td><b>Status</b></td>
-        <td><b>Start time</b></td>
-        <td><b>End time</b></td>
+        <td><b>Start Time</b></td>
+        <td><b>End Time</b></td>
         <td><b>Duration</b></td>
     </tr><!--SUMARRY--></table>
 </table><input name=0 type="hidden" id="pass" value=<!--PASSED.COUNT--> />

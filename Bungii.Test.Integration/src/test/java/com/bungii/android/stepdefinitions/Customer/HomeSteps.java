@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -38,7 +38,6 @@ public class HomeSteps extends DriverBase {
     @When("^I tap on \"([^\"]*)\" > \"([^\"]*)\" link$")
     public void i_tap_on_something_something_link(String strArg1, String strArg2) throws Throwable {
         try {
-            //     action.click(homePage.Button_NavigationBar());
             utility.clickCustomerMenuItem(strArg2);
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
@@ -77,6 +76,7 @@ public class HomeSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "Referral Invite link":
+                    Thread.sleep(3000);
                     action.click(homePage.Link_Invite());
                     break;
                 case "Drop Clear Text":

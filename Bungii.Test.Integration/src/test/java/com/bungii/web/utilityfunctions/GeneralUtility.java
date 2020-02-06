@@ -1,6 +1,7 @@
 package com.bungii.web.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.web.manager.ActionManager;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class GeneralUtility {
+public class GeneralUtility extends DriverBase {
     Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
     Driver_RegistrationPage Page_Driver_Reg = new Driver_RegistrationPage();
     DbUtility dbUtility = new DbUtility();
@@ -213,4 +214,50 @@ public class GeneralUtility {
         }
     }
 
+    public String getTripTimezone(String geofence)
+    {
+        String timezone = null;
+        switch (geofence)
+        {
+            case "Washington DC":
+            case "washingtondc":
+                timezone = "EST";
+                break;
+            case "Goa":
+            case "goa":
+                timezone = "IST";
+                break;
+            default:
+            case "Kansas City":
+                timezone = "CST";
+                break;
+
+        }
+        return timezone;
+
+    }
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofence() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        return getGeofenceTimeZone;
+    }
+    /**
+     * Get geofence data from properties file
+     *
+     * @param geofenceName Geofence name
+     * @param partialKey   this is partial value that is to be searched in properties file
+     * @return get message from Geofence propertiese file
+     */
+    public String getGeofenceData(String geofenceName, String partialKey) {
+        geofenceName = (geofenceName.isEmpty() || geofenceName.equals("")) ? PropertyUtility.getGeofenceData("current.geofence") : geofenceName.toLowerCase();
+        String actualKey = geofenceName + "." + partialKey;
+        return PropertyUtility.getGeofenceData(actualKey);
+    }
 }
