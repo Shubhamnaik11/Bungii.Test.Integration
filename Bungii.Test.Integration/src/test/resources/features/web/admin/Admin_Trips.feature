@@ -6,6 +6,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @failed
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -35,6 +36,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @failed
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -69,7 +71,7 @@ Feature: Admin_Trips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     And I view the Scheduled Trips list on the admin portal
@@ -130,6 +132,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Trips List Statuses - Solo Ondemand
@@ -185,6 +188,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @failed
     #test data created in base
   Scenario: Trips List Statuses - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -246,7 +250,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @fail
+  @failed
    Scenario: Status on admin portal - Duo - Both drivers have accepted trip
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -347,7 +351,7 @@ Feature: Admin_Trips
     Then the driver "Testdrivertywd_appledc_a_web TestdriverY" should not receive On Demand requests as he is assigned NOT to "goa" geofence
 
   @regression
-  @fail
+  @failed
     #test data created in base
   Scenario: Customer List - Solo Scheduled Trip
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -360,6 +364,7 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
 
   @regression
+  @failed
       #test data created in base
   Scenario: Customer List - Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
