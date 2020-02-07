@@ -33,6 +33,7 @@ public class EmailUtility extends DriverBase {
         properties.setProperty("mail.store.protocol", PropertyUtility.getEmailProperties("email.store.protocol"));
         MailSSLSocketFactory socketFactory= new MailSSLSocketFactory();
         socketFactory.setTrustAllHosts(true);
+        properties.put("mail.imap.ssl.trust", "*");
         properties.put("mail.imaps.ssl.socketFactory", socketFactory);
 
         Session session = Session.getDefaultInstance(properties, null);//creating session

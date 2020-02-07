@@ -5,6 +5,7 @@ Feature: Admin_PartnerFirm
     Given I am logged in as TestAdmin
 
   @regression
+  @email
   Scenario: Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -22,7 +23,7 @@ Feature: Admin_PartnerFirm
 
 
   @regression
-
+  @email
   Scenario: Failed Trip Email - Ondemand Bulk Trip Cancel by Customer
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -34,7 +35,7 @@ Feature: Admin_PartnerFirm
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @regression
-
+  @email
   Scenario: Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -49,7 +50,7 @@ Feature: Admin_PartnerFirm
     ##################################
   @sanity
   @regression
-
+  @email
       #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research- Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -80,7 +81,7 @@ Feature: Admin_PartnerFirm
 
   @sanity
   @regression
-
+  @email
       #test data created in base
   Scenario: Partner Firm Cancellation Email  - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -111,6 +112,7 @@ Feature: Admin_PartnerFirm
 
 
   @regression
+  @email
     #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -138,7 +140,7 @@ Feature: Admin_PartnerFirm
 
 
   @regression
-
+  @email
     #test data created in base
   Scenario: Partner Email When Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -165,6 +167,7 @@ Feature: Admin_PartnerFirm
 
 
   @regression
+  @email
     #Create driver in base
   Scenario: Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
@@ -181,10 +184,8 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
-
-
-
   @regression
+  @email
     #test data created in base
   Scenario: Partner Firm Email Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -208,6 +209,7 @@ Feature: Admin_PartnerFirm
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @regression
+  @email
     #test data created in base
   Scenario: Partner Firm Email Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location

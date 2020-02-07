@@ -189,6 +189,7 @@ Feature: Admin_Trips
   @sanity
   @regression
   @failed
+  @email
     #test data created in base
   Scenario: Trips List Statuses - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
