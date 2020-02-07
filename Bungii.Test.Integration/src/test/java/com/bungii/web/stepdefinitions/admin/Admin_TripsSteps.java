@@ -475,7 +475,7 @@ public class Admin_TripsSteps extends DriverBase {
 
         String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
         if (emailBody == null) {
-            //  testStepAssert.isFail("Email : " + emailSubject + " not received");
+             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
@@ -538,7 +538,7 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
         }
 
-        //  testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+          testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
     }
 

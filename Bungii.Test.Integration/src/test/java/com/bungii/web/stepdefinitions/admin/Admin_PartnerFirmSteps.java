@@ -36,7 +36,7 @@ public class Admin_PartnerFirmSteps extends DriverBase {
         String emailBody  =  utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         if(emailBody== null)
         {
-         //   testStepAssert.isFail("Email : "+ emailSubject + " not received");
+           testStepAssert.isFail("Email : "+ emailSubject + " not received");
         }
         String message = null;
 
@@ -58,14 +58,14 @@ public class Admin_PartnerFirmSteps extends DriverBase {
         message = utility.getExpectedFailedTripEmailContent(pickupId, pickupRef, pickupStatus, customerName,customerPhone, pickupLocation, pickupAddress);
 
 
-       // testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
 
     }
 
     @And("^I ensure no driver accepts the trip$")
     public void i_ensure_no_driver_accepts_the_trip() throws Throwable {
-       // Thread.sleep(7000);
+      Thread.sleep(7000);
     }
 
 }
