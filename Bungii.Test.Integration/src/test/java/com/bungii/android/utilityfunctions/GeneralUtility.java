@@ -480,7 +480,7 @@ public class GeneralUtility extends DriverBase {
         else if (Promo.contains("%"))
             discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
 
-        double costToCustomer = distance + tripActualTime - discount;
+        double costToCustomer = tripValue - discount;
         costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
 
         return costToCustomer;
