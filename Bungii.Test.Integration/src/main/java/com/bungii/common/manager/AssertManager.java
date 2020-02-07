@@ -32,7 +32,17 @@ public class AssertManager {
 
         }
     }
+    /**
+     * Check is boolean value is true
+     *
+     * @param errorMessage If check if failed , this message will be displayed  in report
+     */
+    public void isFail(String errorMessage) {
 
+            Assert.assertFalse(true, errorMessage);
+            ResultManager.fail("",errorMessage, true);
+
+    }
     /**
      * Check is boolean value is true
      *

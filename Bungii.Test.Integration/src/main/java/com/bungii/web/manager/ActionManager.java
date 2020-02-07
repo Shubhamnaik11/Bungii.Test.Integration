@@ -1,9 +1,7 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
-import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.DriverManager;
-import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -170,6 +168,12 @@ public class ActionManager {
     public void refreshPage() {
         SetupManager.getDriver().navigate().refresh();
     }
+
+    public String getCurrentURL() {
+        String s = SetupManager.getDriver().getCurrentUrl();
+        return s;
+    }
+
     public static void selectElementByText(WebElement element, String text)
     { try{
         Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
@@ -234,4 +238,5 @@ catch(Exception ex)
         }
         return isElementPresent;
     }
+
 }
