@@ -11,12 +11,10 @@ import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import org.apache.commons.lang3.time.DateUtils;
-import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import com.bungii.common.manager.CucumberContextManager;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -24,13 +22,11 @@ import javax.mail.NoSuchProviderException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -317,6 +313,47 @@ public class GeneralUtility extends DriverBase {
         }
     }
 
+    public String GetSpecificURLs(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
+
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
+            boolean emailFound = false;
+            String emailContent;
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
+                {
+                    emailContent =  emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                    return emailContent;
+                }
+            }
+            return null;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return null;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String generateScheduledBungiiCSV(String filePath, String timezone, int noOfDrivers, String customerName, String customerPhone) {
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         DateFormat dateformatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -594,6 +631,7 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+
     public String getTripTimezone(String geofence)
     {
         String timezone = null;

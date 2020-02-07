@@ -2,41 +2,32 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.utilityfunctions.DbUtility;
-
 import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.google.common.collect.ImmutableMap;
-import com.bungii.ios.stepdefinitions.customer.LogInSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-
 import org.apache.commons.lang3.time.DateUtils;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import org.openqa.selenium.Point;
-
-import org.openqa.selenium.*;
-
-import java.lang.invoke.SwitchPoint;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -764,4 +755,22 @@ public class CommonSteps extends DriverBase {
                 "I clicked " + strArg1 + "on Alert Message", true);
     }
 
+    @And("^Customer should receive \"([^\"]*)\" email$")
+    public void customer_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        action.navigateTo(emailBody);
+        String url = action.getCurrentURL();
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String survey_link = null;
+        switch(geofence)
+        {
+            case "atlanta" :
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+            case "baltimore":
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+        }
+        testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
+    }
 }

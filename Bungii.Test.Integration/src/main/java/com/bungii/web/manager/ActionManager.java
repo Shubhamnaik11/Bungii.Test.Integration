@@ -1,9 +1,7 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
-import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.DriverManager;
-import com.bungii.common.manager.ResultManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -148,6 +146,11 @@ public class ActionManager {
         SetupManager.getDriver().navigate().to(url);
     }
 
+    public String getCurrentURL() {
+        String s = SetupManager.getDriver().getCurrentUrl();
+        return s;
+    }
+
     public static void selectElementByText(WebElement element, String text)
     {
         new Select(element).selectByVisibleText(text);
@@ -184,4 +187,5 @@ catch(Exception ex)
                     true);
         }
     }
+
 }

@@ -4,8 +4,6 @@ import com.bungii.common.core.DriverBase;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.apache.commons.mail.util.MimeMessageParser;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import javax.mail.*;
 import javax.mail.internet.MimeMessage;
@@ -22,6 +20,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.GeneralSecurityException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class EmailUtility extends DriverBase {
@@ -100,6 +100,23 @@ public class EmailUtility extends DriverBase {
             result = getTextFromMimeMultipart(mimeMultipart);
         }
         return result;
+    }
+
+    public String getURLFromMessage(Message message) throws MessagingException, IOException {
+        String result = "";
+        String aTag = "";
+        if (message.isMimeType("text/plain")) {
+            result = message.getContent().toString();
+        } else if (message.isMimeType("multipart/*")) {
+            MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
+            result = getTextFromMimeMultipart(mimeMultipart);
+        }
+        Pattern pattern = Pattern.compile("<a href=\"(.*?) ",Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(result);
+        while (matcher.find()) {
+            aTag = matcher.group(1);
+        }
+        return aTag;
     }
     private String getTextFromMimeMultipart(
             MimeMultipart mimeMultipart)  throws MessagingException, IOException{

@@ -24,8 +24,6 @@ import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -1095,8 +1093,42 @@ public class GeneralUtility extends DriverBase {
         }
     }
 
+    public String GetSpecificURLs(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
 
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
+            boolean emailFound = false;
+            String surveylink;
+            for (int i = recentMessages.length; i > 0; i--) {
 
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();
 
-
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);
+                System.out.println("Date: " + msg.getReceivedDate());
+                System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
+                {
+                    surveylink =  emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
+                    return surveylink;
+                }
+            }
+            return null;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return null;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

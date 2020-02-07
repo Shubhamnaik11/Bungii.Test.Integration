@@ -264,6 +264,7 @@ Feature: Admin_Trips
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Payment Successful |
+    And Customer should receive "Your Bungii Receipt" email
 
   @sanity
   @regression

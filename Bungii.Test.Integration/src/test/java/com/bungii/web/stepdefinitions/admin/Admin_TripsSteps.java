@@ -1,24 +1,19 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
-import com.bungii.api.stepdefinitions.BungiiSteps;
-import com.bungii.web.utilityfunctions.DbUtility;
-import com.bungii.web.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
-import com.bungii.web.pages.driver.Driver_DashboardPage;
-import com.bungii.web.pages.driver.Driver_LoginPage;
-import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import com.bungii.web.utilityfunctions.DbUtility;
+import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.joda.time.DateTime;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -26,22 +21,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -534,6 +518,15 @@ public class Admin_TripsSteps extends DriverBase {
 
         //  testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
+    }
+
+    @And("^Customer should receive \"([^\"]*)\" email$")
+    public void customer_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        action.navigateTo(emailBody);
+        String url = action.getCurrentURL();
+        String survey_link =  PropertyUtility.getDataProperties("washington.survey.email.link");
+        testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
     }
 
     @And("^I note the Pickupref of trip$")
