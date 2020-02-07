@@ -60,9 +60,9 @@ public class Admin_DriverDetails extends DriverBase{
         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
-        Date inputdate = new SimpleDateFormat("MMM d, hh:mm a z").parse(scheduled_time);
+        Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
         inputdate.setYear(new Date().getYear());
-        String formattedDate = new SimpleDateFormat("MMM d, yyyy hh:mm:ss a z").format(inputdate);
+        String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
         String XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']",formattedDate,status);
 
         int retrycount =10;

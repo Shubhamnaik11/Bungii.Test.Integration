@@ -134,14 +134,14 @@ public class ApiHelper {
             Response response = givenCustConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().body();
+           // response.then().log().body();
             return response;
         } else {
             Response response = givenCustConfig().
                     when().
                     get(path);
 
-            response.then().log().body();
+           // response.then().log().body();
             return response;
         }
     }
@@ -161,14 +161,14 @@ public class ApiHelper {
             Response response = givenDriverConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().body();
+          //  response.then().log().body();
             return response;
         } else {
             Response response = givenDriverConfig().
                     when().
                     get(path);
 
-            response.then().log().body();
+          //  response.then().log().body();
             return response;
         }
     }
@@ -186,7 +186,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().body();
+         //   response.then().log().body();
             return response;
 
         } else {
@@ -194,7 +194,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().body();
+          //  response.then().log().body();
 
             return response;
         }
@@ -213,7 +213,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().body();
+          //  response.then().log().body();
             return response;
 
         } else {
@@ -221,7 +221,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().body();
+        //    response.then().log().body();
 
             return response;
         }
@@ -299,7 +299,7 @@ public class ApiHelper {
     public static void genericResponseValidation(Response response) {
         JsonPath jsonPathEvaluator;
         try {
-            logger.detail(response.print());
+           logger.detail(response.then().log().body());
             jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
 

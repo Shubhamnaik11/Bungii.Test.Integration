@@ -39,7 +39,6 @@ public class Driver_DetailsSteps extends DriverBase {
 
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
-    DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
     BungiiSteps bungiiSteps = new BungiiSteps();
 
     @When("^I enter \"([^\"]*)\" data on Driver Details page$")

@@ -178,9 +178,10 @@ public class Admin_TripsSteps extends DriverBase {
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
-                    Thread.sleep(15000); //Wait for 15 seconds
+                    Thread.sleep(12000); //Wait for 15 seconds
                     retryCount++;
                    action.refreshPage();
+                    Thread.sleep(3000);
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
