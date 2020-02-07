@@ -2,6 +2,7 @@ package com.bungii.web.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -91,7 +92,6 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
-
     public void TestAdminLogin() {
         String adminURL = GetAdminUrl();
 
@@ -100,7 +100,6 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.testpassword"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
-
     public void DriverLogout() {
         action.click(driver_dashboardPage.Link_Logout());
     }
@@ -210,7 +209,7 @@ public class GeneralUtility extends DriverBase {
             char ch = CHAR_LIST.charAt(number);
             randStr.append(ch);
         }
-        System.out.println("Sting of special characters: " + randStr);
+        System.out.println("String of special characters: "+randStr);
         return randStr.toString();
     }
 
@@ -605,6 +604,32 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String getTimeZoneBasedOnGeofence() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        return getGeofenceTimeZone;
+    }
+    /**
+     * Get geofence data from properties file
+     *
+     * @param geofenceName Geofence name
+     * @param partialKey   this is partial value that is to be searched in properties file
+     * @return get message from Geofence propertiese file
+     */
+    public String getGeofenceData(String geofenceName, String partialKey) {
+        geofenceName = (geofenceName.isEmpty() || geofenceName.equals("")) ? PropertyUtility.getGeofenceData("current.geofence") : geofenceName.toLowerCase();
+        String actualKey = geofenceName + "." + partialKey;
+        return PropertyUtility.getGeofenceData(actualKey);
+    }
+
 
     public String getExpectedDriverRegistrationCompleteEmailContent(String driverName, String driverPhone)
     {

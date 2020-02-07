@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -44,6 +45,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
+
+    Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -187,7 +190,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         Thread.sleep(4000);
         action.clearSendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-
+        Thread.sleep(4000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
@@ -289,7 +292,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
-
             }
 
         log("I select "+button+" from "+page+ " page",
@@ -500,27 +502,39 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         errorFileName=errorFileName+"_errors";
         String home = System.getProperty("user.home");
         File file = new File(home+"/Downloads/" + errorFileName + ".csv");
-
-        if(file.exists())
-        {
-            file.delete();
-        }
+try {
+    if (file.exists()) {
+        file.delete();
+    }
+}
+catch (Exception ex){}
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
         Thread.sleep(2000);
         String dirPath= home+"/Downloads/";
 
         cucumberContextManager.setScenarioContext("DIR_PATH",dirPath);
-        File getLatestFile = GetLatestFilefromDir(dirPath);
-        String fileName = getLatestFile.getName();
+        String fileName = "";
+        File getLatestFile;
+        do {
+           getLatestFile = GetLatestFilefromDir(dirPath);
+           fileName = getLatestFile.getName();
+           if(fileName.equalsIgnoreCase(errorFileName))
+               break;
+        }
+        while (!fileName.equalsIgnoreCase(errorFileName + ".csv"));
+
         String filePath= getLatestFile.getAbsolutePath();
 
         cucumberContextManager.setScenarioContext("FILE_PATH",filePath);
-        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded file name matches with expected file name","Downloaded file name is not matching with expected file name");
+        testStepAssert.isTrue(fileName.equals(errorFileName+".csv"),errorFileName+".csv","Downloaded ("+ fileName +") file name matches with expected ("+errorFileName+".csv)file name","Downloaded ("+ fileName +") file name is not matching with expected ("+errorFileName+".csv) file name");
 
         log("The "+errorFileName+" file should get downloaded.",
                 "I am able to download the "+errorFileName, true);
     }
-
+    @Then("^the error \"([^\"]*)\" is displayed$")
+    public void the_error_something_is_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
+    }
     @And("^the error \"([^\"]*)\" is displayed in the csv file$")
     public void the_error_something_is_displayed_in_the_csv_file(String message) throws Throwable {
         String filePath = cucumberContextManager.getScenarioContext("FILE_PATH").toString();
@@ -549,12 +563,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-                        case "Please check the CSV for errors.":
-                            testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorOnBulkTripsPage(), "Please check the CSV for errors.", message, message + " is displayed.",message + " is not displayed.");
-                            break;
+
                     }
 
+
                 }
+
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -564,6 +578,13 @@ public class Admin_BusinessUsersSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+        try {
+            File file = new File(filePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        catch (Exception ex){}
     }
     //BOC
     @And("^I Update the \"([^\"]*)\" and \"([^\"]*)\"$")
@@ -699,15 +720,21 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Remove Driver":
                     action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
                     break;
+
                 case "Research":
+                    Thread.sleep(4000);
                     action.click(admin_ScheduledTripsPage.Button_Research());
+                    break;
+
+                case "Update" :
+                    action.click(driver_detailsPage.Button_Update());
                     break;
             }
             log("I click on the "+Name+" button",
                     "I clicked the "+Name+" button", true);
         }
 
-        @When("I change the status to {string}")
+        @When("I change the status to \"([^\"]*)\"")
         public void i_change_the_status_to(String string) {
             // Write code here that turns the phrase above into concrete actions
             action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUserIsActive(), "Inactive");

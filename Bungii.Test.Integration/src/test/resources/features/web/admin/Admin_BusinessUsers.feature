@@ -157,4 +157,4 @@ Feature: Admin_BusinessUsers
     And I select user "Testcustomertywd_apple<<UniqueNo>>"
     And I select the file with invalid data for "Blank CSV"
     And I click on "Upload" button on "Bulk Trips" page
-    Then the error "Please check the CSV for errors." is displayed in the csv file
+    Then the error "Please check the CSV for errors." is displayed

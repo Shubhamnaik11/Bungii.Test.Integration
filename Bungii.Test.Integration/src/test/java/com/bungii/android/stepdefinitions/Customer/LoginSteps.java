@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.LoginPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -51,6 +51,7 @@ public class LoginSteps extends DriverBase {
                     break;
                 case "Valid_ToBeLocked":
                     action.sendKeys(loginPage.TextField_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
+                    break;
                 default:
                     action.sendKeys(loginPage.TextField_PhoneNumber(), strArg1);
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA",strArg1);

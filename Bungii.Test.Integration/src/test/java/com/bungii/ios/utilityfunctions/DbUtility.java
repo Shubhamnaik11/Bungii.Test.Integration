@@ -164,4 +164,12 @@ public class DbUtility extends DbContextManager {
         String activeFlag = getDataFromMySqlServer(queryString2);
         return activeFlag;
     }
+
+    public static String getResarchedPickupReference(String pickupRequest) {
+        String pickupRef = "";
+        String queryString = "SELECT PickupRef FROM pickupdetails WHERE LinkedPickupID in (SELECT PickupID from pickupdetails where pickupref='" + pickupRequest+"')";
+        pickupRef = getDataFromMySqlServer(queryString);
+        logger.detail("Researched Pickup Ref is" + pickupRef + ", query, " + queryString);
+        return pickupRef;
+    }
 }

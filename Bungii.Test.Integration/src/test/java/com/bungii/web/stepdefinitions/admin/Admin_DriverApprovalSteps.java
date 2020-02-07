@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.log;
+
 public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
     Admin_MenuLinksPage adminMenuLinksPage = new Admin_MenuLinksPage();
@@ -23,6 +25,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -74,6 +77,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
+        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
@@ -100,11 +104,12 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Attributes Page":
                 testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Attributes(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
             case "Customers Page":
                 testStepAssert.isElementDisplayed(admin_customerPage.Label_CustomerList(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Drivers Page":
+                testStepAssert.isElementDisplayed(admin_DriverPage.Label_DriversPageHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
+                break;
         }
     }
 
@@ -188,7 +193,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Scale":
                 action.click(admin_GeofencePage.Button_Scale());
                 break;
-        }    }
+        }
+        log("I click on the "+arg0+ " button" ,
+                "I have clicked on the "+arg0+ " button");
+    }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
@@ -206,7 +214,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Driver Reject Application":
                 action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
                 break;
-        }    }
+        }
+        log("I can confirm " + strArg1 + " action" ,
+                "I have confirmed " + strArg1 + " action");
+    }
     @And("^the \"([^\"]*)\" button is not visible$")
     public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
         switch (strArg1)
@@ -277,5 +288,33 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void theStatusOfTheFieldResetsToDefault() throws Throwable {
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
 
+    }
+
+    @And("^I verify all the fields except \"([^\"]*)\"$")
+    public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+        action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
+        action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        log("I can verify all the fields except DOB" ,
+                "I have verified all the fields except DOB");
     }
 }

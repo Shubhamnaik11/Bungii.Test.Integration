@@ -98,3 +98,21 @@ Feature: Admin_DriverApplicationVerification
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
 
+  @regression
+    #test data created in base
+  Scenario: Driver_ApplicationStatusChange
+    When I click "Verify" button against the "Melvin Johnson" applicant
+    And I verify all the fields except "Date of Birth"
+    And I click on the "Resend Application" Button
+    And I confirm the "Driver Resend Application" action
+    And I login to the driver portal as driver "Melvin Johnson"
+    And I update the rejected "Date of Birth" field
+    And I update the accepted "Social Security Number" field
+    And I click on "Update" button
+    And I submit the updated application
+    And I logout of driver portal
+    And I am logged in as Admin
+    Then there is a pending application for driver verification
+    When I click "Verify" button against the "Melvin Johnson" applicant
+    Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
+

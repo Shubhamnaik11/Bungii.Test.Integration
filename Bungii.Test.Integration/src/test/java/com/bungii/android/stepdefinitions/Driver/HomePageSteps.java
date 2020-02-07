@@ -1,7 +1,9 @@
 package com.bungii.android.stepdefinitions.Driver;
 
+import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -11,23 +13,31 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import java.util.List;
 
-import static com.bungii.common.manager.ResultManager.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.TimeZone;
+
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class HomePageSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomePageSteps.class);
     ActionManager action = new ActionManager();
-    DriverHomePage homePage = new DriverHomePage();
+    DriverHomePage driverHomePage = new DriverHomePage();
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility = new GeneralUtility();
+    TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
 
     @And("^I Select \"([^\"]*)\" from driver App menu$")
     public void i_select_something_from_driver_app_memu(String menuItem) {
         try {
             if (action.isNotificationAlertDisplayed()) {
-                if (action.getText(Page_BungiiRequest.Alert_Msg()).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
+                if (action.getText(Page_BungiiRequest.Alert_Msg(true)).equalsIgnoreCase(PropertyUtility.getMessage("driver.alert.upcoming.scheduled.trip"))) {
                     utility.acceptNotificationAlert();
                 } else {
                     action.click(Page_BungiiRequest.AlertButton_Cancel());
@@ -35,8 +45,8 @@ public class HomePageSteps extends DriverBase {
 
             }
             boolean isClicked = false;
-            action.click(homePage.Button_NavigationBar());
-            List<WebElement> elements = homePage.Button_NavigationBarText();
+            action.click(driverHomePage.Button_NavigationBar());
+            List<WebElement> elements = driverHomePage.Button_NavigationBarText();
 
             for (WebElement element : elements) {
                 if (element.getText().equalsIgnoreCase(menuItem)) {
@@ -61,8 +71,8 @@ public class HomePageSteps extends DriverBase {
     public void i_should_be_navigated_to_home_screen_on_driver_app() throws Throwable {
         try {
             Thread.sleep(2000);
-            action.waitUntilIsElementExistsAndDisplayed(homePage.Generic_HeaderElement(true));
-            String getNaviagationText = action.getText(homePage.Generic_HeaderElement());
+            action.waitUntilIsElementExistsAndDisplayed(driverHomePage.Generic_HeaderElement(true));
+            String getNaviagationText = action.getText(driverHomePage.Generic_HeaderElement());
             boolean isHomePage = getNaviagationText.equals("OFFLINE") || getNaviagationText.equals("ONLINE");
             testStepAssert.isTrue(isHomePage, "I should be navigated to Driver home page", "I am not navigated to home page, Title is" + getNaviagationText);
         } catch (Exception e) {
@@ -77,14 +87,14 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (button) {
                 case "Go Online":
-                    action.click(homePage.Button_OnlineOffline());
+                    action.click(driverHomePage.Button_OnlineOffline());
                     Thread.sleep(4000);
                     break;
                 case "Go Offline":
-                    action.click(homePage.Button_OnlineOffline());
+                    action.click(driverHomePage.Button_OnlineOffline());
                     break;
                 case "Available Trips":
-                    action.click(homePage.Link_AvailableTrips());
+                    action.click(driverHomePage.Link_AvailableTrips());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -101,12 +111,12 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.goonline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.goonline"));
                     break;
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.gooffline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), PropertyUtility.getMessage("driver.home.gooffline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -133,13 +143,13 @@ public class HomePageSteps extends DriverBase {
 
             switch (info.toLowerCase()) {
                 case "name":
-                    testStepVerify.isEquals(action.getText(homePage.Text_DriverName()), driverName);
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverName()), driverName);
                     break;
                 case "vehicle info":
-                    testStepVerify.isEquals(action.getText(homePage.Text_DriverInfo()), driverVehicle);
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverInfo()), driverVehicle);
                     break;
                 case "rating":
-                    testStepVerify.isElementEnabled(homePage.Text_RattingBar(), "Ratting bar Should be correctly displayed");
+                    testStepVerify.isElementEnabled(driverHomePage.Text_RattingBar(), "Ratting bar Should be correctly displayed");
                     break;
 
                 default:
@@ -158,10 +168,10 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (buttonTitle.toUpperCase()) {
                 case "GO ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
                     break;
                 case "GO OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
+                    testStepVerify.isEquals(action.getText(driverHomePage.Button_OnlineOffline()), buttonTitle.toUpperCase());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -179,8 +189,8 @@ public class HomePageSteps extends DriverBase {
     @And("^Info text should be updated$")
     public void info_text_should_be_updated() throws Throwable {
         try {
-            testStepVerify.isEquals(action.getText(homePage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
-            testStepVerify.isEquals(action.getText(homePage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo.android"));
+            testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverName()), PropertyUtility.getMessage("DriverStatusInfo"));
+            testStepVerify.isEquals(action.getText(driverHomePage.Text_DriverInfo()), PropertyUtility.getMessage("DriverInfo.android"));
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -193,10 +203,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getText(homePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getText(driverHomePage.Generic_HeaderElement()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -206,4 +216,77 @@ public class HomePageSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @And("^I update sms setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_sms_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+        try {
+            switch (strArg0.toUpperCase()) {
+                case "SUNDAY":
+                    action.click(tripAlertSettingsPage.Text_Sunday());
+                    break;
+                case "TODAY":
+
+                    String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+                    Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+                    simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+                    String dayOfWeek=simpleDateformat.format(calendar.getTime());
+                    WebElement element=SetupManager.getDriver().findElement(By.xpath("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='"+dayOfWeek+"']"));
+                    action.click(element);
+                    break;
+                default:
+                    String from = (strArg1.split(":")[0]);
+                    from = from.startsWith("0") ? from.substring(1) : from;
+                    String test=((strArg1.split(" ")[0]).split(":")[1]).trim();
+                    String test1=(strArg1.split(" ")[1]).trim();
+
+                    String toHour = (strArg2.split(":")[0]);
+                    toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
+                    String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
+                    String tohour2=(strArg2.split(" ")[1]).trim();
+
+                    WebElement element1=SetupManager.getDriver().findElement(By.xpath("//*[@resource-id='com.bungii.driver:id/text_settings_row_text_day' and @text='"+strArg0+"']"));
+                    action.click(element1);
+                    break;
+            }
+            String from = (strArg1.split(":")[0]);
+            from = from.startsWith("0") ? from.substring(1) : from;
+            String test=((strArg1.split(" ")[0]).split(":")[1]).trim();
+            String test1=(strArg1.split(" ")[1]).trim();
+
+            String toHour = (strArg2.split(":")[0]);
+            toHour = toHour.startsWith("0") ? toHour.substring(1) : toHour;
+            String tohour1=((strArg2.split(" ")[0]).split(":")[1]).trim();
+            String tohour2=(strArg2.split(" ")[1]).trim();
+            log("Updated setting of" + strArg0 + " , to " + strArg1 + "-" + strArg2, " update trip settings", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @And("^I update trip setting of \"([^\"]*)\" to \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void i_update_trip_setting_of_sunday_to_something_to_something(String strArg0, String strArg1, String strArg2) {
+
+        i_update_sms_setting_of_sunday_to_something_to_something(strArg0, strArg1, strArg2);
+    }
+
+    @And("^I update kansas driver todays trip alert setting to outside current time$")
+    public void i_update_todays_trip_alert_setting_of_today_to_outside_current_time() throws Throwable {
+        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE","Kansas");
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        Calendar calendar = Calendar.getInstance();
+        //current time plus 60 mins
+        calendar.add(Calendar.MINUTE, +60);
+        DateFormat formatter = new SimpleDateFormat("hh:mm aa");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        String strdate = formatter.format(calendar.getTime());
+        SimpleDateFormat  simpleDateformat = new SimpleDateFormat("EEEE"); // the day of the week spelled out completely
+        simpleDateformat.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String dayOfWeek=simpleDateformat.format(calendar.getTime());
+        i_update_sms_setting_of_sunday_to_something_to_something(dayOfWeek,strdate,"11:59 PM");
+        Thread.sleep(5000);
+    }
+
 }

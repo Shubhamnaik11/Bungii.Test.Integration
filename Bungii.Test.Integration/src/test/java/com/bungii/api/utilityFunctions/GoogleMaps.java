@@ -1,6 +1,7 @@
 package com.bungii.api.utilityFunctions;
 
 import com.bungii.common.utilities.ApiHelper;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.google.gson.JsonArray;
@@ -20,6 +21,7 @@ import static io.restassured.RestAssured.given;
 
 public class GoogleMaps {
     private static String DISTANCE_MATRIX_API = "https://maps.googleapis.com/maps/api/distancematrix/json";
+    private static LogUtility logger = new LogUtility(AuthServices.class);
 
     public int[] getDurationInTraffic(String[] driverCoordinate, String[] dropCoordinate, String[] stackPickupCoordinate) {
         Date date= new Date();
@@ -27,8 +29,9 @@ public class GoogleMaps {
         String strOrigins = driverCoordinate[0]+","+driverCoordinate[1]+"|"+dropCoordinate[0]+","+dropCoordinate[1];
         String strDestinations = dropCoordinate[0]+","+dropCoordinate[1]+"|"+stackPickupCoordinate[0]+","+stackPickupCoordinate[1];
         Map<String, String> data = new HashedMap();
+        logger.detail("API REQUEST : Get duration in Traffic");
 
-        Response response =given().log().all()
+        Response response =given()//.log().body()
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
@@ -43,7 +46,8 @@ public class GoogleMaps {
                 .when()
                 .get(DISTANCE_MATRIX_API);
 
-        response.then().log().all();
+      //  response.then().log().body();
+        ApiHelper.genericResponseValidation(response);
         return  getStackDuration(response);
     }
 

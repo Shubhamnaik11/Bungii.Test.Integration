@@ -1,7 +1,9 @@
 package com.bungii.common.utilities;
 
+import com.bungii.common.manager.ResultManager;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
+import static com.bungii.common.manager.ResultManager.error;
 
 public class LogUtility {
 
@@ -80,7 +82,7 @@ public class LogUtility {
      */
     public void error(Object... varargs) {
         logger.error(CLASS+DELIM+owner + DELIM + toString(varargs));
-
+        ResultManager.setStacktrace(toString(varargs));
     }
 
     //Need to update, throw exception after logging

@@ -1,5 +1,7 @@
 package com.bungii.api.utilityFunctions;
 
+import com.bungii.common.utilities.ApiHelper;
+import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.UrlBuilder;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
@@ -21,12 +23,13 @@ public class WebPortal {
     private static String CAN_EDIT_PICKUP = "/BungiiReports/CanEditPickup";
     private static String CALCULATE_COST = "/BungiiReports/CalculateCost";
     private static String MANUALLY_END = "/BungiiReports/ManuallyEndPickup";
+    private static LogUtility logger = new LogUtility(AuthServices.class);
 
 
     public Response AdminLogin() {
-
+        logger.detail("API REQUEST : Admin Login " + PropertyUtility.getDataProperties("admin.user"));
         String loginURL = new GeneralUtility().GetAdminUrl();
-        Response response = given().log().all()
+        Response response = given().log().body()
                 .header("Accept-Language", "en-US,en;q=0.5")
                 .header("X-Requested-With", "XMLHttpRequest")
                 .header("Upgrade-Insecure-Requests", "1")
@@ -38,20 +41,22 @@ public class WebPortal {
                 .when().
                         post(loginURL);
 
-        response.then().log().all();
+        //response.then().log().all();
         adminCookies = response.then().extract().response().getDetailedCookies();
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 
     public void cancelScheduledBungii(String pickupRequestId) {
+        logger.detail("API REQUEST : Cancel Scheduled Bungii " + pickupRequestId);
         String cancelBungii = UrlBuilder.createApiUrl("web core", CUSTOMER_CANCELPICKUP);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "CancellationFee", "6", "CancelComments", "test")
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
-
+       // response.then().log().body();
+        ApiHelper.genericResponseValidation(response);
     }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
@@ -74,13 +79,15 @@ public class WebPortal {
 
 
     public void canEditPickup(String pickupRequestId) {
+        logger.detail("API REQUEST : Edit Pickup " + pickupRequestId);
         String cancelBungii = UrlBuilder.createApiUrl("web core", CAN_EDIT_PICKUP);
         Response response = given().cookies(adminCookies)
                 .param("pickupRequestID", pickupRequestId)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         get(cancelBungii);
-        response.then().log().all();
+       // response.then().log().body();
+        ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
 
         boolean isSuccess = jsonPathEvaluator1.get("Success");
@@ -91,13 +98,15 @@ public class WebPortal {
     }
 
     public void calculateManuallyEndCost(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
+        logger.detail("API REQUEST : Calculate Manually End Cost : " + pickupRequestId);
         String cancelBungii = UrlBuilder.createApiUrl("web core", CALCULATE_COST);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
+     //   response.then().log().body();
+        ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
@@ -105,14 +114,16 @@ public class WebPortal {
     }
 
     public void calculateManuallyBungii(String pickupRequestId,String bungiiEndTime,String bungiiTimeZoneLabel) {
+        logger.detail("API REQUEST : Calculate Manually Bungii : " + pickupRequestId);
+
         String cancelBungii = UrlBuilder.createApiUrl("web core", MANUALLY_END);
         Response response = given().cookies(adminCookies)
                 .formParams("PickupRequestID", pickupRequestId, "PickupEndTime", bungiiEndTime, "PickupTimeZone", bungiiTimeZoneLabel)
-                .log().all().
+                /*.log().body()*/.
                         when().
                         post(cancelBungii);
-        response.then().log().all();
-
+       // response.then().log().body();
+        ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)

@@ -18,6 +18,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Optional;
 
@@ -44,6 +45,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     GeneralUtility utility = new GeneralUtility();
 
 
@@ -90,6 +92,11 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
            case "Trips > Trips" :
                action.click(admin_TripsPage.Menu_Trips());
+               break;
+
+           case "Drivers":
+               action.click(admin_DriverPage.Menu_Drivers());
+               break;
 
        }
         log("I click on "+link+" menu link" ,
@@ -163,19 +170,31 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" icon$")
     public void i_click_on_something_icon(String button) throws Throwable {
-        switch (button)
-        {
-            case "Filter":
-                action.clear(admin_PromoCodesPage.TextBox_Search());
-                action.click(admin_PromoCodesPage.Button_Filter());
-                break;
-            case "Close":
-                action.click((admin_ScheduledTripsPage.Button_Close()));
-                break;
+
+        try {
+            switch (button) {
+                case "Filter":
+                    action.clear(admin_PromoCodesPage.TextBox_Search());
+                    action.click(admin_PromoCodesPage.Button_Filter());
+                    break;
+                case "Close":
+                    action.click((admin_ScheduledTripsPage.Button_Close()));
+                    break;
+                case "Driver Trips":
+                    String driver = (String) cucumberContextManager.getScenarioContext("DRIVER");
+                    String xpath = String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Driver Trips']", driver);
+//                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
+                    action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
+                    break;
+            }
+            log("I click on " + button + " icon",
+                    "I have clicked on " + button + " icon", true);
+        }catch (StaleElementReferenceException e) {
+            log("I click on " + button + " icon",
+                    "I have clicked on " + button + " icon", true);
         }
-        log("I click on "+button+" icon" ,
-                "I have clicked on "+button+" icon", true);
     }
+
 
     @When("^I select \"([^\"]*)\" as \"([^\"]*)\"$")
     public void i_select_something_as_something1(String CodeType, String value) throws Throwable {
@@ -201,8 +220,6 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     case "Delivery By Promoter (M)":
                         action.click(admin_PromoCodesPage.CheckBox_FilterDeliveryChargesByPromoterMultipleUse());
                         break;
-
-
                 }
                 break;
             case "Active":

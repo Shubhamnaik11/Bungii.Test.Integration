@@ -34,7 +34,6 @@ public class TripStatusSteps extends DriverBase {
         this.messagesPage = messagesPage;
     }
 
-
     @Then("^Customer should be navigated to \"([^\"]*)\" trip status screen$")
     public void customerShouldBeNaviagatedToTripStatusScreen(String screen) {
         try {
@@ -377,7 +376,7 @@ public class TripStatusSteps extends DriverBase {
     @Then("^I see \"([^\"]*)\" on bungii accepted screen$")
     public void     i_see_something_on_bungii_accepted_screen(String strArg1) throws Throwable {
         try {
-
+            action.waitForAlert();
             switch (strArg1) {
                 case "Alert: Bungii cancel confirmation":
                     testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.confirm.alert"));

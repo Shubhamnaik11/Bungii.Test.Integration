@@ -182,9 +182,14 @@ public class GeneralUtility extends DriverBase {
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 
-        if (action.isElementPresent(customerHomePage.Application_Name())) {
+        if (action.isElementPresent(customerHomePage.Application_Name(true))) {
             //do nothing
-        } else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        }else if(action.isElementPresent(customerHomePage.AppIcon_Phone(true))){
+            //if app is closed and just phone screen is present then restart app
+            SetupManager.getObject().restartApp();
+        }
+      //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
             //Remove notification screen
             action.hideNotifications();
             logger.detail("Notification page is removed");
@@ -826,10 +831,12 @@ public class GeneralUtility extends DriverBase {
             discount = Double.parseDouble(Promo.replace("-$", ""));
         else if (Promo.contains("%")) {
             discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
-            //discount is rounded to floor
-            DecimalFormat df = new DecimalFormat("#.##");
-            df.setRoundingMode(RoundingMode.FLOOR);
-            discount = new Double(df.format(discount));
+            if (tripType.equalsIgnoreCase("DUO")) {
+                //discount is rounded to floor
+                DecimalFormat df = new DecimalFormat("#.##");
+                df.setRoundingMode(RoundingMode.FLOOR);
+                discount = new Double(df.format(discount));
+            }
         }
         double costToCustomer = tripValue - discount;
         costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
@@ -1130,7 +1137,7 @@ public class GeneralUtility extends DriverBase {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
         //By default data is in UTC
-     //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String teletTimeInUtc = null;
 
         teletTimeInUtc = dateFormat.format(telet);
