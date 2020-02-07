@@ -74,6 +74,7 @@ public class ActionManager {
     public String getText(WebElement element) {
         try {
          Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+         Thread.sleep(3000);
          new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
         logger.detail("text Value is  " + text + " for element" + element.toString());

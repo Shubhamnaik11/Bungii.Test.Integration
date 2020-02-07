@@ -14,13 +14,13 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Bank Details" page
 
   @regression
-  Scenario: Driver_Terms_AgreeUnchecked_ExisitingNonFountainApplication
+  Scenario: Driver_Terms_AgreeUnchecked_ExistingNonFountainApplication
     When I uncheck "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page
 
   @regression
-  Scenario: Driver_VideoTraining_ViewedUnchecked_ExisitingNonFountainApplication
+  Scenario: Driver_VideoTraining_ViewedUnchecked_ExistingNonFountainApplication
     When I click "I agree to the Terms and Conditions" on driver portal
     And I check "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
