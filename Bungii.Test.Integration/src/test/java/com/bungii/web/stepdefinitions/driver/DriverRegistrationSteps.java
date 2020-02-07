@@ -315,7 +315,8 @@ public class DriverRegistrationSteps extends DriverBase {
        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
         String driverName ="";
        String message = "";
-       switch (emailSubject)
+        logger.detail("Email Body: "+ emailBody);
+        switch (emailSubject)
        {
            case "Your application has been rejected.":
                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
@@ -337,7 +338,7 @@ public class DriverRegistrationSteps extends DriverBase {
     @And("^Admin should receive \"([^\"]*)\" email$")
     public void admin_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
-
+        logger.detail("Email Body: "+ emailBody);
         String driverName ="";
         String driverPhone = "";
         String message = "";

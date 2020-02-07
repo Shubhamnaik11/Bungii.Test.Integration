@@ -477,6 +477,7 @@ public class Admin_TripsSteps extends DriverBase {
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
+        logger.detail("Email Body: "+ emailBody);
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
