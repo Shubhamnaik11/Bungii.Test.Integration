@@ -22,7 +22,6 @@ Feature: Admin_PartnerFirm
 
 
   @regression
-
   Scenario: Failed Trip Email - Ondemand Bulk Trip Cancel by Customer
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
