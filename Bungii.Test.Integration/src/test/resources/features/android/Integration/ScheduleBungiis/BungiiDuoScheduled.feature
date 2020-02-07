@@ -250,7 +250,7 @@ Feature: Duo
     Examples:
       | PROMO CODE       |
       | PROMO DOLLAR OFF |
-      #  |PROMO PERCENT OFF|
+        |PROMO PERCENT OFF|
 
   @regression
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details

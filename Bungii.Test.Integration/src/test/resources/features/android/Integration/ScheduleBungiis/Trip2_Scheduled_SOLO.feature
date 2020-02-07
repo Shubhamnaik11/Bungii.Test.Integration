@@ -334,13 +334,8 @@ Feature: SoloScheduled
     Then trips status on bungii details should be "driver1 name"
     Then trips status on bungii details should be "driver 2 - contacting drivers1"
     Then I cancel all bungiis of customer
-<<<<<<< HEAD
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
-=======
-      | Customer Phone  | Customer2 Phone |
-      | 8805368840 |    |
->>>>>>> 541f99e2b001a2c6469f82b629c435eecfde6bd7
 
   @regression
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
@@ -1979,7 +1974,7 @@ Feature: SoloScheduled
     And I tap on "Add Card" on Payment page
     Then I should see "the card has been added" on Payment page
 
-<<<<<<< HEAD
+
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone  | Customer Name | Customer Password |
       | NEXT_POSSIBLE | NEW_USER_NUMBER |               | Cci12345          |
@@ -2004,9 +1999,8 @@ Feature: SoloScheduled
     Examples:
       | Scenario       | Card Detail                | Card Expiry       |CVV|Postal Code|
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
-=======
-  @regression
 
+  @regression
 
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -2101,4 +2095,3 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
->>>>>>> 541f99e2b001a2c6469f82b629c435eecfde6bd7

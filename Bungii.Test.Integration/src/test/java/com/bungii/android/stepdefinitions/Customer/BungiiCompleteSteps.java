@@ -12,10 +12,12 @@ import cucumber.api.java.en.When;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
 import java.text.DecimalFormat;
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -91,7 +93,45 @@ public class BungiiCompleteSteps extends DriverBase {
                     true);
         }
     }
+    @When("^I give tip to Bungii Driver with following tip and Press \"([^\"]*)\" Button$")
+    public void i_give_tip_to_bungii_driver_with_following_tip_and_press_something_button(String button, DataTable tipInformation) {
+        try {
+            String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
+            //Input from user
+            Map<String, String> data = tipInformation.transpose().asMap(String.class, String.class);
+            String tip = data.get("Tip");
+            //give tip and fetch actual tip
+            giveTip(Integer.parseInt(tip));
+            String actualTip = bungiiCompletePage.Text_TipValue().getText().replace("$", "");
+
+            switch (button.toUpperCase()) {
+                case "OK":
+                    action.scrollToBottom();
+                    action.click(bungiiCompletePage.Button_Ok());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            if (!numberOfDriver.toUpperCase().equals("DUO"))
+                testStepVerify.isTrue((int) Double.parseDouble(actualTip) == Integer.parseInt(tip), "driver should be given tip for " + tip, "Bungii driver is given tip for" + actualTip,
+                        "Bungii driver is given tip for" + actualTip);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    /**
+     * Give Tip to driver
+     *
+     * @param tipAmmount tip ammount
+     */
+    public void giveTip(int tipAmmount) {
+        for (int i = 0; i < tipAmmount; i++) {
+            action.click(bungiiCompletePage.Button_Plus());
+        }
+    }
     @And("^I tap on \"([^\"]*)\" on Bungii Complete$")
     public void i_tap_on_something_on_bungii_complete(String strArg1) throws Throwable {
         try {
