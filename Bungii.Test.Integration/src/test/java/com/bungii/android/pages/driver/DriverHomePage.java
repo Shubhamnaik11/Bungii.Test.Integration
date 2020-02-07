@@ -25,7 +25,7 @@ public class DriverHomePage extends PageBase {
     public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id,ignoreException); }
 
 
-    public WebElement Alert_NewBungii () { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id); }
+    public WebElement Alert_NewBungii (boolean ...ignoreException) { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id,ignoreException); }
     public WebElement Text_DriverInfo () { return findElements("android.widget.TextView", LocatorType.ClassName).get(2); }
     public WebElement Text_DriverName () { return findElements("android.widget.TextView", LocatorType.ClassName).get(1); }
     public WebElement Text_RattingBar () { return findElement("android.widget.RatingBar", LocatorType.ClassName); }

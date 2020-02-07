@@ -1360,6 +1360,9 @@ public String getDriverPhone(String driverName)
             }else if(custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER")){
                 custPhoneNum=(String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
             }
+            else if(custPhoneNum.equalsIgnoreCase("NEW_USER_NUMBER")){
+                custPhoneNum=(String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+            }
             custPassword = PropertyUtility.getDataProperties("customer.password");
 
             if (!custPhoneNum.equalsIgnoreCase("")) {
