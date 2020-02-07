@@ -127,6 +127,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
+    And Customer should receive "Your Bungii Receipt" email
   #given i have large image on phone
   @regression
   Scenario Outline:Customer amount for duo with promo

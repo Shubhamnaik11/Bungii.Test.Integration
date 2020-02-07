@@ -195,6 +195,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
+    And Customer should receive "Your Bungii Receipt" email
 
 #no existing promocode
   @regression

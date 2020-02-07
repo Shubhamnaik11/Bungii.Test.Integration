@@ -7,6 +7,9 @@ import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.DbUtility;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
@@ -991,5 +994,24 @@ public class CommonSteps extends DriverBase {
             SplitDate[0] = "Today";
         }
         return SplitDate;
+    }
+
+    @And("^Customer should receive \"([^\"]*)\" email$")
+    public void customer_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        action.navigateTo(emailBody);
+        String url = action.getCurrentURL();
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String survey_link = null;
+        switch(geofence)
+        {
+            case "atlanta" :
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+            case "baltimore":
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+        }
+        testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
     }
 }

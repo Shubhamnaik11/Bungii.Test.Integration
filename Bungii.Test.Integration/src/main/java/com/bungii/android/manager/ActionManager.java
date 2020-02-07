@@ -11,15 +11,16 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.collections.Lists;
 
 import java.time.Duration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
@@ -540,5 +541,14 @@ public class ActionManager {
         params.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: dragFromToForDuration", params);
         logger.detail("Slide ended");
+    }
+
+    public void navigateTo(String url) {
+        SetupManager.getDriver().navigate().to(url);
+    }
+
+    public String getCurrentURL() {
+        String s = SetupManager.getDriver().getCurrentUrl();
+        return s;
     }
 }

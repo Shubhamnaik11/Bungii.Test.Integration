@@ -247,6 +247,7 @@ public class CoreServices extends DriverBase {
 
 
     }
+
     public Response pickupRequestPartnerFirm(String authToken, int numberOfDriver, String geoFence) {
         logger.detail("API REQUEST : Pickpup Request of Partner Firm " + authToken+ " : Number of Drivers : "+ numberOfDriver + " : Geofence : "+ geoFence);
 
@@ -946,6 +947,9 @@ public class CoreServices extends DriverBase {
         return response;
      }
 }
+
+
+
 
 
 

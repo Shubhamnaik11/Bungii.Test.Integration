@@ -1,0 +1,6 @@
+Hi Admin,
+
+Driver %driverFullName% ( %driverPhone% ) has completed registration.
+
+Thanks.
+

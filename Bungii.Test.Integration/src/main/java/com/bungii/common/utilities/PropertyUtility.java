@@ -17,6 +17,8 @@ public class PropertyUtility {
     private static String LOGIN_PROPERTY_FILE = "" ;//"/UserProperties/LoginProperties/login.properties";
     private static String LOGIN_PROPERTY_FOLDER = "/Profiles/{ENVT}/LoginProperties";
     private static String GEOFENCE_PROPERTY_FILE = "/Profiles/{ENVT}/geofence.properties";
+    private static String EMAILCLIENT_PROPERTY_FILE = "/UserProperties/emailConfig.properties";
+
     private static Properties properties;
     private static Properties fileLocations;
     private static Properties images;
@@ -26,6 +28,7 @@ public class PropertyUtility {
     private static Properties jdbcConfig;
     private static Properties loginData;
     private static Properties geoFenceData;
+    private static Properties email;
 
     public static  String targetPlatform="",environment="";
     /**
@@ -127,6 +130,14 @@ public class PropertyUtility {
 
         }
     }
+    public static String getEmailProperties(String key) {
+        if ((key == null) || key.isEmpty()) {
+            return "";
+        } else {
+            return email.getProperty(key);
+
+        }
+    }
     /**
      * Gets the key from messages.properties for a framework
      *
@@ -157,6 +168,7 @@ public class PropertyUtility {
 
         }
     }
+
 
     /**
      * Update Login property fileName that is to be used for run
@@ -247,6 +259,17 @@ public class PropertyUtility {
             try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(CSV_PROPERTY_FILE)) {
                 csv.load(inputStream);
               //  csv.list(System.out);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            email = new Properties();
+            try (InputStream inputStream = PropertyUtility.class.getResourceAsStream(EMAILCLIENT_PROPERTY_FILE)) {
+                email.load(inputStream);
+                //  csv.list(System.out);
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
