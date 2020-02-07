@@ -1109,6 +1109,9 @@ public class CommonSteps extends DriverBase {
             case "first time only":
                 code = Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
                 break;
+            case "promocode":
+                code = Arrays.asList(PropertyUtility.getDataProperties("promocode.dollar.off"));
+                break;
             default:
                 code.add(codeType);
                 break;
