@@ -77,6 +77,7 @@ public class PromosSteps extends DriverBase {
             }
             action.clearSendKeys(promoPage.Textfield_PromoCode(), promoCode);
             cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", promoCode);
             log(" I should able to add " + arg0 + " promo code ",
                     "I entered promo code '" + promoCode + "'", true);
 
