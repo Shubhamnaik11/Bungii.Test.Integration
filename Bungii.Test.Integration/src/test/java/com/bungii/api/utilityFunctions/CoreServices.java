@@ -113,7 +113,7 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        logger.detail(response.then().log().body());
+        //logger.detail(response.then().log().body());
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -141,7 +141,7 @@ public class CoreServices extends DriverBase {
 
         String apiURL = UrlBuilder.createApiUrl("core", VALIDATE_PICKUP_REQUEST);
         Response response = ApiHelper.postDetailsForCustomer(apiURL, jsonObj, header);
-        logger.detail(response.then().log().body());
+       // logger.detail(response.then().log().body());
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -578,7 +578,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_VIEW);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+        //response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;
@@ -595,7 +595,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_VIEW);
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+        //response.then().log().body();
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -606,6 +606,7 @@ public class CoreServices extends DriverBase {
         try {
             logger.detail("API REQUEST : Driver Payment Method "+ pickuprequestid +" | Auth Token : "+ authToken);
             Response response = driverView(pickuprequestid, authToken);
+            ApiHelper.genericResponseValidation(response);
             JsonPath jsonPathEvaluator = response.jsonPath();
             return jsonPathEvaluator.get("PickupDetails.PaymentMethodRef");
         } catch (Exception e) {
@@ -625,6 +626,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_LOCATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
 
     }
@@ -642,6 +644,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", STACKED_PICKUP_CONFIRMATION);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 
@@ -904,7 +907,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_SCHEDULEDPICKUPLIST);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+       // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;
@@ -937,7 +940,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickupRequestid).when().
                 get(apiURL);
-        response.then().log().body();
+       // response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;

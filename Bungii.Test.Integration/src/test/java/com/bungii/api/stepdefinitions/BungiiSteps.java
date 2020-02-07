@@ -162,7 +162,7 @@ public String getDriverPhone(String driverName)
                     driverPassword = PropertyUtility.getDataProperties("web.valid.common.driver.password");
                     //cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("web.valid.driver.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-                    authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
+                   // authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
                     driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                     coreServices.updateDriverLocation(driverAccessToken, geofence);
                     coreServices.updateDriverStatus(driverAccessToken);
@@ -305,7 +305,7 @@ public String getDriverPhone(String driverName)
                     driver2Password = PropertyUtility.getDataProperties("web.valid.common.driver.password");
                    // cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("web.valid.driver2.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
-                        authServices.driverLogin(driver2PhoneCode, driver2PhoneNum, driver2Password);
+                      //  authServices.driverLogin(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     coreServices.updateDriverLocation(driver2AccessToken, geofence);
                     coreServices.updateDriverStatus(driver2AccessToken);
