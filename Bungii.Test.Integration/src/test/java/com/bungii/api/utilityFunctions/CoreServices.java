@@ -467,7 +467,7 @@ public class CoreServices extends DriverBase {
         calendar.set(Calendar.SECOND, 0);
         Date nextQuatter = calendar.getTime();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS ");// create a formatter for date
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = sdf.format(nextQuatter);
 
@@ -490,7 +490,7 @@ public class CoreServices extends DriverBase {
         calendar.set(Calendar.SECOND, 0);
         Date nextQuatter = calendar.getTime();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS ");// create a formatter for date
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = sdf.format(nextQuatter);
 
