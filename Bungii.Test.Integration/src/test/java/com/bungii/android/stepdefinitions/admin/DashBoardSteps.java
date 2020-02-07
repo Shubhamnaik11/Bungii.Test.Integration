@@ -54,18 +54,4 @@ public class DashBoardSteps extends DriverBase {
         }
     }
 
-    @Then("^I select trip from trips$")
-    public void i_select_trip_from_trips() throws Throwable {
-        try {
-            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
-            action.click(liveTripsPage.Button_Search());
-            Thread.sleep(5000);
-            action.click(liveTripsPage.Button_RowOne());
-        } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
-                    true);
-        }
-    }
 }
