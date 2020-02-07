@@ -313,9 +313,12 @@ public class DriverRegistrationSteps extends DriverBase {
     public void i_should_receive_something_email(String emailSubject) throws Throwable {
 
        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
         String driverName ="";
        String message = "";
-        logger.detail("Email Body: "+ emailBody);
+        logger.detail("Email Body (Actual) : "+ emailBody);
         switch (emailSubject)
        {
            case "Your application has been rejected.":
@@ -331,6 +334,7 @@ public class DriverRegistrationSteps extends DriverBase {
                message = utility.getExpectedDriverApprovalEmailContent(driverName);
                break;
        }
+        logger.detail("Email Body (Expected) : "+ message);
 
        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
@@ -338,10 +342,14 @@ public class DriverRegistrationSteps extends DriverBase {
     @And("^Admin should receive \"([^\"]*)\" email$")
     public void admin_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
-        logger.detail("Email Body: "+ emailBody);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
         String driverName ="";
         String driverPhone = "";
         String message = "";
+        logger.detail("Email Body (Actual) : "+ emailBody);
+
         switch (emailSubject)
         {
             case "New driver registration complete!":
@@ -351,7 +359,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
 
         }
-
+        logger.detail("Email Body (Expected) : "+ message);
         testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
 
