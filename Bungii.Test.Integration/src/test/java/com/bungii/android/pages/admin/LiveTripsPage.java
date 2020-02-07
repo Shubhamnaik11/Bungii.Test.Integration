@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class LiveTripsPage extends PageBase {
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria", PageBase.LocatorType.Id);}
+    public WebElement Text_SearchPeroid(){return  findElement("SearchForPeriod", PageBase.LocatorType.Id);}
 
     public WebElement Button_Search(){return  findElement("btnSearch", PageBase.LocatorType.Id);}
     public WebElement Button_StartDateSort(){return  findElement("span-StartDate", PageBase.LocatorType.Id);}

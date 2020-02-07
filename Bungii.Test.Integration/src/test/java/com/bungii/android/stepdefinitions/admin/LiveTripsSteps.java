@@ -7,8 +7,10 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.android.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.support.ui.Select;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -72,7 +74,32 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I select \"([^\"]*)\" from search peroid$")
+    public void i_select_something_from_search_peroid(String strArg1) throws Throwable {
+        try {
+            Select dropdown = new Select(liveTripsPage.Text_SearchPeroid());
+            dropdown.selectByVisibleText("The Beginning of Time");
 
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }    }
+
+    @Then("^I select trip from trips$")
+    public void i_select_trip_from_trips() throws Throwable {
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(liveTripsPage.Button_RowOne());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @Then("^On admin trip details page \"([^\"]*)\" should be displayed$")
     public void verifyTrip(String strArg1) throws Throwable {
         try {

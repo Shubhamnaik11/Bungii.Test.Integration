@@ -2,17 +2,16 @@ package com.bungii.android.stepdefinitions;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.DriverNotAvailablePage;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.pages.customer.LocationPage;
-import com.bungii.android.pages.driver.*;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.DriverHomePage;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.google.common.collect.ImmutableMap;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -40,15 +39,15 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     EstimatePage estimatePage = new EstimatePage();
-    DriverHomePage driverHomePage= new DriverHomePage();
-    HomePage homePage=new HomePage();
-    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
-    DriverNotAvailablePage driverNotAvailablePage=new DriverNotAvailablePage();
-    BungiiDetailsPage bungiiDetailsPage=new BungiiDetailsPage();
-    BungiiRequest bungiiRequest=new BungiiRequest();
-    BungiiAcceptedPage bungiiAcceptedPage=new BungiiAcceptedPage();
-    SignupPage Page_Signup = new SignupPage();
+    HomePage homePage = new HomePage();
+    DriverHomePage driverHomePage = new DriverHomePage();
+    InProgressBungiiPages inProgressBungiiPages = new InProgressBungiiPages();
+    DriverNotAvailablePage driverNotAvailablePage = new DriverNotAvailablePage();
+    BungiiDetailsPage bungiiDetailsPage = new BungiiDetailsPage();
+    BungiiRequest bungiiRequest = new BungiiRequest();
+    BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     LocationPage locationPage = new LocationPage();
+    SignupPage Page_Signup= new SignupPage();
     private DbUtility dbUtility = new DbUtility();
 
     @Given("^I have Large image on my device$")
@@ -85,6 +84,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+
                     //  utility.launchDriverApplication();
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
@@ -519,21 +519,15 @@ public class CommonSteps extends DriverBase {
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
-            String actualMessage = null;
-            if(action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
+            String actualMessage = "";
+            if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
-            }
-            else if(actualMessage.equals(""))
-            {
-                actualMessage= action.getText(driverHomePage.Alert_NewBungii());
-            }
-
-            else{
+            } else if (actualMessage.equals("")) {
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
+            } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
-
-            String expectedMessage=null;
-
+            String expectedMessage = null;
             switch (message.toUpperCase()) {
                 case "DRIVER CANCELLED":
                     expectedMessage = PropertyUtility.getMessage("customer.alert.driver.cancel");
@@ -552,17 +546,20 @@ public class CommonSteps extends DriverBase {
                 case "ACCEPT BUNGII QUESTION":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.request.ondemand.question");
                     break;
-                case "ACCEPT SCHEDULED BUNGII QUESTION":
-                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
-                    break;
                 case "DRIVER CANCEL BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
+                    break;
+                case "ACCEPT SCHEDULED BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
                     break;
                 case "CUSTOMER CANCELLED SCHEDULED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
                     break;
                 case "OTHER DRIVER CANCELLED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
+                case "DELETE WARNING":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -661,6 +658,9 @@ public class CommonSteps extends DriverBase {
                 case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
                     expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
                     break;
+                case "FOR EMERGENCY CONTACT SUPPORT LINE":
+                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
+                    break;
                 case "PICKUP REQUEST NO LONGER AVAILABLE":
                     expectedText=PropertyUtility.getMessage("driver.request.unavailable");
                     break;
@@ -675,9 +675,6 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "CUSTOMER HAS ONGOING BUNGII":
                     expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
-                    break;
-                case "FOR EMERGENCY CONTACT SUPPORT LINE":
-                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
@@ -703,16 +700,16 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
+
                 case "DELETE WARNING":
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
-
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
                 case "Please install a browser in order to access this link.":
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
-                    break;
-                case "60 MINS BEFORE SCHEDULE TRIP TIME":
-                    expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -795,6 +792,7 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
     @And("^I click on device \"([^\"]*)\" button$")
     public void i_click_on_device_something_button(String strArg1) throws Throwable {
         try {
@@ -816,10 +814,12 @@ public class CommonSteps extends DriverBase {
                     break;
             }
         } catch (Exception e) {
+
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
 
     @And("^I get TELET time of of the current trip$")
     public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
@@ -922,6 +922,7 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+
     @And("^I click \"([^\"]*)\" on the alert message$")
     public void i_click_something_on_the_alert_message(String strArg1) throws Throwable {
         try {
@@ -939,7 +940,6 @@ public class CommonSteps extends DriverBase {
                     "I clicked " + strArg1 + "on Alert Message", true);
         }
     }
-
     @And("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
     public void i_enter_something_value_in_something_field_in_something_page(String value, String field, String screen, DataTable data) throws Throwable {
         try {

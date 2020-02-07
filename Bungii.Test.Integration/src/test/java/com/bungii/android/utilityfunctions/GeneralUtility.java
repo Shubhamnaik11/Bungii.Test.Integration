@@ -51,7 +51,7 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class GeneralUtility extends DriverBase {
-    static final double MIN_COST = 39;
+    static  double MIN_COST = 39;
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
     ActionManager action = new ActionManager();
     LoginPage Page_Login = new LoginPage();
@@ -467,8 +467,11 @@ public class GeneralUtility extends DriverBase {
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double tripActualTime = Double.parseDouble(tripTime);
         double tripValue = distance + tripActualTime;
-        if (tripType.equalsIgnoreCase("DUO"))
+        if (tripType.equalsIgnoreCase("DUO")) {
             tripValue = tripValue * 2;
+            MIN_COST = MIN_COST * 2;
+
+        }
         Promo = Promo.contains("ADD") ? "0" : Promo;
 
         double discount = 0;
