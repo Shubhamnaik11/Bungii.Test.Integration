@@ -990,6 +990,9 @@ public class GeneralUtility extends DriverBase {
                 case "CUSTOMER-JUST FINISHED BUNGII":
                     text=PropertyUtility.getMessage("customer.finish.bungii");
                     break;
+                case "TAP NOTIFICATION TO ACTIVATE BUNGII":
+                    text=PropertyUtility.getMessage("driver.activate.bungii");
+                    break;
                 case "TIP RECEIVED 5 DOLLAR":
                     String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
                     String expectedCustomerName = custName.substring(0, custName.indexOf(" ") + 2);

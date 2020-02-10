@@ -1849,7 +1849,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
 
-  @regression1234
+  @regression
   Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
 
     Given that ondemand bungii is in progress
@@ -1890,3 +1890,21 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |     8888889917            |
+
+
+  @regression1
+  Scenario:DRIVER: Notification - 30 mins before scheduled trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled     | NEXT_POSSIBLE |
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    And I Switch to "customer" application on "same" devices
+    When I wait for Minimum duration for Bungii Start Time
+
+    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
