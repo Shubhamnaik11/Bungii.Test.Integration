@@ -1031,7 +1031,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
   @regression
-
+  @sanity
   Scenario: Short stack control driver
 
     Given that duo schedule bungii is in progress

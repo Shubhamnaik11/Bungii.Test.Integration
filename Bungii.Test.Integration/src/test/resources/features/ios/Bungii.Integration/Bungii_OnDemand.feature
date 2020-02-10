@@ -475,7 +475,7 @@ Feature: Create on demand bungii
 
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Trip Started"
-    Then manually end bungii should be "disabled"
+    Then Rmanually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "EN ROUTE" Screen

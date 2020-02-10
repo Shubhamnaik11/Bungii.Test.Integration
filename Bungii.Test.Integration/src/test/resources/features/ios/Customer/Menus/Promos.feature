@@ -6,7 +6,7 @@ Feature: Promos
 
   Background:
     Given I am on Customer logged in Home page
-
+  @sanity
   @regression
   Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promo code
     When I logged in Customer application using  "existing" user
