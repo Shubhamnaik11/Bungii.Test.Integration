@@ -475,7 +475,7 @@ public class Admin_TripsSteps extends DriverBase {
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
-        logger.detail("Email Body: "+ emailBody);
+        logger.detail("Email Body (Acutal): "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
@@ -536,8 +536,8 @@ public class Admin_TripsSteps extends DriverBase {
                 message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 break;
         }
-
-          testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        logger.detail("Email Body (Expected): "+message.replaceAll(" ",""));
+          testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
     }
 

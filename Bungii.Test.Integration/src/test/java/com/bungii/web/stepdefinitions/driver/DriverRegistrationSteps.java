@@ -318,7 +318,7 @@ public class DriverRegistrationSteps extends DriverBase {
         }
         String driverName ="";
        String message = "";
-        logger.detail("Email Body (Actual) : "+ emailBody);
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
         switch (emailSubject)
        {
            case "Your application has been rejected.":
@@ -334,9 +334,9 @@ public class DriverRegistrationSteps extends DriverBase {
                message = utility.getExpectedDriverApprovalEmailContent(driverName);
                break;
        }
-        logger.detail("Email Body (Expected) : "+ message);
+        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
 
-       testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+       testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
     }
     @And("^Admin should receive \"([^\"]*)\" email$")
@@ -348,7 +348,7 @@ public class DriverRegistrationSteps extends DriverBase {
         String driverName ="";
         String driverPhone = "";
         String message = "";
-        logger.detail("Email Body (Actual) : "+ emailBody);
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
 
         switch (emailSubject)
         {
@@ -359,8 +359,8 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
 
         }
-        logger.detail("Email Body (Expected) : "+ message);
-        testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
+        testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
 
 

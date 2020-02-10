@@ -6,7 +6,6 @@ Feature: Admin_DriverDetails
     When I click on "Drivers" Menu
     Then I should be directed to "Drivers Page"
 
-  @sanity
   @regression
   @failed
   Scenario: Admin_ViewDriversTripList

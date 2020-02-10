@@ -240,10 +240,10 @@ public class EmailUtility extends DriverBase {
                     System.in));
             // retrieve the messages from the folder in an array and print it
             Message[] messages = emailFolder.getMessages();
-            System.out.println("messages.length = " + messages.length);
+            System.out.println("Number of unread messages = " + messages.length);
             for (int i = 0; i < messages.length; i++) {
                 Message message = messages[i];
-                System.out.println("Email Number " + (i + 1));
+              //  System.out.println("Email Number " + (i + 1));
                 String subject = message.getSubject();
                     message.setFlag(Flags.Flag.DELETED, true);
                     System.out.println("DELETED message with Subject: " + subject);
@@ -280,7 +280,7 @@ public class EmailUtility extends DriverBase {
             System.out.println("messages.length = " + messages.length);
             for (int i = 0; i < messages.length; i++) {
                 Message message = messages[i];
-                System.out.println("Email Number " + (i + 1));
+               // System.out.println("Email Number " + (i + 1));
                 String emailSubject = message.getSubject();
                 if(emailSubject.equalsIgnoreCase(subject)) {
                     message.setFlag(Flags.Flag.DELETED, true);

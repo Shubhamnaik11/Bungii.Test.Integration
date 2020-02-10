@@ -4,6 +4,7 @@ Feature: Admin_PartnerFirm
   Background:
     Given I am logged in as TestAdmin
 
+  @sanity
   @regression
   @email
   Scenario: Partner Firm Scheduled Email - Ondemand Bulk Trip
