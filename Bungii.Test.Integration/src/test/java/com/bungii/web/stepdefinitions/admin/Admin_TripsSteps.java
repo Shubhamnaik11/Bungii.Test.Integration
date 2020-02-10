@@ -252,6 +252,7 @@ public class Admin_TripsSteps extends DriverBase {
                     }
 
                 }
+                Thread.sleep(3000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
@@ -280,6 +281,7 @@ public class Admin_TripsSteps extends DriverBase {
                     }
 
                 }
+                Thread.sleep(3000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(XPath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;

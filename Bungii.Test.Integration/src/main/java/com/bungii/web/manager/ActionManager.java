@@ -104,12 +104,19 @@ public class ActionManager {
          Thread.sleep(3000);
        //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
             waitForJStoLoad();
-         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+        // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
         logger.detail("text Value is  " + text + " for element" + element.toString());
 
         return text;
-        }  catch(Exception ex)
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String text = element.getText();
+            logger.detail("text Value is  " + text + " for element" + element.toString());
+            return text;
+        }
+        catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Error performing step, Please check logs for more details",

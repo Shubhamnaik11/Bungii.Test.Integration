@@ -147,11 +147,12 @@ public class CoreServices extends DriverBase {
 
     }
     public Response availablePickupList(String authToken) {
-        logger.detail("API REQUEST : Available Pickup List : " + authToken);
+        logger.detail("API REQUEST : Available Pickup List : Auth token " + authToken);
         String apiURL = null;
         apiURL = UrlBuilder.createApiUrl("core", AVAILABLE_PICKUPLIST);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 
@@ -663,7 +664,7 @@ public class CoreServices extends DriverBase {
 
         apiURL = UrlBuilder.createApiUrl("core", UPDATE_STATUS);
         Response response = ApiHelper.postDetailsForDriver(apiURL, jsonObj, header);
-        ApiHelper.genericResponseValidation(response);
+        //ApiHelper.genericResponseValidation(response);
         return response;
     }
 

@@ -237,14 +237,14 @@ public class GeneralUtility extends DriverBase {
 
                 System.out.println("MESSAGE " + (i) + ":");
                 Message msg = recentMessages[i - 1];
-                System.out.println(msg.getMessageNumber());
+             //   System.out.println(msg.getMessageNumber());
                 String subject = msg.getSubject();//important value
 
                 System.out.println("Subject: " + subject);
-                System.out.println("From: " + msg.getFrom()[0]);
-                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                // System.out.println("From: " + msg.getFrom()[0]);
+               // System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println("Date: " + msg.getReceivedDate());
-                System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+               // System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
                 if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
                 {
                    // String EmailContent = msg.getContent().toString();
