@@ -30,9 +30,7 @@ Feature: Admin_Trips
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
     And I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Payment Successful |
+    Then The Trip List page should display the trip in "Payment Successful" state
 
   @sanity
   @regression
@@ -59,14 +57,11 @@ Feature: Admin_Trips
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
     And I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Payment Successful |
-
+    Then The Trip List page should display the trip in "Payment Successful" state
 
   @sanity
   @regression
-    #test data created in base
+    #test data created in base (need to update trip alert settings)
   Scenario: Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -84,9 +79,7 @@ Feature: Admin_Trips
       And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Admin Cancelled |
+    Then The Trip List page should display the trip in "Admin Cancelled" state
 
   @sanity
   @regression
@@ -124,11 +117,8 @@ Feature: Admin_Trips
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Admin Cancelled |
+    Then The Trip List page should display the trip in "Admin Cancelled" state
     And The first time promo code should get released
-
 
   @sanity
   @regression
@@ -182,9 +172,7 @@ Feature: Admin_Trips
       | driver1 state|
       | Bungii Completed |
     And I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Payment Successful |
+    Then The Trip List page should display the trip in "Payment Successful" state
 
   @sanity
   @regression
@@ -245,15 +233,14 @@ Feature: Admin_Trips
       | driver1 state|
       | Bungii Completed |
     And I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Payment Successful |
+    Then The Trip List page should display the trip in "Payment Successful" state
     And Customer should receive "Your Bungii Receipt" email
 
   @sanity
   @regression
   @failed
-   Scenario: Status on admin portal - Duo - Both drivers have accepted trip
+        #test data created in base (need to update driver geofence)
+  Scenario: Edit and Remove driver from a Duo Trip started by non controlled driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995001 | Testcustomertywd_appleweb CustZ|
@@ -341,7 +328,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  Scenario: Driver - Driver Does Not receive On Demand requests if he is Not assigned to the geofence in which his current location is
+  Scenario: Driver - Driver Does Not receive On Demand requests if he is not assigned to the geofence in which his current location is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|

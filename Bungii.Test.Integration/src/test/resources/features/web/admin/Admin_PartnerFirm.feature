@@ -115,10 +115,8 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Admin Cancelled |
-    Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
+    Then The Trip List page should display the trip in "Admin Cancelled" state
+    And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
@@ -170,10 +168,8 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Admin Cancelled |
-    Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
+    Then The Trip List page should display the trip in "Admin Cancelled" state
+    And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
 
@@ -249,7 +245,7 @@ Feature: Admin_PartnerFirm
   @regression
     #test data created in base
     #changed driver name
-  Scenario: Remove driver, Research and Cancel As an Admin
+  Scenario: Partner Firm - Remove driver, Research and Cancel As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
@@ -282,10 +278,8 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then I should be able to see the respective bungii with the below status
-      | Status |
-      | Admin Cancelled |
-    Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
+    Then The Trip List page should display the trip in "Admin Cancelled" state
+    And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
 
 
