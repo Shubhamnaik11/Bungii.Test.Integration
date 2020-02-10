@@ -12,6 +12,7 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -25,10 +26,15 @@ import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +47,7 @@ public class CommonSteps extends DriverBase {
     private static String ANDROID_PHOTO_PATH = "/sdcard/Pictures";
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    EmailUtility emailUtility = new EmailUtility();
     EstimatePage estimatePage = new EstimatePage();
     HomePage homePage = new HomePage();
     DriverHomePage driverHomePage = new DriverHomePage();
@@ -1013,5 +1020,25 @@ public class CommonSteps extends DriverBase {
                 break;
         }
         testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
+    }
+
+    @Then("^Customer should receive signup email$")
+    public void partner_firm_should_receive_something_email() throws Throwable {
+        String emailSubject="New to Bungii? Good.";
+        cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS","bungiiauto+obKm@gmail.com");
+        cucumberContextManager.setScenarioContext("FIRST_NAME","TestCustomertywdappleMzr");
+        String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+                emailUtility.readLineByLineJava8(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody);
+
+        String expectedEmailBody=utility.getCustomerSignupTemplate((String) cucumberContextManager.getScenarioContext("FIRST_NAME"));
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        else{
+            testStepVerify.isEquals(emailBody,expectedEmailBody);
+        }
+
+
+
     }
 }

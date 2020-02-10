@@ -28,6 +28,8 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -36,6 +38,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.text.*;
@@ -1330,5 +1335,75 @@ public class GeneralUtility extends DriverBase {
             e.printStackTrace();
             return null;
         }
+    }
+    public String GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
+        String strEmailContent="";
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = expectedFromAddress;
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("*****************************************************************************");
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                //  System.out.println("Message with Multipart: " + getText(msg));
+
+                //  readLineByLineJava8("D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\BungiiReceipt.txt", getText(msg));
+                //System.out.println("Size: "+msg.getSize());
+                //System.out.println(msg.getFlags());
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                    String EmailContent = msg.getContent().toString();
+                    // System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
+                    //Invoke jSoupHTMLToString object
+                    Document emailContent = Jsoup.parse(EmailContent);
+                    strEmailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+
+                    break;
+                }
+
+
+            }
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strEmailContent;
+
+    }
+    public String getCustomerSignupTemplate(String customerName)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%CustomerName%",customerName)
+;
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
     }
 }

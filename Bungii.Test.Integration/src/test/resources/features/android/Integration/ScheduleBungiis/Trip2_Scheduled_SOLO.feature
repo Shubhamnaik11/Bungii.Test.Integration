@@ -2095,7 +2095,7 @@ Feature: SoloScheduled
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
-  @regression1
+  @regression
   Scenario: DRIVER: Notification - 30 mins before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

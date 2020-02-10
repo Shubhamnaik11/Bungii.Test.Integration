@@ -217,7 +217,6 @@ public class EmailUtility extends DriverBase {
                   //      System.out.println("Subject: match found");
 
                     }else{
-                        System.out.println("Both list are matching");
 
                         System.out.println(listF1.get(i));
                         System.out.println(listF2.get(i));

@@ -1414,8 +1414,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should see "new card" on Payment page
 
     When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name       | Customer Password |
-      | NEXT_POSSIBLE | NEW_USER_NUMBER     | VishalIHHnZkrz Test | Cci12345          |
+      | Bungii Time   | Customer Phone  | Customer Name       | Customer Password |
+      | NEXT_POSSIBLE | NEW_USER_NUMBER | VishalIHHnZkrz Test | Cci12345          |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
     When I Select "PAYMENT" from Customer App menu
@@ -1425,8 +1425,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I accept Alert message
     Then Alert message with CARD IS ASSOCIATED TO TRIP text should be displayed
     Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | NEW_USER_NUMBER     |                 |
+      | Customer Phone  | Customer2 Phone |
+      | NEW_USER_NUMBER |                 |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
     When I Select "PAYMENT" from Customer App menu
@@ -1436,8 +1436,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I accept Alert message
     Then I should see "the card has been deleted" on Payment page
     Examples:
-      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
-      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
+      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @regression
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1862,8 +1862,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8888889917     | Cci12345          |Testcustomertywd_appleZTDafc Stark | 2              |
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
 
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -1882,21 +1882,21 @@ Feature: To Test Solo - Scheduling Bungii
 
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
-      | 30       |           |              |  <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
+      | LoadTime | PromoCode | Payment Card | Time                              | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
     When I click "Done" button on "Success" screen
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
 
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |     8888889917            |
+      | CUSTOMER1_PHONE | 8888889917      |
 
 
-  @regression1
+  @regression
   Scenario:DRIVER: Notification - 30 mins before scheduled trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
-      | denver   | Scheduled     | NEXT_POSSIBLE |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1906,5 +1906,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I accept selected Bungii
     And I Switch to "customer" application on "same" devices
     When I wait for Minimum duration for Bungii Start Time
-
-    And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+    And I click on notification for "driver" for "TAP NOTIFICATION TO ACTIVATE BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
