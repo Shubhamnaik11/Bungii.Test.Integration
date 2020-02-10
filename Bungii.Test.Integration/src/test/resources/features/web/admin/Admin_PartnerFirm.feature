@@ -24,13 +24,22 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  Scenario: Failed Trip Email - Ondemand Bulk Trip Cancel by Customer
+  Scenario: Failed Trip Email - Ondemand Bulk Trip - No driver accepts
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
     And I note the Pickupref of trip
     When I ensure no driver accepts the trip
-    And I cancel bungii as a customer "Testcustomertywd_appleWashF Shah" with phone number "9999999361"
+    Then Admin receives "Failed Scheduled Trips" trip email for "No Driver(s) Accepted" status
+
+  @regression
+  @email
+  Scenario: Failed Trip Email - Ondemand Bulk Trip Cancel by Customer
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
+    And I note the Pickupref of trip
+    When I cancel bungii as a customer "Testcustomertywd_appleWashF Shah" with phone number "9999999361"
     Then Admin receives "Failed Scheduled Trips" trip email for "Customer Cancelled" status
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
@@ -46,6 +55,7 @@ Feature: Admin_PartnerFirm
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarm"
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
+    And Admin receives "Failed Scheduled Trips" trip email for "Driver Cancelled" status
 
     ##################################
   @sanity
@@ -62,7 +72,7 @@ Feature: Admin_PartnerFirm
     And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" trip
       | driver1 state|
       |Accepted |
-    #Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+    Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
     And I view the Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
@@ -76,7 +86,7 @@ Feature: Admin_PartnerFirm
     And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
-    #Then Partner firm should receive "Bungii Delivery Pickup Updated" email
+    Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
 
   @sanity
@@ -234,6 +244,47 @@ Feature: Admin_PartnerFirm
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
 ###############################
+  @sanity
+  @regression
+    #test data created in base
+    #changed driver name
+  Scenario: Remove driver, Research and Cancel As an Admin
+    When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+      | driver1 state|
+      | Accepted  |
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    And Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Remove driver(s) and re-search" radiobutton
+    And I select the first driver
+    And I click on "Remove Driver" button
+    And I click on "Research" button
+    Then Pickup should be unassigned from the driver
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" trip
+      | driver1 state|
+      | Accepted  |
+    When I wait for 2 minutes
+    And I click on "Close" icon
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Scheduled |
+    Then Partner firm should receive "Bungii Delivery Pickup Updated" email
+    And I click on "Edit" link beside scheduled bungii
+    And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
+    And I enter cancellation fee and Comments
+    And I click on "Submit" button
+    Then The "Pick up has been successfully cancelled." message should be displayed
+    When I view the Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      | Status |
+      | Admin Cancelled |
+    Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
 
 
