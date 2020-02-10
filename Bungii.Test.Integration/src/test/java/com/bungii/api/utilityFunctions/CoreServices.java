@@ -468,12 +468,12 @@ public class CoreServices extends DriverBase {
         calendar.set(Calendar.SECOND, 0);
         Date nextQuatter = calendar.getTime();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");// create a formatter for date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         String formattedDate = sdf.format(nextQuatter);
 
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
-        rtnArray[0] = formattedDate;
+        rtnArray[0] = formattedDate+".000";
         rtnArray[1] = wait;
         return rtnArray;
 
@@ -496,7 +496,7 @@ public class CoreServices extends DriverBase {
         String formattedDate = sdf.format(nextQuatter);
 
         String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
-        rtnArray[0] = formattedDate;
+        rtnArray[0] = formattedDate+".000";;
         rtnArray[1] = wait;
         return rtnArray;
 
