@@ -1095,7 +1095,7 @@ Feature: Duo
       |                | CUSTOMER2_PHONE |
 
   @duo1
-
+  @sanity
     #move to top
     #need to do in atlanta
   @regression

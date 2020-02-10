@@ -39,6 +39,7 @@ Feature: Payment page
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
+  @sanity
   @regression
   Scenario Outline: As Bungii customer I should able to delete card
     Given I am on the "SIGN UP" page

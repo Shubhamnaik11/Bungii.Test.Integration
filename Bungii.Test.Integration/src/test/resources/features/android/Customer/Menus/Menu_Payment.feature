@@ -21,7 +21,7 @@ Scenarios on Payment Methods
     Then I should see "message when no payment methods exist" on Payment page
     And I tap on "Menu" > "Logout" link
 
-
+  @sanity
   #commented this due to base to auto data issue
   @regression
   Scenario Outline:  As Bungii Customer I should able to delete my payment
