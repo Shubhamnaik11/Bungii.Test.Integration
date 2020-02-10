@@ -36,11 +36,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -483,9 +481,15 @@ public class GeneralUtility extends DriverBase {
         double discount = 0;
         if (Promo.contains("$"))
             discount = Double.parseDouble(Promo.replace("-$", ""));
-        else if (Promo.contains("%"))
+        else if (Promo.contains("%")) {
             discount = tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
-
+            if (tripType.equalsIgnoreCase("DUO")) {
+                //discount is rounded to floor
+                DecimalFormat df = new DecimalFormat("#.##");
+                df.setRoundingMode(RoundingMode.FLOOR);
+                discount = new Double(df.format(discount));
+            }
+        }
         double costToCustomer = tripValue - discount;
         costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
 
