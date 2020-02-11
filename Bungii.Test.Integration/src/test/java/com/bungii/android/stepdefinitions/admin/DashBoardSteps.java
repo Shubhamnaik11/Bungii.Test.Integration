@@ -4,6 +4,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.*;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -14,6 +15,7 @@ public class DashBoardSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(com.bungii.android.stepdefinitions.admin.DashBoardSteps.class);
     DashBoardPage dashBoardPage=new DashBoardPage();
     ActionManager action = new ActionManager();
+    LiveTripsPage liveTripsPage=new LiveTripsPage();
 
     @When("^I Select \"([^\"]*)\" from admin sidebar$")
     public void i_select_something_from_admin_sidebar(String option) {
@@ -37,6 +39,10 @@ public class DashBoardSteps extends DriverBase {
                     break;
                 case "Customers":
                     action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -47,6 +53,5 @@ public class DashBoardSteps extends DriverBase {
                     true);
         }
     }
-
 
 }

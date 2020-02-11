@@ -63,6 +63,7 @@ namespace Bungii.Test.Integration.Framework.Core.Web
             webdriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetPageLoadTimeout(TimeSpan.FromSeconds(60));
             webdriver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(60));
+             webdriver.Manage().deleteAllCookies();
             //webdriver.Manage().Window.Maximize();
         }
 

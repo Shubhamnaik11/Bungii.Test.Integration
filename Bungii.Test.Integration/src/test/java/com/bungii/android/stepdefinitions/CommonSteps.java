@@ -7,6 +7,9 @@ import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.DbUtility;
+import com.bungii.android.pages.driver.BungiiRequest;
+import com.bungii.android.pages.driver.InProgressBungiiPages;
+import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
@@ -19,6 +22,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.Point;
@@ -46,6 +50,7 @@ public class CommonSteps extends DriverBase {
     BungiiRequest bungiiRequest = new BungiiRequest();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     LocationPage locationPage = new LocationPage();
+    SignupPage Page_Signup= new SignupPage();
     private DbUtility dbUtility = new DbUtility();
 
     @Given("^I have Large image on my device$")
@@ -521,7 +526,7 @@ public class CommonSteps extends DriverBase {
             if (action.isElementPresent(estimatePage.Alert_ConfirmRequestMessage(true))) {
                 actualMessage = estimatePage.Alert_ConfirmRequestMessage(true).getText();
             } else if (actualMessage.equals("")) {
-                actualMessage = action.getText(driverHomePage.Alert_NewBungii());
+                actualMessage = action.getText(driverHomePage.Alert_NewBungii(true));
             } else {
                 actualMessage = bungiiRequest.Alert_Msg(true).getText();
             }
@@ -555,6 +560,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "OTHER DRIVER CANCELLED BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
+                case "DELETE WARNING":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -656,6 +664,21 @@ public class CommonSteps extends DriverBase {
                 case "FOR EMERGENCY CONTACT SUPPORT LINE":
                     expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
                     break;
+                case "PICKUP REQUEST NO LONGER AVAILABLE":
+                    expectedText=PropertyUtility.getMessage("driver.request.unavailable");
+                    break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText = PropertyUtility.getMessage("driver.request.already.accepted");
+                    break;
+                case "REQUIRED DRIVER NOT ACCEPTED":
+                    expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                    break;
+                case "CUSTOMER HAS ONGOING BUNGII":
+                    expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -680,10 +703,13 @@ public class CommonSteps extends DriverBase {
                     expectedMessage = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
                     action.click(estimatePage.Samsung_Time_Cancel());
                     break;
+
                 case "DELETE WARNING":
                     expectedMessage = PropertyUtility.getMessage("customer.payment.delete");
                     break;
-
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedMessage=PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
                 case "Please install a browser in order to access this link.":
                     expectedMessage = PropertyUtility.getMessage("browser.uninstalled.message");
                     action.click(inProgressBungiiPages.Button_Cancel_Yes());
@@ -710,6 +736,8 @@ public class CommonSteps extends DriverBase {
         try {
             if (strArg1.equalsIgnoreCase("cancel"))
                 action.click(estimatePage.Button_Cancel());
+            else if(strArg1.equalsIgnoreCase("View"))
+                action.click(estimatePage.Button_AcceptRequest());
             else
                 action.click(estimatePage.Button_OK());
 
@@ -915,6 +943,47 @@ public class CommonSteps extends DriverBase {
                     "I clicked " + strArg1 + "on Alert Message", true);
         }
     }
+    @And("^I Enter \"([^\"]*)\" value in \"([^\"]*)\" field in \"([^\"]*)\" Page$")
+    public void i_enter_something_value_in_something_field_in_something_page(String value, String field, String screen, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+            String referralCode=dataMap.get("Referral Code").trim();
+
+            switch (field.toUpperCase()) {
+                case "REFERRAL CODE":
+                    action.click(Page_Signup.CheckBox_Promo());
+                    action.click(Page_Signup.TextField_Referral());
+                    action.sendKeys(Page_Signup.TextField_Referral(),referralCode);
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+            log("I should able to Enter " + referralCode + " value in " + field + " field in " + screen + " Page",
+                    "I Entered " + referralCode + " in " + field + " field", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should be navigated to \"([^\"]*)\" screen$")
+    public void i_should_be_naviagated_to_something_screen(String screen) {
+        try {
+            boolean isCorrectPage = false;
+            isCorrectPage = utility.isCorrectPage(screen);
+            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     public String[] bungiiTimeForScroll(Date date) {
         //get timezone
@@ -925,5 +994,24 @@ public class CommonSteps extends DriverBase {
             SplitDate[0] = "Today";
         }
         return SplitDate;
+    }
+
+    @And("^Customer should receive \"([^\"]*)\" email$")
+    public void customer_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+        action.navigateTo(emailBody);
+        String url = action.getCurrentURL();
+        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        String survey_link = null;
+        switch(geofence)
+        {
+            case "atlanta" :
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+            case "baltimore":
+                survey_link = PropertyUtility.getDataProperties("atlanta.survey.email.link");
+                break;
+        }
+        testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
     }
 }

@@ -7,6 +7,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -44,6 +45,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
+
+    Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -289,7 +292,6 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
-
             }
 
         log("I select "+button+" from "+page+ " page",
@@ -357,10 +359,50 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         log("I select "+uniqueno+" from Bulk Trips page",
                 "I have selected "+uniqueno+" from Bulk Trips page", true);
     }
+    @When("^I select business user \"([^\"]*)\"$")
+    public void i_select_username_something(String username) throws Throwable {
+        action.selectElementByText(admin_BusinessUsersPage.DropDown_BusinessUser(),username);
+        String customerRef = null;
+        switch(username) {
+            case "Testcustomertywd_apple-Jd1":
+                customerRef = "cffb87f0-ca0a-497f-a854-2b5c17367da3";
+                break;
+            case "Testcustomertywd_apple-jd3":
+                customerRef = "1b9b1b3c-2c71-40e6-8e89-59dbc46ada9f";
+                break;
+        }
+            cucumberContextManager.setScenarioContext("CUSTOMER_REF", customerRef);
+            cucumberContextManager.setScenarioContext("BUSINESSUSER_NAME", username);
 
+        log("I select "+username+" from Bulk Trips page",
+                "I have selected "+username+" from Bulk Trips page", true);
+    }
     @And("^I upload image to be associated with the trip$")
     public void i_upload_image_to_be_associated_with_the_trip() throws Throwable {
         String csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP1"));
+        String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
+
+        action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
+        action.sendKeys(admin_BusinessUsersPage.Input_ImageFile(),imagefilepath);
+        log("I upload csv and image on Bulk Trips page",
+                "I have uploaded csv and image on Bulk Trips page", true);
+
+    }
+
+    @And("^I upload image and csv file associated with the \"([^\"]*)\" trip$")
+    public void i_upload_image_and_csv_file_associated_with_the_something_trip(String csvname) throws Throwable {
+        String csvFile = null;
+    switch (csvname)
+    {
+        case "Ondemand":
+             csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_ONDEMAND"));
+            cucumberContextManager.setScenarioContext("GEOFENCE","washingtondc");
+             break;
+        case "Solo Scheduled":
+             csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_SCHEDULED"));
+             csvFile =   utility.generateScheduledBungiiCSV(csvFile,"EST",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
+            break;
+    }
         String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
 
         action.sendKeys(admin_BusinessUsersPage.Input_DataFile(),csvFile);
@@ -678,9 +720,14 @@ catch (Exception ex){}
                 case "Remove Driver":
                     action.click(admin_ScheduledTripsPage.Button_RemoveDrivers());
                     break;
+
                 case "Research":
                     Thread.sleep(4000);
                     action.click(admin_ScheduledTripsPage.Button_Research());
+                    break;
+
+                case "Update" :
+                    action.click(driver_detailsPage.Button_Update());
                     break;
             }
             log("I click on the "+Name+" button",

@@ -4,7 +4,7 @@ Feature: CustomerApplicationLinks
 
   Background:
     Given I newly installed "Bungii Customer" app
-
+  @sanity
   @regression
     #Following scenario also covered:
     #Tutorials should only be displayed on the app on first installation.
@@ -50,30 +50,7 @@ Feature: CustomerApplicationLinks
       When I click on "GET MORE MONEY" button
       Then "INVITE" page should be opened
 
-      @regression
-      Scenario: Customer canNot delete payment method linked to any on-going/scheduled trips
-        Given I am logged in as "valid" customer
-        When I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "valid" driver
-        And I Select "HOME" from driver App menu
-        And I Switch to "customer" application on "same" devices
-        And I tap on "Menu" > "Home" link
 
-        And I enter "kansas pickup and dropoff locations" on Bungii estimate
-        And I tap on "Get Estimate button" on Bungii estimate
-        And I add "1" photos to the Bungii
-        And I add loading/unloading time of "30 mins"
-        And I select Bungii Time as "next possible scheduled"
-        And I tap on "Request Bungii" on Bungii estimate
-        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-        And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
-        When I tap on "Menu" > "PAYMENT" link
-        Then "Payment" page should be opened
-        When I swipe "default" card on the payment page
-        And I tap on "Delete" on Payment page
-        Then Alert message with Delete Warning text should be displayed
-        And I should see "Payment Method is already associated to a trip" on Payment page
 
         @nobrowser
         Scenario: Sign Up to Drive - when No browser is present on device

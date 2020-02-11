@@ -27,7 +27,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I tap on "Cancel during search" on Bungii estimate
     And Quit Bungii Driver app
 
-  @sanity
+
   @regression
   Scenario: OnDemand_DriverCancelBungii_EnrouteState
     Given that ondemand bungii is in progress

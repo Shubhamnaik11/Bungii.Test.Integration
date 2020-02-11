@@ -13,7 +13,7 @@
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
-    "udid": "TA93401OLE"
+    "udid": "TA99301YVZ"
   },
   "extra3": {
     "platformName": "android",
@@ -41,7 +41,7 @@
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8110,
-    "udid": "TA93402GOQ"
+    "udid": "TA93401OLE"
   },
   "extra2": {
     "platformName": "android",

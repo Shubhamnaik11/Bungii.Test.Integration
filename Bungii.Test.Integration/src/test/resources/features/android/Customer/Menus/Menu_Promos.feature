@@ -10,7 +10,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar stating first time code is for new users" on Save Money page
   #  And I should see the "first time" PromoCode selected by default
     And I tap on "Menu" > "Logout" link
-    
+  @sanity
   @regression
   Scenario: Menu_SaveMoney_AddValid
     Given I am logged in as "existing" customer

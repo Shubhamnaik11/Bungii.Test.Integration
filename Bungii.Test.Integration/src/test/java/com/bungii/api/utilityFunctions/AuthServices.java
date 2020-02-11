@@ -23,7 +23,7 @@ public class AuthServices {
      * @return access token
      */
     public Response customerLogin(String custPhoneCode, String custPhoneNum, String custPassword) {
-        logger.detail("API REQUEST : Customer Login of " + custPhoneCode);
+        logger.detail("API REQUEST : Customer Login of " + custPhoneNum);
         String token = "";
             Map<String, String> data = new HashedMap();
             data.put("PhoneCountryCode", custPhoneCode);
@@ -31,11 +31,12 @@ public class AuthServices {
             data.put("PhoneNo", custPhoneNum);
             String loginURL = UrlBuilder.createApiUrl("auth", CUST_LOGIN_ENDPOINT);
             Response response = ApiHelper.postDetailsForCustomer(loginURL, data);
-            return response;
+           // ApiHelper.genericResponseValidation(response);
+        return response;
     }
     //get customer access token
     public String getCustomerToken(String custPhoneCode, String custPhoneNum, String custPassword){
-        logger.detail("API REQUEST : Get Customer Token of " + custPhoneCode);
+        logger.detail("API REQUEST : Get Customer Token of " + custPhoneNum);
         Response response=customerLogin( custPhoneCode, custPhoneNum, custPassword);
         ApiHelper.genericResponseValidation(response);
 
@@ -51,7 +52,8 @@ public class AuthServices {
             data.put("PhoneNo", driverPhoneNum);
             String loginURL = UrlBuilder.createApiUrl("auth", DRIVER_LOGIN_ENDPOINT);
             Response response= ApiHelper.postDetailsForDriver(loginURL, data);
-            return response;
+            ApiHelper.genericResponseValidation(response);
+        return response;
     }
     //Get driver access token
     public String getDriverToken(String driverPhoneCode, String driverPhoneNum, String driverPassword){

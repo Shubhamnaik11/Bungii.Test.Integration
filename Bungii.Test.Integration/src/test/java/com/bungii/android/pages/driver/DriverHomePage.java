@@ -25,7 +25,7 @@ public class DriverHomePage extends PageBase {
     public WebElement Link_AvailableTrips (boolean ...ignoreException) { return findElement("com.bungii.driver:id/home_textview_available_trips", LocatorType.Id,ignoreException); }
 
 
-    public WebElement Alert_NewBungii () { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id); }
+    public WebElement Alert_NewBungii (boolean ...ignoreException) { return findElement("com.bungii.driver:id/notification_alert_message", LocatorType.Id,ignoreException); }
     public WebElement Text_DriverInfo () { return findElements("android.widget.TextView", LocatorType.ClassName).get(2); }
     public WebElement Text_DriverName () { return findElements("android.widget.TextView", LocatorType.ClassName).get(1); }
     public WebElement Text_RattingBar () { return findElement("android.widget.RatingBar", LocatorType.ClassName); }
@@ -45,4 +45,7 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_Logout () { return findElement("//android.widget.TextView[@text='LOGIN']",LocatorType.XPath); }
 
     public WebElement Text_ErrorMessage(){ return findElement("//android.widget.TextView[@text='It looks like we ran into a hiccup. Please contact support@bungii.com for more information.']", LocatorType.XPath);}
+
+    public WebElement Text_ScheduledBungiiSolo(boolean ignoreException) { return findElements("//*[@resource-id='com.bungii.driver:id/pickup_request_toolbar']/android.widget.LinearLayout/child::android.widget.TextView", LocatorType.XPath).get(0);}
+    public WebElement Text_ScheduledBungiisSolo(boolean ignoreException) { return findElement("com.bungii.driver:id/toolbar_main_title", LocatorType.Id);}
 }

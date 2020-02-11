@@ -29,9 +29,18 @@ public class AssertManager {
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
+
         }
     }
-
+    /**
+     * Check is boolean value is true
+     *
+     * @param errorMessage If check if failed , this message will be displayed  in report
+     */
+    public void isFail(String errorMessage) {
+            ResultManager.fail("",errorMessage, true);
+            Assert.assertFalse(true, errorMessage);
+    }
     /**
      * Check is boolean value is true
      *

@@ -13,6 +13,7 @@ import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -63,12 +64,20 @@ public class PromosSteps extends DriverBase {
                 case "PROMOTER TYPE PROMO":
                     promoCode=PropertyUtility.getDataProperties("promocode.type.promoter");
                     break;
+
+                case "PROMO DOLLAR OFF":
+                    promoCode =PropertyUtility.getDataProperties("promocode.dollar.off");
+                    break;
+                case "PROMO PERCENT OFF":
+                    promoCode = PropertyUtility.getDataProperties("promocode.percent.off");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
             action.clearSendKeys(promoPage.Textfield_PromoCode(), promoCode);
             cucumberContextManager.setScenarioContext("ADDED_PROMOCODE", promoCode);
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", promoCode);
             log(" I should able to add " + arg0 + " promo code ",
                     "I entered promo code '" + promoCode + "'", true);
 

@@ -19,6 +19,7 @@ public class CustomerServices {
         loginURL = UrlBuilder.createApiUrl("customer", customer_PROFILE);
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(loginURL, header);
+        ApiHelper.genericResponseValidation(response);
         return response;
     }
 

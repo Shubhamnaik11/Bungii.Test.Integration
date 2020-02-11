@@ -80,6 +80,7 @@ public class InProgressBungiiPages extends PageBase {
     public WebElement Bungii_Location() { return findElement("com.bungii.driver:id/pickup_details_address_value", LocatorType.Id); }
 
     public WebElement Bungii_ETA(boolean ... ignoreException) { return findElement("com.bungii.driver:id/pickup_details_estimate", LocatorType.Id,ignoreException); }
+    public WebElement Bungii_ETACustomer(boolean ... ignoreException) { return findElement("com.bungii.customer:id/pickup_details_estimate", LocatorType.Id,ignoreException); }
 
     //------Driver Details-----------------------------------------------------------
     public WebElement Bungii_Customer_Title() { return findElement("com.bungii.driver:id/pickup_details_caller_title", LocatorType.Id); }

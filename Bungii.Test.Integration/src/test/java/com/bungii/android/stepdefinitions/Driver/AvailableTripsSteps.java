@@ -2,9 +2,9 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -55,7 +55,7 @@ public class AvailableTripsSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
-    @Then("^I should able to see \"([^\"]*)\" available trip$")
+   /* @Then("^I should able to see \"([^\"]*)\" available trip$")
     public void i_should_able_to_see_something_available_trip(String strArg1) throws Throwable {
         try {
             List<WebElement> listOfBungii=availableTrips.List_AvailableBungiis();
@@ -73,7 +73,7 @@ public class AvailableTripsSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             fail("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
-        }	}
+        }	}*/
     public boolean selectBungiiFromList(String bungiiType, String customerName) {
         boolean isSelected = false;
 
@@ -123,5 +123,18 @@ public class AvailableTripsSteps extends DriverBase {
         }
     }
 
+    @And("^I Select Trip from available trip$")
+    public void i_select_trip_from_available_trip() throws Throwable {
+        try{
+            Thread.sleep(6000);
+        action.click(availableTrips.Row_AvailableTrip());
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
+
+}
 

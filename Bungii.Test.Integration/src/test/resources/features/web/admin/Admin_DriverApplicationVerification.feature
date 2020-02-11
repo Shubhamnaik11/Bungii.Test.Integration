@@ -7,6 +7,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
+  @email
     #test data created in base
   Scenario: DriverApplication_Approval_NonFountainFlow
     When I click "Verify" button against the "John MwrB" applicant
@@ -18,6 +19,7 @@ Feature: Admin_DriverApplicationVerification
     And I click on the "Approve Application" Button
     And I confirm the "Driver Application Approval" action
     Then the status of the driver application should be marked as "Active"
+    And I should receive "BUNGII: Time to Hit the Road!" email
 
   @regression
     #test data created in base
@@ -30,6 +32,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
     #test data created in base
+  @email
   Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
@@ -41,6 +44,7 @@ Feature: Admin_DriverApplicationVerification
     When I enter the reject reason
     And I click on the "Submit" Button
     Then the status of the driver application should be marked as "Rejected"
+    And I should receive "Your application has been rejected." email
 
   @sanity
   @regression
@@ -94,4 +98,22 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field changes to "rejected"
     When I click and reset the status of "Driver Picture" field
     Then the status of the field resets to default
+
+  @regression
+    #test data created in base
+  Scenario: Driver_ApplicationStatusChange
+    When I click "Verify" button against the "Melvin Johnson" applicant
+    And I verify all the fields except "Date of Birth"
+    And I click on the "Resend Application" Button
+    And I confirm the "Driver Resend Application" action
+    And I login to the driver portal as driver "Melvin Johnson"
+    And I update the rejected "Date of Birth" field
+    And I update the accepted "Social Security Number" field
+    And I click on "Update" button
+    And I submit the updated application
+    And I logout of driver portal
+    And I am logged in as Admin
+    Then there is a pending application for driver verification
+    When I click "Verify" button against the "Melvin Johnson" applicant
+    Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
 

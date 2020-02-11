@@ -13,6 +13,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.jsoup.nodes.Document;
 
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -35,10 +36,18 @@ public class DriverRegistrationSteps extends DriverBase {
     ActionManager action = new ActionManager();
 
     @Given("^I navigate to \"([^\"]*)\"$")
-    public void i_navigate_to_something(String p0) throws Throwable {
-        utility.NavigateToDriverLogin();
-        pass("I should be navigate to " + p0,
-                "I am navigate to " + p0, true);
+    public void i_navigate_to_something(String page) throws Throwable {
+        switch (page)
+        {
+            case "Bungii Driver URL":
+                utility.NavigateToDriverLogin();
+                break;
+            case "Driver Details":
+                action.click(Page_Driver_Details.Menu_DriverDetails());
+                break;
+        }
+        pass("I should be navigate to " + page,
+                "I am navigate to " + page, true);
     }
 
     @Given("^I am logged in as driver$")
@@ -63,6 +72,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 action.clearSendKeys(Page_Driver_Reg.TextBox_FirstName(), PropertyUtility.getDataProperties("DriverFirstName"));
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
+                cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
                 cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
 
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));
@@ -298,5 +308,63 @@ public class DriverRegistrationSteps extends DriverBase {
         log("I should able to enter "+p0+" driver phone number on Signup page","I entered "+p0 +" driver phone number on signup page", true);
 
     }
+
+    @And("^I should receive \"([^\"]*)\" email$")
+    public void i_should_receive_something_email(String emailSubject) throws Throwable {
+
+       String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        String driverName ="";
+       String message = "";
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+        switch (emailSubject)
+       {
+           case "Your application has been rejected.":
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverRejectionEmailContent(driverName);
+               break;
+           case "BUNGII: Application Received.":
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverSubmissionEmailContent(driverName);
+               break;
+           case "BUNGII: Time to Hit the Road!":
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverApprovalEmailContent(driverName);
+               break;
+       }
+        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
+
+       testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
+
+    }
+    @And("^Admin should receive \"([^\"]*)\" email$")
+    public void admin_should_receive_something_email(String emailSubject) throws Throwable {
+        String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        String driverName ="";
+        String driverPhone = "";
+        String message = "";
+        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+
+        switch (emailSubject)
+        {
+            case "New driver registration complete!":
+                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME") +" "+(String) cucumberContextManager.getScenarioContext("LASTTNAME");
+                driverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
+                message = utility.getExpectedDriverRegistrationCompleteEmailContent(driverName, driverPhone);
+                break;
+
+        }
+        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
+        testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
+
+
+
+    }
+
 
 }
