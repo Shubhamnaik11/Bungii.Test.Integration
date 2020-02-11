@@ -1027,15 +1027,16 @@ public class CommonSteps extends DriverBase {
         String emailSubject="New to Bungii? Good.";
         cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS","bungiiauto+obKm@gmail.com");
         cucumberContextManager.setScenarioContext("FIRST_NAME","TestCustomertywdappleMzr");
-        String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
-                emailUtility.readLineByLineJava8(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody);
 
-        String expectedEmailBody=utility.getCustomerSignupTemplate((String) cucumberContextManager.getScenarioContext("FIRST_NAME"));
+        String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+     //   String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+        utility.getCustomerSignupTemplate((String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
         else{
-            testStepVerify.isEquals(emailBody,expectedEmailBody);
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(/*new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+*/"D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\CustomerSignup.email",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
+            testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
         }
 
 

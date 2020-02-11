@@ -209,7 +209,7 @@ td[class=rightmobImg-browser] {
 									<table border="0" cellspacing="0" cellpadding="0" width="100%">
 									   <tr style="line-height:20px;height:20px">
 									   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight14"></td></tr>
-
+									   
 									   <tr>
 											<td align="center">
 												<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
@@ -231,7 +231,7 @@ td[class=rightmobImg-browser] {
 												</table>
 											</td>
 										</tr>
-
+										
 									   <tr style="line-height:20px;height:20px">
 										   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight10"></td></tr>
 									</table>
@@ -256,7 +256,7 @@ td[class=rightmobImg-browser] {
 									   <tr style="line-height:20px;height:20px">
 											<td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight14"></td></tr>
 									   <tr style="font-size: 20px; line-height: 22px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 22px; color:#1f1f1f;" class="fontSize16"><strong>Hi %CustomerName%,</strong></td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 22px; color:#1f1f1f;" class="fontSize16"><strong>Hi TestCustomertywdappleMzr,</strong></td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
 										    <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
@@ -290,7 +290,7 @@ td[class=rightmobImg-browser] {
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
 										   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
-
+									   
 									   <tr>
 											<td valign="top">
 												<table cellpadding="0" cellspacing="0" border="0">
@@ -317,24 +317,24 @@ td[class=rightmobImg-browser] {
 																	</td>
 																</tr>
 																<tr style="line-height: 12px;">
-
+															
 																	<td><img src="cid:spacer-cid" alt="" width="1" height="12" style="display:block;" class="spacerHeight10"></td></tr>
 															</table>
 														</th>
-
+														
 																			<th class="inline"><img src="cid:spacer-cid" alt="" width="36" height="15" style="display:block;"></th><th valign="top" bgcolor="#404040" width="264" class="Width300">
 																	<table border="0" cellspacing="0" cellpadding="0">
 																		<tr>
-
+																			
 																			<td class="rightmobImg"><img src="cid:img2-cid" alt="" width="264" height="160" style="display:block;" class="hide"></td></tr>
 																		<tr style="line-height: 12px;">
-
+																			
 																			<td><img src="cid:spacer-cid" alt="" width="1" height="12" style="display:block;" class="spacerHeight10"></td></tr>
 																		<tr>
 																			<td>
 																				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 																					<tr>
-
+																						
 																						<td width="20"><img src="cid:spacer-cid" alt="" width="20" height="1" style="display:block;" class="spacerWidth24"></td><td valign="top">
 																							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 																								<tr style="font-size: 13px; line-height: 17px;">
@@ -342,25 +342,25 @@ td[class=rightmobImg-browser] {
 																								</tr>
 																							</table>
 																						</td>
-
+																						
 																						<td width="20"><img src="cid:spacer-cid" alt="" width="20" height="1" style="display:block;" class="spacerWidth34"></td></tr>
 																					</table>
 																				</td>
 																			</tr>
 																			<tr style="line-height: 12px;">
-
+																			
 																				<td><img src="cid:spacer-cid" alt="" width="1" height="12" style="display:block;" class="spacerHeight10"></td></tr>
 																	</table>
-																</th>
-
+																</th>		
+																
 													</tr>
 												</table>
 											</td>
 									   </tr>
-
-
+									    
+									   
 									   <tr style="line-height:20px;height:20px">
-
+										  
 											<td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><strong>Wait, so is Bungii like a moving company or pizza delivery service?</strong></td>
@@ -369,7 +369,7 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Great question. We'd say somewhere right in the middle; think on-demand large item delivery. “No couch left behind,” is our motto. We’ve been called the “Uber for pickup trucks” to help move, haul or deliver stuff across town.</td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										  
 										  <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><strong>Okay, it’s making more sense. So where would I need Bungii?</strong></td>
@@ -378,13 +378,13 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">We work well with Craigslist, furniture/retail stores, and people who need help with small moves. Here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4frIw1DptWd6fUAVx8qdAg1Cg1oZvnCOE7UPFNSRi9fnT92dL_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MuYo2R-2BxJ-2BgQ-2Bm-2FVbkX-2BB0e6TVHE-2BG7rnoBZTA8puWgYs1zND5HaHin84vOb1XxgIur946L7eUoJzB-2FuCwDZN-2FwAhPDfzQlBtjjZzQLwypgr8f2sRO8cxBVpFWUn1xprLEur2x-2BA1wFkw4dylxk6RwIaW-2Bdxpq8hNN2zt4mpiRxN target="_blank" style=" color:#2aa9de; text-decoration:underline;">bread and butter</a>.</td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										 
 										   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Essentially, we just want to be available for your next, "I need a truck" moment.</td>
 									   </tr>
 										<tr style="line-height:20px;height:20px">
-
+										 
 										   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><strong>Alright, I’m sold. But can I get an estimate?</strong></td>
@@ -393,26 +393,26 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Absolutely! In the app, you’ll receive an estimate right after you set your pickup and drop off locations. Our average trip costs right around $40.</td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										 
 										  <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Hopefully that’s enough to get you started. If you have additional questions, here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4fsP77piDxJwGxl6oFj86vL8-3D2n_o_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MvseuV1WHnI6UnN8KRemdFghnRq4lsbezlu2A-2BrOZDii10YrpeZYurYFcTmXEuQevMQpRDrR6MlgKDmCELaGuBKXxWnxJEYoBtJoTKnsTcI-2F8UQLvyHgoeOhatYYzZ-2B3M9TV-2FEnB3-2FJHlQwsJaW9fyi-2B-2F0bOgAt8XHDEoqDYJ6l7 target="_blank" style=" color:#2aa9de; text-decoration:underline;">FAQ page</a> or feel free to shoot us a tweet: @BungiiApp.</td>
 									   </tr>
 										<tr style="line-height:20px;height:20px">
-
+										 
 										   <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Ultimately, my goal is for Bungii to be a relevant part of your life.
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Ultimately, my goal is for Bungii to be a relevant part of your life. 
 </td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										 
 										    <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Thanks,</td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										 
 										    <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><strong>Ben Jackson</strong></td>
@@ -424,11 +424,11 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4flHiDI5uv3EAYKYZfAfp2ig-3DsLO5_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8Mjn9fF8-2FnGteDWLYx-2FH1OaTpqHtahjDNm6paloJtULoIiD3BgJBWImiiVrLUYWnqsRARjsHgC-2Fu1Mg-2BiM-2FFDAFJ2ypsZSShBcpUSe8VsgYt2xR3a5-2BLakPDUp2IERig2BYmrN92ImE34oqIxg2xkwgfYXcubCFspXNbKrAlmkIxm target="_blank" style=" color:#1f1f1f; text-decoration:none;">Bungii.com</a></td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
-
+										 
 										  <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									</table>
 						</td>
-
+						
 						<td bgcolor="#ffffff" width="18"><img class="spacerWidth10" src="cid:spacer-cid" alt="" width="18" height="1" style="display:block"></td></tr>
                    </table>
                 </td>
