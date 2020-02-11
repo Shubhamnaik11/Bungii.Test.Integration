@@ -318,7 +318,8 @@ public class DriverRegistrationSteps extends DriverBase {
         }
         String driverName ="";
        String message = "";
-        logger.detail("Email Body (Actual) : "+ emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""));
+        emailBody= emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        logger.detail("Email Body (Actual) : "+ emailBody);
         switch (emailSubject)
        {
            case "Your application has been rejected.":
@@ -334,7 +335,8 @@ public class DriverRegistrationSteps extends DriverBase {
                message = utility.getExpectedDriverApprovalEmailContent(driverName);
                break;
        }
-        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
+        message= message.replaceAll(" ","");
+        logger.detail("Email Body (Expected) : "+ message);
 
        testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
@@ -345,6 +347,7 @@ public class DriverRegistrationSteps extends DriverBase {
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
+        emailBody= emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
         String driverName ="";
         String driverPhone = "";
         String message = "";
@@ -359,7 +362,8 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
 
         }
-        logger.detail("Email Body (Expected) : "+ message.replaceAll(" ",""));
+        message= message.replaceAll(" ","");
+        logger.detail("Email Body (Expected) : "+ message);
         testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
 
