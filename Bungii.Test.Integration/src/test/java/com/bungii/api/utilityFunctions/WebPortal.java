@@ -43,7 +43,7 @@ public class WebPortal {
 
         //response.then().log().all();
         adminCookies = response.then().extract().response().getDetailedCookies();
-        ApiHelper.genericResponseValidation(response);
+      //  ApiHelper.genericResponseValidation(response);
         return response;
     }
 
@@ -56,7 +56,7 @@ public class WebPortal {
                         when().
                         post(cancelBungii);
        // response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+      //  ApiHelper.genericResponseValidation(response);
     }
 
     public void cancelBungiiAsAdmin(String pickupRequestId) {
@@ -87,7 +87,7 @@ public class WebPortal {
                         when().
                         get(cancelBungii);
        // response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+      //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
 
         boolean isSuccess = jsonPathEvaluator1.get("Success");
@@ -106,7 +106,7 @@ public class WebPortal {
                         when().
                         post(cancelBungii);
      //   response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+     //   ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
@@ -123,7 +123,7 @@ public class WebPortal {
                         when().
                         post(cancelBungii);
        // response.then().log().body();
-        ApiHelper.genericResponseValidation(response);
+      //  ApiHelper.genericResponseValidation(response);
         JsonPath jsonPathEvaluator1 = response.jsonPath();
         boolean isSuccess = jsonPathEvaluator1.get("Success");
         if(!isSuccess)
