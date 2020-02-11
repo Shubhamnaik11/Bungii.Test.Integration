@@ -1362,7 +1362,7 @@ public class GeneralUtility extends DriverBase {
                 //  readLineByLineJava8("D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\BungiiReceipt.txt", getText(msg));
                 //System.out.println("Size: "+msg.getSize());
                 //System.out.println(msg.getFlags());
-                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) && (msg.getAllRecipients()[0].toString().toLowerCase().contains(expectedToAddress.toLowerCase()))) {
                     String EmailContent = msg.getContent().toString();
                     // System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
                     //Invoke jSoupHTMLToString object
@@ -1389,7 +1389,7 @@ public class GeneralUtility extends DriverBase {
         String emailMessage = "";
 
         try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.email");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt");
             String s;
             try (
 
@@ -1497,5 +1497,69 @@ public class GeneralUtility extends DriverBase {
         }
 
         return isEmailCorrect;
+    }
+
+    public String getExpectedPoorRatingMail(String driverName,String customerName,String ratingValue,String tripDetails)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PoorRatingEmail.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%", driverName)
+                            .replaceAll("%CustomerName%",customerName)
+                            .replaceAll("%RatingValue%",ratingValue)
+                            .replaceAll("%TripDetailsUrl%",tripDetails);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
+    public String getExpectedBungiiReceiptMail(String customerName,String driver1Name,String BungiiDate,String PickupAddress,String DropAddress,String BungiiDuration,String BungiiCost,String EstimateTime,String ActualTime,String EstimateloadTime,String ActualloadTime,String EstimateCost,String ActualCost)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\BungiiSoloReceipt.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%Driver1%", driver1Name)
+                            .replaceAll("%CustomerName%",customerName)
+                            .replaceAll("%BungiiDate%",BungiiDate)
+                            .replaceAll("%PickupAddress%",PickupAddress)
+                            .replaceAll("%DropAddress%",DropAddress)
+                            .replaceAll("%BungiiDuration%",BungiiDuration)
+                            .replaceAll("%BungiiCost%",BungiiCost)
+                            .replaceAll("%Estimate.Time%",EstimateTime)
+                            .replaceAll("%Actual.Time%",ActualTime)
+                            .replaceAll("%Estimate.loadTime%",EstimateloadTime)
+                            .replaceAll("%Actual.loadTime%",ActualloadTime)
+                            .replaceAll("%Estimate.Cost%",EstimateCost)
+                            .replaceAll("%Actual.Cost%",ActualCost)
+                    ;
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
     }
 }

@@ -66,8 +66,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-
-  @regression
+  @email
+  @regression1
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -83,11 +83,12 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     Then I should be navigated to "Home" screen
+    And Customer should receive signup email
 
 
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
-      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
+      | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
 
   @regression

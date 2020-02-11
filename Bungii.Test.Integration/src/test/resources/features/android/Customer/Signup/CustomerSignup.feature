@@ -3,9 +3,6 @@ Feature: CustomerSignup
   Sign up as a Customer on Bungii app
 
   Background:
-    And Customer should receive signup email
-
-
     Given I am on Sign up page
 
   @regression

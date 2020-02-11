@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://u9800948.ct.sendgrid.net/ls/click?upn=tdqmg9z9kIREDffCjWQXnBIQmFVwDdeSUs3pzyt6aV-2FqexejlfAqdMr1H8-2FwHo3riIDl_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MkKynEbqURMfYNwgZbbD4h7nCxv-2B4sO8y-2BCU8u9ukPwdxlQLl0Br1OOONhWnLGBJIeWl717YRqnt2vrLHdmMLpk0Yl5TG0r7uVPhMSZ-2BlGN4AknHfqGRFwA5PnsffsBUBVV1HUIMU-2B6pBu02TLfJ1b0TUU6rSssnOoIDoTWwYU3Y>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://u9800948.ct.sendgrid.net/ls/click?upn=tdqmg9z9kIREDffCjWQXnBIQmFVwDdeSUs3pzyt6aV-2FqexejlfAqdMr1H8-2FwHo3rd-OG_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OnmdWSdR8VFuryXIa1-2BSYQdBIQQPJFmvWrN8X05knYddJMKe3sKV6XSUVkG7FP7QOlpR64k-2Fwvhl41fZQY6K2ReG2fQf61BeyfR872qFXXzMd1fqtkJYIvpyRaeGRi5Qu7IB0vjjxRVoYpkG8LMMrP-2Bp-2FpaU5AQ89DGkO5s3IzNc>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -146,19 +146,19 @@ td[class=textCenter]{
 }
 
 td[class=banner-mobile-browser] {
-   background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVfMxPXBKOjurPu87usDtY1nAkGYzyn6VcmvV9xEvxQsxiifv_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MjsbFVXssrwPse2vIOf5AHb6klrFLrWnYHQyjqS5QNZAWAOjKc1HeIliRpea5SnRTUN-2FZC0hTEOw3FiwWfLZCmcSNfufPr50uZv6HEnJQ057diI6cQMwb2HNnBHVos2pcnn8eoh6CfZ-2BGZb8ANctxyDLPZp8L2wDhCPktGDxvYdD no-repeat;
+   background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVfMxPXBKOjurPu87usDtY1nAkGYzyn6VcmvV9xEvxQsxPokW_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OuaaxYAn5DNO7b7m9FSm-2FXfhZHYpFVawLcXQnQErBbYgWLJClgqN3Wp-2FVva8eaPCEa-2Fwopb9sEzWNHxSWAMrF5ppKbwLzqCbTl-2FWQNnMFOoCmsTjhzor8v-2Fw9tYphzmTq6lVPVv4kO3Xp2UtlcTl012D5wEpTBEHWOdG7hSzwnRi no-repeat;
    width: 300px !important;
    height: 99px !important;
    display: block !important;
 }
 td[class=leftmobImg-browser] {
-  background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVSc777RKWKecpdpbwPZ2dX5-2FXjVy8PM0IB6Q6dUz-2FWOCOhom_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MheHK1do-2BnjZQR3D35VXL6I-2BITTfdtZO5aWictOhlwjZ0-2Fu3WKIUszXDdz4fdghKZnbFmzeWwo6rLrWUqLAa0tWPynvTDi5maUGt0u5IyQ-2BVZLmhGw98yb5eC3G4HDDDS9xhJrOHuX0qNWpTUtLvFbBLNavJFkDYLKYCnJhvvsl3 no-repeat;
+  background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVSc777RKWKecpdpbwPZ2dX5-2FXjVy8PM0IB6Q6dUz-2FWOC2cHn_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OkDYra2pD0lkdMDTJ0o5v4VP-2Fr1E-2FPi39i9-2B5fxOGSbfOc0xsfqV0jfmooQYMWREdS-2B-2BJg4bc91sGZ8G1BkNZZnO1FebkwcryuJj1YAtlx5VclD8BCqzf4jWhxEQRYLxbNNV9IxYM4FJFs4s2K8cfvo294iUdcA-2FEjjQYqOa3Ute no-repeat;
   width: 300px !important;
   height: 186px !important;
   display: block !important;
 }
 td[class=rightmobImg-browser] {
-  background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVfmgmVegzIuU-2BeNNg23yyWRtGbcbFrQ9ZnWwK9zPgCLd_r6f_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MucR0JX-2B67v3zI3wxzTGTJTJuHEYcaIBaXhrB6V198JHFz9YRh7e03yfHpvghV-2BFYrzSlmA4v-2FcVdothcUJF9-2F66OK5YH-2BqhgKk-2FKZE-2FtoYw0OHXYv1kpgNw5Sp-2B-2BuYAaMKmWdb-2FyV6evSuTZKvhZjEUf3VLsC3PzbykL1tjnRki no-repeat;
+  background:url(https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5HDlkbBNp0VPYjnB7rAeOoMJcDhKCftW2e-2FRd1SpnRXVfmgmVegzIuU-2BeNNg23yyWRtGbcbFrQ9ZnWwK9zPgCLdn42p_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OhNg6pngm1cjlL7xwj9YubjjC2MPiAyXVsfnVrsfEXpexrnXHexmKdH8iSjcyKaPMW3uc-2Firthu4UbERv6vRtE0olccQ52Ys0EOSVQOl3rYzmTsQFl4xzkUWf6YicNtjks8nMcFrDCyJ5dzsLyaf0JDGVATNGDfLyNniqeofMrnn no-repeat;
   width: 300px !important;
   height: 186px !important;
   display: block !important;
@@ -224,7 +224,7 @@ td[class=rightmobImg-browser] {
 														<th class="fullWidth"><img src="cid:spacer-cid" alt="" width="6" height="10" style="display:block" class="spacerHeight10"></th><th class="fullWidth" valign="middle">
 																<table border="0" cellspacing="0" cellpadding="0" width="100%">
 																	<tr style="font-size:12px; line-height:14px;">
-																		<td width="258" align="right" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 14px; color:#6d6565;" class="textCenter"><a href="https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5Gdw-2FXdQyHHvyI-2BCuVEDc5Mjh8e-2BotzJJxlV7oWWESMfLOqQYvFLmEDYQpKjbCzy8BZxhxqATLTe-2BKUSd6Z5ll18nJLrSSsBgWGVOeGXNyrQ1MOOEXkmWoa8AXVs3wNLiE-3DdG0k_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8Mq3J9dg1oKTD0npJyahYNfuYH-2FBgNzXmwL1uWL8rkwYDNXs-2BKWf3LAnWsn6jvCg8-2B2UdiYkptxHNgddFQbpx9I42AmdNYrv2QrRxoWtnXHutwLQNpcg7bQhAFq-2BSv7u72xFCqbAlvmfxKL4gebCrGKTWo5x23DLz7pTF9TXIhUv-2B target="_blank" style=" color:#6d6565; text-decoration:underline;">View this email in your browser</a></td>
+																		<td width="258" align="right" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 14px; color:#6d6565;" class="textCenter"><a href="https://u9800948.ct.sendgrid.net/ls/click?upn=kWIkVHACGQsgaiEG-2FAk5B3AcnnnEzySMvmsA04sNr5Gdw-2FXdQyHHvyI-2BCuVEDc5Mjh8e-2BotzJJxlV7oWWESMfLOqQYvFLmEDYQpKjbCzy8BZxhxqATLTe-2BKUSd6Z5ll18nJLrSSsBgWGVOeGXNyrQ-2F-2F2pt5wiTB5wQm1FTn8bFQ-3DtO46_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OlX-2FuarhYUvWaKYtq9TsP-2BDGzeHHs9Za01EVFuYqrJRStWKdtoiKyG8pnlSGbRxPy-2B8k6QaRpwupZ-2FihMxOHdW3F2iP9usUCov70C0P7uH3QqfrhJTmMwBeszF1IeP-2BVx7xpk91ruOs86RXHiRj16Xxg-2BOebcOh7two0T22jXVLf target="_blank" style=" color:#6d6565; text-decoration:underline;">View this email in your browser</a></td>
 																	</tr>
 																 </table>
 															</th></tr>
@@ -256,7 +256,7 @@ td[class=rightmobImg-browser] {
 									   <tr style="line-height:20px;height:20px">
 											<td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight14"></td></tr>
 									   <tr style="font-size: 20px; line-height: 22px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 22px; color:#1f1f1f;" class="fontSize16"><strong>Hi TestCustomertywdappleMzr,</strong></td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 22px; color:#1f1f1f;" class="fontSize16"><strong>Hi %CustomerName%,</strong></td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
 										    <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
@@ -277,7 +277,7 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Our response time: immediate</td>
 									   </tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Our reviews: <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=FfW8eExWcg0sHzFkyx5kUQT69bX0zRZ3pRz0ystI-2B2ZSr9iu2Cl2lC3nviPqQPAbZfNVvMPsfOCAL3tNBpCs2w-3D-3DtXbp_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MsMnhKdl33RI61PBoIDj7Jd-2BV2Dw8vy7IAnsMBquUf-2F55E9x2nyn0LHxU5tTn9aQBhriobPw8G-2F20uL1jINhknUQYCgoG7h2d5wNPIaTHiFvVBOFDBIs5ix7BILhrCFrvFqGOal-2BfhcV8H0LSh6msY9XWlVnjWpBa2Ysq8OzKHAn target="_blank" style=" color:#2aa9de; text-decoration:underline;">5-stars</a> across the board</td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Our reviews: <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=FfW8eExWcg0sHzFkyx5kUQT69bX0zRZ3pRz0ystI-2B2ZSr9iu2Cl2lC3nviPqQPAbZfNVvMPsfOCAL3tNBpCs2w-3D-3Da3IP_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OpbCnFcsZXUmfuOfF9TGVjZ-2BFekLOXHJshBXoYF3dDOzYPg-2BBaEGuXXB5mlgp9IX-2B-2BjZPYxZqME4gdXpDmqmZQYim-2BASMdI4kWQYIwfg7LWzXlCTmedI-2BhmGE9cwGRSRka4-2FhQ2ENzac5-2BlypB7UKTamk-2F229U-2BaoLshqE-2BR9m9U target="_blank" style=" color:#2aa9de; text-decoration:underline;">5-stars</a> across the board</td>
 									   </tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Your stuff: where it needs to go</td>
@@ -357,7 +357,7 @@ td[class=rightmobImg-browser] {
 												</table>
 											</td>
 									   </tr>
-									    
+									   
 									   
 									   <tr style="line-height:20px;height:20px">
 										  
@@ -375,7 +375,7 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><strong>Okay, it’s making more sense. So where would I need Bungii?</strong></td>
 									   </tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">We work well with Craigslist, furniture/retail stores, and people who need help with small moves. Here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4frIw1DptWd6fUAVx8qdAg1Cg1oZvnCOE7UPFNSRi9fnT92dL_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MuYo2R-2BxJ-2BgQ-2Bm-2FVbkX-2BB0e6TVHE-2BG7rnoBZTA8puWgYs1zND5HaHin84vOb1XxgIur946L7eUoJzB-2FuCwDZN-2FwAhPDfzQlBtjjZzQLwypgr8f2sRO8cxBVpFWUn1xprLEur2x-2BA1wFkw4dylxk6RwIaW-2Bdxpq8hNN2zt4mpiRxN target="_blank" style=" color:#2aa9de; text-decoration:underline;">bread and butter</a>.</td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">We work well with Craigslist, furniture/retail stores, and people who need help with small moves. Here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4frIw1DptWd6fUAVx8qdAg1Cg1oZvnCOE7UPFNSRi9fnTp4mB_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OuuzGeOKxKhsa1kkRV1uL3LUUMq5Eifv5qP1tkW9u57lldctpnYnjr-2FBg5p-2BlECGGm7hCETQc5cIpnam8na82LcUolWwDWPpPY6yms2yX0R2quvXykWInaMnC6yUUC9U8937CLiYnPsgqA03bmBN-2BTQZJe9UuQ7sS15gU-2FKD-2FknV target="_blank" style=" color:#2aa9de; text-decoration:underline;">bread and butter</a>.</td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
 										 
@@ -396,7 +396,7 @@ td[class=rightmobImg-browser] {
 										 
 										  <td><img src="cid:spacer-cid" width="1" height="20" alt="" style="display:block;" class="spacerHeight12"></td></tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Hopefully that’s enough to get you started. If you have additional questions, here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4fsP77piDxJwGxl6oFj86vL8-3D2n_o_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8MvseuV1WHnI6UnN8KRemdFghnRq4lsbezlu2A-2BrOZDii10YrpeZYurYFcTmXEuQevMQpRDrR6MlgKDmCELaGuBKXxWnxJEYoBtJoTKnsTcI-2F8UQLvyHgoeOhatYYzZ-2B3M9TV-2FEnB3-2FJHlQwsJaW9fyi-2B-2F0bOgAt8XHDEoqDYJ6l7 target="_blank" style=" color:#2aa9de; text-decoration:underline;">FAQ page</a> or feel free to shoot us a tweet: @BungiiApp.</td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Hopefully that’s enough to get you started. If you have additional questions, here’s our <a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4fsP77piDxJwGxl6oFj86vL8-3D3DCH_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OoyjBAK2NAIrSpg2to4fVHSuWoeX-2BIop7A2ohECU1z2NJOxFUASUCQ1njk-2FMdZ0wmzHtJ97xaKJk0-2Babb-2FMNFOkCtVtoF6qE16RV-2FUOcfBuSyIkcI6T7s28cLcMVEL-2BHZwAXad-2F5A8-2FUnzM73wYdhKAqRt-2F-2F9YzeEwICTPtGTrIq target="_blank" style=" color:#2aa9de; text-decoration:underline;">FAQ page</a> or feel free to shoot us a tweet: @BungiiApp.</td>
 									   </tr>
 										<tr style="line-height:20px;height:20px">
 										 
@@ -421,7 +421,7 @@ td[class=rightmobImg-browser] {
 										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13">Bungii&nbsp;|&nbsp;Founder</td>
 									   </tr>
 									   <tr style="font-size: 14px; line-height: 20px;">
-										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4flHiDI5uv3EAYKYZfAfp2ig-3DsLO5_YtpsuXYcg3qMsi5YuKOwzj-2FagRklzghs9T-2FZngfmjASjtytgqLj3s3yjCx0otFuF4YNpS79eAQjHmxj799L8Mjn9fF8-2FnGteDWLYx-2FH1OaTpqHtahjDNm6paloJtULoIiD3BgJBWImiiVrLUYWnqsRARjsHgC-2Fu1Mg-2BiM-2FFDAFJ2ypsZSShBcpUSe8VsgYt2xR3a5-2BLakPDUp2IERig2BYmrN92ImE34oqIxg2xkwgfYXcubCFspXNbKrAlmkIxm target="_blank" style=" color:#1f1f1f; text-decoration:none;">Bungii.com</a></td>
+										   <td style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 20px; color:#1f1f1f;" class="fontSize13"><a href="https://u9800948.ct.sendgrid.net/ls/click?upn=1-2Fv81tayGt-2FyX1Hw3cb4flHiDI5uv3EAYKYZfAfp2ig-3DpOlB_YtpsuXYcg3qMsi5YuKOwzhDGQ2BJ1qNO01Z9R3V8kH1LdGqqxAYW1RCtbJ1WEKRKPf-2FhfAt9j4CncjmBdSJ6OnK-2FqTmVM9ko0YpEg6PCmqSW88uvnFXDDtadem23zKdqa9FmNKFYuvig-2Bv9Uoir1Wv2nIRNnbfw3tHmiXT1AhNzLUdBHTSKDBQ903JzGfiy0WYA6ZLfgg80-2BmIi4K5IDm1qwBuAGhySAtxnIYi-2Bg5MCZV4sgMi6hqSk3MDPr5tT0 target="_blank" style=" color:#1f1f1f; text-decoration:none;">Bungii.com</a></td>
 									   </tr>
 									   <tr style="line-height:20px;height:20px">
 										 
