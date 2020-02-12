@@ -2,7 +2,60 @@
   # this will run in 	nashville
 Feature: Create on demand bungii
 
-  @POSTDUO
+  @regression
+  Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | nashville | Enroute      |
+
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    And I select trip from live trips
+
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Trip Started"
+    Then manually end bungii should be "disabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "EN ROUTE" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driver(s) Arrived"
+    Then manually end bungii should be "disabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "ARRIVED" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Loading Items"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "LOADING ITEM" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Driving To Dropoff"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    When I switch to "ADMIN" instance
+    Then I wait for trip status to be "Unloading Items"
+    Then manually end bungii should be "enabled"
+
+    When I switch to "ORIGINAL" instance
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+    And I Switch to "customer" application on "same" devices
+    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
@@ -405,8 +458,9 @@ Feature: Create on demand bungii
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "YES, I'LL TAKE $5" button on "Promotion" screen
     When I enter "valid data" on Overlay Facebook screen
-    And I tap "Next" button on Overlay Facebook screen
-    When I tap "Share" button on Overlay Facebook screen
+  #  And I tap "Next" button on Overlay Facebook screen
+  #  When I tap "Share" button on Overlay Facebook screen
+    When I tap "Post" button on Overlay Facebook screen
 
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
@@ -455,59 +509,6 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
 
-  @regression
-  Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | nashville | Enroute      |
-
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I wait for "2" mins
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "live trips" from admin sidebar
-    And I select trip from live trips
-
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Trip Started"
-    Then Rmanually end bungii should be "disabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "EN ROUTE" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Driver(s) Arrived"
-    Then manually end bungii should be "disabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "ARRIVED" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Loading Items"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "LOADING ITEM" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Driving To Dropoff"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    When I switch to "ADMIN" instance
-    Then I wait for trip status to be "Unloading Items"
-    Then manually end bungii should be "enabled"
-
-    When I switch to "ORIGINAL" instance
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I click "On To The Next One" button on "Bungii Completed" screen
-
-    And I Switch to "customer" application on "same" devices
-    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression

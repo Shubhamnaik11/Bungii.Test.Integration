@@ -26,7 +26,7 @@ Feature: DriverMenu
   Scenario: As Bungii driver I should able to access SCHEDULED BUNGII menu item
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
-    Then I should be able to see data on "SCHEDULED BUNGII" page
+    Then I should be able to see data on "SCHEDULED BUNGIIS" page
 
 
 

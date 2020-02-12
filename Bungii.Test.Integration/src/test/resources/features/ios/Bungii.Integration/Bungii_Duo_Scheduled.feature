@@ -902,7 +902,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @regression
+  @regression1
   Scenario:Verify driver can Long stack request on Arrived status.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -924,7 +924,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 #
-  @regression
+  @regression1
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1100,8 +1100,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I start selected Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |
-      | now         | 9403960183     | Mark Cuban    | 2              |
+      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
+      | now         | 9403960183     | Mark Cuban    | 2              |Cci12345          |
     And I should not get notification for "driver" for "stack trip"
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
@@ -1270,7 +1270,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location  |
-      | Solo   | Commercial tax check post polem | froggyland Goa |
+      | Solo   | Veera Vittal Mutt | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
@@ -1300,7 +1300,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location  |
-      | Solo   | Commercial tax check post polem | froggyland Goa |
+      | Solo   | Veera Vittal Mutt | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
