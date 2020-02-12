@@ -37,7 +37,7 @@ Feature: CustomerSignup
     Then the new user should see "validations for all fields"
 
   @email
-  @regression1
+  @regression
   Scenario: Signup_SuccessValidPromoCode
 
     When I enter "unique" customer phone number on Signup Page
