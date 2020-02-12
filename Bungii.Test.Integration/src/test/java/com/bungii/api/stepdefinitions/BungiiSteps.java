@@ -247,7 +247,7 @@ public String getDriverPhone(String driverName)
                     } else if (bungiiType.equalsIgnoreCase("SOLO SCHEDULED")||bungiiType.equalsIgnoreCase("Duo Scheduled")) {
                         if (driver1State.equalsIgnoreCase("Accepted")) {
 
-                            coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+                            coreServices.waitForAvailableTrips(driverName +"("+driverPhoneNum+")",driverAccessToken, pickupRequest);
                             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                         } else if (driver1State.equalsIgnoreCase("Enroute")) {
@@ -362,11 +362,11 @@ public String getDriverPhone(String driverName)
                         if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
 
                             if(driver1State.equalsIgnoreCase("Accepted"))
-                                coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+                                coreServices.waitForAvailableTrips(driverAName +"("+driverPhoneNum+")",driverAccessToken, pickupRequest);
                             logger.detail("*** As a driver "+ driverBName +"("+driver2PhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver2State );
 
                             if(driver2State.equalsIgnoreCase("Accepted"))
-                                coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
+                                coreServices.waitForAvailableTrips(driverBName +"("+driver2PhoneNum+")", driver2AccessToken, pickupRequest);
 
                             if (driver1State.equalsIgnoreCase("Accepted") || driver1State.equalsIgnoreCase("Enroute") || driver1State.equalsIgnoreCase("Arrived") || driver1State.equalsIgnoreCase("Loading Item") || driver1State.equalsIgnoreCase("Driving To Dropoff") || driver1State.equalsIgnoreCase("Unloading Item") || driver1State.equalsIgnoreCase("Bungii Completed")) {
                                 coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
@@ -764,8 +764,8 @@ public String getDriverPhone(String driverName)
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
-            coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
+            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") +"("+driverPhoneNum+")",driverAccessToken, pickupRequest);
+            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_2") +"("+driverPhoneNum+")",driver2AccessToken, pickupRequest);
 
 
             if (state.equalsIgnoreCase("Accepted")) {
@@ -1088,7 +1088,7 @@ public String getDriverPhone(String driverName)
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+            coreServices.waitForAvailableTrips(cucumberContextManager.getScenarioContext("DRIVER_1") +"("+driverPhoneNum+")",driverAccessToken, pickupRequest);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             if (state.equalsIgnoreCase("Accepted")) {
