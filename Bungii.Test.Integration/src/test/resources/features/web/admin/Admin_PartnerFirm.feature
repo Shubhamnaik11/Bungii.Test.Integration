@@ -62,6 +62,7 @@ Feature: Admin_PartnerFirm
   @sanity
   @regression
   @email
+    @noteligible
       #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research- Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -89,10 +90,10 @@ Feature: Admin_PartnerFirm
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
 
-
   @sanity
   @regression
   @email
+  @noteligible
       #test data created in base
   Scenario: Partner Firm Cancellation Email  - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -122,6 +123,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @noteligible
     #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -150,6 +152,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @noteligible
     #test data created in base
   Scenario: Partner Email When Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -175,6 +178,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @noteligible
     #Create driver in base
   Scenario: Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
@@ -193,6 +197,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @noteligible
     #test data created in base
   Scenario: Partner Firm Email Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -217,6 +222,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @noteligible
     #test data created in base
   Scenario: Partner Firm Email Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -248,8 +254,9 @@ Feature: Admin_PartnerFirm
   Scenario: Partner Firm - Remove driver, Research and Cancel As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
+     # | NEXT_POSSIBLE | 9284000010 | Testcustomertywd_appleweb CustG|
+      | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
+    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
     And I view the Scheduled Trips list on the admin portal
@@ -263,7 +270,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled Researched" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled Researched" trip
       | driver1 state|
       | Accepted  |
     When I wait for 2 minutes

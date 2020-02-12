@@ -31,6 +31,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.nio.file.StandardOpenOption.CREATE;
@@ -677,6 +679,16 @@ public class GeneralUtility extends DriverBase {
         }
         return timezone;
 
+    }
+
+    public String setDownloadLink(String message, String emailBody)
+    {
+        Pattern p = Pattern.compile("\\d+");
+        Matcher m = p.matcher(emailBody);
+        while(m.find()) {
+            message.replaceAll("%Link%",m.group());
+        }
+        return message;
     }
 }
 

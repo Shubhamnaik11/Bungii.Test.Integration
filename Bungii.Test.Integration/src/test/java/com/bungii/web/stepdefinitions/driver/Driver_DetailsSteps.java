@@ -14,6 +14,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 
 import java.util.List;
@@ -49,12 +50,25 @@ public class Driver_DetailsSteps extends DriverBase {
             case "valid":
                 action.clearSendKeys(Page_Driver_Details.TextBox_StreetAddress(), PropertyUtility.getDataProperties("DriverStreet"));
                 Thread.sleep(5000);
-                action.JavaScriptClick(Page_Driver_Details.List_StreetAddress());
-                Thread.sleep(2000);
-                action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
-                action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
-                action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
-
+                try{
+                    JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+                    executor.executeScript("arguments[0].click();", Page_Driver_Details.List_StreetAddress());
+                    if(Page_Driver_Details.TextBox_City().getAttribute("value").equalsIgnoreCase(""))
+                    {
+                        logger.detail("Google places API limit Exhausted.. Proceeding with manually entering address details");
+                        action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
+                        action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
+                        action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
+                    }
+                }
+                catch(Exception ex) {
+                   // action.JavaScriptClick(Page_Driver_Details.List_StreetAddress());
+                  //  Thread.sleep(2000);
+                    logger.detail("Google places API limit Exhausted.. Proceeding with manually entering address details");
+                    action.clearSendKeys(Page_Driver_Details.TextBox_City(), PropertyUtility.getDataProperties("DriverCity"));
+                    action.selectElementByText(Page_Driver_Details.DropDown_State(), PropertyUtility.getDataProperties("DriverState"));
+                    action.clearSendKeys(Page_Driver_Details.TextBox_ZipCode(), PropertyUtility.getDataProperties("DriverZipCode"));
+                }
                 action.click(Page_Driver_Details.CheckBox_Age18());
                 action.click(Page_Driver_Details.CheckBox_Lift75());
                 action.click(Page_Driver_Details.CheckBox_DrivingExp());
@@ -256,8 +270,10 @@ public class Driver_DetailsSteps extends DriverBase {
         try{
             action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Link_Logout(),(long) 5000);
             action.click(Page_Driver_Details.Link_Logout());
-        }catch (StaleElementReferenceException e){ action.click(Page_Driver_Details.Link_Logout());
-                                                 }
+            log("I should be logged out" ,
+                    "I am logged out");
+        }catch (StaleElementReferenceException e){ }
+
     }
 
     @Then("^The 'My Stats' section should be shown on the Dashboard page$")
@@ -291,7 +307,7 @@ public class Driver_DetailsSteps extends DriverBase {
         String old_count_string = (String) cucumberContextManager.getScenarioContext("TOTAL_TRIPS");
         int old_count = Integer.parseInt(old_count_string);
         int new_count = old_count + 1 ;
-        String xpath = String.format("//p[contains(text(),'Total trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
+        String xpath = String.format("//p[contains(text(),'Total Trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
         Boolean isCountIncremented = action.waitForElement(xpath);
         testStepAssert.isTrue(isCountIncremented == true,"Total Trip count should be incremented", "Total trip count is incremented", "Total trip count is not incremented");
     }

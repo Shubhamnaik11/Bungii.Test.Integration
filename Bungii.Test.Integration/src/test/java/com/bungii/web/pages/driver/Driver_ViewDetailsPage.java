@@ -11,7 +11,7 @@ public class Driver_ViewDetailsPage extends PageBase {
 
     public  WebElement Label_Statistics_Total_Earnings_Per_Year () {return findElement("//h1[contains(text(),'Total Earnings per year')]/parent::div/div/div/h2", LocatorType.XPath); }
 
-    public WebElement Label_TotalTripsCount () {return findElement("//p[contains(text(),'Total trips')]/following-sibling::h3", LocatorType.XPath);}
+    public WebElement Label_TotalTripsCount () {return findElement("//p[contains(text(),'Total Trips')]/following-sibling::h3", LocatorType.XPath);}
 
     public WebElement Label_TotalTripsCount (String xpath) {return findElement(xpath, LocatorType.XPath);}
 
