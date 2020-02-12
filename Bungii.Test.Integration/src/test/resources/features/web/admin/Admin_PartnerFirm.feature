@@ -25,6 +25,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+  @failed
   Scenario: Failed Trip Email - Ondemand Trip - No driver accepts
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -228,7 +229,7 @@ Feature: Admin_PartnerFirm
       | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
-      |Accepted |
+      | Accepted |
       | Enroute  |
       | Arrived |
       | Loading Item |

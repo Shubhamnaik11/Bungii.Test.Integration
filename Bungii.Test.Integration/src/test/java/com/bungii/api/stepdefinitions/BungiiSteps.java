@@ -209,6 +209,7 @@ public String getDriverPhone(String driverName)
                     driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
                     coreServices.updateDriverLocation(driverAccessToken, geofence);
                     coreServices.updateDriverStatus(driverAccessToken);
+                    logger.detail("*** As a driver "+ driverName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver1State );
 
                     if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND") ) {
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
@@ -356,11 +357,14 @@ public String getDriverPhone(String driverName)
                     driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     coreServices.updateDriverLocation(driver2AccessToken, geofence);
                     coreServices.updateDriverStatus(driver2AccessToken);
+                        logger.detail("*** As a driver "+ driverAName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver1State );
 
                         if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
 
                             if(driver1State.equalsIgnoreCase("Accepted"))
                                 coreServices.waitForAvailableTrips(driverAccessToken, pickupRequest);
+                            logger.detail("*** As a driver "+ driverBName +"("+driver2PhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver2State );
+
                             if(driver2State.equalsIgnoreCase("Accepted"))
                                 coreServices.waitForAvailableTrips(driver2AccessToken, pickupRequest);
 
@@ -500,6 +504,7 @@ public String getDriverPhone(String driverName)
             }
             cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence);
+            logger.detail("*** Requesting "+ bungiiType + " as a customer "+ customerName+ "("+custPhoneNum+") for geofence"+geofence+" ***" );
 
             //LOGIN
             String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
@@ -534,7 +539,7 @@ public String getDriverPhone(String driverName)
                 e.printStackTrace();
             }
 
-            log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
+            log("I should able to request bungii ", "Requested "+ bungiiType + " as a customer "+ customerName+ "("+custPhoneNum+") for geofence"+geofence, false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
@@ -915,7 +920,6 @@ public String getDriverPhone(String driverName)
 
                         int numberOfDriver =bungiiType.trim().equalsIgnoreCase("duo")?2:1;
 
-
                         String custPhoneCode = "1", custPhoneNum = "", custPassword = "";
 
 
@@ -926,6 +930,7 @@ public String getDriverPhone(String driverName)
                         cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
                         cucumberContextManager.setScenarioContext("BUNGII_TYPE", bungiiType);
 
+                        logger.detail("*** Requesting "+ bungiiType + " as a customer "+ customerName+ "("+custPhoneNum+") for geofence"+geofence+" ***" );
 
                         //LOGIN
                         String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
@@ -953,9 +958,7 @@ public String getDriverPhone(String driverName)
                             e.printStackTrace();
                         }
 
-
-
-                        log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
+                        log("I should able to request bungii ", "Requested "+ bungiiType + " as a customer "+ customerName+ "("+custPhoneNum+") for geofence"+geofence, false);
                     } catch (Exception e) {
                         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
                         error("Step  Should be successful", "Error performing step,Please check logs for more details",
