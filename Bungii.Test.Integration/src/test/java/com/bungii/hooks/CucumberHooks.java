@@ -66,7 +66,7 @@ public class CucumberHooks {
           //  if (SystemUtils.IS_OS_MAC) {
             if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                 //commented code to remove webdriver agent
-/*                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceInfoFileKey = "ios.capabilities.file";
                 String deviceId = System.getProperty("DEVICE");
 
 
@@ -80,7 +80,7 @@ public class CucumberHooks {
                 String udid = jsonCaps.getString("udid");
 
 
-                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);*/
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
             }
         } catch (Exception e) {
            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
