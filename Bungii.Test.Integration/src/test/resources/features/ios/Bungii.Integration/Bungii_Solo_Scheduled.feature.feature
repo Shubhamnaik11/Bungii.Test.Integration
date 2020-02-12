@@ -1414,8 +1414,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should see "new card" on Payment page
 
     When I request "duo" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name       | Customer Password |
-      | NEXT_POSSIBLE | NEW_USER_NUMBER     | VishalIHHnZkrz Test | Cci12345          |
+      | Bungii Time   | Customer Phone  | Customer Name       | Customer Password |
+      | NEXT_POSSIBLE | NEW_USER_NUMBER | VishalIHHnZkrz Test | Cci12345          |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
     When I Select "PAYMENT" from Customer App menu
@@ -1425,8 +1425,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I accept Alert message
     Then Alert message with CARD IS ASSOCIATED TO TRIP text should be displayed
     Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | NEW_USER_NUMBER     |                 |
+      | Customer Phone  | Customer2 Phone |
+      | NEW_USER_NUMBER |                 |
     When I Switch to "customer" application on "same" devices
     And I logged in Customer application using  "newly created user" user
     When I Select "PAYMENT" from Customer App menu
@@ -1436,8 +1436,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I accept Alert message
     Then I should see "the card has been deleted" on Payment page
     Examples:
-      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
-      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
+      | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
+      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @regression
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1849,7 +1849,259 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
 
-  @regression1234
+  @regression
+
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "PROMO"
+
+    When I switch to "ORIGINAL" instance
+    And I am on the "LOG IN" page
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Loading Items |
+    When I view the trip details
+    When I switch to "ORIGINAL" instance
+    And I Switch to "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "ONE OFF"
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | DRIVING TO DROP OFF |
+    When I view the trip details
+
+    When I switch to "ORIGINAL" instance
+    And I Open "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+
+  @regression
+  Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "promoter_type_promo"
+
+    When I switch to "ORIGINAL" instance
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+
+    When I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    Then I click "Get Estimate" button on "Home" screen
+
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I click "ADD" button on "PROMOS" screen
+
+    And I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    Then I click "Done" button on "Success" screen
+
+    When I click on notification for "Driver" for "SCHEDULED PICKUP AVAILABLE"
+    And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
+    When I click "View" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    And "correct scheduled trip details" should be displayed on Bungii request screen
+    When I accept selected Bungii
+    Then I should be navigated to "SCHEDULED BUNGIIS" screen
+    And I Select Trip from scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    And I wait for "2" mins
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "live trips" from admin sidebar
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | UNLOADING ITEMS |
+    When I view the trip details
+
+    When I switch to "ORIGINAL" instance
+    And I Open "customer" application on "same" devices
+    And I switch to "ADMIN" instance
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+
+    When I switch to "ORIGINAL" instance
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct details with promo" on Bungii completed page
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on "Bungii Completed" screen
+
+  @regression
   Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
 
     Given that ondemand bungii is in progress
@@ -1862,8 +2114,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
-      | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
-      | now         | 8888889917     | Cci12345          |Testcustomertywd_appleZTDafc Stark | 2              |
+      | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
+      | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
 
     And I click on notification for "Driver" for "stack trip"
     When I click "VIEW" on alert message
@@ -1882,11 +2134,32 @@ Feature: To Test Solo - Scheduling Bungii
 
     And I click "Get Estimate" button on "Home" screen
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
-      | 30       |           |              |  <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
+      | LoadTime | PromoCode | Payment Card | Time                              | PickUpImage | Save Trip Info |
+      | 30       |           |              | <TIME WITHIN TELET OF CUSTOMER 2> | large image | Yes            |
     When I click "Done" button on "Success" screen
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
 
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |     8888889917            |
+      | CUSTOMER1_PHONE | 8888889917      |
+
+
+  @regression
+  Scenario:DRIVER: Notification - 30 mins before scheduled trip
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   |
+      | denver   | Scheduled    | NEXT_POSSIBLE |
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from available trip
+    When I accept selected Bungii
+    And I Switch to "customer" application on "same" devices
+    When I wait for Minimum duration for Bungii Start Time
+    And I click on notification for "driver" for "TAP NOTIFICATION TO ACTIVATE BUNGII"
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+

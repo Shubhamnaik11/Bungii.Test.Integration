@@ -66,7 +66,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-
+  @email
   @regression
   Scenario Outline: As a new Bungii Customer I should submit registration form with out Promo code
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
@@ -83,11 +83,12 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     Then I should be navigated to "Home" screen
+    And Customer should receive signup email
 
 
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
-      | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
+      | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
 
   @regression
@@ -192,3 +193,19 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | R1D2            | facebook | INVALID PROMO WHILE SIGNUP |
+
+  @regression
+  Scenario Outline: To check that Promoter type Promo codes active in future canNot be added by customer through sign up page
+    When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Enter "<Promo Code>" value in "Referral code" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+    Then Alert message with INACTIVE PROMO CODE MESSAGE text should be displayed
+
+    Examples:
+      | First Name              | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
+      | RandomTestcustomertywd_apple  | testerr   | richa.naik@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | HECKNWWAU | facebook |

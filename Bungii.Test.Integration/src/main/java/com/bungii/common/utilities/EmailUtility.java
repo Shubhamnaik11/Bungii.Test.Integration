@@ -204,6 +204,12 @@ public class EmailUtility extends DriverBase {
         List<String> listF1 = Files.readAllLines(p1);
         List<String> listF2 = Arrays.asList(emailValue.split("\r\n"));
 
+        for (int i = 0; i < listF1.size(); i++) {
+            if (listF1.get(i).equals("old line")) {
+                listF1.set(i, "new line");
+                break;
+            }
+        }
         if(listF1.size()==listF2.size()){
             if ((listF1.equals(listF2)))
             {
@@ -217,7 +223,6 @@ public class EmailUtility extends DriverBase {
                   //      System.out.println("Subject: match found");
 
                     }else{
-                        System.out.println("Both list are matching");
 
                         System.out.println(listF1.get(i));
                         System.out.println(listF2.get(i));

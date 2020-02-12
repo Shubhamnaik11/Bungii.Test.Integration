@@ -72,6 +72,7 @@ public class AssertManager {
                 ResultManager.pass(expectedText, sucessMessage, true);
 
         } catch (AssertionError e) {
+            logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }

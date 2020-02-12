@@ -188,7 +188,32 @@ public class PromoSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
-        }    }
+        }
+    }
+
+    @Then("^I should see the previously added promo code present for current Bungii request$")
+    public void i_should_see_the_previously_added_promo_code_present_for_current_bungii_request() throws Throwable {
+        try {
+        String promoCode=(String)cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
+        testStepVerify.isTrue(isPromoCodePresent(promoCode), "I should able to see expected promo code '" + promoCode + "' in available promo code", "I was able to see '" + promoCode + "' in available promo code", "I was not able to see '" + promoCode + "' in available promo code");
+        }
+        catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should see the \"([^\"]*)\" no more displayed on the promos page$")
+    public void i_should_see_the_something_no_more_displayed_on_the_promos_page(String expiredpromocode) throws Throwable {
+        try {
+            String usedPromoCode = expiredpromocode;
+            testStepVerify.isFalse(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     /**
      * Add given promocode in the field
      *
