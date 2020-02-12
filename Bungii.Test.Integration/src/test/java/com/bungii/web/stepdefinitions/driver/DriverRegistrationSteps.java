@@ -15,6 +15,9 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.jsoup.nodes.Document;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static com.bungii.common.manager.ResultManager.log;
 import static com.bungii.common.manager.ResultManager.pass;
 
@@ -159,7 +162,7 @@ public class DriverRegistrationSteps extends DriverBase {
             default:
                 break;
         }
-        log("I click able to click "+p0+" on driver portal","I clicked  "+p0 +" on driver page", true);
+        log("I able to click "+p0+" on driver portal","I clicked  "+p0 +" on driver page", true);
 
     }
 
@@ -167,51 +170,51 @@ public class DriverRegistrationSteps extends DriverBase {
     public void i_should_be_directed_to_something_on_driver_portal(String strArg1) throws Throwable {
         switch (strArg1) {
             case "signup tab":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_DriverRegistration()), PropertyUtility.getMessage("DriverRegistrationHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_DriverRegistration()), PropertyUtility.getMessage("DriverRegistrationHeader"), PropertyUtility.getMessage("DriverRegistrationHeader")+ " should be displayed",PropertyUtility.getMessage("DriverRegistrationHeader")+ " is displayed",PropertyUtility.getMessage("DriverRegistrationHeader")+ " is not displayed");
                 break;
             case "LOG IN tab":
-                testStepVerify.isEquals(action.getText(Page_Driver_Login.Header_DriverLogin()), PropertyUtility.getMessage("DriverLoginHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Login.Header_DriverLogin()), PropertyUtility.getMessage("DriverLoginHeader"), PropertyUtility.getMessage("DriverLoginHeader")+" should be displayed", PropertyUtility.getMessage("DriverLoginHeader")+" is displayed", PropertyUtility.getMessage("DriverLoginHeader")+" is not displayed");
                 break;
             case "Forgot Password tab":
-                testStepVerify.isEquals(action.getText(Page_ForgotPassword.Header_ForgotPassword()), PropertyUtility.getMessage("DriverForgotPasswordHeader"));
+                testStepVerify.isEquals(action.getText(Page_ForgotPassword.Header_ForgotPassword()), PropertyUtility.getMessage("DriverForgotPasswordHeader"), PropertyUtility.getMessage("DriverForgotPasswordHeader")+" should be displayed", PropertyUtility.getMessage("DriverForgotPasswordHeader")+" is displayed", PropertyUtility.getMessage("DriverForgotPasswordHeader")+" is not displayed");
                 break;
             case "Verify Your Phone tab":
-                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Header_VerifyPhone()), PropertyUtility.getMessage("DriverVerifyPhoneHeader"));
+                testStepVerify.isEquals(action.getText(Page_VerifyPhone.Header_VerifyPhone()), PropertyUtility.getMessage("DriverVerifyPhoneHeader"),  PropertyUtility.getMessage("DriverVerifyPhoneHeader")+" should be displayed", PropertyUtility.getMessage("DriverForgotPasswordHeader")+" is displayed", PropertyUtility.getMessage("DriverVerifyPhoneHeader")+" is not displayed");
                 break;
             case "phone verification page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_Verification()), PropertyUtility.getMessage("RegSuccess"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_Verification()), PropertyUtility.getMessage("RegSuccess"),  PropertyUtility.getMessage("RegSuccess")+" should be displayed", PropertyUtility.getMessage("RegSuccess")+" is displayed", PropertyUtility.getMessage("RegSuccess")+" is not displayed");
                 break;
             case "Verification Successful page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_VerificationSuccess()), PropertyUtility.getMessage("SMSVerifSuccess"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_VerificationSuccess()), PropertyUtility.getMessage("SMSVerifSuccess"),  PropertyUtility.getMessage("SMSVerifSuccess")+" should be displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is not displayed");
                 break;
             case "driver Details page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("DriverDetailsHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("DriverDetailsHeader"),  PropertyUtility.getMessage("DriverDetailsHeader")+" should be displayed", PropertyUtility.getMessage("DriverDetailsHeader")+" is displayed", PropertyUtility.getMessage("DriverDetailsHeader")+" is not displayed");
                 break;
             case "Pickup Info page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("PickupInfoHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("PickupInfoHeader"),  PropertyUtility.getMessage("PickupInfoHeader")+" should be displayed", PropertyUtility.getMessage("PickupInfoHeader")+" is displayed", PropertyUtility.getMessage("PickupInfoHeader")+" is not displayed");
                 break;
             case "Documentation page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("DocHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("DocHeader"),  PropertyUtility.getMessage("DocHeader")+" should be displayed", PropertyUtility.getMessage("DocHeader")+" is displayed", PropertyUtility.getMessage("PickupInfoHeader")+" is not displayed");
                 break;
             case "Bank Details page":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("BankDetHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("BankDetHeader"),  PropertyUtility.getMessage("BankDetHeader")+" should be displayed", PropertyUtility.getMessage("BankDetHeader")+" is displayed", PropertyUtility.getMessage("BankDetHeader")+" is not displayed");
                 break;
             case "Terms & Conditions":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("TermsHeader"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Terms.Terms_H5()), PropertyUtility.getMessage("TermsSubHeader"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Terms.Text_Terms()), PropertyUtility.getMessage("TermsText"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("TermsHeader"),  PropertyUtility.getMessage("TermsHeader")+" should be displayed", PropertyUtility.getMessage("TermsHeader")+" is displayed", PropertyUtility.getMessage("TermsHeader")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Terms.Terms_H5()), PropertyUtility.getMessage("TermsSubHeader"),  PropertyUtility.getMessage("TermsSubHeader")+" should be displayed", PropertyUtility.getMessage("TermsSubHeader")+" is displayed", PropertyUtility.getMessage("TermsSubHeader")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Terms.Text_Terms()), PropertyUtility.getMessage("TermsText"),  PropertyUtility.getMessage("TermsText")+" should be displayed", PropertyUtility.getMessage("TermsText")+" is displayed", PropertyUtility.getMessage("TermsText")+" is not displayed");
                 break;
             case "Video Training":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("VideoHeader"));
-                testStepVerify.isElementDisplayed(Page_Driver_Video.Screen_Video(true), "Video screen should be displayed", "Video screen was  displayed", "");
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("VideoHeader"),  PropertyUtility.getMessage("VideoHeader")+" should be displayed", PropertyUtility.getMessage("VideoHeader")+" is displayed", PropertyUtility.getMessage("VideoHeader")+" is not displayed");
+                testStepVerify.isElementDisplayed(Page_Driver_Video.Screen_Video(true), "Video screen should be displayed", "Video screen was displayed", "Video screen was not displayed");
                 break;
             case "Finish":
-                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("FinishHeader"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("FinishHeader"),  PropertyUtility.getMessage("FinishHeader")+" should be displayed", PropertyUtility.getMessage("FinishHeader")+" is displayed", PropertyUtility.getMessage("FinishHeader")+" is not displayed");
                 break;
             case "Dashboard":
                // testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationSetting()), PropertyUtility.getMessage("DriverHomeSetting"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationGeneral()), PropertyUtility.getMessage("DriverHomeGENERAL"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationSetting()), PropertyUtility.getMessage("DriverHomeSetting"),  PropertyUtility.getMessage("DriverHomeSetting")+" should be displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is displayed", PropertyUtility.getMessage("DriverHomeSetting")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.SideNavigationGeneral()), PropertyUtility.getMessage("DriverHomeGENERAL"),  PropertyUtility.getMessage("DriverHomeGENERAL")+" should be displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is displayed", PropertyUtility.getMessage("DriverHomeGENERAL")+" is not displayed");
                 break;
             default:
                 break;
@@ -230,30 +233,30 @@ public class DriverRegistrationSteps extends DriverBase {
                 break;
             case "Logged in user name":
                 String UserName = PropertyUtility.getDataProperties("DriverFirstName") + " " + (String) cucumberContextManager.getScenarioContext("LASTNAME"); //PropertyUtility.getDataProperties("DriverLastName");
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_DriverName()), UserName);
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_DriverName()), UserName,UserName+ " should be displayed",UserName+ " is displayed",UserName+ " is not displayed");
                 break;
             case "correct field validations":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_FirstName()), PropertyUtility.getMessage("DReg_FirstName_Invalid"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_LastName()), PropertyUtility.getMessage("DReg_LastName_Invalid"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Email()), PropertyUtility.getMessage("DReg_Email_Invalid"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Invalid"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Invalid"));
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_FirstName()), PropertyUtility.getMessage("DReg_FirstName_Invalid"),  PropertyUtility.getMessage("DReg_FirstName_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_FirstName_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_FirstName_Invalid")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_LastName()), PropertyUtility.getMessage("DReg_LastName_Invalid"),  PropertyUtility.getMessage("DReg_LastName_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_LastName_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_LastName_Invalid")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Email()), PropertyUtility.getMessage("DReg_Email_Invalid"),  PropertyUtility.getMessage("DReg_Email_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Email_Invalid")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Invalid"),  PropertyUtility.getMessage("DReg_Phone_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Invalid")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Invalid"),  PropertyUtility.getMessage("DReg_Password_Invalid")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is displayed", PropertyUtility.getMessage("DReg_Password_Invalid")+" is not displayed");
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_ConfirmPassword()), PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect"),  PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" should be displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is displayed", PropertyUtility.getMessage("DReg_ConfirmPassword_Incorrect")+" is not displayed");
                 break;
             case "Global validation message":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_BlankFields()), PropertyUtility.getMessage("Err_Pages_BlankFields"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_BlankFields()), PropertyUtility.getMessage("Err_Pages_BlankFields"),  PropertyUtility.getMessage("Err_Pages_BlankFields")+" should be displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is displayed", PropertyUtility.getMessage("Err_Pages_BlankFields")+" is not displayed");
                 break;
             case "existing phone error":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Exists"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_Phone()), PropertyUtility.getMessage("DReg_Phone_Exists"),  PropertyUtility.getMessage("DReg_Phone_Exists")+" should be displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is displayed", PropertyUtility.getMessage("DReg_Phone_Exists")+" is not displayed");
                 break;
             case "field validation for short password":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Short"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_CreatePassword()), PropertyUtility.getMessage("DReg_Password_Short"),  PropertyUtility.getMessage("DReg_Password_Short")+" should be displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is displayed", PropertyUtility.getMessage("DReg_Password_Short")+" is not displayed");
                 break;
             case "validation for blank verification code":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Blank()), PropertyUtility.getMessage("VerifCode_Err_Blank"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Blank()), PropertyUtility.getMessage("VerifCode_Err_Blank"),  PropertyUtility.getMessage("VerifCode_Err_Blank")+" should be displayed", PropertyUtility.getMessage("VerifCode_Err_Blank")+" is displayed", PropertyUtility.getMessage("VerifCode_Err_Blank")+" is not displayed");
                 break;
             case "validation for incorrect verification code":
-                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Invlid()), PropertyUtility.getMessage("VerifCode_Err_Invalid"));
+                testStepVerify.isEquals(action.getText(Page_Driver_Reg.ERR_VerifiCode_Invlid()), PropertyUtility.getMessage("VerifCode_Err_Invalid"),  PropertyUtility.getMessage("VerifCode_Err_Invalid")+" should be displayed", PropertyUtility.getMessage("VerifCode_Err_Invalid")+" is displayed", PropertyUtility.getMessage("VerifCode_Err_Invalid")+" is not displayed");
                 break;
             default:
                 break;
@@ -333,14 +336,16 @@ public class DriverRegistrationSteps extends DriverBase {
            case "BUNGII: Time to Hit the Road!":
                driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
                message = utility.getExpectedDriverApprovalEmailContent(driverName);
+               message = utility.setDownloadLink(message,emailBody);
                break;
        }
         message= message.replaceAll(" ","");
         logger.detail("Email Body (Expected) : "+ message);
 
-       testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
+       testStepAssert.isEquals(emailBody, message,"Email (Expected): "+message+" content should match", "Email (Actual): "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
     }
+
     @And("^Admin should receive \"([^\"]*)\" email$")
     public void admin_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody  = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
@@ -364,7 +369,7 @@ public class DriverRegistrationSteps extends DriverBase {
         }
         message= message.replaceAll(" ","");
         logger.detail("Email Body (Expected) : "+ message);
-        testStepAssert.isEquals(emailBody, message,"Email (Actual) "+emailBody+" content should match", "Email (Actual) "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
+        testStepAssert.isEquals(emailBody, message,"Email (Expected): "+message+" content should match", "Email (Actual): "+emailBody+" content matches", "Email (Actual) "+emailBody+" content doesn't match");
 
 
 

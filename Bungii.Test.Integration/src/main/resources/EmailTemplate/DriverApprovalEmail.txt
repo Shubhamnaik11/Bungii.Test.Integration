@@ -9,7 +9,7 @@
 	<body>
 		Hi %DriverName%,
 		<br><br>
-		Congrats, you’ve officially been accepted to be a Bungii driver!
+		Congrats, you've officially been accepted to be a Bungii driver!
 
 		<br><br>
 
@@ -18,10 +18,10 @@
 		application
 
 		<br><br>
-	    Download the Bungii Driver app here: https://u9800948.ct.sendgrid.net/wf/click?upn=J6qOWivTD4UuE9GAytC6yMFWjV8ob3M1wL6kU9-2BSxaFUf5hQMjfEb3Te-2Ftv5NsQP_BbvCjFK8mV-2FVtEQn50FuelUsakcrdkL4dWE9H3bmD34CIKHAR-2FbsRNHftZkUaX0QI7WHeujON6rdSEhLXvEpdxGz9A4Y8kCS8RmplMXw4cT6QRONgyRmm8gf2MrWQGgjhgZIRgyufmPSz0XF8MTRCp9kfbTY17rmyVqkZ7-2BC-2BYFVV5F8hqO4jfIRT84pzC7ru0-2FpBbFy0W-2BlZupyJpL9XWENqvMN7DvOAIVdUi-2F0MZcyfNZjjFZR9FSKiXtBn-2Fmq
+	    Download the Bungii Driver app here: %Link%
 
 		<br><br>
-		If you have any questions email (or tweet: @bungiiapp) us and we’re happy to help.
+		If you have any questions email (or tweet: @bungiiapp) us and we're happy to help.
 		<br><br>
 		Thanks,
 		<br>

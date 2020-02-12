@@ -117,6 +117,7 @@ public class ReportGeneratorUtility {
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
 		String str = "<tr class='header'><td colspan='8'  >" +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
+		stackTraceArray.clear();
 	}
 
 	/**

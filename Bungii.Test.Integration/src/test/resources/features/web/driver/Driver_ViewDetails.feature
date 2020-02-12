@@ -16,7 +16,7 @@ Feature: Driver_ViewDetails
     And The 'My Stats' section should be shown on the Dashboard page
     And Below stats are displayed correctly
     |Statistics|
-    |Total trips|
+    |Total Trips|
     |Trips / Month|
     |Total Earnings|
     |Earnings / Month|

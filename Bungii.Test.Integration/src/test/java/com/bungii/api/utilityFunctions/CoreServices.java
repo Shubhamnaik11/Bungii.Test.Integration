@@ -174,7 +174,7 @@ public class CoreServices extends DriverBase {
     }
 
     // wait for 5 mins for pickup to be displayed in available trips
-    public void waitForAvailableTrips(String authToken, String expectedPickupRequest) {
+    public void waitForAvailableTrips(String driverDetail, String authToken, String expectedPickupRequest) {
         logger.detail("Waiting for Available Trips : Auth Token " + authToken+ " : Pickup Request : "+ expectedPickupRequest);
         try {
 
@@ -184,12 +184,13 @@ public class CoreServices extends DriverBase {
                 if (foundPickup) {
                     break;
                 } else {
-                    Thread.sleep(10000);
+                    Thread.sleep(8000);
+                    logger.detail("Waiting for Driver to be eligible for Pickup Request : "+ expectedPickupRequest);
                 }
 
             }
             if (!foundPickup) {
-                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip Or Driver is not eligible", false);
+                error("Scheduled trip should be displayed in available trip", "Scheduled trip is not displayed in available trip since Driver "+driverDetail+" is not eligible for pickup : "+expectedPickupRequest, false);
             }
 
         } catch (Exception e) {
