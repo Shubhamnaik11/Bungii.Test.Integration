@@ -1556,6 +1556,14 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
+  @regression
+  Scenario: Check the Minimum scheduled time for Solo trip
+    Given I am on customer Log in page
+    When I am logged in as "New" customer
+    And I enter "San Francisco pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    Then I should see the minimum scheduled time for Solo Bungii displayed on the Estimate page
+
 #####################################################################################################################
   @regression
   Scenario: To check that Customer can request cancel scheduled trip via admin SMS after 2 hour processing is over (No. of required drivers accepted or Not)
@@ -1949,6 +1957,7 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
     #keep this scenario at last
 #CMA 1513: delete card once trip is cancel
   @regression
