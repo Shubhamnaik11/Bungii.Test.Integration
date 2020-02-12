@@ -902,29 +902,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @regression1
-  Scenario:Verify driver can Long stack request on Arrived status.
-    Given that ondemand bungii is in progress
-      | geofence | Bungii State |
-      | goa      | ARRIVED      |
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid" driver
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
-    And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
-    Then "correct stack trip details" should be displayed on Bungii request screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    When I click "OK" on alert message
-    And stack trip information should be displayed on deck
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-#
-  @regression1
+
+
+  #@regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1424,3 +1404,25 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+  #@regression
+  Scenario:Verify driver can Long stack request on Arrived status.
+    Given that ondemand bungii is in progress
+      | geofence | Bungii State |
+      | goa      | ARRIVED      |
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid" driver
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
+    And I click on notification for "Driver" for "stack trip"
+    When I click "VIEW" on alert message
+    Then "correct stack trip details" should be displayed on Bungii request screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+    When I click "OK" on alert message
+    And stack trip information should be displayed on deck
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
