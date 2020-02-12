@@ -575,4 +575,10 @@ public class ActionManager {
             return false;
         }
     }
+
+    public static void selectElementByText(WebElement element, String text)
+    {
+        new Select(element).selectByVisibleText(text);
+    }
+
 }

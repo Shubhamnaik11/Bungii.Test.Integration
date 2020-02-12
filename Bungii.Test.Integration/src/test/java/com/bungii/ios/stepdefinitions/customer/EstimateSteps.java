@@ -529,11 +529,43 @@ public class EstimateSteps extends DriverBase {
         String strdate = formatter.format(calendar.getTime());
         return strdate;
     }
+    public String getDateForTimeZoneForGeofence() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime=0;
+        cucumberContextManager.getScenarioContext("MIN_TIME_DUO");
+        cucumberContextManager.getScenarioContext("MIN_TIME_SOLO");
+        String bungiiType= (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        if(bungiiType.equalsIgnoreCase("solo")) {
+             nextTripTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("MIN_TIME_SOLO"));
+        }
+        else{
+             nextTripTime = Integer.parseInt((String) cucumberContextManager.getScenarioContext("MIN_TIME_DUO"));
+        }
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
 
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
     public Date getFormatedTime() {
         Date date1 = Calendar.getInstance().getTime();
         try {
             date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+
+    public Date getFormatedTimeForGeofence() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZoneForGeofence());
             System.out.println("\t" + date1);
         } catch (Exception e) {
         }
@@ -561,6 +593,9 @@ public class EstimateSteps extends DriverBase {
         return getFormatedTime();
     }
 
+    public Date getNextScheduledBungiiTimeForGeofence(){
+        return getFormatedTimeForGeofence();
+    }
     /**
      * Read property file for minimum difference for next bunii time
      *
@@ -819,6 +854,37 @@ public class EstimateSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+
+    @And("^I select pickup time$")
+    public void i_select_pickup_time() throws Throwable {
+        try {
+            action.click(estimatePage.Row_TimeSelect());
+            action.click(estimatePage.Button_Set());
+           // action.click(estimatePage.Text_TimeValue());
+            String time=action.getValueAttribute(estimatePage.Text_TimeValue());
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^correct next available scheduled time should be displayed$")
+    public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
+        try {
+            Date date = getNextScheduledBungiiTimeForGeofence();
+            String strTime = bungiiTimeDisplayInTextArea(date);
+            String displayedTime = getElementValue("TIME");
+            testStepVerify.isEquals(strTime, displayedTime);
+
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 
     /**

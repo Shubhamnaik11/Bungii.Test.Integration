@@ -18,4 +18,26 @@ public class LiveTripsPage extends PageBase{
     public WebElement Text_PromoCode(){return  findElement("//td[text()='Promo Value']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_EstimatedCharge(){return  findElement("//td[text()='Estimated Charge']/following-sibling::td/strong", LocatorType.XPath);}
     public WebElement Text_TripPayment(){return  findElement("//td[text()='Trip Payment']/following-sibling::td/strong", LocatorType.XPath);}
+    public WebElement Link_ManuallyEndBungii () { return findElement("btnEndPickup", LocatorType.Id); }
+
+    public WebElement Textbox_PickupEndDate () { return findElement("pickupEndDate", LocatorType.Id); }
+
+    public WebElement Textbox_PickupEndTime () { return findElement("pickupEndTime", LocatorType.Id); }
+
+    public WebElement Dropdown_ddlpickupEndTime () { return findElement("ddlpickupEndTime", LocatorType.Id); }
+
+    public WebElement Button_CalculateCost () { return findElement("btnCost", LocatorType.Id); }
+
+    public WebElement Button_Cancel () { return findElement("btnCancel", LocatorType.Id); }
+
+    public WebElement Button_Confirm () { return findElement("btnConfirm", LocatorType.Id); }
+    public WebElement Menu_Trips () { return findElement("adminmenu-trips", LocatorType.Id); }
+    public WebElement Dropdown_SearchForPeriod () { return findElement("SearchForPeriod", LocatorType.Name); }
+
+    public WebElement Menu_LiveTrips () { return findElement("adminmenu-livetrips", LocatorType.Id); }
+
+    public WebElement Dropdown_Geofence () { return findElement("drpGeofence", LocatorType.Id); }
+
+    public WebElement Button_ApplyGeofenceFilter () { return findElement("btnApplyGeofence", LocatorType.Id); }
+
 }

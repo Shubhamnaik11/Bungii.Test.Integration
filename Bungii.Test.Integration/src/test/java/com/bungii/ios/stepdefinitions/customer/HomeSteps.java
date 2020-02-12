@@ -139,6 +139,7 @@ public class HomeSteps extends DriverBase {
             selectBungiiLocation("PICK UP", pickup);
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
+            cucumberContextManager.setScenarioContext("BUNGII_TYPE", tripDriverType.toLowerCase());
 
             String bungiiType = saveBungiiHomeDetails(tripDriverType);
             boolean isbungiiTypeCorrect = false;
