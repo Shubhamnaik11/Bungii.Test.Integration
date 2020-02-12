@@ -81,7 +81,7 @@ public class HomePage extends PageBase {
     public WebElement Text_Store() { return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII STORE\"]", LocatorType.XPath); }
     public WebElement Text_ApplicationError(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name=\"An application error has occured.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Text_MyStat() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'My Stats'", PageBase.LocatorType.Predicate); }
-    public WebElement Text_TotalTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Total trips'", PageBase.LocatorType.Predicate); }
+    public WebElement Text_TotalTrip() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Total Trips'", PageBase.LocatorType.Predicate); }
     public WebElement Text_TripMonths() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Trips / Month'", PageBase.LocatorType.Predicate); }
     public WebElement Text_EarningMonth() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Earnings / Month'", PageBase.LocatorType.Predicate); }
     public WebElement Text_Total_Earnings() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Total Earnings'", PageBase.LocatorType.Predicate); }

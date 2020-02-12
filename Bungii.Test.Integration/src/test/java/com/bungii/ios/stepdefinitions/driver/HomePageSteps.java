@@ -381,7 +381,8 @@ public class HomePageSteps extends DriverBase {
                     testStepVerify.isElementEnabled(homepage.Text_My_Rating(),"My Rating should be displayed");
                     break;
                 case "ACCOUNT":
-                    testStepAssert.isElementNameEquals(accountPage.Text_Name(), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
+                    String accountName=action.getNameAttribute(accountPage.Text_Name());
+                    testStepAssert.isEquals(accountName.replace("  "," "), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
                     break;
 
                 case "TRIP ALERT SETTINGS":

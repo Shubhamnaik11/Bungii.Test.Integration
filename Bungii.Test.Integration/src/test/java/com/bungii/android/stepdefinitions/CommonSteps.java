@@ -1048,7 +1048,7 @@ public class CommonSteps extends DriverBase {
             testStepAssert.isFail("Email : "+ emailSubject + " not received");
         }
         String message = null;
-        message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
+        //message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
     }
 

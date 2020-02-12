@@ -703,6 +703,7 @@ public class HomeSteps extends DriverBase {
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         //VISHAL[12042019]: Quick fix for QA auto
+        try {Thread.sleep(3000);}catch (Exception e){}
         if (action.isElementPresent(homePage.Button_ClearPickup(true)))
             action.click(homePage.Button_ClearPickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);

@@ -71,7 +71,8 @@ public class BungiiCompleteSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Rate1Driver(), "Rate Your Driver");
                     String driver = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
                     driver = driver.substring(0, driver.indexOf(" ") + 2);
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_DriversoloName(), driver);
+                    String actualDriverName=bungiiCompletePage.Text_DriversoloName().getText();
+                    testStepVerify.isEquals(actualDriverName.replace("  "," "), driver);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

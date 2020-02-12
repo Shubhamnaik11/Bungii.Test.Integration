@@ -288,7 +288,8 @@ public class ScheduledTripSteps extends DriverBase {
 	//	editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr["+rowNumber+"]/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
-		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
+	//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
+		action.clearEnterText(scheduledTripsPage.TextBox_CancelFee(),cancelCharge);
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
 		action.click(scheduledTripsPage.Button_Submit());
 		scheduledTripsPage.waitForPageLoad();
