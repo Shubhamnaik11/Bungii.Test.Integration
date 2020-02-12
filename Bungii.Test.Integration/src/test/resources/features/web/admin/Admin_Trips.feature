@@ -7,7 +7,6 @@ Feature: Admin_Trips
   @sanity
   @regression
   @failed
-  @noteligible
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -35,7 +34,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -62,7 +60,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @noteligible
+  @failed
     #test data created in base (need to update trip alert settings)
   Scenario: Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -124,7 +122,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Trips List Statuses - Solo Ondemand
@@ -241,7 +238,6 @@ Feature: Admin_Trips
   @sanity
   @regression
   @failed
-  @noteligible
         #test data created in base (need to update driver geofence)
   Scenario: Edit and Remove driver from a Duo Trip started by non controlled driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence
@@ -343,7 +339,6 @@ Feature: Admin_Trips
     Then the driver "Testdrivertywd_appledc_a_web TestdriverY" should not receive On Demand requests as he is assigned NOT to "goa" geofence
 
   @regression
-  @failed
     #test data created in base
   Scenario: Customer List - Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
@@ -356,7 +351,6 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
 
   @regression
-  @failed
       #test data created in base
   Scenario: Customer List - Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
