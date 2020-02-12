@@ -152,3 +152,6 @@ Feature: Menu_SaveMoney
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then I should see the "expired promo code" no more displayed on the estimates page
+    When I add loading/unloading time of "30 mins"
+    And I tap on "Promo Code" on Bungii estimate
+    Then I should not see the expired promo code on the Promos page
