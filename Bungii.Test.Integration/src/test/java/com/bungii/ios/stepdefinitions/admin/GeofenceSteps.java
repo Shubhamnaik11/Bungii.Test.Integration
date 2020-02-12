@@ -145,7 +145,13 @@ public class GeofenceSteps extends DriverBase {
 
     @When("^I edit the geofence \"([^\"]*)\"$")
     public void i_edit_the_geofence(String geofenceName) throws Throwable {
+        try{
         action.click(geofencePage.Button_Edit());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
 }

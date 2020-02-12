@@ -2,9 +2,10 @@ package com.bungii.ios.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.DriversPage;
+import com.bungii.android.pages.admin.LiveTripsPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.ios.pages.admin.LiveTripsPage;
+import com.bungii.ios.pages.admin.*;
 import com.bungii.web.manager.ActionManager;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -30,14 +31,22 @@ public class LiveTripsSteps extends DriverBase {
     LiveTripsPage liveTripsPage = new LiveTripsPage();
     ActionManager action = new ActionManager();
     DriversPage driversPage = new DriversPage();
+
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
-        String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
-        action.click(liveTripsPage.Button_Search());
-        Thread.sleep(5000);
-        action.click(liveTripsPage.Button_StartDateSort());
-        action.click(liveTripsPage.Button_RowOne());
+        try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(liveTripsPage.Button_StartDateSort());
+            action.click(liveTripsPage.Button_RowOne());
+        }
+         catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+            }
     }
 
     @Then("^I select trip from trips$")
@@ -210,39 +219,49 @@ public class LiveTripsSteps extends DriverBase {
 
     @When("^I click on \"([^\"]*)\" link$")
     public void i_click_on_something_link(String link) throws Throwable {
+        try{
         switch(link) {
             case "Manually End Bungii":
                 action.click(liveTripsPage.Link_ManuallyEndBungii());
                 break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
     @And("^Enter the End Date and Time$")
     public void enter_the_end_date_time() throws Throwable {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        try{
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+            String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
+            String[] splitedDate = RequestTime.split(" ");
+            LocalDateTime now = LocalDateTime.now();
+            String[] splitedTime = splitedDate[2].split(":");
+            DecimalFormat formatter = new DecimalFormat("00");
+            int minutes = Integer.parseInt(splitedTime[1])+20;
+            int hours = Integer.parseInt(splitedTime[0]);
+            if (minutes > 60) {
+                hours = hours + 1;
+                minutes = minutes -20;
+            }
 
-
-        String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
-        String[] splitedDate = RequestTime.split(" ");
-        LocalDateTime now = LocalDateTime.now();
-        String[] splitedTime = splitedDate[2].split(":");
-        DecimalFormat formatter = new DecimalFormat("00");
-        int minutes = Integer.parseInt(splitedTime[1])+20;
-        int hours = Integer.parseInt(splitedTime[0]);
-        if (minutes > 60) {
-            hours = hours + 1;
-            minutes = minutes -20;
+            // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),dtf.format(now));
+            action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
+            action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
-
-        // ZonedDateTime zonedNZ = ZonedDateTime.of(now,ZoneId.of("5:00"));
-        action.clearSendKeys(liveTripsPage.Textbox_PickupEndDate(),dtf.format(now));
-        action.clearSendKeys(liveTripsPage.Textbox_PickupEndTime(),formatter.format(hours)+":"+formatter.format(minutes));
-        action.selectElementByText(liveTripsPage.Dropdown_ddlpickupEndTime(),splitedDate[3]);
     }
 
     @And("^Click on \"([^\"]*)\" button$")
     public void click_on_something_button(String button) throws Throwable {
-
+        try{
         switch (button)
         {
             case "Calculate Cost":
@@ -255,43 +274,54 @@ public class LiveTripsSteps extends DriverBase {
                 action.click(liveTripsPage.Button_Cancel());
                 break;
         }
-
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I view the Trips list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
+        try{
         action.click(liveTripsPage.Menu_Trips());
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
         log("I view the Trips list on the admin portal",
                 "I viewed the Trips list on the admin portal", true);
-
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should be able to see the respective bungii with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_with_the_below_status(DataTable data) throws Throwable {
-        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
-        String status = dataMap.get("Status").trim();
-        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-        String tripType[] = tripTypeAndCategory.split(" ");
-        String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-        String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
-        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
-        String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        try{
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String status = dataMap.get("Status").trim();
+            String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            String tripType[] = tripTypeAndCategory.split(" ");
+            String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String geofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 
-        String geofenceName = getGeofence(geofence);
-        action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
-        action.click(liveTripsPage.Button_ApplyGeofenceFilter());
+            String geofenceName = getGeofence(geofence);
+            action.selectElementByText(liveTripsPage.Dropdown_Geofence(),geofenceName);
+            action.click(liveTripsPage.Button_ApplyGeofenceFilter());
 
-        cucumberContextManager.setScenarioContext("STATUS",status);
-        String driver = driver1;
-        if (tripType[0].equalsIgnoreCase("duo"))
-            driver = driver1 + "," + driver2;
-        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
-            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+            cucumberContextManager.setScenarioContext("STATUS",status);
+            String driver = driver1;
+            if (tripType[0].equalsIgnoreCase("duo"))
+                driver = driver1 + "," + driver2;
+            if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
+                String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+
             int retrycount =10;
-
             boolean retry = true;
+
             while (retry == true && retrycount >0) {
                 try {
                     WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
@@ -344,20 +374,29 @@ public class LiveTripsSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("XPATH",XPath);
             testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         }
-
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
 
     }
     @When("^I view the trip details$")
     public void i_view_the_trip_details() throws Throwable {
-
+    try{
         String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
-
+    } catch (Throwable e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                true);
+    }
     }
 
     public String getGeofence(String geofence)
     {
         String geofenceName = "";
+        try{
         switch(geofence) {
             case "washingtondc":
                 geofenceName = "Washington DC";
@@ -367,6 +406,11 @@ public class LiveTripsSteps extends DriverBase {
                 geofenceName = "Miami";
                 break;
 
+        }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
         return geofenceName;
     }

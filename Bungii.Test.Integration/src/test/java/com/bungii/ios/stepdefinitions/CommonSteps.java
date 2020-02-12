@@ -1078,7 +1078,9 @@ public class CommonSteps extends DriverBase {
     //Except first time all code is fetch on fly, first time is read from file
     @SuppressWarnings("unchecked")
     public List<String> getRefferalCode(String codeType) {
+
         List<String> code = new ArrayList<String>();
+        try{
         switch (codeType.toLowerCase()) {
             case "referral":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("REFERRAL");
@@ -1115,6 +1117,11 @@ public class CommonSteps extends DriverBase {
             default:
                 code.add(codeType);
                 break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
         return code;
     }
@@ -1450,15 +1457,22 @@ public class CommonSteps extends DriverBase {
     }
     @And("^I get TELET time of currrent trip of customer 2$")
     public void i_get_telet_time_of_of_the_currewnt_trip() throws Throwable {
+        try{
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String teletTime = dbUtility.getTELETfromDb(custRef);
 
         cucumberContextManager.setScenarioContext("TELET", teletTime);
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
     @Then("^Telet time of current trip should be correctly calculated$")
     public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
+        try{
         GeneralUtility utility= new GeneralUtility();
         String teletTimeLocal =utility.calculateTeletTime();
         String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
@@ -1478,17 +1492,26 @@ public class CommonSteps extends DriverBase {
         String strdateDB = formatter.format(Db);
         String strdatelocal = teletTimeLocal;
         testStepVerify.isEquals(strdateDB,strdatelocal);
-
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
     @Then("^Telet time of research trip should be not be same as previous trips$")
     public void telet_time_of_current_trip_should_be_correctly_calculatedtrip() throws Throwable {
-
+        try{
         String previousTelet = (String) cucumberContextManager.getScenarioContext("TELET");
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
         testStepVerify.isEquals(previousTelet,newTeletTime);
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
@@ -1524,7 +1547,7 @@ public class CommonSteps extends DriverBase {
 
     @Then("^I manually end bungii created by \"([^\"]*)\" with stage as \"([^\"]*)\"$")
     public void i_manually_end_bungii_created_by_something_with_stage_as_something(String customer, String bungiiStage) throws Throwable {
-
+        try{
         String status =bungiiStage;
         String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         String tripType[] = tripTypeAndCategory.split(" ");
@@ -1564,6 +1587,10 @@ public class CommonSteps extends DriverBase {
         //Select the trip
         String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
         action.click((WebElement) SetupManager.getDriver().findElement(By.xpath(xpath)));
-
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
     }
 }
