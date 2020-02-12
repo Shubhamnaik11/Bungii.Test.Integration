@@ -6,12 +6,14 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.util.Random;
+import java.util.function.Predicate;
 
 import static com.bungii.common.manager.ResultManager.error;
 
@@ -68,17 +70,53 @@ public class ActionManager {
                 true);
     }
     }
+    public boolean waitForJStoLoad() {
 
+        WebDriverWait wait = new WebDriverWait(DriverManager.getObject().getDriver(), 30);
+
+        // wait for jQuery to load
+        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                try {
+                    return ((Long)((JavascriptExecutor)driver).executeScript("return jQuery.active") == 0);
+                }
+                catch (Exception e) {
+                    return true;
+                }
+            }
+        };
+
+        // wait for Javascript to load
+        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver driver) {
+                return ((JavascriptExecutor)driver).executeScript("return document.readyState")
+                        .toString().equals("complete");
+            }
+        };
+
+        return wait.until(jQueryLoad) && wait.until(jsLoad);
+    }
     public String getText(WebElement element) {
         try {
          Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
          Thread.sleep(3000);
-         new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
+       //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
+            waitForJStoLoad();
+        // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
         logger.detail("text Value is  " + text + " for element" + element.toString());
 
         return text;
-        }  catch(Exception ex)
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String text = element.getText();
+            logger.detail("text Value is  " + text + " for element" + element.toString());
+            return text;
+        }
+        catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
             error("Step should be successful", "Error performing step, Please check logs for more details",

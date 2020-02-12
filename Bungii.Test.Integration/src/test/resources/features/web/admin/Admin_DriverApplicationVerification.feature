@@ -7,6 +7,7 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
+  @email
     #test data created in base
   Scenario: DriverApplication_Approval_NonFountainFlow
     When I click "Verify" button against the "John MwrB" applicant
@@ -31,7 +32,7 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
     #test data created in base
-
+  @email
   Scenario: DriverApplication_Rejection_NonFountainFlow
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"

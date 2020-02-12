@@ -133,10 +133,12 @@ Feature: On Demand Bungii
     And I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
+    And Customer should receive "bungii" receipt email
 
   @sanity
-  @regression
+  @regression11
   Scenario: Validate That I am able to create on demand bungii.
+    And Customer should receive "bungii" receipt email
 
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
@@ -759,8 +761,10 @@ Feature: On Demand Bungii
     And I am logged in as "valid baltimore" driver
     And I slide update button on "UNLOADING ITEM" Screen
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
+    When I select "2" Ratting star for duo "Driver 1"
     When I give tip to Bungii Driver with following tip and Press "OK" Button
       | Tip |
       | 5   |
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
+    Then poor driver ratting should be sent to customer

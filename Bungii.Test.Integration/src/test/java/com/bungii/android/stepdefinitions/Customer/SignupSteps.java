@@ -68,7 +68,9 @@ public class SignupSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
-                    action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
+                    String emailAddress="bungiiauto+"+RandomGeneratorUtility.getData("{RANDOM_STRING}",4)+"@gmail.com";
+                    cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",emailAddress);
+                    action.sendKeys(emailAddress);
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
                     action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));

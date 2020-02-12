@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -27,18 +28,27 @@ import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.*;
 
 import javax.imageio.ImageIO;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -49,6 +59,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class GeneralUtility extends DriverBase {
     private static LogUtility logger = new LogUtility(GeneralUtility.class);
@@ -68,6 +79,7 @@ public class GeneralUtility extends DriverBase {
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
+    EmailUtility emailUtility= new EmailUtility();
     int[][] rgb = {
             {238, 29, 55},
             {255, 169, 66},
@@ -1206,4 +1218,194 @@ public class GeneralUtility extends DriverBase {
         cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
 
     }
+    public String GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
+        String strEmailContent="";
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 2);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = expectedFromAddress;
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("*****************************************************************************");
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                //  System.out.println("Message with Multipart: " + getText(msg));
+
+                //  readLineByLineJava8("D:\\Bungii-QA-Automation\\Bungii.Test.Integration\\src\\main\\resources\\EmailTemplate\\BungiiReceipt.txt", getText(msg));
+                //System.out.println("Size: "+msg.getSize());
+                //System.out.println(msg.getFlags());
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.equals(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
+                    String EmailContent = msg.getContent().toString();
+                    // System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
+                    //Invoke jSoupHTMLToString object
+                    Document emailContent = Jsoup.parse(EmailContent);
+                    strEmailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+
+                    break;
+                }
+
+
+            }
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strEmailContent;
+
+    }
+    public String getCustomerSignupTemplate(String customerName)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%CustomerName%",customerName)
+                    ;
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+    public String GetSpecificPlainTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
+
+        try {
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
+            System.out.println("No of Total recent Messages : " + recentMessages.length);
+            String fromAddress = expectedFromAddress;
+            boolean emailFound = false;
+            String emailContent = "";
+            for (int i = recentMessages.length; i > 0; i--) {
+
+                System.out.println("MESSAGE " + (i) + ":");
+                Message msg = recentMessages[i - 1];
+                System.out.println(msg.getMessageNumber());
+                String subject = msg.getSubject();//important value
+
+                System.out.println("Subject: " + subject);
+                System.out.println("From: " + msg.getFrom()[0]);
+                System.out.println("To: " + msg.getAllRecipients()[0]);//important value
+                System.out.println("Date: " + msg.getReceivedDate());
+                System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
+                {
+                    // String EmailContent = msg.getContent().toString();
+                    emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                    return emailContent;
+                }
+            }
+            return null;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return null;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
+    }
+    public boolean validateCustomerSignupEmail(String filePath,String emailValue,String customerName) throws IOException {
+        boolean isEmailCorrect=false;
+        StringBuilder contentBuilder = new StringBuilder();
+        try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
+        {
+            stream.forEach(s -> contentBuilder.append(s).append("\r\n"));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        String fileValue=contentBuilder.toString();
+        Path p1 = Paths.get(filePath);
+
+        List<String> listF1 = Files.readAllLines(p1);
+        List<String> listF2 = Arrays.asList(emailValue.split("\r\n"));
+
+        for (int i = 0; i < listF1.size(); i++) {
+            if (listF1.get(i).contains("%CustomerName%")) {
+                listF1.set(i, listF1.get(i).replace("%CustomerName%",customerName));
+                break;
+            }
+        }
+        if(listF1.size()==listF2.size()){
+            if ((listF1.equals(listF2)))
+            {
+                System.out.println("Both list are matching");
+                isEmailCorrect=true;
+            }else{
+                isEmailCorrect=false;
+
+                //both list are not matching ,iterate over all line to check value
+                for(int i=0;i<listF1.size();i++){
+
+                    if(listF1.get(i).equals(listF2.get(i))){
+
+                    }else{
+                        logger.detail("EMAIL MISMACTH |||"+i+"|||"+listF1.get(i)+"|||"+listF2.get(i));
+                        System.out.println(listF1.get(i));
+                        System.out.println(listF2.get(i));
+
+                    }
+                }
+            }
+        }
+
+        return isEmailCorrect;
+    }
+
+
+    public String getExpectedPoorRatingMail(String driverName,String customerName,String ratingValue,String tripDetails)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PoorRatingEmail.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%", driverName)
+                            .replaceAll("%CustomerName%",customerName)
+                            .replaceAll("%RatingValue%",ratingValue)
+                            .replaceAll("%TripDetailsUrl%",tripDetails);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
+
 }

@@ -3,7 +3,6 @@ Feature: CustomerSignup
   Sign up as a Customer on Bungii app
 
   Background:
-
     Given I am on Sign up page
 
   @regression
@@ -37,9 +36,10 @@ Feature: CustomerSignup
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
-  
+  @email
   @regression
   Scenario: Signup_SuccessValidPromoCode
+
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "ValidPercent" promo code on Signup Page
@@ -52,6 +52,7 @@ Feature: CustomerSignup
     Then "ValidPercent" promo code should be displayed
     When I click on "i" icon
     Then The "Info Message" is displayed
+    And Customer should receive signup email
 
   @regression
   Scenario: Signup_InvalidReferralCode-Yes

@@ -11,10 +11,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static io.restassured.RestAssured.given;
@@ -37,7 +34,7 @@ public class ApiHelper {
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
-                .header("DeviceID", PropertyUtility.getDataProperties("DEVICE_ID"))
+                .header("DeviceID", UUID.randomUUID())//PropertyUtility.getDataProperties("DEVICE_ID"))
                 .auth().preemptive().basic(PropertyUtility.getDataProperties("auth.username"), PropertyUtility.getDataProperties("auth.password"));
     }
 
@@ -53,7 +50,7 @@ public class ApiHelper {
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
-                .header("DeviceID", PropertyUtility.getDataProperties("DEVICE_ID"))
+                .header("DeviceID",  UUID.randomUUID()) //PropertyUtility.getDataProperties("DEVICE_ID"))
                 .auth().preemptive().basic(PropertyUtility.getDataProperties("auth.username"), PropertyUtility.getDataProperties("auth.password"));
     }
 

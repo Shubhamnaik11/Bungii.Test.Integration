@@ -18,7 +18,7 @@ Feature: Create on demand bungii
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location                      | geofence  |
       | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
-    And I click "Get Estimate" button on "Home" screen
+    And I click "Get Estimatre" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -475,7 +475,7 @@ Feature: Create on demand bungii
 
     When I switch to "ADMIN" instance
     Then I wait for trip status to be "Trip Started"
-    Then manually end bungii should be "disabled"
+    Then Rmanually end bungii should be "disabled"
 
     When I switch to "ORIGINAL" instance
     And I slide update button on "EN ROUTE" Screen
@@ -679,6 +679,7 @@ Feature: Create on demand bungii
     Then "3" starts should be highlighted for solo Driver 1
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then poor driver ratting should be sent to customer
 
 
   @regression

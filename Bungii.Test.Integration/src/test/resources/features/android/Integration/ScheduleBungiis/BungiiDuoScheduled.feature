@@ -1095,7 +1095,7 @@ Feature: Duo
       |                | CUSTOMER2_PHONE |
 
   @duo1
-
+  @sanity
     #move to top
     #need to do in atlanta
   @regression
@@ -1301,6 +1301,16 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
+
+    @regression
+    Scenario: Check the Minimum scheduled time for Duo trip
+      Given I am on customer Log in page
+      When I am logged in as "New" customer
+      And I enter "San Francisco pickup and dropoff locations" on Bungii estimate
+      And I tap on "two drivers selector" on Bungii estimate
+      Then I should see "two drivers selected" on Bungii estimate
+      When I tap on "Get Estimate button" on Bungii estimate
+      Then I should see the minimum scheduled time displayed on the Estimate page
 
   @regression
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background

@@ -112,6 +112,7 @@ public class BungiiCompleteSteps extends DriverBase {
             switch (strArg1) {
                 case "3":
                     action.click(bungiiCompletePage.Button_Solo3Star());
+                    cucumberContextManager.setScenarioContext("RATING_VALUE","3");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

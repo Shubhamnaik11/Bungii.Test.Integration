@@ -38,10 +38,8 @@ public class AssertManager {
      * @param errorMessage If check if failed , this message will be displayed  in report
      */
     public void isFail(String errorMessage) {
-
-            Assert.assertFalse(true, errorMessage);
             ResultManager.fail("",errorMessage, true);
-
+            Assert.assertFalse(true, errorMessage);
     }
     /**
      * Check is boolean value is true
@@ -74,6 +72,7 @@ public class AssertManager {
                 ResultManager.pass(expectedText, sucessMessage, true);
 
         } catch (AssertionError e) {
+            logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }

@@ -53,9 +53,7 @@ public class Admin_PartnerFirmSteps extends DriverBase {
         else
             customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
         String customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"),"Business User");
-
-
-        message = utility.getExpectedFailedTripEmailContent(pickupId, pickupRef, pickupStatus, customerName,customerPhone, pickupLocation, pickupAddress);
+        message = utility.getExpectedFailedTripEmailContent(pickupId, pickupRef, pickupStatus, customerName, customerPhone, pickupLocation, pickupAddress);
 
 
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");

@@ -33,6 +33,7 @@ public class EmailUtility extends DriverBase {
         properties.setProperty("mail.store.protocol", PropertyUtility.getEmailProperties("email.store.protocol"));
         MailSSLSocketFactory socketFactory= new MailSSLSocketFactory();
         socketFactory.setTrustAllHosts(true);
+        properties.put("mail.imap.ssl.trust", "*");
         properties.put("mail.imaps.ssl.socketFactory", socketFactory);
 
         Session session = Session.getDefaultInstance(properties, null);//creating session
@@ -203,6 +204,12 @@ public class EmailUtility extends DriverBase {
         List<String> listF1 = Files.readAllLines(p1);
         List<String> listF2 = Arrays.asList(emailValue.split("\r\n"));
 
+        for (int i = 0; i < listF1.size(); i++) {
+            if (listF1.get(i).equals("old line")) {
+                listF1.set(i, "new line");
+                break;
+            }
+        }
         if(listF1.size()==listF2.size()){
             if ((listF1.equals(listF2)))
             {
@@ -216,7 +223,6 @@ public class EmailUtility extends DriverBase {
                   //      System.out.println("Subject: match found");
 
                     }else{
-                        System.out.println("Both list are matching");
 
                         System.out.println(listF1.get(i));
                         System.out.println(listF2.get(i));
@@ -239,10 +245,10 @@ public class EmailUtility extends DriverBase {
                     System.in));
             // retrieve the messages from the folder in an array and print it
             Message[] messages = emailFolder.getMessages();
-            System.out.println("messages.length = " + messages.length);
+            System.out.println("Number of unread messages = " + messages.length);
             for (int i = 0; i < messages.length; i++) {
                 Message message = messages[i];
-                System.out.println("Email Number " + (i + 1));
+              //  System.out.println("Email Number " + (i + 1));
                 String subject = message.getSubject();
                     message.setFlag(Flags.Flag.DELETED, true);
                     System.out.println("DELETED message with Subject: " + subject);
@@ -279,7 +285,7 @@ public class EmailUtility extends DriverBase {
             System.out.println("messages.length = " + messages.length);
             for (int i = 0; i < messages.length; i++) {
                 Message message = messages[i];
-                System.out.println("Email Number " + (i + 1));
+               // System.out.println("Email Number " + (i + 1));
                 String emailSubject = message.getSubject();
                 if(emailSubject.equalsIgnoreCase(subject)) {
                     message.setFlag(Flags.Flag.DELETED, true);

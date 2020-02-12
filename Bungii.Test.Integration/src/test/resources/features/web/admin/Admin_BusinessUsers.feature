@@ -27,7 +27,6 @@ Feature: Admin_BusinessUsers
     And I click on the "Save" Button on "Business Users" popup
     Then the business user gets updated successfully and it is displayed in the Business users grid
 
-  @sanity
   @regression
   Scenario: Admin_AddDuplicateBusinessUserPhoneNumber
     #Unique phone number

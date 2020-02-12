@@ -4,7 +4,7 @@ Feature: CustomerApplicationLinks
 
   Background:
     Given I newly installed "Bungii Customer" app
-
+  @sanity
   @regression
     #Following scenario also covered:
     #Tutorials should only be displayed on the app on first installation.

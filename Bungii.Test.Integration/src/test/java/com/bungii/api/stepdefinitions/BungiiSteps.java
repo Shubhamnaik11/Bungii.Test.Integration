@@ -109,23 +109,23 @@ public String getDriverPhone(String driverName)
         case "Testdrivertywd_appleks_ra_five Test":
             phone=PropertyUtility.getDataProperties("valid.driver.kansas.phone");
             break;
-        case "Testdrivertywd_appledc_a_jack Smith":
-            phone = PropertyUtility.getDataProperties("web.valid.driver7.phone");
-            break;
         case "Testdrivertywd_appledc_a_john Smith":
-            phone = PropertyUtility.getDataProperties("web.valid.driver8.phone");
+            phone = PropertyUtility.getDataProperties("web.valid.driver101.phone");
+            break;
+        case "Testdrivertywd_appledc_a_jack Smith":
+            phone = PropertyUtility.getDataProperties("web.valid.driver102.phone");
             break;
         case "Macy Chang":
-            phone = PropertyUtility.getDataProperties("web.valid.driver9.phone");
+            phone = PropertyUtility.getDataProperties("web.valid.driver103.phone");
+            break;
+        case "Ethan Edison":
+            phone = PropertyUtility.getDataProperties("web.valid.driver104.phone");
             break;
         case "Testdrivertywd_appledc_a_web TestdriverY":
-            phone = PropertyUtility.getDataProperties("web.valid.driver11.phone");
+            phone = PropertyUtility.getDataProperties("web.valid.driver105.phone");
             break;
         case "Melvin Johnson":
-            phone = PropertyUtility.getDataProperties("web.valid.driver12.phone");
-              break;
-        case "Ethan Edison":
-            phone = PropertyUtility.getDataProperties("web.valid.driver10.phone");
+            phone = PropertyUtility.getDataProperties("web.valid.driver106.phone");
             break;
 
 

@@ -20,51 +20,51 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         switch(p0)
         {
             case "accept":
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPic(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverFirstName(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLastName(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverCity(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverState(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverZip(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverBirthday(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"","","");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPic(),"I accept Driver Pic","I accepted Driver Pic","Error in accepting Driver pic");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverFirstName(),"I accept Driver Firstname","I accepted Driver Firstname","Error in accepting Driver Firstname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLastName(),"I accept Driver Lastname","I accepted Driver Lastname","Error in accepting Driver Lastname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress(),"I accept Driver street address","I accepted Driver street address","Error in accepting Driver street address");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverCity(),"I accept Driver city","I accepted Driver city","Error in accepting Driver city");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverState(),"I accept Driver State","I accepted Driver State","Error in accepting Driver State");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverZip(),"I accept Driver ZIP","I accepted Driver ZIP","Error in accepting Driver ZIP");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverSSN(),"I accept Driver SSN","I accepted Driver SSN","Error in accepting Driver SSN");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverBirthday(),"I accept Driver birthday","I accepted Driver birthday","Error in accepting Driver birthday");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages(),"I accept Driver pickup images","I accepted Driver pickup images","Error in accepting Driver pickup images");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake(),"I accept Driver pickup make","I accepted Driver pickup make","Error in accepting Driver pickup make");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel(),"I accept Driver pickup model","I accepted Driver pickup model","Error in accepting Driver pickup model");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear(),"I accept Driver pickup year","I accepted Driver pickup year","Error in accepting Driver pickup year");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense(),"I accept Driver pickup licence","I accepted Driver pickup licence","Error in accepting Driver pickup licence");;
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage(),"I accept Driver licence image","I accepted Driver licence image","Error in accepting Driver licence image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber(),"I accept Driver licence number","I accepted Driver licence number","Error in accepting Driver licence number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration(),"I accept Driver licence expiration","I accepted Driver licence expiration","Error in accepting Driver licence expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage(),"I accept Driver insuration image","I accepted Driver insuration image","Error in accepting Driver insuration image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration(),"I accept Driver insuration expiration","I accepted Driver insuration expiration","Error in accepting Driver insuration expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber(),"I accept Driver routing number","I accepted Driver routing number","Error in accepting Driver routing number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber(),"I accept Driver account number","I accepted Driver account number","Error in accepting Driver account number");
                 break;
 
             case "reject":
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPicture(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_FirstName(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LastName(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_StreetAddress(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_City(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_State(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_ZipCode(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_Birthday(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupMake(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupModel(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupYear(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupLicenseNumber(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseImage(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseNumber(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseExpiration(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceImage(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceExpiration(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"","","");
-                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"","","");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPicture(),"I reject Driver Pic","I rejected Driver Pic","Error in rejecting Driver pic");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_FirstName(),"I reject Driver Firstname","I rejected Driver Firstname","Error in rejecting Driver Firstname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LastName(),"I reject Driver Lastname","I rejected Driver Lastname","Error in rejecting Driver Lastname");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_StreetAddress(),"I reject Driver street address","I rejected Driver street address","Error in rejecting Driver street address");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_City(),"I reject Driver city","I rejected Driver city","Error in rejecting Driver city");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_State(),"I reject Driver State","I rejected Driver State","Error in rejecting Driver State");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_ZipCode(),"I reject Driver ZIP","I rejected Driver ZIP","Error in rejecting Driver ZIP");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_SSN(),"I reject Driver SSN","I rejected Driver SSN","Error in rejecting Driver SSN");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_Birthday(),"I reject Driver birthday","I rejected Driver birthday","Error in rejecting Driver birthday");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages(),"I reject Driver pickup images","I rejected Driver pickup images","Error in rejecting Driver pickup images");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupMake(),"I reject Driver pickup make","I rejected Driver pickup make","Error in rejecting Driver pickup make");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupModel(),"I reject Driver pickup model","I rejected Driver pickup model","Error in rejecting Driver pickup model");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupYear(),"I reject Driver pickup year","I rejected Driver pickup year","Error in rejecting Driver pickup year");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_PickupLicenseNumber(),"I reject Driver pickup licence","I rejected Driver pickup licence","Error in rejecting Driver pickup licence");;
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseImage(),"I reject Driver licence image","I rejected Driver licence image","Error in rejecting Driver licence image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseNumber(),"I reject Driver licence number","I rejected Driver licence number","Error in rejecting Driver licence number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_LicenseExpiration(),"I reject Driver licence expiration","I rejected Driver licence expiration","Error in rejecting Driver licence expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceImage(),"I reject Driver insuration image","I rejected Driver insuration image","Error in rejecting Driver insuration image");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_InsuranceExpiration(),"I reject Driver insuration expiration","I rejected Driver insuration expiration","Error in rejecting Driver insuration expiration");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_RoutingNumber(),"I reject Driver routing number","I rejected Driver routing number","Error in rejecting Driver routing number");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Verify_Reject_AccountNumber(),"I reject Driver account number","I rejected Driver account number","Error in rejecting Driver account number");
                 break;
         }    }
 
@@ -90,7 +90,7 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         switch(strArg1)
         {
             case "accepted":
-                testStepAssert.isElementDisplayed( admin_DriverVerificationPage.Status_Accepted(),"","","");
+                testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"Status accepted should be displayed","Status accepted is displayed","Status accepted is not displayed");
                 break;
 
             case "rejected":
@@ -116,28 +116,27 @@ public class Admin_DriverVerificationSteps extends DriverBase {
 
     @And("^I verify that the status has been reset$")
     public void i_verify_that_the_status_has_been_reset() throws Throwable {
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"","","");
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"Status accepted should not be displayed","Status accepted is not displayed","Status accepted is displayed");
     }
 
     @And("^I check if the Save and cancel buttons are seen by default$")
     public void i_check_if_the_save_and_cancel_buttons_are_seen_by_default() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Button_Save(),"","","");
-        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Button_Cancel(),"","","");
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Button_Save(),"Save should be displayed","Save is displayed","Save is not displayed");
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Button_Cancel(),"Cancel should be displayed","Cancel is displayed","Cancel is not displayed");
 
     }
 
     @And("^I check if a Cancel confirmation message is shown$")
     public void i_check_if_a_cancel_confirmation_message_is_shown() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Popup_ConfirmCancelDriverVerificationApplication(),"","","");
+        testStepAssert.isElementDisplayed(admin_DriverVerificationPage.Popup_ConfirmCancelDriverVerificationApplication(),"Confirm Cancel should be displayed","Confirm Cancel is displayed","Confirm Cancel is not displayed");
     }
     @And("^I check if a Cancel confirmation message is not shown$")
     public void i_check_if_a_cancel_confirmation_message_is_not_shown() throws Throwable {
-        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Popup_ConfirmCancelDriverVerificationApplication(),"","","");
+        testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Popup_ConfirmCancelDriverVerificationApplication(),"Confirm Cancel should not be displayed","Confirm Cancel is not displayed","Confirm Cancel is displayed");
     }
-
     @And("^I check if admin gets directed to dashboard$")
     public void i_check_if_admin_gets_directed_to_dashboard() throws Throwable {
-        testStepAssert.isElementDisplayed(admin_MenuLinksPage.Menu_Dashboard(),"","","");
+        testStepAssert.isElementDisplayed(admin_MenuLinksPage.Menu_Dashboard(),"Menu dashboard should be displayed","Menu dashboard is not displayed","Menu dashboard is displayed");
     }
 
     @Then("^The accepted tick is removed for \"([^\"]*)\" field previously accepted by admin$")

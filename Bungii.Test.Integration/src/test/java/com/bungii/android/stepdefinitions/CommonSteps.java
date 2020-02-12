@@ -12,6 +12,7 @@ import com.bungii.android.pages.driver.InProgressBungiiPages;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -25,14 +26,22 @@ import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import java.io.File;
+import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -41,6 +50,7 @@ public class CommonSteps extends DriverBase {
     private static String ANDROID_PHOTO_PATH = "/sdcard/Pictures";
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    EmailUtility emailUtility = new EmailUtility();
     EstimatePage estimatePage = new EstimatePage();
     HomePage homePage = new HomePage();
     DriverHomePage driverHomePage = new DriverHomePage();
@@ -1013,5 +1023,88 @@ public class CommonSteps extends DriverBase {
                 break;
         }
         testStepAssert.isTrue(url.contains(survey_link),"Survey Email link should be "+survey_link,"Survey email link is "+ survey_link,"Survey email link is "+ url);
+    }
+    @And("^Customer should receive \"([^\"]*)\" receipt email$")
+    public void customer_should_receive_something_receipt_email(String strArg1) throws Throwable {
+        GeneralUtility utility = new GeneralUtility();
+        String emailSubject="Your Bungii Receipt";
+        //  String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"), "POOR DRIVER RATING");
+
+        String emailBody  =  utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
+        String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
+        String bungiiDate="";
+        String pickupAddress=(String)cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")+cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2");
+        String dropAddress=(String)cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1")+cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2");
+        String bungiiDuration=utility.getActualTime();
+        String bungiiCost=(String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER");
+
+        String estimatedTime=(String)cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME");
+        String actualLoadUnloadTime="";
+        String estimatedLoadUnloadTime=(String)cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");/*ratingValue="3";*/
+        String tripDetailsLink=extractUrls(emailBody).get(0);
+        if(emailBody== null)
+        {
+            testStepAssert.isFail("Email : "+ emailSubject + " not received");
+        }
+        String message = null;
+        message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+    }
+
+    @Then("^Customer should receive signup email$")
+    public void partner_firm_should_receive_something_email() throws Throwable {
+        String emailSubject="New to Bungii? Good.";
+/*        cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS","bungiiauto+obKm@gmail.com");
+        cucumberContextManager.setScenarioContext("FIRST_NAME","TestCustomertywdappleMzr");*/
+
+        String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+     //   String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+        utility.getCustomerSignupTemplate((String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        else{
+
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("FIRST_NAME"));
+            testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
+        }
+    }
+    @Then("^poor driver ratting should be sent to customer$")
+    public void poor_driver_ratting_should_be_sent_to_customer() throws Throwable {
+        GeneralUtility utility = new GeneralUtility();
+        String emailSubject="POOR DRIVER RATING";
+        //  String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"), "POOR DRIVER RATING");
+
+        String emailBody  =  utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
+        String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
+        String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
+        String tripDetailsLink=extractUrls(emailBody).get(0);
+        if(emailBody== null)
+        {
+            testStepAssert.isFail("Email : "+ emailSubject + " not received");
+        }
+        String message = null;
+        message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+    }
+    /**
+     * Returns a list with all links contained in the input
+     */
+    public static List<String> extractUrls(String text)
+    {
+        List<String> containedUrls = new ArrayList<String>();
+        String urlRegex = "((https):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+        Pattern pattern = Pattern.compile(urlRegex, Pattern.CASE_INSENSITIVE);
+        Matcher urlMatcher = pattern.matcher(text);
+
+        while (urlMatcher.find())
+        {
+            containedUrls.add(text.substring(urlMatcher.start(0),
+                    urlMatcher.end(0)));
+        }
+
+        return containedUrls;
     }
 }

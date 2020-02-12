@@ -91,7 +91,7 @@ public class Admin_TripsSteps extends DriverBase {
 
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[2]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
         String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[3]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
-
+        Thread.sleep(3000);
         String tripRequestedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         String tripEstimatedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath2)));
         String oldtripRequestedCount = (String)cucumberContextManager.getScenarioContext("TRIP_REQUESTEDCOUNT");
@@ -252,13 +252,13 @@ public class Admin_TripsSteps extends DriverBase {
                     }
 
                 }
+                Thread.sleep(3000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
-                    Thread.sleep(12000); //Wait for 15 seconds
+                    action.refreshPage();
+                    Thread.sleep(15000); //Wait for 15 seconds
                     retryCount++;
-                   action.refreshPage();
-                    Thread.sleep(3000);
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
@@ -281,13 +281,13 @@ public class Admin_TripsSteps extends DriverBase {
                     }
 
                 }
+                Thread.sleep(3000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(XPath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
-                    Thread.sleep(12000); //Wait for 15 seconds
-                    retryCount++;
                     action.refreshPage();
-                    Thread.sleep(3000);
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
                 }
                 cucumberContextManager.setScenarioContext("XPATH", XPath);
                 testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
@@ -477,6 +477,8 @@ public class Admin_TripsSteps extends DriverBase {
         if (emailBody == null) {
              testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
+        emailBody=emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ","");
+        logger.detail("Email Body (Actual): "+ emailBody);
         String supportNumber = PropertyUtility.getDataProperties("support.phone.number");
         String firmName = PropertyUtility.getDataProperties("washington.Partner.Firm.Name");
         String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
@@ -537,8 +539,9 @@ public class Admin_TripsSteps extends DriverBase {
                 message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 break;
         }
-
-          testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+        message= message.replaceAll(" ","");
+        logger.detail("Email Body (Expected): "+message);
+          testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
 
     }
 

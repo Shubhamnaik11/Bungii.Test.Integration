@@ -177,6 +177,9 @@ public class NotificationSteps extends DriverBase {
             case "BUNGII FINISHED -RATE DRIVER":
                 text = PropertyUtility.getMessage("customer.bungii.finished.rate.driver");
                 break;
+            case "TAP NOTIFICATION TO ACTIVATE BUNGII":
+                text=PropertyUtility.getMessage("driver.activate.bungii");
+                break;
             case "SCHEDULED PICKUP AVAILABLE":
                 text = PropertyUtility.getMessage("driver.notification.scheduled");
                 //	$<Day>, $<MONTH> <$Date>

@@ -87,6 +87,7 @@ public class BungiiCompleteSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
+            cucumberContextManager.setScenarioContext("RATING_VALUE",strArg1);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
