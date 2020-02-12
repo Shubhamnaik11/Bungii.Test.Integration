@@ -7,7 +7,6 @@ Feature: Admin_PartnerFirm
   @sanity
   @regression
   @email
-  @failed
   Scenario: Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -26,7 +25,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
   Scenario: Failed Trip Email - Ondemand Trip - No driver accepts
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -49,7 +47,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
   Scenario: Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -127,7 +124,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
     #test data created in base
   Scenario: Partner Firm Email Upon Driver acceptance and Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
