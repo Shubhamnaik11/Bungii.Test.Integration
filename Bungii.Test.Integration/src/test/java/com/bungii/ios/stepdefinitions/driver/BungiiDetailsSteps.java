@@ -260,7 +260,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut / 2);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(), "~$" + truncValue);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " -"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |"));
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "Bungii Duo");

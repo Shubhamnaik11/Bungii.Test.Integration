@@ -1450,18 +1450,15 @@ public class GeneralUtility extends DriverBase {
 
 
     }
-    public boolean validateCustomerSignupEmail(String filePath,String emailValue,String customerName) throws IOException {
-        boolean isEmailCorrect=false;
+    public boolean validateCustomerSignupEmail(String filePath, String emailValue, String customerName, String url1, String url2, String url3, String url4, String url5, String url6, String url7, String url8, String url9) throws IOException {
+        boolean isEmailCorrect = false;
         StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
-        {
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\r\n"));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        String fileValue=contentBuilder.toString();
+        String fileValue = contentBuilder.toString();
         Path p1 = Paths.get(filePath);
 
         List<String> listF1 = Files.readAllLines(p1);
@@ -1469,27 +1466,52 @@ public class GeneralUtility extends DriverBase {
 
         for (int i = 0; i < listF1.size(); i++) {
             if (listF1.get(i).contains("%CustomerName%")) {
-                listF1.set(i, listF1.get(i).replace("%CustomerName%",customerName));
-                break;
+                listF1.set(i, listF1.get(i).replace("%CustomerName%", customerName));
+            }
+            if (listF1.get(i).contains("%URL_1%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_1%", url1));
+            }
+            if (listF1.get(i).contains("%URL_2%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_2%", url2));
+            }
+            if (listF1.get(i).contains("%URL_3%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_3%", url3));
+            }
+            if (listF1.get(i).contains("%URL_4%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_4%", url4));
+            }
+            if (listF1.get(i).contains("%URL_5%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_5%", url5));
+            }
+            if (listF1.get(i).contains("%URL_6%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_6%", url6));
+            }
+            if (listF1.get(i).contains("%URL_7%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_7%", url7));
+            }
+            if (listF1.get(i).contains("%URL_8%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_8%", url8));
+            }
+            if (listF1.get(i).contains("%URL_9%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_9%", url9));
             }
         }
-        if(listF1.size()==listF2.size()){
-            if ((listF1.equals(listF2)))
-            {
+        if (listF1.size() == listF2.size()) {
+            if ((listF1.equals(listF2))) {
                 System.out.println("Both list are matching");
-                isEmailCorrect=true;
-            }else{
-                isEmailCorrect=false;
+                isEmailCorrect = true;
+            } else {
+                isEmailCorrect = false;
 
                 //both list are not matching ,iterate over all line to check value
-                for(int i=0;i<listF1.size();i++){
+                for (int i = 0; i < listF1.size(); i++) {
 
-                    if(listF1.get(i).equals(listF2.get(i))){
+                    if (listF1.get(i).equals(listF2.get(i))) {
 
-                    }else{
-                            logger.detail("EMAIL MISMACTH |||"+i+"|||"+listF1.get(i)+"|||"+listF2.get(i));
-                        System.out.println(listF1.get(i));
-                        System.out.println(listF2.get(i));
+                    } else {
+                        logger.detail("EMAIL MISMACTH |||" + i + "|||" + listF1.get(i) + "|||" + listF2.get(i));
+                        //  System.out.println(listF1.get(i));
+                        //  System.out.println(listF2.get(i));
 
                     }
                 }

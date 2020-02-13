@@ -84,7 +84,7 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement AreaSlide() { return findElement(
 			"type == 'XCUIElementTypeStaticText' AND value BEGINSWITH[c] 'SLIDE '", LocatorType.Predicate); }
 	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
-	public WebElement PageIndicator_Page1() { return findElement("type == 'XCUIElementTypePageIndicator' AND value == 'page 1 of 1'", LocatorType.Predicate); }
+	public WebElement PageIndicator_Page1() { return findElement("//XCUIElementTypePageIndicator[@value = 'page 1 of 1']", LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions2() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(1); }
