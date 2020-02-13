@@ -537,7 +537,12 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = driverHomePage.isElementEnabled(driverHomePage.findElement("//XCUIElementTypeApplication[@name='Safari']", PageBase.LocatorType.XPath))
                         && action.getValueAttribute(driverHomePage.findElement("//*[@label='Address']", PageBase.LocatorType.XPath)).contains("bungii.com");
                 break;
-
+            case "AVAILABLE TRIPS":
+                if (currentApplication.equals("DRIVER")) {
+//                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE TRIPS");
+                    break;
+                }
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
                     String naviagationBar = action.getNameAttribute(driverHomePage.Text_NavigationBar());
@@ -551,12 +556,7 @@ public class GeneralUtility extends DriverBase {
                 } else {
                     //Customer app
                 }
-            case "AVAILABLE TRIPS":
-                if (currentApplication.equals("DRIVER")) {
-//                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE TRIPS");
-                    break;
-                }
+
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {

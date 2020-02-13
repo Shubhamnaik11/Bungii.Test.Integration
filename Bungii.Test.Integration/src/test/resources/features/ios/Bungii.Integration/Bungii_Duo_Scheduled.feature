@@ -1253,7 +1253,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location  |
-      | Solo   | Veera Vittal Mutt | froggyland Goa |
+      | Solo   | St mary paralytic centre | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
@@ -1283,7 +1283,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                 | Drop Location  |
-      | Solo   | Veera Vittal Mutt | froggyland Goa |
+      | Solo   | St mary paralytic centre | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
     And I confirm trip with following details
