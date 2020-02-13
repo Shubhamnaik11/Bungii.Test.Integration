@@ -73,7 +73,7 @@ public class NotificationSteps extends DriverBase {
 
             }
 
-
+            Thread.sleep(1000);
             //temp fixed for iOS  device
             utility.handleIosUpdateMessage();
         } catch (Exception e) {
