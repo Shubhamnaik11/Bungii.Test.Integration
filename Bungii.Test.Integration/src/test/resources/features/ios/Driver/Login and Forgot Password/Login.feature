@@ -42,7 +42,7 @@ Feature: Log In
       | PENDING VERIFICATION | 9823901494 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
   @regression
-
+  @FAILED
   Scenario Outline: Alert should be displayed and driver should be locked when customer enters incorrect password 5 times.
     When I enter phoneNumber :<Username> and  Password :<InCorrectPassword>
     And I click "Log In" button on "Log In" screen on driverApp
@@ -85,7 +85,7 @@ Feature: Log In
     Then Alert message with HICCUP MESSAGE text should be displayed on driverApp
     And I accept Alert message on driverApp
     When I Select "LOGOUT" from driver App menu
-
+  @FAILED
   @regression
   Scenario: Permission - iOS Driver - Turn off location permission - View alert on app
     Given I install Bungii Driver App again
@@ -101,7 +101,7 @@ Feature: Log In
     And I Switch to "driver" application on "same" devices
     Then user is alerted for "PLEASE ENABLE LOCATION SERVICES"
     Given I install Bungii Driver App again
-
+  @FAILED
   @regression
   Scenario: Permission - iOS Driver - Notifications
     Given I install Bungii Driver App again

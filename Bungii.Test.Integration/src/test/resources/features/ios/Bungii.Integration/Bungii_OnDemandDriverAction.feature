@@ -93,7 +93,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I should be navigated to "Home" screen
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-
+  @FAILED
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Enroute State
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -151,7 +151,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-
+  @FAILED
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Arrived State
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -210,7 +210,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-
+  @FAILED
   @regression
   Scenario: Promo code should be deallocated after admin cancels Bungii( Before starting bungii)
     When I open new "Chrome" browser for "ADMIN PORTAL"

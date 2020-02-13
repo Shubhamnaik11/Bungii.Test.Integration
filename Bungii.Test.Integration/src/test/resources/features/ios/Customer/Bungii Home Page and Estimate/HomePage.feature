@@ -39,7 +39,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-
+  @FAILED
   @regression
   Scenario:To check that drop off field is displayed only when pickup address is set.
     Given I am on Customer logged in Home page
@@ -47,7 +47,7 @@ Feature: Customer Home screen
     Then drop off field should be "displayed"
     When I click "Pick Up Clear Text" button on "Home" screen
     Then drop off field should be "not be displayed"
-
+  @FAILED
     #test case getting failed , Known issue
   @regression
   Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
@@ -65,7 +65,7 @@ Feature: Customer Home screen
     When I Switch to "customer" application on "same" devices
     Given I am on Customer logged in Home page
     Then driver eta should be "less than 30 mins"
-
+  @FAILED
   @regression
   Scenario:To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
     And I enter pickup location

@@ -503,7 +503,14 @@ public class CommonSteps extends DriverBase {
 
     public void goToLogInPage(String navigationBarName) throws Throwable {
         HomeSteps homeSteps = new HomeSteps(homePage);
+        if (action.isAlertPresent()) {
+            String alertMessage = action.getAlertMessage();
+            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
 
+        }
         if (!navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))) {
 
             if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {

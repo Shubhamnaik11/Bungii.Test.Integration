@@ -228,6 +228,9 @@ public class GeneralUtility extends DriverBase {
             } else if (getListOfAlertButton.contains("Cancel")) {
                 action.clickAlertButton("Cancel");
             } else {
+                if (getListOfAlertButton.contains("Done"))
+                    action.clickAlertButton("Done");
+
                 if (getListOfAlertButton.contains("Close"))
                     action.clickAlertButton("Close");
 

@@ -1,5 +1,5 @@
 @ios
-
+@FAILED
 Feature: Geofence functionality
 
   @regression
