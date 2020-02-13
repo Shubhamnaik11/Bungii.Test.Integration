@@ -1,5 +1,5 @@
 @ios
-
+@FAILED
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
@@ -273,7 +273,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression1
+  @regression
   Scenario: Re-search after using Promo code, should be used for re-searched trip
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -283,7 +283,7 @@ Feature: Promos
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | US-287, Strasburg, CO 80136, USA | denver   |
+      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen

@@ -18,6 +18,8 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.List;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -331,7 +333,14 @@ public class CommonStepsDriver extends DriverBase {
 
     public void goToDriverLogInPage(String navigationBarName) throws Throwable {
         HomePageSteps homeSteps = new HomePageSteps(driverHomePage);
+        if (action.isAlertPresent()) {
+            String alertMessage = action.getAlertMessage();
+            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
 
+        }
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }

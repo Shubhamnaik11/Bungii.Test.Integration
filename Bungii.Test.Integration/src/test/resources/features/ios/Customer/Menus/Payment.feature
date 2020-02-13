@@ -68,7 +68,7 @@ Feature: Payment page
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
-
+  @FAILED
   @regression
   Scenario: As Bungii customer I should able to change default card
     When I Select "PAYMENT" from Customer App menu
@@ -79,7 +79,7 @@ Feature: Payment page
     When I click "SAVE" button on "PAYMENT" screen
     Then I should see "new default card" on Payment page
 
-
+  @FAILED
   @regression
   Scenario Outline:  As new Bungii customer without payment card , Payment page should display add Payment card message and Image .
     When I Select "LOGOUT" from Customer App menu

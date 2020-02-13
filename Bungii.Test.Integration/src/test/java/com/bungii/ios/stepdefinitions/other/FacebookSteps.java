@@ -32,6 +32,15 @@ public class FacebookSteps extends DriverBase {
                 case "NEXT":
                     action.click(facebookpage.Button_Next());
                     break;
+                case "POST":
+                    if(action.isElementPresent(facebookpage.Button_Post(true)))
+                        action.click(facebookpage.Button_Post());
+                    else{
+                        action.click(facebookpage.Button_Next());
+                        action.click(facebookpage.Button_Share());
+                    }
+
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
