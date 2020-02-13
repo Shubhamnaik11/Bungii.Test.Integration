@@ -207,9 +207,9 @@ public String getDriverPhone(String driverName)
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
                     authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword); //Force login dunno why
                     driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
-                    coreServices.updateDriverLocation(driverAccessToken, geofence);
+                    coreServices.updateDriverLocation(driverAccessToken, geofence); //to uncomment
                     coreServices.updateDriverStatus(driverAccessToken);
-                    logger.detail("*** As a driver "+ driverName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver1State );
+                    logger.detail("*** As a driver "+ driverName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is being "+ driver1State );
 
                     if (bungiiType.equalsIgnoreCase("SOLO ONDEMAND") ) {
                         Boolean isDriverEligible = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
@@ -357,13 +357,13 @@ public String getDriverPhone(String driverName)
                     driver2AccessToken = authServices.getDriverToken(driver2PhoneCode, driver2PhoneNum, driver2Password);
                     coreServices.updateDriverLocation(driver2AccessToken, geofence);
                     coreServices.updateDriverStatus(driver2AccessToken);
-                        logger.detail("*** As a driver "+ driverAName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver1State );
+                        logger.detail("*** As a driver "+ driverAName +"("+driverPhoneNum+") "+ bungiiType+ "("+pickupRequest+") is being "+ driver1State );
 
                         if (bungiiType.equalsIgnoreCase("DUO SCHEDULED")) {
 
                             if(driver1State.equalsIgnoreCase("Accepted"))
                                 coreServices.waitForAvailableTrips(driverAName +"("+driverPhoneNum+")",driverAccessToken, pickupRequest);
-                            logger.detail("*** As a driver "+ driverBName +"("+driver2PhoneNum+") "+ bungiiType+ "("+pickupRequest+") is "+ driver2State );
+                            logger.detail("*** As a driver "+ driverBName +"("+driver2PhoneNum+") "+ bungiiType+ "("+pickupRequest+") is being "+ driver2State );
 
                             if(driver2State.equalsIgnoreCase("Accepted"))
                                 coreServices.waitForAvailableTrips(driverBName +"("+driver2PhoneNum+")", driver2AccessToken, pickupRequest);

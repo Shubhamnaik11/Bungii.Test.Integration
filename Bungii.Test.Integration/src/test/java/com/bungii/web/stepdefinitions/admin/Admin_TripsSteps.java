@@ -543,7 +543,7 @@ public class Admin_TripsSteps extends DriverBase {
         }
         message= message.replaceAll(" ","");
         logger.detail("Email Body (Expected): "+message);
-          testStepAssert.isEquals(emailBody, message,"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+          testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
     }
 

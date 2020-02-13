@@ -175,7 +175,7 @@ public class CoreServices extends DriverBase {
 
     // wait for 5 mins for pickup to be displayed in available trips
     public void waitForAvailableTrips(String driverDetail, String authToken, String expectedPickupRequest) {
-        logger.detail("Waiting for Available Trips : Auth Token " + authToken+ " : Pickup Request : "+ expectedPickupRequest);
+        logger.detail("Waiting for Available Trips : Driver " + driverDetail + " : Pickup Request : "+ expectedPickupRequest);
         try {
 
             boolean foundPickup = false;
@@ -185,7 +185,7 @@ public class CoreServices extends DriverBase {
                     break;
                 } else {
                     Thread.sleep(8000);
-                    logger.detail("Waiting for Driver to be eligible for Pickup Request : "+ expectedPickupRequest);
+                    logger.detail("Waiting for Driver "+driverDetail+" to be eligible for Pickup Request : "+ expectedPickupRequest);
                 }
 
             }
