@@ -63,7 +63,7 @@ public class Admin_PartnerFirmSteps extends DriverBase {
 
     @And("^I ensure no driver accepts the trip$")
     public void i_ensure_no_driver_accepts_the_trip() throws Throwable {
-      Thread.sleep(70000);
+      Thread.sleep(420000);
     }
 
 }

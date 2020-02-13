@@ -618,8 +618,8 @@ public class CoreServices extends DriverBase {
     }
 
     public Response updateDriverLocation(String authToken, String geofence) {
-        logger.detail("API REQUEST : Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence);
         Float[] driverLocations = utility.getDriverLocation(geofence);
+        logger.detail("API REQUEST : (For Ondemand Bungiis) Update Driver Location of Authtoken : "+ authToken +" | Geofence : "+ geofence+" | Location : "+ driverLocations[0]+","+driverLocations[1]);
         JSONObject jsonObj = new JSONObject();
         jsonObj.put("Latitude", driverLocations[0]);
         jsonObj.put("Longitude", driverLocations[1]);

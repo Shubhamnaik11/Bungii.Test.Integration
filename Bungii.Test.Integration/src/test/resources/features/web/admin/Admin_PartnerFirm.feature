@@ -25,7 +25,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
   Scenario: Failed Trip Email - Ondemand Trip - No driver accepts
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
