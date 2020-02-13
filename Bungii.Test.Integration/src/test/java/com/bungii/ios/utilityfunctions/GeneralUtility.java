@@ -79,7 +79,7 @@ public class GeneralUtility extends DriverBase {
     EnableLocationPage enableLocationPage = new EnableLocationPage();
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
-    EmailUtility emailUtility= new EmailUtility();
+    EmailUtility emailUtility = new EmailUtility();
     int[][] rgb = {
             {238, 29, 55},
             {255, 169, 66},
@@ -196,11 +196,11 @@ public class GeneralUtility extends DriverBase {
 
         if (action.isElementPresent(customerHomePage.Application_Name(true))) {
             //do nothing
-        }else if(action.isElementPresent(customerHomePage.AppIcon_Phone(true))){
+        } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
             //if app is closed and just phone screen is present then restart app
             SetupManager.getObject().restartApp();
         }
-      //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+        //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
         else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
             //Remove notification screen
             action.hideNotifications();
@@ -1221,11 +1221,12 @@ public class GeneralUtility extends DriverBase {
         cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
 
     }
+
     public String GetSpedificMultipartTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
-        String strEmailContent="";
+        String strEmailContent = "";
 
         try {
-            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 2);
+            Message[] recentMessages = emailUtility.getEmailObject(expectedFromAddress, expectedToAddress, expectedSubject, 1);
             System.out.println("No of Total recent Messages : " + recentMessages.length);
             String fromAddress = expectedFromAddress;
             for (int i = recentMessages.length; i > 0; i--) {
@@ -1250,7 +1251,7 @@ public class GeneralUtility extends DriverBase {
                     // System.out.println("Email Found!!!\nEmail Content: \n" + EmailContent);//need to get extract link value from here
                     //Invoke jSoupHTMLToString object
                     Document emailContent = Jsoup.parse(EmailContent);
-                    strEmailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    strEmailContent = emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
                     System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
 
                     break;
@@ -1268,30 +1269,31 @@ public class GeneralUtility extends DriverBase {
         return strEmailContent;
 
     }
-    public String getCustomerSignupTemplate(String customerName)
-    {
+
+    public String getCustomerSignupTemplate(String customerName) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\CustomerSignup.txt");
             String s;
             try (
 
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%CustomerName%",customerName)
+                    s = s.replaceAll("%CustomerName%", customerName)
                     ;
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return emailMessage;
     }
+
     public String GetSpecificPlainTextEmailIfReceived(String expectedFromAddress, String expectedToAddress, String expectedSubject) {
 
         try {
@@ -1312,11 +1314,10 @@ public class GeneralUtility extends DriverBase {
                 System.out.println("To: " + msg.getAllRecipients()[0]);//important value
                 System.out.println("Date: " + msg.getReceivedDate());
                 System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
-                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
-                {
+                if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress))) {
                     // String EmailContent = msg.getContent().toString();
-                    emailContent =  emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
-                    emailUtility.deleteEmailWithSubject(expectedSubject,null);
+                    emailContent = emailUtility.readPlainContent((javax.mail.internet.MimeMessage) msg);
+                    emailUtility.deleteEmailWithSubject(expectedSubject, null);
                     return emailContent;
                 }
             }
@@ -1334,18 +1335,16 @@ public class GeneralUtility extends DriverBase {
 
 
     }
-    public boolean validateCustomerSignupEmail(String filePath,String emailValue,String customerName) throws IOException {
-        boolean isEmailCorrect=false;
+
+    public boolean validateCustomerSignupEmail(String filePath, String emailValue, String customerName, String url1, String url2, String url3, String url4, String url5, String url6, String url7, String url8, String url9) throws IOException {
+        boolean isEmailCorrect = false;
         StringBuilder contentBuilder = new StringBuilder();
-        try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
-        {
+        try (Stream<String> stream = Files.lines(Paths.get(filePath), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\r\n"));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        String fileValue=contentBuilder.toString();
+        String fileValue = contentBuilder.toString();
         Path p1 = Paths.get(filePath);
 
         List<String> listF1 = Files.readAllLines(p1);
@@ -1353,27 +1352,52 @@ public class GeneralUtility extends DriverBase {
 
         for (int i = 0; i < listF1.size(); i++) {
             if (listF1.get(i).contains("%CustomerName%")) {
-                listF1.set(i, listF1.get(i).replace("%CustomerName%",customerName));
-                break;
+                listF1.set(i, listF1.get(i).replace("%CustomerName%", customerName));
+            }
+            if (listF1.get(i).contains("%URL_1%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_1%", url1));
+            }
+            if (listF1.get(i).contains("%URL_2%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_2%", url2));
+            }
+            if (listF1.get(i).contains("%URL_3%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_3%", url3));
+            }
+            if (listF1.get(i).contains("%URL_4%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_4%", url4));
+            }
+            if (listF1.get(i).contains("%URL_5%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_5%", url5));
+            }
+            if (listF1.get(i).contains("%URL_6%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_6%", url6));
+            }
+            if (listF1.get(i).contains("%URL_7%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_7%", url7));
+            }
+            if (listF1.get(i).contains("%URL_8%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_8%", url8));
+            }
+            if (listF1.get(i).contains("%URL_9%")) {
+                listF1.set(i, listF1.get(i).replace("%URL_9%", url9));
             }
         }
-        if(listF1.size()==listF2.size()){
-            if ((listF1.equals(listF2)))
-            {
+        if (listF1.size() == listF2.size()) {
+            if ((listF1.equals(listF2))) {
                 System.out.println("Both list are matching");
-                isEmailCorrect=true;
-            }else{
-                isEmailCorrect=false;
+                isEmailCorrect = true;
+            } else {
+                isEmailCorrect = false;
 
                 //both list are not matching ,iterate over all line to check value
-                for(int i=0;i<listF1.size();i++){
+                for (int i = 0; i < listF1.size(); i++) {
 
-                    if(listF1.get(i).equals(listF2.get(i))){
+                    if (listF1.get(i).equals(listF2.get(i))) {
 
-                    }else{
-                        logger.detail("EMAIL MISMACTH |||"+i+"|||"+listF1.get(i)+"|||"+listF2.get(i));
-                        System.out.println(listF1.get(i));
-                        System.out.println(listF2.get(i));
+                    } else {
+                        logger.detail("EMAIL MISMACTH |||" + i + "|||" + listF1.get(i) + "|||" + listF2.get(i));
+                        //  System.out.println(listF1.get(i));
+                        //  System.out.println(listF2.get(i));
 
                     }
                 }
@@ -1384,12 +1408,11 @@ public class GeneralUtility extends DriverBase {
     }
 
 
-    public String getExpectedPoorRatingMail(String driverName,String customerName,String ratingValue,String tripDetails)
-    {
+    public String getExpectedPoorRatingMail(String driverName, String customerName, String ratingValue, String tripDetails) {
         String emailMessage = "";
 
-        try{
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\PoorRatingEmail.txt");
+        try {
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PoorRatingEmail.txt");
             String s;
             try (
 
@@ -1397,14 +1420,14 @@ public class GeneralUtility extends DriverBase {
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%DriverName%", driverName)
-                            .replaceAll("%CustomerName%",customerName)
-                            .replaceAll("%RatingValue%",ratingValue)
-                            .replaceAll("%TripDetailsUrl%",tripDetails);
+                            .replaceAll("%CustomerName%", customerName)
+                            .replaceAll("%RatingValue%", ratingValue)
+                            .replaceAll("%TripDetailsUrl%", tripDetails);
                     emailMessage += s;
                 }
 
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
