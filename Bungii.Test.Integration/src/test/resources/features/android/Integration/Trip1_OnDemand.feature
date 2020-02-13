@@ -136,7 +136,7 @@ Feature: On Demand Bungii
     And Customer should receive "bungii" receipt email
 
   @sanity
-  @regression11
+  @regression
   Scenario: Validate That I am able to create on demand bungii.
     And Customer should receive "bungii" receipt email
 

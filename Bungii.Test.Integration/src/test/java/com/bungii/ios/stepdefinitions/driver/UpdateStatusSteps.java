@@ -233,6 +233,7 @@ public class UpdateStatusSteps extends DriverBase {
             switch (key.toUpperCase()) {
                 case "VIEW ITEMS":
                     clickViewItems();
+                    Thread.sleep(5000);
                     validateViewImage(1);
                     break;
                 case "SMS FOR SUPPORT":

@@ -1059,14 +1059,14 @@ public class CommonSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("FIRST_NAME","TestCustomertywdappleMzr");*/
 
         String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
-     //   String emailBody = utility.GetSpecificPlainTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+        List<String> tripDetailsLinks=extractUrls(emailBody);
         utility.getCustomerSignupTemplate((String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
         if (emailBody == null) {
             testStepAssert.isFail("Email : " + emailSubject + " not received");
         }
         else{
 
-            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("FIRST_NAME"));
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
             testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
         }
     }
