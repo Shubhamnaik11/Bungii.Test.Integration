@@ -5,6 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
@@ -12,13 +13,19 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import com.bungii.android.utilityfunctions.DbUtility;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(HomeSteps.class);
     GeneralUtility utility = new GeneralUtility();
     HomePage homePage = new HomePage();
+    PaymentPage paymentPage = new PaymentPage();
     SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
 
@@ -39,6 +46,22 @@ public class HomeSteps extends DriverBase {
     public void i_tap_on_something_something_link(String strArg1, String strArg2) throws Throwable {
         try {
             utility.clickCustomerMenuItem(strArg2);
+            Thread.sleep(2000);
+            action.scrollToBottom();
+            List<WebElement> cards=paymentPage.List_Card_1();
+
+            int i=0, count=0, count1=0;
+            for (i = 0; i < cards.size(); i++) {
+                String text=cards.get(i).getText();
+                if (text.contains("1117")) {
+                    count++;
+                    cucumberContextManager.setScenarioContext("CARDS_COUNT",count);
+                }
+                else if (text.contains("4242")) {
+                    count1++;
+                    cucumberContextManager.setScenarioContext("CARDS_COUNT1",count1);
+                }
+            }
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

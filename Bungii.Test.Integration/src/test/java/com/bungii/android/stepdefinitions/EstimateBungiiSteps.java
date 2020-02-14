@@ -398,7 +398,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationB"));
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationB"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     break;
@@ -1087,6 +1087,7 @@ public class EstimateBungiiSteps extends DriverBase {
         switch (key.toUpperCase()) {
             case "TIME":
                 value = action.getText(estimatePage.Time());
+                value=value.replace("am", "AM").replace("pm","PM");
                 break;
 
             default:
