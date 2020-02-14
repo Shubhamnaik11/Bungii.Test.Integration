@@ -107,13 +107,14 @@ public class EmailUtility extends DriverBase {
         String result = "";
         String aTag = "";
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
         if (message.isMimeType("text/plain")) {
             result = message.getContent().toString();
         } else if (message.isMimeType("multipart/*")) {
             MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
             result = getTextFromMimeMultipart(mimeMultipart);
         }
-        if(result.contains(customer))
+        if(result.contains(name[0]))
         {
             Pattern pattern = Pattern.compile("<a href=\"(.*?) ",Pattern.DOTALL);
             Matcher matcher = pattern.matcher(result);
