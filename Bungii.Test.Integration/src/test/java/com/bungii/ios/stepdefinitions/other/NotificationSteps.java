@@ -61,7 +61,7 @@ public class NotificationSteps extends DriverBase {
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
-                Thread.sleep(90000);
+                Thread.sleep(120000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
 
             }
