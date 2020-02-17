@@ -116,7 +116,7 @@ public class ActionManager {
     }
 
     public void waitForAlert() {
-        (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
+        (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
     }
 
     /**

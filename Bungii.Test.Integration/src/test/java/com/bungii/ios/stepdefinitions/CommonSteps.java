@@ -765,6 +765,7 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String buttonLabel) {
         try {
+            action.waitForAlert();
             boolean clicked = action.clickAlertButton(buttonLabel);
 
             testStepAssert.isTrue(clicked,

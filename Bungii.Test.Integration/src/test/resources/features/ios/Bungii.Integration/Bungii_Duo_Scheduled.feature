@@ -558,6 +558,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "Driver2" devices
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
+#one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
@@ -584,8 +585,9 @@ Feature: To Test Duo - Scheduled Bungii
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
+    When I Switch to "customer" application on "ORIGINAL" devices
 
-    When I open "customer" application on "ORIGINAL" devices
+  #  When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
     When I click "VIEW" on alert message
@@ -685,7 +687,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
+  #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create Long stack, base scheduled trip , verify decked detail/alert msgs/status of current and stacked bungii
@@ -804,6 +806,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+  #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create short stack, verify decked detail/alert msgs/status of current and stacked bungii
@@ -1053,9 +1056,9 @@ Feature: To Test Duo - Scheduled Bungii
     And I accept Alert message for "Reminder: both driver at drop off"
 
     And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I accept Alert message for "Reminder: both driver at drop off"
+  #  And I slide update button on "DRIVING TO DROP OFF" Screen
+  #  And I slide update button on "UNLOADING ITEM" Screen
+ #   And I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
     And I open "driver" application on "ORIGINAL" devices
