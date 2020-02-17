@@ -60,8 +60,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
-    #test data created in base (need to update trip alert settings)
   Scenario: Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -237,7 +235,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
         #test data created in base (need to update driver geofence)
   Scenario: Edit and Remove driver from a Duo Trip started by non controlled driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence

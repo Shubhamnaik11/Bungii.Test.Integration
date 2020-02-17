@@ -12,8 +12,12 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.tools.ant.types.selectors.SelectSelector;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -133,11 +137,44 @@ public class PaymentSteps extends DriverBase {
                 break;
 
             case "the card has been added":
+                Thread.sleep(3000);
+                action.scrollToBottom();
+                List<WebElement> cards=paymentPage.List_Card_1();
+                int i=0, count=0,count1=0; String text =null;
+                String ExpectedLast4Digits ="1117" ;//(String) cucumberContextManager.getScenarioContext("Last4Digits");
+                if (ExpectedLast4Digits.contains("1117")) {
+                    for (i = 0; i <cards.size(); i++) {
+                        text=cards.get(i).getText();
+                        if(text.contains(ExpectedLast4Digits)){
+                        count++;}
+                        cucumberContextManager.setScenarioContext("NEWCARDS_COUNT", count);
+                    }
+                }
+                    else if (ExpectedLast4Digits.contains("4242")) {
+                    for (i = 0; i < cards.size(); i++) {
+                        text=cards.get(i).getText();
+                        if(text.contains(ExpectedLast4Digits)){
+                        count1++;}
+                    cucumberContextManager.setScenarioContext("NEWCARDS_COUNT1", count1);
+                }
+                    }
+
                 testStepVerify.isElementDisplayed(paymentPage.PaymentCard1(), "Default Tick should be displayed on Payment Page", "Add button is displayed on Payment Page", "Add button is not displayed on Payment Page");
                 testStepVerify.isElementDisplayed(paymentPage.DefaultTick(), "Default checkbox should be displayed", "Default checkbox is displayed ", "Default checkbox is not displayed");
-                String ExpectedLast4Digits = (String) cucumberContextManager.getScenarioContext("Last4Digits");
+
                 String ActualLast4Digits = action.getText(paymentPage.DefaultCard()).replace("*", "").replace(" ", "");
-                testStepVerify.isEquals(ActualLast4Digits,ExpectedLast4Digits);
+                if(ExpectedLast4Digits.equals("1117")){
+                    int newCount=(Integer) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT");
+                    int oldCount=(Integer) cucumberContextManager.getScenarioContext("CARDS_COUNT");
+                    testStepAssert.isTrue(newCount == oldCount + 1, "There should be " + String.valueOf(oldCount + 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+                }
+                else if(ExpectedLast4Digits.equals("4242")){
+                    int newCount=(Integer) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1");
+                    int oldCount=(Integer) cucumberContextManager.getScenarioContext("CARDS_COUNT1");
+                    testStepAssert.isTrue(newCount == oldCount + 1, "There should be " + String.valueOf(oldCount + 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+                }
+                    else
+                 { testStepVerify.isEquals(ActualLast4Digits,ExpectedLast4Digits);}
                 break;
 
             case "invalid card error":

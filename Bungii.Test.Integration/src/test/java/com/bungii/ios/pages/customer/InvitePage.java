@@ -38,8 +38,8 @@ public class InvitePage  extends PageBase {
 	public WebElement Button_Email() { return findElement("Share by Email", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Button_TextMessage() { return findElement("Share by Text Message", PageBase.LocatorType.AccessibilityId);}
 	public WebElement Button_CancelApp() { return findElement("Cancel", PageBase.LocatorType.AccessibilityId);}
-	public WebElement Text_SMS() { return findElement("messageBodyField", PageBase.LocatorType.AccessibilityId);}
-	public WebElement Text_EmailSubject() { return findElement("subjectField", PageBase.LocatorType.AccessibilityId);}
+	public WebElement Text_SMS() { return findElement("messageBodyField", LocatorType.Name);}
+	public WebElement Text_EmailSubject() { return findElement("subjectField", LocatorType.Name);}
 	public WebElement Button_Delete() { return findElement("Delete Draft", PageBase.LocatorType.AccessibilityId);}
 
 

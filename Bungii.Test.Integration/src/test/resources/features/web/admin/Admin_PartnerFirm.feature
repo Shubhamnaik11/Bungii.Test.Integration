@@ -35,7 +35,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
   Scenario: Failed Trip Email - Ondemand Trip Cancel by Customer
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -150,7 +149,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
     #test data created in base
   Scenario: Partner Email When Cancel Scheduled Bungii As an Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
