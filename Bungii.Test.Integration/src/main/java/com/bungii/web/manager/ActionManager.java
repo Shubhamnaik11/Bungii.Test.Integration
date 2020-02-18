@@ -150,13 +150,13 @@ public class ActionManager {
                         //Chrome Retry if unable to click because of overlapping (Chrome NativeEvents is always on (Clicks via Co-ordinates))
                         JavaScriptClick(element);
             }
-        logger.detail("Click on locator by locator" + element.toString());
+        logger.detail("Click on element by locator" + element.toString());
     }
     public void JavaScriptClick(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
             executor.executeScript("arguments[0].click();", element);
-        logger.detail(" JS Click on locator by locator" + element.toString());
+        logger.detail(" JS Click on element by locator" + element.toString());
 
     }  catch(Exception ex)
     {

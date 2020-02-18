@@ -51,7 +51,7 @@ public class LogUtility {
      *            object of arguments
      */
     public void trace(Object... varargs) {
-        logger.trace(CLASS+DELIM+owner + DELIM + toString(varargs));
+        logger.trace(CLASS+DELIM+owner.getClass().getSimpleName() + DELIM + toString(varargs));
     }
 
     /**
@@ -61,7 +61,7 @@ public class LogUtility {
      *            object of arguments
      */
     public void detail(Object... varargs) {
-        logger.info(CLASS+DELIM+owner + DELIM + toString(varargs));
+        logger.info(CLASS+DELIM+owner.getClass().getSimpleName() + DELIM + toString(varargs));
     }
 
     /**
@@ -71,7 +71,7 @@ public class LogUtility {
      *            object of arguments
      */
     public void warning(Object... varargs) {
-        logger.warn(CLASS+DELIM+owner + DELIM + toString(varargs));
+        logger.warn(CLASS+DELIM+owner.getClass().getSimpleName() + DELIM + toString(varargs));
     }
 
     /**
@@ -81,7 +81,7 @@ public class LogUtility {
      *            object of arguments
      */
     public void error(Object... varargs) {
-        logger.error(CLASS+DELIM+owner + DELIM + toString(varargs));
+        logger.error(CLASS+DELIM+owner.getClass().getSimpleName() + DELIM + toString(varargs));
         ResultManager.setStacktrace(toString(varargs));
     }
 
