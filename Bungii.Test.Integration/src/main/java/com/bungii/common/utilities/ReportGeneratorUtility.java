@@ -115,8 +115,7 @@ public class ReportGeneratorUtility {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
-		testCases++;
-		String str = "<tr><td colspan='1' >"+ testCases + "</td><td colspan='7'  >" +"Test case: "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='8'>"+ testCases + ") " +"Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
 		logger.detail("Test Scenario : "+testCases+" of Feature : "+ featureName);
