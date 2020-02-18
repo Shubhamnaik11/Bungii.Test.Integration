@@ -778,6 +778,20 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I click \"([^\"]*)\" on alert message if any$")
+    public void i_click_something_on_alert_messageifany(String buttonLabel) {
+        try {
+            if(action.isAlertPresent())
+                action.clickAlertButton(buttonLabel);
+
+            log("Alert Message should be Cancelled if any", "Alert Message should be Cancelled if any");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I accept Alert message$")
     public void iAcceptAlertMessage() {
         try {

@@ -1,11 +1,12 @@
 @ios
-@FAILED
+
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
 
   Background:
     Given I am on Customer logged in Home page
+
   @sanity
   @regression
   Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promo code
@@ -240,15 +241,7 @@ Feature: Promos
 
   @regression
   Scenario: Cancel after using Promo code, should Not get utilized
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "one off"
 
-    And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I enter Username :8877995512 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
@@ -260,7 +253,7 @@ Feature: Promos
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |              | Now  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I Enter "promocode" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
 
     When I tap "Back" on Promos screen
@@ -272,7 +265,7 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-
+  @FAILED
   @regression
   Scenario: Re-search after using Promo code, should be used for re-searched trip
     Given I am on the "LOG IN" page
@@ -288,9 +281,9 @@ Feature: Promos
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
 
-      When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      | 30       |           |              | NEXT_POSSIBLE | Default     |
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | NEXT_POSSIBLE  | Default     |
       And I click "PROMO CODE LINE" button on "Estimate" screen
       And I Enter "PROMOCODE" value in "Promo Code" field in "Promo" Page
       And I click "ADD" button on "PROMOS" screen
@@ -328,6 +321,10 @@ Feature: Promos
       And I start selected Bungii
       When I slide update button on "EN ROUTE" Screen
       When I slide update button on "ARRIVED" Screen
+      And I Switch to "customer" application on "same" devices
+      And I Switch to "driver" application on "same" devices
+
+
       When I slide update button on "LOADING ITEM" Screen
       When I slide update button on "DRIVING TO DROP OFF" Screen
       When I slide update button on "UNLOADING ITEM" Screen
