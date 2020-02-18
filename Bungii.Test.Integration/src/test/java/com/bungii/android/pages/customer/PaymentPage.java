@@ -23,8 +23,9 @@ public class PaymentPage extends PageBase {
 
     public WebElement PaymentCard1 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four']", LocatorType.XPath); }
     public List<WebElement> List_Card (){return findElements("com.bungii.customer:id/payment_method_container_main",LocatorType.Id);}
+    public List<WebElement> List_Card_1 (){return findElements("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four']",LocatorType.XPath);}
     public WebElement PaymentCard2 () { return findElements("//android.widget.TextView[@resource-id='com.bungii.customer:id/payment_methods_textview_last_four']", LocatorType.XPath).get(1); }
-
+    public List<WebElement> List_Card1 (){return findElements("com.bungii.customer:id/payment_methods_recycler_view",LocatorType.Id);}
 
     public WebElement DefaultCard() { return findElement("//android.widget.ImageView[@resource-id='com.bungii.customer:id/payment_methods_imageview_default_tick']/preceding-sibling::android.widget.TextView",LocatorType.XPath);}
     public WebElement PaymentCard3 () { return findElement("//android.widget.RelativeLayout[@resource-id='com.bungii.customer:id/payment_methods_layout_row' and @instance='10']", LocatorType.XPath); }

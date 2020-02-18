@@ -73,8 +73,8 @@ public class DriverMenuSteps extends DriverBase {
             switch (strArg1) {
                 case "FAQ":
                     Thread.sleep(10000);
-                    data = action.getText(homePage.Text_CommonQuestions()).toString();
-                    testStepAssert.isEquals(data, "WHAT IS THIS PAGE FOR?", data + " is displayed", data + " is displayed", data + " is not displayed");
+                    data = action.getText(homePage.Text_CommonQuestions1()).toString();
+                    testStepAssert.isEquals(data, "COMMON QUESTIONS", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
                 case "LEADERBOARD":

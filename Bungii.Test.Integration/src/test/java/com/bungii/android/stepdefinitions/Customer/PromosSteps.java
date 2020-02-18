@@ -390,36 +390,69 @@ public class PromosSteps extends DriverBase {
 
     @And("^I select \"([^\"]*)\" on the Promos page$")
     public void i_select_something_on_the_promos_page(String strArg1) throws Throwable {
-        Thread.sleep(3000);
-        action.click(promoPage.PromoCode_R0D1());
-        log("I click on the promo Code on Promos page",
-                "I have clicked on the promo Code on Promos page", true);
+        try {
+            Thread.sleep(3000);
+            action.click(promoPage.PromoCode_R0D1());
+            log("I click on the promo Code on Promos page",
+                    "I have clicked on the promo Code on Promos page", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see the unused promo code$")
     public void i_should_see_the_unused_promo_code() throws Throwable {
+        try{
         testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
-
+        log("I click on the promo Code on Promos page",
+                "I have clicked on the promo Code on Promos page", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
-
-
 
     @Then("^I should not see the expired promo code on the Promos page$")
     public void i_should_not_see_the_expired_promo_code_on_the_promos_page() throws Throwable {
+        try{
         testStepAssert.isNotElementDisplayed(promoPage.PromoCode_J0W1(true), "Promo code should not be displayed", "Promo code is not displayed", "Promo code is displayed");
+        log("I should not see the expired promo code on the Promos page",
+                "I did not see the expired promo code on the Promos page", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I select the added promo code$")
     public void i_select_the_added_promo_code() throws Throwable {
+        try{
         Thread.sleep(3000);
         action.click(promoPage.PromoCode_R0D1());
-        log("I click on the promo Code on Promos page",
-                "I have clicked on the promo Code on Promos page", true);
+        log("I select the added promo code",
+                "I select the added promo code", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see the previously added promo code present for current Bungii request$")
     public void i_should_see_the_previously_added_promo_code_present_for_current_bungii_request() throws Throwable {
+        try{
         testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1_OnEstimate(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+            log("I should see the previously added promo code present for current Bungii request",
+                    "I am able to see the previously added promo code present for current Bungii request", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @And("^I tap on \"([^\"]*)\" on Estimate screen$")
