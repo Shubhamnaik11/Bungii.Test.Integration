@@ -170,7 +170,7 @@ Feature: Customer Estimate screen
       Then I should be navigated to "SEARCHING" screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
-
+  @FAILED
   @regression
       Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
       And I request for  bungii for given pickup and drop location

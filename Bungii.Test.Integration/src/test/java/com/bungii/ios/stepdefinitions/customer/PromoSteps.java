@@ -61,8 +61,14 @@ public class PromoSteps extends DriverBase {
                 case "ONE OFF":
                     codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.one.off.ios"));
                     break;
+                case "ONE OFF VALID 2":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.one.off.ios2"));
+                    break;
                 case "PROMOTER TYPE PROMO":
                     codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.promotor.off"));
+                    break;
+                case "PROMOTER TYPE MULTIPLE PROMO":
+                    codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.promotor.multiple"));
                     break;
                 case "FIRST TIME":
                     codeList = Arrays.asList(PropertyUtility.getDataProperties("promocode.first.time"));

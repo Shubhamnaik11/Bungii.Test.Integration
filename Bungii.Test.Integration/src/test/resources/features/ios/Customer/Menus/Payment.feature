@@ -37,6 +37,18 @@ Feature: Payment page
       | Scenario           | CardNo        | Expiry | Postal Code       | Cvv       |
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
+
+  @FAILED
+  @regression
+  Scenario: As Bungii customer I should able to change default card
+    When I Select "PAYMENT" from Customer App menu
+    Then I should be navigated to "PAYMENT" screen
+    When I get "current" default card
+    And I tap on "Other card" on Payment page
+    And I tap on "Checkbox" on Payment page
+    When I click "SAVE" button on "PAYMENT" screen
+    Then I should see "new default card" on Payment page
+
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
   @sanity
@@ -68,16 +80,7 @@ Feature: Payment page
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |CardNo        | Expiry | Postal Code       | Cvv       |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
-  @FAILED
-  @regression
-  Scenario: As Bungii customer I should able to change default card
-    When I Select "PAYMENT" from Customer App menu
-    Then I should be navigated to "PAYMENT" screen
-    When I get "current" default card
-    And I tap on "Other card" on Payment page
-    And I tap on "Checkbox" on Payment page
-    When I click "SAVE" button on "PAYMENT" screen
-    Then I should see "new default card" on Payment page
+
 
   @FAILED
   @regression
