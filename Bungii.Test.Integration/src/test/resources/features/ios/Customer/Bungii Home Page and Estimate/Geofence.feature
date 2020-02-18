@@ -1,5 +1,6 @@
 @ios
 @FAILED
+
 Feature: Geofence functionality
 
   @regression
@@ -20,7 +21,7 @@ Feature: Geofence functionality
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Solo   | 3200 N Kedzie Ave, Chicago, IL 60618, USA | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
+      | Solo   | 3200 N Kedzie Ave Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
 
 
     And I click "Get Estimate" button on "Home" screen
@@ -69,31 +70,44 @@ Feature: Geofence functionality
     And I click on the "Settings" Button on "Geofence" Screen
 
     And I change the value of "Minimum scheduled time for Duo trip" to "14" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "15" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "16" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "841" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "1410" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "1415" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "duo trip"
 
     And I change the value of "Minimum scheduled time for Solo trip" to "14" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "15" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "840" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "16" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "841" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
     And I change the value of "Minimum scheduled time for Solo trip" to "1415" minutes
+    And I click on the "Save" Button on "GeofenceSettings" Screen
     Then check if error message is displayed for "solo trip"
 
     And I click on the "Cancel" Button on "Geofence" Screen
@@ -110,14 +124,18 @@ Feature: Geofence functionality
       And I click on the "Settings" Button on "Geofence" Screen
 
       And I change the value of "Minimum scheduled time for Duo trip" to "29" minutes
-      Then check if error message is displayed for "duo trip"
+    And I click on the "Save" Button on "GeofenceSettings" Screen
+    Then check if error message is displayed for "duo trip"
       And I change the value of "Minimum scheduled time for Duo trip" to "30" minutes
-      Then check if error message is displayed for "duo trip"
+    And I click on the "Save" Button on "GeofenceSettings" Screen
+    Then check if error message is displayed for "duo trip"
 
       And I change the value of "Minimum scheduled time for Solo trip" to "29" minutes
-      Then check if error message is displayed for "solo trip"
+    And I click on the "Save" Button on "GeofenceSettings" Screen
+    Then check if error message is displayed for "solo trip"
       And I change the value of "Minimum scheduled time for Solo trip" to "30" minutes
-      Then check if error message is displayed for "solo trip"
+    And I click on the "Save" Button on "GeofenceSettings" Screen
+    Then check if error message is displayed for "solo trip"
       And I click on the "Cancel" Button on "Geofence" Screen
 
   @regression

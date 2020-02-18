@@ -127,9 +127,9 @@ Feature: Promos
     And I click "SHARE ON FACEBOOK" button on "INVITE" screen
     Then I should see "popup to post" Overlay Facebook screen
     When I enter "valid data" on Overlay Facebook screen
-    And I tap "Next" button on Overlay Facebook screen
- #   Then I should see "promo server url" Overlay Facebook screen
-    When I tap "Share" button on Overlay Facebook screen
+  #  And I tap "Next" button on Overlay Facebook screen
+    And I tap "POST" button on Overlay Facebook screen
+#    When I tap "Share" button on Overlay Facebook screen
     Then I should be navigated to "Invite" screen
 
   @regression

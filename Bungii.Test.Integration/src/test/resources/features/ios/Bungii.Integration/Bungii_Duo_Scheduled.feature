@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @FAILED
+  
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -149,7 +149,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-
+  @FAILED
   @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -367,7 +367,7 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
-  @FAILED
+  
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
 
@@ -558,6 +558,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "Driver2" devices
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
+#one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
@@ -584,8 +585,9 @@ Feature: To Test Duo - Scheduled Bungii
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
       | 15       |           |              | Now  | Default     | No             |
     Then I should be navigated to "SEARCHING" screen
+    When I Switch to "customer" application on "ORIGINAL" devices
 
-    When I open "customer" application on "ORIGINAL" devices
+  #  When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
     When I click "VIEW" on alert message
@@ -685,7 +687,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-
+  #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create Long stack, base scheduled trip , verify decked detail/alert msgs/status of current and stacked bungii
@@ -804,6 +806,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Customer2" devices
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+  #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @FAILED
   @regression
   Scenario: Create short stack, verify decked detail/alert msgs/status of current and stacked bungii
@@ -1053,9 +1056,9 @@ Feature: To Test Duo - Scheduled Bungii
     And I accept Alert message for "Reminder: both driver at drop off"
 
     And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    And I slide update button on "UNLOADING ITEM" Screen
-    And I accept Alert message for "Reminder: both driver at drop off"
+  #  And I slide update button on "DRIVING TO DROP OFF" Screen
+  #  And I slide update button on "UNLOADING ITEM" Screen
+ #   And I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
     And I open "driver" application on "ORIGINAL" devices
@@ -1237,7 +1240,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-  @FAILED
+
   @regression
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
@@ -1267,7 +1270,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  @FAILED
+  
   @regression
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress

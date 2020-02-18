@@ -16,11 +16,11 @@ WDAPORT="$(cat $2 | /usr/local/bin/jq ${querywdaPort})"
 
 #Log file name
 today=`date '+%Y_%m_%d__%H_%M_%S'`;
-filename="/Users/for-bungiiqa/Documents/Bungii-AppiumLogs/AppuimLogs_$today.log"
+filename="/Users/iosdev/Documents/Bungii-AppiumLogs/AppuimLogs_$today.log"
 appium_cmd='node /usr/local/bin/appium/lib/server/main.js'
 #start Appium server with parameter
 echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
-echo "appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --local-timezone --log ${filename}" > $device.command
+echo "appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --session-override --local-timezone --log ${filename}" > $device.command
 chmod +x $device.command
 open $device.command
 
