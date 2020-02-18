@@ -676,6 +676,7 @@ public class CommonSteps extends DriverBase {
             Thread.sleep(4000);
             action.waitForAlert();
             String actualMessage = action.getAlertMessage();
+            if(actualMessage.equalsIgnoreCase("")){Thread.sleep(30000);actualMessage = action.getAlertMessage();}
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "INVALID_PASSWORD":
@@ -764,6 +765,7 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String buttonLabel) {
         try {
+            action.waitForAlert();
             boolean clicked = action.clickAlertButton(buttonLabel);
 
             testStepAssert.isTrue(clicked,
@@ -1607,7 +1609,8 @@ public class CommonSteps extends DriverBase {
         }
     }
     @Then("^Customer should receive signup email$")
-    public void partner_firm_should_receive_something_email() throws Throwable {
+    public void partner_firm_should_receive_something_email(){
+        try{
         GeneralUtility utility = new GeneralUtility();
 
         String emailSubject="New to Bungii? Good.";
@@ -1624,10 +1627,15 @@ public class CommonSteps extends DriverBase {
             boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
             testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
         }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @Then("^poor driver ratting should be sent to customer$")
-    public void poor_driver_ratting_should_be_sent_to_customer() throws Throwable {
+    public void poor_driver_ratting_should_be_sent_to_customer() {
+        try{
         GeneralUtility utility = new GeneralUtility();
         String emailSubject="POOR DRIVER RATING";
       //  String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"), "POOR DRIVER RATING");
@@ -1644,6 +1652,10 @@ public class CommonSteps extends DriverBase {
         String message = null;
         message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
     /**
      * Returns a list with all links contained in the input

@@ -554,6 +554,10 @@ public class GeneralUtility extends DriverBase {
                     }
                     break;
                 } else {
+                    String expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
+                    action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    break;
                     //Customer app
                 }
 

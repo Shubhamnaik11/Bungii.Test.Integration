@@ -1726,7 +1726,7 @@ Feature: To Test Solo - Scheduling Bungii
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
     And I get TELET time of of the current trip
-
+    When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
