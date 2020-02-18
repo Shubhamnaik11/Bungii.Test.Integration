@@ -401,7 +401,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         case "Solo Scheduled":
              csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP_PARTNER_FIRM_SCHEDULED"));
              csvFile =   utility.generateScheduledBungiiCSV(csvFile,"EST",1, (String)(cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME")), "9999794897");
-            break;
+            cucumberContextManager.setScenarioContext("GEOFENCE","washingtondc");
+             break;
     }
         String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
 
