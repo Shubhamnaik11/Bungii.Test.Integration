@@ -392,7 +392,8 @@ public class PromosSteps extends DriverBase {
     public void i_select_something_on_the_promos_page(String strArg1) throws Throwable {
         try {
             Thread.sleep(3000);
-            action.click(promoPage.PromoCode_R0D1());
+            //action.click(promoPage.PromoCode_R0D1());
+            action.click(promoPage.PromoCode_R3D5());
             log("I click on the promo Code on Promos page",
                     "I have clicked on the promo Code on Promos page", true);
         } catch (Exception e) {
@@ -432,7 +433,7 @@ public class PromosSteps extends DriverBase {
     public void i_select_the_added_promo_code() throws Throwable {
         try{
         Thread.sleep(3000);
-        action.click(promoPage.PromoCode_R0D1());
+        action.click(promoPage.PromoCode_R3D5());
         log("I select the added promo code",
                 "I select the added promo code", true);
         } catch (Exception e) {

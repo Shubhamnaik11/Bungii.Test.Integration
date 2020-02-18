@@ -7,6 +7,7 @@ Feature: CustomerForgotPassword
     And I tap on the "Forgot Password" Link
 
   @regression
+    @fail
   Scenario: Cust_ForgotPassword_Success
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

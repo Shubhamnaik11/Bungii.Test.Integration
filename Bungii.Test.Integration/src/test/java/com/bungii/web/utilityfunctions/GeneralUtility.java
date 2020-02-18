@@ -2,7 +2,6 @@ package com.bungii.web.utilityfunctions;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -322,7 +321,7 @@ public class GeneralUtility extends DriverBase {
             System.out.println("No of Total recent Messages : " + recentMessages.length);
             String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
             boolean emailFound = false;
-            String emailContent;
+            String surveylink;
             for (int i = recentMessages.length; i > 0; i--) {
 
                 System.out.println("MESSAGE " + (i) + ":");
@@ -337,9 +336,9 @@ public class GeneralUtility extends DriverBase {
                 System.out.println("Plain text: " + emailUtility.getTextFromMessage(msg));
                 if ((msg.getFrom()[0].toString().contains(fromAddress)) && (subject.contains(expectedSubject)) && (msg.getAllRecipients()[0].toString().contains(expectedToAddress)))
                 {
-                    emailContent =  emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
+                    surveylink =  emailUtility.getURLFromMessage((javax.mail.internet.MimeMessage) msg);
                     emailUtility.deleteEmailWithSubject(expectedSubject,null);
-                    return emailContent;
+                    return surveylink;
                 }
             }
             return null;

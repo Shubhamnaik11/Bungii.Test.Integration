@@ -39,6 +39,7 @@ public class PromosPage extends PageBase {
     public WebElement Button_OK () { return findElement("android:id/button1", LocatorType.Id); }
     public WebElement Button_Cancel () { return findElement("android:id/button2", LocatorType.Id); }
     public WebElement PromoCode_R0D1 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$10.00 - R0D1']", LocatorType.XPath); }
+    public WebElement PromoCode_R3D5 () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$1.00 - R3D5']", LocatorType.XPath); }
     public WebElement PromoCode_J0W1 (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$10.00 - J0W1']", LocatorType.XPath, ignoreException); }
     public WebElement PromoCode_R0D1_OnEstimate () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/estimate_value_promo' and @text='-$10.00']", LocatorType.XPath); }
 

@@ -17,6 +17,7 @@ Feature: Bungii
     Then I should see "Bungii Estimate page with all details" on Bungii estimate
 
   @regression
+    @fail
   Scenario: Bungii_CustomerCancelOnSearch
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
