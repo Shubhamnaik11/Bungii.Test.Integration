@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @FAILED
+  
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -149,7 +149,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-
+  @FAILED
   @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -367,7 +367,7 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
-  @FAILED
+  
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
 
@@ -1240,7 +1240,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-  @FAILED
+
   @regression
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
@@ -1270,7 +1270,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  @FAILED
+  
   @regression
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
