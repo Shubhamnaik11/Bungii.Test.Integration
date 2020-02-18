@@ -452,6 +452,7 @@ Feature: Create on demand bungii
     And I am logged in as "valid nashville" driver
     And I slide update button on "UNLOADING ITEM" Screen
     And I should be navigated to "Bungii Completed" screen
+    And I click "On To The Next One" button on "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
     Then I should be navigated to "Bungii Complete" screen

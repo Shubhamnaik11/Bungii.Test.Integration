@@ -41,6 +41,7 @@ Feature: Log In
       | Scenario             | Username   | Password | Expected Message                                  | Login Button Status  |
       | PENDING VERIFICATION | 9823901494 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
+    #Valid failed, driver should be locked
   @regression
   @FAILED
   Scenario Outline: Alert should be displayed and driver should be locked when customer enters incorrect password 5 times.

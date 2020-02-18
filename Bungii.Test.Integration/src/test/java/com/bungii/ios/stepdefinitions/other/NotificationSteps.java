@@ -43,7 +43,7 @@ public class NotificationSteps extends DriverBase {
     @Then("^I click on notification for \"([^\"]*)\" for \"([^\"]*)\"$")
     public void i_click_on_notification_for_something_for_something(String appName, String expectedNotification) throws InterruptedException {
 
-        Thread.sleep(20000);
+        Thread.sleep(30000);
         //Thread.sleep(10000);
         try {
             String currentApplication = (String) cucumberContextManager.getFeatureContextContext("CURRENT_APPLICATION");
@@ -61,7 +61,7 @@ public class NotificationSteps extends DriverBase {
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
             if (!notificationClick) {
-                Thread.sleep(90000);
+                Thread.sleep(120000);
                 notificationClickRetry = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
 
             }

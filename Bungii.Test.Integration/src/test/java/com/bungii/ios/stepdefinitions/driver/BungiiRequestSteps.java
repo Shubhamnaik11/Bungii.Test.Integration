@@ -77,7 +77,7 @@ public class BungiiRequestSteps extends DriverBase {
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_EstimatedEarningValue(),"~$"+truncValue);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueTripTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueTripTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME"));
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
                     break;
