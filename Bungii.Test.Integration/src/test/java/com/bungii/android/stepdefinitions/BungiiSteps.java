@@ -622,9 +622,11 @@ public class BungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-
-            while (Page_CustomerBungiiProgress.Title_Status(true) == null)
+            int retryCount=4;
+            while (Page_CustomerBungiiProgress.Title_Status(true) == null && retryCount>0) {
                 ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                retryCount--;
+            }
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -851,9 +853,11 @@ public class BungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            while (Page_DriverBungiiProgress.Title_Status(true) == null)
+            int retryCount=4;
+            while (Page_DriverBungiiProgress.Title_Status(true) == null && retryCount > 0) {
                 ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-
+                retryCount--;
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

@@ -32,6 +32,7 @@ Feature: Customer Home screen
     Then "Drop Off" address text box should be displayed on app screen
 
   @regression
+    @fail
   Scenario: To check if ETA bar/picker remains on map when pickup address has been cleared
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
@@ -46,6 +47,7 @@ Feature: Customer Home screen
     Then The ETA bar is seen on screen with less then 30 mins
 
   @regression
+    @fail
   Scenario: To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
     When I tap on "Menu" > "Home" link
     And I enter "Goa pickup and dropoff locations" on Bungii estimate screen
