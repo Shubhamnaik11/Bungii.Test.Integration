@@ -69,6 +69,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then "Home" page should be opened
 
   @regression
+    @fail
   Scenario: OnDemand_DriverCancelBungiiWithPromo_EnrouteState
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
@@ -95,6 +96,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should see the unused promo code
 
   @regression
+    @fail
   Scenario: OnDemand_DriverCancelBungiiWithPromo_ArrivedState
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer

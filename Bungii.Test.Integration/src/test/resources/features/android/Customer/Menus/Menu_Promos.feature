@@ -68,6 +68,7 @@ Feature: Menu_SaveMoney
     And I tap on "Menu" > "Logout" link
 
   @regression
+    @fail
   Scenario: Menu_SaveMenu_FirstTimePromo_User already has referral code
     Given I am logged in as "having referral code" customer
     And I tap on "Menu" > "Promos" link
@@ -95,6 +96,7 @@ Feature: Menu_SaveMoney
 #    Then I should see post "on Facebook app"
 
   @regression
+    @fail
   Scenario: When i try to share my promo code , via twitter but there is no application installed then I it should open in browser
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -106,6 +108,7 @@ Feature: Menu_SaveMoney
     And I Switch to "customer" application on "same" devices
 
   @regression
+    @fail1
   Scenario: PromoCode_Unused_UponCancellation
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -126,6 +129,7 @@ Feature: Menu_SaveMoney
     Then I should see the unused promo code
 
   @regression
+    @fail1
   Scenario: PromoCode_Used_ForRe-searchedBungii
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -146,6 +150,7 @@ Feature: Menu_SaveMoney
     Then I should see the previously added promo code present for current Bungii request
 
   @regression
+    @fail
   Scenario: Expired_PromoCode_UsedForBungii
     Given I am on customer Log in page
     When I am logged in as "New" customer

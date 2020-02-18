@@ -46,6 +46,7 @@ Feature: DriverMenu
     Then I should be able to see data on "ACCOUNT" page
 
   @regression
+    @fail
   Scenario: As Bungii driver I should able to access TRIP ALERT SETTINGS menu item
     When I Select "TRIP ALERT SETTINGS" from driver App menu
     And the "TRIP ALERT SETTINGS" page is opened
