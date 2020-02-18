@@ -321,6 +321,7 @@
                     <arguments>
                         <argument>${ResultFolder}</argument>
                         <argument>${test.Platform}</argument>
+                        <argument>${test.Category}</argument>
                     </arguments>
                 </configuration>
             </plugin>

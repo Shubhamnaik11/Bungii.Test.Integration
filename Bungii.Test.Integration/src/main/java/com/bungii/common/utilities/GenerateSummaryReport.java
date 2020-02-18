@@ -31,6 +31,7 @@ public class GenerateSummaryReport {
             if (args.length > 0) {
                 String mainFolder = args[0];
                 String platform = args[1];
+                String category = args[2];
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
@@ -84,7 +85,7 @@ public class GenerateSummaryReport {
                     }
 
                 }
-                createResultFileFromTemplate(platform);
+                createResultFileFromTemplate(platform , category);
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
@@ -154,7 +155,7 @@ public class GenerateSummaryReport {
     /**
      * Create Summery File for parallel test
      */
-    public static void createResultFileFromTemplate(String platform) {
+    public static void createResultFileFromTemplate(String platform, String category) {
 
         try {
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_SUMMARY_FILE"));
@@ -181,7 +182,7 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
             totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
-
+            totalStr = totalStr.replaceAll("<!--CATEGORY-->", category.toUpperCase());
 
             FileWriter fw = new FileWriter(result);
             fw.write(totalStr);
