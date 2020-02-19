@@ -36,6 +36,7 @@ public class CoreServices extends DriverBase {
     private static String RATE_AND_TIP = "/api/customer/rateandtipdriver";
     private static String AVAILABLE_PICKUPLIST = "/api/driver/availablepickuplist";
     private static String CUSTOMER_SCHEDULEDLIST = "/api/customer/scheduledpickuplist";
+    private static String DRIVER_SCHEDULEDLIST = "/api/driver/scheduledpickuplist";
     private static String CUSTOMER_SCHEDULEDPICKUPLIST = "/api/customer/scheduledpickupdetails";
     private static String CUSTOMER_CANCELPICKUPLIST = "/api/customer/cancelpickup";
     private static String GET_PROMOCODE = "/api/customer/getpromocodes";
@@ -599,7 +600,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_VIEW);
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        //response.then().log().body();
+        response.then().log().body();
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -821,6 +822,19 @@ public class CoreServices extends DriverBase {
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
         ApiHelper.genericResponseValidation(response);
 
+        return response;
+
+    }
+
+    public Response getDriverScheduledPickupList(String authToken) {
+        logger.detail("API REQUEST : Get driver Scheduled Pickup List | Auth Token : "+ authToken);
+
+        String apiURL = null;
+        apiURL = UrlBuilder.createApiUrl("core", DRIVER_SCHEDULEDLIST);
+        Header header = new Header("AuthorizationToken", authToken);
+        Response response = ApiHelper.getRequestForDriver(apiURL, header);
+        ApiHelper.genericResponseValidation(response);
+        response.then().log().body();
         return response;
 
     }

@@ -1018,7 +1018,7 @@ public class CommonSteps extends DriverBase {
                     "I Selected Trip from scheduled trip", true);
 
         } catch (Exception e) {
-            logger.error("Error performing  step" + e.getMessage());
+            logger.error("Error performing  step" +  ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             //logger.error("Error performing step" + e.printStackTrace());
 
