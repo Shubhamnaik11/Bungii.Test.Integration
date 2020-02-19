@@ -310,12 +310,13 @@
                 <version>1.2.1</version>
                 <executions>
                     <execution>
-                        <id>html-execution</id>
                         <goals>
                             <goal>java</goal>
                         </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <mainClass>com.bungii.common.utilities.GenerateSummaryReport.Main</mainClass>
+                    <mainClass>com.bungii.common.utilities.GenerateSummaryReport</mainClass>
                     <arguments>
                         <argument>${ResultFolder}</argument>
                         <argument>${test.Platform}</argument>
@@ -323,20 +324,6 @@
                         <argument>${test.Environment}</argument>
                     </arguments>
                 </configuration>
-                    </execution>
-                <execution>
-                    <id>csv-execution</id>
-                    <goals>
-                    <goal>java</goal>
-                </goals>
-                <configuration>
-                    <mainClass>com.bungii.common.utilities.GenerateResultCSV.Main</mainClass>
-                    <arguments>
-                        <argument>${ResultFolder}</argument>
-                    </arguments>
-                </configuration>
-                </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -87,6 +87,7 @@ public class GenerateSummaryReport {
 
                 }
                 createResultFileFromTemplate(platform , category, environment);
+                new GenerateResultCSV().GenerateCSV(mainFolder);
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");

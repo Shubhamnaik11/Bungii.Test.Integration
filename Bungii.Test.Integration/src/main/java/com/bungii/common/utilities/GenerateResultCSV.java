@@ -27,10 +27,10 @@ public class GenerateResultCSV {
     private static String logoFilePath = "";
     private static Date startTime, endTime;
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void GenerateCSV(String result) throws IOException, ParseException {
         try {
-            if (args.length > 0) {
-                String mainFolder = args[0];
+
+                String mainFolder = result;
                 configFilePath = Paths.get(mainFolder);
                 List<String> listOfResultFile = getListOfResultFile();
                 int testCount = 1;
@@ -64,9 +64,7 @@ public class GenerateResultCSV {
 
                 }
                 addDataToCSV();
-            } else {
-                System.err.println("Pass Main folder  name of parallel test  as argument");
-            }
+
         } catch (Exception e) {
             e.printStackTrace();
 
