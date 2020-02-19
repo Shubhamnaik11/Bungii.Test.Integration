@@ -2,8 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
-import com.bungii.android.utilityfunctions.DbUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -77,6 +76,8 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.Select_ReferralSource());
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
+                    String customerName=firstName+" "+PropertyUtility.getDataProperties("customer.last.name");
+                    cucumberContextManager.setScenarioContext("CUSTOMER",customerName);
                     break;
                 case "valid test":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),"Testcustomertywd"+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));

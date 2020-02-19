@@ -6,6 +6,7 @@ Feature: CustomerSignup
     Given I am on Sign up page
 
   @regression
+    @fail
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -128,6 +129,7 @@ Feature: CustomerSignup
       And I click on "OK" button
 
       #add new payment method
+      And I get the number of cards present
       And I tap on "Add" on Payment page
       And I tap on "Credit or Debit Card" on Payment page
       And I enter "<Card Detail>" on Card Details page

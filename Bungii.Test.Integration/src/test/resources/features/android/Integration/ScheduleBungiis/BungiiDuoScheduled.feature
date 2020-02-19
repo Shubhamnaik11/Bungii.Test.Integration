@@ -8,6 +8,7 @@ Feature: Duo
   @regression
   @sanity
   @regression
+    @fail
   Scenario: Validate That I am able to create Schedule duo bungii.
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -130,6 +131,7 @@ Feature: Duo
     And Customer should receive "Your Bungii Receipt" email
   #given i have large image on phone
   @regression
+    @fail
   Scenario Outline:Customer amount for duo with promo
     Given I am logged in as "valid atlanta" customer
 
@@ -254,6 +256,7 @@ Feature: Duo
         |PROMO PERCENT OFF|
 
   @regression
+
   Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
 
     Given that duo schedule bungii is in progress
@@ -1303,6 +1306,7 @@ Feature: Duo
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
     @regression
+    @fail
     Scenario: Check the Minimum scheduled time for Duo trip
       Given I am on customer Log in page
       When I am logged in as "New" customer
@@ -1346,6 +1350,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  @fail
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |

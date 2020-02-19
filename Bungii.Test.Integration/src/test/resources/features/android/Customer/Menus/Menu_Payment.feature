@@ -36,6 +36,7 @@ Scenarios on Payment Methods
     Then The user should be logged in
 
     When I tap on "Menu" > "Payment" link
+    And I get the number of cards present
     And I tap on "Add" on Payment page
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "<Card Detail>" on Card Details page
@@ -59,6 +60,7 @@ Scenarios on Payment Methods
   Scenario Outline:  As Bungii Customer I should able to add payment card
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
+    And I get the number of cards present
     And I tap on "Add New" on Payment page
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "<Card Detail>" on Card Details page
