@@ -312,10 +312,10 @@
                     <execution>
                         <id>html-execution</id>
                         <goals>
-                            <goal>java</goal>
+                            <goal>java@html-execution</goal>
                         </goals>
                 <configuration>
-                    <mainClass>com.bungii.common.utilities.GenerateSummaryReport</mainClass>
+                    <mainClass>com.bungii.common.utilities.GenerateSummaryReport.Main</mainClass>
                     <arguments>
                         <argument>${ResultFolder}</argument>
                         <argument>${test.Platform}</argument>
@@ -327,10 +327,10 @@
                 <execution>
                     <id>csv-execution</id>
                     <goals>
-                    <goal>java</goal>
+                    <goal>java@csv-execution</goal>
                 </goals>
                 <configuration>
-                    <mainClass>com.bungii.common.utilities.GenerateResultCSV</mainClass>
+                    <mainClass>com.bungii.common.utilities.GenerateResultCSV.Main</mainClass>
                     <arguments>
                         <argument>${ResultFolder}</argument>
                     </arguments>
