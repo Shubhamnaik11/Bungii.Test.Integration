@@ -58,14 +58,12 @@ public class GenerateResultCSV {
                         data = data.replace("<td cursor:'pointer;'>","");
                         data = data.replace("</td>","");
                        data = data.replace("\n\n\n","");
-                        System.out.println(data);
                         summaryData.add(data);
                     }
                     } catch(Exception ex){}
 
                 }
                 addDataToCSV();
-               // newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
             }
@@ -101,6 +99,8 @@ public class GenerateResultCSV {
             outputfile.write("Test Scenario, Status "+ new DateTime().toString("dd-MM-yyyy")+"\n");
             outputfile.write(listString);
             outputfile.close();
+            System.out.println("Generated CSV File");
+
         }
         catch (IOException e) {
             // TODO Auto-generated catch block
