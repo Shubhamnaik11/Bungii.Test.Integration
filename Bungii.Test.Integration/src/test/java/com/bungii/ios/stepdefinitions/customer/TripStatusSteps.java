@@ -382,6 +382,7 @@ public class TripStatusSteps extends DriverBase {
                     testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.confirm.alert"));
                     break;
                 case "Alert: Bungii cancel sucessfully":
+                    Thread.sleep(5000);
                     testStepVerify.isEquals( action.getAlertMessage(),PropertyUtility.getMessage("customer.stack.cancel.success.alert"));
                     break;
                 default:

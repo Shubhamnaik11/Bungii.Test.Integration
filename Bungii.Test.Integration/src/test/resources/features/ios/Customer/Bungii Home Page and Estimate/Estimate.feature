@@ -41,7 +41,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "Estimate" screen
     And Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117    |      | UNCHECK             | DISABLED       |
+      | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117/**** 1881   |      | UNCHECK             | DISABLED       |
   
   @regression
   Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
@@ -92,7 +92,7 @@ Feature: Customer Estimate screen
     #removed as part of sprint 32
   #  And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
-  
+  @FAILED
   @regression
   Scenario: To check the elements of Estimate page
     And I request for  bungii for given pickup and drop location
@@ -103,7 +103,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on Estimate screen
     And Estimate Screen should have element as per below table
       | Trip Distance | Load/unload time | Promo Code | Total Estimate | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | **** 4242/**** 1117    | Now  | UNCHECK             | DISABLED       |
+      | <IN MILES>    | SELECT           | ADD        | <IN DOLLAR>    | **** 4242/**** 1117/**** 1881   | Now  | UNCHECK             | DISABLED       |
 
 
   @regression
