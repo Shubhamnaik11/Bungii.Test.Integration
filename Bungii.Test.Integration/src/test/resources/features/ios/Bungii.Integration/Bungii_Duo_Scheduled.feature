@@ -367,7 +367,7 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
-  
+  @FAILED1234
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
 
@@ -910,7 +910,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
 
-  #@regression
+  @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1370,7 +1370,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-  @FAILED
+
   @regression
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -1411,7 +1411,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  #@regression
+  @regression
   Scenario:Verify driver can Long stack request on Arrived status.
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
