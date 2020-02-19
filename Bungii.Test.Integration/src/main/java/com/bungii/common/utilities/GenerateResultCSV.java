@@ -91,10 +91,10 @@ public class GenerateResultCSV {
 
     public static void addDataToCSV()
     {
-        File resultCSV = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_CSV_FILE"));
+
         String listString = String.join("", summaryData);
         try {
-
+            File resultCSV = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_CSV_FILE"));
             FileWriter outputfile = new FileWriter(resultCSV);
             outputfile.write("Test Scenario, Status "+ new DateTime().toString("dd-MM-yyyy")+"\n");
             outputfile.write(listString);
