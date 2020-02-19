@@ -312,7 +312,7 @@
                     <execution>
                         <id>html-execution</id>
                         <goals>
-                            <goal>java@html-execution</goal>
+                            <goal>java</goal>
                         </goals>
                 <configuration>
                     <mainClass>com.bungii.common.utilities.GenerateSummaryReport.Main</mainClass>
@@ -327,7 +327,7 @@
                 <execution>
                     <id>csv-execution</id>
                     <goals>
-                    <goal>java@csv-execution</goal>
+                    <goal>java</goal>
                 </goals>
                 <configuration>
                     <mainClass>com.bungii.common.utilities.GenerateResultCSV.Main</mainClass>
