@@ -54,8 +54,8 @@ public class GenerateSummaryReport {
                     Element table = doc.select("table").get(0); //select the first table.
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=3> FEATURE : " + in.getName().toString().replace(".html","") + "</td>");
-                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> TEST SUITE EXECUTION REPORT : " + in.getName() + "</td>");
+                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html","") + "</td>");
+                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
                     passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
@@ -87,6 +87,7 @@ public class GenerateSummaryReport {
 
                 }
                 createResultFileFromTemplate(platform , category, environment);
+                new GenerateResultCSV().GenerateCSV(mainFolder);
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");

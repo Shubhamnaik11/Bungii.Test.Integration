@@ -259,8 +259,14 @@ public class BungiiDetailsSteps extends DriverBase {
                     //divide by 2 for individual driver value
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut / 2);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(), "~$" + truncValue);
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME"));
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME"));
+
+                    Calendar calendar = Calendar.getInstance();
+                    Date dateTime = calendar.getTime();
+                    SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+                    String dateFormatted = sdf.format(dateTime);
+
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |"));
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_NavigationBar(), "BUNGII DETAILS");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeTag(), "Type");
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_TypeValue(), "Bungii Duo");

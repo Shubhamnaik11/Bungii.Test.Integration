@@ -30,7 +30,7 @@ public class ReportGeneratorUtility {
 	private final static String logoPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME");
 
 	private static LogUtility logger = new LogUtility(ReportGeneratorUtility.class);
-	private int testCases = 0;
+	private int testCases = 1;
 	private int failed = 0;
 	private int passed = 0;
 	private int inconclusive=0;
@@ -115,11 +115,10 @@ public class ReportGeneratorUtility {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
-		testCases++;
-		String str = "<tr><td colspan='1' >"+ testCases + "</td><td colspan='7'  >" +"Test case: "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='8' align='left'>Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
-		logger.detail("Test Scenario : "+testCases+" of Feature : "+ featureName);
+		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
 	}
 
 	/**
@@ -132,7 +131,7 @@ public class ReportGeneratorUtility {
 		testStepEnd = new Date();
 		int stepCount= testStepCount+1;
 		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
-		str = str + "<td>" + eventData.get("name").toString() + "</td>";
+		str = str + "<td align='left'>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
 			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
 		}

@@ -117,7 +117,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @failed1
+  @failed
   @regression
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
@@ -574,8 +574,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "Log In" button on "Log In" screen
     And I Select "Home" from Customer App menu
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "3" mins
-
+    Then I wait for "4" mins
     When I Switch to "driver" application on "same" devices
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -590,6 +589,9 @@ Feature: To Test Solo - Scheduling Bungii
       | Accepted      | Accepted      |
     When I Switch to "driver" application on "ORIGINAL" devices
     And I click on notification for "Customer" for "SCHEDULED PICKUP ACCEPTED"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
 
   @regression
     # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
@@ -604,7 +606,9 @@ Feature: To Test Solo - Scheduling Bungii
       | Solo   | Devghali Beach road |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
-
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
   @regression
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
@@ -755,7 +759,7 @@ Feature: To Test Solo - Scheduling Bungii
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-
+    When I click "Cancel" on alert message if any
     And I click "ACCEPT" button on "Bungii Request" screen
     Then user is alerted for "PICKUP REQUEST NO LONGER AVAILABLE"
     And I cancel all bungiis of customer
@@ -889,7 +893,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
+  @FAILED
   @regression
   Scenario: Check that customer received Notification when control driver starts bungii duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1652,6 +1656,9 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then ratting should be correctly displayed on Bungii detail page
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
   @FAILED
   @regression
   Scenario: Check if customer is allowed to rate driver for duo trip
@@ -1706,7 +1713,8 @@ Feature: To Test Solo - Scheduling Bungii
 
     And I get TELET time of of the current trip
     And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    When I enter Username :8888889917 and  Password :{VALID}
+    And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -1809,13 +1817,13 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  @FAILED
+  @FAILED123
   @regression
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
-      | denver   | Accepted     | 0.5 hour ahead |
-
+      | denver   | Accepted     |15 min ahead |
+    When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
@@ -1857,16 +1865,7 @@ Feature: To Test Solo - Scheduling Bungii
   @regression
 
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "PROMO"
 
-    When I switch to "ORIGINAL" instance
-    And I am on the "LOG IN" page
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
 
@@ -1885,6 +1884,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I add "PROMO PERCENT OFF" PromoCode
     And I Enter "VALID" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
 
@@ -1938,15 +1938,7 @@ Feature: To Test Solo - Scheduling Bungii
   @FAILED
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "ONE OFF"
 
-    When I switch to "ORIGINAL" instance
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
@@ -1967,7 +1959,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I add "ONE OFF VALID 2" PromoCode
     And I click "ADD" button on "PROMOS" screen
 
     And I tap "Back" on Promos screen
@@ -2023,15 +2015,7 @@ Feature: To Test Solo - Scheduling Bungii
   @FAILED
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "promoter_type_promo"
 
-    When I switch to "ORIGINAL" instance
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
@@ -2052,7 +2036,7 @@ Feature: To Test Solo - Scheduling Bungii
       | LoadTime | PromoCode | Payment Card | Time           | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I add "PROMOTER TYPE MULTIPLE PROMO" PromoCode
     And I click "ADD" button on "PROMOS" screen
 
     And I tap "Back" on Promos screen

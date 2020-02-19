@@ -255,7 +255,7 @@ public String getDriverPhone(String driverName)
                             // coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
                             try {
-                                while(wait>0) {
+                                while(wait>1) {
                                     logger.detail("Waiting for " + wait / (60000 * 4) + " minute(s) before Scheduled trip can be started");
                                     Thread.sleep(60000);
                                     wait = wait - 60000*4;
@@ -1552,7 +1552,7 @@ public String getDriverPhone(String driverName)
             log("I should able to request bungii ", "I requested "+bungiiType+" for '" + geofence+"'", false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
     }

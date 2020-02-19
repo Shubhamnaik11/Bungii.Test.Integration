@@ -96,15 +96,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @FAILED
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Enroute State
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "one off"
 
-    When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
     And I am on Customer logged in Home page
@@ -125,7 +117,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |              | Now  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I add "PROMO PERCENT OFF" PromoCode
     And I click "ADD" button on "PROMOS" screen
     When I tap "Back" on Promos screen
     And I should be navigated to "Estimate" screen
@@ -154,15 +146,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @FAILED
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Arrived State
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "one off"
 
-    When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
     And I am on Customer logged in Home page
@@ -183,7 +167,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |              | Now  | Default     |
     And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I Enter "VALID" value in "Promo Code" field in "Promo" Page
+    And I add "PROMO DOLLAR OFF" PromoCode
     And I click "ADD" button on "PROMOS" screen
     When I tap "Back" on Promos screen
     And I should be navigated to "Estimate" screen

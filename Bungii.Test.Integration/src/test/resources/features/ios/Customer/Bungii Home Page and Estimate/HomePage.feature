@@ -1,9 +1,6 @@
 @ios
-
 Feature: Customer Home screen
-
-  Background:
-  #  Given I am on Customer logged in Home page
+# 1 valid test case fail
 
   @regression
   Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected

@@ -106,16 +106,21 @@ public class EmailUtility extends DriverBase {
     public String getURLFromMessage(Message message) throws MessagingException, IOException {
         String result = "";
         String aTag = "";
+        String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
         if (message.isMimeType("text/plain")) {
             result = message.getContent().toString();
         } else if (message.isMimeType("multipart/*")) {
             MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
             result = getTextFromMimeMultipart(mimeMultipart);
         }
-        Pattern pattern = Pattern.compile("<a href=\"(.*?) ",Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(result);
-        while (matcher.find()) {
-            aTag = matcher.group(1);
+        if(result.contains(name[0]))
+        {
+            Pattern pattern = Pattern.compile("<a href=\"(.*?) ",Pattern.DOTALL);
+            Matcher matcher = pattern.matcher(result);
+            while (matcher.find()) {
+                aTag = matcher.group(1);
+            }
         }
         return aTag;
     }
