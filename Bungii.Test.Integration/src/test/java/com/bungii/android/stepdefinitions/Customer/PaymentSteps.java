@@ -28,6 +28,31 @@ public class PaymentSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(PaymentSteps.class);
     SupportPage supportPage=new SupportPage();
 
+    @And("^I get the number of cards present$")
+    public void i_get_the_number_of_cards_present() throws Throwable {
+        action.scrollToBottom();
+        List<WebElement> cards=paymentPage.List_Card_1();
+        int i=0, count=0, count1=0;
+            if(cards.size() == 0){
+                count=0;
+                count1=0;
+                cucumberContextManager.setScenarioContext("CARDS_COUNT", count);
+                cucumberContextManager.setScenarioContext("CARDS_COUNT1", count1);
+            }
+            else {
+                for (i = 0; i < cards.size(); i++) {
+                    String text = cards.get(i).getText();
+                    if (text.contains("1117")) {
+                        count++;
+                        cucumberContextManager.setScenarioContext("CARDS_COUNT", count);
+                    } else if (text.contains("4242")) {
+                        count1++;
+                        cucumberContextManager.setScenarioContext("CARDS_COUNT1", count1);
+                    }
+                }
+            }
+    }
+
     @And("^I tap on \"([^\"]*)\" on Payment page$")
     public void i_tap_on_something_on_payment_page(String strArg1) throws Throwable {
         try {
@@ -141,7 +166,7 @@ public class PaymentSteps extends DriverBase {
                     action.scrollToBottom();
                     List<WebElement> cards=paymentPage.List_Card_1();
                     int i=0, count=0,count1=0; String text =null;
-                    String ExpectedLast4Digits ="1117" ;//(String) cucumberContextManager.getScenarioContext("Last4Digits");
+                    String ExpectedLast4Digits =(String) cucumberContextManager.getScenarioContext("Last4Digits");
                     if (ExpectedLast4Digits.contains("1117")) {
                         for (i = 0; i <cards.size(); i++) {
                             text=cards.get(i).getText();
