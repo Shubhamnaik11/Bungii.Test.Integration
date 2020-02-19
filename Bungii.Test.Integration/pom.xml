@@ -310,6 +310,7 @@
                 <version>1.2.1</version>
                 <executions>
                     <execution>
+                        <id>html-execution</id>
                         <goals>
                             <goal>java</goal>
                         </goals>
@@ -324,7 +325,8 @@
                 </configuration>
                     </execution>
                 <execution>
-                <goals>
+                    <id>csv-execution</id>
+                    <goals>
                     <goal>java</goal>
                 </goals>
                 <configuration>
@@ -336,9 +338,6 @@
                 </execution>
                 </executions>
             </plugin>
-
-
-
         </plugins>
     </build>
 
