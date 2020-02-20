@@ -49,7 +49,7 @@ public class TripDetailsSteps extends DriverBase {
             //expectedTripTime="Apr 09 , 01:45 PM GMT+5:30";
             String expectedTripDistance = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
             //Leading zero is not present in time, Check if zero is present and delete it
-            String timeValue = expectedTripTime.split(",")[1].trim();
+            String timeValue = expectedTripTime.split(",")[1].trim().replace("am","AM").replace("pm","PM");
            // timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
             String expectedDate = expectedTripTime.split(",")[0].trim();
             //earlier initial Zero was displayed , Not it is getting displayed

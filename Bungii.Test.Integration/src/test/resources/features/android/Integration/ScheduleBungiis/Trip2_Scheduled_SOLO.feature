@@ -6,7 +6,7 @@ Feature: SoloScheduled
 
   Background:
 
-  @DUO_SCH_DONOT_ACCEPT
+
   @regression
   Scenario: Validate That I am able to create Schedule  bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
     Given that solo schedule bungii is in progress
@@ -682,7 +682,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @DUO_SCH_DONOT_ACCEPT
+  #@DUO_SCH_DONOT_ACCEPT
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
   #  Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label

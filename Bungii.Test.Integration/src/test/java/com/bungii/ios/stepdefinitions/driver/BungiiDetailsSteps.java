@@ -264,6 +264,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     Calendar calendar = Calendar.getInstance();
                     Date dateTime = calendar.getTime();
                     SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+                    sdf.setTimeZone(TimeZone.getTimeZone(new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofenceId()));
                     String dateFormatted = sdf.format(dateTime);
 
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_BungiiTime(), dateFormatted+", "+((String) cucumberContextManager.getScenarioContext("BUNGII_TIME")).replace(",", " |"));

@@ -736,7 +736,8 @@ public class GeneralUtility extends DriverBase {
                 action.click(driverLoginPage.Button_Login());
                 Thread.sleep(2500);
                 navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
-                if (navigationBarName.equals("NOTIFICATIONS")) {
+                if(navigationBarName != null && !navigationBarName.isEmpty())
+                    if (navigationBarName.equals("NOTIFICATIONS")) {
                     grantPermissionToDriverApp();
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {

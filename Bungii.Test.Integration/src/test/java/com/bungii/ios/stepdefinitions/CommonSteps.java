@@ -969,6 +969,7 @@ public class CommonSteps extends DriverBase {
             if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
+            tripTime=tripTime.replace("am","AM").replace("pm","PM");
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";
@@ -1006,6 +1007,11 @@ public class CommonSteps extends DriverBase {
                     if (action.isAlertPresent()) {
                         SetupManager.getDriver().switchTo().alert().dismiss();
                         Thread.sleep(1000);
+                    }
+                    if (Image_SelectBungii == null) {
+                        Thread.sleep(30000);
+                        action.swipeDown();
+                        Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
                     }
                     action.click(Image_SelectBungii);
                 } else {
@@ -1096,6 +1102,7 @@ public class CommonSteps extends DriverBase {
             }
             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+            log("Given customer is logged in","Customer is logged in    ");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

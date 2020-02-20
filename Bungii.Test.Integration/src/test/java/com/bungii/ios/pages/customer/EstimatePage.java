@@ -118,6 +118,10 @@ public class EstimatePage extends PageBase {
     public WebElement CheckBox_Value() {
         return findElement("//XCUIElementTypeButton[contains(@name,'check box')]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
+    public WebElement Text_DurationValue() {
+        return findElement("//XCUIElementTypeStaticText[@name=\"ESTIMATED DURATION\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+//XCUIElementTypeStaticText[@name="ESTIMATED DURATION"]
 
 
 /*    public WebElement Text_LoadTime() {
