@@ -215,7 +215,7 @@ public class ReportGeneratorUtility {
 		}
 		else {
 			status = "<td style='background-color:pink;'>Fail</td>";
-			String str2 = "<td>" + tcName + "</td>" + status  + "<td>"+  this.reason +"</td>";
+			String str2 = "<td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
 			failureArray.add(str2);
 			failed++;
 		}

@@ -356,8 +356,7 @@ public class ActionManager {
         try {
             element.clear();
         }catch (Exception e){}
-
-        element.sendKeys(inputText);
+        try {element.sendKeys(inputText);}catch (Exception e){    element.clear();element.sendKeys(inputText); }
         logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
 
     }

@@ -30,11 +30,11 @@ public class GenerateSummaryReport {
     public static void main(String[] args) throws IOException, ParseException {
         try {
             if (args.length > 0) {
-               String mainFolder = args[0];
+                String mainFolder = args[0];
                 String platform = args[1];
                 String category = args[2];
                 String environment = args[3];
-
+                
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
@@ -93,12 +93,12 @@ public class GenerateSummaryReport {
                         Element row = rows2.get(i);
                         Elements cols = row.select("td");
                         String data = cols.toString();
-                        failureSummaryData.add(data);
+                        failureSummaryData.add("<tr>"+data+"</tr>");
                         isFailed= true;
                     }
                 }
                 createResultFileFromSummaryTemplate(platform , category, environment);
-                
+
                 if(isFailed)
                 createResultFileFromFailedSummaryTemplate(platform , category, environment);
 
@@ -224,7 +224,7 @@ public class GenerateSummaryReport {
             String s;
             String totalStr = "";
             String listString = String.join("", failureSummaryData);
-
+            listString = listString.replaceAll("<tr></tr>","");
             //if start time is null due to any reason then set it to current time
             if (startTime == null) {
                 startTime = new Date();

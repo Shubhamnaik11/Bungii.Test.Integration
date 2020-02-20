@@ -54,7 +54,7 @@ public class EstimateSteps extends DriverBase {
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
-            strTime = enterTime(time);
+            strTime = enterTime(time);strTime=strTime.replace("am","AM").replace("pm","PM");
             String actualTime = "";
             String[] details = new String[4];
             //  action.swipeUP();
@@ -88,7 +88,7 @@ public class EstimateSteps extends DriverBase {
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
                 }
             }
-
+            logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
             testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
@@ -700,6 +700,11 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+    @Then("^I save bungii trip time details$")
+    public void i_save_bungii_trip_time_details() throws Throwable {
+        cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME",action.getNameAttribute(estimatePage.Text_DurationValue()));
+    }
+
     @When("^I enter following details on \"([^\"]*)\" screen$")
     public void i_enter_following_details_on_something_screen(String strArg1, DataTable tripInformation) {
 
@@ -847,7 +852,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime);
+            testStepVerify.isEquals(strTime, displayedTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -877,7 +882,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime);
+            testStepVerify.isEquals(strTime, displayedTime.replace("am","AM").replace("pm","PM"));
 
 
         } catch (Exception e) {
