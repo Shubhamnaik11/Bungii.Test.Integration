@@ -967,8 +967,13 @@ public class EstimateSteps extends DriverBase {
             expectedValue = (String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
 
         boolean isValueCorrect = value.equals(expectedValue);
-        if (expectedValue.contains("/"))
-            isValueCorrect = value.equals(expectedValue.split("/")[0]) || value.equals(expectedValue.split("/")[1]);
+        String[] allCard=expectedValue.split("/");
+        if (expectedValue.contains("/")){
+            if(allCard.length==3)
+                isValueCorrect = value.equals(expectedValue.split("/")[0]) || value.equals(expectedValue.split("/")[1])|| value.equals(expectedValue.split("/")[2]);
+            else
+                isValueCorrect = value.equals(expectedValue.split("/")[0]) || value.equals(expectedValue.split("/")[1]);
+        }
         testStepVerify.isTrue(isElementPresent,
                 "'Payment Method' row should be present", "'Payment Method' row  is present'",
                 "'Payment Method' row  not present'");

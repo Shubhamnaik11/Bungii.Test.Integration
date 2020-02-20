@@ -265,7 +265,7 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED
+  @FAILED1234
   @regression
   Scenario: Re-search after using Promo code, should be used for re-searched trip
     Given I am on the "LOG IN" page
@@ -276,7 +276,7 @@ Feature: Promos
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
-      | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
+      | Solo   | 2052 Welton Street Denver Colorado | 3650 New Center Point Colorado Springs  | denver   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
@@ -285,7 +285,8 @@ Feature: Promos
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       | 30       |           |              | NEXT_POSSIBLE  | Default     |
       And I click "PROMO CODE LINE" button on "Estimate" screen
-      And I Enter "PROMOCODE" value in "Promo Code" field in "Promo" Page
+    #  And I Enter "PROMOCODE" value in "Promo Code" field in "Promo" Page
+    And I add "PROMO PERCENT OFF" PromoCode
       And I click "ADD" button on "PROMOS" screen
       When I tap "Back" on Promos screen
       And I should be navigated to "Estimate" screen
@@ -342,13 +343,7 @@ Feature: Promos
 
   @regression
   Scenario Outline: Already applied Promo code used after its expiry
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "EXPIRED"
 
-    When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

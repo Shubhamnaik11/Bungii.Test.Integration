@@ -111,7 +111,7 @@ Feature: Menu_SaveMoney
     @fail1
   Scenario: PromoCode_Unused_UponCancellation
     Given I am on customer Log in page
-    When I am logged in as "valid" customer
+    When I am logged in as "no promocode" customer
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii

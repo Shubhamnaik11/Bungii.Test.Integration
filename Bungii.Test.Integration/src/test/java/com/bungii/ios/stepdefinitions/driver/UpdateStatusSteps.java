@@ -638,6 +638,7 @@ public class UpdateStatusSteps extends DriverBase {
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + PropertyUtility.getDataProperties("time.label");
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_TELET")) + "  " + utility.getTimeZoneBasedOnGeofence();
+        expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
         testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
     }
 
@@ -649,6 +650,7 @@ public class UpdateStatusSteps extends DriverBase {
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + PropertyUtility.getDataProperties("time.label");
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
+        expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
 
         testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
 
