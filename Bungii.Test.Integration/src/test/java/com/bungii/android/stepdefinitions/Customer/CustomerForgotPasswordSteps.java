@@ -189,8 +189,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                 case "snackbar validation message for success once I click continue":
                     //Combined click with snackbar message
                     action.click(forgotPasswordPage.Button_Continue());
-                    Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
-                    testStepVerify.isTrue(isMessageCorrectlyDisplayed,PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+"is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
+                   // String message=action.getText(forgotPasswordPage.Snackbar_ForgotPassword(true));
+                    //Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
+                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true),PropertyUtility.getMessage("customer.forgotpassword.success.android"),PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+" is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
 
 /*                    String actualMessage = SetupManager.getDriver().findElement(By.id("com.bungii.customer:id/snackbar_text")).getText();
                     if (actualMessage == null) {

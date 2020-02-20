@@ -81,7 +81,6 @@ Feature: EstimateBungii
     And I add "4" photos to the Bungii
 
   @regression
-    @fail
   Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number

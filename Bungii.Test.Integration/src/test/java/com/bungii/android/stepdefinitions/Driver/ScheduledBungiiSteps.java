@@ -45,8 +45,6 @@ public class ScheduledBungiiSteps extends DriverBase {
             else{
                 action.click(Page_BungiiRequest.AlertButton_Cancel());
             }
-
-
             isSelected=true;
         }
         if(!skipNormalFlow) {

@@ -284,7 +284,7 @@ public class PromosSteps extends DriverBase {
                 case"referral code received with out first time tag":
                     testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
                     testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
-                    testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
+                    //testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
                     break;
                 case "Info":
                     testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));
@@ -392,6 +392,7 @@ public class PromosSteps extends DriverBase {
     public void i_select_something_on_the_promos_page(String strArg1) throws Throwable {
         try {
             Thread.sleep(3000);
+            //Richa-changed the locator from PromoCode_R0D1_OnEstimate to PromoCode_R3D5_OnEstimate
             //action.click(promoPage.PromoCode_R0D1());
             action.click(promoPage.PromoCode_R3D5());
             log("I click on the promo Code on Promos page",
@@ -406,7 +407,8 @@ public class PromosSteps extends DriverBase {
     @Then("^I should see the unused promo code$")
     public void i_should_see_the_unused_promo_code() throws Throwable {
         try{
-        testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+            //Richa-changed the locator from PromoCode_R0D1_OnEstimate to PromoCode_R3D5_OnEstimate
+        testStepAssert.isElementDisplayed(promoPage.PromoCode_R3D5(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
         log("I click on the promo Code on Promos page",
                 "I have clicked on the promo Code on Promos page", true);
         } catch (Exception e) {
@@ -433,6 +435,7 @@ public class PromosSteps extends DriverBase {
     public void i_select_the_added_promo_code() throws Throwable {
         try{
         Thread.sleep(3000);
+            //Richa-changed the locator from PromoCode_R0D1_OnEstimate to PromoCode_R3D5_OnEstimate
         action.click(promoPage.PromoCode_R3D5());
         log("I select the added promo code",
                 "I select the added promo code", true);
@@ -446,7 +449,8 @@ public class PromosSteps extends DriverBase {
     @Then("^I should see the previously added promo code present for current Bungii request$")
     public void i_should_see_the_previously_added_promo_code_present_for_current_bungii_request() throws Throwable {
         try{
-        testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1_OnEstimate(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+            //Richa-changed the locator from PromoCode_R0D1_OnEstimate to PromoCode_R3D5_OnEstimate
+        testStepAssert.isElementDisplayed(promoPage.PromoCode_R3D5_OnEstimate(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
             log("I should see the previously added promo code present for current Bungii request",
                     "I am able to see the previously added promo code present for current Bungii request", true);
         } catch (Exception e) {

@@ -6,6 +6,7 @@ Feature: CustomerSignup
     Given I am on Sign up page
 
   @regression
+
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -38,9 +39,7 @@ Feature: CustomerSignup
 
   @email
   @regression
-    @fail
   Scenario: Signup_SuccessValidPromoCode
-
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "ValidPercent" promo code on Signup Page
@@ -101,7 +100,6 @@ Feature: CustomerSignup
 
 
   @regression
-    @fail
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -128,6 +126,7 @@ Feature: CustomerSignup
       And I click on "OK" button
 
       #add new payment method
+      And I get the number of cards present
       And I tap on "Add" on Payment page
       And I tap on "Credit or Debit Card" on Payment page
       And I enter "<Card Detail>" on Card Details page
