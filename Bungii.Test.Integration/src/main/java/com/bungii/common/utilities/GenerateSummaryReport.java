@@ -224,7 +224,7 @@ public class GenerateSummaryReport {
             String s;
             String totalStr = "";
             String listString = String.join("", failureSummaryData);
-
+            listString = listString.replaceAll("<tr></tr>","");
             //if start time is null due to any reason then set it to current time
             if (startTime == null) {
                 startTime = new Date();
