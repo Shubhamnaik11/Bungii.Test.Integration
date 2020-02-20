@@ -514,7 +514,8 @@ Feature: Create on demand bungii
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
   Scenario Outline:Referral code signup
-    When I am on the "LOG IN" page
+    When I Switch to "customer" application on "same" devices
+    And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
     And I click "Invite referrals" button on "HOME" screen
     Then I should be navigated to "Invite" screen

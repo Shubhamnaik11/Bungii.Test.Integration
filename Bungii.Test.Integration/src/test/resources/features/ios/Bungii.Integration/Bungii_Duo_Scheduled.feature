@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  
+  @FAILED
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -27,7 +27,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I should be navigated to "Estimate" screen
 
     When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage  | Save Trip Info |
+      | LoadTime | PromoCode | Payment Card | Time          | PickUpImage | Save Trip Info |
       | 30       |           |              | NEXT_POSSIBLE | large image | Yes            |
     Then I should be navigated to "Success" screen
     When I click "Done" button on "Success" screen
@@ -149,7 +149,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-  @FAILED
+
+  
   @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -232,6 +233,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
+    Then I wait for "1" mins
     When I click "On To The Next One" button on "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
@@ -367,7 +369,8 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO CODE        |
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
-  @FAILED1234
+
+
   @regression
   Scenario: Create Duo Bungii, Verify driver can contact customer
 
@@ -908,8 +911,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-
-
+  @FAILED
   @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -948,7 +950,7 @@ Feature: To Test Duo - Scheduled Bungii
     And stack trip information should not be displayed on deck
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+      | CUSTOMER1_PHONE | 9403960183      |
 
 
 
@@ -1015,7 +1017,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED
+  
   @regression
   @sanity
   Scenario: Short stack control driver
@@ -1068,7 +1070,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED
+  
   @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
@@ -1086,8 +1088,8 @@ Feature: To Test Duo - Scheduled Bungii
     And I start selected Bungii
 
     When I request "Solo Ondemand" Bungii as a customer in "goa" geofence
-      | Bungii Time | Customer Phone | Customer Name | Customer label |Customer Password |
-      | now         | 9403960183     | Mark Cuban    | 2              |Cci12345          |
+      | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
+      | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I should not get notification for "driver" for "stack trip"
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
@@ -1099,7 +1101,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  @FAILED
+
+  
   @regression
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
@@ -1130,7 +1133,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  @FAILED
+
+  
   @regression
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
     Given that duo schedule bungii is in progress
@@ -1162,6 +1166,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
   @FAILED
   @regression
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
@@ -1218,6 +1223,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "same" devices
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+
   @FAILED
   @regression
   Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
@@ -1255,7 +1261,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am on the "LOG IN" page
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                 | Drop Location  |
+      | Driver | Pickup Location          | Drop Location  |
       | Solo   | St mary paralytic centre | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
@@ -1270,7 +1276,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
-  
+
   @regression
   Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
@@ -1285,7 +1291,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I am on the "LOG IN" page
     When I logged in Customer application using  "valid customer2" user
     When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                 | Drop Location  |
+      | Driver | Pickup Location          | Drop Location  |
       | Solo   | St mary paralytic centre | froggyland Goa |
 
     And I click "Get Estimate" button on "Home" screen
@@ -1335,7 +1341,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       | 9403960183     |                 |
 
-  @FAILED
+  
   @regression
   Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
     Given that ondemand bungii is in progress
