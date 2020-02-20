@@ -30,15 +30,10 @@ public class GenerateSummaryReport {
     public static void main(String[] args) throws IOException, ParseException {
         try {
             if (args.length > 0) {
-                /*String mainFolder = args[0];
+               String mainFolder = args[0];
                 String platform = args[1];
                 String category = args[2];
-                String environment = args[3]; */
-                String mainFolder = "D:\\Res";
-                String platform = "Web";
-                String category = "Regression";
-                String environment = "QA_Auto";
-
+                String environment = args[3];
 
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
