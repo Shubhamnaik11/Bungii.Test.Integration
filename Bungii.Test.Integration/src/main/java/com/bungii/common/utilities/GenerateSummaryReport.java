@@ -39,7 +39,7 @@ public class GenerateSummaryReport {
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
                 int testCount = 1;
-                int failureCount = 1;
+                Boolean isFailed = false;
                 //Iterate over all HTML file
                 for (String path : listOfResultFile) {
 
@@ -94,11 +94,14 @@ public class GenerateSummaryReport {
                         Elements cols = row.select("td");
                         String data = cols.toString();
                         failureSummaryData.add(data);
-                        failureCount++;
+                        isFailed= true;
                     }
                 }
                 createResultFileFromSummaryTemplate(platform , category, environment);
+                
+                if(isFailed)
                 createResultFileFromFailedSummaryTemplate(platform , category, environment);
+
                 new GenerateResultCSV().GenerateCSV(mainFolder);
                 newName(configFilePath,"MavenRun");
             } else {
