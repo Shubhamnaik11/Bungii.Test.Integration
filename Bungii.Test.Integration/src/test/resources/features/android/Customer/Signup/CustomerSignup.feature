@@ -216,6 +216,7 @@ Feature: CustomerSignup
       | R1D2          |
     And I Select Referral source
     And I tap on the "Sign Up" button on Signup Page
+    And the new user should see "Signup page"
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in

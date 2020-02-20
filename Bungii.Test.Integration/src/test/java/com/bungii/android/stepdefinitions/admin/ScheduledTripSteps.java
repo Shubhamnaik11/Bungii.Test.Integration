@@ -313,7 +313,8 @@ public class ScheduledTripSteps extends DriverBase {
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td/p[@id='btnEdit']"));
 		editButton.click();
 		action.click(scheduledTripsPage.RadioBox_Cancel());
-		scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
+		//scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge); //Richa- Commented this line as the field already contained charge as '0'
+		action.click(scheduledTripsPage.TextBox_CancelFee());
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
 		action.click(scheduledTripsPage.Button_Submit());
 		scheduledTripsPage.waitForPageLoad();
