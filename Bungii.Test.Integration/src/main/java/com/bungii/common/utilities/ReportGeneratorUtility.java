@@ -24,6 +24,7 @@ public class ReportGeneratorUtility {
 	private ArrayList<String> detailsArray = new ArrayList<String>();
 	private ArrayList<String> summaryArray = new ArrayList<String>();
 	private ArrayList<String> stackTraceArray = new ArrayList<String>();
+	ArrayList<String> failureArray = new ArrayList<String>();
 
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
@@ -40,6 +41,7 @@ public class ReportGeneratorUtility {
 	private Date testStepStart, testStepEnd;
 	private String tcName;
 	private String featureName;
+    private String reason;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -87,6 +89,7 @@ public class ReportGeneratorUtility {
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
+            totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
 
 	        FileWriter fw = new FileWriter(result);
 	    fw.write(totalStr);
@@ -107,6 +110,7 @@ public class ReportGeneratorUtility {
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
+		this.reason="";
 		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
@@ -118,6 +122,7 @@ public class ReportGeneratorUtility {
 		String str = "<tr class='header'><td colspan='8' align='left'>Test case: "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
+        this.reason="";
 		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
 	}
 
@@ -130,6 +135,7 @@ public class ReportGeneratorUtility {
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
 		int stepCount= testStepCount+1;
+		String reason = screenDumpLink((String) eventData.get("actual"), eventData);
 		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
 		str = str + "<td align='left'>" + eventData.get("name").toString() + "</td>";
 		if (eventData.get("type").toString() == "PASSED") {
@@ -140,7 +146,7 @@ public class ReportGeneratorUtility {
 		}
 
 		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
-		str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+		str = str + "<td>" + reason + "</td>";
 		str = str + "<td>" + testStepStart + "</td>";
 		str = str + "<td>" + testStepEnd + "</td>";
 		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
@@ -148,6 +154,7 @@ public class ReportGeneratorUtility {
 		detailsArray.add(str);
 		if (eventData.get("type").toString() != "PASSED") {
 			detailsArray.addAll(stackTraceArray);
+            this.reason = reason;
 			stackTraceArray.clear();
 		}
 		//increase step count ;
@@ -196,6 +203,7 @@ public class ReportGeneratorUtility {
 	 */
 	public void endTestCase(boolean isFailed) {
 		String str1;
+		//String str2;
 		testCases++;
 		testFinish = new Date();
 		String str = "";
@@ -207,6 +215,8 @@ public class ReportGeneratorUtility {
 		}
 		else {
 			status = "<td style='background-color:pink;'>Fail</td>";
+			String str2 = "<td>" + tcName + "</td>" + status  + "<td>"+  this.reason +"</td>";
+			failureArray.add(str2);
 			failed++;
 		}
 
@@ -216,6 +226,8 @@ public class ReportGeneratorUtility {
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
 		str1 = "<td cursor:'pointer;'>" + tcName + "</td>" + status  + str;
+
+
 		summaryArray.add(str1);
 	}
 
@@ -302,6 +314,14 @@ public class ReportGeneratorUtility {
 		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
 	}
+	private String getLogFailureData(ArrayList<String> strArray) {
+		String strDetails = "";
+		for (String str : strArray)
+			strDetails+="<tr class='header'>" + str + "</tr>";
+		final String cleansedString = StringUtils.normalizeSpace(strDetails);
+		//logger.detail("Generated Report : "+cleansedString);
+		return strDetails;
+	}
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
@@ -314,4 +334,5 @@ public class ReportGeneratorUtility {
 		detailsArray.add(str);
 
 	}
+
 }
