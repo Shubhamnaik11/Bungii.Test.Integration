@@ -284,7 +284,7 @@ public class PromosSteps extends DriverBase {
                 case"referral code received with out first time tag":
                     testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_FirstTimeInfo(true)),"'This code is only available for your first Bungii.' should not displayed");
                     testStepVerify.isTrue(!action.isElementPresent(promoPage.Text_First(true)),"First tag should not be displayed");
-                    testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
+                    //testStepVerify.isElementTextEquals(promoPage.Text_First(true), "FIRST");
                     break;
                 case "Info":
                     testStepVerify.isElementTextEquals(promoPage.Text_InformationMessage(), PropertyUtility.getMessage("customer.promos.first.time.info"));

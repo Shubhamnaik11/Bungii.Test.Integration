@@ -215,6 +215,7 @@ Feature: SoloScheduled
 
 
   @regression
+    @fail
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
     Given that solo schedule bungii is in progress

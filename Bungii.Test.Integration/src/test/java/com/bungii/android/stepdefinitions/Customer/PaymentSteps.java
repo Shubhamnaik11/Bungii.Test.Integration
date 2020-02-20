@@ -11,6 +11,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.sl.In;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tools.ant.types.selectors.SelectSelector;
 import org.openqa.selenium.By;
@@ -36,18 +37,22 @@ public class PaymentSteps extends DriverBase {
             if(cards.size() == 0){
                 count=0;
                 count1=0;
-                cucumberContextManager.setScenarioContext("CARDS_COUNT", count);
-                cucumberContextManager.setScenarioContext("CARDS_COUNT1", count1);
+                String c1=String.valueOf(count);
+                String c2=String.valueOf(count1);
+                cucumberContextManager.setScenarioContext("CARDS_COUNT", c1);
+                cucumberContextManager.setScenarioContext("CARDS_COUNT1", c2);
             }
             else {
                 for (i = 0; i < cards.size(); i++) {
                     String text = cards.get(i).getText();
                     if (text.contains("1117")) {
                         count++;
-                        cucumberContextManager.setScenarioContext("CARDS_COUNT", count);
+                        String c1=String.valueOf(count);
+                        cucumberContextManager.setScenarioContext("CARDS_COUNT", c1);
                     } else if (text.contains("4242")) {
                         count1++;
-                        cucumberContextManager.setScenarioContext("CARDS_COUNT1", count1);
+                        String c2=String.valueOf(count1);
+                        cucumberContextManager.setScenarioContext("CARDS_COUNT1", c2);
                     }
                 }
             }
@@ -166,13 +171,16 @@ public class PaymentSteps extends DriverBase {
                     action.scrollToBottom();
                     List<WebElement> cards=paymentPage.List_Card_1();
                     int i=0, count=0,count1=0; String text =null;
+                    int oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT"));
+
                     String ExpectedLast4Digits =(String) cucumberContextManager.getScenarioContext("Last4Digits");
                     if (ExpectedLast4Digits.contains("1117")) {
                         for (i = 0; i <cards.size(); i++) {
                             text=cards.get(i).getText();
                             if(text.contains(ExpectedLast4Digits)){
                                 count++;}
-                            cucumberContextManager.setScenarioContext("NEWCARDS_COUNT", count);
+                            String c1=String.valueOf(count);
+                            cucumberContextManager.setScenarioContext("NEWCARDS_COUNT", c1);
                         }
                     }
                     else if (ExpectedLast4Digits.contains("4242")) {
@@ -180,23 +188,27 @@ public class PaymentSteps extends DriverBase {
                             text=cards.get(i).getText();
                             if(text.contains(ExpectedLast4Digits)){
                                 count1++;}
-                            cucumberContextManager.setScenarioContext("NEWCARDS_COUNT1", count1);
+                            String c2=String.valueOf(count1);
+                            cucumberContextManager.setScenarioContext("NEWCARDS_COUNT1", c2);
                         }
                     }
 
-                    testStepVerify.isElementDisplayed(paymentPage.PaymentCard1(), "Default Tick should be displayed on Payment Page", "Add button is displayed on Payment Page", "Add button is not displayed on Payment Page");
+                   if(action.isElementPresent(paymentPage.DefaultTick())==false)
+                    {
+                        action.scrollToBottom();
+                    }
                     testStepVerify.isElementDisplayed(paymentPage.DefaultTick(), "Default checkbox should be displayed", "Default checkbox is displayed ", "Default checkbox is not displayed");
+                    testStepVerify.isElementDisplayed(paymentPage.PaymentCard1(), "Default Tick should be displayed on Payment Page", "Add button is displayed on Payment Page", "Add button is not displayed on Payment Page");
 
                     String ActualLast4Digits = action.getText(paymentPage.DefaultCard()).replace("*", "").replace(" ", "");
                     if(ExpectedLast4Digits.equals("1117")){
-                        int newCount=(Integer) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT");
-                        int oldCount=(Integer) cucumberContextManager.getScenarioContext("CARDS_COUNT");
-                        testStepAssert.isTrue(newCount == oldCount + 1, "There should be " + String.valueOf(oldCount + 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+                        int newCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT"));
+                        testStepAssert.isTrue(String.valueOf((newCount)).equals(String.valueOf((oldCount) + 1)), "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
                     }
                     else if(ExpectedLast4Digits.equals("4242")){
-                        int newCount=(Integer) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1");
-                        int oldCount=(Integer) cucumberContextManager.getScenarioContext("CARDS_COUNT1");
-                        testStepAssert.isTrue(newCount == oldCount + 1, "There should be " + String.valueOf(oldCount + 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+                        String newCount=(String) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1");
+                        oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT1"));
+                        testStepAssert.isTrue(Integer.parseInt(newCount) == (oldCount) + 1, "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
                     }
                     else
                     { testStepVerify.isEquals(ActualLast4Digits,ExpectedLast4Digits);}

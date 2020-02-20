@@ -28,7 +28,6 @@ public class AvailableTripsSteps extends DriverBase {
     @And("I Select Trip from driver available trip")
     public void iSelectTripFromDriverAvailableTrip() {
         try {
-
             String customerName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             String numberOfDriver = (String) cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER");
             //   customerName="Vishal Bagi";numberOfDriver="SOLO";

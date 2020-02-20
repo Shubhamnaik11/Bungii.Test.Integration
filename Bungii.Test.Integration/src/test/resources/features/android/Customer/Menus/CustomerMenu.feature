@@ -8,7 +8,7 @@ Feature: CustomerMenu
     Given I am on Customer logged in Home page
 
   @regression
-    @fail
+
   Scenario: As Bungii customer I should able to access menu items
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened
