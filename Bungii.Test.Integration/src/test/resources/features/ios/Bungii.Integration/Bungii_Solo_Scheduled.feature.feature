@@ -1447,6 +1447,7 @@ Feature: To Test Solo - Scheduling Bungii
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
   @SOLOFAILED
   @regression
+
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
 

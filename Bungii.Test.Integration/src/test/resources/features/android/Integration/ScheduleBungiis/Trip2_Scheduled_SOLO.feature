@@ -215,6 +215,7 @@ Feature: SoloScheduled
 
 
   @regression
+    @fail
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
 
     Given that solo schedule bungii is in progress
@@ -966,7 +967,7 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "Contacting Other Driver"
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     And "correct duo scheduled trip details" should be displayed on Bungii request screen
     Then I cancel all bungiis of customer
@@ -991,7 +992,7 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     Then trips status should be "estimated cost of duo trip"
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     Then I should be navigated to "BUNGII DETAILS" screen
     And "correct duo scheduled trip details" should be displayed on Bungii request screen
     Then I cancel all bungiis of customer
@@ -1253,7 +1254,7 @@ Feature: SoloScheduled
     And I enter phoneNumber :9999999991 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should see "REQUIRED DRIVER NOT ACCEPTED" on screen
     Then I cancel all bungiis of customer
@@ -1274,7 +1275,7 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     When I wait for 1 hour for Bungii Schedule Time
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
     Then I cancel all bungiis of customer
@@ -1295,7 +1296,7 @@ Feature: SoloScheduled
     And I click "Log In" button on Log In screen on driver app
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     When I wait for 1 hour for Bungii Schedule Time
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should see "CUSTOMER HAS ONGOING BUNGII" on screen
     Then I cancel all bungiis of customer
@@ -2022,7 +2023,7 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I am logged in as "Kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" screen
     Then I check ETA of "control driver"
@@ -2036,7 +2037,7 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from scheduled trip
+    And I Select Trip from driver scheduled trip
     And I start selected Bungii
     Then I should be navigated to "EN ROUTE" screen
 

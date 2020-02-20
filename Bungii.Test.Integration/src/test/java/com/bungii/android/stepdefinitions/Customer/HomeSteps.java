@@ -48,20 +48,7 @@ public class HomeSteps extends DriverBase {
             utility.clickCustomerMenuItem(strArg2);
             Thread.sleep(2000);
             action.scrollToBottom();
-            List<WebElement> cards=paymentPage.List_Card_1();
 
-            int i=0, count=0, count1=0;
-            for (i = 0; i < cards.size(); i++) {
-                String text=cards.get(i).getText();
-                if (text.contains("1117")) {
-                    count++;
-                    cucumberContextManager.setScenarioContext("CARDS_COUNT",count);
-                }
-                else if (text.contains("4242")) {
-                    count1++;
-                    cucumberContextManager.setScenarioContext("CARDS_COUNT1",count1);
-                }
-            }
             log(" I should able to tap on " + strArg2, " I tapped on " + strArg2, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
