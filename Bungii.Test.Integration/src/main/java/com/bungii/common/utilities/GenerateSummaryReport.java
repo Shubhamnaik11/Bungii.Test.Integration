@@ -205,6 +205,7 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
             totalStr = totalStr.replaceAll("<!--CATEGORY-->", (category==null)?"":category.toUpperCase());
             totalStr = totalStr.replaceAll("<!--ENVIRONMENT-->", (environment==null)?"": environment.toUpperCase());
+            totalStr = totalStr.replaceAll("<!--LINK.TO.FAILURE-->", (failCount==0)? "":  "<a href='./failureSummary.html'> Link to Failure Test Summary Report</a>");
 
             FileWriter fw = new FileWriter(result);
             fw.write(totalStr);
