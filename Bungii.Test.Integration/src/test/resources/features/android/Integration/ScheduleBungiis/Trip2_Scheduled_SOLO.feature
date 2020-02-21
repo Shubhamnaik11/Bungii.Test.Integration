@@ -215,9 +215,7 @@ Feature: SoloScheduled
 
 
   @regression
-    @fail
   Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
-
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | kansas   | Accepted     | NEXT_POSSIBLE |
@@ -317,7 +315,8 @@ Feature: SoloScheduled
 
 
   @regression
-  Scenario: To check  status in Scheduled Bungiis page when only one driver accepts trip
+
+  Scenario: To check status in Scheduled Bungiis page when only one driver accepts trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -428,6 +427,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
+
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -714,6 +714,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
+  @fail
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
@@ -747,6 +748,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
+  @fail
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -759,10 +761,10 @@ Feature: SoloScheduled
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
     Then user is alerted for "more than 1 hour from scheduled time"
-    Then correct details should be displayed to driver on "Support-SMS" app
+    And correct support details should be displayed to customer on "SMS" app
     When I try to contact driver using "call driver1"
     Then user is alerted for "more than 1 hour from scheduled time"
-    Then correct details should be displayed to driver on "Support-SMS" app
+    And correct support details should be displayed to customer on "SMS" app
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
