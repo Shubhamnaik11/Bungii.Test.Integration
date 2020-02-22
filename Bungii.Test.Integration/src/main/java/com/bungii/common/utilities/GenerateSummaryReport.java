@@ -34,7 +34,7 @@ public class GenerateSummaryReport {
                 String platform = args[1];
                 String category = args[2];
                 String environment = args[3];
-                
+
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
@@ -220,7 +220,7 @@ public class GenerateSummaryReport {
 
         try {
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_FAILEDSUMMARY_FILE"));
-            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/failedSummarytemplate.html")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/failedsummarytemplate.html")));
             String s;
             String totalStr = "";
             String listString = String.join("", failureSummaryData);
@@ -236,7 +236,7 @@ public class GenerateSummaryReport {
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
             totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
-            totalStr = totalStr.replaceAll("<!--FAILURE.SUMARRY-->", listString);
+            totalStr = totalStr.replaceAll("<!--FAILURE.SUMMARY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
