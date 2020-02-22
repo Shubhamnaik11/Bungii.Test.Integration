@@ -220,7 +220,7 @@ public class GenerateSummaryReport {
 
         try {
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_FAILEDSUMMARY_FILE"));
-            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/failedsummarytemplate.html")));
+            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/failuresummarytemplate.html")));
             String s;
             String totalStr = "";
             String listString = String.join("", failureSummaryData);
