@@ -84,7 +84,7 @@ public class ActionManager {
 
     public String getNameAttribute(WebElement element) {
         String value = element.getAttribute("name");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        logger.detail("'name' attribute for " + element.toString() + " is " + value);
         return value;
     }
 

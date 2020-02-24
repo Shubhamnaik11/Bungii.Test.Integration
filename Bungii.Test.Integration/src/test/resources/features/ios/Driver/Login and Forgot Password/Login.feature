@@ -24,7 +24,7 @@ Feature: Log In
 
   @sanity
   @regression
-  Scenario: As Bungii driver , I should able to login to application using valid password
+  Scenario: As Bungii driver . I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen on driverApp
     Then I should be successfully logged in to the application
