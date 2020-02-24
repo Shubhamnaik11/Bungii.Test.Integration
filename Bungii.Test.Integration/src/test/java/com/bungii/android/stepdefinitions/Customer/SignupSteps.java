@@ -31,7 +31,7 @@ public class SignupSteps extends DriverBase {
                 case "unique":
                     customerPhone = utility.generateMobileNumber();
                     cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
-                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
+                    cucumberContextManager.setFeatureContextContext("NEW_USER_NUMBER", customerPhone);
                     break;
                 case "blank":
                     break;
@@ -77,7 +77,7 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
                     String customerName=firstName+" "+PropertyUtility.getDataProperties("customer.last.name");
-                    cucumberContextManager.setScenarioContext("CUSTOMER",customerName);
+                    cucumberContextManager.setFeatureContextContext("CUSTOMER",customerName);
                     break;
                 case "valid test":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),"Testcustomertywd"+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));

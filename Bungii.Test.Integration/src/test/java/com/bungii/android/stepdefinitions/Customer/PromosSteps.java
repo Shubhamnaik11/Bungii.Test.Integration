@@ -1,7 +1,7 @@
 package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.PromosPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
