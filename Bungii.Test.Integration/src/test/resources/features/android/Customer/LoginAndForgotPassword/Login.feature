@@ -8,7 +8,6 @@ Feature: Login
 
   @sanity
   @regression
-  @testrun
   Scenario: Cust_Login_ValidCredentials
     When I enter customers "valid" Phone Number
     And I enter customers "valid" Password
@@ -17,7 +16,6 @@ Feature: Login
     And I tap on "Menu" > "Logout" link
 
   @regression
-  @testrun
   Scenario: Cust_Login_InvalidCredentials
     When I enter customers "invalid" Phone Number
     And I enter customers "invalid" Password
@@ -114,7 +112,7 @@ Feature: Login
     Then "Home" page should be opened
 
   @regression
-  @testrun
+
   Scenario: "Android customer- if location permission denied, alert should be shown again on home page with option to never ask again.Not available in IOS Customer."
     Given I have device which has location permission
     Given I install Bungii App again

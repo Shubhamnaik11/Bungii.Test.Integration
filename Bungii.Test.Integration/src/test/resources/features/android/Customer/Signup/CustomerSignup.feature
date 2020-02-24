@@ -26,14 +26,14 @@ Feature: CustomerSignup
     Then account created info for "OTHER" should be "increase by 1"
 
   @regression
-  @testrun
+
   Scenario: Signup_AllFieldsBlank
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page
     Then the new user should see "sign up button disabled"
 
   @regression
-  @testrun
+
   Scenario: Signup_InvalidDetails
     When I enter "invalid" customer phone number on Signup Page
     And I enter "invalid" data in mandatory fields on Signup Page
@@ -41,7 +41,7 @@ Feature: CustomerSignup
 
   @email
   @regression
-  @testrun
+
   Scenario: Signup_SuccessValidPromoCode
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -210,7 +210,7 @@ Feature: CustomerSignup
   #used one off
   #Know issue, no alert
   @regression
-  @testrun
+
   Scenario: To check that validation is displayed on signing up with invalid/used One off promo codes
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page
