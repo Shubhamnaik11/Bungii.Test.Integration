@@ -342,7 +342,7 @@ Feature: On Demand Bungii
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-    @fail1
+    @testrun
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -382,7 +382,7 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
-
+    @testrun
   Scenario Outline: on demand with first time promo
     When I am on customer Log in page
     And I am logged in as "newly created user" customer
