@@ -6,6 +6,7 @@ Feature: On Demand Bungii
 
 
   @regression
+
   Scenario: Validate That I am able to create on demand bungii. Also Validate that Correct contact number is displayed on Call and SMS Option
 
     Given that ondemand bungii is in progress
@@ -137,7 +138,6 @@ Feature: On Demand Bungii
 
   @sanity
   @regression
-
   Scenario: Validate That I am able to create on demand bungii.
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
@@ -342,7 +342,6 @@ Feature: On Demand Bungii
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -366,6 +365,7 @@ Feature: On Demand Bungii
     And I should able to see expected promo code in available promo code
     Then The "This code is only available for your first Bungii." is displayed
     When I tap on "Menu" > "Payment" link
+    And I get the number of cards present
     And I tap on "Add" on Payment page
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "<Card Detail>" on Card Details page
@@ -382,16 +382,15 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
-
   Scenario Outline: on demand with first time promo
-    When I am on customer Log in page
-    And I am logged in as "newly created user" customer
-    And I Switch to "driver" application on "same" devices
+    When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
     And I Select "HOME" from driver App menu
     Then I tap on "Go Online button" on Driver Home page
 
     When I Switch to "customer" application on "same" devices
+    And I am on customer Log in page
+    And I am logged in as "newly created user" customer
     And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -402,6 +401,7 @@ Feature: On Demand Bungii
     And I tap "Add" on Save Money page
     Then I should able to see expected promo code in available promo code
     And I tap on "Back" icon of page
+    And I should see "all elements" on Bungii estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
@@ -433,15 +433,14 @@ Feature: On Demand Bungii
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
-    And I Select "live trips" from admin sidebar
-    And I select trip from live trips
+    And I Select "trips" from admin sidebar
+    And I select trip from trips
     Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
       | Scenario         | Expected value in admin |
       | First time       | promo                   |
 
   @regression
-
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -486,7 +485,6 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -533,7 +531,6 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

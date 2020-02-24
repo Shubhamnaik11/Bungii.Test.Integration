@@ -1235,6 +1235,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
+
   Scenario:To check that when Bungii has Not yet started. Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

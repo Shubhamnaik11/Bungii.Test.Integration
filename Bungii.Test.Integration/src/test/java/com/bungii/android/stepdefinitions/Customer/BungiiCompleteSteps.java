@@ -2,7 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.BungiiCompletePage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -193,7 +193,8 @@ public class BungiiCompleteSteps extends DriverBase {
     public void verifyDiscount() {
         action.scrollToBottom();
         double tripActualTime = Double.parseDouble(utility.getActualTime());
-        String totalTime = action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0], totalDistance = action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
+        String totalTime = action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],
+                totalDistance = action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
         String Promo = String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
         String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 

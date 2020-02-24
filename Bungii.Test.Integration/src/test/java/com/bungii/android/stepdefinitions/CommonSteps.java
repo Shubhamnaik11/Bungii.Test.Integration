@@ -925,6 +925,7 @@ public class CommonSteps extends DriverBase {
         try {
             String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
             String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+           // phoneNumber = (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER");//phoneNumber="9999992799";
             cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
             cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
             testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
