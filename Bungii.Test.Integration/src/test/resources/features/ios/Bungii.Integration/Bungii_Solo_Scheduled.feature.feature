@@ -209,7 +209,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I Cancel selected Bungii
 
   @regression
-  Scenario: Customer cancel bungii , Verify trip details in Bungii Details
+  Scenario: Customer cancel bungii . Verify trip details in Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
@@ -222,7 +222,7 @@ Feature: To Test Solo - Scheduling Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
   @regression
-  Scenario: Cancel Bungii from Admin Panel , verify trip is gone from scheduled trip in app
+  Scenario: Cancel Bungii from Admin Panel . verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
@@ -690,7 +690,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
-  Scenario:Ensure shceduled Bungii notification info is correct (est. earnings, date)
+  Scenario:Ensure shceduled Bungii notification info is correct (est. earnings. date)
     When I clear all notification
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -771,7 +771,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
-  Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:Solo
+  Scenario: To check that if driver received more than one requests. he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:Solo
     Given I Switch to "customer" application on "same" devices
 
     #trip 1
@@ -798,7 +798,7 @@ Feature: To Test Solo - Scheduling Bungii
   #change login step 1
   
   @regression
-  Scenario: To check that if driver received more than one requests, he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
+  Scenario: To check that if driver received more than one requests. he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
     Given I Switch to "customer" application on "same" devices
     #trip 1
     Given I request "duo" Bungii as a customer in "denver" geofence
@@ -823,7 +823,7 @@ Feature: To Test Solo - Scheduling Bungii
       | CUSTOMER1_PHONE | 8888889917      |
 
   @regression
-  Scenario: Driver should receive alert stating that the trip has already been accepted by him, if he receives request Notification after accepting the trip from Available trips.
+  Scenario: Driver should receive alert stating that the trip has already been accepted by him. if he receives request Notification after accepting the trip from Available trips.
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
@@ -1138,7 +1138,7 @@ Feature: To Test Solo - Scheduling Bungii
 
 
   @regression
-  Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
+  Scenario:  To check that if Non control driver completes the trip first. he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -1243,7 +1243,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
-  Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
+  Scenario:To check that when Bungii has Not yet started. Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
@@ -1262,7 +1262,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
-  Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.duo
+  Scenario:To check that when Bungii has Not yet started. Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
       | denver   | Accepted     | NEXT_POSSIBLE | denver customer | denver driver 1 | denver driver 2 |
@@ -1845,7 +1845,7 @@ Feature: To Test Solo - Scheduling Bungii
 
 
   @regression
-  Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
+  Scenario: if incoming on demand trip TELET overlaps scheduled trip telet. then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | denver   | Accepted     | 15 min ahead |
@@ -2119,7 +2119,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   @regression
-  Scenario:If incoming scheduled request start time (Trip 3), overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
+  Scenario:If incoming scheduled request start time (Trip 3). overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State |

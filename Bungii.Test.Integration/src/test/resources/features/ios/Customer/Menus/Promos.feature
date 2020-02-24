@@ -9,7 +9,7 @@ Feature: Promos
 
   @sanity
   @regression
-  Scenario Outline:As a existing bungii customer , I should not be allowed to use First time only Promo code
+  Scenario Outline:As a existing bungii customer . I should not be allowed to use First time only Promo code
     When I logged in Customer application using  "existing" user
     And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -24,7 +24,7 @@ Feature: Promos
       | Invalid | first time only | FIRST TIME ONLY PROMO |
 
   @regression
-  Scenario Outline: As a Bungii Customer , I should be alert while adding invalid promo code
+  Scenario Outline: As a Bungii Customer . I should be alert while adding invalid promo code
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
@@ -36,7 +36,7 @@ Feature: Promos
       | Invalid | AAAAAAA | Invalid Promo    |
 
   @regression
-  Scenario Outline: As a Bungii Customer , I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
+  Scenario Outline: As a Bungii Customer . I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -59,7 +59,7 @@ Feature: Promos
       | New user (with out REFERRAL code)  | new       | REFERRAL FOR NEW USER |
 
   @regression
-  Scenario: As a Bungii Customer , I should be alerted while added used one off promo code
+  Scenario: As a Bungii Customer . I should be alerted while added used one off promo code
   #  When I open new "Chrome" browser for "ADMIN PORTAL"
   #  When I navigate to admin portal
   #  And I log in to admin portal
@@ -73,7 +73,7 @@ Feature: Promos
     Then user is alerted for "Invalid Promo"
 
   @regression
-  Scenario: As a Bungii Customer , I should be alerted while adding already existing code
+  Scenario: As a Bungii Customer . I should be alerted while adding already existing code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -104,7 +104,7 @@ Feature: Promos
     Then user is alerted for "EXPIRED PROMO"
   @notwitter
  # @regression
-  Scenario: When i try to share my promo code , via twitter but there is no application installed then I should be alerted for No twitter Installed message
+  Scenario: When i try to share my promo code . via twitter but there is no application installed then I should be alerted for No twitter Installed message
     Given I have "twitter" app "not installed"
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -171,7 +171,7 @@ Feature: Promos
 
 
   @regression
-  Scenario:First time promo code/referral code, if present should be selected by default.
+  Scenario:First time promo code/referral code. if present should be selected by default.
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -242,7 +242,7 @@ Feature: Promos
     Then I should able to see expected promo code in available promo code
 
   @regression
-  Scenario: Cancel after using Promo code, should Not get utilized
+  Scenario: Cancel after using Promo code. should Not get utilized
 
     And I am on the "LOG IN" page
     And I enter Username :8877995512 and  Password :{VALID}
@@ -269,7 +269,7 @@ Feature: Promos
     Then I should able to see expected promo code in available promo code
   @FAILED
   @regression
-  Scenario: Re-search after using Promo code, should be used for re-searched trip
+  Scenario: Re-search after using Promo code. should be used for re-searched trip
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     When I Switch to "driver" application on "same" devices

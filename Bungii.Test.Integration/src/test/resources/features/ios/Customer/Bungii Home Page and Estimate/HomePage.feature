@@ -12,7 +12,7 @@ Feature: Customer Home screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
   @regression
-  Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
+  Scenario: To verify ETA . Location text box header . To Verify clear text button is enabled once location is selected
     When I logged in Customer application using  "existing" user
 
     Then current location should be present as pickup location
