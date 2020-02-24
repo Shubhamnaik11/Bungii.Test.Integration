@@ -28,6 +28,7 @@ public class CommonStepsDriver extends DriverBase {
     ActionManager action = new ActionManager();
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private TripAlertSettingsPage tripAlertSettingsPage = new TripAlertSettingsPage();
+    private BungiiCompletedPage driverBungiiCompletedPage= new BungiiCompletedPage();
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
     private com.bungii.ios.pages.driver.LoginPage driverLoginPage;
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
@@ -343,6 +344,8 @@ public class CommonStepsDriver extends DriverBase {
         }
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+        }else if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
         }
 
     }
