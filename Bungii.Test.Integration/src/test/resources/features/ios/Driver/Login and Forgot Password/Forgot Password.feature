@@ -10,7 +10,7 @@ Feature: FORGOT PASSWORD
     And I am on the "LOG IN" page on driverApp
 
   @regression
-  Scenario Outline: As Bungii driver, I should be alerted if I add invalid phone number during Forgot Password functionality . Scenario:<Scenario>
+  Scenario Outline: As Bungii driver. I should be alerted if I add invalid phone number during Forgot Password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
     And I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page on driverApp
@@ -23,7 +23,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
-  Scenario Outline: As Bungii driver , I should be alerted if I Enter invalid password or sms code during Forgot Password functionality. Scenario:<Scenario>
+  Scenario Outline: As Bungii driver . I should be alerted if I Enter invalid password or sms code during Forgot Password functionality. Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
     And I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page on driverApp

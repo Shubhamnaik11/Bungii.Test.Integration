@@ -112,6 +112,7 @@ Feature: Login
     Then "Home" page should be opened
 
   @regression
+
   Scenario: "Android customer- if location permission denied, alert should be shown again on home page with option to never ask again.Not available in IOS Customer."
     Given I have device which has location permission
     Given I install Bungii App again

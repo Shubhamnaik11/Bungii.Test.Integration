@@ -9,7 +9,7 @@ Feature: FORGOT PASSWORD
     Given I am on the "LOG IN" page
 
   @regression
-  Scenario Outline: As Bungii customer , I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
+  Scenario Outline: As Bungii customer . I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -22,7 +22,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
-  Scenario Outline: As Bungii customer , I should able to alerted if I Enter invalid password or sms code during forget password functionality. Scenario:<Scenario>
+  Scenario Outline: As Bungii customer . I should able to alerted if I Enter invalid password or sms code during forget password functionality. Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -42,7 +42,7 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
 
   @regression
-  Scenario Outline: As Bungii customer , I should able to change my password using forgot password functionality
+  Scenario Outline: As Bungii customer . I should able to change my password using forgot password functionality
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page

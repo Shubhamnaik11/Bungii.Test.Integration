@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @FAILED
+  @DUOFAILED123
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -247,7 +247,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
-  @FAILED
+  @DUOFAILED123
   @regression
   Scenario Outline:Customer amount for duo with promo
 
@@ -372,7 +372,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
   @regression
-  Scenario: Create Duo Bungii, Verify driver can contact customer
+  Scenario: Create Duo Bungii. Verify driver can contact customer
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -562,9 +562,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED
+  @DUOFAILED123
   @regression
-  Scenario: Create Long stack, verify decked detail/alert msgs/status of current and stacked bungii
+  Scenario: Create Long stack. verify decked detail/alert msgs/status of current and stacked bungii
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -691,9 +691,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED
+  @DUOFAILED123
   @regression
-  Scenario: Create Long stack, base scheduled trip , verify decked detail/alert msgs/status of current and stacked bungii
+  Scenario: Create Long stack. base scheduled trip . verify decked detail/alert msgs/status of current and stacked bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | enroute      | NEXT_POSSIBLE |
@@ -810,9 +810,9 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED
+  @DUOFAILED123
   @regression
-  Scenario: Create short stack, verify decked detail/alert msgs/status of current and stacked bungii
+  Scenario: Create short stack. verify decked detail/alert msgs/status of current and stacked bungii
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -911,7 +911,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @FAILED
+  @DUOFAILED1234
   @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -956,7 +956,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     #move to top
     #need to do in atlanta
-  @FAILED
+  @DUOFAILED123
   @regression
   Scenario: Long stack non control driver
 
@@ -1104,7 +1104,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   
   @regression
-  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver. the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1136,7 +1136,7 @@ Feature: To Test Duo - Scheduled Bungii
 
   
   @regression
-  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
+  Scenario: To check that when customer cancels a Duo trip accepted by one driver. the driver gets a Notification when app in background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
       | goa      | Scheduled    | NEXT_POSSIBLE | customer-duo | valid duo driver 1 | valid driver 2 |
@@ -1167,7 +1167,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED
+  @DUOFAILED123
   @regression
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
@@ -1198,7 +1198,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
 
-  @FAILED
+  @DUOFAILED123
   @regression
   Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1224,7 +1224,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @FAILED
+  @DUOFAILED123
   @regression
   Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1309,7 +1309,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
   @regression
-  Scenario:Verify Customer notification(Stack bungii accepted, Stack driver started, )
+  Scenario:Verify Customer notification(Stack bungii accepted. Stack driver started. )
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | goa      | UNLOADING ITEM |
