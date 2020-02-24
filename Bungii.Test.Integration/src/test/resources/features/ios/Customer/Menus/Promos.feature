@@ -142,7 +142,8 @@ Feature: Promos
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
-    When I enter Username :8888889917 and  Password :{VALID}
+#    When I enter Username :8888889917 and  Password :{VALID}
+    When I enter Username :9999999923 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "PROMOS" from Customer App menu
     And I add "VALID" PromoCode
@@ -159,7 +160,8 @@ Feature: Promos
     Then I get promo code for "VALID"
     And I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
-    When I enter Username :8877995502 and  Password :{VALID}
+ #   When I enter Username :8877995502 and  Password :{VALID}
+    When I enter Username :9999990015 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I Select "PROMOS" from Customer App menu
     When I Enter "first time only" value in "Promo Code" field in "Promo" Page
@@ -265,7 +267,7 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED1234
+  @FAILED
   @regression
   Scenario: Re-search after using Promo code, should be used for re-searched trip
     Given I am on the "LOG IN" page

@@ -651,8 +651,9 @@ public class UpdateStatusSteps extends DriverBase {
         else
             expectedTime = ((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY")) + " " + utility.getTimeZoneBasedOnGeofence();
         expectedTime=expectedTime.replace("am", "AM").replace("pm","PM");
-
-        testStepVerify.isElementTextEquals(updateStatusPage.Text_StackInfo(),"Try to finish by "+expectedTime);
+        String elementText=updateStatusPage.Text_StackInfo().getText();elementText=elementText.replace("  "," ");
+        logger.detail("Element Text"+elementText);
+        testStepVerify.isEquals(elementText,"Try to finish by "+expectedTime);
 
     }
     @Then("^I calculate projected driver arrival time$")
