@@ -9,7 +9,7 @@ Feature: Customer Estimate screen
     Given I am on Customer logged in Home page
 
   @regression
-  Scenario: If I cancel on Bungii while it is in Searching driver  page , I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
+  Scenario: If I cancel on Bungii while it is in Searching driver  page . I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -24,7 +24,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
   @regression
-  Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
+  Scenario: When there are no driver available for on demand Bungii . and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
@@ -44,7 +44,7 @@ Feature: Customer Estimate screen
       | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117/**** 1881   |      | UNCHECK             | DISABLED       |
   
   @regression
-  Scenario: When Bungii Customer cancel on Head's Up Alert message, He should stay on Estimate Page . And all field details should remain unchanged
+  Scenario: When Bungii Customer cancel on Head's Up Alert message. He should stay on Estimate Page . And all field details should remain unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -62,7 +62,7 @@ Feature: Customer Estimate screen
       | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
 
   @regression
-  Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
+  Scenario: When I cancel on Estimate Page . I should be navigated to Home screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -172,7 +172,7 @@ Feature: Customer Estimate screen
       Then user is alerted for "CANCEL BUNGII"
   @FAILED
   @regression
-      Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+      Scenario: To check that when duo is selected. Time is selected to next available  scheduled time (correct Timezone)
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
         | Duo    |Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
