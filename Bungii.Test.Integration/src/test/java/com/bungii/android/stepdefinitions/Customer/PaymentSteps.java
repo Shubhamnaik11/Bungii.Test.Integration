@@ -171,7 +171,6 @@ public class PaymentSteps extends DriverBase {
                     action.scrollToBottom();
                     List<WebElement> cards=paymentPage.List_Card_1();
                     int i=0, count=0,count1=0; String text =null;
-                    int oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT"));
 
                     String ExpectedLast4Digits =(String) cucumberContextManager.getScenarioContext("Last4Digits");
                     if (ExpectedLast4Digits.contains("1117")) {
@@ -203,11 +202,13 @@ public class PaymentSteps extends DriverBase {
                     String ActualLast4Digits = action.getText(paymentPage.DefaultCard()).replace("*", "").replace(" ", "");
                     if(ExpectedLast4Digits.equals("1117")){
                         int newCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT"));
+                        int oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT"));
+
                         testStepAssert.isTrue(String.valueOf((newCount)).equals(String.valueOf((oldCount) + 1)), "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
                     }
                     else if(ExpectedLast4Digits.equals("4242")){
                         String newCount=(String) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1");
-                        oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT1"));
+                        int oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT1"));
                         testStepAssert.isTrue(Integer.parseInt(newCount) == (oldCount) + 1, "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
                     }
                     else

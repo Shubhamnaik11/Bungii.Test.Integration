@@ -372,6 +372,7 @@ public class LiveTripsSteps extends DriverBase {
                 SetupManager.getDriver().navigate().refresh();
             }
             cucumberContextManager.setScenarioContext("XPATH",XPath);
+            logger.detail("XPATH is"+XPath);
             testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         }
         } catch (Throwable e) {

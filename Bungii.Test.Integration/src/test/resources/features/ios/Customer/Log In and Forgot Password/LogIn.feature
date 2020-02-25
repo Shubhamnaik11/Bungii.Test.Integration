@@ -21,13 +21,13 @@ Feature: Log In
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
   @sanity
   @regression
-  Scenario: As Bungii customer , I should able to login to application using valid password
+  Scenario: As Bungii customer . I should able to login to application using valid password
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
   @regression
-  Scenario: As Bungii customer , I should be shown terms and condition page on first time login
+  Scenario: As Bungii customer . I should be shown terms and condition page on first time login
     Given I install Bungii App again
     When I am on the "LOG IN" page
     And I enter Username :{VALID} and  Password :{VALID}

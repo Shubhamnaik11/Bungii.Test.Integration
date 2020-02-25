@@ -243,10 +243,6 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "all elements":
                     testStepVerify.isEquals(action.getText(bungiiEstimatePage.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(bungiiEstimatePage.Time()));
                     testStepAssert.isElementDisplayed(bungiiEstimatePage.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
-
-
-                    //        testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(), PropertyUtility.getDataProperties("pickup.locationB"));
-                    //       testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(), PropertyUtility.getDataProperties("dropoff.locationB"));
                     cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(bungiiEstimatePage.Link_Promo(true)));
                     double expectedTotalEstimate = utility.bungiiEstimate(action.getText(bungiiEstimatePage.Text_TripDistance()), action.getText(bungiiEstimatePage.Link_LoadingUnloadingTime()), utility.getEstimateTime(), action.getText(bungiiEstimatePage.Link_Promo(true)));
                     String loadTime = action.getText(bungiiEstimatePage.Text_TotalEstimate());
@@ -369,8 +365,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
                     break;
                 case "newly created user":
-                    utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+                    String phoneNumber=(String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER");
+                    utility.loginToCustomerApp(phoneNumber, PropertyUtility.getDataProperties("customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER"));
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));

@@ -4,7 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.pages.admin.DriversPage;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import com.bungii.android.pages.admin.LiveTripsPage;
+import com.bungii.android.pages.admin.*;
 import com.bungii.android.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import cucumber.api.java.en.And;
@@ -25,7 +25,7 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
         try {
-            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
@@ -91,7 +91,7 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from trips$")
     public void i_select_trip_from_trips() throws Throwable {
         try {
-            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);

@@ -427,7 +427,6 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
-
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -714,7 +713,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-  @fail
+
   Scenario:Alert message should be displayed when customer tries to contact driver who is currently has a Bungii in progress.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
@@ -748,7 +747,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
-  @fail
+
   Scenario:Alert message should be displayed when customer tries to contact driver more than one hour from scheduled time.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -1264,6 +1263,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @fail
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -1285,6 +1285,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  @fail
   Scenario:To check that driver is not allowed to start Bungii if the Customer is currently in an ongoing trip.Scenario .Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  | Customer        | Driver1         | Driver2         |
@@ -1306,6 +1307,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  @fail
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet, then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -1324,6 +1326,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @regression
+  @fail
   Scenario: check TELET of re-searched trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -1345,6 +1348,7 @@ Feature: SoloScheduled
     Then Telet time of research trip should be not be same as previous trips
 
   @regression
+
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
 
     Given that solo schedule bungii is in progress
@@ -1455,6 +1459,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  @fail
   Scenario: To check if control driver is allowed to complete the trip and proper summary is shown
     Given that duo schedule bungii is in progress
       | geofence | Bungii State    | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1482,6 +1487,7 @@ Feature: SoloScheduled
 
 
   @regression
+  @fail
   Scenario:  To check that if Non control driver completes the trip first, he is shown waiting page till the control driver completes and that the correct summary is shown thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1559,6 +1565,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
+  @fail
   Scenario: Check the Minimum scheduled time for Solo trip
     Given I am on customer Log in page
     When I am logged in as "New" customer
@@ -1724,6 +1731,7 @@ Feature: SoloScheduled
 
    #Date: 22-01-2020
   @regression
+
   Scenario:To check that when Bungii has Not yet started, Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -1975,6 +1983,7 @@ Feature: SoloScheduled
     Then The user should be logged in
 
     When I tap on "Menu" > "Payment" link
+    And I get the number of cards present
     And I tap on "Add" on Payment page
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "<Card Detail>" on Card Details page

@@ -1,9 +1,18 @@
 @ios
+
 Feature: Customer Home screen
 # 1 valid test case fail
 
+    #test case getting failed , Known issue
   @regression
-  Scenario: To verify ETA , Location text box header . To Verify clear text button is enabled once location is selected
+  Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
+    Given I am on Customer logged in Home page
+    Then "Pick up" address should be displayed in text box
+    When I click "Pick Up Clear Text" button on "Home" screen
+    And "PICK UP" box header and ETA bar header should be correctly displayed
+
+  @regression
+  Scenario: To verify ETA . Location text box header . To Verify clear text button is enabled once location is selected
     When I logged in Customer application using  "existing" user
 
     Then current location should be present as pickup location
@@ -16,10 +25,11 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
-
+  @FAILED
   @regression
   Scenario: To Verify clear text button on Pick up and Drop location
     Given I am on Customer logged in Home page
+    And I Select "Home" from Customer App menu
     When I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     When I click "Pick Up Clear Text" button on "Home" screen
@@ -40,18 +50,12 @@ Feature: Customer Home screen
   @regression
   Scenario:To check that drop off field is displayed only when pickup address is set.
     Given I am on Customer logged in Home page
+    And I open "customer" application on "same" devices
     Then "Pick up" address should be displayed in text box
     Then drop off field should be "displayed"
     When I click "Pick Up Clear Text" button on "Home" screen
     Then drop off field should be "not be displayed"
-  @FAILED
-    #test case getting failed , Known issue
-  @regression
-  Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
-    Given I am on Customer logged in Home page
-    Then "Pick up" address should be displayed in text box
-    When I click "Pick Up Clear Text" button on "Home" screen
-    And "PICK UP" box header and ETA bar header should be correctly displayed
+
 
 
   @regression
@@ -65,6 +69,8 @@ Feature: Customer Home screen
   @FAILED
   @regression
   Scenario:To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
+    Given I am on Customer logged in Home page
+
     And I enter pickup location
       | Driver | Pickup Location     |
       | Solo   | cancona bus station |
@@ -81,9 +87,11 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-
+  @FAILED
   @regression
   Scenario:Long Haul(>150 miles) alert shown (dist bet. pickup and drop off should be >150 miles)
+    Given I am on Customer logged in Home page
+
     And I enter pickup location
       | Driver | Pickup Location |
       | Solo   | Margoa Railway  |
@@ -92,9 +100,11 @@ Feature: Customer Home screen
       | Solo   | Bangalore international airport |
     Then user is alerted for "LONG HAUL"
 
-
+  @FAILED
   @regression
   Scenario:To check ETA box when geofence Not active
+    Given I am on Customer logged in Home page
+
     And I enter pickup location
       | Driver | Pickup Location |
       | Solo   | Kolhapur Airport  |

@@ -6,7 +6,7 @@ Feature: Customer	Referral Invite page
     Given I am on Customer logged in Home page
 
   @regression
-  Scenario: As Bungii customer I go to Invite Page , Page with Proper info and promocode should be displayed
+  Scenario: As Bungii customer I go to Invite Page . Page with Proper info and promocode should be displayed
     When I Select "Home" from Customer App menu
     Then "Invite referrals" should be present in "Home" screen
     When I click "Invite referrals" button on "HOME" screen
@@ -36,7 +36,7 @@ Feature: Customer	Referral Invite page
     Then I should see draft post in "MAIL" application
 # this test case is to run individually not in suite
  # @regression
-  Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter but no Application is installed
+  Scenario: As Bungii customer I go to Invite Page . but should be alerted when I try to share Invite code using Twitter but no Application is installed
     Given I have "twitter" app "not installed"
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen
@@ -48,7 +48,7 @@ Feature: Customer	Referral Invite page
     Then user is alerted for "No twitter installed"
 
   @regression
-  Scenario: As Bungii customer I go to Invite Page , but should be alerted when I try to share Invite code using Twitter Application
+  Scenario: As Bungii customer I go to Invite Page . but should be alerted when I try to share Invite code using Twitter Application
     Given I have "twitter" app "installed"
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen

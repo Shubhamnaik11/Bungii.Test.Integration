@@ -251,7 +251,7 @@ public class BungiiSteps extends DriverBase {
                             // coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
                             // coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
                             int wait = (int) cucumberContextManager.getScenarioContext("MIN_WAIT_BUNGII_START");
-                            try {
+/*                            try {
                                 while (wait > 1) {
                                     logger.detail("Waiting for " + wait / (60000 * 4) + " minute(s) before Scheduled trip can be started");
                                     Thread.sleep(60000);
@@ -260,7 +260,7 @@ public class BungiiSteps extends DriverBase {
 
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 23);
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                         } else if (driver1State.equalsIgnoreCase("Arrived")) {

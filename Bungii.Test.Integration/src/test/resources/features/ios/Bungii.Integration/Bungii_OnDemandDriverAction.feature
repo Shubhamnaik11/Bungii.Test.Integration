@@ -230,6 +230,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "ADD" button on "PROMOS" screen
     When I tap "Back" on Promos screen
     And I should be navigated to "Estimate" screen
+    Then I save bungii trip time details
     And I request for bungii using Request Bungii Button
     When I click "Done" button on "Success" screen
 

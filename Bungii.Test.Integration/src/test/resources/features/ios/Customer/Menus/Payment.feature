@@ -8,7 +8,7 @@ Feature: Payment page
     Given I am on Customer logged in Home page
 
   @regression
-  Scenario Outline: As Bungii customer I should not be able to add invalid card , <Scenario> Scenario
+  Scenario Outline: As Bungii customer I should not be able to add invalid card . <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add new" button on "PAYMENT" screen
@@ -23,7 +23,7 @@ Feature: Payment page
       | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
     
   @regression
-  Scenario Outline: As Bungii customer I should able to add New Card , <Scenario> Scenario
+  Scenario Outline: As Bungii customer I should able to add New Card . <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     And PAYMENT page should be properly displayed
@@ -84,7 +84,7 @@ Feature: Payment page
 
   @FAILED
   @regression
-  Scenario Outline:  As new Bungii customer without payment card , Payment page should display add Payment card message and Image .
+  Scenario Outline:  As new Bungii customer without payment card . Payment page should display add Payment card message and Image .
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
     When I enter Username :<Username> and  Password :<Password>

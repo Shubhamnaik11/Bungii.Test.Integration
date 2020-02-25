@@ -8,6 +8,7 @@ Feature: Log In
 
 
   @regression
+
   Scenario Outline: As Bungii driver I should not able login to application using invalid details.  Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
@@ -26,6 +27,7 @@ Feature: Log In
 
   @sanity
   @regression
+
   Scenario: As Bungii driver , I should able to login to application using valid password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app
@@ -73,6 +75,7 @@ Feature: Log In
       | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
   @regression
+
   Scenario Outline: As I enter wrong password 5 times, driver's account gets locked
     When I enter phoneNumber
     And I enter invalid password and click on "Log In" button for "5" times on Log In screen on driver app
@@ -82,6 +85,7 @@ Feature: Log In
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
 
   @regression
+
   Scenario: Permission - Android Driver - Location
     Given I have device which has location permission
     Given I install Bungii Driver App again
