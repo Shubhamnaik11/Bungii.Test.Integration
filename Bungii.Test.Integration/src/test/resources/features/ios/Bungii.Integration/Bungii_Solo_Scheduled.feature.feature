@@ -220,7 +220,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
+  @FAILED2602ONCE
   @regression
   Scenario: Cancel Bungii from Admin Panel . verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress
@@ -1883,7 +1883,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
-
+  @FAILED2602ONCE1
   @regression
   @FAILED2602
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
