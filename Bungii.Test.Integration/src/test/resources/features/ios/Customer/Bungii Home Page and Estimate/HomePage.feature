@@ -2,6 +2,7 @@
 
 Feature: Customer Home screen
 # 1 valid test case fail
+  @FAILED2602
 
     #test case getting failed , Known issue
   @regression
@@ -10,6 +11,7 @@ Feature: Customer Home screen
     Then "Pick up" address should be displayed in text box
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
+  @FAILED2602
 
   @regression
   Scenario: To verify ETA . Location text box header . To Verify clear text button is enabled once location is selected
@@ -25,7 +27,7 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
-  @FAILED
+
   @regression
   Scenario: To Verify clear text button on Pick up and Drop location
     Given I am on Customer logged in Home page
@@ -46,7 +48,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @FAILED
+  @FAILED2602
   @regression
   Scenario:To check that drop off field is displayed only when pickup address is set.
     Given I am on Customer logged in Home page
@@ -66,7 +68,7 @@ Feature: Customer Home screen
     When I Switch to "customer" application on "same" devices
     Given I am on Customer logged in Home page
     Then driver eta should be "less than 30 mins"
-  @FAILED
+
   @regression
   Scenario:To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
     Given I am on Customer logged in Home page
@@ -87,7 +89,7 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-  @FAILED
+
   @regression
   Scenario:Long Haul(>150 miles) alert shown (dist bet. pickup and drop off should be >150 miles)
     Given I am on Customer logged in Home page
@@ -100,7 +102,7 @@ Feature: Customer Home screen
       | Solo   | Bangalore international airport |
     Then user is alerted for "LONG HAUL"
 
-  @FAILED
+
   @regression
   Scenario:To check ETA box when geofence Not active
     Given I am on Customer logged in Home page

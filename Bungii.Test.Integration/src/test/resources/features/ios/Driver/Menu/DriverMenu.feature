@@ -96,7 +96,7 @@ Feature: DriverMenu
     Then I should be able to see default data on "SMS ALERT" page
 
 
-  @FAILED
+  @FAILED2602
   @regression
   Scenario: Correct data should be displayed after updating and then switching between Trip Alerts and SMS alerts tabs.
     And I am on the "LOG IN" page on driverApp

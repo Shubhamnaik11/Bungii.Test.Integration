@@ -4,7 +4,7 @@
 Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
-  @POSTDUO
+  @FAILED2602
   @regression
   Scenario: I should able to Create and Complete Schedule Bungii. Verify details
 
@@ -116,7 +116,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  
+  @FAILED2602
   @regression
   @sanity
   Scenario: I should able to Create and Complete Schedule Bungii
@@ -509,7 +509,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
+  @FAILED2602
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
     Given that solo schedule bungii is in progress
@@ -562,7 +562,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-
+  @FAILED2602
     #comment below tag and  add to first scenario
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
@@ -744,6 +744,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
   #change login
+  @FAILED2602
   @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
@@ -1199,7 +1200,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
+  @FAILED2602
   @regression
   Scenario: check if re-searched driver can cancel trip after starting Duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1406,7 +1407,7 @@ Feature: To Test Solo - Scheduling Bungii
 #CMA1513
 #use customer with only one card
   @regression
-  
+  @FAILED2602
   Scenario Outline: Customer canNot delete payment method linked to any on-going/scheduled trips
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
@@ -1453,7 +1454,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
-  
+  @FAILED2602
   @regression
 
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1540,7 +1541,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  
+  @FAILED2602
   @regression
   Scenario: To check that Customer can request cancel through SMS to ADMIN if No driver accepts but processing is over (cancellation on admin side).Scenario:Duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1639,7 +1640,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "MY BUNGIIS" from Customer App menu
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 
-  @SOLOFAILED2402
+  @FAILED2602
   @regression
   Scenario:CUSTOMER: Notification - 2 hours before scheduled trip
     Given that solo schedule bungii is in progress
@@ -1654,7 +1655,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  
+  @FAILED2602
   @regression
   Scenario:Check if driver rating is shown to customer on Bungii Details page when driver accepts scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -1814,7 +1815,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  
+  @FAILED2602
   @regression
   Scenario: If incoming on-demend trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
@@ -1837,7 +1838,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-
+  @FAILED2602
   @regression
   Scenario: if incoming on demand trip TELET overlaps scheduled trip telet. then request should Not be sent to driver.
     Given that solo schedule bungii is in progress
@@ -1860,7 +1861,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  
+
   #KNOW ISSUE , TELET TIME IS NOT RECALCULATED
   @regression
   Scenario: check TELET of re-searched trip
@@ -1884,7 +1885,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Telet time of research trip should be not be same as previous trips
 
   @regression
-
+  @FAILED2602
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
 
     And I am on the "LOG IN" page
@@ -1957,6 +1958,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
+  @FAILED2602
 
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
@@ -2036,6 +2038,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
+  @FAILED2602
 
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
@@ -2114,6 +2117,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+  @FAILED2602
 
   @regression
   Scenario:If incoming scheduled request start time (Trip 3). overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
@@ -2158,7 +2162,8 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
 
-  
+  @FAILED2602
+
   @regression
   Scenario:DRIVER: Notification - 30 mins before scheduled trip
     Given that solo schedule bungii is in progress

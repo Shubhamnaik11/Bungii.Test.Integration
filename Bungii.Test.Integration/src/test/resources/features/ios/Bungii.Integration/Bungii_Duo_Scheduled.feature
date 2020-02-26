@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @DUOFAILED123
+
   @regression
   @sanity
   Scenario: Create Duo Bungii
@@ -150,7 +150,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  
+  @FAILED2602
   @regression
   Scenario: To check that Customer is able to view ongoing Bungii progress screens when trip is started by Control driver
     Given that duo schedule bungii is in progress
@@ -247,7 +247,6 @@ Feature: To Test Duo - Scheduled Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
 
-  @DUOFAILED123
   @regression
   Scenario Outline:Customer amount for duo with promo
 
@@ -370,7 +369,7 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
 
-
+  @FAILED2602
   @regression
   Scenario: Create Duo Bungii. Verify driver can contact customer
 
@@ -562,7 +561,6 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @DUOFAILED123
   @regression
   Scenario: Create Long stack. verify decked detail/alert msgs/status of current and stacked bungii
 
@@ -810,7 +808,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @DUOFAILED123
+  @FAILED2602
   @regression
   Scenario: Create short stack. verify decked detail/alert msgs/status of current and stacked bungii
 
@@ -911,7 +909,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @DUOFAILED1234
+  @FAILED2602
   @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -956,7 +954,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     #move to top
     #need to do in atlanta
-  @DUOFAILED123
+  @FAILED2602
   @regression
   Scenario: Long stack non control driver
 
@@ -1017,7 +1015,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  
+  @FAILED2602
   @regression
   @sanity
   Scenario: Short stack control driver
@@ -1070,7 +1068,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  
+  @FAILED2602
   @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
@@ -1102,7 +1100,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  
+  @FAILED2602
   @regression
   Scenario: To check that when customer cancels a Duo trip accepted by one driver. the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
@@ -1134,7 +1132,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  
+  @FAILED2602
   @regression
   Scenario: To check that when customer cancels a Duo trip accepted by one driver. the driver gets a Notification when app in background
     Given that duo schedule bungii is in progress
@@ -1167,7 +1165,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @DUOFAILED123
+  @FAILED2602
   @regression
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
@@ -1198,7 +1196,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
 
-  @DUOFAILED123
+  @FAILED2602
   @regression
   Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1224,7 +1222,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @DUOFAILED123
+  @FAILED2602
   @regression
   Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1246,7 +1244,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
-
+  @FAILED2602
   @regression
   Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
     Given that ondemand bungii is in progress
@@ -1307,7 +1305,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-
+  @FAILED2602
   @regression
   Scenario:Verify Customer notification(Stack bungii accepted. Stack driver started. )
     Given that ondemand bungii is in progress
@@ -1376,7 +1374,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-
+  @FAILED2602
   @regression
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
