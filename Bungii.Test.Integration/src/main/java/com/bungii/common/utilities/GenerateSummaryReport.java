@@ -101,12 +101,15 @@ public class GenerateSummaryReport {
                     }
                 }
                 createResultFileFromSummaryTemplate(platform, category, environment);
+                System.out.println("Generated index.html");
                 new GenerateResultCSV().GenerateCSV(mainFolder);
                 if (isFailed)
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
-            }
+                    System.out.println("Generated failedsummary.html");
+
+                }
 
                 newName(configFilePath,"MavenRun");
             } else {
@@ -226,7 +229,6 @@ public class GenerateSummaryReport {
                 startTime = new Date();
                 endTime = new Date();
             }
-
             while ((s = br.readLine()) != null) {
                 totalStr += s;
             }
