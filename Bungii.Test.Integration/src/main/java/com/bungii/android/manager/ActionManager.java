@@ -23,6 +23,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
@@ -49,15 +50,31 @@ public class ActionManager {
     }
 
     public static void clear(WebElement element) {
-        element.clear();
-        logger.detail("Clear locator by locator" + element.toString());
+        try {
+            element.clear();
+            logger.detail("Clear locator by locator" + element.toString());
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to clear element " + element.toString(),
+                    true);
+        }
     }
 
     public static void NavigateBack() {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        driver.navigate().back();
-        logger.detail("Navigate Back");
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
+        driver.navigate().back();
+        logger.detail("Navigated back");
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to navigate back",
+                    true);
+        }
     }
 
 /*    public static void HideKeyboard() {
@@ -97,10 +114,10 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception Ex) {
-            logger.detail("Page source "+ SetupManager.getDriver().getPageSource());
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
-         //   Assert.fail("Following element is not displayed : " + element);
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+                    true);
         }
     }
 
@@ -109,8 +126,11 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, waitTime);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception Ex) {
+        } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+                    true);
         }
     }
 
@@ -128,8 +148,12 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOfAllElements(element)));
-        } catch (Exception Ex) {
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Alert not received : " + element.toString(),
+                    true);
             Assert.fail("Alert not received : " + element);
+
         }
     }
 
@@ -167,10 +191,18 @@ public class ActionManager {
      * @param text    , Text value that is to be sent
      */
     public void sendKeys(WebElement element, String text) {
+        try{
         element.sendKeys(text);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
         logger.detail("Send  " + text + " in element" + element.toString());
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+                    true);
+        }
     }
 
     public void hideKeyboard() {
@@ -199,7 +231,7 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         String text = element.getText();
-        logger.detail("text Value is  " + text + " for element" + element.toString());
+        logger.detail("Text Value is  " + text + " for element " + element.toString());
 
         return text;
     }
@@ -243,10 +275,18 @@ public class ActionManager {
         }
     }
     public void clearSendKeys(WebElement element, String text) {
+        try{
         element.clear();
         element.sendKeys(text);
         hideKeyboard();
-        logger.detail("Send  " + text + " in element" + element.toString());
+        logger.detail("Send  " + text + " in element " + element.toString());
+    }
+        catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+                true);
+    }
     }
 
     /**
@@ -295,8 +335,16 @@ public class ActionManager {
      * @param element ,locator that is to be clicked
      */
     public void click(WebElement element) {
+        try{
         element.click();
-        logger.detail("Click on locator by locator" + element.toString());
+        logger.detail(" Click on element by locator " + element.toString());
+    }
+        catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Unable to click on  element" + element.toString(),
+                true);
+    }
     }
     /**
      * @param element ,locator that is to be clicked
@@ -309,10 +357,18 @@ public class ActionManager {
 
     }
     public void click(Point p) {
-        TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
-        PointOption top = PointOption.point(p.getX(), p.getY());
-        touchAction.tap(top).perform();
-        logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+        try {
+            TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
+            PointOption top = PointOption.point(p.getX(), p.getY());
+            touchAction.tap(top).perform();
+            logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+        }
+          catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to click point at , (" + p.getX() + "," + p.getY() + ")",
+                    true);
+        }
     }
 
     public void scrollToBottom() {
@@ -328,7 +384,9 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, bottomY, pressX, topY);
         } catch (Exception e) {
-            logger.error("Not able to scroll");
+            logger.error("Not able to scroll to botton");
+            error("Step should be successful", "Unable to scroll to bottom",
+                    true);
         }
     }
 
@@ -375,6 +433,8 @@ public class ActionManager {
             scroll(pressX, topY+180, pressX, bottomY);
         } catch (Exception e) {
             logger.detail("Failed to drap to top");
+            error("Step should be successful", "Failed to scroll to top",
+                    true);
         }
     }
 

@@ -1542,7 +1542,7 @@ public class CommonSteps extends DriverBase {
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
-        testStepVerify.isTrue(previousTelet.equalsIgnoreCase(newTeletTime),"TELET TIME SHOULD ot be equal");
+        testStepVerify.isTrue(!previousTelet.equalsIgnoreCase(newTeletTime),"TELET TIME SHOULD ot be equal");
         } catch (Throwable e) {
             logger.error("Error performing step" + e);
             error("Step  Should be successful",

@@ -1,7 +1,7 @@
 @ios
   # this will run in 	nashville
 Feature: Create on demand bungii
-  @FAILED
+
   @regression
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
     Given that ondemand bungii is in progress
@@ -55,7 +55,7 @@ Feature: Create on demand bungii
     And I Switch to "customer" application on "same" devices
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-  @FAILED
+
   @sanity
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
@@ -128,7 +128,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Promotion" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then I should be navigated to "Home" screen
-  @FAILED
+
   @regression
   Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
     Given that ondemand bungii is in progress
@@ -280,6 +280,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
+  @FAILED2602
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
@@ -337,7 +338,7 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-    Then I wait for "2" mins
+    Then I wait for "3" mins
 
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -438,7 +439,8 @@ Feature: Create on demand bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-  @FAILED
+  @FAILED2602
+
   @regression
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
@@ -510,7 +512,8 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
 
-  @FAILED
+  @FAILED2602
+
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
   Scenario Outline:Referral code signup
@@ -550,6 +553,7 @@ Feature: Create on demand bungii
     Examples:
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+  @FAILED2602
 
   @regression
   Scenario:on demand with referral code
@@ -605,6 +609,7 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
+  @FAILED2602
 
   @regression
   Scenario:on demand with referred code promo received
@@ -661,7 +666,7 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED
+
   @regression
   Scenario: Check if customer is allowed to rate driver for solo trip
     Given that ondemand bungii is in progress

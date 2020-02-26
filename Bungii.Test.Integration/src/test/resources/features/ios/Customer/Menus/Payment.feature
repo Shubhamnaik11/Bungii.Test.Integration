@@ -38,7 +38,7 @@ Feature: Payment page
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
-  @FAILED
+  @FAILED2602
   @regression
   Scenario: As Bungii customer I should able to change default card
     When I Select "PAYMENT" from Customer App menu
@@ -82,7 +82,7 @@ Feature: Payment page
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
 
-  @FAILED
+
   @regression
   Scenario Outline:  As new Bungii customer without payment card . Payment page should display add Payment card message and Image .
     When I Select "LOGOUT" from Customer App menu

@@ -3,6 +3,7 @@
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
+  @FAILED2602
 
   @POSTDUO
   @regression
@@ -194,7 +195,8 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED
+  @FAILED2602
+
   @regression
   Scenario: Promo code should be deallocated after admin cancels Bungii( Before starting bungii)
     When I open new "Chrome" browser for "ADMIN PORTAL"

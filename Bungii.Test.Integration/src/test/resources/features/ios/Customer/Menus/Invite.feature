@@ -13,7 +13,7 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then Invite Referral page should be properly displayed
     And I click "Done" button on "Invite" screen
-  @FAILED
+
   @regression
   Scenario: As   Bungii customer I should able to share my code using Text messages
     When I Select "Home" from Customer App menu
@@ -24,7 +24,7 @@ Feature: Customer	Referral Invite page
     And I click "SHARE BY TEXT MESSAGE" button on "INVITE" screen
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
-  @FAILED
+
   @regression
   Scenario: As Bungii customer I should able to share my code using EMAIL
     When I Select "Home" from Customer App menu
