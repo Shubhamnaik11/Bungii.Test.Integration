@@ -2,15 +2,23 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
+import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.driver.Driver_DashboardPage;
+import com.bungii.web.pages.driver.Driver_LoginPage;
+import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.*;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
@@ -26,6 +34,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    Driver_DashboardPage driver_DashboardPage = new  Driver_DashboardPage();
+    Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage();
+    private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -46,7 +58,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     }
 
     @When("^I click \"([^\"]*)\" button against the applicant name$")
-    public void i_click_something_button_against_the_applicant_name(String strArg1) throws Throwable {
+    public void i_click_something_button_against_the_applicant_name(String button) throws Throwable {
 
        // cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
 
@@ -56,7 +68,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
         action.click(admin_GetAllBungiiDriversPage.Button_Search());
         Thread.sleep(4000);
-        switch (strArg1) {
+        switch (button) {
             case "Verify":
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(Lastname));
                 break;
@@ -317,5 +329,74 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
         log("I can verify all the fields except DOB" ,
                 "I have verified all the fields except DOB");
+    }
+
+    @When("^I login as driver \"([^\"]*)\"$")
+    public void i_login_as_driver_something(String driverName) throws Throwable {
+        utility.NavigateToDriverLogin();
+        action.click(Page_Driver_Login.Tab_LogIn());
+        switch(driverName) {
+            case "John PxLK":
+            action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), PropertyUtility.getDataProperties("web.valid.driver21.phone"));
+            break;
+        }
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
+        action.click(Page_Driver_Login.Button_DriverLogin());
+        log("I login as driver" ,
+                "I have logged in as driver");
+
+    }
+
+    @Then("^Admin receives \"([^\"]*)\" email$")
+    public void admin_receives_something_email(String strArg1) {
+      //  throw new PendingException();
+    }
+
+    @And("^Correct the fields and resubmit$")
+    public void correct_the_fields_and_resubmit() {
+        try {
+            action.click(driver_DashboardPage.Link_DriverDetails());
+            action.clearSendKeys(driver_DashboardPage.TextBox_DOB(), "12/12/1991");
+            action.click(driver_DashboardPage.Button_Update());
+
+            action.click(driver_DashboardPage.Link_PickupInfo());
+            action.click(driver_DashboardPage.Link_RemoveFile3());
+            action.click(driver_DashboardPage.Link_RemoveFile2());
+            action.click(driver_DashboardPage.Link_RemoveFile1());
+
+            utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
+            action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+            int size = Page_Driver_PickupInfo.Div_UploadedImages().size();
+            int count = 0;
+            while (size != 3) {
+                Thread.sleep(2000);
+                if (count >= 20)
+                    break;
+
+                size = Page_Driver_PickupInfo.Div_UploadedImages().size();
+                count++;
+            }
+
+
+            action.click(driver_DashboardPage.Button_Update());
+            action.click(driver_DashboardPage.Button_Submit());
+            action.click(driver_DashboardPage.Button_Yes());
+            log("I correct the fields and resubmit" ,
+                    "I have correct the fields and resubmited");
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    public String[] getTruckImages() {
+        String[] truckImageList = new String[3];
+        truckImageList[0] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK1_IMAGE"));
+        truckImageList[1] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK2_IMAGE"));
+        truckImageList[2] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK3_IMAGE"));
+        return truckImageList;
     }
 }

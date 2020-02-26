@@ -338,6 +338,11 @@ public class DriverRegistrationSteps extends DriverBase {
                message = utility.getExpectedDriverApprovalEmailContent(driverName);
                message = utility.setDownloadLink(message,emailBody);
                break;
+           case "BUNGII: Action Required!":
+               driverName = (String) cucumberContextManager.getScenarioContext("FIRSTNAME");
+               message = utility.getExpectedDriverActionRequiredEmailContent(driverName);
+               message = utility.setDownloadLink(message,emailBody);
+               break;
        }
         message= message.replaceAll(" ","");
         logger.detail("Email Body (Expected) : "+ message);

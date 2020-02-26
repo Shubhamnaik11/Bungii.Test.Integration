@@ -22,10 +22,12 @@ public class Admin_DriverResendApplicationSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+
         action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
         action.click(admin_DriverVerificationPage.Verify_Reject_DriverPickupImages());
         action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_PickupImages(),"Invalid Pickup Images");
+
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());

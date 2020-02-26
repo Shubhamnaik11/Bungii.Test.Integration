@@ -582,6 +582,30 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+
+    public String getExpectedDriverActionRequiredEmailContent(String driverName)
+    {
+        String emailMessage = "";
+
+        try{
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\DriverActionRequiredEmail.txt");
+            String s;
+            try (
+
+                    BufferedReader br = new BufferedReader(fr)) {
+
+                while ((s = br.readLine()) != null) {
+                    s = s.replaceAll("%DriverName%", driverName);
+                    emailMessage += s;
+                }
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return emailMessage;
+    }
     public String getExpectedDriverApprovalEmailContent(String driverName)
     {
         String emailMessage = "";
@@ -679,13 +703,14 @@ public class GeneralUtility extends DriverBase {
         return timezone;
 
     }
+    public String setDownloadLink(String message, String emailBody) {
 
-    public String setDownloadLink(String message, String emailBody)
-    {
-        Pattern p = Pattern.compile("\\d+");
-        Matcher m = p.matcher(emailBody);
-        while(m.find()) {
-            message.replaceAll("%Link%",m.group());
+        String HTML_TAG_PATTERN = "<a href=(.+?)>";
+        Pattern pLink = Pattern.compile(HTML_TAG_PATTERN);
+        Matcher m = pLink.matcher(emailBody);
+        while (m.find()) {
+                String link = m.group(1);
+               message = message.replace("%Link%", link);
         }
         return message;
     }

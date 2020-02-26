@@ -11,4 +11,20 @@ public class Driver_DashboardPage extends PageBase {
     public WebElement SideNavigationGeneral () { return findElement("//ul[@class='sidebar-nav']/li[1]", LocatorType.XPath); }
 
     public WebElement Link_Logout(){return  findElement("//a[.='log out']", LocatorType.XPath);}
+
+    public WebElement Link_DriverDetails(){return  findElement("driver-details", LocatorType.Id);}
+
+    public WebElement Link_PickupInfo(){return  findElement("pickup-info", LocatorType.Id);}
+
+    public WebElement Button_Update(){return  findElement("btnUpdate", LocatorType.Id);}
+
+    public WebElement Button_Submit(){return  findElement("btnsend", LocatorType.Id);}
+
+    public WebElement Button_Yes(){return  findElement("btnsendagree", LocatorType.Id);}
+
+    public WebElement Link_RemoveFile1(){return  findElement("//div[@id='dropzone1']/div[2]/a[text()='Remove file']", LocatorType.XPath);}
+    public WebElement Link_RemoveFile2(){return  findElement("//div[@id='dropzone1']/div[3]/a[text()='Remove file']]", LocatorType.XPath);}
+    public WebElement Link_RemoveFile3(){return  findElement("//div[@id='dropzone1']/div[4]/a[text()='Remove file']", LocatorType.XPath);}
+
+    public WebElement TextBox_DOB(){return  findElement("DateOfBirth", LocatorType.Id);}
 }

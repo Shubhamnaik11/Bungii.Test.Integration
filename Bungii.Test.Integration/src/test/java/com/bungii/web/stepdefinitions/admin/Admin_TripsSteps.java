@@ -28,6 +28,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -45,6 +46,8 @@ public class Admin_TripsSteps extends DriverBase {
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
+    Admin_EditScheduledBungiiPage admin_EditScheduledBungiiPage = new Admin_EditScheduledBungiiPage();
+
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_TripsSteps.class);
@@ -173,7 +176,7 @@ public class Admin_TripsSteps extends DriverBase {
 
             }
             int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
+            while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
                 if (retryCount >= 20) break;
                 Thread.sleep(15000); //Wait for 15 seconds
                 retryCount++;
@@ -201,7 +204,7 @@ public class Admin_TripsSteps extends DriverBase {
 
             }
             int retryCount = 1;
-            while (!SetupManager.getDriver().findElement(By.xpath(XPath)).getText().equalsIgnoreCase(status)) {
+            while (!action.getText(SetupManager.getDriver().findElement(By.xpath(XPath))).equalsIgnoreCase(status)) {
                 if (retryCount >= 20) break;
                 Thread.sleep(15000); //Wait for 15 seconds
                 retryCount++;
@@ -261,7 +264,7 @@ public class Admin_TripsSteps extends DriverBase {
                     retryCount++;
                 }
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
-                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+                testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
                 String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
@@ -290,7 +293,7 @@ public class Admin_TripsSteps extends DriverBase {
                     retryCount++;
                 }
                 cucumberContextManager.setScenarioContext("XPATH", XPath);
-                testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+                testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
             }
         }
         catch(Exception e)
@@ -415,6 +418,9 @@ public class Admin_TripsSteps extends DriverBase {
                 break;
             case "Remove driver(s) and re-search":
                 action.click(admin_ScheduledTripsPage.RadioButton_RemoveDriver());
+                break;
+            case "Edit Trip Details":
+                action.click(admin_EditScheduledBungiiPage.RadioButton_EditTripDetails());
                 break;
         }
         log("I click on Remove driver(s) and re-search radio button",
@@ -889,5 +895,68 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^I refresh the page$")
     public void i_refresh_the_page() throws Throwable {
        action.refreshPage();
+    }
+
+    @Then("^Tick mark should be displayed beside driver and scheduled date$")
+    public void tick_mark_should_be_displayed_beside_driver_and_scheduled_date() throws Throwable {
+      //  testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDate());
+          //      testStepAssert.isElementDisplayed(admin_EditScheduledBungiiPage.TickMarkDriver(""));
+
+    }
+
+    @Then("^\"([^\"]*)\" message should be displayed$")
+    public void something_message_should_be_displayed(String message) throws Throwable {
+
+        switch(message) {
+
+            case "Your changes are good to be saved.":
+            testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifiedMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
+            break;
+            case "Bungii Saved!":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_SuccessMessage(), message, message +" should be displayed", message +" is displayed",message +" is not displayed");
+                break;
+            case "Pickup request is being processed. You may have to refresh the page.":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_InfoMessage(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
+                break;
+            case "":
+                testStepAssert.isElementTextEquals(admin_EditScheduledBungiiPage.Label_VerifyError(), message,message +" should be displayed", message +" is displayed",message +" is not displayed");
+                break;
+        }
+
+    }
+
+    @And("^I update the Scheduled date of the trip by 15 minutes$")
+    public void i_update_the_scheduled_date_of_the_trip_by_15_minutes()  {
+        String value = admin_EditScheduledBungiiPage.TimePicker_Time().getAttribute("value");
+        LocalTime time= LocalTime.parse(value, DateTimeFormatter.ofPattern("hh:mm a"));
+        value = time.plusMinutes(15).format(DateTimeFormatter.ofPattern("hh:mm a")).toString();
+        action.click(admin_EditScheduledBungiiPage.List_TimeFrame(value));
+    }
+
+    @And("^I remove driver \"([^\"]*)\" and add the new driver \"([^\"]*)\"$")
+    public void i_remove_driver_something_and_add_the_new_driver_something(String driverRemove, String driverAdd)  {
+        action.click(admin_EditScheduledBungiiPage.Checkbox_Driver(driverRemove));
+        action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
+        action.clearSendKeys(admin_EditScheduledBungiiPage.TextBox_DriverSearch(),driverAdd);
+        action.click(admin_EditScheduledBungiiPage.List_DriverSearchResult(driverAdd));
+    }
+
+    @And("^I click on \"([^\"]*)\" button on Edit Scheduled bungii popup$")
+    public void i_click_on_something_button_on_edit_scheduled_bungii_popup(String button) {
+
+        switch (button) {
+            case "Save":
+            action.click(admin_EditScheduledBungiiPage.Button_Save());
+            break;
+            case "Verify":
+                action.click(admin_EditScheduledBungiiPage.Button_Verify());
+                break;
+            case "Undo":
+                action.click(admin_EditScheduledBungiiPage.Button_Undo());
+                break;
+            case "Remove Driver":
+                action.click(admin_EditScheduledBungiiPage.Link_RemoveDriver());
+                break;
+        }
     }
 }

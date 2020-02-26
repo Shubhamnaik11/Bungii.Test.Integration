@@ -168,6 +168,10 @@ public class DbUtility extends DbContextManager {
     public static String getResarchedPickupReference(String pickupRequest) {
         String pickupRef = "";
         String queryString = "SELECT PickupRef FROM pickupdetails WHERE LinkedPickupID in (SELECT PickupID from pickupdetails where pickupref='" + pickupRequest+"')";
+        try {
+            Thread.sleep(120000); //Waiting for research trip to synch
+        }
+        catch(Exception ex){}
         pickupRef = getDataFromMySqlServer(queryString);
         logger.detail("Researched Pickup Ref is" + pickupRef + ", query, " + queryString);
         return pickupRef;
