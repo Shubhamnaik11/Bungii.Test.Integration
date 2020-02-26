@@ -13,7 +13,27 @@
     clear: both;
 }<title>TEST EXECUTION SUMMARY REPORT</title>
 
+.content {
 
+    overflow: hidden;
+    white-space:normal;
+    text-overflow: ellipsis;
+    line-height: 1.2em;
+    /* max-height = line-height (1.2) * lines max number (3) */
+    max-height: 30px;
+    /* fix problem when last visible word doesn't adjoin right side  */
+    text-align: left;
+}
+.txtcol{
+
+  color:blue;
+  cursor:pointer;
+}
+.maincontent{
+  display:inline-block;
+  vertical-align:top;
+}
+#more {display: none;}
     </style>
     <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script>
@@ -21,6 +41,39 @@
 
 
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+$(document).ready(function() {
+  var ua = navigator.userAgent,
+    event = (ua.match(/iPad/i)) ? "touchstart" : "click";
+  if ($('.table').length > 0) {
+    $('.table .header').on(event, function() {
+      $(this).toggleClass("active", "").nextUntil('.header').css('display', function(i, v) {
+        return this.style.display === 'table-row' ? 'none' : 'table-row';
+      });
+    });
+  }
+});
+
+$(document).ready(function(){
+  $(".content").each(function(){
+    if($(this).height() < $(this)[0].scrollHeight){
+      $(this).parent().find(".txtcol").show();
+    }
+  });
+  $(".txtcol").click(function(){
+    if($(this).prev().hasClass("truncate")) {
+    				$(this).parent().find(".content").css("max-height", $(this).parent().find(".content")[0].scrollHeight);
+            $(this).children('a').text("Show Less");
+        } else {
+    				$(this).parent().find(".content").css("max-height", "30px");
+            $(this).children('a').text("Show More");
+        }
+  $(this).prev().toggleClass("truncate");
+
+  });
+});</script>
 </head>
 <body><img src=<!--LOGO.PATH--> align=right><h1 align=center>
     <u> BUNGII <!--PLATFORM--> TEST SUITE EXECUTION REPORT</u></h1>
