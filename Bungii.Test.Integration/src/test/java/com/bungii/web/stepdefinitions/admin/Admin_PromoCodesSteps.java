@@ -925,8 +925,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
     @And("^I check that \"([^\"]*)\" and \"([^\"]*)\" button exists$")
     public void i_check_that_something_and_something_button_exists(String strArg1, String strArg2) throws Throwable {
-        testStepVerify.isElementDisplayed(admin_PromoCodesPage.Button_NextPage(),"Element is displayed","Element is displayed","Element is not displayed");
-        testStepVerify.isElementDisplayed(admin_PromoCodesPage.Button_PreviousPage(),"Element is displayed","Element is displayed","Element is not displayed");
+        testStepVerify.isElementDisplayed(admin_PromoCodesPage.Button_NextPage(),"Next Page should be displayed","Next Page is displayed","Next Page is not displayed");
+        testStepVerify.isElementDisplayed(admin_PromoCodesPage.Button_PreviousPage(),"Previous Page should be displayed","Previous Page is displayed","Previous Page is not displayed");
     }
 
     @Then("^I verify that pagination exists$")

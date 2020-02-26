@@ -130,7 +130,7 @@ public class EstimatePage extends PageBase {
       public WebElement Button_Proceed (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='PROCEED']", LocatorType.XPath,ignoreException); }
 
 
-    public WebElement Alert_DelayRequestingTrip () { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath); }
+    public WebElement Alert_DelayRequestingTrip (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath, ignoreException); }
 
     public WebElement Button_DelayRequestingTrip_OK () { return findElement("android:id/button1", LocatorType.Id); }
 

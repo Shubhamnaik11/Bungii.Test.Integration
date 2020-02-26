@@ -8,7 +8,6 @@ Feature: Duo
   @regression
   @sanity
   @regression
-
   Scenario: Validate That I am able to create Schedule duo bungii.
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -34,6 +33,7 @@ Feature: Duo
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     And I Switch to "driver" application on "same" devices
@@ -159,6 +159,7 @@ Feature: Duo
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     And I Switch to "driver" application on "same" devices
@@ -684,6 +685,7 @@ Feature: Duo
     And I select Bungii Time as "next possible scheduled"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     And I Switch to "driver" application on "same" devices

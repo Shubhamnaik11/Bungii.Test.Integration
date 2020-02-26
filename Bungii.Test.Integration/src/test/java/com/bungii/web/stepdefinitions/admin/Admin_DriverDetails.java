@@ -51,6 +51,7 @@ public class Admin_DriverDetails extends DriverBase{
     @And("^List of trips completed by the driver should be displayed on the Trip List Page$")
     public void list_of_trips_completed_by_the_driver_should_be_displayed_on_the_trip_list_page() throws Throwable {
         action.selectElementByText(admin_Driverspage.Dropdown_SearchForPeriod(), "The Beginning of Time");
+        if(!action.getPagesource().contains("No trips found."))
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
     }
 
@@ -97,6 +98,6 @@ public class Admin_DriverDetails extends DriverBase{
         }
 
         cucumberContextManager.setScenarioContext("XPATH",XPath);
-        testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+        testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
     }
 }

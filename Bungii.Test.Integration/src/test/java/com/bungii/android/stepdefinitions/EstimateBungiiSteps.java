@@ -123,6 +123,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(bungiiEstimatePage.Button_RequestConfirm());
                     Thread.sleep(3000);
                     action.eitherTextToBePresentInElementText(bungiiEstimatePage.GenericHeader(true), "Success!", "SEARCHING…");
+
                     break;
 
                 case "Done after requesting a Scheduled Bungii":
@@ -188,6 +189,34 @@ public class EstimateBungiiSteps extends DriverBase {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @And("^I check if the customer is on success screen$")
+    public void i_check_if_the_customer_is_on_success_screen() throws Throwable {
+        try {
+            if (!action.isElementPresent(bungiiEstimatePage.GenericHeader(true))) {
+                if (action.isElementPresent(bungiiEstimatePage.Alert_DelayRequestingTrip(true))) {
+                    action.click(bungiiEstimatePage.Button_DelayRequestingTrip_OK());
+                    utility.selectNewBungiiTime();
+                    action.scrollToBottom();
+                    String checked = "checked";
+                    checked = action.getAttribute(bungiiEstimatePage.Checkbox_AgreeEstimate(), checked);
+                    if (checked.equals("false")) {
+                        action.click(bungiiEstimatePage.Checkbox_AgreeEstimate());
+                    }
+                    if (!action.isElementPresent(bungiiEstimatePage.Button_RequestBungii(true)))
+                        action.scrollToBottom();
+                    action.click(bungiiEstimatePage.Button_RequestBungii());
+                    action.click(bungiiEstimatePage.Button_RequestConfirm());
+                    Thread.sleep(3000);
+                    action.eitherTextToBePresentInElementText(bungiiEstimatePage.GenericHeader(true), "Success!", "SEARCHING…");
+                }
+            }
+        }catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
     }
 
     @Then("^I should see the minimum scheduled time displayed on the Estimate page$")

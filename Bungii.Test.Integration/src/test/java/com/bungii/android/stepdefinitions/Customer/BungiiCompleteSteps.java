@@ -38,7 +38,7 @@ public class BungiiCompleteSteps extends DriverBase {
             }
             switch (identifier) {
                 case "correct details with promo":
-                 //   verifyBungiiCompletedPage();
+                    action.scrollToBottom();
                     verifyTripValue();
                     verifyDiscount();
                     break;
