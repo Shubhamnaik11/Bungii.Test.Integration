@@ -159,6 +159,7 @@ Feature: SoloScheduled
     And I select Bungii Time as "next possible scheduled"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     And I Switch to "driver" application on "same" devices
@@ -1067,6 +1068,7 @@ Feature: SoloScheduled
     And I select Bungii Time as "next possible scheduled"
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
     And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     Then I cancel all bungiis of customer
