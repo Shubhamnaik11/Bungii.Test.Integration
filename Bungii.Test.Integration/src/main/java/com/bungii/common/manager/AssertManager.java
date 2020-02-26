@@ -25,7 +25,7 @@ public class AssertManager {
 
         try {
             Assert.assertTrue(value, expectedText);
-            ResultManager.pass(expectedText, "Success :" + expectedText, true);
+            ResultManager.pass(expectedText, "Success : " + expectedText, true);
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
@@ -72,11 +72,11 @@ public class AssertManager {
                 ResultManager.pass(expectedText, sucessMessage, true);
 
         } catch (AssertionError e) {
-            logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+            logger.detail("Actual : "+actualValue+" expectedValue : "+expectedValue);
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }
-        logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+        logger.detail("Actual : "+actualValue+"expectedValue : "+expectedValue);
     }
 
 
@@ -90,7 +90,7 @@ public class AssertManager {
     public void isFalse(boolean value, String expectedText, String errorMessage) {
         try {
             Assert.assertFalse(value, expectedText);
-            ResultManager.pass(expectedText, "Success :" + expectedText, true);
+            ResultManager.pass(expectedText, "Success : " + expectedText, true);
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
@@ -156,7 +156,7 @@ public class AssertManager {
      */
     public void isElementTextEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
         String actualText=element.getText();
-        logger.detail("Element Text :"+actualText);
+        logger.detail("Element Text : "+actualText);
         isTrue(actualText.equals(expectedText), expectedMessage, successMessage, errorMessage);
     }
 
