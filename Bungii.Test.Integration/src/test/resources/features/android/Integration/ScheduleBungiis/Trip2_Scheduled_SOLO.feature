@@ -430,7 +430,7 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
-    @failed1
+    @failed
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
     And I confirm trip with following detail
       | Day | Trip Type |
