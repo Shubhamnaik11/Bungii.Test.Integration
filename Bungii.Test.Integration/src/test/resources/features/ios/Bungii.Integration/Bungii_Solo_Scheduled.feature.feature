@@ -2014,7 +2014,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I Select "live trips" from admin sidebar
     Then I should be able to see the respective bungii with the below status
       | Status              |
-      | Driving To Drop Off |
+      | Driving To Dropoff |
     When I view the trip details
 
     When I switch to "ORIGINAL" instance
