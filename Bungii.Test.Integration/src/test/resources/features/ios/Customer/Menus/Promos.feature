@@ -267,7 +267,7 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED
+  @FAILED2602
   @regression
   Scenario: Re-search after using Promo code. should be used for re-searched trip
     Given I am on the "LOG IN" page
