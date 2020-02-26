@@ -1,5 +1,6 @@
 package com.bungii.common.utilities;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.util.stream.Collectors.toList;
 
 public class GenerateSummaryReport {
@@ -30,7 +33,7 @@ public class GenerateSummaryReport {
     public static void main(String[] args) throws IOException, ParseException {
         try {
             if (args.length > 0) {
-                String mainFolder = args[0];
+                 String mainFolder = args[0];
                 String platform = args[1];
                 String category = args[2];
                 String environment = args[3];
@@ -59,7 +62,7 @@ public class GenerateSummaryReport {
 
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html","") + "</td>");
+                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") + "</td>");
                     summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
@@ -84,7 +87,7 @@ public class GenerateSummaryReport {
                             String startTime = cols.get(4).text();
                             storeEndTime(startTime);
                         }
-                        summaryData.add("<tr></tr><td>"+testCount+"</td>");
+                        summaryData.add("<tr></tr><td>" + testCount + "</td>");
                         summaryData.add(data);
                         testCount++;
                     }
@@ -93,16 +96,18 @@ public class GenerateSummaryReport {
                         Element row = rows2.get(i);
                         Elements cols = row.select("td");
                         String data = cols.toString();
-                        failureSummaryData.add("<tr>"+data+"</tr>");
-                        isFailed= true;
+                        failureSummaryData.add("<tr>" + data + "</tr>");
+                        isFailed = true;
                     }
                 }
-                createResultFileFromSummaryTemplate(platform , category, environment);
-
-                if(isFailed)
-                createResultFileFromFailedSummaryTemplate(platform , category, environment);
-
+                createResultFileFromSummaryTemplate(platform, category, environment);
                 new GenerateResultCSV().GenerateCSV(mainFolder);
+                if (isFailed)
+                {
+                    createResultFileFromFailedSummaryTemplate(platform, category, environment);
+                    CopyScreenshotsToDirectory();
+            }
+
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
@@ -170,7 +175,40 @@ public class GenerateSummaryReport {
                 .collect(toList());
         return listOfResultFile;
     }
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static List<String> getScreenshots() throws IOException {
+        List<String> listOfScreenshotFile = Files.walk(configFilePath)
+                .filter(s -> s.toString().endsWith(".jpg")).map((p) -> p.getParent() + "/" + p.getFileName())
+                .sorted()
+                .collect(toList());
+        return listOfScreenshotFile;
+    }
 
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static void CopyScreenshotsToDirectory() throws IOException {
+        try {
+        List<String> listOfScreenshotFile = getScreenshots();
+        Path targetDirectory = Paths.get(configFilePath+"/Screenshot");
+        File directory = new File(String.valueOf(targetDirectory));
+       if(!directory.exists()) {
+           directory.mkdir();
+       }
+        for(String file : listOfScreenshotFile) {
+            Files.copy(Paths.get(file),
+                    (new File(directory +"/"+ Paths.get(file).getFileName().toString())).toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
     /**
      * Create Summery File for parallel test
      */
@@ -236,7 +274,7 @@ public class GenerateSummaryReport {
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
             totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
-            totalStr = totalStr.replaceAll("<!--FAILURE.SUMMARY-->", listString);
+            totalStr = totalStr.replace("<!--FAILURE.SUMMARY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");

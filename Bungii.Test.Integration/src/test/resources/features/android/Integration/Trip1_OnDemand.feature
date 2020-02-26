@@ -434,7 +434,7 @@ Feature: On Demand Bungii
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "trips" from admin sidebar
-    And I select trip from trips
+    And I select the trip from trips
     Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
       | Scenario         | Expected value in admin |

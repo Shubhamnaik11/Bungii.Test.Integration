@@ -25,7 +25,7 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from live trips$")
     public void i_select_trip_from_live_trips() throws Throwable {
         try {
-            String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER");
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
@@ -91,6 +91,21 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from trips$")
     public void i_select_trip_from_trips() throws Throwable {
         try {
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
+            action.click(liveTripsPage.Button_Search());
+            Thread.sleep(5000);
+            action.click(liveTripsPage.Button_RowOne());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
+    @Then("^I select the trip from trips$")
+    public void i_select_the_trip_from_trips() throws Throwable {
+        try {
             String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
@@ -102,6 +117,7 @@ public class LiveTripsSteps extends DriverBase {
                     true);
         }
     }
+
     @Then("^On admin trip details page \"([^\"]*)\" should be displayed$")
     public void verifyTrip(String strArg1) throws Throwable {
         try {
