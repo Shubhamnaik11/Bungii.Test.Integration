@@ -954,7 +954,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     #move to top
     #need to do in atlanta
-  @FAILED2602
+
   @regression
   Scenario: Long stack non control driver
 
@@ -1015,7 +1015,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED2602
+
   @regression
   @sanity
   Scenario: Short stack control driver
@@ -1068,7 +1068,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED2602
+  
   @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 
