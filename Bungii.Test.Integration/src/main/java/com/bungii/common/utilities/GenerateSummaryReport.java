@@ -107,7 +107,7 @@ public class GenerateSummaryReport {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
             }
-            
+
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
@@ -274,7 +274,7 @@ public class GenerateSummaryReport {
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
             totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
-            totalStr = totalStr.replaceAll("<!--FAILURE.SUMMARY-->", listString);
+            totalStr = totalStr.replace("<!--FAILURE.SUMMARY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
