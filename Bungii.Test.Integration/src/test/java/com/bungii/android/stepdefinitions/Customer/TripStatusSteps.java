@@ -27,7 +27,7 @@ public class TripStatusSteps extends DriverBase {
         try {
             switch (key.toUpperCase()) {
                 case "SMS":
-                    validateSMSNumber(action.getText(messagesPage.Text_ToField()), PropertyUtility.getMessage("scheduled.support.number"));
+                    validateSMSNumber(action.getText(messagesPage.Text_ToField()).replace(" ", ""), PropertyUtility.getMessage("scheduled.support.number"));
                     break;
 
                 case "CALL":

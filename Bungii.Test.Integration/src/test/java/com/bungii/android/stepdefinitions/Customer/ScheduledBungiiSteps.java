@@ -500,63 +500,51 @@ public class ScheduledBungiiSteps extends DriverBase {
                 }
                 action.click(estimatePage.Button_SystemCalenderOK());
 
-
                 selectHour(hour);
                 selectMins(minutes);
                 selectMeridean(meridiem);
-
 
                 //      Thread.sleep(2000);
                 action.click(estimatePage.Button_TimeConfirm());
 
+            } else if (nextDate > 0) {
 
-            } else if (nextDate > 0 && nextDate < 5) {
-                String month = getCurrentMonthName();
-                String dayValue = generateNextDay();
-                int day = Integer.parseInt(dayValue);
-                if (day == 30 || day == 31) {
-                    day = 1;
-                    month = getNextMonthName();
-                }
+                    String dayValue[] = generateNextDay(nextDate);
+                    String month = "";
+                    String day = "";
+                    String year = "";
+                    day = dayValue[0];
+                    month = dayValue[1];
+                    year = dayValue[2];
 
-                day = day + nextDate;
+                    action.click(estimatePage.Time());
+                    //    Thread.sleep(1000);
+                    if (tripType.equals("SOLO")) {
+                        action.click(estimatePage.Button_Later());
+                    }
 
-                action.click(estimatePage.Time());
-                //    Thread.sleep(1000);
-                if (tripType.equals("SOLO")) {
-                    action.click(estimatePage.Button_Later());
+                    String Date = day + " " + month + " " + year;
+                    String tempMonth=getCurrentMonthName();
+                    if(tempMonth.equals(month))
+                    {
+                        //do nothing
+                    }
+                    else {
+                        action.click(estimatePage.Calendar_NextMonth());
+                    }
+                if(nextDate !=5) {
+                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + "']", PageBase.LocatorType.XPath);
+                    action.click(Select_Day);
+                    action.click(estimatePage.Button_SystemCalenderOK());
+                    selectHour(hour);
+                    selectMins(minutes);
+                    selectMeridean(meridiem);
+                    action.click(estimatePage.Button_OKOnTimePicker());
                 }
-                String year = "";
-                if (day == 31 && month.equals("DECEMBER")) {
-                    Calendar now = Calendar.getInstance();
-                    int y = now.get(Calendar.YEAR) + 1;
-                    year = String.valueOf(y);
-                } else {
-                    year = action.getText(estimatePage.Text_Year());
+                else{
+                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + "']", PageBase.LocatorType.XPath);
+                    testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
                 }
-
-                String Date = day + " " + month + " " + year;
-                WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + "']", PageBase.LocatorType.XPath);
-                action.click(Select_Day);
-                action.click(estimatePage.Button_SystemCalenderOK());
-                selectHour(hour);
-                selectMins(minutes);
-                selectMeridean(meridiem);
-                action.click(estimatePage.Button_OKOnTimePicker());
-            } else if (nextDate == 5) {
-                String dayValue = generateNextDay();
-                int day = Integer.parseInt(dayValue);
-                day = day + nextDate;
-                action.click(estimatePage.Time());
-                //   Thread.sleep(1000);
-                if (tripType.equals("SOLO")) {
-                    action.click(estimatePage.Button_Later());
-                }
-                String month = getCurrentMonthName();
-                String year = action.getText(estimatePage.Text_Year());
-                String Date = day + " " + month + " " + year;
-                WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + "']", PageBase.LocatorType.XPath);
-                testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -565,15 +553,19 @@ public class ScheduledBungiiSteps extends DriverBase {
 
     }
 
-    public String generateNextDay() {
+    public String[] generateNextDay(int nextDate) {
+
         Date curDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(curDate);
+        cal.add(Calendar.DATE,nextDate);
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         String DateToStr = format.format(curDate);
         format = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
-        DateToStr = format.format(curDate);
+        DateToStr = format.format(cal.getTime());
         DateToStr.toString();
-        String day = DateToStr.substring(0, 2);
-        return day;
+        String dateValue[] = DateToStr.split(" ");
+        return dateValue;
     }
 
     public String getCurrentMonthName() {
