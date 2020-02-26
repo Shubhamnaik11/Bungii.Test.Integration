@@ -1,6 +1,7 @@
 package com.bungii.web.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -211,7 +212,14 @@ public class ActionManager {
         String s = SetupManager.getDriver().getCurrentUrl();
         return s;
     }
+    public String getPagesource() {
+        String s = SetupManager.getDriver().getPageSource();
+        return s;
+    }
 
+    public WebElement getElementByXPath(String Locator) {
+        return new PageBase().findElement(Locator, PageBase.LocatorType.XPath);
+    }
     public static void selectElementByText(WebElement element, String text)
     { try{
         Long DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));

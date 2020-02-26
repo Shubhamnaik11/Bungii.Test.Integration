@@ -220,7 +220,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
     When I Cancel selected Bungii
     And Bungii must be removed from "SCHEDULED BUNGIIS" screen
-
+  @FAILED2602ONCE
   @regression
   Scenario: Cancel Bungii from Admin Panel . verify trip is gone from scheduled trip in app
     Given that solo schedule bungii is in progress
@@ -1883,7 +1883,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
-
+  @FAILED2602ONCE1
   @regression
   @FAILED2602
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
@@ -1928,7 +1928,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
 
-    And I wait for "2" mins
+    And I wait for "3" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -2007,14 +2007,14 @@ Feature: To Test Solo - Scheduling Bungii
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
 
-    And I wait for "2" mins
+    And I wait for "3" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     Then I should be able to see the respective bungii with the below status
       | Status              |
-      | Driving To Drop Off |
+      | Driving To Dropoff |
     When I view the trip details
 
     When I switch to "ORIGINAL" instance

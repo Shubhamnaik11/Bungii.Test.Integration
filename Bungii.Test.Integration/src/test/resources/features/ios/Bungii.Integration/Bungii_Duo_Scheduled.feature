@@ -808,6 +808,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
+
   @FAILED2602
   @regression
   Scenario: Create short stack. verify decked detail/alert msgs/status of current and stacked bungii
@@ -954,7 +955,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     #move to top
     #need to do in atlanta
-  @FAILED2602
+
   @regression
   Scenario: Long stack non control driver
 
@@ -1015,7 +1016,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED2602
+
   @regression
   @sanity
   Scenario: Short stack control driver
@@ -1068,7 +1069,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED2602
+
   @regression
   Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
 

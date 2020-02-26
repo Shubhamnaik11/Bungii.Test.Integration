@@ -217,6 +217,7 @@ public class ReportGeneratorUtility {
 			status = "<td style='background-color:pink;'>Fail</td>";
 			String str2 = "<td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
 			failureArray.add(str2);
+            failureArray.addAll(stackTraceArray);
 			failed++;
 		}
 
@@ -325,7 +326,7 @@ public class ReportGeneratorUtility {
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
-		String str = "<tr><td + rightSpan + ><td>Some steps are skipped due to error ..</td>";
+		String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
 		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
 
 	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
