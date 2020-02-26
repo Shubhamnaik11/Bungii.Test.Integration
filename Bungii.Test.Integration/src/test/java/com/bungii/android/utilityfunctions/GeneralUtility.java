@@ -1075,11 +1075,19 @@ public class GeneralUtility extends DriverBase {
         }
     }
     public void selectBungiiTime() {
+        action.scrollToTop();
         action.click(estimatePage.Time());
         action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
 
+    }
+
+    public void selectNewBungiiTime() {
+        action.scrollToTop();
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_DateConfirm());
+        action.click(estimatePage.Button_TimeConfirm());
     }
 
     /**

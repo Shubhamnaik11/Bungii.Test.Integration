@@ -131,22 +131,26 @@ public class GeneralUtility extends DriverBase {
 
 
     public void handleIosUpdateMessage() {
-        if (action.isAlertPresent()) {
-            String alertMessage = action.getAlertMessage();
-            List<String> getListOfAlertButton = action.getListOfAlertButton();
-            if (alertMessage.contains("new iOS update")) {
-                if (getListOfAlertButton.contains("Close")) {
-                    action.clickAlertButton("Close");
+        try {
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("new iOS update")) {
+                    if (getListOfAlertButton.contains("Close")) {
+                        action.clickAlertButton("Close");
+                    }
+                } else if (alertMessage.contains("Failed to fetch your profile")) {
+                    if (getListOfAlertButton.contains("OK")) {
+                        action.clickAlertButton("OK");
+                    }
+                } else if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
                 }
-            } else if (alertMessage.contains("Failed to fetch your profile")) {
-                if (getListOfAlertButton.contains("OK")) {
-                    action.clickAlertButton("OK");
-                }
-            } else if (alertMessage.contains("we are not operating in your area")) {
-                if (getListOfAlertButton.contains("Done")) {
-                    action.clickAlertButton("Done");
-                }
+
             }
+        }catch( Exception e){
 
         }
     }
