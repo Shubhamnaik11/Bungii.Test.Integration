@@ -183,7 +183,7 @@ public class PageBase {
                 //if retry is true mean this is second time in loop .so break
                 if(retry)
                 {
-                    error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    error("Locator "+identifier+" by type "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
                             true);
                     break;
                 }
