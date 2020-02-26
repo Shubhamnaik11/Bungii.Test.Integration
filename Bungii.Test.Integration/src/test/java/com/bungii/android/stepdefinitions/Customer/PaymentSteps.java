@@ -207,9 +207,10 @@ public class PaymentSteps extends DriverBase {
                         testStepAssert.isTrue(String.valueOf((newCount)).equals(String.valueOf((oldCount) + 1)), "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
                     }
                     else if(ExpectedLast4Digits.equals("4242")){
-                        String newCount=(String) cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1");
+                        int newCount=Integer.parseInt((String)  cucumberContextManager.getScenarioContext("NEWCARDS_COUNT1"));
                         int oldCount=Integer.parseInt((String) cucumberContextManager.getScenarioContext("CARDS_COUNT1"));
-                        testStepAssert.isTrue(Integer.parseInt(newCount) == (oldCount) + 1, "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+                        testStepAssert.isTrue(String.valueOf((newCount)).equals(String.valueOf((oldCount) + 1)), "There should be " + String.valueOf((oldCount)+ 1) + " card present on customer payment page ", "There are " + newCount + "payment method on customer page page");
+
                     }
                     else
                     { testStepVerify.isEquals(ActualLast4Digits,ExpectedLast4Digits);}

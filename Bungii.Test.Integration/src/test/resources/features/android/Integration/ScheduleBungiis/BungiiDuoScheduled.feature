@@ -8,6 +8,7 @@ Feature: Duo
   @regression
   @sanity
   @regression
+    @failed
   Scenario: Validate That I am able to create Schedule duo bungii.
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -131,7 +132,7 @@ Feature: Duo
     And Customer should receive "Your Bungii Receipt" email
   #given i have large image on phone
   @regression
-
+@failed
   Scenario Outline:Customer amount for duo with promo
     Given I am logged in as "valid atlanta" customer
 
@@ -665,6 +666,7 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
   @regression
+    @failed
   Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -806,6 +808,7 @@ Feature: Duo
 
 
   @regression
+    @failed
   Scenario: Short stack : Check status of current and stack pickup ,Verify stack request alert message and decked request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -1104,6 +1107,7 @@ Feature: Duo
     #move to top
     #need to do in atlanta
   @regression
+    @failed
   Scenario: Long stack non control driver
 
     Given that duo schedule bungii is in progress
@@ -1309,6 +1313,7 @@ Feature: Duo
 
     #need to execute later
     @regression
+      @failed
     Scenario: Check the Minimum scheduled time for Duo trip
       Given I am on customer Log in page
       When I am logged in as "New" customer
@@ -1319,6 +1324,7 @@ Feature: Duo
       Then I should see the minimum scheduled time displayed on the Estimate page
 
   @regression
+    @failed
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1352,7 +1358,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-
+  @failed
   Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1384,6 +1390,7 @@ Feature: Duo
 
 
   @regression
+    @failed
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
