@@ -432,9 +432,6 @@ Feature: SoloScheduled
   @regression
     @failed
   Scenario:  To check that Customer is able to Schedule Bungii only 5 days ahead including current date.Scenario:SOLO
-    And I confirm trip with following detail
-      | Day | Trip Type |
-      | 4   | DUO       |
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
