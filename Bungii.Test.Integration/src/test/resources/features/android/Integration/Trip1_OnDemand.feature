@@ -1,5 +1,5 @@
 @android
-
+@failed
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
@@ -201,7 +201,6 @@ Feature: On Demand Bungii
 #no existing promocode
   @regression
   Scenario Outline: Validate That I am able to create on demand bungii with Promo codes .Scenario:<Scenario>
-
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
     And I am logged in as "<User>" customer
@@ -286,6 +285,7 @@ Feature: On Demand Bungii
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
   @regression
+
   Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -342,6 +342,7 @@ Feature: On Demand Bungii
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
+
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -382,6 +383,7 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
+    @failed
   Scenario Outline: on demand with first time promo
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -441,6 +443,7 @@ Feature: On Demand Bungii
       | First time       | promo                   |
 
   @regression
+    @failed
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -485,6 +488,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
+    @failed
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -531,6 +535,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
+    @failed
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

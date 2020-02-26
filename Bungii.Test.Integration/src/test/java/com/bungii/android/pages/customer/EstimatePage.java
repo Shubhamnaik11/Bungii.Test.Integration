@@ -168,4 +168,6 @@ public class EstimatePage extends PageBase {
 
   public WebElement Button_AcceptRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button']", LocatorType.XPath).get(1);}
   public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
+
+  public WebElement Calendar_NextMonth() {return findElement("//android.widget.ListView/android.view.View[2]", LocatorType.XPath);}
 }
