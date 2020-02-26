@@ -194,9 +194,13 @@ public class PageBase {
                         //ignore exception
                         //or to do action
                     } else {
+                        error("Locator "+identifier+" by type "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
+                                true);
                         throw new NoSuchElementException(identifier);
                     }
                 } else {
+                    error("Locator "+identifier+" by type "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
+                            true);
                     throw new NoSuchElementException(identifier);
                 }
             }  finally {
