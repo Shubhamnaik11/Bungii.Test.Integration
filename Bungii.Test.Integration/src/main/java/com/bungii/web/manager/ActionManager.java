@@ -37,7 +37,7 @@ public class ActionManager {
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Error performing step, Please check logs for more details",
+            error("Step should be successful", "Unable to send " + text + " in element " + element.toString(),
                     true);
         }
     }
@@ -54,7 +54,7 @@ public class ActionManager {
           catch(Exception ex)
             {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-                error("Step should be successful", "Error performing step, Please check logs for more details",
+                error("Step should be successful", "Unable to send " + text + " in element " + element.toString(),
                         true);
             }
     }
@@ -66,7 +66,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Error performing step, Please check logs for more details",
+        error("Step should be successful", "Unable to clear element " + element.toString(),
                 true);
     }
     }
@@ -106,20 +106,20 @@ public class ActionManager {
             waitForJStoLoad();
         // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
-        logger.detail("text Value is  " + text + " for element" + element.toString());
+        logger.detail("Text Value is  " + text + " for element " + element.toString());
 
         return text;
         }
         catch(StaleElementReferenceException ex)
         {
             String text = element.getText();
-            logger.detail("text Value is  " + text + " for element" + element.toString());
+            logger.detail("Text Value is  " + text + " for element " + element.toString());
             return text;
         }
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Error performing step, Please check logs for more details",
+            error("Step should be successful", "Unable to get text from element " + element.toString() ,
                     true);
             return null;
         }
@@ -140,7 +140,7 @@ public class ActionManager {
             }
             catch (Exception ex1) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
-                error("Step should be successful", "Error performing step, Please check logs for more details",
+                error("Step should be successful", "Unable to click on element " + element.toString() ,
                         true);
 
             }
@@ -161,7 +161,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Error performing step, Please check logs for more details",
+        error("Step should be successful", "Unable to click on element " + element.toString() ,
                 true);
     }
     }
@@ -175,7 +175,7 @@ public class ActionManager {
         }  catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            error("Step should be successful", "Unable to clear element " + element.toString() ,
                     true);
         }
     }
@@ -195,7 +195,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Error performing step, Please check logs for more details",
+        error("Step should be successful", "Unable to select Random value from dropdown element " + DropdownField.toString() ,
                 true);
     }
     }
@@ -220,7 +220,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Error performing step, Please check logs for more details",
+        error("Step should be successful", "Unable to select element by text of " + element.toString() +" | Text: "+ text ,
                 true);
     }
     }
@@ -252,7 +252,7 @@ catch(Exception ex)
         } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Error performing step, Please check logs for more details",
+            error("Step should be successful", "Following element is not displayed : " + element.toString(),
                     true);
         }
     }
