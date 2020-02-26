@@ -1928,7 +1928,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I slide update button on "EN ROUTE" Screen
     And I slide update button on "ARRIVED" Screen
 
-    And I wait for "2" mins
+    And I wait for "3" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
@@ -2007,7 +2007,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I slide update button on "ARRIVED" Screen
     And I slide update button on "LOADING ITEM" Screen
 
-    And I wait for "2" mins
+    And I wait for "3" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
