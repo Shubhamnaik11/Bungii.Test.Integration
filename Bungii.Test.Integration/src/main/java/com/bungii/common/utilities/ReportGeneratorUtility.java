@@ -214,9 +214,12 @@ public class ReportGeneratorUtility {
 			passed++;
 		}
 		else {
+			String st = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			detailsArray.add(st);
 			failed++;
 			status = "<td style='background-color:pink;'>Fail</td>";
-			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
+			String reason = this.reason == ""? "Element Not Found" : this.reason;
+			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
             failureArray.addAll(stackTraceArray);
 
@@ -327,13 +330,13 @@ public class ReportGeneratorUtility {
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
-		String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
+		//String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
 		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
 
 	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
 	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
 
-		detailsArray.add(str);
+		//detailsArray.add(str);
 
 	}
 
