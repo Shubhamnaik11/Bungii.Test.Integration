@@ -38,7 +38,7 @@ public class AssertManager {
      * @param errorMessage If check if failed , this message will be displayed  in report
      */
     public void isFail(String errorMessage) {
-            ResultManager.fail("",errorMessage, true);
+            ResultManager.fail("Step should be successful",errorMessage, true);
             Assert.assertFalse(true, errorMessage);
     }
     /**
@@ -72,11 +72,11 @@ public class AssertManager {
                 ResultManager.pass(expectedText, sucessMessage, true);
 
         } catch (AssertionError e) {
-            logger.detail("Actual : "+actualValue+" expectedValue : "+expectedValue);
+            logger.detail("Actual Value : "+actualValue+" Expected Value : "+expectedValue);
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }
-        logger.detail("Actual : "+actualValue+"expectedValue : "+expectedValue);
+        logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
     }
 
 

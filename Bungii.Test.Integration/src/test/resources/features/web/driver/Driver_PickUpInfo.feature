@@ -11,7 +11,7 @@ Feature: Driver_PickupInfo
     And I click Next on "Driver Details" page
 
   @regression
-  Scenario: Driver_PickupInfo_InvalidData_ExisitingNonFountainApplication
+  Scenario: Verify Driver Application Pickup Info Form - Invalid Data Validations On Exisiting Non Fountain Application
     When I click Next on "Pickup Information" page
      Then I should see blank fields validation on "Pickup Information" page
      When I enter "less truck image - i" data on Pickup Information page

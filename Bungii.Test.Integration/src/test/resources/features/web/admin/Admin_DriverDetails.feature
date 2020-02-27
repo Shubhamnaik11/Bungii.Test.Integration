@@ -8,7 +8,7 @@ Feature: Admin_DriverDetails
 
   @regression
   @failed
-  Scenario: Admin_ViewDriversTripList
+  Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon
     Then The "Trip List" page should be displayed

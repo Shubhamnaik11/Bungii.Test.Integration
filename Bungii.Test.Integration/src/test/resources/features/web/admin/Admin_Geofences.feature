@@ -9,7 +9,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-  Scenario: Admin_VerifyDefaultGeofencesAttributes
+  Scenario: Verify Default Geofences Attribute settings
    When I click on "Geofences  > Attributes" Menu
     Then I should be directed to "Attributes Page"
     When I go to "Geofence Attributes" page
@@ -17,7 +17,7 @@ Feature: Admin_Geofence
     
   @sanity
   @regression
-  Scenario: Admin_AddEditNewGeofence
+  Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
       | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
@@ -35,7 +35,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-  Scenario: Admin_Timzones and Status list
+  Scenario: Verify Available Timezones And Statuses On New Geofence
     When I click on the "Scale" Button
     Then the following timezones are listed in the "Geo-TimeZone" dropdown
       |Timezone|
@@ -51,7 +51,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-  Scenario: Admin_Only Active timezones are listed in geofence filter
+  Scenario: Verify Only Active Timezones Are Listed In Geofence Filter Throughout Application
     When I navigate to following pages one by one
       |Page |
       | Dashboard    |
@@ -67,7 +67,7 @@ Feature: Admin_Geofence
 
   @sanity
   @regression
-    Scenario: Admin_GeofenceSettings
+    Scenario: Verify Settings Behavior Of Solo And Duo Settings on Geofence
     When I click on the geofence "Denver"
     And I click on the "Settings" Button on "Geofence" Screen
     Then I cannot uncheck "Solo" for "Driver(s) for Scheduled trip" settings when "Duo" is checked

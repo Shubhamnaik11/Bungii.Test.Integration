@@ -4,10 +4,23 @@ Feature: Admin_PartnerFirm
   Background:
     Given I am logged in as TestAdmin
 
+
+  @regression
+  @email
+  @failed
+  Scenario: Verify Failed Trip Email - Ondemand Trip - No driver accepts
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
+    And I note the Pickupref of trip
+    When I ensure no driver accepts the trip
+    Then Admin receives "Failed Ondemand Trips" trip email for "No Driver(s) Accepted" status
+
   @sanity
   @regression
   @email
-  Scenario: Partner Firm Scheduled Email - Ondemand Bulk Trip
+  @failed
+  Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Ondemand" trip
@@ -22,31 +35,10 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a driver "Testdrivertywd_appledc_a_web Sundarg"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-
   @regression
   @email
-  Scenario: Failed Trip Email - Ondemand Trip - No driver accepts
-    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
-    And I note the Pickupref of trip
-    When I ensure no driver accepts the trip
-    Then Admin receives "Failed Ondemand Trips" trip email for "No Driver(s) Accepted" status
-
-  @regression
-  @email
-  Scenario: Failed Trip Email - Ondemand Trip Cancel by Customer
-    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
-    And I note the Pickupref of trip
-    When I cancel bungii as a customer "Testcustomertywd_appleWashF Shah" with phone number "9999999361"
-    Then Admin receives "Failed Ondemand Trips" trip email for "Customer Cancelled" status
-    And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
-
-  @regression
-  @email
-  Scenario: Partner Firm Scheduled Email - Solo Ondemand
+    @failed
+  Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999359 | Testcustomertywd_appleWashD Shah|
@@ -58,13 +50,12 @@ Feature: Admin_PartnerFirm
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed Scheduled Trips" trip email for "Driver Cancelled" status
 
-    ##################################
   @sanity
   @regression
   @email
   @failed
       #test data created in base
-  Scenario: Partner Firm Email Upon Driver acceptance and Remove Research- Duo Scheduled
+  Scenario: Verify Partner Firm Email Upon Driver Acceptance And Removal Research - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
@@ -95,7 +86,7 @@ Feature: Admin_PartnerFirm
   @email
   @failed
       #test data created in base
-  Scenario: Partner Firm Cancellation Email  - Duo Scheduled
+  Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
@@ -123,8 +114,9 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+    @failed
     #test data created in base
-  Scenario: Partner Firm Email Upon Driver acceptance and Remove Research - Solo Scheduled
+  Scenario: Verify Partner Firm Email Upon Driver Acceptance And Remove Research - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
@@ -149,8 +141,9 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+    @failed
     #test data created in base
-  Scenario: Partner Email When Cancel Scheduled Bungii As an Admin
+  Scenario: Verify Partner Email When Cancel Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999360 | Testcustomertywd_appleWashE Shah|
@@ -176,7 +169,7 @@ Feature: Admin_PartnerFirm
   @email
   @failed
     #Create driver in base
-  Scenario: Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
+  Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Solo Scheduled" trip
@@ -188,6 +181,21 @@ Feature: Admin_PartnerFirm
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
+     ##################
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I click on "Edit" link beside scheduled bungii
+    And I click on "Edit Trip Details" radiobutton
+    And I update the Scheduled date of the trip by 15 minutes
+    And I remove driver "Testdrivertywd_appledc_a_web Sundark" and add the new driver "Testdrivertywd_appledc_a_web Sundarj"
+    And I click on "Verify" button on Edit Scheduled bungii popup
+    Then Tick mark should be displayed beside driver and scheduled date
+    When i click on "Save" button on Edit Scheduled bungii popup
+    Then "Bungii Saved" message should be displayed
+    Then Partner firm should receive "Bungii Delivery Pickup Updated" email
+    #################
     When I cancel bungii as a customer "Testcustomertywd_apple-Jd1" with phone number "9999794897"
     Then Partner firm should receive "Bungii Delivery Pickup Canceled" email
 
@@ -195,7 +203,7 @@ Feature: Admin_PartnerFirm
   @email
   @failed
     #test data created in base
-  Scenario: Partner Firm Email Long Stacked Bungii - Solo Scheduled
+  Scenario: Verify Partner Firm Email For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999362 | Testcustomertywd_appleWashG Shah|
@@ -220,7 +228,7 @@ Feature: Admin_PartnerFirm
   @email
   @failed
     #test data created in base
-  Scenario: Partner Firm Email Short Stacked Bungii - Solo Scheduled
+  Scenario: Verify Partner Firm Email For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
@@ -242,16 +250,14 @@ Feature: Admin_PartnerFirm
     When I cancel bungii as a customer "Testcustomertywd_appleWashK Shah" with phone number "9999999364"
     Then Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-###############################
   @sanity
   @regression
   @failed
     #test data created in base
     #changed driver name
-  Scenario: Partner Firm - Remove driver, Research and Cancel As an Admin
+  Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
-     # | NEXT_POSSIBLE | 9284000010 | Testcustomertywd_appleweb CustG|
       | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
     And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
@@ -285,7 +291,17 @@ Feature: Admin_PartnerFirm
     Then The Trip List page should display the trip in "Admin Cancelled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-
+  @regression
+  @email
+  @failed
+  Scenario: Verify Failed Trip Email - Ondemand Trip Cancelled By Customer
+    When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
+      | Bungii Time   | Customer Phone | Customer Name |
+      | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
+    And I note the Pickupref of trip
+    When I cancel bungii as a customer "Testcustomertywd_appleWashF Shah" with phone number "9999999361"
+    Then Admin receives "Failed Ondemand Trips" trip email for "Customer Cancelled" status
+    And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
 
 

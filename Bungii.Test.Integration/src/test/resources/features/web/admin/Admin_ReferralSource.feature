@@ -8,12 +8,13 @@ Feature: Admin_ReferralSource
 
   @sanity
   @regression
-  Scenario: Admin_ReferralSourcegrid_Calculations
+  Scenario: Verify Referral Source Grid Calculations
     Then the "Percentage of total(Accounts Created)" should display accurate value for each Source
     And  the "Percentage of total(Trips Completed)" should display accurate value for each Source
 
   @regression
-  Scenario: Admin_ReferralSourcegrid_Sort
+    @failed
+  Scenario: Verify Referral Source Grid Sort ASC DESC
     When I click on "Source" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Source"
     When I click on "Source" header "Descending" on "Referral Source" grid
@@ -36,7 +37,7 @@ Feature: Admin_ReferralSource
     Then the "Referral Source" list should be sorted by "Descending" order of "Percentage of total(Trips Completed)"
 
   @regression
-  Scenario: Admin_ReferralSourcegrid_FieldValidations
+  Scenario: Verify Field Validations On Referral Source Grid
     When I click on "Search" button with entering "From" and "To" date
     Then the "From date is required" message is displayed beside "From Date" field
     And the "To date is required" message is displayed beside "To Date" field

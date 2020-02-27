@@ -214,11 +214,12 @@ public class ReportGeneratorUtility {
 			passed++;
 		}
 		else {
+			failed++;
 			status = "<td style='background-color:pink;'>Fail</td>";
-			String str2 = "<td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
+			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
 			failureArray.add(str2);
             failureArray.addAll(stackTraceArray);
-			failed++;
+
 		}
 
 		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime

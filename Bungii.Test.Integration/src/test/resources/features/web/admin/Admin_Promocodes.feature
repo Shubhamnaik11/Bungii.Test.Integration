@@ -8,7 +8,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-  Scenario: Admin_AddNewPromocode_Promo
+  Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type   | Promo Code Name    | Code  | Discount Value  | Discount Category | Expiration Date |
@@ -20,7 +20,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-  Scenario: Admin_AddEditNewPromocode_OneOff
+  Scenario: Verify Add New Promocode of Type One Off
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type   | Promo Code Name    | Code  | Discount Value  | Discount Category | Expiration Date |
@@ -36,7 +36,7 @@ Feature: Admin_Promocodes
     Then the edited promocode is displayed in the Promocodes grid
 
   @regression
-  Scenario: Admin_AddNewPromocode_DeliveryByPromoter
+  Scenario: Verify Add New Promocode of Type Delivery By Promoter
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type                | Promo Code Name    | Select Promoter   | Select Promotion  | No Of Codes  |
@@ -50,7 +50,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-  Scenario: Admin_AddEditNewPromocode_DeliveryByPromoterMultiple
+  Scenario: Verify Add Edit Promocode of Type Delivery By Promoter Multiple
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type                | Promo Code Name    | Select Promoter   | Select Promotion  | Code  |
@@ -59,7 +59,7 @@ Feature: Admin_Promocodes
     Then the "Delivery By Promoter (M)" type promocode gets saved successfully and it is displayed in the Promocodes grid
 
   @regression
-  Scenario: Admin_AddNewPromocode_Cancel
+  Scenario: Verify Cancellation of Add New Promocode
     When I click on the "New Code" Button
     And I click on the "Cancel" Button on "Add New Promocode" popup
     Then the "Add New Promocode" popup gets removed from UI
@@ -74,7 +74,7 @@ Feature: Admin_Promocodes
 #EOC
 
   @regression
-  Scenario: Admin_AddNewPromocode_Fieldvalidations
+  Scenario: Verify Field Validations On Add New Promocode Popup Upon Blank Inputs
     When I click on the "New Code" Button
     And I select promocode type as "Delivery By Promoter"
     And I click on the "Save" Button
@@ -121,7 +121,7 @@ Feature: Admin_Promocodes
     #Promo code and name with only special characters
 
     #Not implemented so far this validation so keeping on hold
-  Scenario: Admin_Promocode_ValidationsForInvalidInputs
+  Scenario: Verify Field Validations On Add New Promocode Popup For invalid Inputs
     When I click on the "New Code" Button
     And I enter following values in fields
       | Promo Code Type | Promo Code Name | Code      | Discount Value  | Discount Category | Expiration Date    |
@@ -140,7 +140,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
-  Scenario: Admin_PromocodeGrid_Filters
+  Scenario: Verify Promocode Grid Filters
     When I click on "Filter" icon
     Then the "Code Type" and "Creation Date" is set to "All" by default
     When I select "Code Type" as "Promo"
