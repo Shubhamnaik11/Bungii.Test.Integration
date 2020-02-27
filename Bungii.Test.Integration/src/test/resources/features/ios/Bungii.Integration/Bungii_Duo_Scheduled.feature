@@ -354,7 +354,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
-    Then I wait for "1" mins
+    Then I wait for "2" mins
 
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
