@@ -1,5 +1,5 @@
 @android
-@failed
+
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
@@ -342,7 +342,7 @@ Feature: On Demand Bungii
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-
+@failed123
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -383,7 +383,7 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
-    @failed
+    @failed123
   Scenario Outline: on demand with first time promo
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -443,7 +443,7 @@ Feature: On Demand Bungii
       | First time       | promo                   |
 
   @regression
-    @failed
+  @failed123
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -488,7 +488,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-    @failed
+
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -535,7 +535,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-    @failed
+
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

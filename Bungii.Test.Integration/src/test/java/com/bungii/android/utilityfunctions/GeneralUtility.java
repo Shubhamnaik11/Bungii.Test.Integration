@@ -1279,6 +1279,7 @@ public class GeneralUtility extends DriverBase {
             }
 
         } catch (Exception e) {
+            logger.detail(ExceptionUtils.getStackTrace(e));
         }
         SetupManager.getObject().restartApp();
         logger.detail("Switched to customer in recovery scenario");

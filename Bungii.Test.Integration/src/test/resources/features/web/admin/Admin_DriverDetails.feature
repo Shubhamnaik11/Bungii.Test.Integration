@@ -7,7 +7,7 @@ Feature: Admin_DriverDetails
     Then I should be directed to "Drivers Page"
 
   @regression
-  @failed
+
   Scenario: Admin_ViewDriversTripList
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon

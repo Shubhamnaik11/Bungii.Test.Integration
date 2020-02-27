@@ -409,9 +409,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
                     break;
                 case "newly created user":
-                    String phoneNumber=(String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER");
+                    String phoneNumber=(String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");
                     utility.loginToCustomerApp(phoneNumber, PropertyUtility.getDataProperties("customer.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", phoneNumber);
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));

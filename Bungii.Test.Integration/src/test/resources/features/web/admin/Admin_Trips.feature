@@ -6,7 +6,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
+
     #test data created in base
   Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -173,7 +173,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @failed
+
   @email
     #test data created in base
   Scenario: Trips List Statuses - Solo Scheduled

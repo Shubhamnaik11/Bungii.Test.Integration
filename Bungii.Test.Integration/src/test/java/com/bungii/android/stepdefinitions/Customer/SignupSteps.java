@@ -30,8 +30,8 @@ public class SignupSteps extends DriverBase {
             switch (strArg1) {
                 case "unique":
                     customerPhone = utility.generateMobileNumber();
-                    cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
-                    cucumberContextManager.setFeatureContextContext("NEW_USER_NUMBER", customerPhone);
+                    cucumberContextManager.setScenarioContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
                     break;
                 case "blank":
                     break;
