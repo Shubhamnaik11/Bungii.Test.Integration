@@ -82,7 +82,7 @@ public class EstimateSteps extends DriverBase {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime(time);
-                    isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+                    isCorrectTime = (action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM")).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
                     clickRequestBungii();
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);

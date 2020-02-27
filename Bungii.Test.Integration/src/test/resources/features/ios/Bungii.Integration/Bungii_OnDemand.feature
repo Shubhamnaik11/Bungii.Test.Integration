@@ -348,7 +348,7 @@ Feature: Create on demand bungii
     Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
       | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
-   #   | fixed valid      | PROMO DOLLAR OFF  | valid nashville            | correct details with promo | promo                   |
+      | fixed valid      | PROMO DOLLAR OFF  | valid nashville            | correct details with promo | promo                   |
       | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
       | valid one off    | ONE OFF           | valid nashville            | correct details with promo | oneoff                  |
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |

@@ -21,7 +21,7 @@ Feature: FORGOT PASSWORD
     Examples:
       | Scenario                  | Value        | Expected Message     |
       | Phone Number less than 10 | 940396       | FAILED TO SEND TOKEN |
-  #    | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
+      | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
   Scenario Outline: As Bungii driver . I should be alerted if I Enter invalid password or sms code during Forgot Password functionality. Scenario:<Scenario>
