@@ -7,47 +7,46 @@ Feature: Driver_ForgotPassword
     And I click "Forgot Password" on driver portal
 
   @regression
-  Scenario: Driver_ForgotPassword_CorrectPage
+  Scenario: Verify Driver Forgot Password Navigation
     Then I should be directed to "Forgot Password tab" on Driver portal
     When I click "Back to Login" on driver portal
     Then I should be directed to "LOG IN tab" on Driver portal
 
   @regression
-  @login
-  Scenario: Driver_ForgotPassword_Blank
+  Scenario: Verify Driver Forgot Password Validation on Blank Phone Number
     When I click "Send Verification Code" on driver portal
     Then I should see blank fields validation on "Forgot Password" page
 
   @regression
     @login
-  Scenario: Driver_ForgotPassword_InvalidPhone
+  Scenario: Verify Driver Forgot Password Validation on Invalid Phone Number
     When I enter "invalid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     Then driver should see "validation for invalid phone" during phone verification
 
   @regression
-  Scenario: Driver_ForgotPassword_VerifyPhone_CorrectPageDetails
+  Scenario: Verify Driver Forgot Password With Existing Phone Number
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     Then I should be directed to "Verify Your Phone tab" on Driver portal
     And driver should see "correct phone number" during phone verification
 
   @regression
-  Scenario: Driver_ForgotPassword_VerifyPhone_Blank
+  Scenario: Verify Blank Code Validation On Reset password Screen
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     And I click "Reset Password" on driver portal
     Then I should see blank fields validation on "Verify your phone" page
 
   @regression
-  Scenario: Driver_ForgotPassword_VerifyPhone_ResendCode
+  Scenario: Verify Resend Code On Reset password Screen
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     And I click "Resend Code on Verify your phone page" on driver portal
     Then driver should see "new verification code" during phone verification
 
   @regression
-  Scenario: Driver_ForgotPassword_VerifyPhone_InvalidVerificationCode
+  Scenario: Verify Driver Reset Password Field Validation For Invalid Verification Code
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     And I enter "invalid" code on Verify your phone page
@@ -57,7 +56,7 @@ Feature: Driver_ForgotPassword
     Then driver should see "validation for invalid code" during phone verification
 
   @regression
-  Scenario: Driver_ForgotPassword_VerifyPhone_InvalidPasswords
+  Scenario: Verify Driver Reset Password Field Validation For Invalid Password
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     And I enter "short" new password on Verify your phone page
@@ -68,7 +67,7 @@ Feature: Driver_ForgotPassword
     Then driver should see "validation for invalid password" during phone verification
 
   @regression
-  Scenario: Driver_ForgotPassword_Success
+  Scenario: Verify Driver Forgot Password Success
     When I enter "valid" Phone Number on Forgot password page
     And I click "Send Verification Code" on driver portal
     And I enter "valid" code on Verify your phone page

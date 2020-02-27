@@ -8,8 +8,9 @@ Feature: Admin_DriverApplicationVerification
   @sanity
   @regression
   @email
+  @failed
     #test data created in base
-  Scenario: DriverApplication_Approval_NonFountainFlow
+  Scenario: Verify Driver Application Approval - NonFountain
     When I click "Verify" button against the "John MwrB" applicant
     Then I should be directed to "Driver Verification Page"
     And I check if each field has an "accept" option
@@ -23,7 +24,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
     #test data created in base
-  Scenario: DriverApplication_WithRejectedFields_NonFountainFlow
+  Scenario: Verify Approve Application Button visibility On Field Rejection - NonFountain
     When I click "Verify" button against the "John owPH" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
@@ -33,7 +34,8 @@ Feature: Admin_DriverApplicationVerification
   @regression
     #test data created in base
   @email
-  Scenario: DriverApplication_Rejection_NonFountainFlow
+  @failed
+  Scenario: Verify Driver Application Rejection - NonFountain
     When I click "Verify" button against the "John dMIk" applicant
     Then I should be directed to "Driver Verification Page"
     When I click on "Reject Application" link
@@ -48,18 +50,24 @@ Feature: Admin_DriverApplicationVerification
 
   @sanity
   @regression
+  @email
+  @failed
     #test data created in base
-  Scenario: Driver_ResendApplication_NonFountainFlow
+  Scenario: Verify Driver Application Resend Application - NonFountain
     When I click "Verify" button against the "John PxLK" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and reject the invalid verification fields
     And I click on the "Resend Application" Button
     And I confirm the "Driver Resend Application" action
     Then the status of the driver application should be marked as "Re-sent to Driver"
+    Then I should receive "BUNGII: Action Required!" email
+  #  When I login as driver "John PxLK"
+   # And Correct the fields and resubmit
+   # Then Admin receives "" email
 
   @regression
     #test data created in base
-  Scenario: DriverApplication_ResendButtonVisibility_WithAllApprovedFields_NonFountainFlow
+  Scenario: Verify Resend Button Button visibility On All Field Approval - NonFountain
     When I click "Verify" button against the "John Annie" applicant
     Then I should be directed to "Driver Verification Page"
     And I verify and approve all the verification fields
@@ -67,7 +75,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
     #test data created in base
-  Scenario: DriverApplication_Reject_Cancellation_NonFountainFlow
+  Scenario: Verify Driver Application Rejection Cancellation - NonFountain
     When I click "Verify" button against the "John Johnie" applicant
     Then I should be directed to "Driver Verification Page"
     When I click on "Reject Application" link
@@ -77,7 +85,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
     #test data created in base
-  Scenario: DriverApplication_Rejection_WithAllFieldsApproved_NonFountainFlow
+  Scenario: Verify Driver Application Rejection With All Fields Approved - NonFountain
     When I click "Verify" button against the "John Tony" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve all the verification fields
@@ -89,7 +97,7 @@ Feature: Admin_DriverApplicationVerification
 
   @regression
         #test data created in base
-  Scenario: Driver_ApplicationStatusChange_NonFountainFlow
+  Scenario: Verify Driver Application Field Approval Or Rejection - NonFountain
     When I click "Verify" button against the "John Jamie" applicant
     Then I should be directed to "Driver Verification Page"
     When I verify and approve the "Driver Picture" field
@@ -100,8 +108,10 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field resets to default
 
   @regression
+  @failed
+    @email
     #test data created in base
-  Scenario: Driver_ApplicationStatusChange
+  Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant
     And I verify all the fields except "Date of Birth"
     And I click on the "Resend Application" Button
@@ -116,4 +126,3 @@ Feature: Admin_DriverApplicationVerification
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
     Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
-

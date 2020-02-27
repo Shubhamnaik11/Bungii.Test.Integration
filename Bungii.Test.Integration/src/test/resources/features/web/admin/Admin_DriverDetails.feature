@@ -7,8 +7,8 @@ Feature: Admin_DriverDetails
     Then I should be directed to "Drivers Page"
 
   @regression
-
-  Scenario: Admin_ViewDriversTripList
+  @failed
+  Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon
     Then The "Trip List" page should be displayed

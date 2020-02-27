@@ -9,8 +9,7 @@ Feature: Driver_Login
   @smoke
   @sanity
   @regression
-    @login
-  Scenario: Driver_Login_Success
+  Scenario: Verify Driver Login With Valid Credentials
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "valid" driver Password on Driver portal
     And I click "LOG IN button" on driver portal
@@ -19,18 +18,18 @@ Feature: Driver_Login
 
   @regression
   @login
-  Scenario: Driver_Login_Blank
+  Scenario: Verify Driver Login Validations With Blank Credentials
     When I click "LOG IN button" on driver portal
     Then the driver should "see validation message for blank fields"
 
   @regression
-  Scenario: Driver_Login_InvalidPhone
+  Scenario: Verify Driver Login Validations With Invalid Phone Number
     When I enter "invalid" driver Phone Number on Driver portal
     And I click "LOG IN button" on driver portal
     Then the driver should "see validation message for invalid phone field"
 
   @regression
-  Scenario: Driver_Login_IncorrectCredentials
+  Scenario: Verify Driver Login Validations With Invalid Password
     When I enter "valid" driver Phone Number on Driver portal
     And I enter "invalid" driver Password on Driver portal
     And I click "LOG IN button" on driver portal

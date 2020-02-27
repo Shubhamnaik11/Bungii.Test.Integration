@@ -6,9 +6,8 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-
     #test data created in base
-  Scenario: Manually End Bungii As an Admin - Solo Scheduled Pickup
+  Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000002 | Testcustomertywd_appleweb CustB|
@@ -35,7 +34,7 @@ Feature: Admin_Trips
   @sanity
   @regression
     #test data created in base
-  Scenario: Manually End Bungii As an Admin - Solo Ondemand Pickup
+  Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000003 | Testcustomertywd_appleweb CustC|
@@ -60,7 +59,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  Scenario: Cancel Scheduled Bungii As an Admin
+  Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
@@ -84,7 +83,7 @@ Feature: Admin_Trips
     #test data created in base
     #changed driver name
     #First time promo code added
-  Scenario: Remove driver, Research and Cancel As an Admin
+  Scenario: Verify Driver Removal Research and Cancel As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000006 | Testcustomertywd_appleweb CustF|
@@ -122,7 +121,7 @@ Feature: Admin_Trips
   @regression
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
-  Scenario: Trips List Statuses - Solo Ondemand
+  Scenario: Verify Trips List Status Updation For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000004 | Testcustomertywd_appleweb CustD|
@@ -173,10 +172,10 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-
   @email
+    @failed
     #test data created in base
-  Scenario: Trips List Statuses - Solo Scheduled
+  Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000001 | Testcustomertywd_appleweb CustA|
@@ -236,7 +235,7 @@ Feature: Admin_Trips
   @sanity
   @regression
         #test data created in base (need to update driver geofence)
-  Scenario: Edit and Remove driver from a Duo Trip started by non controlled driver
+  Scenario: Verify Editing and Removal of driver from Duo Scheduled Trip Started By Non Controlled Driver
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995001 | Testcustomertywd_appleweb CustZ|
@@ -264,13 +263,13 @@ Feature: Admin_Trips
 
       
   @regression
-  Scenario:  Admin_Search_TripList
+  Scenario:  Verify Search On Trip List
     When I click on "Trips > Trips" Menu
     And I search by client name "Vishal"
     Then All the clients named "Vishal" should be displayed on the trip list grid
 
   @regression
-  Scenario: Admin_Filter_TripList
+  Scenario: Verify Filters On Trip List
     When I click on "Trips > Trips" Menu
     And I click on "Filter" icon on "Trips" Page
     Then All statuses except "Price Estimated" are selected
@@ -324,7 +323,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  Scenario: Driver - Driver Does Not receive On Demand requests if he is not assigned to the geofence in which his current location is
+  Scenario: Verify Driver Does Not receive On Demand requests If He Is Not Assigned To Geofence In Which His Current Location Is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995002 | Testcustomertywd_appleweb CustY|
@@ -337,7 +336,7 @@ Feature: Admin_Trips
 
   @regression
     #test data created in base
-  Scenario: Customer List - Solo Scheduled Trip
+  Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Solo Scheduled Trip
     And I note the Trip Requested count of Customer "Jerome Seinfield"
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -348,8 +347,9 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
 
   @regression
+    @failed
       #test data created in base
-  Scenario: Customer List - Duo Scheduled Trip
+  Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |

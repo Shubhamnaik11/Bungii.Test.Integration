@@ -10,7 +10,7 @@ Feature: Driver_Details
     And I click "LOG IN button" on driver portal
 
   @regression
-  Scenario: Driver_Details_InvalidData_ExisitingNonFountainApplication
+  Scenario: Verify Driver Application Details Form - Invalid Data Validations On Exisiting Non Fountain Application
     When I click Next on "Driver Details" page
      Then I should see blank fields validation on "Driver Details" page
      When I enter "invalid" data on Driver Details page

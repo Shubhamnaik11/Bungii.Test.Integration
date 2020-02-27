@@ -8,7 +8,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
-  Scenario: Admin_AddNewPromoter
+  Scenario: Verify Add New Promoter
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials | Description  | Status  |
@@ -20,7 +20,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
-  Scenario: Admin_AddPromotion_To_Promoter_And_Add_Promocodes
+  Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials    | Description  | Status  |
@@ -45,7 +45,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
-  Scenario: Admin_AddPaymentToPromoter
+  Scenario: Verify Adding Payment To Promoter
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials    | Description  | Status  |
@@ -62,7 +62,7 @@ Feature: Admin_Promoter
     Then the card is added to the promoter "PT<<CurrentDateTime>>"
 
   @regression
-  Scenario: Admin_Promotergrid_Sort
+  Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
     Then the "Promoter" list should be sorted by "Ascending" order of "Name"
     When I click on "Name" header "Descending" on "Promoter" grid
@@ -77,13 +77,13 @@ Feature: Admin_Promoter
     Then the "Promoter" list should be sorted by "Descending" order of "Code Initials"
 
   @regression
-  Scenario: Admin_AddNewPromoter_Cancel
+  Scenario: Verify Cancellation of Add New Promoter
     When I click on the "New Promoter" Button
     And I click on the "Cancel" Button on "Add New Promoter" popup
     Then the "Add New Promoter" popup gets removed from UI
 
   @regression
-  Scenario: Admin_AddNewPromoter_Fieldvalidations
+  Scenario: Verify Field Validations Of Add New Promoter
     When I click on the "New Promoter" Button
     When I click on the "Save" Button on "Add New Promoter" popup
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
