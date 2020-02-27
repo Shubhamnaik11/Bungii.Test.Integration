@@ -338,7 +338,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-
+  @failed123
   Scenario: To check status on customer in Scheduled Bungiis page when both drivers have accepted trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
