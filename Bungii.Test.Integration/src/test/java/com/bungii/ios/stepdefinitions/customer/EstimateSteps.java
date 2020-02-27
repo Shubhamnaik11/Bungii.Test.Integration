@@ -852,7 +852,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime.replace("am","AM").replace("pm","PM"));
+            testStepVerify.isEquals(strTime.replace("am","AM").replace("pm","PM"), displayedTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

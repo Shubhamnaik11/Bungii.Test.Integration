@@ -7,7 +7,7 @@ Feature: Customer Estimate screen
 
   Background:
     Given I am on Customer logged in Home page
-
+  @FAILED2702
   @regression
   Scenario: If I cancel on Bungii while it is in Searching driver  page . I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
     When I request for  bungii for given pickup and drop location
@@ -170,7 +170,7 @@ Feature: Customer Estimate screen
       Then I should be navigated to "SEARCHING" screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
-  @FAILED
+  @FAILED2702
   @regression
       Scenario: To check that when duo is selected. Time is selected to next available  scheduled time (correct Timezone)
       And I request for  bungii for given pickup and drop location

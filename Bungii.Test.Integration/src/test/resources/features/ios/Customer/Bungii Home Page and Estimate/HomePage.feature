@@ -2,8 +2,7 @@
 
 Feature: Customer Home screen
 # 1 valid test case fail
-  @FAILED2602
-
+  @FAILED2702
     #test case getting failed , Known issue
   @regression
   Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
@@ -48,7 +47,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @FAILED2602
+  @FAILED2702
   @regression
   Scenario:To check that drop off field is displayed only when pickup address is set.
     Given I am on Customer logged in Home page

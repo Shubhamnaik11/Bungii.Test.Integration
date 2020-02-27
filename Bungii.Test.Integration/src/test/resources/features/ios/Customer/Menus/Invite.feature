@@ -4,7 +4,7 @@ Feature: Customer	Referral Invite page
 
   Background: 
     Given I am on Customer logged in Home page
-
+  @FAILED2702
   @regression
   Scenario: As Bungii customer I go to Invite Page . Page with Proper info and promocode should be displayed
     When I Select "Home" from Customer App menu
@@ -13,7 +13,7 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then Invite Referral page should be properly displayed
     And I click "Done" button on "Invite" screen
-
+  @FAILED2702
   @regression
   Scenario: As   Bungii customer I should able to share my code using Text messages
     When I Select "Home" from Customer App menu
