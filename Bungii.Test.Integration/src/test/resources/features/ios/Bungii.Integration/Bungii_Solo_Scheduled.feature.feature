@@ -847,6 +847,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @regression
+    @failed1
   Scenario:To check the status of scheduled Bungii in the scheduled trip page when only one driver has accepted
 
     And I request "duo" Bungii as a customer in "denver" geofence
@@ -871,6 +872,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @regression
+    @failed1
   Scenario:To check all details in the Bungii Details page when required number of drivers have accepted
 
     And I request "duo" Bungii as a customer in "denver" geofence

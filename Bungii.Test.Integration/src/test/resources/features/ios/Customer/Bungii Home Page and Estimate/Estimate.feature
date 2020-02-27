@@ -92,7 +92,7 @@ Feature: Customer Estimate screen
     #removed as part of sprint 32
   #  And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
-  @FAILED
+
   @regression
   Scenario: To check the elements of Estimate page
     And I request for  bungii for given pickup and drop location

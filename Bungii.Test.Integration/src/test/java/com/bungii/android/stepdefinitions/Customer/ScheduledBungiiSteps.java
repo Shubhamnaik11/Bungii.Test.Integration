@@ -282,6 +282,8 @@ public class ScheduledBungiiSteps extends DriverBase {
             action.click(estimatePage.Button_DoneOnSuccess());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
@@ -302,6 +304,8 @@ public class ScheduledBungiiSteps extends DriverBase {
        }
        catch (Exception e) {
            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+           error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                   true);
        }
     }
 
@@ -322,6 +326,8 @@ public class ScheduledBungiiSteps extends DriverBase {
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
@@ -347,6 +353,8 @@ public class ScheduledBungiiSteps extends DriverBase {
             }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 

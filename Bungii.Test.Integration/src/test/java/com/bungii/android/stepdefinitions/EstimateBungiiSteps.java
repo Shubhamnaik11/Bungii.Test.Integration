@@ -221,6 +221,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
     @Then("^I should see the minimum scheduled time displayed on the Estimate page$")
     public void i_should_see_the_minimum_scheduled_time_displayed_on_the_estimate_page()throws Throwable{
+        try{
         ZoneId zoneId = ZoneId.of("America/Los_Angeles");
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(Instant.now(), zoneId);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
@@ -248,15 +249,24 @@ public class EstimateBungiiSteps extends DriverBase {
             System.out.println("Pickup time " + pickupTime);
 
         Assert.assertEquals(actualTime, pickupTime);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
         }
 
     @Then("^I should see the minimum scheduled time for Solo Bungii displayed on the Estimate page$")
     public void i_should_see_the_minimum_scheduled_time_for_solo_bungii_displayed_on_the_estimate_page() throws Throwable {
+        try{
         action.click(estimatePage.Time());
         action.click(estimatePage.Button_Later());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
         i_should_see_the_minimum_scheduled_time_displayed_on_the_estimate_page();
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     @Then("^I should see \"([^\"]*)\" on Bungii estimate$")
@@ -388,20 +398,29 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("kansas.customer1.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("kansas.customer1.phone"));
                     break;
+                case "valid kansas 2":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("Kansas.customer2.phone"), PropertyUtility.getDataProperties("Kansas.customer2.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("Kansas.customer2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("Kansas.customer2.phone"));
+                    break;
                 case "valid customer 2":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer2.phone"), PropertyUtility.getDataProperties("atlanta.customer2.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("atlanta.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("atlanta.customer2.phone"));
                     break;
                 case "newly created user":
-                    String phoneNumber=(String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER");
+                    String phoneNumber=(String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");
                     utility.loginToCustomerApp(phoneNumber, PropertyUtility.getDataProperties("customer.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", phoneNumber);
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
+                    break;
+                case "newly registered customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"), PropertyUtility.getDataProperties("customer_newly.registered.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -712,6 +731,7 @@ public class EstimateBungiiSteps extends DriverBase {
         }*/
     @And("^I get Bungii details on Bungii Estimate$")
     public void i_get_bungii_details_on_bungii_estimate() throws Throwable {
+        try{
         action.scrollToTop();
         // SAVE required values in scenario context
         cucumberContextManager.setScenarioContext("BUNGII_TIME", action.getText(bungiiEstimatePage.Time()));
@@ -723,17 +743,25 @@ public class EstimateBungiiSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_PickupLocation_LineTwo()));
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineOne()));
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineTwo()));
-
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I get Bungii location details on Bungii Estimate$")
     public void i_get_bungii_locations_details_on_bungii_estimate() throws Throwable {
+        try{
         // SAVE required values in scenario context
         //Sprint 29 change
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_PickupLocation_LineOne()));
         cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_PickupLocation_LineTwo()));
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineOne()));
         cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", action.getText(bungiiEstimatePage.Text_DropOffLocation_LineTwo()));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
     }
 
     @And("^I add loading/unloading time of \"([^\"]*)\"$")

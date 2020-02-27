@@ -1,5 +1,5 @@
 @android
-@failed
+
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
@@ -337,53 +337,11 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
-    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    And I tap on "OK on complete" on Bungii estimate
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-     #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-
-  Scenario Outline:Referral code signup
-    Given I Switch to "customer" application on "same" devices
-    When I am on customer Log in page
-    And I am logged in as "valid baltimore" customer
-    And I tap "Referral Invite link" on Home page
-    Then I should see "Referral Code" on Invite Page
-    When I get Invite Code
-    And I tap on "Back" icon of page
-    Then I tap on "Menu" > "Logout" link
-    And I Switch to "customer" application on "same" devices
-    Given I am on Sign up page
-    When I enter "unique" customer phone number on Signup Page
-    And I enter "valid" data in mandatory fields on Signup Page
- #   And I enter "ValidPercent" promo code on Signup Page
-    And I enter "Code" promo code on Signup Page
-    And I tap on the "Sign Up" button on Signup Page
-    And I enter "valid" Verification code
-    And I tap on the "Verification Continue" Link
-    Then The user should be logged in
-    When I tap on "Menu" > "Promos" link
-    And I should able to see expected promo code in available promo code
-    Then The "This code is only available for your first Bungii." is displayed
-    When I tap on "Menu" > "Payment" link
-    And I get the number of cards present
-    And I tap on "Add" on Payment page
-    And I tap on "Credit or Debit Card" on Payment page
-    And I enter "<Card Detail>" on Card Details page
-    And I enter "<Card Expiry>" on Card Details page
-    And I enter "<CVV>" on Card Details page
-    And I enter "<Postal Code>" on Card Details page
-
-    And I tap on "Add Card" on Payment page
-    Then I should see "the card has been added" on Payment page
-    And I tap on "Menu" > "Logout" link
-    Then I save customer phone and referral code in feature context
-    Examples:
-      | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |
-      | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
-
-  @regression
-    @failed
+   # @failed123
   Scenario Outline: on demand with first time promo
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -392,7 +350,7 @@ Feature: On Demand Bungii
 
     When I Switch to "customer" application on "same" devices
     And I am on customer Log in page
-    And I am logged in as "newly created user" customer
+    And I am logged in as "newly registered customer" customer
     And I enter "baltimore pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii
@@ -442,8 +400,49 @@ Feature: On Demand Bungii
       | Scenario         | Expected value in admin |
       | First time       | promo                   |
 
+     #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-    @failed
+  Scenario Outline:Referral code signup
+    Given I Switch to "customer" application on "same" devices
+    When I am on customer Log in page
+    And I am logged in as "valid baltimore" customer
+    And I tap "Referral Invite link" on Home page
+    Then I should see "Referral Code" on Invite Page
+    When I get Invite Code
+    And I tap on "Back" icon of page
+    Then I tap on "Menu" > "Logout" link
+    And I Switch to "customer" application on "same" devices
+    Given I am on Sign up page
+    When I enter "unique" customer phone number on Signup Page
+    And I enter "valid" data in mandatory fields on Signup Page
+ #   And I enter "ValidPercent" promo code on Signup Page
+    And I enter "Code" promo code on Signup Page
+    And I tap on the "Sign Up" button on Signup Page
+    And I enter "valid" Verification code
+    And I tap on the "Verification Continue" Link
+    Then The user should be logged in
+    When I tap on "Menu" > "Promos" link
+    And I should able to see expected promo code in available promo code
+    Then The "This code is only available for your first Bungii." is displayed
+    When I tap on "Menu" > "Payment" link
+    And I get the number of cards present
+    And I tap on "Add" on Payment page
+    And I tap on "Credit or Debit Card" on Payment page
+    And I enter "<Card Detail>" on Card Details page
+    And I enter "<Card Expiry>" on Card Details page
+    And I enter "<CVV>" on Card Details page
+    And I enter "<Postal Code>" on Card Details page
+
+    And I tap on "Add Card" on Payment page
+    Then I should see "the card has been added" on Payment page
+    And I tap on "Menu" > "Logout" link
+    Then I save customer phone and referral code in feature context
+    Examples:
+      | Scenario       | Card Detail                | Card Expiry       |CVV      |Postal Code      |
+      | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
+
+
+  @regression
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -488,7 +487,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-    @failed
+
   Scenario:on demand with referred code promo received
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -535,7 +534,7 @@ Feature: On Demand Bungii
     And I tap on "No free money" on Bungii estimate
 
   @regression
-    @failed
+
   Scenario:on demand with fb share
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

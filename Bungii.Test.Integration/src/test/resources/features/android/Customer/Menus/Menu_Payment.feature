@@ -56,7 +56,7 @@ Scenarios on Payment Methods
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
-  @failed
+
   Scenario Outline:  As Bungii Customer I should able to add payment card
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
