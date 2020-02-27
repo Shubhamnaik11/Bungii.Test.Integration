@@ -106,7 +106,7 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select the trip from trips$")
     public void i_select_the_trip_from_trips() throws Throwable {
         try {
-            String custName = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER");
+            String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
