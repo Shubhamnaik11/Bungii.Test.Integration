@@ -8,7 +8,7 @@ Feature: Duo
   @regression
   @sanity
   @regression
-    @failed
+    @failed1
   Scenario: Validate That I am able to create Schedule duo bungii.
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer

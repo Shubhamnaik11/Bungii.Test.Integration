@@ -50,6 +50,9 @@ public class BungiiCompleteSteps extends DriverBase {
                     verifyBungiiCompletedPage();
                     verifyTripValue();
                     break;
+                case "correct details for duo trip":
+                    verifyTripValue();
+                    break;
                 case "correct rating detail for duo":
                     String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
                     driver1 = driver1.substring(0, driver1.indexOf(" ") + 2);
