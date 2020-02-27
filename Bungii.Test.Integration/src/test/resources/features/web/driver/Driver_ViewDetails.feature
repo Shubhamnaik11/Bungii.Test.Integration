@@ -8,7 +8,8 @@ Feature: Driver_ViewDetails
 
   @sanity
   @regression
-  Scenario: Driver_Verify_Dashboard_MyStats_Section
+    @failed
+  Scenario: Verify My Stats Section Populated Data on Driver Dashboard
     When I enter driver Phone number as "8888881014" and valid password
     And I click "LOG IN button" on driver portal
     When I click on calendar to select date range

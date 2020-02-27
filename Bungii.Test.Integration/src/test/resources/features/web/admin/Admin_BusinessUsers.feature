@@ -8,7 +8,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  Scenario: Admin_AddEditNewBusinessUser
+  Scenario: Verify Add Edit New Business User
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
@@ -28,7 +28,7 @@ Feature: Admin_BusinessUsers
     Then the business user gets updated successfully and it is displayed in the Business users grid
 
   @regression
-  Scenario: Admin_AddDuplicateBusinessUserPhoneNumber
+  Scenario: Verify Adding Duplicate Business User Phone Number
     #Unique phone number
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
@@ -50,7 +50,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  Scenario: Admin_AddPaymentToBusinessUser
+  Scenario: Verify Adding Payment To Business User
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
@@ -76,7 +76,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  Scenario: Admin_BusinessUserIsNotAvailableInBulkTripsUntilPaymentIsSet
+  Scenario: Verify Business User Is Not Available In Bulk Trips Until Payment Is Set
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |
@@ -87,7 +87,7 @@ Feature: Admin_BusinessUsers
     Then the business user is not displayed in Bulk Trips since payment is not set
 
   @regression
-  Scenario: Admin_AddBusinessUser_Cancel
+  Scenario: Verify Add Business User - Cancellation
     When I click on the "New Business User" Button
     And I click on the "Cancel" Button on "Business Users" popup
     Then the "Business User" popup gets removed from UI
@@ -102,7 +102,7 @@ Feature: Admin_BusinessUsers
     #EOC
 
   @regression
-  Scenario: Admin_AddNewBusinessUser_Fieldvalidations
+  Scenario: Verify Add New Business User - Field validations
     When I click on the "New Business User" Button
     And I click on the "Save" Button on "Business Users" popup
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
@@ -112,7 +112,7 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-  Scenario: Admin_CheckValidationsForCSVData
+  Scenario: Verify Add New Business User - Field validations In Uplaoded CSV
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |

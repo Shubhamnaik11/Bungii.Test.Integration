@@ -2,13 +2,17 @@ package com.bungii.common.utilities;
 
 
 
+import com.bungii.common.core.DriverBase;
+import com.bungii.common.enums.ResultType;
+import com.bungii.common.manager.CucumberContextManager;
+import static com.bungii.common.manager.ResultManager.fail;
+import com.bungii.common.manager.ResultManager;
+import com.google.common.collect.ObjectArrays;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 
 
@@ -17,7 +21,7 @@ import java.util.regex.Matcher;
  *Write test result to HTML file
  */
 
-public class ReportGeneratorUtility {
+public class ReportGeneratorUtility extends DriverBase {
 	//TODO create new summary file
 	private String detailsFolderPath,/*detailFilepath,*/summaryPath,screenshotFolder,miscFolder,logFolder;
 	private Writer bufWriter1, fileWriter;
@@ -214,11 +218,23 @@ public class ReportGeneratorUtility {
 			passed++;
 		}
 		else {
+            //String reason = "";
+            try {
+				if (this.reason == "") {
+					fail("Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"));
+				}
+				}
+            catch(Exception ex){}
+			String reason = this.reason;
+             //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
+			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			detailsArray.add(st);
+			failed++;
 			status = "<td style='background-color:pink;'>Fail</td>";
-			String str2 = "<td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  this.reason +"</td>";
+			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
             failureArray.addAll(stackTraceArray);
-			failed++;
+
 		}
 
 		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
@@ -326,14 +342,15 @@ public class ReportGeneratorUtility {
 
 	public void endTestDataContainer(Map<String, String> eventData)
 	{
-		String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
+		//String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
 		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
 
 	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
 	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
 
-		detailsArray.add(str);
+		//detailsArray.add(str);
 
 	}
+
 
 }

@@ -50,6 +50,9 @@ public class BungiiCompleteSteps extends DriverBase {
                     verifyBungiiCompletedPage();
                     verifyTripValue();
                     break;
+                case "correct details for duo trip":
+                    verifyTripValue();
+                    break;
                 case "correct rating detail for duo":
                     String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
                     driver1 = driver1.substring(0, driver1.indexOf(" ") + 2);
@@ -166,8 +169,9 @@ public class BungiiCompleteSteps extends DriverBase {
         String tripDistance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
         String expectedTime = "";
-        if (tripActualTime > 1) expectedTime = tripActualTime + " mins";
-        else expectedTime = tripActualTime + " min";
+        /*if (tripActualTime > 1) expectedTime = tripActualTime + " mins";
+        else */
+            expectedTime = tripActualTime + " mins";
         testStepVerify.isEquals(totalTime, expectedTime, "Total time should contains" + tripActualTime + " minute", "Total time is" + totalTime);
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance), "Total distance should contains " + tripDistance);
         //Vishal[2503]:TODO: add more

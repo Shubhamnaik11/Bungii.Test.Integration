@@ -6,7 +6,7 @@ Feature: Driver_Signup
     Then I should be directed to "signup tab" on Driver portal
 
   @regression
-  Scenario: DriverSignUp_InvalidDetails
+  Scenario: Verify Driver Signup Invalid Data Validations
     When I enter "invalid" details on Signup page
     And I enter "invalid" driver phone number on Signup page
     And I click "Signup button" on driver portal
@@ -15,12 +15,12 @@ Feature: Driver_Signup
     Then I should see "field validation for short password" on Driver Registration
 
   @regression
-  Scenario: DriverSignUp_BlankFields
+  Scenario: Verify Driver Signup Blank Field Validations
     When I click "Signup button" on driver portal
     Then I should see "Global validation message" on Driver Registration
 
   @regression
-  Scenario: DriverSignUp_ExistingPhoneNumber
+  Scenario: Verify Driver Signup Existing Phone Number Validations
     When I enter "existing" driver phone number on Signup page
     And I enter "valid" details on Signup page
     And I click "Signup button" on driver portal

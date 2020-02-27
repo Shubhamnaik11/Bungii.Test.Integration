@@ -94,7 +94,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I should be navigated to "Home" screen
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-  @FAILED
+
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Enroute State
 
@@ -144,7 +144,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED
+
   @regression
   Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Arrived State
 

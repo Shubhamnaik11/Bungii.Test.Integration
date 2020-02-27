@@ -12,7 +12,8 @@ Feature: Driver_Application
   @sanity
   @regression
   @email
-  Scenario: Verify Driver Signup and Form completion - General Non Fountain Flow
+    @failed
+  Scenario: Verify Driver Signup And Form Completion For Non Fountain Flow
     When I enter "correct" verification code
     And I click "Submit verification code" on driver portal
     Then I should be directed to "Verification Successful page" on Driver portal

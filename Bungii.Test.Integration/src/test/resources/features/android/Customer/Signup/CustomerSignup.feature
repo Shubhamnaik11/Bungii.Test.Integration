@@ -6,7 +6,7 @@ Feature: CustomerSignup
     Given I am on Sign up page
 
   @regression
-@failed
+
   Scenario: Signup_NoPromo_Success_ReferralSourceCount
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -102,7 +102,7 @@ Feature: CustomerSignup
 
 
   @regression
-    @failed
+
   Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
