@@ -384,9 +384,9 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, bottomY, pressX, topY);
         } catch (Exception e) {
-            logger.error("Not able to scroll to botton");
-            error("Step should be successful", "Unable to scroll to bottom",
-                    true);
+           // logger.error("Not able to scroll to botton");
+          //  error("Step should be successful", "Unable to scroll to bottom",
+              //      true);
         }
     }
 
@@ -432,9 +432,9 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, topY+180, pressX, bottomY);
         } catch (Exception e) {
-            logger.detail("Failed to drap to top");
-            error("Step should be successful", "Failed to scroll to top",
-                    true);
+           // logger.detail("Failed to drap to top");
+           // error("Step should be successful", "Failed to scroll to top",
+                //    true);
         }
     }
 
