@@ -5,7 +5,7 @@ Feature: Customer	Menu
   Background: 
     Given I am on Customer logged in Home page
   @sanity
-@POSTDUO
+  @FAILED2702
   @regression
   Scenario: As Bungii customer I want to check all menu links
     When I Select "Home" from Customer App menu
@@ -70,7 +70,7 @@ Feature: Customer	Menu
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen
     Then I should be navigated to "Invite" screen
-
+  @FAILED2702
   #failing due to BCKD-1103
   @regression
   Scenario: Logout (check deregister device token) (Driver & Customer)

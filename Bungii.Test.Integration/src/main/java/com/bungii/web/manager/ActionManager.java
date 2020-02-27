@@ -107,14 +107,14 @@ public class ActionManager {
             waitForJStoLoad();
         // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
-        logger.detail("Text Value is  " + text + " for element " + element.toString());
+        logger.detail("Text value is  " + text + " for element " + element.toString());
 
         return text;
         }
         catch(StaleElementReferenceException ex)
         {
             String text = element.getText();
-            logger.detail("Text Value is  " + text + " for element " + element.toString());
+            logger.detail("Text value is  " + text + " for element " + element.toString());
             return text;
         }
         catch(Exception ex)

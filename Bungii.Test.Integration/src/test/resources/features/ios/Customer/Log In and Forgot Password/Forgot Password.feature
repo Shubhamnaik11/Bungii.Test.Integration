@@ -7,7 +7,7 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I am on the "LOG IN" page
-
+  @FAILED2702
   @regression
   Scenario Outline: As Bungii customer . I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen

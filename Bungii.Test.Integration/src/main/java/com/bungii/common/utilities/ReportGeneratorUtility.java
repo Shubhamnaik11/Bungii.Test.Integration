@@ -226,7 +226,7 @@ public class ReportGeneratorUtility {
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td cursor:'pointer;'>" + tcName + "</td>" + status  + str;
+		str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status  + str;
 
 
 		summaryArray.add(str1);
