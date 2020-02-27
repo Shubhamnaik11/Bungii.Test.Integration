@@ -126,4 +126,3 @@ Feature: Admin_DriverApplicationVerification
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
     Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
-    And Admin receives "" email

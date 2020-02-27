@@ -235,6 +235,12 @@ Feature: Admin_PartnerFirm
     And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted |
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" trip
+      | driver1 state|
       | Enroute  |
       | Arrived |
       | Loading Item |
