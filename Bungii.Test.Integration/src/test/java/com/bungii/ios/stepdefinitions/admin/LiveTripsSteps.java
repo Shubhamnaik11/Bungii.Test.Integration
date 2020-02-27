@@ -144,7 +144,8 @@ public class LiveTripsSteps extends DriverBase {
             String bungiiCostCustomer = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER"));
 
             double dblDiscountValue=Double.parseDouble((discountValue).replace("$",""));
-            String truncValue = new DecimalFormat("#.00").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
+            String truncValue = new DecimalFormat("#.##").format(dblDiscountValue);truncValue=truncValue.replace(".00", "");
+
             //decimal formating
             bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
             bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");bungiiCostCustomer="$"+bungiiCostCustomer;

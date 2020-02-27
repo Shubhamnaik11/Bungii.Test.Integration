@@ -20,7 +20,7 @@ Feature: Payment page
     Examples:
       | Scenario       | CardNo       | Expiry | Expected Message | Postal Code       | Cvv       |
       | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" | VALID POSTAL CODE | VALID CVV |
-    #  | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
+      | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
     
   @regression
   Scenario Outline: As Bungii customer I should able to add New Card . <Scenario> Scenario

@@ -32,6 +32,8 @@ public class PaymentSteps extends DriverBase {
     @And("^I get the number of cards present$")
     public void i_get_the_number_of_cards_present() throws Throwable {
         action.scrollToBottom();
+        cucumberContextManager.setScenarioContext("CARDS_COUNT", "0");
+        cucumberContextManager.setScenarioContext("CARDS_COUNT1", "0");
         List<WebElement> cards=paymentPage.List_Card_1();
         int i=0, count=0, count1=0;
             if(cards.size() == 0){

@@ -5,7 +5,7 @@ Feature: Customer Home screen
     Given I am on Customer logged in Home page
 
   @regression
-    @failed
+
   Scenario: To Verify clear text button on Pick up and Drop location
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
@@ -42,14 +42,14 @@ Feature: Customer Home screen
     Then The ETA bar is seen on screen
 
   @regression
-    @failed
+
   Scenario: To check if driver ETA is displayed when there are drivers present in 30 min radius of pickup location
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location to check driver within 30mins
     Then The ETA bar is seen on screen with less then 30 mins
 
   @regression
-@failed
+
   Scenario: To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
     When I tap on "Menu" > "Home" link
     And I enter "Goa pickup and dropoff locations" on Bungii estimate screen

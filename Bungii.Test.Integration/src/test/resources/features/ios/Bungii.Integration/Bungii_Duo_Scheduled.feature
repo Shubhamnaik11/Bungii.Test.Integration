@@ -366,7 +366,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     Examples:
       | PROMO CODE        |
-  #    | PROMO DOLLAR OFF  |
+      | PROMO DOLLAR OFF  |
       | PROMO PERCENT OFF |
 
 

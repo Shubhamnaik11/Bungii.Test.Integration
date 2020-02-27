@@ -53,7 +53,7 @@ Feature: Admin_PartnerFirm
   @sanity
   @regression
   @email
-  @failed
+
       #test data created in base
   Scenario: Verify Partner Firm Email Upon Driver Acceptance And Removal Research - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -84,7 +84,7 @@ Feature: Admin_PartnerFirm
   @sanity
   @regression
   @email
-  @failed
+
       #test data created in base
   Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -167,7 +167,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
+
     #Create driver in base
   Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
@@ -201,7 +201,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
+
     #test data created in base
   Scenario: Verify Partner Firm Email For Long Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -226,7 +226,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-  @failed
+
     #test data created in base
   Scenario: Verify Partner Firm Email For Short Stacked Bungii - Solo Scheduled
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -258,7 +258,7 @@ Feature: Admin_PartnerFirm
 
   @sanity
   @regression
-  @failed
+
     #test data created in base
     #changed driver name
   Scenario: Verify Partner Firm Driver Removal Research And Cancel As An Admin

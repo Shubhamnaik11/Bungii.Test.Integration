@@ -22,7 +22,7 @@ Feature: ReferralInvite
     And I Switch to "customer" application on "same" devices
 
   @regression
-    @failed
+
   Scenario: Cust_Menu_ReferralInvite_Twitter_AppNotInstalled
     Given I have "twitter" app "not installed"
     When I tap "Share" on Invite page
