@@ -2,13 +2,17 @@ package com.bungii.common.utilities;
 
 
 
+import com.bungii.common.core.DriverBase;
+import com.bungii.common.enums.ResultType;
+import com.bungii.common.manager.CucumberContextManager;
+import com.bungii.common.manager.ReportManager;
+import com.bungii.common.manager.ResultManager;
+import com.google.common.collect.ObjectArrays;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 
 
@@ -17,7 +21,7 @@ import java.util.regex.Matcher;
  *Write test result to HTML file
  */
 
-public class ReportGeneratorUtility {
+public class ReportGeneratorUtility extends DriverBase {
 	//TODO create new summary file
 	private String detailsFolderPath,/*detailFilepath,*/summaryPath,screenshotFolder,miscFolder,logFolder;
 	private Writer bufWriter1, fileWriter;
@@ -214,11 +218,19 @@ public class ReportGeneratorUtility {
 			passed++;
 		}
 		else {
-			String st = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+            String reason = "";
+            try {
+                reason = this.reason == ""? "ERROR : " +(String) cucumberContextManager.getScenarioContext("ERROR") : this.reason;  // As in case on Element Not Found if not added in try catch block in step definition
+                String name = ThreadLocalStepDefinitionMatch.get();
+                if (this.reason == "") {addTestData(getDataMap(name, "Step Should be successful", reason, ResultType.ERROR.toString(), true));}
+            }
+            catch(Exception ex){}
+
+             //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
+			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
 			detailsArray.add(st);
 			failed++;
 			status = "<td style='background-color:pink;'>Fail</td>";
-			String reason = this.reason == ""? "Element Not Found" : this.reason;
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);
             failureArray.addAll(stackTraceArray);
@@ -339,5 +351,36 @@ public class ReportGeneratorUtility {
 		//detailsArray.add(str);
 
 	}
+    /**
+     * @param name       Name of step
+     * @param expected   Expected result of step
+     * @param actual     Actual result of step
+     * @param logType    Log type
+     * @param screenDump capture screenshot or not
+     * @return combine input data and return it as map
+     */
+    public static Map<String, String> getDataMap(String name, String expected, String actual, String logType,
+                                                 Boolean... screenDump) {
+
+        ScreenshotUtility screenshotManager = new ScreenshotUtility();
+        Map<String, String> data = new HashMap<String, String>();
+        // If screendump flag is true, capture screenshot and put it data map
+        try {
+            if (screenDump.length > 0) {
+                if (screenDump[0] == true)
+                    data.put("screenDump", PropertyUtility.getResultConfigProperties("SCREENSHOTS_DIRECTORY") + "/" + screenshotManager.screenshot(new ReportManager().getTestScreenShotFolderName()));
+            }
+
+        } catch (IOException e) {
+            logger.error("Error while capturing/coping screenshot" + e.getMessage());
+        }
+
+
+        data.put("name", name);
+        data.put("type", logType);
+        data.put("expected", expected);
+        data.put("actual", actual);
+        return data;
+    }
 
 }
