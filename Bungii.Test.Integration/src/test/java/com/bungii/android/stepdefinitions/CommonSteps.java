@@ -885,8 +885,7 @@ public class CommonSteps extends DriverBase {
         //    phoneNumber="8888889907";
         String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
         String newTeletTime = dbUtility.getTELETfromDb(custRef);
-        testStepVerify.isEquals(previousTelet, newTeletTime);
-
+        testStepVerify.isTrue(!previousTelet.equals(newTeletTime), "Research trip time should not be same as Telet Time");
 
     }
 

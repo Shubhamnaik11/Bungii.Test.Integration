@@ -1,14 +1,11 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.SearchingPage;
 import com.bungii.android.pages.driver.*;
-import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.text.DecimalFormat;
@@ -34,8 +31,16 @@ public class BungiiRequestSteps extends DriverBase {
                 case "correct duo scheduled trip details":
                     expectedPickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     expectedPickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
+
+                    String Pickupaddress[]=expectedPickUpLocationLineTwo.split(", ");
+                    expectedPickUpLocationLineTwo=Pickupaddress[0];
+                    expectedPickUpLocationLineTwo=expectedPickUpLocationLineTwo+", United States";
                     expectedDropLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     expectedDropLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+                    String DropOffaddress[]=expectedDropLocationLineTwo.split(", ");
+                    expectedDropLocationLineTwo=DropOffaddress[0];
+                    expectedDropLocationLineTwo=expectedDropLocationLineTwo+", United States";
+
                     expectedTripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO") ? "DUO" : "SOLO";
                     pickUpLocationLine1 = action.getText(bungiiRequestPage.Text_PickupLocation_LineOne1());
                     pickUpLocationLine2= action.getText(bungiiRequestPage.Text_PickupLocation_LineTwo2());
@@ -54,7 +59,7 @@ public class BungiiRequestSteps extends DriverBase {
                     flestimate=Double.valueOf(estimate.replace("$","").replace("~","").trim());
                     transactionFee=(flestimate*0.029)+0.3;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
-                    truncValue = new DecimalFormat("#.00").format(estimatedDriverCut);
+                    truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_StartBungii(),"START BUNGII button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_CancelBungii(),"CANCEL BUNGII button should be displayed");

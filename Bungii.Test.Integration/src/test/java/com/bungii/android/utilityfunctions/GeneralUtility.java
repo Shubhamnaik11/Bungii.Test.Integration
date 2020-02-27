@@ -1203,10 +1203,7 @@ public class GeneralUtility extends DriverBase {
         } catch (Exception e) {
         }
 
-
         try {
-
-
             //   if (action.isElementPresent(driverBungiiProgressPage.Title_Status(true))) {
             if (action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
                 String screen = action.getText(driverHomePage.Generic_HeaderElement());
@@ -1269,7 +1266,7 @@ public class GeneralUtility extends DriverBase {
                         }
                     }
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
-                } else if (screen.equals("BUNGII COMPLETED")) {
+                } else if (screen.equalsIgnoreCase("Bungii Completed")) {
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
 
                 }

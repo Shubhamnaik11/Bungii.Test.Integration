@@ -337,7 +337,7 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
-    And I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    And I tap on "OK on complete" on Bungii estimate
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case

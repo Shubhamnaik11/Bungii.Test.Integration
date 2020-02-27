@@ -843,7 +843,7 @@ Feature: SoloScheduled
       | Bungii Time | Customer Phone | Customer Name                    | Customer Password |
       | now         | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     Then I click on notification for the "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "SCHEDULED BUNGII" screen
     And "correct scheduled trip details" should be displayed on Bungii request screen
@@ -866,7 +866,7 @@ Feature: SoloScheduled
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
     Then I click on notification for the "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "SCHEDULED BUNGII" screen
     When I click "REJECT" button on SCHEDULED BUNGII screen
@@ -878,7 +878,7 @@ Feature: SoloScheduled
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
     And I click on notification for the "SCHEDULED PICKUP AVAILABLE"
-    Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    Then Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "SCHEDULED BUNGII" screen
     When I click "REJECT" button on SCHEDULED BUNGII screen
@@ -1105,8 +1105,7 @@ Feature: SoloScheduled
       | kansas   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881016 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
@@ -1140,8 +1139,7 @@ Feature: SoloScheduled
       | Kansas   | Accepted     | 2 hour ahead |
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881016 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
@@ -1174,8 +1172,7 @@ Feature: SoloScheduled
       | Kansas   | Accepted     | 1 hour ahead |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881016 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "valid" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
@@ -1294,8 +1291,8 @@ Feature: SoloScheduled
       | Kansas   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :9999999991 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "valid" driver
+
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
@@ -1316,8 +1313,7 @@ Feature: SoloScheduled
       | Kansas   | Enroute      | driver 2     | 2          |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :9999999991 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "Kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     When I wait for 1 hour for Bungii Schedule Time
     And I Select Trip from driver scheduled trip
@@ -1421,9 +1417,7 @@ Feature: SoloScheduled
     And I am logged in as "valid" driver
     And I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
-    When I enter customers "9871450107" Phone Number
-    And I enter customers "valid" Password
-    And I tap on the "Log in" Button on Login screen
+    And I am logged in as "valid" customer
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
 
@@ -1495,8 +1489,7 @@ Feature: SoloScheduled
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I enter phoneNumber :8888881019 and  Password :Cci12345
-    And I click "Log In" button on Log In screen on driver app
+    And I am logged in as "kansas driver 1" driver
     And Bungii Driver "slides to the next state"
     Then I accept Alert message for "Reminder: both driver at drop off"
 
@@ -1768,7 +1761,7 @@ Feature: SoloScheduled
       | kansas1  | Accepted     | NEXT_POSSIBLE |
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid" driver
+    And I am logged in as "kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     When Bungii Driver "cancels Bungii request"
@@ -1806,7 +1799,7 @@ Feature: SoloScheduled
       | kansas   | enroute      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
+    And I am logged in as "valid kansas 2" customer
     Then for a Bungii I should see "Enroute screen"
 
     And I Switch to "driver" application on "same" devices
@@ -1836,7 +1829,7 @@ Feature: SoloScheduled
       | kansas   | arrived      | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
     When I Switch to "customer" application on "same" devices
     Given I am on customer Log in page
-    And I am logged in as "valid kansas" customer
+    And I am logged in as "valid kansas 2" customer
     Then for a Bungii I should see "Arrived screen"
 
     And I Switch to "driver" application on "same" devices
