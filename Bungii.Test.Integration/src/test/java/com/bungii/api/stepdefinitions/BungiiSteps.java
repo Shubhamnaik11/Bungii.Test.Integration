@@ -547,7 +547,7 @@ public class BungiiSteps extends DriverBase {
                 e.printStackTrace();
             }
 
-            log("I should able to request bungii ", "Requested " + bungiiType + " as a customer " + customerName + "(" + custPhoneNum + ") for geofence" + geofence, false);
+            log("I should able to request bungii ", "Requested " + bungiiType + " trip as a customer " + customerName + "(" + custPhoneNum + ") for geofence " + geofence, false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error performing step,Please check logs for more details",
