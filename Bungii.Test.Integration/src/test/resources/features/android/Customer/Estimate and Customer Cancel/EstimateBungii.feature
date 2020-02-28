@@ -7,7 +7,7 @@ Feature: EstimateBungii
     And I am logged in as "no promocode" customer
 
   @regression
-  Scenario: To check if the information icons display correct information
+  Scenario: Verify if the information icons display correct information On Bungii Confirmation Screen
   #  When I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -18,7 +18,7 @@ Feature: EstimateBungii
     And "Time" information icon should display correct information
 
   @regression
-  Scenario: When I cancel on Estimate Page , I should be navigated to Home screen
+  Scenario: Verify Customer Home Screen Navigation Upon Cancellation On Estimate Screen
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
@@ -26,7 +26,7 @@ Feature: EstimateBungii
     Then Trip Information should be correctly displayed on CUSTOMER HOME screen
 
   @regression
-  Scenario: I should able to see all elements of Estimate page
+  Scenario: Verify All Fields Of Estimate Screen
     When I Select "ACCOUNT" from customer app menu list
     Then I get customer account details
     When I Select "HOME" from customer app menu list
@@ -36,14 +36,14 @@ Feature: EstimateBungii
     Then I should see "all elements" on Bungii estimate
 
   @regression
-  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
+  Scenario: Verify Load/Unload Time functionality And Estimate Cost Recalculation
     When I Select "HOME" from customer app menu list
     And I enter "valid pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
   @regression
-  Scenario: When there are no driver available for on demand Bungii , and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
+  Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
@@ -63,7 +63,7 @@ Feature: EstimateBungii
     And I tap on "back" on Bungii estimate
 
   @regression
-  Scenario: Estimate_AddPromoCode
+  Scenario: Verify Add Promo Code On Estimate Screen
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
@@ -73,7 +73,7 @@ Feature: EstimateBungii
     Then I should see "promocode added" on Bungii estimate page
 
   @regression
-  Scenario: To check that Customer is able to add at least one and maximum 4 images of Items
+  Scenario: Verify Customer Can Add Minimum of One And Maximum Of Four Images Of Items
     And I enter "kansas pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
@@ -81,7 +81,7 @@ Feature: EstimateBungii
     And I add "4" photos to the Bungii
 
   @regression
-  Scenario: To check that when duo is selected, Time is selected to next available  scheduled time (correct Timezone)
+  Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password

@@ -3,7 +3,7 @@ Feature: Menu_Payment
 Scenarios on Payment Methods
 
   @regression
-  Scenario: As Bungii Customer I should able to change my default payment card
+  Scenario: Verify Customer Can Change Default Payment Card Added To New One
     Given I am on customer Log in page
     And I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
@@ -14,7 +14,7 @@ Scenarios on Payment Methods
     And I tap on "Menu" > "Logout" link
 
   @regression
-  Scenario: Cust_Menu_Payment_NoPaymentMethodExists
+  Scenario: Verify Customer Payment Screen With No Payment Method Exists
     Given I am on customer Log in page
     And I am logged in as "newly registered" customer
     When I tap on "Menu" > "Payment" link
@@ -25,7 +25,7 @@ Scenarios on Payment Methods
   #commented this due to base to auto data issue
   @regression
 
-  Scenario Outline:  As Bungii Customer I should able to delete my payment
+  Scenario Outline: Verify Customer Payment Method Deletion
     Given I am on Sign up page
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
@@ -57,7 +57,7 @@ Scenarios on Payment Methods
 
   @regression
 
-  Scenario Outline:  As Bungii Customer I should able to add payment card
+  Scenario Outline: Verify Customer Payment Method Addition With Valid Card Details
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
     And I get the number of cards present
@@ -77,7 +77,7 @@ Scenarios on Payment Methods
       | VALID_visa     | valid visa card number     | valid expiry date |valid cvv|valid postal code|
 
   @regression
-  Scenario:  As Bungii Customer I should not able to add invalid payment Card
+  Scenario: Verify Customer Payment Method Addition With Invalid Card Number
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
     And I tap on "Add New" on Payment page
@@ -87,7 +87,7 @@ Scenarios on Payment Methods
 
 
   @regression
-  Scenario:  As Bungii Customer I should not be able to add invalid expiry
+  Scenario:  Verify Customer Payment Method Addition With Invalid Card Expiry
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
     And I tap on "Add New" on Payment page
