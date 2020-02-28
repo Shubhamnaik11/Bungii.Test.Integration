@@ -735,7 +735,7 @@ Feature: SoloScheduled
     When I request "Solo Ondemand" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    | Customer label |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test | 2              |
-    And I Switch to "customer" application on "same" devices
+    #And I Switch to "customer" application on "same" devices
     And I click on notification for "Driver" for "on demand trip"
     Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
     When I click "YES" on the alert message
