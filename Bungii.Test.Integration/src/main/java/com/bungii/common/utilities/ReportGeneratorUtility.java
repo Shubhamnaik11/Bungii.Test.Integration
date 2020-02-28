@@ -109,7 +109,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	 * @param tcName Name of test case 
 	 */
 	public void startTestCase(String tcName , String featureName) {
-		this.tcName = tcName;
+		this.tcName = tcName.replace(",","");
 		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
@@ -123,6 +123,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	 * @param name Add Test case entry to details table
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
+	    name= name.replace(",","");
 		String str = "<tr class='header'><td colspan='8' align='left'>Scenario : "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
@@ -218,10 +219,9 @@ public class ReportGeneratorUtility extends DriverBase {
 			passed++;
 		}
 		else {
-            //String reason = "";
             try {
-				if (this.reason == "") {
-					fail("Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"));
+				if (this.reason.equalsIgnoreCase( "") || this.reason.equalsIgnoreCase( "Error performing step,Please check logs for more details" )|| this.reason.equalsIgnoreCase( "Error performing step, Please check logs for more details" )) {
+					fail("Temporary step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"));
 				}
 				}
             catch(Exception ex){}
