@@ -269,7 +269,7 @@ public class Driver_DetailsSteps extends DriverBase {
     public void i_logout_of_driver_portal() throws Throwable {
         try{
             action.waitUntilIsElementExistsAndDisplayed(Page_Driver_Details.Link_Logout(),(long) 5000);
-            action.click(Page_Driver_Details.Link_Logout());
+            Page_Driver_Details.Link_Logout().click();
             log("I should be logged out" ,
                     "I am logged out");
         }catch (StaleElementReferenceException e){ }
@@ -303,9 +303,11 @@ public class Driver_DetailsSteps extends DriverBase {
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN link");
         driverRegistrationSteps.i_enter_driver_phone_number_as_something_and_valid_password("8888881014");
         driverRegistrationSteps.i_click_something_on_driver_portal("LOG IN button");
+
         //Verify that Total Trips count is incremented by 1
-        String old_count_string = (String) cucumberContextManager.getScenarioContext("TOTAL_TRIPS");
-        int old_count = Integer.parseInt(old_count_string);
+       // String old_count_string = (String) cucumberContextManager.getScenarioContext("TOTAL_TRIPS");
+       // int old_count = Integer.parseInt(old_count_string);
+        int old_count = 0;
         int new_count = old_count + 1 ;
         String xpath = String.format("//p[contains(text(),'Total Trips')]/following-sibling::h3[contains(text(),'%s')]",new_count);
         Boolean isCountIncremented = action.waitForElement(xpath);
@@ -335,5 +337,9 @@ public class Driver_DetailsSteps extends DriverBase {
         action.click(Page_Driver_ViewDetails.Button_Apply());
         testStepAssert.isElementDisplayed(Page_Driver_ViewDetails.Label_SearchResultDateRange(),"Selected date range should be displayed","Selected date range is displayed","Selected date range is not displayed");
 
+    }
+    @And("^I wait for data to synch$")
+    public void i_wait_for_data_to_synch() throws Throwable {
+        Thread.sleep(120000);
     }
 }

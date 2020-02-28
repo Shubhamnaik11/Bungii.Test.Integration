@@ -141,7 +141,7 @@ public class Admin_PromoterSteps extends DriverBase {
         Thread.sleep(4000);
         i_search_by_promoter_name_something(PromoterName);
         String xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td/span[text()='%s']",PromoterName, CodeInitials, Description, Status);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
+        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +" Element should be displayed",xpath+ " Element is displayed", xpath+ " Element is not displayed");
         cucumberContextManager.setScenarioContext("XPath",xpath);
     }
 

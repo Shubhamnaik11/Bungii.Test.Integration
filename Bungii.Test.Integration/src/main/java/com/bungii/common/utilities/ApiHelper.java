@@ -310,9 +310,17 @@ public class ApiHelper {
         {
             jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
-            logger.error("API Call failed : "," Failed due to : "+ error.get("Message").toString());
-            error("Step should be successful", "Failed due to :  "+ error.get("Message").toString(),
-                    true);
+            if (error.size()!=0) {
+                logger.error("API Call failed : ", " Failed due to : " + error.get("Message").toString());
+                error("Step should be successful", "Failed due to :  " + error.get("Message").toString(),
+                        true);
+            }
+            else
+            {
+                logger.error("API Call failed : ", " API Response is empty. It seems to be queue error. Please reset the queue and try again.");
+                error("Step should be successful", "API Response is empty. It see seems to be queue error. Please reset the queue and try again.",
+                        true);
+            }
         }
 
     }
