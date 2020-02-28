@@ -15,6 +15,7 @@ import io.appium.java_client.service.local.flags.GeneralServerFlag;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
+import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -24,6 +25,7 @@ import org.openqa.selenium.support.events.EventFiringWebDriver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
@@ -60,7 +62,17 @@ public class SetupManager extends EventFiringWebDriver {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
 
-                } catch (Exception e) {
+                }catch (SessionNotCreatedException e) {
+                    logger.detail("Initialing driver failed ,removing and trying again trying again" + ExceptionUtils.getStackTrace(e));
+
+                    removeWebdriverAgent();
+                    try {
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                    } catch (Exception e1) {
+                        ManageDevices.afterSuiteManageDevice();
+                    }
+                }
+                catch (Exception e) {
                     logger.detail("Initialing driver failed trying again" + ExceptionUtils.getStackTrace(e));
                     try {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
@@ -87,6 +99,32 @@ public class SetupManager extends EventFiringWebDriver {
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
+    }
+    private static void removeWebdriverAgent(){
+        try {
+            //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                //commented code to remove webdriver agent
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
+
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
+
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                   Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+            }
+        } catch (Exception e) {
+            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+
+        }
     }
 
     /**
