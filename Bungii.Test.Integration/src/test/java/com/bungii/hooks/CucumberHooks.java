@@ -62,30 +62,7 @@ public class CucumberHooks {
      */
     public synchronized void start(String resultFolder) {
 //ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
-        try {
-          //  if (SystemUtils.IS_OS_MAC) {
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-                //commented code to remove webdriver agent
-                String deviceInfoFileKey = "ios.capabilities.file";
-                String deviceId = System.getProperty("DEVICE");
 
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
-
-                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
-                JSONObject jsonParsed, jsonCaps;
-                jsonParsed = jsonParser.getObjectFromJSON();
-                jsonCaps = jsonParsed.getJSONObject(deviceId);
-                String udid = jsonCaps.getString("udid");
-
-
-             //   Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
-            }
-        } catch (Exception e) {
-           // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
-
-        }
         try {
             //adding ternary operator in logger is creating issue
             String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");

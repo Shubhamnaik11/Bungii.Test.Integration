@@ -1307,7 +1307,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @FAILED2602
+  @FAILED2802
   @regression
   Scenario:Verify Customer notification(Stack bungii accepted. Stack driver started. )
     Given that ondemand bungii is in progress

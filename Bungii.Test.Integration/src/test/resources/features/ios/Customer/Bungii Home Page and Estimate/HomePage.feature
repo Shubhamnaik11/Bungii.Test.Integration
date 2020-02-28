@@ -2,7 +2,7 @@
 
 Feature: Customer Home screen
 # 1 valid test case fail
-  @FAILED2702
+  @FAILED2802
     #test case getting failed , Known issue
   @regression
   Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
@@ -10,7 +10,7 @@ Feature: Customer Home screen
     Then "Pick up" address should be displayed in text box
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
-  @FAILED2602
+  @FAILED2802
 
   @regression
   Scenario: To verify ETA . Location text box header . To Verify clear text button is enabled once location is selected
@@ -47,7 +47,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @FAILED2702
+  @FAILED2802
   @regression
   Scenario:To check that drop off field is displayed only when pickup address is set.
     Given I am on Customer logged in Home page

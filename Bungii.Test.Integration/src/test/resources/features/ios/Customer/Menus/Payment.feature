@@ -38,7 +38,7 @@ Feature: Payment page
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
-  @FAILED2702
+  @FAILED2802
   @regression
   Scenario: As Bungii customer I should able to change default card
     When I Select "PAYMENT" from Customer App menu
