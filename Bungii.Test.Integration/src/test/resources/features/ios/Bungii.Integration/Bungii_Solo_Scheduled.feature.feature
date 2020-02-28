@@ -2046,7 +2046,7 @@ Feature: To Test Solo - Scheduling Bungii
 
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid miami" user
+    And I logged in Customer application using  "valid miami 2" user
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
