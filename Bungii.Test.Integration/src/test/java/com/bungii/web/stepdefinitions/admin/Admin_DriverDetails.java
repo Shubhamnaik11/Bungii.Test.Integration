@@ -100,4 +100,50 @@ public class Admin_DriverDetails extends DriverBase{
         cucumberContextManager.setScenarioContext("XPATH",XPath);
         testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
     }
+
+    @Then("^The Driver Trip List page should display the trip in \"([^\"]*)\" state$")
+    public void the_driver_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
+        String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        String timezone = utility.getTripTimezone(geofence);
+        TimeZone.setDefault(TimeZone.getTimeZone(timezone));
+        String XPath = "";
+        if (!scheduled_time.equalsIgnoreCase("NOW")) {
+            Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
+            inputdate.setYear(new Date().getYear());
+            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
+            XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
+        }
+        else
+        {
+            String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+            String tripType[] = tripTypeAndCategory.split(" ");
+            String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+            String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+            String driver = driver1;
+            if (tripType[0].equalsIgnoreCase("duo"))
+                driver = driver1 + "," + driver2;
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+
+        }
+
+        int retrycount =10;
+        boolean retry = true;
+        while (retry == true && retrycount >0) {
+            try {
+                WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+                retry = false;
+            } catch (Exception ex) {
+                SetupManager.getDriver().navigate().refresh();
+                retrycount--;
+                retry = true;
+            }
+
+        }
+
+        cucumberContextManager.setScenarioContext("XPATH",XPath);
+        testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+    }
 }

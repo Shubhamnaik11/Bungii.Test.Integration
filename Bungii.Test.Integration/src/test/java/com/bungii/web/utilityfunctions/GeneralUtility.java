@@ -684,6 +684,7 @@ public class GeneralUtility extends DriverBase {
 
     public String getTripTimezone(String geofence)
     {
+        geofence= geofence.toLowerCase();
         String timezone = null;
         switch (geofence)
         {
@@ -691,7 +692,7 @@ public class GeneralUtility extends DriverBase {
                 case "washingtondc":
                 timezone = "EST";
                 break;
-            case "Goa":
+            case "goa":
                 timezone = "IST";
                 break;
             default:

@@ -267,7 +267,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 cucumberContextManager.getScenarioContext("DISCOUNT_CATEGORY");
 
                  xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Code, Type, Status, Discount, Entered, Used);
-                testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
+                testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +" Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
                 cucumberContextManager.setScenarioContext("XPath",xpath);
 
                 break;
@@ -282,7 +282,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 cucumberContextManager.getScenarioContext("DISCOUNT_CATEGORY");
 
                  xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[normalize-space(.)='']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Code, Type, Status, Discount, Entered, Used);
-                testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
+                testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
                 cucumberContextManager.setScenarioContext("XPath",xpath);
 
                 break;
@@ -296,7 +296,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 cucumberContextManager.getScenarioContext("DISCOUNT_CATEGORY");
 
                 xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Type, Status, Discount, Entered, Used);
-                testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
+                testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
                 cucumberContextManager.setScenarioContext("XPath",xpath);
 
                 break;
@@ -308,7 +308,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     public void the_promocode_something_is_displayed_in_the_promocodes_grid(String strArg1) throws Throwable {
         Thread.sleep(2000);
         String xpath = (String)cucumberContextManager.getScenarioContext("XPath");
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
+        testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
 
     }
 
@@ -330,7 +330,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         CreatedDate = dateFormat.format(today1).toString();
 
         xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Type, Status, Discount, Entered, Used);
-
+        Thread.sleep(5000);
        List<WebElement> listOfElements = SetupManager.getDriver().findElements(By.xpath(xpath));
        testStepAssert.isEquals(String.valueOf(listOfElements.size()),Count,"No of Codes generated should be " + Count,"No of Codes generated is " + Count, "No of Codes generated is " + String.valueOf(listOfElements.size()));
         cucumberContextManager.setScenarioContext("XPath",xpath);
@@ -801,7 +801,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         String PromoCodeName=cucumberContextManager.getScenarioContext("PROMOCODE_NAME").toString();
         String xpath=null;
         xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",PromoCodeName);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(xpath)), xpath + "Element should be displayed", xpath + "Element is displayed", xpath + "Element is not displayed");
+        testStepAssert.isElementDisplayed(action.getElementByXPath(xpath), xpath + " Element should be displayed", xpath + " Element is displayed", xpath + " Element is not displayed");
     }
 
 

@@ -121,7 +121,7 @@ Feature: Admin_DriverApplicationVerification
     And I update the accepted "Social Security Number" field
     And I click on "Update" button
     And I submit the updated application
-    And I logout of driver portal
+    #And I logout of driver portal  #Not logging out due to clicking
     And I am logged in as Admin
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
