@@ -713,6 +713,13 @@ public class EstimateSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME",action.getNameAttribute(estimatePage.Text_DurationValue()));
     }
 
+    @Then("^I save bungii promo details$")
+    public void i_save_bungii_details() throws Throwable {
+        String value = getElementValue("Promo Code");
+
+        cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
+    }
+
     @When("^I enter following details on \"([^\"]*)\" screen$")
     public void i_enter_following_details_on_something_screen(String strArg1, DataTable tripInformation) {
 

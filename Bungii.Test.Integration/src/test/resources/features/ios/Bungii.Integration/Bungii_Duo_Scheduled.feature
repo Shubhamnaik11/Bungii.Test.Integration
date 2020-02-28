@@ -1224,7 +1224,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @FAILED2702
+  @FAILED2802
   @regression
   Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1307,7 +1307,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @FAILED2802
+
   @regression
   Scenario:Verify Customer notification(Stack bungii accepted. Stack driver started. )
     Given that ondemand bungii is in progress
@@ -1376,7 +1376,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-  @FAILED2602
+
   @regression
   Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress

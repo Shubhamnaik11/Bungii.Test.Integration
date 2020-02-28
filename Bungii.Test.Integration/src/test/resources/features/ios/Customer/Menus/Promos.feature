@@ -132,7 +132,7 @@ Feature: Promos
     And I tap "POST" button on Overlay Facebook screen
 #    When I tap "Share" button on Overlay Facebook screen
     Then I should be navigated to "Invite" screen
-  @FAILED2802
+
   @regression
   Scenario:To check the text in i on Promos page. (when any promo code is present)
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -150,7 +150,7 @@ Feature: Promos
     And I click "ADD" button on "PROMOS" screen
     When I click "INFO" button on "PROMOS" screen
     Then user is alerted for "MINIMUM COST STILL APPLIES"
-  @FAILED2802
+
   @regression
   Scenario: Check that the 'i' text changes when first time use only promo or referral code is present in Promos page
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -169,7 +169,7 @@ Feature: Promos
     When I click "INFO" button on "PROMOS" screen
     Then user is alerted for "FIRST TIME PROMO CODE"
 
-  @FAILED2802
+
   @regression
   Scenario:First time promo code/referral code. if present should be selected by default.
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -203,7 +203,7 @@ Feature: Promos
     Then I should see "selected" code selected on Bungii estimate
 
 
-  @FAILED2802
+  
 # add promo from app menu and verify on Estimate page and vice versa
   @regression
   Scenario:Check that Promos can be added from menu and Estimate page
@@ -240,7 +240,7 @@ Feature: Promos
     And I click "Cancel" button on "Estimate" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED2802
+
   @regression
   Scenario: Cancel after using Promo code. should Not get utilized
 
@@ -292,6 +292,7 @@ Feature: Promos
       And I click "ADD" button on "PROMOS" screen
       When I tap "Back" on Promos screen
       And I should be navigated to "Estimate" screen
+    Then I save bungii promo details
       And I request for bungii using Request Bungii Button
       Then I should be navigated to "Success" screen
       And I click "Done" button on "Success" screen
@@ -342,7 +343,7 @@ Feature: Promos
       When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
       Then I should be navigated to "Home" screen
 
-  @FAILED2802
+
   @regression
   Scenario Outline: Already applied Promo code used after its expiry
 
