@@ -132,9 +132,9 @@ public class Admin_TripsSteps extends DriverBase {
         String status = "Processing Confirmation";
         String customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER_NAME");
         action.selectElementByText(admin_CustomerPage.Dropdown_TimeFrame(), "The Beginning of Time");
-
+        Thread.sleep(5000);
         String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", tripType, customer, status);
-        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(XPath)), "Trip should be displayed", "Trip is displayed", "Trip is not displayed");
+        testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed", "Trip is displayed", "Trip is not displayed");
     }
 
     @Then("^I should be able to see the business user requested bungii with the below status$")
@@ -183,7 +183,7 @@ public class Admin_TripsSteps extends DriverBase {
                 SetupManager.getDriver().navigate().refresh();
             }
             cucumberContextManager.setScenarioContext("XPATH", xpath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+            testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
         } else {
             String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
@@ -211,7 +211,7 @@ public class Admin_TripsSteps extends DriverBase {
                 SetupManager.getDriver().navigate().refresh();
             }
             cucumberContextManager.setScenarioContext("XPATH", XPath);
-            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(XPath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+            testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
         }
     }
 
@@ -557,6 +557,9 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^Customer should receive \"([^\"]*)\" email$")
     public void customer_should_receive_something_email(String emailSubject) throws Throwable {
         String emailBody = utility.GetSpecificURLs(PropertyUtility.getEmailProperties("email.from.address"), PropertyUtility.getEmailProperties("email.client.id"), emailSubject);
+       if(emailBody.equals("")){
+           testStepAssert.isFail("Email "+ emailSubject +" with link is not received.");
+       }
         action.navigateTo(emailBody);
         String url = action.getCurrentURL();
         String survey_link =  PropertyUtility.getDataProperties("washington.survey.email.link");
@@ -792,7 +795,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void the_triplist_grid_shows_the_results_by_type_something(String filter) throws Throwable {
         Thread.sleep(4000);
         if(SetupManager.getDriver().getPageSource().contains("No trips found.")) {
-            testStepAssert.isTrue(true, "", "No trips found.");
+            testStepAssert.isTrue(true, "No trips found.", "No trips found.");
         }
         else{
             String xpath = null;
