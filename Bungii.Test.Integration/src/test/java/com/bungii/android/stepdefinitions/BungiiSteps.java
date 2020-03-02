@@ -64,6 +64,7 @@ public class BungiiSteps extends DriverBase {
                     break;
 
                 case "Bungii search screen":
+                    Thread.sleep(2000);
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.Loader(), "I should able  to see Loader on Bungii search screen ", "I was able to see Loader on Bungii search screen", "Loader was not displayed on Bungii Search screen");
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.Text_MsgSearching(), "I should able  see Searching message on Bungii search screen", "I was able to see Searching message Loader on Bungii search screen", "Searching message was not displayed on Bungii Search screen");
                     testStepVerify.isElementDisplayed(Page_BungiiSearch.ProgressBar(), "I should able  to see Progress bar on Bungii search screen", "I was able to see Progress Bar on Bungii search screen", "Progress bar was not displayed on Bungii Search screen");
@@ -642,7 +643,6 @@ public class BungiiSteps extends DriverBase {
             String expectedDuoNumber;
             String DriverAppdeviceType = driver.getCapabilities().getCapability("deviceType").toString();
             switch (strArg1) {
-
                 case "ADMIN-SMS":
                     validateSMSNumber(action.getText(messagesPage.Text_ToField()),PropertyUtility.getMessage("customer.scheduled.cancel.support.number"));
                     ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
