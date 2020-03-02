@@ -911,7 +911,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @FAILED0203
+
   @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -946,6 +946,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
     When I click "OK" on alert message
     Then I should be navigated to "HOME" screen
+    Then I wait for "1" mins
     And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
     And stack trip information should not be displayed on deck
     Then I cancel all bungiis of customer
@@ -953,7 +954,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | 9403960183      |
 
 
-
+  @FAILED0203_1
     #move to top
     #need to do in atlanta
   @FAILED0203
@@ -1167,7 +1168,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED0203
+  @FAILED0203_02
   @regression
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
