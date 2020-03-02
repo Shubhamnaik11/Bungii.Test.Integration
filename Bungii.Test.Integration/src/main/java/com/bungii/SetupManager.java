@@ -22,7 +22,7 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-
+import org.openqa.selenium.PageLoadStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -254,19 +254,23 @@ public class SetupManager extends EventFiringWebDriver {
         // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
         //Run in Headless mode for IOS
+        //vishal[2003]: checking chrome issue for Mac machine
+        chromeOptions.addArguments("no-sandbox");
         if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--headless");
             chromeOptions.addArguments("window-size=1920,1080");
         }
+
+        chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("--start-maximized");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+      //  chromeOptions.addArguments("--log-level=3");
+       // chromeOptions.addArguments("--silent");
 
-        //vishal[2003]: checking chrome issue for Mac machine
-        chromeOptions.addArguments("no-sandbox");
-
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
 
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
