@@ -560,7 +560,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-  @FAILED2802
+  @FAILED0203
   @FAILED27021
     #comment below tag and  add to first scenario
   @regression
@@ -743,8 +743,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
   #change login
-  @FAILED2802
-  @FAILED27021
+  @FAILED0203
   @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
@@ -1410,7 +1409,7 @@ Feature: To Test Solo - Scheduling Bungii
 #CMA1513
 #use customer with only one card
   @regression
-  @FAILED2802
+  @FAILED0203
   Scenario Outline: Customer canNot delete payment method linked to any on-going/scheduled trips
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
@@ -1457,7 +1456,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
-  @FAILED2802
+  @FAILED0203
   @regression
 
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1722,7 +1721,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED2802
+  @FAILED0203
   @regression
   Scenario: Customer shouldn't be allowed to request Bungii if TELET time of the new Bungii overlaps with already scheduled Bungiis
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1883,7 +1882,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
-  @FAILED2802
+  @FAILED0203
   @regression
   @FAILED2702
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
@@ -1958,7 +1957,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @FAILED2702
+  @FAILED0203
   @FAILED2802
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
@@ -2037,7 +2036,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2802
+  @FAILED0203
   @FAILED2702
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
