@@ -195,7 +195,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED2702
+  @FAILED0203
 
   @regression
   Scenario: Promo code should be deallocated after admin cancels Bungii( Before starting bungii)
@@ -210,7 +210,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
-    And I am on Customer logged in Home page
 
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -218,7 +217,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I change driver status to "Online"
 
     And I Switch to "customer" application on "same" devices
-    And I am on Customer logged in Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
       | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |

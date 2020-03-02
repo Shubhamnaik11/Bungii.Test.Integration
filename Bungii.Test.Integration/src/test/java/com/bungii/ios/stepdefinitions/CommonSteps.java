@@ -781,6 +781,7 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message if any$")
     public void i_click_something_on_alert_messageifany(String buttonLabel) {
         try {
+            Thread.sleep(20000);
             if(action.isAlertPresent())
                 action.clickAlertButton(buttonLabel);
 
@@ -828,7 +829,7 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case"newly created user":
-                    userName = (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER");
+                    userName = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
                     password = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
@@ -850,6 +851,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("miami.customer.phone");
                     password = PropertyUtility.getDataProperties("miami.customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid miami 2":
+                    userName = PropertyUtility.getDataProperties("miami.customer2.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer2.name"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "valid nashville":
@@ -970,6 +977,7 @@ public class CommonSteps extends DriverBase {
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
             tripTime=tripTime.replace("am","AM").replace("pm","PM");
+            logger.detail("TRIP TIME"+tripTime);
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";
@@ -1165,7 +1173,7 @@ public class CommonSteps extends DriverBase {
     public void i_save_customer_phone_and_referral_code_in_feature_context() throws Throwable {
         try {
             cucumberContextManager.setFeatureContextContext("INVITE_CODE", (String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
-            cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getFeatureContextContext("NEW_USER_NUMBER"));
+            cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             e.getStackTrace();

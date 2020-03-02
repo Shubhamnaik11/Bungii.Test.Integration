@@ -1,7 +1,7 @@
 @ios
 
 Feature: Geofence functionality
-  @FAILED2702
+  
   @regression
   Scenario: Minimum scheduled time should be displayed on the date picker of the estimate screen based on whether solo or duo has been selected by the customer. Bungii Type: SOLO
     Given I am on the "LOG IN" page
@@ -28,7 +28,7 @@ Feature: Geofence functionality
 
     And I select pickup time
     Then correct next available scheduled time should be displayed
-  @FAILED2702
+  
   @regression
   Scenario: Minimum scheduled time should be displayed on the date picker of the estimate screen based on whether solo or duo has been selected by the customer. Bungii Type: DUO
     Given I am on the "LOG IN" page
@@ -55,7 +55,7 @@ Feature: Geofence functionality
 
     And I select pickup time
     Then correct next available scheduled time should be displayed
-  @FAILED2702
+  @FAILED0203
     #NEED TO VERIFY VALUES OF THESE PARAMETERS SCHEDULE_PICKUP_FROM_TIME and SCHEDULE_PICKUP_TO_TIME
   #this test script will fail as the value of above parameters are set as 30mins and 840mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
@@ -110,7 +110,7 @@ Feature: Geofence functionality
     Then check if error message is displayed for "solo trip"
 
     And I click on the "Cancel" Button on "Geofence" Screen
-  @FAILED2702
+  @FAILED0203
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression

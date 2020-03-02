@@ -81,8 +81,8 @@ public class EstimateSteps extends DriverBase {
                 if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
-                    strTime = enterTime(time);
-                    isCorrectTime = action.getValueAttribute(estimatePage.Text_TimeValue()).equals(strTime);
+                    strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
+                    isCorrectTime = (action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM")).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
                     clickRequestBungii();
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
@@ -144,7 +144,7 @@ public class EstimateSteps extends DriverBase {
                 if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
-                    strTime = enterTime(time);
+                    strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
                     i_request_for_bungii_using_request_bungii_button();
                 }
@@ -268,7 +268,15 @@ public class EstimateSteps extends DriverBase {
             action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.click(estimatePage.Button_Set());
-        } else if (time.equalsIgnoreCase("<TIME WITHIN TELET>") || time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")) {
+        }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
+            Date date = getNextScheduledBungiiTime();
+            String[] dateScroll = bungiiTimeForScroll(date);
+            strTime = bungiiTimeDisplayInTextArea(date);
+            //action.click(estimatePage.Row_TimeSelect());
+              selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+            action.click(estimatePage.Button_Set());
+        }
+        else if (time.equalsIgnoreCase("<TIME WITHIN TELET>") || time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
@@ -705,6 +713,13 @@ public class EstimateSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE_TIME",action.getNameAttribute(estimatePage.Text_DurationValue()));
     }
 
+    @Then("^I save bungii promo details$")
+    public void i_save_bungii_details() throws Throwable {
+        String value = getElementValue("Promo Code");
+
+        cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
+    }
+
     @When("^I enter following details on \"([^\"]*)\" screen$")
     public void i_enter_following_details_on_something_screen(String strArg1, DataTable tripInformation) {
 
@@ -882,7 +897,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime.replace("am","AM").replace("pm","PM"));
+            testStepVerify.isEquals(strTime.replace("am","AM").replace("pm","PM"), displayedTime.replace("am","AM").replace("pm","PM"));
 
 
         } catch (Exception e) {

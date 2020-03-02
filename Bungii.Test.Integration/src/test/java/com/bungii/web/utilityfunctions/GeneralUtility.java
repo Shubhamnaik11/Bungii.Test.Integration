@@ -321,7 +321,7 @@ public class GeneralUtility extends DriverBase {
             System.out.println("No of Total recent Messages : " + recentMessages.length);
             String fromAddress = PropertyUtility.getEmailProperties("email.from.address");
             boolean emailFound = false;
-            String surveylink;
+            String surveylink ="";
             for (int i = recentMessages.length; i > 0; i--) {
 
                 System.out.println("MESSAGE " + (i) + ":");
@@ -684,6 +684,7 @@ public class GeneralUtility extends DriverBase {
 
     public String getTripTimezone(String geofence)
     {
+        geofence= geofence.toLowerCase();
         String timezone = null;
         switch (geofence)
         {
@@ -691,7 +692,7 @@ public class GeneralUtility extends DriverBase {
                 case "washingtondc":
                 timezone = "EST";
                 break;
-            case "Goa":
+            case "goa":
                 timezone = "IST";
                 break;
             default:

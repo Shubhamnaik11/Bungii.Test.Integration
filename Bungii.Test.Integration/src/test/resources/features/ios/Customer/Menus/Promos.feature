@@ -203,7 +203,7 @@ Feature: Promos
     Then I should see "selected" code selected on Bungii estimate
 
 
-
+  
 # add promo from app menu and verify on Estimate page and vice versa
   @regression
   Scenario:Check that Promos can be added from menu and Estimate page
@@ -267,7 +267,7 @@ Feature: Promos
     And I should be navigated to "Home" screen
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED2702
+  @FAILED2802
   @regression
   Scenario: Re-search after using Promo code. should be used for re-searched trip
     Given I am on the "LOG IN" page
@@ -292,6 +292,7 @@ Feature: Promos
       And I click "ADD" button on "PROMOS" screen
       When I tap "Back" on Promos screen
       And I should be navigated to "Estimate" screen
+    Then I save bungii promo details
       And I request for bungii using Request Bungii Button
       Then I should be navigated to "Success" screen
       And I click "Done" button on "Success" screen
