@@ -262,7 +262,7 @@ public class SetupManager extends EventFiringWebDriver {
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("--start-maximized");
-
+        chromeOptions.addArguments("--disable-dev-shm-usage");
         //vishal[2003]: checking chrome issue for Mac machine
         chromeOptions.addArguments("no-sandbox");
 
