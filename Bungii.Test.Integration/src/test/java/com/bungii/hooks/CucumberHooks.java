@@ -70,8 +70,8 @@ public class CucumberHooks {
 
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
-            e.printStackTrace();
             logger.error("Unable to create default appium driver");
+            e.printStackTrace();
         }
 
         try {
