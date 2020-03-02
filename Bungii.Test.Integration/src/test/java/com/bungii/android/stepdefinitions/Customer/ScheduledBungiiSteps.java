@@ -550,8 +550,9 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(estimatePage.Button_OKOnTimePicker());
                 }
                 else{
-                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + "']", PageBase.LocatorType.XPath);
-                    testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
+                    String text=" selected";
+                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + text+"']", PageBase.LocatorType.XPath);
+                            testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
                 }
             }
         } catch (Exception e) {

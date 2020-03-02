@@ -948,7 +948,12 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_CustomerFinsihBungii());
                 isDisplayed = true;
             }
-
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.activate.bungii"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_ActivateBungii(true))) {
+                    action.click(otherAppsPage.Notification_ActivateBungii(true));
+                    isDisplayed = true;
+                }
+            }
         }
         return isDisplayed;
     }

@@ -337,7 +337,9 @@ public class HomeSteps extends DriverBase {
                     break;
                 case "PICK UP":
                     action.click(homePage.Button_Locator());
+                    Thread.sleep(3000);
                     action.click(homePage.Button_Locator());
+                    Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
 /*                    testStepVerify.isElementNotDisplayed(homePage.TextBox_DropOff(),"Drop Off TextBox shouldn't be displayed.",
