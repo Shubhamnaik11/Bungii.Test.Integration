@@ -33,12 +33,12 @@ public class ActionManager {
             Thread.sleep(2000);
             element.clear();
             element.sendKeys(text);
-            logger.detail("Send  " + text + " in element" + getElementDetails(element));
+            logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to send " + text + " in element | " + getElementDetails(element),
+            error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
                     true);
         }
     }
@@ -50,24 +50,24 @@ public class ActionManager {
         try {
             //new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.(element));
             element.sendKeys(text);
-            logger.detail("Send  " + text + " in element" + getElementDetails(element));
+            logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
         }
           catch(Exception ex)
             {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-                error("Step should be successful", "Unable to send " + text + " in element | " + getElementDetails(element),
+                error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
                         true);
             }
     }
     public void clear(WebElement element) {
         try {
-            logger.detail("Clear  element" + getElementDetails(element));
+            logger.detail("Clear  element -> " + getElementDetails(element));
             new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.elementToBeClickable(element));
             element.clear();
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to clear element | " + getElementDetails(element),
+        error("Step should be successful", "Unable to clear element -> " + getElementDetails(element),
                 true);
     }
     }
@@ -107,20 +107,20 @@ public class ActionManager {
             waitForJStoLoad();
         // new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until(ExpectedConditions.visibilityOf(element));
         String text = element.getText();
-        logger.detail("Text value is  " + text + " for element | " + getElementDetails(element));
+        logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
 
         return text;
         }
         catch(StaleElementReferenceException ex)
         {
             String text = element.getText();
-            logger.detail("Text value is  " + text + " for element " + getElementDetails(element));
+            logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
             return text;
         }
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to get text from element | " + getElementDetails(element) ,
+            error("Step should be successful", "Unable to get text from element -> " + getElementDetails(element) ,
                     true);
             return null;
         }
@@ -141,7 +141,7 @@ public class ActionManager {
             }
             catch (Exception ex1) {
                 logger.error("Error performing step", ExceptionUtils.getStackTrace(ex1));
-                error("Step should be successful", "Unable to click on element | " + getElementDetails(element) ,
+                error("Step should be successful", "Unable to click on element -> " + getElementDetails(element) ,
                         true);
 
             }
@@ -162,7 +162,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to click on element | " + getElementDetails(element) ,
+        error("Step should be successful", "Unable to click on element -> " + getElementDetails(element) ,
                 true);
     }
     }
@@ -176,7 +176,7 @@ public class ActionManager {
         }  catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to clear element | " + getElementDetails(element) ,
+            error("Step should be successful", "Unable to clear element -> " + getElementDetails(element) ,
                     true);
         }
     }
@@ -196,7 +196,7 @@ public class ActionManager {
     }  catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to select Random value from dropdown element | " + DropdownField.toString() ,
+        error("Step should be successful", "Unable to select Random value from dropdown element -> " + DropdownField.toString() ,
                 true);
     }
     }
@@ -260,7 +260,7 @@ catch(Exception ex)
         } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + getElementDetails(element));
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Following element is not displayed : " + getElementDetails(element),
+            error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
                     true);
         }
     }
