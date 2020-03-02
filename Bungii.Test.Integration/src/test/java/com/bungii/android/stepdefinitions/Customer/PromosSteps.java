@@ -418,6 +418,20 @@ public class PromosSteps extends DriverBase {
         }
     }
 
+    @Then("^I should see unused promo code$")
+    public void i_should_see_unused_promo_code() throws Throwable {
+        try{
+            //Richa-changed the locator from PromoCode_R0D1_OnEstimate to PromoCode_R3D5_OnEstimate
+            testStepAssert.isElementDisplayed(promoPage.PromoCode_R0D1(), "Promo code should be displayed", "Promo code is displayed", "Promo code is not displayed");
+            log("I click on the promo Code on Promos page",
+                    "I have clicked on the promo Code on Promos page", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
     @Then("^I should not see the expired promo code on the Promos page$")
     public void i_should_not_see_the_expired_promo_code_on_the_promos_page() throws Throwable {
         try{

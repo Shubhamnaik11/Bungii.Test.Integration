@@ -948,7 +948,12 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_CustomerFinsihBungii());
                 isDisplayed = true;
             }
-
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.activate.bungii"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_ActivateBungii(true))) {
+                    action.click(otherAppsPage.Notification_ActivateBungii(true));
+                    isDisplayed = true;
+                }
+            }
         }
         return isDisplayed;
     }
@@ -1193,6 +1198,17 @@ public class GeneralUtility extends DriverBase {
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
+        try{
+            if(action.isElementPresent(driverHomePage.Generic_DriverCustomerApp(true))){
+
+            }
+            else if(action.isElementPresent(otherAppsPage.Notification_Screen(true))){
+                action.hideNotifications();
+            }
+
+        }catch (Exception e) {
+            logger.detail(ExceptionUtils.getStackTrace(e));
+        }
 
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
