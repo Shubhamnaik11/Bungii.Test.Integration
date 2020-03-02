@@ -1198,7 +1198,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
-
+  @FAILED0203_02_02
   @FAILED0203
   @regression
   Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
@@ -1219,6 +1219,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
+    Then I wait for "1" mins
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
