@@ -540,7 +540,6 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
   @FAILED2802
-  @FAILED2702
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -562,7 +561,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
   @FAILED2802
-  @FAILED2702
+  @FAILED27021
     #comment below tag and  add to first scenario
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
@@ -745,6 +744,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
   #change login
   @FAILED2802
+  @FAILED27021
   @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
@@ -1747,7 +1747,6 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED2802
   @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress

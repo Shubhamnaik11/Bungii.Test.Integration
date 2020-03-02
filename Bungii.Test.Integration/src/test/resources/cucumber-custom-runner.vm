@@ -140,7 +140,7 @@ public class $className extends AbstractTestNGCucumberTests {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }*/
-            try {this.hooks.start(resultFolder); }catch (Exception e){afterSuite(); }
+            try {this.hooks.start(resultFolder); }catch (Exception e){afterSuite(); e.printStackTrace(); }
 
  	}
     @AfterSuite
