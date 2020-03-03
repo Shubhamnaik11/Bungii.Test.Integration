@@ -338,10 +338,9 @@ Feature: On Demand Bungii
 
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
   @regression
-   # @failed123
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
