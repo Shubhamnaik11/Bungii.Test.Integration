@@ -690,7 +690,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED0203
+  @FAILED0203_08
   @regression
   Scenario: Create Long stack. base scheduled trip . verify decked detail/alert msgs/status of current and stacked bungii
     Given that solo schedule bungii is in progress
@@ -911,7 +911,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @FAILED0203
+
   @regression
   Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
     Given that ondemand bungii is in progress
@@ -946,6 +946,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I see "Alert: Bungii cancel sucessfully" on bungii accepted screen
     When I click "OK" on alert message
     Then I should be navigated to "HOME" screen
+    Then I wait for "1" mins
     And I click on notification for "Driver" for "CUSTOMER CANCEL STACK TRIP"
     And stack trip information should not be displayed on deck
     Then I cancel all bungiis of customer
@@ -953,7 +954,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | 9403960183      |
 
 
-
+  @FAILED0203_1
     #move to top
     #need to do in atlanta
   @FAILED0203
@@ -1167,7 +1168,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED0203
+  @FAILED0203_02
   @regression
   Scenario: To check that other driver and customer are Notified when one of the driver cancels
     Given that duo schedule bungii is in progress
@@ -1197,7 +1198,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
-
+  @FAILED0203_02_02
   @FAILED0203
   @regression
   Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
@@ -1218,6 +1219,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
     When I click "Yes" on alert message
+    Then I wait for "1" mins
 
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices

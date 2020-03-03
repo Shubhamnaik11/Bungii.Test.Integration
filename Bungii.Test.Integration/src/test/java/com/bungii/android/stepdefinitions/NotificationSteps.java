@@ -40,7 +40,7 @@ public class NotificationSteps extends DriverBase {
                 ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             }catch (Exception e){}
             action.showNotifications();
-            Thread.sleep(45000);
+            Thread.sleep(90000);
             log("Checking notifications", "Checking notifications", true);
             switch (expectedNotification) {
                 case "TIP RECEIVED 5 DOLLAR":

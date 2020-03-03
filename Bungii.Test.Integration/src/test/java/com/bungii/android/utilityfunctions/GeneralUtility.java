@@ -700,6 +700,20 @@ public class GeneralUtility extends DriverBase {
         }
         return phoneNumber;
     }
+    public void logCustomerDeviceToken(String phoneNumber){
+        try {
+            com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber);
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logDriverDeviceToken(String phoneNumber){
+        try {
+            com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber);
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         boolean isNextScreenLogIN = false;
@@ -948,7 +962,12 @@ public class GeneralUtility extends DriverBase {
                 action.click(otherAppsPage.Notification_CustomerFinsihBungii());
                 isDisplayed = true;
             }
-
+            else if (notificationMessage.equalsIgnoreCase(PropertyUtility.getMessage("driver.activate.bungii"))) {
+                if (action.isElementPresent(otherAppsPage.Notification_ActivateBungii(true))) {
+                    action.click(otherAppsPage.Notification_ActivateBungii(true));
+                    isDisplayed = true;
+                }
+            }
         }
         return isDisplayed;
     }
@@ -1193,6 +1212,17 @@ public class GeneralUtility extends DriverBase {
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
+        try{
+            if(action.isElementPresent(driverHomePage.Generic_DriverCustomerApp(true))){
+
+            }
+            else if(action.isElementPresent(otherAppsPage.Notification_Screen(true))){
+                action.hideNotifications();
+            }
+
+        }catch (Exception e) {
+            logger.detail(ExceptionUtils.getStackTrace(e));
+        }
 
         try {
             SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));

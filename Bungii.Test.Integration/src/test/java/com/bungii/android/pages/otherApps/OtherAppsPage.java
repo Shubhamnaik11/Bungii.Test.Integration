@@ -59,4 +59,7 @@ public class OtherAppsPage extends PageBase {
     public WebElement Notification_ScheduledUrgent(boolean... ignoreException) { return findElement("//*[@text=\"URGENT: A Bungii driver had an emergency & needs coverage for their trip. Please accept if available.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_DriverBungiiCancel(boolean... ignoreException) { return findElement("//*[@text=\"Due to an emergency one of the drivers had to cancel the trip. The trip has now been cancelled.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Notification_CustomerFinsihBungii(boolean... ignoreException) { return findElement("//*[@text=\"Just finished? Don’t forget to rate your driver.\"]", LocatorType.XPath,ignoreException); }
+    public WebElement Notification_ActivateBungii(boolean ignoreException) { return findElement("//*[@text=\"Please tap this notification to activate scheduled trip.\"]", LocatorType.XPath,ignoreException);}
+    public WebElement Notification_Screen(boolean ignoreException){ return findElement("com.android.systemui:id/notification_container_parent", LocatorType.Id, ignoreException);}
+
 }

@@ -787,7 +787,7 @@ public class BungiiSteps extends DriverBase {
 
                 try {
                     //  Thread.sleep(wait);
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -870,7 +870,7 @@ public class BungiiSteps extends DriverBase {
 
                 try {
                     //  Thread.sleep(wait);
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

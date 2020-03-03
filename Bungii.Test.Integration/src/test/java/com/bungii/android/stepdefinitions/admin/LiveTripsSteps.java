@@ -30,6 +30,7 @@ public class LiveTripsSteps extends DriverBase {
             action.click(liveTripsPage.Button_Search());
             Thread.sleep(5000);
             action.click(liveTripsPage.Button_StartDateSort());
+            Thread.sleep(5000);
             action.click(liveTripsPage.Button_RowOne());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

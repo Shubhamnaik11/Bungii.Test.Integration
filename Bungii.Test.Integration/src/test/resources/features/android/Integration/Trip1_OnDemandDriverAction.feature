@@ -1,12 +1,11 @@
 @android
   #These feature will run in boston geofence
-
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
 
   @regression
-  Scenario: OnDemand_DriverRejectsBungiiRequest
+  Scenario: Verify Driver Can Reject Ondemand Bungii Request
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
     And I Switch to "driver" application on "same" devices
@@ -29,7 +28,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
 
   @regression
-  Scenario: OnDemand_DriverCancelBungii_EnrouteState
+  Scenario: Verify Driver Can Cancel Ondemand Bungii In Enroute State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | boston   | Enroute      |
@@ -50,8 +49,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @sanity
   @regression
-  Scenario: OnDemand_DriverCancelBungii_ArrivedState
-
+  Scenario: Verify Driver Can Cancel Ondemand Bungii In Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | boston   | ARRIVED      |
@@ -70,7 +68,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
 
-  Scenario: OnDemand_DriverCancelBungiiWithPromo_EnrouteState
+  Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Enroute State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
     And I Switch to "driver" application on "same" devices
@@ -93,11 +91,11 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     And I tap on "Menu" > "Promos" link
-    Then I should see the unused promo code
+    Then I should see unused promo code
 
   @regression
 
-  Scenario: OnDemand_DriverCancelBungiiWithPromo_ArrivedState
+  Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
     And I Switch to "driver" application on "same" devices
@@ -122,4 +120,4 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     And I tap on "Menu" > "Promos" link
-    Then I should see the unused promo code
+    Then I should see unused promo code

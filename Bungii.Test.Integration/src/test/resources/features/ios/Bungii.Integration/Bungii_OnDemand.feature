@@ -281,7 +281,7 @@ Feature: Create on demand bungii
     And I Select "Logout" from driver App menu
 
   @FAILED2702
-  @FAILED0203
+  @FAILED0203_02
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
@@ -349,11 +349,11 @@ Feature: Create on demand bungii
     Then On admin trip details page "<Expected value in admin>" should be displayed
     Examples:
       | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
-#      | fixed valid      | PROMO DOLLAR OFF  | valid nashville            | correct details with promo | promo                   |
-#      | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
+      | fixed valid      | PROMO DOLLAR OFF  | valid nashville            | correct details with promo | promo                   |
+      | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
       | valid one off    | ONE OFF2           | valid nashville            | correct details with promo | oneoff                  |
-#      | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
-  @FAILED0203
+      | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
+  @FAILED0203_02
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
@@ -515,7 +515,6 @@ Feature: Create on demand bungii
 
 
   @FAILED2702
-  @FAILED0203
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
@@ -557,12 +556,12 @@ Feature: Create on demand bungii
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
   @FAILED2702
-  @FAILED0203
 
   @regression
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
@@ -613,12 +612,12 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED0203
 
   @regression
   Scenario:on demand with referred code promo received
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"

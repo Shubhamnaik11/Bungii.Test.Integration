@@ -195,7 +195,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED0203
+  @FAILED0203_02
 
   @regression
   Scenario: Promo code should be deallocated after admin cancels Bungii( Before starting bungii)
@@ -238,10 +238,9 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And Alert message with ACCEPT SCHEDULED BUNGII QUESTION text should be displayed
     When I click "View" on alert message
     Then I should be navigated to "BUNGII REQUEST" screen
-    And "correct scheduled trip details" should be displayed on Bungii request screen
     When I accept selected Bungii
     Then I should be navigated to "SCHEDULED BUNGII" screen
-    Then I wait for "1" mins
+    Then I wait for "2" mins
 
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal

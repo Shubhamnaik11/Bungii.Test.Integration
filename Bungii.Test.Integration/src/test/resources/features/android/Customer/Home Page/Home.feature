@@ -6,7 +6,7 @@ Feature: Customer Home screen
 
   @regression
 
-  Scenario: To Verify clear text button on Pick up and Drop location
+  Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
     Then "Pick up" address should be displayed in text box
@@ -27,14 +27,13 @@ Feature: Customer Home screen
     And "Drop" address should be empty
 
   @regression
-  Scenario: To check that drop off field is displayed only when pickup address is set.
+  Scenario: Verify That Dropoff Field Is Displayed Only When Pickup Address Is Selected
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
     Then "Drop Off" address text box should be displayed on app screen
 
   @regression
-
-  Scenario: To check if ETA bar/picker remains on map when pickup address has been cleared
+  Scenario: Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
     Then The ETA bar is seen on screen
@@ -43,14 +42,14 @@ Feature: Customer Home screen
 
   @regression
 
-  Scenario: To check if driver ETA is displayed when there are drivers present in 30 min radius of pickup location
+  Scenario: Verify If Driver ETA Is Displayed When Drivers Within 30 min Of Radius From Pickup Location Is Available
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location to check driver within 30mins
     Then The ETA bar is seen on screen with less then 30 mins
 
   @regression
 
-  Scenario: To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
+  Scenario: Verify That Customer Is Allowed To Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)
     When I tap on "Menu" > "Home" link
     And I enter "Goa pickup and dropoff locations" on Bungii estimate screen
     And I tap on "Get Estimate button" on Bungii estimate
@@ -62,13 +61,13 @@ Feature: Customer Home screen
     And I tap on "Cancel during search" on Bungii estimate
 
   @regression
-  Scenario: Long Haul(>150 miles) alert shown (dist bet. pickup and drop off should be >150 miles)
+  Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
       When I tap on "Menu" > "Home" link
       And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
       Then I get the error popup message for "More than 150 miles trip"
 
   @regression
-  Scenario: To check ETA box when geofence Not active
+  Scenario: Verify ETA Box When Geofence Is Not Active
     When I tap on "Menu" > "Home" link
     And I enter "Non Geofence pickup location" on Bungii estimate screen
     Then I get the error popup message for "Non Geofence Location"

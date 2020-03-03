@@ -236,8 +236,10 @@ public class CommonSteps extends DriverBase {
                     action.click(invitePage.Button_Share());
                     break;
                 case "LOG IN":
-                    if (screen.equalsIgnoreCase("log in"))
+                    if (screen.equalsIgnoreCase("log in")) {
                         action.click(loginPage.Button_Login());
+                        new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
+                    }
                     else if (screen.equalsIgnoreCase("sign up"))
                         action.click(signupPage.Button_Login());
                     else
@@ -904,6 +906,7 @@ public class CommonSteps extends DriverBase {
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
             }
+            new GeneralUtility().logCustomerDeviceToken(userName);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

@@ -248,7 +248,8 @@ public class EstimateBungiiSteps extends DriverBase {
             String pickupTime = pickupDateTime.substring(8,16);
             System.out.println("Pickup time " + pickupTime);
 
-        Assert.assertEquals(actualTime, pickupTime);
+            actualTime.replace("am", "AM").replace("pm", "PM");
+        testStepVerify.isEquals(actualTime, pickupTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -593,6 +594,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.sanFrancisco"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "San Francisco");
                     Thread.sleep(1000);
+                    break;
 
                 case "kansas pickup and dropoff locations greater than 30mins":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
@@ -602,8 +604,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
-
                     break;
+
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

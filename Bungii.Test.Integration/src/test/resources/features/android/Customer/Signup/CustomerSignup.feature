@@ -7,7 +7,7 @@ Feature: CustomerSignup
 
   @regression
 
-  Scenario: Signup_NoPromo_Success_ReferralSourceCount
+  Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -27,21 +27,21 @@ Feature: CustomerSignup
 
   @regression
 
-  Scenario: Signup_AllFieldsBlank
+  Scenario: Verify Customer Signup With All Fields Blank
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page
     Then the new user should see "sign up button disabled"
 
   @regression
 
-  Scenario: Signup_InvalidDetails
+  Scenario: Verify Customer Signup With Invalid Details
     When I enter "invalid" customer phone number on Signup Page
     And I enter "invalid" data in mandatory fields on Signup Page
     Then the new user should see "validations for all fields"
 
   @email
   @regression
-  Scenario: Signup_SuccessValidPromoCode
+  Scenario: Verify Customer Signup With Valid Promo Code
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "ValidPercent" promo code on Signup Page
@@ -57,7 +57,7 @@ Feature: CustomerSignup
     And Customer should receive signup email
 
   @regression
-  Scenario: Signup_InvalidReferralCode-Yes
+  Scenario: Verify Signup With Invalid Referral Code
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "invalid" promo code on Signup Page
@@ -67,7 +67,7 @@ Feature: CustomerSignup
 
 
   @regression
-  Scenario: Signup_ExistingPhoneNumber
+  Scenario: Verify Signup With Existing Phone Number
     When I enter "existing" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I tap on the "Sign Up" button on Signup Page
@@ -76,7 +76,7 @@ Feature: CustomerSignup
     And the new user should see "Signup page"
 
   @regression
-  Scenario: Signup_FutureActivePromoCode
+  Scenario: Verify Signup With Promo Code To Be Active In Future
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "FutureActive" promo code on Signup Page
@@ -84,7 +84,7 @@ Feature: CustomerSignup
     Then the new user should see "Inactive Promo Code message"
 
   @regression
-  Scenario: Text on Promos page when first time promo code is added
+  Scenario: Verify Text On Promos Page When First Time Promo Code Is Added
     When I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
     And I enter "ValidPercent" promo code on Signup Page
@@ -103,7 +103,7 @@ Feature: CustomerSignup
 
   @regression
 
-  Scenario Outline: Check if Trip completed count on admin portal is updated when customer completes a Bungii.
+  Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "valid" driver
@@ -212,7 +212,7 @@ Feature: CustomerSignup
   #Know issue, no alert
   @regression
 
-  Scenario: To check that validation is displayed on signing up with invalid/used One off promo codes
+  Scenario: Verify That Validation Message Is Displayed On Signing Up With Invalid Or Used One off Promocode
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page
     And I enter "valid" data in mandatory fields on Signup Page
