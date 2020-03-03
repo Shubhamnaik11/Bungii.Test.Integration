@@ -176,4 +176,16 @@ public class DbUtility extends DbContextManager {
         logger.detail("Researched Pickup Ref is" + pickupRef + ", query, " + queryString);
         return pickupRef;
     }
+
+    public static String getCustomerDeviceToken(String phoneNumber){
+        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+
+    public static String getDriverDeviceToken(String phoneNumber){
+        String queryString2 = " select token from device where UserRef IN (select DriverRef from driver  where phone="+phoneNumber+") order by DevID desc";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
 }

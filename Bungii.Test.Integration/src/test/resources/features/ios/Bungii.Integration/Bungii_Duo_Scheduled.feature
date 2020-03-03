@@ -690,7 +690,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED0203
+  @FAILED0203_08
   @regression
   Scenario: Create Long stack. base scheduled trip . verify decked detail/alert msgs/status of current and stacked bungii
     Given that solo schedule bungii is in progress
