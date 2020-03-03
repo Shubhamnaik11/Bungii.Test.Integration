@@ -89,7 +89,30 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
+        try {
+            //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                //commented code to remove webdriver agent
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
 
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
+
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+            }
+        } catch (Exception e) {
+            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+
+        }
         logger.detail("**********************************************************************************");
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
