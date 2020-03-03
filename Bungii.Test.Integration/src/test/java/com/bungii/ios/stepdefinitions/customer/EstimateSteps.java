@@ -743,6 +743,8 @@ public class EstimateSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", details[0]);
             cucumberContextManager.setScenarioContext("BUNGII_ESTIMATE", details[2]);
             cucumberContextManager.setScenarioContext("BUNGII_LOADTIME", details[3]);
+            cucumberContextManager.setScenarioContext("BUNGII_TIME", details[1]);
+
             String value = getElementValue("Promo Code");
 
             cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);

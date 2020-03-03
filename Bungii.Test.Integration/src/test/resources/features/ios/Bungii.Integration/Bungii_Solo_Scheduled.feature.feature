@@ -1950,7 +1950,7 @@ Feature: To Test Solo - Scheduling Bungii
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
+ #   And I view the Trips list on the admin portal
 
     When I switch to "ORIGINAL" instance
     Then I should be navigated to "Bungii Complete" screen
@@ -2030,7 +2030,7 @@ Feature: To Test Solo - Scheduling Bungii
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
+  #  And I view the Trips list on the admin portal
 
     When I switch to "ORIGINAL" instance
     Then I should be navigated to "Bungii Complete" screen
@@ -2110,7 +2110,7 @@ Feature: To Test Solo - Scheduling Bungii
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
+  #  And I view the Trips list on the admin portal
 
     When I switch to "ORIGINAL" instance
     Then I should be navigated to "Bungii Complete" screen
@@ -2167,7 +2167,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
 
-  @FAILED2702
+
   @regression
   Scenario:DRIVER: Notification - 30 mins before scheduled trip
     Given that solo schedule bungii is in progress
