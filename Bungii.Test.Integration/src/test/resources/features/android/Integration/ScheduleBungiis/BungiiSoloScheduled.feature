@@ -761,7 +761,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
-
+@test
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -2070,9 +2070,7 @@ Feature: SoloScheduled
     Examples:
       | Scenario       | Card Detail                | Card Expiry       | CVV       | Postal Code       |
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+
 
   @regression
 
