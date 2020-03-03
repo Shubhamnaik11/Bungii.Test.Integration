@@ -281,6 +281,7 @@ Feature: Create on demand bungii
     And I Select "Logout" from driver App menu
 
   @FAILED2702
+  @FAILED0203_02
 
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
@@ -352,7 +353,8 @@ Feature: Create on demand bungii
       | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
       | valid one off    | ONE OFF2           | valid nashville            | correct details with promo | oneoff                  |
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
-  @FAILED2702
+  @FAILED0203_02
+
   @regression
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
     Given I am on the "LOG IN" page
@@ -559,6 +561,7 @@ Feature: Create on demand bungii
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"
@@ -609,12 +612,12 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2702
 
   @regression
   Scenario:on demand with referred code promo received
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
     And I Select "HOME" from driver App menu
     Then I change driver status to "Online"

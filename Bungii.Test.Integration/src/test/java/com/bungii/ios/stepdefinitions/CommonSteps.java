@@ -781,6 +781,7 @@ public class CommonSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" on alert message if any$")
     public void i_click_something_on_alert_messageifany(String buttonLabel) {
         try {
+            Thread.sleep(20000);
             if(action.isAlertPresent())
                 action.clickAlertButton(buttonLabel);
 

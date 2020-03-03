@@ -1,6 +1,5 @@
 @android
   #These feature will run in boston geofence
-
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
@@ -92,7 +91,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     And I tap on "Menu" > "Promos" link
-    Then I should see the unused promo code
+    Then I should see unused promo code
 
   @regression
 
@@ -121,4 +120,4 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then Alert message with DRIVER CANCELLED text should be displayed
     When I click "OK" on alert message
     And I tap on "Menu" > "Promos" link
-    Then I should see the unused promo code
+    Then I should see unused promo code

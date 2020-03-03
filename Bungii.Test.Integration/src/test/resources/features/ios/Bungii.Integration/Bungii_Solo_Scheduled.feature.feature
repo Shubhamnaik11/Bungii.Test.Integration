@@ -509,6 +509,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
   @FAILED2702
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Solo
@@ -539,8 +540,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
+
   @FAILED2802
-  @FAILED2702
   @regression
   Scenario: To check that Customer canNot Schedule bungii that overlaps with aNother Scheduled trip TELET time.Scenario:Duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -561,8 +562,9 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
-  @FAILED2802
-  @FAILED2702
+
+  @FAILED0203_02
+  @FAILED27021
     #comment below tag and  add to first scenario
   @regression
   Scenario:Check to see if customer receieve Notification after admin researches for drivers and both drivers accept.
@@ -744,7 +746,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
   #change login
-  @FAILED2802
+  @FAILED0203_02
   @regression
   Scenario:To check that a driver is Not able to accept the request if the trip has already been accepted by the required number of drivers
     When I Switch to "driver" application on "same" devices
@@ -754,7 +756,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-
+    Then I wait for "1" mins
     And I Select "AVAILABLE TRIPS" from driver App menu
     And I Select Trip from available trip
 
@@ -794,7 +796,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8888889917      |
   #change login step 1
-  
+
   @regression
   Scenario: To check that if driver received more than one requests. he is not able to accept the Bungii if he has already accepted a Bungiis who's TELET time overlaps.Scenario:duo
     Given I Switch to "customer" application on "same" devices
@@ -847,7 +849,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @regression
-    @failed1
+  @failed1
   Scenario:To check the status of scheduled Bungii in the scheduled trip page when only one driver has accepted
 
     And I request "duo" Bungii as a customer in "denver" geofence
@@ -872,7 +874,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @regression
-    @failed1
+  @failed1
   Scenario:To check all details in the Bungii Details page when required number of drivers have accepted
 
     And I request "duo" Bungii as a customer in "denver" geofence
@@ -896,7 +898,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  
+
   @regression
   Scenario: Check that customer received Notification when control driver starts bungii duo
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1106,7 +1108,8 @@ Feature: To Test Solo - Scheduling Bungii
     Then user is alerted for "CUSTOMER HAS ONGOING BUNGII"
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
+      | CUSTOMER1_PHONE | 9999993015      |
+
   @FAILED2802
   @regression
   Scenario:  To check if control driver is allowed to complete the trip and proper summary is shown
@@ -1203,6 +1206,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
   @FAILED2802
   @regression
   Scenario: check if re-searched driver can cancel trip after starting Duo
@@ -1237,7 +1241,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  
+
   @regression
 
   Scenario:To check that when Bungii has Not yet started. Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.solo
@@ -1257,7 +1261,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  
+
   @regression
   Scenario:To check that when Bungii has Not yet started. Driver is Not able to cancel scheduled Bungii directly from app and that he is able to send SMS to cancel Bungii.Scenario.duo
     Given that duo schedule bungii is in progress
@@ -1277,7 +1281,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  
+
   @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
     Given that duo schedule bungii is in progress
@@ -1302,7 +1306,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  
+
   @regression
   Scenario: To check that Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
     Given that duo schedule bungii is in progress
@@ -1327,7 +1331,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  
+
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:enroute
     Given that duo schedule bungii is in progress
@@ -1353,7 +1357,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  
+
   @regression
   Scenario: To check that Non-Control Driver is able to cancel Duo Bungii directly from the app in the first two states after Bungii has been started.Scenario:arrived
     Given that duo schedule bungii is in progress
@@ -1379,7 +1383,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I click "OK" on alert message
     Then I should be navigated to "Home" screen
 
-  
+
   @regression
   Scenario: To check that Customer can cancel through SMS to ADMIN if required no. of drivers have accepted (cancellation on admin side).scenario : duo
     Given that duo schedule bungii is in progress
@@ -1410,8 +1414,9 @@ Feature: To Test Solo - Scheduling Bungii
 #CMA1513
 #use customer with only one card
   @regression
-  @FAILED2802
+  @FAILED0203_02
   Scenario Outline: Customer canNot delete payment method linked to any on-going/scheduled trips
+    When I Switch to "customer" application on "same" devices
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -1457,7 +1462,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | CardNo    | Expiry | Postal Code       | Cvv       |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook | VISA CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
 
-  @FAILED2802
+  @FAILED0203_02
   @regression
 
     #this test case is from customer signup module. but as this require bungii to be created , moved to this feature file
@@ -1711,7 +1716,7 @@ Feature: To Test Solo - Scheduling Bungii
       | CUSTOMER1_PHONE |                 |
   #its scheduled time not initial request time
   @regression
-  
+
   Scenario: check to ensure TELET is calculated correctly (Initial request time +  (Estimated Duration(1.5)) + 30 minutes).duo
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
@@ -1722,7 +1727,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED2802
+
   @regression
   Scenario: Customer shouldn't be allowed to request Bungii if TELET time of the new Bungii overlaps with already scheduled Bungiis
     When I request "duo" Bungii as a customer in "denver" geofence
@@ -1747,7 +1752,6 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED2802
   @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
@@ -1782,7 +1786,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  
+
   @regression
   Scenario: If incoming scheduled trip request TELET (Trip A) overlaps start time of previously scheduled trip (Trip B) = driver doesn't receive Notification or offline SMS
     Given that solo schedule bungii is in progress
@@ -1884,7 +1888,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I switch to "ORIGINAL" instance
     When I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
-  @FAILED2802
+
+  @FAILED0203_02
   @regression
   @FAILED2702
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-Normal
@@ -1959,7 +1964,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @FAILED2702
+  @FAILED0203_02
   @FAILED2802
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-ONE OFF
@@ -1986,7 +1991,7 @@ Feature: To Test Solo - Scheduling Bungii
 
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      |        |           |              | NEXT_POSSIBLE | Default     |
+      |          |           |              | NEXT_POSSIBLE | Default     |
 
 
     And I should be navigated to "Estimate" screen
@@ -2014,7 +2019,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I log in to admin portal
     And I Select "live trips" from admin sidebar
     Then I should be able to see the respective bungii with the below status
-      | Status              |
+      | Status             |
       | Driving To Dropoff |
     When I view the trip details
 
@@ -2038,7 +2043,8 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2802
+
+  @FAILED0203_02
   @FAILED2702
   @regression
   Scenario: To check that  Normal/ One off/ Promoter type Promo code is correctly utilized( applied) after manually end Bungii. PROMO-PROMOTER TYPE
@@ -2066,7 +2072,7 @@ Feature: To Test Solo - Scheduling Bungii
 
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
-      |        |           |              | NEXT_POSSIBLE | Default     |
+      |          |           |              | NEXT_POSSIBLE | Default     |
 
     And I should be navigated to "Estimate" screen
     Then I save bungii trip time details
@@ -2117,7 +2123,7 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2802
+
   @regression
   Scenario:If incoming scheduled request start time (Trip 3). overlaps with TELET of accepted stacked request (Trip 2) = driver doesn't receive scheduled Notification or offline SMS
 

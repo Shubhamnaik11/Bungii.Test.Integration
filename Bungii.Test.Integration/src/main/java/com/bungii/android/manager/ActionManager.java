@@ -384,7 +384,7 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, bottomY, pressX, topY);
         } catch (Exception e) {
-           // logger.error("Not able to scroll to botton");
+            logger.detail(ExceptionUtils.getStackTrace(e)+"Not able to scroll to botton");
           //  error("Step should be successful", "Unable to scroll to bottom",
               //      true);
         }
