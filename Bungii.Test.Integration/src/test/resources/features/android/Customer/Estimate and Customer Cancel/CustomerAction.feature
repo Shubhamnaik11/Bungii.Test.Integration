@@ -10,7 +10,7 @@ Feature: Bungii
     And I add loading/unloading time of "30 mins"
 
   @regression
-  Scenario: Bungii_CustomerCancelOnHeadsUp
+  Scenario: Verify Customer Bungii Cancellation on Heads Up Popup
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Cancel on HeadsUp pop up" on Bungii estimate
@@ -18,7 +18,7 @@ Feature: Bungii
 
   @regression
 
-  Scenario: Bungii_CustomerCancelOnSearch
+  Scenario: Verify Customer Bungii Cancellation on Search
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"

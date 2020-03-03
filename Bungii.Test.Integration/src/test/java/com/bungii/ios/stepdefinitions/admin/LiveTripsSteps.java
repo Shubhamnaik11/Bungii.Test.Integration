@@ -269,7 +269,7 @@ public class LiveTripsSteps extends DriverBase {
                 action.click(liveTripsPage.Button_CalculateCost());
                 break;
             case "Confirm":
-                action.click(liveTripsPage.Button_Confirm());
+                action.click(liveTripsPage.Button_Confirm());Thread.sleep(120000);
                 break;
             case "Cancel":
                 action.click(liveTripsPage.Button_Cancel());
@@ -285,6 +285,7 @@ public class LiveTripsSteps extends DriverBase {
     @And("^I view the Trips list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
         try{
+            Thread.sleep(120000);
         action.click(liveTripsPage.Menu_Trips());
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(liveTripsPage.Dropdown_SearchForPeriod(),"The Beginning of Time");
@@ -386,6 +387,7 @@ public class LiveTripsSteps extends DriverBase {
     @When("^I view the trip details$")
     public void i_view_the_trip_details() throws Throwable {
     try{
+        SetupManager.getDriver().navigate().refresh();
         String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
         action.click(SetupManager.getDriver().findElement(By.xpath(xpath)));
     } catch (Throwable e) {

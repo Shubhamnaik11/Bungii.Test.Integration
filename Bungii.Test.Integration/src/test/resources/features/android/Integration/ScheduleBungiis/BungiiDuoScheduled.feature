@@ -8,7 +8,8 @@ Feature: Duo
   @regression
   @sanity
   @regression
-  Scenario: Validate That I am able to create Schedule duo bungii.
+    @failed1
+  Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
 
@@ -129,9 +130,10 @@ Feature: Duo
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
+
   #given i have large image on phone
   @regression
-  Scenario Outline:Customer amount for duo with promo
+  Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 
     When I Switch to "driver" application on "same" devices
@@ -257,7 +259,7 @@ Feature: Duo
 
   @regression
 
-  Scenario: Validate That I am able to create Schedule duo bungii. Verify Details
+  Scenario: Verify Schedululing Of Duo Bungii And Verifying Bungii Details
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -529,7 +531,7 @@ Feature: Duo
     And Bungii Driver "completes Bungii"
 
   @regression
-  Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request
+  Scenario: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
@@ -665,7 +667,7 @@ Feature: Duo
 
   @regression
 
-  Scenario: long stack : Check status of current and stack pickup, Verify stack request alert message and decked request.Base pickup is scheduled trip
+  Scenario: Long Stack : Verify Status Of Current Scheduled Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
@@ -807,7 +809,7 @@ Feature: Duo
 
   @regression
 
-  Scenario: Short stack : Check status of current and stack pickup ,Verify stack request alert message and decked request
+  Scenario: Short Stack : Verify Status Of Current Ondemand Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
     And I Switch to "driver" application on "same" devices
@@ -922,7 +924,7 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
   @regression
-  Scenario: Verify driver can Long stack request on Arrived status
+  Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | atlanta  | ARRIVED      |
@@ -945,7 +947,7 @@ Feature: Duo
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @regression
-  Scenario:Verify driver can get Long stack request on Loading item status. Verify Cancel Bungii button. Cancel Notification
+  Scenario:Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | atlanta  | LOADING ITEM |
@@ -986,7 +988,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  Scenario:Verify driver can short stack request on unloading item status. Verify Cancel Bungii button. Cancel Notification
+  Scenario:Verify Driver Can Short Stack Request On Unloading Item State and Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | atlanta  | UNLOADING ITEM |
@@ -1027,7 +1029,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-  Scenario:  Verify Customer notification(Stack bungii accepted, Stack driver started, )
+  Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
       | atlanta  | UNLOADING ITEM |
@@ -1061,7 +1063,7 @@ Feature: Duo
 
   @duo1
   @regression
-  Scenario: Manually ending a Bungii for a driver that has a stacked Bungii should display summary and start the stacked bungii.
+  Scenario: Manually Ending A Bungii For A Driver Who Has Stacked Bungii Should Display Summary And Start With The Stacked Bungii
 
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -1106,7 +1108,7 @@ Feature: Duo
     #need to do in atlanta
   @regression
 
-  Scenario: Long stack non control driver
+  Scenario: Verify Long Stack Request Acceptance By Non Control Driver
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1168,7 +1170,7 @@ Feature: Duo
           #move to top
   @duo1
   @regression
-  Scenario: Short stack control driver
+  Scenario: Verify Short Stack Request Acceptance By Control Driver
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State       | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1222,7 +1224,7 @@ Feature: Duo
   #change user login
 
   @regression
-  Scenario: A driver should Not receive a LONG stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
+  Scenario: Verify Driver Does Not Receive Long Stacked Request If Drivers Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of The Newly Requested Trip
     Given that ondemand bungii is in progress
       | geofence    | Bungii State | Driver label            |
       | atlanta.far | LOADING ITEM | far away atlanta driver |
@@ -1250,7 +1252,7 @@ Feature: Duo
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @regression
-  Scenario: A driver should Not receive a Short stacked request if the drivers location is more than 100 mins from the current location of the driver to the pickup of the newly requested trip.
+  Scenario: Verify Driver Does Not Receive Short Stacked Request If Drivers Location Is More Than 100 Mins From The Current Location Of The Driver To The Pickup Of The Newly Requested Trip
     Given that ondemand bungii is in progress
       | geofence    | Bungii State   | Driver label            |
       | atlanta.far | UNLOADING ITEM | far away atlanta driver |
@@ -1279,7 +1281,7 @@ Feature: Duo
 
   @duo1
   @regression
-  Scenario: Non-control driver should Not receive long stacking request if started before the control driver. Non control cannot cancel trip if control not started
+  Scenario: Verify Non-control Driver Does Not Receive Long Stacking Request If Started Before The Controlled Driver - Also Non Control Driver Cannot Cancel Trip If Controlled driver has Not Started
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | Accepted     | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
@@ -1312,7 +1314,7 @@ Feature: Duo
     #need to execute later
     @regression
 
-    Scenario: Check the Minimum scheduled time for Duo trip
+    Scenario: Verify Minimum Scheduled Time For The Duo Trip
       Given I am on customer Log in page
       When I am logged in as "New" customer
       And I enter "San Francisco pickup and dropoff locations" on Bungii estimate
@@ -1323,7 +1325,7 @@ Feature: Duo
 
   @regression
 
-  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app in background
+  Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | Scheduled    | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
@@ -1356,8 +1358,8 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
+  Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
 
-  Scenario: To check that when customer cancels a Duo trip accepted by one driver, the driver gets a Notification when app is open
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | Scheduled    | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
@@ -1389,7 +1391,7 @@ Feature: Duo
 
   @regression
 
-  Scenario: To check that other driver and customer are Notified when one of the driver cancels
+  Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
@@ -1418,7 +1420,7 @@ Feature: Duo
     And I click on notification for "DRIVER CANCELLED BUNGII"
 
   @regression
-  Scenario: DRIVER Notification - Other Driver cancels Duo Bungii
+  Scenario: Verify Driver Notification When Other Driver Cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |
@@ -1441,7 +1443,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
-  Scenario: DRIVER Alert - Other Driver cancels Duo Bungii
+  Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid        | valid   | valid driver 2 |

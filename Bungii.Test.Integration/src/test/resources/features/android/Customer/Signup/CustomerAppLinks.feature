@@ -11,7 +11,7 @@ Feature: CustomerApplicationLinks
     #Tutorials - 5 pages
     #Verify text on Tutorials pages and swipe. Should be able to swipe back and forth between pages. (Completed PARTIALLY)
     #Dismiss Tutorials by tapping on Start
-  Scenario: Tutorials should only be displayed on the app on first installation.
+  Scenario: Verify Tutorials Is displayed Only On First Installation.
     When I tap on the "Log in" button on Signup Page
     And I enter customers "8805368840" Phone Number
     And I enter customers "valid" Password
@@ -31,7 +31,7 @@ Feature: CustomerApplicationLinks
 
     @regression
 
-    Scenario: Scheduled Bungiis: Save Money Button redirect to invite page
+    Scenario: Verify Save Money Button Redirect To Invite Screen
       When I tap on the "Log in" button on Signup Page
       And I enter customers "8805368840" Phone Number
       And I enter customers "valid" Password
@@ -54,7 +54,7 @@ Feature: CustomerApplicationLinks
 
 
         @nobrowser
-        Scenario: Sign Up to Drive - when No browser is present on device
+        Scenario: Verify Sign Up To Drive - When No Browser Is Present On Device
           When I tap on the "Log in" button on Signup Page
           And I enter customers "8805368840" Phone Number
           And I enter customers "valid" Password

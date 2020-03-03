@@ -700,6 +700,20 @@ public class GeneralUtility extends DriverBase {
         }
         return phoneNumber;
     }
+    public void logCustomerDeviceToken(String phoneNumber){
+        try {
+            com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber);
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logDriverDeviceToken(String phoneNumber){
+        try {
+            com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber);
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         boolean isNextScreenLogIN = false;
