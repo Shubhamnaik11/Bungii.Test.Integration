@@ -9,7 +9,7 @@ Feature: Log In
 
   @regression
 
-  Scenario Outline: As Bungii driver I should not able login to application using invalid details.  Scenario:<Scenario>
+  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -28,13 +28,13 @@ Feature: Log In
   @sanity
   @regression
 
-  Scenario: As Bungii driver , I should able to login to application using valid password
+  Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app
     Then I should be navigated to Home screen on driver app
 
   @regression
-  Scenario Outline: Driver canNot login on driver app before admin verification
+  Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -44,7 +44,7 @@ Feature: Log In
       | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
   @regression
-  Scenario Outline: Alert should be displayed and driver should be locked when customer enters incorrect password 5 times.
+  Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times
     When I enter phoneNumber
     And I enter invalid password and click on "Log In" button for "3" times on Log In screen on driver app
     Then I should see "<Expected Message 3>" on Log In screen on driver app
@@ -55,7 +55,7 @@ Feature: Log In
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. | Invalid login credentials. You have exhausted 3 out of 5 attempts of entering the correct credentials.  |
 
     @regression
-      Scenario Outline: New driver with payment status Inactive/Pending should Not be able to go Online
+      Scenario Outline: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
       When I enter phoneNumber :<Username> and  Password :<Password>
       And I click "Log In" button on Log In screen on driver app
       And I tap on "Go Online button" on Driver Home page
@@ -65,7 +65,7 @@ Feature: Log In
         | PENDING PAYMENT | 8989890909 | Cci12345 | It looks like we ran into a hiccup. Please contact support@bungii.com for more information. |
 
   @regression
-  Scenario Outline: As a Bungii driver with Pending payment status, I should not be able to login to application using valid credentials
+  Scenario Outline:  Verify New Driver With Application Status As Pending Cannot Login To Application Using Valid Credentials
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -76,7 +76,7 @@ Feature: Log In
 
   @regression
 
-  Scenario Outline: As I enter wrong password 5 times, driver's account gets locked
+  Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times Second Case
     When I enter phoneNumber
     And I enter invalid password and click on "Log In" button for "5" times on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -86,7 +86,7 @@ Feature: Log In
 
   @regression
 
-  Scenario: Permission - Android Driver - Location
+  Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I have device which has location permission
     Given I install Bungii Driver App again
     Given I Switch to "driver" application on "same" devices
