@@ -2144,18 +2144,18 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on the "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on the "Bungii Completed" screen
 
   @regression
 

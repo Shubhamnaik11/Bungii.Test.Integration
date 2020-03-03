@@ -337,10 +337,9 @@ Feature: On Demand Bungii
 
     And I Switch to "customer" application on "same" devices
     And I tap on "OK on complete" on Bungii estimate
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
   @regression
-
   Scenario Outline: on demand with first time promo
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -402,7 +401,7 @@ Feature: On Demand Bungii
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
 
   @regression
-
+    @test
   Scenario Outline:Referral code signup
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -444,7 +443,7 @@ Feature: On Demand Bungii
 
 
   @regression
-
+  @test
   Scenario:on demand with referral code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -738,6 +737,7 @@ Feature: On Demand Bungii
 
 
   @regression
+
   Scenario:CUSTOMER Notification - Bungii Complete
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

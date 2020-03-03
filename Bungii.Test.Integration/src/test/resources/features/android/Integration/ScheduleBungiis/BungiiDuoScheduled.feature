@@ -8,7 +8,6 @@ Feature: Duo
   @regression
   @sanity
   @regression
-    @test
   Scenario: Validate That I am able to create Schedule duo bungii.
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -132,7 +131,6 @@ Feature: Duo
     And Customer should receive "Your Bungii Receipt" email
   #given i have large image on phone
   @regression
-    @test
   Scenario Outline:Customer amount for duo with promo
     Given I am logged in as "valid atlanta" customer
 
