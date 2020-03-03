@@ -57,7 +57,8 @@ public class BungiiRequestSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_DistanceValue(),(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
                     estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
                     flestimate=Double.valueOf(estimate.replace("$","").replace("~","").trim());
-                    transactionFee=(flestimate*0.029)+0.3;
+                    //transactionfeedifferentforsoloandduo
+                    transactionFee=((flestimate*0.029*0.5)+0.3)*2;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
