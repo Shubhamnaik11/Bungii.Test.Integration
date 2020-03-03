@@ -2,8 +2,11 @@ package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.driver.DriverHomePage;
 import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -20,6 +23,7 @@ public class LoginSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
+    DriverHomePage driverHomePage =new DriverHomePage();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
@@ -42,9 +46,75 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                case "valid boston":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("boston.driver.phone");
+                    password = PropertyUtility.getDataProperties("boston.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("boston.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid baltimore":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("baltimore.driver.phone");
+                    password = PropertyUtility.getDataProperties("baltimore.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("baltimore.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid atlanta":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("atlanta.driver.phone");
+                    password = PropertyUtility.getDataProperties("atlanta.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid ios":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone =PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                    password = PropertyUtility.getDataProperties("valid.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "valid far away atlanta":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("atlanta.far.away.driver.phone");
+                    password = PropertyUtility.getDataProperties("atlanta.far.away.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.far.away.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+
+                case "valid kansas":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
+                    password = PropertyUtility.getDataProperties("valid.driver.kansas.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.kansas.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "kansas driver 1":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("Kansas.driver.phone");
+                    password = PropertyUtility.getDataProperties("Kansas.driver.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "kansas driver 2":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("Kansas.driver2.phone");
+                    password = PropertyUtility.getDataProperties("Kansas.driver2.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
                 default:
                     throw new Exception("Please specify valid input");
             }
+            Thread.sleep(4000);
             utility.loginToDriverApp(phone, password);
             if (shouldLoginSucessful)
                 utility.isDriverLoginSucessful();
@@ -134,6 +204,24 @@ public class LoginSteps extends DriverBase {
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError()), PropertyUtility.getMessage("driver.login.phone.error"));
                     testStepVerify.isEquals(action.getText(driverLogInPage.Text_LoginError2()), PropertyUtility.getMessage("driver.login.password.error"));
                     break;
+
+                case "It looks like we ran into a hiccup. Please contact support@bungii.com for more information.":
+                    testStepVerify.isEquals(action.getText(driverHomePage.Text_ErrorMessage()),"It looks like we ran into a hiccup. Please contact support@bungii.com for more information.");
+                    break;
+
+                case "Your account registration is still under process.":
+                    //testStepVerify.isEquals(action.getText(driverLogInPage.Text_PendingDriverLoginError()), PropertyUtility.getMessage("driver.login.payment.pending.error"));
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), "Your account registration is still under process.");
+                    break;
+
+                case "Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
+                    break;
+
+                case "Invalid login credentials. You have exhausted 3 out of 5 attempts of entering the correct credentials.":
+                    testStepVerify.isEquals(utility.getDriverSnackBarMessage(), option);
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -143,5 +231,47 @@ public class LoginSteps extends DriverBase {
         }
     }
 
+    @When("^I enter phoneNumber$")
+    public void i_enter_phonenumber() {
+        String phone = PropertyUtility.getDataProperties("driver.locked.login.phone");
+        action.sendKeys(driverLogInPage.TextField_PhoneNumber(), phone);
+    }
+
+    @And("^I enter invalid password and click on \"([^\"]*)\" button for \"([^\"]*)\" times on Log In screen on driver app$")
+    public void i_enter_invalid_password_and_click_on_something_button_for_something_times_on_log_in_screen_on_driver_app(String strArg1, String count) throws Throwable {
+        try {
+            String password=null;
+            switch(count) {
+                case "5":
+                    password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                    action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+                    for (int i = 0; i < 5; i++) {
+                        action.click(driverLogInPage.Button_Login());
+                    }
+                    break;
+
+                case "3":
+                password = PropertyUtility.getDataProperties("driver.locked.login.password");
+                action.sendKeys(driverLogInPage.TextField_Password(), password);
+
+                for (int i = 0; i < 3; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+
+            case "2":
+                for (int i = 0; i < 2; i++) {
+                    action.click(driverLogInPage.Button_Login());
+                }
+                break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
 
 }

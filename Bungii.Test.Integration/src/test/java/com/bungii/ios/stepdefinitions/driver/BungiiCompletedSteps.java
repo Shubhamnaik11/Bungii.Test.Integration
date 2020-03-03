@@ -1,7 +1,7 @@
 package com.bungii.ios.stepdefinitions.driver;
 
 import com.bungii.SetupManager;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.manager.ActionManager;
@@ -61,6 +61,11 @@ public class BungiiCompletedSteps extends DriverBase {
     public void verifyTripValue(){
         double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
         double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
+        String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+        if(numberOfDriver.equalsIgnoreCase("duo"))
+            bungiiDriver=((DRIVER_SHARE*bungiiCostCustomer-((TRANSACTION_FEE*bungiiCostCustomer*0.5+TR_COST)*2))/2);
+
         String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
 
@@ -68,7 +73,11 @@ public class BungiiCompletedSteps extends DriverBase {
 
         String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime()),totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance()),toatlEarning=action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
 
-        testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  minute")||totalTime.trim().contains(tripTime+" minute"),"Total time should contains "+tripTime+"minute");
+        int intTotalTime=Integer.parseInt(tripTime);
+        if(intTotalTime==1)
+            testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  min")||totalTime.trim().contains(tripTime+" min"),"Total time should contains "+tripTime+"minute");
+        else
+            testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  mins")||totalTime.trim().contains(tripTime+" mins"),"Total time should contains "+tripTime+"minute");
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should contains"+tripDistance+" miles");
      //   testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning should contains $"+truncValue);
         testStepVerify.isTrue(toatlEarning.contains("$")&& (Double.parseDouble(toatlEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);

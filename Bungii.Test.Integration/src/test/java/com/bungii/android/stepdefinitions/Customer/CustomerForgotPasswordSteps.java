@@ -2,9 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.ForgotPasswordPage;
-import com.bungii.android.pages.customer.LoginPage;
-import com.bungii.android.pages.customer.SignupPage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.utilityfunctions.DbUtility;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
@@ -28,6 +26,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     DbUtility dbutility = new DbUtility();
+    TermsPage Page_CustTerms = new TermsPage();
+    HomePage homePage = new HomePage();
+    String PreviousSMSCode = "";
 
 
     @And("I tap on the {string} Link")
@@ -52,6 +53,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     break;
                 case "Verification Continue":
                     action.click(Page_Signup.Button_VerifyContinue());
+                    break;
+                case "Resend Code":
+                    action.click(Page_Signup.Link_Resend());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -80,6 +84,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                 case "less than 10 digit":
                     action.sendKeys(forgotPasswordPage.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer_LessThan10.phonenumber"));
                     break;
+                case "Valid_ToBeLocked":
+                    action.sendKeys(forgotPasswordPage.TextField_ForgotPass_PhoneNumber(), PropertyUtility.getDataProperties("customer.ValidToBeLockedUser"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -102,8 +109,14 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     String SMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), SMSCode);
                     break;
+                case "valid code for locked":
+                    action.sendKeys(forgotPasswordPage.TextField_SMSCode(), dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer.ValidToBeLockedUser")));
+                    break;
                 case "invalid":
                     action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PropertyUtility.getDataProperties("verificationcode.incorrect"));
+                    break;
+                case "previous":
+                    action.sendKeys(forgotPasswordPage.TextField_SMSCode(), PreviousSMSCode);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -136,7 +149,7 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             action.sendKeys(forgotPasswordPage.TextField_NewPassword(), newPassword);
 
             log(" I enter customers new " + string + "Password",
-                    "I entered " + newPassword + "as customers new " + string + " Password", true);
+                    "I entered " + newPassword + "as customers new " + string + " Password", false  );
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -148,7 +161,18 @@ public class CustomerForgotPasswordSteps extends DriverBase {
     @Then("The user should be logged in")
     public void the_user_should_be_logged_in() {
         try {
-            utility.isCorrectPage("Home");
+            if(utility.isCorrectPage("Terms and Conditions")){
+                action.click(Page_CustTerms.Checkbox_Agree());
+                action.click(Page_CustTerms.Button_Continue());
+                if (action.isElementPresent(Page_CustTerms.Header_PermissionsLocation(true))) {
+                    // action.click(Page_CustTerms.Button_GoToSetting());
+                    action.click(Page_CustTerms.Button_PermissionsSure());
+                    action.click(Page_CustTerms.Button_PermissionsAllow());
+                    // ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
+                }
+                if (action.isElementPresent(homePage.Button_Closetutorials(true)))
+                    action.click(homePage.Button_Closetutorials());
+            }
             testStepAssert.isTrue(utility.isCorrectPage("Home"), "Home page should be displayed", "Home page is displayed", "Home page was not displayed");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -165,8 +189,9 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                 case "snackbar validation message for success once I click continue":
                     //Combined click with snackbar message
                     action.click(forgotPasswordPage.Button_Continue());
-                    Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
-                    testStepVerify.isTrue(isMessageCorrectlyDisplayed,PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+"is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
+                   // String message=action.getText(forgotPasswordPage.Snackbar_ForgotPassword(true));
+                    //Boolean isMessageCorrectlyDisplayed=utility.isForgotPasswordMessageCorrect();
+                    testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(true),PropertyUtility.getMessage("customer.forgotpassword.success.android"),PropertyUtility.getMessage("customer.forgotpassword.success.android") +" , should be correctly displayed. ",PropertyUtility.getMessage("customer.forgotpassword.success.android")+" is displayed","Snackbar message was not displayed or was displayed for small amount of time to capture snackbar message text" );
 
 /*                    String actualMessage = SetupManager.getDriver().findElement(By.id("com.bungii.customer:id/snackbar_text")).getText();
                     if (actualMessage == null) {
@@ -198,7 +223,6 @@ public class CustomerForgotPasswordSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(forgotPasswordPage.Snackbar_ForgotPassword(), errorMessage);
                     break;
 
-
                 default:
                     throw new Exception("Unimplemented step");
             }
@@ -207,5 +231,11 @@ public class CustomerForgotPasswordSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @And("^I record the SMS Code$")
+    public void i_record_the_sms_code() throws Throwable {
+        Thread.sleep(2000);
+        PreviousSMSCode = dbutility.getVerificationCode(PropertyUtility.getDataProperties("customer_generic.phonenumber"));
     }
 }

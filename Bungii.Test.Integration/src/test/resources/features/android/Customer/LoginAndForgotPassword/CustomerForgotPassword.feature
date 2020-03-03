@@ -7,7 +7,7 @@ Feature: CustomerForgotPassword
     And I tap on the "Forgot Password" Link
 
   @regression
-  Scenario: Cust_ForgotPassword_Success
+  Scenario: Verify Customer Forgot Password With Valid Phone Number
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
     And I enter "valid" SMS code
@@ -18,19 +18,19 @@ Feature: CustomerForgotPassword
     And I tap on "Menu" > "Logout" link
 
   @regression
-  Scenario: Cust_ForgotPassword_IncorretPhone
+  Scenario: Verify Customer Forgot Password With Incorrect Phone Number
     When I enter "invalid" Phone Number
     And I tap on the "Send" Link
     Then The user should see "snackbar validation message for invalid number" on forgot password page
 
   @regression
-  Scenario: Cust_ForgotPassword_PhoneLessThan10char
+  Scenario: Verify Customer Forgot Password With Phone Number Less Than 10 Characters
     When I enter "less than 10 digit" Phone Number
     Then The user should see "validation for incorrect number" on forgot password page
     And The user should see "Send button disabled" on forgot password page
 
   @regression
-  Scenario: Cust_ForgotPassword_IncorrectSMSCode
+  Scenario: Verify Customer Forgot Password Functionality With Incorrect SMS Code
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
     And I enter "invalid" SMS code
@@ -39,9 +39,30 @@ Feature: CustomerForgotPassword
     Then The user should see "snackbar validation message for invalid sms code" on forgot password page
 
   @regression
-  Scenario: Cust_ForgotPassword_PasswordLessThan6Char
+  Scenario: Verify Customer Forgot Password With Password Less Than 6 Characters
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
     And I enter "valid" SMS code
     And I enter customers new "invalid" Password
     Then The user should see "validation for incorrect password" on forgot password page
+
+  @regression
+  Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
+    When I enter "valid" Phone Number
+    And I tap on the "Send" Link
+    And I tap on the "Resend Code" Link
+    And I enter "valid" SMS code
+    And I enter customers new "valid" Password
+    And I tap on the "Continue" Link
+    Then The user should be logged in
+
+  @regression
+  Scenario: Verify Customer Forgot Password Functionality With Expired SMS Code
+    When I enter "valid" Phone Number
+    And I tap on the "Send" Link
+    And I record the SMS Code
+    And I tap on the "Resend Code" Link
+    And I enter "previous" SMS code
+    And I enter customers new "valid" Password
+    And I tap on the "Continue" Link
+    Then The user should see "snackbar validation message for invalid sms code" on forgot password page

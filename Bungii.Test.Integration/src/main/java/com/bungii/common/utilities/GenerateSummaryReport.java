@@ -1,5 +1,6 @@
 package com.bungii.common.utilities;
 
+import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,6 +10,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,11 +19,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.util.stream.Collectors.toList;
 
 public class GenerateSummaryReport {
     static Path configFilePath;
     private static ArrayList<String> summaryData = new ArrayList<>();
+    private static ArrayList<String> failureSummaryData = new ArrayList<>();
     private static int passCount = 0, failCount = 0, inConclusiveCount = 0;
     private static String logoFilePath = "";
     private static Date startTime, endTime;
@@ -29,11 +33,16 @@ public class GenerateSummaryReport {
     public static void main(String[] args) throws IOException, ParseException {
         try {
             if (args.length > 0) {
-                String mainFolder = args[0];
+                 String mainFolder = args[0];
+                String platform = args[1];
+                String category = args[2];
+                String environment = args[3];
+
                 configFilePath = Paths.get(mainFolder);
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
-
+                int testCount = 1;
+                Boolean isFailed = false;
                 //Iterate over all HTML file
                 for (String path : listOfResultFile) {
 
@@ -49,9 +58,12 @@ public class GenerateSummaryReport {
                     //Parse HTML file and extract data
                     Document doc = Jsoup.parse(in, null);
                     Element table = doc.select("table").get(0); //select the first table.
+                    Element table2 = doc.select("table").get(2); //select the third hidden table.
+
                     Elements rows = table.select("tr");
                     summaryData.add("<tr> </tr>");
-                    summaryData.add(" <td colspan=5><a href=" + subFolder + "/" + in.getName() + ">TEST SUITE SUMMARY : " + in.getName() + "</td>");
+                    summaryData.add(" <td colspan=3 style='text-align:left;'> FEATURE : " + in.getName().toString().replace(".html", "") + "</td>");
+                    summaryData.add(" <td colspan=3><a href=" + subFolder + "/" + in.getName() + "> EXECUTION REPORT : " + in.getName() + "</td>");
                     summaryData.add("<tr> </tr>");
 
                     passCount = passCount + Integer.parseInt(doc.getElementById("pass").val().contains("--") ? "0" : doc.getElementById("pass").val());
@@ -75,12 +87,30 @@ public class GenerateSummaryReport {
                             String startTime = cols.get(4).text();
                             storeEndTime(startTime);
                         }
-                        System.out.println(data);
-                        summaryData.add("<tr></tr>");
+                        summaryData.add("<tr></tr><td>" + testCount + "</td>");
                         summaryData.add(data);
+                        testCount++;
+                    }
+                    Elements rows2 = table2.select("tr");
+                    for (int i = 1 + 1; i < rows2.size(); i++) { //first row is the col names so skip it.
+                        Element row = rows2.get(i);
+                        Elements cols = row.select("td");
+                        String data = cols.toString();
+                        failureSummaryData.add("<tr>" + data + "</tr>");
+                        isFailed = true;
                     }
                 }
-                createResultFileFromTemplate();
+                createResultFileFromSummaryTemplate(platform, category, environment);
+                System.out.println("Generated index.html");
+                new GenerateResultCSV().GenerateCSV(mainFolder);
+                if (isFailed)
+                {
+                    createResultFileFromFailedSummaryTemplate(platform, category, environment);
+                    CopyScreenshotsToDirectory();
+                    System.out.println("Generated failedsummary.html");
+
+                }
+
                 newName(configFilePath,"MavenRun");
             } else {
                 System.err.println("Pass Main folder  name of parallel test  as argument");
@@ -142,15 +172,50 @@ public class GenerateSummaryReport {
     public static List<String> getListOfResultFile() throws IOException {
         List<String> listOfResultFile = Files.walk(configFilePath)
                 .filter(s -> s.toString().endsWith(".html")).map((p) -> p.getParent() + "/" + p.getFileName())
+                .filter(s -> !s.toString().contains("htmlpublisher-wrapper"))
+                .filter(s -> !s.toString().contains("index"))
                 .sorted()
                 .collect(toList());
         return listOfResultFile;
     }
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static List<String> getScreenshots() throws IOException {
+        List<String> listOfScreenshotFile = Files.walk(configFilePath)
+                .filter(s -> s.toString().endsWith(".jpg")).map((p) -> p.getParent() + "/" + p.getFileName())
+                .sorted()
+                .collect(toList());
+        return listOfScreenshotFile;
+    }
 
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static void CopyScreenshotsToDirectory() throws IOException {
+        try {
+        List<String> listOfScreenshotFile = getScreenshots();
+        Path targetDirectory = Paths.get(configFilePath+"/Screenshot");
+        File directory = new File(String.valueOf(targetDirectory));
+       if(!directory.exists()) {
+           directory.mkdir();
+       }
+        for(String file : listOfScreenshotFile) {
+            Files.copy(Paths.get(file),
+                    (new File(directory +"/"+ Paths.get(file).getFileName().toString())).toPath(),
+                    StandardCopyOption.REPLACE_EXISTING);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+    }
     /**
      * Create Summery File for parallel test
      */
-    public static void createResultFileFromTemplate() {
+    public static void createResultFileFromSummaryTemplate(String platform, String category, String environment) {
 
         try {
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_SUMMARY_FILE"));
@@ -158,6 +223,48 @@ public class GenerateSummaryReport {
             String s;
             String totalStr = "";
             String listString = String.join("", summaryData);
+
+            //if start time is null due to any reason then set it to current time
+            if (startTime == null) {
+                startTime = new Date();
+                endTime = new Date();
+            }
+            while ((s = br.readLine()) != null) {
+                totalStr += s;
+            }
+            totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
+            totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
+            totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
+            totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
+            totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
+            totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
+            totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
+            totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
+            totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
+            totalStr = totalStr.replaceAll("<!--CATEGORY-->", (category==null)?"":category.toUpperCase());
+            totalStr = totalStr.replaceAll("<!--ENVIRONMENT-->", (environment==null)?"": environment.toUpperCase());
+            totalStr = totalStr.replaceAll("<!--LINK.TO.FAILURE-->", (failCount==0)? "":  "<a href='./failureSummary.html'> Link to Failure Test Summary Report</a>");
+
+            FileWriter fw = new FileWriter(result);
+            fw.write(totalStr);
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Create Failed Summery File for parallel test
+     */
+    public static void createResultFileFromFailedSummaryTemplate(String platform, String category, String environment) {
+
+        try {
+            File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_FAILEDSUMMARY_FILE"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/failuresummarytemplate.html")));
+            String s;
+            String totalStr = "";
+            String listString = String.join("", failureSummaryData);
+            listString = listString.replaceAll("<tr></tr>","");
             //if start time is null due to any reason then set it to current time
             if (startTime == null) {
                 startTime = new Date();
@@ -168,14 +275,16 @@ public class GenerateSummaryReport {
                 totalStr += s;
             }
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
-            totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
+            totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
+            totalStr = totalStr.replace("<!--FAILURE.SUMMARY-->", listString);
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
             totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
             totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
             totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
-
+            totalStr = totalStr.replaceAll("<!--CATEGORY-->", (category==null)?"":category.toUpperCase());
+            totalStr = totalStr.replaceAll("<!--ENVIRONMENT-->", (environment==null)?"": environment.toUpperCase());
 
             FileWriter fw = new FileWriter(result);
             fw.write(totalStr);
@@ -185,7 +294,6 @@ public class GenerateSummaryReport {
             e.printStackTrace();
         }
     }
-
     /**
      * @param d2 End time
      * @param d1 Start time

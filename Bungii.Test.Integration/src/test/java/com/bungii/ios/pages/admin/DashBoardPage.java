@@ -28,6 +28,12 @@ public class DashBoardPage extends PageBase {
     public WebElement Button_LiveTrips() {
         return findElement("adminmenu-livetrips", LocatorType.Id);
     }
-
+    public WebElement Button_Drivers() {
+        return findElement("//*[@id='adminmenu-drivers']/a", LocatorType.XPath);
+    }
+    public WebElement Button_Customers() {
+        return findElement("//*[@id='adminmenu-customers']/a", LocatorType.XPath);
+    }
+    public WebElement Menu_Geofences(){return findElement("adminmenu-geofences",LocatorType.Id);}
 
 }

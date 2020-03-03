@@ -1,5 +1,4 @@
 @android
-
 Feature: FORGOT PASSWORD
   As a Bungii driver
   When I click Forgot password button
@@ -10,7 +9,8 @@ Feature: FORGOT PASSWORD
     And I am on the LOG IN page on driver app
 
   @regression
-  Scenario Outline: As Bungii driver, I should be alerted if I add invalid phone number during Forgot Password functionality . Scenario:<Scenario>
+
+  Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality . Scenario:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     And I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
@@ -24,7 +24,8 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 2121212121 | FAILED TO SEND TOKEN            | SEND BUTTON ENABLED  |
 
   @regression
-  Scenario Outline: As Bungii driver , I should be alerted if I Enter invalid password or sms code during Forgot Password functionality. Scenario:<Scenario>
+
+  Scenario Outline:  Verify Driver Is Alerted If Enters Invalid Password Or Sms Code During Forgot Password Functionality. Scenario:<Scenario>
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     When I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app
@@ -43,7 +44,8 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
 
   @regression
-  Scenario Outline: As Bungii driver , I should be able to change my password using Forgot Password functionality
+
+  Scenario Outline: Verify Driver Is Able To Change Password Using Forgot Password Functionality
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
     When I Enter "<Value>" value in "Phone Number" field in FORGOT PASSWORD Page on driver app

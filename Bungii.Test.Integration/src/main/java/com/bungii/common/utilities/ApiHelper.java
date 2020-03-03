@@ -7,14 +7,13 @@ import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.restassured.RestAssured.given;
 
 
@@ -29,13 +28,13 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenCustConfig() {
-        return given().log().all()
+        return given()//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("CUST_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("CUST_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
-                .header("DeviceID", PropertyUtility.getDataProperties("DEVICE_ID"))
+                .header("DeviceID", UUID.randomUUID())//PropertyUtility.getDataProperties("DEVICE_ID"))
                 .auth().preemptive().basic(PropertyUtility.getDataProperties("auth.username"), PropertyUtility.getDataProperties("auth.password"));
     }
 
@@ -45,13 +44,13 @@ public class ApiHelper {
      * @return
      */
     public static RequestSpecification givenDriverConfig() {
-        return given().log().all()
+        return given()//.log().body()
                 .header("MobileAppVersion", PropertyUtility.getDataProperties("DRIVER_MOBILE_APP_VERSION"))
                 .header("AppVersion", PropertyUtility.getDataProperties("DRIVER_APP_VERSION"))
                 .header("User-Agent", "okhttp/3.4.1")
                 .header("Content-Type", "application/json")
                 .header("Accept-Encoding", "gzip")
-                .header("DeviceID", PropertyUtility.getDataProperties("DEVICE_ID"))
+                .header("DeviceID",  UUID.randomUUID()) //PropertyUtility.getDataProperties("DEVICE_ID"))
                 .auth().preemptive().basic(PropertyUtility.getDataProperties("auth.username"), PropertyUtility.getDataProperties("auth.password"));
     }
 
@@ -132,14 +131,14 @@ public class ApiHelper {
             Response response = givenCustConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().all();
+           // response.then().log().body();
             return response;
         } else {
             Response response = givenCustConfig().
                     when().
                     get(path);
 
-            response.then().log().all();
+           // response.then().log().body();
             return response;
         }
     }
@@ -159,14 +158,14 @@ public class ApiHelper {
             Response response = givenDriverConfig().headers(header).
                     when().
                     get(path);
-            response.then().log().all();
+          //  response.then().log().body();
             return response;
         } else {
             Response response = givenDriverConfig().
                     when().
                     get(path);
 
-            response.then().log().all();
+          //  response.then().log().body();
             return response;
         }
     }
@@ -184,7 +183,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+         //   response.then().log().body();
             return response;
 
         } else {
@@ -192,7 +191,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+          //  response.then().log().body();
 
             return response;
         }
@@ -211,7 +210,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+          //  response.then().log().body();
             return response;
 
         } else {
@@ -219,7 +218,7 @@ public class ApiHelper {
                     body(data.toString()).
                     when().
                     post(Path);
-            response.then().log().all();
+        //    response.then().log().body();
 
             return response;
         }
@@ -295,18 +294,34 @@ public class ApiHelper {
     }
 
     public static void genericResponseValidation(Response response) {
-        logger.detail(response.print());
-
-        JsonPath jsonPathEvaluator = response.jsonPath();
-        HashMap error = jsonPathEvaluator.get("Error");
+        JsonPath jsonPathEvaluator;
+        try {
+           logger.detail(response.then().log().body());
+            jsonPathEvaluator = response.jsonPath();
+            HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            System.out.println("pass");
-        } else {
-            System.out.println("failed" + error.toString());
-
+            logger.detail("***API Call Pass***");
         }
-        response.then().statusCode(200);
+
+            response.then().statusCode(200);
+        }
+        catch (AssertionError ex)
+        {
+            jsonPathEvaluator = response.jsonPath();
+            HashMap error = jsonPathEvaluator.get("Error");
+            if (error.size()!=0) {
+                logger.error("API Call failed : ", " Failed due to : " + error.get("Message").toString());
+                error("Step should be successful", "Failed due to :  " + error.get("Message").toString(),
+                        true);
+            }
+            else
+            {
+                logger.error("API Call failed : ", " API Response is empty. It seems to be queue error. Please reset the queue and try again.");
+                error("Step should be successful", "API Response is empty. It see seems to be queue error. Please reset the queue and try again.",
+                        true);
+            }
+        }
 
     }
 

@@ -90,6 +90,21 @@ public class DbUtility extends DbContextManager {
         return rating;
     }
 
+    public static String getDriverAssignedForTrip(String pickupId) {
+        String phoneNumber = "";
+        String queryString = "select Phone  from driver where id In (select ControlDriverID from pickupdetails where PickupRef='"+pickupId+"' );";
+        phoneNumber = getDataFromMySqlServer(queryString);
+        logger.detail("phoneNumber is" + phoneNumber + ", query, " + queryString);
+        return phoneNumber;
+    }
+    public static String getTELETfromDb(String custRef) {
+        String PickupID = "";
+        String queryString = "SELECT TELET FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1";
+        PickupID = getDataFromMySqlServer(queryString);
+
+        logger.detail("For customer reference is " + custRef + " Extimate time is " + PickupID);
+        return PickupID;
+    }
     public static boolean isDriverEligibleForTrip(String phoneNumber, String pickupRequest) {
             String queryString = "SELECT Id FROM driver WHERE phone = " + phoneNumber;
             String driverID = getDataFromMySqlServer(queryString);
@@ -107,5 +122,70 @@ public class DbUtility extends DbContextManager {
             }
             return isDriverEligible;
 
+    }
+
+    public static String getPickupRef(String customerPhone){
+        String custRef=getCustomerRefference(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE customerRef = '" + custRef + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
+
+    public static String getDriverToPickupTime(String driverPhoneNumber, String pickupID){
+        String queryString = "SELECT Id FROM driver WHERE phone = " + driverPhoneNumber;
+        String driverID = getDataFromMySqlServer(queryString);
+        String queryString2 = "select DriverToPickupTime from eligibletripdriver where pickupid ="+pickupID+ " and  DriverID="+driverID;
+        String driverToPickupTime = getDataFromMySqlServer(queryString2);
+        return driverToPickupTime;
+    }
+    public static String getReference(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT Reference FROM customer WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Reference code is" + smsCode + ", query, " + queryString);
+        return smsCode;
+    }
+    public static String getActiveFlag(String phoneNumber){
+        String UserRef = getReference(phoneNumber);
+        String queryString2 = "select Active from device where UserRef ='"+UserRef+ "' order by devid desc limit 1";
+        String activeFlag = getDataFromMySqlServer(queryString2);
+        return activeFlag;
+    }
+
+    public static String getDriverReference(String phoneNumber) {
+        String smsCode = "";
+        String queryString = "SELECT Reference FROM driver WHERE Phone = " + phoneNumber;
+        smsCode = getDataFromMySqlMgmtServer(queryString);
+        logger.detail("Reference code is" + smsCode + ", query, " + queryString);
+        return smsCode;
+    }
+    public static String getDriverActiveFlag(String phoneNumber){
+        String UserRef = getDriverReference(phoneNumber);
+        String queryString2 = "select Active from device where UserRef ='"+UserRef+ "' order by devid desc limit 1";
+        String activeFlag = getDataFromMySqlServer(queryString2);
+        return activeFlag;
+    }
+
+    public static String getResarchedPickupReference(String pickupRequest) {
+        String pickupRef = "";
+        String queryString = "SELECT PickupRef FROM pickupdetails WHERE LinkedPickupID in (SELECT PickupID from pickupdetails where pickupref='" + pickupRequest+"')";
+        try {
+            Thread.sleep(120000); //Waiting for research trip to synch
+        }
+        catch(Exception ex){}
+        pickupRef = getDataFromMySqlServer(queryString);
+        logger.detail("Researched Pickup Ref is" + pickupRef + ", query, " + queryString);
+        return pickupRef;
+    }
+
+    public static String getCustomerDeviceToken(String phoneNumber){
+        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+
+    public static String getDriverDeviceToken(String phoneNumber){
+        String queryString2 = " select token from device where UserRef IN (select DriverRef from driver  where phone="+phoneNumber+") order by DevID desc";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
     }
 }

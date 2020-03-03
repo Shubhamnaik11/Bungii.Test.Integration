@@ -84,6 +84,12 @@ public class PromoCodeSteps extends DriverBase {
                     Thread.sleep(2000);
                     cucumberContextManager.setFeatureContextContext("PROMO_PERCENT", getPromoCode(codeType));
                     break;
+                case "promoter_type_promo":
+                    action.click(promosPage.CheckBox_FilterDeliveryChargesByPromoter());
+                    action.click(promosPage.Button_Apply());
+                    Thread.sleep(2000);
+                    cucumberContextManager.setFeatureContextContext("PROMOTER_TYPE_PROMO", getPromoCode(codeType));
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -136,6 +142,9 @@ public class PromoCodeSteps extends DriverBase {
                 case "{promo percent}":
                     codes = promosPage.Text_PromoCodePercent();
                     break;
+                case"promoter_type_promo":
+                    codes = promosPage.Text_PromoCodePromoter();
+                    break;
                 default:
                     break;
             }
@@ -150,4 +159,5 @@ public class PromoCodeSteps extends DriverBase {
         logger.detail("Promo code list for key "+key+ " is "+String.join(", ", codeList));
         return codeList;
     }
+
 }

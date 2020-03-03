@@ -84,12 +84,23 @@ public class UpdateStatusPage extends PageBase {
 	public WebElement AreaSlide() { return findElement(
 			"type == 'XCUIElementTypeStaticText' AND value BEGINSWITH[c] 'SLIDE '", LocatorType.Predicate); }
 	public WebElement Image_TripItem() { return findElement("//XCUIElementTypeButton[@name='close btn white icon']/following::XCUIElementTypeImage", PageBase.LocatorType.XPath); }
-	public WebElement PageIndicator_Page1() { return findElement("type == 'XCUIElementTypePageIndicator' AND value == 'page 1 of 1'", LocatorType.Predicate); }
+	public WebElement PageIndicator_Page1() { return findElement("//XCUIElementTypePageIndicator[@value = 'page 1 of 1']", LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions2() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[2]", PageBase.LocatorType.XPath); }	public WebElement Button_DuoMoreOptions1() { return findElement("(//XCUIElementTypeImage[@name=\"more\"])[1]", PageBase.LocatorType.XPath); }
 	//public WebElement Button_DuoMoreOptions2() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(1); }
 	//public WebElement Button_DuoMoreOptions1() { return findElements("more", PageBase.LocatorType.AccessibilityId).get(0); }
 	public WebElement Button_DuoMoreOptions2() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][2]", LocatorType.ClassChain); }
 	public WebElement Button_DuoMoreOptions1() { return findElement("**/XCUIElementTypeOther/XCUIElementTypeButton[`name != \"Return to Bungii\"`][`name != \"Return to Bungii Driver\"`][1]", LocatorType.ClassChain); }
+
+	public WebElement Activity_loader(boolean ...ignoreException) { return findElement("In progress", LocatorType.Name,ignoreException); }
+	public WebElement Text_WaitingForDriver(){return findElement("//XCUIElementTypeStaticText[@name=\"Waiting for the other driver to end Bungii.\"]",LocatorType.XPath);}
+
+	//STACK
+	public WebElement Text_NextLabel(boolean ...ignoreException) { return findElement("NEXT", LocatorType.Name,ignoreException); }
+	public WebElement Text_OnDeckLabel(boolean ...ignoreException) { return findElement("ON DECK", LocatorType.Name,ignoreException); }
+	public WebElement Text_StackCustomer(boolean ...ignoreException) { return findElement("//XCUIElementTypeStaticText[@name=\"NEXT\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath,ignoreException); }
+	public WebElement Text_StackInfo(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]",LocatorType.XPath);}
+	public WebElement Button_Info(){return findElement("//XCUIElementTypeStaticText[contains(@label,'Try to finish by')]/following-sibling::XCUIElementTypeButton",LocatorType.XPath);}
+	public WebElement Text_ETAValue(){return findElement("//XCUIElementTypeStaticText[contains(@name,\"ETA:\")]",LocatorType.XPath);}
 
 }

@@ -1,13 +1,10 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.driver.AvailableTripsPage;
 import com.bungii.android.pages.driver.BungiiCompletedPage;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -29,6 +26,13 @@ public class BungiiCompletedSteps extends DriverBase {
                 case "correct details":
                     verifyBungiiCompletedPage();
                     verifyTripValue();
+                    break;
+                case "correct details for duo trip":
+                    action.scrollToBottom();
+                    verifyTripValue();
+                    break;
+                case "summary":
+                    verifyBungiiCompletedPage();
                     break;
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");break;
@@ -57,7 +61,12 @@ public class BungiiCompletedSteps extends DriverBase {
         public void verifyTripValue(){
 
             double bungiiCostCustomer=Double.parseDouble(((String)cucumberContextManager.getScenarioContext("BUNGII_COST_CUSTOMER")).replace("$",""));
+
             double bungiiDriver=(DRIVER_SHARE*bungiiCostCustomer-TRANSACTION_FEE*bungiiCostCustomer-TR_COST);
+            String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+            if(numberOfDriver.equalsIgnoreCase("duo"))
+                bungiiDriver=((DRIVER_SHARE*bungiiCostCustomer-((TRANSACTION_FEE*bungiiCostCustomer*0.5+TR_COST)*2))/2);
+
             String truncValue = new DecimalFormat("#.00").format(bungiiDriver);
             String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
             //Trip distance value is displayed till 1 decimanl point
@@ -71,7 +80,7 @@ public class BungiiCompletedSteps extends DriverBase {
             String tripTime =utility.getActualTime();
 
             String totalTime=action.getText(bungiiCompletedSteps.Text_TotalTime()),actualTotalDistance=action.getText(bungiiCompletedSteps.Text_TotalDistance()),toatlEarning=action.getText(bungiiCompletedSteps.Text_TotalEarnings());
-            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" minutes") ||totalTime.equalsIgnoreCase(tripTime+" minute"),"Total time should contains "+tripTime+" minute");
+            testStepVerify.isTrue(totalTime.equalsIgnoreCase(tripTime+" mins") ||totalTime.equalsIgnoreCase(tripTime+" min"),"Total time should contains "+tripTime+" minute");
            // testStepVerify.isTrue(actualTotalDistance.equalsIgnoreCase(tripDistance),"Total Distance should be"+tripDistance);
             testStepVerify.isEquals(actualTotalDistance,tripDistance);
             testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning be "+truncValue);

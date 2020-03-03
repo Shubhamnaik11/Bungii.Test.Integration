@@ -60,12 +60,12 @@ public class EstimatePage extends PageBase {
         return findElement("//XCUIElementTypeImage[@name=\"input_icon_dropoff\"]/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath);
     }
 
-  //  public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
-    public WebElement Text_DistanceValue() {       return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.ClassChain);    }
+    public WebElement Text_DistanceValue() {       return findElement("type == 'XCUIElementTypeStaticText' AND value CONTAINS[c] 'mile'", LocatorType.Predicate);    }
+ //   public WebElement Text_DistanceValue() {       return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);    }
 
-//     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
+     public WebElement Text_LoadUnLoadTimeValue() {        return findElement("//XCUIElementTypeStaticText[@name='Load + Unload Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);    }
 //    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("type == 'XCUIElementTypeStaticText' AND( value CONTAINS[c] 'mins' OR value == 'SELECT')", LocatorType.Predicate);    }
-    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[10]", LocatorType.ClassChain);    }
+//    public WebElement Text_LoadUnLoadTimeValue() {        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[9]", LocatorType.ClassChain);    }
 
 
     public WebElement Row_PromoCode() {
@@ -78,8 +78,8 @@ public class EstimatePage extends PageBase {
 
 
     public WebElement Text_EstimateValue() {
-        //return findElement("//XCUIElementTypeStaticText[@name='Total Estimate']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[6]", LocatorType.ClassChain);
+        return findElement("///XCUIElementTypeStaticText[@name='ESTIMATED COST']/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+       // return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[15]", LocatorType.ClassChain);
     }
 
 
@@ -90,7 +90,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Text_TimeValue() {
      //   return findElement("//XCUIElementTypeStaticText[@name='Time']/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeStaticText", LocatorType.XPath);
-        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[11]", LocatorType.ClassChain);
+        return findElement("**/XCUIElementTypeOther/XCUIElementTypeStaticText[14]", LocatorType.ClassChain);
     }
 
     public List<WebElement> Text_GenericStaticText() {
@@ -107,7 +107,7 @@ public class EstimatePage extends PageBase {
     }
 
     public WebElement Button_InfoTime() {
-        return findElement("//XCUIElementTypeStaticText[@name='Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
+        return findElement("//XCUIElementTypeStaticText[@name='Pickup Time']/following-sibling::XCUIElementTypeButton[@name='info']", LocatorType.XPath);
     }
 
 
@@ -118,6 +118,10 @@ public class EstimatePage extends PageBase {
     public WebElement CheckBox_Value() {
         return findElement("//XCUIElementTypeButton[contains(@name,'check box')]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
     }
+    public WebElement Text_DurationValue() {
+        return findElement("//XCUIElementTypeStaticText[@name=\"ESTIMATED DURATION\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath);
+    }
+//XCUIElementTypeStaticText[@name="ESTIMATED DURATION"]
 
 
 /*    public WebElement Text_LoadTime() {
@@ -141,7 +145,7 @@ public class EstimatePage extends PageBase {
 
     public WebElement Row_TimeSelect() {
         return findElement(
-                "//XCUIElementTypeStaticText[@name='Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
+                "//XCUIElementTypeStaticText[@name='Pickup Time']/parent::XCUIElementTypeOther", LocatorType.XPath);
     }
 /*    public WebElement Button_AddPhoto() {
         return findElement("ADD ITEM PHOTO", LocatorType.Name);
@@ -196,20 +200,20 @@ public class EstimatePage extends PageBase {
     }*/
 
     public WebElement Button_AddPhoto() {
-        return findElement("ADD ITEM PHOTO", LocatorType.AccessibilityId);
+        return findElement("ADD ITEM & RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Button_AddPhotoAdditional() {
-        return findElement("ADD ITEM OR RECEIPT PHOTO", LocatorType.AccessibilityId);
+        return findElement("ADD ITEM & RECEIPT PHOTO", LocatorType.AccessibilityId);
     }
     public WebElement Text_Time() {
-        return findElement("Time", LocatorType.AccessibilityId);
+        return findElement("Pickup Time", LocatorType.AccessibilityId);
     }
     public WebElement Text_PaymentMethod() {        return findElement("Payment Mode", LocatorType.AccessibilityId);    }
     public WebElement Text_PromoCode() {
         return findElement("Promo Code", LocatorType.AccessibilityId);
     }
     public WebElement Text_Estimate() {
-        return findElement("Total Estimate", LocatorType.AccessibilityId);
+        return findElement("ESTIMATED COST", LocatorType.AccessibilityId);
     }
     public WebElement Text_LoadUnLoadTime() {
         return findElement("Load + Unload Time", LocatorType.AccessibilityId);
@@ -218,7 +222,7 @@ public class EstimatePage extends PageBase {
         return findElement("Set time for now", LocatorType.AccessibilityId);
     }
     public WebElement Text_Distance() {
-        return findElement("Trip Distance", LocatorType.AccessibilityId);
+        return findElement("DISTANCE", LocatorType.AccessibilityId);
     }
     public WebElement Button_Set() {return findElement("Set", LocatorType.AccessibilityId); }
     public WebElement Button_RequestBungii() {
@@ -263,5 +267,9 @@ public class EstimatePage extends PageBase {
     }
     public WebElement PhotosFolder() {
         return findElement("Moments", LocatorType.AccessibilityId);
+    }
+
+    public WebElement LargeImagePhotosFolder() {
+        return findElement("ALARGEIMAGE", LocatorType.AccessibilityId);
     }
 }

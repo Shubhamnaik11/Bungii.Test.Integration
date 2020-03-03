@@ -84,7 +84,7 @@ public class ActionManager {
 
     public String getNameAttribute(WebElement element) {
         String value = element.getAttribute("name");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        logger.detail("'name' attribute for " + element.toString() + " is " + value);
         return value;
     }
 
@@ -116,7 +116,7 @@ public class ActionManager {
     }
 
     public void waitForAlert() {
-        (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
+        (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
     }
 
     /**
@@ -200,14 +200,22 @@ public class ActionManager {
         hp.put("order", "next");
         hp.put("offset", 0.15);
         hp.put("element", Columns.get(0));
+        try{
         for (int row = 0; row < forwordDate; row++)
-            js.executeScript("mobile: selectPickerWheelValue", hp);
+            js.executeScript("mobile: selectPickerWheelValue", hp);}catch (Exception e){}
+        if(!meridiem.equals(""))
+            Columns.get(3).sendKeys(meridiem);
 
-        Columns.get(3).sendKeys(meridiem);
-        Columns.get(2).sendKeys(minutes);
+        if(!minutes.equals(""))
+            Columns.get(2).sendKeys(minutes);
 
-        Columns.get(1).sendKeys(hour);
-        logger.detail("CDT  " + Columns.get(0).getAttribute("value") + " , "
+        if(!hour.equals(""))
+            Columns.get(1).sendKeys(hour);
+        if(!meridiem.equals("")) {
+            if (!Columns.get(3).getAttribute("value").equals(meridiem))
+                Columns.get(3).sendKeys(meridiem);
+        }
+        logger.detail("Scheduled time  " + Columns.get(0).getAttribute("value") + " , "
                 + Columns.get(1).getAttribute("value") + ":" + Columns.get(2).getAttribute("value") + " "
                 + Columns.get(3).getAttribute("value"));
 
@@ -348,8 +356,7 @@ public class ActionManager {
         try {
             element.clear();
         }catch (Exception e){}
-
-        element.sendKeys(inputText);
+        try {element.sendKeys(inputText);}catch (Exception e){    element.clear();element.sendKeys(inputText); }
         logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
 
     }
@@ -567,4 +574,10 @@ public class ActionManager {
             return false;
         }
     }
+
+    public static void selectElementByText(WebElement element, String text)
+    {
+        new Select(element).selectByVisibleText(text);
+    }
+
 }

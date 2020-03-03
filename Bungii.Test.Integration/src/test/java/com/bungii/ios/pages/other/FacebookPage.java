@@ -18,6 +18,10 @@ public class FacebookPage extends PageBase {
         return findElement("Share", LocatorType.Name);
     }
 
+    public WebElement Button_Post(boolean ...ignoreException) {
+        return findElement("Post", LocatorType.Name,ignoreException);
+    }
+
     //TODO: check if this is to be removed
     public WebElement Button_ShareLink(boolean...ignoreException) {
         return findElement("Want $10?", LocatorType.Name,ignoreException);

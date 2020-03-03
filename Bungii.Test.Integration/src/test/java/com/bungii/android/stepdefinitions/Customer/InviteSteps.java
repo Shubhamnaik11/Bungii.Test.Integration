@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.InvitePage;
-import com.bungii.android.pages.otherApps.OtherAppsPage;
+import com.bungii.android.pages.otherApps.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
@@ -16,7 +16,6 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
 
@@ -70,7 +69,19 @@ public class InviteSteps extends DriverBase {
         }
     }
 
-
+    @Then("^I get Invite Code$")
+    public void i_get_invite_code() {
+        try {
+            String inviteCode = getPromoCode();
+            testStepVerify.isTrue(inviteCode.trim().length() > 4,
+                    "Invite Code Should  more than 4 letter long", "Invite Code is " + inviteCode,
+                    "Invite code is  " + inviteCode + ", less then 4 char");
+            cucumberContextManager.setScenarioContext("INVITE_CODE", inviteCode);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
 
     @Then("^I should see \"([^\"]*)\" on Invite Page$")
     public void i_should_see_something_on_invite_page(String strArg1) throws Throwable {
@@ -90,6 +101,7 @@ public class InviteSteps extends DriverBase {
                     if(action.getText(invitePage.Invite_Code()).equals(""))
                         Thread.sleep(5000);
                     cucumberContextManager.setScenarioContext("ReferralCode", action.getText(invitePage.Invite_Code()));
+                    cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE",action.getText(invitePage.Invite_Code()));
                     log("I should able to see referral code", " Referral Code is " + (String) cucumberContextManager.getScenarioContext("ReferralCode"), true);
                     break;
                 default:
@@ -137,8 +149,6 @@ public class InviteSteps extends DriverBase {
                     expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", referralCode);
                     testStepVerify.contains(action.getText(invitePage.TextMsg_TextField()), expectedText, " I should able to see properly invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     }else{
-
-
                         //send any phone number
                         action.sendKeys(invitePage.Text_Receipient(),"55");
                         ((AndroidDriver)SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
@@ -154,7 +164,10 @@ public class InviteSteps extends DriverBase {
                     action.hideKeyboard();
                     testStepVerify.isElementTextEquals(invitePage.Gmail_Referral_Subject(), PropertyUtility.getMessage("customer.invite.mailsub"));
                     expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", referralCode);
-                    testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    if(action.isElementPresent(invitePage.Gmail_Referral_Body_other(true)))
+                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body_other()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
+                    else
+                        testStepVerify.contains(action.getText(invitePage.Gmail_Referral_Body()), expectedText, " I should able to see proper invite code message on text message app", "Post is correctly displayed ", "Post is correctly is not displayed");
                     break;
 
                 case "on Twitter in browser":
@@ -190,5 +203,14 @@ public class InviteSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    /**
+     * Return value for promocode
+     *
+     * @return customer promocode that is to be shared
+     */
+    public String getPromoCode() {
+        return action.getText(invitePage.Invite_Code()).trim();
     }
 }

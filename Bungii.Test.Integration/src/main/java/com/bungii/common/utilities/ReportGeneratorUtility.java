@@ -2,10 +2,17 @@ package com.bungii.common.utilities;
 
 
 
+import com.bungii.common.core.DriverBase;
+import com.bungii.common.enums.ResultType;
+import com.bungii.common.manager.CucumberContextManager;
+import static com.bungii.common.manager.ResultManager.fail;
+import com.bungii.common.manager.ResultManager;
+import com.google.common.collect.ObjectArrays;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 
 
@@ -14,19 +21,21 @@ import java.util.regex.Matcher;
  *Write test result to HTML file
  */
 
-public class ReportGeneratorUtility {
+public class ReportGeneratorUtility extends DriverBase {
 	//TODO create new summary file
 	private String detailsFolderPath,/*detailFilepath,*/summaryPath,screenshotFolder,miscFolder,logFolder;
 	private Writer bufWriter1, fileWriter;
 	private ArrayList<String> detailsArray = new ArrayList<String>();
 	private ArrayList<String> summaryArray = new ArrayList<String>();
+	private ArrayList<String> stackTraceArray = new ArrayList<String>();
+	ArrayList<String> failureArray = new ArrayList<String>();
 
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
 	private final static String logoPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME");
 
 	private static LogUtility logger = new LogUtility(ReportGeneratorUtility.class);
-	private int testCases = 0;
+	private int testCases = 1;
 	private int failed = 0;
 	private int passed = 0;
 	private int inconclusive=0;
@@ -35,6 +44,8 @@ public class ReportGeneratorUtility {
 
 	private Date testStepStart, testStepEnd;
 	private String tcName;
+	private String featureName;
+    private String reason;
 	private boolean isTcVerifyFailed;
 
 	public ReportGeneratorUtility(String detailsFolderPath, String screenshotFolder, String miscFolder, String logFolder){
@@ -66,7 +77,8 @@ public class ReportGeneratorUtility {
 	
 	public void createResultFileFromTemplate(){
 	    try {
-			File result= new File(detailsFolderPath+"/"+PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
+
+			File result= new File(detailsFolderPath+this.featureName.replace(".feature","").replace(" ","")+".html"); //PropertyUtility.getResultConfigProperties("SUMMARY_FILE"));
 			BufferedReader br =new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resulttemplate.html")));
 	    String s;
 	    String totalStr = "";
@@ -75,11 +87,13 @@ public class ReportGeneratorUtility {
 			    totalStr += s;	        
 			}
 	        totalStr = totalStr.replaceAll("<!--LOGO.PATH-->",logoPath);
+            totalStr = totalStr.replaceAll("<!--FEATURE.NAME-->",this.featureName);
 	        totalStr = totalStr.replaceAll("<!--SUMARRY-->", Matcher.quoteReplacement(getLogDetails(summaryArray)));
-	        totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
+			totalStr = totalStr.replaceAll("<!--DETAILS-->", Matcher.quoteReplacement(getLogDetails(detailsArray)));
 	        totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->",passed+"");
 	        totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->",failed+"");
 	        totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->",inconclusive+"");
+            totalStr = totalStr.replaceAll("<!--FAILURE.DETAILS-->",Matcher.quoteReplacement(getLogFailureData(failureArray)));
 
 	        FileWriter fw = new FileWriter(result);
 	    fw.write(totalStr);
@@ -94,21 +108,27 @@ public class ReportGeneratorUtility {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
-		this.tcName = tcName;
+	public void startTestCase(String tcName , String featureName) {
+		this.tcName = tcName.replace(",","");
+		this.featureName = featureName;
 		this.startTime = new Date();
 		this.isTcVerifyFailed=false;
 		this.testStepCount=0;
-		addTestCaseEntryInDetailsTable(tcName);
+		this.reason="";
+		addTestCaseEntryInDetailsTable(tcName, featureName);
 		ThreadLocalStepDefinitionMatch.resetNumberOfSteps();
 	}
 
 	/**
 	 * @param name Add Test case entry to details table
 	 */
-	public void addTestCaseEntryInDetailsTable(String name) {
-		String str = "<tr class='header'><td colspan='7'  >" +"Test case:   "+ name + "</td></tr>"; ;
+	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
+	    name= name.replace(",","");
+		String str = "<tr class='header'><td colspan='8' align='left'>Scenario : "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
+		stackTraceArray.clear();
+        this.reason="";
+		logger.detail("Scenario: "+testCases+" of Feature: "+ featureName);
 	}
 
 	/**
@@ -119,18 +139,45 @@ public class ReportGeneratorUtility {
 
 		testStepStart = testStepEnd == null ? startTime : testStepEnd;
 		testStepEnd = new Date();
+		int stepCount= testStepCount+1;
+		String reason = screenDumpLink((String) eventData.get("actual"), eventData);
+		String str = "<tr><td + rightSpan + >" + stepCount + "</td>";
+		str = str + "<td align='left'>" + eventData.get("name").toString() + "</td>";
+		if (eventData.get("type").toString() == "PASSED") {
+			str = str + "<td style='background-color:MediumSeaGreen;'>" + eventData.get("type").toString() + "</td>";
+		}
+		else {
+			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
+		}
 
-		String str = "<tr><td + rightSpan + >" + eventData.get("name").toString() + "</td>";
-		str = str + "<td>" + eventData.get("type").toString() + "</td>";
 		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
-		str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+		str = str + "<td>" + reason + "</td>";
 		str = str + "<td>" + testStepStart + "</td>";
 		str = str + "<td>" + testStepEnd + "</td>";
 		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
 
 		detailsArray.add(str);
+		if (eventData.get("type").toString() != "PASSED") {
+			detailsArray.addAll(stackTraceArray);
+            this.reason = reason;
+			stackTraceArray.clear();
+		}
 		//increase step count ;
 		testStepCount++;
+	}
+	/**
+	 * Add test case step data to file buffer
+	 * @param eventData Map that contains test details
+	 */
+	public void addStackTrace(Map<String, String> eventData) {
+   if(eventData.get("actual").toString()!= "") {
+       String str = "<tr><td + rightSpan + ></td>";
+       str = str + "<td colspan=8 align='left'>Error Log : <div class='maincontent'><div class='content'>" + eventData.get("actual").toString() + "</div><div class='txtcol'><a>Show More</a></div></div></td>";
+       stackTraceArray.add(str);
+   }
+   else {
+       stackTraceArray.add("");
+         }
 	}
 
 	/**
@@ -161,18 +208,33 @@ public class ReportGeneratorUtility {
 	 */
 	public void endTestCase(boolean isFailed) {
 		String str1;
+		//String str2;
 		testCases++;
 		testFinish = new Date();
 		String str = "";
 		String status = "";
 		//check testng assert and local flag as well
 		if (!isFailed &&!isTcVerifyFailed){
-			status = "Passed";
+			status = "<td style='background-color:MediumSeaGreen;'>Pass</td>";
 			passed++;
 		}
 		else {
-			status = "Failed";
+            try {
+				if (this.reason.equalsIgnoreCase( "") || this.reason.equalsIgnoreCase( "Error performing step,Please check logs for more details" )|| this.reason.equalsIgnoreCase( "Error performing step, Please check logs for more details" )) {
+					fail("Temporary step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"));
+				}
+				}
+            catch(Exception ex){}
+			String reason = this.reason;
+             //"<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>"+reason+"</td></tr><tr>":"<tr>";
+			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
+			detailsArray.add(st);
 			failed++;
+			status = "<td style='background-color:pink;'>Fail</td>";
+			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
+			failureArray.add(str2);
+            failureArray.addAll(stackTraceArray);
+
 		}
 
 		str = "<td>" + ThreadLocalStepDefinitionMatch.getNumberOfSteps() + "</td>" + "<td>" + this.startTime
@@ -180,15 +242,18 @@ public class ReportGeneratorUtility {
 /*		str = "<td>" + this.testStepCount + "</td>" + "<td>" + this.startTime
 				+ "</td><td>" + this.testFinish + "</td><td>" + calculateDuration(this.testFinish, this.startTime);*/
 
-		str1 = "<td>" + tcName + "</td><td>" + status + "</td>" + str;
+		str1 = "<td cursor:'pointer;' style='text-align:left;'>" + tcName + "</td>" + status  + str;
+
+
 		summaryArray.add(str1);
 	}
 
 	/**
 	 * Mark test case as failed.  Dont stop test, use in case of verify
 	 */
-	public void verificationFailed(){
+	public void verificationFailed(Map<String, String> eventData){
 		this.isTcVerifyFailed=true;
+		endTestDataContainer(eventData);
 		logger.trace("Marked test case :"+this.tcName +" failed as verification got failed"  );
 	}
 	
@@ -224,7 +289,6 @@ public class ReportGeneratorUtility {
 		return time;
 	}
 
-
 	/**
 	 * Close summary file
 	 */
@@ -244,8 +308,6 @@ public class ReportGeneratorUtility {
 		}
 	}
 
-
-	
 	/**
 	 * Write input string to output stream
 	 * @param lines String that is to be written
@@ -260,13 +322,35 @@ public class ReportGeneratorUtility {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
-	
-	
+
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";
 		for (String str : strArray)
 			strDetails+="<tr>" + str + "</tr>";
-		logger.detail("Generated Report : "+strDetails);
+		final String cleansedString = StringUtils.normalizeSpace(strDetails);
+		//logger.detail("Generated Report : "+cleansedString);
 		return strDetails;
 	}
+	private String getLogFailureData(ArrayList<String> strArray) {
+		String strDetails = "";
+		for (String str : strArray)
+			strDetails+="<tr class='header'>" + str + "</tr>";
+		final String cleansedString = StringUtils.normalizeSpace(strDetails);
+		//logger.detail("Generated Report : "+cleansedString);
+		return strDetails;
+	}
+
+	public void endTestDataContainer(Map<String, String> eventData)
+	{
+		//String str = "<tr><td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error.</td>";
+		//str = str + "<td style='background-color:pink;'> " + eventData.get("type").toString() + "</td>";
+
+	//	str = str + "<td>" + eventData.get("expected").toString() + "</td>";
+	//	str = str + "<td>" + screenDumpLink((String) eventData.get("actual"), eventData) + "</td>";
+
+		//detailsArray.add(str);
+
+	}
+
+
 }

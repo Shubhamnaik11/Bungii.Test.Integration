@@ -23,9 +23,9 @@ public class EstimatePage extends PageBase {
     //------Trip Details-------------------------------------------------------------------------
     public WebElement Text_TripTime () { return findElement("com.bungii.customer:id/estimate_value_time", LocatorType.Id); }
 
-    public WebElement Text_TripDistance () { return findElement("com.bungii.customer:id/estimate_value_distance", LocatorType.Id); }
+    public WebElement Text_TripDistance () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
-    public WebElement Text_TotalEstimate () { return findElement("com.bungii.customer:id/estimate_value_total", LocatorType.Id); }
+    public WebElement Text_TotalEstimate () { return findElement("//android.widget.LinearLayout[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/android.widget.TextView[2]", LocatorType.XPath); }
 
     //------loading/unloading time---------------------------------------------------------------
     public WebElement Link_LoadingUnloadingTime () { return findElement("com.bungii.customer:id/pickup_estimate_textview_loadunloadtime", LocatorType.Id); }
@@ -45,7 +45,7 @@ public class EstimatePage extends PageBase {
     public List<WebElement> LoadingUnloadingTime () { return findElements("//android.widget.ListView[@resource-id='com.bungii.customer:id/select_dialog_listview']/android.widget.CheckedTextView[@resource-id='android:id/text1']", LocatorType.XPath); }
 
     //------Promo Code--------------------------------------------------------------------------
-    public WebElement Link_Promo () { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id); }
+    public WebElement Link_Promo (boolean ignoreException) { return findElement("com.bungii.customer:id/estimate_value_promo", LocatorType.Id,ignoreException); }
 
     public WebElement Select_PromoCode () { return findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/promo_code_label' and @text='$10.00 - NEW01']", LocatorType.XPath); }
 
@@ -99,6 +99,9 @@ public class EstimatePage extends PageBase {
     public WebElement Option_Camera (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Camera']", LocatorType.XPath,ignoreException); }
 
     public WebElement Option_Gallery () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']", LocatorType.XPath); }
+    public WebElement Option_OverLayPhotos () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Photos']", LocatorType.XPath); }
+    public WebElement Option_LARGEIMAGEFOLDER() { return findElement("//android.widget.TextView[@resource-id='com.google.android.apps.photos:id/title' and @text='ALARGE_IMAGE']", LocatorType.XPath); }
+    public WebElement IMAGE_LOCATOR() { return findElement("//android.view.View[contains(@content-desc,\"Photo taken on \")]", LocatorType.XPath); }
 
     public WebElement Button_Camera_ClickAlternate () { return findElement("com.sec.android.app.camera:id/camera_preview", LocatorType.Id); }
 
@@ -123,9 +126,11 @@ public class EstimatePage extends PageBase {
     public WebElement Button_RequestConfirmCancel () { return findElement("android:id/button2", LocatorType.Id); }
 
     public WebElement Button_OK (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath,ignoreException); }
+    public WebElement Button_Cancel (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button2' and @text='Cancel']", LocatorType.XPath,ignoreException); }
+      public WebElement Button_Proceed (boolean ...ignoreException) { return findElement("//android.widget.Button[@resource-id='android:id/button1' and @text='PROCEED']", LocatorType.XPath,ignoreException); }
 
 
-    public WebElement Alert_DelayRequestingTrip () { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath); }
+    public WebElement Alert_DelayRequestingTrip (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='android:id/message' and @text='Oops! Since there has been a delay in requesting this trip, the scheduled time selected is no longer valid. Please recheck and submit your request.']", LocatorType.XPath, ignoreException); }
 
     public WebElement Button_DelayRequestingTrip_OK () { return findElement("android:id/button1", LocatorType.Id); }
 
@@ -136,7 +141,33 @@ public class EstimatePage extends PageBase {
     public WebElement Button_AcceptPopup () { return findElement("//*[@resource-id='android:id/button1' and @text='OK']", LocatorType.XPath); }
 
 
+    public WebElement Text_BungiiTime() { return findElement("com.bungii.customer:id/item_my_bungii_tv_date", LocatorType.Id);}
 
+    public WebElement Button_SystemCalenderOK() { return  findElement("android:id/button1", LocatorType.Id);}
+    public WebElement Text_TimeHourPickerBack() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/preceding-sibling::android.widget.Button", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeHourPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeHourPickerNext() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/following-sibling::android.widget.Button", LocatorType.XPath).get(0);}
+    public WebElement Text_TimeMinutesPicker() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(1);}
+  public WebElement Text_TimeMinutesPickerNext() { return  findElements("//android.widget.EditText[@resource-id='android:id/numberpicker_input']/following-sibling::android.widget.Button", LocatorType.XPath).get(1);}
 
+  public WebElement Text_TimeMeridian() { return  findElements("//android.widget.NumberPicker/android.widget.EditText", LocatorType.XPath).get(2);}
+  public WebElement Text_TimeMeridianNext() { return  findElements("//android.widget.NumberPicker[last()]/android.widget.Button", LocatorType.XPath).get(2);}
+    public WebElement Button_OKOnTimePicker(){ return findElement("com.bungii.customer:id/timepicker_okay", LocatorType.Id);}
+    public WebElement Text_Month() {return findElement("android:id/date_picker_month", LocatorType.Id);}
+    public WebElement Text_Year() {return findElement("android:id/date_picker_year", LocatorType.Id);}
+    public WebElement Button_DoneOnSuccess(){return  findElement("com.bungii.customer:id/bungii_posted_button_done", LocatorType.Id);}
 
+    public WebElement Button_AcceptRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_positive", LocatorType.Id);}
+    public WebElement Button_BungiiAccept() {return  findElement("//*[@resource-id='com.bungii.driver:id/activity_pickup_request_accept_available_pickup_button']", LocatorType.XPath);}
+    public WebElement Button_CancelRequest() {return  findElement("com.bungii.driver:id/notification_alert_button_negative", LocatorType.Id);}
+
+  public WebElement Link_PromoValue(boolean ignoreException) { return findElement("//*[@resource-id='com.bungii.customer:id/estimate_promocode_container']/child::android.widget.ImageView", LocatorType.XPath,ignoreException);}
+  public WebElement Text_GetDistance() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_distance_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Text_GetCost() {return findElements("//*[@resource-id='com.bungii.customer:id/estimate_ll_estimated_cost_container']/child::android.widget.TextView", LocatorType.XPath).get(1);}
+  public WebElement Button_Back(boolean ignoreException) {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath,ignoreException);}
+
+  public WebElement Button_AcceptRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button']", LocatorType.XPath).get(1);}
+  public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
+
+  public WebElement Calendar_NextMonth() {return findElement("//android.widget.ListView/android.view.View[2]", LocatorType.XPath);}
 }

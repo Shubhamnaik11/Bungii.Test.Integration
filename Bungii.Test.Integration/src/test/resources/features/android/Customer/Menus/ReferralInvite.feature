@@ -9,20 +9,21 @@ Feature: ReferralInvite
 
 
   @regression
-  Scenario: Cust_Menu_ReferralInvite_TextMessage
+  Scenario: Verify Sharing by Text
     When I tap "Share" on Invite page
     And I tap "Share by Text Message" on Invite page
     Then I should see post "on text message app"
 
   @regression
-  Scenario: Cust_Menu_ReferralInvite_Email
+  Scenario: Verify Sharing by Email
     When I tap "Share" on Invite page
     And I tap "Share by Email" on Invite page
     Then I should see post "on gmail app"
     And I Switch to "customer" application on "same" devices
 
   @regression
-  Scenario: Cust_Menu_ReferralInvite_Twitter_AppNotInstalled
+
+  Scenario: Verify When Customer With No Twitter App Shares Referral Invite Via Twitter Then It Opens in Browser
     Given I have "twitter" app "not installed"
     When I tap "Share" on Invite page
     And I tap "Share on Twitter" on Invite page
@@ -31,7 +32,7 @@ Feature: ReferralInvite
 
   @notwitter
  # @regression
-  Scenario: Cust_Menu_ReferralInvite_Twitter_AppInstalled
+  Scenario: Verify When Customer With Twitter App Shares Referral Invite Via Twitter
     Given I have "twitter" app "installed"
     When I tap "Share" on Invite page
     And I tap "Share on Twitter" on Invite page
@@ -40,7 +41,7 @@ Feature: ReferralInvite
 
 
   @regression
-  Scenario: As Bungii customer I go to Invite Page , Page with Proper info and promocode should be displayed
+  Scenario: Verify Screen With Proper Info And Promocode is displayed on Invite Screen
     Then I should see "all elements" on Invite Page
     When I tap "Back" on Invite page
     Then "Home" page should be opened

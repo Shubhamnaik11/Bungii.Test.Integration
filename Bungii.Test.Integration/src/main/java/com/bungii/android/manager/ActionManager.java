@@ -11,7 +11,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.touch.TouchActions;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -23,6 +23,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.ElementOption.element;
@@ -30,7 +31,12 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
+    private final long DRIVER_WAIT_TIME;
 
+    public ActionManager() {
+        DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+
+    }
     public static void keyBoardEvent(int eventNumber) {
         try {
             String strCmdText;
@@ -44,15 +50,31 @@ public class ActionManager {
     }
 
     public static void clear(WebElement element) {
-        element.clear();
-        logger.detail("Clear locator by locator" + element.toString());
+        try {
+            element.clear();
+            logger.detail("Clear locator by locator" + element.toString());
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to clear element " + element.toString(),
+                    true);
+        }
     }
 
     public static void NavigateBack() {
-        AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
-        driver.navigate().back();
-        logger.detail("Navigate Back");
+        try {
+            AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
 
+        driver.navigate().back();
+        logger.detail("Navigated back");
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to navigate back",
+                    true);
+        }
     }
 
 /*    public static void HideKeyboard() {
@@ -92,10 +114,10 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception Ex) {
-            logger.detail("Page source "+ SetupManager.getDriver().getPageSource());
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(Ex));
-         //   Assert.fail("Following element is not displayed : " + element);
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+                    true);
         }
     }
 
@@ -104,8 +126,11 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, waitTime);
             wait.until((ExpectedConditions.visibilityOf(element)));
-        } catch (Exception Ex) {
+        } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+                    true);
         }
     }
 
@@ -123,8 +148,12 @@ public class ActionManager {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOfAllElements(element)));
-        } catch (Exception Ex) {
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Alert not received : " + element.toString(),
+                    true);
             Assert.fail("Alert not received : " + element);
+
         }
     }
 
@@ -162,10 +191,18 @@ public class ActionManager {
      * @param text    , Text value that is to be sent
      */
     public void sendKeys(WebElement element, String text) {
+        try{
         element.sendKeys(text);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
         logger.detail("Send  " + text + " in element" + element.toString());
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+                    true);
+        }
     }
 
     public void hideKeyboard() {
@@ -194,7 +231,7 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         String text = element.getText();
-        logger.detail("text Value is  " + text + " for element" + element.toString());
+        logger.detail("Text Value is  " + text + " for element " + element.toString());
 
         return text;
     }
@@ -238,10 +275,18 @@ public class ActionManager {
         }
     }
     public void clearSendKeys(WebElement element, String text) {
+        try{
         element.clear();
         element.sendKeys(text);
         hideKeyboard();
-        logger.detail("Send  " + text + " in element" + element.toString());
+        logger.detail("Send  " + text + " in element " + element.toString());
+    }
+        catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+                true);
+    }
     }
 
     /**
@@ -290,8 +335,16 @@ public class ActionManager {
      * @param element ,locator that is to be clicked
      */
     public void click(WebElement element) {
+        try{
         element.click();
-        logger.detail("Click on locator by locator" + element.toString());
+        logger.detail(" Click on element by locator " + element.toString());
+    }
+        catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Unable to click on  element" + element.toString(),
+                true);
+    }
     }
     /**
      * @param element ,locator that is to be clicked
@@ -304,10 +357,18 @@ public class ActionManager {
 
     }
     public void click(Point p) {
-        TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
-        PointOption top = PointOption.point(p.getX(), p.getY());
-        touchAction.tap(top).perform();
-        logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+        try {
+            TouchAction touchAction = new TouchAction((AndroidDriver<MobileElement>) SetupManager.getDriver());
+            PointOption top = PointOption.point(p.getX(), p.getY());
+            touchAction.tap(top).perform();
+            logger.detail("Clicked point at , (" + p.getX() + "," + p.getY() + ")");
+        }
+          catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to click point at , (" + p.getX() + "," + p.getY() + ")",
+                    true);
+        }
     }
 
     public void scrollToBottom() {
@@ -323,7 +384,9 @@ public class ActionManager {
             //scroll with TouchAction by itself
             scroll(pressX, bottomY, pressX, topY);
         } catch (Exception e) {
-            logger.error("Not able to scroll");
+            logger.detail(ExceptionUtils.getStackTrace(e)+"Not able to scroll to botton");
+          //  error("Step should be successful", "Unable to scroll to bottom",
+              //      true);
         }
     }
 
@@ -348,6 +411,7 @@ public class ActionManager {
 
         TouchAction touchAction = new TouchAction(driver);
         touchAction.longPress(PointOption.point(fromX, fromY)).moveTo(PointOption.point(toX, toY)).release().perform();
+
     }
 
     public void scrollUntilElementDisplayed(WebElement element) {
@@ -366,9 +430,11 @@ public class ActionManager {
             // just non zero point, as it didn't scroll to zero normally
             int topY = driver.manage().window().getSize().height / 6;
             //scroll with TouchAction by itself
-            scroll(pressX, topY, pressX, bottomY);
+            scroll(pressX, topY+180, pressX, bottomY);
         } catch (Exception e) {
-            logger.detail("Failed to drap to top");
+           // logger.detail("Failed to drap to top");
+           // error("Step should be successful", "Failed to scroll to top",
+                //    true);
         }
     }
 
@@ -483,6 +549,10 @@ public class ActionManager {
         }
     }
 
+    public void waitForAlert() {
+        (new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME)).until(ExpectedConditions.alertIsPresent());
+    }
+
     public void hardWait(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
             logger.detail("Inside Hard wait , wait for " + i + " minutes");
@@ -493,5 +563,52 @@ public class ActionManager {
             //Send some command after 30 sec so that connection wont die
             ((AndroidDriver)SetupManager.getDriver()).getDeviceTime();
         }
+    }
+
+    public Rectangle getLocatorRectangle(WebElement element) {
+
+        // MobileElement element = (MobileElement) waitForExpectedElement(by);
+        Point elementLocation = element.getLocation();
+        Dimension elementSize = element.getSize();
+        int leftX = elementLocation.getX();
+        int width = leftX + elementSize.getWidth();
+        int upperY = elementLocation.getY();
+        int hight = upperY + elementSize.getHeight();
+        Rectangle area = new Rectangle(leftX, upperY, width, hight);
+        return area;
+
+    }
+    /**
+     * Drag from one point to andother IOS SPECIFIC
+     *
+     * @param startx   X coordinate for initial location of swipe
+     * @param starty   Y coordinate for initial location of swipe
+     * @param endx     X coordinate for end location of swipe
+     * @param endy     Y coordinate for end location of swipe
+     * @param duration time duration in which swipe should be performed
+     * @param element  Reference element for all the coordinate
+     */
+    public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
+        logger.detail("Slide started");
+
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+        Map<String, Object> params = new HashMap<>();
+        params.put("duration", duration);
+        params.put("fromX", startx);
+        params.put("fromY", starty);
+        params.put("toX", endx);
+        params.put("toY", endy);
+        params.put("element", ((RemoteWebElement) element).getId());
+        js.executeScript("mobile: dragFromToForDuration", params);
+        logger.detail("Slide ended");
+    }
+
+    public void navigateTo(String url) {
+        SetupManager.getDriver().navigate().to(url);
+    }
+
+    public String getCurrentURL() {
+        String s = SetupManager.getDriver().getCurrentUrl();
+        return s;
     }
 }

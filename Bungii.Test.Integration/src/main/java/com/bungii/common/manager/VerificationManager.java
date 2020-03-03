@@ -24,7 +24,7 @@ public class VerificationManager {
 	public void isTrue(boolean value, String expectedText, String errorMessage) {
 		try {
 			Assert.assertTrue(value, expectedText);
-			ResultManager.pass( expectedText, "Success :" + expectedText, true);
+			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
@@ -38,10 +38,10 @@ public class VerificationManager {
 	public void isTrue(boolean value, String expectedText) {
 		try {
 			Assert.assertTrue(value, expectedText);
-			ResultManager.pass( expectedText, "Success :" + expectedText, true);
+			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, "Failed :" + expectedText, true);
+			ResultManager.fail( expectedText, "Failed : " + expectedText, true);
 		}
 	}
 
@@ -71,12 +71,12 @@ public class VerificationManager {
 	public void isEquals(String actualValue,String expectedValue, String expectedText, String errorMessage) {
 		try {
 			Assert.assertEquals(expectedValue, actualValue);
-			ResultManager.pass( expectedText, "Success :" + expectedText, true);
+			ResultManager.pass( expectedText, "Success : " + expectedText, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
-		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 
 	}
 	/**
@@ -93,7 +93,7 @@ public class VerificationManager {
 			//mark test case fail and continue test
 			ResultManager.fail( expectedText, errorMessage, true);
 		}
-		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
 	
 	/**
@@ -108,9 +108,9 @@ public class VerificationManager {
 			ResultManager.pass( expectedText, sucessMessage, true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedText, errorMessage+"actual value"+actualValue+".expected value"+expectedValue, true);
+			ResultManager.fail( expectedText, errorMessage+" Actual Value "+actualValue+" | Expected Value "+expectedValue, true);
 		}
-		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 
 	}
 	/**
@@ -123,9 +123,9 @@ public class VerificationManager {
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedValue+" should be displayed", actualValue+" is displayed instead of"+expectedValue, true);
+			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
 		}
-		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
 	/**
 	 * @param expectedValue Expected value
@@ -137,9 +137,9 @@ public class VerificationManager {
 			ResultManager.pass( expectedValue+" should be displayed", actualValue+" is correctly displayed", true);
 		} catch (AssertionError e) {
 			//mark test case fail and continue test
-			ResultManager.fail( expectedValue+" should be displayed", actualValue+" is displayed instead of"+expectedValue, true);
+			ResultManager.fail( expectedValue+" should be displayed", expectedValue+ " is not displayed. Actual : "+actualValue, true);
 		}
-		logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+		logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
 	}
 
 	
@@ -248,7 +248,7 @@ public class VerificationManager {
 		} catch (Exception e) {
 			isDisplayed= false;
 		}
-		isTrue(isDisplayed,expectedMessage,successMessage, errorMessage);
+		isTrue(isDisplayed,expectedMessage,successMessage+" :", errorMessage);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class VerificationManager {
 	 */
 	public void isElementTextEquals(WebElement element,String expectedValue) {
 		String elementText=element.getText();
-		logger.detail("Element Text"+elementText);
+		logger.detail("Element Text : "+elementText);
 		isEquals(elementText,expectedValue);
 	}
 
@@ -286,4 +286,6 @@ public class VerificationManager {
 		}
 		isFalse(isDisplayed,expectedMessage,successMessage, errorMessage);
 	}
+
+
 }

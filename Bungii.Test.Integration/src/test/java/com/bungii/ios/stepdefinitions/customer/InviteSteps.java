@@ -75,13 +75,14 @@ public class InviteSteps extends DriverBase {
             String messagePost = "";
             String expectedText = "";
             String inviteCode = (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
-
+            Thread.sleep(30000);
             switch (application.toUpperCase()) {
                 case "MESSAGE":
                     messagePost = getTextMessageValue();
                     expectedText = PropertyUtility.getMessage("customer.invite.sms").replace("{0}", inviteCode);
                     break;
                 case "MAIL":
+
                     String[] data = getMailMessageValue();
                     messagePost = data[1];
                     expectedText = PropertyUtility.getMessage("customer.invite.mailbody").replace("{0}", inviteCode);

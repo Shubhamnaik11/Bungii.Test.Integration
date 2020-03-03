@@ -89,8 +89,8 @@ public class ReportManager {
 	 * Method that will be called before start of test case
 	 * @param tcName Name of test case 
 	 */
-	public void startTestCase(String tcName) {
-		htmlReportManager.startTestCase(tcName);
+	public void startTestCase(String tcName, String featureName) {
+		htmlReportManager.startTestCase(tcName, featureName);
 	}
 
 	/**
@@ -103,8 +103,8 @@ public class ReportManager {
 	/**
 	 * Set test case failed flag to true
 	 */
-	public void verificationFailed(){
-		htmlReportManager.verificationFailed();
+	public void verificationFailed(Map<String, String> eventData){
+		htmlReportManager.verificationFailed(eventData);
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
@@ -115,6 +115,13 @@ public class ReportManager {
 	 */
 	public void addTestData(Map<String, String> eventData){
 		htmlReportManager.addTestData(eventData);
+	}
+	/**
+	 *Add row in Result
+	 * @param eventData map of information
+	 */
+	public void addStackTrace(Map<String, String> eventData){
+		htmlReportManager.addStackTrace(eventData);
 	}
 	/**
 	 * Method that will be called at end of Test Suite

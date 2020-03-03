@@ -1,17 +1,21 @@
 package com.bungii.common.core;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.MobileBy;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static com.bungii.common.manager.ResultManager.error;
 
-public class PageBase {
+
+public class PageBase extends DriverBase {
     private long DRIVER_WAIT_TIME;
 
     public PageBase() {
@@ -180,6 +184,8 @@ public class PageBase {
                 //if retry is true mean this is second time in loop .so break
                 if(retry)
                 {
+                    error("Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] should be displayed", "Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] is not displayed. Please refer error logs for more details.",
+                            true);
                     break;
                 }
                 retry=true;
@@ -189,9 +195,15 @@ public class PageBase {
                         //ignore exception
                         //or to do action
                     } else {
+                      //  error("Element with Locator : "+identifier+" by type : "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
+                               // true);
+                        cucumberContextManager.setScenarioContext("ERROR","Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] is not displayed. Please refer error logs for more details.");
                         throw new NoSuchElementException(identifier);
                     }
                 } else {
+                  //  error("Element with Locator : "+identifier+" by type : "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
+                         //   true);
+                    cucumberContextManager.setScenarioContext("ERROR","Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] is not displayed. Please refer error logs for more details.");
                     throw new NoSuchElementException(identifier);
                 }
             }  finally {

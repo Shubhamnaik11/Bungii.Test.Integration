@@ -18,6 +18,8 @@ public class BungiiCompletePage extends PageBase {
     public WebElement DriverName() { return findElement("//android.widget.TextView[@instance='2']",LocatorType.XPath); }
 
     public WebElement RatingBar() { return findElement("com.bungii.customer:id/rating_bar",LocatorType.Id); }
+    public WebElement RatingBar1() { return findElements("com.bungii.customer:id/rating_bar",LocatorType.Id).get(0); }
+    public WebElement RatingBar2() { return findElements("com.bungii.customer:id/rating_bar",LocatorType.Id).get(1); }
 
     public WebElement Title_Tip() { return findElement("//android.widget.TextView[@text='Tip']",LocatorType.XPath); }
 
@@ -37,4 +39,11 @@ public class BungiiCompletePage extends PageBase {
     public WebElement FinalCost() { return findElement("com.bungii.customer:id/summary_value_cost",LocatorType.Id);}
 
     public WebElement Button_OK() { return findElement("com.bungii.customer:id/pickup_success_ok_button",LocatorType.Id); }
+    public WebElement Text_DriverName1() { return findElement("com.bungii.customer:id/textView3",LocatorType.Id); }
+    public WebElement Text_DriverName2() { return findElement("com.bungii.customer:id/textView4",LocatorType.Id); }
+
+    public WebElement Button_Plus() { return findElement("com.bungii.customer:id/tip_increase_button", LocatorType.Id);}
+    public WebElement Text_TipValue() { return findElement("com.bungii.customer:id/tip_value_label", LocatorType.Id);}
+    public WebElement Button_Ok() { return findElement("com.bungii.customer:id/pickup_success_ok_button", LocatorType.Id);}
+    //public WebElement Button_Close() { return findElement("com.bungii.customer:id/tip_value_label", LocatorType.Id);}
 }

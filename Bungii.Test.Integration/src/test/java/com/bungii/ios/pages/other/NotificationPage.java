@@ -16,6 +16,7 @@ public class NotificationPage extends PageBase{
 	public WebElement Button_NotificationClearConfirm(boolean... ignoreException) { return findElement("Confirm clear notifications in section",LocatorType.AccessibilityId,ignoreException);};
 
 
+	public WebElement Generic_Notification(boolean ...ignoreException) {return findElement("name == 'NotificationCell' or name ='Clear notifications in section' or name='Press Home to open' or name='No Older Notifications'", PageBase.LocatorType.Predicate,ignoreException); }
 
 
 }

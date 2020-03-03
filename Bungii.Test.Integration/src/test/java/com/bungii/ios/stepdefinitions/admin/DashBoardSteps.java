@@ -34,6 +34,22 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_ReferralSource());
                     break;
+                case "live trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
+                case "customers":
+                    action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "drivers":
+                    action.click(dashBoardPage.Button_Drivers());
+                    break;
+                case "geofence":
+                    action.click(dashBoardPage.Menu_Geofences());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

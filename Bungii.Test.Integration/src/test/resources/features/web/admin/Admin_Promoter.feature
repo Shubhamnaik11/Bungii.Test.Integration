@@ -6,10 +6,9 @@ Feature: Admin_Promoter
     When I click on "Promotion  > Promoters" Menu
     Then I should be directed to "Promoters Page"
 
-  @testReport
   @sanity
   @regression
-  Scenario: Admin_AddNewPromoter
+  Scenario: Verify Add New Promoter
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials | Description  | Status  |
@@ -19,11 +18,9 @@ Feature: Admin_Promoter
     When I search by promoter Name "PT<<CurrentDateTime>>"
     Then the promoter "PT<<Unique>>" is displayed in the Promocodes grid
 
-
-  @testReport
   @sanity
   @regression
-  Scenario: Admin_AddPromotion_To_Promoter_And_Add_Promocodes
+  Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials    | Description  | Status  |
@@ -46,10 +43,9 @@ Feature: Admin_Promoter
     When I search by first code generated for above promocode
     Then the promocode is displayed in the Promocodes grid
 
-  @testReport
   @sanity
   @regression
-  Scenario: Admin_AddPaymentToPromoter
+  Scenario: Verify Adding Payment To Promoter
     When I click on the "New Promoter" Button
     And I enter following values in fields in "Add New Promoter" popup
       | Promoter Name | Code Initials    | Description  | Status  |
@@ -65,11 +61,8 @@ Feature: Admin_Promoter
     And I click on "Save" button on "Promoter Cards" screen
     Then the card is added to the promoter "PT<<CurrentDateTime>>"
 
-  @underconst
-  @testReport
-  @sanity
   @regression
-  Scenario: Admin_Promotergrid_Sort
+  Scenario: Verify Promoter Grid Sort ASC DESC
     When I click on "Name" header "Ascending" on "Promoter" grid
     Then the "Promoter" list should be sorted by "Ascending" order of "Name"
     When I click on "Name" header "Descending" on "Promoter" grid
@@ -83,18 +76,14 @@ Feature: Admin_Promoter
     When I click on "Code Initials" header "Descending" on "Promoter" grid
     Then the "Promoter" list should be sorted by "Descending" order of "Code Initials"
 
-  @testReport
-  @sanity
   @regression
-  Scenario: Admin_AddNewPromoter_Cancel
+  Scenario: Verify Cancellation of Add New Promoter
     When I click on the "New Promoter" Button
     And I click on the "Cancel" Button on "Add New Promoter" popup
     Then the "Add New Promoter" popup gets removed from UI
 
-  @testReport
-  @sanity
   @regression
-  Scenario: Admin_AddNewPromoter_Fieldvalidations
+  Scenario: Verify Field Validations Of Add New Promoter
     When I click on the "New Promoter" Button
     When I click on the "Save" Button on "Add New Promoter" popup
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed
@@ -102,5 +91,4 @@ Feature: Admin_Promoter
     |Value|Message|
     |ABC... | Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only                 |
     Then the "corresponding" message is displayed beside the "respective" field
-
 

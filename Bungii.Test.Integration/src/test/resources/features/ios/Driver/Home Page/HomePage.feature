@@ -5,7 +5,7 @@ Feature: Driver Home screen
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-
+  @FAILED2702
   @regression
   Scenario: To verify that the default status mode is Offline
     Then the status of the driver should be "Offline"
@@ -15,6 +15,14 @@ Feature: Driver Home screen
     Then The "name" for "valid" driver should be correctly displayed
     And The "Vehicle info" for "valid" driver should be correctly displayed
     And The "rating" for "valid" driver should be correctly displayed
+    And I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "drivers" from admin sidebar
+    And I search driver from drivers
+    Then rattings should be correctly displayed on grid
+    Then rattings should be correctly displayed on profile
+
 
   @regression
   Scenario: Verify the buttons on page

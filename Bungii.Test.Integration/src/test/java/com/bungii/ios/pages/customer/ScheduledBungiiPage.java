@@ -10,7 +10,7 @@ public class ScheduledBungiiPage extends PageBase {
 
 
     public WebElement Button_SaveMoney() {
-        return findElement("SAVE MONEY'", LocatorType.Name);
+        return findElement("SAVE MONEY", LocatorType.Name);
     }
 
     public WebElement Cell_TripInformation() {
@@ -45,5 +45,12 @@ public class ScheduledBungiiPage extends PageBase {
         return findElements("//XCUIElementTypeImage[@name='disclosure-arrow-right']/preceding-sibling::XCUIElementTypeStaticText[last()]", LocatorType.XPath);
     }
 
+    public WebElement Trip_Status() {
+        return findElement("//XCUIElementTypeImage[@name=\"disclosure-arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath);
+    }
+
+    public WebElement Cell_FirstTrip() {
+        return findElement("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/parent::XCUIElementTypeCell", LocatorType.XPath);
+    }
 
 }

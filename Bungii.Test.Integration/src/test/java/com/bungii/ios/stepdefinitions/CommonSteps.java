@@ -24,11 +24,17 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -73,6 +79,8 @@ public class CommonSteps extends DriverBase {
     private EnableNotificationPage enableNotificationPage;
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
+    private DbUtility dbUtility = new DbUtility();
+    private BungiiDetails bungiiDetails = new BungiiDetails();
 
     public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
@@ -134,6 +142,7 @@ public class CommonSteps extends DriverBase {
 
             switch (messageElement.toUpperCase()) {
                 case "BUNGII CANCEL":
+                    Thread.sleep(35000);
                     messageDisplayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Text_Success()) && scheduledTripsPage.Text_Success().getText().equals(PropertyUtility.getMessage("admin.cancel.sucess"));
                     break;
                 case "ADD NEW CARD":
@@ -205,6 +214,21 @@ public class CommonSteps extends DriverBase {
                 case "GET ESTIMATE":
                     action.click(homePage.Button_GetEstimate());
                     break;
+                case "PROMO CODE LINE":
+                    action.click(estimatePage.Row_PromoCode());
+                    break;
+                case "SAVE MONEY":
+                    action.click(scheduledBungiiPage.Button_SaveMoney());
+                    break;
+                case "RESEND":
+                    action.click(forgotPasswordPage.Button_Resend());
+                    break;
+                case "ADD-BUTTON":
+                    action.click(paymentPage.Button_ADD());
+                    break;
+                case "INFO":
+                    action.click(promosPage.Button_Info());
+                    break;
                 case "INVITE REFERRALS":
                     action.click(homePage.Button_Invite());
                     break;
@@ -212,8 +236,10 @@ public class CommonSteps extends DriverBase {
                     action.click(invitePage.Button_Share());
                     break;
                 case "LOG IN":
-                    if (screen.equalsIgnoreCase("log in"))
+                    if (screen.equalsIgnoreCase("log in")) {
                         action.click(loginPage.Button_Login());
+                        new GeneralUtility().logCustomerDeviceToken((String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE_EXTRA"));
+                    }
                     else if (screen.equalsIgnoreCase("sign up"))
                         action.click(signupPage.Button_Login());
                     else
@@ -251,8 +277,14 @@ public class CommonSteps extends DriverBase {
                 case "I DON'T LIKE FREE MONEY":
                     takeActionOnPromotion("REJECT");
                     break;
+                case "YES, I'LL TAKE $5":
+                    takeActionOnPromotion("ACCEPT");
+                    break;
                 case "PICK UP CLEAR TEXT":
                     action.click(homePage.Button_ClearPickup());
+                    break;
+                case "PICK UP CLEAR BUTTON":
+                    action.clickMiddlePoint(homePage.Button_ClearPickup());
                     break;
                 case "DROP CLEAR TEXT":
                     action.click(homePage.Button_ClearDrop());
@@ -327,14 +359,21 @@ public class CommonSteps extends DriverBase {
                 case "REJECT":
                     action.click(bungiiRequestPage.Button_Reject());
                     break;
+                case "REQUEST YOUR CITY":
+                    action.click(homePage.Text_OutOfOffice_RequestCity());
+                    break;
                 case "SHARE ON FACEBOOK":
                 case "SHARE ON TWITTER":
                 case "SHARE BY EMAIL":
                 case "SHARE BY TEXT MESSAGE":
                     shareInviteCode(button);
                     break;
-                case"CLOSE BUTTON":
-                    action.click(customerBungiiCompletePage.Button_Close());;
+                case "CLOSE BUTTON":
+                    action.click(customerBungiiCompletePage.Button_Close());
+                    ;
+                    break;
+                case "TOP BACK":
+                    action.click(bungiiDetails.Button_Back());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -466,12 +505,37 @@ public class CommonSteps extends DriverBase {
 
     public void goToLogInPage(String navigationBarName) throws Throwable {
         HomeSteps homeSteps = new HomeSteps(homePage);
+        if (action.isAlertPresent()) {
+            String alertMessage = action.getAlertMessage();
+            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
+            else if(alertMessage.contains("Unable to find network connection"))
+                action.clickAlertButton("OK");
 
+        }
         if (!navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))) {
 
-            if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup")))
+            if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
                 iClickButtonOnScreen("LOG IN", "sign up");
-            else {
+            } else if (navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+                iClickButtonOnScreen("CANCEL", "SEARCHING");
+                iAcceptAlertMessage();
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+
+            } else if (navigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                new GeneralUtility().navigateFromTermToHomeScreen();
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+            } else if (navigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+                homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+            } else {
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
             }
         }
@@ -531,7 +595,21 @@ public class CommonSteps extends DriverBase {
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
                         break;
                 }
+            }
+            new GeneralUtility().handleIosUpdateMessage();
+            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+                logger.error("Retrying to start app 3rd time :Page source:", SetupManager.getDriver().getPageSource());
 
+                switch (appName.toUpperCase()) {
+                    case "DRIVER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
+                        break;
+                    case "CUSTOMER":
+                        ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
+                        break;
+                }
             }
             pass("Switch to " + appName + " application",
                     "Switch to " + appName + " application", true);
@@ -539,11 +617,13 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
         }
     }
+
     //This is same as above method except apps are not reminated before starting
     @When("^I open \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_open_something_application_on_something_devices(String appName, String device) throws Throwable {
@@ -578,23 +658,27 @@ public class CommonSteps extends DriverBase {
                 }
 
             }
-            pass("Open " + appName + " application on "+device+" devices",
-                    "Open " + appName + " application"+device+" devices", true);
+            pass("Open " + appName + " application on " + device + " devices",
+                    "Open " + appName + " application" + device + " devices", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
-        }    }
+        }
+    }
 
     // TODO change catch to error
     @Then("^Alert message with (.+) text should be displayed$")
     public void alert_message_with_text_should_be_displayed(String message) {
         try {
+            Thread.sleep(4000);
             action.waitForAlert();
             String actualMessage = action.getAlertMessage();
+            if(actualMessage.equalsIgnoreCase("")){Thread.sleep(30000);actualMessage = action.getAlertMessage();}
             String expectedMessage;
             switch (message.toUpperCase()) {
                 case "INVALID_PASSWORD":
@@ -609,6 +693,9 @@ public class CommonSteps extends DriverBase {
                 case "NO PROMO CODE":
                     expectedMessage = PropertyUtility.getMessage("customer.signup.nopromo");
                     break;
+                case "CARD IS ASSOCIATED TO TRIP":
+                    expectedMessage = PropertyUtility.getMessage("customer.payment.associated.to.trip");
+                    break;
                 case "SCHEDULE BUNGII OPTION":
                     expectedMessage = PropertyUtility.getMessage("customer.driver.unavailable.schedule");
                     break;
@@ -620,6 +707,27 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "DRIVER CANCEL BUNGII":
                     expectedMessage = PropertyUtility.getMessage("driver.cancel.bungii");
+                    break;
+                case "STACK TRIP REQUEST AVAILABLE":
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.stack.alert.message.ios");
+                    break;
+                case "STACK TRIP REQUEST ACCEPTED":
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.stack.after.current");
+                    break;
+                case "TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED":
+                    expectedMessage = PropertyUtility.getMessage("driver.alert.noncontrol.cancel.before.control");
+                    break;
+                case "ACCEPT SCHEDULED BUNGII QUESTION":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.request.scheduled.question");
+                    break;
+                case "CUSTOMER CANCELLED SCHEDULED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.bungii.customer.scheduled.cancel");
+                    break;
+                case "OTHER DRIVER CANCELLED BUNGII":
+                    expectedMessage = PropertyUtility.getMessage("driver.other.driver.bungii.cancel");
+                    break;
+                case "INACTIVE PROMO CODE MESSAGE":
+                    expectedMessage=PropertyUtility.getMessage("customer.signup.inactivepromo.android");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -636,9 +744,30 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @Then("^Alert should have \"([^\"]*)\" button$")
+    public void alert_should_have_something_button(String list) {
+        try {
+            action.waitForAlert();
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            switch (list) {
+                case "cancel,proceed":
+                    testStepVerify.isTrue(getListOfAlertButton.contains("CANCEL"), "Alert should have cancel button");
+                    testStepVerify.isTrue(getListOfAlertButton.contains("PROCEED"), "proceed should have cancel button");
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            fail("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" on alert message$")
     public void i_click_something_on_alert_message(String buttonLabel) {
         try {
+            action.waitForAlert();
             boolean clicked = action.clickAlertButton(buttonLabel);
 
             testStepAssert.isTrue(clicked,
@@ -651,6 +780,21 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I click \"([^\"]*)\" on alert message if any$")
+    public void i_click_something_on_alert_messageifany(String buttonLabel) {
+        try {
+            Thread.sleep(20000);
+            if(action.isAlertPresent())
+                action.clickAlertButton(buttonLabel);
+
+            log("Alert Message should be Cancelled if any", "Alert Message should be Cancelled if any");
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I accept Alert message$")
     public void iAcceptAlertMessage() {
         try {
@@ -683,6 +827,13 @@ public class CommonSteps extends DriverBase {
                 case "existing":
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case"newly created user":
+                    userName = (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case "new":
                     userName = PropertyUtility.getDataProperties("new.customer.user");
@@ -696,12 +847,54 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
                     password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid miami":
+                    userName = PropertyUtility.getDataProperties("miami.customer.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid miami 2":
+                    userName = PropertyUtility.getDataProperties("miami.customer2.phone");
+                    password = PropertyUtility.getDataProperties("miami.customer2.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("miami.customer2.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville":
+                    userName = PropertyUtility.getDataProperties("nashville.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid nashville first time":
+                    userName = PropertyUtility.getDataProperties("nashville.common.customer.phone");
+                    password = PropertyUtility.getDataProperties("nashville.common.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("nashville.common.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid denver":
+                    userName = PropertyUtility.getDataProperties("denver.customer.phone");
+                    password = PropertyUtility.getDataProperties("denver.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("denver.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "valid customer2":
+                    userName = PropertyUtility.getDataProperties("customer.phone.usedin.duo");
+                    password = PropertyUtility.getDataProperties("customer.password.usedin.duo");
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("customer.name.usedin.duo"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", userName);
+                    break;
+                case "valid chicago":
+                    userName = PropertyUtility.getDataProperties("chicago.customer.phone");
+                    password = PropertyUtility.getDataProperties("chicago.customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("chicago.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
             }
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
             goToLogInPage(NavigationBarName);
 
             LogInSteps logInSteps = new LogInSteps(loginPage);
@@ -713,6 +906,7 @@ public class CommonSteps extends DriverBase {
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
             }
+            new GeneralUtility().logCustomerDeviceToken(userName);
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -785,6 +979,8 @@ public class CommonSteps extends DriverBase {
             if (tripTime.contains(PropertyUtility.getDataProperties("time.label")))
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
+            tripTime=tripTime.replace("am","AM").replace("pm","PM");
+            logger.detail("TRIP TIME"+tripTime);
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";
@@ -823,6 +1019,11 @@ public class CommonSteps extends DriverBase {
                         SetupManager.getDriver().switchTo().alert().dismiss();
                         Thread.sleep(1000);
                     }
+                    if (Image_SelectBungii == null) {
+                        Thread.sleep(30000);
+                        action.swipeDown();
+                        Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + tripTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true);
+                    }
                     action.click(Image_SelectBungii);
                 } else {
                     //If alert is present accept it , it will automatically select Bungii
@@ -834,7 +1035,7 @@ public class CommonSteps extends DriverBase {
                     "I Selected Trip from scheduled trip", true);
 
         } catch (Exception e) {
-            logger.error("Error performing  step" + e.getMessage());
+            logger.error("Error performing  step" +  ExceptionUtils.getStackTrace(e));
             e.printStackTrace();
             //logger.error("Error performing step" + e.printStackTrace());
 
@@ -868,7 +1069,7 @@ public class CommonSteps extends DriverBase {
         try {
             LogInSteps logInSteps = new LogInSteps(new LoginPage());
             HomeSteps homeSteps = new HomeSteps(homePage);
-            GeneralUtility utility= new GeneralUtility();
+            GeneralUtility utility = new GeneralUtility();
             String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
@@ -905,12 +1106,14 @@ public class CommonSteps extends DriverBase {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
-            }
-            else {
+            }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
+                takeActionOnPromotion("REJECT");
+            } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+            log("Given customer is logged in","Customer is logged in    ");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -921,7 +1124,9 @@ public class CommonSteps extends DriverBase {
     //Except first time all code is fetch on fly, first time is read from file
     @SuppressWarnings("unchecked")
     public List<String> getRefferalCode(String codeType) {
+
         List<String> code = new ArrayList<String>();
+        try{
         switch (codeType.toLowerCase()) {
             case "referral":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("REFERRAL");
@@ -941,21 +1146,76 @@ public class CommonSteps extends DriverBase {
                 break;
             case "used one off":
                 code = Arrays.asList(PropertyUtility.getDataProperties("promocode.usedoneoff"));
-            //    code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
+                //    code = (List<String>) cucumberContextManager.getFeatureContextContext("USED_ONE_OFF");
                 break;
             case "unused one off":
                 code = (List<String>) cucumberContextManager.getFeatureContextContext("UNUSED_ONE_OFF");
                 break;
+            case "referral code":
+                code = Arrays.asList((String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
+                break;
             case "first time only":
                 code = Arrays.asList(PropertyUtility.getDataProperties("promocode.firsttime"));
+                break;
+            case "promocode":
+                code = Arrays.asList(PropertyUtility.getDataProperties("promocode.dollar.off"));
                 break;
             default:
                 code.add(codeType);
                 break;
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
         }
         return code;
     }
 
+    @Then("^I save customer phone and referral code in feature context$")
+    public void i_save_customer_phone_and_referral_code_in_feature_context() throws Throwable {
+        try {
+            cucumberContextManager.setFeatureContextContext("INVITE_CODE", (String) cucumberContextManager.getScenarioContext("INVITE_CODE"));
+            cucumberContextManager.setFeatureContextContext("CUSTOMER_HAVING_REF_CODE", (String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"));
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("^I have customer with referral code$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Given("^I have customer with referral code received$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEreceived() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
     public String generateMobileNumber() {
 
         String phoneNumber = RandomGeneratorUtility.getData("{RANDOM_PHONE_NUM}");
@@ -984,15 +1244,24 @@ public class CommonSteps extends DriverBase {
                     action.clearEnterText(supportPage.TextBox_Support(), inputValue);
                     break;
                 case "FIRST NAME":
+                    if(inputValue.equalsIgnoreCase("RandomTestcustomertywd_apple"))
+                    {
+                        String randomString= generateMobileNumber();
+                        action.clearEnterText(signupPage.Textfield_FirstName(), inputValue+"_"+randomString);
+                        cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME", inputValue+"_"+randomString);
+                    }
                     action.clearEnterText(signupPage.Textfield_FirstName(), inputValue);
+                    cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME", inputValue);
                     break;
                 case "LAST NAME":
                     action.clearEnterText(signupPage.Textfield_LastName(), inputValue);
+                    cucumberContextManager.setScenarioContext("NEW_USER_LAST_NAME", inputValue);
                     action.hideKeyboard();
                     break;
                 case "EMAIL":
                     action.clearEnterText(signupPage.Textfield_Email(), inputValue);
                     action.hideKeyboard();
+                    cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",inputValue);
                     break;
                 case "PHONE NUMBER":
                     if (screen.equalsIgnoreCase("FORGOT PASSWORD")) {
@@ -1009,6 +1278,8 @@ public class CommonSteps extends DriverBase {
                     action.clearEnterText(signupPage.Textfield_Password(), inputValue);
                     break;
                 case "REFERRAL CODE":
+                    action.hideKeyboard();
+                    action.click(signupPage.Button_CheckBox_Referral());
                     List<String> inputValueList = getRefferalCode(inputValue);
                     action.clearEnterText(signupPage.Textfield_PromoCode(), inputValueList.get(0));
                     // cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
@@ -1021,7 +1292,7 @@ public class CommonSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));
                     break;
                 case "SMS CODE":
-                    inputValue = inputValue.equalsIgnoreCase("valid") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
+                    inputValue = inputValue.equalsIgnoreCase("valid") || inputValue.equalsIgnoreCase("old") ? (String) cucumberContextManager.getScenarioContext("SMS_CODE")
                             : "111";
                     action.clearEnterText(forgotPasswordPage.Text_SmsCode(), inputValue);
                     action.hideKeyboard();
@@ -1050,6 +1321,21 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             boolean isNewInstalled = utility.installCustomerApp();
             testStepAssert.isTrue(isNewInstalled, "I should able to install bungii App again", "I was not able to install bungii app again");
+            log("I install Bungii",
+                    "I installed Bungii", true);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Given("^I install Bungii Driver App again$")
+    public void i_install_bungii_app_data() {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            boolean isNewInstalled = utility.installDriverApp();
+            testStepAssert.isTrue(isNewInstalled, "I should able to install bungii Driver App again", "I was not able to install bungii Driver app again");
             log("I install Bungii",
                     "I installed Bungii", true);
 
@@ -1127,6 +1413,72 @@ public class CommonSteps extends DriverBase {
                 case "CANCEL BUNGII":
                     expectedText = PropertyUtility.getMessage("customer.alert.cancel.bungii");
                     break;
+                case "OUTSIDE BUISSNESS HOUR":
+                    expectedText = PropertyUtility.getMessage("customer.alert.outsidebuissnesshour");
+                    break;
+                case "SCHEDULED ONLY 5 DAYS":
+                    expectedText = PropertyUtility.getMessage("customer.alert.six.day.ahead");
+                    break;
+                case "LONG HAUL":
+                    expectedText = PropertyUtility.getMessage("customer.alert.long.haul");
+                    break;
+                case "DRIVER FINISHING CURRENT BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.alert.driver.bungii.inprogress");
+                    break;
+                case "MORE THAN 1 HOUR FROM SCHEDULED TIME":
+                    expectedText = PropertyUtility.getMessage("customer.alert.more.than.one.hour");
+                    break;
+                case "PICKUP REQUEST NO LONGER AVAILABLE":
+                    expectedText = PropertyUtility.getMessage("driver.request.unavailable");
+                    break;
+                case "PICKUP ALREADY ACCEPTED BY YOU":
+                    expectedText = PropertyUtility.getMessage("driver.request.already.accepted");
+                    break;
+                case "60 MINS BEFORE SCHEDULE TRIP TIME":
+                    expectedText = PropertyUtility.getMessage("driver.start.60.mins.before");
+                    break;
+                case "REQUIRED DRIVER NOT ACCEPTED":
+                    expectedText = PropertyUtility.getMessage("driver.required.not.accepted");
+                    break;
+                case "CUSTOMER HAS ONGOING BUNGII":
+                    expectedText = PropertyUtility.getMessage("driver.start.customer.ongoing");
+                    break;
+                case "FOR EMERGENCY CONTACT SUPPORT LINE":
+                    expectedText = PropertyUtility.getMessage("driver.cancel.support.contact");
+                    break;
+                case "CONTACT SUPPORT TO CANCEL":
+                    expectedText = PropertyUtility.getMessage("customer.support.contact.to.cancel");
+                    break;
+                case "SMS CODE SENT":
+                    expectedText = PropertyUtility.getMessage("customer.sms.code.sent");
+                    break;
+                case "3 OUT OF 5 ATTEMPT":
+                    expectedText = PropertyUtility.getMessage("customer.3.out.5.attempt.login");
+                    break;
+                case "USER ACCOUNT LOCKED":
+                    expectedText = PropertyUtility.getMessage("customer.user.account.locked");
+                    break;
+                case "MINIMUM COST STILL APPLIES":
+                    expectedText = PropertyUtility.getMessage("customer.promos.minimum.info");
+                    break;
+                case "FIRST TIME PROMO CODE":
+                    expectedText = PropertyUtility.getMessage("customer.first.time.promos.info");
+                    break;
+                case "ADD CARD BEFORE REQUEST BUNGII":
+                    expectedText = PropertyUtility.getMessage("customer.add.card.before.request");
+                    break;
+                case "ADD IMAGE OF ITEM":
+                    expectedText = PropertyUtility.getMessage("customer.request.add.image");
+                    break;
+                case "CHOSSING NON FIRST TIME CODE":
+                    expectedText = PropertyUtility.getMessage("customer.select.other.than.first.time.code");
+                    break;
+                case "PLEASE ENABLE LOCATION SERVICES":
+                    expectedText = PropertyUtility.getMessage("driver.enable.location.services");
+                    break;
+                case "PLEASE INSTALL A BROWSER":
+                    expectedText = PropertyUtility.getMessage("customer.install.browser");
+                    break;
                 default:
                     error("UnImplemented Step or in correct app", "UnImplemented Step");
                     break;
@@ -1141,5 +1493,218 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @And("^I get TELET time of of the current trip$")
+    public void i_get_telet_time_of_of_the_current_trip() throws Throwable {
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime = dbUtility.getTELETfromDb(custRef);
 
+        cucumberContextManager.setScenarioContext("TELET", teletTime);
+    }
+    @And("^I get TELET time of currrent trip of customer 2$")
+    public void i_get_telet_time_of_of_the_currewnt_trip() throws Throwable {
+        try{
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String teletTime = dbUtility.getTELETfromDb(custRef);
+
+        cucumberContextManager.setScenarioContext("TELET", teletTime);
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Telet time of current trip should be correctly calculated$")
+    public void telet_time_of_current_trip_should_be_correctly_calculated() throws Throwable {
+        try{
+        GeneralUtility utility= new GeneralUtility();
+        String teletTimeLocal =utility.calculateTeletTime();
+        String teletTimeDB = (String) cucumberContextManager.getScenarioContext("TELET");
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date Db = formatter.parse(teletTimeDB);
+
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+
+        DateFormat formatterForLocalTimezone = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+        String strdateDB = formatter.format(Db);
+        String strdatelocal = teletTimeLocal;
+        testStepVerify.isEquals(strdateDB,strdatelocal);
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Telet time of research trip should be not be same as previous trips$")
+    public void telet_time_of_current_trip_should_be_correctly_calculatedtrip() throws Throwable {
+        try{
+        String previousTelet = (String) cucumberContextManager.getScenarioContext("TELET");
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+        //    phoneNumber="8888889907";
+        String custRef = com.bungii.ios.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String newTeletTime = dbUtility.getTELETfromDb(custRef);
+        testStepVerify.isTrue(!previousTelet.equalsIgnoreCase(newTeletTime),"TELET TIME SHOULD ot be equal");
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^for a Bungii I should see \"([^\"]*)\"$")
+    public void for_a_bungii_i_should_see_something(String strArg1) throws Throwable {
+        try{
+            switch (strArg1)
+            {
+                case "Bungii Home page with locations":
+                    String addressPickUPline1= (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1");
+                    String addressDropOffline1= (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1");
+                    String pickUpAddress=homePage.TextBox_Pickup_LineOne().getText();
+                    String DropOffAddress=homePage.TextBox_Drop_LineOne().getText();
+
+                    if(pickUpAddress.contains(addressPickUPline1) && DropOffAddress.contains(addressDropOffline1))
+                    {
+                        pass(addressPickUPline1,DropOffAddress,true);
+                    }
+                    else{
+                        fail(addressPickUPline1,DropOffAddress,true);
+                    }
+                    break;
+                default:
+                    error("UnImplemented Step or in correct app", "UnImplemented Step");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I manually end bungii created by \"([^\"]*)\" with stage as \"([^\"]*)\"$")
+    public void i_manually_end_bungii_created_by_something_with_stage_as_something(String customer, String bungiiStage) throws Throwable {
+        try{
+        String status =bungiiStage;
+        String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
+        String tripType[] = tripTypeAndCategory.split(" ");
+        customer = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
+        String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+
+        cucumberContextManager.setScenarioContext("STATUS",status);
+        if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers")
+                || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
+            String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+            int retrycount =10;
+
+            boolean retry = true;
+            while (retry == true && retrycount >0) {
+                try {
+                    WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
+                    wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+                    retry = false;
+                } catch (Exception ex) {
+                    SetupManager.getDriver().navigate().refresh();
+                    retrycount--;
+                    retry = true;
+                }
+
+            }
+            int retryCount = 1;
+            while (!SetupManager.getDriver().findElement(By.xpath(xpath)).getText().equalsIgnoreCase(status)) {
+                if (retryCount >= 20) break;
+                Thread.sleep(15000); //Wait for 15 seconds
+                retryCount++;
+                SetupManager.getDriver().navigate().refresh();
+            }
+            cucumberContextManager.setScenarioContext("XPATH",xpath);
+            testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+        }
+
+        //Select the trip
+        String xpath=  (String)cucumberContextManager.getScenarioContext("XPATH");
+        action.click((WebElement) SetupManager.getDriver().findElement(By.xpath(xpath)));
+        } catch (Throwable e) {
+            logger.error("Error performing step" + e);
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @Then("^Customer should receive signup email$")
+    public void partner_firm_should_receive_something_email(){
+        try{
+        GeneralUtility utility = new GeneralUtility();
+
+        String emailSubject="New to Bungii? Good.";
+/*        cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS","bungiiauto+obKm@gmail.com");
+        cucumberContextManager.setScenarioContext("NEW_USER_FIRST_NAME","TestCustomertywdappleMzr");*/
+
+        String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.welcome.from.address"), (String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"), emailSubject);
+        List<String> tripDetailsLinks=extractUrls(emailBody);
+        utility.getCustomerSignupTemplate((String)cucumberContextManager.getScenarioContext("NEW_USER_EMAIL_ADDRESS"));
+        if (emailBody == null) {
+            testStepAssert.isFail("Email : " + emailSubject + " not received");
+        }
+        else{
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
+            testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
+        }
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+
+    @Then("^poor driver ratting should be sent to customer$")
+    public void poor_driver_ratting_should_be_sent_to_customer() {
+        try{
+        GeneralUtility utility = new GeneralUtility();
+        String emailSubject="POOR DRIVER RATING";
+      //  String emailBody = utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"), "POOR DRIVER RATING");
+
+        String emailBody  =  utility.GetSpedificMultipartTextEmailIfReceived(PropertyUtility.getEmailProperties("email.from.address"),PropertyUtility.getEmailProperties("email.client.id"),emailSubject);
+        String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
+        String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
+        String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
+        String tripDetailsLink=extractUrls(emailBody).get(0);
+        if(emailBody== null)
+        {
+            testStepAssert.isFail("Email : "+ emailSubject + " not received");
+        }
+        String message = null;
+        message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
+        testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+    /**
+     * Returns a list with all links contained in the input
+     */
+    public static List<String> extractUrls(String text)
+    {
+        List<String> containedUrls = new ArrayList<String>();
+        String urlRegex = "((https):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
+        Pattern pattern = Pattern.compile(urlRegex, Pattern.CASE_INSENSITIVE);
+        Matcher urlMatcher = pattern.matcher(text);
+
+        while (urlMatcher.find())
+        {
+            containedUrls.add(text.substring(urlMatcher.start(0),
+                    urlMatcher.end(0)));
+        }
+
+        return containedUrls;
+    }
 }

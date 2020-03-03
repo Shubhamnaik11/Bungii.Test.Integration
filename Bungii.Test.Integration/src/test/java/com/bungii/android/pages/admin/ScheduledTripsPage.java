@@ -13,7 +13,8 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("modal fade loader", LocatorType.ClassName);
     }
     public WebElement Text_Success() {
-        return findElement("SuccessMessage", LocatorType.Id);
+        return findElement("//p[@id='cancel-success-message']/i[last()]", LocatorType.XPath);
+
     }
     public WebElement TextBox_Phone() {
         return findElement("PhoneNo", LocatorType.Name);
@@ -24,7 +25,7 @@ public class ScheduledTripsPage extends PageBase {
         return findElement("TripListsTBody", LocatorType.Id);
     }
 
-    public WebElement RadioBox_Cancel() {return findElement("//div[@class='customerCancel']/input", LocatorType.XPath);}
+    public WebElement RadioBox_Cancel() {return findElement("//label[contains(@class,'customerCancel')]/span", LocatorType.XPath);}
 
     public WebElement RadioBox_Research() {return findElement("//div[contains(@class,'driverCancel ')]/input", LocatorType.XPath); }
 
@@ -46,5 +47,9 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_SearchCriteria(){return  findElement("SearchCriteria",LocatorType.Id);}
 
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
+    public WebElement Button_Research() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[2]", LocatorType.XPath); }
    // wait
+   public WebElement CheckBox_Driver1() {return findElement("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath); }
+    public WebElement CheckBox_Driver2() {return findElements("//div[@class='tripDrivers row']//label[@class='custom-input checkboxDiv mt0 pull-left']/span", LocatorType.XPath).get(1); }
+    public WebElement Button_Remove() {return findElement("//*[contains(@id,'tripDriverDetails')]//button[1]", LocatorType.XPath); }
 }

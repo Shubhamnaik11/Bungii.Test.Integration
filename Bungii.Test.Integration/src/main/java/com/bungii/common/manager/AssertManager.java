@@ -25,13 +25,22 @@ public class AssertManager {
 
         try {
             Assert.assertTrue(value, expectedText);
-            ResultManager.pass(expectedText, "Success :" + expectedText, true);
+            ResultManager.pass(expectedText, "Success : " + expectedText, true);
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
+
         }
     }
-
+    /**
+     * Check is boolean value is true
+     *
+     * @param errorMessage If check if failed , this message will be displayed  in report
+     */
+    public void isFail(String errorMessage) {
+            ResultManager.fail("Step should be successful",errorMessage, true);
+            Assert.assertFalse(true, errorMessage);
+    }
     /**
      * Check is boolean value is true
      *
@@ -59,13 +68,15 @@ public class AssertManager {
      */
     public void isEquals(String actualValue, String expectedValue, String expectedText, String sucessMessage, String errorMessage) {
         try {
-            Assert.assertEquals(expectedValue, actualValue);
-            ResultManager.pass(expectedText, sucessMessage, true);
+                Assert.assertEquals(expectedValue, actualValue);
+                ResultManager.pass(expectedText, sucessMessage, true);
+
         } catch (AssertionError e) {
+            logger.detail("Actual Value : "+actualValue+" Expected Value : "+expectedValue);
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
         }
-        logger.detail("Actual:"+actualValue+"expectedValue:"+expectedValue);
+        logger.detail("Actual Value : "+actualValue+" | Expected Value : "+expectedValue);
     }
 
 
@@ -79,7 +90,7 @@ public class AssertManager {
     public void isFalse(boolean value, String expectedText, String errorMessage) {
         try {
             Assert.assertFalse(value, expectedText);
-            ResultManager.pass(expectedText, "Success :" + expectedText, true);
+            ResultManager.pass(expectedText, "Success : " + expectedText, true);
         } catch (AssertionError e) {
             //Stop test in case of failure
             ResultManager.error(expectedText, errorMessage, true);
@@ -145,7 +156,7 @@ public class AssertManager {
      */
     public void isElementTextEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
         String actualText=element.getText();
-        logger.detail("Element Text :"+actualText);
+        logger.detail("Element Text : "+actualText);
         isTrue(actualText.equals(expectedText), expectedMessage, successMessage, errorMessage);
     }
 
@@ -181,6 +192,25 @@ public class AssertManager {
     }
     public void isElementValueEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
         isTrue(element.getAttribute("value").equals(expectedText), expectedMessage, successMessage, errorMessage);
+    }
+    public void isElementNameEquals(WebElement element,String expectedText, String expectedMessage, String successMessage, String errorMessage) {
+        isTrue(element.getAttribute("name").equals(expectedText), expectedMessage, successMessage, errorMessage);
+    }
+
+    /**
+     * @param element Web element object return from PageBase
+     * @param expectedText Expected Message to that is to be update in report
+     * @param successMessage If success this message will be published
+     * @param errorMessage If failed this message will be published
+     */
+    public void isElementNotEnabled(WebElement element, String expectedText, String successMessage, String errorMessage) {
+        Boolean isEnabled;
+        try {
+            isEnabled= element.isEnabled();
+        } catch (Exception e) {
+            isEnabled= false;
+        }
+        isFalse(isEnabled,expectedText,successMessage, errorMessage);
     }
 
 }

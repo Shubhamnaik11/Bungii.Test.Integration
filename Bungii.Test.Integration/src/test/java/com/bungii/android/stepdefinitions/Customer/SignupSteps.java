@@ -2,15 +2,16 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.SignupPage;
-import com.bungii.android.utilityfunctions.DbUtility;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
+import com.bungii.ios.enums.REFERRAL_SOURCE;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import static com.bungii.common.manager.ResultManager.*;
@@ -29,6 +30,8 @@ public class SignupSteps extends DriverBase {
             switch (strArg1) {
                 case "unique":
                     customerPhone = utility.generateMobileNumber();
+                    cucumberContextManager.setScenarioContext("CUSTOMER_HAVING_REF_CODE", customerPhone);
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", customerPhone);
                     break;
                 case "blank":
                     break;
@@ -54,10 +57,32 @@ public class SignupSteps extends DriverBase {
     @And("^I enter \"([^\"]*)\" data in mandatory fields on Signup Page$")
     public void i_enter_something_data_in_mandatory_fields_on_signup_page(String strArg1) throws Throwable {
         try {
+            String firstName="";
 
             switch (strArg1) {
                 case "valid":
-                    action.clearSendKeys(Page_Signup.TextField_FirstName(), PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                     firstName= Page_Signup.TextField_FirstName().getText();
+                    cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
+                    action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
+                    action.click(Page_Signup.TextField_Email());
+                    String emailAddress="bungiiauto+"+RandomGeneratorUtility.getData("{RANDOM_STRING}",4)+"@gmail.com";
+                    cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",emailAddress);
+                    action.sendKeys(emailAddress);
+                    action.hideKeyboard();
+                    //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
+                    action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.click(Page_Signup.Select_ReferralSource());
+                    action.click(Page_Signup.Option_ReferralSource());
+                    action.click(Page_Signup.Link_ReferralSourceDone());
+                    String customerName=firstName+" "+PropertyUtility.getDataProperties("customer.last.name");
+                    cucumberContextManager.setFeatureContextContext("CUSTOMER",customerName);
+                    break;
+                case "valid test":
+                    action.clearSendKeys(Page_Signup.TextField_FirstName(),"Testcustomertywd"+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
+                    firstName= Page_Signup.TextField_FirstName().getText();
+                    cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
                     action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
@@ -68,7 +93,6 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
                     break;
-
                 case "blank":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(), "");
                     action.clearSendKeys(Page_Signup.TextField_LastName(), "");
@@ -82,7 +106,7 @@ public class SignupSteps extends DriverBase {
                     action.hideKeyboard();
                     //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
-                    Page_Signup.TextField_Referral().click();
+                    Page_Signup.TextField_FirstName().click();
                     action.hideKeyboard();
                     break;
                 default:
@@ -126,6 +150,7 @@ public class SignupSteps extends DriverBase {
         try {
             if (!action.isElementPresent(Page_Signup.Header_SignUp(true)))
                 utility.goToSignupPage();
+            Thread.sleep(5000);
             testStepVerify.isElementDisplayed(Page_Signup.Header_SignUp(true), "Signup button should be displayed ", "Sign up button is displayed", "Sign up button is not displayed");
 
         } catch (Exception e) {
@@ -178,12 +203,14 @@ public class SignupSteps extends DriverBase {
 
             case "Signup page":
                 testStepVerify.isElementDisplayed(Page_Signup.Button_Signup(), "Signup button should be displayed", "Signup button is displayed ", "Signup button is not displayed");
-
                 testStepVerify.isTrue(utility.isCorrectPage("Signup"), "Signup should be displayed", "Signup page is displayed", "Signup page is not displayed");
                 break;
 
             case "snackbar validation message for existing user":
                 testStepVerify.isEquals(utility.getSnackBarMessage(), PropertyUtility.getMessage("customer.signup.existinguser"), "Warning message for Existing message should be displayed", "Snackbar message is displayed", "Snackbar message is not displayed");
+                break;
+            case "Inactive Promo Code message":
+                testStepVerify.isEquals(utility.getSignupAlertMessage(), PropertyUtility.getMessage("customer.signup.inactivepromo.android"), "Alert message for Inactive Promo Code should be displayed", "Alert message is displayed", "Alert message is not displayed");
                 break;
 
             default:
@@ -212,10 +239,23 @@ public class SignupSteps extends DriverBase {
             case "Referral":
                 strPromoCode = PropertyUtility.getDataProperties("referral.code");
                 break;
+            case "Code":
+                strPromoCode= (String) cucumberContextManager.getScenarioContext("INVITE_CODE");
+                break;
+            case "FutureActive":
+                strPromoCode = PropertyUtility.getDataProperties("promocode.futureactive");
+                break;
             default:
                 error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                 break;
         }
+        action.click(Page_Signup.CheckBox_Promo());
+        String isChecked=action.getAttribute(Page_Signup.CheckBox_Promo(), "checked");
+        if(isChecked.equals("false"))
+        {
+            action.click(Page_Signup.CheckBox_Promo());
+        }
+
         action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
@@ -225,4 +265,18 @@ public class SignupSteps extends DriverBase {
                 true);
     }
     }
+
+    @And("^I Select Referral source$")
+    public void i_select_referral_source() throws Throwable {
+            try {
+                action.click(Page_Signup.Select_ReferralSource());
+                action.click(Page_Signup.Option_ReferralSource());
+                action.click(Page_Signup.Link_ReferralSourceDone());
+            } catch (Exception e) {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                error( "Step  Should be successful",
+                        "Error performing step,Please check logs for more details", true);
+            }
+        }
+
 }

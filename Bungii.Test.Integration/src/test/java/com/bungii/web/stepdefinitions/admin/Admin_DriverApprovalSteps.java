@@ -2,14 +2,24 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.FileUtility;
+import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.*;
+import com.bungii.web.pages.driver.Driver_DashboardPage;
+import com.bungii.web.pages.driver.Driver_LoginPage;
+import com.bungii.web.pages.driver.Driver_PickUpInfoPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.*;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+
+import static com.bungii.common.manager.ResultManager.error;
+import static com.bungii.common.manager.ResultManager.log;
 
 public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_LoginPage adminLoginPage = new Admin_LoginPage();
@@ -21,6 +31,13 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     Admin_ReferralSourcePage admin_ReferralSourcePage = new Admin_ReferralSourcePage();
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
+    Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
+    Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
+    Driver_LoginPage Page_Driver_Login = new Driver_LoginPage();
+    Driver_DashboardPage driver_DashboardPage = new  Driver_DashboardPage();
+    Driver_PickUpInfoPage Page_Driver_PickupInfo = new Driver_PickUpInfoPage();
+    private static LogUtility logger = new LogUtility(Admin_DriverApprovalSteps.class);
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -33,7 +50,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void i_am_logged_in_as_Testadmin() throws Throwable {
         utility.TestAdminLogin();
     }
-    @And("^there is a pending driver verification$")
+    @And("^there is a pending application for driver verification$")
     public void there_is_a_pending_driver_verification() throws Throwable {
         testStepAssert.isElementDisplayed(adminMenuLinksPage.Menu_Dashboard(true), "I should be naviagate to Admin Dashboard", "I was navigated to admin Dashboard", "Admin Dashboard is not visible");
         //WebAssertionManager.ElementDisplayed(adminDashboardPage.RecentDriverRegistrations);
@@ -41,7 +58,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     }
 
     @When("^I click \"([^\"]*)\" button against the applicant name$")
-    public void i_click_something_button_against_the_applicant_name(String strArg1) throws Throwable {
+    public void i_click_something_button_against_the_applicant_name(String button) throws Throwable {
 
        // cucumberContextManager.setScenarioContext("LASTNAME", "KSqc");
 
@@ -51,7 +68,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),Lastname);
         action.click(admin_GetAllBungiiDriversPage.Button_Search());
         Thread.sleep(4000);
-        switch (strArg1) {
+        switch (button) {
             case "Verify":
                 action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(Lastname));
                 break;
@@ -63,14 +80,16 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(adminDashboardPage.Link_ViewAllDriverRegistrations());
         String[] name =  applicantName.split(" ");
         action.clearSendKeys(admin_GetAllBungiiDriversPage.TextBox_Search(),name[1]);
+        cucumberContextManager.setScenarioContext("FIRSTNAME",name[0]);
         cucumberContextManager.setScenarioContext("LASTNAME",name[1]);
         action.click(admin_GetAllBungiiDriversPage.Button_Search());
         Thread.sleep(4000);
         switch (strArg1) {
             case "Verify":
-                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(name[1]));
+                action.click(admin_GetAllBungiiDriversPage.GridRow_PendingVerificationLink(applicantName));
                 break;
         }
+        log("I should be able to click "+strArg1+" against " + applicantName,"I click "+strArg1+ " against "+ applicantName, true);
     }
 
     @Then("^I should be directed to \"([^\"]*)\"$")
@@ -91,7 +110,18 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Promoters Page":
                 testStepAssert.isElementDisplayed(admin_PromoterPage.Title_PromoterPage(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-
+            case "Geofences Page":
+                testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Geofences(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Attributes Page":
+                testStepAssert.isElementDisplayed(admin_GeofencePage.Header_Attributes(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Customers Page":
+                testStepAssert.isElementDisplayed(admin_customerPage.Label_CustomerList(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
+                break;
+            case "Drivers Page":
+                testStepAssert.isElementDisplayed(admin_DriverPage.Label_DriversPageHeader(),"I should be navigated to "+screen, "I am navigated to "+ screen, "I am not navigates to "+ screen);
+                break;
         }
     }
 
@@ -113,7 +143,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
-        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());;
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
         action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
@@ -121,6 +151,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
 
     @And("^I click on the \"([^\"]*)\" Button$")
     public void iClickOnTheButton(String arg0) throws Throwable {
+        String Name = null, xpath=null;
         switch (arg0)
         {
             case "Approve Application":
@@ -149,6 +180,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 Thread.sleep(2000);
                 break;
             case "Save":
+                Thread.sleep(5000);
                 action.click(admin_PromoCodesPage.Button_Save());
                 break;
             case "New Business User":
@@ -158,7 +190,26 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
 
-        }    }
+            case "Edit":
+                Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
+                xpath = String.format("//tr[1]/td[text()='%s']/following-sibling::td/button[contains(text(),'Edit')]",Name);
+                cucumberContextManager.setScenarioContext("XPATH", xpath );
+                SetupManager.getDriver().findElement(By.xpath(xpath)).click();
+                break;
+//BOC
+            case "Add Payment Method":
+                action.click(admin_BusinessUsersPage.Button_RequestPayment());
+                break;
+
+//EOC
+
+            case "Scale":
+                action.click(admin_GeofencePage.Button_Scale());
+                break;
+        }
+        log("I click on the "+arg0+ " button" ,
+                "I have clicked on the "+arg0+ " button");
+    }
 
 
     @And("^I confirm the \"([^\"]*)\" action$")
@@ -176,7 +227,10 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Driver Reject Application":
                 action.click(admin_DriverVerificationPage.Button_DriverConfirmReject_Yes());
                 break;
-        }    }
+        }
+        log("I can confirm " + strArg1 + " action" ,
+                "I have confirmed " + strArg1 + " action");
+    }
     @And("^the \"([^\"]*)\" button is not visible$")
     public void i_check_if_something_button_is_visible(String strArg1) throws Throwable {
         switch (strArg1)
@@ -247,5 +301,102 @@ public class Admin_DriverApprovalSteps extends DriverBase {
     public void theStatusOfTheFieldResetsToDefault() throws Throwable {
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Status_Accepted(),"I check status field ","Element is not displayed" , "Element is displayed");
 
+    }
+
+    @And("^I verify all the fields except \"([^\"]*)\"$")
+    public void i_verify_all_the_fields_except_something(String strArg1) throws Throwable {
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPic());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverFirstName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLastName());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverStreetAddress());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverCity());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverState());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverZip());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverSSN());
+        action.click(admin_DriverVerificationPage.Verify_Reject_Birthday());
+        action.sendKeys(admin_DriverVerificationPage.Textinput_ReasonforRejection_Birthday(),"Invalid DOB");
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupImages());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupMake());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupModel());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupYear());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverPickupLicense());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverLicenseExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsuranceImage());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverInsurationExpiration());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverRoutingNumber());
+        action.click(admin_DriverVerificationPage.Verify_Approve_DriverAccountNumber());
+        log("I can verify all the fields except DOB" ,
+                "I have verified all the fields except DOB");
+    }
+
+    @When("^I login as driver \"([^\"]*)\"$")
+    public void i_login_as_driver_something(String driverName) throws Throwable {
+        utility.NavigateToDriverLogin();
+        action.click(Page_Driver_Login.Tab_LogIn());
+        switch(driverName) {
+            case "John PxLK":
+            action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Phone(), PropertyUtility.getDataProperties("web.valid.driver21.phone"));
+            break;
+        }
+        action.clearSendKeys(Page_Driver_Login.TextBox_DriverLogin_Password(), PropertyUtility.getDataProperties("web.valid.common.driver.password"));
+        action.click(Page_Driver_Login.Button_DriverLogin());
+        log("I login as driver" ,
+                "I have logged in as driver");
+
+    }
+
+    @Then("^Admin receives \"([^\"]*)\" email$")
+    public void admin_receives_something_email(String strArg1) {
+      //  throw new PendingException();
+    }
+
+    @And("^Correct the fields and resubmit$")
+    public void correct_the_fields_and_resubmit() {
+        try {
+            action.click(driver_DashboardPage.Link_DriverDetails());
+            action.clearSendKeys(driver_DashboardPage.TextBox_DOB(), "12/12/1991");
+            action.click(driver_DashboardPage.Button_Update());
+
+            action.click(driver_DashboardPage.Link_PickupInfo());
+            action.click(driver_DashboardPage.Link_RemoveFile3());
+            action.click(driver_DashboardPage.Link_RemoveFile2());
+            action.click(driver_DashboardPage.Link_RemoveFile1());
+
+            utility.addImageInDropZone(Page_Driver_PickupInfo.DropZoneHiddenFileTag_TruckImage(), getTruckImages());
+            action.invisibilityOfElementLocated(Page_Driver_PickupInfo.Wrapper_Spinner());
+            int size = Page_Driver_PickupInfo.Div_UploadedImages().size();
+            int count = 0;
+            while (size != 3) {
+                Thread.sleep(2000);
+                if (count >= 20)
+                    break;
+
+                size = Page_Driver_PickupInfo.Div_UploadedImages().size();
+                count++;
+            }
+
+
+            action.click(driver_DashboardPage.Button_Update());
+            action.click(driver_DashboardPage.Button_Submit());
+            action.click(driver_DashboardPage.Button_Yes());
+            log("I correct the fields and resubmit" ,
+                    "I have correct the fields and resubmited");
+        }
+        catch(Exception e)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    public String[] getTruckImages() {
+        String[] truckImageList = new String[3];
+        truckImageList[0] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK1_IMAGE"));
+        truckImageList[1] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK2_IMAGE"));
+        truckImageList[2] = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("TRUCK3_IMAGE"));
+        return truckImageList;
     }
 }

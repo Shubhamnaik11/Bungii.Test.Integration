@@ -5,7 +5,8 @@ Feature: Driver_RegistrationCompletion
     Given I navigate to "Bungii Driver URL"
     Then I should be directed to "signup tab" on Driver portal
     When I click on "Login" link
-    And I enter driver Phone number as "9999990265" and valid password
+    #Driver Hal Drake
+    And I enter driver Phone number as "9999990040" and valid password
     And I click "LOG IN button" on driver portal
     And I click Next on "Driver Details" page
     And I click Next on "Pickup Information" page
@@ -13,13 +14,15 @@ Feature: Driver_RegistrationCompletion
     And I click Next on "Bank Details" page
 
   @regression
-  Scenario: Driver_Terms_AgreeUnchecked
-    When I click Next on "Terms & Conditions" page
+  Scenario: Verify Driver Application Terms And Conditions Form - Uncheck Terms On Exisiting Non Fountain Application
+    When I uncheck "agree to the Terms and Conditions." checkbox
+    And I click Next on "Terms & Conditions" page
     Then I should see blank fields validation on "Terms & Conditions" page
 
   @regression
-  Scenario: Driver_VideoTraining_ViewedUnchecked
+  Scenario: Verify Driver Application Terms And Conditions Form - Check Terms On Exisiting Non Fountain Application
     When I click "I agree to the Terms and Conditions" on driver portal
+    And I check "agree to the Terms and Conditions." checkbox
     And I click Next on "Terms & Conditions" page
     Then I should be directed to "Video Training" on Driver portal
     When I click Next on "Video Training" page

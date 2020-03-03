@@ -4,7 +4,6 @@ import com.bungii.common.enums.TargetPlatform;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.*;
-import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -13,19 +12,17 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import io.appium.java_client.service.local.flags.ServerArgument;
 import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.json.JSONObject;
-import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
-
+import org.openqa.selenium.PageLoadStrategy;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -36,7 +33,6 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class SetupManager extends EventFiringWebDriver {
@@ -50,7 +46,7 @@ public class SetupManager extends EventFiringWebDriver {
             driver.quit();
         }
     };
-    private static String APPIUM_SERVER_IP,REMOTE_ADB_ADDRESS="",REMOTE_ADB_PORT="5554";
+    private static String APPIUM_SERVER_IP, REMOTE_ADB_ADDRESS = "", REMOTE_ADB_PORT = "5554";
     private static SetupManager setupManager;
     private static String TARGET_PLATFORM;
     private static AppiumDriverLocalService service = null;
@@ -66,8 +62,23 @@ public class SetupManager extends EventFiringWebDriver {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
 
-                }catch (Exception e){
-                    ManageDevices.afterSuiteManageDevice();
+                }catch (SessionNotCreatedException e) {
+                    logger.detail("Initialing driver failed ,removing and trying again trying again" + ExceptionUtils.getStackTrace(e));
+
+                    removeWebdriverAgent();
+                    try {
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                    } catch (Exception e1) {
+                        ManageDevices.afterSuiteManageDevice();
+                    }
+                }
+                catch (Exception e) {
+                    logger.detail("Initialing driver failed trying again" + ExceptionUtils.getStackTrace(e));
+                    try {
+                        driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                    } catch (Exception e1) {
+                        ManageDevices.afterSuiteManageDevice();
+                    }
                 }
                 if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "CUSTOMER");
@@ -81,15 +92,39 @@ public class SetupManager extends EventFiringWebDriver {
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
 
-            driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
-
-
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(PropertyUtility.getProp("implicit.wait")), TimeUnit.SECONDS);
 
 
         DriverManager.getObject().setPrimaryInstanceKey("ORIGINAL");
         DriverManager.getObject().storeDriverInstance("ORIGINAL", driver);
         DriverManager.getObject().setDriver(driver);
         Runtime.getRuntime().addShutdownHook(CLOSE_THREAD);
+    }
+    private static void removeWebdriverAgent(){
+        try {
+            //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                //commented code to remove webdriver agent
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
+
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
+
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                   Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+            }
+        } catch (Exception e) {
+            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+
+        }
     }
 
     /**
@@ -137,7 +172,7 @@ public class SetupManager extends EventFiringWebDriver {
         builder.usingPort(Integer.parseInt(portNumber));
         //relaxed security tag
         builder.withArgument(GeneralServerFlag.RELAXED_SECURITY);
-       // builder.withEnvironment(env);
+        // builder.withEnvironment(env);
         service = AppiumDriverLocalService.buildService(builder);
         service.start();
 
@@ -180,18 +215,18 @@ public class SetupManager extends EventFiringWebDriver {
         driver = driver;
     }
 
-    public static WebDriver createWebDriverInstance(String browser)  {
+    public static WebDriver createWebDriverInstance(String browser) {
         WebDriver driver = null;
 
-        String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
-        if(SystemUtils.IS_OS_MAC)
-            chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
+        String chromeDriverPath = "src/main/resources/BrowserExecutables/chromedriver.exe";
+        if (SystemUtils.IS_OS_MAC)
+            chromeDriverPath = "src/main/resources/BrowserExecutables/chromedriver";
 
         switch (browser.toUpperCase()) {
             case "CHROME":
-                System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
+                System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("", chromeDriverPath));
 
-              // DesiredCapabilities capabilities = getChromeDesiredCapabilities();
+                // DesiredCapabilities capabilities = getChromeDesiredCapabilities();
 
                 ChromeOptions options = getChromeDesiredCapabilities();
                 ChromeDriverService service = new ChromeDriverService.Builder()
@@ -211,25 +246,31 @@ public class SetupManager extends EventFiringWebDriver {
     private static ChromeOptions getChromeDesiredCapabilities() {
 
         //vishal[2003]: checking chrome issue for Mac machine
-    //    String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
-    //    if(SystemUtils.IS_OS_MAC)
-    //        chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
-    //    System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
+        //    String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
+        //    if(SystemUtils.IS_OS_MAC)
+        //        chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
+        //    System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
 
-       // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
         //Run in Headless mode for IOS
-        if(PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS"))
+        //vishal[2003]: checking chrome issue for Mac machine
+        chromeOptions.addArguments("no-sandbox");
+        if (PropertyUtility.getProp("target.platform").equalsIgnoreCase("IOS")) {
             chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("window-size=1920,1080");
+        }
 
+        chromeOptions.setExperimentalOption("useAutomationExtension", false);
         chromeOptions.addArguments("--disable-extensions");
         chromeOptions.addArguments("--disable-web-security");
         chromeOptions.addArguments("--test-type");
         chromeOptions.addArguments("--start-maximized");
+        //chromeOptions.addArguments("--disable-dev-shm-usage");
+      //  chromeOptions.addArguments("--log-level=3");
+       // chromeOptions.addArguments("--silent");
 
-        //vishal[2003]: checking chrome issue for Mac machine
-        chromeOptions.addArguments("no-sandbox");
-
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
 
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
@@ -239,7 +280,7 @@ public class SetupManager extends EventFiringWebDriver {
 
         chromeOptions.addArguments("--disable-infobars");
         //vishal[2003]: checking chrome issue for Mac machine
-      //  capabilities.setCapability("chrome.verbose", true);
+        //  capabilities.setCapability("chrome.verbose", true);
         //capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         return chromeOptions;
     }
@@ -249,7 +290,7 @@ public class SetupManager extends EventFiringWebDriver {
      *
      * @return appium driver instance
      */
-    private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber)  {
+    private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
         try {
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -288,9 +329,9 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability(key, jsonCaps.get(key));
 
         }
-        if(!System.getProperty("remoteAdbHost").trim().equals("")&&TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())){
-            capabilities.setCapability("remoteAdbHost",System.getProperty("remoteAdbHost"));
-            capabilities.setCapability("adbPort",REMOTE_ADB_PORT);
+        if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
+            capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
+            capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
         logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
         return capabilities;
@@ -345,7 +386,8 @@ public class SetupManager extends EventFiringWebDriver {
         }
 
     }
-    public void terminateApp(String bundleId){
+
+    public void terminateApp(String bundleId) {
 
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
@@ -354,14 +396,14 @@ public class SetupManager extends EventFiringWebDriver {
             try {
                 ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
             } catch (org.openqa.selenium.WebDriverException e) {
-                logger.detail(" Issue with stopping app"+bundleId);
+                logger.detail(" Issue with stopping app" + bundleId);
             }
 
         }
 
     }
 
-    public void restartApp(String bundleId){
+    public void restartApp(String bundleId) {
 
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
             ((IOSDriver) SetupManager.getDriver()).terminateApp(bundleId);
@@ -369,9 +411,9 @@ public class SetupManager extends EventFiringWebDriver {
 
         } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             try {
-            ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
+                ((AndroidDriver) SetupManager.getDriver()).terminateApp(bundleId, new AndroidTerminateApplicationOptions().withTimeout(Duration.ofMillis(5000)));
             } catch (org.openqa.selenium.WebDriverException e) {
-                logger.detail(" Issue with stopping app"+bundleId);
+                logger.detail(" Issue with stopping app" + bundleId);
             }
             ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
 
@@ -383,7 +425,9 @@ public class SetupManager extends EventFiringWebDriver {
         DriverManager.getObject().useDriverInstance(instanceKey);
     }
 
-    public String  getCurrentInstanceKey(){return DriverManager.getObject().getCurrentKey();}
+    public String getCurrentInstanceKey() {
+        return DriverManager.getObject().getCurrentKey();
+    }
 
     public AppiumDriver<MobileElement> createAdditionAppiumDriver(String serverPort, DesiredCapabilities capabilities) throws MalformedURLException {
         String appiumServerUrl = getAppiumServerURL(serverPort);
