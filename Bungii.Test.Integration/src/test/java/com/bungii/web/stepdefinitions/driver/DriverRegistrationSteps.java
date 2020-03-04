@@ -227,6 +227,7 @@ public class DriverRegistrationSteps extends DriverBase {
             case "new verification code":
                 String VerifCode_Initial = (String) cucumberContextManager.getScenarioContext("VerifCode_Initial");
                 String DriverPhone = (String) cucumberContextManager.getScenarioContext("DriverPhone");
+                Thread.sleep(5000);
                 String VerifCode_Updated = DbUtility.getVerificationCode(DriverPhone);
                 cucumberContextManager.setScenarioContext("VerificationCode", VerifCode_Updated);
                 testStepVerify.isFalse(VerifCode_Updated.equals(VerifCode_Initial), "New verification code should not be same as old code", "New verification code is not same as old code", "New verification code is same as old code");

@@ -22,14 +22,6 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the driver application should be marked as "Active"
     And I should receive "BUNGII: Time to Hit the Road!" email
 
-  @regression
-    #test data created in base
-  Scenario: Verify Approve Application Button visibility On Field Rejection - NonFountain
-    When I click "Verify" button against the "John owPH" applicant
-    Then I should be directed to "Driver Verification Page"
-    When I verify and reject the invalid verification fields
-    Then the "Approve Application" button is not visible
-
   @sanity
   @regression
     #test data created in base
@@ -108,8 +100,6 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field resets to default
 
   @regression
-  @failed
-    @email
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant
@@ -126,3 +116,11 @@ Feature: Admin_DriverApplicationVerification
     Then there is a pending application for driver verification
     When I click "Verify" button against the "Melvin Johnson" applicant
     Then The accepted tick is removed for "Social Security Number" field previously accepted by admin
+
+  @regression
+    #test data created in base
+  Scenario: Verify Approve Application Button visibility On Field Rejection - NonFountain
+    When I click "Verify" button against the "John owPH" applicant
+    Then I should be directed to "Driver Verification Page"
+    When I verify and reject the invalid verification fields
+    Then the "Approve Application" button is not visible

@@ -8,6 +8,7 @@ Feature: Admin_Promocodes
 
   @sanity
   @regression
+    @failed
   Scenario: Verify Add New Promocode of Type Promo
     When I click on the "New Code" Button
     And I enter following values in fields

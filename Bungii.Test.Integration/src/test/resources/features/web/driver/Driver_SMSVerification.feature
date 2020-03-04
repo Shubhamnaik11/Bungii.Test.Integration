@@ -10,6 +10,7 @@ Feature: Driver_SMSVerification
     Then I should be directed to "phone verification page" on Driver portal
 
   @regression
+    @failed
   Scenario: Verify Resend Verification Code on Driver Signup
     When I click "Resend verification code" on driver portal
     Then I should see "new verification code" on Driver Registration

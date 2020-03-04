@@ -7,7 +7,7 @@ Feature: Log In
     And I am on the "LOG IN" page on driverApp
   @FAILED2702
   @regression
-  Scenario Outline: As Bungii driver I should not able login to application using invalid details.  Scenario:<Scenario>
+  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen on driverApp
     Then Alert message with <Expected Message> text should be displayed on driverApp
@@ -23,14 +23,14 @@ Feature: Log In
 
   @sanity
   @regression
-  Scenario: As Bungii driver . I should able to login to application using valid password
+  Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen on driverApp
     Then I should be successfully logged in to the application
 
 
   @regression
-  Scenario Outline: Driver canNot login on driver app before admin verification
+  Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen on driverApp
     Then Alert message with <Expected Message> text should be displayed on driverApp
@@ -42,7 +42,7 @@ Feature: Log In
 
     #Valid failed, driver should be locked
   @regression
-  Scenario Outline: Alert should be displayed and driver should be locked when customer enters incorrect password 5 times.
+  Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times
     When I enter phoneNumber :<Username> and  Password :<InCorrectPassword>
     And I click "Log In" button on "Log In" screen on driverApp
     Then Alert message with <Expected Message> text should be displayed on driverApp
@@ -76,7 +76,7 @@ Feature: Log In
 
 
   @regression
-  Scenario: New driver with payment status Inactive/Pending should Not be able to go Online
+  Scenario: Verify New Driver With Payment Status As Inactive Or Pending Cannot Go Online
     When I enter phoneNumber :8989890909 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     Then I should be successfully logged in to the application
@@ -86,7 +86,7 @@ Feature: Log In
     When I Select "LOGOUT" from driver App menu
 
   @regression
-  Scenario: Permission - iOS Driver - Turn off location permission - View alert on app
+  Scenario: Verify Driver Location Permission Displayed When Driver Permission Is Set Off
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
     When I enter phoneNumber :{VALID} and  Password :Cci12345
@@ -102,7 +102,7 @@ Feature: Log In
     Given I install Bungii Driver App again
 
   @regression
-  Scenario: Permission - iOS Driver - Notifications
+  Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
     When I enter phoneNumber :{VALID} and  Password :Cci12345

@@ -6,6 +6,7 @@ Feature: Admin_OndemandTrips
 
   @sanity
   @regression
+    @failed
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
@@ -32,6 +33,7 @@ Feature: Admin_OndemandTrips
 
   @sanity
   @regression
+    @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
   Scenario: Verify Trips List Status Updation For Solo Ondemand Pickup
