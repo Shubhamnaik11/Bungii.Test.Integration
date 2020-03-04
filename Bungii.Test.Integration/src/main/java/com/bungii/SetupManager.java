@@ -270,7 +270,7 @@ public class SetupManager extends EventFiringWebDriver {
       //  chromeOptions.addArguments("--log-level=3");
        // chromeOptions.addArguments("--silent");
 
-        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         chromeOptions.addArguments("ignore-certificate-errors");
         chromeOptions.addArguments("--allow-running-insecure-content");
