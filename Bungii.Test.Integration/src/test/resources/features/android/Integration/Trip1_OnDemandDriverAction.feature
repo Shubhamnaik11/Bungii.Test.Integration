@@ -1,4 +1,5 @@
 @android
+  @test
   #These feature will run in boston geofence
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
@@ -33,7 +34,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
       | geofence | Bungii State |
       | boston   | Enroute      |
 
-    When I am on customer Log in page
+    When I Switch to "customer" application on "same" devices
     And I am logged in as "valid boston" customer
     Then for a Bungii I should see "Enroute screen"
 
