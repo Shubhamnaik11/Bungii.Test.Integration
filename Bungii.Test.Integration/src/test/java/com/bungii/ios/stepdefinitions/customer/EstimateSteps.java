@@ -95,7 +95,7 @@ public class EstimateSteps extends DriverBase {
             testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
                             + strTime + actualTime + " not matching with entered time ");
-
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -151,7 +151,7 @@ public class EstimateSteps extends DriverBase {
             }
 
             log("I confirm trip with following details", "Trip was successfully confirmed ");
-
+            utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -166,6 +166,7 @@ public class EstimateSteps extends DriverBase {
         String actualText = getDriver().switchTo().alert().getText();
         getDriver().switchTo().alert().accept();
         Thread.sleep(5000);
+        utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         pass("I request for bungii using Request Bungii Button",
                 "I requested for bungii using Request Bungii Button");
         logger.detail("Popup text on head up alert message:" + actualText);
