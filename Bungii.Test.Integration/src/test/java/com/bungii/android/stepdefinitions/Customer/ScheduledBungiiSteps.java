@@ -348,6 +348,9 @@ public class ScheduledBungiiSteps extends DriverBase {
                 case "YES, I'LL TAKE $5":
                     action.click(wantDollar5Page.Button_Take5());
                     break;
+                case "I DON'T LIKE FREE MONEY":
+                    action.click(wantDollar5Page.Button_NoFreeMoney());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

@@ -240,6 +240,9 @@ Feature: SoloScheduled
     And I Switch to "customer" application on "same" devices
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
 
   @regression
@@ -266,6 +269,9 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
     Then I Cancel selected Bungii
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
 
   @regression
@@ -280,6 +286,9 @@ Feature: SoloScheduled
     And I Cancel selected Bungii
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Screen When Required Drivers Have Not Accepted It
@@ -752,7 +761,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8805368840      |
 
   @regression
-
+@test
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver More Than One Hour From Scheduled Time
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -964,7 +973,6 @@ Feature: SoloScheduled
 
 
   @regression
-
   Scenario: Verify Status Of Scheduled Bungii In the Scheduled Trip Screen When Only One Driver Accepts The Trip
     And I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1037,7 +1045,6 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   @regression
-
   Scenario:  Verify Customer Receives Notification When Control Driver Starts Solo Bungii
     When I clear all notification
     And I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
@@ -1095,6 +1102,9 @@ Feature: SoloScheduled
     And I tap on the "Log in" Button on Login screen
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8805368840 |                 |
 
   @regression
 
@@ -1117,6 +1127,9 @@ Feature: SoloScheduled
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     When I Switch to "customer" application on "same" devices
     And Notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE" should be displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario:Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Trip
@@ -1151,6 +1164,9 @@ Feature: SoloScheduled
     And I should not get notification for "driver" for "URGENT SCHEDULED PICKUP AVAILABLE"
     When I Switch to "customer" application on "same" devices
     Then Notification for "driver" for "SCHEDULED PICKUP AVAILABLE" should be displayed
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Trip
@@ -1176,6 +1192,9 @@ Feature: SoloScheduled
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     Then User should see message "60 MINS BEFORE SCHEDULE TRIP TIME" text on the screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
 
@@ -1363,6 +1382,9 @@ Feature: SoloScheduled
     When I switch to "ORIGINAL" instance
     And I Switch to "driver" application on "same" devices
     Then Telet time of research trip should be not be same as previous trips
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
 
@@ -1534,7 +1556,7 @@ Feature: SoloScheduled
       | driver1 state    |
       | Bungii Completed |
     Then Bungii customer should see "correct details for duo trip" on Bungii completed page
-    And I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details for duo trip" on Bungii completed page
@@ -1921,6 +1943,9 @@ Feature: SoloScheduled
     When I select "3" Ratting star for duo "Driver 1"
     And I select "5" Ratting star for duo "Driver 2"
     Then I tap on "OK" on Bungii Complete
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | 8888888881 |                 |
 
   @regression
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip
@@ -2046,6 +2071,7 @@ Feature: SoloScheduled
       | Scenario       | Card Detail                | Card Expiry       | CVV       | Postal Code       |
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
 
+
   @regression
 
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
@@ -2129,18 +2155,21 @@ Feature: SoloScheduled
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
     Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on the "Bungii Completed" screen
 
     When I Switch to "customer" application on "same" devices
     Then I wait for "2" mins
     Then I should be navigated to "BUNGII COMPLETE" screen
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
     And I Switch to "driver" application on "Driver2" devices
     And I slide update button on "UNLOADING ITEM" Screen
     Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on "Bungii Completed" screen
+    When I click "On To The Next One" button on the "Bungii Completed" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
 
   @regression
 

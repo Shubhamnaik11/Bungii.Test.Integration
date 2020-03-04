@@ -88,6 +88,7 @@ public class GeneralUtility extends DriverBase {
     InvitePage invitePage = new InvitePage();
     LocationPage locationPage= new LocationPage();
     com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
+    DbUtility dbUtility=new DbUtility();
 
      EmailUtility emailUtility = new EmailUtility();
     /**
@@ -574,7 +575,7 @@ public class GeneralUtility extends DriverBase {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         //   phoneNumber="9999996170";
-        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
 
@@ -582,7 +583,7 @@ public class GeneralUtility extends DriverBase {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         //   phoneNumber="9999996170";
-        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
         return DbUtility.getEstimateTime(custRef);
     }
 
@@ -590,7 +591,7 @@ public class GeneralUtility extends DriverBase {
 
         String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         //   phoneNumber="9403960188";
-        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
         String pickUpId = DbUtility.getPickupID(custRef);
         String actualTime = DbUtility.getActualTime(pickUpId);
         return actualTime;
@@ -598,7 +599,7 @@ public class GeneralUtility extends DriverBase {
 
     public String getPickupRef(String phoneNumber) {
 
-        String custRef = com.bungii.android.utilityfunctions.DbUtility.getCustomerRefference(phoneNumber);
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
         String pickupReff = DbUtility.getPickupReff(custRef);
         return pickupReff;
     }
