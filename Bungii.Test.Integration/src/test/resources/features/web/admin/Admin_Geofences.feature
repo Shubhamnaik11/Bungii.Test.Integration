@@ -17,6 +17,7 @@ Feature: Admin_Geofence
     
   @sanity
   @regression
+    @demo
   Scenario: Verify Add Edit New Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
