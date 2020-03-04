@@ -195,7 +195,7 @@ public class DbUtility extends DbContextManager {
         return activeFlag;
     }
     public static String getCustomerDeviceToken(String phoneNumber){
-        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc";
+        String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
