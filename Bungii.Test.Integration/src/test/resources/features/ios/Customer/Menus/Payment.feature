@@ -8,7 +8,7 @@ Feature: Payment page
     Given I am on Customer logged in Home page
   @FAILED2702
   @regression
-  Scenario Outline: As Bungii customer I should not be able to add invalid card . <Scenario> Scenario
+  Scenario Outline: Verify Customer Cannot Add Invalid Card - <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I click "Add new" button on "PAYMENT" screen
@@ -23,7 +23,7 @@ Feature: Payment page
       | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
     
   @regression
-  Scenario Outline: As Bungii customer I should able to add New Card . <Scenario> Scenario
+  Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     And PAYMENT page should be properly displayed
@@ -40,7 +40,7 @@ Feature: Payment page
 
   @FAILED2802
   @regression
-  Scenario: As Bungii customer I should able to change default card
+  Scenario: Verify Customer Can Change Default Payment Card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
     When I get "current" default card
@@ -53,7 +53,7 @@ Feature: Payment page
     #From sprint30 , we can delete the default card
   @sanity
   @regression
-  Scenario Outline: As Bungii customer I should able to delete card
+  Scenario Outline: Verify Customer Can Delete Payment Card
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -84,7 +84,7 @@ Feature: Payment page
 
 
   @regression
-  Scenario Outline:  As new Bungii customer without payment card . Payment page should display add Payment card message and Image .
+  Scenario Outline:  Verify Customer Without Payment Card Should See Add Payment Card Message
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
     When I enter Username :<Username> and  Password :<Password>

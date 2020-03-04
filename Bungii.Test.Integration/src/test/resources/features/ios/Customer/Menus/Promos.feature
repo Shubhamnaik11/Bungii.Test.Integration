@@ -9,7 +9,7 @@ Feature: Promos
   @FAILED2702
   @sanity
   @regression
-  Scenario Outline:As a existing bungii customer . I should not be allowed to use First time only Promo code
+  Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
     When I logged in Customer application using  "existing" user
     And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -24,7 +24,7 @@ Feature: Promos
       | Invalid | first time only | FIRST TIME ONLY PROMO |
 
   @regression
-  Scenario Outline: As a Bungii Customer . I should be alert while adding invalid promo code
+  Scenario Outline: Verify Customer Is Alerted While Adding Invalid Promocode
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
@@ -36,7 +36,7 @@ Feature: Promos
       | Invalid | AAAAAAA | Invalid Promo    |
 
   @regression
-  Scenario Outline: As a Bungii Customer . I should not able to add Referral promo code after creating account . I Should be alerted that Referral code are for new customer only
+  Scenario Outline: Verify Customer Cannot Add Referral Promocode After Creating Account And Is Alerted That Referral Code Are For New Customer Only
 
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -59,7 +59,7 @@ Feature: Promos
       | New user (with out REFERRAL code)  | new       | REFERRAL FOR NEW USER |
 
   @regression
-  Scenario: As a Bungii Customer . I should be alerted while added used one off promo code
+  Scenario: Verify If Customer Is Alerted While Adding Used One Off Promocode
   #  When I open new "Chrome" browser for "ADMIN PORTAL"
   #  When I navigate to admin portal
   #  And I log in to admin portal
@@ -73,7 +73,7 @@ Feature: Promos
     Then user is alerted for "Invalid Promo"
 
   @regression
-  Scenario: As a Bungii Customer . I should be alerted while adding already existing code
+  Scenario: Verify If Customer Is Alerted While Adding Existing Code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -90,7 +90,7 @@ Feature: Promos
     Then user is alerted for "Already Existing Code"
 
   @regression
-  Scenario: When i try to enter expired promo code I should be alerted for Expired Promo code message
+  Scenario: Verify If Customer Is Alerted While Adding Expired Promo code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -104,7 +104,7 @@ Feature: Promos
     Then user is alerted for "EXPIRED PROMO"
   @notwitter
  # @regression
-  Scenario: When i try to share my promo code . via twitter but there is no application installed then I should be alerted for No twitter Installed message
+  Scenario: Verify When Customer Tries To Share His Promocode Via Twitter But There Is No Twitter App Installed Then He Gets An Alert For No Twitter Installed
     Given I have "twitter" app "not installed"
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -117,7 +117,7 @@ Feature: Promos
     And I should be navigated to "Invite" screen
 
   @regression
-  Scenario: Menu_SaveMoney_ReferralInvite_Facebook_AppInstalled
+  Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -134,7 +134,7 @@ Feature: Promos
     Then I should be navigated to "Invite" screen
 
   @regression
-  Scenario:To check the text in i on Promos page. (when any promo code is present)
+  Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -152,7 +152,7 @@ Feature: Promos
     Then user is alerted for "MINIMUM COST STILL APPLIES"
 
   @regression
-  Scenario: Check that the 'i' text changes when first time use only promo or referral code is present in Promos page
+  Scenario: Verify Text On Hover of I When First Time Use Only Promo Or Referral Code Is Present In Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -171,7 +171,7 @@ Feature: Promos
 
 
   @regression
-  Scenario:First time promo code/referral code. if present should be selected by default.
+  Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -206,7 +206,7 @@ Feature: Promos
   
 # add promo from app menu and verify on Estimate page and vice versa
   @regression
-  Scenario:Check that Promos can be added from menu and Estimate page
+  Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -242,7 +242,7 @@ Feature: Promos
     Then I should able to see expected promo code in available promo code
 
   @regression
-  Scenario: Cancel after using Promo code. should Not get utilized
+  Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
     And I enter Username :8877995512 and  Password :{VALID}
@@ -269,7 +269,7 @@ Feature: Promos
     Then I should able to see expected promo code in available promo code
 
   @regression
-  Scenario: Re-search after using Promo code. should be used for re-searched trip
+  Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
     When I Switch to "driver" application on "same" devices
@@ -345,7 +345,7 @@ Feature: Promos
 
 
   @regression
-  Scenario Outline: Already applied Promo code used after its expiry
+  Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
 
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}

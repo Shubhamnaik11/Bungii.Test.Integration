@@ -7,11 +7,11 @@ Feature: Driver Home screen
     And I am logged in as "valid" driver
   @FAILED2702
   @regression
-  Scenario: To verify that the default status mode is Offline
+  Scenario: Verify Driver Default Status Is Set To Offline After Login
     Then the status of the driver should be "Offline"
 
   @regression
-  Scenario: To Verify driver information is populated correctly
+  Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
     And The "Vehicle info" for "valid" driver should be correctly displayed
     And The "rating" for "valid" driver should be correctly displayed
@@ -25,7 +25,7 @@ Feature: Driver Home screen
 
 
   @regression
-  Scenario: Verify the buttons on page
+  Scenario: Verify Driver Go Online button And Available Trips Link On Driver Dashboard Screen
     When I click "Go Online" button on "Home" screen on driverApp
     Then The title of button should change to "Go Offline" on driverApp
     And Info text should be updated

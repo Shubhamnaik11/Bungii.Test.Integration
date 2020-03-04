@@ -9,7 +9,7 @@ Feature: FORGOT PASSWORD
     Given I am on the "LOG IN" page
   @FAILED2702
   @regression
-  Scenario Outline: As Bungii customer . I should able to alerted  if i  add invalid phone number during forget password functionality . Scenario:<Scenario>
+  Scenario Outline: Verify Customer Is Alerted If Adds Invalid Phone Number During Forget Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -22,7 +22,7 @@ Feature: FORGOT PASSWORD
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
   @regression
-  Scenario Outline: As Bungii customer . I should able to alerted if I Enter invalid password or sms code during forget password functionality. Scenario:<Scenario>
+  Scenario Outline: erify Customer Is Alerted If Enters Invalid Password Or Sms Code During Forget Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -42,7 +42,7 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
 
   @regression
-  Scenario Outline: As Bungii customer . I should able to change my password using forgot password functionality
+  Scenario Outline: Verify Customer Can Change My Password Using Forgot Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page
     When I Enter "<Value>" value in "Phone Number" field in "FORGOT PASSWORD" Page
@@ -59,7 +59,7 @@ Feature: FORGOT PASSWORD
       | VALID PHONE | {VALID USER} | Cci12345     | PASSWORD CHANGE SUCCESS |
 
   @regression
-  Scenario Outline: To check Resend OTP functionality on the Forgot Password screen.
+  Scenario Outline: Verify Resend OTP Functionality On The Forgot Password Screen
     When I click "Forgot Password" button on "LOG IN" screen
     When I Enter "8877995510" value in "Phone Number" field in "FORGOT PASSWORD" Page
     And I click "SEND" button on "FORGOT PASSWORD" screen
@@ -84,7 +84,7 @@ Feature: FORGOT PASSWORD
 
 
   @regression
-  Scenario: Customer should be able to login and complete a Bungii after updating password using Forgot Password after being locked out.
+  Scenario: Verify Customer Is Able To Login And Complete Bungii After Updating Password Using Forgot Password On Being Locked Out
 
     When I enter Username :8877995510 and  Password :cci12345
     And I click "Log In" button on "Log In" screen
