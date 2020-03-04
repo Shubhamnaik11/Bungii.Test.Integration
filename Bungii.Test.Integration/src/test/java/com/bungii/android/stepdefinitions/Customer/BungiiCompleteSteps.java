@@ -16,6 +16,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.WebElement;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Map;
 
@@ -196,6 +197,14 @@ public class BungiiCompleteSteps extends DriverBase {
 
     public void verifyDiscount() {
         action.scrollToBottom();
+
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost = Double.parseDouble(utility.getGeofenceData(currentGeofence, "geofence.minimum.cost")),
+                perMileValue = Double.parseDouble(utility.getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
+                perMinutesValue = Double.parseDouble(utility.getGeofenceData(currentGeofence, "geofence.dollar.per.minutes"));
+        action.scrollToBottom();
         double tripActualTime = Double.parseDouble(utility.getActualTime());
         String totalTime = action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],
                 totalDistance = action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
@@ -203,6 +212,50 @@ public class BungiiCompleteSteps extends DriverBase {
         String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
         Double promoValue = 0.0;
+        String distanceValueDB = utility.getEstimateDistance();
+        double distance = Double.parseDouble(distanceValueDB);
+
+        //double tripActualTime = Double.parseDouble(totalTime);
+        double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
+        if (numberOfDriver.equalsIgnoreCase("DUO"))
+            tripValue = tripValue * 2;
+
+        if (Promo.contains("$"))
+            promoValue = Double.valueOf(Promo.replace("-$", ""));
+        else if (Promo.contains("%"))
+            promoValue = Double.valueOf(tripValue * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100);
+        //if final cost with promo is less than 39, then discount is reduced
+        if ((tripValue - promoValue) < minCost)
+            promoValue = tripValue - minCost;
+
+        String promoDiscountValue="";
+        if (numberOfDriver.equalsIgnoreCase("DUO")) {
+            DecimalFormat df = new DecimalFormat("#.00");
+            df.setRoundingMode(RoundingMode.FLOOR);
+            promoDiscountValue = df.format(promoValue);
+        }else{
+            promoDiscountValue = new DecimalFormat("#.00").format(promoValue);
+
+        }
+        if (promoDiscountValue.indexOf(".") == 0) promoDiscountValue = "0" + promoDiscountValue;
+
+        cucumberContextManager.setScenarioContext("DISCOUNT_VALUE", promoDiscountValue);
+
+       // action.scrollToTop();
+        if (numberOfDriver.equalsIgnoreCase("DUO"))
+            testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount_Duo(), "$" + promoDiscountValue, "Discount value should be promo Value" + promoDiscountValue, "Discount value is " + promoDiscountValue, "Discount value is not " + promoDiscountValue);
+        else
+            testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(), "$" + promoDiscountValue, "Discount value should be promo Value" + promoDiscountValue, "Discount value is " + promoDiscountValue, "Discount value is not " + promoDiscountValue);
+
+
+       /* double tripActualTime = Double.parseDouble(utility.getActualTime());
+        String totalTime = action.getText(bungiiCompletePage.Text_BungiiTime()).split(" ")[0],
+                totalDistance = action.getText(bungiiCompletePage.Text_Distance()).split(" ")[0];
+        String Promo = String.valueOf(cucumberContextManager.getScenarioContext("PROMOCODE_VALUE"));
+        String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+        Double promoValue = 0.0;
+        String distanceValueDB = utility.getEstimateDistance();
         double distance = Double.parseDouble(totalDistance.replace(" miles", ""));
 
         //double tripActualTime = Double.parseDouble(totalTime);
@@ -226,7 +279,7 @@ public class BungiiCompleteSteps extends DriverBase {
         //  testStepVerify.isEquals(actualDiscount,"$" + promoValue);
         testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(),
                 "$" + promoDiscountValue, "Discount value should be promo Value" + Promo,
-                "Discount value is " + promoDiscountValue, "Discount value is not " + promoDiscountValue);
+                "Discount value is " + promoDiscountValue, "Discount value is not " + promoDiscountValue);*/
     }
 
 
@@ -271,6 +324,7 @@ public class BungiiCompleteSteps extends DriverBase {
         act.press(PointOption.point(tapAt, yAxis)).release().perform();
     }
 
+
     public void verifyPromoterValue() {
         action.scrollToBottom();
         double tripActualTime = Double.parseDouble(utility.getActualTime());
@@ -285,7 +339,7 @@ public class BungiiCompleteSteps extends DriverBase {
         String truncValue = new DecimalFormat("#.00").format(expectedTotalCost);
 
         if (numberOfDriver.equalsIgnoreCase("DUO"))
-            totalCost = action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];//TO BE HANDLED FOR DUO
+            totalCost = action.getText(bungiiCompletePage.Text_FinalCost_Duo()).split(" ")[0];//TO BE HANDLED FOR DUO
         else
             totalCost = action.getText(bungiiCompletePage.FinalCost()).split(" ")[0];
 
@@ -307,10 +361,10 @@ public class BungiiCompleteSteps extends DriverBase {
         String numberOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 
         Double promoValue = 0.0;
-        //String distanceValueDB=utility.getEstimateDistance();
+        String distanceValueDB=utility.getEstimateDistance();
 
-        double //distance =Double.parseDouble(distanceValueDB);
-                distance = Double.parseDouble(totalDistance.replace(" miles", ""));
+        double distance =Double.parseDouble(distanceValueDB);
+        // distance = Double.parseDouble(totalDistance.replace(" miles", ""));
         double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
         if (numberOfDriver.equalsIgnoreCase("DUO"))
             tripValue = tripValue * 2;

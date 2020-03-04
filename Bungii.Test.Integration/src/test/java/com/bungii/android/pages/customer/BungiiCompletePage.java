@@ -45,5 +45,7 @@ public class BungiiCompletePage extends PageBase {
     public WebElement Button_Plus() { return findElement("com.bungii.customer:id/tip_increase_button", LocatorType.Id);}
     public WebElement Text_TipValue() { return findElement("com.bungii.customer:id/tip_value_label", LocatorType.Id);}
     public WebElement Button_Ok() { return findElement("com.bungii.customer:id/pickup_success_ok_button", LocatorType.Id);}
+    public WebElement Text_FinalCost_Duo() { return findElement("com.bungii.customer:id/summary_value_cost", LocatorType.Id);}
+    public WebElement Text_Discount_Duo() { return findElement("com.bungii.customer:id/summary_value_discount", LocatorType.Id);}
     //public WebElement Button_Close() { return findElement("com.bungii.customer:id/tip_value_label", LocatorType.Id);}
 }

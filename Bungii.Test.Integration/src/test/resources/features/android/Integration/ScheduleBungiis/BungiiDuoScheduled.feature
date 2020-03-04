@@ -130,9 +130,9 @@ Feature: Duo
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
+
   #given i have large image on phone
   @regression
-
   Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 

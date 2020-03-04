@@ -453,44 +453,44 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         switch(message) {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
-            testStepAssert.isEquals(admin_PromoCodesPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+            testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
         break;
             case "Trips have been requested successfully.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_BulkTripSuccess().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "Please enter a valid date.":
-                testStepAssert.isEquals(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "Please enter a valid Promo Code Name containing alphanumeric and special characters only":
-                testStepAssert.isEquals(admin_PromoCodesPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "Please enter a valid Code containing alphanumeric and special characters like $,&,#,@,!,%,?,+ only":
-                testStepAssert.isEquals(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_PromoCodeExpiryDateErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 //BOC
             case "No promo codes found.":
-                testStepAssert.isEquals(admin_PromoCodesPage.Label_NoPromoCodesFound().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_NoPromoCodesFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "Payment details added successfully for Business User.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_PaymentMethodSavedMessage().getText(), message,message+ " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_PaymentMethodSavedMessage()), message,message+ " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "This card number is not valid.":
                 String xpath=null;
                 xpath = String.format("//div[contains(text(),'This card number is not valid.')]");
-                testStepAssert.isEquals(SetupManager.getDriver().findElement(By.xpath(xpath)).getText(),"This card number is not valid.", "This card number is not valid.","The message is listed in grid", "The message is not listed in grid");
+                testStepAssert.isEquals(action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))),"This card number is not valid.", "This card number is not valid.","The message is listed in grid", "The message is not listed in grid");
                 break;
 
             case "No Business users found.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_NoBusinessUsersFound().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
             case "Phone number already exists.":
-                testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
                 //EOC
         }

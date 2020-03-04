@@ -220,8 +220,8 @@ public class ReportGeneratorUtility extends DriverBase {
 		}
 		else {
             try {
-				if (this.reason.equalsIgnoreCase( "") || this.reason.equalsIgnoreCase( "Error performing step,Please check logs for more details" )|| this.reason.equalsIgnoreCase( "Error performing step, Please check logs for more details" )) {
-					fail("Temporary step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"));
+				if (this.reason.equalsIgnoreCase( "")) {
+					fail("Temporary Step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
 				}
 				}
             catch(Exception ex){}

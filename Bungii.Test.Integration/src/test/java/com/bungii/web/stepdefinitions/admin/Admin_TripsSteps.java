@@ -62,6 +62,7 @@ public class Admin_TripsSteps extends DriverBase {
     @And("^I view the Trips list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
+        Thread.sleep(5000);
         SetupManager.getDriver().navigate().refresh();
         action.selectElementByText(admin_TripsPage.Dropdown_SearchForPeriod(), "The Beginning of Time");
         log("I view the Trips list on the admin portal",
