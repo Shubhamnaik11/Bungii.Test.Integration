@@ -16,7 +16,7 @@ Feature: Admin_BusinessUsers
       | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
     When I click on the "Save" Button on "Business Users" popup
     Then the business user gets saved successfully and it is displayed in the "Business users" grid
-    When I search by Name "Testcustomertywd_apple<<UniqueNo>>" in "Business Users" page
+    #When I search by Name "Testcustomertywd_apple<<UniqueNo>>" in "Business Users" page
     Then the user "Testcustomertywd_appleBiz<<UniqueNo>>" is displayed in the Business users grid
     When I edit the "Phone Number" and "Email"
     And I click on the "Save" Button on "Business Users" popup
@@ -115,7 +115,7 @@ Feature: Admin_BusinessUsers
   @sanity
   @regression
     @demo
-  Scenario: Verify Add New Business User - Field validations In Uplaoded CSV
+  Scenario: Verify Add New Business User And Add Payment Method - Field validations In Uplaoded CSV For Bulk Trips
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
       | Name                                              | Phone                   | Email  |

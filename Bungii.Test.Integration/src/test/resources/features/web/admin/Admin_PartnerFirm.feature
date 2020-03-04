@@ -25,6 +25,7 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
+    @demo
     @failed
   Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location

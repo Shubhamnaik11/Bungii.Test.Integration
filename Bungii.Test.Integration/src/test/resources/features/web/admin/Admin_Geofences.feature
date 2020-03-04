@@ -22,7 +22,7 @@ Feature: Admin_Geofence
     When I click on the "Scale" Button
     And I enter following values in "Geofence" fields
       | Primary                                              | Secondary                   | Geo-Name  | Geo-TimeZone | Geo-Status|
-      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        | ZONE-      | MST            |Active|
+      | e{o~FpctuOjE\|j_Ao\|e@veBfe@mbt@lqe@_rM      | km_}FhtotOznYf~gDcoeDxy]cx@stsBlmoC{orA        | ZONE-<<UniqueNo>> | MST            |Active|
     When I click on the "Save" Button on "Geofence" Screen
     Then the geofence gets saved successfully and it is displayed in the "Geofences" grid
     When I click on the geofence name "ZONE-"
