@@ -107,7 +107,7 @@ public class CucumberHooks {
                 String udid = jsonCaps.getString("udid");
 
 
-                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+         //       Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
             }
         } catch (Exception e) {
             // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
