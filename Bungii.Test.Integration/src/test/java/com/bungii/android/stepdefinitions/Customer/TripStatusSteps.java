@@ -72,6 +72,7 @@ public class TripStatusSteps extends DriverBase {
     private void validateSMSNumber(String actualValue,String expectedValue) {
         String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
+        
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
         testStepVerify.isTrue(isPhoneNumCorrect,
