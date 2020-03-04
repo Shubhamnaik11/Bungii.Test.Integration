@@ -66,12 +66,13 @@ public class TripStatusSteps extends DriverBase {
                                     + " and " + options.get(1),
                             "Alert dont have option to cancel and call twilio number");*/
 
-        action.click(inProgressBungiiPages.Button_Cancel());
+        action.NavigateBack();
     }
 
     private void validateSMSNumber(String actualValue,String expectedValue) {
         String expectedNumber = expectedValue.replace("(", "").replace(")", "").replace(" ", "")
                 .replace("-", "");
+        
         boolean isPhoneNumCorrect = actualValue.contains(expectedNumber);
 
         testStepVerify.isTrue(isPhoneNumCorrect,
@@ -79,7 +80,7 @@ public class TripStatusSteps extends DriverBase {
                 "To Field should contains " + expectedNumber + "and  actual value is" + actualValue,
                 "To Field should contains " + expectedNumber + "and  actual value is" + actualValue);
 
-        action.click(messagesPage.Button_Cancel());
+        action.NavigateBack();
         try {Thread.sleep(2000);} catch (InterruptedException e) {e.printStackTrace();}
     }
 }
