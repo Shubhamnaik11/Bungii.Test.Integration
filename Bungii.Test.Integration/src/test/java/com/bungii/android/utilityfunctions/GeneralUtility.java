@@ -701,20 +701,6 @@ public class GeneralUtility extends DriverBase {
         }
         return phoneNumber;
     }
-    public void logCustomerDeviceToken(String phoneNumber){
-        try {
-            com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber);
-        }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
-        }
-    }
-    public void logDriverDeviceToken(String phoneNumber){
-        try {
-            com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber);
-        }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
-        }
-    }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         boolean isNextScreenLogIN = false;
@@ -1620,5 +1606,29 @@ public class GeneralUtility extends DriverBase {
         }
 
         return emailMessage;
+    }
+    public void logCustomerDeviceToken(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Device token of customer"+phoneNumber+"is "+dbUtility.getCustomerDeviceToken(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logDriverDeviceToken(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Device token of Driver"+phoneNumber+"is "+dbUtility.getDriverDeviceToken(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logCustomerRecentTrip(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+dbUtility.getCustomersMostRecentBungii(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
     }
 }

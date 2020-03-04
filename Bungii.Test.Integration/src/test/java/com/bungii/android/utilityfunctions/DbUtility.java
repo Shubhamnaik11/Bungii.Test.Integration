@@ -188,14 +188,21 @@ public class DbUtility extends DbContextManager {
         logger.detail("Reference code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
-    public static String getDriverActiveFlag(String phoneNumber){
-        String UserRef = getDriversReference(phoneNumber);
-        String queryString2 = "select Active from device where UserRef ='"+UserRef+ "' order by devid desc limit 1";
-        String activeFlag = getDataFromMySqlServer(queryString2);
-        return activeFlag;
-    }
-    public static String getCustomerDeviceToken(String phoneNumber){
+    public  String getCustomerDeviceToken(String phoneNumber){
         String queryString2 = " select token from device where UserRef IN (select CustomerRef from customer where phone="+phoneNumber+") order by DevID desc limit 1";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+
+    public  String getDriverDeviceToken(String phoneNumber){
+        String queryString2 = " select token from device where UserRef IN (select DriverRef from driver  where phone="+phoneNumber+") order by DevID desc limit 1";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
+
+    public  String getCustomersMostRecentBungii(String phoneNumber){
+
+        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone="+phoneNumber+") order by pickupid desc limit 1";
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
