@@ -881,7 +881,6 @@ public class EstimateBungiiSteps extends DriverBase {
                 //code to be added incase of "Invalid Image error"
             }*/
 
-            Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -927,6 +926,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
+            action.scrollToTop();
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
             if (arg0.equalsIgnoreCase("OLD BUNGII TIME")) {
                 testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time:" + bungiiTime, "I was not able to select bungii with old bungii time , Bungii time" + bungiiTime + " expected time" + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
