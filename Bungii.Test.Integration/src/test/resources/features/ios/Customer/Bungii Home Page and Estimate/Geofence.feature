@@ -3,7 +3,7 @@
 Feature: Geofence functionality
   
   @regression
-  Scenario: Minimum scheduled time should be displayed on the date picker of the estimate screen based on whether solo or duo has been selected by the customer. Bungii Type: SOLO
+  Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
 
@@ -30,7 +30,7 @@ Feature: Geofence functionality
     Then correct next available scheduled time should be displayed
   
   @regression
-  Scenario: Minimum scheduled time should be displayed on the date picker of the estimate screen based on whether solo or duo has been selected by the customer. Bungii Type: DUO
+  Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
 
@@ -60,7 +60,7 @@ Feature: Geofence functionality
   #this test script will fail as the value of above parameters are set as 30mins and 840mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
   @regression
-  Scenario:To check that Minimum scheduled time for trip (Solo/Duo) canNot be more than difference between SCHEDULE_PICKUP_FROM_TIME and SCHEDULE_PICKUP_TO_TIME
+  Scenario: Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be More Than The Difference Between SCHEDULE_PICKUP_FROM_TIME And SCHEDULE_PICKUP_TO_TIME
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal
@@ -114,7 +114,7 @@ Feature: Geofence functionality
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression
-    Scenario:To check that Minimum scheduled time for trip (Solo/Duo) canNot be less than SCHEDULED_PICKUP_MAX_PROCESSING_TIME
+    Scenario:Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be Less Than SCHEDULED_PICKUP_MAX_PROCESSING_TIME
       When I open new "Chrome" browser for "ADMIN PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
@@ -138,7 +138,7 @@ Feature: Geofence functionality
       And I click on the "Cancel" Button on "Geofence" Screen
 
   @regression
-  Scenario:Message displayed on the app when Geofence is off
+  Scenario: Verify Message Displayed On The App When Geofence Is Set off
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
 

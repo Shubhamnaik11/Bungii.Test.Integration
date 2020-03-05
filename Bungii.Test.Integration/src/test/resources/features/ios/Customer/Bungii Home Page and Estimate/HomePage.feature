@@ -5,7 +5,7 @@ Feature: Customer Home screen
   @FAILED2802
     #test case getting failed , Known issue
   @regression
-  Scenario:To check if ETA bar/picker remains on map when pickup address has been cleared
+  Scenario:Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     Given I am on Customer logged in Home page
     Then "Pick up" address should be displayed in text box
     When I click "Pick Up Clear Text" button on "Home" screen
@@ -13,7 +13,7 @@ Feature: Customer Home screen
   @FAILED2802
   @FAILED0203
   @regression
-  Scenario: To verify ETA . Location text box header . To Verify clear text button is enabled once location is selected
+  Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
     Then current location should be present as pickup location
@@ -28,7 +28,7 @@ Feature: Customer Home screen
     And Clear Button should be enabled for "Drop" box
   @FAILED0203
   @regression
-  Scenario: To Verify clear text button on Pick up and Drop location
+  Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
     When I select "Pick up" location
@@ -49,7 +49,7 @@ Feature: Customer Home screen
 
   @FAILED2802
   @regression
-  Scenario:To check that drop off field is displayed only when pickup address is set.
+  Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
     Then "Pick up" address should be displayed in text box
@@ -60,7 +60,7 @@ Feature: Customer Home screen
 
 
   @regression
-  Scenario:To check if driver ETA is displayed when there are drivers present in 30 min radius of pickup location
+  Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
@@ -69,7 +69,7 @@ Feature: Customer Home screen
     Then driver eta should be "less than 30 mins"
 
   @regression
-  Scenario:To check that customer is allowed to set pickup and drop off locations when  No driver ETA is found (within geofence)
+  Scenario:Verify Customer Can Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)
     Given I am on Customer logged in Home page
 
     And I enter pickup location
@@ -88,9 +88,9 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-
+@demo
   @regression
-  Scenario:Long Haul(>150 miles) alert shown (dist bet. pickup and drop off should be >150 miles)
+  Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page
 
     And I enter pickup location
@@ -103,7 +103,7 @@ Feature: Customer Home screen
 
 
   @regression
-  Scenario:To check ETA box when geofence Not active
+  Scenario: Verify ETA Box When Geofence Is Not Active
     Given I am on Customer logged in Home page
 
     And I enter pickup location

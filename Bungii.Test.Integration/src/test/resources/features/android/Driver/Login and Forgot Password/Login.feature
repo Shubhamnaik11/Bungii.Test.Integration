@@ -9,7 +9,7 @@ Feature: Log In
 
   @regression
 
-  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details Scenario:<Scenario>
+  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app

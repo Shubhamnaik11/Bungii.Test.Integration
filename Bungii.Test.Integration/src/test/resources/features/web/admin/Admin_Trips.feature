@@ -6,6 +6,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+    @failed
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -33,6 +34,8 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+  @demo
+    @failed
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -54,6 +57,7 @@ Feature: Admin_Trips
 
   @sanity
   @regression
+    @failed
     #test data created in base
     #changed driver name
     #First time promo code added
@@ -195,7 +199,6 @@ Feature: Admin_Trips
     Then Trip should be listed in the grid
 
   @regression
-    @failed
       #test data created in base
   Scenario: Verify Trip Requested and Estimated Count Updation On Customer List For Duo Scheduled Trip
     And I note the Trip Requested count of Customer "Krishna Hoderker"

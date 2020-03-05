@@ -6,7 +6,7 @@ Feature: Log In
     Given I am on the "LOG IN" page
 
   @regression
-  Scenario Outline: As Bungii customer I should not able login to application using invalid details.  Scenario:<Scenario>
+  Scenario Outline: Verify Customer Cannot Login To Application Using Invalid Details - Scenario:<Scenario>
     When I enter Username :<Username> and  Password :<Password>
     And I click "Log In" button on "Log In" screen
     Then Alert message with <Expected Message> text should be displayed
@@ -21,13 +21,13 @@ Feature: Log In
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
   @sanity
   @regression
-  Scenario: As Bungii customer . I should able to login to application using valid password
+  Scenario: Verify Customer Can Login Using Valid Credentials
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
   @regression
-  Scenario: As Bungii customer . I should be shown terms and condition page on first time login
+  Scenario: Verify Customer Is Shown Terms And Condition Screen On First Time Login
     Given I install Bungii App again
     When I am on the "LOG IN" page
     And I enter Username :{VALID} and  Password :{VALID}
@@ -51,7 +51,7 @@ Feature: Log In
 
 
   @regression
-    Scenario: Dismiss Tutorials by tapping on Start
+    Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
     When I am on the "LOG IN" page
     And I enter Username :{VALID} and  Password :{VALID}
@@ -80,7 +80,7 @@ Feature: Log In
     Then User should be successfully logged in to the application
 
   @regression
-  Scenario: Verify text on Tutorials pages and swipe. Should be able to swipe back and forth between pages.
+  Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
     Given I install Bungii App again
     When I am on the "LOG IN" page
     And I enter Username :{VALID} and  Password :{VALID}

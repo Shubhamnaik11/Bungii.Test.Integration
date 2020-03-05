@@ -188,4 +188,11 @@ public class DbUtility extends DbContextManager {
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
+
+    public static String getCustomersMostRecentBungii(String phoneNumber){
+
+        String queryString2 = "SELECT PickupRef FROM pickupdetails  WHERE customerRef IN(SELECT CustomerRef FROM customer WHERE phone="+phoneNumber+") order by pickupid desc limit 1";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
 }

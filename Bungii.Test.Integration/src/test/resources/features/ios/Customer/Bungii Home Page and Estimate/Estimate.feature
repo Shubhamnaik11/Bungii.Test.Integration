@@ -9,7 +9,7 @@ Feature: Customer Estimate screen
     Given I am on Customer logged in Home page
   @FAILED2702
   @regression
-  Scenario: If I cancel on Bungii while it is in Searching driver  page . I should be navigated to Home screen and Pickup and Drop location of previous trip should be current pickup and drop location
+  Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -24,7 +24,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
   @regression
-  Scenario: When there are no driver available for on demand Bungii . and Customer choose for Scheduled Bungii instead then he should be navigated to Estimate screen with fields having previous details
+  Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
@@ -44,7 +44,7 @@ Feature: Customer Estimate screen
       | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117/**** 1881   |      | UNCHECK             | DISABLED       |
   
   @regression
-  Scenario: When Bungii Customer cancel on Head's Up Alert message. He should stay on Estimate Page . And all field details should remain unchanged
+  Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -62,7 +62,7 @@ Feature: Customer Estimate screen
       | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
 
   @regression
-  Scenario: When I cancel on Estimate Page . I should be navigated to Home screen
+  Scenario: Verify When Customer Cancels On Estimate Page Then He Is Navigated To Home Screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -77,7 +77,7 @@ Feature: Customer Estimate screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
   @regression
-  Scenario: To check if the information icons display correct information
+  Scenario: Verify If The Information Icons Display Correct Information On Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -94,7 +94,7 @@ Feature: Customer Estimate screen
     And "Time" information icon should display correct information
 
   @regression
-  Scenario: To check the elements of Estimate page
+  Scenario: Verify Field Elements Of Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -107,7 +107,7 @@ Feature: Customer Estimate screen
 
 
   @regression
-  Scenario: Verify Load/unload time functionality . Check if Estimate cost is re calculated
+  Scenario: Verify Load Unload Time Functionality And Verify If Estimate Cost Is Recalculated
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
       | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -118,7 +118,7 @@ Feature: Customer Estimate screen
 
 
   @regression
-  Scenario: Estimate value for the Bungii Should be correctly displayed in Estimate Page
+  Scenario: Verify Estimate Value For The Bungii Should Be Correctly Displayed In Estimate Screen
     And I am on the "LOG IN" page
     And I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
@@ -133,7 +133,7 @@ Feature: Customer Estimate screen
     Then Estimate value for trip should be properly displayed
 
   @regression
-  Scenario: To check that customer is prompted to go to Add payment page if No payment exists (on request Bungii)
+  Scenario: Verify Customer Is Prompted To Go To Add Payment Page If No Payment Exists
     Given I am on the "LOG IN" page
     When I enter Username :9999990216 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
@@ -154,7 +154,7 @@ Feature: Customer Estimate screen
     And I Select "LOGOUT" from Customer App menu
     
     @regression
-    Scenario: To check that Customer is able to add at least one and maximum 4 images of Items
+    Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
         | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
@@ -172,7 +172,7 @@ Feature: Customer Estimate screen
       Then user is alerted for "CANCEL BUNGII"
   @FAILED2702
   @regression
-      Scenario: To check that when duo is selected. Time is selected to next available  scheduled time (correct Timezone)
+      Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
         | Duo    |Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |

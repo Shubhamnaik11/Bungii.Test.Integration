@@ -7,7 +7,7 @@ Feature: Customer	Menu
   @sanity
   @FAILED2702
   @regression
-  Scenario: As Bungii customer I want to check all menu links
+  Scenario: Verify Customer App Menu Links
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
     When I Select "FAQ" from Customer App menu
@@ -29,7 +29,7 @@ Feature: Customer	Menu
     Then I should be navigated to "LOG IN" screen
 
   @regression
-  Scenario: As Bungii customer I want to Ask question using support menu
+  Scenario: Verify Customer Support Menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
     And "Support Question" should be present in "SUPPORT" screen
@@ -39,7 +39,7 @@ Feature: Customer	Menu
     Then user is alerted for "SUPPORT QUESTION SUBMITTED"
 
   @regression
-  Scenario: As Bungii customer I dont enter any question and click on send button
+  Scenario: Verify Support Menu Validations For Blank Questions
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen
     When I Enter "{EMPTY}" value in "Support Textbox" field in "SUPPORT" Page
@@ -49,7 +49,7 @@ Feature: Customer	Menu
     #Social media link are not visible now
     # By default 1 answer is collapsed and displayed.
   @regression
-  Scenario: As Bungii customer I want to check FAQ
+  Scenario: Verify Customer FAQ Menu
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
     And I should see "faq image" on FAQ page
@@ -59,27 +59,27 @@ Feature: Customer	Menu
     Then I should see "first answer dropdown close" on FAQ page
  #   And I should see "social media links" on FAQ page
   @regression
-  Scenario: Get More Money button link - Redirect to Invite page
+  Scenario: Verify Get More Money Link Redirects To Invite Screen
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I click "GET MORE MONEY" button on "PROMOS" screen
     Then I should be navigated to "Invite" screen
 
   @regression
-  Scenario: Scheduled Bungiis: Save Money Button redirect to invite page
+  Scenario: Verify Save Money Button Redirects To Invite Screen
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen
     Then I should be navigated to "Invite" screen
   @FAILED2702
   #failing due to BCKD-1103
   @regression
-  Scenario: Logout (check deregister device token) (Driver & Customer)
+  Scenario: Verify Device Token Deregistration Upon Customer Logout
     Then I customers active flag should be "1"
     When I Select "LOGOUT" from Customer App menu
     Then I customers active flag should be "0"
 
     #enable restriction on iphone , disable safari. Not to be run with normal regression
   @safaridisabled
-  Scenario: Logout (check deregister device token) (Driver & Customer)
+  Scenario: Verify DRIVE WITH BUNGII Menu Link With No Safari Browser
     When I Select "DRIVE WITH BUNGII" from Customer App menu
     Then user is alerted for "PLEASE INSTALL A BROWSER"
