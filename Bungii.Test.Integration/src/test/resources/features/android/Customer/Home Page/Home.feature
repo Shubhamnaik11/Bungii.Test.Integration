@@ -61,7 +61,7 @@ Feature: Customer Home screen
     And I tap on "Cancel during search" on Bungii estimate
 
   @regression
-    @DEMO
+    @demo
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
       When I tap on "Menu" > "Home" link
       And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
