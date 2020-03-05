@@ -198,7 +198,6 @@ Feature: On Demand Bungii
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
 
-#no existing promocode
   @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
     Given I Switch to "customer" application on "same" devices
@@ -237,29 +236,29 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
+  # When I Switch to "customer" application on "same" devices
+  # Then for a Bungii I should see "Arrived screen"
 
-    When I Switch to "driver" application on "same" devices
+  #  When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
+    #When I Switch to "customer" application on "same" devices
+    #Then for a Bungii I should see "Loading Item screen"
 
-    When I Switch to "driver" application on "same" devices
+   # When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
+  #  When I Switch to "customer" application on "same" devices
+  #  Then for a Bungii I should see "Driving to DropOff screen"
 
-    When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
+  #  When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-    When I Switch to "driver" application on "same" devices
+  #  When I Switch to "customer" application on "same" devices
+  #  Then for a Bungii I should see "Unloading Item screen"
+  #  When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
@@ -285,7 +284,6 @@ Feature: On Demand Bungii
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
   @regression
-
   Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

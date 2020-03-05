@@ -147,7 +147,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (isDuo) {
                         Thread.sleep(100000);
                     }
-                    Thread.sleep(5000);
+                    Thread.sleep(8000);
                     try {
                         if (action.getText(Page_Signup.GenericHeader(true)).equals("COMPLETE"))
                             action.textToBePresentInElementText(Page_Signup.GenericHeader(), "BUNGII COMPLETE");

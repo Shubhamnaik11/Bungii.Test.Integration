@@ -3,7 +3,7 @@ package com.bungii.android.stepdefinitions.Customer;
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
@@ -216,7 +216,9 @@ public class BungiiCompleteSteps extends DriverBase {
         double distance = Double.parseDouble(distanceValueDB);
 
         //double tripActualTime = Double.parseDouble(totalTime);
-        double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
+        //double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
+        double tripValue = Double.parseDouble(totalDistance) * perMileValue + tripActualTime * perMinutesValue;
+
         if (numberOfDriver.equalsIgnoreCase("DUO"))
             tripValue = tripValue * 2;
 
