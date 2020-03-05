@@ -8,7 +8,7 @@ Feature: Duo
   @regression
   @sanity
   @regression
-    @failed1
+    @DEMO
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -133,6 +133,7 @@ Feature: Duo
 
   #given i have large image on phone
   @regression
+    @test
   Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 
@@ -258,7 +259,7 @@ Feature: Duo
         |PROMO PERCENT OFF|
 
   @regression
-
+@test
   Scenario: Verify Schedululing Of Duo Bungii And Verifying Bungii Details
 
     Given that duo schedule bungii is in progress
@@ -808,7 +809,7 @@ Feature: Duo
 
 
   @regression
-
+@test
   Scenario: Short Stack : Verify Status Of Current Ondemand Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -1029,6 +1030,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @test
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1170,6 +1172,7 @@ Feature: Duo
           #move to top
   @duo1
   @regression
+    @test
   Scenario: Verify Short Stack Request Acceptance By Control Driver
 
     Given that duo schedule bungii is in progress
@@ -1358,6 +1361,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
+    @test
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
 
     Given that duo schedule bungii is in progress
@@ -1443,6 +1447,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
+    @test
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
