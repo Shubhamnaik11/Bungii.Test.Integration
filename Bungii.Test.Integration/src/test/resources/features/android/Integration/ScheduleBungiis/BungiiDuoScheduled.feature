@@ -8,7 +8,6 @@ Feature: Duo
   @regression
   @sanity
   @regression
-    @demo
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -22,15 +21,15 @@ Feature: Duo
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
     And I Select "Home" from driver App menu
+
     And I Switch to "customer" application on "ORIGINAL" devices
-    And I Switch to "customer" application on "same" devices
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
+    And I select Bungii Time as "next possible scheduled for duo"
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled for duo"
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -133,7 +132,7 @@ Feature: Duo
 
   #given i have large image on phone
   @regression
-    @test
+    @demo
   Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 
@@ -256,10 +255,10 @@ Feature: Duo
     Examples:
       | PROMO CODE       |
       | PROMO DOLLAR OFF |
-        |PROMO PERCENT OFF|
+      |PROMO PERCENT OFF|
 
   @regression
-@test
+
   Scenario: Verify Schedululing Of Duo Bungii And Verifying Bungii Details
 
     Given that duo schedule bungii is in progress
@@ -809,7 +808,7 @@ Feature: Duo
 
 
   @regression
-@test
+
   Scenario: Short Stack : Verify Status Of Current Ondemand Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -1030,7 +1029,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @test
+
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1172,7 +1171,7 @@ Feature: Duo
           #move to top
   @duo1
   @regression
-    @test
+
   Scenario: Verify Short Stack Request Acceptance By Control Driver
 
     Given that duo schedule bungii is in progress
@@ -1361,7 +1360,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-    @test
+
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
 
     Given that duo schedule bungii is in progress
@@ -1447,7 +1446,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
-    @test
+
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
