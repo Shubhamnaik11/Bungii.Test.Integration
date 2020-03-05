@@ -8,7 +8,7 @@ Feature: Duo
   @regression
   @sanity
   @regression
-    @DEMO
+    @demo
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer

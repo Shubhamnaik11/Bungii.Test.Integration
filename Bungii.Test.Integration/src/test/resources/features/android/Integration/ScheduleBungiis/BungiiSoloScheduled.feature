@@ -390,7 +390,7 @@ Feature: SoloScheduled
 
 
   @regression
-    @DEMO
+    @demo
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

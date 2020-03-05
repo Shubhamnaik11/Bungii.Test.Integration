@@ -56,7 +56,7 @@ Scenarios on Payment Methods
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
   @regression
-@DEMO
+@demo
   Scenario Outline: Verify Customer Payment Method Addition With Valid Card Details
     Given I am logged in as "valid" customer
     When I tap on "Menu" > "Payment" link
