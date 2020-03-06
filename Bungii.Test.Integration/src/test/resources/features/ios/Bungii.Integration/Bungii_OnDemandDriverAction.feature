@@ -7,7 +7,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @POSTDUO
   @regression
-    @demo
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
