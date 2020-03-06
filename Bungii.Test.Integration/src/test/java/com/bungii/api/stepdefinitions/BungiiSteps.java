@@ -56,7 +56,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
     }
 
-    public String getDriverPhone(String driverName) {
+    public static String getDriverPhone(String driverName) {
         String phone = null;
         switch (driverName) {
             case "Testdrivertywd_appledc_a_web TestdriverA":

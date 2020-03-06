@@ -390,8 +390,9 @@ Feature: SoloScheduled
 
 
   @regression
-    @demo
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |

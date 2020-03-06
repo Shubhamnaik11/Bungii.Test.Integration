@@ -130,7 +130,23 @@ public class LoginSteps extends DriverBase {
         }
     }
 
-    @And("^I am on the LOG IN page on driver app$")
+    @And("^As a driver \"([^\"]*)\" I log in$")
+    public void as_a_driver_something_i_log_in(String driverAName) {
+        try {
+
+            String driverPhoneNum = "", driverPassword = "";
+            driverPhoneNum = com.bungii.api.stepdefinitions.BungiiSteps.getDriverPhone(driverAName);
+            driverPassword = "Cci12345";
+            utility.loginToDriverApp(driverPhoneNum, driverPassword);
+            log("I should be logged in", "I am logged in", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("PageSource", SetupManager.getDriver().getPageSource());
+
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+        @And("^I am on the LOG IN page on driver app$")
     public void i_am_on_the_log_in_page_on_driver_app() {
         try {
             utility.goToDriverLoginPage();
