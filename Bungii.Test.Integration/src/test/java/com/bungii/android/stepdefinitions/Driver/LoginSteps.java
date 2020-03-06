@@ -7,6 +7,7 @@ import com.bungii.android.pages.driver.LoginPage;
 import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
+import com.bungii.api.utilityFunctions.AuthServices;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -24,6 +25,7 @@ public class LoginSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     LoginPage driverLogInPage = new LoginPage();
     DriverHomePage driverHomePage =new DriverHomePage();
+    AuthServices authServices = new AuthServices();
 
     @Given("^I am logged in as \"([^\"]*)\" driver$")
     public void i_am_logged_in_as_something_driver(String option) throws Throwable {
@@ -133,11 +135,11 @@ public class LoginSteps extends DriverBase {
     @And("^As a driver \"([^\"]*)\" I log in$")
     public void as_a_driver_something_i_log_in(String driverAName) {
         try {
-
-            String driverPhoneNum = "", driverPassword = "";
+            String driverPhoneCode="1", driverPhoneNum = "", driverPassword = "";
             driverPhoneNum = com.bungii.api.stepdefinitions.BungiiSteps.getDriverPhone(driverAName);
             driverPassword = "Cci12345";
             utility.loginToDriverApp(driverPhoneNum, driverPassword);
+           // authServices.driverLogin(driverPhoneCode, driverPhoneNum, driverPassword);
             log("I should be logged in", "I am logged in", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
