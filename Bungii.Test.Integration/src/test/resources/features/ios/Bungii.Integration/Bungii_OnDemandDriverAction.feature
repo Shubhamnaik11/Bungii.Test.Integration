@@ -40,6 +40,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @sanity
   @regression
+  @demo
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |

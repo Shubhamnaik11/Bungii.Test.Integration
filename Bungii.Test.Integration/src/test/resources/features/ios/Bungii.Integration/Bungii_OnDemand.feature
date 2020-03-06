@@ -691,8 +691,7 @@ Feature: Create on demand bungii
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer
-
-  @demo
+    
   @regression
   Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress
