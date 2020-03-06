@@ -60,6 +60,7 @@ Feature: Customer Home screen
 
 
   @regression
+  @demo
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
