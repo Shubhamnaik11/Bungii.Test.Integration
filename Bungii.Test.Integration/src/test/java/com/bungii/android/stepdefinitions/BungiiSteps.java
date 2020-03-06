@@ -889,7 +889,7 @@ public class BungiiSteps extends DriverBase {
                     break;
                 case "tab On to Next":
                 case "completes Bungii":
-                    action.click(Page_BungiiComplete.Button_OnToTheNext());
+                    action.click(Page_BungiiComplete.Button_OnToTheNext(true));
                     try{
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
                     if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")|| currentPage.equals("EN ROUTE")){

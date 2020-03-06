@@ -132,7 +132,6 @@ Feature: Duo
 
   #given i have large image on phone
   @regression
-    @demo
   Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 
@@ -1029,7 +1028,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-
+@demo1
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

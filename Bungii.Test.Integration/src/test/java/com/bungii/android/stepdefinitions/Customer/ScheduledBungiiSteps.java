@@ -5,7 +5,7 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.stepdefinitions.CommonSteps;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -14,7 +14,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -347,6 +350,27 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
                 case "YES, I'LL TAKE $5":
                     action.click(wantDollar5Page.Button_Take5());
+                    int retrycount =4;
+                    boolean retry = true;
+                    while (retry == true && retrycount >0) {
+                        try {
+                            action.click(wantDollar5Page.Button_Take5());
+                            if(invitePage.FBApp_PostLink(true).isDisplayed()==true)
+                            {
+                                retrycount=0;
+                                retry = false;
+                            }
+                            else
+                            {
+                                retrycount--;
+                                retry = true;
+                            }
+
+                        } catch (Exception ex) {
+                            retrycount--;
+                            retry = true;
+                        }
+                    }
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     action.click(wantDollar5Page.Button_NoFreeMoney());
