@@ -60,7 +60,6 @@ Feature: Customer Home screen
 
 
   @regression
-  @demo
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -89,7 +88,7 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-
+@demo
   @regression
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page

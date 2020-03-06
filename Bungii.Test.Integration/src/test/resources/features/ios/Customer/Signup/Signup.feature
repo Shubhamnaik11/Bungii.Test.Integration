@@ -38,7 +38,6 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Source :OTHER | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
 
   @regression
-  @demo
   Scenario Outline:Verify Customer Can Submit Registration Form With Promocode
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
