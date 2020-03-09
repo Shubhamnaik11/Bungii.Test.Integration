@@ -56,7 +56,7 @@ public class ActionManager {
     public void sendKeys(WebElement element, String text) {
         try {
             element.sendKeys(text);
-            logger.detail("Send  " + text + " in element" + element.toString());
+            logger.detail("Send  " + text + " in element" + getElementDetails(element));
         }
          catch(Exception ex)
         {
@@ -91,13 +91,13 @@ public class ActionManager {
 
     public String getValueAttribute(WebElement element) {
         String value = element.getAttribute("value");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        logger.detail("'value' attribute for " + getElementDetails(element)+ " is " + value);
         return value;
     }
 
     public String getNameAttribute(WebElement element) {
         String value = element.getAttribute("name");
-        logger.detail("'name' attribute for " + element.toString() + " is " + value);
+        logger.detail("'name' attribute for " + getElementDetails(element) + " is " + value);
         return value;
     }
 
@@ -134,7 +134,7 @@ public class ActionManager {
         int hight = elementSize.getHeight();
         Point p = new Point(leftX + (width / 2), upperY + (hight / 2));
         click(p);
-        logger.detail("Click on locator by element" + element.toString() + p);
+        logger.detail("Click on locator by element" + getElementDetails(element) + p);
     }
 
     public void waitForAlert() {
@@ -379,7 +379,7 @@ public class ActionManager {
             element.clear();
         }catch (Exception e){}
         try {element.sendKeys(inputText);}catch (Exception e){    element.clear();element.sendKeys(inputText); }
-        logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
+        logger.detail("Entered Text " + inputText + " in " + getElementDetails(element) + "after clearing the field");
 
     }
 
