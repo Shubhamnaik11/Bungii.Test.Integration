@@ -327,6 +327,10 @@ Feature: SoloScheduled
   @regression
 
   Scenario:Verify Status In Scheduled Bungiis Screen When Only One Driver Accepts The Trip
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+
+    And I Switch to "customer" application on "same" devices
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -349,6 +353,10 @@ Feature: SoloScheduled
   @regression
   @failed123
   Scenario: Verify Status On Customers Scheduled Bungiis Screen When Both Drivers Have Accepted Trip
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+
+    And I Switch to "customer" application on "same" devices
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -371,6 +379,10 @@ Feature: SoloScheduled
 
   @regression
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Scenario:Solo
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+
+    And I Switch to "customer" application on "same" devices
     When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -390,10 +402,13 @@ Feature: SoloScheduled
 
 
   @regression
+    @test123
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
-    When I request "duo" Bungii as a customer in "Kansas" geofence
+
+    And I Switch to "customer" application on "same" devices
+    And I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
     Given I am on customer Log in page
@@ -701,6 +716,10 @@ Feature: SoloScheduled
   @regression
   Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers And Both Drivers Accepts It
   #  Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+
+    And I Switch to "customer" application on "same" devices
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                    |
       | now         | 8805368840     | Cci12345          | Testcustomertywd_appleRicha Test |
@@ -786,6 +805,7 @@ Feature: SoloScheduled
   @regression
 
   Scenario: Verify Customer Can Contact Controlled Driver When Non-control Driver Starts the trip
+
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
@@ -1618,6 +1638,10 @@ Feature: SoloScheduled
   @regression
 
   Scenario: Verify Customer Can Cancel Through SMS To Admin after 2 hour processing is over (Irrespective Of No. Of Required Drivers Have Accepted Or Not)
+    When I Switch to "driver" application on "same" devices
+    Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
+
+    And I Switch to "customer" application on "same" devices
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
