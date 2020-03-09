@@ -1107,26 +1107,33 @@ Feature: Duo
     #move to top
     #need to do in atlanta
   @regression
-
   Scenario: Verify Long Stack Request Acceptance By Non Control Driver
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid atlanta" driver
+
+    When I connect to "extra1" using "Driver2" instance
+    And I Switch "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid driver 2" driver
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Open "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
+#    And I Switch to "driver" application on "same" devices
+#    And I am on the LOG IN page on driver app
+#    And I am logged in as "valid atlanta" driver
+#
+#    And I connect to "extra1" using "Driver2" instance
+#    And I Open "driver" application on "same" devices
+#    And I am on the LOG IN page on driver app
+#    And I am logged in as "valid driver 2" driver
       #put driver app in background
     And I Open "customer" application on "same" devices
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+    And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     #control driver reject stak trip
