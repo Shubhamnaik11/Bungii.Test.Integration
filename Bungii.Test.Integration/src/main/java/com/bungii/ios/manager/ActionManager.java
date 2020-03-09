@@ -9,6 +9,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
@@ -33,7 +35,10 @@ public class ActionManager {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
 
     }
-
+    private String getElementDetails(WebElement element)
+    {
+        return element.toString().split("->")[1].replaceFirst("(?s)(.*)\\]", "$1" + "");
+    }
     public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
@@ -49,8 +54,16 @@ public class ActionManager {
      * @param text    , Text value that is to be sent
      */
     public void sendKeys(WebElement element, String text) {
-        element.sendKeys(text);
-        logger.detail("Send  " + text + " in element" + element.toString());
+        try {
+            element.sendKeys(text);
+            logger.detail("Send  " + text + " in element" + element.toString());
+        }
+         catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
+                    true);
+        }
     }
 
     /**
@@ -89,8 +102,17 @@ public class ActionManager {
     }
 
     public void click(WebElement element) {
+        try{
         element.click();
-        logger.detail("Click on locator by element" + element.toString());
+        logger.detail("Click on locator by element" + getElementDetails(element));
+
+    }
+         catch(Exception ex)
+    {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+        error("Step should be successful", "Unable to click on element -> " + getElementDetails(element),
+                true);
+    }
     }
 
     public void tapByElement(WebElement element) {
@@ -575,9 +597,19 @@ public class ActionManager {
         }
     }
 
-    public static void selectElementByText(WebElement element, String text)
+    public void selectElementByText(WebElement element, String text)
     {
-        new Select(element).selectByVisibleText(text);
+        try{
+            new Select(element).selectByVisibleText(text);
+            logger.detail("Select "+text+" in element" + getElementDetails(element));
+
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to Select "+text +" in element -> " + getElementDetails(element),
+                    true);
+        }
     }
 
 }
