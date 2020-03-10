@@ -153,41 +153,40 @@ public class LiveTripsSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "promo":
                     logger.detail("bungii cost to customer after replacing"+bungiiCostCustomer);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",liveTripsPage.Text_Code() +" is displayed",liveTripsPage.Text_Code() +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo","Promo should be displayed",liveTripsPage.Text_CodeType() +" is displayed",liveTripsPage.Text_CodeType() +" is displayed instead of Promo");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",liveTripsPage.Text_CodeValue() +" is displayed",liveTripsPage.Text_CodeValue() +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",liveTripsPage.Text_PromoCode() +" is displayed",liveTripsPage.Text_PromoCode() +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",liveTripsPage.Text_TripPayment() +" is displayed",liveTripsPage.Text_TripPayment() +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "fbshare":
                     bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",liveTripsPage.Text_Code() +" is displayed",liveTripsPage.Text_Code() +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare","OneOffFBShare should be displayed",liveTripsPage.Text_CodeType() +" is displayed",liveTripsPage.Text_CodeType() +" is displayed instead of OneOffFBShare");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",liveTripsPage.Text_CodeValue() +" is displayed",liveTripsPage.Text_CodeValue() +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",liveTripsPage.Text_PromoCode() +" is displayed",liveTripsPage.Text_PromoCode() +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",liveTripsPage.Text_TripPayment() +" is displayed",liveTripsPage.Text_TripPayment() +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "oneoff":
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",liveTripsPage.Text_Code() +" is displayed",liveTripsPage.Text_Code() +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin","OneOffByAdmin should be displayed",liveTripsPage.Text_CodeType() +" is displayed",liveTripsPage.Text_CodeType() +" is displayed instead of OneOffByAdmin");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",liveTripsPage.Text_CodeValue() +" is displayed",liveTripsPage.Text_CodeValue() +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",liveTripsPage.Text_PromoCode() +" is displayed",liveTripsPage.Text_PromoCode() +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",liveTripsPage.Text_TripPayment() +" is displayed",liveTripsPage.Text_TripPayment() +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "referral":
-
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",liveTripsPage.Text_Code() +" is displayed",liveTripsPage.Text_Code() +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral","Referral should be displayed",liveTripsPage.Text_CodeType() +" is displayed",liveTripsPage.Text_CodeType() +" is displayed instead of Referral");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",liveTripsPage.Text_CodeValue() +" is displayed",liveTripsPage.Text_CodeValue() +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",liveTripsPage.Text_PromoCode() +" is displayed",liveTripsPage.Text_PromoCode() +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",liveTripsPage.Text_TripPayment() +" is displayed",liveTripsPage.Text_TripPayment() +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "promoter":
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",liveTripsPage.Text_Code() +" is displayed",liveTripsPage.Text_Code() +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter","DeliveryChargesByPromoter should be displayed",liveTripsPage.Text_CodeType() +" is displayed",liveTripsPage.Text_CodeType() +" is displayed instead of DeliveryChargesByPromoter");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",liveTripsPage.Text_CodeValue() +" is displayed",liveTripsPage.Text_CodeValue() +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",liveTripsPage.Text_PromoCode() +" is displayed",liveTripsPage.Text_PromoCode() +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0", "$0 should be displayed",liveTripsPage.Text_TripPayment() +" is displayed",liveTripsPage.Text_TripPayment() +" is displayed instead of $0");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
