@@ -625,7 +625,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         String month = monthName[cal.get(Calendar.MONTH) + 1];
         return month;
     }
-
+//Richa
     /**
      * select bungii
      *
@@ -635,13 +635,27 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void selectBungii(String bungiiType, String bungiiTime) {
         Date currentDate = new Date();
         int year = currentDate.getYear() + 1900;
-        if (!bungiiTime.contains(utility.getTimeZoneBasedOnGeofence()))
-            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + utility.getTimeZoneBasedOnGeofence()));
-        else
-            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",", ", " + year + " -")));
+        String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
+        String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiDayLightTime.replace(",", ", " + year + " -")));
+
+        else
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
+                    bungiiDayLightTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
     }
 
+
+    public String getbungiiDayLightTimeValue(String bungiiTime){
+        String time=null;
+
+        if(bungiiTime.contains("CST")) { time=bungiiTime.replace("CST","CDT"); }
+        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT"); }
+        else if(bungiiTime.contains("MST")){ time=bungiiTime.replace("MST","MDT"); }
+        else if(bungiiTime.contains("IST")){ time=bungiiTime; }
+        return time;
+    }
 
     /**
      * Check if bungii is present
@@ -657,7 +671,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             return false;
         }
     }
-
+//Richa
     /**
      * Construct locator for bungii from given bungii information
      *
@@ -669,6 +683,21 @@ public class ScheduledBungiiSteps extends DriverBase {
         //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 
         WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "']", PageBase.LocatorType.XPath);
+
+        return Image_SelectBungii;
+    }
+
+    /**
+     * Construct locator for bungii from given bungii information
+     *
+     * @param bungiiType identifer for bungii type
+     * @param bungiiTime Scheduled bungii time
+     * @return
+     */
+    public WebElement getLocatorForBungiiTime(String bungiiType, String bungiiTime, String bungiiTimeDayLight) {
+        //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
+
+        WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "' or 'com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTimeDayLight + "']", PageBase.LocatorType.XPath);
 
         return Image_SelectBungii;
     }
