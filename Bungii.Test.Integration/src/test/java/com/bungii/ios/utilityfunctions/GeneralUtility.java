@@ -439,6 +439,8 @@ public class GeneralUtility extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        if(TimeZone.getTimeZone( "America/New_York").inDaylightTime( new Date() ))
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
         return getGeofenceTimeZone;
     }
 

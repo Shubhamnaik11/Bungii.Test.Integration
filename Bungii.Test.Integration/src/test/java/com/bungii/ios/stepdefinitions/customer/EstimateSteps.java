@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
@@ -870,7 +871,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime.replace("am","AM").replace("pm","PM"), displayedTime.replace("am","AM").replace("pm","PM"));
+            testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -878,6 +879,8 @@ public class EstimateSteps extends DriverBase {
         }
 
     }
+
+
 
 
     @And("^I select pickup time$")
