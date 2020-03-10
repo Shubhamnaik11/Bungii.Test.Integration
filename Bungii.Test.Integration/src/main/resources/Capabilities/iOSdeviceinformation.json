@@ -36,7 +36,7 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8210
+    "wdaLocalPort": 8100
   },
 
   "connection": {
