@@ -578,7 +578,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                 }
                 else{
                     String text=" selected";
-                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + text+"']", PageBase.LocatorType.XPath);
+                    //WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + text+"']", PageBase.LocatorType.XPath);
+                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
                             testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
                 }
             }
@@ -639,11 +640,11 @@ public class ScheduledBungiiSteps extends DriverBase {
         String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
         if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiDayLightTime.replace(",", ", " + year + " -")));
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
 
         else
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
-                    bungiiDayLightTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
+                    bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
     }
 
 
