@@ -11,7 +11,6 @@ import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
-import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -24,7 +23,6 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.functions.ExpectedCondition;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -1135,7 +1133,38 @@ public class GeneralUtility extends DriverBase {
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         return getGeofenceTimeZone;
     }
+//Richa
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String[] getDayLightTimeZoneBasedOnGeofence() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        String getDayLightGeofenceTimeZone=null;
 
+        switch (getGeofenceTimeZone){
+            case "CST":
+                getDayLightGeofenceTimeZone="CDT";
+                break;
+            case "EST":
+                getDayLightGeofenceTimeZone="EDT";
+                break;
+            case "MST":
+                getDayLightGeofenceTimeZone="MDT";
+                break;
+            case "IST":
+                getDayLightGeofenceTimeZone="IST";
+                break;
+        }
+        String [] timeZones=new String[2];
+        timeZones[0]=getGeofenceTimeZone;
+        timeZones[1]=getDayLightGeofenceTimeZone;
+        return timeZones;
+    }
     /**
      * Get timezone for geofence, read it from properties file and conver into Time zone object
      *
@@ -1631,4 +1660,5 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
         }
     }
+
 }
