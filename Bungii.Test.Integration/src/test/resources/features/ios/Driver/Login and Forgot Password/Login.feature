@@ -42,6 +42,7 @@ Feature: Log In
 
     #Valid failed, driver should be locked
   @regression
+    @failed
   Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times
     When I enter phoneNumber :<Username> and  Password :<InCorrectPassword>
     And I click "Log In" button on "Log In" screen on driverApp

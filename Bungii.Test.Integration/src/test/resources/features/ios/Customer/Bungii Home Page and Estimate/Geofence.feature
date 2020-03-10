@@ -1,7 +1,8 @@
 @ios
 
 Feature: Geofence functionality
-  
+
+  @failed
   @regression
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
@@ -28,7 +29,8 @@ Feature: Geofence functionality
 
     And I select pickup time
     Then correct next available scheduled time should be displayed
-  
+
+    @failed
   @regression
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
     Given I am on the "LOG IN" page
@@ -55,7 +57,7 @@ Feature: Geofence functionality
 
     And I select pickup time
     Then correct next available scheduled time should be displayed
-  @FAILED0203
+  @failed
     #NEED TO VERIFY VALUES OF THESE PARAMETERS SCHEDULE_PICKUP_FROM_TIME and SCHEDULE_PICKUP_TO_TIME
   #this test script will fail as the value of above parameters are set as 30mins and 840mins.
   #It should be 15 mins and 1410 mins, currently validations are put considering 15 and 1410 mins
@@ -110,7 +112,7 @@ Feature: Geofence functionality
     Then check if error message is displayed for "solo trip"
 
     And I click on the "Cancel" Button on "Geofence" Screen
-  @FAILED0203
+  @failed
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression

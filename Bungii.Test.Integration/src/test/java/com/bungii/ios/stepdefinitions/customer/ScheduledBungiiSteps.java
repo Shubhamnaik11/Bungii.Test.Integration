@@ -36,7 +36,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
 			selectBungii(tripNoOfDriver, tripTime);
-			pass("I select already scheduled bungii", "I selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
+			pass("I select scheduled bungii", "I have selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
 			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

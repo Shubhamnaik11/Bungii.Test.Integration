@@ -60,8 +60,8 @@ public class ActionManager {
         }
          catch(Exception ex)
         {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
+            logger.error("Error performing step | Send  " + text + " in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Send  " + text + " in element -> " + getElementDetails(element), "Unable to send " + text + " in element -> " + getElementDetails(element),
                     true);
         }
     }
@@ -74,7 +74,7 @@ public class ActionManager {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
             String alertMessage = SetupManager.getDriver().switchTo().alert().getText();
-            logger.detail("Alert is present :" + alertMessage);
+            logger.detail("Alert is present : " + alertMessage);
 
             if (alertMessage.contains("no such alert"))
                 return false;
@@ -84,7 +84,7 @@ public class ActionManager {
             logger.detail("Alert is not present");
             return false;
         } catch (Exception ex) {
-            logger.error("Error occured " + ex);
+            logger.error("Error performing step | Error switching to Alert due to " + ex);
             return false;
         }
     }
@@ -104,13 +104,13 @@ public class ActionManager {
     public void click(WebElement element) {
         try{
         element.click();
-        logger.detail("Click on locator by element -> " + getElementDetails(element));
+        logger.detail("Click on element by locator -> " + getElementDetails(element));
 
     }
          catch(Exception ex)
     {
-        logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to click on element -> " + getElementDetails(element),
+        logger.error("Error Clicking on element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+        error("Click on element by locator -> " + getElementDetails(element), "Unable to click on element -> " + getElementDetails(element),
                 true);
     }
     }
@@ -153,7 +153,7 @@ public class ActionManager {
             js.executeScript("mobile: swipe", params);
 
         } catch (Exception ex) {
-            logger.error("Error occured " + ex.getMessage());
+            logger.error("Error performing step | Error swiping up due to " + ex);
 
         }
     }
@@ -170,7 +170,7 @@ public class ActionManager {
             params.put("direction", "down");
             js.executeScript("mobile: swipe", params);
         } catch (Exception ex) {
-            logger.error("Error occured " + ex.getMessage());
+            logger.error("Error performing step | Error swiping down due to " + ex);
 
         }
     }
@@ -306,7 +306,7 @@ public class ActionManager {
 
             Thread.sleep(200);*/
 
-            logger.detail(" Hidded Key board");
+            logger.detail("***Keyboard Hidden***");
 
         } catch (Exception e) {
             //  e.printStackTrace();
@@ -322,7 +322,7 @@ public class ActionManager {
             IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
                     .findElementByName("Next:");
             click(element);
-            logger.detail(" Next Field Key board");
+            logger.detail("Click on Next Field On Keyboard");
 
         } catch (Exception e) {
             //  e.printStackTrace();
@@ -377,9 +377,21 @@ public class ActionManager {
     public void clearEnterText(WebElement element, String inputText) {
         try {
             element.clear();
-        }catch (Exception e){}
-        try {element.sendKeys(inputText);}catch (Exception e){    element.clear();element.sendKeys(inputText); }
-        logger.detail("Entered Text " + inputText + " in element ->" + getElementDetails(element) + "after clearing the field");
+        }catch (Exception e)
+        {
+
+        }
+        try {
+            element.sendKeys(inputText);
+            logger.detail("Entered Text " + inputText + " in element ->" + getElementDetails(element) + " after clearing the field");
+        }
+            catch (Exception e){
+             //Retry
+            element.clear();
+            element.sendKeys(inputText);
+            logger.detail("Entered Text " + inputText + " in element ->" + getElementDetails(element) + " after clearing the field");
+        }
+
 
     }
 
@@ -396,7 +408,7 @@ public class ActionManager {
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
-            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            logger.detail("** Intentional Waiting With Swipe Up | waiting for " + i + " minutes***");
             Thread.sleep(30000);
             swipeDown();
             Thread.sleep(30000);
@@ -448,7 +460,7 @@ public class ActionManager {
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
         } catch (Exception e) {
-            logger.detail("Wait failed");
+            logger.detail("Waiting For element name to be "+text+" has failed");
         }
     }
 
@@ -606,8 +618,8 @@ public class ActionManager {
         }
         catch(Exception ex)
         {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to Select "+text +" in element -> " + getElementDetails(element),
+            logger.error("Error performing step | Select "+text+" in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Select "+text+" in element -> " + getElementDetails(element), "Unable to Select "+text +" in element -> " + getElementDetails(element),
                     true);
         }
     }
