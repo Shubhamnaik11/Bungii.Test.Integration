@@ -49,15 +49,15 @@ public class ActionManager {
         }
     }
 
-    public static void clear(WebElement element) {
+    public void clear(WebElement element) {
         try {
             element.clear();
-            logger.detail("Clear locator by locator" + element.toString());
+            logger.detail("Clear element by locator -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to clear element " + element.toString(),
+            error("Step should be successful", "Unable to clear element -> " + getElementDetails(element),
                     true);
         }
     }
@@ -109,19 +109,19 @@ public class ActionManager {
             return false;
         }
     }
-    public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
+    public void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOf(element)));
         } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+            error("Step should be successful", "Following element is not displayed -> " + getElementDetails(element),
                     true);
         }
     }
 
-    public static void waitUntilIsElementExistsAndDisplayed(WebElement element, Long waitTime) {
+    public void waitUntilIsElementExistsAndDisplayed(WebElement element, Long waitTime) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, waitTime);
@@ -129,7 +129,7 @@ public class ActionManager {
         } catch (Exception ex) {
             Assert.fail("Following element is not displayed : " + element);
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Following element is not displayed : " + element.toString(),
+            error("Step should be successful", "Following element is not displayed : " + getElementDetails(element),
                     true);
         }
     }
@@ -143,14 +143,14 @@ public class ActionManager {
         }
     }*/
 
-    public static void waitUntilAlertDisplayed(WebElement element) {
+    public void waitUntilAlertDisplayed(WebElement element) {
         try {
             AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
             WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until((ExpectedConditions.visibilityOfAllElements(element)));
         } catch (Exception ex) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Alert not received : " + element.toString(),
+            error("Step should be successful", "Alert not received : " + getElementDetails(element),
                     true);
             Assert.fail("Alert not received : " + element);
 
@@ -175,13 +175,13 @@ public class ActionManager {
 
     public String getValueAttribute(WebElement element) {
         String value = element.getAttribute("value");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        logger.detail("'value' attribute for element ->" + getElementDetails(element) + " is " + value);
         return value;
     }
 
     public String getAttribute(WebElement element, String attribute) {
         String value = element.getAttribute(attribute);
-        logger.detail(attribute + " attribute for " + element.toString() + " is " + value);
+        logger.detail(attribute + " attribute for element -> " + getElementDetails(element) + " is " + value);
         return value;
     }
 
@@ -195,12 +195,12 @@ public class ActionManager {
         element.sendKeys(text);
         AndroidDriver<MobileElement> driver = (AndroidDriver<MobileElement>) SetupManager.getDriver();
         hideKeyboard();
-        logger.detail("Send  " + text + " in element" + element.toString());
+        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
         }
         catch(Exception ex)
         {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-            error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+            error("Step should be successful", "Unable to Send  " + text + " in element -> " + getElementDetails(element),
                     true);
         }
     }
@@ -231,7 +231,7 @@ public class ActionManager {
 
     public String getText(WebElement element) {
         String text = element.getText();
-        logger.detail("Text Value is  " + text + " for element " + element.toString());
+        logger.detail("Text Value is  " + text + " for element -> " + getElementDetails(element));
 
         return text;
     }
@@ -279,12 +279,12 @@ public class ActionManager {
         element.clear();
         element.sendKeys(text);
         hideKeyboard();
-        logger.detail("Send  " + text + " in element " + element.toString());
+        logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to Send  " + text + " in element" + element.toString(),
+        error("Step should be successful", "Unable to Send  " + text + " in element -> " + getElementDetails(element),
                 true);
     }
     }
@@ -337,12 +337,12 @@ public class ActionManager {
     public void click(WebElement element) {
         try{
         element.click();
-        logger.detail(" Click on element by locator " + element.toString());
+        logger.detail(" Click on element by locator -> " + getElementDetails(element));
     }
         catch(Exception ex)
     {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
-        error("Step should be successful", "Unable to click on  element" + element.toString(),
+        error("Step should be successful", "Unable to click on  element -> " + getElementDetails(element),
                 true);
     }
     }
@@ -610,5 +610,9 @@ public class ActionManager {
     public String getCurrentURL() {
         String s = SetupManager.getDriver().getCurrentUrl();
         return s;
+    }
+    private String getElementDetails(WebElement element)
+    {
+        return element.toString().split("->")[1].replaceFirst("(?s)(.*)\\]", "$1" + "");
     }
 }

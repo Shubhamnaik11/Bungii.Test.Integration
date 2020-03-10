@@ -170,7 +170,7 @@ Feature: Customer Estimate screen
       Then I should be navigated to "SEARCHING" screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
-  @FAILED2702
+  @failed
   @regression
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location

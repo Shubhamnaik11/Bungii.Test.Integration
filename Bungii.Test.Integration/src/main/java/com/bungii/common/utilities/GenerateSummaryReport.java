@@ -262,7 +262,7 @@ public class GenerateSummaryReport {
     public static void createCountTemplate(String platform, String category, String environment) {
 
         try {
-            
+
             File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_COUNT_FILE"));
             BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resultcounttemplate.html")));
             String s;

@@ -70,7 +70,7 @@ Feature: Customer	Menu
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen
     Then I should be navigated to "Invite" screen
-  @FAILED2702
+  @failed
   #failing due to BCKD-1103
   @regression
   Scenario: Verify Device Token Deregistration Upon Customer Logout

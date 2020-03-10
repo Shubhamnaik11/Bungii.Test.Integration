@@ -69,6 +69,7 @@ Feature: DriverMenu
     Then I should be navigated to "LOG IN" screen
   #failing due to BCKD-1103
   @regression
+    @failed
   Scenario: Verify Device Token Deregistration Upon Driver Logout
     Then I driver active flag should be "1"
     When I Select "LOGOUT" from driver App menu
@@ -86,9 +87,9 @@ Feature: DriverMenu
     Then I should be navigated to "FEEDBACK" screen
     Then I should be able to see data on "FEEDBACK" page
 
-
+@failed
   @regression
-  Scenario: verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
+  Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
     When I Select "TRIP ALERT SETTINGS" from driver App menu

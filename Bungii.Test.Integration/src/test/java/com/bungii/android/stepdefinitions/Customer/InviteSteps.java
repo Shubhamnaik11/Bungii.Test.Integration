@@ -99,7 +99,7 @@ public class InviteSteps extends DriverBase {
                     break;
                 case "Referral Code":
                     Thread.sleep(5000);
-                    ActionManager.waitUntilIsElementExistsAndDisplayed(invitePage.Invite_Code());
+                    action.waitUntilIsElementExistsAndDisplayed(invitePage.Invite_Code());
                     if(action.getText(invitePage.Invite_Code()).equals(""))
                         Thread.sleep(5000);
                     cucumberContextManager.setScenarioContext("ReferralCode", action.getText(invitePage.Invite_Code()));

@@ -66,7 +66,7 @@ public class ScheduledTripSteps extends DriverBase {
 				rowNumber = getTripRowNumber(tripDetails);
 			}
 			cancelBungii(tripDetails, cancelCharge, comments);
-			log( "I should able to cancel bungii", "I was able to cancel bungii",
+			log( "I should able to cancel bungii", "I was able to cancel bungii with time :"+ bungiiTime +" for customer "+ custName,
 					true);
 
 		} catch (Exception e) {

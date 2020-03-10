@@ -171,6 +171,7 @@ Feature: Promos
 
 
   @regression
+    @failed
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -269,6 +270,7 @@ Feature: Promos
     Then I should able to see expected promo code in available promo code
 
   @regression
+    @failed
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user

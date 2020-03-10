@@ -2,7 +2,7 @@
 
 Feature: Customer Home screen
 # 1 valid test case fail
-  @FAILED2802
+  @failed
     #test case getting failed , Known issue
   @regression
   Scenario:Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
@@ -58,7 +58,7 @@ Feature: Customer Home screen
     Then drop off field should be "not be displayed"
 
 
-
+@failed
   @regression
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices

@@ -560,7 +560,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED2702
+  @failed
   @regression
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii
 
@@ -689,9 +689,10 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
-  @FAILED0203_08
+  @failed
   @regression
   Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii
+
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | goa      | enroute      | NEXT_POSSIBLE |
@@ -809,7 +810,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
 
-  @FAILED2702
+  @failed
   @regression
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii
 
@@ -911,6 +912,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
 
+    @failed
   @regression
   Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State
     Given that ondemand bungii is in progress
@@ -953,10 +955,9 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | 9403960183      |
 
 
-  @FAILED0203_1
     #move to top
     #need to do in atlanta
-  @FAILED0203
+  @failed
   @regression
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Long Stack Request
 
@@ -1017,7 +1018,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED0203
+  @failed
   @regression
   @sanity
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
@@ -1070,7 +1071,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @FAILED0203
+  @failed
   @regression
   Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii
 
@@ -1102,7 +1103,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @FAILED2702
+  @failed
   @regression
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground
     Given that duo schedule bungii is in progress
@@ -1134,7 +1135,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED0203
+  @failed
   @regression
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background
     Given that duo schedule bungii is in progress
@@ -1167,7 +1168,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @FAILED0203_02
+  @failed
   @regression
   Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
@@ -1197,8 +1198,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
     When I Switch to "driver" application on "same" devices
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
-  @FAILED0203_02_02
-  @FAILED0203
+
+  @failed
   @regression
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
@@ -1225,6 +1226,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I click on notification for "driver" for "OTHER DRIVER CANCELLED BUNGII"
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
+  @failed
   @regression
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress

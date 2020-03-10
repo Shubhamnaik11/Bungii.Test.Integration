@@ -216,6 +216,7 @@ Feature: Create on demand bungii
     And I Select "Logout" from driver App menu
 
 
+    @failed
   @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
@@ -280,9 +281,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-  @FAILED2702
-  @FAILED0203_02
-
+  @failed
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
@@ -426,6 +425,7 @@ Feature: Create on demand bungii
       | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | valid nashville | correct details with delivery promo | promoter |
 
   @regression
+    @failed
   Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -614,6 +614,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
   @regression
+    @failed
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
@@ -669,7 +670,7 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2702
+  @failed
   @regression
   Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
@@ -691,8 +692,9 @@ Feature: Create on demand bungii
     When I click "OK" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer
-    
+
   @regression
+    @failed
   Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

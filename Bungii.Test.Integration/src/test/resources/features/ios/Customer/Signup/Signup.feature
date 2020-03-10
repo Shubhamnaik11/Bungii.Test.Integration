@@ -37,6 +37,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | Source :OTHER | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
 
+    @failed
   @regression
   Scenario Outline:Verify Customer Can Submit Registration Form With Promocode
     When I open new "Chrome" browser for "ADMIN"
@@ -66,7 +67,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
-  @FAILED2702
+  @failed
   @email
   @regression
   Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
@@ -91,7 +92,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Scenario | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   |
       | VALID    | Mike       | Test      | Bungiiauto+TEs123@gmail.com | {RANDOM_PHONE_NUM} | Cci12345 |               | Facebook |
 
-  @FAILED2602
+  @failed
   @regression
   Scenario Outline: Verify Customer Registration With Invalid Details - Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -109,7 +110,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Invalid_EMAIL      | test       | {RANDOM_STRING} | ss@dd                           | 9403960188   | Cci12345 |               | facebook | INVALID EMAIL WHILE SIGNUP    |
       | Invalid_Password   | test       | {RANDOM_STRING} | Vishal.bagi@creativecapsule.com | 9403960188   | Cci      |               | facebook | INVALID PASSWORD WHILE SIGNUP |
 
-  @FAILED2602
+  @failed
   @regression
   Scenario Outline: Verify Customer Registration With Invalid Phone Number - Scenario : <Scenario>
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -126,8 +127,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario            | First Name | Last Name       | Email ID                        | Phone Number | Password | Referral Code | Source   | Expected Message           |
       | Already Existing No | Vishal     | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {VALID USER} | Cci12345 |               | facebook | EXISTING USER              |
-      | InValid_Phone       | Mike       | tester          | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
-  @FAILED2602
+      | Invalid_Phone       | Mike       | tester          | vishal.bagi@creativecapsule.com | 12345        | Cci12345 |               | facebook | INVALID PHONE WHILE SIGNUP |
+  @failed
   @regression
   Scenario Outline:  Verify Customer Registration With Invalid Referral Code
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
@@ -144,7 +145,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
-  @FAILED2602
+  @failed
   #promo code in example
   @regression
   Scenario Outline: Verify Text On Promos Screen When First Time Promocode Is Added
@@ -171,7 +172,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
       | Ron        | testerr   | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | ONETESTTIM | facebook |
-  @FAILED2702
+  @failed
     #used one off
   #Know issue, no alert
   @regression
@@ -194,7 +195,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | R1D2            | facebook | INVALID PROMO WHILE SIGNUP |
-  @FAILED2602
+  @failed
   @regression
   Scenario Outline:Verify Customer Cannot Signup With Future Active Promoter Type Promo codes
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
