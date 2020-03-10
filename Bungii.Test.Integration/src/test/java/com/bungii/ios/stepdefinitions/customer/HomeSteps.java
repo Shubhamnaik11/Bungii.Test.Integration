@@ -381,8 +381,9 @@ public class HomeSteps extends DriverBase {
     public void i_active_flag_should_be_something(String strArg1) throws Throwable {
         try {
             String phone=(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            Thread.sleep(5000);
             String actualActiveFlag=DbUtility.getActiveFlag(phone);
-            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1 +" for customer : "+ phone,"Active flag is :"+actualActiveFlag +" for customer : "+ phone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -393,8 +394,9 @@ public class HomeSteps extends DriverBase {
     public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
         try {
             String phone=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            Thread.sleep(5000);
             String actualActiveFlag=DbUtility.getDriverActiveFlag(phone);
-            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1 +" for customer : " + phone,"Active flag is :"+actualActiveFlag+" for customer : " + phone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

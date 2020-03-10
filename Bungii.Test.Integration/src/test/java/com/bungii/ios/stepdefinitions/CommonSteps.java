@@ -598,7 +598,7 @@ public class CommonSteps extends DriverBase {
             }
             new GeneralUtility().handleIosUpdateMessage();
             if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
-                logger.error("Retrying to start app 3rd time :Page source:", SetupManager.getDriver().getPageSource());
+                logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
@@ -617,7 +617,7 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
+          //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
@@ -664,7 +664,7 @@ public class CommonSteps extends DriverBase {
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
+            //logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
 
@@ -1113,7 +1113,7 @@ public class CommonSteps extends DriverBase {
             }
             cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
-            log("Given customer is logged in","Customer is logged in    ");
+            log("Given customer is logged in as customer","Customer "+ PropertyUtility.getDataProperties("customer.name") +" ("+PropertyUtility.getDataProperties("customer.user")+" is logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

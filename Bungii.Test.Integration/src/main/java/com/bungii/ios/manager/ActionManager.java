@@ -81,7 +81,7 @@ public class ActionManager {
             else
                 return true;
         } catch (NoAlertPresentException | InterruptedException Ex) {
-            logger.detail("Alert is not present");
+           // logger.detail("Alert is not present");
             return false;
         } catch (Exception ex) {
             logger.error("Error performing step | Error switching to Alert due to " + ex);
@@ -254,7 +254,7 @@ public class ActionManager {
      * @param element  Reference element for all the coordinate
      */
     public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
-        logger.detail("Slide started");
+        logger.detail("Slide started for element -> "+ getElementDetails(element));
 
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
         Map<String, Object> params = new HashMap<>();
@@ -265,7 +265,7 @@ public class ActionManager {
         params.put("toY", endy);
         params.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: dragFromToForDuration", params);
-        logger.detail("Slide ended");
+        logger.detail("Slide ended for element -> "+ getElementDetails(element));
     }
 
     /**
