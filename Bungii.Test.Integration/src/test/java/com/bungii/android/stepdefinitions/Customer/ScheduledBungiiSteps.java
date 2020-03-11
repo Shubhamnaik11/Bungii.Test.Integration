@@ -8,10 +8,15 @@ import com.bungii.android.stepdefinitions.CommonSteps;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
@@ -43,6 +48,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     HomePage homePage = new HomePage();
+    PromosPage promosPage=new PromosPage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -578,9 +584,12 @@ public class ScheduledBungiiSteps extends DriverBase {
                 }
                 else{
                     String text=" selected";
-                    //WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + text+"']", PageBase.LocatorType.XPath);
                     WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
-                            testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
+                    action.click(Select_Day);
+                    action.click(estimatePage.Button_SystemCalenderOK());
+                    String snackBarMessage=action.getText(promosPage.Snackbar());
+                            testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
             }
         } catch (Exception e) {
