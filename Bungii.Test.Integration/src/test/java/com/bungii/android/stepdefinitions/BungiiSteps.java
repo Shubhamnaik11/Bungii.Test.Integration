@@ -126,8 +126,19 @@ public class BungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(Page_BungiiAccepted.Textlabel_StackSubtitle(),PropertyUtility.getMessage("customer.stack.driver.subtitle"));
                     testStepVerify.isElementTextEquals(Page_BungiiAccepted.Button_CancelBungii(),"CANCEL BUNGII");
                     testStepVerify.isElementEnabled(Page_BungiiAccepted.Textlabel_ProjectedTime(),"Projected driver arrival time lable should be displayed");
-                    String expectedArrivalValue=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+utility.getTimeZoneBasedOnGeofence();
-                    testStepVerify.isElementTextEquals(Page_BungiiAccepted.Textlabel_ProjectedTimeValue(),expectedArrivalValue);
+                    String[] timeZoneValue=utility.getDayLightTimeZoneBasedOnGeofence();
+                    String expectedArrivalValue1=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+timeZoneValue[0];
+                    String expectedArrivalValue2=(String)cucumberContextManager.getScenarioContext("DRIVER_MIN_ARRIVAL")+" - "+(String)cucumberContextManager.getScenarioContext("DRIVER_MAX_ARRIVAL")+" "+timeZoneValue[1];
+                    String actualArrivalValue=action.getText(Page_BungiiAccepted.Textlabel_ProjectedTimeValue());
+                    if(actualArrivalValue.equalsIgnoreCase(expectedArrivalValue1) || actualArrivalValue.equalsIgnoreCase(expectedArrivalValue2))
+                    {
+                        testStepAssert.isTrue(true,"The arrival value is correct.", "The arrival value is incorrect.");
+                    }
+                    else
+                    {
+                        testStepAssert.isFail("The arrival value is incorrect.");
+                    }
+
                     break;
                 case "bungii accepted screen":
                     testStepVerify.isElementTextEquals(Page_BungiiAccepted.Text_HeaderTitle(),"BUNGII ACCEPTED");
@@ -834,7 +845,8 @@ public class BungiiSteps extends DriverBase {
                 case "Calling":
                     expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE"));
                     if(arg0.equals("Calling"))
-                        expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+                        //expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+                    expectedDuoNumber=PropertyUtility.getMessage("scheduled.support.number");
 
                     if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
                         utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");

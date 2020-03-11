@@ -402,7 +402,6 @@ Feature: SoloScheduled
 
 
   @regression
-    @test123
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -456,7 +455,6 @@ Feature: SoloScheduled
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
   @regression
-
   Scenario:  Verify Customer Can Schedule Bungii Only 5 Days Ahead Including Current Date - Scenario:SOLO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -2096,105 +2094,6 @@ Feature: SoloScheduled
       | Scenario       | Card Detail                | Card Expiry       | CVV       | Postal Code       |
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
 
-
-  @regression
-
-  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
-    Given that duo schedule bungii is in progress
-      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
-      | Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
-
-    And I Switch to "customer" application on "same" devices
-    And I am logged in as "valid kansas" customer
-
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-    Then I check ETA of "control driver"
-
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "EN ROUTE" screen
-    Then "control driver" eta should be displayed to customer
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    And I start selected Bungii
-    Then I should be navigated to "EN ROUTE" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "ARRIVED" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "EN ROUTE" Screen
-
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "LOADING ITEM" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I accept Alert message for "Reminder: both driver at pickup"
-    Then I should be navigated to "LOADING ITEM" screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    Then I check ETA of "control driver"
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "DRIVING TO DROP OFF" screen
-    Then "control driver" eta should be displayed to customer
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "LOADING ITEM" Screen
-
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "UNLOADING ITEM" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-
-    When I Switch to "driver" application on "ORIGINAL" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on the "Bungii Completed" screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I wait for "2" mins
-    Then I should be navigated to "BUNGII COMPLETE" screen
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
-
-    And I Switch to "driver" application on "Driver2" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I accept Alert message for "Reminder: both driver at drop off"
-    When I click "On To The Next One" button on the "Bungii Completed" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
 
   @regression
 

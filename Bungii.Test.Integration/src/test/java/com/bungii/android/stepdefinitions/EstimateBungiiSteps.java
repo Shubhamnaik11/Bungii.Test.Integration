@@ -430,7 +430,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
             }
             log(" I am logged in as" + arg0 + " customer",
-                    " I am logged in as" + arg0 + " customer", true);
+                    " I am logged in as" + (String) cucumberContextManager.getScenarioContext("CUSTOMER") +" ("+(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE")+ ") customer", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

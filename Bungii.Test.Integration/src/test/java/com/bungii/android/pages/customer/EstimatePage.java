@@ -3,6 +3,7 @@ package com.bungii.android.pages.customer;
 import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
+import java.nio.file.WatchEvent;
 import java.util.List;
 
 public class EstimatePage extends PageBase {
@@ -170,4 +171,4 @@ public class EstimatePage extends PageBase {
   public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
 
   public WebElement Calendar_NextMonth() {return findElement("//android.widget.ListView/android.view.View[2]", LocatorType.XPath);}
-}
+  }
