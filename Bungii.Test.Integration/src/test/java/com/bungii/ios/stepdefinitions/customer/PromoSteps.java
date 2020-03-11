@@ -143,6 +143,8 @@ public class PromoSteps extends DriverBase {
         try {
             String usedPromoCode = (String) cucumberContextManager.getScenarioContext("ADDED_PROMO_CODE");
             testStepVerify.isTrue(isPromoCodePresent(usedPromoCode), "I should able to see expected promo code '" + usedPromoCode + "' in available promo code", "I was able to see '" + usedPromoCode + "' in available promo code", "I was not able to see '" + usedPromoCode + "' in available promo code");
+
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -158,6 +160,7 @@ public class PromoSteps extends DriverBase {
                 currentPromo=action.getValueAttribute(code);
                 if (currentPromo.contains("FBSHARE")) {
                     isPresent = true;
+                    code.click();
                     break;
                 }
             }
@@ -292,6 +295,7 @@ public class PromoSteps extends DriverBase {
         for (WebElement code : codes) {
             if (action.getValueAttribute(code).contains(expectedCode)) {
                 isPresent = true;
+                code.click(); //newly added code
                 break;
             }
         }

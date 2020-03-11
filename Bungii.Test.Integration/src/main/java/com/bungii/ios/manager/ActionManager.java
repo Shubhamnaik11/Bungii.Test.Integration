@@ -1,6 +1,7 @@
 package com.bungii.ios.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -90,15 +91,36 @@ public class ActionManager {
     }
 
     public String getValueAttribute(WebElement element) {
-        String value = element.getAttribute("value");
-        logger.detail("'value' attribute for element -> " + getElementDetails(element)+ " is " + value);
+        String value = "";
+        try {
+            value = element.getAttribute("value");
+            logger.detail("'value' attribute for element -> " + getElementDetails(element) + " is " + value);
+
+        }
+           catch(Exception ex)
+        {
+            logger.error("Error in getting value for element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Get value for element by locator -> " + getElementDetails(element), "Unable to get value for element by locator -> " + getElementDetails(element),
+                    true);
+        }
         return value;
     }
 
     public String getNameAttribute(WebElement element) {
-        String value = element.getAttribute("name");
+        String value = "";
+        try {
+            value = element.getAttribute("name");
+
         logger.detail("'name' attribute for element -> " + getElementDetails(element) + " is " + value);
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error in getting name for element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+                    true);
+        }
         return value;
+
     }
 
     public void click(WebElement element) {
@@ -138,9 +160,43 @@ public class ActionManager {
     }
 
     public void waitForAlert() {
-        (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
+        try {
+
+            (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
+        } catch (Exception ex) {
+            logger.error("Alert is not displayed");
+            error("Alert should be displayed", "Alert is not displayed",
+                    true);
+
+        }
+    }
+    public WebElement getElementByXPath(String Locator) {
+        return new PageBase().findElement(Locator, PageBase.LocatorType.XPath);
     }
 
+    public String getText(WebElement element) {
+        try {
+            Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+            Thread.sleep(3000);
+            String text = element.getText();
+            logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
+
+            return text;
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String text = element.getText();
+            logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
+            return text;
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to get text from element -> " + getElementDetails(element) ,
+                    true);
+            return null;
+        }
+    }
     /**
      * Swipe up on current mobile screen IOS SPECIFIC
      */

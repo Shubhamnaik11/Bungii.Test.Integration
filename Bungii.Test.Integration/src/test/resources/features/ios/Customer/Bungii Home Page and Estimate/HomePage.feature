@@ -10,6 +10,8 @@ Feature: Customer Home screen
     Then "Pick up" address should be displayed in text box
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
+
+
   @FAILED2802
   @FAILED0203
   @regression

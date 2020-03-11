@@ -363,4 +363,66 @@ public class Admin_GeofenceSteps extends DriverBase {
           testStepAssert.isElementDisplayed(admin_GeofencePage.Label_SettingsError(),"Active geofence should allow either Scheduled or On demand trip. - message is displayed","Pass","fail");
     }
 
+    @Then("^check if error message is displayed for \"([^\"]*)\"$")
+    public void check_if_error_message_is_displayed_for_something(String bungiiType) throws Throwable {
+        String duoTime= (String) cucumberContextManager.getScenarioContext("MIN_TIME_DUO");
+        int duoTimeValue=Integer.parseInt(duoTime);
+        String soloTime= (String) cucumberContextManager.getScenarioContext("MIN_TIME_SOLO");
+        int soloTimeValue=Integer.parseInt(duoTime);
+
+        int dbValFromTime= Integer.parseInt(PropertyUtility.getDataProperties("schedule.pickup.from.time"));
+        int dbValToTime=Integer.parseInt(PropertyUtility.getDataProperties("schedule.pickup.to.time"));
+        int dbValMaxProcessTime=Integer.parseInt(PropertyUtility.getDataProperties("schedule.pickup.max.processing.time"));
+        try{
+            switch(bungiiType){
+                case "duo trip":
+                    if(duoTimeValue < dbValFromTime || duoTimeValue > dbValToTime || duoTimeValue < dbValMaxProcessTime) {
+                        testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should be displayed.", "Validation message is displayed ->"+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText(),"Validation message is not displayed.");
+                    }
+                    else{
+                        testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText());
+                    }
+                    break;
+
+                case "solo trip":
+                    if(soloTimeValue < dbValFromTime || soloTimeValue > dbValToTime  || soloTimeValue < dbValMaxProcessTime) {
+                        testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should be displayed.", "Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText(),"Validation message is not displayed.");
+                    }
+                    else{
+                        testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText());
+                    }
+                    break;
+            }
+            log("And I verified the time for  "+ bungiiType,
+                    "And I have verified the time for  "+bungiiType,true);
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+    }
+    @And("^I change the value of \"([^\"]*)\" to \"([^\"]*)\" minutes$")
+    public void i_change_the_value_of_something_to_something_minutes(String type, String timeValue) throws Throwable {
+        try{
+            switch(type){
+
+                case "Minimum scheduled time for Duo trip":
+                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforduo(), timeValue);
+                    cucumberContextManager.setScenarioContext("MIN_TIME_DUO", timeValue);
+                    break;
+
+                case "Minimum scheduled time for Solo trip":
+                    action.clearSendKeys(admin_GeofencePage.TextBox_MinimumScheduledtimeforsolo(), timeValue);
+                    cucumberContextManager.setScenarioContext("MIN_TIME_SOLO", timeValue);
+                    break;
+            }
+            log("And I enter the text "+timeValue,
+                    "And I have entered the text "+timeValue,true);
+        } catch (Exception ex) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 }

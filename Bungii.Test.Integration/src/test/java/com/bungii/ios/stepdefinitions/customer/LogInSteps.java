@@ -31,8 +31,9 @@ public class LogInSteps extends DriverBase {
             action.clearEnterText(loginPage.Textfield_PhoneNumber(),strUserName);
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", strUserName);
-            pass( "Username and Password should be added sucessfully",
-                    "Username :"+ strUserName+", and password :"+strPassWord+",is added successfully");
+
+            pass( "Username and Password should be entered sucessfully",
+                    "Username :"+ strUserName+", and password :"+strPassWord+" is entered successfully");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

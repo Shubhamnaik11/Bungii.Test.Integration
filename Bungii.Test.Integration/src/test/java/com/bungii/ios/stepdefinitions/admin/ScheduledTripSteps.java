@@ -257,10 +257,10 @@ public class ScheduledTripSteps extends DriverBase {
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
-			String rowCustName=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]")).getText();
-			String rowSchduledTime=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]")).getText();
+			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
-			String rowSrNumber=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]")).getText();
+			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
 			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
 				rowNumber=Integer.parseInt(rowSrNumber);

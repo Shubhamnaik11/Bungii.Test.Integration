@@ -758,6 +758,7 @@ public class EstimateSteps extends DriverBase {
         }
     }
 
+
     @Then("^Estimate Screen should have element as per below table$")
     public void estimate_screen_should_have_element_as_per_below_table(DataTable estimateInformation) {
         try {
@@ -900,10 +901,12 @@ public class EstimateSteps extends DriverBase {
     @Then("^correct next available scheduled time should be displayed$")
     public void correct_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
+
+            String displayedTime = getElementValue("TIME");
             Date date = getNextScheduledBungiiTimeForGeofence();
             String strTime = bungiiTimeDisplayInTextArea(date);
-            String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime.replace("am","AM").replace("pm","PM"), displayedTime.replace("am","AM").replace("pm","PM"));
+
+            testStepVerify.isEquals( displayedTime.replace("am","AM").replace("pm","PM"), strTime.replace("am","AM").replace("pm","PM"));
 
 
         } catch (Exception e) {
