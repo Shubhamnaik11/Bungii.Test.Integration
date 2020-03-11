@@ -845,7 +845,8 @@ public class BungiiSteps extends DriverBase {
                 case "Calling":
                     expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE"));
                     if(arg0.equals("Calling"))
-                        expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+                        //expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
+                    expectedDuoNumber=PropertyUtility.getMessage("scheduled.support.number");
 
                     if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
                         utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
