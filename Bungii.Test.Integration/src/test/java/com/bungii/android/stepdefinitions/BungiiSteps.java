@@ -843,20 +843,50 @@ public class BungiiSteps extends DriverBase {
                 case "Driver 1 Calling":
                 case "Driver 2 Calling":
                 case "Calling":
+                    String expectedDuoNumber2=null, expectedDuoNumber3=null, actualDuoNumber=null;
+                    String strExpectedDuoNumber=null, strExpectedDuoNumber2=null, strExpectedDuoNumber3=null;
                     expectedDuoNumber=arg0.contains("2")?String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_1_PHONE")):String.valueOf(cucumberContextManager.getScenarioContext("DRIVER_2_PHONE"));
-                    if(arg0.equals("Calling"))
-                        //expectedDuoNumber=PropertyUtility.getMessage("twilio.number");
-                    expectedDuoNumber=PropertyUtility.getMessage("scheduled.support.number");
+                    expectedDuoNumber=formatDriverNumber(expectedDuoNumber," ");
 
-                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung"))
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
+                    if(arg0.equals("Calling")) {
+                        expectedDuoNumber = PropertyUtility.getMessage("twilio.number");
+                        strExpectedDuoNumber=expectedDuoNumber;
+                        expectedDuoNumber=formatCallingNumber(expectedDuoNumber);
+                        expectedDuoNumber2 = PropertyUtility.getMessage("scheduled.support.number");
+                        strExpectedDuoNumber2=expectedDuoNumber2;
+                        expectedDuoNumber2=formatCallingNumber(expectedDuoNumber2);
+                        expectedDuoNumber3 = PropertyUtility.getMessage("twilio.number.driver2");
+                        strExpectedDuoNumber3=expectedDuoNumber3;
+                        expectedDuoNumber3=formatCallingNumber(expectedDuoNumber3);
+                    }
+
+                    if (DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        //utility.isPhoneNumbersEqual(Page_OtherApps.Call_Samsung_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
+                        actualDuoNumber=action.getText(Page_OtherApps.Call_Moto_Number());
+                        if(actualDuoNumber.equalsIgnoreCase(expectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber3) ||
+                        actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber3))
+                        {
+                            testStepAssert.isTrue(true,actualDuoNumber+" is expected.", actualDuoNumber+" is not displayed on the dial screen.");
+                        }
+                        else {
+                            testStepAssert.isFail(actualDuoNumber+" is not displayed on the dial screen.");
+                        }
+                    }
 
                     if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
-                        utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
+                        actualDuoNumber=action.getText(Page_OtherApps.Call_Moto_Number());
+                        if(actualDuoNumber.equalsIgnoreCase(expectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber3) ||
+                        actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber3))
+                        {
+                            testStepAssert.isTrue(true,actualDuoNumber+" is expected.", actualDuoNumber+" is not displayed on the dial screen.");
+                        }
+                        else {
+                            testStepAssert.isFail(actualDuoNumber+" is not displayed on the dial screen.");
+                        }
+                       // utility.isPhoneNumbersEqual(Page_OtherApps.Call_Moto_Number(), expectedDuoNumber,"Number "+expectedDuoNumber+"should be correctly displayed","Number"+expectedDuoNumber+" is not correctly displayed");
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                         ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
-
                     }
 
                     break;
@@ -1041,6 +1071,19 @@ public class BungiiSteps extends DriverBase {
 
     }
 
+    private String formatCallingNumber(String expectedValue) {
+        String expectedNumber=null;
+        try {
+            expectedNumber = expectedValue.replace("(", "").replace(") ", "-");
+        }
+        catch (Exception e)
+        {
+            logger.error("Error performing step", e);
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+        return expectedNumber;
+    }
+
     private boolean isNotificationTextPresent(String actionToPerfrom){
         boolean isDisplayed = false;
         try{
@@ -1067,5 +1110,24 @@ public class BungiiSteps extends DriverBase {
         error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
     }
         return isDisplayed;
+    }
+
+    public static String formatDriverNumber(String expectedDuoNumber, String valueToBeInserted)
+    {
+        // Create a new string
+        String number = new String();
+
+        for (int i = 0; i < expectedDuoNumber.length(); i++) {
+            // Insert the original string character
+            // into the new string
+            number += expectedDuoNumber.charAt(i);
+
+            if (i == 2 || i==5) {
+                // Insert the string to be inserted
+                // into the new string
+                number += valueToBeInserted;
+            }
+        }
+        return number;
     }
 }
