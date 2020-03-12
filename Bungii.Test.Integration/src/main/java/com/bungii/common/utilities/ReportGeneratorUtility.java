@@ -223,8 +223,9 @@ public class ReportGeneratorUtility extends DriverBase {
 		else {
             try {
 				if (this.reason.equalsIgnoreCase( "")) {
-					String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+                    String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
 					String step = (String) cucumberContextManager.getScenarioContext("STEP");
+                    this.reason = cause;
 					if(cause!="")
 						failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
 				}
@@ -235,6 +236,7 @@ public class ReportGeneratorUtility extends DriverBase {
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
 			detailsArray.add(st);
 			failed++;
+
 			status = "<td style='background-color:pink;'>Fail</td>";
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);

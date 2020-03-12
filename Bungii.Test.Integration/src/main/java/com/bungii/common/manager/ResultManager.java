@@ -82,7 +82,7 @@ public class ResultManager {
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
         logger.error("FAIL| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
         reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.FAILED.toString()));
-        Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual); // Added for failure
+       // Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual); // Added for failure
     }
     /**
      * Log step details to Result with fail status . Stop test
