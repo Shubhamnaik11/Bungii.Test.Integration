@@ -19,14 +19,13 @@ Feature: CustomerMenu
     Then "Login" page should be opened
 #failing due to BCKD-1103
   #@regression
-  @ready
+  #@ready
   Scenario: Verify Device Token De-Registration On Customer Logout
     Then Customer active flag should be "1"
     And I tap on "Menu" > "Logout" link
     Then Customer active flag should be "0"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer FAQ Menu
     When I tap on "Menu" > "FAQ" link
     Then "FAQ" page should be opened

@@ -30,8 +30,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar message for invalid code" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link

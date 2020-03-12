@@ -145,7 +145,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "OK on complete":
                     boolean isDuo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO");
                     if (isDuo) {
-                        Thread.sleep(100000);
+                        Thread.sleep(10000);
                     }
                     Thread.sleep(8000);
                     try {
@@ -282,6 +282,7 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 case "all elements":
                     action.scrollToTop();
+                    action.scrollToTop();
                     testStepVerify.isEquals(action.getText(bungiiEstimatePage.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(bungiiEstimatePage.Time()));
                     testStepAssert.isElementDisplayed(bungiiEstimatePage.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
                     cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(bungiiEstimatePage.Link_Promo(true)));
@@ -295,9 +296,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(bungiiEstimatePage.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()));
-
-                    testStepVerify.isElementNotEnabled(bungiiEstimatePage.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
                     action.scrollToBottom();
+                    testStepVerify.isElementNotEnabled(bungiiEstimatePage.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
+
                     testStepVerify.isTrue(bungiiEstimatePage.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
                     break;
 

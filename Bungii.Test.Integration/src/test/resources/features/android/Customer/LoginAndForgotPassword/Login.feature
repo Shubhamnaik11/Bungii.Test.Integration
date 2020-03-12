@@ -7,8 +7,7 @@ Feature: Login
     Given I am on customer Log in page
 
   @sanity
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Login With Valid Credentials
     When I enter customers "valid" Phone Number
     And I enter customers "valid" Password
@@ -16,8 +15,7 @@ Feature: Login
     Then The user should be logged in
     And I tap on "Menu" > "Logout" link
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Login With Invalid Credentials
     When I enter customers "invalid" Phone Number
     And I enter customers "invalid" Password
@@ -92,7 +90,7 @@ Feature: Login
     Then "Estimate" page should be opened
 
   #@regression
-  @ready
+  #@ready
   Scenario: Verify Permissions Are Only Displayed On App Upon First Time Installation
     Given I have device which has location permission
     Given I install Bungii App again
@@ -115,7 +113,7 @@ Feature: Login
     Then "Home" page should be opened
 
   #@regression
-  @ready
+  #@ready
   Scenario: Verify If Location Permissions Are Denied Then Alert Is Shown Again On Home page
     Given I have device which has location permission
     Given I install Bungii App again
