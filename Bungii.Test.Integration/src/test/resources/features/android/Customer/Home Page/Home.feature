@@ -4,7 +4,7 @@ Feature: Customer Home screen
   Background:
     Given I am on Customer logged in Home page
 
-  @regression
+  #@regression
   @ready
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     When I tap on "Menu" > "Home" link
