@@ -1006,11 +1006,11 @@ public class BungiiSteps extends DriverBase {
                 initialTime = (long) cucumberContextManager.getFeatureContextContext("BUNGII_INITIAL_SCH_TIME" + "_" + strArg1);
             long currentTime = System.currentTimeMillis() / 1000L;
             long diffInMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime - initialTime);
-            if (diffInMinutes > 15) {
+            if (diffInMinutes > 5) {
                 //do nothing
             } else {
                 // minimum wait of 30 mins
-                action.hardWaitWithSwipeUp(15 - (int) diffInMinutes);
+                action.hardWaitWithSwipeUp(5 - (int) diffInMinutes);
 
             }
 

@@ -562,6 +562,7 @@ Feature: To Test Duo - Scheduled Bungii
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
+    @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii
 
     Given that ondemand bungii is in progress
@@ -691,6 +692,7 @@ Feature: To Test Duo - Scheduled Bungii
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
+    @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii
 
     Given that solo schedule bungii is in progress

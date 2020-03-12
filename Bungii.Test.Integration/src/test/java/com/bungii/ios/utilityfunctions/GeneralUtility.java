@@ -198,143 +198,145 @@ public class GeneralUtility extends DriverBase {
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
+try {
+    if (action.isElementPresent(customerHomePage.Application_Name(true))) {
+        //do nothing
+    } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
+        //if app is closed and just phone screen is present then restart app
+        SetupManager.getObject().restartApp();
+    }
+    //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+    else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
+        //Remove notification screen
+        action.hideNotifications();
+        logger.detail("Notification page is removed");
+    }
+    //Handle Alert
+    if (action.isAlertPresent()) {
 
-        if (action.isElementPresent(customerHomePage.Application_Name(true))) {
-            //do nothing
-        } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
-            //if app is closed and just phone screen is present then restart app
-            SetupManager.getObject().restartApp();
-        }
-        //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
-        else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
-            //Remove notification screen
-            action.hideNotifications();
-            logger.detail("Notification page is removed");
-        }
-        //Handle Alert
-        if (action.isAlertPresent()) {
+        String alertMessage = action.getAlertMessage();
+        logger.detail("Alert is present on screen,Alert message:" + alertMessage);
 
-            String alertMessage = action.getAlertMessage();
-            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+        List<String> getListOfAlertButton = action.getListOfAlertButton();
 
-            List<String> getListOfAlertButton = action.getListOfAlertButton();
-
-            if (alertMessage.contains("Software Update")) {
-                if (getListOfAlertButton.contains("Later")) {
-                    action.clickAlertButton("Later");
-                    if (action.isElementPresent(messagesPage.Button_RemindMeLater(true)))
-                        action.click(messagesPage.Button_RemindMeLater());
-                }
-            } else if (alertMessage.contains("new iOS update")) {
-                if (getListOfAlertButton.contains("Close")) {
-                    action.clickAlertButton("Close");
-
-                }
-            } else if (getListOfAlertButton.contains("Cancel")) {
-                action.clickAlertButton("Cancel");
-            } else {
-                if (getListOfAlertButton.contains("Done"))
-                    action.clickAlertButton("Done");
-
-                if (getListOfAlertButton.contains("Close"))
-                    action.clickAlertButton("Close");
-
-                else if (getListOfAlertButton.contains("Always Allow"))
-                    action.clickAlertButton("Always Allow");
-                else if (getListOfAlertButton.contains("Allow"))
-                    action.clickAlertButton("Allow");
+        if (alertMessage.contains("Software Update")) {
+            if (getListOfAlertButton.contains("Later")) {
+                action.clickAlertButton("Later");
+                if (action.isElementPresent(messagesPage.Button_RemindMeLater(true)))
+                    action.click(messagesPage.Button_RemindMeLater());
+            }
+        } else if (alertMessage.contains("new iOS update")) {
+            if (getListOfAlertButton.contains("Close")) {
+                action.clickAlertButton("Close");
 
             }
-        }
-        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-        // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-        logger.detail("Switched to Driver in recovery scenario");
+        } else if (getListOfAlertButton.contains("Cancel")) {
+            action.clickAlertButton("Cancel");
+        } else {
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
 
-        //If we restart app then close view item page is dismissed
-        //view item page
+            if (getListOfAlertButton.contains("Close"))
+                action.clickAlertButton("Close");
+
+            else if (getListOfAlertButton.contains("Always Allow"))
+                action.clickAlertButton("Always Allow");
+            else if (getListOfAlertButton.contains("Allow"))
+                action.clickAlertButton("Allow");
+
+        }
+    }
+    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+    // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+    logger.detail("Switched to Driver in recovery scenario");
+
+    //If we restart app then close view item page is dismissed
+    //view item page
 /*        if (action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true))) {
             action.click(driverUpdateStatusPage.Button_CloseViewItems());
             logger.detail("Clicked Close on view item screen");
 
         }*/
-        if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
+    if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
-            String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
-            logger.detail("screen is " + screen);
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                logger.detail("Driver struck on arrived screen");
-                action.click(driverUpdateStatusPage.Button_Cancel());
-                action.clickAlertButton("Yes");
-            } else if (screen.equals(Status.EN_ROUTE.toString())) {
-                logger.detail("Driver struck on EN_ROUTE screen");
-                action.click(driverUpdateStatusPage.Button_Cancel());
-                action.clickAlertButton("Yes");
-            } else if (screen.equals(Status.LOADING_ITEM.toString())) {
-                logger.detail("Driver struck on LOADING_ITEM screen");
-                updateStatus();
-                updateStatus();
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
+        String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
+        logger.detail("screen is " + screen);
+        if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+            logger.detail("Driver struck on arrived screen");
+            action.click(driverUpdateStatusPage.Button_Cancel());
+            action.clickAlertButton("Yes");
+        } else if (screen.equals(Status.EN_ROUTE.toString())) {
+            logger.detail("Driver struck on EN_ROUTE screen");
+            action.click(driverUpdateStatusPage.Button_Cancel());
+            action.clickAlertButton("Yes");
+        } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+            logger.detail("Driver struck on LOADING_ITEM screen");
+            updateStatus();
+            updateStatus();
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
                 }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
-                logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
-                updateStatus();
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
-                }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
-                logger.detail("Driver struck on UNLOADING_ITEM screen");
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
-                }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
-                logger.detail("Driver struck on bungii completed screen");
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
             }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+            logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
+            updateStatus();
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
+                }
+            }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+            logger.detail("Driver struck on UNLOADING_ITEM screen");
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
+                }
+            }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
+            logger.detail("Driver struck on bungii completed screen");
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        }
 
-        }
-        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
-        // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
-        if (action.isAlertPresent()) {
-            List<String> getListOfAlertButton = action.getListOfAlertButton();
-            if (getListOfAlertButton.contains("OK"))
-                action.clickAlertButton("OK");
-        }
-        String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
-        if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
-            logger.detail("Customer struck on searching screen");
-            action.click(estimatePage.Button_Cancel());
-            SetupManager.getDriver().switchTo().alert().accept();
-        } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))) {
-            logger.detail("Customer struck on bungii complete screen");
-            action.click(bungiiCompletePage.Button_Close());
-            ;
-            action.click(promotionPage.Button_IdontLikePromo());
-        } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))) {
-            logger.detail("Customer struck on promotion screen");
-            action.click(promotionPage.Button_IdontLikePromo());
-        } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
-            navigateFromTermToHomeScreen();
-        } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
-            action.click(enableNotificationPage.Button_Sure());
+    }
+    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+    // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+    if (action.isAlertPresent()) {
+        List<String> getListOfAlertButton = action.getListOfAlertButton();
+        if (getListOfAlertButton.contains("OK"))
+            action.clickAlertButton("OK");
+    }
+    String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
+    if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+        logger.detail("Customer struck on searching screen");
+        action.click(estimatePage.Button_Cancel());
+        SetupManager.getDriver().switchTo().alert().accept();
+    } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))) {
+        logger.detail("Customer struck on bungii complete screen");
+        action.click(bungiiCompletePage.Button_Close());
+        ;
+        action.click(promotionPage.Button_IdontLikePromo());
+    } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))) {
+        logger.detail("Customer struck on promotion screen");
+        action.click(promotionPage.Button_IdontLikePromo());
+    } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+        navigateFromTermToHomeScreen();
+    } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+        action.click(enableNotificationPage.Button_Sure());
+        action.clickAlertButton("Allow");
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Allow");
-            if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow");
-            }
         }
+    }
+}
+     catch(Exception e){}
     }
 
     public void navigateFromTermToHomeScreen() {

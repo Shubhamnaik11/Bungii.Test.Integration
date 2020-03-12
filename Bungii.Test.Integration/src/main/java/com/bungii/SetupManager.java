@@ -63,9 +63,10 @@ public class SetupManager extends EventFiringWebDriver {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
 
                 }catch (SessionNotCreatedException e) {
-                    logger.detail("Initialing driver failed ,removing and trying again trying again" + ExceptionUtils.getStackTrace(e));
-
+                    logger.detail("Initialing driver failed ,removing and trying again trying again ");
+                    logger.detail("Removing WebDriver Agent");
                     removeWebdriverAgent();
+
                     try {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
@@ -292,11 +293,13 @@ public class SetupManager extends EventFiringWebDriver {
      */
     private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
         try {
+            logger.detail("Starting Appium Server at port : " + portNumber);
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
+            logger.detail("Started Appium Server at port : " + portNumber);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -418,6 +421,7 @@ public class SetupManager extends EventFiringWebDriver {
             ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
 
         }
+        System.out.println("Restarted App");
 
     }
 
