@@ -6,6 +6,8 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.CucumberContextManager;
 import static com.bungii.common.manager.ResultManager.fail;
+import static com.bungii.common.manager.ResultManager.failureStep;
+
 import com.bungii.common.manager.ResultManager;
 import com.google.common.collect.ObjectArrays;
 import org.apache.commons.lang3.ArrayUtils;
@@ -222,8 +224,9 @@ public class ReportGeneratorUtility extends DriverBase {
             try {
 				if (this.reason.equalsIgnoreCase( "")) {
 					String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+					String step = (String) cucumberContextManager.getScenarioContext("STEP");
 					if(cause!="")
-					    fail("Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+						failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
 				}
 				}
             catch(Exception ex){}
