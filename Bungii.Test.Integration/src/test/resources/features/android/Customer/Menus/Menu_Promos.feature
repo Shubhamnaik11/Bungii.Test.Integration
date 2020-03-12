@@ -30,7 +30,8 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar message for invalid code" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -50,7 +51,8 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar message for already added code" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  #@regression
+  @ready
   Scenario:  Verify Referral Are For New Users Notification for Newly Registered Customer
     Given I am logged in as "newly registered" customer
     When I tap on "Menu" > "Promos" link
@@ -96,8 +98,8 @@ Feature: Menu_SaveMoney
     And I share on "Facebook with app installed"
 #    Then I should see post "on Facebook app"
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify When Customer With No Twitter App Shares Promocode Via Twitter Then It Opens in Browser
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link

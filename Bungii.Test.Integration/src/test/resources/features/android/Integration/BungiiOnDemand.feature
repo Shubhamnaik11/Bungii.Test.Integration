@@ -5,8 +5,8 @@
 Feature: On Demand Bungii
 
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
 
     Given that ondemand bungii is in progress
@@ -338,7 +338,8 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -653,7 +654,8 @@ Feature: On Demand Bungii
       | Expected value in admin |
       | promo                   |
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Customer Can Create Ondemand Bungii With Promoter Type Promocode
 
     Given I Switch to "customer" application on "same" devices
@@ -738,7 +740,8 @@ Feature: On Demand Bungii
       | Promoter type       | promoter type | valid baltimore |promoter                |
 
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Receives Notification Upon Bungii Completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

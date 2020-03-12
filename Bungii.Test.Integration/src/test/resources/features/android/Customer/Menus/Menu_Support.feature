@@ -6,7 +6,8 @@ Feature: Menu_Support
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Support" link
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Support Menu Snackbar Validation
     Then "Support" page should be opened
     And The user should see "support question" on Support page
