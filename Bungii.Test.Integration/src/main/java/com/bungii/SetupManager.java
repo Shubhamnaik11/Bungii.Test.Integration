@@ -63,7 +63,7 @@ public class SetupManager extends EventFiringWebDriver {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
 
                 }catch (SessionNotCreatedException e) {
-                    logger.detail("Initialing driver failed ,removing and trying again trying again" + ExceptionUtils.getStackTrace(e));
+                    logger.detail("Initialing driver failed ,removing and trying again trying again " + ExceptionUtils.getStackTrace(e));
 
                     removeWebdriverAgent();
                     try {
