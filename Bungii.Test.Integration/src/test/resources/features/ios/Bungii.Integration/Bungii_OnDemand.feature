@@ -302,7 +302,7 @@ Feature: Create on demand bungii
     And I add "<Promo Code>" PromoCode
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+   # When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -374,7 +374,7 @@ Feature: Create on demand bungii
     And I add "<Promo Code>" PromoCode
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -476,7 +476,7 @@ Feature: Create on demand bungii
     And I tap "Promo code" on Estimate screen
     And I should be navigated to "PROMOS" screen
     Then I should able to see facebook promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -576,7 +576,7 @@ Feature: Create on demand bungii
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -632,9 +632,9 @@ Feature: Create on demand bungii
     Then I should be navigated to "Estimate" screen
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
-    Then I should able to see expected promo code in available promo code
     Then I should see "referral code received with out first time tag" on Promos page
-    When I tap "Back" on Promos screen
+    Then I should able to see expected promo code in available promo code
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |

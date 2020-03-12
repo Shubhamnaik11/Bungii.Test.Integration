@@ -14,6 +14,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -129,6 +130,8 @@ public class ScheduledBungiiSteps extends DriverBase {
 	public void selectBungii(String bungiiType, String bungiiTime) {
 		Date currentDate = new Date();
 		int year=currentDate.getYear()+1900;
+		if(TimeZone.getTimeZone( "America/New_York").inDaylightTime( new Date() ))
+		bungiiTime=bungiiTime.replace("S","D");
 		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
 

@@ -172,29 +172,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
       | Ron        | testerr   | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | ONETESTTIM | facebook |
-  @failed
-    #used one off
-  #Know issue, no alert
-  @regression
-  Scenario Outline: Verify Validation Is Displayed On Signup If Invalid Or Used One Off Promocode Is Entered
-    When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
-    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
-    And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
-    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
-    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
-    And I Enter "<Referral Code>" value in "Referral code" field in "SIGN UP" Page
-    And I Select Referral source as "<Source>"
-    And I click "SIGN UP" button on "SIGN UP" screen
-  #  Then user is alerted for "<Expected Message>"
-    And I should be navigated to "SIGN UP" screen
-    Then I should be navigated to "VERIFICATION" screen
-    When I Get SMS CODE for new "Customer"
-    And I enter "valid" Verification code
-    Then I should be navigated to "Home" screen
 
-    Examples:
-      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
-      | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | R1D2            | facebook | INVALID PROMO WHILE SIGNUP |
   @failed
   @regression
   Scenario Outline:Verify Customer Cannot Signup With Future Active Promoter Type Promo codes
@@ -211,3 +189,27 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name              | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
       | RandomTestcustomertywd_apple  | testerr   | richa.naik@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | HECKNWWAU | facebook |
+
+  @failed
+    #used one off
+  #Know issue, no alert
+  @regression
+  Scenario Outline: Verify Validation Is Displayed On Signup If Invalid Or Used One Off Promocode Is Entered
+    When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
+    And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
+    And I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
+    And I Enter "<Email ID>" value in "Email" field in "SIGN UP" Page
+    And I Enter "<Password>" value in "Password" field in "SIGN UP" Page
+    And I Enter "<Referral Code>" value in "Referral code" field in "SIGN UP" Page
+    And I Select Referral source as "<Source>"
+    And I click "SIGN UP" button on "SIGN UP" screen
+  #  Then user is alerted for "<Expected Message>"
+    # And I should be navigated to "SIGN UP" screen  Invalid Step commented
+    Then I should be navigated to "VERIFICATION" screen
+    When I Get SMS CODE for new "Customer"
+    And I enter "valid" Verification code
+    Then I should be navigated to "Home" screen
+
+    Examples:
+      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
+      | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | R1D2            | facebook | INVALID PROMO WHILE SIGNUP |

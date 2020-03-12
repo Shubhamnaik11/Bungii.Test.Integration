@@ -221,7 +221,9 @@ public class ReportGeneratorUtility extends DriverBase {
 		else {
             try {
 				if (this.reason.equalsIgnoreCase( "")) {
-					fail("Temporary Step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+					String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+					if(cause!="")
+					    fail("Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
 				}
 				}
             catch(Exception ex){}

@@ -148,8 +148,8 @@ public class HomeSteps extends DriverBase {
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
                     "Number of driver for Bungii is not " + tripDriverType);
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error Requesting Bungii for pickup location : "+ data.transpose().asMap(String.class, String.class).get("Pickup Location") ,
                     true);
         }
 
@@ -315,6 +315,7 @@ public class HomeSteps extends DriverBase {
     @Then("^\"([^\"]*)\" address should be displayed in text box$")
     public void something_address_should_be_displayed_in_text_box(String actionAddress) {
         try {
+            Thread.sleep(10000);
             String textBoxValue = "";
             switch (actionAddress.toUpperCase()) {
                 case "DROP":
@@ -377,6 +378,12 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
+    public void i_selectlogout() {
+            goToAppMenu();
+            clickAppMenu("LOGOUT");
+    }
+
     @Then("^I customers active flag should be \"([^\"]*)\"$")
     public void i_active_flag_should_be_something(String strArg1) throws Throwable {
         try {
@@ -439,6 +446,7 @@ public class HomeSteps extends DriverBase {
     @Then("^driver eta should be \"([^\"]*)\"$")
     public void driver_eta_should_be_something(String strArg1) throws Throwable {
         try {
+            Thread.sleep(10000);
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
