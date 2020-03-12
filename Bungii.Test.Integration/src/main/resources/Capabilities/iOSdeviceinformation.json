@@ -17,7 +17,8 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8110
+    "wdaLocalPort": 8110,
+    "shouldUseSingletonTestManager": "false"
   },
   "device1": {
     "platformName": "iOS",
@@ -36,7 +37,8 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8100
+    "wdaLocalPort": 8100,
+    "shouldUseSingletonTestManager": "false"
   },
 
   "connection": {
