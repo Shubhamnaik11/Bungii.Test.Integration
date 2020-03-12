@@ -41,7 +41,8 @@ Feature: DriverMenu
     And the "EARNINGS" page is opened
     Then I should be able to see data on "EARNINGS" page
 
-  @regression
+ #@regression
+  @ready
   Scenario: Verify Driver ACCOUNT Menu
     When I Select "ACCOUNT" from driver App menu
     And the "ACCOUNT" page is opened
@@ -66,8 +67,8 @@ Feature: DriverMenu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
 #failing due to BCKD-1103
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify Device Token De-registration Upon Driver Logout
     Then Driver active flag should be "1"
     When I Select "LOGOUT" from driver App menu

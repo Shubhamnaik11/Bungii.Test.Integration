@@ -6,7 +6,8 @@ Feature: CustomerForgotPassword
     Given I am on customer Log in page
     And I tap on the "Forgot Password" Link
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password With Valid Phone Number
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

@@ -21,8 +21,8 @@ Feature: ReferralInvite
     Then I should see post "on gmail app"
     And I Switch to "customer" application on "same" devices
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify When Customer With No Twitter App Shares Referral Invite Via Twitter Then It Opens in Browser
     Given I have "twitter" app "not installed"
     When I tap "Share" on Invite page
