@@ -126,7 +126,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
 	    name= name.replace(",","");
-		String str = "<tr class='header'><td colspan='8' align='left'>Scenario : "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
@@ -152,11 +152,12 @@ public class ReportGeneratorUtility extends DriverBase {
 			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
 		}
 
-		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
-		str = str + "<td>" + reason + "</td>";
-		str = str + "<td>" + testStepStart + "</td>";
-		str = str + "<td>" + testStepEnd + "</td>";
-		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
+		str = str + "<td align='left'>" + eventData.get("expected").toString() + "</td>";
+		str = str + "<td align='left'>" + reason + "</td>";
+		//str = str + "<td>" + testStepStart + "</td>";
+		//str = str + "<td>" + testStepEnd + "</td>";
+		//str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
+		str = str + "</tr>";
 
 		detailsArray.add(str);
 		if (eventData.get("type").toString() != "PASSED") {
