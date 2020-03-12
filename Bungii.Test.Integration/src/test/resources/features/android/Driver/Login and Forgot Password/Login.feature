@@ -7,8 +7,8 @@ Feature: Log In
     And I am on the LOG IN page on driver app
 
 
-  @regression
-
+  #@regression
+  @ready
   Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
@@ -33,7 +33,8 @@ Feature: Log In
     And I click "Log In" button on Log In screen on driver app
     Then I should be navigated to Home screen on driver app
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
@@ -43,7 +44,8 @@ Feature: Log In
       | Scenario        | Username   | Password | Expected Message                                  | Login Button Status  |
       | PENDING PAYMENT | 9999991009 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times
     When I enter phoneNumber
     And I enter invalid password and click on "Log In" button for "3" times on Log In screen on driver app
@@ -84,8 +86,8 @@ Feature: Log In
       | Expected Message                                                                                                      |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I have device which has location permission
     Given I install Bungii Driver App again
