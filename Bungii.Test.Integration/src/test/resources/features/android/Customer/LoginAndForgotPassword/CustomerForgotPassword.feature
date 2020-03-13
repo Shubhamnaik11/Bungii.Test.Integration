@@ -7,7 +7,8 @@ Feature: CustomerForgotPassword
     And I tap on the "Forgot Password" Link
 
   #@regression
-  @ready
+  #@ready
+  #known issue, the snackbar message disappears quickly.
   Scenario: Verify Customer Forgot Password With Valid Phone Number
     When I enter "valid" Phone Number
     And I tap on the "Send" Link

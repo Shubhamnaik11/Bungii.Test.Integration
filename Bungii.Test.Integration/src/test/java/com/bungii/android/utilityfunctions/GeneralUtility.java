@@ -473,14 +473,20 @@ public class GeneralUtility extends DriverBase {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-
+        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
+                perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
+                perMinutesValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.minutes"));
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double tripActualTime = Double.parseDouble(tripTime);
-        double tripValue = distance + tripActualTime;
+        double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
         if (tripType.equalsIgnoreCase("DUO")) {
             tripValue = tripValue * 2;
-            MIN_COST = MIN_COST * 2;
-
+            //MIN_COST = MIN_COST * 2;
+            minCost = minCost * 2;
         }
         Promo = Promo.contains("ADD") ? "0" : Promo;
 
@@ -497,7 +503,8 @@ public class GeneralUtility extends DriverBase {
             }
         }
         double costToCustomer = tripValue - discount;
-        costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+        //costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+        costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
 
         return costToCustomer;
     }

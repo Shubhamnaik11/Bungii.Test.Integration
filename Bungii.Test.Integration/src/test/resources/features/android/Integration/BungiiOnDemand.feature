@@ -4,7 +4,6 @@
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
 
-
   #@regression
   @ready
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option

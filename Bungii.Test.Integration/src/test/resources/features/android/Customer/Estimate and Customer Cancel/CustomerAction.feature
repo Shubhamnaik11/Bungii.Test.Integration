@@ -9,8 +9,7 @@ Feature: Bungii
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Bungii Cancellation on Heads Up Popup
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
