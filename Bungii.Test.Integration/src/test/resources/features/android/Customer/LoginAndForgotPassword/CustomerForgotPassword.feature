@@ -19,19 +19,22 @@ Feature: CustomerForgotPassword
     And The user should be logged in
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password With Incorrect Phone Number
     When I enter "invalid" Phone Number
     And I tap on the "Send" Link
     Then The user should see "snackbar validation message for invalid number" on forgot password page
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password With Phone Number Less Than 10 Characters
     When I enter "less than 10 digit" Phone Number
     Then The user should see "validation for incorrect number" on forgot password page
     And The user should see "Send button disabled" on forgot password page
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password Functionality With Incorrect SMS Code
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -40,7 +43,8 @@ Feature: CustomerForgotPassword
     And I tap on the "Continue" Link
     Then The user should see "snackbar validation message for invalid sms code" on forgot password page
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password With Password Less Than 6 Characters
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -48,7 +52,8 @@ Feature: CustomerForgotPassword
     And I enter customers new "invalid" Password
     Then The user should see "validation for incorrect password" on forgot password page
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password With Resend SMS Code Functionality
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
@@ -58,7 +63,8 @@ Feature: CustomerForgotPassword
     And I tap on the "Continue" Link
     Then The user should be logged in
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Forgot Password Functionality With Expired SMS Code
     When I enter "valid" Phone Number
     And I tap on the "Send" Link
