@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @FAILED2702
+  @duodemo
   @regression
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
@@ -269,7 +269,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I add "<PROMO CODE>" PromoCode
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time          | PickUpImage |
       |          |           |              | NEXT_POSSIBLE | Default     |
