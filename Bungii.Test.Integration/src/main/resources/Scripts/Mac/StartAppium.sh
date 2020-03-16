@@ -19,7 +19,7 @@ today=`date '+%Y_%m_%d__%H_%M_%S'`;
 filename="/Users/iosdev/Documents/Bungii-AppiumLogs/AppuimLogs_$today.log"
 appium_cmd='node /usr/local/bin/appium/lib/server/main.js'
 #start Appium server with parameter
-echo "Starting Appium server forDevice :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
+echo "Starting Appium server for Device :$device with details , WDAPORT:${WDAPORT} , APPIUMPORT:${APPIUMPORT} , filename:${filename} "
 echo "appium -p ${APPIUMPORT} --webdriveragent-port ${WDAPORT} --log-timestamp --session-override --local-timezone --log ${filename}" > $device.command
 chmod +x $device.command
 open $device.command

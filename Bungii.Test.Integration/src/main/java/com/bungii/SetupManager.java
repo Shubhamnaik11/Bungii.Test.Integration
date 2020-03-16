@@ -63,18 +63,22 @@ public class SetupManager extends EventFiringWebDriver {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
 
                 }catch (SessionNotCreatedException e) {
-                    logger.detail("Initialing driver failed ,removing and trying again trying again ");
-                    logger.detail("Removing WebDriver Agent");
+                    logger.detail(ExceptionUtils.getStackTrace(e));
+                    logger.detail("Initialing driver failed , removing and trying again trying again ");
+                    logger.detail("Removing WebDriver Agent ");
                     removeWebdriverAgent();
-
+                    logger.detail("Restarting iPhone ");
+                    restartIphone();
                     try {
+                        Thread.sleep(180000);
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                     }
                 }
                 catch (Exception e) {
-                    logger.detail("Initialing driver failed trying again" + ExceptionUtils.getStackTrace(e));
+                    logger.detail(ExceptionUtils.getStackTrace(e));
+                    logger.detail("Initialising driver failed. Trying again ");
                     try {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
@@ -121,13 +125,41 @@ public class SetupManager extends EventFiringWebDriver {
 
 
                    Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+                logger.detail("Deleted WebdriverAgent for Device : " + deviceId);
             }
         } catch (Exception e) {
             // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
 
         }
     }
+    private static void restartIphone(){
+        try {
+            //  if (SystemUtils.IS_OS_MAC) {
+            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
 
+                String deviceInfoFileKey = "ios.capabilities.file";
+                String deviceId = System.getProperty("DEVICE");
+
+
+                DesiredCapabilities capabilities = new DesiredCapabilities();
+                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
+
+                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
+                JSONObject jsonParsed, jsonCaps;
+                jsonParsed = jsonParser.getObjectFromJSON();
+                jsonCaps = jsonParsed.getJSONObject(deviceId);
+                String udid = jsonCaps.getString("udid");
+
+
+                Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/restartIphone.sh " + udid);
+                logger.detail("Restarted iPhone Device : " + deviceId);
+
+            }
+        } catch (Exception e) {
+            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
+
+        }
+    }
     /**
      * Make class singleton, one instance of driver is shared with all the class
      */
@@ -152,16 +184,6 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-
-        //Vishal[2602]Commented code to run appium service as Appium servers are created by powershell while job is running via Jenkins
-/*        if (checkIfServerIsRunnning(portNumber)) {
-            stopAppiumServer();
-        }
-        //Start server only if its localhost
-        if (APPIUM_SERVER_IP == "127.0.0.1")
-            startAppiumServer(APPIUM_SERVER_IP, portNumber);*/
-
-
         return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
     }
 
@@ -246,13 +268,6 @@ public class SetupManager extends EventFiringWebDriver {
 
     private static ChromeOptions getChromeDesiredCapabilities() {
 
-        //vishal[2003]: checking chrome issue for Mac machine
-        //    String chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver.exe";
-        //    if(SystemUtils.IS_OS_MAC)
-        //        chromeDriverPath="src/main/resources/BrowserExecutables/chromedriver";
-        //    System.setProperty("webdriver.chrome.driver", FileUtility.getSuiteResource("",chromeDriverPath));
-
-        // DesiredCapabilities capabilities = DesiredCapabilities.chrome();
         ChromeOptions chromeOptions = new ChromeOptions();
         //Run in Headless mode for IOS
         //vishal[2003]: checking chrome issue for Mac machine
@@ -293,13 +308,13 @@ public class SetupManager extends EventFiringWebDriver {
      */
     private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
         try {
-            logger.detail("Starting Appium Server at port : " + portNumber);
+            logger.detail("Getting Appium Driver at port : " + portNumber);
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-            logger.detail("Started Appium Server at port : " + portNumber);
+            logger.detail("Appium Driver at port : " + portNumber);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
