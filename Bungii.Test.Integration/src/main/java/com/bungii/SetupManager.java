@@ -4,6 +4,7 @@ import com.bungii.common.enums.TargetPlatform;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.*;
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -35,6 +36,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static org.apache.commons.lang3.exception.ExceptionUtils.getStackTrace;
+
 public class SetupManager extends EventFiringWebDriver {
     private static LogUtility logger = new LogUtility(SetupManager.class);
     private static JSONObject jsonParsed, jsonCaps;
@@ -61,23 +64,28 @@ public class SetupManager extends EventFiringWebDriver {
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                    //restartIphone();
+                   // ImmutableMap<String, String> pressHome = ImmutableMap.of("name", "home");
+                    //driver.ExecuteScript("mobile: pressButton", ImmutableMap.of("name", "home"));
+                   // driver.ExecuteScript("client:client.deviceAction(\"Home\")");
+
 
                 }catch (SessionNotCreatedException e) {
-                    logger.detail(ExceptionUtils.getStackTrace(e));
+                    logger.detail(getStackTrace(e));
                     logger.detail("Initialing driver failed , removing and trying again trying again ");
                     logger.detail("Removing WebDriver Agent ");
                     removeWebdriverAgent();
                     logger.detail("Restarting iPhone ");
-                    restartIphone();
+                   // restartIphone();
                     try {
-                        Thread.sleep(180000);
+                       // Thread.sleep(180000);
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                     }
                 }
                 catch (Exception e) {
-                    logger.detail(ExceptionUtils.getStackTrace(e));
+                    logger.detail(getStackTrace(e));
                     logger.detail("Initialising driver failed. Trying again ");
                     try {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
