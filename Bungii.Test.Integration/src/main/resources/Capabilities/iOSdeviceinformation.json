@@ -17,7 +17,7 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8110,
+    "wdaLocalPort": 8140,
     "showXcodeLog": true
   },
   "device1": {
@@ -37,7 +37,7 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8100,
+    "wdaLocalPort": 8120,
     "showXcodeLog": true
   },
 
