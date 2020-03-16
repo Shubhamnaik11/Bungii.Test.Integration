@@ -4,8 +4,7 @@
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
 
     Given that ondemand bungii is in progress
@@ -137,6 +136,7 @@ Feature: On Demand Bungii
 
   @sanity
   @regression
+    @ready
   Scenario: Verify Customer Can An Create Ondemand Bungii
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
@@ -198,6 +198,7 @@ Feature: On Demand Bungii
     And Customer should receive "Your Bungii Receipt" email
 
   @regression
+    @ready
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -401,6 +402,7 @@ Feature: On Demand Bungii
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
     @demo
+    @ready
   Scenario Outline: Verify Customer Signup With Referral code
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -443,6 +445,7 @@ Feature: On Demand Bungii
 
   @regression
     @demo
+    @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -490,6 +493,7 @@ Feature: On Demand Bungii
 
 
   @regression
+    @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -596,6 +600,7 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
 
   @regression
+    @ready
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
@@ -739,8 +744,7 @@ Feature: On Demand Bungii
       | Promoter type       | promoter type | valid baltimore |promoter                |
 
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Receives Notification Upon Bungii Completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -762,6 +766,7 @@ Feature: On Demand Bungii
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
 
   @regression
+    @ready
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
