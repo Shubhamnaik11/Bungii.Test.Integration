@@ -267,16 +267,16 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
-            action.click(estimatePage.Row_TimeSelect());
+            action.tapByElement(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
-            action.click(estimatePage.Button_Set());
+            action.tapByElement(estimatePage.Button_Set());
         }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
             //action.click(estimatePage.Row_TimeSelect());
               selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
-            action.click(estimatePage.Button_Set());
+            action.tapByElement(estimatePage.Button_Set());
         }
         else if (time.equalsIgnoreCase("<TIME WITHIN TELET>") || time.equalsIgnoreCase("<TIME WITHIN TELET OF CUSTOMER 2>")) {
 
@@ -362,9 +362,9 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
-            action.click(estimatePage.Row_TimeSelect());
+            action.tapByElement(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
-            action.click(estimatePage.Button_Set());
+            action.tapByElement(estimatePage.Button_Set());
         } else if (time.equals("<AFTER TELET>")) {
 
             String teletTime = (String) cucumberContextManager.getScenarioContext("TELET");
@@ -402,7 +402,7 @@ public class EstimateSteps extends DriverBase {
 
             String[] dateScroll = bungiiTimeForScroll(teletTimeInLocal);
             strTime = bungiiTimeDisplayInTextArea(teletTimeInLocal);
-            action.click(estimatePage.Row_TimeSelect());
+            action.tapByElement(estimatePage.Row_TimeSelect());
             selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
         } else if (time.equals("<OLD BUNGII TIME>")) {
             String expectedTripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
@@ -1219,10 +1219,10 @@ public class EstimateSteps extends DriverBase {
      * @param meridiem    AM/PM
      */
     public void selectBungiiTime(int forwordDate, String hour, String minutes, String meridiem) {
-        action.click(estimatePage.Row_TimeSelect());
+        action.tapByElement(estimatePage.Row_TimeSelect());
         action.dateTimePicker(estimatePage.DatePicker_BungiiTime, estimatePage.DateWheel_BungiiTime, forwordDate, hour, minutes, meridiem);
         //  action.click(estimatePage.Row_TimeSelect());
-        action.click(estimatePage.Button_Set());
+        action.tapByElement(estimatePage.Button_Set());
     }
 
     /**
@@ -1274,8 +1274,8 @@ public class EstimateSteps extends DriverBase {
             } else if (action.isElementPresent(estimatePage.Button_OK(true)))
                 action.click(estimatePage.Button_OK());
 
-            action.click(estimatePage.Button_PhotoCapture());
-            action.click(estimatePage.Button_UsePhoto());
+            action.tapByElement(estimatePage.Button_PhotoCapture());
+            action.tapByElement(estimatePage.Button_UsePhoto());
 
 
             //commmented code to add image from galary

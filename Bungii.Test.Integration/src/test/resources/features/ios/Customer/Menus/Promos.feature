@@ -207,6 +207,7 @@ Feature: Promos
   
 # add promo from app menu and verify on Estimate page and vice versa
   @regression
+
   Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal

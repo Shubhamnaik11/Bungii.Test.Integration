@@ -197,13 +197,25 @@ public class HomeSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());*/
         action.waitUntilIsElementExistsAndDisplayed(homePage.Button_GetEstimate(true));
         String[] bungiiLocation = getPickUpAndDropLocation();
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[2]);
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
-        cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+        if(bungiiLocation.length == 6){
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[1]);
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[3]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[4]);
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+            return bungiiLocation[5];
 
-        return bungiiLocation[4];
+        }
+        else {
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+            return bungiiLocation[4];
+
+        }
+
 
     }
 
@@ -298,8 +310,7 @@ public class HomeSteps extends DriverBase {
                     testStepVerify.isEquals(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"));
                     break;
                 case "PICK UP":
-                    testStepVerify.isEquals(getEtaBarHeader("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.etaheader"));
+                    testStepVerify.isEquals(getEtaBarHeader("PICKUP"), PropertyUtility.getMessage("customer.pickup.etaheader"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -307,7 +318,7 @@ public class HomeSteps extends DriverBase {
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
 
-            error("Step  Should be successful",
+            error("Step should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
     }
@@ -316,6 +327,7 @@ public class HomeSteps extends DriverBase {
     public void something_address_should_be_displayed_in_text_box(String actionAddress) {
         try {
             Thread.sleep(10000);
+            action.swipeUP();
             String textBoxValue = "";
             switch (actionAddress.toUpperCase()) {
                 case "DROP":
@@ -623,7 +635,7 @@ public class HomeSteps extends DriverBase {
                 action.click(homePage.AppMenu_DriveWithBungii());
                 break;
             case "LOGOUT":
-                action.click(homePage.AppMenu_LogOut());
+                action.tapByElement(homePage.AppMenu_LogOut());
                 break;
             default:
                 logger.error("Please specify valid application menu item");
@@ -651,10 +663,10 @@ public class HomeSteps extends DriverBase {
      */
     public String[] getPickUpAndDropLocation() {
         List<WebElement> staticFields = homePage.TextBox_AddressGeneric();
-        String[] pickUpLocation = new String[5];
-        if (staticFields.size() != 5)
-            error("i should able to get all information from home screen", "Not able to get all information from home screen", true);
-        for (int i = 0; i < 5; i++) {
+        String[] pickUpLocation = new String[6];
+        if (staticFields.size() <5)
+            error("i should able to get Pickup/Drop information on home screen", "Not able to get Pickup/Drop information information on home screen", true);
+        for (int i = 0; i < 6; i++) {
             pickUpLocation[i] = staticFields.get(i).getAttribute("value");
 
         }

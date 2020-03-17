@@ -518,7 +518,7 @@ Feature: Create on demand bungii
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-  Scenario Outline: Verify Sign up of Customer With Referral Code
+  Scenario Outline: Verify Sign up of Customer With Referral Code And Requesting Ondemand Bungii With Received Referred Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
@@ -555,6 +555,8 @@ Feature: Create on demand bungii
     Examples:
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
+
+
   @FAILED2702
 
   @regression

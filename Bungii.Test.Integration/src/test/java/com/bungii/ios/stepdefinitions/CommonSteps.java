@@ -1692,11 +1692,12 @@ public class CommonSteps extends DriverBase {
         String driverName=(String) cucumberContextManager.getScenarioContext("DRIVER_1");/*driverName="Testdrivertywd_appledv_b_matt Stark_dvOnE";*/
         String customerName=(String)cucumberContextManager.getScenarioContext("CUSTOMER");/*customerName="Testcustomertywd_appleZTDafc Stark";*/
         String ratingValue=(String)cucumberContextManager.getScenarioContext("RATING_VALUE");/*ratingValue="3";*/
-        String tripDetailsLink=extractUrls(emailBody).get(0);
+
         if(emailBody== "")
         {
             testStepAssert.isFail("Email : "+ emailSubject + " is not received");
         }
+            String tripDetailsLink=extractUrls(emailBody).get(0);
         String message = null;
         message = utility.getExpectedPoorRatingMail(driverName, customerName, ratingValue, tripDetailsLink);
         testStepAssert.isEquals(emailBody.replaceAll("\r","").replaceAll("\n","").replaceAll(" ",""), message.replaceAll(" ",""),"Email "+emailBody+" content should match", "Email  "+emailBody+" content matches", "Email "+emailBody+"  content doesn't match");
@@ -1710,6 +1711,7 @@ public class CommonSteps extends DriverBase {
      */
     public static List<String> extractUrls(String text)
     {
+
         List<String> containedUrls = new ArrayList<String>();
         String urlRegex = "((https):((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)";
         Pattern pattern = Pattern.compile(urlRegex, Pattern.CASE_INSENSITIVE);

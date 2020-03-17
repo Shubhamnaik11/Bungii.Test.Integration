@@ -116,7 +116,6 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @FAILED2602
   @regression
   @sanity
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
@@ -209,6 +208,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I Cancel selected Bungii
 
   @regression
+
   Scenario: Verify Customer Can Cancel Solo Scheduled Bungii Also Verify Trip Details In Bungii Details
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |

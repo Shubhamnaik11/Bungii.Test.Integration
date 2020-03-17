@@ -166,7 +166,7 @@ public class PaymentSteps extends DriverBase {
                     String currentDefaultCard = getDefaultCardNumber();
                     testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard), "I should see " + action + "",
                             "Previous default card was " + prvDefaultCard + " and new card is " + currentDefaultCard,
-                            "Previous card is same as new default card");
+                            "Previous card "+ prvDefaultCard + " is same as new default card " + currentDefaultCard);
                     break;
                 case "no delete button":
                     testStepVerify.isElementNotEnabled(paymentPage.Button_Delete(true),"Delete button should not be displayed","Delete button is not displayed","Delete button is displayed");
