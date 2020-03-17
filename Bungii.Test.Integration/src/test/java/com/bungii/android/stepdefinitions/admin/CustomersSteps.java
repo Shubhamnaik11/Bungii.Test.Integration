@@ -2,8 +2,7 @@ package com.bungii.android.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.admin.CustomersPage;
-import com.bungii.android.pages.admin.DashBoardPage;
+import com.bungii.android.pages.admin.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import cucumber.api.java.en.And;
