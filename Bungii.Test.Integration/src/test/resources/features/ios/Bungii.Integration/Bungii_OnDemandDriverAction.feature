@@ -6,7 +6,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @FAILED2702
 
   @POSTDUO
-  @regression
+  @ready
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -39,7 +39,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I should be navigated to "Home" screen
 
   @sanity
-  @regression
+  @ready
   @demo
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
@@ -198,7 +198,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   @FAILED0203_02
 
-  @regression
+  @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal

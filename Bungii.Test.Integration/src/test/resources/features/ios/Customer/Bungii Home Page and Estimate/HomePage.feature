@@ -11,10 +11,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-
-  @FAILED2802
-  @FAILED0203
-  @regression
+  @ready
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
@@ -28,7 +25,7 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
-  @FAILED0203
+
   @regression
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
@@ -49,7 +46,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @regression
+  @ready
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
