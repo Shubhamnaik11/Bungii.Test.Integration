@@ -816,19 +816,19 @@ public class Admin_TripsSteps extends DriverBase {
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Customer Cancelled Status":
-                    xpath = String.format("//td[text()='Customer Cancelled']");
+                    xpath = String.format("//td[text()='Customer Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Driver Cancelled Status":
-                    xpath = String.format("//td[text()='Driver Cancelled']");
+                    xpath = String.format("//td[text()='Driver Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Admin Cancelled Status":
-                    xpath = String.format("//td[text()='Admin Cancelled']");
+                    xpath = String.format("//td[text()='Admin Canceled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
