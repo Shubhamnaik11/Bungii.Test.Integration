@@ -28,6 +28,7 @@ public class BungiiSteps extends DriverBase {
     PaymentServices paymentServices = new PaymentServices();
     DriverServices driverServices = new DriverServices();
     CustomerServices customerServices = new CustomerServices();
+    com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
 
     public void givenIamOnSearchingpage() {
@@ -907,6 +908,7 @@ public class BungiiSteps extends DriverBase {
         }
 
     }
+
 
     @When("^I request below Bungiis as a customer$")
     public void i_request_below_bungiis_as_a_customer(DataTable data) {

@@ -85,9 +85,9 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void AdminLogin() {
+    public void AdminLogin() throws InterruptedException {
         String adminURL = GetAdminUrl();
-
+        Thread.sleep(2000);
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));

@@ -264,6 +264,7 @@ Feature: Duo
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid atlanta" customer
 
@@ -924,8 +925,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |

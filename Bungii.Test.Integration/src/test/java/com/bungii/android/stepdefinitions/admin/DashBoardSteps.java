@@ -37,7 +37,7 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_ReferralSource());
                     break;
-                case "Customers":
+                case "customers":
                     action.click(dashBoardPage.Button_Customers());
                     break;
                 case "trips":

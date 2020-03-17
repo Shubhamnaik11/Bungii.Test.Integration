@@ -157,38 +157,38 @@ Feature: CustomerSignup
       And Bungii Driver "Start Schedule Bungii" request
       Then Bungii driver should see "Enroute screen"
 
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Enroute screen"
-
-      When I Switch to "driver" application on "same" devices
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Enroute screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Arrived screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Arrived screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Arrived screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Arrived screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Loading Item screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Loading Item screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Loading Item screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Loading Item screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Driving to DropOff screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Driving to DropOff screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Driving to DropOff screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Driving to DropOff screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Unloading Item screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Unloading Item screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Unloading Item screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Unloading Item screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
       And I Switch to "customer" application on "same" devices
       And I tap on "OK on complete" on Bungii estimate

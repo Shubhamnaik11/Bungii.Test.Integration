@@ -351,21 +351,27 @@ public class EstimateBungiiSteps extends DriverBase {
             switch (arg0) {
                 case "existing":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("ccustomer_generic.phonenumber"));
                     break;
                 case "new test customer":
                     utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", PropertyUtility.getDataProperties("NEW_USER_NUMBER"));
                     break;
                 case "newly registered":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_newlyregistered.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"));
                     break;
                 case "already having bungiis":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"));
                     break;
                 case "having referral code":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"));
                     break;
                 case "my":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("ccustomer_generic.phonenumber"));
                     break;
                 case "stage":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
@@ -418,8 +424,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
                 case "newly registered customer":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"), PropertyUtility.getDataProperties("customer_newly.registered.password"));
@@ -1050,9 +1056,16 @@ public class EstimateBungiiSteps extends DriverBase {
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
             Date date = getNextScheduledBungiiTime();
-            String strTime = bungiiTimeDisplayInTextArea(date);
+            //String strTime = bungiiTimeDisplayInTextArea(date);
+            String[] strTime=bungiiTimeZoneDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime);
+            if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
+            {
+                testStepAssert.isTrue(true,"The correct scheduled time is displayed.", "The correct scheduled time is not displayed.");
+            }
+            else {
+             testStepAssert.isFail("The correct scheduled time is not displayed.");
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1172,5 +1185,39 @@ public class EstimateBungiiSteps extends DriverBase {
 
     }
 
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String[] bungiiTimeZoneDisplayInTextArea(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        String formattedDate = sdf.format(date), formattedDate2 = sdf.format(date);
+        String timezone1 = null, timezone2 = null;
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        String[] timeZones=new String[2];
+        String[] formattedDates=new String[2];
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase("")){
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+            formattedDates[0]=formattedDate;
+            formattedDates[1]=" ";
+        }
+        else {
+            timeZones = new String[2];
+            timeZones = utility.getDayLightTimeZoneBasedOnGeofence();
+            timezone1=timeZones[0];
+            timezone2=timeZones[1];
+            formattedDate = formattedDate + " " +timezone1;
+            formattedDate2= formattedDate2 + " " +timezone2;
+            formattedDates[0]=formattedDate;
+            formattedDates[1]=formattedDate2;
+        }
+        return formattedDates;
+    }
 
 }

@@ -4,8 +4,7 @@
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
 
     Given that ondemand bungii is in progress
@@ -136,7 +135,8 @@ Feature: On Demand Bungii
     And Customer should receive "bungii" receipt email
 
   @sanity
-  @regression
+  #@regression
+    @ready
   Scenario: Verify Customer Can An Create Ondemand Bungii
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
@@ -197,7 +197,8 @@ Feature: On Demand Bungii
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
 
-  @regression
+  #@regression
+    @ready
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -399,8 +400,9 @@ Feature: On Demand Bungii
       | First time       | promo                   |
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @regression
+  #@regression
     @demo
+    @ready
   Scenario Outline: Verify Customer Signup With Referral code
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -441,8 +443,9 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
 
-  @regression
+ # @regression
     @demo
+    @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -489,7 +492,8 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  @regression
+ # @regression
+    @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -595,7 +599,8 @@ Feature: On Demand Bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And Bungii Driver "completes Bungii"
 
-  @regression
+  #@regression
+    @ready
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
@@ -739,8 +744,7 @@ Feature: On Demand Bungii
       | Promoter type       | promoter type | valid baltimore |promoter                |
 
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Receives Notification Upon Bungii Completion
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -761,7 +765,8 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
 
-  @regression
+  #@regression
+    @ready
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
