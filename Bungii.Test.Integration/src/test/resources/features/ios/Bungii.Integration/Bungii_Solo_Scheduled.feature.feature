@@ -1676,7 +1676,6 @@ Feature: To Test Solo - Scheduling Bungii
 
   @FAILED2602
   @ready
-    @shacky
   Scenario:Verify If Driver Rating Is Shown To Customer On Bungii Details Page When Driver Accepts Scheduled Bungii
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

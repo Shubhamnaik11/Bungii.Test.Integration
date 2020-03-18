@@ -2,7 +2,7 @@
   # this will run in 	nashville
 Feature: Create on demand bungii
   @FAILED2702
-  @ready
+  @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -58,6 +58,7 @@ Feature: Create on demand bungii
 
   @sanity
   @ready
+    @shacky
   Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
@@ -217,7 +218,7 @@ Feature: Create on demand bungii
 
 
     @failed
-  @ready
+  @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -517,8 +518,8 @@ Feature: Create on demand bungii
   @FAILED2702
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @ready
-  Scenario Outline: Verify Sign up of Customer With Referral Code And Requesting Ondemand Bungii With Received Referred Code
+  @regression
+  Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
@@ -617,6 +618,7 @@ Feature: Create on demand bungii
 
   @ready
     @failed
+
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
