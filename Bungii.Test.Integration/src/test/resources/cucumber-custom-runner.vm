@@ -65,9 +65,9 @@ public class $className extends AbstractTestNGCucumberTests {
                          device= ManageDevices.readFile();
                          if (device=="")
                          System.out.println("Searching device for class "+ClassName+ " - Found None");
-                         else
+                         else{
                           System.out.println("Searching device for class "+ClassName+ " - Found "+ device);
-
+                            }
                          if(device!=null){
                              if(!device.isEmpty()){
                                  String[] deviceList = device.split(",");
