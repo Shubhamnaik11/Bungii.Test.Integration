@@ -19,7 +19,7 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
     "showXcodeLog": false,
-    "fullReset" : true
+    "noReset" : false
   },
   "device1": {
     "platformName": "iOS",
@@ -40,11 +40,11 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
     "showXcodeLog": false,
-    "fullReset" : true
+    "noReset" : false
   },
 
   "connection": {
-    "device1": 4723,
+    "device1": 4730,
     "extra1": 4727
   }
 }
