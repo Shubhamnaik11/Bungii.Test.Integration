@@ -5,6 +5,7 @@ Feature: Log In
   Background:
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
+
   @FAILED2702
   @regression
   Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>

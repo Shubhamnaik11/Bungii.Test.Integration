@@ -7,8 +7,8 @@ Feature: CustomerMenu
   Background:
     Given I am on Customer logged in Home page
 
-  @regression
-
+ # @regression
+@ready
   Scenario: Verify Customer App Menu Item Navigations
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened
@@ -19,7 +19,6 @@ Feature: CustomerMenu
     Then "Login" page should be opened
 #failing due to BCKD-1103
   #@regression
-  #@ready
   Scenario: Verify Device Token De-Registration On Customer Logout
     Then Customer active flag should be "1"
     And I tap on "Menu" > "Logout" link

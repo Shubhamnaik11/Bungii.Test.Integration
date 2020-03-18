@@ -803,6 +803,7 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
             }
             action.sendKeys(driverLoginPage.TextField_Password(), password);
+            Thread.sleep(2000);
             action.click(driverLoginPage.Button_Login());
             Thread.sleep(2000);
             try {

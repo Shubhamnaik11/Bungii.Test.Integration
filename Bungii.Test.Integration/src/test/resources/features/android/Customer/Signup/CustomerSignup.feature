@@ -5,8 +5,8 @@ Feature: CustomerSignup
   Background:
     Given I am on Sign up page
 
-  @regression
-
+  #@regression
+@ready
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -211,7 +211,6 @@ Feature: CustomerSignup
   #used one off
   #Know issue, no alert
   @regression
-
   Scenario: Verify That Validation Message Is Displayed On Signing Up With Invalid Or Used One off Promocode
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page

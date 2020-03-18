@@ -28,8 +28,10 @@ Feature: Customer Home screen
     When I select "Drop" location
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
+
   @FAILED0203
-  @regression
+  #@regression
+    @ready
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
     And I Select "Home" from Customer App menu

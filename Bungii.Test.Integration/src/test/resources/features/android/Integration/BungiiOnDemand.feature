@@ -197,8 +197,7 @@ Feature: On Demand Bungii
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
 
-  #@regression
-    @ready
+  @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -339,7 +338,7 @@ Feature: On Demand Bungii
     When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
   #@regression
-  @ready
+  @ready1
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -400,9 +399,8 @@ Feature: On Demand Bungii
       | First time       | promo                   |
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  #@regression
+  @regression
     @demo
-    @ready
   Scenario Outline: Verify Customer Signup With Referral code
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -443,9 +441,8 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
 
- # @regression
+ @regression
     @demo
-    @ready
   Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -492,8 +489,7 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
- # @regression
-    @ready
+ @regression
   Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -600,7 +596,7 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
 
   #@regression
-    @ready
+    @ready1
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
