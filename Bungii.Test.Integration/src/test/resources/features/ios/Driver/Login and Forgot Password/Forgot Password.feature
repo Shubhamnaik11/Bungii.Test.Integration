@@ -10,8 +10,7 @@ Feature: FORGOT PASSWORD
     And I am on the "LOG IN" page on driverApp
   @FAILED2702
 
-  #@regression
-    @ready
+  @regression
   Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp

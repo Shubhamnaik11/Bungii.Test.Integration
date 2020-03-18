@@ -30,8 +30,7 @@ Feature: Customer Home screen
     And Clear Button should be enabled for "Drop" box
 
   @FAILED0203
-  #@regression
-    @ready
+  @regression
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
