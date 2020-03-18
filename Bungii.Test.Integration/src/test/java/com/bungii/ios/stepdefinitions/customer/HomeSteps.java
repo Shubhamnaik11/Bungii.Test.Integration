@@ -663,12 +663,18 @@ public class HomeSteps extends DriverBase {
      */
     public String[] getPickUpAndDropLocation() {
         List<WebElement> staticFields = homePage.TextBox_AddressGeneric();
-        String[] pickUpLocation = new String[6];
-        if (staticFields.size() <5)
-            error("i should able to get Pickup/Drop information on home screen", "Not able to get Pickup/Drop information information on home screen", true);
-        for (int i = 0; i < 6; i++) {
-            pickUpLocation[i] = staticFields.get(i).getAttribute("value");
+        int length =staticFields.size() ;
+        String[] pickUpLocation = new String[length];
 
+
+        if (length <5)
+            error("i should able to get Pickup/Drop information on home screen", "Not able to get Pickup/Drop information information on home screen", true);
+        else {
+
+            for (int i = 0; i < length; i++) {
+                pickUpLocation[i] = staticFields.get(i).getAttribute("value");
+
+            }
         }
         return pickUpLocation;
     }
