@@ -7,7 +7,8 @@ Feature: SoloScheduled
   Background:
 
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Can Create A Scheduled Bungii - Also Verify Correct Contact Number Is Displayed On Call And SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -142,8 +143,7 @@ Feature: SoloScheduled
 
 
   @sanity
-  #@regression
-    @ready
+  @regression
   Scenario: Verify Customer Can Create Scheduled Bungii
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
@@ -1218,8 +1218,8 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trips TELET Time - Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1249,7 +1249,8 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -1301,7 +1302,8 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Driver Can Start Bungii Within 60 Mins Of The Scheduled Time If Required Number Of Drivers Accepts It
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1364,8 +1366,8 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -2006,8 +2008,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

@@ -281,6 +281,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
+  @failed
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
@@ -554,11 +555,9 @@ Feature: Create on demand bungii
     Examples:
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
-
-
   @FAILED2702
 
-  @ready
+  @regression
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -614,9 +613,8 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @ready
+  @regression
     @failed
-
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
@@ -673,7 +671,7 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
   @failed
-  @ready
+  @regression
   Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

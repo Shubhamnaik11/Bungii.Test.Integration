@@ -72,7 +72,8 @@ Feature: Customer	Menu
     Then I should be navigated to "Invite" screen
   @failed
   #failing due to BCKD-1103
-  @ready
+  @regression
+    @testing
   Scenario: Verify Device Token Deregistration Upon Customer Logout
     Then I customers active flag should be "1"
     When I Select "LOGOUT" from Customer App menu

@@ -11,15 +11,14 @@
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
-    "useNewWDA": true,
+    "useNewWDA": false,
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
-    "showXcodeLog": false,
-    "noReset" : false
+    "showXcodeLog": true
   },
   "device1": {
     "platformName": "iOS",
@@ -32,19 +31,18 @@
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
     "simpleIsVisibleCheck": true,
-    "useNewWDA": true,
+    "useNewWDA": false,
     "useJSONSource": true,
     "maxTypingFrequency": 30,
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
-    "showXcodeLog": false,
-    "noReset" : false
+    "showXcodeLog": true
   },
 
   "connection": {
-    "device1": 4730,
+    "device1": 4723,
     "extra1": 4727
   }
 }

@@ -68,8 +68,9 @@ Feature: DriverMenu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
   #failing due to BCKD-1103
-  @ready
+  @regression
     @failed
+  @testing
   Scenario: Verify Device Token Deregistration Upon Driver Logout
     Then I driver active flag should be "1"
     When I Select "LOGOUT" from driver App menu

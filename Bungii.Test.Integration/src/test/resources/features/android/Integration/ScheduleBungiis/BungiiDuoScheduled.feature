@@ -531,8 +531,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     And Bungii Driver "completes Bungii"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Long Stack : Verify Status Of Current Ondemand Bungii And Stacked pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -925,7 +924,8 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1180,8 +1180,7 @@ Feature: Duo
  #need to do in atlanta
           #move to top
   @duo1
- # @regression
-@ready
+ @regression
   Scenario: Verify Short Stack Request Acceptance By Control Driver
 
     Given that duo schedule bungii is in progress
@@ -1335,7 +1334,8 @@ Feature: Duo
       When I tap on "Get Estimate button" on Bungii estimate
       Then I should see the minimum scheduled time displayed on the Estimate page
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |

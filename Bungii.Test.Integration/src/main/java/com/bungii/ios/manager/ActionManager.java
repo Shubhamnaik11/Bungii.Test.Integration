@@ -138,22 +138,12 @@ public class ActionManager {
     }
 
     public void tapByElement(WebElement element) {
-        try{
         AppiumDriver<WebElement> driver = (AppiumDriver<WebElement>) SetupManager.getDriver();
         int startX = element.getLocation().getX();
         int addition = (int) (element.getSize().height * 0.5);
         int endX = startX + addition;
         int startY = element.getLocation().getY();
         new TouchAction(driver).tap(point(endX, startY)).perform();
-            logger.detail("Tap on element by locator -> " + getElementDetails(element));
-
-        }
-        catch(Exception ex)
-        {
-            logger.error("Error Tapping on element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
-            error("Tap on element by locator -> " + getElementDetails(element), "Unable to tap on element -> " + getElementDetails(element),
-                    true);
-        }
     }
 
     public void clickMiddlePoint(WebElement element) {

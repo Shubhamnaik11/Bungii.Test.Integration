@@ -6,7 +6,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     #this scenario also include large image test case
   @duodemo
-  @ready
+  @regression
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
 
@@ -246,8 +246,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
   @FAILED2702
-  @ready
-  Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code - Scenario : <PROMO CODE>
+  @regression
+  Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -561,6 +561,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I Select "HOME" from driver App menu
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
+  @regression
     @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii
 
@@ -690,6 +691,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
+  @regression
     @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii
 
@@ -811,7 +813,7 @@ Feature: To Test Duo - Scheduled Bungii
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
 
   @failed
-  @ready
+  @regression
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii
 
     Given that ondemand bungii is in progress
@@ -913,7 +915,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
     @failed
-  @ready
+  @regression
   Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1019,7 +1021,7 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
 
   @failed
-  @ready
+  @regression
   @sanity
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
@@ -1072,7 +1074,7 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
 
   @failed
-  @ready
+  @regression
   Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii
 
     Given that duo schedule bungii is in progress
@@ -1104,7 +1106,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @failed
-  @ready
+  @regression
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1136,7 +1138,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @failed
-  @ready
+  @regression
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1169,7 +1171,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @failed
-  @ready
+  @regression
   Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1200,7 +1202,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
 
   @failed
-  @ready
+  @regression
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1227,7 +1229,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @failed
-  @ready
+  @regression
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1249,7 +1251,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  @ready
+  @regression
   Scenario: Verify Driver Doesnt Receive Short Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1279,7 +1281,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @ready
+  @regression
   Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1310,7 +1312,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @ready
+  @regression
   Scenario:Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1344,7 +1346,7 @@ Feature: To Test Duo - Scheduled Bungii
       | 9403960183     |                 |
 
   
-  @ready
+  @regression
   Scenario: Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -1379,7 +1381,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @ready
+  @regression
   Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1419,7 +1421,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
+  @regression
   Scenario:Verify Driver Can Receive Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |

@@ -206,8 +206,7 @@ Feature: Promos
 
   
 # add promo from app menu and verify on Estimate page and vice versa
-  @ready
-
+  @regression
   Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -270,7 +269,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
     @failed
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
