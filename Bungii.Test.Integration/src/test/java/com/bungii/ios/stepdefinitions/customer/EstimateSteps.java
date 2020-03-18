@@ -55,7 +55,8 @@ public class EstimateSteps extends DriverBase {
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
-            strTime = enterTime(time);strTime=strTime.replace("am","AM").replace("pm","PM");
+            strTime = enterTime(time);
+            strTime=strTime.replace("am","AM").replace("pm","PM");
             String actualTime = "";
             String[] details = new String[4];
             //  action.swipeUP();
@@ -267,7 +268,7 @@ public class EstimateSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             String[] dateScroll = bungiiTimeForScroll(date);
             strTime = bungiiTimeDisplayInTextArea(date);
-            action.tapByElement(estimatePage.Row_TimeSelect());
+            action.click(estimatePage.Row_TimeSelect());
             //  selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
             action.tapByElement(estimatePage.Button_Set());
         }else if (time.equalsIgnoreCase("NEXT_POSSIBLE AFTER ALERT")) {
@@ -738,6 +739,8 @@ public class EstimateSteps extends DriverBase {
                 String strTime = enterTime(time);
                 cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
             }
+
+
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             String[] details = getEstimateDetails();
@@ -1169,7 +1172,7 @@ public class EstimateSteps extends DriverBase {
         if (!timeScroll.getAttribute("value").equals(inputValue))
             timeScroll.sendKeys(inputValue);
         //action.invisibilityOfElementLocated(estimatePage.Indicator_Loading());
-        action.click(estimatePage.Button_Set());
+        action.tapByElement(estimatePage.Button_Set());
     }
 
     public boolean checkLoadingTime(String timeValue) {
@@ -1179,7 +1182,7 @@ public class EstimateSteps extends DriverBase {
         WebElement timeScroll = estimatePage.Wheel_LoadTime();
         timeScroll.sendKeys(inputValue);
         String actualValue = estimatePage.Wheel_LoadTime().getAttribute("value");
-        action.click(estimatePage.Button_Set());
+        action.tapByElement(estimatePage.Button_Set());
         // action.click(estimatePage.Text_LoadTime());
         return actualValue.equals(inputValue);
 

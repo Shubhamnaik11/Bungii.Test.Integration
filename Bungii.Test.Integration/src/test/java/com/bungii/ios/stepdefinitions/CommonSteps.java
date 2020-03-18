@@ -983,7 +983,7 @@ public class CommonSteps extends DriverBase {
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
             tripTime=tripTime.replace("am","AM").replace("pm","PM");
-            logger.detail("TRIP TIME"+tripTime);
+            logger.detail("Select Bungii With TRIP TIME : "+tripTime);
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";

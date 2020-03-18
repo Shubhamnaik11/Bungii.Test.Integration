@@ -57,8 +57,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
   @sanity
-  @ready
-    @shacky
+  @regression
   Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
@@ -282,8 +281,7 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-  @failed
-  @ready
+  @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
@@ -444,7 +442,7 @@ Feature: Create on demand bungii
       | CUSTOMER1_PHONE |                 |
   @FAILED2702
 
-  @ready
+  @regression
   Scenario: Verify Requesting An Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |

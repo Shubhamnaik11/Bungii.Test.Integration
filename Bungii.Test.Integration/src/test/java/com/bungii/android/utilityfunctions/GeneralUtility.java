@@ -473,7 +473,7 @@ public class GeneralUtility extends DriverBase {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
+        logger.detail("Trip Distance : " + tripDistance + "| Trip Time : " + tripTime + "| Promo : " + Promo + "| Trip Type : " + tripType);
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
