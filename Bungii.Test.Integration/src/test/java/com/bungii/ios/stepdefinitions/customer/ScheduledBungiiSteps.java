@@ -36,6 +36,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 		try {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+			//String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 			selectBungii(tripNoOfDriver, tripTime);
 			pass("I select scheduled bungii", "I have selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
@@ -130,7 +131,7 @@ public class ScheduledBungiiSteps extends DriverBase {
 	public void selectBungii(String bungiiType, String bungiiTime) {
 		Date currentDate = new Date();
 		int year=currentDate.getYear()+1900;
-		if(TimeZone.getTimeZone( "America/New_York").inDaylightTime( new Date() ))
+		if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
 		bungiiTime=bungiiTime.replace("S","D");
 		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
