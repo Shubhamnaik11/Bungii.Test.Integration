@@ -90,10 +90,10 @@ public class EstimateSteps extends DriverBase {
                 }
             }
             logger.detail("Expected Time is :"+strTime +" ||| Actual time is :"+actualTime);
-            testStepVerify.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
+            testStepAssert.isTrue(isAlertCorrect, "Heads up alert message should be correctly displayed",
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
-            testStepVerify.isTrue(isCorrectTime, "I confirm trip with following details",
+            testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
                     "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
                             + strTime + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
