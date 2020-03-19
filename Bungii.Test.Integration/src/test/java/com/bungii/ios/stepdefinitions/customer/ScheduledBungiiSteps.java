@@ -110,13 +110,19 @@ public class ScheduledBungiiSteps extends DriverBase {
 		action.swipeDown();
 
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
-		WebElement Image_SelectBungii;
-	//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		else
-			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-
+		WebElement Image_SelectBungii =null;
+		try {
+			//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			if (action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true)))
+				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			else
+				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		}
+		catch(Exception ex)
+		{
+			error("Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] should be displayed", "Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] is not displayed. Please refer error logs for more details.",
+					true);
+		}
 		return Image_SelectBungii;
 	}
 

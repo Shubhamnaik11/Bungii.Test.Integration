@@ -964,29 +964,6 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @ready
-  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of Time That Is Set In Trip Alert Settings
-    When I clear all notification
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
-    And I update denvers driver todays trip alert setting to outside current time
-    When I Switch to "customer" application on "same" devices
-    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
-      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
-      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
-
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    Then I should be navigated to "AVAILABLE TRIPS" screen
-    And I should able to see "zero" available trip
-    And I Select "TRIP ALERT SETTINGS" from driver App menu
-    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
 
   @ready
     @failed
@@ -1055,18 +1032,19 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-
   @ready
   Scenario: Verify Driver Is Not Allowed To Start Bungii Within 60 Mins Of Scheduled Time If Required Number Of Drivers Have Not Accepted The Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
-    And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
+    And As a driver "Testdrivertywd_appledv_b_seni Stark_dvThree" and "Testdrivertywd_appledv_b_matt Stark_dvOnE" perform below action with respective "DUO SCHEDULED" trip
+    #And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
       | driver1 state | driver2 state |
       | Accepted      |               |
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
-    And I enter phoneNumber :9999998086 and  Password :Cci12345
+    And I enter phoneNumber :9955112208 and  Password :Cci12345
+    #And I enter phoneNumber :9999998086 and  Password :Cci12345
     And I click "Log In" button on "Log In" screen on driverApp
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -1627,7 +1605,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   @failed
   @ready
-  Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour Processing Is Over
+  Scenario: Verify Customer Can Request Cancel Scheduled Trip Via Admin SMS After 2 Hour (5 mins in QA Auto) Processing Is Over
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
@@ -1708,9 +1686,9 @@ Feature: To Test Solo - Scheduling Bungii
     When I Switch to "customer" application on "same" devices
     And Bungii customer should see "correct rating detail for duo" on Bungii completed page
     When I select "3" Ratting star for duo Driver 1
-    Then "3" starts should be highlighted for Driver 1
+    Then "3" stars should be highlighted for Driver 1
     When I select "4" Ratting star for duo Driver 2
-    Then "4" starts should be highlighted for Driver 2
+    Then "4" stars should be highlighted for Driver 2
     When I click "DONE" button on "BUNGII COMPLETE" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
@@ -2200,3 +2178,27 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
+    #Always Last scenario from this feature file since it changes settings for the driver
+  @ready
+  Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of Time That Is Set In Trip Alert Settings
+    When I clear all notification
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid denver" driver
+    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update denvers driver todays trip alert setting to outside current time
+    When I Switch to "customer" application on "same" devices
+    When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
+      | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
+    And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    Then I should be navigated to "AVAILABLE TRIPS" screen
+    And I should able to see "zero" available trip
+    And I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
+    Then I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 8888889917     |                 |
