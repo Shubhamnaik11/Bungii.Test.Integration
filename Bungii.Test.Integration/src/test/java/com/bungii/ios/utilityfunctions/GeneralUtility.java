@@ -1,6 +1,7 @@
 package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -441,8 +442,10 @@ try {
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
+        //Add Code to handle daylight
+        
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
-        if(TimeZone.getTimeZone( "America/New_York").inDaylightTime( new Date() ))
+        if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
             getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
         return getGeofenceTimeZone;
     }
@@ -839,7 +842,7 @@ try {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
+        logger.detail("Trip Distance : " + tripDistance + "| Trip Time : " + tripTime + "| Promo : " + Promo + "| Trip Type : " + tripType);
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
