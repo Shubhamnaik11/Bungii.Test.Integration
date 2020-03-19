@@ -7,8 +7,7 @@ Feature: CustomerMenu
   Background:
     Given I am on Customer logged in Home page
 
- # @regression
-@ready
+  @regression
   Scenario: Verify Customer App Menu Item Navigations
     When I tap on "Menu" > "Home" link
     Then "Home" page should be opened

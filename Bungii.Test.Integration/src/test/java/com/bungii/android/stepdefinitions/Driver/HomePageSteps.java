@@ -45,6 +45,7 @@ public class HomePageSteps extends DriverBase {
 
             }
             boolean isClicked = false;
+            Thread.sleep(3000);
             action.click(driverHomePage.Button_NavigationBar());
             List<WebElement> elements = driverHomePage.Button_NavigationBarText();
 

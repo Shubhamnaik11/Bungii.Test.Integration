@@ -66,8 +66,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     Then "Home" page should be opened
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Enroute State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
@@ -93,8 +92,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I tap on "Menu" > "Promos" link
     Then I should see unused promo code
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
