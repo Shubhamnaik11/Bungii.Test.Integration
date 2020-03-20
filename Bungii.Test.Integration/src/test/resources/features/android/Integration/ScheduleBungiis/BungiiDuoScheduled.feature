@@ -5,8 +5,7 @@
 
 Feature: Duo
 
-  #@regression
-  @ready
+  @regression
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
@@ -1065,8 +1064,7 @@ Feature: Duo
       | 9871450107     |                 |
 
   @duo1
-  #@regression
-    @ready
+  @regression
   Scenario: Manually Ending A Bungii For A Driver Who Has Stacked Bungii Should Display Summary And Start With The Stacked Bungii
 
     Given that ondemand bungii is in progress

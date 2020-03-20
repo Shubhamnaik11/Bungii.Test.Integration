@@ -5,8 +5,7 @@ Feature: CustomerApplicationLinks
   Background:
     Given I newly installed "Bungii Customer" app
   @sanity
-  #@regression
-    @ready
+  @regression
     #Following scenario also covered:
     #Tutorials should only be displayed on the app on first installation.
     #Tutorials - 5 pages
@@ -30,8 +29,7 @@ Feature: CustomerApplicationLinks
     And I tap on the "Log in" Button on Login screen
     And I verify that the tutorial is displayed only once
 
-    #@regression
-    @ready
+    @regression
     Scenario: Verify Save Money Button Redirect To Invite Screen
       When I tap on the "Log in" button on Signup Page
       And I enter customers "8805368840" Phone Number

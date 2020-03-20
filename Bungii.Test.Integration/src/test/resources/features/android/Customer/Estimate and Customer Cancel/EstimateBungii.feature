@@ -80,8 +80,7 @@ Feature: EstimateBungii
     And I add "1" photos to the Bungii
     And I add "4" photos to the Bungii
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number

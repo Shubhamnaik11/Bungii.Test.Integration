@@ -59,8 +59,7 @@ Feature: Login
     Then The user should be logged in
     And I tap on "Menu" > "Logout" link
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Login Functionality With Invalid Password Attempt Five Times
     When I enter customers "Valid_ToBeLocked" Phone Number
     And I enter customers "invalid" Password

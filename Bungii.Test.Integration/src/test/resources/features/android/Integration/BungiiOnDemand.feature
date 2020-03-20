@@ -135,8 +135,7 @@ Feature: On Demand Bungii
     And Customer should receive "bungii" receipt email
 
   @sanity
-  #@regression
-    @ready
+  @regression
   Scenario: Verify Customer Can An Create Ondemand Bungii
     Given I am logged in as "valid baltimore" customer
     When I Switch to "driver" application on "same" devices
@@ -338,7 +337,7 @@ Feature: On Demand Bungii
     When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
   #@regression
-  @ready1
+  @ready
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -596,7 +595,7 @@ Feature: On Demand Bungii
     And Bungii Driver "completes Bungii"
 
   #@regression
-    @ready1
+    @ready
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
