@@ -53,7 +53,7 @@ Feature: Admin_Trips
       And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Cancelled" state
+    Then The Trip List page should display the trip in "Admin Canceled" state
 
   @sanity
   @regression
@@ -92,7 +92,7 @@ Feature: Admin_Trips
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Cancelled" state
+    Then The Trip List page should display the trip in "Admin Canceled" state
     And The first time promo code should get released
 
   @sanity

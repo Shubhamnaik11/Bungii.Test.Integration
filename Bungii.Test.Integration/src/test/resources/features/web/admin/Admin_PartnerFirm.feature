@@ -96,7 +96,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Cancelled" state
+    Then The Trip List page should display the trip in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
@@ -149,7 +149,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Cancelled" state
+    Then The Trip List page should display the trip in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
@@ -283,7 +283,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Cancelled" state
+    Then The Trip List page should display the trip in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
 
