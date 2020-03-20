@@ -130,8 +130,7 @@ Feature: Duo
     And Customer should receive "Your Bungii Receipt" email
 
   #given i have large image on phone
-  #@regression
-  @ready
+  @regression
   Scenario Outline: Verify Customer Amount Calculation For The Scheduled Duo Bungii Having Promocode Applied To It
     Given I am logged in as "valid atlanta" customer
 
@@ -256,8 +255,7 @@ Feature: Duo
       | PROMO DOLLAR OFF |
       |PROMO PERCENT OFF|
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Schedululing Of Duo Bungii And Verifying Bungii Details
 
     Given that duo schedule bungii is in progress
@@ -665,8 +663,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Long Stack : Verify Status Of Current Scheduled Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -807,8 +804,7 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
 
-  #@regression
-@ready
+  @regression
   Scenario: Short Stack : Verify Status Of Current Ondemand Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -923,8 +919,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
