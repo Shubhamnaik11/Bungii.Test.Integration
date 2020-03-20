@@ -6,9 +6,7 @@ Feature: SoloScheduled
 
   Background:
 
-
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Create A Scheduled Bungii - Also Verify Correct Contact Number Is Displayed On Call And SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -524,7 +522,6 @@ Feature: SoloScheduled
 
 
   @regression
-
   Scenario:  Verify Customer Can Schedule Bungii Only 5 days ahead Including Current Date - Scenario:Duo
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -712,8 +709,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
   #@DUO_SCH_DONOT_ACCEPT
-  #@regression
-  @ready
+  @regression
   Scenario:Verify If Customer Receieve Notification After Admin Researches For Drivers And Both Drivers Accepts It
   #  Given I have already scheduled bungii with "DUO_SCH_DONOT_ACCEPT" label
     When I Switch to "driver" application on "same" devices
@@ -1218,8 +1214,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Cannot Schedule Bungii That Overlaps With Another Scheduled Trips TELET Time - Scenario:Duo
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1276,8 +1271,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Driver Can Start Bungii Within 60 Mins Of The Scheduled Time If Required Number Of Drivers Accepts It
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1340,8 +1334,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -1523,8 +1516,7 @@ Feature: SoloScheduled
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify If Non control Driver Completes The Trip First Then He Is Shown With Waiting Screen Till The Control Driver Completes And The Correct Summary Is Shown Thereafter
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1554,6 +1546,7 @@ Feature: SoloScheduled
       | driver1 state    |
       | Bungii Completed |
     Then Bungii customer should see "correct details for duo trip" on Bungii completed page
+    And I tap on "OK on complete" on Bungii estimate
     And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
     When I Switch to "driver" application on "same" devices
@@ -1651,8 +1644,7 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
 
-  #@regression
-  @ready
+  @regression
   Scenario:Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Solo
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -1683,8 +1675,7 @@ Feature: SoloScheduled
     And I tap on "Menu" > "MY BUNGIIS" link
     Then Bungii must be removed from "MY BUNGIIS" screen
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify Customer Can Cancel Through SMS To Admin If No driver Accepts And Processing Gets Over - Scenario:Duo
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

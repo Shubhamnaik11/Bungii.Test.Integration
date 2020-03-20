@@ -1122,7 +1122,7 @@ public class BungiiSteps extends DriverBase {
             // into the new string
             number += expectedDuoNumber.charAt(i);
 
-            if (i == 2 || i==5) {
+            if (i == 1 || i==3) {
                 // Insert the string to be inserted
                 // into the new string
                 number += valueToBeInserted;
