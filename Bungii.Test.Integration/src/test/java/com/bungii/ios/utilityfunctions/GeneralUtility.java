@@ -196,7 +196,9 @@ public class GeneralUtility extends DriverBase {
         }
         SetupManager.getObject().useDriverInstance("ORIGINAL");
     }
-
+    public void hideNotifications() {
+    action.hideNotifications();
+    }
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
 try {
@@ -443,7 +445,7 @@ try {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
         //Add Code to handle daylight
-        
+
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
             getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
