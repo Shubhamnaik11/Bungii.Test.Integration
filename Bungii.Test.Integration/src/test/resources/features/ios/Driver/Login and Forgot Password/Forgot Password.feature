@@ -41,7 +41,7 @@ Feature: FORGOT PASSWORD
       | Scenario         | Value        | New Password | SMS CODE | Expected Message             |
       | Invalid password | {VALID USER} | Cci1         | valid    | INVALID PASSWORD WHILE RESET |
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE |
-  @demo
+
   @regression
   Scenario Outline: Verify Driver Is Able To Change Password Using Forgot Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
