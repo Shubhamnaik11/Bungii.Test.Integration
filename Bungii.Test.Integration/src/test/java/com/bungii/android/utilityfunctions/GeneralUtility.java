@@ -1234,6 +1234,14 @@ public class GeneralUtility extends DriverBase {
         action.click(driverHomePage.Notification_AlertAccept());
     }
 
+    /**
+     * Hide notification
+     */
+    public void hideNotifications() {
+        action.hideNotifications();
+    }
+
+
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
         try{

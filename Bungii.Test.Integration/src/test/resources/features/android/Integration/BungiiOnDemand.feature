@@ -336,8 +336,7 @@ Feature: On Demand Bungii
     And I tap on "OK on complete" on Bungii estimate
     When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
 
-  #@regression
-  @ready
+  @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With First Time Promocode
     When I Switch to "driver" application on "same" devices
     And I am logged in as "valid baltimore" driver
@@ -760,8 +759,7 @@ Feature: On Demand Bungii
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then I click on notification for "CUSTOMER-JUST FINISHED BUNGII"
 
-  #@regression
-    @ready
+  @regression
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
