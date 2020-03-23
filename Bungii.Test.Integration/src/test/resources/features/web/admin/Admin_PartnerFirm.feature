@@ -25,7 +25,6 @@ Feature: Admin_PartnerFirm
 
   @regression
   @email
-    @demo
     @failed
   Scenario: Verify Partner Firm Scheduled Email - Solo Ondemand
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
@@ -157,6 +156,7 @@ Feature: Admin_PartnerFirm
   @regression
   @email
   @failed
+    @log
     #Create driver in base
   Scenario: Verify Partner Firm Scheduled Email - Solo Scheduled Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu

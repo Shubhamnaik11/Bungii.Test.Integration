@@ -5,7 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @duodemo
+  @demo
   @regression
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
@@ -149,7 +149,6 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-    @demo
   @regression
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
     Given that duo schedule bungii is in progress

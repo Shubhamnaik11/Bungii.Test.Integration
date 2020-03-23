@@ -34,7 +34,6 @@ Feature: Admin_Trips
 
   @sanity
   @regression
-  @demo
     @failed
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
