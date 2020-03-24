@@ -1567,3 +1567,45 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+    @regression1
+    Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      Then I am logged in as "valid atlanta" driver
+
+      When I connect to "extra1" using "Driver2" instance
+      And I Switch "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      Then I am logged in as "valid driver 2" driver
+
+      Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
+        | atlanta  | Scheduled    | 1 hour ahead   | valid    | valid   | valid driver 2 |
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid atlanta" driver
+
+      And I connect to "extra1" using "Driver2" instance
+      And I Open "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid driver 2" driver
+      Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP OFF" Screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      And I click "On To The Next One" button on the "Bungii Completed" screen
+
+      When I Switch to "driver" application on "ORIGINAL" devices
+      Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP OFF" Screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      And I click "On To The Next One" button on the "Bungii Completed" screen
