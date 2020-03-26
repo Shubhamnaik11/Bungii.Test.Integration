@@ -237,6 +237,11 @@ public class PaymentSteps extends DriverBase {
                     String message= action.getText(supportPage.Snackbar());
                     testStepVerify.isEquals(message,PropertyUtility.getMessage("payment.method.association"));
                     break;
+                case "masked card number":
+                    String expectedCreditCardNumber=PropertyUtility.getDataProperties("credit.card.masked.number");
+                    testStepAssert.isElementTextEquals(paymentPage.PaymentCard1(),expectedCreditCardNumber,"The card number should be masked and only last 4 digits should be displayed.",
+                            "The card number is masked and only last 4 digits are displayed.","The card number is not masked.");
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

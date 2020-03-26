@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.*;
+import com.bungii.android.pages.customer.EstimatePage;
 import com.bungii.android.pages.customer.PromosPage;
 
 import com.bungii.android.pages.customer.PromosPage;
@@ -25,7 +26,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage= new TripAlertSettingsPage();
-
+    EstimatePage estimatePage = new EstimatePage();
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     PromosPage promosPage=new PromosPage();
 
@@ -118,6 +119,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
+                    break;
+
+                case "ADD NOTE":
+                    action.click(estimatePage.Button_AddNotes());
                     break;
             }
         }

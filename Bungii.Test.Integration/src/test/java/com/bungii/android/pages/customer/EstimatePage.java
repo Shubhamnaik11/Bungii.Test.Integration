@@ -171,4 +171,11 @@ public class EstimatePage extends PageBase {
   public WebElement Button_RejectRequestScheduledBungii() {return  findElements("//android.widget.LinearLayout/android.widget.LinearLayout/android.widget.Button", LocatorType.XPath).get(0);}
 
   public WebElement Calendar_NextMonth() {return findElement("//android.widget.ListView/android.view.View[2]", LocatorType.XPath);}
-  }
+
+  //Details section
+  public WebElement Button_Details(boolean ignoreException) {return findElement("com.bungii.customer:id/pickup_estimate_tv_pickup_note", LocatorType.Id, ignoreException);}
+  public WebElement TextBox_DetailsNote(){return findElement("com.bungii.customer:id/customer_details_et_description", LocatorType.Id);}
+  public WebElement Button_AddNotes(){return findElement("com.bungii.customer:id/customer_details_btn_add", LocatorType.Id);}
+  public WebElement Text_CharactersRemaining(){return findElement("com.bungii.customer:id/customer_details_tv_chars_remaining", LocatorType.Id);}
+
+}

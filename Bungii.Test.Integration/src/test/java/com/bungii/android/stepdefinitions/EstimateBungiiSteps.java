@@ -78,7 +78,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_GetEstimate());
                     Thread.sleep(2000);
                     String distance = action.getText(estimatePage.Text_GetDistance());
+                    String estimatedCost=action.getText(estimatePage.Text_GetCost());
                     cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", distance);
+                    cucumberContextManager.setScenarioContext("BUNGIICOST", estimatedCost);
                     break;
 
                 case "Cancel during search":
@@ -310,15 +312,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "previous values":
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
-//                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+//                  testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-
-                    //    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
-                    //   testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
-                    //   testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
                     break;
                 case "Bungii Estimate page with all details":
                     action.scrollToTop();
@@ -331,7 +329,17 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-
+                    break;
+                case "zero estimated cost":
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TotalEstimate(), "~$0.00");
+                    break;
+                case "estimated cost":
+                    String estimatedCost=action.getText(estimatePage.Text_GetCost());
+                    String previousCost=(String)cucumberContextManager.getScenarioContext("BUNGIICOST");
+                    estimatedCost.replace("~$","");
+                    previousCost.replace("~$","");
+                    if(!previousCost.equals(estimatedCost))
+                    testStepAssert.isTrue(true, "Cost is estimated for Bungii.", "Cost is not estimated for Bungii.");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -435,6 +443,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerA.phone.number"), PropertyUtility.getDataProperties("customerA.phone.password"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerA.phone.number"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerA.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_B Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerB.phone.number"), PropertyUtility.getDataProperties("customerB.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerB.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerB.phone.name"));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

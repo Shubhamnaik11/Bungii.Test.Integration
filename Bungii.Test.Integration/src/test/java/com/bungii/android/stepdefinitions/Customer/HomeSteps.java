@@ -27,6 +27,7 @@ public class HomeSteps extends DriverBase {
     HomePage homePage = new HomePage();
     PaymentPage paymentPage = new PaymentPage();
     SignupPage Page_Signup = new SignupPage();
+    EstimatePage estimatePage = new EstimatePage();
     ActionManager action = new ActionManager();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
@@ -546,6 +547,80 @@ public class HomeSteps extends DriverBase {
             }
         }
         catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should see blank textbox$")
+    public void i_should_see_blank_textbox() throws Throwable {
+       String noText=action.getText(estimatePage.TextBox_DetailsNote());
+       if(noText.isEmpty()){
+           testStepAssert.isTrue(true,"TextBox is blank.","TextBox is contains text.");
+       }
+       else {
+           testStepAssert.isFail("TextBox is contains text.");
+       }
+    }
+
+    @When("^I enter \"([^\"]*)\" in Additional Notes field$")
+    public void i_enter_something_in_additional_notes_field(String textValue) throws Throwable {
+        try{
+            switch (textValue){
+                case "text":
+                    action.sendKeys(estimatePage.TextBox_DetailsNote(),"text");
+                    break;
+                case "500 characters":
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters"));
+                    break;
+                case "1 more character":
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),"A");
+                    break;
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+    @Then("^the \"([^\"]*)\" should change$")
+    public void the_something_should_change(String value) throws Throwable {
+        try{
+            switch (value){
+                case "remaining characters":
+                    String actualText=action.getText(estimatePage.TextBox_DetailsNote());
+                    int charCount=actualText.length();
+                    int totalCharCount=500;
+                    int remainingChar=totalCharCount-charCount;
+                    String text=action.getText(estimatePage.Text_CharactersRemaining());
+                    if(text.contains(String.valueOf(remainingChar))){
+                        testStepAssert.isTrue(true, "The remaining character count decreases.", "The remaining character count doesn't decrease.");
+                    }
+                    else{
+                        testStepAssert.isFail("The remaining character count doesn't decrease.");
+                    }
+                    break;
+
+                case "remaining characters value= 0":
+                     actualText=action.getText(estimatePage.TextBox_DetailsNote());
+                     charCount=actualText.length();
+                     totalCharCount=500;
+                     remainingChar=totalCharCount-charCount;
+                     text=action.getText(estimatePage.Text_CharactersRemaining());
+                    if(remainingChar == 0){
+                        testStepAssert.isTrue(true, "The remaining character count is 0.", "The remaining character count is not 0");
+                    }
+                    else{
+                        testStepAssert.isFail("The remaining character count is not 0.");
+                    }
+                    break;
+            }
+        }
+        catch (Exception e){
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
