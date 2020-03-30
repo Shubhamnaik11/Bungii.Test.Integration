@@ -381,6 +381,12 @@ public class ScheduledBungiiSteps extends DriverBase {
                 case "I DON'T LIKE FREE MONEY":
                     action.click(wantDollar5Page.Button_NoFreeMoney());
                     break;
+                case "OK":
+                    action.click(estimatePage.Button_OkDriverNotAvailable());
+                    break;
+                case "Schedule Bungii":
+                    action.click(estimatePage.Button_ScheduleBungii());
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

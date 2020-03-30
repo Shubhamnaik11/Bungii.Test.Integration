@@ -1,14 +1,9 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-import com.bungii.android.manager.*;
-import com.bungii.android.pages.customer.EstimatePage;
-import com.bungii.android.pages.customer.PromosPage;
-
-import com.bungii.android.pages.customer.PromosPage;
-import com.bungii.android.pages.customer.ScheduledBungiisPage;
-
-import com.bungii.android.pages.driver.TripAlertSettingsPage;
-import com.bungii.android.utilityfunctions.*;
+import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.customer.*;
+import com.bungii.android.pages.driver.*;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -29,6 +24,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     EstimatePage estimatePage = new EstimatePage();
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     PromosPage promosPage=new PromosPage();
+    BungiiRequest bungiiRequestPage = new BungiiRequest();
+    InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -70,6 +67,54 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should be able to see \"([^\"]*)\" Text$")
+    public void i_should_be_able_to_see_something_text(String tab)  {
+        try {
+            switch (tab) {
+                case "Note Details":
+                    String noteText=action.getText(estimatePage.Text_DetailsNote());
+                    String enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
+                    if(noteText.equals(enteredNoteText)){
+                        testStepAssert.isTrue(true, "The note text should match.", "The note text didn't match.");
+                    }
+                    else
+                    {
+                        testStepAssert.isFail("The note text didn't match.");
+                    }
+                    break;
+
+                case "Customer Note":
+                    noteText=action.getText(bungiiRequestPage.Text_CustomerNote());
+                    enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
+                    if(noteText.equals(enteredNoteText)){
+                        testStepAssert.isTrue(true, "The note text of customer and driver should match.", "The note text of customer and driver didn't match.");
+                    }
+                    else
+                    {
+                        testStepAssert.isFail("The note text of customer and driver didn't match.");
+                    }
+                    break;
+
+                case "Details From Customer":
+                    noteText=action.getText(inProgressPages.Text_CustomerNote());
+                    enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
+                    if(noteText.equals(enteredNoteText)){
+                        testStepAssert.isTrue(true, "The note text of customer and driver should match.", "The note text of customer and driver didn't match.");
+                    }
+                    else
+                    {
+                        testStepAssert.isFail("The note text of customer and driver didn't match.");
+                    }
                     break;
             }
         }
@@ -123,6 +168,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "ADD NOTE":
                     action.click(estimatePage.Button_AddNotes());
+                    break;
+
+                case "MORE":
+                    action.click(inProgressPages.Button_More());
+                    break;
+
+                case "DETAILS FROM CUSTOMER":
+                    action.click(inProgressPages.Button_DetailsFromCustomer());
                     break;
             }
         }

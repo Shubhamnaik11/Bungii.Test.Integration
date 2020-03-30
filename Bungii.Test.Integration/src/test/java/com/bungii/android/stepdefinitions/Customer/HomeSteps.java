@@ -570,12 +570,16 @@ public class HomeSteps extends DriverBase {
             switch (textValue){
                 case "text":
                     action.sendKeys(estimatePage.TextBox_DetailsNote(),"text");
+                    cucumberContextManager.setScenarioContext("NOTE_TEXT","text");
                     break;
                 case "500 characters":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters"));
                     break;
                 case "1 more character":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),"A");
+                    break;
+                case "special characters":
+                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("special.characters"));
                     break;
             }
         }
