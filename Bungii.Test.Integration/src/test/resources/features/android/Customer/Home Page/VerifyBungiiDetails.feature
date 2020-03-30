@@ -19,7 +19,6 @@
     When I Switch to "customer" application on "same" devices
     And I enter "valid pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
-    And I add loading/unloading time of "30 mins"
     Then I should see "zero estimated cost" on Bungii estimate
 
     @regression1
@@ -320,9 +319,3 @@
         And I slide update button on "ARRIVED" Screen
         And I click on "MORE" button
         Then I should not be able to see "Details From Customer" on screen
-
-
-
-
-
-
