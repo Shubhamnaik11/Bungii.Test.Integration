@@ -1,16 +1,19 @@
 package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.common.core.DriverBase;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_MenuLinksPage;
-import com.bungii.web.utilityfunctions.GeneralUtility;
+import com.bungii.web.pages.driver.Driver_DetailsPage;
+import com.bungii.web.utilityfunctions.*;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 
 public class Admin_DriverVerificationSteps extends DriverBase {
     Admin_DriverVerificationPage admin_DriverVerificationPage = new Admin_DriverVerificationPage();
     Admin_MenuLinksPage admin_MenuLinksPage = new Admin_MenuLinksPage();
+    Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
 
     GeneralUtility utility = new GeneralUtility();
     ActionManager action = new ActionManager();
@@ -144,5 +147,14 @@ public class Admin_DriverVerificationSteps extends DriverBase {
         String s = admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class");
         testStepAssert.isTrue(admin_DriverVerificationPage.Button_VerifySSN().getAttribute("class").equalsIgnoreCase("btn btn-default ok"),"Pass","Fail");
         testStepAssert.isNotElementDisplayed(admin_DriverVerificationPage.Textbox_SSNComment(),"Comment box for SSN should be hidden","Comment box for SSN is hidden","Comment box for SSN is visible");
+    }
+
+    @Then("^I check if driver SSN is masked$")
+    public void i_check_if_driver_ssn_is_masked() throws Throwable {
+        String actualSSN= driver_detailsPage.TextBox_SSN().getAttribute("value");
+        String expectedSSN= PropertyUtility.getDataProperties("driver.social.security.number");
+
+        testStepAssert.isEquals(actualSSN, expectedSSN, expectedSSN+ " is present.",
+                "SSN is marked and displayed.", "SSN displayed is incorrect.");
     }
 }

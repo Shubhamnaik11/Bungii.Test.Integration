@@ -224,4 +224,3 @@ Feature: CustomerSignup
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
-
