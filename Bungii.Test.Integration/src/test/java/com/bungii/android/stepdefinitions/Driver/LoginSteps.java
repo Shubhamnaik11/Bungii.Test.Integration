@@ -113,7 +113,7 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
-                case "Testdrivertywd_apple_z Android_Test":
+                case "testdrivertywd_apple_z android_test":
                     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
                     phone = PropertyUtility.getDataProperties("driver.1.Goa.phone");
                     password = PropertyUtility.getDataProperties("driver.1.Goa.password");

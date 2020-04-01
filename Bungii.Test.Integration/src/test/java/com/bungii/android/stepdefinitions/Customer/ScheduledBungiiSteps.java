@@ -382,6 +382,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(wantDollar5Page.Button_NoFreeMoney());
                     break;
                 case "OK":
+                    Thread.sleep(5000);
                     action.click(estimatePage.Button_OkDriverNotAvailable());
                     break;
                 case "Schedule Bungii":

@@ -52,6 +52,7 @@
     When I enter "500 characters" in Additional Notes field
     And I click on "ADD NOTE" button
     Then "Estimate" page should be opened
+    When I tap on "Details" on Estimate screen
     When I enter "1 more character" in Additional Notes field
     Then the "remaining characters value= 0" should change
 
@@ -130,7 +131,7 @@
         And I Switch to "customer" application on "same" devices
         And I enter "valid pickup and dropoff locations" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "next possible scheduled"
+        And I select Bungii Time as "BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
@@ -148,7 +149,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9999991020      |                 |
 
-      @regression1
+      @regression11
       Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
         When I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
@@ -158,7 +159,7 @@
         And I enter "valid pickup and dropoff locations" on Bungii estimate
         And I tap on "two drivers selector" on Bungii estimate
         And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "next possible scheduled"
+        And I select Bungii Time as "BUNGII TIME"
         And I add loading/unloading time of "15 mins"
         Then I add "1" photos to the Bungii
         When I tap on "Details" on Estimate screen
@@ -167,10 +168,14 @@
         Then "Estimate" page should be opened
         When I tap on "Request Bungii" on Bungii estimate
         And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+        Then I click "Done" button on "Success" screen
 
-        When I click on notification for "on demand trip"
-        Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-        When I click "YES" button on alert message
+        When I Switch to "driver" application on "same" devices
+        And I Select "AVAILABLE TRIPS" from driver App menu
+        And I Select Trip from driver available trip
+        And I tap on "ACCEPT" on driver Trip details Page
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        And I Select Trip from driver scheduled trip
         Then I should be able to see "Customer Note" Text
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |

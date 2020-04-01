@@ -576,7 +576,7 @@ public class HomeSteps extends DriverBase {
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("500.characters"));
                     break;
                 case "1 more character":
-                    action.clearSendKeys(estimatePage.TextBox_DetailsNote(),"A");
+                    action.sendKeys(estimatePage.TextBox_DetailsNote(),"A");
                     break;
                 case "special characters":
                     action.clearSendKeys(estimatePage.TextBox_DetailsNote(),PropertyUtility.getDataProperties("special.characters"));

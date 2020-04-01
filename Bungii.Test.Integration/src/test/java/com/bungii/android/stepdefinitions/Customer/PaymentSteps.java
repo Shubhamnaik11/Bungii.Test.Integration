@@ -238,8 +238,11 @@ public class PaymentSteps extends DriverBase {
                     testStepVerify.isEquals(message,PropertyUtility.getMessage("payment.method.association"));
                     break;
                 case "masked card number":
-                    String expectedCreditCardNumber=PropertyUtility.getDataProperties("credit.card.masked.number");
-                    testStepAssert.isElementTextEquals(paymentPage.PaymentCard1(),expectedCreditCardNumber,"The card number should be masked and only last 4 digits should be displayed.",
+                    String expectedCreditCardNumber=" "+PropertyUtility.getDataProperties("credit.card.masked.number");
+                    String actualCreditCardNumber=action.getText(paymentPage.PaymentCard1());
+                    System.out.println(expectedCreditCardNumber);
+                    System.out.println(actualCreditCardNumber);
+                    testStepAssert.isEquals(actualCreditCardNumber,expectedCreditCardNumber,"The card number should be masked and only last 4 digits should be displayed.",
                             "The card number is masked and only last 4 digits are displayed.","The card number is not masked.");
                     break;
                 default:

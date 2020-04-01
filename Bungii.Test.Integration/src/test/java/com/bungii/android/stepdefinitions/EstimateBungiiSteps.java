@@ -947,6 +947,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "next possible scheduled for duo":
                     break;
+                case "BUNGII TIME":
+                    utility.selectNewBungiiTime();
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

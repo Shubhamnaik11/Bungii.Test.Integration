@@ -46,7 +46,7 @@ Feature: Admin_DriverDetails
     Then The Driver Trip List page should display the trip in "Payment Successful" state
 
 
-  @regression11
+  @regression1
   Scenario: Verify Driver Search On Drivers Page
     When I enter "drivers" "first name" in the "Drivers search" box
     Then I should see "driver first name" listed on the "Drivers" page
@@ -74,7 +74,7 @@ Feature: Admin_DriverDetails
     When I enter "drivers" "last name" in the "Trips search" box
     Then I should see "driver last name" listed on the "Trips" page
 
-    @regression11
+    @regression1
     Scenario: Verify masking of SSN for Existing driver
       When I navigate to following pages one by one
         |Page |
