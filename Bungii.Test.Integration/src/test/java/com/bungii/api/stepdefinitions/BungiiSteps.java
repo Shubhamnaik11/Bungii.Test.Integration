@@ -169,6 +169,24 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_web Sundarn":
                 phone = PropertyUtility.getDataProperties("web.valid.driver20.phone");
                 break;
+            case "Testdrivertywd_applega_a Test":
+                phone = PropertyUtility.getDataProperties("driverA.phone.number");
+                break;
+            case "Testdrivertywd_applega_b Android":
+                phone = PropertyUtility.getDataProperties("driverB.phone.number");
+                break;
+            case "Testdrivertywd_applega_c Android_test":
+                phone = PropertyUtility.getDataProperties("driverC.phone.number");
+                break;
+            case "Testdrivertywd_applega_d Android_test":
+                phone = PropertyUtility.getDataProperties("driverD.phone.number");
+                break;
+            case "Testdrivertywd_applega_e Android_test":
+                phone = PropertyUtility.getDataProperties("driverE.phone.number");
+                break;
+            case "Testdrivertywd_applega_f Android_test":
+                phone = PropertyUtility.getDataProperties("driverF.phone.number");
+                break;
         }
 
         return phone;
@@ -1143,14 +1161,14 @@ public class BungiiSteps extends DriverBase {
 
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
             //Richa
-            String[] customerDetails= getCustomerDetails(customerName);
-                    custPhoneNum = customerDetails[0];
-                    custPassword = customerDetails[1];
-                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_generic.name"));
+            String[] Details= getCustomerDriverDetails(customerName);
+                    custPhoneNum = Details[0];
+                    custPassword = Details[1];
+                    cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
 
-                    driverPhoneNum = PropertyUtility.getDataProperties("valid.driver.phone");
-                    driverPassword = PropertyUtility.getDataProperties("valid.driver.password");
-                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("valid.driver.name"));
+                    driverPhoneNum = Details[3];
+                    driverPassword = Details[4];
+                    cucumberContextManager.setScenarioContext("DRIVER_1", Details[5]);
 
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
@@ -1432,6 +1450,99 @@ public class BungiiSteps extends DriverBase {
         }
     }
 
+    //BOC RICHA
+
+    @Given("^that ondemand bungii is in progress for customer \"([^\"]*)\"$")
+    public void that_ondemand_bungii_is_in_progress_for_customer_something(String customerName, DataTable data) throws Throwable {
+        try {
+            Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+            String geofence = dataMap.get("geofence").trim();
+            String state = dataMap.get("Bungii State").trim();
+            String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
+            String driverLabel = "", tripLabel = "";
+            try {
+                driverLabel = dataMap.get("Driver label").trim();
+                logger.detail("Label is  specified as input" + driverLabel);
+            } catch (Exception e) {
+            }
+            try {
+                tripLabel = dataMap.get("Trip Label").trim();
+                logger.detail("Label is  specified as input" + driverLabel);
+            } catch (Exception e) {
+            }
+
+            String[] Details= getCustomerDriverDetails(customerName);
+            custPhoneNum = Details[0];
+            custPassword = Details[1];
+            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
+
+            driverPhoneNum = Details[3];
+            driverPassword = Details[4];
+            cucumberContextManager.setScenarioContext("DRIVER_1", Details[5]);
+
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
+
+            //LOGIN
+            String custAccessToken = authServices.getCustomerToken(custPhoneCode, custPhoneNum, custPassword);
+            String driverAccessToken = authServices.getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
+            //CUSTOMER& DRIVER VIEW
+            coreServices.customerView("", custAccessToken);
+            coreServices.driverView("", driverAccessToken);
+            try{ coreServices.getDriverScheduledPickupList(driverAccessToken);}catch (Exception e){}
+
+            //update location and driver status
+            coreServices.updateDriverLocation(driverAccessToken, geofence);
+            coreServices.updateDriverStatus(driverAccessToken);
+
+            //request Bungii
+            coreServices.validatePickupRequest(custAccessToken, geofence);
+            String pickupRequest = coreServices.getPickupRequest(custAccessToken, 1, geofence);
+            String paymentMethod = paymentServices.getPaymentMethodRef(custAccessToken);
+            //In case of having default promo code  "ADDED_PROMOCODE_WALLETREF" hold value of wallet ref, else return empty string
+            if (tripLabel.trim().equalsIgnoreCase(""))
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken);
+            else
+                coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, tripLabel);
+            coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
+            Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
+            if (!isDriverEligibel)
+                error("Driver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
+
+            coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
+            coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
+            if (state.equalsIgnoreCase("Enroute")) {
+            } else if (state.equalsIgnoreCase("ARRIVED")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+            } else if (state.equalsIgnoreCase("LOADING ITEM")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+            } else if (state.equalsIgnoreCase("DRIVING TO DROP OFF")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+            } else if (state.equalsIgnoreCase("UNLOADING ITEM")) {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+            } else {
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 24);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 25);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 26);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
+                coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
+            }
+            log("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii is in " + state +" for geofence "+ geofence , false);
+
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+    //EOC RICHA
+
     public void recoveryScenario() {
         String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
         logger.detail("Trying recovery scenarios for of api ");
@@ -1710,23 +1821,20 @@ public class BungiiSteps extends DriverBase {
             String driver2 = dataMap.get("Driver2").trim();
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";
 
-            String[] customerDetails=new String[2];
-            customerDetails=getCustomerDetails(customerName);
-                custPhoneNum = customerDetails[0];
-                custPassword = customerDetails[1];
-                cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
-                cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
+            String[] Details= getCustomerDriverDetailsForDuo(customerName);
+            custPhoneNum = Details[0];
+            custPassword = Details[1];
+            cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
 
+            driverPhoneNum = Details[3];
+            driverPassword = Details[4];
+            cucumberContextManager.setScenarioContext("DRIVER_1", Details[5]);
+            cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
 
-                driverPhoneNum = PropertyUtility.getDataProperties("atlanta.driver.phone");
-                driverPassword = PropertyUtility.getDataProperties("atlanta.driver.password");
-                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("atlanta.driver.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);
-
-                driver2PhoneNum = PropertyUtility.getDataProperties("valid.driver2.phone");
-                driver2Password = PropertyUtility.getDataProperties("valid.driver2.password");
-                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("valid.driver2.name"));
-                cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
+            driver2PhoneNum = Details[6];
+            driver2Password = Details[7];
+            cucumberContextManager.setScenarioContext("DRIVER_2", Details[8]);
+            cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", driver2PhoneNum);
 
 
             if (driver1.equalsIgnoreCase("Kansas driver 1")) {
@@ -1947,38 +2055,167 @@ public class BungiiSteps extends DriverBase {
 
     }
 
-    public String[] getCustomerDetails(String custName){
-        String[] custDetails=new String[3];
+    public String[] getCustomerDriverDetails(String custName){
+        String[] Details=new String[6];
         switch(custName)
         {
             case "Testcustomertywd_appleand_A Android":
-                custDetails[0]=PropertyUtility.getDataProperties("customerA.phone.number");
-                custDetails[1]=PropertyUtility.getDataProperties("customerA.phone.password");
-                custDetails[2]=PropertyUtility.getDataProperties("customerA.phone.name");
+                Details[0]=PropertyUtility.getDataProperties("customerA.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerA.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerA.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverA.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverA.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverA.phone.name");
                 break;
 
             case "Testcustomertywd_appleand_B Android":
-                custDetails[0]=PropertyUtility.getDataProperties("customerB.phone.number");
-                custDetails[1]=PropertyUtility.getDataProperties("customerB.phone.password");
-                custDetails[2]=PropertyUtility.getDataProperties("customerB.phone.name");
+                Details[0]=PropertyUtility.getDataProperties("customerB.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerB.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerB.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverB.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverB.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverB.phone.name");
                 break;
 
             case "Testcustomertywd_appleand_C Android":
-                custDetails[0]=PropertyUtility.getDataProperties("customerC.phone.number");
-                custDetails[1]=PropertyUtility.getDataProperties("customerC.phone.password");
-                custDetails[2]=PropertyUtility.getDataProperties("customerC.phone.name");
+                Details[0]=PropertyUtility.getDataProperties("customerC.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerC.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerC.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverC.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverC.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverC.phone.name");
                 break;
 
             case "Testcustomertywd_appleand_D Android":
-                custDetails[0]=PropertyUtility.getDataProperties("customerD.phone.number");
-                custDetails[1]=PropertyUtility.getDataProperties("customerD.phone.password");
-                custDetails[2]=PropertyUtility.getDataProperties("customerD.phone.name");
+                Details[0]=PropertyUtility.getDataProperties("customerD.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerD.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerD.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverD.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverD.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverD.phone.name");
+                break;
+
+            case "Testcustomertywd_appleand_E Android":
+                Details[0]=PropertyUtility.getDataProperties("customerE.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerE.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerE.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverE.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverE.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverE.phone.name");
+                break;
+
+            case "Testcustomertywd_appleand_F Android":
+                Details[0]=PropertyUtility.getDataProperties("customerF.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerF.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerF.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverF.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverF.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverF.phone.name");
                 break;
 
             default:
                 throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
         }
-        return custDetails;
+        return Details;
     }
 
+    public String[] getCustomerDriverDetailsForDuo(String custName){
+        String[] Details=new String[8];
+        switch(custName)
+        {
+            case "Testcustomertywd_appleand_A Android":
+                    Details[0]=PropertyUtility.getDataProperties("customerA.phone.number");
+                    Details[1]=PropertyUtility.getDataProperties("customerA.phone.password");
+                    Details[2]=PropertyUtility.getDataProperties("customerA.phone.name");
+
+                    Details[3]=PropertyUtility.getDataProperties("driverA.phone.number");
+                    Details[4]=PropertyUtility.getDataProperties("driverA.phone.password");
+                    Details[5]=PropertyUtility.getDataProperties("driverA.phone.name");
+
+                    Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
+                    Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
+                    Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
+                    break;
+
+            case "Testcustomertywd_appleand_B Android":
+                    Details[0]=PropertyUtility.getDataProperties("customerB.phone.number");
+                    Details[1]=PropertyUtility.getDataProperties("customerB.phone.password");
+                    Details[2]=PropertyUtility.getDataProperties("customerB.phone.name");
+
+                    Details[3]=PropertyUtility.getDataProperties("driverB.phone.number");
+                    Details[4]=PropertyUtility.getDataProperties("driverB.phone.password");
+                    Details[5]=PropertyUtility.getDataProperties("driverB.phone.name");
+
+                    Details[6]=PropertyUtility.getDataProperties("driverA.phone.number");
+                    Details[7]=PropertyUtility.getDataProperties("driverA.phone.password");
+                    Details[8]=PropertyUtility.getDataProperties("driverA.phone.name");
+                    break;
+
+            case "Testcustomertywd_appleand_C Android":
+                    Details[0]=PropertyUtility.getDataProperties("customerC.phone.number");
+                    Details[1]=PropertyUtility.getDataProperties("customerC.phone.password");
+                    Details[2]=PropertyUtility.getDataProperties("customerC.phone.name");
+
+                    Details[3]=PropertyUtility.getDataProperties("driverC.phone.number");
+                    Details[4]=PropertyUtility.getDataProperties("driverC.phone.password");
+                    Details[5]=PropertyUtility.getDataProperties("driverC.phone.name");
+
+                    Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
+                    Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
+                    Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
+                    break;
+
+            case "Testcustomertywd_appleand_D Android":
+                Details[0]=PropertyUtility.getDataProperties("customerD.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerD.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerD.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverD.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverD.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverD.phone.name");
+
+                Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
+                Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
+                Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
+                break;
+
+            case "Testcustomertywd_appleand_E Android":
+                Details[0]=PropertyUtility.getDataProperties("customerE.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerE.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerE.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverE.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverE.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverE.phone.name");
+
+                Details[6]=PropertyUtility.getDataProperties("driverB.phone.number");
+                Details[7]=PropertyUtility.getDataProperties("driverB.phone.password");
+                Details[8]=PropertyUtility.getDataProperties("driverB.phone.name");
+                break;
+
+            case "Testcustomertywd_appleand_F Android":
+                Details[0]=PropertyUtility.getDataProperties("customerF.phone.number");
+                Details[1]=PropertyUtility.getDataProperties("customerF.phone.password");
+                Details[2]=PropertyUtility.getDataProperties("customerF.phone.name");
+
+                Details[3]=PropertyUtility.getDataProperties("driverF.phone.number");
+                Details[4]=PropertyUtility.getDataProperties("driverF.phone.password");
+                Details[5]=PropertyUtility.getDataProperties("driverF.phone.name");
+
+                Details[6]=PropertyUtility.getDataProperties("driverE.phone.number");
+                Details[7]=PropertyUtility.getDataProperties("driverE.phone.password");
+                Details[8]=PropertyUtility.getDataProperties("driverE.phone.name");
+                break;
+
+            default:
+                throw new IllegalStateException("The entry for the customer with the name: " + custName +" is not present.");
+        }
+        return Details;
+    }
 }

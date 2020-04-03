@@ -15,7 +15,10 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -298,6 +301,20 @@ public class LoginSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Given("^I Login as a driver and go online$")
+    public void i_login_as_a_driver_and_go_online() throws Throwable {
+        String phoneNumber =(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String password="Cci12345";
+        try {
+            utility.loginToDriverApp(phoneNumber, password);
+        }
+        catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
 }

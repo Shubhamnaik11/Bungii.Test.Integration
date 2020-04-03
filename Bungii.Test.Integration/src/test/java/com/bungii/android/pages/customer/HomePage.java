@@ -84,4 +84,9 @@ public class HomePage extends PageBase {
     public WebElement Text_TutorialPdfPage1() { return findElements("//androidx.appcompat.app.ActionBar.Tab", LocatorType.XPath).get(0);}
     public WebElement Button_StartApp() { return findElement("com.bungii.customer:id/tutorials_screen_five_btn_start",LocatorType.Id); }
     public WebElement Button_BackOfPage() {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath);}
+
+    public WebElement Tab_MyBungiisScheduled() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
+    public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
+    public WebElement Text_ScheduledBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
+    public WebElement Text_PastBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
 }

@@ -26,6 +26,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     PromosPage promosPage=new PromosPage();
     BungiiRequest bungiiRequestPage = new BungiiRequest();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
+    HomePage homePage=new HomePage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -38,6 +39,17 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "SMS Alerts":
                     action.click(tripAlertSettingsPage.Tab_SMSAlerts());
                     break;
+
+                case "Scheduled":
+                    action.click(homePage.Tab_MyBungiisScheduled());
+                    break;
+
+                case "Past":
+                    action.click(homePage.Tab_MyBungiisPast());
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
             }
         }
         catch (Exception e) {
@@ -68,6 +80,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
             }
         }
         catch (Exception e) {
@@ -116,6 +131,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                         testStepAssert.isFail("The note text of customer and driver didn't match.");
                     }
                     break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
             }
         }
         catch (Exception e) {
@@ -155,8 +173,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "OK":
                     action.click(promosPage.Button_Ok());
                     break;
-                default:
-                    error("Implemented Step", "UnImplemented Step");
 
                 case "SAVE MONEY":
                     action.click(scheduledBungiisPage.Button_SaveMoney());
@@ -177,6 +193,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "DETAILS FROM CUSTOMER":
                     action.click(inProgressPages.Button_DetailsFromCustomer());
                     break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
             }
         }
         catch (Exception e) {

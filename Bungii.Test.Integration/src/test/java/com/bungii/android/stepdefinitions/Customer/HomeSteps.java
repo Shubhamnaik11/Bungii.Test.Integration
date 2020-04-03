@@ -631,4 +631,34 @@ public class HomeSteps extends DriverBase {
         }
     }
 
+
+    @And("^I should see \"([^\"]*)\" message displayed$")
+    public void i_should_see_something_message_displayed(String strArg1) throws Throwable {
+
+        try{
+            switch (strArg1){
+                case "Scheduled info":
+                    String actualText=action.getText(homePage.Text_ScheduledBungiisInfo());
+                    actualText=actualText.replace("\n"," ");
+                    testStepAssert.isEquals(actualText,PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    break;
+
+                case "Past info":
+                    actualText=action.getText(homePage.Text_PastBungiisInfo());
+                    actualText=actualText.replace("\n"," ");
+                    testStepAssert.isEquals(actualText,PropertyUtility.getMessage("no.scheduled.bungiis"), "The message should be displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+        }
+        catch (Exception e){
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+
 }
