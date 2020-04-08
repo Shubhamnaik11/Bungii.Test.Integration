@@ -1,6 +1,7 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
@@ -27,6 +28,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     BungiiRequest bungiiRequestPage = new BungiiRequest();
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     HomePage homePage=new HomePage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -194,8 +196,16 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(inProgressPages.Button_DetailsFromCustomer());
                     break;
 
+                case "VERIFY":
+                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    break;
+
+                case "SAVE CHANGES":
+                    action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
+
                 default:
-                    throw new Exception(" UNIMPLEMENTED STEP");
+                    throw new Exception("UNIMPLEMENTED STEP");
             }
         }
         catch (Exception e) {

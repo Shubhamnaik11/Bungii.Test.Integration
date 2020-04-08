@@ -396,18 +396,183 @@
 
     @regression11
     Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status.
-      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_C Android"
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
         | geofence | Bungii State | Bungii Time   |
         | goa  | Scheduled    | NEXT_POSSIBLE |
       When I open new "Chrome" browser for "ADMIN_PORTAL"
       And I navigate to admin portal
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
-      And I open the trip for "Testcustomertywd_appleand_C Android" customer
-      And I assign driver for the trip
+      And I open the trip for "Testcustomertywd_appleand_A Android" customer
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "Solo" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
       When I switch to "ORIGINAL" instance
-      And I Switch to "driver" application on "same" devices
-      And I Login as a driver and go online
-      And I Select "SCHEDULED BUNGIIS" from driver App menu
-      And I Select Trip from driver scheduled trip
-      ##########to be continued
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_A Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "solo driver names"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
+
+      @regression11
+      Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
+        Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
+          | geofence | Bungii State | Bungii Time   |
+          | goa  | Scheduled    | NEXT_POSSIBLE |
+        When I open new "Chrome" browser for "ADMIN_PORTAL"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I open the trip for "Testcustomertywd_appleand_C Android" customer
+        And I Select "Edit Trip Details" option
+        And I assign driver for the "Duo" trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        When I switch to "ORIGINAL" instance
+        And I Switch to "customer" application on "same" devices
+        And I am logged in as "Testcustomertywd_appleand_C Android" customer
+        And I tap on "Menu" > "MY BUNGIIS" link
+        And I select already scheduled bungii
+        Then I verify the "duo driver names"
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | CUSTOMER1_PHONE |                 |
+
+        @regression11
+        Scenario:Verify that admin can assign a driver to a solo trip when it has been re-searched.
+          Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
+            | geofence | Bungii State | Bungii Time   |
+            | goa   | Accepted     | NEXT_POSSIBLE |
+          When I Switch to "driver" application on "same" devices
+          And I am on the LOG IN page on driver app
+          And I am logged in as "valid" driver
+          When I Switch to "customer" application on "same" devices
+          Then I wait for "2" mins
+          And I open new "Chrome" browser for "ADMIN"
+          And I navigate to admin portal
+          And I log in to admin portal
+          And I Select "Scheduled Trip" from admin sidebar
+          And I remove current driver and researches Bungii
+          And I Select "Edit Trip Details" option
+          And I assign driver for the "Solo" trip
+          And I click on "VERIFY" button
+          And the "Your changes are good to be saved." message is displayed
+          Then I click on "SAVE CHANGES" button
+          And the "Bungii Saved!" message is displayed
+          When I switch to "ORIGINAL" instance
+          And I Switch to "customer" application on "same" devices
+          And I am logged in as "Testcustomertywd_appleand_C Android" customer
+          And I tap on "Menu" > "MY BUNGIIS" link
+          And I select already scheduled bungii
+          Then I verify the "solo driver names"
+          And I cancel all bungiis of customer
+            | Customer Phone  | Customer2 Phone |
+            | CUSTOMER1_PHONE |                 |
+
+      @regression11
+      Scenario: Verify admin can assign one (controlled) driver on duo trip when it has been re-searched.
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+          | driver1 state | driver2 state |
+          | Accepted      | Accepted      |
+        And I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I remove "control" driver and researches Bungii
+        And I Select "Edit Trip Details" option
+        And I assign driver for the "control" trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        When I switch to "ORIGINAL" instance
+        And I Switch to "customer" application on "same" devices
+        And I am logged in as "Testcustomertywd_appleand_D Android" customer
+        And I tap on "Menu" > "MY BUNGIIS" link
+        And I select already scheduled bungii
+        Then I verify the "control driver name"
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | CUSTOMER1_PHONE |                 |
+
+      @regression11
+      Scenario: Verify if admin can assign one (non controlled) driver on duo trip when it has been re-searched.
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+          | driver1 state | driver2 state |
+          | Accepted      | Accepted      |
+        And I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I remove "noncontrol" driver and researches Bungii
+        And I Select "Edit Trip Details" option
+        And I assign driver for the "noncontrol" trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+        When I switch to "ORIGINAL" instance
+        And I Switch to "customer" application on "same" devices
+        And I am logged in as "Testcustomertywd_appleand_D Android" customer
+        And I tap on "Menu" > "MY BUNGIIS" link
+        And I select already scheduled bungii
+        Then I verify the "noncontrol driver name"
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | CUSTOMER1_PHONE |                 |
+
+        @regression11
+        Scenario: Verify if admin can assign both drivers on duo trip when it has been re-searched
+          When I request "duo" Bungii as a customer in "goa" geofence
+            | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+            | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+          And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+            | driver1 state | driver2 state |
+            | Accepted      | Accepted      |
+          And I open new "Chrome" browser for "ADMIN"
+          And I navigate to admin portal
+          And I log in to admin portal
+          And I Select "Scheduled Trip" from admin sidebar
+          And I remove current driver and researches Bungii
+          And I Select "Edit Trip Details" option
+          And the " Adding a driver through this feature overrides driver assigning restrictions." message is displayed
+          And I assign driver for the "Duo" trip
+          And I click on "VERIFY" button
+          And the "Your changes are good to be saved." message is displayed
+          Then I click on "SAVE CHANGES" button
+          And the "Bungii Saved!" message is displayed
+          When I switch to "ORIGINAL" instance
+          And I Switch to "customer" application on "same" devices
+          And I am logged in as "Testcustomertywd_appleand_D Android" customer
+          And I tap on "Menu" > "MY BUNGIIS" link
+          And I select already scheduled bungii
+          Then I verify the "duo driver names"
+          And I cancel all bungiis of customer
+            | Customer Phone  | Customer2 Phone |
+            | CUSTOMER1_PHONE |                 |
+
+    @regression111
+    Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal.
+      Given that solo schedule bungii is in progress
+        | geofence | Bungii State | Bungii Time  |
+        | kansas1  | Accepted     | 15 min ahead |
+
+      And I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I remove current driver

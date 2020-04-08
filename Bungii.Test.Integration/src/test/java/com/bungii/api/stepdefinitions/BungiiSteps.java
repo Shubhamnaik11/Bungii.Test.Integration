@@ -1816,7 +1816,7 @@ public class BungiiSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
 
             String state = dataMap.get("Bungii State").trim();
-            String customer = dataMap.get("Customer").trim();
+            String customer = customerName;
             String driver1 = dataMap.get("Driver1").trim();
             String driver2 = dataMap.get("Driver2").trim();
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "", driver2PhoneCode = "1", driver2PhoneNum = "", driver2Password = "";

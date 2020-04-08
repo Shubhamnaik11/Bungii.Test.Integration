@@ -1110,7 +1110,7 @@ Feature: Duo
     Then I am logged in as "valid atlanta" driver
 
     When I connect to "extra1" using "Driver2" instance
-    And I Switch "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     Then I am logged in as "valid driver 2" driver
 
