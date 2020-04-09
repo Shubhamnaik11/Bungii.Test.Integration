@@ -340,7 +340,7 @@
       And I click on "Past" tab
       Then I verify the field "timezone"
 
-    @regression1
+    @regression111
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-OnDemand
       Given that ondemand bungii is in progress for customer "Testcustomertywd_appleand_A Android"
         | geofence | Bungii State |
@@ -349,6 +349,16 @@
         | driver1 state     |
         | Bungii Completed  |
       When I Switch to "customer" application on "same" devices
+      And I select "4" Ratting star for duo "Driver 1"
+      And I give tip to Bungii Driver with following tip and Press "OK" Button
+        | Tip |
+        | 5   |
+      Then I Switch to "driver" application on "same" devices
+      And Bungii driver should see "correct details" on Bungii completed page
+      And I click "On To The Next One" button on "Bungii Completed" screen
+      When I Switch to "customer" application on "same" devices
+      And I tap on "OK on complete" on Bungii estimate
+      And I tap on "No free money" on Bungii estimate
       And I tap on "Menu" > "My Bungiis" link
       Then "MY BUNGIIS" page should be opened
       And I click on "Past" tab
@@ -367,6 +377,16 @@
           | driver1 state     |
           | Bungii Completed  |
         When I Switch to "customer" application on "same" devices
+        And I select "4" Ratting star for duo "Driver 1"
+        And I give tip to Bungii Driver with following tip and Press "OK" Button
+          | Tip |
+          | 5   |
+        Then I Switch to "driver" application on "same" devices
+        And Bungii driver should see "correct details" on Bungii completed page
+        And I click "On To The Next One" button on "Bungii Completed" screen
+        When I Switch to "customer" application on "same" devices
+        And I tap on "OK on complete" on Bungii estimate
+        And I tap on "No free money" on Bungii estimate
         And I tap on "Menu" > "My Bungiis" link
         Then "MY BUNGIIS" page should be opened
         And I click on "Past" tab
@@ -385,6 +405,16 @@
           | driver1 state     |driver2 state    |
           | Bungii Completed  |Bungii Completed |
         When I Switch to "customer" application on "same" devices
+        And I select "4" Ratting star for duo "Driver 1"
+        And I give tip to Bungii Driver with following tip and Press "OK" Button
+          | Tip |
+          | 5   |
+        Then I Switch to "driver" application on "same" devices
+        And Bungii driver should see "correct details" on Bungii completed page
+        And I click "On To The Next One" button on "Bungii Completed" screen
+        When I Switch to "customer" application on "same" devices
+        And I tap on "OK on complete" on Bungii estimate
+        And I tap on "No free money" on Bungii estimate
         And I tap on "Menu" > "My Bungiis" link
         Then "MY BUNGIIS" page should be opened
         And I click on "Past" tab
@@ -567,10 +597,9 @@
 
     @regression111
     Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal.
-      Given that solo schedule bungii is in progress
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
         | geofence | Bungii State | Bungii Time  |
-        | kansas1  | Accepted     | 15 min ahead |
-
+        | goa      | Accepted     | 15 min ahead |
       And I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal
       And I log in to admin portal
