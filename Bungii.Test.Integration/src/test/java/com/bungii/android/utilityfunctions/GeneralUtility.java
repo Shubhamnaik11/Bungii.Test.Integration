@@ -26,6 +26,7 @@ import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
@@ -1679,6 +1680,39 @@ public class GeneralUtility extends DriverBase {
         }catch (Exception e){
             logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
         }
+    }
+
+    public String calculateTeletTime() throws ParseException {
+
+        String scheduledTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+        // scheduledTime = "Dec 21, 11:15 AM GMT+5:30";
+
+        Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(scheduledTime);
+        Date currentDate = new Date();
+
+
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189";
+        String loadtime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");//, "15 mins");
+        loadtime = loadtime.toLowerCase().replace("mins", "").replace("min", "").trim();
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
+        String estimateTime = dbUtility.getEstimateTime(custRef);
+        long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
+        double timeToBeAdded = (totalEstimateDuration * 1.5) + 30;
+        Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
+
+        //int year=currentDate.getYear()+1900;
+        telet.setYear(currentDate.getYear());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String teletTimeInUtc = null;
+
+        teletTimeInUtc = dateFormat.format(telet);
+        return teletTimeInUtc;
+
+
     }
 
 }

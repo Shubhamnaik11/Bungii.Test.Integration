@@ -24,6 +24,7 @@ public class TripDetailsSteps extends DriverBase {
     BungiiRequest Page_BungiiRequest = new BungiiRequest();
     GeneralUtility utility= new GeneralUtility();
     AvailableTripsPage availableTripsPage=new AvailableTripsPage();
+    ScheduledBungiiPage scheduledBungiiPage=new ScheduledBungiiPage();
 
     @When("I tap on {string} on driver Trip details Page")
     public void iTapOnOnDriverTripDetailsPage(String arg0) throws InterruptedException {
@@ -55,6 +56,24 @@ public class TripDetailsSteps extends DriverBase {
                 break;
             case "zero":
                 testStepVerify.isTrue(listOfBungii.size() == 0, "There should be two available trip");
+                break;
+            default:
+                throw new Exception(" UNIMPLEMENTED STEP");
+        }
+    }
+
+    @Then("^I should able to see \"([^\"]*)\" scheduled trip$")
+    public void i_should_able_to_see_something_scheduled_trip(String strArg1) throws Throwable {
+        List<WebElement> listOfScheduledTrip = scheduledBungiiPage.List_ScheduledBungiis();
+        switch (strArg1) {
+            case "two":
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 2, "There should be two scheduled trips");
+                break;
+            case "one":
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 1, "There should be one scheduled trip");
+                break;
+            case "zero":
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 0, "There should be two scheduled trip");
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");

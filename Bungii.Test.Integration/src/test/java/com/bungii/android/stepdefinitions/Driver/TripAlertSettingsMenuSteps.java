@@ -11,6 +11,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -202,6 +203,23 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "SAVE CHANGES":
                     action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
+
+                case "Edit Trip":
+                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
+                    break;
+
+                case "Edit Trip1":
+                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row1']/td/p[@id='btnEdit'][1]")).click();
+                    break;
+
+                case "Edit Trip2":
+                    Thread.sleep(2000);
+                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row2']/td/p[@id='btnEdit'][1]")).click();
+                    break;
+
+                case "Close":
+                    action.click(scheduledTripsPage.Button_ClosePopUp());
                     break;
 
                 default:

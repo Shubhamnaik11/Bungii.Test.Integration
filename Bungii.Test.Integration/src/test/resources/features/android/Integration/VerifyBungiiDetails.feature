@@ -3,79 +3,79 @@
     Feature: VerifyBungiiDetails
 
     Background:
-    Given I am on customer Log in page
-    And I am logged in as "Testcustomertywd_appleand_B Android" customer
+      Given I am on customer Log in page
+      And I am logged in as "Testcustomertywd_appleand_B Android" customer
 
     @regression1
     Scenario: Verify that correct trip details are displayed on the grey bar of the Estimate screen.
-    When I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add loading/unloading time of "30 mins"
-    Then I should see "all elements" on Bungii estimate
+      When I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I add loading/unloading time of "30 mins"
+      Then I should see "all elements" on Bungii estimate
 
     @regression1
     Scenario: Verify that Estimated Cost value reads $0.00 as default initially before selection of load + unload time.
-    When I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    Then I should see "zero estimated cost" on Bungii estimate
+      When I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      Then I should see "zero estimated cost" on Bungii estimate
 
     @regression1
     Scenario: Verify that the Estimated cost on the grey bar is updated on updating load/unload time and promo code.
-    When I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I add loading/unloading time of "15 mins"
-    And I tap on "Promo code value" on Estimate screen
-    And I add "PROMOTER TYPE PROMO" PromoCode
-    And I tap "Add" on Save Money page
-    Then I should able to see expected promo code in available promo code
-    And I tap on "Back" icon of page
-    Then I should see "estimated cost" on Bungii estimate
+      When I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I add loading/unloading time of "15 mins"
+      And I tap on "Promo code value" on Estimate screen
+      And I add "PROMOTER TYPE PROMO" PromoCode
+      And I tap "Add" on Save Money page
+      Then I should able to see expected promo code in available promo code
+      And I tap on "Back" icon of page
+      Then I should see "estimated cost" on Bungii estimate
 
     @regression1
     Scenario: Verify that four masked characters are displayed before the last four characters of Payment Mode.
-    When I Switch to "customer" application on "same" devices
-    And I tap on "Menu" > "Payment" link
-    Then I should see "masked card number" on Payment page
+      When I Switch to "customer" application on "same" devices
+      And I tap on "Menu" > "Payment" link
+      Then I should see "masked card number" on Payment page
 
     @regression1
     Scenario: Verify that clicking on Details field on the Estimate screen opens a blank text box.
-    When I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I tap on "Details" on Estimate screen
-    Then I should see blank textbox
-    When I enter "text" in Additional Notes field
-    Then the "remaining characters value" should change
-    When I enter "500 characters" in Additional Notes field
-    And I click on "ADD NOTE" button
-    Then "Estimate" page should be opened
-    When I tap on "Details" on Estimate screen
-    When I enter "1 more character" in Additional Notes field
-    Then the "remaining characters value= 0" should change
+      When I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I tap on "Details" on Estimate screen
+      Then I should see blank textbox
+      When I enter "text" in Additional Notes field
+      Then the "remaining characters value" should change
+      When I enter "500 characters" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Details" on Estimate screen
+      When I enter "1 more character" in Additional Notes field
+      Then the "remaining characters value= 0" should change
 
     @regression1
     Scenario: Verify that Bungii can be requested when special charaters have been entered in the Details field on Estimate screen.
-    When I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "next possible scheduled"
-    And I add loading/unloading time of "15 mins"
-    Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "special characters" in Additional Notes field
-    And I click on "ADD NOTE" button
-    Then "Estimate" page should be opened
-    When I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-    And I check if the customer is on success screen
-    Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+      When I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "next possible scheduled"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "special characters" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      And I check if the customer is on success screen
+      Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9999991020      |                 |
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
     @regression1
     Scenario: Verify that the text entered in Details is displayed after customer schedules a Bungii of an on demand bungii that has timed out.
@@ -122,149 +122,149 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-      @regression1
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request.
-        When I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
-        And I tap on "Go Online button" on Driver Home page
-        And I Switch to "customer" application on "same" devices
-        And I enter "valid pickup and dropoff locations" on Bungii estimate
-        And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "BUNGII TIME"
-        And I add loading/unloading time of "15 mins"
-        Then I add "1" photos to the Bungii
-        When I tap on "Details" on Estimate screen
-        And I enter "text" in Additional Notes field
-        And I click on "ADD NOTE" button
-        Then "Estimate" page should be opened
-        When I tap on "Request Bungii" on Bungii estimate
-        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    @regression1
+    Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request.
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+      And I tap on "Go Online button" on Driver Home page
+      And I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "BUNGII TIME"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "text" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
-        When I click on notification for "on demand trip"
-        Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
-        When I click "YES" button on alert message
-        Then I should be able to see "Customer Note" Text
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+      When I click on notification for "on demand trip"
+      Then Alert message with ACCEPT BUNGII QUESTION text should be displayed
+      When I click "YES" button on alert message
+      Then I should be able to see "Customer Note" Text
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
-      @regression
-      Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
-        When I Switch to "driver" application on "same" devices
-        And I am on the LOG IN page on driver app
-        And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
-        And I tap on "Go Online button" on Driver Home page
-        And I Switch to "customer" application on "same" devices
-        And I enter "valid pickup and dropoff locations" on Bungii estimate
-        And I tap on "two drivers selector" on Bungii estimate
-        And I tap on "Get Estimate button" on Bungii estimate
-        And I select Bungii Time as "BUNGII TIME"
-        And I add loading/unloading time of "15 mins"
-        Then I add "1" photos to the Bungii
-        When I tap on "Details" on Estimate screen
-        And I enter "text" in Additional Notes field
-        And I click on "ADD NOTE" button
-        Then "Estimate" page should be opened
-        When I tap on "Request Bungii" on Bungii estimate
-        And I tap on "Yes on HeadsUp pop up" on Bungii estimate
-        Then I click "Done" button on "Success" screen
+    @regression
+    Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+      And I tap on "Go Online button" on Driver Home page
+      And I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "two drivers selector" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "BUNGII TIME"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "text" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      Then I click "Done" button on "Success" screen
 
-        When I Switch to "driver" application on "same" devices
-        And I Select "AVAILABLE TRIPS" from driver App menu
-        And I Select Trip from driver available trip
-        And I tap on "ACCEPT" on driver Trip details Page
-        And I Select "SCHEDULED BUNGIIS" from driver App menu
-        And I Select Trip from driver scheduled trip
-        Then I should be able to see "Customer Note" Text
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | 9999991020      |                 |
+      When I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select Trip from driver available trip
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      Then I should be able to see "Customer Note" Text
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
     @regression1
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page.
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
-    And I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "next possible scheduled"
-    And I add loading/unloading time of "15 mins"
-    Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "text" in Additional Notes field
-    And I click on "ADD NOTE" button
-    Then "Estimate" page should be opened
-    When I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+      And I tap on "Go Online button" on Driver Home page
+      And I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "next possible scheduled"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "text" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from driver available trip
-    Then I should be able to see "Customer Note" Text
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9999991020      |                 |
+      When I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select Trip from driver available trip
+      Then I should be able to see "Customer Note" Text
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
     @regression1
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page.
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
-    And I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "two drivers selector" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "next possible scheduled"
-    And I add loading/unloading time of "15 mins"
-    Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "text" in Additional Notes field
-    And I click on "ADD NOTE" button
-    Then "Estimate" page should be opened
-    When I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+      And I tap on "Go Online button" on Driver Home page
+      And I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "two drivers selector" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "next possible scheduled"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "text" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from driver available trip
-    Then I should be able to see "Customer Note" Text
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9999991020      |                 |
+      When I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select Trip from driver available trip
+      Then I should be able to see "Customer Note" Text
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
     @regression1
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii.
-    When I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
-    And I tap on "Go Online button" on Driver Home page
-    And I Switch to "customer" application on "same" devices
-    And I enter "valid pickup and dropoff locations" on Bungii estimate
-    And I tap on "Get Estimate button" on Bungii estimate
-    And I select Bungii Time as "OLD BUNGII TIME"
-    And I add loading/unloading time of "15 mins"
-    Then I add "1" photos to the Bungii
-    When I tap on "Details" on Estimate screen
-    And I enter "text" in Additional Notes field
-    And I click on "ADD NOTE" button
-    Then "Estimate" page should be opened
-    When I tap on "Request Bungii" on Bungii estimate
-    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+      And I tap on "Go Online button" on Driver Home page
+      And I Switch to "customer" application on "same" devices
+      And I enter "valid pickup and dropoff locations" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I select Bungii Time as "OLD BUNGII TIME"
+      And I add loading/unloading time of "15 mins"
+      Then I add "1" photos to the Bungii
+      When I tap on "Details" on Estimate screen
+      And I enter "text" in Additional Notes field
+      And I click on "ADD NOTE" button
+      Then "Estimate" page should be opened
+      When I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
-    And I Select "SCHEDULED BUNGIIS" from driver App menu
-    And I Select Trip from driver scheduled trip
-    Then I should be able to see "Customer Note" Text
-    And I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | 9999991020      |                 |
+      When I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select Trip from driver available trip
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      Then I should be able to see "Customer Note" Text
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999991020      |                 |
 
     @regression1
     Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
@@ -331,7 +331,7 @@
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
         | geofence | Bungii State | Bungii Time  |
         | goa  | Accepted     | 15 min ahead |
-      And As a driver "Testdrivertywd_applega_a Android_test" perform below action with respective "Solo Ondemand" trip
+      And As a driver "Testdriver_goa_a Android_test" perform below action with respective "Solo Ondemand" trip
         | driver1 state |
         | Bungii Completed      |
       When I Switch to "customer" application on "same" devices
@@ -340,12 +340,12 @@
       And I click on "Past" tab
       Then I verify the field "timezone"
 
-    @regression111
+    @regression11
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-OnDemand
       Given that ondemand bungii is in progress for customer "Testcustomertywd_appleand_A Android"
         | geofence | Bungii State |
         | goa      | Enroute      |
-      And As a driver "Testdrivertywd_applega_a Android_test" perform below action with respective "Solo Scheduled" trip
+      And As a driver "Testdriver_goa_a Android_test" perform below action with respective "Solo Scheduled" trip
         | driver1 state     |
         | Bungii Completed  |
       When I Switch to "customer" application on "same" devices
@@ -362,67 +362,67 @@
       And I tap on "Menu" > "My Bungiis" link
       Then "MY BUNGIIS" page should be opened
       And I click on "Past" tab
-      And I open the trip for "Testdrivertywd_applega_a Android_test" driver
+      And I open the trip for "Testdriver_goa_a Android_test" driver
       Then I verify the field "driver name"
       And I verify the field "pickup address"
       And I verify the field "dropoff address"
       And I verify the field "trip cost"
 
-      @regression1
-      Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Solo
-        Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa      | enroute     | NEXT_POSSIBLE |
-        And As a driver "Testdrivertywd_applega_a Android_test" perform below action with respective "Solo Scheduled" trip
-          | driver1 state     |
-          | Bungii Completed  |
-        When I Switch to "customer" application on "same" devices
-        And I select "4" Ratting star for duo "Driver 1"
-        And I give tip to Bungii Driver with following tip and Press "OK" Button
-          | Tip |
-          | 5   |
-        Then I Switch to "driver" application on "same" devices
-        And Bungii driver should see "correct details" on Bungii completed page
-        And I click "On To The Next One" button on "Bungii Completed" screen
-        When I Switch to "customer" application on "same" devices
-        And I tap on "OK on complete" on Bungii estimate
-        And I tap on "No free money" on Bungii estimate
-        And I tap on "Menu" > "My Bungiis" link
-        Then "MY BUNGIIS" page should be opened
-        And I click on "Past" tab
-        And I open the trip for "Testdrivertywd_applega_a Android_test" driver
-        Then I verify the field "driver name"
-        And I verify the field "pickup address"
-        And I verify the field "dropoff address"
-        And I verify the field "trip cost"
+    @regression1
+    Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Solo
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        | geofence | Bungii State | Bungii Time   |
+        | goa      | enroute     | NEXT_POSSIBLE |
+      And As a driver "Testdriver_goa_a Android_test" perform below action with respective "Solo Scheduled" trip
+        | driver1 state     |
+        | Bungii Completed  |
+      When I Switch to "customer" application on "same" devices
+      And I select "4" Ratting star for duo "Driver 1"
+      And I give tip to Bungii Driver with following tip and Press "OK" Button
+        | Tip |
+        | 5   |
+      Then I Switch to "driver" application on "same" devices
+      And Bungii driver should see "correct details" on Bungii completed page
+      And I click "On To The Next One" button on "Bungii Completed" screen
+      When I Switch to "customer" application on "same" devices
+      And I tap on "OK on complete" on Bungii estimate
+      And I tap on "No free money" on Bungii estimate
+      And I tap on "Menu" > "My Bungiis" link
+      Then "MY BUNGIIS" page should be opened
+      And I click on "Past" tab
+      And I open the trip for "Testdriver_goa_a Android_test" driver
+      Then I verify the field "driver name"
+      And I verify the field "pickup address"
+      And I verify the field "dropoff address"
+      And I verify the field "trip cost"
 
-      @regression1
-      Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Duo
-        Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
-          | geofence | Bungii State    | Bungii Time   | Customer        |
-          | goa      | unloading items | NEXT_POSSIBLE | Testcustomertywd_appleand_A Android |
-        And As a driver "Testdrivertywd_applega_a Android_test" and "Testdrivertywd_applega_b Android_test" perform below action with respective "Duo Scheduled" trip
-          | driver1 state     |driver2 state    |
-          | Bungii Completed  |Bungii Completed |
-        When I Switch to "customer" application on "same" devices
-        And I select "4" Ratting star for duo "Driver 1"
-        And I give tip to Bungii Driver with following tip and Press "OK" Button
-          | Tip |
-          | 5   |
-        Then I Switch to "driver" application on "same" devices
-        And Bungii driver should see "correct details" on Bungii completed page
-        And I click "On To The Next One" button on "Bungii Completed" screen
-        When I Switch to "customer" application on "same" devices
-        And I tap on "OK on complete" on Bungii estimate
-        And I tap on "No free money" on Bungii estimate
-        And I tap on "Menu" > "My Bungiis" link
-        Then "MY BUNGIIS" page should be opened
-        And I click on "Past" tab
-        And I open the trip for "Testdrivertywd_applega_a Android_test" driver
-        Then I verify the field "driver name"
-        And I verify the field "pickup address"
-        And I verify the field "dropoff address"
-        And I verify the field "trip cost"
+    @regression1
+    Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Duo
+      Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        | geofence | Bungii State    | Bungii Time   | Customer        |
+        | goa      | unloading items | NEXT_POSSIBLE | Testcustomertywd_appleand_A Android |
+      And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "Duo Scheduled" trip
+        | driver1 state     |driver2 state    |
+        | Bungii Completed  |Bungii Completed |
+      When I Switch to "customer" application on "same" devices
+      And I select "4" Ratting star for duo "Driver 1"
+      And I give tip to Bungii Driver with following tip and Press "OK" Button
+        | Tip |
+        | 5   |
+      Then I Switch to "driver" application on "same" devices
+      And Bungii driver should see "correct details" on Bungii completed page
+      And I click "On To The Next One" button on "Bungii Completed" screen
+      When I Switch to "customer" application on "same" devices
+      And I tap on "OK on complete" on Bungii estimate
+      And I tap on "No free money" on Bungii estimate
+      And I tap on "Menu" > "My Bungiis" link
+      Then "MY BUNGIIS" page should be opened
+      And I click on "Past" tab
+      And I open the trip for "Testdriver_goa_a Android_test" driver
+      Then I verify the field "driver name"
+      And I verify the field "pickup address"
+      And I verify the field "dropoff address"
+      And I verify the field "trip cost"
 
     @regression11
     Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status.
@@ -450,152 +450,152 @@
         | Customer Phone  | Customer2 Phone |
         | CUSTOMER1_PHONE |                 |
 
-      @regression11
-      Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
-        Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
-          | geofence | Bungii State | Bungii Time   |
-          | goa  | Scheduled    | NEXT_POSSIBLE |
-        When I open new "Chrome" browser for "ADMIN_PORTAL"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I open the trip for "Testcustomertywd_appleand_C Android" customer
-        And I Select "Edit Trip Details" option
-        And I assign driver for the "Duo" trip
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
-        When I switch to "ORIGINAL" instance
-        And I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_C Android" customer
-        And I tap on "Menu" > "MY BUNGIIS" link
-        And I select already scheduled bungii
-        Then I verify the "duo driver names"
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | CUSTOMER1_PHONE |                 |
+    @regression11
+    Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
+      Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
+        | geofence | Bungii State | Bungii Time   |
+        | goa  | Scheduled    | NEXT_POSSIBLE |
+      When I open new "Chrome" browser for "ADMIN_PORTAL"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I open the trip for "Testcustomertywd_appleand_C Android" customer
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "Duo" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_C Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "duo driver names"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
 
-        @regression11
-        Scenario:Verify that admin can assign a driver to a solo trip when it has been re-searched.
-          Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
-            | geofence | Bungii State | Bungii Time   |
-            | goa   | Accepted     | NEXT_POSSIBLE |
-          When I Switch to "driver" application on "same" devices
-          And I am on the LOG IN page on driver app
-          And I am logged in as "valid" driver
-          When I Switch to "customer" application on "same" devices
-          Then I wait for "2" mins
-          And I open new "Chrome" browser for "ADMIN"
-          And I navigate to admin portal
-          And I log in to admin portal
-          And I Select "Scheduled Trip" from admin sidebar
-          And I remove current driver and researches Bungii
-          And I Select "Edit Trip Details" option
-          And I assign driver for the "Solo" trip
-          And I click on "VERIFY" button
-          And the "Your changes are good to be saved." message is displayed
-          Then I click on "SAVE CHANGES" button
-          And the "Bungii Saved!" message is displayed
-          When I switch to "ORIGINAL" instance
-          And I Switch to "customer" application on "same" devices
-          And I am logged in as "Testcustomertywd_appleand_C Android" customer
-          And I tap on "Menu" > "MY BUNGIIS" link
-          And I select already scheduled bungii
-          Then I verify the "solo driver names"
-          And I cancel all bungiis of customer
-            | Customer Phone  | Customer2 Phone |
-            | CUSTOMER1_PHONE |                 |
+    @regression11
+    Scenario:Verify that admin can assign a driver to a solo trip when it has been re-searched.
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_D Android"
+        | geofence | Bungii State | Bungii Time   |
+        | goa   | Accepted     | NEXT_POSSIBLE |
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid" driver
+      When I Switch to "customer" application on "same" devices
+      Then I wait for "2" mins
+      And I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I remove current driver and researches Bungii
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "Solo" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_C Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "solo driver names"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
 
-      @regression11
-      Scenario: Verify admin can assign one (controlled) driver on duo trip when it has been re-searched.
-        When I request "duo" Bungii as a customer in "goa" geofence
-          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
-        And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
-          | driver1 state | driver2 state |
-          | Accepted      | Accepted      |
-        And I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I remove "control" driver and researches Bungii
-        And I Select "Edit Trip Details" option
-        And I assign driver for the "control" trip
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
-        When I switch to "ORIGINAL" instance
-        And I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_D Android" customer
-        And I tap on "Menu" > "MY BUNGIIS" link
-        And I select already scheduled bungii
-        Then I verify the "control driver name"
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | CUSTOMER1_PHONE |                 |
+    @regression11
+    Scenario: Verify admin can assign one (controlled) driver on duo trip when it has been re-searched.
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+      And I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I remove "control" driver and researches Bungii
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "control" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "control driver name"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
 
-      @regression11
-      Scenario: Verify if admin can assign one (non controlled) driver on duo trip when it has been re-searched.
-        When I request "duo" Bungii as a customer in "goa" geofence
-          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
-        And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
-          | driver1 state | driver2 state |
-          | Accepted      | Accepted      |
-        And I open new "Chrome" browser for "ADMIN"
-        And I navigate to admin portal
-        And I log in to admin portal
-        And I Select "Scheduled Trip" from admin sidebar
-        And I remove "noncontrol" driver and researches Bungii
-        And I Select "Edit Trip Details" option
-        And I assign driver for the "noncontrol" trip
-        And I click on "VERIFY" button
-        And the "Your changes are good to be saved." message is displayed
-        Then I click on "SAVE CHANGES" button
-        And the "Bungii Saved!" message is displayed
-        When I switch to "ORIGINAL" instance
-        And I Switch to "customer" application on "same" devices
-        And I am logged in as "Testcustomertywd_appleand_D Android" customer
-        And I tap on "Menu" > "MY BUNGIIS" link
-        And I select already scheduled bungii
-        Then I verify the "noncontrol driver name"
-        And I cancel all bungiis of customer
-          | Customer Phone  | Customer2 Phone |
-          | CUSTOMER1_PHONE |                 |
+    @regression11
+    Scenario: Verify if admin can assign one (non controlled) driver on duo trip when it has been re-searched.
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+      And I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I remove "noncontrol" driver and researches Bungii
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "noncontrol" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "noncontrol driver name"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
 
-        @regression11
-        Scenario: Verify if admin can assign both drivers on duo trip when it has been re-searched
-          When I request "duo" Bungii as a customer in "goa" geofence
-            | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-            | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
-          And As a driver "Testdrivertywd_applega_e Android_test" and "Testdrivertywd_applega_f Android_test" perform below action with respective "DUO SCHEDULED" trip
-            | driver1 state | driver2 state |
-            | Accepted      | Accepted      |
-          And I open new "Chrome" browser for "ADMIN"
-          And I navigate to admin portal
-          And I log in to admin portal
-          And I Select "Scheduled Trip" from admin sidebar
-          And I remove current driver and researches Bungii
-          And I Select "Edit Trip Details" option
-          And the " Adding a driver through this feature overrides driver assigning restrictions." message is displayed
-          And I assign driver for the "Duo" trip
-          And I click on "VERIFY" button
-          And the "Your changes are good to be saved." message is displayed
-          Then I click on "SAVE CHANGES" button
-          And the "Bungii Saved!" message is displayed
-          When I switch to "ORIGINAL" instance
-          And I Switch to "customer" application on "same" devices
-          And I am logged in as "Testcustomertywd_appleand_D Android" customer
-          And I tap on "Menu" > "MY BUNGIIS" link
-          And I select already scheduled bungii
-          Then I verify the "duo driver names"
-          And I cancel all bungiis of customer
-            | Customer Phone  | Customer2 Phone |
-            | CUSTOMER1_PHONE |                 |
+    @regression11
+    Scenario: Verify if admin can assign both drivers on duo trip when it has been re-searched
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And As a driver "Testdriver_goa_e Android_test" and "Testdriver_goa_f Android_test" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+      And I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I remove current driver and researches Bungii
+      And I Select "Edit Trip Details" option
+      And the " Adding a driver through this feature overrides driver assigning restrictions." message is displayed
+      And I assign driver for the "Duo" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "duo driver names"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
 
-    @regression111
+    @regression11
     Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal.
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
         | geofence | Bungii State | Bungii Time  |
@@ -605,3 +605,405 @@
       And I log in to admin portal
       And I Select "Scheduled Trip" from admin sidebar
       And I remove current driver
+
+    @regression11
+    Scenario: Verify if admin can update date/time for a solo trip for which no driver has accepted.
+      When I enter "goa location in pickup and dropoff fields long distance" on Bungii estimate
+      And I tap on "Get Estimate button" on Bungii estimate
+      And I add "1" photos to the Bungii
+      And I add loading/unloading time of "30 mins"
+      And I select Bungii Time as "NEW BUNGII TIME"
+      And I tap on "Request Bungii" on Bungii estimate
+      And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+      And I check if the customer is on success screen
+      Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+      And I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip" button
+      And I Select "Edit Trip Details" option
+      And I change the "trip time" to future time
+      And I click on "VERIFY" button
+      Then the "Your changes are good to be saved." message is displayed
+      And I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I Select "Research Driver" option
+      Then I verify that time change is saved
+
+    @regression11
+    Scenario: Verify if admin can update date/time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time.
+      Given that solo schedule bungii is in progress
+        | geofence | Bungii State | Bungii Time   |
+        | kansas   | Accepted     | NEXT_POSSIBLE |
+      And I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip" button
+      And I Select "Edit Trip Details" option
+      And I change the "trip time" to future time
+      And I click on "VERIFY" button
+      Then the "Your changes are good to be saved." message is displayed
+      And I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I Select "Research Driver" option
+      Then I verify that time change is saved
+
+    @regression11
+    Scenario: Verify that changing date/time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time.
+      When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999999999     | Testcustomertywd_appleRicha Test | Cci12345          |
+      And I save the Bungii Time
+      And that solo schedule bungii is in progress for customer "Testcustomertywd_appleRicha Test"
+      | geofence | Bungii State | Bungii Time    |
+      | kansas   | Scheduled     | 0.5 hour ahead |
+      And I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I change the "particular trip time" to future time
+      And I click on "VERIFY" button
+      Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+
+    @regression11
+    Scenario: Verify that changing date/time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time.
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleRicha Test"
+      | geofence | Bungii State | Bungii Time     |
+      | kansas   | Accepted     | 1.5 hour ahead  |
+      And I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I change the "particular trip time" to future time
+      And I click on "VERIFY" button
+      Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+
+    @regression11
+    Scenario: Verify that if admin can assign (controlled)driver on duo trip when non controlled driver has started the trip
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And As a driver "Testdriver_goa_a Android_test" and "Testdriver_goa_b Android_test" perform below action with respective "DUO SCHEDULED" trip
+        | driver1 state | driver2 state |
+        | Accepted      | Accepted      |
+        |               | Enroute       |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I remove "control" driver and researches Bungii
+      And I Select "Edit Trip Details" option
+      And I assign driver for the "control driver" trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I switch to "ORIGINAL" instance
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_D Android" customer
+      And I tap on "Menu" > "MY BUNGIIS" link
+      And I select already scheduled bungii
+      Then I verify the "solo driver names"
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | CUSTOMER1_PHONE |                 |
+
+    @regression11
+    Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at same time
+      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And I get TELET time of of the current trip
+      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+        | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+        | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I switch to "ORIGINAL" instance
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdriver_goa_a Android_test" driver
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      Then I should able to see "two" available trip
+
+    @regression111
+    Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at overlapping time
+      Given I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdriver_goa_a Android_test" driver
+      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And I get TELET time of of the current trip
+      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+        | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
+        | TELET OVERLAP  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I click on "Close" button
+      And I click on "Edit Trip2" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then I should able to see "two" scheduled trip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

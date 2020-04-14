@@ -27,7 +27,7 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement RadioBox_Cancel() {return findElement("//label[contains(@class,'customerCancel')]/span", LocatorType.XPath);}
 
-    public WebElement RadioBox_Research() {return findElement("//div[contains(@class,'driverCancel ')]/input", LocatorType.XPath); }
+    public WebElement RadioBox_Research() {return findElement("//label[contains(@class,'vertical-middle mb20 custom-input driverCancel')]/span", LocatorType.XPath); }
 
     public WebElement TextBox_CancelFee() {
         return findElement("txtCancellationFee", LocatorType.Id);
@@ -69,5 +69,13 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Button_SaveChanges(){return findElement("//button[@class='btn btn-primary ml15 saveTrip']", LocatorType.XPath);}
     public WebElement Text_SuccessMessage(){return findElement("//p[@id='success-message']/i[2]", LocatorType.XPath);}
     public WebElement Label_IconTextMessage(){return findElement("//div[@class='addDriver ml15 mt20']/small[@class='font-size-79percent']/em", LocatorType.XPath);}
+
+    public WebElement Label_ChangedScheduledTime(){return findElement("//p[contains(text(),'Schedule Time:')]/following-sibling::p", LocatorType.XPath);}
+    public WebElement Button_ClosePopUp(){return findElement("//button[@class='close']/span", LocatorType.XPath);}
+
+    public WebElement Text_BungiiTime(){return findElements("//android.widget.RelativeLayout/android.widget.TextView", LocatorType.XPath).get(2);}
+    public WebElement Text_ConflictMessageError() {return findElement("//p[@id='conflict-message']/strong/i[@id='verify-error']", LocatorType.XPath);}
+
+
 
 }

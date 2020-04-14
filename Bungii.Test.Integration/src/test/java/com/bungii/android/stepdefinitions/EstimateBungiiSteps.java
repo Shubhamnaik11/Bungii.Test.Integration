@@ -454,6 +454,21 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerC.phone.number"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerC.phone.name"));
                     break;
+                case "Testcustomertywd_appleand_D Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerD.phone.number"), PropertyUtility.getDataProperties("customerD.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerD.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerD.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_E Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerE.phone.number"), PropertyUtility.getDataProperties("customerE.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerE.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerE.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_F Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerF.phone.number"), PropertyUtility.getDataProperties("customerF.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerF.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerF.phone.name"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -948,6 +963,9 @@ public class EstimateBungiiSteps extends DriverBase {
             switch (arg0) {
                 case "next possible scheduled":
                 case "OLD BUNGII TIME":
+                    utility.selectBungiiTime();
+                    break;
+                case "NEW BUNGII TIME":
                     utility.selectBungiiTime();
                     break;
                 case "next possible scheduled for duo":

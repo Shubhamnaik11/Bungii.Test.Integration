@@ -583,9 +583,14 @@ public class ScheduledTripSteps extends DriverBase {
 		try{
 			switch (option){
 				case "Edit Trip Details":
-					scheduledTripsPage.RadioBox_EditTrip();
+					action.click(scheduledTripsPage.RadioBox_EditTrip());
 					break;
-
+				case "Research Driver":
+					action.click(scheduledTripsPage.RadioBox_Research());
+					break;
+				case "Cancel Trip":
+					action.click(scheduledTripsPage.RadioBox_Cancel());
+					break;
 				default:
 					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
 					break;
@@ -629,6 +634,34 @@ public class ScheduledTripSteps extends DriverBase {
 					driver2Name=scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
 					cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver2Name);
 					break;
+				case "control driver":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Testdriver_goa_a Android_test");
+					scheduledTripsPage.Select_TestDriver();
+					driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
+					break;
+				default:
+					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
+					break;
+			}
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	@And("^I assign driver \"([^\"]*)\" for the trip$")
+	public void i_assign_driver_something_for_the_trip(String driverName) throws Throwable {
+		try{
+			switch (driverName){
+				case "Testdriver_goa_a Android_test":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
+					scheduledTripsPage.Select_TestDriver().click();
+					String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
+					break;
+
 				default:
 					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
 					break;
@@ -689,6 +722,10 @@ public class ScheduledTripSteps extends DriverBase {
 					actualMessage=action.getText(scheduledTripsPage.Label_IconTextMessage());
 					break;
 
+				case "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time":
+					actualMessage=action.getText(scheduledTripsPage.Text_ConflictMessageError());
+					break;
+
 				default:
 					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
 					break;
@@ -705,4 +742,111 @@ public class ScheduledTripSteps extends DriverBase {
 					"Error performing step,Please check logs for more details", true);
 		}
 	}
+
+	@And("^I change the \"([^\"]*)\" to future time$")
+	public void i_change_the_something_to_future_time(String strArg1) throws Throwable {
+		try{
+		Thread.sleep(2000);
+		String currentTime=scheduledTripsPage.Time_EditTripDetailsTime().getAttribute("value");
+		switch (strArg1) {
+			case "trip time":
+				String newTime = GetNewScheduledTime(currentTime);
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				WebElement selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				action.click(selectTime);
+				break;
+
+			case "particular trip time":
+				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				action.click(selectTime);
+				break;
+		}
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+
+	@Then("^I verify that time change is saved$")
+	public void i_verify_that_time_change_is_saved() throws Throwable {
+		try{
+		Thread.sleep(1000);
+		action.click(scheduledTripsPage.Button_ClosePopUp());
+		SetupManager.getDriver().navigate().refresh();
+		scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
+		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
+		String actualTime=action.getText(scheduledTripsPage.Label_ChangedScheduledTime());
+
+		System.out.println("Expected Time: "+expectedTime);
+		System.out.println("Actual Time: "+actualTime);
+		if(actualTime.contains(expectedTime)){
+			testStepAssert.isTrue(true,"Expected time is displayed.", "Expected time is not displayed.");
+		}
+		else
+		{
+			testStepAssert.isFail("Expected time is not displayed.");
+		}
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	@Then("^I verify that time change is saved correctly$")
+	public void i_verify_that_time_change_is_saved_correctly() throws Throwable {
+		try{
+		Thread.sleep(1000);
+		String expectedTime=(String) cucumberContextManager.getScenarioContext("NEW_TIME");
+		String actualTime=action.getText(scheduledTripsPage.Text_BungiiTime());
+
+		System.out.println("Expected Time: "+expectedTime);
+		System.out.println("Actual Time: "+actualTime);
+		if(actualTime.contains(expectedTime)){
+			testStepAssert.isTrue(true,"Expected time is displayed.", "Expected time is not displayed.");
+		}
+		else
+		{
+			testStepAssert.isFail("Expected time is not displayed.");
+		}
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	@And("^I save the Bungii Time$")
+	public void i_save_the_bungii_time() throws Throwable {
+		try{
+		String time=(String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+		String saveTime= time.substring(8,13);
+		cucumberContextManager.setScenarioContext("OLD_BUNGII_TIME", saveTime);
+		}catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	public String GetNewScheduledTime(String currentTime){
+		String newTime=null,t2 = null;
+		String time=currentTime.substring(0,2);
+		int t=Integer.parseInt(time);
+		int t1=01;
+		t=t+t1;
+		if(t>0 && t<10){
+			t2="0"+t;
+		}
+		newTime=t2+currentTime.substring(2,8);
+
+		return newTime;
+	}
+
 }

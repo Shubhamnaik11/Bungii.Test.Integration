@@ -169,22 +169,22 @@ public class BungiiSteps extends DriverBase {
             case "Testdrivertywd_appledc_a_web Sundarn":
                 phone = PropertyUtility.getDataProperties("web.valid.driver20.phone");
                 break;
-            case "Testdrivertywd_applega_a Test":
+            case "Testdriver_goa_a Android_test":
                 phone = PropertyUtility.getDataProperties("driverA.phone.number");
                 break;
-            case "Testdrivertywd_applega_b Android":
+            case "Testdriver_goa_b Android_test":
                 phone = PropertyUtility.getDataProperties("driverB.phone.number");
                 break;
-            case "Testdrivertywd_applega_c Android_test":
+            case "Testdriver_goa_c Android_test":
                 phone = PropertyUtility.getDataProperties("driverC.phone.number");
                 break;
-            case "Testdrivertywd_applega_d Android_test":
+            case "Testdriver_goa_d Android_test":
                 phone = PropertyUtility.getDataProperties("driverD.phone.number");
                 break;
-            case "Testdrivertywd_applega_e Android_test":
+            case "Testdriver_goa_e Android_test":
                 phone = PropertyUtility.getDataProperties("driverE.phone.number");
                 break;
-            case "Testdrivertywd_applega_f Android_test":
+            case "Testdriver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
         }
@@ -551,10 +551,16 @@ public class BungiiSteps extends DriverBase {
             else
                 coreServices.recalculateEstimate(pickupRequest, (String) cucumberContextManager.getScenarioContext("ADDED_PROMOCODE_WALLETREF"), custAccessToken, customerLabel);
 
-            if (bungiiType.equalsIgnoreCase("Solo Ondemand"))
+            if (bungiiType.equalsIgnoreCase("Solo Ondemand")) {
                 coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
-            else {
-
+            }
+            else if(bungiiTime.equalsIgnoreCase("TELET SAME TIME")
+                     || bungiiTime.equalsIgnoreCase("TELET OVERLAP")){
+                String teletTime=(String)cucumberContextManager.getScenarioContext("TELET");
+                cucumberContextManager.setScenarioContext("TELET_TYPE",bungiiTime);
+                coreServices.customerConfirmationScheduledForTelet(pickupRequest, paymentMethod, custAccessToken, teletTime);
+            }
+            else{
                 int wait = coreServices.customerConfirmationScheduled(pickupRequest, paymentMethod, custAccessToken, customerLabel);
                 cucumberContextManager.setScenarioContext("MIN_WAIT_BUNGII_START", wait);
             }
@@ -641,7 +647,7 @@ public class BungiiSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
             String geofence = dataMap.get("geofence").trim();
-            String scheduleTime = dataMap.get("Bungii Time").trim();
+                String scheduleTime = dataMap.get("Bungii Time").trim();
             cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofence.toLowerCase());
 
             String state = dataMap.get("Bungii State").trim();
@@ -2117,6 +2123,16 @@ public class BungiiSteps extends DriverBase {
                 Details[3]=PropertyUtility.getDataProperties("driverF.phone.number");
                 Details[4]=PropertyUtility.getDataProperties("driverF.phone.password");
                 Details[5]=PropertyUtility.getDataProperties("driverF.phone.name");
+                break;
+
+            case "Testcustomertywd_appleRicha Test":
+                Details[0]=PropertyUtility.getDataProperties("Kansas.customer.phone");
+                Details[1]=PropertyUtility.getDataProperties("Kansas.customer.password");
+                Details[2]=PropertyUtility.getDataProperties("Kansas.customer.name");
+
+                Details[3]=PropertyUtility.getDataProperties("Kansas.driver.phone");
+                Details[4]=PropertyUtility.getDataProperties("Kansas.driver.password");
+                Details[5]=PropertyUtility.getDataProperties("Kansas.driver.name");
                 break;
 
             default:
