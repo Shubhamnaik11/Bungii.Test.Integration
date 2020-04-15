@@ -654,18 +654,11 @@ public class ScheduledTripSteps extends DriverBase {
 	@And("^I assign driver \"([^\"]*)\" for the trip$")
 	public void i_assign_driver_something_for_the_trip(String driverName) throws Throwable {
 		try{
-			switch (driverName){
-				case "Testdriver_goa_a Android_test":
-					scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
-					scheduledTripsPage.Select_TestDriver().click();
-					String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-					cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
-					break;
+			scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
+			scheduledTripsPage.Select_TestDriver().click();
+			String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
 
-				default:
-					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
-					break;
-			}
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);
 			error("Step  Should be successful",

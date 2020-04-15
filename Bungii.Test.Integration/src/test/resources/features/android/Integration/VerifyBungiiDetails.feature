@@ -1,5 +1,5 @@
     @android
-    #These feature will run in kansas geofence
+    #These feature will run in Goa geofence
     Feature: VerifyBungiiDetails
 
     Background:
@@ -636,7 +636,7 @@
     Scenario: Verify if admin can update date/time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time.
       Given that solo schedule bungii is in progress
         | geofence | Bungii State | Bungii Time   |
-        | kansas   | Accepted     | NEXT_POSSIBLE |
+        | goa   | Accepted     | NEXT_POSSIBLE |
       And I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal
@@ -654,13 +654,13 @@
 
     @regression11
     Scenario: Verify that changing date/time for a scheduled bungii for which the customer has a conflicting bungii during the newly selected time.
-      When I request "Solo Scheduled" Bungii as a customer in "kansas" geofence
+      When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
-        | NEXT_POSSIBLE | 9999999999     | Testcustomertywd_appleRicha Test | Cci12345          |
+        | NEXT_POSSIBLE | 9999999999     | Testcustomertywd_appleand_F Android | Cci12345          |
       And I save the Bungii Time
-      And that solo schedule bungii is in progress for customer "Testcustomertywd_appleRicha Test"
-      | geofence | Bungii State | Bungii Time    |
-      | kansas   | Scheduled     | 0.5 hour ahead |
+      And that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
+        | geofence | Bungii State | Bungii Time    |
+        | goa   | Scheduled     | 0.5 hour ahead |
       And I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal
@@ -671,12 +671,15 @@
       And I change the "particular trip time" to future time
       And I click on "VERIFY" button
       Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+      And I cancel all bungiis of customer
+        | Customer Phone | Customer2 Phone |
+        | 9999999999     |                 |
 
     @regression11
     Scenario: Verify that changing date/time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time.
-      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleRicha Test"
+      Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
       | geofence | Bungii State | Bungii Time     |
-      | kansas   | Accepted     | 1.5 hour ahead  |
+      | goa      | Accepted     | 1.5 hour ahead  |
       And I wait for "2" mins
       When I open new "Chrome" browser for "ADMIN"
       And I navigate to admin portal
@@ -687,6 +690,9 @@
       And I change the "particular trip time" to future time
       And I click on "VERIFY" button
       Then the "It looks like customer already has a Bungii scheduled at this time. Customer can have only one Bungii at a time" message is displayed
+      And I cancel all bungiis of customer
+        | Customer Phone | Customer2 Phone |
+        | 9999999999     |                 |
 
     @regression11
     Scenario: Verify that if admin can assign (controlled)driver on duo trip when non controlled driver has started the trip
@@ -718,9 +724,9 @@
       Then I verify the "solo driver names"
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
-        | CUSTOMER1_PHONE |                 |
+        | 9999990074 |                 |
 
-    @regression11
+    @regression111
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at same time
       When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
         | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -736,17 +742,29 @@
       And I Select "Scheduled Trip" from admin sidebar
       And I click on "Edit Trip1" button
       And I Select "Edit Trip Details" option
-      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+      When I click on "Close" button
+      And I click on "Edit Trip2" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
       And I click on "VERIFY" button
       And the "Your changes are good to be saved." message is displayed
       Then I click on "SAVE CHANGES" button
       And the "Bungii Saved!" message is displayed
 
       When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
       And I am logged in as "Testdriver_goa_a Android_test" driver
-      And I Select "AVAILABLE TRIPS" from driver App menu
-      Then I should able to see "two" available trip
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then I should able to see "two" scheduled trip
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999990074      | 9393939393      |
 
     @regression111
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at overlapping time
@@ -785,225 +803,272 @@
       And I Switch to "driver" application on "same" devices
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       Then I should able to see "two" scheduled trip
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999990074      | 9393939393      |
+
+    @regression1111
+    Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
+              to another scheduled trip at same time
+      Given I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdriver_goa_a Android_test" driver
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And I get TELET time of of the current trip
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+        | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I click on "Close" button
+      And I click on "Edit Trip2" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I assign driver "Testdriver_goa_c Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then I should able to see "two" scheduled trip
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999990074      | 9393939393      |
+
+    @regression1111
+    Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
+      Given I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdriver_goa_a Android_test" driver
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And I get TELET time of of the current trip
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+        | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I click on "Close" button
+      And I click on "Edit Trip2" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_c Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then I should able to see "two" scheduled trip
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999990074      | 9393939393      |
+
+    @regression1111
+    Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
+      Given I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "Testdriver_goa_a Android_test" driver
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+        | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+      And I get TELET time of of the current trip
+      When I request "duo" Bungii as a customer in "goa" geofence
+        | Bungii Time      | Customer Phone | Customer Name                       | Customer Password |
+        | TELET SAME TIME  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+      Then I wait for "2" mins
+      When I open new "Chrome" browser for "ADMIN"
+      And I navigate to admin portal
+      And I log in to admin portal
+      And I Select "Scheduled Trip" from admin sidebar
+      And I click on "Edit Trip1" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I click on "Close" button
+      And I click on "Edit Trip2" button
+      And I Select "Edit Trip Details" option
+      And I assign driver "Testdriver_goa_a Android_test" for the trip
+      And I assign driver "Testdriver_goa_b Android_test" for the trip
+      And I click on "VERIFY" button
+      And the "Your changes are good to be saved." message is displayed
+      Then I click on "SAVE CHANGES" button
+      And the "Bungii Saved!" message is displayed
+
+      When I switch to "ORIGINAL" instance
+      And I Switch to "driver" application on "same" devices
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      Then I should able to see "two" scheduled trip
+      And I cancel all bungiis of customer
+        | Customer Phone  | Customer2 Phone |
+        | 9999990074      | 9393939393      |
+
+      @regression1111
+      Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
+      to another scheduled trip at same time
+        Given I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_a Android_test" driver
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        And I get TELET time of of the current trip
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
+          | TELET OVERLAP  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I click on "Edit Trip1" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I click on "Close" button
+        And I click on "Edit Trip2" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I assign driver "Testdriver_goa_c Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I switch to "ORIGINAL" instance
+        And I Switch to "driver" application on "same" devices
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        Then I should able to see "two" scheduled trip
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9999990074      | 9393939393      |
+
+      @regression1111
+      Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
+        Given I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_a Android_test" driver
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        And I get TELET time of of the current trip
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
+          | TELET OVERLAP  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I click on "Edit Trip1" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I click on "Close" button
+        And I click on "Edit Trip2" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_c Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I switch to "ORIGINAL" instance
+        And I Switch to "driver" application on "same" devices
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        Then I should able to see "two" scheduled trip
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9999990074      | 9393939393      |
+
+      @regression1111
+      Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
+        Given I Switch to "driver" application on "same" devices
+        And I am on the LOG IN page on driver app
+        And I am logged in as "Testdriver_goa_a Android_test" driver
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
+          | NEXT_POSSIBLE | 9999990074     | Testcustomertywd_appleand_D Android | Cci12345          |
+        And I get TELET time of of the current trip
+        When I request "duo" Bungii as a customer in "goa" geofence
+          | Bungii Time    | Customer Phone | Customer Name                       | Customer Password |
+          | TELET OVERLAP  | 9393939393     | Testcustomertywd_appleand_A Android | Cci12345          |
+        Then I wait for "2" mins
+        When I open new "Chrome" browser for "ADMIN"
+        And I navigate to admin portal
+        And I log in to admin portal
+        And I Select "Scheduled Trip" from admin sidebar
+        And I click on "Edit Trip1" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I click on "Close" button
+        And I click on "Edit Trip2" button
+        And I Select "Edit Trip Details" option
+        And I assign driver "Testdriver_goa_a Android_test" for the trip
+        And I assign driver "Testdriver_goa_b Android_test" for the trip
+        And I click on "VERIFY" button
+        And the "Your changes are good to be saved." message is displayed
+        Then I click on "SAVE CHANGES" button
+        And the "Bungii Saved!" message is displayed
+
+        When I switch to "ORIGINAL" instance
+        And I Switch to "driver" application on "same" devices
+        And I Select "SCHEDULED BUNGIIS" from driver App menu
+        Then I should able to see "two" scheduled trip
+        And I cancel all bungiis of customer
+          | Customer Phone  | Customer2 Phone |
+          | 9999990074      | 9393939393      |
