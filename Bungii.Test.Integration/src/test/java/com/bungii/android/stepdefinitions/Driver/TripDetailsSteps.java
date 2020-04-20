@@ -67,13 +67,13 @@ public class TripDetailsSteps extends DriverBase {
         List<WebElement> listOfScheduledTrip = scheduledBungiiPage.List_ScheduledBungiis();
         switch (strArg1) {
             case "two":
-                testStepVerify.isTrue(listOfScheduledTrip.size() == 2, "There should be two scheduled trips");
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 2, "There should be two scheduled trips","There is/are "+listOfScheduledTrip.size()+" Scheduled trips");
                 break;
             case "one":
-                testStepVerify.isTrue(listOfScheduledTrip.size() == 1, "There should be one scheduled trip");
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 1, "There should be one scheduled trip", "There is/are "+listOfScheduledTrip.size()+" Scheduled trips");
                 break;
             case "zero":
-                testStepVerify.isTrue(listOfScheduledTrip.size() == 0, "There should be two scheduled trip");
+                testStepVerify.isTrue(listOfScheduledTrip.size() == 0, "There should be two scheduled trip", "There is/are "+listOfScheduledTrip.size()+" Scheduled trips");
                 break;
             default:
                 throw new Exception(" UNIMPLEMENTED STEP");

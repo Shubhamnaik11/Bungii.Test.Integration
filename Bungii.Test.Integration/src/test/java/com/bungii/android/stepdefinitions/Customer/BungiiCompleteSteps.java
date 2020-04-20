@@ -157,6 +157,11 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
+    @Then("^I verify that completed bungiis are displayed in \"([^\"]*)\"$")
+    public void i_verify_that_completed_bungiis_are_displayed_in_something(String option) throws Throwable {
+
+    }
+
     /**
      * Verify Static texts on Bungii Completed page
      */

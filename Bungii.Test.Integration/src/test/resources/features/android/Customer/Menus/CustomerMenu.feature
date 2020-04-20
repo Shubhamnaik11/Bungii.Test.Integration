@@ -56,11 +56,11 @@ Feature: CustomerMenu
     When I tap on "Menu" > "Promos" link
     Then "Promos" page should be opened
 
-    @regression1
-    Scenario: Verify My Bungiis Menu
-      When I tap on "Menu" > "My Bungiis" link
-      Then "MY BUNGIIS" page should be opened
-      And I click on "Scheduled" tab
-      And I should see "Scheduled info" message displayed
-      And I click on "Past" tab
-      And I should see "Past info" message displayed
+  @regression1
+  Scenario: Verify My Bungiis Menu
+    When I tap on "Menu" > "My Bungiis" link
+    Then "MY BUNGIIS" page should be opened
+    And I click on "Scheduled" tab
+    And I should see "Scheduled info" message displayed
+    And I click on "Past" tab
+    And I should see "Past info" message displayed

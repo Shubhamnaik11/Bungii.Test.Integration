@@ -651,6 +651,16 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(2000);
                     break;
 
+                case "far off Goa pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("goa.pickup.location.A"));
+                    Thread.sleep(2000);
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("goa.dropoff.location.A"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Goa");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

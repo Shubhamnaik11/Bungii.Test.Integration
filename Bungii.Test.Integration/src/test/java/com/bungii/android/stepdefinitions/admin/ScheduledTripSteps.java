@@ -719,6 +719,9 @@ public class ScheduledTripSteps extends DriverBase {
 					actualMessage=action.getText(scheduledTripsPage.Text_ConflictMessageError());
 					break;
 
+				case "Please check the date/time selected. You cannot select a past date/time.":
+					actualMessage=action.getText(scheduledTripsPage.Text_ConflictMessageError());
+                    break;
 				default:
 					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
 					break;
@@ -752,6 +755,23 @@ public class ScheduledTripSteps extends DriverBase {
 
 			case "particular trip time":
 				newTime = (String)cucumberContextManager.getScenarioContext("OLD_BUNGII_TIME");
+				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
+				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
+				selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
+				action.click(selectTime);
+				break;
+
+			case "trip time to past":
+				newTime = currentTime;
+				String t2 = null;
+				String time=newTime.substring(0,2);
+				int t=Integer.parseInt(time);
+				int t1=01;
+				t=t-t1;
+				if(t>0 && t<10){
+					t2="0"+t;
+				}
+				newTime=t2+newTime.substring(2,8);
 				cucumberContextManager.setScenarioContext("NEW_TIME", newTime);
 				action.click(scheduledTripsPage.Time_EditTripDetailsTime());
 				selectTime = SetupManager.getDriver().findElement(By.xpath("//li/a[@class='ui-corner-all'][contains(text(),'" + newTime + "')]"));
