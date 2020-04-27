@@ -56,7 +56,7 @@ Feature: CustomerMenu
     When I tap on "Menu" > "Promos" link
     Then "Promos" page should be opened
 
-  @regression1
+  @regression
   Scenario: Verify My Bungiis Menu
     When I tap on "Menu" > "My Bungiis" link
     Then "MY BUNGIIS" page should be opened
