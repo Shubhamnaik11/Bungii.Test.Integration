@@ -358,4 +358,26 @@ public class BungiiCompleteSteps extends DriverBase {
         testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Discount(), "$" + promoDiscountValue, "Discount value should be promo Value" + promoDiscountValue, "Discount value is " + promoDiscountValue, "Discount value is not " + promoDiscountValue);
     }
 
+    @Then("^I verify that the \"([^\"]*)\" trip is displayed$")
+    public void i_verify_that_the_something_trip_is_displayed(String tripType) throws Throwable {
+        try{
+        switch (tripType) {
+            case "completed solo":
+
+                break;
+
+            default:
+                error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+                break;
+        }
+        log(" I tap on " + tripType + " on Past bungiis",
+                "I  Selected " + tripType, true);
+
+        }
+        catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 }
