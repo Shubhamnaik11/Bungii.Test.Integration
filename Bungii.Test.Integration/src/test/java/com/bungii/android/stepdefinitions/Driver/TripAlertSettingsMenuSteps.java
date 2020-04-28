@@ -48,6 +48,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 case "Past":
+                    Thread.sleep(2000);
                     action.click(homePage.Tab_MyBungiisPast());
                     break;
 

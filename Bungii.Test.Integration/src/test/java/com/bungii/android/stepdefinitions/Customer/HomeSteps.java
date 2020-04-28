@@ -497,9 +497,9 @@ public class HomeSteps extends DriverBase {
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
-                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaA"));
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
                     Thread.sleep(2000);
-                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaA"));
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
                     break;
