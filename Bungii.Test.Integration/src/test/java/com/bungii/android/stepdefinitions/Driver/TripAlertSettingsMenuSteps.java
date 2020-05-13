@@ -136,6 +136,18 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     }
                     break;
 
+                case "No Note":
+                    noteText=action.getText(estimatePage.Text_DetailsNote());
+                    enteredNoteText=(String)cucumberContextManager.getScenarioContext("NOTE_TEXT");
+                    if(noteText.equals(enteredNoteText)){
+                        testStepAssert.isTrue(true, "The note text should match.", "The note text didn't match.");
+                    }
+                    else
+                    {
+                        testStepAssert.isFail("The note text didn't match.");
+                    }
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

@@ -181,10 +181,10 @@ public class BungiiSteps extends DriverBase {
             case "Testdriver_goa_d Android_test":
                 phone = PropertyUtility.getDataProperties("driverD.phone.number");
                 break;
-            case "Testdriver_goa_e Android_test":
+            case "Driver_goa_e Android_test":
                 phone = PropertyUtility.getDataProperties("driverE.phone.number");
                 break;
-            case "Testdriver_goa_f Android_test":
+            case "Driver_goa_f Android_test":
                 phone = PropertyUtility.getDataProperties("driverF.phone.number");
                 break;
         }
@@ -1168,13 +1168,13 @@ public class BungiiSteps extends DriverBase {
             String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
             //Richa
             String[] Details= getCustomerDriverDetails(customerName);
-                    custPhoneNum = Details[0];
-                    custPassword = Details[1];
-                    cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
+                custPhoneNum = Details[0];
+                custPassword = Details[1];
+                cucumberContextManager.setScenarioContext("CUSTOMER", customerName);
 
-                    driverPhoneNum = Details[3];
-                    driverPassword = Details[4];
-                    cucumberContextManager.setScenarioContext("DRIVER_1", Details[5]);
+                driverPhoneNum = Details[3];
+                driverPassword = Details[4];
+                cucumberContextManager.setScenarioContext("DRIVER_1", Details[5]);
 
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", custPhoneNum);
             cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", driverPhoneNum);

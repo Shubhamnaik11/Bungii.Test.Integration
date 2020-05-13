@@ -76,6 +76,6 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement Text_BungiiTime(){return findElements("//android.widget.RelativeLayout/android.widget.TextView", LocatorType.XPath).get(2);}
     public WebElement Text_ConflictMessageError() {return findElement("//p[@id='conflict-message']/strong/i[@id='verify-error']", LocatorType.XPath);}
 
-
-
+    public WebElement Text_ScheduledBungiiTime(){return findElement("//div[@class='tripDrivers row']/p[@class='col-sm-7 col-md-8 col-lg-9 lblScheduledTime']", LocatorType.XPath);}
+    public WebElement Text_DriverNames(){return findElement("//div[@id='tripDriverDetails']/div/span[1]", LocatorType.XPath);}
 }

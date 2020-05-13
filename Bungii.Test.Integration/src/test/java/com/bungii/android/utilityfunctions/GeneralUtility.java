@@ -1107,6 +1107,18 @@ public class GeneralUtility extends DriverBase {
         action.click(estimatePage.Button_TimeConfirm());
     }
 
+    public void selectBungiiTime(String hour, String minutes, String ampm) {
+        action.scrollToTop();
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiAMPM(), ampm);
+        action.click(estimatePage.Button_TimeConfirm());
+
+    }
+
     /**
      * Get geofence data from properties file
      *

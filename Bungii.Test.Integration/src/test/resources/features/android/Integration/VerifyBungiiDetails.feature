@@ -364,7 +364,7 @@
       And I Select Trip from driver available trip
       And I tap on "ACCEPT" on driver Trip details Page
       And I Select "SCHEDULED BUNGIIS" from driver App menu
-      And I Select Trip from driver scheduled trip
+      And I Select Trip from scheduled trip
       Then I start selected Bungii
       When I slide update button on "EN ROUTE" Screen
       And I slide update button on "ARRIVED" Screen

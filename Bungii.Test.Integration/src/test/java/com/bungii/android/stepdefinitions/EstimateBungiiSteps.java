@@ -341,6 +341,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     if(!previousCost.equals(estimatedCost))
                     testStepAssert.isTrue(true, "Cost is estimated for Bungii.", "Cost is not estimated for Bungii.");
                     break;
+                case "Correct Time Format":
+
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -994,6 +997,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "BUNGII TIME":
                     utility.selectNewBungiiTime();
+                    break;
+                case "MIDNIGHT BUNGII TIME":
+                    String h="00",m="30",ampm="am";
+                    utility.selectBungiiTime(h,m,ampm);
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
