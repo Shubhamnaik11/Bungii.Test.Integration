@@ -286,9 +286,66 @@ Feature: Admin_PartnerFirm
     Then The Trip List page should display the trip in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
+  @new11
+  Scenario: Verify that Point of interests are getting populated for the newer clusters
+    When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      |
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
+    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state     |
+      | Accepted         |
+      | Enroute          |
+      | Arrived           |
+      | Loading Item     |
+      | Driving To Dropoff|
+      | Unloading Item    |
+      | Bungii Completed  |
+    Then I wait for "2" mins
+    When I click on "Potential Partners > Assign Partner" Menu
+    And I select "Kansas" geofence
+    And I click on "APPLY" button
+    Then I verify that the point of interests fields are populated
+    When I get the count of "Pickup Trips"
+    And I click on "View Trips" hyperlink
+    Then I verify the field "Pickups in this Cluster"
+    And I cancel all bungiis of customer
+      | Customer Phone | Customer2 Phone |
+      | 9999992222     |                 |
 
+@new
+Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip.
+  When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
+    | Bungii Time   | Customer Phone | Customer Name |
+    | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
+  And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" trip
+    | driver1 state|
+    | Accepted  |
+  And I view the Scheduled Trips list on the admin portal
+  Then I should be able to see the respective bungii with the below status
+    |  Status |
+    | Scheduled |
+  When I click on "Edit Trip Details" radiobutton
+  And I assign driver "Testdrivertywd_appledc_a_web Sundarm" for the trip
+  And I click on "VERIFY" button
+  And the "Your changes are good to be saved." message is displayed
+  Then I click on "SAVE CHANGES" button
+  And the "Bungii Saved!" message is displayed
+  When I click on "Close" button
+  And I refresh the page
+  Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
 
-
-
-
-
+  @new
+  Scenario: Verify that Admin does not get "Customer has ongoing trip " alert when he edits an already edited schedule bungii
+    When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
+      | Bungii Time   | Customer Phone | Customer Name                      |
+      | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
+    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" trip
+      | driver1 state     |
+      | Accepted         |
+      | Enroute          |
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii with the below status
+      |  Status |
+      | Scheduled |
+    When I click on "Edit Trip Details" radiobutton
+    Then I should not get alert as "Customer has ongoing trip"

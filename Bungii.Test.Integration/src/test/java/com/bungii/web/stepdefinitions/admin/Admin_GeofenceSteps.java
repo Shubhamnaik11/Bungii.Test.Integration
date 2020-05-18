@@ -36,7 +36,8 @@ public class Admin_GeofenceSteps extends DriverBase {
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_LiveTripsPage admin_LiveTripsPage = new Admin_LiveTripsPage();
     Admin_PartnersPage admin_PartnersPage = new Admin_PartnersPage();
-
+    Admin_GeofencePage admin_geofencePage=new Admin_GeofencePage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
 
@@ -209,10 +210,28 @@ public class Admin_GeofenceSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
 
+    @And("^I select \"([^\"]*)\" geofence$")
+    public void i_select_something_geofence(String geofenceName) throws Throwable {
+        try{
+            switch (geofenceName) {
+                case "Kansas":
+                   // action.click(admin_potentialPartnersPage.Dropdown_Geofence());
+                    action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(),"Kansas");
+                    break;
 
+                case "Goa":
+                   // action.click(admin_potentialPartnersPage.Dropdown_Geofence());
+                    action.selectElementByText(admin_potentialPartnersPage.Dropdown_Geofence(), "Goa");
+                    break;
 
-
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
     }
 
     @Then("^I should see active zone in the dropdown on the \"([^\"]*)\" page$")
