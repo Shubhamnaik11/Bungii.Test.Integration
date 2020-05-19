@@ -330,15 +330,17 @@ public class HomeSteps extends DriverBase {
             switch (toDoAction.toUpperCase()) {
                 case "DROP":
                     action.click(homePage.Button_Locator());
-                    action.click(homePage.Button_Locator());
+                    //Commented because of SPRINT-33 changes
+                    //action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
                     break;
                 case "PICK UP":
                     action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_Locator());
+                    //Commented because of SPRINT-33 changes
+                    //Thread.sleep(3000);
+                    //action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
