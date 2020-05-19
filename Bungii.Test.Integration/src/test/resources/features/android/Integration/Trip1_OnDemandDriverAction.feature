@@ -4,7 +4,7 @@ Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
 
-  @regression1
+  @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer

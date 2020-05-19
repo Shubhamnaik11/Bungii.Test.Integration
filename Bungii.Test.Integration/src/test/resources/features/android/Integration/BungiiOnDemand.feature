@@ -762,8 +762,8 @@ Feature: On Demand Bungii
   @regression
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | baltimore | UNLOADING ITEM      |
+      | geofence  | Bungii State   |
+      | baltimore | UNLOADING ITEM |
 
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid baltimore" customer
