@@ -48,10 +48,10 @@ public class BungiiCompletedSteps extends DriverBase {
      */
     public void verifyBungiiCompletedPage(){
         testStepVerify.isElementEnabled(bungiiCompletePage.Title_Status(),"'Bungii Completed' Navigation bar message should be displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalDistanceLabel(),"Total Distance label should be displayed on Summary page");
+       // testStepVerify.isElementEnabled(bungiiCompletePage.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
+        //testStepVerify.isElementEnabled(bungiiCompletePage.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
+     //   testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
+      //  testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalDistanceLabel(),"Total Distance label should be displayed on Summary page");
         testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalEarningsLabel(),"Total Earning label should be displayed on Summary page");
     }
 
