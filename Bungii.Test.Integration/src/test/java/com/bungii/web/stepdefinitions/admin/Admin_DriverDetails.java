@@ -69,7 +69,7 @@ public class Admin_DriverDetails extends DriverBase{
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
+                if (timezone=="CST")
                 inputdate.setHours(inputdate.getHours()+1);
             }
 
@@ -121,7 +121,7 @@ public class Admin_DriverDetails extends DriverBase{
             inputdate.setYear(new Date().getYear());
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
+                if (timezone=="CST")
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
