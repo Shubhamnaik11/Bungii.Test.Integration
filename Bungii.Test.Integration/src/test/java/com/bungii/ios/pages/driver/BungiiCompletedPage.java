@@ -4,7 +4,7 @@ import com.bungii.common.core.PageBase;
 import org.openqa.selenium.WebElement;
 
 public class BungiiCompletedPage extends PageBase {
-	public WebElement Button_NextTrip() {return findElement("On To The Next One", PageBase.LocatorType.AccessibilityId); }
+	public WebElement Button_NextTrip() {return findElement("NEXT BUNGII", PageBase.LocatorType.AccessibilityId); }
 
 	public WebElement Text_NavigationBar() { return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeOther", PageBase.LocatorType.XPath); }
 
