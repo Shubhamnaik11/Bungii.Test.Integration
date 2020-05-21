@@ -68,10 +68,13 @@ public class BungiiCompletedSteps extends DriverBase {
 
         String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
-
+        String totalEarning =action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
+/*
         String tripTime =utility.getActualTime();
 
-        String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime()),totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance()),toatlEarning=action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
+        String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime());
+         String totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance());
+
 
         int intTotalTime=Integer.parseInt(tripTime);
         if(intTotalTime==1)
@@ -80,7 +83,8 @@ public class BungiiCompletedSteps extends DriverBase {
             testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  mins")||totalTime.trim().contains(tripTime+" mins"),"Total time should contains "+tripTime+"minute");
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should contains"+tripDistance+" miles");
      //   testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning should contains $"+truncValue);
-        testStepVerify.isTrue(toatlEarning.contains("$")&& (Double.parseDouble(toatlEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);
+     */
+        testStepVerify.isTrue(totalEarning.contains("$")&& (Double.parseDouble(totalEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);
 
 
     }
