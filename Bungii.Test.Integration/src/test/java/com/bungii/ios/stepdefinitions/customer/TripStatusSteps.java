@@ -56,17 +56,17 @@ public class TripStatusSteps extends DriverBase {
             for(int i=0;i<statusCheck.length;i++){
                 if(activeStatus==i){
                     Thread.sleep(5000);
-                    testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + "screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
+                    testStepVerify.isTrue(statusCheck[i],"I should be navigated to " + screen + " screen", screen + " screen icon is highlighted",screen + " screen icon is not highlighted");
                 }else {
                     int screenNo=i+1;
                     if(statusCheck[i])
-                        testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + "screen","Pickup status "+screenNo+" screen should not be highlighted",screenNo+" status should is highlighted");
+                        testStepVerify.isFalse(statusCheck[i],"I should be navigated to " + screen + " screen","Pickup status "+screenNo+" screen should not be highlighted",screenNo+" status should is highlighted");
                     else
                         log("Pickup status "+screenNo+" screen should not be highlighted",screenNo+" status should is not highlighted",false);
                 }
 
             }
-            testStepVerify.isTrue(pageFlag ,"I should be navigated to " + screen + "screen", "I was not navigated to" + screen);
+            testStepVerify.isTrue(pageFlag ,"I should be navigated to " + screen + " screen", "I didnt navigate to " + screen);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);

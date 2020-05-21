@@ -3,7 +3,7 @@
 Feature: Create on demand bungii
   @FAILED2702
   @regression
-  Scenario:Manually end Bungii option should only be available in the last 3 states and Not in the first two.
+  Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
@@ -58,7 +58,7 @@ Feature: Create on demand bungii
 
   @sanity
   @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. verify pickup status highlight
+  Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user
@@ -130,7 +130,7 @@ Feature: Create on demand bungii
     Then I should be navigated to "Home" screen
 
   @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify SMS/Call/View Item
+  Scenario: Verify SMS Call View Item Details For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
@@ -216,8 +216,9 @@ Feature: Create on demand bungii
     And I Select "Logout" from driver App menu
 
 
+    @failed
   @regression
-  Scenario: I Create and Complete on demand bungii when driver and customer are login in same device. Verify Trip information/Bungii completed page
+  Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | Enroute      |
@@ -280,11 +281,9 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-  @FAILED2702
-  @FAILED0203_02
-
+  @failed
   @regression
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
+  Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
     And I Switch to "driver" application on "same" devices
@@ -303,7 +302,7 @@ Feature: Create on demand bungii
     And I add "<Promo Code>" PromoCode
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+   # When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -356,7 +355,7 @@ Feature: Create on demand bungii
   @FAILED0203_02
 
   @regression
-  Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. PROMOTER_TYPE_PROMO
+  Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
     And I Switch to "driver" application on "same" devices
@@ -375,7 +374,7 @@ Feature: Create on demand bungii
     And I add "<Promo Code>" PromoCode
     And I click "ADD" button on "PROMOS" screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -426,7 +425,8 @@ Feature: Create on demand bungii
       | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | valid nashville | correct details with delivery promo | promoter |
 
   @regression
-  Scenario: Check if Driver rating is correctly shown on customer app when Bungii is in progress
+    @failed
+  Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | nashville | UNLOADING ITEM |
@@ -444,7 +444,7 @@ Feature: Create on demand bungii
   @FAILED2702
 
   @regression
-  Scenario:on demand with fb share
+  Scenario: Verify Requesting An Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
       | nashville | UNLOADING ITEM |
@@ -476,7 +476,7 @@ Feature: Create on demand bungii
     And I tap "Promo code" on Estimate screen
     And I should be navigated to "PROMOS" screen
     Then I should able to see facebook promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -518,7 +518,7 @@ Feature: Create on demand bungii
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
-  Scenario Outline:Referral code signup
+  Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid nashville" user
@@ -558,7 +558,7 @@ Feature: Create on demand bungii
   @FAILED2702
 
   @regression
-  Scenario:on demand with referral code
+  Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -576,7 +576,7 @@ Feature: Create on demand bungii
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
     Then I should able to see expected promo code in available promo code
-    When I tap "Back" on Promos screen
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -614,7 +614,8 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
   @regression
-  Scenario:on demand with referred code promo received
+    @failed
+  Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -631,9 +632,9 @@ Feature: Create on demand bungii
     Then I should be navigated to "Estimate" screen
     When I select load time as "15" mins
     And I tap "Promo code" on Estimate screen
-    Then I should able to see expected promo code in available promo code
     Then I should see "referral code received with out first time tag" on Promos page
-    When I tap "Back" on Promos screen
+    Then I should able to see expected promo code in available promo code
+    #When I tap "Back" on Promos screen
     And I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
       |          |           |              | Now  | Default     |
@@ -669,9 +670,9 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @FAILED2702
+  @failed
   @regression
-  Scenario: Check if customer is allowed to rate driver for solo trip
+  Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |
@@ -692,9 +693,9 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer
 
-
   @regression
-  Scenario:DRIVER Notification - Tip
+    @failed
+  Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
       | nashville | UNLOADING ITEM      |

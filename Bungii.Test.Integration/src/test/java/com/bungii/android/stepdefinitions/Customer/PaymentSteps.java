@@ -276,8 +276,10 @@ public class PaymentSteps extends DriverBase {
                     SetupManager.getDriver().navigate().back();
                     break;
                 case "valid cvv":
+                    action.click(paymentPage.Text_Cvv());
                     Thread.sleep(2000);
                     action.sendKeys(paymentPage.Text_Cvv(),PropertyUtility.getDataProperties("valid.card.cvv"));
+                    Thread.sleep(2000);
                     break;
                 case "valid postal code":
                     action.sendKeys(paymentPage.Text_PostalCode(),PropertyUtility.getDataProperties("valid.card.postal.code"));

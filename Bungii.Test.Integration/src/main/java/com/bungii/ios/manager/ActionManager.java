@@ -1,6 +1,7 @@
 package com.bungii.ios.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -9,6 +10,7 @@ import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.*;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import static com.bungii.common.manager.ResultManager.error;
 import static io.appium.java_client.touch.offset.PointOption.point;
 
 public class ActionManager {
@@ -33,7 +36,10 @@ public class ActionManager {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
 
     }
-
+    private String getElementDetails(WebElement element)
+    {
+        return element.toString().split("->")[1].replaceFirst("(?s)(.*)\\]", "$1" + "");
+    }
     public static void waitUntilIsElementExistsAndDisplayed(WebElement element) {
         try {
             IOSDriver<MobileElement> driver = (IOSDriver<MobileElement>) SetupManager.getDriver();
@@ -49,8 +55,16 @@ public class ActionManager {
      * @param text    , Text value that is to be sent
      */
     public void sendKeys(WebElement element, String text) {
-        element.sendKeys(text);
-        logger.detail("Send  " + text + " in element" + element.toString());
+        try {
+            element.sendKeys(text);
+            logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+        }
+         catch(Exception ex)
+        {
+            logger.error("Error performing step | Send  " + text + " in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Send  " + text + " in element -> " + getElementDetails(element), "Unable to send " + text + " in element -> " + getElementDetails(element),
+                    true);
+        }
     }
 
     /**
@@ -61,36 +75,66 @@ public class ActionManager {
             Thread.sleep(1000);
             SetupManager.getDriver().switchTo().alert();
             String alertMessage = SetupManager.getDriver().switchTo().alert().getText();
-            logger.detail("Alert is present :" + alertMessage);
+            logger.detail("Alert is present : " + alertMessage);
 
             if (alertMessage.contains("no such alert"))
                 return false;
             else
                 return true;
         } catch (NoAlertPresentException | InterruptedException Ex) {
-            logger.detail("Alert is not present");
+           // logger.detail("Alert is not present");
             return false;
         } catch (Exception ex) {
-            logger.error("Error occured " + ex);
+            logger.error("Error performing step | Error switching to Alert due to " + ex);
             return false;
         }
     }
 
     public String getValueAttribute(WebElement element) {
-        String value = element.getAttribute("value");
-        logger.detail("'value' attribute for " + element.toString() + " is " + value);
+        String value = "";
+        try {
+            value = element.getAttribute("value");
+            logger.detail("'value' attribute for element -> " + getElementDetails(element) + " is " + value);
+
+        }
+           catch(Exception ex)
+        {
+            logger.error("Error in getting value for element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Get value for element by locator -> " + getElementDetails(element), "Unable to get value for element by locator -> " + getElementDetails(element),
+                    true);
+        }
         return value;
     }
 
     public String getNameAttribute(WebElement element) {
-        String value = element.getAttribute("name");
-        logger.detail("'name' attribute for " + element.toString() + " is " + value);
+        String value = "";
+        try {
+            value = element.getAttribute("name");
+
+        logger.detail("'name' attribute for element -> " + getElementDetails(element) + " is " + value);
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error in getting name for element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Get name for element by locator -> " + getElementDetails(element), "Unable to get name for element by locator -> " + getElementDetails(element),
+                    true);
+        }
         return value;
+
     }
 
     public void click(WebElement element) {
+        try{
         element.click();
-        logger.detail("Click on locator by element" + element.toString());
+        logger.detail("Click on element by locator -> " + getElementDetails(element));
+
+    }
+         catch(Exception ex)
+    {
+        logger.error("Error Clicking on element by locator -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+        error("Click on element by locator -> " + getElementDetails(element), "Unable to click on element -> " + getElementDetails(element),
+                true);
+    }
     }
 
     public void tapByElement(WebElement element) {
@@ -112,13 +156,47 @@ public class ActionManager {
         int hight = elementSize.getHeight();
         Point p = new Point(leftX + (width / 2), upperY + (hight / 2));
         click(p);
-        logger.detail("Click on locator by element" + element.toString() + p);
+        logger.detail("Click on locator by element -> " + getElementDetails(element) + p);
     }
 
     public void waitForAlert() {
-        (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
+        try {
+
+            (new WebDriverWait(SetupManager.getDriver(), 60)).until(ExpectedConditions.alertIsPresent());
+        } catch (Exception ex) {
+            logger.error("Alert is not displayed");
+            error("Alert should be displayed", "Alert is not displayed",
+                    true);
+
+        }
+    }
+    public WebElement getElementByXPath(String Locator) {
+        return new PageBase().findElement(Locator, PageBase.LocatorType.XPath);
     }
 
+    public String getText(WebElement element) {
+        try {
+            Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
+            Thread.sleep(3000);
+            String text = element.getText();
+            logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
+
+            return text;
+        }
+        catch(StaleElementReferenceException ex)
+        {
+            String text = element.getText();
+            logger.detail("Text value is  " + text + " for element -> " + getElementDetails(element));
+            return text;
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+            error("Step should be successful", "Unable to get text from element -> " + getElementDetails(element) ,
+                    true);
+            return null;
+        }
+    }
     /**
      * Swipe up on current mobile screen IOS SPECIFIC
      */
@@ -131,7 +209,7 @@ public class ActionManager {
             js.executeScript("mobile: swipe", params);
 
         } catch (Exception ex) {
-            logger.error("Error occured " + ex.getMessage());
+            logger.error("Error performing step | Error swiping up due to " + ex);
 
         }
     }
@@ -148,7 +226,7 @@ public class ActionManager {
             params.put("direction", "down");
             js.executeScript("mobile: swipe", params);
         } catch (Exception ex) {
-            logger.error("Error occured " + ex.getMessage());
+            logger.error("Error performing step | Error swiping down due to " + ex);
 
         }
     }
@@ -232,7 +310,7 @@ public class ActionManager {
      * @param element  Reference element for all the coordinate
      */
     public void dragFromToForDuration(int startx, int starty, int endx, int endy, int duration, WebElement element) {
-        logger.detail("Slide started");
+        logger.detail("Slide started for element -> "+ getElementDetails(element));
 
         JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
         Map<String, Object> params = new HashMap<>();
@@ -243,7 +321,7 @@ public class ActionManager {
         params.put("toY", endy);
         params.put("element", ((RemoteWebElement) element).getId());
         js.executeScript("mobile: dragFromToForDuration", params);
-        logger.detail("Slide ended");
+        logger.detail("Slide ended for element -> "+ getElementDetails(element));
     }
 
     /**
@@ -284,7 +362,7 @@ public class ActionManager {
 
             Thread.sleep(200);*/
 
-            logger.detail(" Hidded Key board");
+            logger.detail("***Keyboard Hidden***");
 
         } catch (Exception e) {
             //  e.printStackTrace();
@@ -300,7 +378,7 @@ public class ActionManager {
             IOSElement element = (IOSElement) ((AppiumDriver) SetupManager.getDriver())
                     .findElementByName("Next:");
             click(element);
-            logger.detail(" Next Field Key board");
+            logger.detail("Click on Next Field On Keyboard");
 
         } catch (Exception e) {
             //  e.printStackTrace();
@@ -355,9 +433,21 @@ public class ActionManager {
     public void clearEnterText(WebElement element, String inputText) {
         try {
             element.clear();
-        }catch (Exception e){}
-        try {element.sendKeys(inputText);}catch (Exception e){    element.clear();element.sendKeys(inputText); }
-        logger.detail("Entered Text " + inputText + " in " + element.toString() + "after clearing the field");
+        }catch (Exception e)
+        {
+
+        }
+        try {
+            element.sendKeys(inputText);
+            logger.detail("Entered Text " + inputText + " in element ->" + getElementDetails(element) + " after clearing the field");
+        }
+            catch (Exception e){
+             //Retry
+            element.clear();
+            element.sendKeys(inputText);
+            logger.detail("Entered Text " + inputText + " in element ->" + getElementDetails(element) + " after clearing the field");
+        }
+
 
     }
 
@@ -374,7 +464,7 @@ public class ActionManager {
 
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
-            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+            logger.detail("** Intentional Waiting With Swipe Up | waiting for " + i + " minutes***");
             Thread.sleep(30000);
             swipeDown();
             Thread.sleep(30000);
@@ -426,7 +516,7 @@ public class ActionManager {
         try {
             wait.until(ExpectedConditions.attributeToBe(element, "name", text));
         } catch (Exception e) {
-            logger.detail("Wait failed");
+            logger.detail("Waiting For element name to be "+text+" has failed");
         }
     }
 
@@ -575,9 +665,19 @@ public class ActionManager {
         }
     }
 
-    public static void selectElementByText(WebElement element, String text)
+    public void selectElementByText(WebElement element, String text)
     {
-        new Select(element).selectByVisibleText(text);
+        try{
+            new Select(element).selectByVisibleText(text);
+            logger.detail("Select "+text+" in element -> " + getElementDetails(element));
+
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step | Select "+text+" in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Select "+text+" in element -> " + getElementDetails(element), "Unable to Select "+text +" in element -> " + getElementDetails(element),
+                    true);
+        }
     }
 
 }

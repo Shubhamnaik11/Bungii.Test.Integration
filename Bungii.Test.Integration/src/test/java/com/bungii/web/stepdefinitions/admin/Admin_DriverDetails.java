@@ -18,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -65,6 +66,13 @@ public class Admin_DriverDetails extends DriverBase{
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
+            ZoneId zoneId = TimeZone.getDefault().toZoneId();
+            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            {
+                if (timezone=="EST" || timezone=="CST")
+                inputdate.setHours(inputdate.getHours()+1);
+            }
+
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
             XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
         }
@@ -78,7 +86,7 @@ public class Admin_DriverDetails extends DriverBase{
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
 
         }
 
@@ -111,6 +119,11 @@ public class Admin_DriverDetails extends DriverBase{
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
+            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            {
+                if (timezone=="EST" || timezone=="CST")
+                    inputdate.setHours(inputdate.getHours()+1);
+            }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
             XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
         }
@@ -124,7 +137,7 @@ public class Admin_DriverDetails extends DriverBase{
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
-            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+            XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
 
         }
 

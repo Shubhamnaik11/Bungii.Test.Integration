@@ -48,7 +48,7 @@ public class CucumberHooks {
     }
 
     protected WebDriver driver;
-    private ReportManager reportManager;
+    public ReportManager reportManager;
     private boolean isTestcaseFailed = false;
 
     public CucumberHooks() {
@@ -62,6 +62,11 @@ public class CucumberHooks {
      */
     public synchronized void start(String resultFolder) {
 //ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
+        try {
+            this.reportManager.startSuiteFile(resultFolder);
+        } catch (Exception e) {
+            logger.error("Unable to start report com.bungii.android.manager");
+        }
 
         try {
             //adding ternary operator in logger is creating issue
@@ -74,11 +79,7 @@ public class CucumberHooks {
             e.printStackTrace();
         }
 
-        try {
-            this.reportManager.startSuiteFile(resultFolder);
-        } catch (Exception e) {
-            logger.error("Unable to start report com.bungii.android.manager");
-        }
+
     }
 
 
@@ -89,9 +90,9 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
-        try {
+       // try {
             //  if (SystemUtils.IS_OS_MAC) {
-            if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+           /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
                 //commented code to remove webdriver agent
                 String deviceInfoFileKey = "ios.capabilities.file";
                 String deviceId = System.getProperty("DEVICE");
@@ -108,11 +109,13 @@ public class CucumberHooks {
 
 
          //       Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
+
             }
         } catch (Exception e) {
             // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
 
         }
+        */
         logger.detail("**********************************************************************************");
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
@@ -166,30 +169,34 @@ public class CucumberHooks {
             SetupManager.getObject().useDriverInstance("ORIGINAL");
 
             this.reportManager.endTestCase(scenario.isFailed());
+            if (!scenario.isFailed() || !this.reportManager.isVerificationFailed())
+            {
+                logger.detail(" PASSING TEST SCENARIO : " + scenario.getName());
+            }
             if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
-                    logger.detail(" PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
                     logger.detail(" FAILED TEST SCENARIO : " + scenario.getName());
+                    logger.detail(" PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
 
                 } catch (Exception e) {
                 }
 
                 if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
+                    new GeneralUtility().hideNotifications();
                     new BungiiSteps().recoveryScenario();
                     new GeneralUtility().recoverScenario();
                 } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID")) {
+                    new GeneralUtility().hideNotifications();
                     new BungiiSteps().recoveryScenario();
                     new com.bungii.android.utilityfunctions.GeneralUtility().recoverScenario();
                     SetupManager.getObject().useDriverInstance("ORIGINAL");
-
                 }
                 isTestcaseFailed = true;
             } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
                 SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
-
                 SetupManager.getObject().restartApp();
                 try {
                     Thread.sleep(5000);
@@ -255,4 +262,5 @@ public class CucumberHooks {
                     PropertyUtility.getDataProperties("kansas.customer1.name"), PropertyUtility.getDataProperties("kansas.customer1.password"), "DUO_SCH_DONOT_ACCEPT");
         }
     }
+
 }

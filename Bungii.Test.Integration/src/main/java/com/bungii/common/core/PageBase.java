@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.manager.CucumberContextManager;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.PropertyUtility;
+import com.bungii.common.utilities.ThreadLocalStepDefinitionMatch;
 import io.appium.java_client.MobileBy;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
@@ -198,12 +199,14 @@ public class PageBase extends DriverBase {
                       //  error("Element with Locator : "+identifier+" by type : "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
                                // true);
                         cucumberContextManager.setScenarioContext("ERROR","Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] is not displayed. Please refer error logs for more details.");
+                        cucumberContextManager.setScenarioContext("STEP",ThreadLocalStepDefinitionMatch.get());
                         throw new NoSuchElementException(identifier);
                     }
                 } else {
                   //  error("Element with Locator : "+identifier+" by type : "+locatorType+" should be displayed", "Locator "+identifier+" by type "+locatorType+" is not displayed. Please find screenshot for more details.",
                          //   true);
                     cucumberContextManager.setScenarioContext("ERROR","Element with [Locator : "+identifier+" ] by type [ "+locatorType+" ] is not displayed. Please refer error logs for more details.");
+                    cucumberContextManager.setScenarioContext("STEP",ThreadLocalStepDefinitionMatch.get());
                     throw new NoSuchElementException(identifier);
                 }
             }  finally {

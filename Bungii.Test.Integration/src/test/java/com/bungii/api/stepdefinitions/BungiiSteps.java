@@ -28,6 +28,7 @@ public class BungiiSteps extends DriverBase {
     PaymentServices paymentServices = new PaymentServices();
     DriverServices driverServices = new DriverServices();
     CustomerServices customerServices = new CustomerServices();
+    com.bungii.android.utilityfunctions.GeneralUtility utility=new com.bungii.android.utilityfunctions.GeneralUtility();
     DbUtility dbUtility = new DbUtility();
 
     public void givenIamOnSearchingpage() {
@@ -56,7 +57,7 @@ public class BungiiSteps extends DriverBase {
         coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
     }
 
-    public String getDriverPhone(String driverName) {
+    public static String getDriverPhone(String driverName) {
         String phone = null;
         switch (driverName) {
             case "Testdrivertywd_appledc_a_web TestdriverA":
@@ -908,6 +909,7 @@ public class BungiiSteps extends DriverBase {
 
     }
 
+
     @When("^I request below Bungiis as a customer$")
     public void i_request_below_bungiis_as_a_customer(DataTable data) {
         List<Map<String, String>> DataList = data.asMaps();
@@ -1121,7 +1123,7 @@ public class BungiiSteps extends DriverBase {
 
                 coreServices.rateAndTip(pickupRequest, custAccessToken, driverRef, driverPaymentMethod, 5.0, 0.0);
             }
-            log("that solo schedule bungii is in progress", "that solo schedule bungii is on" + state, false);
+            log("Given that the Solo Schedule Bungii is in progress", "Solo schedule bungii ["+ scheduleTime+"] is in " + state +" for geofence "+ geofence , false);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -1284,7 +1286,7 @@ public class BungiiSteps extends DriverBase {
             coreServices.customerConfirmation(pickupRequest, paymentMethod, custAccessToken, "");
             Boolean isDriverEligibel = new DbUtility().isDriverEligibleForTrip(driverPhoneNum, pickupRequest);
             if (!isDriverEligibel)
-                error("Diver should be eligible for on demand trip", "Dirver ID is not in eligibleDriver list", false);
+                error("Diver should be eligible for on demand trip", "Driver ID is not in eligibleDriver list", false);
 
             coreServices.pickupdetails(pickupRequest, driverAccessToken, geofence);
             coreServices.updateStatus(pickupRequest, driverAccessToken, 21);
@@ -1310,7 +1312,7 @@ public class BungiiSteps extends DriverBase {
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 27);
                 coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
             }
-            log("that  bungii is in progress", "that   bungii is on" + state, false);
+            log("Given that the Solo Ondemand Bungii is in progress", "Solo schedule bungii is in " + state +" for geofence "+ geofence , false);
 
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -1321,7 +1323,7 @@ public class BungiiSteps extends DriverBase {
 
     public void recoveryScenario() {
         String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
-        logger.detail("***********Inside recovery method of api");
+        logger.detail("Trying recovery scenarios for of api ");
 
         custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");

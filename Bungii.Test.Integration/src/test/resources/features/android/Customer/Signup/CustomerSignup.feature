@@ -5,8 +5,8 @@ Feature: CustomerSignup
   Background:
     Given I am on Sign up page
 
-  @regression
-
+  #@regression
+@ready
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -101,8 +101,8 @@ Feature: CustomerSignup
     Then The "Info" is displayed
 
 
-  @regression
-
+  #@regression
+  @ready
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -157,38 +157,38 @@ Feature: CustomerSignup
       And Bungii Driver "Start Schedule Bungii" request
       Then Bungii driver should see "Enroute screen"
 
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Enroute screen"
-
-      When I Switch to "driver" application on "same" devices
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Enroute screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Arrived screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Arrived screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Arrived screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Arrived screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Loading Item screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Loading Item screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Loading Item screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Loading Item screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Driving to DropOff screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Driving to DropOff screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Driving to DropOff screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Driving to DropOff screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      Then Bungii driver should see "Unloading Item screen"
-
-      When I Switch to "customer" application on "same" devices
-      Then for a Bungii I should see "Unloading Item screen"
-
-      When I Switch to "driver" application on "same" devices
+#      Then Bungii driver should see "Unloading Item screen"
+#
+#      When I Switch to "customer" application on "same" devices
+#      Then for a Bungii I should see "Unloading Item screen"
+#
+#      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
       And I Switch to "customer" application on "same" devices
       And I tap on "OK on complete" on Bungii estimate
@@ -211,7 +211,6 @@ Feature: CustomerSignup
   #used one off
   #Know issue, no alert
   @regression
-
   Scenario: Verify That Validation Message Is Displayed On Signing Up With Invalid Or Used One off Promocode
     When I Switch to "customer" application on "same" devices
     And I enter "unique" customer phone number on Signup Page

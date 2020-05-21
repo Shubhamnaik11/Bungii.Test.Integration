@@ -4,9 +4,7 @@
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
 
-
   @regression
-
   Scenario: Verify Customer Can Create An Ondemand Bungii And Correct Contact Number Is Displayed On Call And SMS Option
 
     Given that ondemand bungii is in progress
@@ -198,7 +196,6 @@ Feature: On Demand Bungii
     Then Bungii Driver "completes Bungii"
     And Customer should receive "Your Bungii Receipt" email
 
-#no existing promocode
   @regression
   Scenario Outline: Verify Customer Can Create An Ondemand Bungii With Promocode - Scenario:<Scenario>
     Given I Switch to "customer" application on "same" devices
@@ -237,29 +234,29 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Arrived screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Arrived screen"
+  # When I Switch to "customer" application on "same" devices
+  # Then for a Bungii I should see "Arrived screen"
 
-    When I Switch to "driver" application on "same" devices
+  #  When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Loading Item screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Loading Item screen"
+    #When I Switch to "customer" application on "same" devices
+    #Then for a Bungii I should see "Loading Item screen"
 
-    When I Switch to "driver" application on "same" devices
+   # When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Driving to DropOff screen"
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Driving to DropOff screen"
+  #  When I Switch to "customer" application on "same" devices
+  #  Then for a Bungii I should see "Driving to DropOff screen"
 
-    When I Switch to "driver" application on "same" devices
-    When Bungii Driver "slides to the next state"
+  #  When I Switch to "driver" application on "same" devices
+    And Bungii Driver "slides to the next state"
     Then Bungii driver should see "Unloading Item screen"
 
-    When I Switch to "customer" application on "same" devices
-    Then for a Bungii I should see "Unloading Item screen"
-    When I Switch to "driver" application on "same" devices
+  #  When I Switch to "customer" application on "same" devices
+  #  Then for a Bungii I should see "Unloading Item screen"
+  #  When I Switch to "driver" application on "same" devices
     And Bungii Driver "slides to the next state"
 
     When I Switch to "customer" application on "same" devices
@@ -285,7 +282,6 @@ Feature: On Demand Bungii
       | valid one off fixed | valid one off | valid baltimore |oneoff                  |
 
   @regression
-
   Scenario:Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -379,13 +375,14 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
     When I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct details" on Bungii completed page
+    Then Bungii customer should see "correct details" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
 
     Then I wait for "2" mins
 
@@ -401,6 +398,7 @@ Feature: On Demand Bungii
 
      #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
+    @demo
   Scenario Outline: Verify Customer Signup With Referral code
     Given I Switch to "customer" application on "same" devices
     When I am on customer Log in page
@@ -441,7 +439,8 @@ Feature: On Demand Bungii
       | VALID_discover | valid discover card number | valid expiry date |valid cvv|valid postal code|
 
 
-  @regression
+ @regression
+    @demo
   Scenario: Verify Customer Can Create Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -477,16 +476,18 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
 
     And I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct details with promo" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And I click "On To The Next One" button on the "Bungii Completed" screen
 
+
+ @regression
   Scenario: Verify Customer Can Create Ondemand Bungii With Received Referred Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -524,16 +525,18 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
 
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And Bungii Driver "completes Bungii"
-
     And I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct details with promo" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And Bungii Driver "completes Bungii"
 
+
+
+  @regression
   Scenario: Verify Customer Can Create Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -581,15 +584,17 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
     And I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct details with promo" on Bungii completed page
+    Then Bungii customer should see "correct details with promo" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
 
-  @regression
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And Bungii Driver "completes Bungii"
+
+  #@regression
+    @ready
   Scenario Outline: I Create and Complete on demand bungii with promo code when driver and customer are login in same device. Promo code :<Scenario>
     When I am on customer Log in page
     And I am logged in as "valid baltimore" customer
@@ -626,13 +631,14 @@ Feature: On Demand Bungii
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
     And Bungii Driver "slides to the next state"
-    Then Bungii driver should see "correct details" on Bungii completed page
-    And I click "On To The Next One" button on the "Bungii Completed" screen
-
     And I Switch to "customer" application on "same" devices
-    And Bungii customer should see "correct details with promoter" on Bungii completed page
+    Then Bungii customer should see "correct details with promoter" on Bungii completed page
     And I tap on "OK on complete" on Bungii estimate
     And I tap on "No free money" on Bungii estimate
+
+    When I Switch to "driver" application on "same" devices
+    Then Bungii driver should see "correct details" on Bungii completed page
+    And Bungii Driver "completes Bungii"
 
     And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
@@ -646,7 +652,8 @@ Feature: On Demand Bungii
       | Expected value in admin |
       | promo                   |
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Customer Can Create Ondemand Bungii With Promoter Type Promocode
 
     Given I Switch to "customer" application on "same" devices

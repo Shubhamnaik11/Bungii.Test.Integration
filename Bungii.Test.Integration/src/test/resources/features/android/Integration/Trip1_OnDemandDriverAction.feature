@@ -1,6 +1,5 @@
 @android
-  @test
-  #These feature will run in boston geofence
+   #These feature will run in boston geofence
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
 
@@ -68,7 +67,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then "Home" page should be opened
 
   @regression
-
   Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Enroute State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
@@ -95,7 +93,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should see unused promo code
 
   @regression
-
   Scenario: Verify Driver Can Cancel Ondemand Bungii With Promocode In Arrived State
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer

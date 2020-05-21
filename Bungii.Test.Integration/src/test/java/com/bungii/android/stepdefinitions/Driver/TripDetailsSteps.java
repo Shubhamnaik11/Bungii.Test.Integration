@@ -30,7 +30,7 @@ public class TripDetailsSteps extends DriverBase {
         try {
             switch (arg0.toUpperCase()) {
                 case "ACCEPT":
-                    Thread.sleep(5000);
+                    Thread.sleep(10000);
                     if(action.isNotificationAlertDisplayed()){
                             action.click(Page_BungiiRequest.AlertButton_Cancel());
                         }

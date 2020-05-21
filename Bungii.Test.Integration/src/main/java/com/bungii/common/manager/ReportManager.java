@@ -62,7 +62,7 @@ public class ReportManager {
 		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 		Date now = new Date();
 		String parentFolder = resultFolderName.equals("")?"":resultFolderName+"/";
-		System.out.println("parentFolder"+parentFolder);
+		//System.out.println("Parent Folder : "+parentFolder);
 		//String strDate = parentFolder+PropertyUtility.getResultConfigProperties("RESULT_FOLDER_INITIAL").trim()+"_"+System.getProperty("runner.class")+"/";
 		String strDate = parentFolder+PropertyUtility.getResultConfigProperties("RESULT_FOLDER_INITIAL").trim() + sdfDate.format(now)+"_"+System.getProperty("runner.class")+"/";
 

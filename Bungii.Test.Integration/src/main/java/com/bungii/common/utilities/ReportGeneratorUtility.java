@@ -6,6 +6,8 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.enums.ResultType;
 import com.bungii.common.manager.CucumberContextManager;
 import static com.bungii.common.manager.ResultManager.fail;
+import static com.bungii.common.manager.ResultManager.failureStep;
+
 import com.bungii.common.manager.ResultManager;
 import com.google.common.collect.ObjectArrays;
 import org.apache.commons.lang3.ArrayUtils;
@@ -124,7 +126,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	 */
 	public void addTestCaseEntryInDetailsTable(String name, String featureName) {
 	    name= name.replace(",","");
-		String str = "<tr class='header'><td colspan='8' align='left'>Scenario : "+ name + "</td></tr>"; ;
+		String str = "<tr class='header'><td colspan='5' align='left'>Scenario : "+ name + "</td></tr>"; ;
 		detailsArray.add(str);
 		stackTraceArray.clear();
         this.reason="";
@@ -150,11 +152,12 @@ public class ReportGeneratorUtility extends DriverBase {
 			str = str + "<td style='background-color:pink;'>" + eventData.get("type").toString() + "</td>";
 		}
 
-		str = str + "<td>" + eventData.get("expected").toString() + "</td>";
-		str = str + "<td>" + reason + "</td>";
-		str = str + "<td>" + testStepStart + "</td>";
-		str = str + "<td>" + testStepEnd + "</td>";
-		str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
+		str = str + "<td align='left'>" + eventData.get("expected").toString() + "</td>";
+		str = str + "<td align='left'>" + reason + "</td>";
+		//str = str + "<td>" + testStepStart + "</td>";
+		//str = str + "<td>" + testStepEnd + "</td>";
+		//str = str + "<td>" + calculateDuration(testStepEnd, testStepStart) + "</td>"+"</tr>";;
+		str = str + "</tr>";
 
 		detailsArray.add(str);
 		if (eventData.get("type").toString() != "PASSED") {
@@ -221,7 +224,11 @@ public class ReportGeneratorUtility extends DriverBase {
 		else {
             try {
 				if (this.reason.equalsIgnoreCase( "")) {
-					fail("Temporary Step - Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
+                    String cause = (String) cucumberContextManager.getScenarioContext("ERROR");
+					String step = (String) cucumberContextManager.getScenarioContext("STEP");
+                    this.reason = cause;
+					if(cause!="")
+						failureStep(step, "Step Should be successful", (String) cucumberContextManager.getScenarioContext("ERROR"), true);
 				}
 				}
             catch(Exception ex){}
@@ -230,6 +237,7 @@ public class ReportGeneratorUtility extends DriverBase {
 			String st  = "<td + rightspan+ ><td colspan='7' style='text-align: left;'>Note: Some steps are skipped due to above error. Please refer to logs for more details</td>";
 			detailsArray.add(st);
 			failed++;
+
 			status = "<td style='background-color:pink;'>Fail</td>";
 			String str2 = "<td>*</td><td align='left'>" + tcName + "</td>" + status  + "<td align='left'>"+  reason +"</td>";
 			failureArray.add(str2);

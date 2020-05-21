@@ -102,6 +102,9 @@ public class GenerateSummaryReport {
                 }
                 createResultFileFromSummaryTemplate(platform, category, environment);
                 System.out.println("Generated index.html");
+                createCountTemplate(platform, category, environment);
+                System.out.println("Generated summarycount.html");
+
                 new GenerateResultCSV().GenerateCSV(mainFolder);
                 if (isFailed)
                 {
@@ -244,6 +247,48 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--CATEGORY-->", (category==null)?"":category.toUpperCase());
             totalStr = totalStr.replaceAll("<!--ENVIRONMENT-->", (environment==null)?"": environment.toUpperCase());
             totalStr = totalStr.replaceAll("<!--LINK.TO.FAILURE-->", (failCount==0)? "":  "<a href='./failureSummary.html'> Link to Failure Test Summary Report</a>");
+
+            FileWriter fw = new FileWriter(result);
+            fw.write(totalStr);
+            fw.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Create Summery File for parallel test
+     */
+    public static void createCountTemplate(String platform, String category, String environment) {
+
+        try {
+
+            File result = new File(configFilePath + "/" + PropertyUtility.getResultConfigProperties("MERGED_COUNT_FILE"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(ReportGeneratorUtility.class.getResourceAsStream("/" + "Templates/resultcounttemplate.html")));
+            String s;
+            String totalStr = "";
+            String listString = String.join("", summaryData);
+
+            //if start time is null due to any reason then set it to current time
+            if (startTime == null) {
+                startTime = new Date();
+                endTime = new Date();
+            }
+            while ((s = br.readLine()) != null) {
+                totalStr += s;
+            }
+           // totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
+          //  totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
+           // totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
+            totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
+            totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
+            totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
+            totalStr = totalStr.replaceAll("<!--START.TIME-->", startTime + "");
+            totalStr = totalStr.replaceAll("<!--END.TIME-->", endTime + "");
+            totalStr = totalStr.replaceAll("<!--TOTAL.TIME-->", calculateDuration(endTime,startTime) + "");
+           // totalStr = totalStr.replaceAll("<!--CATEGORY-->", (category==null)?"":category.toUpperCase());
+          //  totalStr = totalStr.replaceAll("<!--ENVIRONMENT-->", (environment==null)?"": environment.toUpperCase());
+           // totalStr = totalStr.replaceAll("<!--LINK.TO.FAILURE-->", (failCount==0)? "":  "<a href='./failureSummary.html'> Link to Failure Test Summary Report</a>");
 
             FileWriter fw = new FileWriter(result);
             fw.write(totalStr);

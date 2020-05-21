@@ -54,11 +54,12 @@ public class ScheduledBungiiSteps extends DriverBase {
             for (WebElement element : listOfScheduledTrip) {
                 WebElement schDate = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_scheduleddatetime"));
                 WebElement schTimeZone = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_timezone_label"));
-                if(!tripTime.contains(timeZone))tripTime=tripTime+" "+timeZone;
+               /* if(!tripTime.contains(timeZone))
+                    tripTime=tripTime+" "+timeZone;*/
                 if ((action.getText(schDate)+""+action.getText(schTimeZone)).equalsIgnoreCase(tripTime)) {
                     WebElement rowViewIcom = element.findElement(By.id("com.bungii.driver:id/scheduled_row_textview_icon"));
                     action.click(new Point(rowViewIcom.getLocation().getX(), rowViewIcom.getLocation().getY()));
-              //      action.click(rowViewIcom);
+                    //      action.click(rowViewIcom);
                     isSelected = true;
                     break;
                 }

@@ -78,6 +78,7 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.Link_ReferralSourceDone());
                     String customerName=firstName+" "+PropertyUtility.getDataProperties("customer.last.name");
                     cucumberContextManager.setFeatureContextContext("CUSTOMER",customerName);
+                    cucumberContextManager.setScenarioContext("CUSTOMER",customerName);
                     break;
                 case "valid test":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),"Testcustomertywd"+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));

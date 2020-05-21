@@ -2,9 +2,9 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
-import com.bungii.android.pages.customer.InvitePage;
+import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.otherApps.*;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -23,8 +23,10 @@ public class InviteSteps extends DriverBase {
     InvitePage invitePage = new InvitePage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
+    HomePage Page_CustHome = new HomePage();
     private static LogUtility logger = new LogUtility(InviteSteps.class);
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+
     @When("^I tap \"([^\"]*)\" on Invite page$")
     public void i_tap_something_on_invite_page(String actionItem) throws Throwable {
         try {
@@ -97,7 +99,7 @@ public class InviteSteps extends DriverBase {
                     break;
                 case "Referral Code":
                     Thread.sleep(5000);
-                    ActionManager.waitUntilIsElementExistsAndDisplayed(invitePage.Invite_Code());
+                    action.waitUntilIsElementExistsAndDisplayed(invitePage.Invite_Code());
                     if(action.getText(invitePage.Invite_Code()).equals(""))
                         Thread.sleep(5000);
                     cucumberContextManager.setScenarioContext("ReferralCode", action.getText(invitePage.Invite_Code()));
@@ -121,10 +123,32 @@ public class InviteSteps extends DriverBase {
 
             switch (strArg1) {
                 case "Facebook with app installed":
-                    Thread.sleep(60000);
+                   // Thread.sleep(60000);
                     testStepAssert.isElementDisplayed(invitePage.FBApp_PostLink(true), "Overlay post button should be be displayed", "Post button is displayed", "Post button is not displayed");
                     action.sendKeys(invitePage.FBApp_StatusText(), PropertyUtility.getDataProperties("support.text"));
-                    action.click(invitePage.FBApp_PostLink());
+                    Thread.sleep(10000);
+                    int retrycount =4;
+                    boolean retry = true;
+                    while (retry == true && retrycount >0) {
+                        try {
+                            action.click(invitePage.FBApp_PostLink());
+                            Thread.sleep(8000);
+                            if(Page_CustHome.TextBox_PickUpTextBox().isDisplayed()==true)
+                            {
+                                retrycount=0;
+                                retry = false;
+                            }
+                            else
+                            {
+                                retrycount--;
+                                retry = true;
+                            }
+
+                        } catch (Exception ex) {
+                            retrycount--;
+                            retry = true;
+                        }
+                    }
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

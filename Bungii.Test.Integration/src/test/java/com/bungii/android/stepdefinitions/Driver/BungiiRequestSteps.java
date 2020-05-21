@@ -61,7 +61,7 @@ public class BungiiRequestSteps extends DriverBase {
                     transactionFee=((flestimate*0.029*0.5)+0.3)*2;
                     estimatedDriverCut=(0.7*flestimate)-transactionFee;
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut/2);
-                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"$"+truncValue);
+                    testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueEarning(),"~$"+truncValue);
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_StartBungii(),"START BUNGII button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_CancelBungii(),"CANCEL BUNGII button should be displayed");
                     break;

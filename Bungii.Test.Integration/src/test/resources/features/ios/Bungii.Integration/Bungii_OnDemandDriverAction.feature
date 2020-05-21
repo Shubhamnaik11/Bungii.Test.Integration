@@ -7,7 +7,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @POSTDUO
   @regression
-  Scenario: On demand Bungii Driver should able to Reject On demand Bungii Request after viewing trip details.
+  Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid miami" driver
@@ -40,7 +40,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @sanity
   @regression
-  Scenario: On demand Bungii Driver should able to Cancel Bungii Request on En Route Update Page.
+  Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | miami    | Enroute      |
@@ -70,7 +70,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @sanity
   @regression
-  Scenario: On demand Bungii Driver should able to Cancel Bungii Request on Arived Update Page.
+  Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
       | miami    | ARRIVED      |
@@ -96,7 +96,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
 
   @regression
-  Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Enroute State
+  Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
 
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
@@ -146,7 +146,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
 
   @regression
-  Scenario: Promo code should be deallocated after driver cancels Bungii (first two states)-Arrived State
+  Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
 
     And I am on the "LOG IN" page
     And I logged in Customer application using  "valid miami" user
@@ -198,7 +198,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @FAILED0203_02
 
   @regression
-  Scenario: Promo code should be deallocated after admin cancels Bungii( Before starting bungii)
+  Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
     And I log in to admin portal

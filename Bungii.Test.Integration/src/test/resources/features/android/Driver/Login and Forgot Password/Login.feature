@@ -8,8 +8,7 @@ Feature: Log In
 
 
   @regression
-
-  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details Scenario:<Scenario>
+  Scenario Outline: Verify Driver Should Not Be Able To Login To App Using Invalid Details - Scenario:<Scenario>
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
     Then I should see "<Expected Message>" on Log In screen on driver app
@@ -84,8 +83,7 @@ Feature: Log In
       | Expected Message                                                                                                      |
       | Invalid login credentials. Your account has been locked. Please use the Forgot Password option to reset your account. |
 
-  @regression
-
+  #@regression
   Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I have device which has location permission
     Given I install Bungii Driver App again

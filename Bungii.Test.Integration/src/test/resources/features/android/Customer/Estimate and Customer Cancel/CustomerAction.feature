@@ -16,8 +16,7 @@ Feature: Bungii
     And I tap on "Cancel on HeadsUp pop up" on Bungii estimate
     Then I should see "Bungii Estimate page with all details" on Bungii estimate
 
-  @regression
-
+ @regression
   Scenario: Verify Customer Bungii Cancellation on Search
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate

@@ -69,7 +69,6 @@ Feature: Menu_SaveMoney
     And I tap on "Menu" > "Logout" link
 
   @regression
-
   Scenario: Verify First Time Promo User Who Has Referral Code Behavior
     Given I am logged in as "having referral code" customer
     And I tap on "Menu" > "Promos" link
@@ -97,7 +96,6 @@ Feature: Menu_SaveMoney
 #    Then I should see post "on Facebook app"
 
   @regression
-
   Scenario: Verify When Customer With No Twitter App Shares Promocode Via Twitter Then It Opens in Browser
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -109,7 +107,6 @@ Feature: Menu_SaveMoney
     And I Switch to "customer" application on "same" devices
 
   @regression
-
   Scenario: Verify Promocode Is Refunded Upon Cancellation Of Bungii With Promocode Applied To It
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -130,7 +127,6 @@ Feature: Menu_SaveMoney
     Then I should see the unused promo code
 
   @regression
-
   Scenario: Verify Promocode From The Trip Gets Automatically Applied To The Researched Trip
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -151,7 +147,6 @@ Feature: Menu_SaveMoney
     Then I should see the previously added promo code present for current Bungii request
 
   @regression
-
   Scenario: Verify Already Added Expired Promocodes Are Not Available To Customer On Estimate Screen
     Given I am on customer Log in page
     When I am logged in as "New" customer

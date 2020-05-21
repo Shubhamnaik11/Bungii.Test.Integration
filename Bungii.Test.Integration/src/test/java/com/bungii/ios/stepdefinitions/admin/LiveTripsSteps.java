@@ -52,10 +52,11 @@ public class LiveTripsSteps extends DriverBase {
     @Then("^I select trip from trips$")
     public void i_select_trip_from_trips() throws Throwable {
         try {
+            //Thread.sleep(120000);
             String custName = (String) cucumberContextManager.getScenarioContext("CUSTOMER");
             action.sendKeys(liveTripsPage.Text_SearchCriteria(), custName.substring(0, custName.indexOf(" ")));
             action.click(liveTripsPage.Button_Search());
-            Thread.sleep(5000);
+
             action.click(liveTripsPage.Button_RowOne());
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -150,44 +151,51 @@ public class LiveTripsSteps extends DriverBase {
             bungiiCostCustomer=new DecimalFormat("#.##").format(Double.parseDouble(bungiiCostCustomer.replace("$","")));
             bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");bungiiCostCustomer="$"+bungiiCostCustomer;
             logger.detail("bungii cost to customer "+bungiiCostCustomer);
+
+            String code = action.getText(liveTripsPage.Text_Code());
+            String codeType = action.getText(liveTripsPage.Text_CodeType());
+            String codeValue = action.getText(liveTripsPage.Text_CodeValue());
+            String promoCode = action.getText(liveTripsPage.Text_PromoCode());
+            String tripPayment = action.getText(liveTripsPage.Text_TripPayment());
+
+
             switch (strArg1.toLowerCase()) {
                 case "promo":
                     logger.detail("bungii cost to customer after replacing"+bungiiCostCustomer);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed", code+" is displayed",code +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "Promo","Promo should be displayed",codeType +" is displayed",codeType +" is displayed instead of Promo");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "fbshare":
                     bungiiCostCustomer = bungiiCostCustomer.replace(".00", "");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",code +" is displayed",code +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffFBShare","OneOffFBShare should be displayed",codeType +" is displayed",codeType +" is displayed instead of OneOffFBShare");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "oneoff":
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",code +" is displayed",code +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "OneOffByAdmin","OneOffByAdmin should be displayed",codeType +" is displayed",codeType +" is displayed instead of OneOffByAdmin");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "referral":
-
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",code +" is displayed",code +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "Referral","Referral should be displayed",codeType +" is displayed",codeType +" is displayed instead of Referral");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), bungiiCostCustomer,bungiiCostCustomer+" should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of "+bungiiCostCustomer);
                     break;
                 case "promoter":
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_Code(), Promo);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue);
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
-                    testStepVerify.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_Code(), Promo ,Promo+" should be displayed",code +" is displayed",code +" is displayed instead of "+Promo);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeType(), "DeliveryChargesByPromoter","DeliveryChargesByPromoter should be displayed",codeType +" is displayed",codeType +" is displayed instead of DeliveryChargesByPromoter");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_CodeValue(), PromoValue, PromoValue+" should be displayed",codeValue +" is displayed",codeValue +" is displayed instead of "+PromoValue);
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_PromoCode(), "$" + truncValue + " (" + Promo + " - " + PromoValue + ")", "$" + truncValue + " (" + Promo + " - " + PromoValue + ")"+" should be displayed",promoCode +" is displayed",promoCode +" is displayed instead of "+"$" + truncValue + " (" + Promo + " - " + PromoValue + ")");
+                    testStepAssert.isElementTextEquals(liveTripsPage.Text_TripPayment(), "$0", "$0 should be displayed",tripPayment +" is displayed",tripPayment +" is displayed instead of $0");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -319,7 +327,7 @@ public class LiveTripsSteps extends DriverBase {
             if (tripType[0].equalsIgnoreCase("duo"))
                 driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") ||status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed") || (status.equalsIgnoreCase("Admin Cancelled"))) {
-                String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", tripType[0].toUpperCase(), customer);
+                String xpath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType[0].toUpperCase(), customer);
 
             int retrycount =10;
             boolean retry = true;
@@ -349,7 +357,7 @@ public class LiveTripsSteps extends DriverBase {
             testStepAssert.isElementTextEquals(SetupManager.getDriver().findElement(By.xpath(xpath)), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
         } else {
-            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
+            String XPath= String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND")?"Solo":StringUtils.capitalize(tripType[0]), driver, customer);
             int retrycount =10;
             boolean retry = true;
             while (retry == true && retrycount >0) {

@@ -85,9 +85,9 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void AdminLogin() {
+    public void AdminLogin() throws InterruptedException {
         String adminURL = GetAdminUrl();
-
+        Thread.sleep(2000);
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
@@ -640,6 +640,8 @@ public class GeneralUtility extends DriverBase {
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
         return getGeofenceTimeZone;
     }
     /**

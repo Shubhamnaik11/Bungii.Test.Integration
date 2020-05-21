@@ -5,8 +5,8 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.BungiiAcceptedPage;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
-import com.bungii.android.stepdefinitions.Customer.SignupSteps;
-import com.bungii.android.utilityfunctions.DbUtility;
+import com.bungii.android.stepdefinitions.Customer.*;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
@@ -276,12 +276,24 @@ public class BungiiInProgressSteps extends DriverBase {
         //Sprint 32 , Initial zero are displayed
 /*        if (telet.startsWith("0"))
             telet = telet.substring(1);*/
+//Richa
+        String[] timeZone=utility.getDayLightTimeZoneBasedOnGeofence();
+        String normalTimeZone="Try to finish by "+telet+" "+timeZone[0];
+        String dayLightTimeZone="Try to finish by "+telet+" "+timeZone[1];
+        String actualTime=action.getText(bungiiProgressPage.Text_FinishBy());
 
-        testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+telet+" "+utility.getTimeZoneBasedOnGeofence());
+        if(actualTime.equalsIgnoreCase(normalTimeZone) || actualTime.equalsIgnoreCase(dayLightTimeZone)) {
+            testStepAssert.isTrue(true,"The finish time should be displayed correctly.", "The finish time is not displayed correctly.");
+        }
+        else
+        {
+            testStepAssert.isFail("The finish time is not displayed correctly.");
+        }
+
     }
     @Then("^try to finish time should be correctly displayed for short stack trip$")
     public void try_to_finish_time_should_be_correctly_displayed_ShortStack() throws Throwable {
-     //   calculateShortStack();
+        calculateShortStack();
         testStepVerify.isElementTextEquals(bungiiProgressPage.Text_FinishBy(),"Try to finish by "+((String)cucumberContextManager.getScenarioContext("DRIVER_FINISH_BY"))+" "+utility.getTimeZoneBasedOnGeofence());
 
     }

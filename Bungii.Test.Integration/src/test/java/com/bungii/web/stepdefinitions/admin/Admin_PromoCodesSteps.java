@@ -25,10 +25,7 @@ import org.testng.annotations.Optional;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
@@ -248,15 +245,17 @@ public class Admin_PromoCodesSteps extends DriverBase {
         Name = (String)cucumberContextManager.getScenarioContext("PROMOCODE_NAME");
         Type = (String)cucumberContextManager.getScenarioContext("PROMOCODE_TYPE");
         Type = Type.replace("Delivery By Promoter (M)","Delivery Charges By Promoter Multiple Use"); ////////////////
-        Date today = new Date();
-        Date tomorrow = new Date(today.getTime());
+        //Date today = new Date();
+      //  Date tomorrow = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        CreatedDate = dateFormat.format(tomorrow).toString();
-
+        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        Date today = new Date();
+        CreatedDate = dateFormat.format(today).toString();
+       // dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
         switch (promocodetype)
         {
             case "Promo":
-                 CreatedDate = dateFormat.format(tomorrow).toString();
+                // CreatedDate = dateFormat.format(tomorrow).toString();
 
                  Expires = (String)cucumberContextManager.getScenarioContext("EXP_DATE");
 
@@ -327,7 +326,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         Date today = new Date();
         Date today1 = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        CreatedDate = dateFormat.format(today1).toString();
+        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        CreatedDate = dateFormat.format(today).toString();
 
         xpath = String.format("//tr/td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[text()='%s']/following-sibling::td[text()='%s']",Name, CreatedDate, Expires, Type, Status, Discount, Entered, Used);
         Thread.sleep(5000);

@@ -11,7 +11,6 @@ import com.bungii.android.pages.driver.*;
 import com.bungii.android.pages.otherApps.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
-import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -24,7 +23,6 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.functions.ExpectedCondition;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -475,14 +473,20 @@ public class GeneralUtility extends DriverBase {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-
+        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
+                perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
+                perMinutesValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.minutes"));
         double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
         double tripActualTime = Double.parseDouble(tripTime);
-        double tripValue = distance + tripActualTime;
+        double tripValue = distance * perMileValue + tripActualTime * perMinutesValue;
         if (tripType.equalsIgnoreCase("DUO")) {
             tripValue = tripValue * 2;
-            MIN_COST = MIN_COST * 2;
-
+            //MIN_COST = MIN_COST * 2;
+            minCost = minCost * 2;
         }
         Promo = Promo.contains("ADD") ? "0" : Promo;
 
@@ -499,7 +503,8 @@ public class GeneralUtility extends DriverBase {
             }
         }
         double costToCustomer = tripValue - discount;
-        costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+        //costToCustomer = costToCustomer > MIN_COST ? costToCustomer : MIN_COST;
+        costToCustomer = costToCustomer > minCost ? costToCustomer : minCost;
 
         return costToCustomer;
     }
@@ -701,20 +706,6 @@ public class GeneralUtility extends DriverBase {
         }
         return phoneNumber;
     }
-    public void logCustomerDeviceToken(String phoneNumber){
-        try {
-            com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber);
-        }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
-        }
-    }
-    public void logDriverDeviceToken(String phoneNumber){
-        try {
-            com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber);
-        }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
-        }
-    }
 
     public void loginToCustomerApp(String phone, String password) throws InterruptedException {
         boolean isNextScreenLogIN = false;
@@ -812,6 +803,7 @@ public class GeneralUtility extends DriverBase {
                 action.sendKeys(driverLoginPage.TextField_PhoneNumber(), phone);
             }
             action.sendKeys(driverLoginPage.TextField_Password(), password);
+            Thread.sleep(2000);
             action.click(driverLoginPage.Button_Login());
             Thread.sleep(2000);
             try {
@@ -1149,7 +1141,38 @@ public class GeneralUtility extends DriverBase {
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
         return getGeofenceTimeZone;
     }
+//Richa
+    /**
+     * Get timezone for geofence, read it from properties file and conver into Time zone object
+     *
+     * @return
+     */
+    public String[] getDayLightTimeZoneBasedOnGeofence() {
+        //get current geofence
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        //get timezone value of Geofence
+        String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        String getDayLightGeofenceTimeZone=null;
 
+        switch (getGeofenceTimeZone){
+            case "CST":
+                getDayLightGeofenceTimeZone="CDT";
+                break;
+            case "EST":
+                getDayLightGeofenceTimeZone="EDT";
+                break;
+            case "MST":
+                getDayLightGeofenceTimeZone="MDT";
+                break;
+            case "IST":
+                getDayLightGeofenceTimeZone="IST";
+                break;
+        }
+        String [] timeZones=new String[2];
+        timeZones[0]=getGeofenceTimeZone;
+        timeZones[1]=getDayLightGeofenceTimeZone;
+        return timeZones;
+    }
     /**
      * Get timezone for geofence, read it from properties file and conver into Time zone object
      *
@@ -1210,6 +1233,14 @@ public class GeneralUtility extends DriverBase {
     public void acceptNotificationAlert() {
         action.click(driverHomePage.Notification_AlertAccept());
     }
+
+    /**
+     * Hide notification
+     */
+    public void hideNotifications() {
+        action.hideNotifications();
+    }
+
 
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
@@ -1621,4 +1652,29 @@ public class GeneralUtility extends DriverBase {
 
         return emailMessage;
     }
+    public void logCustomerDeviceToken(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Device token of customer"+phoneNumber+"is "+dbUtility.getCustomerDeviceToken(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logDriverDeviceToken(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Device token of Driver"+phoneNumber+"is "+dbUtility.getDriverDeviceToken(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logCustomerRecentTrip(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+dbUtility.getCustomersMostRecentBungii(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+
 }

@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -224,7 +225,7 @@ public class HomePageSteps extends DriverBase {
 
     }
 
-    @Then("The navigation title should change to {string}")
+    @And("^The navigation title should change to \"([^\"]*)\"$")
     public void the_navigation_title_should_change_to(String navTitle) {
         // Write code here that turns the phrase above into concrete actions
         try {
@@ -247,7 +248,7 @@ public class HomePageSteps extends DriverBase {
         }
     }
 
-    @Given("the status of the driver should be {string}")
+    @Then("^the status of the driver should be \"([^\"]*)\"$")
     public void the_status_of_the_driver(String status) {
         try {
             switch (status.toUpperCase()) {
@@ -291,7 +292,7 @@ public class HomePageSteps extends DriverBase {
         }
     }
 
-    @Given("The {string} for {string} driver should be correctly displayed")
+    @Then("^The \"([^\"]*)\" for \"([^\"]*)\" driver should be correctly displayed$")
     public void the_for_driver_should_be_correctly_displayed(String info, String driver) {
         try {
             String driverPhoneNumber, driverName, driverVehicle;
@@ -404,7 +405,7 @@ public class HomePageSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
@@ -414,12 +415,18 @@ public class HomePageSteps extends DriverBase {
     public void i_should_be_able_to_see_default_data_on_something_page(String strArg1) throws Throwable {
         try {
             Thread.sleep(5000);
+            String timeRange = "07:00 AM - 09:00 PM  CST";
+
+            //Add Code to handle daylight
+            if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
+                timeRange = timeRange.replace("S","D");
+
             switch (strArg1) {
                 case "TRIP ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
-                        testStepAssert.isEquals(currentRowData, "07:00 AM - 09:00 PM  CST", "default trip data 07:00 AM - 09:00 PM  CST should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data is not displayed");
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.trip.alert.settings"), "TRIP Alerts info is displayed", "TRIP Alerts info is displayed", "TRIP Alerts info is not displayed");
                     break;
@@ -427,14 +434,14 @@ public class HomePageSteps extends DriverBase {
                     List<WebElement> timeDataSms = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeDataSms) {
                         String currentRowData = action.getNameAttribute(row);
-                        testStepAssert.isEquals(currentRowData, "07:00 AM - 09:00 PM  CST", "default trip data 07:00 AM - 09:00 PM  CST should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
+                        testStepAssert.isEquals(currentRowData, timeRange, "default trip "+timeRange+" should be displayed", "default trip data s is displayed", "default trip data  is not displayed");
                     }
                     testStepAssert.isElementNameEquals(tripAlertSettingsPage.Text_ScheduledInfo(), PropertyUtility.getMessage("driver.sms.alert.settings"), PropertyUtility.getMessage("driver.sms.alert.settings") + "should be displayed", "SMS Alerts info is displayed", "SMS Alerts info is not displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
@@ -464,7 +471,7 @@ public class HomePageSteps extends DriverBase {
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
-        } catch (Throwable e) {
+        } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }

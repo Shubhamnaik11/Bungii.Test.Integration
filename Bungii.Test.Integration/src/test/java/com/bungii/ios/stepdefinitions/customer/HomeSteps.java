@@ -148,8 +148,8 @@ public class HomeSteps extends DriverBase {
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
                     "Number of driver for Bungii is not " + tripDriverType);
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+            logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
+            error("Step should be successful", "Error Requesting Bungii for pickup location : "+ data.transpose().asMap(String.class, String.class).get("Pickup Location") ,
                     true);
         }
 
@@ -177,6 +177,7 @@ public class HomeSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String drop = dataMap.get("Drop Location").trim();
             selectBungiiLocation("DROP", drop);
+
             log("I enter DROP location", " I entered location" + drop);
 
         } catch (Exception e) {
@@ -197,13 +198,24 @@ public class HomeSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());*/
         action.waitUntilIsElementExistsAndDisplayed(homePage.Button_GetEstimate(true));
         String[] bungiiLocation = getPickUpAndDropLocation();
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
-        cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[2]);
-        cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
-        cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+        if(bungiiLocation.length == 6){
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[1]);
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[3]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[4]);
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+            return bungiiLocation[5];
 
-        return bungiiLocation[4];
+        }
+        else {
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", bungiiLocation[0]);
+            cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_2", bungiiLocation[1]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_1", bungiiLocation[2]);
+            cucumberContextManager.setScenarioContext("BUNGII_DROP_LOCATION_LINE_2", bungiiLocation[3]);
+            cucumberContextManager.setScenarioContext("BUNGII_NO_DRIVER", tripDriverType.toUpperCase());
+            return bungiiLocation[4];
+
+        }
 
     }
 
@@ -315,6 +327,7 @@ public class HomeSteps extends DriverBase {
     @Then("^\"([^\"]*)\" address should be displayed in text box$")
     public void something_address_should_be_displayed_in_text_box(String actionAddress) {
         try {
+            Thread.sleep(10000);
             String textBoxValue = "";
             switch (actionAddress.toUpperCase()) {
                 case "DROP":
@@ -377,12 +390,19 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
+    public void i_selectlogout() {
+            goToAppMenu();
+            clickAppMenu("LOGOUT");
+    }
+
     @Then("^I customers active flag should be \"([^\"]*)\"$")
     public void i_active_flag_should_be_something(String strArg1) throws Throwable {
         try {
             String phone=(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
+            Thread.sleep(5000);
             String actualActiveFlag=DbUtility.getActiveFlag(phone);
-            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1 +" for customer : "+ phone,"Active flag is :"+actualActiveFlag +" for customer : "+ phone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -393,8 +413,9 @@ public class HomeSteps extends DriverBase {
     public void i_driveractive_flag_should_be_something(String strArg1) throws Throwable {
         try {
             String phone=(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+            Thread.sleep(5000);
             String actualActiveFlag=DbUtility.getDriverActiveFlag(phone);
-            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1,"Active flag is :"+actualActiveFlag);
+            testStepVerify.isEquals(strArg1,actualActiveFlag,"Active flag should be :"+strArg1 +" for customer : " + phone,"Active flag is :"+actualActiveFlag+" for customer : " + phone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -437,6 +458,7 @@ public class HomeSteps extends DriverBase {
     @Then("^driver eta should be \"([^\"]*)\"$")
     public void driver_eta_should_be_something(String strArg1) throws Throwable {
         try {
+            Thread.sleep(10000);
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
@@ -641,14 +663,21 @@ public class HomeSteps extends DriverBase {
      */
     public String[] getPickUpAndDropLocation() {
         List<WebElement> staticFields = homePage.TextBox_AddressGeneric();
-        String[] pickUpLocation = new String[5];
-        if (staticFields.size() != 5)
-            error("i should able to get all information from home screen", "Not able to get all information from home screen", true);
-        for (int i = 0; i < 5; i++) {
-            pickUpLocation[i] = staticFields.get(i).getAttribute("value");
+        int length =staticFields.size() ;
+        String[] pickUpLocation = new String[length];
 
-        }
-        return pickUpLocation;
+
+        if (length <5)
+            error("i should able to get Pickup/Drop information on home screen", "Not able to get Pickup/Drop information information on home screen", true);
+        else {
+
+                for (int i = 0; i < length; i++) {
+                    pickUpLocation[i] = staticFields.get(i).getAttribute("value");
+
+                }
+            }
+            return pickUpLocation;
+
     }
 
     /**
@@ -690,7 +719,7 @@ public class HomeSteps extends DriverBase {
                 if (!action.isElementPresent(homePage.TextBox_Pickup(true))) break;
             }
         }
-        action.click(homePage.BUTTON_SET());
+        action.click(homePage.BUTTON_Set_PickupOff());
     }
 
     /**
@@ -717,12 +746,12 @@ public class HomeSteps extends DriverBase {
             Thread.sleep(3000);
 
 
-            action.click(homePage.BUTTON_SET());
+            action.click(homePage.BUTTON_Set_PickupOff());
             if (!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
                 Point initial = homePage.Image_eta_bar().getLocation();
                 action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
                 //action.dragFromToForDuration(82, 262, 82, 300, 2);
-                action.click(homePage.BUTTON_SET());
+                action.click(homePage.BUTTON_Set_PickupOff());
             }
         } catch (Exception e) {
         }
@@ -760,7 +789,7 @@ public class HomeSteps extends DriverBase {
             //   while (homePage.TextBox_Drop().getAttribute("value").contains("Set Drop")) {
             action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
             //	action.invisibilityOfElementLocated(homePage.Image_Loading());
-            action.click(homePage.BUTTON_SET());
+            action.click(homePage.BUTTON_Set_DropOff());
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
         }

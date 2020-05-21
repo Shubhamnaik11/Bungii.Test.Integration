@@ -145,9 +145,9 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "OK on complete":
                     boolean isDuo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER")).equalsIgnoreCase("DUO");
                     if (isDuo) {
-                        Thread.sleep(100000);
+                        Thread.sleep(10000);
                     }
-                    Thread.sleep(5000);
+                    Thread.sleep(8000);
                     try {
                         if (action.getText(Page_Signup.GenericHeader(true)).equals("COMPLETE"))
                             action.textToBePresentInElementText(Page_Signup.GenericHeader(), "BUNGII COMPLETE");
@@ -281,6 +281,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "all elements":
+                    action.scrollToTop();
                     testStepVerify.isEquals(action.getText(bungiiEstimatePage.Time()), "Now", "Bungii time should be 'Now'", "Bungii time is" + action.getText(bungiiEstimatePage.Time()));
                     testStepAssert.isElementDisplayed(bungiiEstimatePage.Header_Estimate(), "Estimate header should be displayed ", "Estimate header is displayed", "Estimate header is not displayed");
                     cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", action.getText(bungiiEstimatePage.Link_Promo(true)));
@@ -294,9 +295,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isEquals(actualValue, "~$" + String.valueOf(truncValue));
                     //vishal[1803]
                     testStepVerify.isTrue(action.getText(bungiiEstimatePage.Text_TripDistance()).contains("miles"), "Trip distance should be in miles", "Trip Distance does contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()), "Trip Distance does not contains miles , actual value" + action.getText(bungiiEstimatePage.Text_TripDistance()));
-
-                    testStepVerify.isElementNotEnabled(bungiiEstimatePage.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
                     action.scrollToBottom();
+                    testStepVerify.isElementNotEnabled(bungiiEstimatePage.Button_RequestBungii(true), "Request Bungii should be disabled", "Reguest Bungii button is disabled", "Reguest Bungii button is enabled");
+
                     testStepVerify.isTrue(bungiiEstimatePage.Checkbox_AgreeEstimate().getAttribute("checked").equals("false"), "Estimate agree checkbox should be unchecked", "Estimate agree checkbox should be is checked");
                     break;
 
@@ -349,21 +350,27 @@ public class EstimateBungiiSteps extends DriverBase {
             switch (arg0) {
                 case "existing":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("ccustomer_generic.phonenumber"));
                     break;
                 case "new test customer":
                     utility.loginToCustomerApp((String) cucumberContextManager.getScenarioContext("NEW_USER_NUMBER"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", PropertyUtility.getDataProperties("NEW_USER_NUMBER"));
                     break;
                 case "newly registered":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"), PropertyUtility.getDataProperties("customer_newlyregistered.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newlyregistered.phonenumber"));
                     break;
                 case "already having bungiis":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_withbungiis.phonenumber"));
                     break;
                 case "having referral code":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_havingReferral.phonenumber"));
                     break;
                 case "my":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("ccustomer_generic.phonenumber"));
                     break;
                 case "stage":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_generic.phonenumber"), PropertyUtility.getDataProperties("customer_generic.password"));
@@ -416,8 +423,8 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "New":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("atlanta.customer3.phone"), PropertyUtility.getDataProperties("atlanta.customer3.password"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER3", PropertyUtility.getDataProperties("atlanta.customer3.name"));
-                    cucumberContextManager.setScenarioContext("CUSTOMER3_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("atlanta.customer3.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("atlanta.customer3.phone"));
                     break;
                 case "newly registered customer":
                     utility.loginToCustomerApp(PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"), PropertyUtility.getDataProperties("customer_newly.registered.password"));
@@ -429,7 +436,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
             }
             log(" I am logged in as" + arg0 + " customer",
-                    " I am logged in as" + arg0 + " customer", true);
+                    " I am logged in as" + (String) cucumberContextManager.getScenarioContext("CUSTOMER") +" ("+(String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE")+ ") customer", true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -881,7 +888,6 @@ public class EstimateBungiiSteps extends DriverBase {
                 //code to be added incase of "Invalid Image error"
             }*/
 
-            Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -927,6 +933,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
+            action.scrollToTop();
             String bungiiTime = action.getText(bungiiEstimatePage.Time());
             if (arg0.equalsIgnoreCase("OLD BUNGII TIME")) {
                 testStepVerify.isEquals(bungiiTime, (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"), "I selected bungii time as old bungii time:" + bungiiTime, "I was not able to select bungii with old bungii time , Bungii time" + bungiiTime + " expected time" + (String) cucumberContextManager.getScenarioContext("BUNGII_TIME"));
@@ -1048,9 +1055,16 @@ public class EstimateBungiiSteps extends DriverBase {
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
             Date date = getNextScheduledBungiiTime();
-            String strTime = bungiiTimeDisplayInTextArea(date);
+            //String strTime = bungiiTimeDisplayInTextArea(date);
+            String[] strTime=bungiiTimeZoneDisplayInTextArea(date);
             String displayedTime = getElementValue("TIME");
-            testStepVerify.isEquals(strTime, displayedTime);
+            if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
+            {
+                testStepAssert.isTrue(true,"The correct scheduled time is displayed.", "The correct scheduled time is not displayed.");
+            }
+            else {
+             testStepAssert.isFail("The correct scheduled time is not displayed.");
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -1170,5 +1184,39 @@ public class EstimateBungiiSteps extends DriverBase {
 
     }
 
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String[] bungiiTimeZoneDisplayInTextArea(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        String formattedDate = sdf.format(date), formattedDate2 = sdf.format(date);
+        String timezone1 = null, timezone2 = null;
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        String[] timeZones=new String[2];
+        String[] formattedDates=new String[2];
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase("")){
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+            formattedDates[0]=formattedDate;
+            formattedDates[1]=" ";
+        }
+        else {
+            timeZones = new String[2];
+            timeZones = utility.getDayLightTimeZoneBasedOnGeofence();
+            timezone1=timeZones[0];
+            timezone2=timeZones[1];
+            formattedDate = formattedDate + " " +timezone1;
+            formattedDate2= formattedDate2 + " " +timezone2;
+            formattedDates[0]=formattedDate;
+            formattedDates[1]=formattedDate2;
+        }
+        return formattedDates;
+    }
 
 }

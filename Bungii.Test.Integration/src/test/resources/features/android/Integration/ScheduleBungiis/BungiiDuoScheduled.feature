@@ -7,8 +7,6 @@ Feature: Duo
 
   @regression
   @sanity
-  @regression
-    @failed1
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
@@ -22,15 +20,15 @@ Feature: Duo
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
     And I Select "Home" from driver App menu
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I Switch to "customer" application on "same" devices
+
+    And I Open "customer" application on "ORIGINAL" devices
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "two drivers selector" on Bungii estimate
     Then I should see "two drivers selected" on Bungii estimate
     When I tap on "Get Estimate button" on Bungii estimate
+    And I select Bungii Time as "next possible scheduled for duo"
     And I add "1" photos to the Bungii
     And I add loading/unloading time of "30 mins"
-    And I select Bungii Time as "next possible scheduled for duo"
     And I get Bungii details on Bungii Estimate
     And I tap on "Request Bungii" on Bungii estimate
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
@@ -243,7 +241,7 @@ Feature: Duo
     When I Switch to "driver" application on "Driver2" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     Then Bungii Driver "completes Bungii"
-    Then I wait for "1" mins
+    Then I wait for "2" mins
 
     And I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -255,15 +253,15 @@ Feature: Duo
     Examples:
       | PROMO CODE       |
       | PROMO DOLLAR OFF |
-        |PROMO PERCENT OFF|
+      |PROMO PERCENT OFF|
 
   @regression
-
   Scenario: Verify Schedululing Of Duo Bungii And Verifying Bungii Details
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
+
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid atlanta" customer
 
@@ -666,7 +664,6 @@ Feature: Duo
     Then Bungii Driver "completes Bungii"
 
   @regression
-
   Scenario: Long Stack : Verify Status Of Current Scheduled Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -808,7 +805,6 @@ Feature: Duo
 
 
   @regression
-
   Scenario: Short Stack : Verify Status Of Current Ondemand Pickup And Stacked Pickup And Stack Request Alert Message And Decked Request
     Given I am on customer Log in page
     When I am logged in as "valid" customer
@@ -1029,6 +1025,7 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
+@demo1
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1107,26 +1104,33 @@ Feature: Duo
     #move to top
     #need to do in atlanta
   @regression
-
   Scenario: Verify Long Stack Request Acceptance By Non Control Driver
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid atlanta" driver
+
+    When I connect to "extra1" using "Driver2" instance
+    And I Switch "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid driver 2" driver
 
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
       | atlanta  | enroute      | NEXT_POSSIBLE | valid    | valid   | valid driver 2 |
 
-    And I Switch to "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid atlanta" driver
-
-    And I connect to "extra1" using "Driver2" instance
-    And I Open "driver" application on "same" devices
-    And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
+#    And I Switch to "driver" application on "same" devices
+#    And I am on the LOG IN page on driver app
+#    And I am logged in as "valid atlanta" driver
+#
+#    And I connect to "extra1" using "Driver2" instance
+#    And I Open "driver" application on "same" devices
+#    And I am on the LOG IN page on driver app
+#    And I am logged in as "valid driver 2" driver
       #put driver app in background
     And I Open "customer" application on "same" devices
 
     When I Switch to "customer" application on "ORIGINAL" devices
-    When I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
+    And I request "Solo Ondemand" Bungii as a customer in "atlanta" geofence
       | Bungii Time | Customer Phone | Customer Name                      | Customer label | Customer Password |
       | now         | 9871450107     | Testcustomertywd_apple_AGQFCg Test | 2              | Cci12345          |
     #control driver reject stak trip
@@ -1169,7 +1173,7 @@ Feature: Duo
  #need to do in atlanta
           #move to top
   @duo1
-  @regression
+ @regression
   Scenario: Verify Short Stack Request Acceptance By Control Driver
 
     Given that duo schedule bungii is in progress
@@ -1323,8 +1327,8 @@ Feature: Duo
       When I tap on "Get Estimate button" on Bungii estimate
       Then I should see the minimum scheduled time displayed on the Estimate page
 
-  @regression
-
+  #@regression
+  @ready
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1357,7 +1361,8 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification When The App Remains open
 
     Given that duo schedule bungii is in progress
@@ -1390,7 +1395,6 @@ Feature: Duo
 
 
   @regression
-
   Scenario: Verify Other Driver And Customer Are Notified When One Driver Cancels The Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1443,6 +1447,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @regression
+
   Scenario: Verify Driver Alert When Other Driver cancels Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1            | Driver2         |
@@ -1463,3 +1468,102 @@ Feature: Duo
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
+
+  #@regression
+  @ready
+  Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
+    Given that duo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
+      | Kansas   | Accepted     | NEXT_POSSIBLE | Kansas customer | Kansas driver 1 | Kansas driver 2 |
+
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "valid kansas" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Kansas driver 1" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+    Then I check ETA of "control driver"
+
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "EN ROUTE" screen
+    Then "control driver" eta should be displayed to customer
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid driver 2" driver
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And I start selected Bungii
+    Then I should be navigated to "EN ROUTE" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "ARRIVED" screen
+
+    And I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "EN ROUTE" Screen
+
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    Then I should be navigated to "LOADING ITEM" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "LOADING ITEM" screen
+
+    And I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I accept Alert message for "Reminder: both driver at pickup"
+    Then I should be navigated to "LOADING ITEM" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then I check ETA of "control driver"
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "DRIVING TO DROP OFF" screen
+    Then "control driver" eta should be displayed to customer
+
+    And I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "LOADING ITEM" Screen
+
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "UNLOADING ITEM" screen
+
+    And I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    Then I should be navigated to "Bungii Completed" screen
+    When I click "On To The Next One" button on the "Bungii Completed" screen
+
+    When I Switch to "customer" application on "same" devices
+    Then I wait for "2" mins
+    Then I should be navigated to "BUNGII COMPLETE" screen
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    When I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
+
+    And I Switch to "driver" application on "Driver2" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I accept Alert message for "Reminder: both driver at drop off"
+    When I click "On To The Next One" button on the "Bungii Completed" screen
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |

@@ -1,6 +1,6 @@
 @ios
 
-Feature: Geofence functionality
+Feature: Bungii Geofence functionality
 
   @failed
   @regression

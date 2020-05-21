@@ -22,7 +22,6 @@ Feature: ReferralInvite
     And I Switch to "customer" application on "same" devices
 
   @regression
-
   Scenario: Verify When Customer With No Twitter App Shares Referral Invite Via Twitter Then It Opens in Browser
     Given I have "twitter" app "not installed"
     When I tap "Share" on Invite page

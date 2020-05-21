@@ -5,16 +5,24 @@ import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.stepdefinitions.CommonSteps;
-import com.bungii.android.utilityfunctions.GeneralUtility;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -40,6 +48,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     HomePage homePage = new HomePage();
+    PromosPage promosPage=new PromosPage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -347,6 +356,27 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
                 case "YES, I'LL TAKE $5":
                     action.click(wantDollar5Page.Button_Take5());
+                    int retrycount =4;
+                    boolean retry = true;
+                    while (retry == true && retrycount >0) {
+                        try {
+                            action.click(wantDollar5Page.Button_Take5());
+                            if(invitePage.FBApp_PostLink(true).isDisplayed()==true)
+                            {
+                                retrycount=0;
+                                retry = false;
+                            }
+                            else
+                            {
+                                retrycount--;
+                                retry = true;
+                            }
+
+                        } catch (Exception ex) {
+                            retrycount--;
+                            retry = true;
+                        }
+                    }
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     action.click(wantDollar5Page.Button_NoFreeMoney());
@@ -554,8 +584,12 @@ public class ScheduledBungiiSteps extends DriverBase {
                 }
                 else{
                     String text=" selected";
-                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date + text+"']", PageBase.LocatorType.XPath);
-                            testStepVerify.isElementNotEnabled(Select_Day, String.valueOf(day), "Element is not enabled.", "Element is enabled.");
+                    WebElement Select_Day = scheduledBungiisPage.findElement("//android.view.View[@content-desc='" + Date +"']", PageBase.LocatorType.XPath);
+                    action.click(Select_Day);
+                    action.click(estimatePage.Button_SystemCalenderOK());
+                    String snackBarMessage=action.getText(promosPage.Snackbar());
+                            testStepAssert.isEquals(snackBarMessage, PropertyUtility.getMessage("customer.valid.bungii.date"), "Please select a valid date.",snackBarMessage+" is not displayed.", snackBarMessage+" is displayed.");
+                    ((AndroidDriver) DriverManager.getObject().getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
                 }
             }
         } catch (Exception e) {
@@ -601,7 +635,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         String month = monthName[cal.get(Calendar.MONTH) + 1];
         return month;
     }
-
+//Richa
     /**
      * select bungii
      *
@@ -611,13 +645,27 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void selectBungii(String bungiiType, String bungiiTime) {
         Date currentDate = new Date();
         int year = currentDate.getYear() + 1900;
-        if (!bungiiTime.contains(utility.getTimeZoneBasedOnGeofence()))
-            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + utility.getTimeZoneBasedOnGeofence()));
-        else
-            action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",", ", " + year + " -")));
+        String[] timeZones=utility.getDayLightTimeZoneBasedOnGeofence();
+        String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
+        if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
+
+        else
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
+                    bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[1]));
     }
 
+
+    public String getbungiiDayLightTimeValue(String bungiiTime){
+        String time=null;
+
+        if(bungiiTime.contains("CST")) { time=bungiiTime.replace("CST","CDT"); }
+        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT"); }
+        else if(bungiiTime.contains("MST")){ time=bungiiTime.replace("MST","MDT"); }
+        else if(bungiiTime.contains("IST")){ time=bungiiTime; }
+        return time;
+    }
 
     /**
      * Check if bungii is present
@@ -633,7 +681,7 @@ public class ScheduledBungiiSteps extends DriverBase {
             return false;
         }
     }
-
+//Richa
     /**
      * Construct locator for bungii from given bungii information
      *
@@ -645,6 +693,21 @@ public class ScheduledBungiiSteps extends DriverBase {
         //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
 
         WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "']", PageBase.LocatorType.XPath);
+
+        return Image_SelectBungii;
+    }
+
+    /**
+     * Construct locator for bungii from given bungii information
+     *
+     * @param bungiiType identifer for bungii type
+     * @param bungiiTime Scheduled bungii time
+     * @return
+     */
+    public WebElement getLocatorForBungiiTime(String bungiiType, String bungiiTime, String bungiiTimeDayLight) {
+        //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
+
+        WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "' or 'com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTimeDayLight + "']", PageBase.LocatorType.XPath);
 
         return Image_SelectBungii;
     }

@@ -1,6 +1,7 @@
 package com.bungii.ios.utilityfunctions;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.api.utilityFunctions.GoogleMaps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
@@ -10,7 +11,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.enums.Status;
 import com.bungii.ios.manager.ActionManager;
-import com.bungii.ios.pages.admin.DashBoardPage;
+import com.bungii.ios.pages.admin.*;
 import com.bungii.ios.pages.admin.LogInPage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.*;
@@ -22,7 +23,7 @@ import com.bungii.ios.pages.other.MessagesPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.ios.stepdefinitions.admin.LogInSteps;
-import com.bungii.ios.stepdefinitions.admin.ScheduledTripSteps;
+import com.bungii.ios.stepdefinitions.admin.*;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.ios.IOSDriver;
 import org.apache.commons.collections.map.HashedMap;
@@ -80,6 +81,7 @@ public class GeneralUtility extends DriverBase {
     com.bungii.ios.pages.customer.UpdateStatusPage customerUpdateStatusPage = new com.bungii.ios.pages.customer.UpdateStatusPage();
     ScheduledBungiiPage scheduledBungiiPage = new ScheduledBungiiPage();
     EmailUtility emailUtility = new EmailUtility();
+
     int[][] rgb = {
             {238, 29, 55},
             {255, 169, 66},
@@ -194,146 +196,150 @@ public class GeneralUtility extends DriverBase {
         }
         SetupManager.getObject().useDriverInstance("ORIGINAL");
     }
-
+    public void hideNotifications() {
+    action.hideNotifications();
+    }
     public void recoverScenario() {
         logger.detail("Inside recovery scenario");
+try {
+    if (action.isElementPresent(customerHomePage.Application_Name(true))) {
+        //do nothing
+    } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
+        //if app is closed and just phone screen is present then restart app
+        SetupManager.getObject().restartApp();
+    }
+    //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
+    else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
+        //Remove notification screen
+        action.hideNotifications();
+        logger.detail("Notification page is removed");
+    }
+    //Handle Alert
+    if (action.isAlertPresent()) {
 
-        if (action.isElementPresent(customerHomePage.Application_Name(true))) {
-            //do nothing
-        } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
-            //if app is closed and just phone screen is present then restart app
-            SetupManager.getObject().restartApp();
-        }
-        //  else if (action.isElementPresent(notificationPage.Button_NotificationScreen(true)) || action.isElementPresent(notificationPage.Cell_Notification(true))) {
-        else if (action.isElementPresent(notificationPage.Generic_Notification(true))) {
-            //Remove notification screen
-            action.hideNotifications();
-            logger.detail("Notification page is removed");
-        }
-        //Handle Alert
-        if (action.isAlertPresent()) {
+        String alertMessage = action.getAlertMessage();
+        logger.detail("Alert is present on screen,Alert message:" + alertMessage);
 
-            String alertMessage = action.getAlertMessage();
-            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+        List<String> getListOfAlertButton = action.getListOfAlertButton();
 
-            List<String> getListOfAlertButton = action.getListOfAlertButton();
-
-            if (alertMessage.contains("Software Update")) {
-                if (getListOfAlertButton.contains("Later")) {
-                    action.clickAlertButton("Later");
-                    if (action.isElementPresent(messagesPage.Button_RemindMeLater(true)))
-                        action.click(messagesPage.Button_RemindMeLater());
-                }
-            } else if (alertMessage.contains("new iOS update")) {
-                if (getListOfAlertButton.contains("Close")) {
-                    action.clickAlertButton("Close");
-
-                }
-            } else if (getListOfAlertButton.contains("Cancel")) {
-                action.clickAlertButton("Cancel");
-            } else {
-                if (getListOfAlertButton.contains("Done"))
-                    action.clickAlertButton("Done");
-
-                if (getListOfAlertButton.contains("Close"))
-                    action.clickAlertButton("Close");
-
-                else if (getListOfAlertButton.contains("Always Allow"))
-                    action.clickAlertButton("Always Allow");
-                else if (getListOfAlertButton.contains("Allow"))
-                    action.clickAlertButton("Allow");
+        if (alertMessage.contains("Software Update")) {
+            if (getListOfAlertButton.contains("Later")) {
+                action.clickAlertButton("Later");
+                if (action.isElementPresent(messagesPage.Button_RemindMeLater(true)))
+                    action.click(messagesPage.Button_RemindMeLater());
+            }
+        } else if (alertMessage.contains("new iOS update")) {
+            if (getListOfAlertButton.contains("Close")) {
+                action.clickAlertButton("Close");
 
             }
-        }
-        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-        // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-        logger.detail("Switched to Driver in recovery scenario");
+        } else if (getListOfAlertButton.contains("Cancel")) {
+            action.clickAlertButton("Cancel");
+        } else {
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
 
-        //If we restart app then close view item page is dismissed
-        //view item page
+            if (getListOfAlertButton.contains("Close"))
+                action.clickAlertButton("Close");
+
+            else if (getListOfAlertButton.contains("Always Allow"))
+                action.clickAlertButton("Always Allow");
+            else if (getListOfAlertButton.contains("Allow"))
+                action.clickAlertButton("Allow");
+
+        }
+    }
+    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+    // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
+    logger.detail("Switched to Driver in recovery scenario");
+
+    //If we restart app then close view item page is dismissed
+    //view item page
 /*        if (action.isElementPresent(driverUpdateStatusPage.Button_CloseViewItems(true))) {
             action.click(driverUpdateStatusPage.Button_CloseViewItems());
             logger.detail("Clicked Close on view item screen");
 
         }*/
-        if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
+    if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
-            String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
-            logger.detail("screen is " + screen);
-            if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
-                logger.detail("Driver struck on arrived screen");
-                action.click(driverUpdateStatusPage.Button_Cancel());
-                action.clickAlertButton("Yes");
-            } else if (screen.equals(Status.EN_ROUTE.toString())) {
-                logger.detail("Driver struck on EN_ROUTE screen");
-                action.click(driverUpdateStatusPage.Button_Cancel());
-                action.clickAlertButton("Yes");
-            } else if (screen.equals(Status.LOADING_ITEM.toString())) {
-                logger.detail("Driver struck on LOADING_ITEM screen");
-                updateStatus();
-                updateStatus();
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
+        String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
+        logger.detail("screen is " + screen);
+        if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
+            logger.detail("Driver struck on arrived screen");
+            action.click(driverUpdateStatusPage.Button_Cancel());
+            action.clickAlertButton("Yes");
+        } else if (screen.equals(Status.EN_ROUTE.toString())) {
+            logger.detail("Driver struck on EN_ROUTE screen");
+            action.click(driverUpdateStatusPage.Button_Cancel());
+            action.clickAlertButton("Yes");
+        } else if (screen.equals(Status.LOADING_ITEM.toString())) {
+            logger.detail("Driver struck on LOADING_ITEM screen");
+            updateStatus();
+            updateStatus();
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
                 }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
-                logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
-                updateStatus();
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
-                }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
-                logger.detail("Driver struck on UNLOADING_ITEM screen");
-                updateStatus();
-                if (action.isAlertPresent()) {
-                    if (action.getListOfAlertButton().contains("INITIATE")) {
-                        action.clickAlertButton("INITIATE");
-                    }
-                }
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
-            } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
-                logger.detail("Driver struck on bungii completed screen");
-                action.click(driverBungiiCompletedPage.Button_NextTrip());
             }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(Status.DRIVING_TO_DROP_OFF.toString())) {
+            logger.detail("Driver struck on DRIVING_TO_DROP_OFF screen");
+            updateStatus();
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
+                }
+            }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(Status.UNLOADING_ITEM.toString())) {
+            logger.detail("Driver struck on UNLOADING_ITEM screen");
+            updateStatus();
+            if (action.isAlertPresent()) {
+                if (action.getListOfAlertButton().contains("INITIATE")) {
+                    action.clickAlertButton("INITIATE");
+                }
+            }
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        } else if (screen.equals(PropertyUtility.getMessage("driver.navigation.bungii.completed"))) {
+            logger.detail("Driver struck on bungii completed screen");
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+        }
 
-        }
-        SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
-        // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
-        if (action.isAlertPresent()) {
-            List<String> getListOfAlertButton = action.getListOfAlertButton();
-            if (getListOfAlertButton.contains("OK"))
-                action.clickAlertButton("OK");
-        }
-        String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
-        if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
-            logger.detail("Customer struck on searching screen");
-            action.click(estimatePage.Button_Cancel());
-            SetupManager.getDriver().switchTo().alert().accept();
-        } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))) {
-            logger.detail("Customer struck on bungii complete screen");
-            action.click(bungiiCompletePage.Button_Close());
-            ;
-            action.click(promotionPage.Button_IdontLikePromo());
-        } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))) {
-            logger.detail("Customer struck on promotion screen");
-            action.click(promotionPage.Button_IdontLikePromo());
-        } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
-            navigateFromTermToHomeScreen();
-        } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
-            action.click(enableNotificationPage.Button_Sure());
+    }
+    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
+    // action.switchApplication(PropertyUtility.getProp("bundleId_Customer"));
+    if (action.isAlertPresent()) {
+        List<String> getListOfAlertButton = action.getListOfAlertButton();
+        if (getListOfAlertButton.contains("OK"))
+            action.clickAlertButton("OK");
+    }
+    String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
+    if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+        logger.detail("Customer struck on searching screen");
+        action.click(estimatePage.Button_Cancel());
+        SetupManager.getDriver().switchTo().alert().accept();
+    } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.bungii.complete"))) {
+        logger.detail("Customer struck on bungii complete screen");
+        action.click(bungiiCompletePage.Button_Close());
+        ;
+        action.click(promotionPage.Button_IdontLikePromo());
+    } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.promotion"))) {
+        logger.detail("Customer struck on promotion screen");
+        action.click(promotionPage.Button_IdontLikePromo());
+    } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+        navigateFromTermToHomeScreen();
+    } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+        action.click(enableNotificationPage.Button_Sure());
+        action.clickAlertButton("Allow");
+        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+            action.click(enableLocationPage.Button_Sure());
             action.clickAlertButton("Allow");
-            if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
-                action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow");
-            }
         }
+    }
+}
+     catch(Exception e){}
     }
 
     public void navigateFromTermToHomeScreen() {
@@ -438,7 +444,11 @@ public class GeneralUtility extends DriverBase {
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get timezone value of Geofence
+        //Add Code to handle daylight
+
         String getGeofenceTimeZone = getGeofenceData(currentGeofence, "geofence.timezone");
+        if(TimeZone.getTimeZone(getGeofenceTimeZone).inDaylightTime( new Date() ))
+            getGeofenceTimeZone = getGeofenceTimeZone.replace("S","D");
         return getGeofenceTimeZone;
     }
 
@@ -834,7 +844,7 @@ public class GeneralUtility extends DriverBase {
      * @return
      */
     public double bungiiCustomerCost(String tripDistance, String tripTime, String Promo, String tripType) {
-        logger.detail("tripDistance" + tripDistance + ".tripTime" + tripTime + "Promo" + Promo + "tripType" + tripType);
+        logger.detail("Trip Distance : " + tripDistance + "| Trip Time : " + tripTime + "| Promo : " + Promo + "| Trip Type : " + tripType);
         //get current geofence
         String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
         //get minimum cost,Mile value,Minutes value of Geofence
@@ -1173,62 +1183,67 @@ public class GeneralUtility extends DriverBase {
 
     public void calculateShortStack() throws ParseException {
 //        cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
+try {
+    int FROM_RANGE_FROM = -10;
+    int FROM_RANGE_TO = +20;
+    long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
 
-        int FROM_RANGE_FROM = -10;
-        int FROM_RANGE_TO = +20;
-        long ONE_MINUTE_IN_MILLIS = 60000;//millisecs
+    String geofenceLabel = getTimeZoneBasedOnGeofenceId();
+    String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
+    String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");//customer2PhoneNumber="9999991259";
+    String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");//driverPhoneNumber="9955112208";
 
-        String geofenceLabel = getTimeZoneBasedOnGeofenceId();
-        String customerPhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");//customerPhoneNumber="9999991889";
-        String customer2PhoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER2_PHONE");//customer2PhoneNumber="9999991259";
-        String driverPhoneNumber = (String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");//driverPhoneNumber="9955112208";
-
-        String[] loadingTimeStamp = com.bungii.android.utilityfunctions.DbUtility.getLoadingTimeStamp(customerPhoneNumber);
-        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //By default data is in UTC
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        Date loadingStartTime = formatter.parse(loadingTimeStamp[0]);
-        Date loadingEtartTime = formatter.parse(loadingTimeStamp[1]);
-        long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
-        long loadingTime = TimeUnit.MILLISECONDS.toMinutes(duration);
-
-
-        String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
-        String[] pickup1Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customerPhoneNumber);
-        String[] pickup2Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
-
-        String[] dropLocation = new String[2];
-        dropLocation[0] = pickup1Locations[2];
-        dropLocation[1] = pickup1Locations[3];
-        String[] newPickupLocations = new String[2];
-        newPickupLocations[0] = pickup2Locations[0];
-        newPickupLocations[1] = pickup2Locations[1];
-
-        int[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
-        int FLUFF_TIME = 4;
-        loadingTime = (loadingTime < 1 ? 10 : loadingTime);
-        // loadingTime=10;
-        long totalTimeETAtoPickup = loadingTime + timeToCoverDistance[0] + timeToCoverDistance[1] + FLUFF_TIME;
-        long tripProjectedEndTime = loadingTime + timeToCoverDistance[0];
-        String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
-        Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
-        DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
-        formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
-
-        Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * tripProjectedEndTime));
-        String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
-
-        Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * totalTimeETAtoPickup));
+    String[] loadingTimeStamp = com.bungii.android.utilityfunctions.DbUtility.getLoadingTimeStamp(customerPhoneNumber);
+    DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    //By default data is in UTC
+    formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+    Date loadingStartTime = formatter.parse(loadingTimeStamp[0]);
+    Date loadingEtartTime = formatter.parse(loadingTimeStamp[1]);
+    long duration = loadingEtartTime.getTime() - loadingStartTime.getTime();
+    long loadingTime = TimeUnit.MILLISECONDS.toMinutes(duration);
 
 
-        Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
-        String strMindate = formatterForLocalTimezone.format(minTime);
+    String[] driverLocation = com.bungii.android.utilityfunctions.DbUtility.getDriverLocation(driverPhoneNumber);
+    String[] pickup1Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customerPhoneNumber);
+    String[] pickup2Locations = com.bungii.android.utilityfunctions.DbUtility.getPickupAndDropLocation(customer2PhoneNumber);
 
-        Date maxTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
-        String strMaxdate = formatterForLocalTimezone.format(maxTime);
-        cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
-        cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
-        cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
+    String[] dropLocation = new String[2];
+    dropLocation[0] = pickup1Locations[2];
+    dropLocation[1] = pickup1Locations[3];
+    String[] newPickupLocations = new String[2];
+    newPickupLocations[0] = pickup2Locations[0];
+    newPickupLocations[1] = pickup2Locations[1];
+
+    int[] timeToCoverDistance = new GoogleMaps().getDurationInTraffic(driverLocation, dropLocation, newPickupLocations);
+    int FLUFF_TIME = 4;
+    loadingTime = (loadingTime < 1 ? 10 : loadingTime);
+    // loadingTime=10;
+    long totalTimeETAtoPickup = loadingTime + timeToCoverDistance[0] + timeToCoverDistance[1] + FLUFF_TIME;
+    long tripProjectedEndTime = loadingTime + timeToCoverDistance[0];
+    String tripStartTime = com.bungii.android.utilityfunctions.DbUtility.getStatusTimeStampForStack(customer2PhoneNumber);
+    Date tryToFinishTome_Temp = formatter.parse(tripStartTime);
+    DateFormat formatterForLocalTimezone = new SimpleDateFormat("hh:mm a");
+    formatterForLocalTimezone.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+
+    Date tryToFinishTome = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * tripProjectedEndTime));
+    String driverTime = formatterForLocalTimezone.format(tryToFinishTome);
+
+    Date timeStampToCalculateDate = new Date(tryToFinishTome_Temp.getTime() + (ONE_MINUTE_IN_MILLIS * totalTimeETAtoPickup));
+
+
+    Date minTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_FROM * ONE_MINUTE_IN_MILLIS));
+    String strMindate = formatterForLocalTimezone.format(minTime);
+
+    Date maxTime = new Date(timeStampToCalculateDate.getTime() + (FROM_RANGE_TO * ONE_MINUTE_IN_MILLIS));
+    String strMaxdate = formatterForLocalTimezone.format(maxTime);
+    cucumberContextManager.setScenarioContext("DRIVER_FINISH_BY", driverTime);
+    cucumberContextManager.setScenarioContext("DRIVER_MIN_ARRIVAL", strMindate);
+    cucumberContextManager.setScenarioContext("DRIVER_MAX_ARRIVAL", strMaxdate);
+}
+catch (Exception e)
+{
+    e.printStackTrace();
+}
 
     }
 
@@ -1446,7 +1461,7 @@ public class GeneralUtility extends DriverBase {
     public void logCustomerDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber);
+                logger.detail("Device token of customer"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber));
         }catch (Exception e){
             logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
         }
@@ -1454,7 +1469,15 @@ public class GeneralUtility extends DriverBase {
     public void logDriverDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber);
+                logger.detail("Device token of Driver"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber));
+        }catch (Exception e){
+            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+        }
+    }
+    public void logCustomerRecentTrip(String phoneNumber){
+        try {
+            if(!phoneNumber.trim().equalsIgnoreCase(""))
+                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
         }catch (Exception e){
             logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
         }

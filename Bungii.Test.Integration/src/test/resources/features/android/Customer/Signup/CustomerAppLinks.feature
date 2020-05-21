@@ -30,7 +30,6 @@ Feature: CustomerApplicationLinks
     And I verify that the tutorial is displayed only once
 
     @regression
-
     Scenario: Verify Save Money Button Redirect To Invite Screen
       When I tap on the "Log in" button on Signup Page
       And I enter customers "8805368840" Phone Number

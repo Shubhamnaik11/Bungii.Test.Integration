@@ -89,7 +89,7 @@ Feature: Login
     And I tap on "Get Estimate button" on Bungii estimate
     Then "Estimate" page should be opened
 
-  @regression
+  #@regression
   Scenario: Verify Permissions Are Only Displayed On App Upon First Time Installation
     Given I have device which has location permission
     Given I install Bungii App again
@@ -111,8 +111,7 @@ Feature: Login
     And I tap on the "Log in" Button on Login screen
     Then "Home" page should be opened
 
-  @regression
-
+  #@regression
   Scenario: Verify If Location Permissions Are Denied Then Alert Is Shown Again On Home page
     Given I have device which has location permission
     Given I install Bungii App again

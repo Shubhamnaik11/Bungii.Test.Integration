@@ -14,6 +14,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.pass;
@@ -35,8 +36,9 @@ public class ScheduledBungiiSteps extends DriverBase {
 		try {
 			String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
 			String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
+			//String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
 			selectBungii(tripNoOfDriver, tripTime);
-			pass("I select already scheduled bungii", "I selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
+			pass("I select scheduled bungii", "I have selected already scheduled bungii of "+tripNoOfDriver+" type and at time: " + tripTime , true);
 		} catch (Exception e) {
 			logger.error("Error performing step", SetupManager.getDriver().getPageSource());
 			logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -108,13 +110,19 @@ public class ScheduledBungiiSteps extends DriverBase {
 		action.swipeDown();
 
 		//By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
-		WebElement Image_SelectBungii;
-	//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		if(action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath,true)))
-				Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-		else
-			Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime+ "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
-
+		WebElement Image_SelectBungii =null;
+		try {
+			//	WebElement Image_SelectBungii=scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			if (action.isElementPresent(scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath, true)))
+				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+			else
+				Image_SelectBungii = scheduledBungiiPage.findElement("//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell", PageBase.LocatorType.XPath);
+		}
+		catch(Exception ex)
+		{
+			error("Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] should be displayed", "Element with [Locator : "+"//XCUIElementTypeStaticText[contains(@name,'" + bungiiTime + "')]/parent::XCUIElementTypeCell"+" ] by type [ "+"XPath"+" ] is not displayed. Please refer error logs for more details.",
+					true);
+		}
 		return Image_SelectBungii;
 	}
 
@@ -129,6 +137,9 @@ public class ScheduledBungiiSteps extends DriverBase {
 	public void selectBungii(String bungiiType, String bungiiTime) {
 		Date currentDate = new Date();
 		int year=currentDate.getYear()+1900;
+		//Handle code to update Daylight
+		if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
+		bungiiTime=bungiiTime.replace("S","D");
 		action.click(getLocatorForBungii(bungiiType, bungiiTime.replace(",",", "+year+" -")));
 	}
 

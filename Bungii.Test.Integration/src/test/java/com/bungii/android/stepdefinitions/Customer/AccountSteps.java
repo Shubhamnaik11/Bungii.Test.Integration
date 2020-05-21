@@ -45,7 +45,7 @@ public class AccountSteps extends DriverBase {
     @And("^logged in Customer details should be displayed$")
     public void logged_in_customer_details_should_be_displayed() {
         try {
-            ActionManager.waitUntilIsElementExistsAndDisplayed(accountPage.Account_Phone());
+            action.waitUntilIsElementExistsAndDisplayed(accountPage.Account_Phone());
             String actualName = action.getText(accountPage.Account_Name());
          //   String expectedName = PropertyUtility.getDataProperties("customer.first.valid.name") + " " + PropertyUtility.getDataProperties("customer.last.valid.name");
             String expectedName = PropertyUtility.getDataProperties("customer_generic.name");

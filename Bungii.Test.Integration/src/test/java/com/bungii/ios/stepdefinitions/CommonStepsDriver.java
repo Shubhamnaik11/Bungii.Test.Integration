@@ -153,8 +153,8 @@ public class CommonStepsDriver extends DriverBase {
 
             GeneralUtility utility = new GeneralUtility();
             isCorrectPage = utility.verifyPageHeader(screen);
-            testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
-                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+            testStepAssert.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
+                    "I have navigated to " + screen, "I didnt navigate to " + screen + " screen ");
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -286,14 +286,14 @@ public class CommonStepsDriver extends DriverBase {
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
             testStepVerify.isEquals(actualMessage, expectedMessage,
-                    "Alert with text" + expectedMessage + "should be displayed",
-                    "Alert with text ," + expectedMessage + " should be displayed",
-                    "Alert Message is not displayed, actual Message" + actualMessage + " Expected is "
+                    "Alert : " + expectedMessage + "should be displayed",
+                    "Alert : " + actualMessage + " is displayed",
+                    "Alert is not displayed | Actual Message " + actualMessage + " Expected is "
                             + expectedMessage);
         } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            fail("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+            logger.error("Invalid Password Alert Not Displayed", ExceptionUtils.getStackTrace(e));
+            fail("Step should be successful",
+                    "Invalid Password Alert Not Displayed", true);
         }
     }
 
@@ -313,7 +313,7 @@ public class CommonStepsDriver extends DriverBase {
     public void i_am_on_the_something_page_on_driverApp(String screen) {
         try {
             //adding temp page source , can remove later
-            logger.error("Page source", SetupManager.getDriver().getPageSource());
+          //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
             switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
@@ -336,7 +336,7 @@ public class CommonStepsDriver extends DriverBase {
         HomePageSteps homeSteps = new HomePageSteps(driverHomePage);
         if (action.isAlertPresent()) {
             String alertMessage = action.getAlertMessage();
-            logger.detail("Alert is present on screen,Alert message:" + alertMessage);
+            logger.detail("Alert is present on screen, Alert message:" + alertMessage);
             List<String> getListOfAlertButton = action.getListOfAlertButton();
             if (getListOfAlertButton.contains("Done"))
                 action.clickAlertButton("Done");

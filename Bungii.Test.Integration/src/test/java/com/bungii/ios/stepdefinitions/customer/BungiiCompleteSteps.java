@@ -147,15 +147,15 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" starts should be highlighted for Driver 1$")
-    public void something_starts_should_be_highlighted(String strArg1) throws Throwable {
+    @Then("^\"([^\"]*)\" stars should be highlighted for Driver 1$")
+    public void something_stars_should_be_highlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_Driver1Filled();
             List<WebElement> unfilledStar = bungiiCompletePage.Button_Driver1Empty();
             switch (strArg1) {
                 case "3":
-                    testStepVerify.isTrue(star.size() == 3, strArg1 + " starts are displayed ");
-                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " starts are displayed ");
+                    testStepVerify.isTrue(star.size() == 3, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -169,15 +169,15 @@ public class BungiiCompleteSteps extends DriverBase {
         }
     }
 
-    @Then("^\"([^\"]*)\" starts should be highlighted for solo Driver 1$")
-    public void something_starts_should_be_solohighlighted(String strArg1) throws Throwable {
+    @Then("^\"([^\"]*)\" stars should be highlighted for solo Driver 1$")
+    public void something_stars_should_be_solohighlighted(String strArg1) throws Throwable {
         try {
             List<WebElement> star = bungiiCompletePage.Button_DriverSoloFilled();
             List<WebElement> unfilledStar = bungiiCompletePage.Button_DriverSoloUnFilled();
             switch (strArg1) {
                 case "3":
-                    testStepVerify.isTrue(star.size() == 3, strArg1 + " starts are displayed ");
-                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " starts are displayed ");
+                    testStepVerify.isTrue(star.size() == 3, strArg1 + " stars are displayed ");
+                    testStepVerify.isTrue(unfilledStar.size() == (5 - Integer.parseInt(strArg1)), strArg1 + " stars are displayed ");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
