@@ -29,6 +29,7 @@ public class FaqSteps extends DriverBase {
                     action.click(faqPage.FAQ_FirstQuestion());
                     break;
                 case "expanded first question":
+                    action.scrollToBottom();
                     action.click(faqPage.FAQ_FirstQuestion());
 
                     //    action.click(faqPage.FAQ_FirstQuestion_open());
@@ -49,9 +50,9 @@ public class FaqSteps extends DriverBase {
         try {
             switch (strArg1) {
                 case "first answer dropdown open":
-                    Thread.sleep(10000);
+                    Thread.sleep(20000);
                     //    action.scrollToBottom();
-                    testStepAssert.isTrue(action.getText(faqPage.FAQ_FirstAnswer()).contains("an app similar to other popular ridesharing apps"), "First answer dropdown should open", "First answer dropdown is displayed", "First answer dropdown is not displayed");
+                    testStepAssert.isTrue(action.getText(faqPage.FAQ_FirstAnswer()).contains("Bungii is considered an essential business during COVID-19"), "First answer dropdown should open", "First answer dropdown is displayed", "First answer dropdown is not displayed");
                     break;
                 case "first answer dropdown close":Thread.sleep(2000);
                 //    testStepAssert.isFalse(action.getText(faqPage.FAQ_FirstAnswer()).contains("an app similar to other popular ridesharing apps"), "First answer dropdown should close", "First answer dropdown should be closed", "First answer dropdown is displayed");

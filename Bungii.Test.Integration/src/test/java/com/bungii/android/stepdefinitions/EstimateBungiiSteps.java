@@ -993,10 +993,8 @@ public class EstimateBungiiSteps extends DriverBase {
     @Then("^\"([^\"]*)\" information icon should display correct information$")
     public void something_information_icon_should_display_correct_information(String iconName) throws Throwable {
         try {
-
             String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOAD_TIME");
             String expectedMessage = "", actualMessage = "";
-
 
             switch (iconName.toUpperCase()) {
                 case "LOAD/UPLOAD TIME":
@@ -1100,6 +1098,8 @@ public class EstimateBungiiSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             //String strTime = bungiiTimeDisplayInTextArea(date);
             String[] strTime=bungiiTimeZoneDisplayInTextArea(date);
+            strTime[0]=strTime[0].replace("am ","").replace("pm" ,"");
+            strTime[1]=strTime[1].replace("am ","").replace("pm ","");
             String displayedTime = getElementValue("TIME");
             if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
             {

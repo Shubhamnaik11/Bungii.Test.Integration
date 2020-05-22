@@ -22,8 +22,8 @@ public class FAQPage extends PageBase {
     public WebElement FAQ_FirstQuestion() { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii?')]", LocatorType.XPath); }
     public WebElement FAQ_FirstQuestion_open() { return findElement("//android.view.View[3][@instance='35']", LocatorType.XPath); }
   //  public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,'So what exactly is Bungii?')]/following-sibling::android.view.View", LocatorType.XPath,ignoreException); }
-    public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[@resource-id='elementor-tab-content-1261']/android.view.View", LocatorType.XPath,ignoreException); }
-    //public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[3][@instance='35']/following::android.view.View[1]", LocatorType.XPath,ignoreException); }
+   // public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("//android.view.View[@resource-id='elementor-tab-content-1261']", LocatorType.XPath,ignoreException); }
+    public WebElement FAQ_FirstAnswer(boolean...ignoreException) { return findElement("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.view.View/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.widget.TabWidget/android.view.View[2]/android.widget.ListView/android.view.View/android.widget.TextView", LocatorType.XPath,ignoreException); }
 
 
     public WebElement FAQ_LastQuestion(boolean...ignoreException) { return findElement("//android.view.View[contains(@text,\"What if there's an issue with my Bungii and/or I have other questions?\")]", LocatorType.XPath,ignoreException); }

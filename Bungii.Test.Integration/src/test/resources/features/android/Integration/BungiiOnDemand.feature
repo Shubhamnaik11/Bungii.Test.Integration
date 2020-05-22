@@ -779,3 +779,5 @@ Feature: On Demand Bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
+    And I Switch to "customer" application on "same" devices
+    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen
