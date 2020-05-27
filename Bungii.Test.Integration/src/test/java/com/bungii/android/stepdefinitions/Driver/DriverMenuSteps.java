@@ -94,6 +94,7 @@ public class DriverMenuSteps extends DriverBase {
                     break;
 
                 case "EARNINGS":
+                    Thread.sleep(10000);
                     data = action.getText(homePage.Text_Earnings()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_Earnings(), "DRIVER INFO", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;

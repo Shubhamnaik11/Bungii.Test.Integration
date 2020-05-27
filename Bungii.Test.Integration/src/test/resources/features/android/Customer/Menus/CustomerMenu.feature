@@ -23,7 +23,7 @@ Feature: CustomerMenu
     And I tap on "Menu" > "Logout" link
     Then Customer active flag should be "0"
 
-  @regression1
+  @regression
   Scenario: Verify Customer FAQ Menu
     When I tap on "Menu" > "FAQ" link
     Then "FAQ" page should be opened

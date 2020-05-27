@@ -245,10 +245,10 @@ public class EstimateBungiiSteps extends DriverBase {
         actualTime = zonedDateTime.format(formatter);
         System.out.println("Actual Time"+actualTime);
             String pickupDateTime = action.getText(bungiiEstimatePage.Time());
-            String pickupTime = pickupDateTime.substring(8,16);
+            String pickupTime = pickupDateTime.substring(8,13);
             System.out.println("Pickup time " + pickupTime);
 
-            actualTime.replace("am", "AM").replace("pm", "PM");
+            actualTime=actualTime.replace(" am", "").replace(" pm", "");
         testStepVerify.isEquals(actualTime, pickupTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
