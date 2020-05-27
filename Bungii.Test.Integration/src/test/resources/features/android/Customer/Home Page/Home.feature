@@ -60,12 +60,17 @@ Feature: Customer Home screen
   @regression
     @demo
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance Between Pickup And Dropoff Is >150 Miles
-      When I tap on "Menu" > "Home" link
-      And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
-      Then I get the error popup message for "More than 150 miles trip"
+    When I tap on "Menu" > "Home" link
+    And I enter "Atlanta pickup and Indiana dropoff location" on Bungii estimate screen
+    Then I get the error popup message for "More than 150 miles trip"
 
   @regression
   Scenario: Verify ETA Box When Geofence Is Not Active
     When I tap on "Menu" > "Home" link
     And I enter "Non Geofence pickup location" on Bungii estimate screen
     Then I get the error popup message for "Non Geofence Location"
+
+  @regression
+  Scenario: Verify that location picker appears on home screen when customer login.
+    When I tap on "Menu" > "Home" link
+    Then I verify that "Location picker" is displayed

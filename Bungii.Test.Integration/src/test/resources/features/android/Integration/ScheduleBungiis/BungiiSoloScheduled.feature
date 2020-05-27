@@ -2086,8 +2086,8 @@ Feature: SoloScheduled
       | Scenario       | Card Detail                | Card Expiry       | CVV       | Postal Code       |
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
 
-      #@regression
-  @ready
+
+  @regression
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
     When I clear all notification
     When I Switch to "driver" application on "same" devices

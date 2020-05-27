@@ -552,4 +552,23 @@ public class HomeSteps extends DriverBase {
         }
     }
 
+    @Then("^I verify that \"([^\"]*)\" is displayed$")
+    public void i_verify_that_something_is_displayed(String strArg1) {
+        try {
+            switch (strArg1) {
+                case "Location picker":
+                    testStepAssert.isElementDisplayed(homePage.LocationPicker(),"Location Picker must be displayed.", "The Location Picker is displayed.","The Location Picker is not displayed.");
+                    break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
 }
