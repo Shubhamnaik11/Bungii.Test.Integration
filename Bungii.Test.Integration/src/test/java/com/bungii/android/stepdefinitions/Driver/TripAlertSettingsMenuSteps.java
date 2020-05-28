@@ -1,10 +1,9 @@
 package com.bungii.android.stepdefinitions.Driver;
 
 import com.bungii.android.manager.*;
-import com.bungii.android.pages.customer.PromosPage;
+import com.bungii.android.pages.customer.*;
 
 import com.bungii.android.pages.customer.PromosPage;
-import com.bungii.android.pages.customer.ScheduledBungiisPage;
 
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
 import com.bungii.android.utilityfunctions.*;
@@ -25,9 +24,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     TripAlertSettingsPage tripAlertSettingsPage= new TripAlertSettingsPage();
-
+    HomePage homePage= new HomePage();
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     PromosPage promosPage=new PromosPage();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -40,6 +40,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "SMS Alerts":
                     action.click(tripAlertSettingsPage.Tab_SMSAlerts());
                     break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
             }
         }
         catch (Exception e) {
@@ -70,6 +73,9 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
                     break;
+
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP ");
             }
         }
         catch (Exception e) {
@@ -106,11 +112,10 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "ADD":
                     action.click(promosPage.Button_AddPromoCode());
                     break;
+
                 case "OK":
                     action.click(promosPage.Button_Ok());
                     break;
-                default:
-                    error("Implemented Step", "UnImplemented Step");
 
                 case "SAVE MONEY":
                     action.click(scheduledBungiisPage.Button_SaveMoney());
@@ -119,6 +124,24 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
                     break;
+
+                case "SET PICKUP LOCATION":
+                    action.click(homePage.Button_ETASet());
+                    break;
+
+                case "SET DROP OFF LOCATION":
+                    Thread.sleep(2000);
+                    action.click(homePage.Button_ETASet());
+                    break;
+
+                case "SCHEDULE BUNGII":
+                    Thread.sleep(2000);
+                    action.click(setPickupTimePage.Button_ScheduleBungii());
+                    break;
+
+                default:
+                    error("Implemented Step", "UnImplemented Step");
+
             }
         }
         catch (Exception e) {

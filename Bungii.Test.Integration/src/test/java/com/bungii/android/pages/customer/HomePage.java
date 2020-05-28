@@ -88,4 +88,5 @@ public class HomePage extends PageBase {
     public WebElement LocationPicker() {return findElement("com.bungii.customer:id/pickup_location_imageview_idle_eta", LocatorType.Id);}
     public WebElement DropOffLocationPicker(){return findElement("com.bungii.customer:id/pickup_location_eta_bar", LocatorType.Id);}
     public WebElement TextBox_CancellationReason(){return findElement("com.bungii.customer:id/alert_cancellation_reason_et", LocatorType.Id);}
+    public WebElement TextBox_ETAContainer(){return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
 }

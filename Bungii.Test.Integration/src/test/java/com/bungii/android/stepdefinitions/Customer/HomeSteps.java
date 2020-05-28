@@ -28,6 +28,7 @@ public class HomeSteps extends DriverBase {
     PaymentPage paymentPage = new PaymentPage();
     SignupPage Page_Signup = new SignupPage();
     ActionManager action = new ActionManager();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
 
     @When("^I Select \"([^\"]*)\" from customer app menu list$")
     public void i_select_something_from_customer_app_menu_list(String strArg1) throws Throwable {
@@ -496,9 +497,9 @@ public class HomeSteps extends DriverBase {
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
-                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaA"));
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     Thread.sleep(2000);
-                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaA"));
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
                     break;
@@ -518,6 +519,18 @@ public class HomeSteps extends DriverBase {
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.nongeofence"));
                     Thread.sleep(5000);
+                    break;
+
+                case "Goa Geofence pickup location":
+                    if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
+                        action.click(homePage.Button_ClearPickUp());
+                    utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    Thread.sleep(2000);
+                    break;
+
+                case "Goa Geofence dropoff location":
+                    utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    Thread.sleep(2000);
                     break;
 
             }
@@ -560,6 +573,43 @@ public class HomeSteps extends DriverBase {
                     testStepAssert.isElementDisplayed(homePage.LocationPicker(),"Location Picker must be displayed.", "The Location Picker is displayed.","The Location Picker is not displayed.");
                     break;
 
+                case "SET PICKUP LOCATION BUTTON":
+                    String actualBtnText=homePage.Button_ETASet(true).getText();
+                    String expectedBtnText="Set Pickup Location";
+                    testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET PICKUP LOCATION should be displayed.","SET PICKUP LOCATION is displayed.","SET PICKUP LOCATION is not displayed.");
+                    break;
+
+                case "SET DROP OFF LOCATION BUTTON":
+                    actualBtnText=homePage.Button_ETASet(true).getText();
+                    expectedBtnText="Set Drop Off Location";
+                    testStepAssert.isEquals(actualBtnText, expectedBtnText,"SET DROP OFF LOCATION should be displayed.","SET DROP OFF LOCATION is displayed.","SET DROP OFF LOCATION is not displayed.");
+                    break;
+
+                case "ETA bar":
+                    testStepAssert.isElementDisplayed(homePage.TextBox_ETAContainer(),"ETA Container must be displayed.", "The ETA Container is displayed.","The ETA Container is not displayed.");
+                    break;
+
+                case "GET ESTIMATE":
+                    testStepAssert.isElementDisplayed(homePage.Button_GetEstimate(),"Get Estimate button must be displayed.", "The ETA Container is displayed.","The ETA Container is not displayed.");
+                    break;
+
+                case "SET PICKUP TIME PAGE":
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_SetPickupTimeTitle(), "SET PICKUP TIME page title should be displayed.", "SET PICKUP TIME page title is displayed.","SET PICKUP TIME page title is not displayed.");
+                    break;
+
+                case "DRIVERS NOT AVAILABLE":
+                    System.out.println(PropertyUtility.getMessage("drivers.busy.on.demand"));
+                    System.out.println(setPickupTimePage.Text_DriversBusyMessage().getText());
+                    if(setPickupTimePage.Text_DriversBusyMessage().getText().contains(PropertyUtility.getMessage("drivers.busy.on.demand"))) {
+                        testStepAssert.isTrue(true, "The message is displayed.", "The expected message is displayed.", "The expected message is not displayed.");
+                    }
+                    break;
+
+                case "Message Popup":
+                    String actualMessage=setPickupTimePage.Icon_PickupTimeInfoMessage().getText();
+                    String expectedMessage= PropertyUtility.getMessage("customer.info.cancel.ondemand.bungii");
+                    testStepAssert.isEquals(actualMessage,expectedMessage,expectedMessage+" is displayed.",expectedMessage+" is displayed.",expectedMessage+" is not displayed.");
+                    break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
             }

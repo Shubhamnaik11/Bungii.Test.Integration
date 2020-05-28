@@ -431,6 +431,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_newly.registered.name"));
                     break;
+                case "valid goa customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                            PropertyUtility.getDataProperties("goa.customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -554,9 +560,10 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    Thread.sleep(2000);
                     action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");

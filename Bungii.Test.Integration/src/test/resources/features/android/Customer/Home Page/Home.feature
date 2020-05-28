@@ -74,3 +74,29 @@ Feature: Customer Home screen
   Scenario: Verify that location picker appears on home screen when customer login.
     When I tap on "Menu" > "Home" link
     Then I verify that "Location picker" is displayed
+
+  @regression
+  Scenario: Verify that 'SET PICKUP LOCATION' button appears when customer moves the location picker for pickup field.
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Goa driver_1" driver
+    Then I Switch to "customer" application on "same" devices
+    When I tap on "Menu" > "Home" link
+    And I enter "Goa Geofence pickup location" on Bungii estimate screen
+    Then I verify that "SET PICKUP LOCATION BUTTON" is displayed
+    When I click on "SET PICKUP LOCATION" button
+    Then I verify that "SET DROP OFF LOCATION BUTTON" is displayed
+
+  @regression
+  Scenario: Verify that ETA bar appears when customer selects pickup and drop-off address.
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Goa driver_1" driver
+    Then I Switch to "customer" application on "same" devices
+    When I tap on "Menu" > "Home" link
+    And I enter "Goa Geofence pickup location" on Bungii estimate screen
+    Then I verify that "ETA bar" is displayed
+    When I click on "SET PICKUP LOCATION" button
+    And I enter "Goa Geofence dropoff location" on Bungii estimate screen
+    Then I verify that "ETA bar" is displayed
+    And I verify that "GET ESTIMATE" is displayed

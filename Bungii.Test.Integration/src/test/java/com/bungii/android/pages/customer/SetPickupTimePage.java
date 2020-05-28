@@ -41,5 +41,5 @@ public class SetPickupTimePage extends PageBase {
 
     public WebElement Button_GoBack(){return findElement("com.bungii.customer:id/alert_cancellation_reason_tv_list_try_again", LocatorType.Id);}
 
-
+    public WebElement Page_TitleSuccess(){return findElement("//*[@resource-id='com.bungii.customer:id/action_bar']/android.widget.TextView", LocatorType.XPath);}
 }
