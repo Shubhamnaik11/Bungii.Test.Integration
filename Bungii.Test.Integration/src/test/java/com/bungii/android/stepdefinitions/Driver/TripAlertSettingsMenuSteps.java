@@ -28,6 +28,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
     PromosPage promosPage=new PromosPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    SearchingPage searchingPage = new SearchingPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -72,6 +73,12 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     testStepVerify.isEquals(data.trim(), PropertyUtility.getMessage("sms.alert.text"));
                     b = clickDriverMenu(time);
                     testStepVerify.isEquals(b.toString(), "true");
+                    break;
+
+                case "Customer Entered":
+                    String expectedSchdlDateTime= (String) cucumberContextManager.getScenarioContext("SCHEDULE_BUNGII_DATE");
+                    String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
+                    testStepAssert.isEquals(actualSchdlDateTime, expectedSchdlDateTime,expectedSchdlDateTime+" is expected schedule date and time.", expectedSchdlDateTime+" is displayed.", expectedSchdlDateTime+" is not displayed.");
                     break;
 
                 default:
@@ -136,7 +143,21 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 case "SCHEDULE BUNGII":
                     Thread.sleep(2000);
+                    String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
+                    cucumberContextManager.setScenarioContext("NEW_SCHDL_BUNGII_TIME", actualSchdlDateTime);
                     action.click(setPickupTimePage.Button_ScheduleBungii());
+                    break;
+
+                case "CANCEL":
+                    action.click(searchingPage.Link_CancelSearch());
+                    break;
+
+                case "SUBMIT":
+                    action.click(setPickupTimePage.Button_EnterCancellationReason());
+                    break;
+
+                case "SUBMIT REASON":
+                    action.click(setPickupTimePage.Button_SubmitCancellationReason());
                     break;
 
                 default:

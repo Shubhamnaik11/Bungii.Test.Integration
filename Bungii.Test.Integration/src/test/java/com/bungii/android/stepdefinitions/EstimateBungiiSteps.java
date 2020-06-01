@@ -936,6 +936,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "next possible scheduled for duo":
                     break;
+                case "Next Schedule Time":
+                    utility.selectTime();
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -953,6 +956,28 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @And("^I schedule Bungii at \"([^\"]*)\" Time $")
+    public void i_schedule_bungii_at_something_time(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Next Schedule":
+                    utility.selectTime();
+                    break;
+
+                default:
+                    error("UnImplemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
 
     @Then("^\"([^\"]*)\" information icon should display correct information$")
     public void something_information_icon_should_display_correct_information(String iconName) throws Throwable {

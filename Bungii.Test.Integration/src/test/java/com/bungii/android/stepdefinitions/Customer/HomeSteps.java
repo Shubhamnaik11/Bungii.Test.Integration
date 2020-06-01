@@ -610,6 +610,14 @@ public class HomeSteps extends DriverBase {
                     String expectedMessage= PropertyUtility.getMessage("customer.info.cancel.ondemand.bungii");
                     testStepAssert.isEquals(actualMessage,expectedMessage,expectedMessage+" is displayed.",expectedMessage+" is displayed.",expectedMessage+" is not displayed.");
                     break;
+
+                case "Four Reasons":
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_FirstCancellationReason(),"First cancellation reason should be displayed.","First cancellation reason is displayed.", "First cancellation reason is not displayed.");
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_SecondCancellationReason(),"Second cancellation reason should be displayed.","Second cancellation reason is displayed.", "Second cancellation reason is not displayed.");
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_ThirdCancellationReason(),"Third cancellation reason should be displayed.","Third cancellation reason is displayed.", "Third cancellation reason is not displayed.");
+                    testStepAssert.isElementDisplayed(setPickupTimePage.Text_FourthCancellationReason(),"Fourth cancellation reason should be displayed.","Fourth cancellation reason is displayed.", "Fourth cancellation reason is not displayed.");
+                    break;
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
             }
