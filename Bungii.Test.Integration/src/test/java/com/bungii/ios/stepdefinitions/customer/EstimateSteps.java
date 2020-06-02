@@ -1169,7 +1169,7 @@ public class EstimateSteps extends DriverBase {
         if (!timeScroll.getAttribute("value").equals(inputValue))
             timeScroll.sendKeys(inputValue);
         //action.invisibilityOfElementLocated(estimatePage.Indicator_Loading());
-        action.click(estimatePage.Button_Set());
+        try{estimatePage.Button_Set().click();} catch(Exception ex){}
     }
 
     public boolean checkLoadingTime(String timeValue) {
