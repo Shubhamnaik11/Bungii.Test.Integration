@@ -33,15 +33,15 @@
     "platformName": "android",
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
-    "deviceName": "Moto G",
-    "platformVersion": "5.0.2",
+    "deviceName": "Moto G-01",
+    "platformVersion": "5.1",
     "noReset": true,
     "newCommandTimeout": "900",
     "autoWebView": true,
     "appPackage": "com.bungii.customer",
     "appActivity": "com.bungii.ui.activities.splash.SplashScreenActivity",
     "systemPort": 8110,
-    "udid": "TA93402GOQ"
+    "udid": "TA93401OLE"
   },
   "extra2": {
     "platformName": "android",
