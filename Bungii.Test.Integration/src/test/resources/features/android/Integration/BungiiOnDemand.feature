@@ -762,8 +762,8 @@ Feature: On Demand Bungii
   @regression
   Scenario:Verify Driver Receives Notification For Tip When Customer Gives A Tip Amount
     Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | baltimore | UNLOADING ITEM      |
+      | geofence  | Bungii State   |
+      | baltimore | UNLOADING ITEM |
 
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid baltimore" customer
@@ -779,3 +779,5 @@ Feature: On Demand Bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
     And I click "On To The Next One" button on the "Bungii Completed" screen
     Then poor driver ratting should be sent to customer
+    And I Switch to "customer" application on "same" devices
+    And I click "I DON'T LIKE FREE MONEY" button on the "Promotion" screen

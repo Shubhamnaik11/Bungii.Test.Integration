@@ -649,7 +649,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
         if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiDayLightTime.replace(",", ", " + year + " -")));
 
         else
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
@@ -660,8 +660,8 @@ public class ScheduledBungiiSteps extends DriverBase {
     public String getbungiiDayLightTimeValue(String bungiiTime){
         String time=null;
 
-        if(bungiiTime.contains("CST")) { time=bungiiTime.replace("CST","CDT"); }
-        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT"); }
+        if(bungiiTime.contains("CST")) { time=bungiiTime.replace("CST","CDT").replace("CDT","CDT"); }
+        else if(bungiiTime.contains("EST")){ time=bungiiTime.replace("EST","EDT").replace("EDT","EDT"); }
         else if(bungiiTime.contains("MST")){ time=bungiiTime.replace("MST","MDT"); }
         else if(bungiiTime.contains("IST")){ time=bungiiTime; }
         return time;
@@ -706,7 +706,8 @@ public class ScheduledBungiiSteps extends DriverBase {
      */
     public WebElement getLocatorForBungiiTime(String bungiiType, String bungiiTime, String bungiiTimeDayLight) {
         //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
-
+        bungiiTime=bungiiTime.replace(" AM", "").replace(" PM", "");
+        bungiiTimeDayLight=bungiiTimeDayLight.replace(" AM", "").replace(" PM", "");
         WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "' or 'com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTimeDayLight + "']", PageBase.LocatorType.XPath);
 
         return Image_SelectBungii;

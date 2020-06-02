@@ -177,6 +177,7 @@ public class HomeSteps extends DriverBase {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String drop = dataMap.get("Drop Location").trim();
             selectBungiiLocation("DROP", drop);
+
             log("I enter DROP location", " I entered location" + drop);
 
         } catch (Exception e) {
@@ -718,7 +719,7 @@ public class HomeSteps extends DriverBase {
                 if (!action.isElementPresent(homePage.TextBox_Pickup(true))) break;
             }
         }
-        action.click(homePage.BUTTON_SET());
+        action.click(homePage.BUTTON_Set_PickupOff());
     }
 
     /**
@@ -745,12 +746,12 @@ public class HomeSteps extends DriverBase {
             Thread.sleep(3000);
 
 
-            action.click(homePage.BUTTON_SET());
+            action.click(homePage.BUTTON_Set_PickupOff());
             if (!action.isElementPresent(homePage.TextBox_Pickup_LineTwo(true))) {
                 Point initial = homePage.Image_eta_bar().getLocation();
                 action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + 80, 1);
                 //action.dragFromToForDuration(82, 262, 82, 300, 2);
-                action.click(homePage.BUTTON_SET());
+                action.click(homePage.BUTTON_Set_PickupOff());
             }
         } catch (Exception e) {
         }
@@ -788,7 +789,7 @@ public class HomeSteps extends DriverBase {
             //   while (homePage.TextBox_Drop().getAttribute("value").contains("Set Drop")) {
             action.dragFromToForDuration(initial.x, initial.y, initial.x, initial.y + offset, 1);
             //	action.invisibilityOfElementLocated(homePage.Image_Loading());
-            action.click(homePage.BUTTON_SET());
+            action.click(homePage.BUTTON_Set_DropOff());
             if (action.isAlertPresent())
                 SetupManager.getDriver().switchTo().alert().accept();
         }

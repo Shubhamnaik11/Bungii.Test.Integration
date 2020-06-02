@@ -48,10 +48,10 @@ public class BungiiCompletedSteps extends DriverBase {
      */
     public void verifyBungiiCompletedPage(){
         testStepVerify.isElementEnabled(bungiiCompletePage.Title_Status(),"'Bungii Completed' Navigation bar message should be displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
-        testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalDistanceLabel(),"Total Distance label should be displayed on Summary page");
+       // testStepVerify.isElementEnabled(bungiiCompletePage.Image_Dollar(),"'Dollar Image' should be displayed on Summary page","'Dollar Image' is displayed","'Dollar Image' is not displayed");
+        //testStepVerify.isElementEnabled(bungiiCompletePage.Text_Label(),"'Cha-Ching' should be displayed on Summary page","'Cha-Ching' is displayed","'Cha-Ching' is not displayed");
+     //   testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalTimeLabel(),"Total Time label should be displayed on Summary page");
+      //  testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalDistanceLabel(),"Total Distance label should be displayed on Summary page");
         testStepVerify.isElementEnabled(bungiiCompletePage.Text_TotalEarningsLabel(),"Total Earning label should be displayed on Summary page");
     }
 
@@ -68,10 +68,13 @@ public class BungiiCompletedSteps extends DriverBase {
 
         String truncValue = new DecimalFormat("#.##").format(bungiiDriver);
         String tripDistance =(String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
-
+        String totalEarning =action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
+/*
         String tripTime =utility.getActualTime();
 
-        String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime()),totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance()),toatlEarning=action.getValueAttribute(bungiiCompletePage.Text_TotalEarnings());
+        String totalTime=action.getValueAttribute(bungiiCompletePage.Text_TotalTime());
+         String totalDistance=action.getValueAttribute(bungiiCompletePage.Text_TotalDistance());
+
 
         int intTotalTime=Integer.parseInt(tripTime);
         if(intTotalTime==1)
@@ -80,7 +83,8 @@ public class BungiiCompletedSteps extends DriverBase {
             testStepVerify.isTrue(totalTime.trim().contains(tripTime+"  mins")||totalTime.trim().contains(tripTime+" mins"),"Total time should contains "+tripTime+"minute");
         testStepVerify.isTrue(totalDistance.equalsIgnoreCase(tripDistance),"Total Distance should contains"+tripDistance+" miles");
      //   testStepVerify.isTrue(toatlEarning.equalsIgnoreCase("$"+truncValue),"Total Earning should contains $"+truncValue);
-        testStepVerify.isTrue(toatlEarning.contains("$")&& (Double.parseDouble(toatlEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);
+     */
+        testStepVerify.isTrue(totalEarning.contains("$")&& (Double.parseDouble(totalEarning.trim().replace("$",""))==Double.parseDouble(truncValue)),"Total Earning should contains $"+truncValue);
 
 
     }
