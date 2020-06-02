@@ -1315,9 +1315,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-    #need to execute later
     @regression
-
     Scenario: Verify Minimum Scheduled Time For The Duo Trip
       Given I am on customer Log in page
       When I am logged in as "New" customer
@@ -1327,8 +1325,7 @@ Feature: Duo
       When I tap on "Get Estimate button" on Bungii estimate
       Then I should see the minimum scheduled time displayed on the Estimate page
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1470,7 +1467,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   #@regression
-  @ready
+  @ready1
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |

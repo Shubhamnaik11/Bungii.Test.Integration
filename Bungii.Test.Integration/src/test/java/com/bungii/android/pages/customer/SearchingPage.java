@@ -5,7 +5,9 @@ import org.openqa.selenium.WebElement;
 
 public class SearchingPage extends PageBase {
 
-    public WebElement Header_DriverNotAvailable(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='DRIVER NOT AVAILABLE']", LocatorType.XPath,ignoreException); }
+    //public WebElement Header_DriverNotAvailable(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='DRIVER NOT AVAILABLE']", LocatorType.XPath,ignoreException); }
+
+    public WebElement Header_DriverNotAvailable(boolean...ignoreException) { return findElement("//android.widget.TextView[@text='SET PICKUP TIME']", LocatorType.XPath,ignoreException); }
 
     public WebElement Link_CancelSearch () { return findElement("com.bungii.customer:id/toolbar_button_cancel", LocatorType.Id); }
 
