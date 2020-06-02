@@ -1,7 +1,7 @@
 @ios
   # this will run in 	nashville
 Feature: Create on demand bungii
-  @FAILED2702
+  @demoportal
   @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
