@@ -9,13 +9,13 @@ Feature: DriverMenu
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
 
-  @ready
+  @regression
   Scenario: Verify Driver FAQ Menu
     When I Select "FAQ" from driver App menu
     Then I should be navigated to "FAQ" screen
     Then I should be able to see data on "FAQ" page
 
-  @ready
+  @regression
   Scenario: Verify Driver LEADERBOARD Menu
     When I Select "LEADERBOARD" from driver App menu
     Then I should be navigated to "LEADERBOARD" screen
@@ -62,7 +62,7 @@ Feature: DriverMenu
     Then I should be navigated to "TRIP ALERT SETTINGS" screen
     Then I should be able to see data on "TRIP ALERT SETTINGS" page
 
-  @ready
+  @regression
   Scenario:Verify Driver LOGOUT Menu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
@@ -76,7 +76,7 @@ Feature: DriverMenu
     When I Select "LOGOUT" from driver App menu
     Then I driver active flag should be "0"
 
-  @ready
+  @regression
   Scenario: Verify Driver STORE Menu
     When I Select "STORE" from driver App menu
     Then I should be navigated to "STORE" screen

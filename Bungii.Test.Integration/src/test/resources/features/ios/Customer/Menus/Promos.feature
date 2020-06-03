@@ -170,7 +170,7 @@ Feature: Promos
     Then user is alerted for "FIRST TIME PROMO CODE"
 
 
-  @ready
+  @regression
     @failed
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -242,7 +242,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
