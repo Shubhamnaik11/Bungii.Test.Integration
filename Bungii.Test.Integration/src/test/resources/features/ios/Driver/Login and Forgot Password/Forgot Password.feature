@@ -10,7 +10,7 @@ Feature: FORGOT PASSWORD
     And I am on the "LOG IN" page on driverApp
   @FAILED2702
 
-  @regression
+  @ready
   Scenario Outline: Verify Driver Is Alerted If Invalid Phone Number Is Added During Forgot Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
@@ -23,7 +23,7 @@ Feature: FORGOT PASSWORD
       | Phone Number less than 10 | 940396       | FAILED TO SEND TOKEN |
       | Invalid Phone Number      | 212121212121 | FAILED TO SEND TOKEN |
 
-  @regression
+  @ready
   Scenario Outline: Verify Driver Is Alerted If Enters Invalid Password Or Sms Code During Forgot Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
@@ -42,7 +42,7 @@ Feature: FORGOT PASSWORD
       | Invalid password | {VALID USER} | Cci1         | valid    | INVALID PASSWORD WHILE RESET |
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE |
 
-  @regression
+  @ready
   Scenario Outline: Verify Driver Is Able To Change Password Using Forgot Password Functionality
     When I click "Forgot Password" button on "LOG IN" screen on driverApp
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on "FORGOT PASSWORD" page on driverApp
