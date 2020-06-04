@@ -389,7 +389,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then user is alerted for "OUTSIDE BUISSNESS HOUR"
 
 
-  @regression
+  @ready
     @failed
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
     When I am on the "LOG IN" page
@@ -453,7 +453,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @ready
   Scenario:  Verify Customer Can Schedule Duo Bungii Only 5 Days Ahead Including Current Date
     When I am on the "LOG IN" page
     And I logged in Customer application using  "valid denver" user
@@ -692,7 +692,7 @@ Feature: To Test Solo - Scheduling Bungii
       | 8888889917     |                 |
 
   @FAILED2702
-  @regression
+  @ready
   Scenario:Verify Scheduled Bungii Notification Info(Estimated Earnings Date etc.)
     When I clear all notification
     And I Switch to "driver" application on "same" devices
@@ -877,7 +877,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
+  @ready
   @failed1
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accepts Trip
 
@@ -1074,7 +1074,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @ready
     @failed
   Scenario: Verify Driver Is Not Allowed To Start Bungii If The Customer Is Currently In An Ongoing Duo Scheduled Trip
     Given that duo schedule bungii is in progress
@@ -1400,7 +1400,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then Bungii must be removed from "SCHEDULED BUNGIIS" screen
 #CMA1513
 #use customer with only one card
-  @regression
+  @ready
   @FAILED0203_02
   Scenario Outline: Verify Customer Cannot Delete Payment Method Linked To Any On-going Or Scheduled Trips
     When I Switch to "customer" application on "same" devices

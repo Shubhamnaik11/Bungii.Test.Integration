@@ -8,7 +8,7 @@ Feature: Promos
     Given I am on Customer logged in Home page
   @FAILED2702
   @sanity
-  @regression
+  @ready
   Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
     When I logged in Customer application using  "existing" user
     And I Select "PROMOS" from Customer App menu
@@ -72,7 +72,7 @@ Feature: Promos
     And I click "ADD" button on "PROMOS" screen
     Then user is alerted for "Invalid Promo"
 
-  @regression
+  @ready
   Scenario: Verify If Customer Is Alerted While Adding Existing Code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -116,7 +116,7 @@ Feature: Promos
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
@@ -170,7 +170,7 @@ Feature: Promos
     Then user is alerted for "FIRST TIME PROMO CODE"
 
 
-  @regression
+  @ready
     @failed
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -206,7 +206,7 @@ Feature: Promos
 
   
 # add promo from app menu and verify on Estimate page and vice versa
-  @regression
+  @ready
   Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -242,7 +242,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
+  @ready
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
@@ -269,7 +269,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
+  @ready
     @failed
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page

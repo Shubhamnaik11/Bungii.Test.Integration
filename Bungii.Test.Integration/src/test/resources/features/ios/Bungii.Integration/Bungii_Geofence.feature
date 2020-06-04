@@ -3,7 +3,7 @@
 Feature: Bungii Geofence functionality
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
@@ -31,7 +31,7 @@ Feature: Bungii Geofence functionality
     Then correct next available scheduled time should be displayed
 
     @failed
-  @regression
+  @ready
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user

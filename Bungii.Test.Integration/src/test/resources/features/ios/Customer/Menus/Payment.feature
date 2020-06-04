@@ -39,7 +39,7 @@ Feature: Payment page
       | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Customer Can Change Default Payment Card
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen

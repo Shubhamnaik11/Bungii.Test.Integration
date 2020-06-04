@@ -114,7 +114,6 @@ Feature: Admin_BusinessUsers
 
   @sanity
   @regression
-    @demo
   Scenario: Verify Add New Business User And Add Payment Method - Field validations In Uplaoded CSV For Bulk Trips
     When I click on the "New Business User" Button
     And I enter following values in "Business Users" fields
