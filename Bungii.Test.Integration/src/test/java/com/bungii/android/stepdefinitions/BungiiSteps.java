@@ -46,7 +46,7 @@ public class BungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     MessagesPage messagesPage=new MessagesPage();
-
+    EstimatePage estimatePage = new EstimatePage();
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
@@ -931,7 +931,8 @@ public class BungiiSteps extends DriverBase {
                     break;
                 case "tab On to Next":
                 case "completes Bungii":
-                    action.click(Page_BungiiComplete.Button_OnToTheNext(true));
+                    //action.click(Page_BungiiComplete.Button_OnToTheNext(true));
+                    action.click(estimatePage.Button_NextBungii());
                     try{
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
                     if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")|| currentPage.equals("EN ROUTE")){

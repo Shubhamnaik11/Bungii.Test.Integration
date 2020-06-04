@@ -4,7 +4,7 @@
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
     "deviceName": "Moto X",
-    "platformVersion": "5.0",
+    "platformVersion": "5.0.2",
     "noReset": true,
     "newCommandTimeout": "900",
     "autoWebView": true,
@@ -13,7 +13,7 @@
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
-    "udid": "TA99301YVZ"
+    "udid": "TA93401OLE"
   },
   "extra3": {
     "platformName": "android",
