@@ -46,15 +46,19 @@ public class InProgressBungiiPages extends PageBase {
 
     //------SMS----------------------------------------------------------------------
    // public WebElement Button_Customer_SMS() { return findElement("com.bungii.driver:id/pickup_details_sms_button", LocatorType.Id); }
-    public WebElement Button_Customer_SMS() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[3]", LocatorType.XPath); }
+    //public WebElement Button_Customer_SMS() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[3]", LocatorType.XPath); }
+    public WebElement Button_Customer_SMS() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_text_customer']/android.widget.TextView", LocatorType.XPath); }
 
     //------Call---------------------------------------------------------------------
   //  public WebElement Button_Customer_Call() { return findElement("com.bungii.driver:id/pickup_details_call_button", LocatorType.Id); }
-    public WebElement Button_Customer_Call() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[2]", LocatorType.XPath); }
+    //public WebElement Button_Customer_Call() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[2]", LocatorType.XPath); }
+    public WebElement Button_Customer_Call() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_call_customer']/android.widget.TextView", LocatorType.XPath); }
 
-    public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[1]", LocatorType.XPath); }
+    //public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[1]", LocatorType.XPath); }
+    public WebElement Button_Customer_ViewItem() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_view_items']/android.widget.TextView", LocatorType.XPath); }
 
-    public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[4]", LocatorType.XPath); }
+   // public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='android:id/select_dialog_listview']/android.widget.TextView[4]", LocatorType.XPath); }
+    public WebElement Button_Customer_CallSupport() { return findElement("//*[@resource-id='com.bungii.driver:id/alert_dialog_solo_driver_inprogess_tv_text_support']/android.widget.TextView", LocatorType.XPath); }
 
     public WebElement Button_CancelImage() { return findElement("com.bungii.driver:id/activity_view_all_images_iv_cancel", LocatorType.Id); }
     public WebElement Image_BungiiItem() { return findElement("com.bungii.driver:id/viewpager_sliding_item_imageview_item", LocatorType.Id); }
