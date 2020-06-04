@@ -293,7 +293,9 @@ catch(Exception ex)
     public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
         for (int i = minutes; i > 0; i--) {
             logger.detail("Inside Hard wait , wait for " + i + " minutes");
+
             Thread.sleep(60000);
+
         }
     }
 }

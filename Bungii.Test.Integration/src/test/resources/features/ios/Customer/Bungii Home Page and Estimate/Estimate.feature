@@ -23,7 +23,7 @@ Feature: Customer Estimate screen
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
-  @regression
+  @ready
   Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -61,7 +61,7 @@ Feature: Customer Estimate screen
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method   | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
 
-  @regression
+  @ready
   Scenario: Verify When Customer Cancels On Estimate Page Then He Is Navigated To Home Screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
@@ -153,7 +153,7 @@ Feature: Customer Estimate screen
     When I Switch to "customer" application on "same" devices
     And I Select "LOGOUT" from Customer App menu
     
-    @regression
+    @ready
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
@@ -171,7 +171,7 @@ Feature: Customer Estimate screen
       When I click "Cancel" button on "SEARCHING" screen
       Then user is alerted for "CANCEL BUNGII"
   @failed
-  @regression
+  @ready
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |

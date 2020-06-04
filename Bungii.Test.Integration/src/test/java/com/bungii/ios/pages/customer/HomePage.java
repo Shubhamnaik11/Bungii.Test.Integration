@@ -57,6 +57,7 @@ public class HomePage extends PageBase {
 
     public WebElement Button_AppMenu () { return findElement("**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", LocatorType.ClassChain); }
     public WebElement TextBox_Pickup(boolean ...ignoreException) {return findElement("**/XCUIElementTypeTextField[1]", LocatorType.ClassChain,ignoreException); }
+
     public WebElement TextBox_Pickup_LineOne() {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
     public WebElement TextBox_Pickup_LineTwo(boolean ...ignoreException) {return findElement("//*[@name='input_icon_pickup']/parent:: XCUIElementTypeOther/following-sibling:: XCUIElementTypeOther/XCUIElementTypeStaticText[2]", LocatorType.XPath,ignoreException); }
 
@@ -72,7 +73,10 @@ public class HomePage extends PageBase {
 
     public WebElement Button_GetEstimate(boolean ...ignoreException) {return findElement("type == 'XCUIElementTypeButton' AND name == 'GET ESTIMATE'", PageBase.LocatorType.Predicate,ignoreException); }
     public WebElement BUTTON_SET() {return findElement("SET", PageBase.LocatorType.AccessibilityId); }
-    public WebElement AppMenu_FAQ() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
+    public WebElement BUTTON_Set_PickupOff() {return findElement("//XCUIElementTypeButton[@name=\"SET PICKUP LOCATION\"]", PageBase.LocatorType.XPath); }
+    public WebElement BUTTON_Set_DropOff() {return findElement("//XCUIElementTypeButton[@name=\"SET DROP OFF LOCATION\"]", LocatorType.XPath); }
+
+  public WebElement AppMenu_FAQ() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'FAQ'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Account() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'ACCOUNT'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Support() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'SUPPORT'", PageBase.LocatorType.Predicate); }
     public WebElement AppMenu_Promos() {return findElement("type == 'XCUIElementTypeStaticText' AND name == 'PROMOS'", PageBase.LocatorType.Predicate); }

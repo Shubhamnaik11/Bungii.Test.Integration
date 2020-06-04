@@ -10,7 +10,7 @@ Feature: Driver Home screen
   Scenario: Verify Driver Default Status Is Set To Offline After Login
     Then the status of the driver should be "Offline"
 
-  @regression
+  @ready
   Scenario: Verify Driver Information Is Populated Correctly On Driver Dashboard Screen
     Then The "name" for "valid" driver should be correctly displayed
     And The "Vehicle info" for "valid" driver should be correctly displayed

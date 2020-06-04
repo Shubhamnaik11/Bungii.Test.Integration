@@ -145,7 +145,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
+  @ready
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
 
     And I am on the "LOG IN" page
@@ -197,7 +197,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should able to see expected promo code in available promo code
   @FAILED0203_02
 
-  @regression
+  @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
