@@ -1693,7 +1693,7 @@ Feature: To Test Solo - Scheduling Bungii
 
   
   #its scheduled time not initial request time
-  @ready
+  @regression
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Scheduled Trip
 
     Given that solo schedule bungii is in progress
@@ -1705,7 +1705,7 @@ Feature: To Test Solo - Scheduling Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
   #its scheduled time not initial request time
-  @ready
+  @regression
 
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Scheduled Trip
     When I request "duo" Bungii as a customer in "denver" geofence

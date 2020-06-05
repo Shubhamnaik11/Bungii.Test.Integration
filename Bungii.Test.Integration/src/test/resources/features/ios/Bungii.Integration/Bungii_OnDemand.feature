@@ -354,7 +354,7 @@ Feature: Create on demand bungii
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
   @FAILED0203_02
 
-  @ready
+  @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
@@ -517,7 +517,7 @@ Feature: Create on demand bungii
   @FAILED2702
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @ready
+  @regression
   Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
