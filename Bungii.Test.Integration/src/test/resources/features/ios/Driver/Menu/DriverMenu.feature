@@ -70,7 +70,6 @@ Feature: DriverMenu
   #failing due to BCKD-1103
   @ready
     @failed
-  @testing
   Scenario: Verify Device Token Deregistration Upon Driver Logout
     Then I driver active flag should be "1"
     When I Select "LOGOUT" from driver App menu
