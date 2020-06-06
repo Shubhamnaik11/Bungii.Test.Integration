@@ -72,7 +72,7 @@ Feature: Promos
     And I click "ADD" button on "PROMOS" screen
     Then user is alerted for "Invalid Promo"
 
-  @ready
+  @regression
   Scenario: Verify If Customer Is Alerted While Adding Existing Code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -116,7 +116,7 @@ Feature: Promos
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
 
-  @ready
+  @regression
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
