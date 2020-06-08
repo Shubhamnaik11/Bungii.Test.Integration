@@ -76,7 +76,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
-                cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
+                cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));
                 action.clearSendKeys(Page_Driver_Reg.TextBox_CreatePassword(), PropertyUtility.getDataProperties("DriverPassword"));
@@ -233,7 +233,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 testStepVerify.isFalse(VerifCode_Updated.equals(VerifCode_Initial), "New verification code should not be same as old code", "New verification code is not same as old code", "New verification code is same as old code");
                 break;
             case "Logged in user name":
-                String UserName = PropertyUtility.getDataProperties("DriverFirstName") + " " + (String) cucumberContextManager.getScenarioContext("LASTNAME"); //PropertyUtility.getDataProperties("DriverLastName");
+                String UserName = PropertyUtility.getDataProperties("DriverFirstName") + " " + (String)cucumberContextManager.getFeatureContextContext("LASTNAME");//PropertyUtility.getDataProperties("DriverLastName");
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.Text_DriverName()), UserName,UserName+ " should be displayed",UserName+ " is displayed",UserName+ " is not displayed");
                 break;
             case "correct field validations":

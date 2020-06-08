@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4d8828fb-e688-4d3d-b2a6-343dd399bfae" name="Default" comment="" />
+    <list default="true" id="4d8828fb-e688-4d3d-b2a6-343dd399bfae" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/BungiiOnDemandCancellationSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Capabilities/androidDeviceinformation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/customer/SetPickupTimePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/pages/customer/SetPickupTimePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripAlertSettingsMenuSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripAlertSettingsMenuSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bungii/runner/RunAutoSuite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/android/Integration/BungiiOnDemandCancellation.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/android/Integration/BungiiOnDemandCancellation.feature" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Bungii_Test_Integration$RunAutoSuite.ic" NAME="RunAutoSuite Coverage Results" MODIFIED="1559806090996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.bungii.runner.*</FILTER>
     </SUITE>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-    </panes>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
   </component>
+  <component name="ProjectId" id="1cWKPZ0p5No4fCYOR4ZWb4umT7x" />
   <component name="PropertiesComponent">
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559806134782" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Automation\ST_Bungii_Code\Bungii.Test.Integration\src\test\resources\features\android\Integration" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -48,7 +57,7 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="RunAutoSuite" type="TestNG" factoryName="TestNG" temporary="true" nameIsGenerated="true">
+    <configuration name="RunAutoSuite" type="TestNG" temporary="true" nameIsGenerated="true">
       <module name="Bungii.Test.Integration" />
       <extension name="coverage">
         <pattern>
@@ -56,26 +65,24 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="SUITE_NAME" value="" />
       <option name="PACKAGE_NAME" value="com.bungii.runner" />
       <option name="MAIN_CLASS_NAME" value="com.bungii.runner.RunAutoSuite" />
-      <option name="METHOD_NAME" />
       <option name="GROUP_NAME" value="" />
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" />
       <option name="PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" />
       <option name="OUTPUT_DIRECTORY" value="" />
-      <option name="PASS_PARENT_ENVS" value="true" />
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="moduleWithDependencies" />
       </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
       <option name="PROPERTIES_FILE" value="$PROJECT_DIR$/src/main/resources/UserProperties/runConfig.properties" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <recent_temporary>
       <list>
@@ -96,37 +103,58 @@
     </task>
     <servers />
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
-    <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="3" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Capture Tool" order="2" />
-      <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="2" />
-      <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
-    </layout>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java</url>
+          <line>576</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java</url>
+          <line>582</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Driver/TripAlertSettingsMenuSteps.java</url>
+          <line>139</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/EstimateBungiiSteps.java</url>
+          <line>560</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/HomeSteps.java</url>
+          <line>601</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/utilityfunctions/GeneralUtility.java</url>
+          <line>1109</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/com/bungii/android/stepdefinitions/Customer/ScheduledBungiiSteps.java</url>
+          <line>290</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -15,7 +15,10 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -110,6 +113,62 @@ public class LoginSteps extends DriverBase {
                     phone = PropertyUtility.getDataProperties("Kansas.driver2.phone");
                     password = PropertyUtility.getDataProperties("Kansas.driver2.password");
                     cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("Kansas.driver2.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdrivertywd_apple_z android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driver.1.Goa.phone");
+                    password = PropertyUtility.getDataProperties("driver.1.Goa.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driver.1.Goa.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_a android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverA.phone.number");
+                    password = PropertyUtility.getDataProperties("driverA.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverA.phone.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_b android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverB.phone.number");
+                    password = PropertyUtility.getDataProperties("driverB.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverB.phone.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_c android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverC.phone.number");
+                    password = PropertyUtility.getDataProperties("driverC.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverC.phone.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_d android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverD.phone.number");
+                    password = PropertyUtility.getDataProperties("driverD.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverD.phone.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_e android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverE.phone.number");
+                    password = PropertyUtility.getDataProperties("driverE.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverE.phone.name"));
+                    cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                    shouldLoginSucessful = true;
+                    break;
+                case "testdriver_goa_f android_test":
+                    SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                    phone = PropertyUtility.getDataProperties("driverF.phone.number");
+                    password = PropertyUtility.getDataProperties("driverF.phone.password");
+                    cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("driverF.phone.name"));
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
@@ -290,6 +349,20 @@ public class LoginSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Given("^I Login as a driver and go online$")
+    public void i_login_as_a_driver_and_go_online() throws Throwable {
+        String phoneNumber =(String) cucumberContextManager.getScenarioContext("DRIVER_1_PHONE");
+        String password="Cci12345";
+        try {
+            utility.loginToDriverApp(phoneNumber, password);
+        }
+        catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error("Step  Should be successful",
+                "Error performing step,Please check logs for more details", true);
+    }
     }
 
 }

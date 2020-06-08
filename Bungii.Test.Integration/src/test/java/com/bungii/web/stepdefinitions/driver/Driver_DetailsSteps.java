@@ -6,7 +6,8 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
+import com.bungii.web.pages.admin.Admin_GeofencePage;
 import com.bungii.web.pages.driver.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -38,6 +39,7 @@ public class Driver_DetailsSteps extends DriverBase {
     DriverRegistrationSteps driverRegistrationSteps = new DriverRegistrationSteps();
     Driver_ViewDetailsPage Page_Driver_ViewDetails = new Driver_ViewDetailsPage();
 
+    Admin_GeofencePage geofencePage = new Admin_GeofencePage();
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     BungiiSteps bungiiSteps = new BungiiSteps();
@@ -342,4 +344,16 @@ public class Driver_DetailsSteps extends DriverBase {
     public void i_wait_for_data_to_synch() throws Throwable {
         Thread.sleep(120000);
     }
+
+    @When("^I edit the Driver$")
+    public void i_edit_the_Driver() throws Throwable {
+        try{
+            action.click(geofencePage.Button_Edit());
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
+
 }

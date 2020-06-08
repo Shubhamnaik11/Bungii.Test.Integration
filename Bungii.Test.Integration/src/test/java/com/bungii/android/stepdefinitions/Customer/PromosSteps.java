@@ -487,6 +487,9 @@ public class PromosSteps extends DriverBase {
                     Thread.sleep(3000);
                     action.click(estimatePage.Link_PromoValue(true));
                     break;
+                case "Details":
+                    action.click(estimatePage.Button_Details(true));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;

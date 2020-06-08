@@ -2113,7 +2113,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression1
+  @regression
   Scenario: Verify that error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
@@ -2133,3 +2133,72 @@ Feature: SoloScheduled
     Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
     
+    @regression
+    Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
+      When I Open "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid" driver
+      Then I click "Go Online" button on Home screen on driver app
+
+      When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        | geofence | Bungii State | Bungii Time  |
+        | Kansas   | Scheduled    | 1 hour ahead |
+
+      And I Open "customer" application on "same" devices
+      When I am on customer Log in page
+      When I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+      When I Switch to "driver" application on "same" devices
+      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select Trip from driver available trip
+      And I tap on "ACCEPT" on driver Trip details Page
+      And I Select "SCHEDULED BUNGIIS" from driver App menu
+      And I Select Trip from driver scheduled trip
+      And Bungii Driver "Start Schedule Bungii" request
+      Then Bungii driver should see "Enroute screen"
+      When Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+      And Bungii Driver "slides to the next state"
+
+      And I Switch to "customer" application on "same" devices
+      And I tap on "OK on complete" on Bungii estimate
+      And I tap on "No free money" on Bungii estimate
+      And I Switch to "driver" application on "same" devices
+      Then Bungii Driver "completes Bungii"
+
+  @regression
+  Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled Trip start time
+    When I Open "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    Then I click "Go Online" button on Home screen on driver app
+
+    When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Scheduled    | 0.5 hour ahead |
+
+    And I Open "customer" application on "same" devices
+    When I am on customer Log in page
+    When I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+    Then Bungii driver should see "Enroute screen"
+    When Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+    And Bungii Driver "slides to the next state"
+
+    And I Switch to "customer" application on "same" devices
+    And I tap on "OK on complete" on Bungii estimate
+    And I tap on "No free money" on Bungii estimate
+    And I Switch to "driver" application on "same" devices
+    Then Bungii Driver "completes Bungii"
