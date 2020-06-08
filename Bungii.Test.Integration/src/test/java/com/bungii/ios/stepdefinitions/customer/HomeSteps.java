@@ -137,6 +137,7 @@ public class HomeSteps extends DriverBase {
                 logger.detail("Geofence is not specified as input");
             }
             selectBungiiLocation("PICK UP", pickup);
+            Thread.sleep(3000);
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
             cucumberContextManager.setScenarioContext("BUNGII_TYPE", tripDriverType.toLowerCase());
@@ -307,11 +308,11 @@ public class HomeSteps extends DriverBase {
         try {
             switch (action.toUpperCase()) {
                 case "DROP":
-                    testStepVerify.isEquals(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"));
+                    testStepVerify.contains(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 case "PICK UP":
-                    testStepVerify.isEquals(getEtaBarHeader("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.etaheader"));
+                    testStepVerify.contains(getEtaBarHeader("PICKUP"),
+                            PropertyUtility.getMessage("customer.pickup.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -462,8 +463,8 @@ public class HomeSteps extends DriverBase {
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
                     String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
-                    int intMinValue = Integer.parseInt(minsValue.replace(" MINS", ""));
-                    testStepVerify.isTrue(minsValue.contains(" MINS"), "Mins should displayed");
+                    int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" minutes", ""));
+                    testStepVerify.isTrue(minsValue.contains(" minutes"), "Minutes should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
                 case "not be displayed":
@@ -551,9 +552,9 @@ public class HomeSteps extends DriverBase {
      */
     public String getEtaBarHeader(String location) {
         if (location.equalsIgnoreCase("PICKUP"))
-            return action.getNameAttribute(homePage.Text_EtaPickupHeader());
+            return action.getNameAttribute(homePage.Text_eta_mins());
         else if (location.equalsIgnoreCase("DROP"))
-            return action.getNameAttribute(homePage.Text_EtaDropHeader());
+            return action.getNameAttribute(homePage.Text_eta_mins());
         else
             return "";
     }
@@ -710,7 +711,7 @@ public class HomeSteps extends DriverBase {
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
 
         int offset = 70 * dragFactor;
-        Point initial = homePage.Image_eta_bar().getLocation();
+        Point initial = homePage.Text_eta_mins().getLocation(); ///commented eta bar
         boolean isPickupLineDisplayed = action.isElementPresent(homePage.TextBox_Pickup(true));
         if (isPickupLineDisplayed) {
             while (action.getValueAttribute(homePage.TextBox_Pickup(true)).contains("Pick")) {

@@ -319,8 +319,14 @@ public class CommonSteps extends DriverBase {
                 case "ADD":
                     if (screen.equalsIgnoreCase("Estimate"))
                         action.click(estimatePage.Button_AddPromoCode());
-                    else
+                    else {
                         action.click(promosPage.Button_Add());
+                        if(action.isAlertPresent()) {
+                            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+                            warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
+                            SetupManager.getDriver().switchTo().alert().accept();
+                        }
+                    }
                     break;
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
@@ -375,6 +381,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "TOP BACK":
                     action.click(bungiiDetails.Button_Back());
+                    break;
+                case "SET PICKUP TIME":
+                    action.click(estimatePage.Button_ScheduleBungii());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -840,6 +849,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "existing app user":
+                    userName = PropertyUtility.getDataProperties("customer.user.hasTrip");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.hasTrip"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case"newly created user":
@@ -1679,7 +1694,7 @@ public class CommonSteps extends DriverBase {
             testStepAssert.isFail("Email : " + emailSubject + " is not received");
         }
         else{
-            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
             testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
 
 

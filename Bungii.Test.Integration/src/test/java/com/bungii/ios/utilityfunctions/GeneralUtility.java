@@ -610,6 +610,9 @@ try {
             case "HOME":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                 break;
+            case "SET PICKUP TIME":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.setPickupTime");
+                break;
             case "FAQ":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.faq");
                 break;
