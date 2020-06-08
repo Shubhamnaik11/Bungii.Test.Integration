@@ -2,7 +2,7 @@
   # this will run in 	nashville
 Feature: Create on demand bungii
   @demoportal
-  @ready
+  @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -57,7 +57,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
   @sanity
-  @ready
+  @regression
   Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
@@ -217,7 +217,7 @@ Feature: Create on demand bungii
 
 
     @failed
-  @ready
+  @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -354,7 +354,7 @@ Feature: Create on demand bungii
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
   @FAILED0203_02
 
-  @ready
+  @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
@@ -424,7 +424,7 @@ Feature: Create on demand bungii
       | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
       | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | valid nashville | correct details with delivery promo | promoter |
 
-  @ready
+  @regression
     @failed
   Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
     Given that ondemand bungii is in progress
@@ -517,7 +517,7 @@ Feature: Create on demand bungii
   @FAILED2702
 
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
-  @ready
+  @regression
   Scenario Outline: Verify Sign up of Customer With Referral Code
     When I Switch to "customer" application on "same" devices
     And I am on the "LOG IN" page
@@ -693,7 +693,7 @@ Feature: Create on demand bungii
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
     Then poor driver ratting should be sent to customer
 
-  @ready
+  @regression
     @failed
   Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress

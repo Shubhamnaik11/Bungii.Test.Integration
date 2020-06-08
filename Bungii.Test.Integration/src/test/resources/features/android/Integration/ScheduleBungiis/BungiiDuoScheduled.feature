@@ -1025,7 +1025,6 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-@demo1
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

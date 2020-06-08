@@ -36,6 +36,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -483,6 +484,14 @@ public class CommonSteps extends DriverBase {
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
+            if (action.isAlertPresent()) {
+               // if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
+                    warning("I see location popup", "I accepted location popup", true);
+                    SetupManager.getDriver().switchTo().alert().accept();
+
+              //  }
+            }
+
             String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
             switch (screen.toUpperCase()) {
                 case "LOG IN":
@@ -545,6 +554,7 @@ public class CommonSteps extends DriverBase {
 
     public void goToSignUpPage(String navigationBarName) throws Throwable {
         HomeSteps homeSteps = new HomeSteps(homePage);
+
 
         if (!navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
 

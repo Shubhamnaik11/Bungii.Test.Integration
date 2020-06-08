@@ -6,7 +6,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
   Background:
     Given I am on the "SIGN UP" page
 
-  @ready
+  @regression
+    @testing
   Scenario Outline: Verify Referral Source Is Incremented By 1 If Customer Registers By Selecting Referral Source - Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"

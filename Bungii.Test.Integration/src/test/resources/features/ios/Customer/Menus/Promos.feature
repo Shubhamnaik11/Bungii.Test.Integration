@@ -10,7 +10,7 @@ Feature: Promos
   @sanity
   @ready
   Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
-    When I logged in Customer application using  "existing" user
+    When I logged in Customer application using  "existing app user" user
     And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
@@ -72,7 +72,7 @@ Feature: Promos
     And I click "ADD" button on "PROMOS" screen
     Then user is alerted for "Invalid Promo"
 
-  @ready
+  @regression
   Scenario: Verify If Customer Is Alerted While Adding Existing Code
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -116,7 +116,7 @@ Feature: Promos
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
 
-  @ready
+  @regression
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
@@ -170,7 +170,7 @@ Feature: Promos
     Then user is alerted for "FIRST TIME PROMO CODE"
 
 
-  @ready
+  @regression
     @failed
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -242,7 +242,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page

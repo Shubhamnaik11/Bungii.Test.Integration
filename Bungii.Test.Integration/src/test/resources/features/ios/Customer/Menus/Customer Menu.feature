@@ -73,7 +73,6 @@ Feature: Customer	Menu
   @failed
   #failing due to BCKD-1103
   @ready
-    @testing
   Scenario: Verify Device Token Deregistration Upon Customer Logout
     Then I customers active flag should be "1"
     When I Select "LOGOUT" from Customer App menu
