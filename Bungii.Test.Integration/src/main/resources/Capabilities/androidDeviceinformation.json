@@ -3,7 +3,7 @@
     "platformName": "Android",
     "automationName":"UiAutomator2",
     "deviceType": "MOTOROLA",
-    "deviceName": "Moto X",
+    "deviceName": "Moto G",
     "platformVersion": "5.0.2",
     "noReset": true,
     "newCommandTimeout": "900",

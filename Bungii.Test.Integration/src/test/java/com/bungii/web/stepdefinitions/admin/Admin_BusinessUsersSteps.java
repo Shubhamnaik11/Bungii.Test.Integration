@@ -39,6 +39,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
@@ -564,12 +565,8 @@ catch (Exception ex){}
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-
                     }
-
-
                 }
-
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -729,6 +726,10 @@ catch (Exception ex){}
 
                 case "Update" :
                     action.click(driver_detailsPage.Button_Update());
+                    break;
+
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_Save());
                     break;
             }
             log("I click on the "+Name+" button",
