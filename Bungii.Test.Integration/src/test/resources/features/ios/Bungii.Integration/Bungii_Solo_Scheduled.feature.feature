@@ -5,7 +5,7 @@ Feature: To Test Solo - Scheduling Bungii
   I want to use request Scheduling Bungii with Solo type
 
   @FAILED2702
-  @ready
+  @regression
   Scenario: Verify Details Of Solo Schedule Bungii
 
     Given that solo schedule bungii is in progress
@@ -2113,7 +2113,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
   @ready
-    @failed
+    @nonstable
   Scenario: Verify If Incoming Scheduled Request Start Time (Trip 3) Overlaps With TELET Of Accepted Stacked request (Trip 2) Then Driver Doesnt Receive Scheduled Notification Or Offline SMS
 
     Given that ondemand bungii is in progress

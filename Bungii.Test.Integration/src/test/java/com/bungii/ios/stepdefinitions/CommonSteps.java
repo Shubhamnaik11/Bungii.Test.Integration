@@ -382,7 +382,7 @@ public class CommonSteps extends DriverBase {
                 case "TOP BACK":
                     action.click(bungiiDetails.Button_Back());
                     break;
-                case "SET PICKUP TIME":
+                case "SCHEDULE BUNGII":
                     action.click(estimatePage.Button_ScheduleBungii());
                     break;
                 default:
@@ -1214,6 +1214,22 @@ public class CommonSteps extends DriverBase {
 
     @Given("^I have customer with referral code$")
     public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @When("^I note customer with referral code$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature() throws Throwable {
         try {
 
             String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";

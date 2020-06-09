@@ -173,7 +173,7 @@ Feature: Customer Estimate screen
     Then I should be navigated to "SEARCHING" screen
     When I wait for SEARCHING screen to disappear
     Then I should be navigated to "SET PICKUP TIME" screen
-    When I click "Schedule Bungii" button on "SET PICKUP TIME" screen
+    When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
     Then I should be navigated to "Success" screen
     And I click "Done" button on "Success" screen
 
