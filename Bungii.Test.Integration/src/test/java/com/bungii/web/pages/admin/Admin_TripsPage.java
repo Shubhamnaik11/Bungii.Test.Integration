@@ -15,7 +15,8 @@ public class Admin_TripsPage extends PageBase {
 
     public WebElement DropDown_SearchForPeriod () {return findElement("SearchForPeriod", LocatorType.Id); }
 
-    public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
+    //public List<WebElement> Client_names () { return findElements("//td[9]", LocatorType.XPath); }
+    public List<WebElement> Client_names () { return findElements("//td[10]", LocatorType.XPath); }
 
     public WebElement Button_Filter () { return findElement("btnFilter", LocatorType.Id); }
 
