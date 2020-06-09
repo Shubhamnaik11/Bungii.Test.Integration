@@ -155,7 +155,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         }
                         break;
                     case "Customer Join Date (CST)":
-                        for (String dateString : CurrentGridData.get(1)) {
+                        for (String dateString : CurrentGridData.get(2)) {
                             try {
                                 Date convertedDate = parser.parse(dateString);
                                 String date = parser2.format(convertedDate);
@@ -165,7 +165,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                             }
                         }
 
-                        for (String dateString : DefaultGridData.get(1)) {
+                        for (String dateString : DefaultGridData.get(2)) {
                             try {
                                 Date convertedDate = parser.parse(dateString);
                                 String date = parser2.format(convertedDate);
@@ -190,30 +190,30 @@ public class Admin_CustomerSortSteps extends DriverBase {
                         }
                         break;
                     case "Trips Requested":
-                        Collections.sort(DefaultGridData.get(2), Comparator.comparingInt(Integer::parseInt));
-                        if (order.equals("Ascending")) {
-                            testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + order, field + " is not sorted by " + order);
-                        } else {
-                            Collections.reverse(DefaultGridData.get(2));
-                            testStepAssert.isTrue(DefaultGridData.get(2).equals(CurrentGridData.get(2)), field + " should sort by " + order, field + " is not sorted by " + order);
-                        }
-                        break;
-                    case "Trips Estimated":
                         Collections.sort(DefaultGridData.get(3), Comparator.comparingInt(Integer::parseInt));
                         if (order.equals("Ascending")) {
-
                             testStepAssert.isTrue(DefaultGridData.get(3).equals(CurrentGridData.get(3)), field + " should sort by " + order, field + " is not sorted by " + order);
                         } else {
                             Collections.reverse(DefaultGridData.get(3));
                             testStepAssert.isTrue(DefaultGridData.get(3).equals(CurrentGridData.get(3)), field + " should sort by " + order, field + " is not sorted by " + order);
                         }
                         break;
+                    case "Trips Estimated":
+                        Collections.sort(DefaultGridData.get(4), Comparator.comparingInt(Integer::parseInt));
+                        if (order.equals("Ascending")) {
+
+                            testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + order, field + " is not sorted by " + order);
+                        } else {
+                            Collections.reverse(DefaultGridData.get(4));
+                            testStepAssert.isTrue(DefaultGridData.get(4).equals(CurrentGridData.get(4)), field + " should sort by " + order, field + " is not sorted by " + order);
+                        }
+                        break;
                     case "Spent":
-                        for (String amountString : CurrentGridData.get(4)) {
+                        for (String amountString : CurrentGridData.get(5)) {
                                 gridData.add(amountString.replace("$",""));
                         }
 
-                        for (String amountString : DefaultGridData.get(4)) {
+                        for (String amountString : DefaultGridData.get(5)) {
                             amountList.add(amountString.replace("$",""));
                         }
 
