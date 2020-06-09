@@ -2,7 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
@@ -68,12 +68,16 @@ public class Admin_DriverDetails extends DriverBase{
             inputdate.setYear(new Date().getYear());
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
-/*
+
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
+
+             /*
+             if (timezone=="EST" || timezone=="CST")
                      inputdate.setHours(inputdate.getHours() + 1);
             }*/
+            }
+     
 
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
             XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
@@ -123,7 +127,7 @@ public class Admin_DriverDetails extends DriverBase{
             inputdate.setYear(new Date().getYear());
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
+                if (timezone=="CST")
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);

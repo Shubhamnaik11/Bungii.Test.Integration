@@ -68,9 +68,8 @@ Feature: DriverMenu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
   #failing due to BCKD-1103
-  @regression
+  @ready
     @failed
-  @testing
   Scenario: Verify Device Token Deregistration Upon Driver Logout
     Then I driver active flag should be "1"
     When I Select "LOGOUT" from driver App menu
@@ -89,7 +88,7 @@ Feature: DriverMenu
     Then I should be able to see data on "FEEDBACK" page
 
 @failed
-  @regression
+  @ready
   Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver

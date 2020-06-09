@@ -48,7 +48,7 @@ Feature: Customer	Menu
 
     #Social media link are not visible now
     # By default 1 answer is collapsed and displayed.
-  @regression
+  @ready
   Scenario: Verify Customer FAQ Menu
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen
@@ -72,8 +72,7 @@ Feature: Customer	Menu
     Then I should be navigated to "Invite" screen
   @failed
   #failing due to BCKD-1103
-  @regression
-    @testing
+  @ready
   Scenario: Verify Device Token Deregistration Upon Customer Logout
     Then I customers active flag should be "1"
     When I Select "LOGOUT" from Customer App menu

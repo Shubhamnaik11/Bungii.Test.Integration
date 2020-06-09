@@ -4,7 +4,7 @@ Feature: Customer Home screen
 # 1 valid test case fail
 
     #test case getting failed , Known issue
-  @regression
+  @ready
   Scenario:Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     Given I am on Customer logged in Home page
     Then "Pick up" address should be displayed in text box
@@ -26,7 +26,7 @@ Feature: Customer Home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
 
-  @regression
+  @ready
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
@@ -46,7 +46,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @ready
+  @regression
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
@@ -57,7 +57,7 @@ Feature: Customer Home screen
 
 
 @failed
-  @regression
+  @ready
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -86,7 +86,6 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-@demo
   @regression
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page
