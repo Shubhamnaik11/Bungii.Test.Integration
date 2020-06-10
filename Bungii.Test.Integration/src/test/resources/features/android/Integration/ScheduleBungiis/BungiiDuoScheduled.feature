@@ -919,7 +919,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression
+  @regression1
   Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -942,7 +942,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression
+  @regression1
   Scenario:Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -983,7 +983,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario:Verify Driver Can Short Stack Request On Unloading Item State and Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |

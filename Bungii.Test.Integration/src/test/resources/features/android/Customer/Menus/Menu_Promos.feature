@@ -1,7 +1,7 @@
 @android
 
 Feature: Menu_SaveMoney
-  @regression
+  @regression1
   Scenario: Verify First Time Promo Code For New Users Notification For Existing Customer
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -12,7 +12,7 @@ Feature: Menu_SaveMoney
     And I tap on "Menu" > "Logout" link
 
   @sanity
-  @regression
+  @regression1
   Scenario: Verify Addition Of New Promocode With Valid Promocode
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -21,7 +21,7 @@ Feature: Menu_SaveMoney
     Then I should see "promocode added" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  @regression1
   Scenario: Verify Addition Of New Promocode With Invalid Promocode
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -30,7 +30,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar message for invalid code" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  @regression1
   Scenario: Verify Addition Of New Promocode With Expired Promocode
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -50,7 +50,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar message for already added code" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  @regression1
   Scenario:  Verify Referral Are For New Users Notification for Newly Registered Customer
     Given I am logged in as "newly registered" customer
     When I tap on "Menu" > "Promos" link
@@ -59,7 +59,7 @@ Feature: Menu_SaveMoney
     Then I should see "snackbar stating referrals are only for new users" on Save Money page
     And I tap on "Menu" > "Logout" link
 
-  @regression
+  @regression1
   Scenario: Verify Used One Off Code Notification When Promocode Is Already Utilized
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
@@ -106,7 +106,7 @@ Feature: Menu_SaveMoney
     Then I should see post "on Twitter in browser"
     And I Switch to "customer" application on "same" devices
 
-  @regression
+  @regression1
   Scenario: Verify Promocode Is Refunded Upon Cancellation Of Bungii With Promocode Applied To It
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -126,7 +126,7 @@ Feature: Menu_SaveMoney
     When I tap on "Menu" > "Promos" link
     Then I should see the unused promo code
 
-  @regression
+  @regression1
   Scenario: Verify Promocode From The Trip Gets Automatically Applied To The Researched Trip
     Given I am on customer Log in page
     When I am logged in as "no promocode" customer
@@ -146,7 +146,7 @@ Feature: Menu_SaveMoney
     When I tap on "Get Estimate button" on Bungii estimate
     Then I should see the previously added promo code present for current Bungii request
 
-  @regression
+  @regression1
   Scenario: Verify Already Added Expired Promocodes Are Not Available To Customer On Estimate Screen
     Given I am on customer Log in page
     When I am logged in as "New" customer

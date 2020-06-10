@@ -141,7 +141,7 @@ Feature: SoloScheduled
 
 
   @sanity
-  @regression
+  @regression1
   Scenario: Verify Customer Can Create Scheduled Bungii
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
@@ -214,7 +214,7 @@ Feature: SoloScheduled
     And I Select "HOME" from driver App menu
 
 
-  @regression
+  @regression1
   Scenario: Verify When Bungii Is Cancelled By Admin It Is Removed From The Scheduled Trip List On Drivers App
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -225,14 +225,16 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
 
     When I switch to "ORIGINAL" instance
@@ -376,7 +378,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  @regression1
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Scenario:Solo
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -400,7 +402,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  @regression1
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -424,8 +426,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
-
+  @regression1
   Scenario:  Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours - Scenario:SOLO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -438,7 +439,7 @@ Feature: SoloScheduled
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
-  @regression
+  @regression1
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours - Scenario:DUO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -599,7 +600,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  @regression1
   Scenario: Verify Trip limit (150 miles) For Delivery
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -743,8 +744,8 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  #@regression
-  @ready
+  @regression
+  #@ready
   Scenario:Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Is Currently Has A Ongoing Bungii.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
@@ -879,7 +880,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  @regression1
 
   Scenario:Verify Driver Recieves Scheduled Bungii Request While In Offline State
     When I clear all notification
@@ -989,7 +990,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE | 8888888881      |
 
 
-  @regression
+  @regression1
   Scenario: Verify Status Of Scheduled Bungii In the Scheduled Trip Screen When Only One Driver Accepts The Trip
     And I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1013,7 +1014,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  @regression1
 
   Scenario:Verify Details In The Bungii Details Screen When Required Number Of Drivers Accept The Trip
 
@@ -1085,7 +1086,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  @regression1
   Scenario: Verify Driver Doesnt Receive Scheduled Trip Request If His Home Is Over 30 Mins Away From Pickup Location
     When I clear all notification
     When I Switch to "customer" application on "same" devices
@@ -1149,7 +1150,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario:Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Trip
     When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1161,7 +1162,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
 
   Scenario: Verify Re-searched Trip Request Doesnt Show Urgent Notification Text If Is More Than One Hour From The Scheduled Trip Time
     When I clear all notification
@@ -1186,7 +1187,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1271,7 +1272,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  @regression1
   Scenario: Verify Driver Can Start Bungii Within 60 Mins Of The Scheduled Time If Required Number Of Drivers Accepts It
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1334,7 +1335,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify If Incoming Ondemand Trip TELET Overlaps Scheduled Trip Telet Then Request Should Not Be Sent To driver.
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time    |
@@ -1377,7 +1378,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
 
   Scenario: Verify If Incoming Scheduled Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or Offline SMS
 
@@ -1452,7 +1453,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone      |
       | CUSTOMER1_PHONE | CUSTOMER_PHONE_EXTRA |
 
-  @regression
+  @regression1
 
   Scenario: Verify If Incoming On-demend Trip Request TELET (Trip A) Overlaps Start Time Of Previously Scheduled Trip (Trip B) Then Driver Doesnt Receive Notification Or offline SMS
     Given that solo schedule bungii is in progress
@@ -1595,7 +1596,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | 8805368840      |
 
-  @regression
+  @regression1
 
   Scenario: Verify Minimum Scheduled Time For Solo Trip
     Given I am on customer Log in page
@@ -1635,9 +1636,10 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
@@ -1666,9 +1668,10 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
@@ -1696,9 +1699,10 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
@@ -1730,9 +1734,10 @@ Feature: SoloScheduled
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
 
     When I switch to "ORIGINAL" instance
@@ -1757,9 +1762,10 @@ Feature: SoloScheduled
     Then correct details should be displayed on the "ADMIN-SMS" app
 
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
+    And I wait for "2" mins
     And Bungii must be removed from the List
 
     When I switch to "ORIGINAL" instance
@@ -1768,7 +1774,7 @@ Feature: SoloScheduled
     Then Bungii must be removed from "MY BUNGIIS" screen
 
    #Date: 22-01-2020
-  @regression
+  @regression1
 
   Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App - Scenario:solo
     Given that solo schedule bungii is in progress
@@ -1787,7 +1793,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
 
   Scenario:Verify When Bungii Is Not Started Driver Can Cancel Scheduled Bungii From The App - Scenario:duo
     Given that duo schedule bungii is in progress
@@ -1807,7 +1813,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii - Scenario:enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1837,7 +1843,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii - Scenario:arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1892,7 +1898,7 @@ Feature: SoloScheduled
     When I click "OK" on alert message
     Then "Home" page should be opened
 
-  @regression
+  @regression1
   Scenario: Verify Non-Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii - Scenario:arrived
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1921,7 +1927,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify If Customer Can Rate Driver For The Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1940,7 +1946,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | 8888888881 |                 |
 
-  @regression
+  @regression1
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Solo Trip
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
@@ -1973,7 +1979,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regression1
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -2113,7 +2119,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  @regression1
   Scenario: Verify that error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |

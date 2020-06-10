@@ -52,8 +52,7 @@ public class ScheduledTripSteps extends DriverBase {
 			tripDetails.put("BUNGII_DISTANCE", tripDistance);
 
 			Map<String, String> data = cancelDetails.transpose().asMap(String.class, String.class);
-			String cancelCharge = data.get("Charge"), comments = data.get("Comments");
-
+			String cancelCharge = data.get("Charge"), comments = data.get("Comments"), reason=data.get("Reason");
 			int rowNumber = getTripRowNumber(tripDetails);
 			// it takes max 2.5 mins to appear
 			for (int i = 0; i < 5 && rowNumber == 999; i++) {
@@ -62,7 +61,7 @@ public class ScheduledTripSteps extends DriverBase {
 				scheduledTripsPage.waitForPageLoad();
 				rowNumber = getTripRowNumber(tripDetails);
 			}
-			cancelBungii(tripDetails, cancelCharge, comments);
+			cancelBungii(tripDetails, cancelCharge, comments, reason);
 			log("I should able to cancel bungii", "I was able to cancel bungii",
 					true);
 
@@ -106,7 +105,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String bungiiTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
 
 			scheduledTripsPage.waitForPageLoad();
-
+			SetupManager.getDriver().navigate().refresh();
 			tripDetails.put("CUSTOMER", custName);
 			//On admin panel CST time use to show
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
@@ -581,7 +580,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 * @param cancelCharge Cancel charge that is to be entered
 	 * @param comments     Comment to cancel trip
 	 */
-	public void cancelBungii(Map<String, String> tripDetails, String cancelCharge, String comments) {
+	public void cancelBungii(Map<String, String> tripDetails, String cancelCharge, String comments, String reason) {
 		int rowNumber = getTripRowNumber(tripDetails);
 		testStepAssert.isFalse(rowNumber == 999, "I should able to find bungii that is to be cancelled ", "I found bungii at row number " + rowNumber, " I was not able to find bungii");
 		WebElement editButton;
@@ -595,6 +594,7 @@ public class ScheduledTripSteps extends DriverBase {
 		//scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge); //Richa- Commented this line as the field already contained charge as '0'
 		action.click(scheduledTripsPage.TextBox_CancelFee());
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
+		action.selectElementByText(scheduledTripsPage.Select_CancellationReason(), reason);
 		action.click(scheduledTripsPage.Button_Submit());
 		scheduledTripsPage.waitForPageLoad();
 //		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());
