@@ -20,9 +20,9 @@ public class HomePage extends PageBase {
     public WebElement Button_ClearDrop() {return findElement("(//XCUIElementTypeButton[@name=\"input icon cancel\"])[2]", PageBase.LocatorType.XPath); }
 
 
-    public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET DROP OFF LOCATION']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
   //  public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
-    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET PICKUP LOCATION']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
     public WebElement Text_EtaTime() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
 
@@ -95,7 +95,7 @@ public class HomePage extends PageBase {
     public WebElement Button_DuoDeActive() {return findElement("bungii duo deactive", PageBase.LocatorType.AccessibilityId); }
     public WebElement Image_Loading(boolean ...ignoreException) {return findElement("In progress", PageBase.LocatorType.AccessibilityId,ignoreException); }
     public WebElement Image_eta_bar() {return findElement("eta_bar_bg", PageBase.LocatorType.AccessibilityId); }
-    public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Set Pickup Location\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath,ignoreException); }
+    public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[contains(@name,'ETA at Pickup Location:')]", LocatorType.XPath,ignoreException); }
     public WebElement Text_OutOfOffice(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Whoops! Sorry, we’re not operating here yet.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Text_OutOfOffice_RequestCity(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name=\"Request your city\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }

@@ -68,10 +68,15 @@ public class Admin_DriverDetails extends DriverBase{
             inputdate.setYear(new Date().getYear());
 
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
+            //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
+
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="CST")
-                inputdate.setHours(inputdate.getHours()+1);
+
+             /*
+             if (timezone=="EST" || timezone=="CST")
+                     inputdate.setHours(inputdate.getHours() + 1);
+            }*/
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate).replace("am","AM").replace("pm", "PM");
 

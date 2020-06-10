@@ -443,7 +443,7 @@ Feature: Create on demand bungii
       | CUSTOMER1_PHONE |                 |
   @FAILED2702
 
-  @ready
+  @regression
   Scenario: Verify Requesting An Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
       | geofence  | Bungii State   |
@@ -671,7 +671,7 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
   @failed
-  @ready
+  @regression
   Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
