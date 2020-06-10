@@ -302,6 +302,7 @@ public class ScheduledTripSteps extends DriverBase {
 	//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
 		action.clearEnterText(scheduledTripsPage.TextBox_CancelFee(),cancelCharge);
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
+		action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),"Other");
 		action.click(scheduledTripsPage.Button_Submit());
 		scheduledTripsPage.waitForPageLoad();
 //		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());

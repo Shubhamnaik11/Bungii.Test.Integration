@@ -48,7 +48,7 @@ Feature: Customer	Menu
 
     #Social media link are not visible now
     # By default 1 answer is collapsed and displayed.
-  @ready
+  @regression
   Scenario: Verify Customer FAQ Menu
     When I Select "FAQ" from Customer App menu
     Then I should be navigated to "FAQ" screen

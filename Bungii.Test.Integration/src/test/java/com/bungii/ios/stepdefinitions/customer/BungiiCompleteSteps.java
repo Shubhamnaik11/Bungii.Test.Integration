@@ -54,8 +54,8 @@ public class BungiiCompleteSteps extends DriverBase {
                     testStepVerify.isElementEnabled(bungiiCompletePage.Image_Profile2Placeholder(), " Driver 2 image placeholder should be displayed");
                     testStepVerify.isElementTextEquals(bungiiCompletePage.Text_GiveATip(), "Give a tip");
                     testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2GiveATip(), "Give a tip");
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_RateDriver(), "Tap a star to rate your driver.");
-                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2RateDriver(), "Tap a star to rate your driver.");
+                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_RateDriver(), "Rate Your Driver");
+                    testStepVerify.isElementTextEquals(bungiiCompletePage.Text_Driver2RateDriver(), "Rate Your Driver");
                     String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
                     driver1 = driver1.substring(0, driver1.indexOf(" ") + 2);
                     String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
