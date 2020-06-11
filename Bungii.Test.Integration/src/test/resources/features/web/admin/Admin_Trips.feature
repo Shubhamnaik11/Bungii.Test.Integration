@@ -49,6 +49,7 @@ Feature: Admin_Trips
       When I click on "Edit" link beside scheduled bungii
       And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
       And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
       And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
@@ -88,6 +89,7 @@ Feature: Admin_Trips
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
