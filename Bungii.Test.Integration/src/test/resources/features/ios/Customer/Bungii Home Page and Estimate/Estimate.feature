@@ -161,7 +161,7 @@ Feature: Customer Estimate screen
     Then correct details next available scheduled time should be displayed
 
 
-  @ready
+  @regression
   Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
