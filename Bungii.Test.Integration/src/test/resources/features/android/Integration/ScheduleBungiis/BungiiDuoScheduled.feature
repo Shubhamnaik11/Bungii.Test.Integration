@@ -919,7 +919,7 @@ Feature: Duo
     And I Switch to "driver" application on "ORIGINAL" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression1
+  @regression
   Scenario: Verify Driver Can Long Stack Request On Arrived State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -942,7 +942,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression1
+  @regression
   Scenario:Verify Driver Can Get Long Stack Request On Loading Item State And Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -983,7 +983,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario:Verify Driver Can Short Stack Request On Unloading Item State and Cancellation
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1465,8 +1465,7 @@ Feature: Duo
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
-  #@regression
-  @ready1
+  @regression
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -1477,7 +1476,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
+    And I am logged in as "kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
@@ -1491,7 +1490,7 @@ Feature: Duo
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
+    And I am logged in as "kansas driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I start selected Bungii

@@ -295,6 +295,15 @@ public class GeneralUtility extends DriverBase {
                 case "SET PICKUP TIME":
                     isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                     break;
+
+                case "Bungii Completed":
+                    isCorrectPage= action.isElementPresent(driverHomePage.Text_BungiiCompleted(true));
+                    break;
+
+                case "BUNGII COMPLETE":
+                    isCorrectPage=action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiCompleteGeneric());
+                    break;
+
                 default:
                     String expectedMessage = p0;
                     try {

@@ -93,7 +93,7 @@ Feature: Admin_DriverDetails
     And I click on "Driver Trips" icon
     Then I check if driver SSN is masked
 
-  @regression1
+  @regression
   Scenario: Verify masking of SSN for Existing driver
     When I navigate to following pages one by one
       |Page |
