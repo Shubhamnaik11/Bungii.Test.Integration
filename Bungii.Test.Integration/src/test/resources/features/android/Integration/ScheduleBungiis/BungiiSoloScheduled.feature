@@ -6,7 +6,7 @@ Feature: SoloScheduled
 
   Background:
 
-  @regression
+  @regression1
   Scenario: Verify Customer Can Create A Scheduled Bungii - Also Verify Correct Contact Number Is Displayed On Call And SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -141,7 +141,7 @@ Feature: SoloScheduled
 
 
   @sanity
-  @regression
+  #@regression
   Scenario: Verify Customer Can Create Scheduled Bungii
     Given I am logged in as "valid" customer
     When I Switch to "driver" application on "same" devices
@@ -275,7 +275,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
 
-  @regression
+  #@regression
   Scenario: Verify Customer Can Cancel The Scheduled Bungii
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -291,7 +291,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+ # @regression
   Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Screen When Required Drivers Have Not Accepted It
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
@@ -306,7 +306,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
 
-  @regression
+  #@regression
   Scenario: Verify Status Of Scheduled Bungii Trip In Scheduled Bungiis Menu Page When Required Drivers Have Not Accepted It - Scenario:DUO
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -325,8 +325,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
-
+  #@regression
   Scenario:Verify Status In Scheduled Bungiis Screen When Only One Driver Accepts The Trip
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -351,7 +350,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-  @regression
+  #@regression
   @failed123
   Scenario: Verify Status On Customers Scheduled Bungiis Screen When Both Drivers Have Accepted Trip
     When I Switch to "driver" application on "same" devices
@@ -378,7 +377,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  #@regression
   Scenario: Verify If Customer Receives Notification Once Required Number Of Drivers Accepts The Scheduled Trip - Scenario:Solo
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -402,7 +401,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  #@regression
   Scenario: Verify If Customer Receive Notification Once Required Number Of Drivers Accepts Scheduled Trip - Scenario:DUO
     When I Switch to "driver" application on "same" devices
     Then As a driver "Testdrivertywd_appleks_ra_four Kent" I log in
@@ -426,7 +425,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
 
-  @regression
+  #@regression
   Scenario:  Verify Customer Cannot Schedule Bungii for A Time That Is Outside Working Hours - Scenario:SOLO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -439,7 +438,7 @@ Feature: SoloScheduled
     When I try to schedule bungii for "tommorow - before working hour" for "SOLO"
     Then User should see message "OUTSIDE BUISSNESS HOUR" text on the screen
 
-  @regression
+  #@regression
   Scenario: Verify Customer Cannot Schedule Bungii For A Time That Is Outside Working Hours - Scenario:DUO
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -1149,7 +1148,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  #@regression
   Scenario:Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Solo Trip
     When I request "Solo Scheduled" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -1186,7 +1185,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  #@regression
   Scenario: Verify TELET Is Calculated Correctly (Initial Request Time +  (Estimated Duration(1.5)) + 30 Minutes) For Duo Trip
     When I request "duo" Bungii as a customer in "Kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

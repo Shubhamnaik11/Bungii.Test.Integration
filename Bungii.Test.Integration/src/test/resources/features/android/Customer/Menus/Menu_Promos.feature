@@ -95,7 +95,8 @@ Feature: Menu_SaveMoney
     And I share on "Facebook with app installed"
 #    Then I should see post "on Facebook app"
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify When Customer With No Twitter App Shares Promocode Via Twitter Then It Opens in Browser
     Given I am logged in as "existing" customer
     When I tap on "Menu" > "Promos" link
