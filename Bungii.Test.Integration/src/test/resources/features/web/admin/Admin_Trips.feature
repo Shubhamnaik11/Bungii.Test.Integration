@@ -7,6 +7,7 @@ Feature: Admin_Trips
   @sanity
   @regression
     @failed
+    @gs
     #test data created in base
   Scenario: Verify Manually Ending Bungii As An Admin For Solo Scheduled Pickup
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
@@ -35,6 +36,7 @@ Feature: Admin_Trips
   @sanity
   @regression
     @failed
+    @gs
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
@@ -54,6 +56,7 @@ Feature: Admin_Trips
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
     Then The Trip List page should display the trip in "Admin Canceled" state
+
 
   @sanity
   @regression
