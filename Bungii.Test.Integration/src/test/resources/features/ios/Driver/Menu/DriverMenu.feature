@@ -88,7 +88,7 @@ Feature: DriverMenu
     Then I should be able to see data on "FEEDBACK" page
 
 @failed
-  @ready
+  @regression
   Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver

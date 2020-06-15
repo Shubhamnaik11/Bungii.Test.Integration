@@ -99,6 +99,7 @@ public class HomeSteps extends DriverBase {
 
             } else {
                 selectPickUpLocation(dragFactor);
+                Thread.sleep(5000);
                 selectDropLocation(dragFactor);
             }
             selectTripDriver(tripDriverType);
@@ -137,7 +138,7 @@ public class HomeSteps extends DriverBase {
                 logger.detail("Geofence is not specified as input");
             }
             selectBungiiLocation("PICK UP", pickup);
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             selectBungiiLocation("DROP", drop);
             selectTripDriver(tripDriverType);
             cucumberContextManager.setScenarioContext("BUNGII_TYPE", tripDriverType.toLowerCase());
@@ -221,15 +222,24 @@ public class HomeSteps extends DriverBase {
     }
 
     public void selectBungiiLocation(String type, String location) {
+        try {
         switch (type.toUpperCase()) {
             case "PICK UP":
                 selectPickUpLocation(location);
                 break;
             case "DROP":
+                Thread.sleep(5000);
                 selectDropLocation(location);
                 break;
             default:
                 break;
+        }
+            pass(location + " location should be selected",
+                    location + " location is selected", true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
         }
     }
 
@@ -239,6 +249,7 @@ public class HomeSteps extends DriverBase {
         try {
             switch (actionToDo.toUpperCase()) {
                 case "DROP":
+                    Thread.sleep(5000);
                     selectDropLocation(1);
                     break;
                 case "PICK UP":
@@ -736,6 +747,7 @@ public class HomeSteps extends DriverBase {
         try {Thread.sleep(3000);}catch (Exception e){}
         if (action.isElementPresent(homePage.Button_ClearPickup(true)))
             action.click(homePage.Button_ClearPickup());
+
         action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();

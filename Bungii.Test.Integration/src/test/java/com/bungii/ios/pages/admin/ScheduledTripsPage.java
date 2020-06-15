@@ -23,6 +23,7 @@ public class ScheduledTripsPage extends PageBase {
     public WebElement TableBody_TripDetails() {
         return findElement("TripListsTBody", LocatorType.Id);
     }
+    public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
 
     public WebElement RadioBox_Cancel() {return findElement("//label[contains(@class,'customerCancel')]/input", LocatorType.XPath);}
 

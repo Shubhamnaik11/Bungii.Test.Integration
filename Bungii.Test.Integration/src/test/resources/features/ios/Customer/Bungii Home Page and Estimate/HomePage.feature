@@ -64,7 +64,9 @@ Feature: Customer Home screen
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
     Given I am on Customer logged in Home page
-    Then driver eta should be "less than 30 mins"
+    When I select "Pick up" location
+    Then "Pick up" address should be displayed in text box
+    And driver eta should be "less than 30 mins"
 
   @regression
   Scenario:Verify Customer Can Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)
