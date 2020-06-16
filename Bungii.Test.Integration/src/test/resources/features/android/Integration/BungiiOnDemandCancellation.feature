@@ -61,7 +61,7 @@
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression1
+  @regression
   Scenario: Verify that the customer can see 4 options when cancels the on demand trip.
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -77,7 +77,7 @@
     Then A popup with "Cancel Reasons" should appear
     And I verify that "Four Reasons" is displayed
 
-  @regression1
+  @regression
   Scenario: Verify that the textbox is displayed when customer selects 'Other..' as the cancelling on demand bungii reason.
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -95,7 +95,7 @@
     And I click on "SUBMIT" button
     Then The "CANCELLATION REASON" textbox should be displayed
 
-  @regression1
+  @regression
   Scenario: Verify that customer can enter the reason of its own to cancel ondemand bungii search
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
@@ -114,7 +114,7 @@
     And I enter "reason" on Cancellation popup textbox
     And I click on "SUBMIT REASON" button
 
-  @regression1
+  @regression
   Scenario Outline: Verify that user can select each of the reason and submit successfully.
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
