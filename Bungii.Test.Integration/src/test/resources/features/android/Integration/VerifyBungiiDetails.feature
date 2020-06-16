@@ -174,7 +174,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -209,7 +209,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -239,7 +239,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -270,7 +270,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -303,7 +303,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -341,7 +341,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -375,7 +375,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that correct date of the trip is displayed as per the timezone of the geofence.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -396,7 +396,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-OnDemand
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -429,7 +429,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Solo
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -463,7 +463,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Duo
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -498,7 +498,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -526,7 +526,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
-    @regression1
+    @regression
     Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_C Android" customer
