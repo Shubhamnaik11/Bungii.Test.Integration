@@ -3,7 +3,7 @@
 Feature: VerifyBungiiDetails2
 
   @regression
-  @new
+  @ready
   Scenario: Verify that the My Bungii Past trip is visible when admin manually ends bungii
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -47,7 +47,7 @@ Feature: VerifyBungiiDetails2
     And I verify the field "dropoff address"
     And I verify the field "trip cost"
 
-    @new
+    @ready
     Scenario: Verify that the date and time displayed in edit Schedule bungii page against a driver's schedule list is proper timezone and not in UTC
       Given I am on the LOG IN page on driver app
       And I am logged in as "Testdriver_goa_a Android_test" driver
@@ -63,7 +63,7 @@ Feature: VerifyBungiiDetails2
       And I open the trip for "Testcustomertywd_appleand_A Android" the customer
       Then I check that time is not displayed in UTC
 
-  @new
+  @ready
   Scenario: Verify that Cancel button goes off once the Trip is cancelled
     Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_E Android"
       | geofence | Bungii State | Bungii Time   |
@@ -84,7 +84,7 @@ Feature: VerifyBungiiDetails2
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And "Cancel button" should not be displayed
 
-  @new1
+  @ready
   Scenario: Verify that for Duo trips if Admin portal displays Application error when one driver is accepted through push notification and other is assigned by ADMIN
 
     Given I am logged in as "Testcustomertywd_appleand_F Android" customer
@@ -130,7 +130,7 @@ Feature: VerifyBungiiDetails2
     And I tap on "Menu" > "MY BUNGIIS" link
     And I select already scheduled bungii
 
-  @new
+  @ready
   Scenario: Verify that the Pickup note is not displayed as NULL or undefined when customer does not add a pickup note
     When I am on the LOG IN page on driver app
     And I am logged in as "Testdriver_goa_f Android_test" driver
@@ -159,7 +159,7 @@ Feature: VerifyBungiiDetails2
       | Customer Phone  | Customer2 Phone |
       | 9999991020      |                 |
 
-  @new11
+  @ready
   Scenario: Verify that if non control driver started the trip and control driver is removed by Admin and assigned a new driver, the non controller driver becomes new control driver
             Verify that a message/ alert is not displayed to ADMIN when no field on Edit schedule Trip is edited and Admin clicks Verify button
     When I request "duo" Bungii as a customer in "goa" geofence
@@ -185,7 +185,7 @@ Feature: VerifyBungiiDetails2
     And the "Bungii Saved!" message is displayed
     And I verify that noncontrol driver becomes control driver
 
-  @new1
+  @ready
   Scenario: Verify that Admin is not allowed to add multiple driver for solo bungii and more than 2 drivers for DUO
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                       | Customer Password |
@@ -208,7 +208,7 @@ Feature: VerifyBungiiDetails2
     And I assign driver for the "Duo" trip
     Then I am not allowed to assign more drivers
 
-  @new1
+  @ready
   Scenario: Verify that application error is not thrown on re-search of trip with apostrophe in Customer notes
     Given I am on customer Log in page
     And I am logged in as "Testcustomertywd_appleand_B Android" customer
