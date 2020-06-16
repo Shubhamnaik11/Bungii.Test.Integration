@@ -34,7 +34,7 @@ Feature: Admin_CustomersPage
     Then I should see "customer last name" listed on the "Trips" page
 
 
-@test
+@ready
   Scenario: Verify First and Last Name of customer and driver On Scheduled Trips and Live Trips page
     When I navigate to following pages one by one
       |Page |
