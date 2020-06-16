@@ -6,7 +6,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.PendingException;
@@ -193,6 +193,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
+                case "Profile":
+                    driver=(String) cucumberContextManager.getScenarioContext("DRIVER");
+                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Profile']", driver);
+                    action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
             }
             log("I click on " + button + " icon",
                     "I have clicked on " + button + " icon", true);

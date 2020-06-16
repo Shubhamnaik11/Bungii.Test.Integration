@@ -383,7 +383,7 @@ public class Admin_TripsSteps extends DriverBase {
             formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
-            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate);
+            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
             String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page

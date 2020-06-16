@@ -5,7 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -39,6 +39,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
@@ -573,12 +574,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-
                     }
-
-
                 }
-
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -740,6 +737,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     action.click(driver_detailsPage.Button_Update());
                     break;
 
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_Save());
+                     break;
                 case "APPLY":
                     action.click(admin_potentialPartnersPage.Button_ApplyGeofenceFilter());
                     break;

@@ -26,6 +26,7 @@ import io.appium.java_client.functions.ExpectedCondition;
 import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.openqa.selenium.*;
@@ -233,28 +234,28 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                 break;*/
             case "bungii.com":
-                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
-                    Thread.sleep(5000);
+                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))                  
+Thread.sleep(5000);
                 isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
                 break;
             case "Enroute screen":
                 Thread.sleep(5000);
-                String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
-                if (!currentPage.equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
-                else
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
-                break;
-            case "Arrived screen":
-                Thread.sleep(5000);
-                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.ARRIVED.toString());
-                else
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
-                break;
-            case "Loading Item screen":
-
-                Thread.sleep(5000);
+                    String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
+                    if (!currentPage.equalsIgnoreCase(""))
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                    else
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
+                    break;
+                case "Arrived screen":
+                    Thread.sleep(5000);
+                    if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                    else
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
+                    break;
+                case "Loading Item screen":
+		
+		                Thread.sleep(5000);
                 if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
                     isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
                 else
@@ -299,18 +300,21 @@ public class GeneralUtility extends DriverBase {
                 try {
                     if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
                         Thread.sleep(9000);
+
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
-                isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
-                if (!isCorrectPage) {
+ 			} catch (InterruptedException e) {
+                   		 e.printStackTrace();
+               		 }
                     action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
                     isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+
+                    if (!isCorrectPage) {
+                        action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
+                        isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+
+           
                 }
                 break;
-
 
         }
         return isCorrectPage;
@@ -1109,6 +1113,18 @@ public class GeneralUtility extends DriverBase {
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
     }
+ 
+    public void selectBungiiTime(String hour, String minutes, String ampm) {
+        action.scrollToTop();
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiAMPM(), ampm);
+        action.click(estimatePage.Button_TimeConfirm());
+
+    }
 
     public void selectTime() {
         String month=setPickupTimePage.Text_MonthPicker().getText();
@@ -1723,6 +1739,39 @@ public class GeneralUtility extends DriverBase {
         }catch (Exception e){
             logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
         }
+    }
+
+    public String calculateTeletTime() throws ParseException {
+
+        String scheduledTime = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
+
+        // scheduledTime = "Dec 21, 11:15 AM GMT+5:30";
+
+        Date bungiiDate = new SimpleDateFormat("MMM d, h:mm a").parse(scheduledTime);
+        Date currentDate = new Date();
+
+
+        String phoneNumber = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"); //phoneNumber="9403960189";
+        String loadtime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");//, "15 mins");
+        loadtime = loadtime.toLowerCase().replace("mins", "").replace("min", "").trim();
+        String custRef = dbUtility.getCustomerRefference(phoneNumber);
+        String estimateTime = dbUtility.getEstimateTime(custRef);
+        long totalEstimateDuration = Integer.parseInt(loadtime) + Integer.parseInt(estimateTime);
+        double timeToBeAdded = (totalEstimateDuration * 1.5) + 30;
+        Date telet = DateUtils.addMinutes(bungiiDate, (int) timeToBeAdded);
+
+        //int year=currentDate.getYear()+1900;
+        telet.setYear(currentDate.getYear());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        //By default data is in UTC
+        //   dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String teletTimeInUtc = null;
+
+        teletTimeInUtc = dateFormat.format(telet);
+        return teletTimeInUtc;
+
+
     }
 
 }

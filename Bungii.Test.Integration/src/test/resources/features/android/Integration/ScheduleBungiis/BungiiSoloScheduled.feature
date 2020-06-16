@@ -1807,7 +1807,7 @@ Feature: SoloScheduled
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
-  @regression
+  @regressi
   Scenario: Verify Control Driver Can Cancel Duo Bungii From The App In The First Two States Of Started Bungii - Scenario:enroute
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
@@ -2112,8 +2112,7 @@ Feature: SoloScheduled
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
 
-    @regression
-      @ready
+ @ready
     Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
       When I Open "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -2148,8 +2147,7 @@ Feature: SoloScheduled
       And I Switch to "driver" application on "same" devices
       Then Bungii Driver "completes Bungii"
 
-  @regression
-    @ready
+ @ready
   Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -2184,8 +2182,7 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression
-    @ready
+@ready
   Scenario: Verify That a scheduled Bungii can be started more than 1hr before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -2207,3 +2204,5 @@ Feature: SoloScheduled
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request
+    And Bungii Driver "Start Schedule Bungii" request
+

@@ -37,8 +37,8 @@ Feature: Admin_Trips
     @failed
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
+      | Bungii Time   | Customer Phone | Customer Name                  |
+      | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |

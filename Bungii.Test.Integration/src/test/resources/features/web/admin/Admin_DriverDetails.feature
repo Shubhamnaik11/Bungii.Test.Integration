@@ -92,3 +92,14 @@ Feature: Admin_DriverDetails
     And I search driver "Testdrivertywd_appleks_rathree Test"
     And I click on "Driver Trips" icon
     Then I check if driver SSN is masked
+
+  @regression
+  Scenario: Verify masking of SSN for Existing driver
+    When I navigate to following pages one by one
+      |Page |
+      | Drivers |
+    And I search driver "Dorry Sail"
+    And I click on "Profile" icon
+    And I edit the Driver
+    And I click on "Save Driver Details" button
+    Then I check if driver SSN is masked

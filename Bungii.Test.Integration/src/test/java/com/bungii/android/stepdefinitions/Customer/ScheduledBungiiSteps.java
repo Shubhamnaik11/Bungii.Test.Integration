@@ -2,6 +2,7 @@ package com.bungii.android.stepdefinitions.Customer;
 
 import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
+import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.stepdefinitions.CommonSteps;
@@ -49,7 +50,9 @@ public class ScheduledBungiiSteps extends DriverBase {
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     HomePage homePage = new HomePage();
     PromosPage promosPage=new PromosPage();
+    ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -84,6 +87,70 @@ public class ScheduledBungiiSteps extends DriverBase {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME"));
             selectBungii(tripNoOfDriver, tripTime);
             pass("I select already scheduled bungii", "I selected already scheduled bungii of " + tripNoOfDriver + " type and at time: " + tripTime, true);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I verify the \"([^\"]*)\"$")
+    public void i_verify_the_something(String strArg1) throws Throwable {
+        try {
+            String driver1Name, driver2Name;
+            String appDriver1Name, appDriver2Name;
+            switch (strArg1) {
+                case "solo driver names":
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
+                    if (driver1Name.contains(appDriver1Name))
+                    {
+                        testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
+                    }
+                    else{
+                        testStepAssert.isFail("Driver name doesn't match.");
+                    }
+                    break;
+
+                case "duo driver names":
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
+                    if (driver1Name.contains(appDriver1Name) && driver2Name.contains(appDriver2Name) )
+                    {
+                        testStepAssert.isTrue(true, "Driver names match.", "Driver names doesn't match.");
+                    }
+                    else{
+                        testStepAssert.isFail("Driver names doesn't match.");
+                    }
+                    break;
+
+                case "control driver name":
+                    driver1Name=(String)cucumberContextManager.getScenarioContext("DRIVER1_NAME");
+                    appDriver1Name=scheduledTripsPage.Text_Driver1Name().getText();
+                    if (driver1Name.contains(appDriver1Name))
+                    {
+                        testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
+                    }
+                    else{
+                        testStepAssert.isFail("Driver name doesn't match.");
+                    }
+                    break;
+
+                case "noncontrol driver name":
+                    driver2Name=(String)cucumberContextManager.getScenarioContext("DRIVER2_NAME");
+                    appDriver2Name=scheduledTripsPage.Text_Driver2Name().getText();
+                    if (driver2Name.contains(appDriver2Name))
+                    {
+                        testStepAssert.isTrue(true, "Driver name match.", "Driver name doesn't match.");
+                    }
+                    else{
+                        testStepAssert.isFail("Driver name doesn't match.");
+                    }
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -289,7 +356,8 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_click_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
             action.scrollToBottom();
-            action.click(estimatePage.Button_DoneOnSuccess());
+           // action.click(estimatePage.Button_DoneOnSuccess()); Commented due to new changes under SPRINT-34
+            action.click(estimatePage.Button_NextBungii());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
@@ -381,6 +449,13 @@ public class ScheduledBungiiSteps extends DriverBase {
                     break;
                 case "I DON'T LIKE FREE MONEY":
                     action.click(wantDollar5Page.Button_NoFreeMoney());
+                    break;
+                case "OK":
+                    Thread.sleep(5000);
+                    action.click(estimatePage.Button_OkDriverNotAvailable());
+                    break;
+                case "Schedule Bungii":
+                    action.click(estimatePage.Button_ScheduleBungii());
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
