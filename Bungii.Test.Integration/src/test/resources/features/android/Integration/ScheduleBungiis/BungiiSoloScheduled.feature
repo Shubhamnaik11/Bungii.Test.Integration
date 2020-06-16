@@ -6,7 +6,7 @@ Feature: SoloScheduled
 
   Background:
 
-  @regression1
+  @regression
   Scenario: Verify Customer Can Create A Scheduled Bungii - Also Verify Correct Contact Number Is Displayed On Call And SMS Option
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
