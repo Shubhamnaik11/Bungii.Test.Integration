@@ -229,9 +229,9 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = action.isElementPresent(homePage.Text_TutorialPdf());
                 // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
                 break;
-            case "DRIVER NOT AVAILABLE":
+            /*case "DRIVER NOT AVAILABLE":
                 isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
-                break;
+                break;*/
             case "bungii.com":
                 if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
                     Thread.sleep(5000);
@@ -289,6 +289,11 @@ public class GeneralUtility extends DriverBase {
             case"DRIVER's LOCATION":
                 isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
                 break;
+
+            case "SET PICKUP TIME":
+                isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+                break;
+
             default:
                 String expectedMessage = p0;
                 try {
@@ -305,6 +310,8 @@ public class GeneralUtility extends DriverBase {
                     isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
                 }
                 break;
+
+
         }
         return isCorrectPage;
     }

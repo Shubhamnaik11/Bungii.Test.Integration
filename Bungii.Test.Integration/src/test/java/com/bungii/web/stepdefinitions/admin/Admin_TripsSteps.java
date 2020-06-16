@@ -4,7 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -93,8 +93,8 @@ public class Admin_TripsSteps extends DriverBase {
         String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
         action.clearSendKeys(admin_CustomerPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[2]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
-        String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[3]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[3]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
+        String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[4]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
         Thread.sleep(3000);
         String tripRequestedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         String tripEstimatedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath2)));
@@ -112,8 +112,8 @@ public class Admin_TripsSteps extends DriverBase {
         String[] name = customer.split(" ");
         action.clearSendKeys(admin_DashboardPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
-        String XPath = String.format("//td[contains(.,\"%s\")]/following-sibling::td[2]", customer);
-        String XPath2 = String.format("//td[contains(.,\"%s\")]/following-sibling::td[3]", customer);
+        String XPath = String.format("//td[contains(.,\"%s\")]/following-sibling::td[3]", customer);
+        String XPath2 = String.format("//td[contains(.,\"%s\")]/following-sibling::td[4]", customer);
 
         String tripRequestedCount = SetupManager.getDriver().findElement(By.xpath(XPath)).getText();
         String tripEstimatedCount = SetupManager.getDriver().findElement(By.xpath(XPath2)).getText();
@@ -268,7 +268,7 @@ public class Admin_TripsSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
                 int retrycount = 10;
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
@@ -870,25 +870,29 @@ public class Admin_TripsSteps extends DriverBase {
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Solo Type":
-                    xpath = String.format("//td[3][text()='Solo']");
+                    //xpath = String.format("//td[3][text()='Solo']");
+                    xpath = String.format("//td[4][text()='Solo']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Duo Type":
-                    xpath = String.format("//td[3][text()='Duo']");
+                    //xpath = String.format("//td[3][text()='Duo']");
+                    xpath = String.format("//td[4][text()='Duo']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "On-Demand Category":
-                    xpath = String.format("//td[4][text()='On-Demand']");
+                    //xpath = String.format("//td[4][text()='On-Demand']");
+                    xpath = String.format("//td[5][text()='On-Demand']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Scheduled Category":
-                    xpath = String.format("//td[4][text()='Scheduled']");
+                    //xpath = String.format("//td[4][text()='Scheduled']");
+                    xpath = String.format("//td[5][text()='Scheduled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");

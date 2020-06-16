@@ -55,7 +55,8 @@ public class EstimateSteps extends DriverBase {
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
-            strTime = enterTime(time);strTime=strTime.replace("am","AM").replace("pm","PM");
+            strTime = enterTime(time);
+            strTime=strTime.replace("am","AM").replace("pm","PM");
             String actualTime = "";
             String[] details = new String[4];
             //  action.swipeUP();
@@ -734,10 +735,7 @@ public class EstimateSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("BUNGII_LOAD_TIME", loadTime);
 
             }
-            if (!time.equals("")) {
-                String strTime = enterTime(time);
-                cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
-            }
+
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
             String[] details = getEstimateDetails();
@@ -750,7 +748,10 @@ public class EstimateSteps extends DriverBase {
             String value = getElementValue("Promo Code");
 
             cucumberContextManager.setScenarioContext("PROMOCODE_VALUE", value);
-
+            if (!time.equals("")) {
+                String strTime = enterTime(time);
+                cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+            }
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

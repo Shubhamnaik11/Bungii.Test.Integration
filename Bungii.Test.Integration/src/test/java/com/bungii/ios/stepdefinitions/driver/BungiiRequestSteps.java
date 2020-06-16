@@ -80,7 +80,9 @@ public class BungiiRequestSteps extends DriverBase {
                     String tripTime =(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME");
                     if(tripTime.equalsIgnoreCase(""))
                         tripTime =(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME");
+                    tripTime= tripTime.replaceAll("  "," ");
                     testStepVerify.isElementTextEquals(bungiiRequestPage.Text_ValueTripTime(),tripTime);
+
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Reject(),"Reject button should be displayed");
                     testStepVerify.isElementEnabled(bungiiRequestPage.Button_Accept(),"Accept button should be displayed");
                     break;

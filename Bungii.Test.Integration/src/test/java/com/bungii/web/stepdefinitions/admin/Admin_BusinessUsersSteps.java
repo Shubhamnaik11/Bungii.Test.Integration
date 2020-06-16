@@ -162,8 +162,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+        //String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/span[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     }
@@ -251,6 +253,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
+                break;
+            case "Cancellation Reason":
+                //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
+                action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(),strArg1);
+                log("I select element from Cancellation reason dropdown",
+                        "I have selected element from Cancellation reason dropdown", true);
                 break;
         }
     }

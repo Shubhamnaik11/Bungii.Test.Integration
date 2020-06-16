@@ -33,6 +33,11 @@ Feature: Customer Home screen
 
   @regression
   Scenario: Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
+    Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location
     Then The ETA bar is seen on screen
@@ -41,6 +46,11 @@ Feature: Customer Home screen
 
   @regression
   Scenario: Verify If Driver ETA Is Displayed When Drivers Within 30 min Of Radius From Pickup Location Is Available
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    And I Select "HOME" from driver App menu
+    Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location to check driver within 30mins
     Then The ETA bar is seen on screen with less then 30 mins

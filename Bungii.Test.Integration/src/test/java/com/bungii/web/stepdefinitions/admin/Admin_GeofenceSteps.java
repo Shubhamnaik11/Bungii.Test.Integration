@@ -192,8 +192,9 @@ public class Admin_GeofenceSteps extends DriverBase {
                                 action.click(admin_TripsPage.Menu_Trips());
                                 action.click(admin_LiveTripsPage.Menu_LiveTrips());
                                 break;
-                            case "Partners" :
+                            case "Potential Partners" :
                                 action.click(admin_PartnersPage.Menu_Partners());
+                                action.click(admin_PartnersPage.Assign_Partners());
                                 break;
 
                         }

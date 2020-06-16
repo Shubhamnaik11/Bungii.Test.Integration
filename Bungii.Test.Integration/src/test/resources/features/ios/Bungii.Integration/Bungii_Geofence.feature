@@ -3,7 +3,7 @@
 Feature: Bungii Geofence functionality
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Solo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
@@ -21,7 +21,7 @@ Feature: Bungii Geofence functionality
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Solo   | 3200 N Kedzie Ave Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
+      | Solo   | Berman Nissan of Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
 
 
     And I click "Get Estimate" button on "Home" screen
@@ -31,7 +31,7 @@ Feature: Bungii Geofence functionality
     Then correct next available scheduled time should be displayed
 
     @failed
-  @regression
+  @ready
   Scenario: Verify Minimum Scheduled Time Should Be Displayed On The Date Picker Of The Estimate Screen Based On When Duo Is Selected By Customer
     Given I am on the "LOG IN" page
     And I logged in Customer application using  "valid chicago" user
@@ -49,7 +49,7 @@ Feature: Bungii Geofence functionality
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Duo   | 3200 N Kedzie Ave, Chicago, IL 60618, USA | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA  | chicago   |
+      | Duo   |  Berman Nissan of Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA  | chicago   |
 
 
     And I click "Get Estimate" button on "Home" screen
@@ -76,7 +76,7 @@ Feature: Bungii Geofence functionality
     And I Switch to "customer" application on "same" devices
     And I enter pickup location
       | Driver | Pickup Location                            |
-      | Solo   | 3200 N Kedzie Ave, Chicago, IL 60618, USA  |
+      | Solo   | Berman Nissan of Chicago  |
     Then driver eta should be "not be displayed"
     And geofence not active message should be displayed
 

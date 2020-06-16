@@ -331,15 +331,17 @@ public class HomeSteps extends DriverBase {
             switch (toDoAction.toUpperCase()) {
                 case "DROP":
                     action.click(homePage.Button_Locator());
-                    action.click(homePage.Button_Locator());
+                    //Commented because of SPRINT-33 changes
+                    //action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
                     break;
                 case "PICK UP":
                     action.click(homePage.Button_Locator());
-                    Thread.sleep(3000);
-                    action.click(homePage.Button_Locator());
+                    //Commented because of SPRINT-33 changes
+                    //Thread.sleep(3000);
+                    //action.click(homePage.Button_Locator());
                     Thread.sleep(3000);
                     action.click(homePage.Button_ETASet());
                     Thread.sleep(3000);
@@ -440,7 +442,8 @@ public class HomeSteps extends DriverBase {
     @Then("^The ETA bar is seen on screen$")
     public void the_eta_bar_is_seen_on_screen() throws Throwable {
         try {
-            testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
+            //testStepVerify.isElementDisplayed(homePage.Button_ETASet(), "ETA SET button should be displayed.", "ETA SET button is displayed.", "ETA SET button is not displayed.");
+            testStepVerify.isElementDisplayed(homePage.Label_ETAContainer(), "ETA bar should be displayed.", "ETA bar is displayed.", "ETA bar is not displayed.");
         }
         catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -474,7 +477,7 @@ public class HomeSteps extends DriverBase {
     public void theETABarIsSeenOnScreenWithLessThenMins(int arg0) {
         try {
             String minutes = homePage.Text_ETAvalue().getText();
-            minutes = minutes.replace(" MINS", "");
+            minutes = minutes.replace(" minutes", "");
             int ETA = Integer.parseInt(minutes);
             if (ETA <= 30) {
                 testStepAssert.isElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
@@ -500,6 +503,7 @@ public class HomeSteps extends DriverBase {
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     Thread.sleep(2000);
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    action.click(homePage.Button_ETASet(true));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
                     break;
@@ -509,6 +513,7 @@ public class HomeSteps extends DriverBase {
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlantaB"));
                     Thread.sleep(2000);
+                    action.click(homePage.Button_ETASet(true));
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlantaB"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(5000);
@@ -518,6 +523,7 @@ public class HomeSteps extends DriverBase {
                     if (action.isElementPresent(homePage.Button_ClearPickUp(true)))
                         action.click(homePage.Button_ClearPickUp());
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.nongeofence"));
+                    //action.click(homePage.Button_ETASet(true));
                     Thread.sleep(5000);
                     break;
 
