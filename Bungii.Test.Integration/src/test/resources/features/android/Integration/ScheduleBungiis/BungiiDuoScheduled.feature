@@ -1567,7 +1567,7 @@ Feature: Duo
 
 
     @regression
-      @new
+      @ready
     Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
       When I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -1610,7 +1610,7 @@ Feature: Duo
       And I click "On To The Next One" button on the "Bungii Completed" screen
 
   @regression
-    @new
+    @ready
   Scenario: Verify that Duo scheduled Bungii can be started 30mins before the scheduled Trip start time
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -1653,7 +1653,7 @@ Feature: Duo
     And I click "On To The Next One" button on the "Bungii Completed" screen
 
   @regression
-    @new
+    @ready
   Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app

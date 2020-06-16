@@ -286,7 +286,7 @@ Feature: Admin_PartnerFirm
     Then The Trip List page should display the trip in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
-  @new11
+  @ready
   Scenario: Verify that Point of interests are getting populated for the newer clusters
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
@@ -312,7 +312,7 @@ Feature: Admin_PartnerFirm
       | Customer Phone | Customer2 Phone |
       | 9999992222     |                 |
 
-@new
+@ready
 Scenario: Verify that same trip is shown for other driver under Trips section When admin adds driver to duo trip.
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
@@ -334,7 +334,7 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   And I refresh the page
   Then I verify that the "Testdrivertywd_appledc_a_web Sundarm" is displayed
 
-  @new
+  @ready
   Scenario: Verify that Admin does not get "Customer has ongoing trip " alert when he edits an already edited schedule bungii
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |

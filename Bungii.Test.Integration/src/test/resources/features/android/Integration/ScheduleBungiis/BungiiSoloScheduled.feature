@@ -2113,7 +2113,7 @@ Feature: SoloScheduled
       | 8805368840     |                 |
 
     @regression
-      @new
+      @ready
     Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
       When I Open "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -2149,7 +2149,7 @@ Feature: SoloScheduled
       Then Bungii Driver "completes Bungii"
 
   @regression
-    @new
+    @ready
   Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -2185,7 +2185,7 @@ Feature: SoloScheduled
     Then Bungii Driver "completes Bungii"
 
   @regression
-    @new
+    @ready
   Scenario: Verify That a scheduled Bungii can be started more than 1hr before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
