@@ -503,6 +503,8 @@ public class HomeSteps extends DriverBase {
                     utility.selectAddress(homePage.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
                     Thread.sleep(2000);
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    Thread.sleep(4000);
+                    action.click(homePage.Button_ETASet(true));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
                     break;

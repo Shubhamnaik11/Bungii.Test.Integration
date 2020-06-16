@@ -619,14 +619,14 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
                     Thread.sleep(4000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(2000);
+
                     //action.click(Page_CustHome.Button_ETASet());
-                    Thread.sleep(2000);
+
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
                     break;
 
