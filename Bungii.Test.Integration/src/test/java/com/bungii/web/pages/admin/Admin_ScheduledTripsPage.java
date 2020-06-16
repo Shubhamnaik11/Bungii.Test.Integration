@@ -14,6 +14,9 @@ public class Admin_ScheduledTripsPage extends PageBase {
     public WebElement Textbox_CancellationFee () { return findElement("txtCancellationFee", LocatorType.Id); }
 
     public WebElement Textbox_CancellationComment () { return findElement("txtCustomerCancellationComments", LocatorType.Id); }
+
+    public WebElement Dropdown_CancellationReason () { return findElement("txtCancellationRemark", LocatorType.Id); }
+
     //changed by Richa
     //public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::input", LocatorType.XPath); }
     public WebElement RadioButton_CancelBungii () { return findElement("//span[text()='Cancel entire Bungii and notify driver(s)']/preceding-sibling::span", LocatorType.XPath); }

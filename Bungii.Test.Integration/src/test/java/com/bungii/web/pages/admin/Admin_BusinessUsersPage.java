@@ -29,7 +29,8 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement TextBox_BusinessUserEmailAddress( ) { return findElement("BusinessUser_EmailAddress", LocatorType.Id); }
 
-    public WebElement Label_ErrorContainer( ) { return findElement("error-summary-modal", LocatorType.Id); }
+    //public WebElement Label_ErrorContainer( ) { return findElement("error-summary-modal", LocatorType.Id); }
+    public WebElement Label_ErrorContainer( ) { return findElement("//span[@class='field-validation-error error']", LocatorType.XPath); }
 
     public WebElement Label_ErrorContainerPhone( ) { return findElement("BusinessUser_PhoneNo-error", LocatorType.Id); }
 
