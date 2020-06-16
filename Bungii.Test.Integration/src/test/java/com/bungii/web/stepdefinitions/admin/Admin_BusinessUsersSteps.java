@@ -5,7 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -39,9 +39,11 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
@@ -511,12 +513,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         errorFileName=errorFileName+"_errors";
         String home = System.getProperty("user.home");
         File file = new File(home+"/Downloads/" + errorFileName + ".csv");
-try {
-    if (file.exists()) {
-        file.delete();
-    }
-}
-catch (Exception ex){}
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        catch (Exception ex){}
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
         Thread.sleep(2000);
         String dirPath= home+"/Downloads/";
@@ -572,12 +574,8 @@ catch (Exception ex){}
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-
                     }
-
-
                 }
-
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -737,6 +735,27 @@ catch (Exception ex){}
 
                 case "Update" :
                     action.click(driver_detailsPage.Button_Update());
+                    break;
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_Save());
+                    break;
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_Save());
+                     break;
+                case "APPLY":
+                    action.click(admin_potentialPartnersPage.Button_ApplyGeofenceFilter());
+                    break;
+
+                case "VERIFY":
+                    action.click(admin_potentialPartnersPage.Button_VerifyDriver());
+                    break;
+
+                case "SAVE CHANGES":
+                    action.click(admin_potentialPartnersPage.Button_SaveChanges());
+                    break;
+
+                case "Close":
+                    action.click(admin_potentialPartnersPage.Button_ClosePopUp());
                     break;
             }
             log("I click on the "+Name+" button",

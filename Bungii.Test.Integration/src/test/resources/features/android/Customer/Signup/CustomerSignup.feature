@@ -5,8 +5,7 @@ Feature: CustomerSignup
   Background:
     Given I am on Sign up page
 
-  #@regression
-@ready
+  @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -223,4 +222,3 @@ Feature: CustomerSignup
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
-

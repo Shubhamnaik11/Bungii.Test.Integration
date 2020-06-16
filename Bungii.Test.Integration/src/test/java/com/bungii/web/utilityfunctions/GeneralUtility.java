@@ -10,6 +10,7 @@ import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -143,6 +144,9 @@ public class GeneralUtility extends DriverBase {
 
     public String GetUniqueLastName() {
         String Lastname = RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
+        Lastname.toLowerCase();
+        Lastname=Convert(Lastname);
+        Lastname = StringUtils.capitalize(Lastname.toLowerCase());
         return Lastname;
 
     }
@@ -719,6 +723,37 @@ public class GeneralUtility extends DriverBase {
                message = message.replace("%Link%", link);
         }
         return message;
+    }
+
+    public static String Convert(String str)
+    {
+        // Create a char array of given String
+        char ch[] = str.toCharArray();
+        for (int i = 0; i < str.length(); i++) {
+
+            // If first character of a word is found
+            if (i == 0 && ch[i] != ' ' ||
+                    ch[i] != ' ' && ch[i - 1] == ' ') {
+
+                // If it is in lower-case
+                if (ch[i] >= 'a' && ch[i] <= 'z') {
+
+                    // Convert into Upper-case
+                    ch[i] = (char)(ch[i] - 'a' + 'A');
+                }
+            }
+
+            // If apart from first character
+            // Any one is in Upper-case
+            else if (ch[i] >= 'A' && ch[i] <= 'Z')
+
+                // Convert into Lower-Case
+                ch[i] = (char)(ch[i] + 'a' - 'A');
+        }
+
+        // Convert the char array to equivalent String
+        String st = new String(ch);
+        return st;
     }
 }
 

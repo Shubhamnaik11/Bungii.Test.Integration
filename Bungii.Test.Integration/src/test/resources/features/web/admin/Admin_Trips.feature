@@ -37,8 +37,8 @@ Feature: Admin_Trips
     @failed
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
+      | Bungii Time   | Customer Phone | Customer Name                  |
+      | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
@@ -49,10 +49,12 @@ Feature: Admin_Trips
       When I click on "Edit" link beside scheduled bungii
       And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
       And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
       And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
     Then The Trip List page should display the trip in "Admin Canceled" state
+
 
   @sanity
   @regression
@@ -88,6 +90,7 @@ Feature: Admin_Trips
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal

@@ -20,9 +20,14 @@ public class GeofenceSteps extends DriverBase {
     GeofencePage geofencePage=new GeofencePage();
 
     @And("^I select \"([^\"]*)\" geofence$")
-    public void i_select_something_geofence(String strArg1) throws Throwable {
+    public void i_select_something_geofence(String geofenceName) throws Throwable {
         try{
-        action.click(geofencePage.Select_ChicagoGeofence());
+            switch (geofenceName) {
+                case "Chicago":
+                    action.click(geofencePage.Select_ChicagoGeofence());
+                    break;
+
+            }
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
