@@ -37,6 +37,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
@@ -94,6 +95,15 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Drivers":
                action.click(admin_DriverPage.Menu_Drivers());
                break;
+
+           case "Potential Partners > Assign Partner":
+                action.click(admin_potentialPartnersPage.Menu_AssignPartner());
+               break;
+
+           case "Potential Partners > Partner Search":
+               action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
+               break;
+
 
        }
         log("I click on "+link+" menu link" ,
@@ -457,8 +467,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         switch(message) {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
-            testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
-        break;
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
             case "Trips have been requested successfully.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
@@ -497,6 +507,26 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
                 //EOC
+            case "Your changes are good to be saved.":
+                String actualMessage=action.getText(admin_potentialPartnersPage.Text_VerifyChangesSavedMessage());
+                if(actualMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+
+            case "Bungii Saved!":
+                actualMessage=action.getText(admin_potentialPartnersPage.Text_SuccessMessage());
+                if(actualMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+
         }
     }
 

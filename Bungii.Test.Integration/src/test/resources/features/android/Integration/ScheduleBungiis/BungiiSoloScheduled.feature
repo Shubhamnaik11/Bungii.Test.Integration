@@ -2090,8 +2090,8 @@ Feature: SoloScheduled
       | Scenario       | Card Detail                | Card Expiry       | CVV       | Postal Code       |
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
 
-      #@regression
-  @ready
+
+  @regression
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -2136,8 +2136,8 @@ Feature: SoloScheduled
     And I check if the customer is on success screen
     Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
-    
-    @regression
+
+      @ready
     Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
       When I Open "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -2172,7 +2172,7 @@ Feature: SoloScheduled
       And I Switch to "driver" application on "same" devices
       Then Bungii Driver "completes Bungii"
 
-  @regression
+    @ready
   Scenario: Verify That a Solo scheduled Bungii can be started 30 mins before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
@@ -2207,15 +2207,12 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression
-  Scenario: Verify That  error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another
-  customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
-
+    @ready
+  Scenario: Verify That a scheduled Bungii can be started more than 1hr before the scheduled Trip start time
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then I click "Go Online" button on Home screen on driver app
-
     When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | Kansas   | Accepted     | 0.75 hour ahead |
@@ -2291,6 +2288,18 @@ Feature: SoloScheduled
     And the "Bungii Saved!" message is displayed
 
     When I switch to "ORIGINAL" instance
+    When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Scheduled    | 0.5 hour ahead |
+
+    And I Open "customer" application on "same" devices
+    When I am on customer Log in page
+    When I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request

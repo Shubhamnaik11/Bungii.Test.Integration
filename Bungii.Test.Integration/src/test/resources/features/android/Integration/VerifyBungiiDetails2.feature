@@ -74,6 +74,7 @@ Feature: VerifyBungiiDetails2
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "testdriver_goa_e android_test" driver
+
     And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal

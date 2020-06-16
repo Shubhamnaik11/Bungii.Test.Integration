@@ -759,6 +759,7 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+
 	@Then("^I am not allowed to assign more drivers$")
 	public void i_am_not_allowed_to_assign_more_drivers() throws Throwable {
 		//String textBoxAttribute= scheduledTripsPage.TextBox_DriverSearch().getAttribute("disabled");
@@ -781,6 +782,7 @@ public class ScheduledTripSteps extends DriverBase {
 			scheduledTripsPage.Select_TestDriver().click();
 			String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
 			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
+			cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
 
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);

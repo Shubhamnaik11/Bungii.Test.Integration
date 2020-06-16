@@ -5,6 +5,14 @@ import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
+
+import com.bungii.android.manager.*;
+import com.bungii.android.pages.customer.*;
+
+import com.bungii.android.pages.customer.PromosPage;
+
+import com.bungii.android.pages.driver.TripAlertSettingsPage;
+import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
@@ -30,6 +38,8 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     HomePage homePage=new HomePage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
+    SearchingPage searchingPage = new SearchingPage();
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -148,8 +158,14 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     }
                     break;
 
+                case "Customer Entered":
+                    String expectedSchdlDateTime= (String) cucumberContextManager.getScenarioContext("SCHEDULE_BUNGII_DATE");
+                    String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
+                    testStepAssert.isEquals(actualSchdlDateTime, expectedSchdlDateTime,expectedSchdlDateTime+" is expected schedule date and time.", expectedSchdlDateTime+" is displayed.", expectedSchdlDateTime+" is not displayed.");
+                    break;
+
                 default:
-                    throw new Exception(" UNIMPLEMENTED STEP");
+                    throw new Exception(" UNIMPLEMENTED STEP ");
             }
         }
         catch (Exception e) {
@@ -186,6 +202,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "ADD":
                     action.click(promosPage.Button_AddPromoCode());
                     break;
+
                 case "OK":
                     action.click(promosPage.Button_Ok());
                     break;
@@ -197,7 +214,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
                     break;
-
                 case "ADD NOTE":
                     action.click(estimatePage.Button_AddNotes());
                     break;
@@ -235,8 +251,36 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(scheduledTripsPage.Button_ClosePopUp());
                     break;
 
+                case "SET PICKUP LOCATION":
+                    action.click(homePage.Button_ETASet());
+                    break;
+
+                case "SET DROP OFF LOCATION":
+                    Thread.sleep(2000);
+                    action.click(homePage.Button_ETASet());
+                    break;
+
+                case "SCHEDULE BUNGII":
+                    Thread.sleep(2000);
+                    String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
+                    cucumberContextManager.setScenarioContext("NEW_SCHDL_BUNGII_TIME", actualSchdlDateTime);
+                    action.click(setPickupTimePage.Button_ScheduleBungii());
+                    break;
+
+                case "CANCEL":
+                    action.click(searchingPage.Link_CancelSearch());
+                    break;
+
+                case "SUBMIT":
+                    action.click(setPickupTimePage.Button_EnterCancellationReason());
+                    break;
+
+                case "SUBMIT REASON":
+                    action.click(setPickupTimePage.Button_SubmitCancellationReason());
+                    break;
+
                 default:
-                    throw new Exception("UNIMPLEMENTED STEP");
+                    error("Implemented Step", "UnImplemented Step");
             }
         }
         catch (Exception e) {

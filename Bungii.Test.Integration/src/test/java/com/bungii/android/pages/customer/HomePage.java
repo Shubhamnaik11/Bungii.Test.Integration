@@ -86,6 +86,10 @@ public class HomePage extends PageBase {
     public WebElement Button_StartApp() { return findElement("com.bungii.customer:id/tutorials_screen_five_btn_start",LocatorType.Id); }
     public WebElement Button_BackOfPage() {return findElement("//android.widget.ImageButton[@content-desc=\"Navigate up\"]", LocatorType.XPath);}
 
+    public WebElement LocationPicker() {return findElement("com.bungii.customer:id/pickup_location_imageview_idle_eta", LocatorType.Id);}
+    public WebElement DropOffLocationPicker(){return findElement("com.bungii.customer:id/pickup_location_eta_bar", LocatorType.Id);}
+    public WebElement TextBox_CancellationReason(){return findElement("com.bungii.customer:id/alert_cancellation_reason_et", LocatorType.Id);}
+    public WebElement TextBox_ETAContainer(){return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
     public WebElement Label_ETAContainer(){ return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
     public WebElement Tab_MyBungiisScheduled() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
     public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
