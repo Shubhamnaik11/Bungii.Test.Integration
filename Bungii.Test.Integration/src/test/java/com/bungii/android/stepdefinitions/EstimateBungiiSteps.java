@@ -431,6 +431,12 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_newly.registered.name"));
                     break;
+                case "valid goa customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                            PropertyUtility.getDataProperties("goa.customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -578,11 +584,11 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
-                    Thread.sleep(4000);
-                    action.click(Page_CustHome.Button_ETASet(true));
-                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    Thread.sleep(2000);
+                    action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(4000);
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
                     break;
@@ -972,6 +978,9 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "next possible scheduled for duo":
                     break;
+                case "Next Schedule Time":
+                    utility.selectTime();
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -989,6 +998,28 @@ public class EstimateBungiiSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @And("^I schedule Bungii at \"([^\"]*)\" Time $")
+    public void i_schedule_bungii_at_something_time(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Next Schedule":
+                    utility.selectTime();
+                    break;
+
+                default:
+                    error("UnImplemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
 
     @Then("^\"([^\"]*)\" information icon should display correct information$")
     public void something_information_icon_should_display_correct_information(String iconName) throws Throwable {

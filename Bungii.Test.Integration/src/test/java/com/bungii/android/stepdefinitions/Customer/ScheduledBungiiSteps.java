@@ -49,6 +49,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     WantDollar5Page wantDollar5Page = new WantDollar5Page();
     HomePage homePage = new HomePage();
     PromosPage promosPage=new PromosPage();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }
@@ -510,6 +511,43 @@ public class ScheduledBungiiSteps extends DriverBase {
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
 
+    }
+
+    @When("^I click on \"([^\"]*)\" icon on \"([^\"]*)\" Page$")
+    public void i_click_on_something_icon_on_something_page(String text, String page) throws Throwable {
+
+        switch (text) {
+            case "BUNGII DATE TIME":
+                String dateTime=setPickupTimePage.Text_DateTime().getText();
+                cucumberContextManager.setScenarioContext("ONDEMANDBUNGIITIME",dateTime);
+                action.click(setPickupTimePage.Text_DateTime());
+                break;
+        }
+        log("I click on " + text + " on " + page + " page",
+                "I have clicked on " + text + " on " + page + " page", true);
+    }
+
+    @Then("^the trip is displayed on \"([^\"]*)\" screen$")
+    public void the_trip_is_displayed_on_something_screen(String strArg1) throws Throwable {
+        try{
+        switch (strArg1) {
+            case "MY BUNGIIS":
+                String expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("MY_BUNGII_DATE");
+                String actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                break;
+
+            case "MY BUNGII":
+                 expectedMyBungiiTime = (String) cucumberContextManager.getScenarioContext("NEW_SCHDL_BUNGII_TIME");
+                 actualMyBungiiTime = setPickupTimePage.Text_BungiiTime().getText();
+                testStepAssert.isEquals(actualMyBungiiTime, expectedMyBungiiTime,expectedMyBungiiTime+" is expected schedule date and time.", expectedMyBungiiTime+" is displayed.", expectedMyBungiiTime+" is not displayed.");
+                break;
+        }
+    }
+        catch (Exception e){
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
     }
 
     private void selectMeridean(String Meridian) {
