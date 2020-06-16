@@ -2203,7 +2203,7 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
 
-  @regression1
+  @regression
   Scenario: Verify That  error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another
   customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
 
