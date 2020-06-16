@@ -102,3 +102,4 @@ Feature: Admin_DriverDetails
     And I click on "Profile" icon
     And I edit the Driver
     And I click on "Save Driver Details" button
+    Then I check if driver SSN is masked

@@ -5,10 +5,6 @@ import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
-
-import com.bungii.android.manager.*;
-import com.bungii.android.pages.customer.*;
-
 import com.bungii.android.pages.customer.PromosPage;
 
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
@@ -40,6 +36,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
+
 
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
@@ -214,6 +211,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
                     break;
+
                 case "ADD NOTE":
                     action.click(estimatePage.Button_AddNotes());
                     break;
