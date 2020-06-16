@@ -87,6 +87,7 @@ public class GeneralUtility extends DriverBase {
     InvitePage invitePage = new InvitePage();
     LocationPage locationPage= new LocationPage();
     com.bungii.android.pages.driver.LocationPage driverLocation = new com.bungii.android.pages.driver.LocationPage();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     DbUtility dbUtility=new DbUtility();
 
      EmailUtility emailUtility = new EmailUtility();
@@ -1112,7 +1113,7 @@ Thread.sleep(5000);
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
     }
-
+ 
     public void selectBungiiTime(String hour, String minutes, String ampm) {
         action.scrollToTop();
         action.click(estimatePage.Time());
@@ -1124,6 +1125,46 @@ Thread.sleep(5000);
         action.click(estimatePage.Button_TimeConfirm());
 
     }
+
+    public void selectTime() {
+        String month=setPickupTimePage.Text_MonthPicker().getText();
+        String Day=setPickupTimePage.Text_DayPicker().getText();
+        String year=setPickupTimePage.Text_YearPicker().getText();
+        action.click(estimatePage.Button_DateConfirm());
+        int currentHour= Integer.parseInt(setPickupTimePage.Text_SelectHours().getText());
+        currentHour=currentHour+1;
+        action.sendKeys(setPickupTimePage.Text_SelectHours(),String.valueOf(currentHour));
+        String mins=setPickupTimePage.Text_SelectMinutes().getText();
+        action.click(setPickupTimePage.Button_TimePickerOK());
+        String scheduleBungiiDate=month+" "+Day+", "+String.valueOf(currentHour)+":"+mins;
+        cucumberContextManager.setScenarioContext("SCHEDULE_BUNGII_DATE", scheduleBungiiDate);
+
+        String myBungiiDateTime=month+" "+Day+", "+year+" - "+String.valueOf(currentHour)+":"+mins;
+        cucumberContextManager.setScenarioContext("MY_BUNGII_DATE", myBungiiDateTime);
+    }
+
+    /*private void selectHour(String hour) throws InterruptedException {
+        int hrs = Integer.parseInt(action.getText(setPickupTimePage.Text_SelectHours()));
+        if (hrs == Integer.parseInt(hour)) {
+            //do nothing
+        } else if (hrs > Integer.parseInt(hour)) {
+            WebElement back = estimatePage.Text_TimeHourPickerBack();
+            for (int i = 0; i < (hrs - Integer.parseInt(hour)); i++) {
+                action.click(back);
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (hrs < Integer.parseInt(hour)) {
+            WebElement next = estimatePage.Text_TimeHourPickerNext();
+            for (int i = 0; i < ( Integer.parseInt(hour)-hrs); i++) {
+                action.click(next);
+                Thread.sleep(2000);
+            }
+        }
+    }*/
 
     /**
      * Get geofence data from properties file
