@@ -1,4 +1,4 @@
-    @android11
+    @android
     #These feature will run in Goa geofence
     Feature: VerifyBungiiDetails
 
