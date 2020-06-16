@@ -26,7 +26,7 @@ Feature: Log In
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
-  @ready
+  @regression
   Scenario: Verify Customer Is Shown Terms And Condition Screen On First Time Login
     Given I install Bungii App again
     When I am on the "LOG IN" page
@@ -50,7 +50,7 @@ Feature: Log In
     Then I should be navigated to "Home" screen
 
 
-  @ready
+  @regression
     Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
     When I am on the "LOG IN" page
@@ -79,7 +79,7 @@ Feature: Log In
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
-  @ready
+  @regression
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
     Given I install Bungii App again
     When I am on the "LOG IN" page

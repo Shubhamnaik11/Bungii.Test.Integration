@@ -145,7 +145,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
 
     And I am on the "LOG IN" page
