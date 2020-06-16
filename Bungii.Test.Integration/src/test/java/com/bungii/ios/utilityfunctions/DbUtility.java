@@ -195,4 +195,14 @@ public class DbUtility extends DbContextManager {
         String deviceToken = getDataFromMySqlServer(queryString2);
         return deviceToken;
     }
+
+    public static String UnassignTripFromCustomer(String pickupRef){
+
+        String queryString2 = "update customer c\n" +
+                "join pickupdetails pd on pd.customerRef = c.customerRef\n" +
+                "set currentassignedpickup = null\n" +
+                "where pd.PickupRef = "+pickupRef+";";
+        String deviceToken = getDataFromMySqlServer(queryString2);
+        return deviceToken;
+    }
 }

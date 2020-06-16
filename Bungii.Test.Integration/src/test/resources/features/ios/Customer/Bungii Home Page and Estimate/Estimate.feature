@@ -23,31 +23,12 @@ Feature: Customer Estimate screen
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
-  @regression
-  Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
-    When I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location | Drop Location                |
-      | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
-    And I click "Get Estimate" button on "Home" screen
-    And I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-    When I wait for SEARCHING screen to disappear
-    Then I should be navigated to "DRIVER NOT AVAILABLE" screen
-    When I click "Ok" button on "DRIVER NOT AVAILABLE" screen
-    Then Alert message with SCHEDULE BUNGII OPTION text should be displayed
-    When I click "Schedule Bungii" on alert message
-    Then I should be navigated to "Estimate" screen
-    And Estimate Screen should have element as per below table
-      | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
-      | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117/**** 1881   |      | UNCHECK             | DISABLED       |
-  
+
   @regression
   Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
@@ -65,7 +46,7 @@ Feature: Customer Estimate screen
   Scenario: Verify When Customer Cancels On Estimate Page Then He Is Navigated To Home Screen
     When I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa|
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -80,7 +61,7 @@ Feature: Customer Estimate screen
   Scenario: Verify If The Information Icons Display Correct Information On Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa |
     And I click "Get Estimate" button on "Home" screen
 
     Then I should be navigated to "Estimate" screen
@@ -97,7 +78,7 @@ Feature: Customer Estimate screen
   Scenario: Verify Field Elements Of Estimate Screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And Trip Information should be correctly displayed on Estimate screen
@@ -110,7 +91,7 @@ Feature: Customer Estimate screen
   Scenario: Verify Load Unload Time Functionality And Verify If Estimate Cost Is Recalculated
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     And check if I have ability to select different load time and Estimate cost is re calculated
@@ -124,7 +105,7 @@ Feature: Customer Estimate screen
     And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I enter following details on "Estimate" screen
@@ -139,7 +120,7 @@ Feature: Customer Estimate screen
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -157,7 +138,7 @@ Feature: Customer Estimate screen
     Scenario:Verify Customer Can Add Atleast One And Maximum Of Four Images Of Items On Estimate Screen
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Location | Drop Location                |
-        | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+        | Solo   | Margao Railway  | Old Goa Road, Velha Goa |
       And I click "Get Estimate" button on "Home" screen
       When I enter following details on "Estimate" screen
         | LoadTime | PromoCode | Payment Card | Time | PickUpImage | Save Trip Info |
@@ -175,6 +156,33 @@ Feature: Customer Estimate screen
       Scenario: Verify When Duo Is Selected Then Time Is Selected To Next Available Scheduled Time For A Selected Geofence
       And I request for  bungii for given pickup and drop location
         | Driver | Pickup Location                 | Drop Location                                        | Geofence  |
-        | Duo    |Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134, United States | nashville |
+        | Duo    |Nashville International Airport | 5629 Nashville Rd, Franklin, KY 42134 | nashville |
     And I click "Get Estimate" button on "Home" screen
     Then correct details next available scheduled time should be displayed
+
+
+  @regression
+  Scenario: Verify Customer Selects Scheduled Bungii When There Are No Driver Available For Ondemand Request Then He Should Be Navigated To Estimate Screen With Prefilled Data
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location | Drop Location                |
+      | Solo   | Panjim bus stand  | Old Goa Road, Velha Goa, Goa |
+    And I click "Get Estimate" button on "Home" screen
+    And I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 15       |           |              | Now  | Default     |
+    Then I should be navigated to "SEARCHING" screen
+    When I wait for SEARCHING screen to disappear
+    Then I should be navigated to "SET PICKUP TIME" screen
+    When I click "SCHEDULE BUNGII" button on "SET PICKUP TIME" screen
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
+
+    # Changed after sprint 33 changes
+    #Then I should be navigated to "DRIVER NOT AVAILABLE" screen
+   # When I click "Ok" button on "DRIVER NOT AVAILABLE" screen
+   # Then Alert message with SCHEDULE BUNGII OPTION text should be displayed
+   # When I click "Schedule Bungii" on alert message
+   # Then I should be navigated to "Estimate" screen
+   # And Estimate Screen should have element as per below table
+    #  | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method | Time | Terms And Condition | REQUEST BUNGII |
+    #  | {PREVIOUS VALUE} | SELECT           |            | ~$0.00 | **** 4242/**** 1117/**** 1881   |      | UNCHECK             | DISABLED       |

@@ -1,7 +1,7 @@
 @ios
   # this will run in 	nashville
 Feature: Create on demand bungii
-  @FAILED2702
+  @demoportal
   @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
@@ -282,7 +282,7 @@ Feature: Create on demand bungii
     And I Select "Logout" from driver App menu
 
   @failed
-  @regression
+  @ready
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
@@ -557,7 +557,7 @@ Feature: Create on demand bungii
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
   @FAILED2702
 
-  @regression
+  @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
     Given I have customer with referral code
     And I Switch to "driver" application on "same" devices
@@ -613,7 +613,7 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
 
-  @regression
+  @ready
     @failed
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received

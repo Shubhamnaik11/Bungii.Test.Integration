@@ -228,6 +228,10 @@ public class EstimatePage extends PageBase {
     public WebElement Button_RequestBungii() {
         return findElement("REQUEST BUNGII", LocatorType.AccessibilityId);
     }
+    public WebElement Button_ScheduleBungii() {
+        return findElement("SCHEDULE BUNGII", LocatorType.AccessibilityId);
+    }
+
     public WebElement Button_Cancel() {
         return findElement("Cancel", LocatorType.AccessibilityId);
     }

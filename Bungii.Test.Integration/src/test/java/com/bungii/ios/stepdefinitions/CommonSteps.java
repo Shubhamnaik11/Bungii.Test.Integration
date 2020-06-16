@@ -36,6 +36,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.bungii.SetupManager.getDriver;
 import static com.bungii.common.manager.ResultManager.*;
 
 
@@ -318,8 +319,14 @@ public class CommonSteps extends DriverBase {
                 case "ADD":
                     if (screen.equalsIgnoreCase("Estimate"))
                         action.click(estimatePage.Button_AddPromoCode());
-                    else
+                    else {
                         action.click(promosPage.Button_Add());
+                        if(action.isAlertPresent()) {
+                            String alertText = SetupManager.getDriver().switchTo().alert().getText();
+                            warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
+                            SetupManager.getDriver().switchTo().alert().accept();
+                        }
+                    }
                     break;
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
@@ -374,6 +381,9 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "TOP BACK":
                     action.click(bungiiDetails.Button_Back());
+                    break;
+                case "SCHEDULE BUNGII":
+                    action.click(estimatePage.Button_ScheduleBungii());
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name",
@@ -483,6 +493,14 @@ public class CommonSteps extends DriverBase {
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
+            if (action.isAlertPresent()) {
+               // if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
+                    warning("I see location popup", "I accepted location popup", true);
+                    SetupManager.getDriver().switchTo().alert().accept();
+
+              //  }
+            }
+
             String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
             switch (screen.toUpperCase()) {
                 case "LOG IN":
@@ -545,6 +563,7 @@ public class CommonSteps extends DriverBase {
 
     public void goToSignUpPage(String navigationBarName) throws Throwable {
         HomeSteps homeSteps = new HomeSteps(homePage);
+
 
         if (!navigationBarName.equals(PropertyUtility.getMessage("customer.navigation.signup"))) {
 
@@ -830,6 +849,12 @@ public class CommonSteps extends DriverBase {
                     userName = PropertyUtility.getDataProperties("customer.user");
                     password = PropertyUtility.getDataProperties("customer.password");
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
+                    break;
+                case "existing app user":
+                    userName = PropertyUtility.getDataProperties("customer.user.hasTrip");
+                    password = PropertyUtility.getDataProperties("customer.password");
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name.hasTrip"));
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", userName);
                     break;
                 case"newly created user":
@@ -1189,6 +1214,22 @@ public class CommonSteps extends DriverBase {
 
     @Given("^I have customer with referral code$")
     public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature_context() throws Throwable {
+        try {
+
+            String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
+            String phoneNumber = (String) cucumberContextManager.getFeatureContextContext("CUSTOMER_HAVING_REF_CODE");//phoneNumber="9999992799";
+            cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", refCode);
+            cucumberContextManager.setScenarioContext("NEW_USER_NUMBER", phoneNumber);
+            testStepAssert.isTrue(refCode.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+            testStepAssert.isTrue(phoneNumber.length() > 1, "I Should have customer with ref code", "I dont have customer with ref code");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.getStackTrace();
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+    @When("^I note customer with referral code$")
+    public void i_save_customer_phone_and_referral_code_iADDED_PROMO_CODEn_feature() throws Throwable {
         try {
 
             String refCode = (String) cucumberContextManager.getFeatureContextContext("INVITE_CODE");//refCode="119W5";
@@ -1669,7 +1710,7 @@ public class CommonSteps extends DriverBase {
             testStepAssert.isFail("Email : " + emailSubject + " is not received");
         }
         else{
-            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"\\EmailTemplate\\CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
+            boolean isEmailCorrect=utility.validateCustomerSignupEmail(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath())+"/EmailTemplate/CustomerSignup.txt",emailBody, (String)cucumberContextManager.getScenarioContext("NEW_USER_FIRST_NAME"),tripDetailsLinks.get(0),tripDetailsLinks.get(1),tripDetailsLinks.get(2),tripDetailsLinks.get(3),tripDetailsLinks.get(4),tripDetailsLinks.get(5),tripDetailsLinks.get(6),tripDetailsLinks.get(7),tripDetailsLinks.get(8));
             testStepAssert.isTrue(isEmailCorrect,"Email should be correct","Email is not correct , check logs for more details");
 
 
