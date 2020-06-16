@@ -79,5 +79,8 @@ public class Admin_GeofencePage extends PageBase {
     public WebElement Text_ErrorScheduleTimeForDuo() { return findElement("attributeValueEarliestScheduleTimeDuo-error", LocatorType.Id);}
     public WebElement Text_ErrorScheduleTimeForSolo() { return findElement("attributeValueEarliestScheduleTimeSolo-error", LocatorType.Id);}
 
+    public WebElement Select_KansasGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Kansas')]\n", LocatorType.XPath);}
+
+    public WebElement Select_GoaGeofence() { return findElement("//tbody[@id='NewApplicantsTBody']/tr/td[contains(text(),'Goa')]\n", LocatorType.XPath);}
 
 }

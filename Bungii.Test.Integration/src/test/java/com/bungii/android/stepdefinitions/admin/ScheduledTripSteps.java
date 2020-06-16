@@ -759,6 +759,104 @@ public class ScheduledTripSteps extends DriverBase {
 		}
 	}
 
+  
+	@And("^\"([^\"]*)\" should not be displayed$")
+	public void something_should_not_be_displayed(String option) throws Throwable {
+		try {
+			boolean displayed = false;
+
+			switch (option) {
+				case "Cancel button":
+					displayed = scheduledTripsPage.isElementEnabled(scheduledTripsPage.Button_Submit());
+					break;
+				default:
+					error("UnImplemented Step or incorrect button name", "UnImplemented Step");
+					break;
+			}
+			testStepVerify.isFalse(displayed,
+					displayed + " should be displayed", displayed + " Message is Displayed",
+					displayed + " Message is not Displayed");
+		} catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	@And("^I Select \"([^\"]*)\" option$")
+	public void i_select_something_option(String option) throws Throwable {
+		try {
+			switch (option) {
+				case "Edit Trip Details":
+					action.click(scheduledTripsPage.RadioBox_EditTrip());
+					break;
+				case "Research Driver":
+					action.click(scheduledTripsPage.RadioBox_Research());
+					break;
+				case "Cancel Trip":
+					action.click(scheduledTripsPage.RadioBox_Cancel());
+					break;
+				default:
+					error("UnImplemented Step or incorrect option.", "UnImplemented Step");
+					break;
+			}
+		} catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+	@And("^I assign driver for the \"([^\"]*)\" trip$")
+	public void i_assign_driver_for_the_something_trip(String tripType) throws Throwable {
+		try {
+			switch (tripType) {
+				case "Solo":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					scheduledTripsPage.Select_TestDriver();
+					String driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					break;
+				case "Duo":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					scheduledTripsPage.Select_TestDriver();
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					scheduledTripsPage.Select_TestDriver();
+					String driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver2Name);
+					break;
+				case "control":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					scheduledTripsPage.Select_TestDriver();
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					break;
+				case "noncontrol":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Test");
+					scheduledTripsPage.Select_TestDriver();
+					driver2Name = scheduledTripsPage.Text_EditTrpDetailsDriver2Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER2_NAME", driver2Name);
+					break;
+				case "control driver":
+					scheduledTripsPage.TextBox_DriverSearch().sendKeys("Testdriver_goa_a Android_test");
+					scheduledTripsPage.Select_TestDriver();
+					driver1Name = scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
+					cucumberContextManager.setScenarioContext("DRIVER1_NAME", driver1Name);
+					break;
+				default:
+					error("UnImplemented Step or incorrect Trip Type.", "UnImplemented Step");
+					break;
+			}
+		} catch (Throwable e) {
+			logger.error("Error performing step" + e);
+			error("Step  Should be successful",
+					"Error performing step,Please check logs for more details", true);
+		}
+	}
+
+  
 	@Then("^I am not allowed to assign more drivers$")
 	public void i_am_not_allowed_to_assign_more_drivers() throws Throwable {
 		//String textBoxAttribute= scheduledTripsPage.TextBox_DriverSearch().getAttribute("disabled");
@@ -780,7 +878,8 @@ public class ScheduledTripSteps extends DriverBase {
 			scheduledTripsPage.TextBox_DriverSearch().sendKeys(driverName);
 			scheduledTripsPage.Select_TestDriver().click();
 			String driver1Name=scheduledTripsPage.Text_EditTrpDetailsDriver1Name().getText();
-			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);
+			cucumberContextManager.setScenarioContext("DRIVER1_NAME",driver1Name);      
+			cucumberContextManager.setScenarioContext("DRIVER2_NAME",driver1Name);
 
 		}catch (Throwable e) {
 			logger.error("Error performing step" + e);

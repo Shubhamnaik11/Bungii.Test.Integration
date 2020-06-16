@@ -10,6 +10,7 @@ import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -145,6 +146,7 @@ public class GeneralUtility extends DriverBase {
         String Lastname = RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
         Lastname.toLowerCase();
         Lastname=Convert(Lastname);
+        Lastname = StringUtils.capitalize(Lastname.toLowerCase());
         return Lastname;
 
     }

@@ -78,4 +78,5 @@ public class ScheduledTripsPage extends PageBase {
 
     public WebElement Text_ScheduledBungiiTime(){return findElement("//div[@class='tripDrivers row']/p[@class='col-sm-7 col-md-8 col-lg-9 lblScheduledTime']", LocatorType.XPath);}
     public WebElement Text_DriverNames(){return findElement("//div[@id='tripDriverDetails']/div/span[1]", LocatorType.XPath);}
+
 }
