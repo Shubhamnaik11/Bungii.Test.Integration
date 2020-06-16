@@ -365,6 +365,7 @@ public class GeneralUtility extends DriverBase {
 
         Date target;
         Date date = new Date();
+
         int minutes = ((int) Math.ceil(date.getMinutes() / 15d) * 15 + 30);
 
         if (minutes >= 60) {
@@ -374,6 +375,7 @@ public class GeneralUtility extends DriverBase {
         } else {
             target = DateUtils.setMinutes(new Date(), minutes); //set minute
         }
+
         String pickupTime = pickuptimeformatter.format(target);
         cucumberContextManager.setScenarioContext("PICKUP_TIME" , pickupTime);
         cucumberContextManager.setScenarioContext("TIMEZONE" , timezone);
@@ -402,6 +404,7 @@ public class GeneralUtility extends DriverBase {
 
         } catch (Exception ex) {
             newFilePath = null;
+            ex.printStackTrace();
         }
         return newFilePath;
     }

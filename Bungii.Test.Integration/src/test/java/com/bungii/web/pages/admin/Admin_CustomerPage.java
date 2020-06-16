@@ -15,7 +15,8 @@ public class Admin_CustomerPage extends PageBase {
 
     public WebElement TextBox_SearchCustomer() { return findElement("SearchCriteria", LocatorType.Id); }
 
-    public WebElement Label_CustomerList(){ return findElement("//div[@class='col-sm-8']/h4", LocatorType.XPath);}
+    //public WebElement Label_CustomerList(){ return findElement("//div[@class='col-sm-8']/h4", LocatorType.XPath);}
+    public WebElement Label_CustomerList(){ return findElement("//h4[contains(text(),'Customer list')]", LocatorType.XPath);}
 
     public WebElement Header_Name(){ return findElement("//span[@id='span-Name']", LocatorType.XPath);}
 

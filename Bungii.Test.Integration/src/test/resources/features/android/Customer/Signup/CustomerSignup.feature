@@ -26,7 +26,6 @@ Feature: CustomerSignup
     Then account created info for "OTHER" should be "increase by 1"
 
   @regression
-
   Scenario: Verify Customer Signup With All Fields Blank
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page

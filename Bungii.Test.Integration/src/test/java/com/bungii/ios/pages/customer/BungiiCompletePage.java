@@ -42,20 +42,20 @@ public class BungiiCompletePage extends PageBase {
 	public WebElement Button_Driver2Plus() {return findElements("+", PageBase.LocatorType.AccessibilityId).get(1); }
 	public WebElement Button_Driver2Minus() {return findElements("-", PageBase.LocatorType.AccessibilityId).get(1); }
 
-	public WebElement Image_Profile1Placeholder() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]", LocatorType.XPath).get(0); }
-	public WebElement Text_Driver1Name() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
-	public WebElement Text_GiveATip() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(0); }
-	public WebElement Text_RateDriver() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(0); }
+	public WebElement Image_Profile1Placeholder() {return findElements("//XCUIElementTypeImage", LocatorType.XPath).get(0); }
+	public WebElement Text_Driver1Name() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
+	public WebElement Text_GiveATip() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(0); }
+	public WebElement Text_RateDriver() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(0); }
 	public List<WebElement> Button_GenericDriver1star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath); }
 
 	public WebElement Button_DuoDriver13star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(1); }
 
 	public WebElement Button_DuoDriver2_4star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(2); }
 
-	public WebElement Image_Profile2Placeholder() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]", LocatorType.XPath).get(1); }
-	public WebElement Text_Driver2Name() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(1); }
-	public WebElement Text_Driver2GiveATip() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(1); }
-	public WebElement Text_Driver2RateDriver() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(1); }
+	public WebElement Image_Profile2Placeholder() {return findElements("//XCUIElementTypeImage", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2Name() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2GiveATip() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[2]", LocatorType.XPath).get(1); }
+	public WebElement Text_Driver2RateDriver() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[3]", LocatorType.XPath).get(1); }
 	public List<WebElement> Button_GenericDriver2star() {return findElements("//XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath); }
 
 	public WebElement Text_EmailSend() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'A detailed receipt will be emailed to you.'", LocatorType.Predicate); }
@@ -68,8 +68,8 @@ public class BungiiCompletePage extends PageBase {
 
 	//Solo
 	public WebElement Text_TabStarToRate() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
-	public WebElement Text_Rate1Driver() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Rate Your Driver'", LocatorType.Predicate); }
-	public WebElement Text_DriversoloName() {return findElements("//XCUIElementTypeImage[@name=\"profile_placeholder\"]/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
+	public WebElement Text_Rate1Driver() { return findElement("type == 'XCUIElementTypeStaticText' AND name == 'Tap a star to rate your driver.'", LocatorType.Predicate); }
+	public WebElement Text_DriversoloName() {return findElements("//XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText[1]", LocatorType.XPath).get(0); }
 	public WebElement Button_Solo3Star() {return findElements("//XCUIElementTypeButton[contains(@name,\"star icon\")]", LocatorType.XPath).get(2); }
 
 

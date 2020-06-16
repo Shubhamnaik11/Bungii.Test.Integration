@@ -418,7 +418,7 @@ public class HomePageSteps extends DriverBase {
             String timeRange = "07:00 AM - 09:00 PM  CST";
 
             //Add Code to handle daylight
-            if(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofenceId()).inDaylightTime( new Date() ))
+            if(TimeZone.getTimeZone("CST6CDT").inDaylightTime(new Date()))
                 timeRange = timeRange.replace("S","D");
 
             switch (strArg1) {

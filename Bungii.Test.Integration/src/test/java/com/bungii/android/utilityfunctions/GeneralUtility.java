@@ -190,56 +190,55 @@ public class GeneralUtility extends DriverBase {
      */
     public boolean isCorrectPage(String p0) throws InterruptedException {
         boolean isCorrectPage = false;
-        try {
-            switch (p0) {
-                case "FAQ":
-                    isCorrectPage = action.isElementPresent(faqPage.Header_FAQPage(true));
-                    break;
-                case "Account":
-                    isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
-                    break;
-                case "MY BUNGIIS":
-                    isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
-                    break;
-                case "Payment":
-                    isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
-                    break;
-                case "Support":
-                    isCorrectPage = action.isElementPresent(supportPage.Header_SupportPage(true));
-                    break;
-                case "Promos":
-                    isCorrectPage = action.isElementPresent(promosPage.Header_SavePage(true));
-                    break;
-                case "Home":
-                    isCorrectPage = action.isElementPresent(homePage.Header_HomePage(true));
-                    break;
-                case "Estimate":
-                    isCorrectPage = action.isElementPresent(estimatePage.Header_Estimate(true));
-                    break;
-                case "Login":
-                case "Logout":
-                    isCorrectPage = action.isElementPresent(Page_Login.Header_LoginPage(true));
-                    break;
-                case "Signup":
-                    isCorrectPage = action.isElementPresent(Page_Signup.Header_SignUp(true));
-                    break;
-                case "Terms and Conditions":
-                    isCorrectPage = action.isElementPresent(termsPage.Header_TermsPage(true));
-                    break;
-                case "Tutorial":
-                    isCorrectPage = action.isElementPresent(homePage.Text_TutorialPdf());
-                    // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
-                    break;
-                case "DRIVER NOT AVAILABLE":
-                    isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
-                    break;
-                case "bungii.com":
-                    if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
-                        Thread.sleep(5000);
-                    isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
-                    break;
-                case "Enroute screen":
-                    Thread.sleep(5000);
+        switch (p0) {
+            case "FAQ":
+                isCorrectPage = action.isElementPresent(faqPage.Header_FAQPage(true));
+                break;
+            case "Account":
+                isCorrectPage = action.isElementPresent(cutomerAccountPage.Header_AccountPage(true));
+                break;
+            case "MY BUNGIIS":
+                isCorrectPage = action.isElementPresent(scheduledBungiisPage.Title_ScheduledBungiis());
+                break;
+            case "Payment":
+                isCorrectPage = action.isElementPresent(paymentPage.Header_PaymentPage(true));
+                break;
+            case "Support":
+                isCorrectPage = action.isElementPresent(supportPage.Header_SupportPage(true));
+                break;
+            case "Promos":
+                isCorrectPage = action.isElementPresent(promosPage.Header_SavePage(true));
+                break;
+            case "Home":
+                isCorrectPage = action.isElementPresent(homePage.Header_HomePage(true));
+                break;
+            case "Estimate":
+                isCorrectPage = action.isElementPresent(estimatePage.Header_Estimate(true));
+                break;
+            case "Login":
+            case "Logout":
+                isCorrectPage = action.isElementPresent(Page_Login.Header_LoginPage(true));
+                break;
+            case "Signup":
+                isCorrectPage = action.isElementPresent(Page_Signup.Header_SignUp(true));
+                break;
+            case "Terms and Conditions":
+                isCorrectPage = action.isElementPresent(termsPage.Header_TermsPage(true));
+                break;
+            case "Tutorial":
+                isCorrectPage = action.isElementPresent(homePage.Text_TutorialPdf());
+                // isCorrectPage=action.getText(homePage.Text_TutorialHeader()).equals(PropertyUtility.getMessage("customer.tutorial.header"));
+                break;
+            /*case "DRIVER NOT AVAILABLE":
+                isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+                break;*/
+            case "bungii.com":
+                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))                  
+Thread.sleep(5000);
+                isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
+                break;
+            case "Enroute screen":
+                Thread.sleep(5000);
                     String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
                     if (!currentPage.equalsIgnoreCase(""))
                         isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
@@ -254,61 +253,68 @@ public class GeneralUtility extends DriverBase {
                         isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
                     break;
                 case "Loading Item screen":
+		
+		                Thread.sleep(5000);
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
+                else
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
+                break;
+            case "Driving to DropOff screen":
+                Thread.sleep(5000);
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                else
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
+                break;
+            case "Unloading Item screen":
+                Thread.sleep(5000);
+                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
+                else
+                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
+                break;
+            case "INVITE":
+                isCorrectPage = action.isElementPresent(invitePage.Header_Invite());
+                break;
+            case "SCHEDULED BUNGII":
+                isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiiSolo(true));
+                break;
+            case "SCHEDULED BUNGIIS":
+                isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiisSolo(true));
+            break;
+            case "LOCATION":
+                isCorrectPage = action.getText(locationPage.Header_Location()).equals("LOCATION");
+                break;
+            case"DRIVER's LOCATION":
+                isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
+                break;
 
-                    Thread.sleep(5000);
-                    if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
-                    else
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.LOADING_ITEM.toString());
-                    break;
-                case "Driving to DropOff screen":
-                    Thread.sleep(5000);
-                    if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.DRIVING_TO_DROP_OFF.toString());
-                    else
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.DRIVING_TO_DROP_OFF.toString());
-                    break;
-                case "Unloading Item screen":
-                    Thread.sleep(5000);
-                    if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.UNLOADING_ITEM.toString());
-                    else
-                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.UNLOADING_ITEM.toString());
-                    break;
-                case "INVITE":
-                    isCorrectPage = action.isElementPresent(invitePage.Header_Invite());
-                    break;
-                case "SCHEDULED BUNGII":
-                    isCorrectPage = action.isElementPresent(driverHomePage.Text_ScheduledBungiiSolo(true));
-                    break;
-                case "SCHEDULED BUNGIIS":
-                    isCorrectPage = action.isElementPresent(driverHomePage.Text_ScheduledBungiisSolo(true));
-                    break;
-                case "LOCATION":
-                    isCorrectPage = action.getText(locationPage.Header_Location()).equals("LOCATION");
-                    break;
-                case "DRIVER's LOCATION":
-                    isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
-                    break;
-                default:
-                    String expectedMessage = p0;
-                    try {
-                        if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
-                            Thread.sleep(9000);
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            case "SET PICKUP TIME":
+                isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+                break;
+
+            default:
+                String expectedMessage = p0;
+                try {
+                    if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
+                        Thread.sleep(9000);
+
                     }
+ 			} catch (InterruptedException e) {
+                   		 e.printStackTrace();
+               		 }
                     action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
                     isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+
                     if (!isCorrectPage) {
                         action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
                         isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
-                    }
-                    break;
-            }
-        }catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+
+           
+                }
+                break;
+
         }
         return isCorrectPage;
     }
