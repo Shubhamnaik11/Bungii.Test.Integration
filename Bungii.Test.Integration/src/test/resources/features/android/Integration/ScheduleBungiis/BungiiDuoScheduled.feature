@@ -1467,7 +1467,7 @@ Feature: Duo
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   #@regression
-  @ready1
+  @ready
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer        | Driver1         | Driver2         |
