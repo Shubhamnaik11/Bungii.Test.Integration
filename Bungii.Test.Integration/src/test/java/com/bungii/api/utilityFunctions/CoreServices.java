@@ -132,7 +132,12 @@ public class CoreServices extends DriverBase {
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.latitude.PartnerFirm")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.longitude.PartnerFirm")));
         }
-
+        if (geoFence.equalsIgnoreCase("goa")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
+        }
         jsonObj.put("DropoffLocation", dropOffCordinate);
         jsonObj.put("PickupLocation", pickupCordinates);
 

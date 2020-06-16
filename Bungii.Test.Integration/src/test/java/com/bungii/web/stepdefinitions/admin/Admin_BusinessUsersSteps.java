@@ -42,6 +42,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
@@ -511,12 +512,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         errorFileName=errorFileName+"_errors";
         String home = System.getProperty("user.home");
         File file = new File(home+"/Downloads/" + errorFileName + ".csv");
-try {
-    if (file.exists()) {
-        file.delete();
-    }
-}
-catch (Exception ex){}
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        catch (Exception ex){}
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
         Thread.sleep(2000);
         String dirPath= home+"/Downloads/";
@@ -737,6 +738,22 @@ catch (Exception ex){}
 
                 case "Update" :
                     action.click(driver_detailsPage.Button_Update());
+                    break;
+
+                case "APPLY":
+                    action.click(admin_potentialPartnersPage.Button_ApplyGeofenceFilter());
+                    break;
+
+                case "VERIFY":
+                    action.click(admin_potentialPartnersPage.Button_VerifyDriver());
+                    break;
+
+                case "SAVE CHANGES":
+                    action.click(admin_potentialPartnersPage.Button_SaveChanges());
+                    break;
+
+                case "Close":
+                    action.click(admin_potentialPartnersPage.Button_ClosePopUp());
                     break;
             }
             log("I click on the "+Name+" button",
