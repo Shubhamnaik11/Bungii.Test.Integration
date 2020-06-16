@@ -44,6 +44,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
 
+
     @And("^I click on \"([^\"]*)\" tab$")
     public void i_click_on_something_tab(String option) throws Throwable {
         try {
@@ -67,8 +68,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
-                    break;
-
             }
         }
         catch (Exception e) {
@@ -164,7 +163,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     }
                     break;
 
-               
                 case "Customer Entered":
                     String expectedSchdlDateTime= (String) cucumberContextManager.getScenarioContext("SCHEDULE_BUNGII_DATE");
                     String actualSchdlDateTime=setPickupTimePage.Text_DateTime().getText();
@@ -173,7 +171,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 default:
                         throw new Exception(" UNIMPLEMENTED STEP ");
-                break;
             }
         }
         catch (Exception e) {
@@ -250,6 +247,33 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "Edit Trip1":
                     scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row1']/td/p[@id='btnEdit'][1]")).click();
                     break;
+                case "ADD NOTE":
+                    action.click(estimatePage.Button_AddNotes());
+                    break;
+
+                case "MORE":
+                    action.click(inProgressPages.Button_More());
+                    break;
+
+                case "DETAILS FROM CUSTOMER":
+                    action.click(inProgressPages.Button_DetailsFromCustomer());
+                    break;
+
+                case "VERIFY":
+                    action.click(scheduledTripsPage.Button_VerifyDriver());
+                    break;
+
+                case "SAVE CHANGES":
+                    action.click(scheduledTripsPage.Button_SaveChanges());
+                    break;
+
+                case "Edit Trip":
+                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
+                    break;
+
+                case "Edit Trip1":
+                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row1']/td/p[@id='btnEdit'][1]")).click();
+                    break;
 
                 case "Edit Trip2":
                     Thread.sleep(2000);
@@ -260,7 +284,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     action.click(scheduledTripsPage.Button_ClosePopUp());
                     break;
 
-      
                 case "SET PICKUP LOCATION":
                     action.click(homePage.Button_ETASet());
                     break;
@@ -291,7 +314,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 default:
                     error("Implemented Step", "UnImplemented Step");
-break;
             }
         }
         catch (Exception e) {

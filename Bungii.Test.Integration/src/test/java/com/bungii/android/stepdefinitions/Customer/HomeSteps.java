@@ -572,8 +572,6 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
-  
     @Then("^I should see blank textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
@@ -674,12 +672,11 @@ public class HomeSteps extends DriverBase {
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
         }
-        catch (Exception e){logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        catch (Exception e){ logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
     }
-  
     @Then("^I verify that \"([^\"]*)\" is displayed$")
     public void i_verify_that_something_is_displayed(String strArg1) {
         try {
@@ -735,6 +732,7 @@ public class HomeSteps extends DriverBase {
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
+                break;
             }
         }
         catch (Exception e) {
@@ -743,5 +741,4 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
 }

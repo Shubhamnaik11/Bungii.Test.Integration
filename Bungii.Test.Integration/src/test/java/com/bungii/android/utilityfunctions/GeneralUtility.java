@@ -234,28 +234,28 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
                 break;*/
             case "bungii.com":
-                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))
-                    Thread.sleep(5000);
+                if (!action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)))                  
+Thread.sleep(5000);
                 isCorrectPage = action.isElementPresent(otherAppsPage.Text_ChromeUrl(true)) && action.getText(otherAppsPage.Text_ChromeUrl()).contains("bungii.com/drive");
                 break;
             case "Enroute screen":
                 Thread.sleep(5000);
-                String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
-                if (!currentPage.equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
-                else
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
-                break;
-            case "Arrived screen":
-                Thread.sleep(5000);
-                if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.ARRIVED.toString());
-                else
-                    isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
-                break;
-            case "Loading Item screen":
-
-                Thread.sleep(5000);
+                    String currentPage = action.getText(driverBungiiProgressPage.Title_Status_Generic(true));
+                    if (!currentPage.equalsIgnoreCase(""))
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.EN_ROUTE.toString());
+                    else
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.EN_ROUTE.toString());
+                    break;
+                case "Arrived screen":
+                    Thread.sleep(5000);
+                    if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.ARRIVED.toString());
+                    else
+                        isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic_Alt()).equals(Status.ARRIVED.toString());
+                    break;
+                case "Loading Item screen":
+		
+		                Thread.sleep(5000);
                 if (!action.getText(driverBungiiProgressPage.Title_Status_Generic(true)).equalsIgnoreCase(""))
                     isCorrectPage = action.getText(driverBungiiProgressPage.Title_Status_Generic()).equals(Status.LOADING_ITEM.toString());
                 else
@@ -302,19 +302,20 @@ public class GeneralUtility extends DriverBase {
                         Thread.sleep(9000);
 
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
-                isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
 
-                if (!isCorrectPage) {
+ 			} catch (InterruptedException e) {
+                   		 e.printStackTrace();
+               		 }
                     action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
                     isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
 
+                    if (!isCorrectPage) {
+                        action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
+                        isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
+
 
                 }
-                break;
+            break;
 
         }
         return isCorrectPage;
@@ -1112,6 +1113,18 @@ public class GeneralUtility extends DriverBase {
         action.click(estimatePage.Time());
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
+    }
+ 
+    public void selectBungiiTime(String hour, String minutes, String ampm) {
+        action.scrollToTop();
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiAMPM(), ampm);
+        action.click(estimatePage.Button_TimeConfirm());
+
     }
 
 

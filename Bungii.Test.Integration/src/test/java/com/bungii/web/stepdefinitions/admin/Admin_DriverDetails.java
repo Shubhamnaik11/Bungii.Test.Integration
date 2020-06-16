@@ -67,6 +67,7 @@ public class Admin_DriverDetails extends DriverBase{
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
+            String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate).replace("am","AM").replace("pm", "PM");
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
       String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate).replace("am","AM").replace("pm", "PM");
@@ -78,6 +79,7 @@ public class Admin_DriverDetails extends DriverBase{
                      inputdate.setHours(inputdate.getHours() + 1);
             }*/
             }
+     
             XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
         }
         else

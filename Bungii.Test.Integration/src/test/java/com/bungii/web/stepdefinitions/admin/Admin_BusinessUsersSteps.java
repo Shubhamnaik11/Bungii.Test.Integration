@@ -739,6 +739,9 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 case "Save Driver Details":
                     action.click(admin_driverVerificationPage.Button_Save());
                     break;
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_Save());
+                     break;
                 case "APPLY":
                     action.click(admin_potentialPartnersPage.Button_ApplyGeofenceFilter());
                     break;
