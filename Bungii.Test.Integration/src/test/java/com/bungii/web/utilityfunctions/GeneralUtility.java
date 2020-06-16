@@ -144,7 +144,6 @@ public class GeneralUtility extends DriverBase {
 
     public String GetUniqueLastName() {
         String Lastname = RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
-
         Lastname.toLowerCase();
         Lastname=Convert(Lastname);
         Lastname = StringUtils.capitalize(Lastname.toLowerCase());

@@ -70,7 +70,7 @@ public class Admin_DriverDetails extends DriverBase{
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate).replace("am","AM").replace("pm", "PM");
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
             //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
-
+      String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate).replace("am","AM").replace("pm", "PM");
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
 

@@ -181,6 +181,7 @@ public class LoginSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
                     shouldLoginSucessful = true;
                     break;
+                
                 default:
                     throw new Exception("Please specify valid input");
                 break;

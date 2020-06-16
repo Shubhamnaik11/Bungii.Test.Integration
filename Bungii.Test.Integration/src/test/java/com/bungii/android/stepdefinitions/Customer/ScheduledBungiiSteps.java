@@ -52,7 +52,6 @@ public class ScheduledBungiiSteps extends DriverBase {
     PromosPage promosPage=new PromosPage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
-
     public ScheduledBungiiSteps(ScheduledBungiisPage scheduledBungiisPage) {
         this.scheduledBungiisPage = scheduledBungiisPage;
     }

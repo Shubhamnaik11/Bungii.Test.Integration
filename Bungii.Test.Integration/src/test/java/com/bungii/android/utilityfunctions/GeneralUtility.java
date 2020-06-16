@@ -90,7 +90,7 @@ public class GeneralUtility extends DriverBase {
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     DbUtility dbUtility=new DbUtility();
 
-     EmailUtility emailUtility = new EmailUtility();
+    EmailUtility emailUtility = new EmailUtility();
     /**
      * Launch driver application's using package and activity
      *
@@ -283,7 +283,7 @@ Thread.sleep(5000);
                 break;
             case "SCHEDULED BUNGIIS":
                 isCorrectPage=action.isElementPresent(driverHomePage.Text_ScheduledBungiisSolo(true));
-            break;
+                break;
             case "LOCATION":
                 isCorrectPage = action.getText(locationPage.Header_Location()).equals("LOCATION");
                 break;
@@ -302,6 +302,7 @@ Thread.sleep(5000);
                         Thread.sleep(9000);
 
                     }
+
  			} catch (InterruptedException e) {
                    		 e.printStackTrace();
                		 }
@@ -312,9 +313,9 @@ Thread.sleep(5000);
                         action.textToBePresentInElementText(driverHomePage.Generic_HeaderElement(), expectedMessage);
                         isCorrectPage = action.getText(driverHomePage.Generic_HeaderElement()).equals(expectedMessage);
 
-           
+
                 }
-                break;
+            break;
 
         }
         return isCorrectPage;
@@ -1126,6 +1127,18 @@ Thread.sleep(5000);
 
     }
 
+
+    public void selectBungiiTime(String hour, String minutes, String ampm) {
+        action.scrollToTop();
+        action.click(estimatePage.Time());
+        action.click(estimatePage.Button_Later());
+        action.click(estimatePage.Button_DateConfirm());
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);
+        action.sendKeys(estimatePage.TextBox_CurrentBungiiAMPM(), ampm);
+        action.click(estimatePage.Button_TimeConfirm());
+
+    }
     public void selectTime() {
         String month=setPickupTimePage.Text_MonthPicker().getText();
         String Day=setPickupTimePage.Text_DayPicker().getText();
@@ -1529,7 +1542,7 @@ Thread.sleep(5000);
 
                 while ((s = br.readLine()) != null) {
                     s = s.replaceAll("%CustomerName%",customerName)
-;
+                    ;
                     emailMessage += s;
                 }
 

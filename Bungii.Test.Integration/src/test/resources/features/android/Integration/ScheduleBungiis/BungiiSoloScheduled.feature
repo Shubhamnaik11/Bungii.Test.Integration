@@ -2087,7 +2087,8 @@ Feature: SoloScheduled
       | VALID_discover | valid discover card number | valid expiry date | valid cvv | valid postal code |
 
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Driver Doesnt Receive Scheduled Request If The Request Is Sent Outside Of The Time That Is Set For Trip Alert Settings
     When I clear all notification
     When I Switch to "driver" application on "same" devices
@@ -2111,6 +2112,28 @@ Feature: SoloScheduled
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       | 8805368840     |                 |
+
+
+  @regression
+  Scenario: Verify that error message on android and iOS when driver accepts a trip1 through push notification and admin assign trip2 for another customer through portal such that trip1 TELET overlaps start time of trip2, then error message is shown to the driver when he starts either of the trips
+    Given that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time     |
+      | Kansas   | Accepted     | 0.75 hour ahead |
+
+    When I Switch to "customer" application on "same" devices
+    And I am logged in as "valid kansas" customer
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    Then I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+
+    
 
  @ready
     Scenario: Verify That Solo Scheduled Bungii can be started 1 hour before the Scheduled start time
@@ -2182,25 +2205,89 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     Then Bungii Driver "completes Bungii"
 
-@ready
+ @ready
   Scenario: Verify That a scheduled Bungii can be started more than 1hr before the scheduled Trip start time
+
     When I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
     Then I click "Go Online" button on Home screen on driver app
 
-    When that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+    When that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
-      | Kansas   | Scheduled    | 0.5 hour ahead |
+      | Kansas   | Accepted     | 0.75 hour ahead |
 
     And I Open "customer" application on "same" devices
     When I am on customer Log in page
-    When I am logged in as "Testcustomertywd_appleand_A Android" customer
+    When I am logged in as "Testcustomertywd_appleand_B Android" customer
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    And I wait for "2" mins
 
-    When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    And I Select Trip from driver available trip
-    And I tap on "ACCEPT" on driver Trip details Page
+    When I open new "Chrome" browser for "ADMIN_PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleand_B Android" customer
+    And I Select "Edit Trip Details" option
+    And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    And Bungii Driver "Start Schedule Bungii" request
+
+  @regression
+  Scenario: Verify That  error message on android and iOS When Customer has two Bungiis scheduled, and the 1 hour prior start time of second Bungii overlaps with the TELET of the first Bungii, the message show to driver are different in IOS and Android
+    When I Open "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid" driver
+    Then I click "Go Online" button on Home screen on driver app
+
+    When that solo schedule bungii is in progress
+      | geofence | Bungii State | Bungii Time  |
+      | Kansas   | Accepted     | 0.75 hour ahead |
+
+    And I Open "customer" application on "same" devices
+    When I am on customer Log in page
+    When I am logged in as "Testcustomertywd_appleand_B Android" customer
+    And I tap on "Menu" > "Home" link
+    And I enter "kansas pickup and dropoff locations" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I add "1" photos to the Bungii
+    And I add loading/unloading time of "30 mins"
+    And I select Bungii Time as "next possible scheduled"
+    And I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+    And I check if the customer is on success screen
+    And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
+    And I wait for "2" mins
+
+    When I open new "Chrome" browser for "ADMIN_PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
+    And I open the trip for "Testcustomertywd_appleand_B Android" customer
+    And I Select "Edit Trip Details" option
+    And I assign driver for the "Testdrivertywd_appleks_a_kay Stark_ksThreE" trip
+    And I click on "VERIFY" button
+    And the "Your changes are good to be saved." message is displayed
+    Then I click on "SAVE CHANGES" button
+    And the "Bungii Saved!" message is displayed
+
+    When I switch to "ORIGINAL" instance
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And Bungii Driver "Start Schedule Bungii" request

@@ -505,7 +505,6 @@ public class HomeSteps extends DriverBase {
                     Thread.sleep(2000);
                     utility.selectAddress(homePage.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
                     Thread.sleep(4000);
-
                     action.click(homePage.Button_ETASet(true));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     Thread.sleep(5000);
@@ -573,8 +572,6 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
-
     @Then("^I should see blank textbox$")
     public void i_should_see_blank_textbox() throws Throwable {
        String noText=action.getText(estimatePage.TextBox_DetailsNote());
@@ -680,7 +677,6 @@ public class HomeSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
-
     @Then("^I verify that \"([^\"]*)\" is displayed$")
     public void i_verify_that_something_is_displayed(String strArg1) {
         try {
