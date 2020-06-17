@@ -2,6 +2,7 @@
     #These feature will run in Goa geofence
     Feature: VerifyBungiiDetails
 
+
  @ready
     Scenario: Verify that correct trip details are displayed on the grey bar of the Estimate screen.
       Given I am on customer Log in page
@@ -38,7 +39,6 @@
       Then I should able to see expected promo code in available promo code
       And I tap on "Back" icon of page
       Then I should see "estimated cost" on Bungii estimate
-
 
 @ready
     Scenario: Verify that four masked characters are displayed before the last four characters of Payment Mode.
@@ -91,6 +91,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
+
 
  @ready
     Scenario: Verify that the text entered in Details is displayed after customer schedules a Bungii of an on demand bungii that has timed out.
@@ -175,7 +176,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
- @ready
+      @ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -210,7 +211,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
- @ready
+@ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Solo Bungii request, when viewed from Available Trips page.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -240,7 +241,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
- @ready
+      @ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in a Scheduled Duo Bungii request, when viewed from Available Trips page.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -270,7 +271,8 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
- @ready
+
+      @ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field in the Bungii Details page for a Scheduled Bungii.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -303,7 +305,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
- @ready
+      @ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -341,7 +343,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
 
- @ready
+      @ready
     Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
@@ -396,7 +398,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
- @ready
+
+@ready
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-OnDemand
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -429,7 +432,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
- @ready
+
+@ready
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Solo
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -463,7 +467,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
- @ready
+
+@ready
     Scenario: Verify that that Past Trips page correctly displays completed Scheduled (solo/duo) as well as On Demand Bungiis. SCENARIO-Duo
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -498,6 +503,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
+
  @ready
     Scenario: Verify that admin can assign a driver to a solo trip when it is in searching status.
       Given I am on customer Log in page
@@ -526,7 +532,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
 
- @ready
+
+@ready
     Scenario: Verify that admin can assign one or both drivers to a duo trip when it is in searching status.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_C Android" customer
@@ -554,6 +561,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
+
 
  @ready
     Scenario:Verify that admin can assign a driver to a solo trip when it has been re-searched.
@@ -589,7 +597,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
 
- @ready
+
+@ready
     Scenario: Verify admin can assign one (controlled) driver on duo trip when it has been re-searched.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_D Android" customer
@@ -621,7 +630,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
 
- @ready
+
+@ready
     Scenario: Verify if admin can assign one (non controlled) driver on duo trip when it has been re-searched.
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_D Android" customer
@@ -653,7 +663,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
 
- @ready
+
+@ready
     Scenario: Verify if admin can assign both drivers on duo trip when it has been re-searched
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_D Android" customer
@@ -686,7 +697,8 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
 
- @ready
+
+@ready
     Scenario: Verify if re-search automatically happens if admin does not add a new driver after removal.
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
         | geofence | Bungii State | Bungii Time  |
@@ -700,6 +712,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      |                 |
+
 
  @ready
     Scenario: Verify if admin can update date/time for a solo trip for which no driver has accepted.
@@ -731,6 +744,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
+
 
  @ready
     Scenario: Verify if admin can update date/time for a solo trip for which a driver has accepted and Customer has no conflicting trips at the new time.
@@ -779,6 +793,7 @@
         | Customer Phone | Customer2 Phone |
         | 9999999999     |                 |
 
+
  @ready
     Scenario: Verify that changing date/time for a scheduled bungii for which the assigned driver has a conflicting bungii during the newly selected time.
       Given that solo schedule bungii is in progress for customer "Testcustomertywd_appleand_F Android"
@@ -797,6 +812,7 @@
       And I cancel all bungiis of customer
         | Customer Phone | Customer2 Phone |
         | 9999999999     |                 |
+
 
  @ready
     Scenario: Verify that if admin can assign (controlled)driver on duo trip when non controlled driver has started the trip
@@ -829,6 +845,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074 |                 |
+
 
  @ready
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at same time
@@ -870,6 +887,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9393939393      |
 
+
  @ready
     Scenario: Verify that TELET time of solo scheduled when trip is not started and same driver is assigned to another scheduled trip at overlapping time
       Given I Switch to "driver" application on "same" devices
@@ -910,6 +928,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9393939393      |
+
 
  @ready
     Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
@@ -956,6 +975,7 @@
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9393939393      |
 
+
  @ready
     Scenario: Verify that TELET time of duo scheduled when trip is not started and non controlled driver is assigned to another scheduled trip at same time
       Given I Switch to "driver" application on "same" devices
@@ -999,7 +1019,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9393939393      |
- @ready
+@ready
     Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
       Given I Switch to "driver" application on "same" devices
       And I am on the LOG IN page on driver app
@@ -1042,6 +1062,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999990074      | 9393939393      |
+
 
  @ready
       Scenario: Verify that TELET time of duo scheduled when trip is not started and controlled driver is assigned
@@ -1132,7 +1153,8 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9393939393      |
 
- @ready
+
+@ready
       Scenario: Verify that TELET time of duo scheduled when trip is not started and both driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
@@ -1176,6 +1198,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9393939393      |
 
+
  @ready
       Scenario: Verify that TELET is impacted of solo scheduled when trip is not started and driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices
@@ -1218,7 +1241,7 @@
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9393939393      |
 
- @ready
+@ready
       Scenario: Verify that TELET is impacted of duo scheduled when trip is started and driver is assigned to another scheduled trip at same time
         Given I Switch to "driver" application on "same" devices
         And I am on the LOG IN page on driver app
@@ -1253,6 +1276,7 @@
         And I cancel all bungiis of customer
           | Customer Phone  | Customer2 Phone |
           | 9999990074      | 9393939393      |
+
 
  @ready
     Scenario: Verify that the driver can be assigned to a duo trip irrespective of drive time to pickup
@@ -1318,7 +1342,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
- @ready
+@ready
     Scenario: Verify updating time to past time and date
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_A Android" customer
@@ -1346,7 +1370,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9999991020      |                 |
- @ready
+@ready
     Scenario: Verify that  if driver have two TELET overlapping bungiis, and admin researches any one of the Bungii,
               then concerned driver does not recieve push notification
       Given I Switch to "driver" application on "same" devices
@@ -1402,6 +1426,7 @@
       And I cancel all bungiis of customer
         | Customer Phone  | Customer2 Phone |
         | 9393939393      |                 |
+
 
  @ready
     Scenario: Verify that the list displays all completed Bungiis in descending order of date.

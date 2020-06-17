@@ -74,13 +74,15 @@ Feature: VerifyBungiiDetails2
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "testdriver_goa_e android_test" driver
+
+    And I wait for "2" mins
     And I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
     And I log in to admin portal
     And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
-      | Charge | Comments |
-      | 0      | TEST     |
+      | Charge | Comments | Reason                         |
+      | 0      | TEST     | Outside of delivery scope      |
     Then "Bungii Cancel" message should be displayed on "Scheduled Trips" page
     And "Cancel button" should not be displayed
 

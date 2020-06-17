@@ -50,4 +50,7 @@ public class DriverHomePage extends PageBase {
 
     public WebElement Text_ScheduledBungiiSolo(boolean ignoreException) { return findElements("//*[@resource-id='com.bungii.driver:id/pickup_request_toolbar']/android.widget.LinearLayout/child::android.widget.TextView", LocatorType.XPath).get(0);}
     public WebElement Text_ScheduledBungiisSolo(boolean ignoreException) { return findElement("com.bungii.driver:id/toolbar_main_title", LocatorType.Id);}
+    public WebElement Text_BungiiCompleted(boolean ignoreException) { return findElement("com.bungii.driver:id/pickup_summary_toolbar_title", LocatorType.Id);}
+
+
 }

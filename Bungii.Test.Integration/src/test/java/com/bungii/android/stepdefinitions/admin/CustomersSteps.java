@@ -27,6 +27,7 @@ public class CustomersSteps extends DriverBase {
     @And("^I Search for customer$")
     public void i_search_for_customer() throws Throwable {
         try {
+            Thread.sleep(3000);
             action.sendKeys(customersPage.TextBox_SearchCustomer(), (String) cucumberContextManager.getScenarioContext("FIRST_NAME") + Keys.ENTER);
         }
         catch (Exception e) {

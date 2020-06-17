@@ -290,18 +290,25 @@ Thread.sleep(5000);
             case"DRIVER's LOCATION":
                 isCorrectPage = action.getText(driverLocation.Header_Location()).equals("LOCATION");
                 break;
+                case "SET PICKUP TIME":
+                    isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
+                    break;
 
-            case "SET PICKUP TIME":
-                isCorrectPage = action.isElementPresent(searchingPage.Header_DriverNotAvailable(true));
-                break;
+                case "Bungii Completed":
+                    isCorrectPage= action.isElementPresent(driverHomePage.Text_BungiiCompleted(true));
+                    break;
 
-            default:
-                String expectedMessage = p0;
-                try {
-                    if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
-                        Thread.sleep(9000);
+                case "BUNGII COMPLETE":
+                    isCorrectPage=action.isElementPresent(customerBungiiCompletePage.PageTitle_BungiiCompleteGeneric());
+                    break;
 
-                    }
+                default:
+                    String expectedMessage = p0;
+                    try {
+                        if (!action.isElementPresent(driverHomePage.Generic_HeaderElement(true))) {
+                            Thread.sleep(9000);
+                        }
+
 
  			} catch (InterruptedException e) {
                    		 e.printStackTrace();
@@ -1114,19 +1121,6 @@ Thread.sleep(5000);
         action.click(estimatePage.Button_DateConfirm());
         action.click(estimatePage.Button_TimeConfirm());
     }
- 
-    public void selectBungiiTime(String hour, String minutes, String ampm) {
-        action.scrollToTop();
-        action.click(estimatePage.Time());
-        action.click(estimatePage.Button_Later());
-        action.click(estimatePage.Button_DateConfirm());
-        action.sendKeys(estimatePage.TextBox_CurrentBungiiHour(), hour);
-        action.sendKeys(estimatePage.TextBox_CurrentBungiiMinutes(), minutes);
-        action.sendKeys(estimatePage.TextBox_CurrentBungiiAMPM(), ampm);
-        action.click(estimatePage.Button_TimeConfirm());
-
-    }
-
 
     public void selectBungiiTime(String hour, String minutes, String ampm) {
         action.scrollToTop();
@@ -1139,6 +1133,7 @@ Thread.sleep(5000);
         action.click(estimatePage.Button_TimeConfirm());
 
     }
+
     public void selectTime() {
         String month=setPickupTimePage.Text_MonthPicker().getText();
         String Day=setPickupTimePage.Text_DayPicker().getText();

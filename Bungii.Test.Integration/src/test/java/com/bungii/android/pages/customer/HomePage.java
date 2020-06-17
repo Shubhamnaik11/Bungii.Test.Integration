@@ -98,5 +98,9 @@ public class HomePage extends PageBase {
     public WebElement TextBox_ETAContainer(){return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
 
     public WebElement Label_ETAContainer(){ return findElement("com.bungii.customer:id/home_eta_container", LocatorType.Id);}
+    public WebElement Tab_MyBungiisScheduled() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
+    public WebElement Tab_MyBungiisPast() {return findElement("com.bungii.customer:id/my_bungii_radio_upcoming_trips",  LocatorType.Id);}
+    public WebElement Text_ScheduledBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
+    public WebElement Text_PastBungiisInfo(){return findElement("com.bungii.customer:id/my_bungii_tv_no_bungiis_info", LocatorType.Id);}
 
 }

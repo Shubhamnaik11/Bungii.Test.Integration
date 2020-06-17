@@ -1,14 +1,10 @@
 package com.bungii.android.stepdefinitions.Driver;
 
-
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.admin.ScheduledTripsPage;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.GeneralUtility;
-import com.bungii.android.manager.*;
-import com.bungii.android.pages.customer.*;
-
 import com.bungii.android.pages.customer.PromosPage;
 
 import com.bungii.android.pages.driver.TripAlertSettingsPage;
@@ -38,9 +34,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
     InProgressBungiiPages inProgressPages=new InProgressBungiiPages();
     HomePage homePage=new HomePage();
     ScheduledTripsPage scheduledTripsPage = new ScheduledTripsPage();
-    HomePage homePage= new HomePage();
-    ScheduledBungiisPage scheduledBungiisPage=new ScheduledBungiisPage();
-    PromosPage promosPage=new PromosPage();
     SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
     SearchingPage searchingPage = new SearchingPage();
 
@@ -101,7 +94,6 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
-                break;
             }
         }
         catch (Exception e) {
@@ -170,7 +162,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                     break;
 
                 default:
-                        throw new Exception(" UNIMPLEMENTED STEP ");
+                    throw new Exception(" UNIMPLEMENTED STEP ");
             }
         }
         catch (Exception e) {
@@ -219,34 +211,7 @@ public class TripAlertSettingsMenuSteps extends DriverBase {
                 case "GET MORE MONEY":
                     action.click(promosPage.Button_GetMoreMoney());
                     break;
-                
-                case "ADD NOTE":
-                    action.click(estimatePage.Button_AddNotes());
-                    break;
 
-                case "MORE":
-                    action.click(inProgressPages.Button_More());
-                    break;
-
-                case "DETAILS FROM CUSTOMER":
-                    action.click(inProgressPages.Button_DetailsFromCustomer());
-                    break;
-
-                case "VERIFY":
-                    action.click(scheduledTripsPage.Button_VerifyDriver());
-                    break;
-
-                case "SAVE CHANGES":
-                    action.click(scheduledTripsPage.Button_SaveChanges());
-                    break;
-
-                case "Edit Trip":
-                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']")).click();
-                    break;
-
-                case "Edit Trip1":
-                    scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row1']/td/p[@id='btnEdit'][1]")).click();
-                    break;
                 case "ADD NOTE":
                     action.click(estimatePage.Button_AddNotes());
                     break;

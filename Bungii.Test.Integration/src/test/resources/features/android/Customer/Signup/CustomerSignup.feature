@@ -99,7 +99,7 @@ Feature: CustomerSignup
     Then The "Info" is displayed
 
 
-  #@regression
+  @regression
   @ready
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
@@ -188,9 +188,9 @@ Feature: CustomerSignup
 #
 #      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      And I Switch to "customer" application on "same" devices
-      And I tap on "OK on complete" on Bungii estimate
-      And I tap on "No free money" on Bungii estimate
+      #And I Switch to "customer" application on "same" devices
+      #And I tap on "OK on complete" on Bungii estimate
+      #And I tap on "No free money" on Bungii estimate
       And I Switch to "driver" application on "same" devices
       Then Bungii Driver "completes Bungii"
       And I Select "HOME" from driver App menu

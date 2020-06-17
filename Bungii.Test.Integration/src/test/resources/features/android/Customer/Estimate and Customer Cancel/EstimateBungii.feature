@@ -42,7 +42,8 @@ Feature: EstimateBungii
     And I tap on "Get Estimate button" on Bungii estimate
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
-  @regression
+  #@regression
+    @ready
   Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -81,7 +82,8 @@ Feature: EstimateBungii
     And I add "1" photos to the Bungii
     And I add "4" photos to the Bungii
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number

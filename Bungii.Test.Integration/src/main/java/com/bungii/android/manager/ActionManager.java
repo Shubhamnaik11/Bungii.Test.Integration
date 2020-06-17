@@ -12,10 +12,7 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.collections.Lists;
 
@@ -614,5 +611,20 @@ public class ActionManager {
     private String getElementDetails(WebElement element)
     {
         return element.toString().split("->")[1].replaceFirst("(?s)(.*)\\]", "$1" + "");
+    }
+
+    public void selectElementByText(WebElement element, String text)
+    {
+        try{
+            new Select(element).selectByVisibleText(text);
+            logger.detail("Select "+text+" in element -> " + getElementDetails(element));
+
+        }
+        catch(Exception ex)
+        {
+            logger.error("Error performing step | Select "+text+" in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
+            error("Select "+text+" in element -> " + getElementDetails(element), "Unable to Select "+text +" in element -> " + getElementDetails(element),
+                    true);
+        }
     }
 }

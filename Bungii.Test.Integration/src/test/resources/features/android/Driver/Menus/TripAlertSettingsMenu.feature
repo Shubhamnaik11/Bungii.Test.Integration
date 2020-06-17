@@ -22,7 +22,8 @@ Feature: DriverMenu
       | Username   | Password   |
       | 8888882020 | Cci12345   |
 
-  @regression
+  #@regression
+  @ready
   Scenario Outline: Verify Trip Alert Settings On SMS Alerts Tab (Default:7.00AM-9.00PM)
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app

@@ -355,7 +355,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     public void i_click_something_button_on_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
             action.scrollToBottom();
-           // action.click(estimatePage.Button_DoneOnSuccess()); Commented due to new changes under SPRINT-34
+            //action.click(estimatePage.Button_DoneOnSuccess());
             action.click(estimatePage.Button_NextBungii());
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -420,6 +420,7 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(bungiiAcceptedPage.Button_OK());
                     break;
                 case "On To The Next One":
+                    Thread.sleep(2000);
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                     break;
                 case "YES, I'LL TAKE $5":
@@ -456,6 +457,8 @@ public class ScheduledBungiiSteps extends DriverBase {
                 case "Schedule Bungii":
                     action.click(estimatePage.Button_ScheduleBungii());
                     break;
+
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }
@@ -761,7 +764,7 @@ public class ScheduledBungiiSteps extends DriverBase {
         String bungiiDayLightTime=getbungiiDayLightTimeValue(bungiiTime);
 
         if (bungiiTime.contains(timeZones[0]) || bungiiTime.contains(timeZones[1]))
-            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiDayLightTime.replace(",", ", " + year + " -")));
+            action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -"),bungiiTime.replace(",", ", " + year + " -")));
 
         else
             action.click(getLocatorForBungiiTime(bungiiType, bungiiTime.replace(",", ", " + year + " -") + " " + timeZones[0],
@@ -818,8 +821,8 @@ public class ScheduledBungiiSteps extends DriverBase {
      */
     public WebElement getLocatorForBungiiTime(String bungiiType, String bungiiTime, String bungiiTimeDayLight) {
         //By Image_SelectBungii = MobileBy.xpath("//XCUIElementTypeStaticText[@name='" + bungiiTime+ "']/following-sibling::XCUIElementTypeImage[@name='" + imageTag + "']/parent::XCUIElementTypeCell");
-        bungiiTime=bungiiTime.replace(" AM", "").replace(" PM", "");
-        bungiiTimeDayLight=bungiiTimeDayLight.replace(" AM", "").replace(" PM", "");
+        //bungiiTime=bungiiTime.replace(" AM", "").replace(" PM", "");
+        //bungiiTimeDayLight=bungiiTimeDayLight.replace(" AM", "").replace(" PM", "");
         WebElement Image_SelectBungii = scheduledBungiisPage.findElement("//android.widget.TextView[@resource-id='com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTime + "' or 'com.bungii.customer:id/item_my_bungii_tv_date' and @text='" + bungiiTimeDayLight + "']", PageBase.LocatorType.XPath);
 
         return Image_SelectBungii;
