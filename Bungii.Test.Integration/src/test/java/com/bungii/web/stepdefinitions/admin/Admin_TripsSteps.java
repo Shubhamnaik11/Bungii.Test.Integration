@@ -272,6 +272,7 @@ public class Admin_TripsSteps extends DriverBase {
                 String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
 
                 int retrycount = 10;
+
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
                     try {
