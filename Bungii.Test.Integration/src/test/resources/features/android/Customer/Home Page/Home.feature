@@ -53,7 +53,7 @@ Feature: Customer Home screen
     Then I Switch to "customer" application on "same" devices
     When I tap on "Menu" > "Home" link
     And I select "Pick up" location to check driver within 30mins
-    Then The ETA bar is seen on screen with less then 30 mins
+    Then The ETA bar is seen on screen with less then "30" mins
 
   @regression
   Scenario: Verify That Customer Is Allowed To Set Pickup And Dropoff Locations When No Driver ETA Is Found (Within Geofence)

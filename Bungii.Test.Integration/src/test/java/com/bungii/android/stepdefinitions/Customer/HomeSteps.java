@@ -474,8 +474,8 @@ public class HomeSteps extends DriverBase {
         }
     }
 
-    @Then("The ETA bar is seen on screen with less then {int} mins")
-    public void theETABarIsSeenOnScreenWithLessThenMins(int arg0) {
+    @Then("^The ETA bar is seen on screen with less then \"([^\"]*)\" mins$")
+    public void the_eta_bar_is_seen_on_screen_with_less_then_something_mins(String strArg1)  {
         try {
             String minutes = homePage.Text_ETAvalue().getText();
             minutes = minutes.replace(" minutes", "");
@@ -736,7 +736,6 @@ public class HomeSteps extends DriverBase {
 
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP ");
-                break;
             }
         }
         catch (Exception e) {
