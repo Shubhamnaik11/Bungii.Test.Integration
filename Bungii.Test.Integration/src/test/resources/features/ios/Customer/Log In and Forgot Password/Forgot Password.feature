@@ -7,7 +7,7 @@ Feature: FORGOT PASSWORD
 
   Background:
     Given I am on the "LOG IN" page
-  @FAILED2702
+  @capability
   @regression
   Scenario Outline: Verify Customer Is Alerted If Adds Invalid Phone Number During Forget Password Functionality - Scenario:<Scenario>
     When I click "Forgot Password" button on "LOG IN" screen
