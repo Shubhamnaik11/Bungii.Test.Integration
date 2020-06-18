@@ -1,6 +1,6 @@
 {
 
-  "iPhoneB": {
+  "extra1": {
     "platformName": "iOS",
     "platformVersion": "11.2.5",
     "automationName": "XCUITest",
@@ -21,7 +21,7 @@
     "wdaLocalPort": 8140,
     "showXcodeLog": true
   },
-  "iPhoneA": {
+  "device1": {
     "platformName": "iOS",
     "platformVersion": "11.2",
     "automationName": "XCUITest",
@@ -44,7 +44,7 @@
   },
 
   "connection": {
-    "iPhoneA": 4723,
-    "iPhoneB": 4727
+    "device1": 4723,
+    "extra1": 4727
   }
 }
