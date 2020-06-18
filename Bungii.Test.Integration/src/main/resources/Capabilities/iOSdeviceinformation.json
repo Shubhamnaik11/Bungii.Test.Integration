@@ -1,10 +1,11 @@
 {
 
-  "extra1": {
+  "iPhoneB": {
     "platformName": "iOS",
     "platformVersion": "11.2.5",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
+    "otherApps":"com.bungii.driver",
     "deviceName": "iPhone 6-02",
     "udid": "ebcd350201440c817087b1cd99413f8b74e846bd",
     "newCommandTimeout": "9000",
@@ -20,11 +21,12 @@
     "wdaLocalPort": 8140,
     "showXcodeLog": true
   },
-  "device1": {
+  "iPhoneA": {
     "platformName": "iOS",
     "platformVersion": "11.2",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
+    "otherApps":"com.bungii.driver",
     "deviceName": "iPhone 6S-01",
     "udid": "9c8414b952bc0f72f9d51a232e5d1dba45efcce4",
     "newCommandTimeout": "9000",
@@ -42,7 +44,7 @@
   },
 
   "connection": {
-    "device1": 4723,
-    "extra1": 4727
+    "iPhoneA": 4723,
+    "iPhoneB": 4727
   }
 }
