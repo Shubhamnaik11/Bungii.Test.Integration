@@ -34,7 +34,7 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
     //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), screenDump));
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.DONE.toString(), false));
-        logger.trace("LOG| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.trace("LOG| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ResultManager {
        // reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
-        logger.detail("PASS| For test step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.detail("PASS| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
     }
 
     /**
@@ -64,9 +64,9 @@ public class ResultManager {
     public static void fail(String expected, String actual, Boolean... screenDump) {
         String name = ThreadLocalStepDefinitionMatch.get();
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
-        logger.error("FAIL| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.error("FAIL| Step : " + name + " Actual is : " + actual);
         reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.FAILED.toString()));
-        Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual); // Added for failure
+        Assert.fail("Step : " + name + " Actual is : " + actual); // Added for failure
     }
     /**
      * Log step details to Result with fail status . Dont stop test
@@ -80,7 +80,7 @@ public class ResultManager {
     public static void failureStep(String step, String expected, String actual, Boolean... screenDump) {
         String name = step;
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.FAILED.toString(), screenDump));
-        logger.error("FAIL| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.error("FAIL| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
         reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.FAILED.toString()));
        // Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual); // Added for failure
     }
@@ -95,9 +95,9 @@ public class ResultManager {
         String name = ThreadLocalStepDefinitionMatch.get();
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.ERROR.toString(), screenDump));
-        logger.error("ERROR| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.error("ERROR| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
         reportManager.verificationFailed(getDataMap(name, expected, actual, ResultType.ERROR.toString()));
-        Assert.fail("For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        Assert.fail("Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
     }
 
     /**
@@ -112,7 +112,7 @@ public class ResultManager {
     //    reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), screenDump));
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.WARNING.toString(), false));
-        logger.warning("WARNING| For step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.warning("WARNING|Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
     }
 
     /**

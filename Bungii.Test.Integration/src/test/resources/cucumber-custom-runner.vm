@@ -64,25 +64,25 @@ public class $className extends AbstractTestNGCucumberTests {
                      do{
                          try {Thread.sleep((long)(Math.random() * 2000));} catch (InterruptedException e) {e.printStackTrace();}
                          device= ManageDevices.readFile();
-                         if (device==null){
+                         if (device==" "){
                          if (counter==false){
-                         System.out.println("Searching device for class "+ClassName+ " - Found Device : None | All devices are busy. Wait for device to be free to continue.");
+                         System.out.println("*** All devices are busy. Wait for device to be free to continue with class "+ClassName);
                          counter=true;
                          }
                          }
                          else{
-                          System.out.println("Searching device for class "+ClassName+ " - Found Device : "+ device);
+                          System.out.println("*** Searching device for class "+ClassName+ " - Found Device : "+ device);
                             }
                          if(device!=null){
                              if(!device.isEmpty()){
                                  String[] deviceList = device.split(",");
                                  String deviceToBeUsed=deviceList[0];
                                  System.setProperty("DEVICE", deviceToBeUsed);
-                                 System.out.println("Found device for class : "+ClassName+ " is Device : "+deviceToBeUsed);
+                                 System.out.println("*** Found device for class : "+ClassName+ " | Device : "+deviceToBeUsed);
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);
                                  ManageDevices.write(strDeviceList);
-                                 System.out.println("Updated device for class : "+ClassName+ " is  "+ManageDevices.readFile());
+                                 System.out.println("*** Updated device for class : "+ClassName+ " | Device : "+ManageDevices.readFile());
                                  searchFreeDevice=false;
                              }
                          }
