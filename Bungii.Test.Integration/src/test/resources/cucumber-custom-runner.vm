@@ -78,11 +78,11 @@ public class $className extends AbstractTestNGCucumberTests {
                                  String[] deviceList = device.split(",");
                                  String deviceToBeUsed=deviceList[0];
                                  System.setProperty("DEVICE", deviceToBeUsed);
-                                 System.out.println("Found device for, class"+ClassName+ " .Using "+deviceToBeUsed);
+                                 System.out.println("Found device for class : "+ClassName+ " is Device : "+deviceToBeUsed);
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);
                                  ManageDevices.write(strDeviceList);
-                                 System.out.println("Updated device for, class"+ClassName+ "is  "+ManageDevices.readFile());
+                                 System.out.println("Updated device for class : "+ClassName+ " is  "+ManageDevices.readFile());
                                  searchFreeDevice=false;
                              }
                          }

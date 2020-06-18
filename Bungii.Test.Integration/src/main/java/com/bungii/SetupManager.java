@@ -72,10 +72,10 @@ public class SetupManager extends EventFiringWebDriver {
 
                 }catch (SessionNotCreatedException e) {
                     logger.detail(getStackTrace(e));
-                    logger.detail("Initialing driver failed , removing and trying again trying again ");
-                    logger.detail("Removing WebDriver Agent ");
+                    logger.detail("Initialing driver failed , removing and trying again trying again on "+deviceID);
+                    logger.detail("Removing WebDriver Agent on "+deviceID);
                     removeWebdriverAgent();
-                    logger.detail("Restarting iPhone ");
+                    //logger.detail("Restarting iPhone on "+deviceID);
                    // restartIphone();
                     try {
                        // Thread.sleep(180000);
