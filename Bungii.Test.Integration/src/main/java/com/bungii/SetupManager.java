@@ -75,11 +75,13 @@ public class SetupManager extends EventFiringWebDriver {
                     logger.detail("Initialing driver failed , removing and trying again trying again on "+deviceID);
                     logger.detail("Removing WebDriver Agent on "+deviceID);
                     removeWebdriverAgent();
-                    //logger.detail("Restarting iPhone on "+deviceID);
-                   // restartIphone();
+                    logger.detail("Restarting iPhone on "+deviceID);
+                    restartIphone();
                     try {
                        // Thread.sleep(180000);
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        ((IOSDriver) driver).runAppInBackground(Duration.ofSeconds(-1));
+
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                     }
