@@ -20,8 +20,6 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
     "showXcodeLog": true
-   // "xcodeOrgId": "3DV85RL7V3",
-   // "xcodeSigningId": "iPhone Developer"
   },
   "device1": {
     "platformName": "iOS",
@@ -43,8 +41,6 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
     "showXcodeLog": true
-   // "xcodeOrgId": "3DV85RL7V3",
-   // "xcodeSigningId": "iPhone Developer"
   },
 
   "connection": {
