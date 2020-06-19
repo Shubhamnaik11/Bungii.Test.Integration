@@ -49,7 +49,7 @@ Feature: Log In
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "Home" screen
 
-
+  @capability
   @regression
     Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
