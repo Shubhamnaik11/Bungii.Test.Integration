@@ -10,6 +10,7 @@ import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import com.bungii.web.pages.partner.Partner_DashboardPage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
@@ -45,6 +46,15 @@ public class GeneralUtility extends DriverBase {
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
     EmailUtility emailUtility = new EmailUtility();
+    Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
+
+    private String GetPartnerUrl(){
+        String partnerURL = null;
+        String environment =PropertyUtility.getProp("environment");
+        if(environment.equalsIgnoreCase("QA_AUTO"))
+            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+        return  partnerURL;
+    }
 
     private String GetDriverUrl() {
         String driverURL = null;
@@ -86,6 +96,12 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
+    public void NavigateToPartnerLogin(){
+        String partnerURL = GetPartnerUrl();
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+    }
+
     public void AdminLogin() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
@@ -106,6 +122,9 @@ public class GeneralUtility extends DriverBase {
         action.click(driver_dashboardPage.Link_Logout());
     }
 
+    public void PartnerLogout() {
+        action.click(partner_dashboardPage.Partner_LogOut());
+    }
 
     public String generateMobileNumber() {
 

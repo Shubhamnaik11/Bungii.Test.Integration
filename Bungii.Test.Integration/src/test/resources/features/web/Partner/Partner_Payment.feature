@@ -10,7 +10,7 @@
           | Solo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
         And I click "Get Estimate" button on "Get Estimate" screen
         Then I should see "Estimated Cost" on "Get Estimate" screen
-        And I click on "Continue" button on "Get Estimate" screen
+        When I click on "Continue" button on "Get Estimate" screen
         Then I should be navigated to "Delivery Details" screen
         When I enter following details on "Delivery Details" screen
           |Items To Deliver|Customer Name|Customer Mobile|Pickup Contact Name|Pickup Contact Phone|
@@ -20,6 +20,8 @@
         And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details
         And I click on "Schedule Bungii" button
         Then I should see bungii trip success message on "Done" screen
+        When I click on Track Deliveries button
+        Then I should see the Bungii trip in the Delivery List
 
           | CardNo        | Expiry | Postal Code       | Cvv       |
           | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
@@ -76,3 +78,5 @@
           And I Select Partner Payment Method
           And I click on "Schedule Bungii" button
           Then I should see bungii trip success message on "Done" screen
+          When I click on Track Deliveries button
+          Then I should see the Bungii trip in the Delivery List

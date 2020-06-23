@@ -45,3 +45,30 @@ Feature: Partner Duo Scheduled Trips
     And I change the Pickup Date for Duo bungii trip
     Then I should able to changed the Pickup Date
 
+  Scenario: Verify Cancellation of Duo Scheduled Trips
+    When I request for  bungii for given pickup and drop location
+      | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
+      | Duo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
+    And I select <Pickup Date> and <Pickup Time>
+    And I click "Get Estimate" button on "Get Estimate" screen
+    Then I should see "Estimated Cost" on "Get Estimate" screen
+    And I click on "Continue" button on "Get Estimate" screen
+    Then I should be navigated to "Delivery Details" screen
+    When I enter following details on "Delivery Details" screen
+      |Items To Deliver|Customer Name|Customer Mobile|Pickup Contact Name|Pickup Contact Phone|
+      |Furniture       |Test Gopal   |9899999359     |Test Pickup        |9999999359          |
+    And I Select Customer Card as Payment Method
+    And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
+    And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
+    And I click on "Schedule Bungii" button
+    Then I should see bungii trip success message on "Done" screen
+    And I click on "Track Delivery" button
+    And I select already Scheduled Bungii from Delivery List
+    Then I should be navigated to <Deliver Details> screen
+    And I click on "Cancel Delivery" button
+    Then I should see <Cancel Delivery> warning message
+    And I click on "Cancel Delivery" button on warning message
+    Then I should see "Your delivery has been cancelled" confirmation message
+    And I click "OK" button on confirmation message
+    Then I should see <Canceled> Status in Status Feed
+    Then The cancelled bungii shouldn't get listed in Delivery List

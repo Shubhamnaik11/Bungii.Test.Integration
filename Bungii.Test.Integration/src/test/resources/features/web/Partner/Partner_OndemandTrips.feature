@@ -45,3 +45,4 @@
           | Duo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
         And I click on "Start Over" button
         Then I should see all values get reset to default
+
