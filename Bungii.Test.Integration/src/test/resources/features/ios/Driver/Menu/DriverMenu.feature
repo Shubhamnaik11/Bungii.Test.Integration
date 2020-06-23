@@ -76,6 +76,7 @@ Feature: DriverMenu
     Then I driver active flag should be "0"
 
   @regression
+    @store
   Scenario: Verify Driver STORE Menu
     When I Select "STORE" from driver App menu
     Then I should be navigated to "STORE" screen
