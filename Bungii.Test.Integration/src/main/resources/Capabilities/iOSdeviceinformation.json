@@ -2,27 +2,6 @@
 
   "extra1": {
     "platformName": "iOS",
-    "platformVersion": "11.2.5",
-    "automationName": "XCUITest",
-    "app": "com.bungii.customer",
-    "otherApps":"com.bungii.driver",
-    "deviceName": "iPhone 6-02",
-    "udid": "ebcd350201440c817087b1cd99413f8b74e846bd",
-    "newCommandTimeout": "9000",
-    "wdaLaunchTimeout": "240000",
-    "wdaConnectionTimeout": "240000",
-    "simpleIsVisibleCheck": true,
-    "useNewWDA": false,
-    "useJSONSource": true,
-    "maxTypingFrequency": 30,
-    "wdaStartupRetries": "4",
-    "iosInstallPause":8000,
-    "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8140,
-    "showXcodeLog": true
-  },
-  "device1": {
-    "platformName": "iOS",
     "platformVersion": "11.2",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
@@ -41,6 +20,28 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
     "showXcodeLog": true
+  },
+  "device1": {
+    "platformName": "iOS",
+    "platformVersion": "11.2.5",
+    "automationName": "XCUITest",
+    "app": "com.bungii.customer",
+    "otherApps":"com.bungii.driver",
+    "deviceName": "iPhone 6-02",
+    "udid": "ebcd350201440c817087b1cd99413f8b74e846bd",
+    "newCommandTimeout": "9000",
+    "wdaLaunchTimeout": "240000",
+    "wdaConnectionTimeout": "240000",
+    "simpleIsVisibleCheck": true,
+    "useNewWDA": false,
+    "useJSONSource": true,
+    "maxTypingFrequency": 30,
+    "wdaStartupRetries": "4",
+    "iosInstallPause":8000,
+    "wdaStartupRetryInterval": 20000,
+    "wdaLocalPort": 8140,
+    "showXcodeLog": true
+
   },
 
   "connection": {
