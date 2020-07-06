@@ -2,7 +2,7 @@
 
   "extra1": {
     "platformName": "iOS",
-    "platformVersion": "11.2",
+    "platformVersion": "13.5.1",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
     "otherApps":"com.bungii.driver",
@@ -41,7 +41,6 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
     "showXcodeLog": true
-
   },
 
   "connection": {
