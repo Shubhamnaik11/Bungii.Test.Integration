@@ -762,11 +762,12 @@ try {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
-
-                else if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+*/
+                else
+                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");
-                }*/
+                }
             } else {
                 //Not on Login page
             }
