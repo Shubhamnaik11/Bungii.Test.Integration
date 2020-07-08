@@ -734,7 +734,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Always Allow");
+            action.clickAlertButton("Allow");
         }
     }
 
@@ -760,7 +760,7 @@ try {
                     grantPermissionToDriverApp();
                         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                             action.click(enableLocationPage.Button_Sure());
-                            action.clickAlertButton("Always Allow");
+                            action.clickAlertButton("Allow");
                         }
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
