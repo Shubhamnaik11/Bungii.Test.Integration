@@ -55,7 +55,7 @@ public class EnableLocationSteps extends DriverBase {
         try {
             action.click(enableLocationPage.Button_Sure());
             testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("driver.location.alert.text"));
-            action.clickAlertButton("Always Allow");
+            action.clickAlertButton("Allow");
 
             pass("I allow access of Location from Bungii application", "I clicked on allow button",
                     true);

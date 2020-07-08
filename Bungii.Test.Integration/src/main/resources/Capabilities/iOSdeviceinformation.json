@@ -20,7 +20,8 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
     "showXcodeLog": true,
-    "autoGrantPermissions": true
+    "locationServicesEnabled":true,
+    "locationServicesAuthorized":true
   },
   "device1": {
     "platformName": "iOS",
@@ -42,7 +43,8 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
     "showXcodeLog": true,
-    "autoGrantPermissions": true
+    "locationServicesEnabled":true,
+    "locationServicesAuthorized":true
   },
 
   "connection": {

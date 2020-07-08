@@ -335,7 +335,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
     }
 }
@@ -352,7 +352,7 @@ try {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
 
         action.click(tutorialPage.Button_Close());
@@ -734,7 +734,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Always Allow");
+            action.clickAlertButton("Allow");
         }
     }
 
@@ -753,21 +753,26 @@ try {
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
                 Thread.sleep(2500);
+
                 navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
                 if(navigationBarName != null && !navigationBarName.isEmpty())
                     if (navigationBarName.equals("NOTIFICATIONS")) {
                     grantPermissionToDriverApp();
+                        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                            action.click(enableLocationPage.Button_Sure());
+                            action.clickAlertButton("Always Allow");
+                        }
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
-*/
+
                 else
                  if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");
-                }
+                }*/
             } else {
                 //Not on Login page
             }

@@ -553,6 +553,14 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("Allow");
                 }
                 homeSteps.i_selectlogout();
+            /*}else if (navigationBarName.equalsIgnoreCase("LOCATION")) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+                homeSteps.i_selectlogout(); */
             } else {
                 homeSteps.i_selectlogout();
             }
