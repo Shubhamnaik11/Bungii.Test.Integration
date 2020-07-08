@@ -620,10 +620,10 @@ public class ActionManager {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
 
-            params.put("action", "accept");
-            params.put("buttonLabel", buttonLabel);
-            js.executeScript("mobile: alert", params);
-
+           // params.put("action", "accept");
+           // params.put("buttonLabel", buttonLabel);
+          //  js.executeScript("mobile: alert", params);
+             SetupManager.getDriver().findElement(By.id(label)).click();
            // Alert alert = SetupManager.getDriver().switchTo().alert();
            // alert.accept();
             return true;
