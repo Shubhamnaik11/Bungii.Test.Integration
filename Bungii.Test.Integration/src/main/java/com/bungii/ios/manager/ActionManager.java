@@ -600,7 +600,7 @@ public class ActionManager {
         HashMap<String, String> params = new HashMap<>();
         params.put("action", "getButtons");
         List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
-        logger.detail("List of alert button:" + buttons.toString());
+        logger.detail("List of alert button[s]:" + buttons.toString());
         return buttons;
     }
 
@@ -620,10 +620,11 @@ public class ActionManager {
             HashMap<String, String> params = new HashMap<>();
             JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
 
-            params.put("action", "accept");
-            params.put("buttonLabel", buttonLabel);
-            js.executeScript("mobile: alert", params);
-
+          //  params.put("action", "accept");
+          //  params.put("buttonLabel", buttonLabel);
+           // js.executeScript("mobile: alert", params);
+            Alert alert = SetupManager.getDriver().switchTo().alert();
+            alert.accept();
             return true;
         }
     }

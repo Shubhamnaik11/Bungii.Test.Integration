@@ -760,7 +760,7 @@ try {
                     grantPermissionToDriverApp();
                         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                             action.click(enableLocationPage.Button_Sure());
-                            action.clickAlertButton("Allow");
+                            action.clickAlertButton("Always Allow");
                         }
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
