@@ -116,7 +116,7 @@
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see validations message for blank Pickup Contact Name field" on Delivery Details screen
 
-     @gs
+     @regression
     Scenario: Verify that "Pickup Contact Phone" is mandatory field on Delivery Details Screen
       When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
