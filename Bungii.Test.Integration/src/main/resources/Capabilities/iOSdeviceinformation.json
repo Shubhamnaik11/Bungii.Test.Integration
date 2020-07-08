@@ -20,8 +20,6 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8120,
     "showXcodeLog": true,
-    "autoGrantPermissions": true,
-    "autoAcceptAlerts": true,
     "locationServicesEnabled":true,
     "locationServicesAuthorized":true
   },
@@ -45,8 +43,6 @@
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8140,
     "showXcodeLog": true,
-    "autoGrantPermissions": true,
-    "autoAcceptAlerts": true,
     "locationServicesEnabled":true,
     "locationServicesAuthorized":true
   },
