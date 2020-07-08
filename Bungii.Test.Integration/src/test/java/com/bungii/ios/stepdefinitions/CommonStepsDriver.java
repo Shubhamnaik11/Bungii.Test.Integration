@@ -345,7 +345,7 @@ public class CommonStepsDriver extends DriverBase {
 
         }
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
-            if (!navigationBarName.equals("LOCATION"))
+            if (navigationBarName.equals("LOCATION"))
             {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow");
