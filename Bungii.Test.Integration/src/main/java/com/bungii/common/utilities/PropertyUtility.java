@@ -77,6 +77,15 @@ public class PropertyUtility {
         }
     }
 
+    public static String getDataProperties(Integer key) {
+        if (key == null) {
+            return "";
+        } else {
+            return data.getProperty(String.valueOf(key));
+
+        }
+    }
+
     /**
      * Gets the key from images.properties related to chosen profile
      *

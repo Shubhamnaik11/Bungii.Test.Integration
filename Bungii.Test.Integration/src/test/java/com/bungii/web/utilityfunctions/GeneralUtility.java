@@ -11,11 +11,14 @@ import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
+import com.bungii.web.pages.partner.Partner_LoginPage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import javax.mail.Message;
@@ -45,6 +48,7 @@ public class GeneralUtility extends DriverBase {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
+    Partner_LoginPage Page_PartnerLogin = new Partner_LoginPage();
     EmailUtility emailUtility = new EmailUtility();
     Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
 
@@ -110,6 +114,18 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+
+    public void AdminLoginFromPartner() throws InterruptedException {
+        String adminURL = GetAdminUrl();
+        Thread.sleep(2000);
+
+        action.openNewTab();
+        action.navigateTo(adminURL);
+        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        action.click(Page_AdminLogin.Button_AdminLogin());
+    }
+
     public void TestAdminLogin() {
         String adminURL = GetAdminUrl();
 

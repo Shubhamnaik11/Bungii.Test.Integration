@@ -21,6 +21,22 @@ public class DbUtility extends DbContextManager {
         logger.detail("SMS code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
+
+    public static String getPickupRef(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
+
+    public static String getPickupIdfrom_pickup_additional_info(String phoneNumber) {
+        String pickupId = "";
+        //String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = " + phoneNumber;
+        String queryString = "SELECT pickup_id from pickup_additional_info where customer_phone=" + phoneNumber + " order by  pickup_id desc limit 1";
+        pickupId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "latest PickupId is " + pickupId);
+        return pickupId;
+    }
+
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
         String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;

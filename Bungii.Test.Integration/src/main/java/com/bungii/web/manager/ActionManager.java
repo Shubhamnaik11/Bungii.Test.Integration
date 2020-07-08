@@ -5,15 +5,23 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -41,6 +49,29 @@ public class ActionManager {
             error("Step should be successful", "Unable to send " + text + " in element -> " + getElementDetails(element),
                     true);
         }
+    }
+
+    public void keyEnter(WebElement DropdownField,String text) throws InterruptedException {
+
+        WebDriver driver =SetupManager.getDriver();
+        Actions action = new Actions(driver);
+        //element.clear();
+        //element.sendKeys(text);
+        DropdownField.sendKeys(text+Keys.ARROW_DOWN+Keys.ENTER);
+        //DropdownField.sendKeys(Keys.ARROW_DOWN);
+        //DropdownField.sendKeys(Keys.ENTER);
+
+        //action.keyDown(DropdownField,Keys.ARROW_DOWN ).sendKeys(Keys.ENTER);
+
+        //element.sendKeys(Keys.ENTER);
+        //action.moveToElement(element).click().perform();*/
+        //action.keyDown(DropdownField,Keys.ENTER);
+        //action.click(DropdownField).sendKeys(text+Keys.ARROW_DOWN);
+
+        Thread.sleep(2000);
+
+
+
     }
     /**
      * @param element , locator of field
@@ -101,6 +132,7 @@ public class ActionManager {
     }
     public String getText(WebElement element) {
         try {
+
          Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
          Thread.sleep(3000);
        //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
@@ -203,6 +235,7 @@ public class ActionManager {
 
     public void navigateTo(String url) {
         SetupManager.getDriver().navigate().to(url);
+
     }
     public void refreshPage() {
         SetupManager.getDriver().navigate().refresh();
@@ -297,5 +330,52 @@ catch(Exception ex)
             Thread.sleep(60000);
 
         }
+    }
+
+    public void switchToFrame(String value){
+        WebDriver driver =SetupManager.getDriver();
+
+        switch (value){
+            case"CardNumber_Frame":
+                driver.switchTo().frame("braintree-hosted-field-number");
+                break;
+            case"Expiry_Frame":
+                driver.switchTo().frame("braintree-hosted-field-expirationDate");
+                break;
+            case"PostalCode_Frame":
+                driver.switchTo().frame("braintree-hosted-field-postalCode");
+                break;
+            case"Cvv_Frame":
+                driver.switchTo().frame("braintree-hosted-field-cvv");
+                break;
+            case"Main":
+                driver.switchTo().defaultContent();
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    public void openNewTab(){
+        ((JavascriptExecutor) SetupManager.getDriver()).executeScript("window.open('about:blank','_blank');");
+        String subWindowHandler = null;
+
+        Set<String> handles = SetupManager.getDriver().getWindowHandles();
+        Iterator<String> iterator = handles.iterator();
+        while (iterator.hasNext()) {
+            subWindowHandler = iterator.next();
+        }
+
+        SetupManager.getDriver().switchTo().window(subWindowHandler);
+        //String newWindow = SetupManager.getDriver().getWindowHandle();
+
+        //SetupManager.getDriver().findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+"t");
+       /*
+       ArrayList<String> tabs = new ArrayList<String>(SetupManager.getDriver().getWindowHandles());
+       SetupManager.getDriver().switchTo().window(tabs.get(0));*/
+
+
+
     }
 }
