@@ -2,47 +2,138 @@
   Feature: Partner_Delivery Details
 
     Background:
-    Given I logged in as Partner User on Partner Portal
-      When I request for  bungii for given pickup and drop location
-        | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
-        | Solo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
-      And I select <Pickup Date> and <Pickup Time>
-      And I click "Get Estimate" button on "Get Estimate" screen
-      Then I should see "Estimated Cost" on "Get Estimate" screen
-      And I click on "Continue" button on "Get Estimate" screen
+      Given I navigate to "Bungii Partner Portal" URL
+      And I enter "valid" password on Partner Portal
+      And I click "SIGN IN" button on Partner Portal
+      Then I should "be logged in"
 
-      Scenario: Verify all the fields on Delivery Details Screen
-        When I see the "Delivery Details" screen
-        And I enter following details on "Delivery Details" screen
-          |Items To Deliver|Customer Name|Customer Mobile|Pickup Contact Name|Pickup Contact Phone|
-          |Furniture       |Test Gopal   |9899999359     |Test Pickup        |9999999359          |
-        And I Select Customer Card as Payment Method
-        And I enter Card No:<CardNo> and Expiry :<Expiry> on Card Details page
-        And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
-        And I click on "Schedule Bungii" button
-        Then I should see bungii trip success message on "Done" screen
+    Scenario: Verify all the fields on Delivery Details Screen
+      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      And I select Pickup Date and Pickup Time
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |5th quarter          |
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter following details on "Delivery Details" partner screen
+        |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+        |Furniture       |Test Gopal   |9998881111     |Test Pickup        |9999999359          |
+      And I Select "Customer Card" as Payment Method
+      And I enter following Credit Card details on Partner Portal
+        |CardNo   |Expiry |Postal_Code      |Cvv      |
+        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see Done screen"
 
+      @regression
       Scenario: Verify that "Items To Deliver" is mandatory field on Delivery Details Screen
-        When I see the "Delivery Details" screen
-        And I click on "Schedule Bungii" button
-        Then I should "see validations message for blank Items To Deliver field"
+        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+        And I select Pickup Date and Pickup Time
+          |PickUp_Date  |PickUp_Time          |
+          |Today+1      |5th quarter          |
+        And I click "GET ESTIMATE" button on Partner Portal
+        Then I should see "Estimated Cost"
+        And I click "Continue" button on Partner Portal
+        Then I should "see Delivery Details screen"
+        When I enter following details on "Delivery Details" partner screen
+          |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+          |                |Test Gopal   |9998881111     |Test Pickup        |9999999359          |
+        And I Select "Customer Card" as Payment Method
+        And I enter following Credit Card details on Partner Portal
+          |CardNo   |Expiry |Postal_Code      |Cvv      |
+          |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+        And I click "Schedule Bungii" button on Partner Portal
+        Then I should "see validations message for blank Items To Deliver field" on Delivery Details screen
 
+        @regression
       Scenario: Verify that "Customer Name" is mandatory field on Delivery Details Screen
-        When I see the "Delivery Details" screen
-        And I click on "Schedule Bungii" button
-        Then I should "see validations message for blank Customer Name field"
+        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+        And I select Pickup Date and Pickup Time
+          |PickUp_Date  |PickUp_Time          |
+          |Today+1      |5th quarter          |
+        And I click "GET ESTIMATE" button on Partner Portal
+        Then I should see "Estimated Cost"
+        And I click "Continue" button on Partner Portal
+        Then I should "see Delivery Details screen"
+        When I enter following details on "Delivery Details" partner screen
+          |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+          |Furniture       |             |9998881111     |Test Pickup        |9999999359          |
+        And I Select "Customer Card" as Payment Method
+        And I enter following Credit Card details on Partner Portal
+          |CardNo   |Expiry |Postal_Code      |Cvv      |
+          |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+        And I click "Schedule Bungii" button on Partner Portal
+        Then I should "see validations message for blank Customer Name field" on Delivery Details screen
 
+          @regression
       Scenario: Verify that "Customer Mobile" is mandatory field on Delivery Details Screen
-        When I see the "Delivery Details" screen
-        And I click on "Schedule Bungii" button
-        Then I should "see validations message for blank Customer Mobile field"
+            When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+              | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+              | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+            And I select Pickup Date and Pickup Time
+              |PickUp_Date  |PickUp_Time          |
+              |Today+1      |5th quarter          |
+            And I click "GET ESTIMATE" button on Partner Portal
+            Then I should see "Estimated Cost"
+            And I click "Continue" button on Partner Portal
+            Then I should "see Delivery Details screen"
+            When I enter following details on "Delivery Details" partner screen
+              |Items_To_Deliver|Customer_Name         |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+              |Furniture       |Test Gopal            |               |Test Pickup        |9999999359          |
+            And I Select "Customer Card" as Payment Method
+            And I enter following Credit Card details on Partner Portal
+              |CardNo   |Expiry |Postal_Code      |Cvv      |
+              |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+            And I click "Schedule Bungii" button on Partner Portal
+            Then I should "see validations message for blank Customer Mobile field" on Delivery Details screen
 
+            @regression
     Scenario: Verify that "Pickup Contact Name" is mandatory field on Delivery Details Screen
-      When I see the "Delivery Details" screen
-      And I click on "Schedule Bungii" button
-      Then I should "see validations message for blank Pickup Contact Name field"
+      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      And I select Pickup Date and Pickup Time
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |5th quarter          |
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter following details on "Delivery Details" partner screen
+        |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+        |Furniture       |Test Gopal   |9998881111     |                   |9999999359          |
+      And I Select "Customer Card" as Payment Method
+      And I enter following Credit Card details on Partner Portal
+        |CardNo   |Expiry |Postal_Code      |Cvv      |
+        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see validations message for blank Pickup Contact Name field" on Delivery Details screen
 
+     @gs
     Scenario: Verify that "Pickup Contact Phone" is mandatory field on Delivery Details Screen
-      When I see the "Delivery Details" screen
-      And I click on "Schedule Bungii" button
-      Then I should "see validations message for blank Pickup Contact Phone field"
+      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
+        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      And I select Pickup Date and Pickup Time
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |5th quarter          |
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter following details on "Delivery Details" partner screen
+        |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+        |Furniture       |Test Gopal   |9998881111     |Test Pickup        |                    |
+      And I Select "Customer Card" as Payment Method
+      And I enter following Credit Card details on Partner Portal
+        |CardNo   |Expiry |Postal_Code      |Cvv      |
+        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      And I click "Schedule Bungii" button on Partner Portal
+      Then I should "see validations message for blank Pickup Contact Phone field" on Delivery Details screen

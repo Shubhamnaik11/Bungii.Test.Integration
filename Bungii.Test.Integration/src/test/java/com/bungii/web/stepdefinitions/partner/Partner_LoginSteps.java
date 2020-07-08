@@ -51,8 +51,9 @@ public class Partner_LoginSteps extends DriverBase {
     }
 
 
+
     @When("^I enter \"([^\"]*)\" password on Partner Portal$")
-    public void WhenIEnterDriverPasswordOnPartnerPortal(String str)
+    public void WhenIEnterPasswordOnPartnerPortal(String str)
     {
         switch (str)
         {

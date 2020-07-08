@@ -14,17 +14,32 @@ public class Partner_DeliveryPage extends PageBase {
     //Items to Deliver
     public WebElement Item_To_deliver() { return findElement("pickUpNote",LocatorType.Name);}
 
+    //Blank Item to deliver message
+    public WebElement message_Black_Item_To_deliver() { return findElement("//div[contains(text(),'Items to deliver is required.')]",LocatorType.XPath);}
+
     //Customer Name
     public WebElement Customer_Name() { return findElement("customerName",LocatorType.Name);}
+
+    //Blank Customer Name
+    public WebElement message_Black_Customer_Name() { return findElement("//div[contains(text(),'Customer name is required.')]",LocatorType.XPath);}
 
     //Customer Mobile
     public WebElement Customer_Mobile() { return findElement("customerMobile",LocatorType.Name);}
 
+    //Blank Customer Mobile
+    public WebElement message_Blank_Customer_Mobile() { return findElement("//div[contains(text(),'Customer mobile is required.')]",LocatorType.XPath);}
+
     //Pickup Contact Name
     public WebElement Pickup_Contact_Name() { return findElement("f2bd9004-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
 
+    //Blank Pickup Contact Name
+    public WebElement message_Blank_Pickup_Contact_Name() { return findElement("//div[contains(text(),'Pickup contact name is required.')]",LocatorType.XPath);}
+
     //Pickup Contact Phone
     public WebElement Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Blank Pickup Contact Phone
+    public WebElement message_Blank_Pickup_Contact_Phone() { return findElement("//div[contains(text(),'Pickup contact phone is required.')]",LocatorType.XPath);}
 
     //Customer Card Payment
     public WebElement Customer_Card() { return findElement("//label[contains(text(),'Customer Card')]",LocatorType.XPath);}

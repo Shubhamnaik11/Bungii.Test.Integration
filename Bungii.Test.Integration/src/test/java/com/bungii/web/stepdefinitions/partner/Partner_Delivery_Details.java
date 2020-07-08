@@ -3,10 +3,12 @@ package com.bungii.web.stepdefinitions.partner;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
+import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.JavascriptExecutor;
@@ -54,6 +56,29 @@ public class Partner_Delivery_Details extends DriverBase {
         }
 
 
+    }
+
+    @Then("^I should \"([^\"]*)\" on Delivery Details screen$")
+    public void i_should_see_something_on_delivery_details_screen(String str){
+
+        switch (str){
+            case "see validations message for blank Items To Deliver field":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Black_Item_To_deliver()),PropertyUtility.getMessage("Message_Blank_Item_To_Deliver"));
+                break;
+            case "see validations message for blank Customer Name field":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Black_Customer_Name()),PropertyUtility.getMessage("Message_Blank_Customer"));
+                break;
+            case "see validations message for blank Customer Mobile field":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Customer_Mobile()),PropertyUtility.getMessage("Message_Blank_CustomerMobile"));
+                break;
+            case "see validations message for blank Pickup Contact Name field":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Pickup_Contact_Name()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Name"));
+                break;
+            case "see validations message for blank Pickup Contact Phone field":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Pickup_Contact_Phone()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Phone"));
+                break;
+            default:break;
+        }
     }
 
 }
