@@ -51,7 +51,6 @@ Feature: Log In
 
   @capability
   @regression
-  @permission
     Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
     When I am on the "LOG IN" page
@@ -81,7 +80,6 @@ Feature: Log In
     Then User should be successfully logged in to the application
 
   @regression
-    @permission
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
     Given I install Bungii App again
     When I am on the "LOG IN" page

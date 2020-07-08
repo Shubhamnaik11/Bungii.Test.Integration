@@ -42,13 +42,15 @@ public class CommonStepsDriver extends DriverBase {
                        ScheduledTripsPage scheduledTripsPage,
                        BungiiRequestPage bungiiRequestPage,
                         com.bungii.ios.pages.driver.HomePage driverHomePage,
-                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage) {
+                       com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage,  com.bungii.ios.pages.driver.LoginPage driverLoginPage, com.bungii.ios.pages.customer.EnableLocationPage enableLocationPage) {
 
         this.driverUpdateStatusPage = updateStatusPage;
         this.scheduledTripsPage = scheduledTripsPage;
         this.driverHomePage = driverHomePage;
         this.driverLoginPage=driverLoginPage;
         this.driverForgotPasswordPage=driverForgotPasswordPage;
+        this.enableLocationPage=enableLocationPage;
+
     }
 
     @Then("^\"([^\"]*)\" message should be displayed on \"([^\"]*)\" page on driverApp$")
