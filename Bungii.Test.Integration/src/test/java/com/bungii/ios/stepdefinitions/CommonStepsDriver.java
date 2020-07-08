@@ -7,6 +7,7 @@ import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
+import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.driver.*;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
@@ -34,6 +35,7 @@ public class CommonStepsDriver extends DriverBase {
     private com.bungii.ios.pages.driver.UpdateStatusPage driverUpdateStatusPage;
     private ScheduledTripsPage scheduledTripsPage;
     private com.bungii.ios.pages.driver.ForgotPasswordPage driverForgotPasswordPage;
+    private EnableLocationPage enableLocationPage;
 
     public CommonStepsDriver(
                        com.bungii.ios.pages.driver.UpdateStatusPage updateStatusPage,
@@ -343,6 +345,11 @@ public class CommonStepsDriver extends DriverBase {
 
         }
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
+            if (!navigationBarName.equals("LOCATION"))
+            {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+            }
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }else if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
             action.click(driverBungiiCompletedPage.Button_NextTrip());
