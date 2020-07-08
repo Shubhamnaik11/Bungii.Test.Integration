@@ -335,7 +335,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
     }
 }
@@ -352,7 +352,7 @@ try {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
 
         action.click(tutorialPage.Button_Close());
