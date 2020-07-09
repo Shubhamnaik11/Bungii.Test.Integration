@@ -28,6 +28,7 @@
           |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
         And I click "Back to Estimate" button on Partner Portal
         Then I should "see Get Estimate screen"
+        And I should logout from Partner Portal
 
     @regression
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
@@ -43,12 +44,14 @@
       Then I should "see Delivery Details screen"
       And I click "Back to Estimate" button on Partner Portal
       And I should "see Get Estimate screen"
+      And I should logout from Partner Portal
 
     @regression
     Scenario:Verify Validation message is display for Mandatory fields on "Get Estimate" screen
       When I clear the existing pickup address details
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "see validation message for mandatory fields"
+      And I should logout from Partner Portal
 
     @regression
     Scenario: Verify information icon display correct information on "Get Estimate" screen
@@ -56,6 +59,7 @@
        And I click on "Delivery Address" information icon and verify its text contents
        And I click on "Load/Unload Time" information icon and verify its text contents
        And I click on "PickUp Date" information icon and verify its text contents
+      And I should logout from Partner Portal
 
     @regression
     Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Upload Time
@@ -71,6 +75,7 @@
         |Load_Unload_Time|
         |15 minutes      |
       Then Estimate Cost should get recalculate
+      And I should logout from Partner Portal
 
     @regression
     Scenario: Verify that Get Estimate cost get recalculated on changing the Delivery Address
@@ -86,6 +91,7 @@
         |Delivery_Address                                     |
         |1600 Holloway Avenue, San Francisco, California 94132|
       Then Estimate Cost should get recalculate
+      And I should logout from Partner Portal
 
     @Inprogress
     Scenario:Verify that clearing Pickup address clears all other fields on "Get Estimate" screen
@@ -95,3 +101,4 @@
       And I click "Get Estimate" button on "Get Estimate" screen
       And I change the Pickup Address on "Get Estimate" screen
       Then Check that all fields on "Get Estimate" screen get clear
+      And I should logout from Partner Portal

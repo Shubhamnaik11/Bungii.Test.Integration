@@ -30,11 +30,13 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see Done screen"
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
+    And I should logout from Partner Portal
 
   @Inprogress
   Scenario: Verify the five future days shown in Pickup Date dropdown
     When I click on Pickup date
     Then I should see five future days including today
+    And I should logout from Partner Portal
 
     @regression
   Scenario: Verify changing the pickup date for scheduled Duo bungii Trip
@@ -57,6 +59,7 @@ Feature: Partner Duo Scheduled Trips
       |Today+2      |5th quarter          |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
+    And I should logout from Partner Portal
 
   @regression
   Scenario: Verify Cancellation of Duo Scheduled Trips
@@ -89,3 +92,4 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see delivery has been cancelled message"
     And I click "OK" button on Partner Portal
     Then I should "see Canceled trip message"
+    And I should logout from Partner Portal

@@ -139,7 +139,7 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void PartnerLogout() {
-        action.click(partner_dashboardPage.Partner_LogOut());
+        action.click(partner_dashboardPage.Button_Partner_Logout());
     }
 
     public String generateMobileNumber() {

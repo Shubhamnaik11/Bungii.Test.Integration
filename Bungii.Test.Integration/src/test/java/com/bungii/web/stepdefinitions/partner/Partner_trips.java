@@ -79,31 +79,22 @@ public class Partner_trips extends DriverBase {
             case "Solo":
                 //action.click(Page_Partner_Dashboard.Partner_Solo());
 
-                action.click(Page_Partner_Dashboard.Pickup_Edit());
+                action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
 
 
-               action.clearSendKeys(Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-               action.click(Page_Partner_Dashboard.Pickup_Address());
+               action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(),Pickup_Address+ Keys.TAB);
+               action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                // Thread.sleep(2000);
                 action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
-                action.clearSendKeys(Page_Partner_Dashboard.Delivery_Address(),Delivery_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Delivery_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
-/*
-                try {
-                    JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
-                    executor.executeScript("arguments[0].click();", Page_Partner_Dashboard.List_Delivery_Address());
-                }
-                catch (Exception ex){
-                    logger.detail("Google places API limit Exhausted.. Proceeding with manually entering address details");
-                }*/
                 Thread.sleep(5000);
 
-
-                action.click(Page_Partner_Dashboard.Load_Unload_Time_dropdown());
+                action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
@@ -127,22 +118,20 @@ public class Partner_trips extends DriverBase {
                 }
             break;
             case "Duo":
-                action.click(Page_Partner_Dashboard.Partner_Duo());
-                action.click(Page_Partner_Dashboard.Pickup_Edit());
+                action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
 
-                action.clearSendKeys(Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Pickup_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(),Pickup_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                 Thread.sleep(2000);
                 action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
-                action.clearSendKeys(Page_Partner_Dashboard.Delivery_Address(),Delivery_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Delivery_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 Thread.sleep(2000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
-
-
-                action.click(Page_Partner_Dashboard.Load_Unload_Time_dropdown());
+                action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
@@ -173,18 +162,15 @@ public class Partner_trips extends DriverBase {
     @When("^I clear the existing pickup address details$")
     public void i_clear_the_existing_pickup_address_details(){
 
-        action.click(Page_Partner_Dashboard.Pickup_Edit());
-        action.click(Page_Partner_Dashboard.PickupClear());
+        action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+        action.click(Page_Partner_Dashboard.Button_PickupClear());
     }
 
        @When("^I click on Pickup date$")
     public  void i_click_on_pickup_date(){
 
-        action.click(Page_Partner_Dashboard.Pickup_Date_dropdown());
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
     }
-
-
-
 
 
     @And("^I select Pickup Date and Pickup Time$")
@@ -200,7 +186,7 @@ public class Partner_trips extends DriverBase {
 
         int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
-        action.click(Page_Partner_Dashboard.Pickup_Date_dropdown());
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
 
         switch(PickupDate){
             case "Today":
@@ -222,7 +208,7 @@ public class Partner_trips extends DriverBase {
 
         }
 
-        action.click(Page_Partner_Dashboard.Pickup_Time_dropdown());
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
         action.click(Page_Partner_Dashboard.Pickup_Time3_());
 
     }
@@ -232,7 +218,7 @@ public class Partner_trips extends DriverBase {
         switch (str)
         {
             case "Estimated Cost":
-                String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Estimated_Cost_Label());
+                String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
                 //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
                 String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
                 String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
@@ -246,10 +232,10 @@ public class Partner_trips extends DriverBase {
                 String Blank_Load_Unload_Time = PropertyUtility.getMessage("Message_Blank_Load_Unload_Time");
                 String Highlighted_Fields = PropertyUtility.getMessage("Message_Highlighted_Fileds");
 
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.message_Blank_Pickup()),Blank_Pickup_Address);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.message_Blank_Delivery()),Blank_Delivery_Address);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.message_Blank_LoadUnload_Time()),Blank_Load_Unload_Time);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.message_Highlighted_Fields()),Highlighted_Fields);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Blank_Pickup()),Blank_Pickup_Address);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Blank_Delivery()),Blank_Delivery_Address);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Blank_LoadUnload_Time()),Blank_Load_Unload_Time);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Message_Highlighted_Fields()),Highlighted_Fields);
                 break;
             default: break;
         }
@@ -293,33 +279,23 @@ public class Partner_trips extends DriverBase {
             case "Solo":
                 //action.click(Page_Partner_Dashboard.Partner_Solo());
 
-                action.click(Page_Partner_Dashboard.Pickup_Edit());
-                action.click(Page_Partner_Dashboard.PickupClear());
+                action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+                action.click(Page_Partner_Dashboard.Button_PickupClear());
 
-                action.clearSendKeys(Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Pickup_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(),Pickup_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                 Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                 Thread.sleep(2000);
-                action.clearSendKeys(Page_Partner_Dashboard.Delivery_Address(),Delivery_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Delivery_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
-/*
-                try {
-                    JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
-                    executor.executeScript("arguments[0].click();", Page_Partner_Dashboard.List_Delivery_Address());
-                }
-                catch (Exception ex){
-                    logger.detail("Google places API limit Exhausted.. Proceeding with manually entering address details");
-                }*/
                 Thread.sleep(5000);
 
-
-                action.click(Page_Partner_Dashboard.Load_Unload_Time_dropdown());
+                action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
@@ -343,23 +319,23 @@ public class Partner_trips extends DriverBase {
                 }
                 break;
             case "Duo":
-                action.click(Page_Partner_Dashboard.Partner_Duo());
-                action.click(Page_Partner_Dashboard.Pickup_Edit());
-                action.click(Page_Partner_Dashboard.PickupClear());
+                action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+                action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
+                action.click(Page_Partner_Dashboard.Button_PickupClear());
 
-                action.clearSendKeys(Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Pickup_Address(),Pickup_Address+ Keys.TAB);
                 //action.sendKeys((Page_Partner_Dashboard.Pickup_Address(),Pickup_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Pickup_Address());
+                action.click(Page_Partner_Dashboard.Dropdown_Pickup_Address());
                 Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Pickup_Address());
 
                 Thread.sleep(2000);
-                action.clearSendKeys(Page_Partner_Dashboard.Delivery_Address(),Delivery_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Delivery_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
-                action.click(Page_Partner_Dashboard.Load_Unload_Time_dropdown());
+                action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
 
                 switch (Load_Unload) {
                     case "15 minutes":
@@ -393,29 +369,28 @@ public class Partner_trips extends DriverBase {
         String expectedMessage = "", actualMessage = "";
         switch (Information_Icon){
             case "WHAT’S NEEDED?":
-                action.click(Page_Partner_Dashboard.information_Icon_Whats_Needed());
+                action.click(Page_Partner_Dashboard.Information_Icon_Whats_Needed());
                 expectedMessage = PropertyUtility.getMessage("Partner_What_Needed_Info");
-                actualMessage = action.getText(Page_Partner_Dashboard.inner_Icon_Text());
-                action.click(Page_Partner_Dashboard.information_Icon_Whats_Needed());
-               // testStepVerify(action.getText(Page_Partner_Dashboard.inner_Icon_Text()),PropertyUtility.getDataProperties("Partner_What_Needed_Info"));
+                actualMessage = action.getText(Page_Partner_Dashboard.InnerText_Information_Icon());
+                action.click(Page_Partner_Dashboard.Information_Icon_Whats_Needed());
                 break;
             case "Delivery Address":
-                action.click(Page_Partner_Dashboard.information_Icon_Delivery_Address());
+                action.click(Page_Partner_Dashboard.Information_Icon_Delivery_Address());
                 expectedMessage = PropertyUtility.getMessage("Partner_Delivery_Address_Info");
-                actualMessage = action.getText(Page_Partner_Dashboard.inner_Icon_Text());
-                action.click(Page_Partner_Dashboard.information_Icon_Delivery_Address());
+                actualMessage = action.getText(Page_Partner_Dashboard.InnerText_Information_Icon());
+                action.click(Page_Partner_Dashboard.Information_Icon_Delivery_Address());
                 break;
             case "Load/Unload Time":
-                action.click(Page_Partner_Dashboard.information_Icon_LoadUpload());
+                action.click(Page_Partner_Dashboard.Information_Icon_LoadUpload());
                 expectedMessage = PropertyUtility.getMessage("Partner_LoadUnload_Info");
-                actualMessage = action.getText(Page_Partner_Dashboard.inner_Icon_Text());
-                action.click(Page_Partner_Dashboard.information_Icon_LoadUpload());
+                actualMessage = action.getText(Page_Partner_Dashboard.InnerText_Information_Icon());
+                action.click(Page_Partner_Dashboard.Information_Icon_LoadUpload());
                 break;
             case "PickUp Date":
-                action.click(Page_Partner_Dashboard.information_Icon_Pickup_Date());
+                action.click(Page_Partner_Dashboard.Information_Icon_Pickup_Date());
                 expectedMessage = PropertyUtility.getMessage("Partner_Pickup_Date_Info");
-                actualMessage = action.getText(Page_Partner_Dashboard.inner_Icon_Text());
-                action.click(Page_Partner_Dashboard.information_Icon_Pickup_Date());
+                actualMessage = action.getText(Page_Partner_Dashboard.InnerText_Information_Icon());
+                action.click(Page_Partner_Dashboard.Information_Icon_Pickup_Date());
                 break;
             default:break;
         }
@@ -433,7 +408,7 @@ public class Partner_trips extends DriverBase {
 
         switch (str){
             case "Load Unload Time":
-                action.click(Page_Partner_Dashboard.Load_Unload_Time_dropdown());
+                action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
@@ -471,10 +446,10 @@ public class Partner_trips extends DriverBase {
 
                // action.click(Page_Partner_Dashboard.Delivery_Address());
                 //Thread.sleep(1000);
-                action.click(Page_Partner_Dashboard.DeliveryClear());
-                action.click(Page_Partner_Dashboard.Delivery_Address());
-                action.clearSendKeys(Page_Partner_Dashboard.Delivery_Address(),Delivery_Address+ Keys.TAB);
-                action.click(Page_Partner_Dashboard.Delivery_Address());
+                action.click(Page_Partner_Dashboard.Button_DeliveryClear());
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
+                action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);
+                action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
                 Thread.sleep(2000);
 
@@ -482,14 +457,13 @@ public class Partner_trips extends DriverBase {
             default:break;
 
         }
-        action.click(Page_Partner_Dashboard.Get_Estimate_button());
-
+        action.click(Page_Partner_Dashboard.Button_Get_Estimate());
 
     }
 
     @Then("^Estimate Cost should get recalculate$")
     public void Estimate_Cost_get_recalculate(){
-        String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Estimated_Cost_Label());
+        String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
         //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
         String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
         //String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
@@ -507,7 +481,6 @@ public class Partner_trips extends DriverBase {
 
     @Then("^I should be able to see the respective bungii partner portal trip with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_partner_portal_trip_with_the_below_status(DataTable data) throws Throwable {
-
         try {
             Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
             String status = dataMap.get("Status").trim();
@@ -527,7 +500,6 @@ public class Partner_trips extends DriverBase {
             //action.click(admin_LiveTripsPage.TextBox_Search_Field());
             action.clearSendKeys(admin_LiveTripsPage.TextBox_Search_Field(),pickupRef);
             action.click(admin_LiveTripsPage.Button_Search());
-
 
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;

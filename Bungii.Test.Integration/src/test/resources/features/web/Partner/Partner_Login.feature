@@ -9,7 +9,7 @@
         When I enter "valid" password on Partner Portal
         And I click "SIGN IN" button on Partner Portal
         Then I should "be logged in"
-        Then I should logout from Partner Portal
+        And I should logout from Partner Portal
 
     @regression
       Scenario:Verify Driver Login Validations With Blank Credentials

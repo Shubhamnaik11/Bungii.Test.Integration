@@ -30,6 +30,7 @@
         Then I should "see Done screen"
         When I click "Track Deliveries" button on Partner Portal
         Then I should "see the trip in the Delivery List"
+        And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Number for Bungii trip
@@ -51,6 +52,7 @@
         |CardNo           |Expiry |Postal_Code      |Cvv      |
         |INVALID CARD     |12/23  |VALID POSTAL CODE|VALID CVV|
       Then I should "see validation message for invalid card number" on partner portal
+      And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Expiry Date for Bungii trip
@@ -72,6 +74,7 @@
             |CardNo        |Expiry |Postal_Code      |Cvv      |
             |VISA CARD     |12/19  |VALID POSTAL CODE|VALID CVV|
           Then I should "see validation message for Expired date" on partner portal
+          And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Cvv for Bungii trip
@@ -94,6 +97,7 @@
         |VISA CARD     |12/24  |VALID POSTAL CODE|INVALID CVV|
       And I click "Schedule Bungii" button on Partner Portal
       Then I should "see validation message for Cvv" on partner portal
+      And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
@@ -115,6 +119,7 @@
         |CardNo        |Expiry |Postal_Code        |Cvv      |
         |VISA CARD     |12/24  |INVALID POSTAL CODE|VALID CVV|
       Then I should "see validation message for Postal Code" on partner portal
+      And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Partner Payment method for Bungii Trip
@@ -136,3 +141,4 @@
       Then I should "see Done screen"
       When I click "Track Deliveries" button on Partner Portal
       Then I should "see the trip in the Delivery List"
+      And I should logout from Partner Portal

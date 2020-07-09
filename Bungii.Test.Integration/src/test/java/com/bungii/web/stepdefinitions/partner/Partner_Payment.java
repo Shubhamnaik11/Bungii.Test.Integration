@@ -31,11 +31,11 @@ public class Partner_Payment extends DriverBase {
 
         switch (str){
             case "Customer Card":
-                action.click(Page_Partner_Delivery.Customer_Card());
+                action.click(Page_Partner_Delivery.Radio_Button_Customer_Card());
                 Thread.sleep(5000);
                 break;
             case "Partner Pay":
-                action.click(Page_Partner_Delivery.Partner_Pay());
+                action.click(Page_Partner_Delivery.Radio_Button_Partner_Pay());
             default:break;
 
         }
@@ -115,46 +115,43 @@ public class Partner_Payment extends DriverBase {
 
         switch(str){
             case "see validation message for invalid card number":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.messageInvalidCardNumber()), PropertyUtility.getMessage("Invalid_Card_Number"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_CardNumber()), PropertyUtility.getMessage("Invalid_Card_Number"));
                 break;
             case "see validation message for Expired date":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.messageInvalidExpiredDate()), PropertyUtility.getMessage("Invalid_Expired_Date"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_ExpiredDate()), PropertyUtility.getMessage("Invalid_Expired_Date"));
                 break;
             case "see validation message for Cvv":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.messageInvalidCVV()), PropertyUtility.getMessage("Invalid_Cvv"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_CVV()), PropertyUtility.getMessage("Invalid_Cvv"));
                 break;
             case "see validation message for Postal Code":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.messageInvalidPostal_Code()), PropertyUtility.getMessage("Invalid_Postal_Code"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_Postal_Code()), PropertyUtility.getMessage("Invalid_Postal_Code"));
                 break;
             default:break;
         }
 
     }
 
-    public void addCardDetails(String cardNo, String expiry, String cvv, String postalCode) {
-//		action.waitForExpectedElement(paymentPage.TextBox_CardNumber());
-        //action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Delivery.Card_Number(),10);
-
-
+    public void addCardDetails(String cardNo, String expiry, String cvv, String postalCode) throws InterruptedException {
 
         action.switchToFrame("CardNumber_Frame");
-        action.click(Page_Partner_Delivery.Card_Number());
-        action.sendKeys(Page_Partner_Delivery.Card_Number(),cardNo);
+        action.click(Page_Partner_Delivery.TextBox_Card_Number());
+        action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(),cardNo);
+        Thread.sleep(1000);
         action.switchToFrame("Main");
 
         action.switchToFrame("Expiry_Frame");
-        action.click(Page_Partner_Delivery.Expiry_Date());
-        action.sendKeys(Page_Partner_Delivery.Expiry_Date(), expiry);
+        action.click(Page_Partner_Delivery.TextBox_Expiry_Date());
+        action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), expiry);
         action.switchToFrame("Main");
 
         action.switchToFrame("Cvv_Frame");
-        action.click(Page_Partner_Delivery.CVV());
-        action.sendKeys(Page_Partner_Delivery.CVV(), cvv);
+        action.click(Page_Partner_Delivery.TextBox_CVV());
+        action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), cvv);
         action.switchToFrame("Main");
 
         action.switchToFrame("PostalCode_Frame");
-        action.click(Page_Partner_Delivery.Postal_Code());
-        action.sendKeys(Page_Partner_Delivery.Postal_Code(), postalCode);
+        action.click(Page_Partner_Delivery.TextBox_Postal_Code());
+        action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
         action.switchToFrame("Main");
 
     }

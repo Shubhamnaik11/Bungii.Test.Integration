@@ -75,32 +75,31 @@ public class Partner_LoginSteps extends DriverBase {
         switch(str)
         {
             case "SIGN IN":
-                action.click(Page_Partner_Login.Sign_In());
+                action.click(Page_Partner_Login.Button_Sign_In());
                 break;
             case "GET ESTIMATE":
-                action.click(Page_Partner_Dashboard.Get_Estimate_button());
+                action.click(Page_Partner_Dashboard.Button_Get_Estimate());
                 break;
             case "Continue":
-                action.click(Page_Partner_Dashboard.Continue());
+                action.click(Page_Partner_Dashboard.Button_Continue());
                 break;
             case "Schedule Bungii":
-                //Thread.sleep(2000);
-                action.click(Page_Partner_Delivery.Schedule_Bungii());
+                action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                 break;
             case "Track Deliveries":
-                action.click(Page_Partner_Done.Track_Deliveries());
+                action.click(Page_Partner_Done.Button_Track_Deliveries());
                 break;
             case "Back to Estimate":
-                action.click(Page_Partner_Delivery.Back_To_Estimate());
+                action.click(Page_Partner_Delivery.Link_Back_To_Estimate());
                 break;
             case "Cancel Delivery link":
-                action.click(Page_Partner_Delivery_List.link_Cancel_Delivery());
+                action.click(Page_Partner_Delivery_List.Link_Cancel_Delivery());
                 break;
             case "OK":
-                action.click(Page_Partner_Delivery_List.botton_OK());
+                action.click(Page_Partner_Delivery_List.Button_OK());
                 break;
             case "Cancel Delivery":
-                action.click(Page_Partner_Delivery_List.button_Cancel_Delivery());
+                action.click(Page_Partner_Delivery_List.Button_Cancel_Delivery());
                 break;
             default: break;
 
@@ -114,50 +113,50 @@ public class Partner_LoginSteps extends DriverBase {
         {
             case "be logged in":
                 //testStepVerify.isEquals(action.getText(Page_Driver_Dashboard.Header_Dashboard()), PropertyUtility.getMessage("DriverDashboardHeader"));
-                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Get_Estimate_Header(), (long) 2000);
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
+                action.waitUntilIsElementExistsAndDisplayed(Page_Partner_Dashboard.Label_Get_Estimate_Header(), (long) 2000);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
                 break;
             case "see validations message for blank password field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Login.Blank_Incorrect_Password_Msg()), PropertyUtility.getMessage("Blank_Password"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Blank_Password"));
                 break;
             case "see validations message for incorrect password field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Login.Blank_Incorrect_Password_Msg()), PropertyUtility.getMessage("Incorrect_Password"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Login.Message_Blank_Incorrect_Password()), PropertyUtility.getMessage("Incorrect_Password"));
                 break;
             case "see Delivery Details screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
                 break;
             case "see Done screen":
                 String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
-                testStepVerify.isEquals(action.getText(Page_Partner_Done.Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                 String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
+                String ScheduledTime = new DbUtility().getScheduledTime(Customer_Phone);
+                cucumberContextManager.setScenarioContext("Scheduled_Time",ScheduledTime);
                 cucumberContextManager.setScenarioContext("pickupRequest",PickupRequest);
                 cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
                 break;
             case "see the trip in the Delivery List":
                 //String Customer_Name = null;
+                String DeliveryDate = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
                 String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Customer()),CustomerName);
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Address()),DeliveryAddress);
+
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Customer()),CustomerName);
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Address()),DeliveryAddress);
                 break;
             case "see the trip details":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()),PropertyUtility.getMessage("Delivery_Details_Dashboard"));
                 break;
             case "see the cancel delivery warning message":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.message_Cancel_Delivery()),PropertyUtility.getMessage("Message_Cancel_Delivery"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Delivery()),PropertyUtility.getMessage("Message_Cancel_Delivery"));
                 break;
             case "see delivery has been cancelled message":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.message_Cancel_confirmation()),PropertyUtility.getMessage("Confirmation_Message_Delivery_Cancel"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Confirmation()),PropertyUtility.getMessage("Confirmation_Message_Delivery_Cancel"));
                 break;
             case "see Canceled trip message":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.message_Cancel_Trip()),PropertyUtility.getMessage("Message_Cancel_Trip"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Cancel_Trip()),PropertyUtility.getMessage("Message_Cancel_Trip"));
                 break;
             case "see Get Estimate screen":
-                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
-               // String PickupAddress_On_Estimate = (String) cucumberContextManager.getScenarioContext("PickupAddress");
-               // String DeliveryAddress_On_Estimate = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
-               // testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Text_Pickup_Address()),PickupAddress_On_Estimate);
-               // testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Address()),DeliveryAddress_On_Estimate);
+                testStepVerify.isEquals(action.getText(Page_Partner_Dashboard.Label_Get_Estimate_Header()), PropertyUtility.getMessage("Get_Estimate_Header"));
                 break;
             case "see five future days including today":
                 Calendar calendar = Calendar.getInstance();
@@ -168,7 +167,7 @@ public class Partner_LoginSteps extends DriverBase {
         }
     }
 
-    @Then("^I should logout from Partner Portal$")
+    @And("^I should logout from Partner Portal$")
     public void i_should_logout_from_partner_portal() throws Throwable {
         utility.PartnerLogout();
         log("I should be logged out from Partner Portal ","I clicked ", true);

@@ -38,19 +38,15 @@ public class Partner_Delivery_Details extends DriverBase {
 
         switch(str){
             case "Delivery Details":
-                action.clearSendKeys(Page_Partner_Delivery.Item_To_deliver(),Items_deliver);
-                action.clearSendKeys(Page_Partner_Delivery.Customer_Name(),CustomerName);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(),CustomerName);
                 //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
-                action.click(Page_Partner_Delivery.Customer_Mobile());
-                action.clearSendKeys(Page_Partner_Delivery.Customer_Mobile(),CustomerMobile);
+                action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(),CustomerMobile);
 
-                //JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
-                //executor.executeScript("arguments[0].value=CustomerMobile;", Page_Partner_Delivery.Customer_Mobile());
-
-
-                action.clearSendKeys(Page_Partner_Delivery.Pickup_Contact_Name(),PickupContactName);
-                action.click(Page_Partner_Delivery.Pickup_Contact_Phone());
-                action.clearSendKeys(Page_Partner_Delivery.Pickup_Contact_Phone(),PickupContactPhone);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(),PickupContactName);
+                action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(),PickupContactPhone);
                 break;
             default:break;
         }
@@ -63,19 +59,19 @@ public class Partner_Delivery_Details extends DriverBase {
 
         switch (str){
             case "see validations message for blank Items To Deliver field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Black_Item_To_deliver()),PropertyUtility.getMessage("Message_Blank_Item_To_Deliver"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Black_Item_To_Deliver()),PropertyUtility.getMessage("Message_Blank_Item_To_Deliver"));
                 break;
             case "see validations message for blank Customer Name field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Black_Customer_Name()),PropertyUtility.getMessage("Message_Blank_Customer"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Black_Customer_Name()),PropertyUtility.getMessage("Message_Blank_Customer"));
                 break;
             case "see validations message for blank Customer Mobile field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Customer_Mobile()),PropertyUtility.getMessage("Message_Blank_CustomerMobile"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Blank_Customer_Mobile()),PropertyUtility.getMessage("Message_Blank_CustomerMobile"));
                 break;
             case "see validations message for blank Pickup Contact Name field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Pickup_Contact_Name()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Name"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Blank_Pickup_Contact_Name()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Name"));
                 break;
             case "see validations message for blank Pickup Contact Phone field":
-                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.message_Blank_Pickup_Contact_Phone()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Phone"));
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Blank_Pickup_Contact_Phone()),PropertyUtility.getMessage("Message_Blank_Pickup_Contact_Phone"));
                 break;
             default:break;
         }

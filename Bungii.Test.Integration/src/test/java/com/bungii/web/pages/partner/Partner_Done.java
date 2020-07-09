@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 
 public class Partner_Done extends PageBase {
 
-    //Partner Password Field
-    public WebElement Schedule_Done_Success_Header() { return findElement("//h1[@class='heading']", LocatorType.XPath); }
+    //Trip Schedule Done text
+    public WebElement Text_Schedule_Done_Success_Header() { return findElement("//h1[@class='heading']", LocatorType.XPath); }
 
-    //Track Deliveries
-    public WebElement Track_Deliveries() { return findElement("track-deliveries",LocatorType.Id);}
+    //Track Deliveries button
+    public WebElement Button_Track_Deliveries() { return findElement("track-deliveries",LocatorType.Id);}
 
 }
 

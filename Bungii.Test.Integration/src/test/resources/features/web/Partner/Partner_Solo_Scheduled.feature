@@ -30,6 +30,7 @@
         Then I should "see Done screen"
         When I click "Track Deliveries" button on Partner Portal
         Then I should "see the trip in the Delivery List"
+        And I should logout from Partner Portal
 
     @Inprogress
     Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup on Partner Portal
@@ -57,20 +58,21 @@
       When I navigate to "Bungii Admin Portal in new tab" URL
       And I view the Scheduled Trips list on the admin portal
       Then I should be able to see the respective bungii partner portal trip with the below status
-        |  Status |
+        | Status           |
         | Searching Drivers|
       And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" trip
         | driver1 state|
         | Accepted |
       And I view the Scheduled Trips list on the admin portal
       Then I should be able to see the respective bungii partner portal trip with the below status
-        |  Status |
+        | Status    |
         | Scheduled |
 
     @Inprogress
     Scenario: Verify the five future days shown in Pickup Date dropdown
           When I click on Pickup date
           Then I should "see five future days including today"
+          And I should logout from Partner Portal
 
     @regression
         Scenario: Verify changing the pickup date for scheduled Solo bungii Trip
@@ -93,6 +95,7 @@
             |Today+2      |5th quarter          |
           And I click "GET ESTIMATE" button on Partner Portal
           Then I should see "Estimated Cost"
+          And I should logout from Partner Portal
 
     @regression
     Scenario: Verify Cancellation of Solo Scheduled Trips
@@ -125,5 +128,6 @@
       Then I should "see delivery has been cancelled message"
       And I click "OK" button on Partner Portal
       Then I should "see Canceled trip message"
+      And I should logout from Partner Portal
 
 
