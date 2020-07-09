@@ -76,10 +76,13 @@ public class SetupManager extends EventFiringWebDriver {
                     //logger.detail("Removing WebDriver Agent on "+deviceID);
                     //removeWebdriverAgent();
                     logger.detail("Restarting iPhone on "+deviceID);
-                    restartIphone();
+                   // restartIphone();
+
+
                     try {
                        // Thread.sleep(180000);
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        ((IOSDriver) driver).executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
                         ((IOSDriver) driver).runAppInBackground(Duration.ofSeconds(-1));
 
                     } catch (Exception e1) {
@@ -194,7 +197,8 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-        return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       // return "https://" + APPIUM_SERVER_IP + "/wd/hub";
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
