@@ -51,28 +51,6 @@ public class ActionManager {
         }
     }
 
-    public void keyEnter(WebElement DropdownField,String text) throws InterruptedException {
-
-        WebDriver driver =SetupManager.getDriver();
-        Actions action = new Actions(driver);
-        //element.clear();
-        //element.sendKeys(text);
-        DropdownField.sendKeys(text+Keys.ARROW_DOWN+Keys.ENTER);
-        //DropdownField.sendKeys(Keys.ARROW_DOWN);
-        //DropdownField.sendKeys(Keys.ENTER);
-
-        //action.keyDown(DropdownField,Keys.ARROW_DOWN ).sendKeys(Keys.ENTER);
-
-        //element.sendKeys(Keys.ENTER);
-        //action.moveToElement(element).click().perform();*/
-        //action.keyDown(DropdownField,Keys.ENTER);
-        //action.click(DropdownField).sendKeys(text+Keys.ARROW_DOWN);
-
-        Thread.sleep(2000);
-
-
-
-    }
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -359,21 +337,16 @@ catch(Exception ex)
 
     public void openNewTab(){
         ((JavascriptExecutor) SetupManager.getDriver()).executeScript("window.open('about:blank','_blank');");
-        String subWindowHandler = null;
+        String AdminsubWindowHandler = null;
 
         Set<String> handles = SetupManager.getDriver().getWindowHandles();
         Iterator<String> iterator = handles.iterator();
         while (iterator.hasNext()) {
-            subWindowHandler = iterator.next();
+            AdminsubWindowHandler = iterator.next();
         }
 
-        SetupManager.getDriver().switchTo().window(subWindowHandler);
-        //String newWindow = SetupManager.getDriver().getWindowHandle();
+        SetupManager.getDriver().switchTo().window(AdminsubWindowHandler);
 
-        //SetupManager.getDriver().findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL+"t");
-       /*
-       ArrayList<String> tabs = new ArrayList<String>(SetupManager.getDriver().getWindowHandles());
-       SetupManager.getDriver().switchTo().window(tabs.get(0));*/
 
 
 
