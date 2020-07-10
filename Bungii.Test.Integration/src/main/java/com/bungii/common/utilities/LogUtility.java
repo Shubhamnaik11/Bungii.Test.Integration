@@ -1,6 +1,8 @@
 package com.bungii.common.utilities;
 
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.manager.ResultManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
 import static com.bungii.common.manager.ResultManager.error;
@@ -82,7 +84,9 @@ public class LogUtility {
      */
     public void error(Object... varargs) {
         logger.error(CLASS+DELIM+((Class) owner).getSimpleName() + DELIM + toString(varargs));
-        ResultManager.setStacktrace(toString(varargs));
+        String pageSource = StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource());
+        ResultManager.setStacktrace(toString(varargs)+"| PAGE SOURCE : "+ pageSource);
+
     }
 
     //Need to update, throw exception after logging
