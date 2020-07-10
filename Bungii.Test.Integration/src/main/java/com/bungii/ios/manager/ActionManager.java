@@ -111,7 +111,7 @@ public class ActionManager {
         try {
             value = element.getAttribute("name");
 
-        logger.detail("'name' attribute for element -> " + getElementDetails(element) + " is " + value);
+        logger.detail("Element -> " + getElementDetails(element) + " name is " + value);
         }
         catch(Exception ex)
         {

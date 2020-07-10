@@ -342,6 +342,7 @@ public class SetupManager extends EventFiringWebDriver {
      */
     public static DesiredCapabilities getCapabilities(String deviceId) {
         String deviceInfoFileKey = "";
+        String phoneDetails ="";
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -359,13 +360,24 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
-
+            if(key=="deviceName")
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
+            if(key=="platformName")
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
+            if(key=="platformVersion")
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
         }
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
+        logger.detail("Returned DesiredCapabilities for device " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 
