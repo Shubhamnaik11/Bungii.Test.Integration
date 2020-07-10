@@ -346,6 +346,11 @@ public class CommonStepsDriver extends DriverBase {
                 action.clickAlertButton("Done");
 
         }
+        if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+        }
+
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
             if (navigationBarName.equals("LOCATION"))
             {
@@ -353,9 +358,8 @@ public class CommonStepsDriver extends DriverBase {
                 action.clickAlertButton("Always Allow");
             }
                 homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
-        }else if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
-            action.click(driverBungiiCompletedPage.Button_NextTrip());
         }
+
 
     }
 
