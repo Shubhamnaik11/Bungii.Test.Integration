@@ -111,9 +111,9 @@ public class GeneralUtility extends DriverBase {
         int red = (clr & 0x00ff0000) >> 16;
         int green = (clr & 0x0000ff00) >> 8;
         int blue = clr & 0x000000ff;
-        logger.detail("Red Color value = " + red);
-        logger.detail("Green Color value = " + green);
-        logger.detail("Blue Color value = " + blue);
+        logger.detail("Red Color value = " + red + "| Green Color value = " + green + " | Blue Color value = " + blue);
+      //  logger.detail("Green Color value = " + green);
+       // logger.detail("Blue Color value = " + blue);
 
         int[] rgbValue = {red, green, blue};
         return rgbValue;
@@ -818,7 +818,7 @@ public class GeneralUtility extends DriverBase {
         Color actual = new Color(actualColor[0], actualColor[1], actualColor[2]);
         Color expected = new Color(expectedRGB[0], expectedRGB[1], expectedRGB[2]);
         double diff = ColourDistance(actual, expected);
-        logger.detail("Difference between actual and expected is :" + diff);
+       // logger.detail("Difference between actual and expected is :" + diff);
 
         boolean isEqual = diff < 15;
 /*      for(int i =0;i<actualColor.length;i++){

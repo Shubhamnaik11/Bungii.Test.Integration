@@ -72,7 +72,7 @@ public class SetupManager extends EventFiringWebDriver {
 
                 }catch (SessionNotCreatedException e) {
                     logger.detail(getStackTrace(e));
-                    logger.detail("Initialing driver failed , removing and trying again trying again on "+deviceID);
+                    logger.detail("Initialing driver failed, removing and trying again trying again on "+deviceID);
                     //logger.detail("Removing WebDriver Agent on "+deviceID);
                     //removeWebdriverAgent();
                     logger.detail("Restarting iPhone on "+deviceID);
@@ -377,7 +377,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("Returned DesiredCapabilities for device " + deviceId + " : " + phoneDetails);
+        logger.detail("Test is running on device " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 

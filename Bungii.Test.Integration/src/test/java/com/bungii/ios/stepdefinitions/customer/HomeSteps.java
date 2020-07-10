@@ -144,11 +144,13 @@ public class HomeSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("BUNGII_TYPE", tripDriverType.toLowerCase());
 
             String bungiiType = saveBungiiHomeDetails(tripDriverType);
-            boolean isbungiiTypeCorrect = false;
-            isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
+
+            Boolean isbungiiTypeCorrect = getBungiiTypeValue(tripDriverType);
+
+          //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
-                    "Number of driver for Bungii is not " + tripDriverType);
+                    "Number of driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error Requesting Bungii for pickup location : "+ data.transpose().asMap(String.class, String.class).get("Pickup Location") ,
@@ -220,7 +222,20 @@ public class HomeSteps extends DriverBase {
         }
 
     }
+    public boolean getBungiiTypeValue(String tripDriverType) {
 
+        if(tripDriverType.toUpperCase().equalsIgnoreCase("SOLO"))
+        {
+            return action.getNameAttribute(homePage.Icon_Solo()).equals("1");
+        }
+        else
+        if(tripDriverType.toUpperCase().equalsIgnoreCase("DUO"))
+        {
+            return action.getNameAttribute(homePage.Icon_Duo()).equals("2");
+        }
+
+        return false;
+    }
     public void selectBungiiLocation(String type, String location) {
         try {
         switch (type.toUpperCase()) {
