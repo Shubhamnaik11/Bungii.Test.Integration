@@ -84,8 +84,7 @@ public class LogUtility {
      */
     public void error(Object... varargs) {
         logger.error(CLASS+DELIM+((Class) owner).getSimpleName() + DELIM + toString(varargs));
-        String pageSource = StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource());
-        ResultManager.setStacktrace(toString(varargs)+"| PAGE SOURCE : "+ pageSource);
+        ResultManager.setStacktrace(toString(varargs));
 
     }
 

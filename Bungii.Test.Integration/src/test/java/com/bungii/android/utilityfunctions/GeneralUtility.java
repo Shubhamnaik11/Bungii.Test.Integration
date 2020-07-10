@@ -1727,25 +1727,25 @@ Thread.sleep(5000);
     public void logCustomerDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of customer"+phoneNumber+"is "+dbUtility.getCustomerDeviceToken(phoneNumber));
+                logger.detail("Device token of customer ["+phoneNumber+"] is "+dbUtility.getCustomerDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logDriverDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of Driver"+phoneNumber+"is "+dbUtility.getDriverDeviceToken(phoneNumber));
+                logger.detail("Device token of Driver ["+phoneNumber+"] is "+dbUtility.getDriverDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+dbUtility.getCustomersMostRecentBungii(phoneNumber));
+                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+dbUtility.getCustomersMostRecentBungii(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken  ", ExceptionUtils.getStackTrace(e));
         }
     }
 

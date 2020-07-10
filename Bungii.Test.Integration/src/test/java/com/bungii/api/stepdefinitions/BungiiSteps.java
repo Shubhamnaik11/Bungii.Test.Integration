@@ -1551,7 +1551,7 @@ public class BungiiSteps extends DriverBase {
 
     public void recoveryScenario() {
         String custPhoneCode = "1", custPhoneNum = "", custPassword = "", driverPhoneCode = "1", driverPhoneNum = "", driverPassword = "";
-        logger.detail("Trying recovery scenarios for of api ");
+        logger.detail("********* RECOVERING CUSTOMER AND DRIVER STATE : API *********");
 
         custPhoneNum = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
         custPassword = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PASSWORD");
@@ -1568,7 +1568,7 @@ public class BungiiSteps extends DriverBase {
             handleOngoingBungii(custPhoneCode, custPhoneNum, custPassword);
             cancelScheduledBungii(custPhoneCode, custPhoneNum, custPassword);
         }
-
+        logger.detail("***************** RECOVERY API DATA COMPLETE ******************");
 
     }
 

@@ -1187,7 +1187,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I start selected Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "SCHEDULED BUNGII" screen
 
     Then I cancel all bungiis of customer
@@ -1221,7 +1221,7 @@ Feature: To Test Solo - Scheduling Bungii
     And I start selected Bungii
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "SCHEDULED BUNGII" screen
 
     Then I cancel all bungiis of customer
@@ -1284,7 +1284,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "EN ROUTE" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
@@ -1309,7 +1309,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "ARRIVED" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
@@ -1335,7 +1335,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "EN ROUTE" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices
@@ -1362,7 +1362,7 @@ Feature: To Test Solo - Scheduling Bungii
     Then I should be navigated to "ARRIVED" screen
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "HOME" screen
 
     When I Switch to "customer" application on "same" devices

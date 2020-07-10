@@ -200,8 +200,9 @@ public class GeneralUtility extends DriverBase {
     action.hideNotifications();
     }
     public void recoverScenario() {
-        logger.detail("Inside recovery scenario");
-try {
+        logger.detail("***** RECOVERING CUSTOMER AND DRIVER STATE : UI ACTIONS *****");
+
+        try {
     if (action.isElementPresent(customerHomePage.Application_Name(true))) {
         //do nothing
     } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
@@ -251,7 +252,7 @@ try {
     }
     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
     // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-    logger.detail("Switched to Driver in recovery scenario");
+    logger.detail("Switched to Driver");
 
     //If we restart app then close view item page is dismissed
     //view item page
@@ -357,6 +358,7 @@ try {
 
         action.click(tutorialPage.Button_Close());
 
+        logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
 
     }
 
@@ -1470,25 +1472,25 @@ catch (Exception e)
     public void logCustomerDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of customer"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber));
+                logger.detail("Device token of customer ["+phoneNumber+"] is "+com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logDriverDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of Driver"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber));
+                logger.detail("Device token of Driver ["+phoneNumber+"] is "+com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
+                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
 }

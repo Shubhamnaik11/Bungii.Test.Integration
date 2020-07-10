@@ -322,13 +322,13 @@ public class SetupManager extends EventFiringWebDriver {
      */
     private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
         try {
-            logger.detail("Getting Appium Driver at port : " + portNumber);
+            //logger.detail("Getting Appium Driver at port : " + portNumber);
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-            logger.detail("Appium Driver at port : " + portNumber);
+            logger.detail("Appium Driver Running at port : " + portNumber);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -360,15 +360,15 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
-            if(key=="deviceName")
+            if(jsonCaps.get(key).toString().equalsIgnoreCase("deviceName"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
-            if(key=="platformName")
+            if(jsonCaps.get(key).toString().equalsIgnoreCase("platformName"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
-            if(key=="platformVersion")
+            if(jsonCaps.get(key).toString().equalsIgnoreCase("platformVersion"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
@@ -392,7 +392,7 @@ public class SetupManager extends EventFiringWebDriver {
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey = "android.capabilities.file";
 
-        logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
+        //logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
         String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
 
         ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
