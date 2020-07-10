@@ -360,15 +360,15 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
-            if(jsonCaps.get(key).toString().equalsIgnoreCase("deviceName"))
+            if(key.toString().equalsIgnoreCase("deviceName"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
-            if(jsonCaps.get(key).toString().equalsIgnoreCase("platformName"))
+            if(key.toString().equalsIgnoreCase("platformName"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
-            if(jsonCaps.get(key).toString().equalsIgnoreCase("platformVersion"))
+            if(key.toString().equalsIgnoreCase("platformVersion"))
             {
                 phoneDetails += " "+ jsonCaps.get(key).toString();
             }
