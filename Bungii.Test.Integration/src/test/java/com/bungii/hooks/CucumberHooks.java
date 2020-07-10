@@ -62,6 +62,7 @@ public class CucumberHooks {
      */
     public synchronized void start(String resultFolder) {
 //ideviceinstaller -u ebcd350201440c817087b1cd99413f8b74e846bd --uninstall com.apple.test.WebDriverAgentRunner-Runner
+
         try {
             this.reportManager.startSuiteFile(resultFolder);
         } catch (Exception e) {
@@ -71,8 +72,7 @@ public class CucumberHooks {
         try {
             //adding ternary operator in logger is creating issue
             String device = System.getProperty("DEVICE") == null ? "Windows VM" : System.getProperty("DEVICE");
-            logger.detail("Device On which test will be run is : " + device);
-
+            logger.detail("********** Initializing Test Scenario Setup on Device : "+device+" ************");
             SetupManager.getObject().getDriver();
         } catch (Exception e) {
             logger.error("Unable to create default appium driver");
@@ -121,8 +121,8 @@ public class CucumberHooks {
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
 
 
-        logger.detail("Feature: " + rawFeatureName[0]);
-        logger.detail("Starting Scenario: " + scenario.getName());
+        logger.detail("Feature : " + rawFeatureName[0]);
+        logger.detail("Starting Scenario : " + scenario.getName());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
 /*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
 			new GeneralUtility().recoverScenario();*/
@@ -171,15 +171,15 @@ public class CucumberHooks {
             this.reportManager.endTestCase(scenario.isFailed());
             if (!scenario.isFailed() || !this.reportManager.isVerificationFailed())
             {
-                logger.detail(" PASSING TEST SCENARIO : " + scenario.getName());
+                logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
             }
             if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
-                    logger.detail(" FAILED TEST SCENARIO : " + scenario.getName());
-                    logger.detail(" PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
+                    logger.detail("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
 
                 } catch (Exception e) {
                 }

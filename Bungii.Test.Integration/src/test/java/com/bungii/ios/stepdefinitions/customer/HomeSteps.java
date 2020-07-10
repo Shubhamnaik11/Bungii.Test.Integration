@@ -150,7 +150,7 @@ public class HomeSteps extends DriverBase {
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
                     "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
-                    "Number of driver for Bungii is not " + bungiiType);
+                    "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
             error("Step should be successful", "Error Requesting Bungii for pickup location : "+ data.transpose().asMap(String.class, String.class).get("Pickup Location") ,

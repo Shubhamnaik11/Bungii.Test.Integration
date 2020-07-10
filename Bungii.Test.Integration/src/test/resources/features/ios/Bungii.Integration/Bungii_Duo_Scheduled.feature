@@ -5,8 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @capability
-  @ready
+  @sanityfailure
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
 
@@ -1020,6 +1019,7 @@ Feature: To Test Duo - Scheduled Bungii
   @failed
   @ready
   @sanity
+    @sanityfailure
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
     Given that duo schedule bungii is in progress

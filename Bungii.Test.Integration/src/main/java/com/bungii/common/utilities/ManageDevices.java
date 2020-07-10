@@ -80,7 +80,7 @@ public class ManageDevices {
                 ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
             }
         }
-        System.out.println("***Thread Number : "+curentThreadNumber+" | Available devices after releasing current running device : "+ManageDevices.readFile());
+       // System.out.println("***Thread Number : "+curentThreadNumber+" | Available devices after releasing current running device : "+ManageDevices.readFile());
     }
 
 }
