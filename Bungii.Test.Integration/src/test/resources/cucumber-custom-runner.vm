@@ -82,7 +82,7 @@ public class $className extends AbstractTestNGCucumberTests {
                                  deviceList = ArrayUtils.remove(deviceList, 0);
                                  String strDeviceList = String.join(",", deviceList);
                                  ManageDevices.write(strDeviceList);
-                                 System.out.println("*** Updated device for class : "+ClassName+ " | Device : "+ManageDevices.readFile());
+                                 //System.out.println("*** Updated device for class : "+ClassName+ " | Device : "+ManageDevices.readFile());
                                  searchFreeDevice=false;
                              }
                          }
