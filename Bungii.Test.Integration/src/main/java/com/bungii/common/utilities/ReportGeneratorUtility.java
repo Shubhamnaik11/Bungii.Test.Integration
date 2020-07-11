@@ -35,6 +35,9 @@ public class ReportGeneratorUtility extends DriverBase {
 
 	private final static String SUMMARY_TITLE="TEST SUMMARY REPORT";
 	private final static String logoPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME");
+	private final static String downloadPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("DOWNLOAD_LOGO");
+	private final static String passPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("PASS_lOGO");
+	private final static String failPath =PropertyUtility.getResultConfigProperties("MISC_DIRECTORY")+"/"+PropertyUtility.getResultConfigProperties("FAIL_lOGO");
 
 	private static LogUtility logger = new LogUtility(ReportGeneratorUtility.class);
 	private int testCases = 1;
@@ -205,7 +208,7 @@ public class ReportGeneratorUtility extends DriverBase {
 
 		String path = sDumpFile.replace('\\', '/');
 		return message +" <div style='color:red; font-weight: bold'> " +
-				" <img src='' alt='Get error screenshot here' style='width:100%;max-width:100px' onclick=\"showImage('"+path+"')\"/>" +
+				" <img src='./"+downloadPath+"' alt='' onclick=\"showImage('"+path+"')\"/> Download screenshot here" +
 				"</div>";
 		//return "<a href='" + sDumpFile.replace("\\", "/") + "'>" + message + "</a>";
 	}
