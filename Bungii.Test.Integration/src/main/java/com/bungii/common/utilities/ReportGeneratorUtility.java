@@ -203,7 +203,10 @@ public class ReportGeneratorUtility extends DriverBase {
 			return message;
 		}
 
-		return message +"| <div style='color:red; font-weight: bold';> Screenshot : <img src='"+sDumpFile.replace("\\", "/")+"' alt='Error Screenshot' style='width:100%;max-width:10px' onclick='showImage("+sDumpFile.replace("\\", "/")+")></div>";
+		String path = sDumpFile.replace('\\', '/');
+		return message +" <div style='color:red; font-weight: bold'> " +
+				" <img src='' alt='Get error screenshot here' style='width:100%;max-width:100px' onclick=\"showImage('"+path+"')\"/>" +
+				"</div>";
 		//return "<a href='" + sDumpFile.replace("\\", "/") + "'>" + message + "</a>";
 	}
 
