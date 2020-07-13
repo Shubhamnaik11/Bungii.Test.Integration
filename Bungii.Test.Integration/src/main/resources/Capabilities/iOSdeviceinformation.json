@@ -20,9 +20,7 @@
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8180,
-    "showXcodeLog": true,
-    "locationServicesEnabled":true,
-    "locationServicesAuthorized":true
+    "showXcodeLog": true
   },
   "device1": {
     "platformName": "iOS",
@@ -43,9 +41,7 @@
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8160,
-    "showXcodeLog": true,
-    "locationServicesEnabled":true,
-    "locationServicesAuthorized":true
+    "showXcodeLog": true
   },
 
   "connection": {
