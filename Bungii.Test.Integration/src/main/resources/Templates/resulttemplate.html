@@ -251,7 +251,7 @@ function showImage(path){
  var captionText = document.getElementById("caption");
   modal.style.display = "block";
   modalImg.src = path;
-  captionText.innerHTML = this.alt;
+  captionText.innerHTML = path;
 };
 
 function cc() {
@@ -309,7 +309,7 @@ function cc() {
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <span onclick="cc()" class="close">&times;</span>
-    <img class="modal-content" id="img01">
+    <img class="modal-content" id="img01" style="width:500px";>
     <div id="caption"></div>
 </div>
 

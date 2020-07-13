@@ -39,6 +39,7 @@ public class GenerateSummaryReport {
                 String environment = args[3];
 
                 configFilePath = Paths.get(mainFolder);
+                CopyMiscFolder();
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
                 int testCount = 1;
@@ -110,7 +111,7 @@ public class GenerateSummaryReport {
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
-                    CopyMiscFolder();
+
                     System.out.println("Generated failedsummary.html");
 
                 }
@@ -199,7 +200,7 @@ public class GenerateSummaryReport {
      */
     public static List<String> getLogos() throws IOException {
         List<String> listOfScreenshotFile = Files.walk(configFilePath)
-                .filter(s -> s.toString().endsWith(".png")).map((p) -> p.getParent() + "/" + p.getFileName())
+                .filter(s -> s.toString().endsWith(".PNG")).map((p) -> p.getParent() + "/" + p.getFileName())
                 .sorted()
                 .collect(toList());
         return listOfScreenshotFile;
