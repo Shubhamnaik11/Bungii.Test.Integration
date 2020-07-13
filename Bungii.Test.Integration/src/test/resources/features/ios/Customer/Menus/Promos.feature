@@ -14,7 +14,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
-    And I click "ADD" button on "PROMOS" screen
+    And I click "ADD" button on "PROMOS" screen for first time promocode
     Then user is alerted for "<Expected Message>"
     And I Select "LOGOUT" from Customer App menu
 

@@ -58,6 +58,7 @@ Feature: Create on demand bungii
 
   @sanity
   @regression
+  @sanityfailure
   Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page

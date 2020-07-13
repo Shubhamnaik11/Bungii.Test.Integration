@@ -32,7 +32,7 @@ public class DbContextManager {
             ResultSet rs = statement.executeQuery(queryString);
             while (rs.next()) {
                 result = rs.getString(1);
-                logger.detail("MS SQL SERVER DATA " + result);
+             //   logger.detail("MS SQL SERVER DATA " + result);
             }
             conn.close();
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class DbContextManager {
             ResultSet rs = stmt.executeQuery(queryString);
             while (rs.next()) {
                 result = rs.getString(1);
-                logger.detail("MY SQL SERVER DATA : " + result);
+               // logger.detail("MY SQL SERVER DATA : " + result);
             }
             con.close();
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class DbContextManager {
             while (rs.next()) {
                 result = rs.getString(1);
 
-                logger.detail("MY SQL SERVER DATA " + result);
+               // logger.detail("MY SQL SERVER DATA " + result);
                 if(result.equals(expectedString)){
                     isDataPresent=true;
                     break;
@@ -99,7 +99,7 @@ public class DbContextManager {
             ResultSet rs = stmt.executeQuery(queryString);
             while (rs.next()) {
                 result = rs.getString(1);
-                logger.detail("MY SQL SERVER DATA " + result);
+               // logger.detail("MY SQL SERVER DATA " + result);
             }
             con.close();
         } catch (Exception e) {

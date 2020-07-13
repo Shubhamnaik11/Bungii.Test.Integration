@@ -49,7 +49,9 @@ public class ReportManager {
 			FileUtility.makeFolder(this.screenshotFolder);
 			FileUtility.makeFolder(this.miscFolder);
 			FileUtility.copyFile(FileUtility.getSuiteResource(PropertyUtility.getResultConfigProperties("LOGO_DIRECTORY"), PropertyUtility.getResultConfigProperties("LOGO_FILENAME")),this.miscFolder+"/"+PropertyUtility.getResultConfigProperties("LOGO_FILENAME"));
-			} catch (Exception e) {
+			FileUtility.copyFile(FileUtility.getSuiteResource(PropertyUtility.getResultConfigProperties("LOGO_DIRECTORY"), PropertyUtility.getResultConfigProperties("DOWNLOAD_LOGO")),this.miscFolder+"/"+PropertyUtility.getResultConfigProperties("DOWNLOAD_LOGO"));
+
+		} catch (Exception e) {
 				logger.handleError("Error while creating HTML report folder", e);
 			}
 	}

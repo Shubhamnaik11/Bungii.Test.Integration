@@ -660,7 +660,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_VIEW);
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+       // response.then().log().body();
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -894,7 +894,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
         ApiHelper.genericResponseValidation(response);
-        response.then().log().body();
+       // response.then().log().body();
         return response;
 
     }

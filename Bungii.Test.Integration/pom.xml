@@ -254,7 +254,7 @@
                             <customVmTemplate>\src\test\resources\cucumber-custom-runner.vm</customVmTemplate>
                             <parallelScheme>FEATURE</parallelScheme>
                             <namingScheme>pattern</namingScheme>
-                            <namingPattern>Parallel{c}IT</namingPattern>
+                            <namingPattern>TG{c}IT</namingPattern>
                             <!-- 							If set to true, only feature files containing the required tags
                                                             shall be generated.
                                                        Excluded tags (~@notMe) are ignored. -->

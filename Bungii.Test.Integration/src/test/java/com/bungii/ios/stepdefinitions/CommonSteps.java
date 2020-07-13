@@ -206,7 +206,29 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen for first time promocode$")
+    public void iClickButtonOnScreenforFirstTime(String button, String screen) {
+        try {
 
+            switch (button.toUpperCase()) {
+
+                case "ADD":
+                        action.click(promosPage.Button_Add());
+                    break;
+                default:
+                    error("UnImplemented Step or incorrect button name",
+                            "UnImplemented Step");
+                    break;
+            }
+            log("Click " + button + " button ",
+                    "Clicked " + button + " button", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -251,6 +273,7 @@ public class CommonSteps extends DriverBase {
                     if (screen.equalsIgnoreCase("SIGN UP")) {
                         action.hideKeyboard();
                         action.swipeUP();
+                        action.click(signupPage.Textfield_Phonenumber()); //added to address swipe
                         action.click(signupPage.Button_Signup());
                     } else
                         action.click(loginPage.Button_SignUp());
@@ -449,7 +472,7 @@ public class CommonSteps extends DriverBase {
             GeneralUtility utility = new GeneralUtility();
             isCorrectPage = utility.verifyPageHeader(screen);
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
-                    "I should be navigated to " + screen, "I was not navigated to " + screen + "screen ");
+                    "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -579,6 +602,7 @@ public class CommonSteps extends DriverBase {
                 iClickButtonOnScreen("SIGN UP", "sign up");
             else {
                 homeSteps.i_select_something_from_customer_app_menu("LOGOUT");
+                Thread.sleep(10000);
                 iClickButtonOnScreen("SIGN UP", "sign up");
 
             }

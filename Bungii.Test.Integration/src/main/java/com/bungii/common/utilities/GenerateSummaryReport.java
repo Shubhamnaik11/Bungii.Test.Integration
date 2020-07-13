@@ -39,6 +39,7 @@ public class GenerateSummaryReport {
                 String environment = args[3];
 
                 configFilePath = Paths.get(mainFolder);
+                CopyMiscFolder();
                 //get List of File
                 List<String> listOfResultFile = getListOfResultFile();
                 int testCount = 1;
@@ -110,6 +111,7 @@ public class GenerateSummaryReport {
                 {
                     createResultFileFromFailedSummaryTemplate(platform, category, environment);
                     CopyScreenshotsToDirectory();
+
                     System.out.println("Generated failedsummary.html");
 
                 }
@@ -192,24 +194,57 @@ public class GenerateSummaryReport {
                 .collect(toList());
         return listOfScreenshotFile;
     }
-
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static List<String> getLogos() throws IOException {
+        List<String> listOfScreenshotFile = Files.walk(configFilePath)
+                .filter(s -> s.toString().endsWith(".PNG")).map((p) -> p.getParent() + "/" + p.getFileName())
+                .sorted()
+                .collect(toList());
+        return listOfScreenshotFile;
+    }
     /**
      * @return return List of HTML file
      * @throws IOException
      */
     public static void CopyScreenshotsToDirectory() throws IOException {
         try {
-        List<String> listOfScreenshotFile = getScreenshots();
-        Path targetDirectory = Paths.get(configFilePath+"/Screenshot");
-        File directory = new File(String.valueOf(targetDirectory));
-       if(!directory.exists()) {
-           directory.mkdir();
-       }
-        for(String file : listOfScreenshotFile) {
-            Files.copy(Paths.get(file),
-                    (new File(directory +"/"+ Paths.get(file).getFileName().toString())).toPath(),
-                    StandardCopyOption.REPLACE_EXISTING);
+            List<String> listOfScreenshotFile = getScreenshots();
+            Path targetDirectory = Paths.get(configFilePath+"/Screenshot");
+            File directory = new File(String.valueOf(targetDirectory));
+            if(!directory.exists()) {
+                directory.mkdir();
+            }
+            for(String file : listOfScreenshotFile) {
+                Files.copy(Paths.get(file),
+                        (new File(directory +"/"+ Paths.get(file).getFileName().toString())).toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
+    }
+    /**
+     * @return return List of HTML file
+     * @throws IOException
+     */
+    public static void CopyMiscFolder() throws IOException {
+        try {
+            List<String> listOfScreenshotFile = getLogos();
+            Path targetDirectory = Paths.get(configFilePath+"/Misc");
+            File directory = new File(String.valueOf(targetDirectory));
+            if(!directory.exists()) {
+                directory.mkdir();
+            }
+            for(String file : listOfScreenshotFile) {
+                Files.copy(Paths.get(file),
+                        (new File(directory +"/"+ Paths.get(file).getFileName().toString())).toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+                break; //Only single
+            }
         } catch (Exception e) {
             e.printStackTrace();
 

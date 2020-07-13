@@ -53,6 +53,7 @@ Feature: Payment page
     #From sprint30 , we can delete the default card
   @sanity
   @regression
+    @sanityfailure
   Scenario Outline: Verify Customer Can Delete Payment Card
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page

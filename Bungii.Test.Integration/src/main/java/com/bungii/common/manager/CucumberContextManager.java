@@ -59,7 +59,7 @@ public class CucumberContextManager {
      *
      */
     public  void clearSecnarioContextMap(){
-        System.out.println("***CLEARING SCENARIO CONTEXT***");
+      //  System.out.println("***CLEARING SCENARIO CONTEXT***");
         scenarioContext = new HashMap<>();
 
     }

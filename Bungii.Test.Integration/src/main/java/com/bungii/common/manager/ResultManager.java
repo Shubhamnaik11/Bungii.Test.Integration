@@ -49,7 +49,7 @@ public class ResultManager {
        // reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), screenDump));
 
         reportManager.addTestData(getDataMap(name, expected, actual, ResultType.PASSED.toString(), false));
-        logger.detail("PASS| Step : " + name + ", Expected is : " + expected + " and Actual is : " + actual);
+        logger.detail("TEST STEP - PASS| Actual Result : " + actual);
     }
 
     /**

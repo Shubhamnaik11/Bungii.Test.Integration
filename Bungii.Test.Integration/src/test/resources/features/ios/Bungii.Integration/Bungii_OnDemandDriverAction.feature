@@ -59,7 +59,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "Home" screen
 
     When I Switch to "customer" application on "same" devices
@@ -86,7 +86,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I should be navigated to "Home" screen
 
     When I Switch to "customer" application on "same" devices
@@ -137,7 +137,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Switch to "driver" application on "same" devices
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     And I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed
@@ -188,7 +188,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Switch to "driver" application on "same" devices
     When I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     And I Switch to "customer" application on "same" devices
     Then Alert message with DRIVER CANCELLED text should be displayed

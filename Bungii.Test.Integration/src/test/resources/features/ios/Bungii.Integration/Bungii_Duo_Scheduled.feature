@@ -5,8 +5,7 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @capability
-  @ready
+  @sanityfailure
   @sanity
   Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
 
@@ -1020,6 +1019,7 @@ Feature: To Test Duo - Scheduled Bungii
   @failed
   @ready
   @sanity
+    @sanityfailure
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
     Given that duo schedule bungii is in progress
@@ -1093,7 +1093,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I should not get notification for "driver" for "stack trip"
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then Alert message with TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED text should be displayed
     Then Alert should have "cancel,proceed" button
     When I click "Cancel" on alert message
@@ -1190,7 +1190,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     When I switch to "ORIGINAL" instance
     #message to driver
@@ -1217,7 +1217,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I wait for "1" mins
 
     When I switch to "ORIGINAL" instance
@@ -1243,7 +1243,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
