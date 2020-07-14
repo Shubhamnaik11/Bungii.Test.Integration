@@ -19,10 +19,13 @@
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8170,
-    "showXcodeLog": true
+    "showXcodeLog": true,
+    "xcodeOrgId": "4GY29N8HFP",
+    "xcodeSigningId": "iPhone Developer"
+
   },
   "device1": {
-    
+
     "platformName": "iOS",
     "platformVersion": "11.2.5",
     "automationName": "XCUITest",
@@ -41,7 +44,9 @@
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
     "wdaLocalPort": 8190,
-    "showXcodeLog": true
+    "showXcodeLog": true,
+    "xcodeOrgId": "4GY29N8HFP",
+    "xcodeSigningId": "iPhone Developer"
   },
 
   "connection": {
