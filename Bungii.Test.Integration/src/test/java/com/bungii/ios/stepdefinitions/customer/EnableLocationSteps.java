@@ -20,7 +20,7 @@ public class EnableLocationSteps extends DriverBase {
     public void i_allow_access_of_location_from_bungii_application() throws Throwable {
         try {
             action.click(enableLocationPage.Button_Sure());
-            testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.location.alert.text"));
+            //testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.location.alert.text"));
             action.clickAlertButton("Allow While Using App");  //Customer App alert
 
             pass("I 'Allow While Using App' access of Location from Bungii Customer application", "I clicked on 'Allow While Using App' button",
