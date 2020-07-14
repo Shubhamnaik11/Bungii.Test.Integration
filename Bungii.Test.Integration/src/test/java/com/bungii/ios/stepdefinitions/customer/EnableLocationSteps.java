@@ -21,13 +21,13 @@ public class EnableLocationSteps extends DriverBase {
         try {
             action.click(enableLocationPage.Button_Sure());
             testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.location.alert.text"));
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Allow While Using App");  //Customer App alert
 
-            pass("I allow access of Location from Bungii application", "I clicked on allow button",
+            pass("I 'Allow While Using App' access of Location from Bungii Customer application", "I clicked on 'Allow While Using App' button",
                     true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+            error("Should accept Allow While Using App permission", "Error performing step,Please check logs for more details", true);
         }
     }
 
