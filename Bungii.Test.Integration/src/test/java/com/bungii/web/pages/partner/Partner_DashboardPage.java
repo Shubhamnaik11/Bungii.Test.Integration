@@ -64,7 +64,7 @@ public class Partner_DashboardPage extends PageBase {
 
     //Pickup Time dropdown
     public WebElement Dropdown_Pickup_Time() { return findElement("//div[@class='MuiFormControl-root pickup-time']",LocatorType.XPath);}
-    public WebElement Pickup_Time3_() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][3]",LocatorType.XPath);}
+    public WebElement Pickup_Time1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
 
     //Get Estimate Button
     public WebElement Button_Get_Estimate() { return findElement("get-estimate",LocatorType.Id);}

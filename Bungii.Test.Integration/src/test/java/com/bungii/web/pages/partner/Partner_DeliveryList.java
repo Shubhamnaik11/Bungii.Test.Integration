@@ -5,6 +5,9 @@ import org.openqa.selenium.WebElement;
 
 public class Partner_DeliveryList extends PageBase {
 
+    //Delivery Date Text
+    public WebElement Text_Delivery_Date() { return findElement("//tr[@class='MuiTableRow-root jss171 jss172 MuiTableRow-hover']/td[2]",LocatorType.XPath);}
+
     //Customer Name Text
     public WebElement Text_Customer() { return findElement("//tr[@class='MuiTableRow-root jss171 jss172 MuiTableRow-hover']/td[4]",LocatorType.XPath);}
 
@@ -34,5 +37,14 @@ public class Partner_DeliveryList extends PageBase {
 
     //Cancel message
     public WebElement Message_Cancel_Trip() { return findElement("//p[@class='trip-Canceled-text']",LocatorType.XPath);}
+
+    //Status Filter dropdown
+    public WebElement Dropdown_Partner_Status() { return findElement("//a[@class='caret']",LocatorType.XPath);}
+
+    //Completed Status Checkbox
+    public WebElement Checkbox_Completed_Status() { return findElement("//label[contains(text(),'Completed')]",LocatorType.XPath);}
+
+    //Apply button for status filter
+    public WebElement Button_Apply() { return findElement("//button[@class='btn']",LocatorType.XPath);}
 
 }

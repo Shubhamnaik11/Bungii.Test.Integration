@@ -8,6 +8,9 @@ public class Partner_DeliveryPage extends PageBase {
     //Delivery Details Header Text
     public WebElement Text_Delivery_Details_Header() { return findElement("//h1[contains(text(),'Delivery Details')]", LocatorType.XPath); }
 
+    //Pickup DateTime Text
+    public WebElement Text_Pickup_DateTime() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following::p[1]",LocatorType.XPath);}
+
     //Back To Estimate Link
     public WebElement Link_Back_To_Estimate() { return findElement("//span[@class='back']",LocatorType.XPath);}
 
@@ -72,6 +75,7 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Radio_Button_Partner_Pay() { return findElement("//label[contains(text(),'Partner Pay')]",LocatorType.XPath);}
 
     //Schedule Bungii button
-    public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
+    //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
+    public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']//img",LocatorType.XPath);}
 
 }

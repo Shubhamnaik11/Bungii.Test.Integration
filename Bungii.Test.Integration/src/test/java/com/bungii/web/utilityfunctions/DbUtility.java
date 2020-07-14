@@ -22,6 +22,12 @@ public class DbUtility extends DbContextManager {
         return smsCode;
     }
 
+    public static String getScheduledTime(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return Scheduled_Time;
+    }
+
     public static String getPickupRef(String customerPhone){
         String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
         String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
@@ -89,4 +95,23 @@ public class DbUtility extends DbContextManager {
         logger.detail("Ondemand Start time  " + ondemandStartTime + " of PickupRef " + pickupref );
         return ondemandStartTime;
     }
+
+    public static String getEstimateDistance() {
+    String Estimate_distance;
+    String queryString = "SELECT EstDistance,Est FROM pickupdetails order by  pickupid desc limit 1";
+    Estimate_distance = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Distance=  " + Estimate_distance + " of latest trip" );
+        return Estimate_distance;
+
+    }
+
+    public static String getEstimateTime() {
+        String Estimate_time;
+        String queryString = "SELECT EstTime FROM pickupdetails order by  pickupid desc limit 1";
+        Estimate_time = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
+        return Estimate_time;
+
+    }
+
 }

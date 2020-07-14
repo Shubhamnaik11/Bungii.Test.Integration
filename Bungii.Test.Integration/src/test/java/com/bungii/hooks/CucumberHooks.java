@@ -193,6 +193,10 @@ public class CucumberHooks {
                     new BungiiSteps().recoveryScenario();
                     new com.bungii.android.utilityfunctions.GeneralUtility().recoverScenario();
                     SetupManager.getObject().useDriverInstance("ORIGINAL");
+                } else if (PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
+                    new GeneralUtility().hideNotifications();
+                    new BungiiSteps().recoveryScenario();
+                    new GeneralUtility().recoverScenario();
                 }
                 isTestcaseFailed = true;
             } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {

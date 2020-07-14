@@ -119,6 +119,7 @@ public class GeneralUtility extends DriverBase {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
 
+
         action.openNewTab();
         action.navigateTo(adminURL);
         action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
@@ -790,5 +791,49 @@ public class GeneralUtility extends DriverBase {
         String st = new String(ch);
         return st;
     }
+
+    /**
+     * Calculate estimate cost of trip check if less than minimum cost then
+     * return minimum cost
+     *
+     * @param tripDistance Trip distance
+     * @param loadTime     load / unload time
+     * @param estTime      estimate trip complete time
+     * @param Promo        Promo
+     * @return
+     */
+    public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
+        //get bungii type and current geofence type.
+        String bungiiType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
+                perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
+                perMinutesValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.minutes"));
+
+        //Get trip distance from db instead of screen
+        double distance = Double.parseDouble(tripDistance.trim());
+        //     double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
+        double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
+        double tripTime = Double.parseDouble(estTime);
+
+        double estimateCost = distance * perMileValue + loadUnloadTime * perMinutesValue + tripTime * perMinutesValue;
+        //check if trip is duo trip , if yes then double estimate cost
+        if (bungiiType.equalsIgnoreCase("DUO"))
+            estimateCost = estimateCost * 2;
+        //Subtract discount value from estimate cost
+        Promo = Promo.contains("ADD") ? "0" : Promo;
+        double discount = 0;
+        if (Promo.contains("$"))
+            discount = Double.parseDouble(Promo.replace("-$", ""));
+        else if (Promo.contains("%"))
+            discount = estimateCost * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
+        estimateCost = estimateCost - discount;
+        //Check if estimate is greater than min
+        estimateCost = estimateCost > minCost ? estimateCost : minCost;
+
+        return estimateCost;
+    }
+
 }
 

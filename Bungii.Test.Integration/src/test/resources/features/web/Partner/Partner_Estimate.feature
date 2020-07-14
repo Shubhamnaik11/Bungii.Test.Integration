@@ -7,8 +7,18 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
+      Scenario: Verify that correct estimate cost calculated for Solo Bungii
+        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence for status
+          | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+          | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+        And I select Pickup Date and Pickup Time
+          |PickUp_Date  |PickUp_Time          |
+          |Today+1      |5th quarter          |
+        And I click "GET ESTIMATE" button on Partner Portal
+        Then I should see correct estimated price
+
     @regression
-      Scenario:Verify If Partner User Cancel OnDemand Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
+      Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
         When I request for "Solo" Bungii trip in partner portal
           | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
           | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |

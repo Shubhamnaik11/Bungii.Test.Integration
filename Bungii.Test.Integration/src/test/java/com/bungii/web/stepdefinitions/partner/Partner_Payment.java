@@ -136,7 +136,7 @@ public class Partner_Payment extends DriverBase {
         action.switchToFrame("CardNumber_Frame");
         action.click(Page_Partner_Delivery.TextBox_Card_Number());
         action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(),cardNo);
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
         action.switchToFrame("Main");
 
         action.switchToFrame("Expiry_Frame");
@@ -153,6 +153,6 @@ public class Partner_Payment extends DriverBase {
         action.click(Page_Partner_Delivery.TextBox_Postal_Code());
         action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
         action.switchToFrame("Main");
-
+        Thread.sleep(1000);
     }
 }

@@ -15,7 +15,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.log;
@@ -44,6 +49,7 @@ public class Partner_LoginSteps extends DriverBase {
             case "Bungii Admin Portal in new tab":
                 utility.AdminLoginFromPartner();
                 break;
+            case "Partner Portal Tab":
             default:break;
         }
         pass("I should be navigate to " + page,
@@ -107,8 +113,7 @@ public class Partner_LoginSteps extends DriverBase {
     }
 
     @Then("^I should \"([^\"]*)\"$")
-    public void IShould(String str)
-    {
+    public void IShould(String str) throws ParseException {
         switch (str)
         {
             case "be logged in":
@@ -124,21 +129,47 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             case "see Delivery Details screen":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
+                String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
+
+                StringBuilder sb = new StringBuilder(PickupDateTime);
+                sb.setCharAt(3,'(');
+                PickupDateTime = sb.toString();
+
+                PickupDateTime = PickupDateTime.replaceAll("[()]","");
+
+
+                //String TimeZone_text = "";
+               // DateFormat format = new SimpleDateFormat("MMM dd, yyyy 'at' HH:MM aa (Z)");
+                //Date PickupDateTime = format.parse(PUDT);
+
+                cucumberContextManager.setScenarioContext("PickupDateTime",PickupDateTime);
                 break;
             case "see Done screen":
                 String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CustomerPhone");
                 testStepVerify.isEquals(action.getText(Page_Partner_Done.Text_Schedule_Done_Success_Header()), PropertyUtility.getMessage("Done_Success_Header"));
                 String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
-                String ScheduledTime = new DbUtility().getScheduledTime(Customer_Phone);
-                cucumberContextManager.setScenarioContext("Scheduled_Time",ScheduledTime);
+                //String ScheduledTime = new DbUtility().getScheduledTime(Customer_Phone);
+                //String FromFormat="yyyy-mm-dd HH:mm:ss";
+                //String ToFormat ="MMM dd, YYYY at HH:mm aa z";
+                //String date = utility.GetDateInFormat(ScheduledTime,FromFormat,ToFormat);
+                //String ST = DateFormat("MMM dd, YYYY at HH:mm aa z",ScheduledTime);
+                //cucumberContextManager.setScenarioContext("Scheduled_Time",date);
                 cucumberContextManager.setScenarioContext("pickupRequest",PickupRequest);
-                cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
+               // cucumberContextManager.setScenarioContext("PICKUP_REQUEST",PickupRequest);
                 break;
             case "see the trip in the Delivery List":
                 //String Customer_Name = null;
-                String DeliveryDate = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+               // String DeliveryDace = (String) cucumberContextManager.getScenarioContext("Scheduled_Time");
+                String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
                 String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+
+                try {
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Date()), Delivery_Date);
+                }
+                catch (org.openqa.selenium.StaleElementReferenceException ex){
+                    testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Date()), Delivery_Date);
+                }
 
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Customer()),CustomerName);
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Address()),DeliveryAddress);

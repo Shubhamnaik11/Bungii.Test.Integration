@@ -83,11 +83,21 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "Today");
-
+        //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
+    @And("^I view the partner portal Scheduled Trips list on the admin portal$")
+    public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
+        action.click(admin_TripsPage.Menu_Trips());
+        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
+    }
+
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
         String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
@@ -233,6 +243,7 @@ public class Admin_TripsSteps extends DriverBase {
             action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
             action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
 
+
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
@@ -325,7 +336,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^Enter the End Date and Time$")
     public void enter_the_end_date_time() throws Throwable {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E(MMM dd)");
 
 
         String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();

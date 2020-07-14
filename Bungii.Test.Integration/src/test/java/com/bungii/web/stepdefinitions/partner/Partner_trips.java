@@ -19,6 +19,7 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -27,13 +28,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.StaleElementReferenceException;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -73,6 +74,7 @@ public class Partner_trips extends DriverBase {
         int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
         ///cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
+
 
         switch (Type)
         {
@@ -179,12 +181,12 @@ public class Partner_trips extends DriverBase {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String PickupDate =dataMap.get("PickUp_Date");
         String PickUpTime =dataMap.get("PickUp_Time");
+        String strTime = "";
 
-        Date today = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(today);
-
-        int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (PickupDate.equalsIgnoreCase("NEXT_POSSIBLE")) {
+            strTime = enterTime(PickUpTime);
+            strTime=strTime.replace("am","AM").replace("pm","PM");
+        }
 
         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
 
@@ -208,8 +210,23 @@ public class Partner_trips extends DriverBase {
 
         }
 
-        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
-        action.click(Page_Partner_Dashboard.Pickup_Time3_());
+       // action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
+       // action.click(Page_Partner_Dashboard.Pickup_Time3_());
+
+    }
+
+    @And("^I select Next Possible Pickup Date and Pickup Time$")
+    public  void i_select_next_possible_pickupdate_time(DataTable data) throws Throwable {
+
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        //String PickupDate =dataMap.get("PickUp_Date");
+        String Next_PickUpTime =dataMap.get("Trip_Time");
+        String strTime = "";
+
+        //if (Next_PickUpTime.equalsIgnoreCase("NEXT_POSSIBLE")) {
+            strTime = enterTime(Next_PickUpTime);
+            strTime=strTime.replace("am","AM").replace("pm","PM");
+
 
     }
 
@@ -223,7 +240,7 @@ public class Partner_trips extends DriverBase {
                 String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
                 String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
                 String Estimated_Cost = Split_Total_estimated_Cost[1];
-                cucumberContextManager.setScenarioContext("OldEstimatedCost",Estimated_Cost);
+                cucumberContextManager.setScenarioContext("Estimated_Cost",Estimated_Cost);
                 testStepVerify.isEquals(Estimated_Cost_Label, PropertyUtility.getMessage("Estimated_Cost_Label"));
                 break;
             case "see validation message for mandatory fields":
@@ -254,6 +271,8 @@ public class Partner_trips extends DriverBase {
         String Pickup_Address;
         String Delivery_Address;
 
+        //cucumberContextManager.setScenarioContext("BUNGII_TYPE", Type);
+        cucumberContextManager.setScenarioContext("Partner_Bungii_type",Type);
         if(geofence.equalsIgnoreCase("washingtondc")) {
             //String Pickup_Address = dataMap.get("Pickup_Address");
             Pickup_Address = PropertyUtility.getDataProperties("partner.pickup.washingtondc");
@@ -272,7 +291,6 @@ public class Partner_trips extends DriverBase {
         int numberOf_Driver = dataMap.get("Driver").trim().equalsIgnoreCase("duo") ? 2 :1;
 
         cucumberContextManager.setScenarioContext("GEOFENCE", geofence);
-        cucumberContextManager.setScenarioContext("BUNGII_TYPE", Type);
 
         switch (Type)
         {
@@ -299,21 +317,27 @@ public class Partner_trips extends DriverBase {
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",15);
                         break;
                     case "30 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_30());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",30);
                         break;
                     case "45 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_45());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",45);
                         break;
                     case "60 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_60());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",60);
                         break;
                     case "75 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_75());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",75);
                         break;
                     case "90+ minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_90());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",90);
                         break;
                     default:break;
                 }
@@ -468,7 +492,7 @@ public class Partner_trips extends DriverBase {
         String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
         //String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
         String New_Estimated_Cost = Split_Total_estimated_Cost[1];
-        String Old_Estimated_Cost = (String)cucumberContextManager.getScenarioContext("OldEstimatedCost");
+        String Old_Estimated_Cost = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
 
         testStepVerify
                 .isFalse(New_Estimated_Cost.equals(Old_Estimated_Cost),
@@ -479,6 +503,37 @@ public class Partner_trips extends DriverBase {
 
     }
 
+    @Then("^I should see correct estimated price$")
+    public void i_should_see_correct_estimated_price(){
+        try {
+            //String distance = (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE");
+            //String estimate = (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE");
+            String estimate = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
+            //estimate = estimate.replace("~$", "");
+            String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME");
+            //com.bungii.ios.utilityfunctions.GeneralUtility utility = new com.bungii.ios.utilityfunctions.GeneralUtility();
+            com.bungii.web.utilityfunctions.GeneralUtility utility = new com.bungii.web.utilityfunctions.GeneralUtility();
+            //get data from DB instead of Phone Screen
+            //TODO: verify DB and phone value
+            String totalDistance = dbUtility.getEstimateDistance();
+            String totalEstimateTime = dbUtility.getEstimateTime();
+
+
+            double expectedValue = utility.bungiiEstimate(totalDistance, loadTime, totalEstimateTime, "");
+
+            String actualValue = estimate.substring(0, estimate.length() - 1);
+            String truncValue = new DecimalFormat("#.00").format(expectedValue);
+            //  String truncValue = new DecimalFormat("#.##").format(expectedValue);
+            testStepVerify.isEquals(estimate.trim(), truncValue.trim(), "Estimate value for trip should be properly displayed.(NOTE: Failure might me due to truncation)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + actualValue + ",(Truncate to single float point)", "Expected Estimate value for bungii is" + truncValue + " and Actual value is" + estimate);
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+
+
+    }
+
     @Then("^I should be able to see the respective bungii partner portal trip with the below status$")
     public void i_should_be_able_to_see_the_respective_bungii_partner_portal_trip_with_the_below_status(DataTable data) throws Throwable {
         try {
@@ -486,9 +541,9 @@ public class Partner_trips extends DriverBase {
             String status = dataMap.get("Status").trim();
             //String tripTypeAndCategory = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
             //String tripType[] = tripTypeAndCategory.split(" ");
-            String tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
-            String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
-            String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
+            String tripType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+   //         String driver1 = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+     //       String driver2 = (String) cucumberContextManager.getScenarioContext("DRIVER_2");
             String customer = (String) cucumberContextManager.getScenarioContext("Customer_Name");
             String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
             String pickupRef = (String) cucumberContextManager.getScenarioContext("pickupRequest");
@@ -502,9 +557,9 @@ public class Partner_trips extends DriverBase {
             action.click(admin_LiveTripsPage.Button_Search());
 
             cucumberContextManager.setScenarioContext("STATUS", status);
-            String driver = driver1;
-            if (tripType.equalsIgnoreCase("duo"))
-                driver = driver1 + "," + driver2;
+       //     String driver = driver1;
+         //   if (tripType.equalsIgnoreCase("duo"))
+           //     driver = driver1 + "," + driver2;
             if (status.equalsIgnoreCase("Scheduled") || status.equalsIgnoreCase("Searching Drivers") || status.equalsIgnoreCase("Driver Removed")) {
                 String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[5]", tripType.toUpperCase(), customer);
                 int retrycount = 10;
@@ -515,16 +570,31 @@ public class Partner_trips extends DriverBase {
                         WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), 10);
                         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
                         retry = false;
+
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
                         //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
                         //action.click(admin_ScheduledTripsPage.Order_Initial_Request());
                         retrycount--;
                         retry = true;
                     }
 
                 }
+
+                Thread.sleep(3000);
+                int retryCount = 1;
+                String str1="";
+                do{
+                    if (retryCount >= 20) break;
+                    action.refreshPage();
+                    str1 = action.getElementByXPath(xpath).getText();
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
+                }while (!str1.equalsIgnoreCase(status));
+
+
+                /*
                 Thread.sleep(3000);
                 int retryCount = 1;
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))).equalsIgnoreCase(status)) {
@@ -533,13 +603,17 @@ public class Partner_trips extends DriverBase {
                     Thread.sleep(15000); //Wait for 15 seconds
                     retryCount++;
                 }
+                */
+
                 cucumberContextManager.setScenarioContext("XPATH", xpath);
+                String St2 = status;
+                String St1 = action.getElementByXPath(xpath).getText();
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
-            } else {
+        } else {
                 //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType), driver, customer);
-
+                //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType), driver, customer);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", tripType, customer);
                 int retrycount = 10;
 
                 boolean retry = true;
@@ -551,7 +625,7 @@ public class Partner_trips extends DriverBase {
                     } catch (Exception ex) {
                         SetupManager.getDriver().navigate().refresh();
                         //action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
-                        action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+                        //action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
                         //action.click(admin_ScheduledTripsPage.Order_Initial_Request());
                         retrycount--;
                         retry = true;
@@ -560,15 +634,29 @@ public class Partner_trips extends DriverBase {
                 }
                 Thread.sleep(3000);
                 int retryCount = 1;
+                String str1="";
+                do{
+                    if (retryCount >= 20) break;
+                    action.refreshPage();
+                    str1 = action.getElementByXPath(XPath).getText();
+                    Thread.sleep(15000); //Wait for 15 seconds
+                    retryCount++;
+                }while (!str1.equalsIgnoreCase(status));
+
+                /*
                 while (!action.getText(SetupManager.getDriver().findElement(By.xpath(XPath))).equalsIgnoreCase(status)) {
                     if (retryCount >= 20) break;
                     action.refreshPage();
                     Thread.sleep(15000); //Wait for 15 seconds
                     retryCount++;
                 }
+
+                 */
                 cucumberContextManager.setScenarioContext("XPATH", XPath);
                 testStepAssert.isElementTextEquals(action.getElementByXPath(XPath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
+
             }
+            //tripType = (String) cucumberContextManager.getScenarioContext("BUNGII_TYPE");
         }
         catch(Exception e)
         {
@@ -579,6 +667,37 @@ public class Partner_trips extends DriverBase {
         }
 
     }
+
+    @And("^I navigate to partner portal and view the Trip status with below status$")
+    public void i_view_the_scheduled_trips_list_on_the_partner_portal_with_some_status(DataTable data) throws InterruptedException {
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        String Partner_Status = dataMap.get("Partner_Status").trim();
+        ArrayList<String> tabs = new ArrayList<String> (SetupManager.getDriver().getWindowHandles());
+        SetupManager.getDriver().switchTo().window(tabs.get(0));
+
+        String Delivery_Date = (String) cucumberContextManager.getScenarioContext("PickupDateTime");
+        String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
+        String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
+
+        if(Partner_Status.equalsIgnoreCase("Completed")){
+            action.click(Page_Partner_Delivery_List.Dropdown_Partner_Status());
+            action.click(Page_Partner_Delivery_List.Checkbox_Completed_Status());
+            action.click(Page_Partner_Delivery_List.Button_Apply());
+            Thread.sleep(2000);
+            action.click(Page_Partner_Delivery_List.Dropdown_Partner_Status());
+        }
+
+        String xpath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[4]", Delivery_Date, CustomerName);
+        if(!Partner_Status.equalsIgnoreCase("Completed")) {
+            action.refreshPage();
+        }
+        Thread.sleep(1000);
+        testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), Partner_Status, "Trip Status " + Partner_Status + " should be updated", "Trip Status " + Partner_Status + " is updated", "Trip Status " + Partner_Status + " is not updated");
+        if(!Partner_Status.equalsIgnoreCase("Completed")) {
+            SetupManager.getDriver().switchTo().window(tabs.get(1));
+        }
+    }
+
     public String getGeofence(String geofence) {
         String geofenceName = "";
         switch (geofence) {
@@ -590,6 +709,92 @@ public class Partner_trips extends DriverBase {
         return geofenceName;
     }
 
+    public String enterTime(String time) throws ParseException {
+        String strTime = "";
+
+        if (time.equalsIgnoreCase("NEXT_POSSIBLE")) {
+            Date date = getNextScheduledBungiiTime();
+           // String[] dateScroll = bungiiTimeForScroll(date);
+            strTime = bungiiTimeDisplayInTextArea(date);
+
+           // selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
+
+            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
+            action.click(Page_Partner_Dashboard.Pickup_Time1());
+        }
+        return strTime;
+    }
+
+        /**
+         * Read property file for minimum difference for next bunii time
+         *
+         * @return next possible valid bungii time
+         */
+        public Date getNextScheduledBungiiTime() {
+            return getFormatedTime();
+        }
+
+    public Date getFormatedTime() {
+        Date date1 = Calendar.getInstance().getTime();
+        try {
+            date1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(getDateForTimeZone());
+            System.out.println("\t" + date1);
+        } catch (Exception e) {
+        }
+
+        return date1;
+    }
+
+    public String getDateForTimeZone() {
+        String geofenceLabel = utility.getTimeZoneBasedOnGeofenceId();
+        int nextTripTime = Integer.parseInt(PropertyUtility.getProp("scheduled.bungii.time"));
+        Calendar calendar = Calendar.getInstance();
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone(geofenceLabel));
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + nextTripTime);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, (15 - unroundedMinutes % 15));
+
+        String strdate = formatter.format(calendar.getTime());
+        return strdate;
+    }
+
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String bungiiTimeDisplayInTextArea(Date date) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, hh:mm a");
+        String formattedDate = sdf.format(date);
+        //After sprint 27 /26 IST is being added in scheduled page
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+
+        if (currentGeofence.equalsIgnoreCase("goa") || currentGeofence.equalsIgnoreCase(""))
+            formattedDate = formattedDate + " " + PropertyUtility.getDataProperties("time.label");
+        else
+            formattedDate = formattedDate + " " + utility.getTimeZoneBasedOnGeofence();
+        return formattedDate;
+    }
+
+    /**
+     * Format input date and return in required format
+     *
+     * @param date input date
+     * @return formated date
+     */
+    public String[] bungiiTimeForScroll(Date date) {
+        //get timezone
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE d MMM|h|mm|a");
+        String formattedDate = sdf.format(date);
+        String[] SplitDate = formattedDate.split("\\|");
+        if (DateUtils.isSameDay(date, new Date())) {
+            SplitDate[0] = "Today";
+        }
+        return SplitDate;
+    }
 
 
 }
