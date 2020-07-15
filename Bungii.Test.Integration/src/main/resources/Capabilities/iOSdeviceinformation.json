@@ -7,7 +7,7 @@
     "app": "com.bungii.customer",
     "otherApps":"com.bungii.driver",
     "deviceName": "iPhone 6-03",
-    "udid": "7bae8edff1f14caea680732db2e9c736273df0a",
+    "udid": "7bae8edff10f14caea680732db2e9c736273df0a",
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
