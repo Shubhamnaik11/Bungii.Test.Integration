@@ -2,12 +2,12 @@
 
   "extra1": {
     "platformName": "iOS",
-    "platformVersion": "13.5.1",
+    "platformVersion": "12.1",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
     "otherApps":"com.bungii.driver",
-    "deviceName": "iPhone 6S-01",
-    "udid": "9c8414b952bc0f72f9d51a232e5d1dba45efcce4",
+    "deviceName": "iPhone 6-03",
+    "udid": "7bae8edff1f14caea680732db2e9c736273df0a",
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
@@ -22,10 +22,8 @@
     "showXcodeLog": true,
     "xcodeOrgId": "3DV85RL7V3",
     "xcodeSigningId": "iPhone Developer"
-
   },
   "device1": {
-
     "platformName": "iOS",
     "platformVersion": "11.2.5",
     "automationName": "XCUITest",
