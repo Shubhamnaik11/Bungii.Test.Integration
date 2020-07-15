@@ -273,6 +273,8 @@ public class GenerateSummaryReport {
             totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
             totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
             totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
+            int total = passCount+failCount+inConclusiveCount;
+            totalStr = totalStr.replaceAll("<!--TOTAL.COUNT-->",  total + "");
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");
@@ -315,6 +317,8 @@ public class GenerateSummaryReport {
            // totalStr = totalStr.replaceAll("<!--LOGO.PATH-->", logoFilePath);
           //  totalStr = totalStr.replaceAll("<!--PLATFORM-->",  platform.toUpperCase());
            // totalStr = totalStr.replaceAll("<!--SUMARRY-->", listString);
+            int total = passCount+failCount+inConclusiveCount;
+            totalStr = totalStr.replaceAll("<!--TOTAL.COUNT-->",  total + "");
             totalStr = totalStr.replaceAll("<!--PASSED.COUNT-->", passCount + "");
             totalStr = totalStr.replaceAll("<!--FAILED.COUNT-->", failCount + "");
             totalStr = totalStr.replaceAll("<!--INCONCLUSIVE.COUNT-->", inConclusiveCount + "");

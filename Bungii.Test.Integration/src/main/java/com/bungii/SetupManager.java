@@ -462,8 +462,7 @@ public class SetupManager extends EventFiringWebDriver {
             ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
 
         }
-        System.out.println("Restarted App");
-
+        logger.detail("Restarted App : " + bundleId);
     }
 
     public void useDriverInstance(String instanceKey) {

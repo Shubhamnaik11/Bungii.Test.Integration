@@ -261,6 +261,9 @@ public class ReportGeneratorUtility extends DriverBase {
 
 
 		summaryArray.add(str1);
+		int totalExecuted = passed + failed;
+		logger.trace("FEATURE EXECUTION STATUS : PASS: "+ passed +" | FAIL: "+ failed + " | TOTAL EXECUTED : " + totalExecuted );
+
 	}
 
 	/**
