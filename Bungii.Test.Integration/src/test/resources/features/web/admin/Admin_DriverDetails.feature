@@ -81,6 +81,7 @@ Feature: Admin_DriverDetails
         | Drivers |
       And I search driver "Testdrivertywd_appleks_rathree Test"
       And I click on "Driver Trips" icon
+      And I click on "View Profile" Link
       Then I check if driver SSN is masked
 
       #need to create data on base for following testcase
@@ -91,6 +92,7 @@ Feature: Admin_DriverDetails
       | Drivers |
     And I search driver "Testdrivertywd_appleks_rathree Test"
     And I click on "Driver Trips" icon
+    And I click on "View Profile" Link
     Then I check if driver SSN is masked
 
   @regression

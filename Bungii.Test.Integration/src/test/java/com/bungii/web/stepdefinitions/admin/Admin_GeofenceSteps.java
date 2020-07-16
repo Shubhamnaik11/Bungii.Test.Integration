@@ -386,9 +386,9 @@ public class Admin_GeofenceSteps extends DriverBase {
     @Then("^check if error message is displayed for \"([^\"]*)\"$")
     public void check_if_error_message_is_displayed_for_something(String bungiiType) throws Throwable {
         String duoTime= (String) cucumberContextManager.getScenarioContext("MIN_TIME_DUO");
-        int duoTimeValue=Integer.parseInt(duoTime);
+
         String soloTime= (String) cucumberContextManager.getScenarioContext("MIN_TIME_SOLO");
-        int soloTimeValue=Integer.parseInt(duoTime);
+
 
         int dbValFromTime= Integer.parseInt(PropertyUtility.getDataProperties("schedule.pickup.from.time"));
         int dbValToTime=Integer.parseInt(PropertyUtility.getDataProperties("schedule.pickup.to.time"));
@@ -396,20 +396,38 @@ public class Admin_GeofenceSteps extends DriverBase {
         try{
             switch(bungiiType){
                 case "duo trip":
-                    if(duoTimeValue < dbValFromTime || duoTimeValue > dbValToTime || duoTimeValue < dbValMaxProcessTime) {
+                    int duoTimeValue=Integer.parseInt(duoTime);
+                    /*if(duoTimeValue <= dbValFromTime || duoTimeValue >= dbValToTime || duoTimeValue < dbValMaxProcessTime) {
                         testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should be displayed.", "Validation message is displayed ->"+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText(),"Validation message is not displayed.");
                     }
                     else{
                         testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText());
+                    }*/
+                    if(duoTimeValue >= dbValFromTime && duoTimeValue <= dbValToTime) {
+                        testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText());
+                        //testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should be displayed.", "Validation message is displayed ->"+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText(),"Validation message is not displayed.");
+                    }
+                    else{
+                        testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should be displayed.", "Validation message is displayed ->"+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText(),"Validation message is not displayed.");
+                        //testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForDuo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForDuo().getText());
                     }
                     break;
 
                 case "solo trip":
-                    if(soloTimeValue < dbValFromTime || soloTimeValue > dbValToTime  || soloTimeValue < dbValMaxProcessTime) {
+                    int soloTimeValue=Integer.parseInt(soloTime);
+                    /*if(soloTimeValue < dbValFromTime || soloTimeValue > dbValToTime  || soloTimeValue < dbValMaxProcessTime) {
                         testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should be displayed.", "Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText(),"Validation message is not displayed.");
                     }
                     else{
                         testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText());
+                    }*/
+                    if(soloTimeValue >= dbValFromTime && soloTimeValue <= dbValToTime) {
+                        testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText());
+                        //testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should be displayed.", "Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText(),"Validation message is not displayed.");
+                    }
+                    else{
+                        testStepAssert.isElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should be displayed.", "Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText(),"Validation message is not displayed.");
+                        //testStepAssert.isNotElementDisplayed(admin_GeofencePage.Text_ErrorScheduleTimeForSolo(),"Validation message should not be displayed.", "Validation message is not displayed.","Validation message is displayed -> "+ admin_GeofencePage.Text_ErrorScheduleTimeForSolo().getText());
                     }
                     break;
             }
@@ -422,6 +440,13 @@ public class Admin_GeofenceSteps extends DriverBase {
         }
 
     }
+
+    @Then("^Enter value should get saved and error message is not displayed$")
+    public void check_if_error_message_is_not_display_for_something() throws Throwable {
+                        testStepAssert.isElementDisplayed(admin_GeofencePage.Button_Settings(),"Setting button should be displayed.", "Setting button is displayed ->"+ admin_GeofencePage.Button_Settings().getText(),"Setting button is not displayed.");
+
+    }
+
     @And("^I change the value of \"([^\"]*)\" to \"([^\"]*)\" minutes$")
     public void i_change_the_value_of_something_to_something_minutes(String type, String timeValue) throws Throwable {
         try{

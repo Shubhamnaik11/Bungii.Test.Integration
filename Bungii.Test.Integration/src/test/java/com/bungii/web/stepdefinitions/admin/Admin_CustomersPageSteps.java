@@ -18,6 +18,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
     Admin_CustomerPage admin_customerPage = new Admin_CustomerPage();
     Admin_DriversPage admin_driversPage = new Admin_DriversPage();
     Admin_TripsPage admin_tripsPage = new Admin_TripsPage();
+    Admin_DashboardPage admin_dashboardPage = new Admin_DashboardPage();
     Admin_LiveTripsPage admin_liveTripsPage = new Admin_LiveTripsPage();
     Admin_ScheduledTripsPage admin_scheduledTripsPage = new Admin_ScheduledTripsPage();
 
@@ -83,6 +84,26 @@ public class Admin_CustomersPageSteps extends DriverBase {
                             action.clearSendKeys(admin_tripsPage.TextBox_Search(), driverLastName + Keys.ENTER);
                         }
                         Thread.sleep(2000);
+                        break;
+                }
+                break;
+            case "Dashboard search":
+                switch (strArg2){
+                    case "first name":
+                        if(strArg1.equalsIgnoreCase("customers")){
+                            action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),customerFirstName + Keys.ENTER);
+                        }else {
+                            action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(), driverFirstName + Keys.ENTER);
+                        }
+                        Thread.sleep(2000);
+                        break;
+                    case "last name":
+                        if(strArg1.equalsIgnoreCase("customers")){
+                            action.clearSendKeys(admin_customerPage.TextBox_SearchCustomer(), customerLastName + Keys.ENTER);
+                        }else {
+                            action.clearSendKeys(admin_driversPage.Textbox_SearchCriteria(), driverLastName + Keys.ENTER);
+                        }
+                        Thread.sleep(1000);
                         break;
                 }
                 break;
