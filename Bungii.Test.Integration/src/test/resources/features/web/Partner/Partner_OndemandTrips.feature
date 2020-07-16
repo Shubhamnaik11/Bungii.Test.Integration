@@ -1,7 +1,8 @@
 @web
   Feature: Partner Ondemand Trips
 
-    Background: Given I am logged in as Partner User on Partner Portal
+    Background:
+      Given I am logged in as Partner User on Partner Portal
 
     Scenario: Verify that Partner can create Solo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
