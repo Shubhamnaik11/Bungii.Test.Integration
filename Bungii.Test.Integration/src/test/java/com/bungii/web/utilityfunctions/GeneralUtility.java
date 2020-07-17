@@ -715,11 +715,12 @@ public class GeneralUtility extends DriverBase {
     }
     public String setDownloadLink(String message, String emailBody) {
 
-        String HTML_TAG_PATTERN = "<a href=(.+?)>";
+        //String HTML_TAG_PATTERN = "<a href=(.+?)>";
+        String HTML_TAG_PATTERN = "https?:\\/\\/[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)";
         Pattern pLink = Pattern.compile(HTML_TAG_PATTERN);
         Matcher m = pLink.matcher(emailBody);
         while (m.find()) {
-                String link = m.group(1);
+                String link = m.group(0);
                message = message.replace("%Link%", link);
         }
         return message;

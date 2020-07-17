@@ -14,11 +14,11 @@
 		can get you driving.
 
 
-		<br><br>
+				<br><br>
 
-		To login into your account <a href=%Link%>click here</a>
+				To login into your account <a href="%Link%>click here</a>
 
-		<br><br>
+				<br><br>
 		Thanks,
 		<br>
 		The Bungii Team
