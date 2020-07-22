@@ -398,6 +398,10 @@ public class BungiiSteps extends DriverBase {
 
                             coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
                             coreServices.updateStatus(pickupRequest, driverAccessToken, 28);
+                        } else if (driver1State.equalsIgnoreCase("Bungii Canceled")) {
+
+                            coreServices.driverPollingCalls(pickupRequest, geofence, driverAccessToken);
+                            coreServices.updateStatus(pickupRequest, driverAccessToken, 33);
                         }
 
                     }

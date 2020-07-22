@@ -49,7 +49,6 @@ public class Partner_LoginSteps extends DriverBase {
             case "Bungii Admin Portal in new tab":
                 utility.AdminLoginFromPartner();
                 break;
-            case "Partner Portal Tab":
             default:break;
         }
         pass("I should be navigate to " + page,
@@ -93,6 +92,7 @@ public class Partner_LoginSteps extends DriverBase {
                 action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                 break;
             case "Track Deliveries":
+                action.click(Page_Partner_Done.Dropdown_Setting());
                 action.click(Page_Partner_Done.Button_Track_Deliveries());
                 break;
             case "Back to Estimate":
@@ -103,6 +103,9 @@ public class Partner_LoginSteps extends DriverBase {
                 break;
             case "OK":
                 action.click(Page_Partner_Delivery_List.Button_OK());
+                break;
+            case "OK on Delivery Cancellation Failed":
+                action.click(Page_Partner_Delivery_List.Button_Ok__On_Delivery_Cancellation_Failed());
                 break;
             case "Cancel Delivery":
                 action.click(Page_Partner_Delivery_List.Button_Cancel_Delivery());
@@ -164,6 +167,9 @@ public class Partner_LoginSteps extends DriverBase {
                 String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date, CustomerName, DeliveryAddress);
+                testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
+                /*
                 try {
                     testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Date()), Delivery_Date);
                 }
@@ -173,6 +179,8 @@ public class Partner_LoginSteps extends DriverBase {
 
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Customer()),CustomerName);
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Text_Delivery_Address()),DeliveryAddress);
+
+                 */
                 break;
             case "see the trip details":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Delivery_Details_Dashboard()),PropertyUtility.getMessage("Delivery_Details_Dashboard"));
@@ -194,12 +202,16 @@ public class Partner_LoginSteps extends DriverBase {
                 TimeZone fromTimeZone = calendar.getTimeZone();
                 TimeZone toTimeZone = TimeZone.getTimeZone("CST");
                 break;
+            case "see Delivery cancellation failed message":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery_List.Message_Delivery_Cancellation_Failed()),PropertyUtility.getMessage("Message_Delivery_Cancellation_Failed"));
+                break;
             default: break;
         }
     }
 
     @And("^I should logout from Partner Portal$")
     public void i_should_logout_from_partner_portal() throws Throwable {
+        action.click(Page_Partner_Done.Dropdown_Setting());
         utility.PartnerLogout();
         log("I should be logged out from Partner Portal ","I clicked ", true);
     }

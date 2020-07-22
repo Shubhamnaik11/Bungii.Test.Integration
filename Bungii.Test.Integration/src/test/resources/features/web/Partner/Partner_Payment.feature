@@ -9,9 +9,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
-        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
         And I select Pickup Date and Pickup Time
           |PickUp_Date  |PickUp_Time          |
           |Today+1      |5th quarter          |
@@ -34,9 +34,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Number for Bungii trip
-        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -56,9 +56,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Card Expiry Date for Bungii trip
-          When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-            | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-            | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
           And I select Pickup Date and Pickup Time
             |PickUp_Date  |PickUp_Time          |
             |Today+1      |5th quarter          |
@@ -78,9 +78,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Cvv for Bungii trip
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -101,9 +101,9 @@
 
     @regression
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -123,9 +123,9 @@
 
     @regression
     Scenario: Verify Partner Payment method for Bungii Trip
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |

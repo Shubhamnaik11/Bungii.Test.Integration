@@ -37,7 +37,7 @@ public class Partner_IntegrationSteps extends DriverBase {
 
     Admin_BusinessUsersSteps admin_businessUsersSteps = new Admin_BusinessUsersSteps();
 
-    @When("^I request \"([^\"]*)\" Bungii trip in partner portal in \"([^\"]*)\" geofence for status$")
+    @When("^I request \"([^\"]*)\" Bungii trip in partner portal in \"([^\"]*)\" geofence$")
     public void i_request_something_bungii_trip_in_partner_portal_for_some_geofence(String Type,String geofence, DataTable data) throws InterruptedException {
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
         String Pickup_Address;
@@ -108,7 +108,7 @@ public class Partner_IntegrationSteps extends DriverBase {
                 }
                 break;
             case "Duo":
-                action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+
                 action.click(Page_Partner_Dashboard.Button_Pickup_Edit());
                 action.click(Page_Partner_Dashboard.Button_PickupClear());
 
@@ -124,26 +124,36 @@ public class Partner_IntegrationSteps extends DriverBase {
                 //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.List_Delivery_Address());
 
+                //Clicking on duo radio button
+                action.click(Page_Partner_Dashboard.RadioButton_Partner_Duo());
+
+                //Clicking on Load Unload dropdown
                 action.click(Page_Partner_Dashboard.Dropdown_Load_Unload_Time());
 
                 switch (Load_Unload) {
                     case "15 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_15());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",15);
                         break;
                     case "30 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_30());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",30);
                         break;
                     case "45 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_45());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",45);
                         break;
                     case "60 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_60());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",60);
                         break;
                     case "75 minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_75());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",75);
                         break;
                     case "90+ minutes":
                         action.click(Page_Partner_Dashboard.Load_Unload_Time_90());
+                        cucumberContextManager.setScenarioContext("LoadUnload_Time",90);
                         break;
                     default:break;
                 }

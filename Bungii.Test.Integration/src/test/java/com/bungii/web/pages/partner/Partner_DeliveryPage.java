@@ -8,6 +8,9 @@ public class Partner_DeliveryPage extends PageBase {
     //Delivery Details Header Text
     public WebElement Text_Delivery_Details_Header() { return findElement("//h1[contains(text(),'Delivery Details')]", LocatorType.XPath); }
 
+    //Delivery List Text
+    public WebElement Text_Delivery_List() { return findElement("//h6[contains(text(),'Delivery List')]",LocatorType.XPath);}
+
     //Pickup DateTime Text
     public WebElement Text_Pickup_DateTime() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following::p[1]",LocatorType.XPath);}
 
@@ -40,6 +43,9 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Pickup Contact Phone
     public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Pickup Date Time
+    public WebElement Label_Pickup_Date_Time() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following-sibling::p",LocatorType.XPath);}
 
     //Blank Pickup Contact Phone
     public WebElement Message_Blank_Pickup_Contact_Phone() { return findElement("//div[contains(text(),'Pickup contact phone is required.')]",LocatorType.XPath);}

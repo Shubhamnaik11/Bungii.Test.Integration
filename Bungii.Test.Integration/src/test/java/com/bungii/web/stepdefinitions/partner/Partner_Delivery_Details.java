@@ -47,6 +47,9 @@ public class Partner_Delivery_Details extends DriverBase {
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(),PickupContactName);
                 action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(),PickupContactPhone);
+
+                String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                cucumberContextManager.setScenarioContext("Schedule_Date_Time",scheduled_date_time);
                 break;
             default:break;
         }

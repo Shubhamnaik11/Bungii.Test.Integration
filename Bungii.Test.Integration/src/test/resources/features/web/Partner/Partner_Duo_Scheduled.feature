@@ -8,20 +8,21 @@ Feature: Partner Duo Scheduled Trips
     Then I should "be logged in"
 
   @regression
-  Scenario: Verify that Partner can scheduled Duo bungii Trip
-    When I request for "Duo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-      | Duo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+  Scenario: Verify that Partner portal can scheduled Duo bungii Trip
+    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Pickup Date and Pickup Time
       |PickUp_Date  |PickUp_Time          |
       |Today+1      |5th quarter          |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
+    Then I check correct estimated price calculated on Partner Portal
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
-      |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Test Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -40,9 +41,9 @@ Feature: Partner Duo Scheduled Trips
 
     @regression
   Scenario: Verify changing the pickup date for scheduled Duo bungii Trip
-    When I request for "Duo" Bungii trip in partner portal
-      | Driver | Pickup_Address                            | Delivery_Address                                        |Load_Unload_Time|
-      | Duo   | Patto Centre, Panaji, India, Goa, 403001  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Pickup Date and Pickup Time
       |PickUp_Date  |PickUp_Time          |
       |Today+1      |5th quarter          |
@@ -50,9 +51,9 @@ Feature: Partner Duo Scheduled Trips
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-    When I enter following details on "Delivery Details" partner screen
-      |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Test Gopal   |9998881111     |Test Pickup        |9999999359          |
+      When I enter following details on "Delivery Details" partner screen
+        |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+        |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
     And I click "Back to Estimate" button on Partner Portal
     And I select Pickup Date and Pickup Time
       |PickUp_Date  |PickUp_Time          |
@@ -63,9 +64,9 @@ Feature: Partner Duo Scheduled Trips
 
   @regression
   Scenario: Verify Cancellation of Duo Scheduled Trips
-    When I request for "Duo" Bungii trip in partner portal in "washingtondc" geofence
-      | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-      | Duo    | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
     And I select Pickup Date and Pickup Time
       |PickUp_Date  |PickUp_Time          |
       |Today+1      |5th quarter          |
@@ -74,8 +75,8 @@ Feature: Partner Duo Scheduled Trips
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
-      |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Test Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |

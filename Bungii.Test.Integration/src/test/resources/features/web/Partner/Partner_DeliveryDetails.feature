@@ -7,10 +7,11 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
+    @regression
     Scenario: Verify all the fields on Delivery Details Screen
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -31,9 +32,9 @@
 
       @regression
       Scenario: Verify that "Items To Deliver" is mandatory field on Delivery Details Screen
-        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+          | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+          | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
         And I select Pickup Date and Pickup Time
           |PickUp_Date  |PickUp_Time          |
           |Today+1      |5th quarter          |
@@ -54,9 +55,9 @@
 
         @regression
       Scenario: Verify that "Customer Name" is mandatory field on Delivery Details Screen
-        When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+          | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+          | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
         And I select Pickup Date and Pickup Time
           |PickUp_Date  |PickUp_Time          |
           |Today+1      |5th quarter          |
@@ -77,9 +78,9 @@
 
           @regression
       Scenario: Verify that "Customer Mobile" is mandatory field on Delivery Details Screen
-       When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
        And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -100,9 +101,9 @@
 
     @regression
     Scenario: Verify that "Pickup Contact Name" is mandatory field on Delivery Details Screen
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -123,9 +124,9 @@
 
      @regression
     Scenario: Verify that "Pickup Contact Phone" is mandatory field on Delivery Details Screen
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |

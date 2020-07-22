@@ -98,7 +98,7 @@ public class DbUtility extends DbContextManager {
 
     public static String getEstimateDistance() {
     String Estimate_distance;
-    String queryString = "SELECT EstDistance,Est FROM pickupdetails order by  pickupid desc limit 1";
+    String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
     Estimate_distance = getDataFromMySqlServer(queryString);
         logger.detail("Estimate Distance=  " + Estimate_distance + " of latest trip" );
         return Estimate_distance;

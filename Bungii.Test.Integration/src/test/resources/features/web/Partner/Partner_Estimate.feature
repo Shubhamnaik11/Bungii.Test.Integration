@@ -7,21 +7,23 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
+    @regression
       Scenario: Verify that correct estimate cost calculated for Solo Bungii
-        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence for status
+        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
           | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
           | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
         And I select Pickup Date and Pickup Time
           |PickUp_Date  |PickUp_Time          |
           |Today+1      |5th quarter          |
         And I click "GET ESTIMATE" button on Partner Portal
-        Then I should see correct estimated price
+        Then I should see "Estimated Cost"
+        Then I check correct estimated price calculated on Partner Portal
 
     @regression
       Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
-        When I request for "Solo" Bungii trip in partner portal
-          | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-          | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
         And I select Pickup Date and Pickup Time
           |PickUp_Date  |PickUp_Time          |
           |Today+1      |5th quarter          |
@@ -42,9 +44,9 @@
 
     @regression
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -73,9 +75,9 @@
 
     @regression
     Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Upload Time
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -89,9 +91,9 @@
 
     @regression
     Scenario: Verify that Get Estimate cost get recalculated on changing the Delivery Address
-      When I request for "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                 | Delivery_Address                                        |Load_Unload_Time|
-        | Solo   | 1735 Noriega St, San Francisco, CA, US, 94122  | 1600 Holloway Avenue, San Francisco, California 94132   |30 minutes      |
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |5th quarter          |
@@ -103,12 +105,13 @@
       Then Estimate Cost should get recalculate
       And I should logout from Partner Portal
 
-    @Inprogress
-    Scenario:Verify that clearing Pickup address clears all other fields on "Get Estimate" screen
-      When I request for  bungii for given following details
-        | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
-        | Solo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
-      And I click "Get Estimate" button on "Get Estimate" screen
-      And I change the Pickup Address on "Get Estimate" screen
-      Then Check that all fields on "Get Estimate" screen get clear
+    @regression
+    Scenario:Verify that clearing Pickup address clears Address field on "Get Estimate" screen
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      And I clear the Pickup Address on Get Estimate screen of Partner Portal
+      Then I check that Address field on Get Estimate screen get clear
       And I should logout from Partner Portal

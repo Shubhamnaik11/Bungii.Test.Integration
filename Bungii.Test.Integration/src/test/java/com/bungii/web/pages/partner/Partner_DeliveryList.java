@@ -35,14 +35,26 @@ public class Partner_DeliveryList extends PageBase {
     //Cancel OK Button
     public WebElement Button_OK() { return findElement("//button[@class='btn']",LocatorType.XPath);}
 
+    //OK button on Delivery Cancellation Failed
+    public WebElement Button_Ok__On_Delivery_Cancellation_Failed() { return findElement("//button[@class='btn btn btn-primary']",LocatorType.XPath);}
+
+    //Close button on Trip Delivery Details
+    public WebElement Button_Close() { return findElement("//span[@class='modal-close']",LocatorType.XPath);}
+
     //Cancel message
     public WebElement Message_Cancel_Trip() { return findElement("//p[@class='trip-Canceled-text']",LocatorType.XPath);}
+
+    //
+    public WebElement Message_Delivery_Cancellation_Failed() { return findElement("//h2[contains(text(),'Delivery cancellation failed!')]/following::p",LocatorType.XPath);}
 
     //Status Filter dropdown
     public WebElement Dropdown_Partner_Status() { return findElement("//a[@class='caret']",LocatorType.XPath);}
 
     //Completed Status Checkbox
     public WebElement Checkbox_Completed_Status() { return findElement("//label[contains(text(),'Completed')]",LocatorType.XPath);}
+
+    //Canceled Status Checkbox
+    public WebElement Checkbox_Canceled_Status() { return findElement("//label[contains(text(),'Canceled')]",LocatorType.XPath);}
 
     //Apply button for status filter
     public WebElement Button_Apply() { return findElement("//button[@class='btn']",LocatorType.XPath);}
