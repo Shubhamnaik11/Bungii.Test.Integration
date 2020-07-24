@@ -93,7 +93,7 @@ public class Admin_CustomersPageSteps extends DriverBase {
                         if(strArg1.equalsIgnoreCase("customers")){
                             action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(),customerFirstName + Keys.ENTER);
                         }else {
-                            action.clearSendKeys(admin_dashboardPage.TextBox_SearchCustomer(), driverFirstName + Keys.ENTER);
+                            action.clearSendKeys(admin_dashboardPage.Textbox_DriverSearch(), driverFirstName + Keys.ENTER);
                         }
                         Thread.sleep(2000);
                         break;

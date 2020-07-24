@@ -25,4 +25,6 @@ public class Admin_DashboardPage extends PageBase {
 
     public WebElement TextBox_SearchCustomer() { return findElement("txtSearchCustomer", LocatorType.Id); }
 
+    public WebElement Textbox_DriverSearch () { return findElement("txtSearchDriver",LocatorType.Id);}
+
 }
