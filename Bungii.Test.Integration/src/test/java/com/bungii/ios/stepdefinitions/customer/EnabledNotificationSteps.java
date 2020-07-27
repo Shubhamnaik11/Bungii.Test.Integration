@@ -73,15 +73,15 @@ public class EnabledNotificationSteps extends DriverBase {
         try {
             GeneralUtility utility = new GeneralUtility();
             String pageName = utility.getPageHeader();
-            if(pageName.equals(Notification)) {
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
-                pageName = utility.getPageHeader();
+               // pageName = utility.getPageHeader();
             }
-            if(pageName.equals(Location)) {
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow");
-                pageName = utility.getPageHeader();
+                //pageName = utility.getPageHeader();
             }
 
         } catch (Exception e) {
