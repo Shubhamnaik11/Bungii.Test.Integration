@@ -80,7 +80,7 @@ public class EnabledNotificationSteps extends DriverBase {
             }
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
-                action.clickAlertButton("Allow");
+                action.clickAlertButton("Always Allow");
                 //pageName = utility.getPageHeader();
             }
 
