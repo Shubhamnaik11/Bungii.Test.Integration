@@ -64,12 +64,12 @@ public class TermsAndConditionSteps extends DriverBase {
     @Then("^I close \"([^\"]*)\" if exist$")
     public void i_close_tutorial_page(String Tutorial) throws Throwable {
         try {
-            if(action.isElementPresent(tutorialPage.Button_Start())) {
+            if(action.isElementPresent(tutorialPage.Button_Close())) {
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.click(tutorialPage.Button_Close());
+                action.click(tutorialPage.Button_Start());
             }
 
         } catch (Exception e) {
