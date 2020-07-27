@@ -1,3 +1,4 @@
+@ios
 Feature  Permissions
   
   @setapppermission
