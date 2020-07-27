@@ -69,7 +69,7 @@ public class TermsAndConditionSteps extends DriverBase {
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
-                action.click(tutorialPage.Button_Start());
+                action.click(tutorialPage.Button_Close());
             }
 
         } catch (Exception e) {
