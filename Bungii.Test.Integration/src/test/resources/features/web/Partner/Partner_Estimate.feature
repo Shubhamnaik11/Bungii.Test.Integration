@@ -12,9 +12,9 @@
         When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
           | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
           | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-        And I select Pickup Date and Pickup Time
-          |PickUp_Date  |PickUp_Time          |
-          |Today+1      |5th quarter          |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |09:30 AM             |
         And I click "GET ESTIMATE" button on Partner Portal
         Then I should see "Estimated Cost"
         Then I check correct estimated price calculated on Partner Portal
@@ -24,9 +24,9 @@
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-        And I select Pickup Date and Pickup Time
-          |PickUp_Date  |PickUp_Time          |
-          |Today+1      |5th quarter          |
+      And I select Pickup Date and Pickup Time on partner portal
+        |PickUp_Date  |PickUp_Time          |
+        |Today+1      |10:30 AM             |
         And I click "GET ESTIMATE" button on Partner Portal
         Then I should see "Estimated Cost"
         And I click "Continue" button on Partner Portal
@@ -47,9 +47,9 @@
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Pickup Date and Pickup Time
+      And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
-        |Today+1      |5th quarter          |
+        |Today+1      |11:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
@@ -78,9 +78,9 @@
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Pickup Date and Pickup Time
+      And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
-        |Today+1      |5th quarter          |
+        |Today+1      |11:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I change the "Load Unload Time" and click on Get Estimate button
@@ -94,9 +94,9 @@
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Pickup Date and Pickup Time
+      And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
-        |Today+1      |5th quarter          |
+        |Today+1      |11:30 AM             |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I change the "Delivery Address" and click on Get Estimate button

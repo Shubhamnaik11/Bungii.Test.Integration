@@ -47,7 +47,11 @@ public class Partner_IntegrationSteps extends DriverBase {
         cucumberContextManager.setScenarioContext("Partner_Bungii_type",Type);
 
         Pickup_Address = dataMap.get("Pickup_Address");
+
         Delivery_Address = dataMap.get("Delivery_Address");
+
+        cucumberContextManager.setScenarioContext("PickupAddress",Pickup_Address);
+        //Delivery_Address = action.getText(Page_Partner_Dashboard.SetDeliveryAddress());
         cucumberContextManager.setScenarioContext("Delivery_Address", Delivery_Address);
 
         String Load_Unload = dataMap.get("Load_Unload_Time");
@@ -160,6 +164,13 @@ public class Partner_IntegrationSteps extends DriverBase {
                 break;
             default: break;
         }
+        /*
+        Pickup_Address = action.getText(Page_Partner_Dashboard.SetPickupAddress());
+        cucumberContextManager.setScenarioContext("PickupAddress",Pickup_Address);
+        Delivery_Address = action.getText(Page_Partner_Dashboard.SetDeliveryAddress());
+        cucumberContextManager.setScenarioContext("Delivery_Address", Delivery_Address);
+        */
+
 
     }
 

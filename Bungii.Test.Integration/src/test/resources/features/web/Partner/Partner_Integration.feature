@@ -165,7 +165,7 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
@@ -191,11 +191,178 @@ Feature: Partner Integration with Admin and Driver
       | In-Progress    |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
-      | Bungii Canceled |
-    And I view the Live Trips list on the admin portal
+      | Driver Canceled |
+    And I view the Trips list on the admin portal
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status    |
-      | In-Progress       |
+      | Canceled       |
+
+  @regression
+  Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by control Driver
+    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should see "Estimated Cost"
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter following details on "Delivery Details" partner screen
+      |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    When I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    When I navigate to "Bungii Admin Portal in new tab" URL
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Searching Drivers|
+    When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status    |
+      | Scheduled |
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | Scheduled      |
+    When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state |
+      | Enroute       |
+    And I view the Live Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status       |
+      | Trip Started |
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | In-Progress    |
+    When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state   |
+      | Driver Canceled |
+    And I view the Trips list on the admin portal
+    And I navigate to partner portal and view the Trip status with below status
+        | Partner_Status |
+        | Canceled       |
+
+  @regression
+  Scenario: Verify Cancelling Partner Portal Duo Scheduled trip by Non control Driver
+    When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should see "Estimated Cost"
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter following details on "Delivery Details" partner screen
+      |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    When I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    When I navigate to "Bungii Admin Portal in new tab" URL
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Searching Drivers|
+    When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state | driver2 state |
+      | Accepted      | Accepted      |
+    And I view the partner portal Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status    |
+      | Scheduled |
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | Scheduled      |
+      When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
+        | driver1 state |
+        | Enroute       |
+      And I view the Live Trips list on the admin portal
+      Then I should be able to see the respective bungii partner portal trip with the below status
+        | Status       |
+        | Trip Started |
+      And I navigate to partner portal and view the Trip status with below status
+        | Partner_Status |
+        | In-Progress    |
+      When As a driver "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
+        | driver1 state   |
+        | Driver Canceled |
+      And I view the Trips list on the admin portal
+      And I navigate to partner portal and view the Trip status with below status
+        | Partner_Status |
+        | Canceled       |
+
+  @Inprogress
+  Scenario: Verify Cancelling Partner Portal Solo Scheduled trip manually by Admin
+    When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+      | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+      | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
+    And I click "GET ESTIMATE" button on Partner Portal
+    Then I should see "Estimated Cost"
+    And I click "Continue" button on Partner Portal
+    Then I should "see Delivery Details screen"
+    When I enter following details on "Delivery Details" partner screen
+      |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+    And I Select "Customer Card" as Payment Method
+    And I enter following Credit Card details on Partner Portal
+      |CardNo   |Expiry |Postal_Code      |Cvv      |
+      |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+    And I click "Schedule Bungii" button on Partner Portal
+    Then I should "see Done screen"
+    When I click "Track Deliveries" button on Partner Portal
+    Then I should "see the trip in the Delivery List"
+    When I navigate to "Bungii Admin Portal in new tab" URL
+    And I view the Scheduled Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status           |
+      | Searching Drivers|
+    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+      | driver1 state|
+      | Accepted     |
+      | Enroute      |
+      | Arrived      |
+      | Loading Item |
+    And I view the Live Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      |  Status |
+      | Loading Items |
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | In-Progress    |
+    When I view the trip details
+    Then the Bungii details is displayed successfully
+    And I click on "Manually End Bungii" link
+    And Enter the End Date and Time
+    And Click on "Calculate Cost" button
+    Then the amount is calculated and shown to admin
+    And Click on "Confirm" button
+    And I view the Trips list on the admin portal
+    Then The Trip List page should display the trip in "Payment Successful" state
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | Completed      |
+
 
   @regression
   Scenario: Verify Solo Scheduled trip cannot cancel in Partner portal once the Trip started

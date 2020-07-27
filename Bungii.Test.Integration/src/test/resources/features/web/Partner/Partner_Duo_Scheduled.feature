@@ -12,9 +12,9 @@ Feature: Partner Duo Scheduled Trips
     When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-    And I select Pickup Date and Pickup Time
-      |PickUp_Date  |PickUp_Time          |
-      |Today+1      |5th quarter          |
+    And I select Next Possible Pickup Date and Pickup Time
+      |Trip_Time            |
+      |NEXT_POSSIBLE        |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
     Then I check correct estimated price calculated on Partner Portal
@@ -44,20 +44,20 @@ Feature: Partner Duo Scheduled Trips
     When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-    And I select Pickup Date and Pickup Time
+    And I select Pickup Date and Pickup Time on partner portal
       |PickUp_Date  |PickUp_Time          |
-      |Today+1      |5th quarter          |
+      |Today+1      |02:30 PM             |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal
     Then I should "see Delivery Details screen"
-      When I enter following details on "Delivery Details" partner screen
-        |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-        |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
+    When I enter following details on "Delivery Details" partner screen
+      |Items_To_Deliver|Customer_Name  |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+      |Furniture       |TestPP Customer|9998881111     |Test Pickup        |9999999359          |
     And I click "Back to Estimate" button on Partner Portal
-    And I select Pickup Date and Pickup Time
+    And I select Pickup Date and Pickup Time on partner portal
       |PickUp_Date  |PickUp_Time          |
-      |Today+2      |5th quarter          |
+      |Today+2      |01:30 PM             |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
     And I should logout from Partner Portal
@@ -67,9 +67,9 @@ Feature: Partner Duo Scheduled Trips
     When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
       | Duo    | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-    And I select Pickup Date and Pickup Time
+    And I select Pickup Date and Pickup Time on partner portal
       |PickUp_Date  |PickUp_Time          |
-      |Today+1      |5th quarter          |
+      |Today+1      |04:30 PM             |
     And I click "GET ESTIMATE" button on Partner Portal
     Then I should see "Estimated Cost"
     And I click "Continue" button on Partner Portal

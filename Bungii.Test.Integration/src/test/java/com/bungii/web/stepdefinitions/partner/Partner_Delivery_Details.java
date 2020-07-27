@@ -29,6 +29,7 @@ public class Partner_Delivery_Details extends DriverBase {
 
         String Items_deliver = dataMap.get("Items_To_Deliver").trim();
         String CustomerName = dataMap.get("Customer_Name").trim();
+        //String SpecialInstruction = dataMap.get("Special_Instruction").trim();
         cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);
         //cucumberContextManager.setScenarioContext("Customer", CustomerName);
         String CustomerMobile = dataMap.get("Customer_Mobile").trim();
@@ -39,6 +40,7 @@ public class Partner_Delivery_Details extends DriverBase {
         switch(str){
             case "Delivery Details":
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
+                //action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(),SpecialInstruction);
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(),CustomerName);
                 //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
                 action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
@@ -50,10 +52,76 @@ public class Partner_Delivery_Details extends DriverBase {
 
                 String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
                 cucumberContextManager.setScenarioContext("Schedule_Date_Time",scheduled_date_time);
+
                 break;
             default:break;
         }
 
+    }
+
+    @When("^I enter all details on \"([^\"]*)\" partner screen$")
+    public void i_enter_all_details_on_some_partner_screen(String str, DataTable data){
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+
+        String Items_deliver = dataMap.get("Items_To_Deliver").trim();
+        String CustomerName = dataMap.get("Customer_Name").trim();
+        String SpecialInstruction = dataMap.get("Special_Instruction").trim();
+        cucumberContextManager.setScenarioContext("Customer_Name", CustomerName);
+        //cucumberContextManager.setScenarioContext("Customer", CustomerName);
+        String CustomerMobile = dataMap.get("Customer_Mobile").trim();
+        cucumberContextManager.setScenarioContext("CustomerPhone", CustomerMobile);
+        String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
+        String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
+
+        String DropOffContactName = dataMap.get("Drop_Off_Contact_Name").trim();
+        String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
+        String ReceiptNumber = dataMap.get("Receipt_Number").trim();
+
+
+        switch(str){
+            case "Delivery Details":
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(),SpecialInstruction);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(),CustomerName);
+                //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(),CustomerMobile);
+
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(),PickupContactName);
+                action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(),PickupContactPhone);
+
+                String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                cucumberContextManager.setScenarioContext("Schedule_Date_Time",scheduled_date_time);
+
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(),DropOffContactName);
+                action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(),DropOffContactPhone);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(),ReceiptNumber);
+
+                break;
+            default:break;
+        }
+
+    }
+
+    @Then("^I confirm details show in summary$")
+    public void i_confirm_details_shown_in_summary(){
+        String Bungii_type = (String)cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+        if(Bungii_type.equalsIgnoreCase("Solo")){
+            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Solo - 1 driver & 1 truck");
+        }else{
+            testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Driver_Truck(),"Duo - 2 drivers & 2 trucks");
+        }
+
+        String Pickup_Address = (String)cucumberContextManager.getScenarioContext("PickupAddress");
+        testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Pick_Address(),Pickup_Address);
+
+        String DeliveryAddress = (String)cucumberContextManager.getScenarioContext("Delivery_Address");
+        testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Delivery_Address(),DeliveryAddress);
+
+        String EstimatedCost = (String)cucumberContextManager.getScenarioContext("Estimated_Cost");
+        testStepVerify.isElementTextEquals(Page_Partner_Delivery.Text_Estiated_Cost(),EstimatedCost);
 
     }
 

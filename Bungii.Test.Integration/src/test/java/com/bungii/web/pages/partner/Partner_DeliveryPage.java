@@ -23,6 +23,9 @@ public class Partner_DeliveryPage extends PageBase {
     //Blank Item to deliver message
     public WebElement Message_Black_Item_To_Deliver() { return findElement("//div[contains(text(),'Items to deliver is required.')]",LocatorType.XPath);}
 
+    //Special Instruction
+    public WebElement TextBox_Special_Intruction() { return findElement("//input[@placeholder='Enter any special instructions for the delivery']",LocatorType.XPath);}
+
     //Customer Name
     public WebElement TextBox_Customer_Name() { return findElement("customerName",LocatorType.Name);}
 
@@ -49,6 +52,15 @@ public class Partner_DeliveryPage extends PageBase {
 
     //Blank Pickup Contact Phone
     public WebElement Message_Blank_Pickup_Contact_Phone() { return findElement("//div[contains(text(),'Pickup contact phone is required.')]",LocatorType.XPath);}
+
+    //Drop Off Contact Name
+    public WebElement TextBox_Drop_Off_Contact_Name() { return findElement("f2bd90b3-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Drop Off Contact Phone
+    public WebElement TextBox_Drop_Off_Contact_Phone() { return findElement("f2bd90d3-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+
+    //Receipt Number
+    public WebElement TextBox_Receipt_Number() { return findElement("f2bd91b2-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
 
     //Customer Card Payment
     public WebElement Radio_Button_Customer_Card() { return findElement("//label[contains(text(),'Customer Card')]",LocatorType.XPath);}
@@ -83,5 +95,17 @@ public class Partner_DeliveryPage extends PageBase {
     //Schedule Bungii button
     //public WebElement Button_Schedule_Bungii() { return findElement("submit-details",LocatorType.Id);}
     public WebElement Button_Schedule_Bungii() { return findElement("//button[@id='submit-details']//img",LocatorType.XPath);}
+
+    //Driver and truck text in summary
+    public WebElement Text_Driver_Truck() { return findElement("//label[contains(text(),'s needed:')]/following-sibling::p",LocatorType.XPath);}
+
+    //Pick up address text in summary
+    public WebElement Text_Pick_Address() { return findElement("//label[contains(text(),'Pickup Address:')]/following-sibling::p",LocatorType.XPath);}
+
+    //Delivery Address text in summary
+    public WebElement Text_Delivery_Address() { return findElement("//label[contains(text(),'Delivery Address:')]/following-sibling::p",LocatorType.XPath);}
+
+    //Estimated cost in summary
+    public WebElement Text_Estiated_Cost() { return findElement("//h2[@class='estimate-label']/span",LocatorType.XPath);}
 
 }

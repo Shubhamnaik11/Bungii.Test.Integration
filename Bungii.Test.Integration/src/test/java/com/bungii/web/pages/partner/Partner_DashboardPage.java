@@ -33,6 +33,9 @@ public class Partner_DashboardPage extends PageBase {
     //Pickup Address List
     public WebElement List_Pickup_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
 
+    //Set Pickup Address
+    public WebElement SetPickupAddress() { return findElement("//input[@id='pickupAdd']",LocatorType.XPath);}
+
     //Delivery Clear button X
     public WebElement Button_DeliveryClear() { return findElement("dropoffAddCloseIcon",LocatorType.Id );}
 
@@ -41,6 +44,9 @@ public class Partner_DashboardPage extends PageBase {
 
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
+
+    //Set Delivery Address
+    public WebElement SetDeliveryAddress() { return findElement("//input[@id='dropoffAdd']",LocatorType.XPath);}
 
     //Load Upload Time Dropdown
     public WebElement Dropdown_Load_Unload_Time() { return findElement("//div[contains(@class,'MuiFormControl-root load-time')]//div[contains(@class,'MuiInputBase-formControl')]",LocatorType.XPath);}
@@ -56,6 +62,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Dropdown_Pickup_Date() { return findElement("//div[@class='MuiFormControl-root pickup-date']",LocatorType.XPath);}
 
     //Today and 4 days
+    public WebElement Pickup_Date() { return findElement("//label[contains(text(),'Pickup Date')]/following::div[1]",LocatorType.XPath);}
     public WebElement Pickup_Date_Today() { return findElement("//li[contains(@class,'MuiButtonBase-root MuiListItem-root MuiMenuItem-root Mui-selected MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button Mui-selected')]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_1() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][1]",LocatorType.XPath);}
     public WebElement Pickup_date_Today_2() { return findElement("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][2]",LocatorType.XPath);}

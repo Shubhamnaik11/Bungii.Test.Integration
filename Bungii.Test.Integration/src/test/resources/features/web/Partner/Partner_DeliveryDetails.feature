@@ -10,15 +10,16 @@
     @regression
     Scenario: Verify all the fields on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
-      And I select Pickup Date and Pickup Time
-        |PickUp_Date  |PickUp_Time          |
-        |Today+1      |5th quarter          |
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, District of Columbia, United States, 20005  | 234 13th Street Northeast, Washington, District of Columbia, United States, 20002   |30 minutes      |
+      And I select Next Possible Pickup Date and Pickup Time
+        |Trip_Time            |
+        |NEXT_POSSIBLE        |
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I click "Continue" button on Partner Portal
       Then I should "see Delivery Details screen"
+      Then I confirm details show in summary
       When I enter following details on "Delivery Details" partner screen
         |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
         |Furniture       |Test Gopal   |9998881111     |Test Pickup        |9999999359          |

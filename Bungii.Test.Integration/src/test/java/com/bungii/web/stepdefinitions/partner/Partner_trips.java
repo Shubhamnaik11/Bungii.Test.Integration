@@ -189,30 +189,52 @@ public class Partner_trips extends DriverBase {
             strTime=strTime.replace("am","AM").replace("pm","PM");
         }
 
+        cucumberContextManager.setScenarioContext("ScheduledDate",strTime);
+
+    }
+
+    @And("^I select Pickup Date and Pickup Time on partner portal$")
+    public  void i_select_pickupdate_time_on_partner_portal(DataTable data) throws Throwable {
+
+        Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+        String PickupDate =dataMap.get("PickUp_Date");
+        String PickUpTime =dataMap.get("PickUp_Time");
+        String strTime = "";
+
+
         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
 
         switch(PickupDate){
             case "Today":
                 action.click(Page_Partner_Dashboard.Pickup_Date_Today());
+                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+1":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_1());
+                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+2":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_2());
+                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+3":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_3());
+                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             case "Today+4":
                 action.click(Page_Partner_Dashboard.Pickup_date_Today_4());
+                strTime = action.getText(Page_Partner_Dashboard.Pickup_Date());
                 break;
             default:break;
 
         }
+        cucumberContextManager.setScenarioContext("ScheduledDate",strTime);
+        action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
 
-       // action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
-       // action.click(Page_Partner_Dashboard.Pickup_Time3_());
+        if(!PickUpTime.equalsIgnoreCase("")) {
+            Thread.sleep(2000);
+            action.getElementByXPath("//li[contains(text(),'"+PickUpTime+"')]").click();
+        }
 
     }
 
@@ -228,8 +250,13 @@ public class Partner_trips extends DriverBase {
             strTime = enterTime(Next_PickUpTime);
             strTime=strTime.replace("am","AM").replace("pm","PM");
 
-        //cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
+        cucumberContextManager.setScenarioContext("Scheduled_Time", strTime);
 
+
+    }
+
+    @And("^I confirm the trip details from Get Estimate$")
+    public void i_confirm_the_trip_details_from_get_estimate(){
 
     }
 
@@ -240,7 +267,7 @@ public class Partner_trips extends DriverBase {
             case "Estimated Cost":
                 String Total_Estimated_Cost = action.getText(Page_Partner_Dashboard.Label_Estimated_Cost());
                 //String Estimated_Cost_Label = Total_Estimated_Cost.substring(0,Total_Estimated_Cost.indexOf(':'));
-                String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(":");
+                String[] Split_Total_estimated_Cost = Total_Estimated_Cost.split(": ");
                 String Estimated_Cost_Label = Split_Total_estimated_Cost[0];
                 String Estimated_Cost = Split_Total_estimated_Cost[1];
                 cucumberContextManager.setScenarioContext("Estimated_Cost",Estimated_Cost);
@@ -731,8 +758,8 @@ public class Partner_trips extends DriverBase {
 
            // selectBungiiTime(0, dateScroll[1], dateScroll[2], dateScroll[3]);
 
-            action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
-            action.click(Page_Partner_Dashboard.Pickup_Time1());
+            //action.click(Page_Partner_Dashboard.Dropdown_Pickup_Time());
+            //action.click(Page_Partner_Dashboard.Pickup_Time1());
         }
         return strTime;
     }
