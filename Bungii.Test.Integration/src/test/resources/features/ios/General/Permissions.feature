@@ -1,5 +1,5 @@
 @ios
-Feature  Permissions
+Feature: Permissions
   
   @setapppermission
   Scenario: PreStep - Accept Driver App Permissions - Device 1
