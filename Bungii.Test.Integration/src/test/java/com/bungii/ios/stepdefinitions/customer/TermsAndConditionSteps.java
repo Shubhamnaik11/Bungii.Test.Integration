@@ -28,9 +28,10 @@ public class TermsAndConditionSteps extends DriverBase {
     public void i_accept_term_and_condition_agreement_and_rest(String terms, String notification, String location) {
         try {
             GeneralUtility utility = new GeneralUtility();
+            Thread.sleep(3000);
             String pageHeader = utility.getPageHeader();
 
-            if(pageHeader.equals(terms)) {
+            if(action.isElementPresent(termsAndConditionPage.Button_CheckOff())) {
                 action.click(termsAndConditionPage.Button_CheckOff());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
