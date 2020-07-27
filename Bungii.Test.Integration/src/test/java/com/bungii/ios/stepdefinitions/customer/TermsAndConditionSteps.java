@@ -35,19 +35,19 @@ public class TermsAndConditionSteps extends DriverBase {
                 action.click(termsAndConditionPage.Button_CheckOff());
                 action.click(termsAndConditionPage.Button_Continue());
                 Thread.sleep(3000);
-                pageHeader = utility.getPageHeader();
+               // pageHeader = utility.getPageHeader();
             }
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
                 Thread.sleep(3000);
-                pageHeader = utility.getPageHeader();
+               // pageHeader = utility.getPageHeader();
             }
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow While Using App");  //Customer App alert
                 Thread.sleep(3000);
-                pageHeader = utility.getPageHeader();
+               // pageHeader = utility.getPageHeader();
             }
 
         } catch (Exception e) {
