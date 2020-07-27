@@ -7,6 +7,7 @@ import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
 import com.bungii.ios.pages.customer.TermsAndConditionPage;
+import com.bungii.ios.pages.customer.TutorialPage;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -19,6 +20,7 @@ public class TermsAndConditionSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(TermsAndConditionSteps.class);
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
     EnableLocationPage enableLocationPage = new EnableLocationPage();
+    TutorialPage tutorialPage = new TutorialPage();
 
     public TermsAndConditionSteps(TermsAndConditionPage termsAndConditionPage) {
         this.termsAndConditionPage = termsAndConditionPage;
@@ -39,12 +41,14 @@ public class TermsAndConditionSteps extends DriverBase {
             }
             if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
+                Thread.sleep(3000);
                 action.clickAlertButton("Allow");
                 Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
             }
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
+                Thread.sleep(3000);
                 action.clickAlertButton("Allow While Using App");  //Customer App alert
                 Thread.sleep(3000);
                // pageHeader = utility.getPageHeader();
@@ -57,7 +61,23 @@ public class TermsAndConditionSteps extends DriverBase {
         }
     }
 
+    @Then("^I close \"([^\"]*)\" if exist$")
+    public void i_close_tutorial_page(String Tutorial) throws Throwable {
+        try {
+            if(action.isElementPresent(tutorialPage.Button_Start())) {
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.swipeLeft(tutorialPage.Image_Generictutorialstep());
+                action.click(tutorialPage.Button_Start());
+            }
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
 
     @Then("^I accept Term and Condition agreement$")
     public void i_accept_term_and_condition_agreement() {

@@ -9,13 +9,7 @@ Feature: Permissions
 	And I enter Username :{VALID} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	Then I should able to see "tutorials page 1" on Tutorials screen
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	And I close tutorial Page using close button
+	And I close "Tutorial" if exist
 	Then User should be successfully logged in to the application
   
   @setapppermission
@@ -35,13 +29,7 @@ Feature: Permissions
 	And I enter Username :{VALID} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
-	Then I should able to see "tutorials page 1" on Tutorials screen
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	Then I "left" swipe on tutorials page
-	And I close tutorial Page using close button
+	And I close "Tutorial" if exist
 	Then User should be successfully logged in to the application
   
   @setapppermission2
