@@ -37,13 +37,13 @@ public class TermsAndConditionSteps extends DriverBase {
                 Thread.sleep(3000);
                 pageHeader = utility.getPageHeader();
             }
-            if(pageHeader.equals(notification)) {
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
                 action.click(enableNotificationPage.Button_Sure());
                 action.clickAlertButton("Allow");
                 Thread.sleep(3000);
                 pageHeader = utility.getPageHeader();
             }
-            if(pageHeader.equals(location)) {
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Allow While Using App");  //Customer App alert
                 Thread.sleep(3000);
