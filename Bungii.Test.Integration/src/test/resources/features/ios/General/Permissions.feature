@@ -1,7 +1,7 @@
 @ios
 Feature: Permissions
   
-  @setapppermission2
+  @setapppermission
   Scenario: PreStep - Accept Customer App Permissions - Device 1
 	Given I install Bungii App again
 	When I Switch to "customer" application on "same" devices

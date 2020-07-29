@@ -8,14 +8,17 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   @POSTDUO
   @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid miami" driver
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "ORIGINAL" devices
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid miami" user
-    And I am on Customer logged in Home page
+    #When I Switch to "driver" application on "same" devices
+   # And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid miami" driver
+    #And I change driver status to "Online"
+    Given I login as "valid miami" customer and on Home page
+    And I login as "valid miami" driver on "same" device and make driver status "Online"
+    
+   #And I Switch to "customer" application on "ORIGINAL" devices
+    #And I am on the "LOG IN" page
+   # And I logged in Customer application using  "valid miami" user
+    #And I am on Customer logged in Home page
  #   And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
@@ -97,15 +100,15 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
-
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid miami" user
-    And I am on Customer logged in Home page
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid miami" driver
-    And I change driver status to "Online"
+    Given I login as "valid miami" customer and on Home page
+    And I login as "valid miami" driver on "same" device and make driver status "Online"
+    #And I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid miami" user
+    #And I am on Customer logged in Home page
+   # And I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+   # And I am logged in as "valid miami" driver
+    #And I change driver status to "Online"
 
     And I Switch to "customer" application on "same" devices
     And I am on Customer logged in Home page
@@ -147,15 +150,17 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
 
   @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
-
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid miami" user
-    And I am on Customer logged in Home page
-
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid miami" driver
-    And I change driver status to "Online"
+   
+    #And I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid miami" user
+   # And I am on Customer logged in Home page
+    
+    Given I login as "valid miami" customer and on Home page
+    And I login as "valid miami" driver on "same" device and make driver status "Online"
+    #And I Switch to "driver" application on "same" devices
+   # And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid miami" driver
+    #And I change driver status to "Online"
 
     And I Switch to "customer" application on "same" devices
     And I am on Customer logged in Home page
@@ -195,17 +200,19 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED0203_02
-
+    
+  @Optimized
   @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
-    When I open new "Chrome" browser for "ADMIN PORTAL"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "VALID"
-    And I Select "Promo Code" from admin sidebar
-    Then I get promo code for "one off"
+    #When I open new "Chrome" browser for "ADMIN PORTAL"
+    #And I navigate to admin portal
+    #And I log in to admin portal
+   # And I Select "Promo Code" from admin sidebar
+    #Then I get promo code for "VALID"
+   # And I Select "Promo Code" from admin sidebar
+    #Then I get promo code for "one off"
+    
+    Given I get "VALID" promocode from the admin portal
 
     When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
@@ -242,10 +249,13 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I wait for "2" mins
 
-    And I open new "Chrome" browser for "ADMIN"
-    And I navigate to admin portal
-    And I log in to admin portal
-    And I Select "Scheduled Trip" from admin sidebar
+    #And I open new "Chrome" browser for "ADMIN"
+    #And I navigate to admin portal
+    #And I log in to admin portal
+   # And I Select "Scheduled Trip" from admin sidebar
+    
+    When I navigate to "Scheduled Trip" on Admin portal
+    
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
