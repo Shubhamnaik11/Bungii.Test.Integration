@@ -221,7 +221,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
 
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Business User.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
-
+    }
+    @Then("^\"([^\"]*)\" message is displayed$")
+    public void something_message_is_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),message,message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
     }
 
     @Then("^the business user is displayed in Bulk Trips since payment is set$")
