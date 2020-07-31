@@ -262,7 +262,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         //Date today = new Date();
       //  Date tomorrow = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        //dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         Date today = new Date();
         CreatedDate = dateFormat.format(today).toString();
        // dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
@@ -633,6 +634,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Dollars());
+                    action.click(admin_PromoCodesPage.TextBox_PromotionExpirationDate());
                     action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
                     break;
                 case "One Off":

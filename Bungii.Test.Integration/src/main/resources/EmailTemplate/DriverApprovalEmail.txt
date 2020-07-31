@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -26,6 +25,5 @@
 		Thanks,
 		<br>
 		The Bungii Team
-
 	</body>
 </html>

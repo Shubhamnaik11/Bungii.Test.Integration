@@ -597,6 +597,9 @@ public class GeneralUtility extends DriverBase {
         return isCorrectPage;
     }
 
+    public String getPageHeader() {
+    return action.getText(driverHomePage.Text_NavigationBar());
+    }
     private String getExpectedHeader(String screen, String currentApplication) {
         String expectedMessage = "";
         switch (screen.toUpperCase()) {
