@@ -2,10 +2,7 @@
   # this will run in miami
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
-
-  @FAILED2702
-
-  @POSTDUO
+  
   @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
     When I Switch to "driver" application on "same" devices
@@ -195,7 +192,6 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-  @FAILED0203_02
 
   @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started

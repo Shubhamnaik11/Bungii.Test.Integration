@@ -5,9 +5,9 @@ Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @sanityfailure
+
   @sanity
-  Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
+  Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer and trip completion
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -1015,11 +1015,9 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-
-  @failed
+    
   @ready
   @sanity
-    @sanityfailure
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
     Given that duo schedule bungii is in progress

@@ -133,9 +133,9 @@ public class HomeSteps extends DriverBase {
             try {
                 String geofenceName = dataMap.get("Geofence");
                 cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofenceName.toLowerCase());
-                logger.detail("Geofence is specified as input is" + (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
+                logger.detail("Geofence specified is : " + (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
             } catch (Exception e) {
-                logger.detail("Geofence is not specified as input");
+                logger.detail("Geofence is not specified ");
             }
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
