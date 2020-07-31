@@ -678,8 +678,8 @@ public class GeneralUtility extends DriverBase {
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%DriverFullName%", driverName)
-                            .replaceAll("%DriverPhone%",driverPhone);
+                    s = s.replaceAll("%driverFullName%", driverName)
+                            .replaceAll("%driverPhone%",driverPhone);
                     emailMessage += s;
                 }
 

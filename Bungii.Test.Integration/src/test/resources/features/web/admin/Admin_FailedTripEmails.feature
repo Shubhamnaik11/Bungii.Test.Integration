@@ -13,7 +13,7 @@ Feature: Admin_FailedTripEmails
       | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
     And I note the Pickupref of trip
     When I ensure no driver accepts the trip
-    Then Admin receives "Failed Ondemand Trips" trip email for "No Driver(s) Accepted" status
+    Then Admin receives "Failed On-Demand Trips" trip email for "No Driver(s) Accepted" status
 
   @regression
   @email
@@ -24,5 +24,5 @@ Feature: Admin_FailedTripEmails
       | NEXT_POSSIBLE | 9999999361 | Testcustomertywd_appleWashF Shah|
     And I note the Pickupref of trip
     When I cancel bungii as a customer "Testcustomertywd_appleWashF Shah" with phone number "9999999361"
-    Then Admin receives "Failed Ondemand Trips" trip email for "Customer Cancelled" status
+    Then Admin receives "Failed On-Demand Trips" trip email for "Customer Cancelled" status
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
