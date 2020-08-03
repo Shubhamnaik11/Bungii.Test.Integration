@@ -8,39 +8,39 @@
       Then I should "be logged in"
 
     @regression
-      Scenario: Verify that correct estimate cost calculated for Solo Bungii
-        When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
-          | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
-          | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
+    Scenario: Verify that correct estimate cost calculated for Solo Bungii
+      When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
+        | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
+        | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |09:30 AM             |
-        And I click "GET ESTIMATE" button on Partner Portal
-        Then I should see "Estimated Cost"
-        Then I check correct estimated price calculated on Partner Portal
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      Then I check correct estimated price calculated on Partner Portal
 
     @regression
-      Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
+    Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |
       And I select Pickup Date and Pickup Time on partner portal
         |PickUp_Date  |PickUp_Time          |
         |Today+1      |10:30 AM             |
-        And I click "GET ESTIMATE" button on Partner Portal
-        Then I should see "Estimated Cost"
-        And I click "Continue" button on Partner Portal
-        Then I should "see Delivery Details screen"
-        When I enter following details on "Delivery Details" partner screen
-          |Items_To_Deliver|Customer_Name|Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-          |Furniture       |Test Gopal   |9975960666     |Test Pickup        |9999999359          |
-        And I Select "Customer Card" as Payment Method
-        And I enter following Credit Card details on Partner Portal
-          |CardNo   |Expiry |Postal_Code      |Cvv      |
-          |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
-        And I click "Back to Estimate" button on Partner Portal
-        Then I should "see Get Estimate screen"
-        And I should logout from Partner Portal
+      And I click "GET ESTIMATE" button on Partner Portal
+      Then I should see "Estimated Cost"
+      And I click "Continue" button on Partner Portal
+      Then I should "see Delivery Details screen"
+      When I enter following details on "Delivery Details" partner screen
+        |Items_To_Deliver|Customer_Name   |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
+        |Furniture       |TestPP Customer |9975960666     |Test Pickup        |9999999359          |
+      And I Select "Customer Card" as Payment Method
+      And I enter following Credit Card details on Partner Portal
+        |CardNo   |Expiry |Postal_Code      |Cvv      |
+        |VISA CARD|12/23  |VALID POSTAL CODE|VALID CVV|
+      And I click "Back to Estimate" button on Partner Portal
+      Then I should "see Get Estimate screen"
+      And I should logout from Partner Portal
 
     @regression
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
@@ -67,14 +67,14 @@
 
     @regression
     Scenario: Verify information icon display correct information on "Get Estimate" screen
-       When I click on "WHAT’S NEEDED?" information icon and verify its text contents
-       And I click on "Delivery Address" information icon and verify its text contents
-       And I click on "Load/Unload Time" information icon and verify its text contents
-       And I click on "PickUp Date" information icon and verify its text contents
+      When I click on "WHAT’S NEEDED?" information icon and verify its text contents
+      And I click on "Delivery Address" information icon and verify its text contents
+      And I click on "Load/Unload Time" information icon and verify its text contents
+      And I click on "PickUp Date" information icon and verify its text contents
       And I should logout from Partner Portal
 
     @regression
-    Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Upload Time
+    Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Unload Time
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
         | Solo   | 601 13th Street Northwest, Washington, United States, District of Columbia, 20005  | 234 13th Street Northeast, Washington, District of Columbia 20002   |30 minutes      |

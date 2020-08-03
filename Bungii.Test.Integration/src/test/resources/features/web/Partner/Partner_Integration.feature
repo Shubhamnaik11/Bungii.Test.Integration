@@ -21,7 +21,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -35,17 +35,17 @@ Feature: Partner Integration with Admin and Driver
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
     And I view the Live Trips list on the admin portal
@@ -55,7 +55,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Arrived |
     And I view the Live Trips list on the admin portal
@@ -65,7 +65,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Loading Item |
     And I view the Live Trips list on the admin portal
@@ -75,7 +75,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Driving To Dropoff |
     And I view the Live Trips list on the admin portal
@@ -85,7 +85,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Unloading Item |
     And I view the Live Trips list on the admin portal
@@ -95,7 +95,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Bungii Completed |
     And I view the Trips list on the admin portal
@@ -117,7 +117,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -155,7 +155,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -165,21 +165,21 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
     And I view the Live Trips list on the admin portal
@@ -189,7 +189,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
     And I view the Trips list on the admin portal
@@ -211,7 +211,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -221,21 +221,21 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-    When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state |
       | Enroute       |
     And I view the Live Trips list on the admin portal
@@ -245,7 +245,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state   |
       | Driver Canceled |
     And I view the Trips list on the admin portal
@@ -267,7 +267,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -277,37 +277,37 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    When As a driver "Testdrivertywd_appledc_a_john Smith" and "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
+    When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-      When As a driver "Testdrivertywd_appledc_a_john Smith" perform below action with respective "Duo Scheduled" partner portal trip
-        | driver1 state |
-        | Enroute       |
-      And I view the Live Trips list on the admin portal
-      Then I should be able to see the respective bungii partner portal trip with the below status
-        | Status       |
-        | Trip Started |
-      And I navigate to partner portal and view the Trip status with below status
-        | Partner_Status |
-        | In-Progress    |
-      When As a driver "Testdrivertywd_appledc_a_jack Smith" perform below action with respective "Duo Scheduled" partner portal trip
-        | driver1 state   |
-        | Driver Canceled |
-      And I view the Trips list on the admin portal
-      And I navigate to partner portal and view the Trip status with below status
-        | Partner_Status |
-        | Canceled       |
+     When As a driver "Testdrivertywd_appledc_a_ronny James" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state |
+      | Enroute       |
+    And I view the Live Trips list on the admin portal
+    Then I should be able to see the respective bungii partner portal trip with the below status
+      | Status       |
+      | Trip Started |
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | In-Progress    |
+     When As a driver "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
+      | driver1 state   |
+      | Driver Canceled |
+    And I view the Trips list on the admin portal
+    And I navigate to partner portal and view the Trip status with below status
+      | Partner_Status |
+      | Canceled       |
 
   @Inprogress
   Scenario: Verify Cancelling Partner Portal Solo Scheduled trip manually by Admin
@@ -323,7 +323,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -337,7 +337,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted     |
       | Enroute      |
@@ -350,15 +350,15 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    When I view the trip details
-    Then the Bungii details is displayed successfully
+    And I view the Live Trips list on the admin portal
+    And I click on Partner Portal Bungii trip
     And I click on "Manually End Bungii" link
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
     And I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Payment Successful" state
+    Then The Trip List page should display the partner portal trip in "Payment Successful" state
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Completed      |
@@ -378,7 +378,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "see Delivery Details screen"
     When I enter following details on "Delivery Details" partner screen
       |Items_To_Deliver|Customer_Name        |Customer_Mobile|Pickup_Contact_Name|Pickup_Contact_Phone|
-      |Furniture       |Testcustomer_Gopal   |9998881111     |Test Pickup        |9999999359          |
+      |Furniture       |TestPP Customer      |9998881111     |Test Pickup        |9999999359          |
     And I Select "Customer Card" as Payment Method
     And I enter following Credit Card details on Partner Portal
       |CardNo   |Expiry |Postal_Code      |Cvv      |
@@ -392,17 +392,17 @@ Feature: Partner Integration with Admin and Driver
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    And I view the partner portal Scheduled Trips list on the admin portal
+    #And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | Scheduled      |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Enroute |
     And I view the Live Trips list on the admin portal
@@ -412,7 +412,7 @@ Feature: Partner Integration with Admin and Driver
     And I navigate to partner portal and view the Trip status with below status
       | Partner_Status |
       | In-Progress    |
-    And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" partner portal trip
+    And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state   |
       | Bungii Canceled |
     And I view the Live Trips list on the admin portal
