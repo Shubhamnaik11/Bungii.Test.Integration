@@ -348,7 +348,6 @@ Feature: Promos
 
   @regression
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
-
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

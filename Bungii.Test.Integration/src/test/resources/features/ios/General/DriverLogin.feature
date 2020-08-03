@@ -1,5 +1,5 @@
 @ios
-Feature: Log In
+Feature: Driver Login
   As a Bungii Driver I should be allowed to login only using valid credential
 
   Background:

@@ -6,7 +6,6 @@ Feature: Admin_FailedTripEmails
 
   @regression
   @email
-  @failed
   Scenario: Verify Failed Trip Email - Ondemand Trip - No driver accepts
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
@@ -17,7 +16,6 @@ Feature: Admin_FailedTripEmails
 
   @regression
   @email
-  @failed
   Scenario: Verify Failed Trip Email - Ondemand Trip Cancelled By Customer
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
