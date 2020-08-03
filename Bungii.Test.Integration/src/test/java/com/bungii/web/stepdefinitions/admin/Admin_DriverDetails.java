@@ -56,6 +56,16 @@ public class Admin_DriverDetails extends DriverBase{
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
     }
 
+    @And("^I click on \"([^\"]*)\" Link$")
+    public void i_click_on_some_link(String Linkname){
+        switch (Linkname){
+            case "View Profile":
+                action.click(admin_Driverspage.Link_ViewProfile());
+                break;
+
+        }
+    }
+
     @Then("^The Trip List page should display the trip in \"([^\"]*)\" state$")
     public void the_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");

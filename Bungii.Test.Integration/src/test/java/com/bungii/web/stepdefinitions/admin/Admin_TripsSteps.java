@@ -88,6 +88,15 @@ public class Admin_TripsSteps extends DriverBase {
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
+    @And("^I view the all Scheduled Trips list on the admin portal$")
+    public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
+        action.click(admin_TripsPage.Menu_Trips());
+        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
+    }
     @And("^I view the partner portal Scheduled Trips list on the admin portal$")
     public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
         action.click(admin_TripsPage.Menu_Trips());
@@ -336,7 +345,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     @And("^Enter the End Date and Time$")
     public void enter_the_end_date_time() throws Throwable {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E(MMM dd)");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/YYYY");
 
 
         String RequestTime = SetupManager.getDriver().findElement(By.xpath("//td[contains(text(),'Initial Request')]/following-sibling::td/strong")).getText();
@@ -510,6 +519,8 @@ public class Admin_TripsSteps extends DriverBase {
         String customerName = null;
         String customerPhone = null;
         String customerEmail = null;
+        boolean hasDST=false;
+
         if (!name.isEmpty()) {
             customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
             customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
@@ -540,7 +551,23 @@ public class Admin_TripsSteps extends DriverBase {
                 calendar.add(Calendar.MINUTE, minutes);
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
                 Date date1 = calendar.getTime();
-                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
+
+                TimeZone zone = TimeZone.getTimeZone("America/New_York");
+
+                hasDST = zone.observesDaylightTime();
+
+                if(hasDST){
+
+                    int hr1 = date1.getHours() + 1;
+                    date1.setHours(hr1);
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                    //pickupdate.replaceAll("EST","EDT");
+                    //emailBody.replaceAll("EST","EDT");
+                }
+                else{
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                }
+               // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
 
             } else {
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
@@ -554,16 +581,35 @@ public class Admin_TripsSteps extends DriverBase {
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
-                message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+               // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                }
                 break;
             case "Bungii Delivery Pickup Updated":
-                message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                }
+              //  message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 break;
             case "Bungii Delivery Pickup Canceled":
-                message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                }
+                //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 break;
         }
         message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
         logger.detail("Email Body (Expected): "+message);
           testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
