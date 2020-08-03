@@ -7,7 +7,7 @@ Feature: Customer Estimate screen
 
   Background:
     Given I am on Customer logged in Home page
-  @FAILED2702
+ 
   @regression
   Scenario: Verify If Customer Cancels Ondemand Bungii While It Is In Searching driver State Then He Is Navigated To Home Screen - Also Pickup And Dropoff Location Of Previous Trip Is Not Reset
     When I request for  bungii for given pickup and drop location
@@ -23,7 +23,7 @@ Feature: Customer Estimate screen
     And I should be navigated to "Home" screen
     And Trip Information should be correctly displayed on CUSTOMER HOME screen
   
-
+  
   @regression
   Scenario: Verify When Bungii Customer Cancels On Heads Up Alert Message Then He Stays On Estimate Screen And All Field Details Remains Unchanged
     When I request for  bungii for given pickup and drop location
@@ -41,7 +41,8 @@ Feature: Customer Estimate screen
     And Estimate Screen should have element as per below table
       | Trip Distance    | Load/unload time | Promo Code | Total Estimate   | Payment Method   | Time | Terms And Condition | REQUEST BUNGII |
       | {PREVIOUS VALUE} | 15 mins          |            | {PREVIOUS VALUE} | {PREVIOUS VALUE} | Now  | CHECK               | ENABLED        |
-
+  
+  
   @regression
   Scenario: Verify When Customer Cancels On Estimate Page Then He Is Navigated To Home Screen
     When I request for  bungii for given pickup and drop location

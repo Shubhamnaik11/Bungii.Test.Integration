@@ -1,6 +1,7 @@
 @ios
-  # this will run in 	nashville
-Feature: Create on demand bungii
+  # this will run in 	nashville 13 Scenarios
+Feature: Ondemand Bungii Scenarios - Nashville Geofence
+  
   @demoportal
   @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
@@ -58,7 +59,6 @@ Feature: Create on demand bungii
 
   @sanity
   @regression
-  @sanityfailure
   Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page

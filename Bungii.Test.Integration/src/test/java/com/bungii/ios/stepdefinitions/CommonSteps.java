@@ -1040,7 +1040,14 @@ public class CommonSteps extends DriverBase {
                 tripTime = tripTime.replace(PropertyUtility.getDataProperties("time.label"), "").trim();
 
             tripTime=tripTime.replace("am","AM").replace("pm","PM");
-            logger.detail("TRIP TIME"+tripTime);
+            //code to check daylight savings required here
+            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+            {
+                tripTime=tripTime.replace("st","dt").replace("ST","DT");
+                logger.detail("Daylight Savings is ON");
+            }
+            logger.detail("TRIP TIME [According to Daylight Savings]: "+tripTime);
+
             if (currentApplication.equalsIgnoreCase("CUSTOMER")) {
                 //customerScheduledBungiiPage.selectBungiiFromList(tripNoOfDriver, tripTime);
                 String imageTag = "";

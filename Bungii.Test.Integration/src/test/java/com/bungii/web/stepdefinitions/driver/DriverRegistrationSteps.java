@@ -76,6 +76,7 @@ public class DriverRegistrationSteps extends DriverBase {
                 String Lastname = utility.GetUniqueLastName();
                 action.clearSendKeys(Page_Driver_Reg.TextBox_LastName(),Lastname);
                 cucumberContextManager.setScenarioContext("FIRSTNAME", PropertyUtility.getDataProperties("DriverFirstName"));
+                cucumberContextManager.setScenarioContext("LASTNAME", Lastname);
                 cucumberContextManager.setFeatureContextContext("LASTNAME", Lastname);
 
                 action.clearSendKeys(Page_Driver_Reg.TextBox_Email(), PropertyUtility.getDataProperties("DriverEmail"));

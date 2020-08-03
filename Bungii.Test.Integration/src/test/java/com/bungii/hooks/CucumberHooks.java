@@ -173,7 +173,7 @@ public class CucumberHooks {
             {
                 logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
             }
-            if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
+            else if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
