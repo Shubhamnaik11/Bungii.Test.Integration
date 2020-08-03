@@ -2,12 +2,12 @@
 
   "extra1": {
     "platformName": "iOS",
-    "platformVersion": "13.5.1",
+    "platformVersion": "12.1",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
     "otherApps":"com.bungii.driver",
-    "deviceName": "iPhone 6S-01",
-    "udid": "9c8414b952bc0f72f9d51a232e5d1dba45efcce4",
+    "deviceName": "iPhone 6-03",
+    "udid": "7bae8edff10f14caea680732db2e9c736273df0a",
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
@@ -18,19 +18,18 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8160,
+    "wdaLocalPort": 8170,
     "showXcodeLog": true,
-    "locationServicesEnabled":true,
-    "locationServicesAuthorized":true
+    "xcodeOrgId": "3DV85RL7V3",
+    "xcodeSigningId": "iPhone Developer"
   },
   "device1": {
     "platformName": "iOS",
-    "platformVersion": "11.2.5",
+    "platformVersion": "11.2",
     "automationName": "XCUITest",
     "app": "com.bungii.customer",
     "otherApps":"com.bungii.driver",
-    "deviceName": "iPhone 6-02",
-    "udid": "ebcd350201440c817087b1cd99413f8b74e846bd",
+    "deviceName": "iPhone Simulator",
     "newCommandTimeout": "9000",
     "wdaLaunchTimeout": "240000",
     "wdaConnectionTimeout": "240000",
@@ -41,10 +40,10 @@
     "wdaStartupRetries": "4",
     "iosInstallPause":8000,
     "wdaStartupRetryInterval": 20000,
-    "wdaLocalPort": 8180,
+    "wdaLocalPort": 8190,
     "showXcodeLog": true,
-    "locationServicesEnabled":true,
-    "locationServicesAuthorized":true
+    "xcodeOrgId": "3DV85RL7V3",
+    "xcodeSigningId": "iPhone Developer"
   },
 
   "connection": {
