@@ -49,6 +49,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
 
     Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
+    Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -110,6 +111,39 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("GF_SECONDARY",Secondary);
                     cucumberContextManager.setScenarioContext("GF_GEOTIMEZONE", GeoTimeZone);
                     cucumberContextManager.setScenarioContext("GF_STATUS", GeoStatus);
+
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful", "Error performing step, Please check logs for more details",
+                            true);
+                }
+
+                break;
+            case "Geofence Attributes" :
+                try {
+                    Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+                    String Key = dataMap.get("Key").trim();
+                    String DefaultValue = dataMap.get("Default-Value").trim();
+                    String Description = dataMap.get("Description").trim();
+                    String Label = dataMap.get("Label").trim();
+
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Key(), Key);
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_DefaultValue(), DefaultValue);
+
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Description(), Description);
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Label(), Label);
+//                    if(!GeofenceName.equals("")) {
+//                        action.sendKeys(admin_GeofencePage.TextBox_GeoName(), GeofenceName);
+//                        cucumberContextManager.setScenarioContext("GF_GEONAME", GeofenceName);
+//                    }
+
+                    log("I enter values on Geofence Attribute page",
+                            "I entered values on Geofence Attribute page", true);
+
+                    cucumberContextManager.setScenarioContext("GF_ATTR_KEY", Key);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_DEFAULT_VALUE",DefaultValue);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_DESCRIPTION", Description);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_LABEL", Label);
 
                 } catch (Exception e) {
                     logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
