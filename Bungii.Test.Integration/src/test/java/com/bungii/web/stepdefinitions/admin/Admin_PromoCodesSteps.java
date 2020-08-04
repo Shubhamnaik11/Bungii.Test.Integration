@@ -262,7 +262,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
         //Date today = new Date();
       //  Date tomorrow = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        //dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+       // dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         dateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         Date today = new Date();
         CreatedDate = dateFormat.format(today).toString();

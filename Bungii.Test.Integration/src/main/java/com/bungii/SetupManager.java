@@ -463,6 +463,7 @@ public class SetupManager extends EventFiringWebDriver {
 
         }
         logger.detail("Restarted App : " + bundleId);
+
     }
 
     public void useDriverInstance(String instanceKey) {

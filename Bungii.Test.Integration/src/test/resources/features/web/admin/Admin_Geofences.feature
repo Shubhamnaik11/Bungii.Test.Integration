@@ -105,8 +105,7 @@ Feature: Admin_Geofence
     Then check if error message is displayed for "duo trip"
     And I change the value of "Minimum scheduled time for Duo trip" to "840" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
-    Then Enter value should get saved and error message is not displayed
-    And I click on the "Settings" Button on "Geofence" Screen
+    Then check if error message is displayed for "duo trip"
     #And I change the value of "Minimum scheduled time for Duo trip" to "1415" minutes
     #And I click on the "Save" Button on "Geofence Settings" Screen
     #Then check if error message is displayed for "duo trip"
@@ -123,10 +122,10 @@ Feature: Admin_Geofence
     And I change the value of "Minimum scheduled time for Solo trip" to "841" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then check if error message is displayed for "solo trip"
-    And I change the value of "Minimum scheduled time for Solo trip" to "840" minutes
+    And I change the value of "Minimum scheduled time for Solo trip" to "840" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
-    # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
+   # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
   # And I click on the "Save" Button on "Geofence Settings" Screen
   #  Then check if error message is displayed for "solo trip"
    # And I change the value of "Minimum scheduled time for Solo trip" to "1415" minutes
@@ -149,7 +148,6 @@ Feature: Admin_Geofence
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
 
-    And I click on the "Settings" Button on "Geofence" Screen
     And I change the value of "Minimum scheduled time for Solo trip" to "29" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then check if error message is displayed for "solo trip"

@@ -88,6 +88,7 @@ Feature: Driver Login
     When I Select "LOGOUT" from driver App menu
 
   @regression
+  @permission
   Scenario: Verify Driver Location Permission Displayed When Driver Permission Is Set Off
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
