@@ -14,7 +14,7 @@ public class DriversPage extends PageBase {
     public WebElement Button_Search(){return  findElement("btnSearch",LocatorType.Id);}
 
     public WebElement Text_DriverRatting() {
-        return findElement("//tbody[@id='NewApplicantsTBody']/tr[1]/td[6]", LocatorType.XPath);
+        return findElement("//tbody[@id='NewApplicantsTBody']/tr[1]/td[7]", LocatorType.XPath);
     }
     public WebElement Button_DriverProfileLink() {
         return findElement("//tbody[@id='NewApplicantsTBody']/tr[1]/td/a/img[@title='Profile']/parent::a", LocatorType.XPath);

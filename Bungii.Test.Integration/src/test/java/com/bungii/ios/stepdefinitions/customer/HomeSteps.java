@@ -332,13 +332,14 @@ public class HomeSteps extends DriverBase {
     @Then("^\"([^\"]*)\" box header and ETA bar header should be correctly displayed$")
     public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action) {
         try {
+            //This behavior was changed after sprint 32
             switch (action.toUpperCase()) {
                 case "DROP":
-                    testStepVerify.contains(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
+                  //  testStepVerify.contains(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 case "PICK UP":
-                    testStepVerify.contains(getEtaBarHeader("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
+               //     testStepVerify.contains(getEtaBarHeader("PICKUP"),
+                   //         PropertyUtility.getMessage("customer.pickup.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -736,7 +737,7 @@ public class HomeSteps extends DriverBase {
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
 
-        int offset = 70 * dragFactor;
+      /*  int offset = 70 * dragFactor;
         Point initial = homePage.Text_eta_mins().getLocation(); ///commented eta bar
         boolean isPickupLineDisplayed = action.isElementPresent(homePage.TextBox_Pickup(true));
         if (isPickupLineDisplayed) {
@@ -745,7 +746,7 @@ public class HomeSteps extends DriverBase {
 
                 if (!action.isElementPresent(homePage.TextBox_Pickup(true))) break;
             }
-        }
+        }*/
         action.click(homePage.BUTTON_Set_PickupOff());
     }
 

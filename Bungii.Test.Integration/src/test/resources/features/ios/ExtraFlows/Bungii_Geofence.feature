@@ -20,7 +20,7 @@ Feature: Bungii Geofence Based Calculation
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Solo   | Berman Nissan of Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
+      | Solo   | Elston Playlot Park | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
 
 
     And I click "Get Estimate" button on "Home" screen
@@ -48,8 +48,7 @@ Feature: Bungii Geofence Based Calculation
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Duo   |  Berman Nissan of Chicago | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA  | chicago   |
-
+      | Solo   | Elston Playlot Park | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen

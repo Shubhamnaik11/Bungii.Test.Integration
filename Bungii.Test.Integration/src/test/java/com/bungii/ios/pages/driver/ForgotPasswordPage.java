@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class ForgotPasswordPage extends PageBase {
 
-    public WebElement Text_Info() { return findElement("XCUIElementTypeStaticText", LocatorType.ClassName); }
+    public WebElement Text_Info() { return findElement("//XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1]", LocatorType.XPath); }
     public WebElement Text_SmsCode() { return findElement("XCUIElementTypeTextField", PageBase.LocatorType.ClassName); }
     public WebElement Text_Password() { return findElement("XCUIElementTypeSecureTextField", PageBase.LocatorType.ClassName); }
 
