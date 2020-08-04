@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -32,7 +32,7 @@
       Then I should "see the trip in the Delivery List"
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify Customer Payment method with Invalid Card Number for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -54,7 +54,7 @@
       Then I should "see validation message for invalid card number" on partner portal
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify Customer Payment method with Invalid Card Expiry Date for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -76,7 +76,7 @@
       Then I should "see validation message for Expired date" on partner portal
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify Customer Payment method with Invalid Cvv for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -99,7 +99,7 @@
       Then I should "see validation message for Cvv" on partner portal
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify Customer Payment method with Invalid Postal Code for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -121,7 +121,7 @@
       Then I should "see validation message for Postal Code" on partner portal
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify Partner Payment method for Bungii Trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

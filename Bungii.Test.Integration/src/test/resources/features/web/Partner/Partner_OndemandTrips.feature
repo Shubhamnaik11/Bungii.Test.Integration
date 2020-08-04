@@ -4,6 +4,7 @@
     Background:
       Given I am logged in as Partner User on Partner Portal
 
+    @ready
     Scenario: Verify that Partner can create Solo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
@@ -21,7 +22,8 @@
       And I enter postal code :<Postal Code> and Cvv: <Cvv> on Card Details page
       And I click on "Schedule Bungii" button
       Then I should see bungii trip success message on "Done" screen
-
+  
+    @ready
     Scenario: Verify that Partner can create Duo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|

@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     Scenario: Verify all the fields on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                                    |Load_Unload_Time|
@@ -31,7 +31,7 @@
       Then I should "see Done screen"
       And I should logout from Partner Portal
 
-      @regression
+      @ready
     Scenario: Verify that "Items To Deliver" is mandatory field on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -54,7 +54,7 @@
       Then I should "see validations message for blank Items To Deliver field" on Delivery Details screen
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify that "Customer Name" is mandatory field on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -77,7 +77,7 @@
       Then I should "see validations message for blank Customer Name field" on Delivery Details screen
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify that "Customer Mobile" is mandatory field on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -100,7 +100,7 @@
       Then I should "see validations message for blank Customer Mobile field" on Delivery Details screen
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify that "Pickup Contact Name" is mandatory field on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -123,7 +123,7 @@
       Then I should "see validations message for blank Pickup Contact Name field" on Delivery Details screen
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify that "Pickup Contact Phone" is mandatory field on Delivery Details Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

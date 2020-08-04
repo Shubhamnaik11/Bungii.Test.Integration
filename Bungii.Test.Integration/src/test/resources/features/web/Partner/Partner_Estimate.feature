@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @regression
+    @ready
     Scenario: Verify that correct estimate cost calculated for Solo Bungii
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -19,7 +19,7 @@
       Then I should see "Estimated Cost"
       Then I check correct estimated price calculated on Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -42,7 +42,7 @@
       Then I should "see Get Estimate screen"
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify If Partner User Cancel OnDemand Bungii Before Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -58,14 +58,14 @@
       And I should "see Get Estimate screen"
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify Validation message is display for Mandatory fields on "Get Estimate" screen
       When I clear the existing pickup address details
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "see validation message for mandatory fields"
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify information icon display correct information on "Get Estimate" screen
       When I click on "WHAT’S NEEDED?" information icon and verify its text contents
       And I click on "Delivery Address" information icon and verify its text contents
@@ -73,7 +73,7 @@
       And I click on "PickUp Date" information icon and verify its text contents
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Unload Time
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -89,7 +89,7 @@
       Then Estimate Cost should get recalculate
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario: Verify that Get Estimate cost get recalculated on changing the Delivery Address
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -105,7 +105,7 @@
       Then Estimate Cost should get recalculate
       And I should logout from Partner Portal
 
-    @regression
+    @ready
     Scenario:Verify that clearing Pickup address clears Address field on "Get Estimate" screen
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
