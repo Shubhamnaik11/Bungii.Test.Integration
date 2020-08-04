@@ -134,16 +134,30 @@ public class Partner_LoginSteps extends DriverBase {
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Text_Delivery_Details_Header()), PropertyUtility.getMessage("Delivery_Details_Header"));
                 String PickupDateTime = action.getText(Page_Partner_Delivery.Text_Pickup_DateTime());
 
-                StringBuilder sb = new StringBuilder(PickupDateTime);
-                sb.setCharAt(3,'(');
-                PickupDateTime = sb.toString();
+                //StringBuilder sb = new StringBuilder(PickupDateTime);
+                //sb.setCharAt(3,'(');
+
+                //PickupDateTime = sb.toString();
+
+                String[] S2 = PickupDateTime.split(" ",2);
+
+                String Month = S2[0].substring(0,3);
+                String space = " ";
+                S2[0] = Month+space;
+
+
+                PickupDateTime = S2[0] + S2[1];
+
+                char ch = PickupDateTime.charAt(4);
+
+                if(PickupDateTime.charAt(4)=='0'){
+                    StringBuilder sb = new StringBuilder(PickupDateTime);
+                    sb.deleteCharAt(4);
+                    PickupDateTime= sb.toString();
+                }
 
                 PickupDateTime = PickupDateTime.replaceAll("[()]","");
 
-
-                //String TimeZone_text = "";
-               // DateFormat format = new SimpleDateFormat("MMM dd, yyyy 'at' HH:MM aa (Z)");
-                //Date PickupDateTime = format.parse(PUDT);
 
                 cucumberContextManager.setScenarioContext("PickupDateTime",PickupDateTime);
                 break;
@@ -167,7 +181,7 @@ public class Partner_LoginSteps extends DriverBase {
                 String CustomerName = (String) cucumberContextManager.getScenarioContext("Customer_Name");
                 String DeliveryAddress = (String) cucumberContextManager.getScenarioContext("Delivery_Address");
 
-                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date, CustomerName, DeliveryAddress);
+                String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]", Delivery_Date,CustomerName, DeliveryAddress);
                 testStepAssert.isElementDisplayed(action.getElementByXPath(XPath), "Trip should be displayed on partner portal", "Trip is displayed on partner portal", "Trip is not displayed on partner portal");
                 /*
                 try {
