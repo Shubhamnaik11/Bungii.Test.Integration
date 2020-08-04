@@ -491,19 +491,9 @@ public class Partner_trips extends DriverBase {
                 break;
             case "Delivery Address":
                 String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                String Delivery_Address;
-                if(geofence.equalsIgnoreCase("washingtondc")) {
 
-                    Delivery_Address = PropertyUtility.getDataProperties("partner.change.drop.washingtondc");
+                String Delivery_Address = dataMap.get("Delivery_Address");
 
-                }
-                else{
-                    Delivery_Address = dataMap.get("Delivery_Address");
-
-                }
-
-               // action.click(Page_Partner_Dashboard.Delivery_Address());
-                //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.Button_DeliveryClear());
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);

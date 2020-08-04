@@ -103,7 +103,6 @@ public class BungiiSteps extends DriverBase {
             case "testdriver4 Test":
                 phone = PropertyUtility.getDataProperties("ios.common.valid.driver.phone");
                 break;
-
             case "Testdrivertywd_appleks_ra_five Test":
                 phone = PropertyUtility.getDataProperties("valid.driver.kansas.phone");
                 break;
@@ -125,8 +124,15 @@ public class BungiiSteps extends DriverBase {
             case "Melvin Johnson":
                 phone = PropertyUtility.getDataProperties("web.valid.driver106.phone");
                 break;
-
-
+            case "Testdrivertywd_appledc_a_ptner Driverone":
+                phone = PropertyUtility.getDataProperties("web.valid.partner.driver1.phone");
+                break;
+            case "Testdrivertywd_appledc_a_ronny James":
+                phone = PropertyUtility.getDataProperties("web.valid.partner.driver2.phone");
+                break;
+            case "Testdrivertywd_appledc_a_mate Gate":
+                phone = PropertyUtility.getDataProperties("web.valid.partner.driver3.phone");
+                break;
             case "Testdrivertywd_appledc_a_web Sundara":
                 phone = PropertyUtility.getDataProperties("web.valid.driver7.phone");
                 break;
