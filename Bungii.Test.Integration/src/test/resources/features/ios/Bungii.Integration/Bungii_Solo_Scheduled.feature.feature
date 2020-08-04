@@ -693,8 +693,7 @@ Feature: Solo Scheduled Bungii Part I
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @FAILED2702
-  @ready
+  @regression
   Scenario:Verify Scheduled Bungii Notification Info(Estimated Earnings Date etc.)
     When I clear all notification
     And I Switch to "driver" application on "same" devices
@@ -1617,9 +1616,8 @@ Feature: Solo Scheduled Bungii Part I
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-  @failed
-  @ready
+    
+  @regression
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
