@@ -25,7 +25,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_PickupClear() { return findElement("pickupAddCloseIcon",LocatorType.Id);}
 
     //Pickup Address in edit
-    public WebElement Dropdown_Pickup_Address() { return findElement("pickupAdd",LocatorType.Id);}
+    public WebElement Dropdown_Pickup_Address() { return findElement("pickValue",LocatorType.Id);}
 
     //Pickup Address in non edit
     public WebElement Text_Pickup_Address() { return findElement("//label[@class='pickup form-label']/following::address",LocatorType.XPath);}
@@ -40,7 +40,7 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement Button_DeliveryClear() { return findElement("dropoffAddCloseIcon",LocatorType.Id );}
 
     //Delivery Address
-    public WebElement Dropdown_Delivery_Address() { return findElement("dropoffAdd",LocatorType.Id);}
+    public WebElement Dropdown_Delivery_Address() { return findElement("dropValue",LocatorType.Id);}
 
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
