@@ -18,6 +18,7 @@
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       Then I check correct estimated price calculated on Partner Portal
+      And I should logout from Partner Portal
 
     @ready
     Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen

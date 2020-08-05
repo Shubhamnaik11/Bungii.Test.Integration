@@ -36,9 +36,9 @@
 
     @ready
     Scenario: Verify the five future days shown in Pickup Date dropdown
-          When I click on Pickup date
-          Then I should "see five future days including today"
-          And I should logout from Partner Portal
+      And I click on Pickup date
+      Then I should see five future days including today
+      And I should logout from Partner Portal
 
     @ready
     Scenario: Verify changing the pickup date for scheduled Solo bungii Trip
