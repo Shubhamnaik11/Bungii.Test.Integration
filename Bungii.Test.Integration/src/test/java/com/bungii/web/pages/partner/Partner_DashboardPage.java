@@ -110,6 +110,6 @@ public class Partner_DashboardPage extends PageBase {
     public WebElement InnerText_Information_Icon() { return findElement("//div[@class='tooltip-inner']",LocatorType.XPath);}
 
     //Partner Logout button
-    public WebElement Button_Partner_Logout() { return findElement("//a[@class='header-btn logout-btn']",LocatorType.XPath);}
+    public WebElement Button_Partner_Logout() { return findElement("//a[@class='header-menu-btn logout-btn']",LocatorType.XPath);}
 
 }

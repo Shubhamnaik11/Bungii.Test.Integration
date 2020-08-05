@@ -133,26 +133,27 @@ public class Partner_Payment extends DriverBase {
 
     public void addCardDetails(String cardNo, String expiry, String cvv, String postalCode) throws InterruptedException {
 
-        action.switchToFrame("CardNumber_Frame");
+        action.switchToFrame("braintree-hosted-field-number");
         action.click(Page_Partner_Delivery.TextBox_Card_Number());
         action.sendKeys(Page_Partner_Delivery.TextBox_Card_Number(),cardNo);
         //Thread.sleep(1000);
-        action.switchToFrame("Main");
+        action.switchToMainFrame();
+        //action.switchToFrame("Main");
 
-        action.switchToFrame("Expiry_Frame");
+        action.switchToFrame("braintree-hosted-field-expirationDate");
         action.click(Page_Partner_Delivery.TextBox_Expiry_Date());
         action.sendKeys(Page_Partner_Delivery.TextBox_Expiry_Date(), expiry);
-        action.switchToFrame("Main");
+        action.switchToMainFrame();
 
-        action.switchToFrame("Cvv_Frame");
+        action.switchToFrame("braintree-hosted-field-cvv");
         action.click(Page_Partner_Delivery.TextBox_CVV());
         action.sendKeys(Page_Partner_Delivery.TextBox_CVV(), cvv);
-        action.switchToFrame("Main");
+        action.switchToMainFrame();
 
-        action.switchToFrame("PostalCode_Frame");
+        action.switchToFrame("braintree-hosted-field-postalCode");
         action.click(Page_Partner_Delivery.TextBox_Postal_Code());
         action.sendKeys(Page_Partner_Delivery.TextBox_Postal_Code(), postalCode);
-        action.switchToFrame("Main");
+        action.switchToMainFrame();
         Thread.sleep(1000);
     }
 }
