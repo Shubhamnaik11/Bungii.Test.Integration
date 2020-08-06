@@ -23,7 +23,7 @@
     "xcodeOrgId": "3DV85RL7V3",
     "xcodeSigningId": "iPhone Developer",
     "unlockDevice": true,
-    "unlockType": "password",
+    "unlockType": "pin",
     "unlockKey": "123456"
   },
   "device1": {
@@ -49,7 +49,7 @@
     "xcodeOrgId": "3DV85RL7V3",
     "xcodeSigningId": "iPhone Developer",
     "unlockDevice": true,
-    "unlockType": "password",
+    "unlockType": "pin",
     "unlockKey": "123456"
   },
 
