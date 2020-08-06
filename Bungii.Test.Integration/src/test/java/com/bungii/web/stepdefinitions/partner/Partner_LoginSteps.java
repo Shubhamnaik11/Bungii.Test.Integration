@@ -89,6 +89,7 @@ public class Partner_LoginSteps extends DriverBase {
                 action.click(Page_Partner_Dashboard.Button_Continue());
                 break;
             case "Schedule Bungii":
+                action.JavaScriptScrolldown();
                 action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                 break;
             case "Track Deliveries":

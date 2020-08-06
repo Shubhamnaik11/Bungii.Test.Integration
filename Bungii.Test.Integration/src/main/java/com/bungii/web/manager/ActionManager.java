@@ -177,6 +177,11 @@ public class ActionManager {
     }
     }
 
+    public void JavaScriptScrolldown(){
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,200)","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
