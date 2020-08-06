@@ -175,6 +175,19 @@ public class Partner_trips extends DriverBase {
         action.click(Page_Partner_Dashboard.Dropdown_Pickup_Date());
     }
 
+    @Then("^I should see five future days including today$")
+    public void i_should_see_five_future_days_including_today() {
+
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_Date_Today(),"Today date should be display","Today date is display.","Today day is not displayed.");
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_1(),"Second day should be display","Second day is display.","Second day is not displayed.");
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_2(),"Third day should be display","Third day is display.","Third day is not displayed.");
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_3(),"Fourth day should be display","Fourth day is display.","Fourth day is not displayed.");
+        testStepAssert.isElementDisplayed(Page_Partner_Dashboard.Pickup_date_Today_4(),"Fifth day should be display","Fifth day is display.","Fifth day is not displayed.");
+
+        action.click(Page_Partner_Dashboard.Pickup_date_Today_1());
+    }
+
+
 
     @And("^I select Pickup Date and Pickup Time$")
     public  void i_select_pickupdate_time(DataTable data) throws Throwable {
@@ -491,19 +504,9 @@ public class Partner_trips extends DriverBase {
                 break;
             case "Delivery Address":
                 String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
-                String Delivery_Address;
-                if(geofence.equalsIgnoreCase("washingtondc")) {
 
-                    Delivery_Address = PropertyUtility.getDataProperties("partner.change.drop.washingtondc");
+                String Delivery_Address = dataMap.get("Delivery_Address");
 
-                }
-                else{
-                    Delivery_Address = dataMap.get("Delivery_Address");
-
-                }
-
-               // action.click(Page_Partner_Dashboard.Delivery_Address());
-                //Thread.sleep(1000);
                 action.click(Page_Partner_Dashboard.Button_DeliveryClear());
                 action.click(Page_Partner_Dashboard.Dropdown_Delivery_Address());
                 action.clearSendKeys(Page_Partner_Dashboard.Dropdown_Delivery_Address(),Delivery_Address+ Keys.TAB);

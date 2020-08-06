@@ -18,6 +18,7 @@
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       Then I check correct estimated price calculated on Partner Portal
+      And I should logout from Partner Portal
 
     @ready
     Scenario:Verify If Partner User Cancel Solo Bungii After Entering Delivery Details Then He Is Navigated back To Get Estimate Screen
@@ -100,8 +101,8 @@
       And I click "GET ESTIMATE" button on Partner Portal
       Then I should see "Estimated Cost"
       And I change the "Delivery Address" and click on Get Estimate button
-        |Delivery_Address                                     |
-        |1600 Holloway Avenue, San Francisco, California 94132|
+        |Delivery_Address                                                                    |
+        |700 L'Enfant Plaza Southwest, Washington, United States, District of Columbia, 20024|
       Then Estimate Cost should get recalculate
       And I should logout from Partner Portal
 

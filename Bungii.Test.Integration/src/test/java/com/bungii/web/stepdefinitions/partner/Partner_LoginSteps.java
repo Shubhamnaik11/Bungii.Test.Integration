@@ -89,6 +89,7 @@ public class Partner_LoginSteps extends DriverBase {
                 action.click(Page_Partner_Dashboard.Button_Continue());
                 break;
             case "Schedule Bungii":
+                action.JavaScriptScrolldown();
                 action.click(Page_Partner_Delivery.Button_Schedule_Bungii());
                 break;
             case "Track Deliveries":
@@ -226,7 +227,11 @@ public class Partner_LoginSteps extends DriverBase {
     @And("^I should logout from Partner Portal$")
     public void i_should_logout_from_partner_portal() throws Throwable {
         action.click(Page_Partner_Done.Dropdown_Setting());
+        //Thread.sleep(5000);
         utility.PartnerLogout();
+
+        testStepAssert.isElementDisplayed(action.getElementByXPath("//button[@id='login']"), "SIGN IN button should be displayed on partner portal", "SIGN IN button is displayed on partner portal", "SIGN IN button is not displayed on partner portal");
+        //action.getElementByXPath(Page_Partner_Login.Button_Sign_In())
         log("I should be logged out from Partner Portal ","I clicked ", true);
     }
 

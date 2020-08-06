@@ -177,6 +177,11 @@ public class ActionManager {
     }
     }
 
+    public void JavaScriptScrolldown(){
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,200)","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
@@ -310,29 +315,16 @@ catch(Exception ex)
         }
     }
 
-    public void switchToFrame(String value){
+    public  void switchToFrame(String value){
+
         WebDriver driver =SetupManager.getDriver();
+        driver.switchTo().frame(value);
+    }
 
-        switch (value){
-            case"CardNumber_Frame":
-                driver.switchTo().frame("braintree-hosted-field-number");
-                break;
-            case"Expiry_Frame":
-                driver.switchTo().frame("braintree-hosted-field-expirationDate");
-                break;
-            case"PostalCode_Frame":
-                driver.switchTo().frame("braintree-hosted-field-postalCode");
-                break;
-            case"Cvv_Frame":
-                driver.switchTo().frame("braintree-hosted-field-cvv");
-                break;
-            case"Main":
-                driver.switchTo().defaultContent();
-                break;
-            default:
-                break;
+    public void switchToMainFrame(){
+        WebDriver driver =SetupManager.getDriver();
+        driver.switchTo().defaultContent();
 
-        }
     }
 
     public void openNewTab(){

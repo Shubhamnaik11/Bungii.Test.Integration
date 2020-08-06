@@ -31,7 +31,7 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
