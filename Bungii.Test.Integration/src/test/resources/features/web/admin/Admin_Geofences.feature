@@ -126,7 +126,7 @@ Feature: Admin_Geofence
     And I change the value of "Minimum scheduled time for Solo trip" to "840" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
-    # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
+   # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
   # And I click on the "Save" Button on "Geofence Settings" Screen
   #  Then check if error message is displayed for "solo trip"
    # And I change the value of "Minimum scheduled time for Solo trip" to "1415" minutes
@@ -190,4 +190,5 @@ Feature: Admin_Geofence
       | Key                                              | Default-Value                   | Description  | Label|
       | BusinessFAQ      | BusinessFAQ        |  | |
     And I click on the "Save" Button on "GeofenceAttributes" Screen
-#    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+

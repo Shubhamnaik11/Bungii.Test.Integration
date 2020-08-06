@@ -584,7 +584,11 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("Allow");
                 }
                 homeSteps.i_selectlogout(); */
-            } else {
+            } else if (navigationBarName.equals("WANT $5?")) {
+                takeActionOnPromotion("REJECT");
+                homeSteps.i_selectlogout();
+            }
+            else {
                 homeSteps.i_selectlogout();
             }
             log("I should be on LOG IN page",

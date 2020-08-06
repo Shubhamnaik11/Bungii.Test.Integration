@@ -259,7 +259,7 @@ public class BungiiDetailsSteps extends DriverBase {
                     //divide by 2 for individual driver value
                     truncValue = new DecimalFormat("#.00").format(estimatedDriverCut / 2);
                     testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_EstimatedEarningValue(), "~$" + truncValue);
-                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), (String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME"));
+                    testStepVerify.isElementTextEquals(bungiiDetailsPage.Text_ValueTripTime(), ((String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE_TIME_LOAD_TIME").toString().replace(" ","  ")));
 
                     Calendar calendar = Calendar.getInstance();
                     Date dateTime = calendar.getTime();

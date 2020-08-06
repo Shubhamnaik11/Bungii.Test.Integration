@@ -15,6 +15,7 @@ import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.joda.time.DateTime;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.text.DateFormat;
@@ -84,7 +85,12 @@ public class EstimateSteps extends DriverBase {
                     warning("I should able to select bungii time", "I am changing bungii time due to delay in bungii request", true);
                     SetupManager.getDriver().switchTo().alert().accept();
                     strTime = enterTime("NEXT_POSSIBLE AFTER ALERT");
-                    isCorrectTime = (action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM")).equals(strTime);
+                    String timeValue = action.getValueAttribute(estimatePage.Text_TimeValue()).replace("am","AM").replace("pm","PM");
+                    if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
+                    {
+                        timeValue = action.getValueAttribute(estimatePage.Text_TimeValue()).replace("ST","DT").replace("st","dt");
+                    }
+                    isCorrectTime = (timeValue).equals(strTime);
                     cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
                     clickRequestBungii();
                     isAlertCorrect = verifyAndAcceptAlert(loadTime);
@@ -95,7 +101,7 @@ public class EstimateSteps extends DriverBase {
                     "Heads up alert message is correctly displayed", "Heads up alert message is not correctly displayed");
 
             testStepAssert.isTrue(isCorrectTime, "I confirm trip with following details",
-                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time"
+                    "I created new  trip for " + strTime, "Trip was not successfully confirmed ,Bungii request time "
                             + strTime + actualTime + " not matching with entered time ");
             utility.logCustomerRecentTrip((String)cucumberContextManager.getScenarioContext("CUSTOMER_PHONE"));
         } catch (Exception e) {
@@ -1248,7 +1254,7 @@ public class EstimateSteps extends DriverBase {
     /**
      * Add Last image from camera roll folder as bungii pickup item image
      */
-    public void addBungiiPickUpImage(String option) {
+    public void addBungiiPickUpImage(String option) throws InterruptedException{
         if (option.equalsIgnoreCase("4 images")) {
             addImage(4);
         } else if (option.equalsIgnoreCase("Default")) {
@@ -1262,7 +1268,7 @@ public class EstimateSteps extends DriverBase {
 
     }
 
-    private void addImage(int numberOfImage) {
+    private void addImage(int numberOfImage) throws InterruptedException {
         for (int i = 1; i <= numberOfImage; i++) {
             if (i == 1)
                 estimatePage.Button_AddPhoto().click();
@@ -1274,8 +1280,9 @@ public class EstimateSteps extends DriverBase {
                 //do nothing, directly move to steps after IF conditions
             } else if (action.isElementPresent(estimatePage.Button_OK(true)))
                 action.click(estimatePage.Button_OK());
-
+            Thread.sleep(3000);
             action.click(estimatePage.Button_PhotoCapture());
+            Thread.sleep(3000);
             action.click(estimatePage.Button_UsePhoto());
 
 

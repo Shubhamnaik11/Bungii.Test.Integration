@@ -83,7 +83,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "Today");
-
+        //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
@@ -92,9 +92,17 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
-        //action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
 
-        // SetupManager.getDriver().navigate().refresh();
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
+    }
+    @And("^I view the partner portal Scheduled Trips list on the admin portal$")
+    public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
+        action.click(admin_TripsPage.Menu_Trips());
+        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
@@ -243,6 +251,7 @@ public class Admin_TripsSteps extends DriverBase {
             String geofenceName = getGeofence(geofence);
             action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
             action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
+
 
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;
@@ -511,6 +520,7 @@ public class Admin_TripsSteps extends DriverBase {
         String customerPhone = null;
         String customerEmail = null;
         boolean hasDST=false;
+
         if (!name.isEmpty()) {
             customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
             customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
@@ -557,6 +567,7 @@ public class Admin_TripsSteps extends DriverBase {
                 else{
                     pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
                 }
+               // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
 
             } else {
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
@@ -568,16 +579,15 @@ public class Admin_TripsSteps extends DriverBase {
 
         }
         String message = null;
-
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
+               // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 if(hasDST){
                     message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                     message= message.replaceAll("EST","EDT");
                 }else {
                     message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 }
-
                 break;
             case "Bungii Delivery Pickup Updated":
                 if(hasDST){
@@ -586,6 +596,7 @@ public class Admin_TripsSteps extends DriverBase {
                 }else {
                     message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 }
+              //  message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 break;
             case "Bungii Delivery Pickup Canceled":
                 if(hasDST){
@@ -594,6 +605,7 @@ public class Admin_TripsSteps extends DriverBase {
                 }else {
                     message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 }
+                //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 break;
         }
         message= message.replaceAll(" ","");

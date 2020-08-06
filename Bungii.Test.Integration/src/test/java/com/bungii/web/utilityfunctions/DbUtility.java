@@ -23,6 +23,28 @@ public class DbUtility extends DbContextManager {
         logger.detail("SMS code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
+
+    public static String getScheduledTime(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return Scheduled_Time;
+    }
+
+    public static String getPickupRef(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
+
+    public static String getPickupIdfrom_pickup_additional_info(String phoneNumber) {
+        String pickupId = "";
+        //String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = " + phoneNumber;
+        String queryString = "SELECT pickup_id from pickup_additional_info where customer_phone=" + phoneNumber + " order by  pickup_id desc limit 1";
+        pickupId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "latest PickupId is " + pickupId);
+        return pickupId;
+    }
+
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
         String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;
@@ -122,5 +144,23 @@ public class DbUtility extends DbContextManager {
                 "group by gfs.GeofenceSettingVersionID";
         listOfGeofences = getDataFromMySqlServerMap(queryString);
         return listOfGeofences;
+    }
+    
+    public static String getEstimateDistance() {
+    String Estimate_distance;
+    String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
+    Estimate_distance = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Distance=  " + Estimate_distance + " of latest trip" );
+        return Estimate_distance;
+
+    }
+
+    public static String getEstimateTime() {
+        String Estimate_time;
+        String queryString = "SELECT EstTime FROM pickupdetails order by  pickupid desc limit 1";
+        Estimate_time = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
+        return Estimate_time;
+
     }
 }

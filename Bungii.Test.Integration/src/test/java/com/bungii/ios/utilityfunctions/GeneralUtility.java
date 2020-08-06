@@ -598,7 +598,7 @@ public class GeneralUtility extends DriverBase {
     }
 
     public String getPageHeader() {
-    return action.getText(driverHomePage.Text_NavigationBar());
+        return action.getText(driverHomePage.Text_NavigationBar());
     }
     private String getExpectedHeader(String screen, String currentApplication) {
         String expectedMessage = "";

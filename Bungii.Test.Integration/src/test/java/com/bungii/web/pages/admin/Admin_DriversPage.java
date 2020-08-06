@@ -27,5 +27,4 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Label_SuccessTripCount (String xpath) {return  findElement(xpath,LocatorType.XPath); }
 
-
 }

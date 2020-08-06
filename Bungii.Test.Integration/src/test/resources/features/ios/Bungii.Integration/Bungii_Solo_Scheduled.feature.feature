@@ -449,6 +449,7 @@ Feature: Solo Scheduled Bungii Part I
     And I click "Get Estimate" button on "Home" screen
     When I try to schedule bungii for "today+5"
     Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+    #Cancellation not needed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
@@ -692,8 +693,7 @@ Feature: Solo Scheduled Bungii Part I
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @FAILED2702
-  @ready
+  @regression
   Scenario:Verify Scheduled Bungii Notification Info(Estimated Earnings Date etc.)
     When I clear all notification
     And I Switch to "driver" application on "same" devices
@@ -1530,7 +1530,7 @@ Feature: Solo Scheduled Bungii Part I
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "2" mins
+    Then I wait for "4" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
@@ -1616,9 +1616,8 @@ Feature: Solo Scheduled Bungii Part I
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-  @failed
-  @ready
+    
+  @regression
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
