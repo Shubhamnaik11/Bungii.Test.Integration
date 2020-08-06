@@ -50,6 +50,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
     Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
     Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -296,6 +297,11 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 log("I select element from Cancellation reason dropdown",
                         "I have selected element from Cancellation reason dropdown", true);
                 break;
+            case "Partner Cards":
+                action.selectElementByText(admin_paymentMethodsPage.Dropdown_Partners(),strArg1);
+                log("I select element from Partner Cards dropdown",
+                        "I have selected element from Partner Cards dropdown", true);
+                break;
         }
     }
 
@@ -336,6 +342,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
+            case "Partner Cards":
+                switch (button) {
+                    case "Add Payment Method":
+                        action.click(admin_paymentMethodsPage.Button_AddPaymentMethod());
+                        break;
+                }
+                break;
+            case "Bungii Cards":
+                switch (button) {
+                    case "Add Payment Method":
+                        action.click(admin_paymentMethodsPage.Button_AddPaymentMethod());
+                        break;
+                }
+                break;
             }
 
         log("I select "+button+" from "+page+ " page",
@@ -387,6 +407,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 switch(button) {
                     case "Save":
                         action.click(admin_PromoterPage.Button_SavePayment());
+                        break;
+                }
+                break;
+            case "Partner Cards":
+            case "Bungii Cards":
+                switch(button) {
+                    case "Save":
+                        action.click(admin_paymentMethodsPage.Button_Save());
+                        break;
+                    case "Cancel":
+                        action.click(admin_paymentMethodsPage.Button_Cancel());
                         break;
                 }
                 break;

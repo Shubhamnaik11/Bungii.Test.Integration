@@ -191,4 +191,3 @@ Feature: Admin_Geofence
       | BusinessFAQ      | BusinessFAQ        |  | |
     And I click on the "Save" Button on "GeofenceAttributes" Screen
     Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
-

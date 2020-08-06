@@ -5,6 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import com.bungii.web.manager.ActionManager;
+import com.bungii.web.pages.admin.Admin_PaymentMethodsPage;
 import com.bungii.web.pages.admin.Admin_PromoCodesPage;
 import com.bungii.web.pages.admin.Admin_PromoterPage;
 import cucumber.api.PendingException;
@@ -35,6 +36,7 @@ public class Admin_PromoterSteps extends DriverBase {
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     ActionManager action = new ActionManager();
     Admin_PromoCodesPage admin_PromoCodesPage = new Admin_PromoCodesPage();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
     @And("^I enter following values in fields in \"([^\"]*)\" popup$")
     public void i_enter_following_values_in_fields_in_something_popup(String popup, DataTable data) throws Throwable {
@@ -238,6 +240,65 @@ public class Admin_PromoterSteps extends DriverBase {
                         "I have entered card details on Add Payment to Business user page", true);
 
 
+                break;
+            case "Partner Cards":
+                Map<String, String> dataMapForPayment = data.transpose().asMap(String.class, String.class);
+                String PcCardNumber= dataMapForPayment.get("Card Number").trim();
+                String PcExpirationDate  = dataMapForPayment.get("Expiration Date").trim();
+                String PcCVV  = dataMapForPayment.get("CVV").trim();
+                String PcPostalCode  = dataMapForPayment.get("Postal Code").trim();
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
+                String PcPin = SetupManager.getDriver().getPageSource();
+                action.sendKeys(admin_paymentMethodsPage.TextBox_PostalCode(),PcPostalCode);
+
+
+                SetupManager.getDriver().switchTo().defaultContent();
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-number")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_CardNumber(),PcCardNumber);
+
+                SetupManager.getDriver().switchTo().defaultContent();
+
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-cvv")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_Cvv(),PcCVV);
+                SetupManager.getDriver().switchTo().defaultContent();
+
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-expirationDate")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_ExpirationDate(),PcExpirationDate);
+                SetupManager.getDriver().switchTo().defaultContent();
+                log("I enter card details on Add Payment to "+page + " page",
+                        "I have entered card details on Add Payment to Partner Card page", true);
+                DateFormat dateFormatFetch = new SimpleDateFormat("MMM dd, yyyy");
+                cucumberContextManager.setScenarioContext("CARD_NUMBER", PcCardNumber);
+                cucumberContextManager.setScenarioContext("CARD_EXPIRY_DATE", PcExpirationDate);
+                break;
+            case "Bungii Cards":
+                Map<String, String> dataMapForBungiiCard = data.transpose().asMap(String.class, String.class);
+                String BungiiCardNumber= dataMapForBungiiCard.get("Card Number").trim();
+                String BungiiExpirationDate  = dataMapForBungiiCard.get("Expiration Date").trim();
+                String BungiiCVV  = dataMapForBungiiCard.get("CVV").trim();
+                String BungiiPostalCode  = dataMapForBungiiCard.get("Postal Code").trim();
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.name("braintree-hosted-field-postalCode")));
+                String BungiiPin = SetupManager.getDriver().getPageSource();
+                action.sendKeys(admin_paymentMethodsPage.TextBox_PostalCode(),BungiiPostalCode);
+
+
+                SetupManager.getDriver().switchTo().defaultContent();
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-number")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_CardNumber(),BungiiCardNumber);
+                SetupManager.getDriver().switchTo().defaultContent();
+
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-cvv")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_Cvv(),BungiiCVV);
+                SetupManager.getDriver().switchTo().defaultContent();
+
+                new WebDriverWait(SetupManager.getDriver(), 20).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("braintree-hosted-field-expirationDate")));
+                action.sendKeys(admin_paymentMethodsPage.TextBox_ExpirationDate(),BungiiExpirationDate);
+                SetupManager.getDriver().switchTo().defaultContent();
+                log("I enter card details on Add Payment to "+page + " page",
+                        "I have entered card details on Add Payment to Bungii Cards Page", true);
+                DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                cucumberContextManager.setScenarioContext("CARD_NUMBER", BungiiCardNumber);
+                cucumberContextManager.setScenarioContext("CARD_EXPIRY_DATE", BungiiExpirationDate);
                 break;
         }
 
