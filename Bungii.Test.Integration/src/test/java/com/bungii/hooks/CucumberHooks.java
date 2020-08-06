@@ -15,8 +15,10 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONObject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -193,11 +195,7 @@ public class CucumberHooks {
                     new BungiiSteps().recoveryScenario();
                     new com.bungii.android.utilityfunctions.GeneralUtility().recoverScenario();
                     SetupManager.getObject().useDriverInstance("ORIGINAL");
-                } /*else if (PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
-                    new GeneralUtility().hideNotifications();
-                    new BungiiSteps().recoveryScenario();
-                    new GeneralUtility().recoverScenario();
-                }*/
+                }
                 isTestcaseFailed = true;
             } else if (!PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")) {
                 SetupManager.getObject().terminateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -208,6 +206,11 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+
+            if(PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")){
+                JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+                js.executeScript(String.format("window.localStorage.clear();"));
+            }
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
@@ -217,6 +220,7 @@ public class CucumberHooks {
 
 
     }
+
 
     // @AfterSuite
 
@@ -231,6 +235,8 @@ public class CucumberHooks {
         //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
 
     }
+
+
 
     //for first test case after duo reinstall the apps
     @Before("@POSTDUO")
