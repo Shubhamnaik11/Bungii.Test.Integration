@@ -21,7 +21,8 @@
     "wdaLocalPort": 8190,
     "showXcodeLog": true,
     "xcodeOrgId": "3DV85RL7V3",
-    "xcodeSigningId": "iPhone Developer"
+    "xcodeSigningId": "iPhone Developer",
+    "unlockKey": "123456"
   },
   "device1": {
     "platformName": "iOS",
@@ -44,7 +45,8 @@
     "wdaLocalPort": 8170,
     "showXcodeLog": true,
     "xcodeOrgId": "3DV85RL7V3",
-    "xcodeSigningId": "iPhone Developer"
+    "xcodeSigningId": "iPhone Developer",
+    "unlockKey": "123456"
   },
 
   "connection": {
