@@ -16,14 +16,20 @@ import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Iterator;
 
 import static com.bungii.common.manager.ResultManager.error;
 import static com.bungii.common.manager.ResultManager.log;
+import static com.bungii.web.utilityfunctions.DbUtility.*;
+import static com.bungii.web.utilityfunctions.DbUtility.getGeofenceAttributes;
 
 public class Admin_GeofenceSteps extends DriverBase {
 
@@ -38,6 +44,7 @@ public class Admin_GeofenceSteps extends DriverBase {
     Admin_PartnersPage admin_PartnersPage = new Admin_PartnersPage();
     Admin_GeofencePage admin_geofencePage=new Admin_GeofencePage();
     Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
+    Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
 
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
 
@@ -67,6 +74,18 @@ public class Admin_GeofenceSteps extends DriverBase {
                     case "Save":
                         action.click(admin_GeofencePage.Button_SaveGeofenceSettings());
                 }
+                break;
+            case"GeofenceAttributes":
+                switch(button){
+                    case "Save":
+                        action.click(admin_geofenceAtrributesPage.Button_Save());
+                        break;
+                    case "Cancel":
+                        action.click(admin_geofenceAtrributesPage.Button_Cancel());
+                        break;
+                }
+                break;
+
         }
         log("And I click on the "+button+" Button on "+screen ,
                 "I have clicked on the "+button+" Button on " +screen, true);
@@ -467,5 +486,109 @@ public class Admin_GeofenceSteps extends DriverBase {
             error("Step  Should be successful", "Error performing step,Please check logs for more details",
                     true);
         }
+    }
+
+    @When("I load Geofence Attributes Page and Click on New Attributes button")
+    public void i_load_geofence_attributes_page_and_click_on_new_attributes_button() throws Throwable {
+        Thread.sleep(2000);
+        String loadGeoFenceAttributesUrl = PropertyUtility.getDataProperties("qa.attributes.url").concat("/GetSecuredGeofenceAttributes");
+
+        action.navigateTo(loadGeoFenceAttributesUrl);
+        action.click(admin_geofenceAtrributesPage.Button_NewAttribute());
+    }
+
+    @Then("^the \"([^\"]*)\" message is displayed  in geofence popup")
+    public void the_something_message_is_displayed_in_geofence_popup(String message) throws Throwable {
+        testStepAssert.isEquals(action.getText(admin_geofenceAtrributesPage.Label_ErrorTextOnEmpty()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+    }
+
+    @Then("the error message is displayed")
+    public void the_error_message_is_displayed(String message) throws Throwable {
+        testStepAssert.isEquals(action.getText(admin_geofenceAtrributesPage.Label_ErrorTextOnEmpty()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+    }
+
+    @When("I search by Name {string} in {string} page geofence")
+    public void iSearchByNameInPageGeofence(String arg0, String arg1) throws Throwable {
+        Thread.sleep(2000);
+        String Name = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");
+        action.clearSendKeys(admin_geofenceAtrributesPage.TextBox_SearchCriteria(),Name + Keys.ENTER);
+        log("I search by name in Geo fence New attributes page",
+                "I searched by name in Geo fence New attributes page", true);
+    }
+
+//    @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page geofence$")
+//    public void i_search_by_name_something_in_something_page_geofence(String strArg1, String strArg2) throws Throwable {
+//        Thread.sleep(2000);
+//        String Name = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");
+//        action.clearSendKeys(admin_geofenceAtrributesPage.TextBox_SearchCriteria(),Name + Keys.ENTER);
+//        log("I search by name in Geo fence New attributes page",
+//                "I searched by name in Geo fence New attributes page", true);
+//    }
+
+    @Then("The geofence Attributes gets saved successfully and it is displayed in the grid")
+    public void the_geofence_attributes_gets_saved_successfully_and_it_is_displayed_in_the_grid() throws Throwable {
+
+        String Key = (String) cucumberContextManager.getScenarioContext("GF_ATTR_KEY");
+        String DefaultValue = (String) cucumberContextManager.getScenarioContext("GF_ATTR_DEFAULT_VALUE");
+        String Description = (String) cucumberContextManager.getScenarioContext("GF_ATTR_DESCRIPTION");
+        String Label = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");
+        boolean checkIfCountEquals = false;
+        List getListOfGeoFence = getListOfGeoFenceIds();
+        for(int i = 0; i < getListOfGeoFence.size(); i++)
+        {
+            HashMap<String, Object> tmpData = (HashMap<String, Object>) getListOfGeoFence.get(i);
+            Set<String> key = tmpData.keySet();
+            Iterator it = key.iterator();
+            while (it.hasNext()) {
+                String hmKey = (String)it.next();
+                Integer hmData = (Integer) tmpData.get(hmKey);
+                int getIfExists =  getGeofenceSettingsVersions(hmData);
+                int getGeofenceSettings = getGeofenceSettings(getIfExists);
+                int getAttributeTableCount = getGeofenceAttributes();
+                if(getGeofenceSettings == getAttributeTableCount) {
+                    checkIfCountEquals = true;
+                }
+                if(checkIfCountEquals) {
+                    String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",DefaultValue, Label);
+                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Geofence attributes should be listed in grid", "Geofence attributes is listed in grid","Geofence attributes is not listed in grid");
+                }
+                System.out.println("Key: "+hmKey +" & Data: "+hmData);
+                it.remove(); // avoids a ConcurrentModificationException
+            }
+
+        }
+//        List getListOfGeoFence = fetchAllDataForGeoFence();
+//        int getAttributeTableCount = getGeofenceAttributes();
+//
+//        for(int i=0;i<getListOfGeoFence.size();i++) {
+//
+//                if(getAttributeTableCount == getListOfGeoFence[i]) checkIfCountEquals = true;
+//
+//        }
+//        for(int i=0;i<getListOfGeoFence.size();i++) {
+//            int newGEoFenceSetting = getGeofenceSettingsVersions((Integer) getListOfGeoFence.get(i));
+//
+//            if(newGEoFenceSetting > 0) {
+//                int getIfExists =  getGeofenceSettingsVersions(newGEoFenceSetting);
+//                int getAttributeTableCount = getGeofenceAttributes();
+//                if(getIfExists == getAttributeTableCount) {
+//                    checkIfCountEquals = true;
+//                }
+//                if(checkIfCountEquals) {
+//                    String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]",Label, Description);
+//                    testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Geofence attributes should be listed in grid", "Geofence attributes is listed in grid","Geofence attributes is not listed in grid");
+//                }
+//            }
+//        }
+        String Xpath =String.format("//tr/td[contains(.,'%s')]",DefaultValue);
+        cucumberContextManager.setScenarioContext("G_XPATH", Xpath );
+        testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Geofence attributes should be listed in grid", "Geofence attributes is listed in grid","Geofence attributes is not listed in grid");
+    }
+
+    @And("I check the Searched result is displayed correctly")
+    public void i_check_the_searched_result_is_displayed_correctly() throws Throwable {
+        Thread.sleep(2000);
+        String xpath = (String)cucumberContextManager.getScenarioContext("G_XPATH");
+        testStepAssert.isElementDisplayed(action.getElementByXPath(xpath),xpath +"Element should be displayed",xpath+ "Element is displayed", xpath+ "Element is not displayed");
     }
 }
