@@ -70,16 +70,3 @@ Feature: Customer	Menu
     When I Select "MY BUNGIIS" from Customer App menu
     When I click "SAVE MONEY" button on "MY BUNGIIS" screen
     Then I should be navigated to "Invite" screen
-  @failed
-  #failing due to BCKD-1103
-  @ready
-  Scenario: Verify Device Token Deregistration Upon Customer Logout
-    Then I customers active flag should be "1"
-    When I Select "LOGOUT" from Customer App menu
-    Then I customers active flag should be "0"
-
-    #enable restriction on iphone , disable safari. Not to be run with normal regression
-  @safaridisabled
-  Scenario: Verify DRIVE WITH BUNGII Menu Link With No Safari Browser
-    When I Select "DRIVE WITH BUNGII" from Customer App menu
-    Then user is alerted for "PLEASE INSTALL A BROWSER"

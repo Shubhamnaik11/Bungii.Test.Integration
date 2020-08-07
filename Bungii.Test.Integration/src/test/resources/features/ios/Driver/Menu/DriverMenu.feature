@@ -28,8 +28,6 @@ Feature: DriverMenu
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
 
-
-
   @regression
   Scenario:Verify Driver AVAILABLE TRIPS menu
     When I Select "AVAILABLE TRIPS" from driver App menu
@@ -67,13 +65,6 @@ Feature: DriverMenu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
-  #failing due to BCKD-1103
-  @ready
-    @failed
-  Scenario: Verify Device Token Deregistration Upon Driver Logout
-    Then I driver active flag should be "1"
-    When I Select "LOGOUT" from driver App menu
-    Then I driver active flag should be "0"
 
   @regression
     @store

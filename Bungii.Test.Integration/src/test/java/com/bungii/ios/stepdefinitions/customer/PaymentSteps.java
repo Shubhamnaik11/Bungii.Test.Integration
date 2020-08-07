@@ -57,6 +57,9 @@ public class PaymentSteps extends DriverBase {
                 case "INVALID CARD":
                     cardNumber = PropertyUtility.getDataProperties("payment.invalid.card");
                     break;
+                case "FRAUD CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.fraud.card");
+                    break;
                 default:
                     cardNumber = cardType;
             }
@@ -133,19 +136,19 @@ public class PaymentSteps extends DriverBase {
     }
 
     @Then("^I should see \"([^\"]*)\" on Payment page$")
-    public void i_should_see_something_on_payment_page(String action) {
+    public void i_should_see_something_on_payment_page(String message) {
         try {
-            switch (action.toLowerCase()) {
+            switch (message.toLowerCase()) {
                 case "invalid card":
-                    testStepVerify.isTrue(isFieldInvalid("card number"), "I should see " + action + " error",
-                            "I was able to see " + action + " error",
-                            "I was not able to see " + action + " error");
+                    testStepVerify.isTrue(isFieldInvalid("card number"), "I should see " + message + " error",
+                            "I was able to see " + message + " error",
+                            "I was not able to see " + message + " error");
                     break;
                 case "invalid expiry":
                     Thread.sleep(5000);
-                    testStepVerify.isTrue(isFieldInvalid("expiry"), "I should see " + action + " error",
-                            "I was able to see " + action + " error",
-                            "I was not able to see " + action + " error");
+                    testStepVerify.isTrue(isFieldInvalid("expiry"), "I should see " + message + " error",
+                            "I was able to see " + message + " error",
+                            "I was not able to see " + message + " error");
                     break;
                 case "the card has been deleted":
                     int noOfCard = getNumberOfOtherCard();
@@ -157,20 +160,29 @@ public class PaymentSteps extends DriverBase {
                 case "new card":
                     String cardNumber = (String) cucumberContextManager.getScenarioContext("CARD_NUMBER");
 
-                    testStepVerify.isTrue(isCardPresent(cardNumber.substring(12)), "I should see " + action + "",
-                            "I was able to see " + action + " ",
-                            "I was not able to see " + action + " ");
+                    testStepVerify.isTrue(isCardPresent(cardNumber.substring(12)), "I should see " + message + "",
+                            "I was able to see " + message + " ",
+                            "I was not able to see " + message + " ");
                     break;
                 case "new default card":
                     String prvDefaultCard = (String) cucumberContextManager.getScenarioContext("DEFAULT_CARD");
                     String currentDefaultCard = getDefaultCardNumber();
-                    testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard), "I should see " + action + "",
+                    testStepVerify.isTrue(!prvDefaultCard.equals(currentDefaultCard), "I should see " + message + "",
                             "Previous default card was " + prvDefaultCard + " and new card is " + currentDefaultCard,
                             "Previous card is same as new default card");
                     break;
                 case "no delete button":
                     testStepVerify.isElementNotEnabled(paymentPage.Button_Delete(true),"Delete button should not be displayed","Delete button is not displayed","Delete button is displayed");
                     break;
+
+                case "There was a problem processing your credit card; please double check your payment information and try again.":
+
+                    testStepVerify.isEquals(action.getAlertMessage(),message, "I should see " + message + " error",
+                            "I was able to see " + message + " error",
+                            "I was not able to see " + message + " error");
+                    break;
+
+
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
             }

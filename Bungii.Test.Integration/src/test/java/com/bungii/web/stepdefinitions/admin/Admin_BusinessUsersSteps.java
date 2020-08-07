@@ -256,7 +256,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
 
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Business User.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
-
+    }
+    @Then("^\"([^\"]*)\" message is displayed$")
+    public void something_message_is_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),message,message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
     }
 
     @Then("^the business user is displayed in Bulk Trips since payment is set$")
@@ -410,8 +413,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Partner Cards":
-            case "Bungii Cards":
+            case "Partner Card":
+            case "Bungii Card":
                 switch(button) {
                     case "Save":
                         action.click(admin_paymentMethodsPage.Button_Save());
@@ -423,8 +426,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 break;
 
         }
-        log("I click save on Add Payment to Business user page",
-                "I have clicked save on Add Payment to Business user page", true);
+        log("I click save on "+button +" to "+Screen+" page",
+                "I have clicked save on "+button +" to "+Screen+" page", true);
     }
 
     @When("^I select user \"([^\"]*)\"$")

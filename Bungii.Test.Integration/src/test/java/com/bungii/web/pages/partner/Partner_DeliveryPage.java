@@ -68,8 +68,11 @@ public class Partner_DeliveryPage extends PageBase {
     //Card Number
     public WebElement TextBox_Card_Number() { return findElement("//*[@id='credit-card-number']",LocatorType.XPath);}
 
-    //Invalid Card number message
+     //Invalid Card number message
     public WebElement Message_Invalid_CardNumber() { return  findElement("//div[contains(text(),'This card number is not valid.')]",LocatorType.XPath);}
+
+    //Invalid Card number message
+    public WebElement Message_Toast() { return  findElement("//div[@role='alert']",LocatorType.XPath);}
 
     //Expiry Date
     public WebElement TextBox_Expiry_Date() { return findElement("//*[@id='expiration']",LocatorType.XPath);}
