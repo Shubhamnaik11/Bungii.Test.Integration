@@ -33,7 +33,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see the trip in the Delivery List"
     And I should logout from Partner Portal
 
-  @ready
+  @regression
   Scenario: Verify the five future days shown in Pickup Date dropdown
     When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -42,7 +42,7 @@ Feature: Partner Duo Scheduled Trips
     Then I should see five future days including today
     And I should logout from Partner Portal
 
-    @ready
+    @regression
   Scenario: Verify changing the pickup date for scheduled Duo bungii Trip
     When I request "Duo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

@@ -4,7 +4,7 @@
     Background:
       Given I am logged in as Partner User on Partner Portal
 
-    @ready
+    @regression
     Scenario: Verify that Partner can create Solo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
@@ -23,7 +23,7 @@
       And I click on "Schedule Bungii" button
       Then I should see bungii trip success message on "Done" screen
   
-    @ready
+    @regression
     Scenario: Verify that Partner can create Duo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|

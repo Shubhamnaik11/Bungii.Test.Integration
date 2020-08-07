@@ -7,7 +7,7 @@
       And I click "SIGN IN" button on Partner Portal
       Then I should "be logged in"
 
-    @ready
+    @regression
       Scenario: Verify that Partner can scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -34,13 +34,13 @@
       And I should logout from Partner Portal
 
 
-    @ready
+    @regression
     Scenario: Verify the five future days shown in Pickup Date dropdown
       And I click on Pickup date
       Then I should see five future days including today
       And I should logout from Partner Portal
 
-    @ready
+    @regression
     Scenario: Verify changing the pickup date for scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
