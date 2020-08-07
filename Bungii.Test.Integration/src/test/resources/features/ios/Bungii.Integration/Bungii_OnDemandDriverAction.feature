@@ -2,23 +2,17 @@
   # this will run in miami
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
-
-  @FAILED2702
-
-  @POSTDUO
+  
   @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
-    #When I Switch to "driver" application on "same" devices
-   # And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid miami" driver
-    #And I change driver status to "Online"
-    Given I login as "valid miami" customer and on Home page
-    And I login as "valid miami" driver on "same" device and make driver status "Online"
-    
-   #And I Switch to "customer" application on "ORIGINAL" devices
-    #And I am on the "LOG IN" page
-   # And I logged in Customer application using  "valid miami" user
-    #And I am on Customer logged in Home page
+    When I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+    And I Switch to "customer" application on "ORIGINAL" devices
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
  #   And I Select "Home" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location          | Drop Location           | Geofence |
@@ -97,70 +91,19 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I should be navigated to "Home" screen
 #    And Notification for "Customer" for "DRIVER CANCELLED" should be displayed
-
-  @regression
-  Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
-    Given I login as "valid miami" customer and on Home page
-    And I login as "valid miami" driver on "same" device and make driver status "Online"
-    #And I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid miami" user
-    #And I am on Customer logged in Home page
-   # And I Switch to "driver" application on "same" devices
-    #And I am on the "LOG IN" page on driverApp
-   # And I am logged in as "valid miami" driver
-    #And I change driver status to "Online"
-
-    And I Switch to "customer" application on "same" devices
-    And I am on Customer logged in Home page
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location          | Drop Location           | Geofence |
-      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I enter following details on "Estimate" screen
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 30       |           |              | Now  | Default     |
-    And I click "PROMO CODE LINE" button on "Estimate" screen
-    And I add "PROMO PERCENT OFF" PromoCode
-    And I click "ADD" button on "PROMOS" screen
-    When I tap "Back" on Promos screen
-    And I should be navigated to "Estimate" screen
-    And I request for bungii using Request Bungii Button
-
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" screen
-
-    And I Switch to "customer" application on "same" devices
-    And I click "Ok" button on "BUNGII ACCEPTED" screen
-
-    And I Switch to "driver" application on "same" devices
-    When I click "Cancel" button on "update" screen
-    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "YES" on alert message
-
-    And I Switch to "customer" application on "same" devices
-    Then Alert message with DRIVER CANCELLED text should be displayed
-    When I click "OK" on alert message
-    And I Select "PROMOS" from Customer App menu
-    Then I should able to see expected promo code in available promo code
+  
 
   @regression
   Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Arrived State
-   
-    #And I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid miami" user
-   # And I am on Customer logged in Home page
-    
-    Given I login as "valid miami" customer and on Home page
-    And I login as "valid miami" driver on "same" device and make driver status "Online"
-    #And I Switch to "driver" application on "same" devices
-   # And I am on the "LOG IN" page on driverApp
-    #And I am logged in as "valid miami" driver
-    #And I change driver status to "Online"
+
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
 
     And I Switch to "customer" application on "same" devices
     And I am on Customer logged in Home page
@@ -200,19 +143,16 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     When I click "OK" on alert message
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-    
-  @Optimized
+
   @ready
   Scenario: Verify Promocode Is Deallocated When Admin Cancels Bungii Which Was Not Started
-    #When I open new "Chrome" browser for "ADMIN PORTAL"
-    #And I navigate to admin portal
-    #And I log in to admin portal
-   # And I Select "Promo Code" from admin sidebar
-    #Then I get promo code for "VALID"
-   # And I Select "Promo Code" from admin sidebar
-    #Then I get promo code for "one off"
-    
-    Given I get "VALID" promocode from the admin portal
+    When I open new "Chrome" browser for "ADMIN PORTAL"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "VALID"
+    And I Select "Promo Code" from admin sidebar
+    Then I get promo code for "one off"
 
     When I switch to "ORIGINAL" instance
     And I am on the "LOG IN" page
@@ -249,13 +189,10 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I wait for "2" mins
 
-    #And I open new "Chrome" browser for "ADMIN"
-    #And I navigate to admin portal
-    #And I log in to admin portal
-   # And I Select "Scheduled Trip" from admin sidebar
-    
-    When I navigate to "Scheduled Trip" on Admin portal
-    
+    And I open new "Chrome" browser for "ADMIN"
+    And I navigate to admin portal
+    And I log in to admin portal
+    And I Select "Scheduled Trip" from admin sidebar
     And I Cancel Bungii with following details
       | Charge | Comments |
       | 0      | TEST     |
@@ -266,8 +203,56 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I Switch to "customer" application on "same" devices
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
-
-
+  
+  @ready
+  Scenario: Verify Promocode Is Deallocated After Driver Cancels Bungii In Enroute State
+    
+    And I am on the "LOG IN" page
+    And I logged in Customer application using  "valid miami" user
+    And I am on Customer logged in Home page
+    
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid miami" driver
+    And I change driver status to "Online"
+    
+    And I Switch to "customer" application on "same" devices
+    And I am on Customer logged in Home page
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location          | Drop Location           | Geofence |
+      | Solo   | 7346 coldstream drive miami| 2400 S Bayshore Dr Miami | miami    |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I enter following details on "Estimate" screen
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 30       |           |              | Now  | Default     |
+    And I click "PROMO CODE LINE" button on "Estimate" screen
+    And I add "PROMO PERCENT OFF" PromoCode
+    And I click "ADD" button on "PROMOS" screen
+    When I tap "Back" on Promos screen
+    And I should be navigated to "Estimate" screen
+    And I request for bungii using Request Bungii Button
+    
+    And I click on notification for "Driver" for "on demand trip"
+    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+    Then I should be navigated to "EN ROUTE" screen
+    
+    And I Switch to "customer" application on "same" devices
+    And I click "Ok" button on "BUNGII ACCEPTED" screen
+    
+    And I Switch to "driver" application on "same" devices
+    When I click "Cancel" button on "update" screen
+    Then Alert message with DRIVER CANCEL BUNGII text should be displayed
+    When I click "YES" on alert message
+    
+    And I Switch to "customer" application on "same" devices
+    Then Alert message with DRIVER CANCELLED text should be displayed
+    When I click "OK" on alert message
+    And I Select "PROMOS" from Customer App menu
+    Then I should able to see expected promo code in available promo code
 
 
 

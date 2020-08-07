@@ -6,6 +6,7 @@ Feature: Admin_PaymentMethods
     When I click on "Payment Methods  > Partner Cards" Menu
     Then I should be directed to "Partner Cards Page"
 
+
   @ready
   Scenario: Verify Add Payment Method in Partner Cards
     And I select "Costco" from the "Partner Cards" dropdown
@@ -121,4 +122,3 @@ Feature: Admin_PaymentMethods
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Bungii Cards" screen
     Then The "Bungii Cards" gets saved successfully and it is displayed in the Promoters grid
-    

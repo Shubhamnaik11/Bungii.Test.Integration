@@ -126,7 +126,7 @@ Feature: Admin_Geofence
     And I change the value of "Minimum scheduled time for Solo trip" to "840" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
-    # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
+   # And I change the value of "Minimum scheduled time for Solo trip" to "1410" minutes
   # And I click on the "Save" Button on "Geofence Settings" Screen
   #  Then check if error message is displayed for "solo trip"
    # And I change the value of "Minimum scheduled time for Solo trip" to "1415" minutes
@@ -156,3 +156,38 @@ Feature: Admin_Geofence
     And I change the value of "Minimum scheduled time for Solo trip" to "30" minutes
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
+
+  @ready
+    @test
+  Scenario: Verify and add new attribute in Geofence Attributes page
+    When I load Geofence Attributes Page and Click on New Attributes button
+    And I enter following values in "Geofence Attributes" fields
+      | Key                                              | Default-Value                   | Description  | Label|
+      | BusinessFAQ   | BusinessFAQ        | This is Business FAQ Link | BusinessFAQ |
+    And I click on the "Save" Button on "GeofenceAttributes" Screen
+    Then The geofence Attributes gets saved successfully and it is displayed in the grid
+    When I search by Name "BusinessFAQ" in "GeofenceAttributes" page geofence
+    And I check the Searched result is displayed correctly
+#      Then I logout of Admin Portal
+
+  @ready
+    @test
+  Scenario: Verify and check attributes are empty
+    When I load Geofence Attributes Page and Click on New Attributes button
+    And I enter following values in "GeofenceAttributes" fields
+      | Key                                              | Default-Value                   | Description  | Label|
+      |      |        |  | |
+    When I click on the "Save" Button on "GeofenceAttributes" Screen
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+
+  @ready
+    @test
+  Scenario: Verify Field Validations on Geofence Attributes page
+    When I load Geofence Attributes Page and Click on New Attributes button
+    And I click on the "Save" Button on "GeofenceAttributes" Screen
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup
+    And I enter following values in "Geofence Attributes" fields
+      | Key                                              | Default-Value                   | Description  | Label|
+      | BusinessFAQ      | BusinessFAQ        |  | |
+    And I click on the "Save" Button on "GeofenceAttributes" Screen
+    Then the "Oops! It looks like you missed something. Please fill out all fields before proceeding." message is displayed  in geofence popup

@@ -34,6 +34,7 @@ Feature: Customer	Referral Invite page
     And I click "SHARE" button on "INVITE" screen
     And I click "SHARE BY EMAIL" button on "INVITE" screen
     Then I should see draft post in "MAIL" application
+    
 # this test case is to run individually not in suite
  # @regression
   Scenario: Verify Customer Is Alerted When He Tries To Share Invite Code Using Twitter When Twitter App Is Not Installed

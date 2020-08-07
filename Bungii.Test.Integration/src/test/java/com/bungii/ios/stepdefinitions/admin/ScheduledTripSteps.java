@@ -47,8 +47,9 @@ public class ScheduledTripSteps extends DriverBase {
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
-			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.clearEnterText(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+
 			//On admin panel CST time use to show
 		//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
@@ -271,7 +272,7 @@ public class ScheduledTripSteps extends DriverBase {
 			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]"));
 			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
-			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[2]"));
+			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
 			if(rowCustName.equals(custName) &&scheduledDate.equalsIgnoreCase(rowSchduledTime)){
 				rowNumber=Integer.parseInt(rowSrNumber);

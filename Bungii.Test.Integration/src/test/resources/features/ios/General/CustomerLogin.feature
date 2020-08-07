@@ -1,5 +1,5 @@
 @ios
-Feature: Cutomer LogIn
+Feature: Customer Login
   As a Bungii Customer I should be allowed to login only using valid credential
 
   Background:

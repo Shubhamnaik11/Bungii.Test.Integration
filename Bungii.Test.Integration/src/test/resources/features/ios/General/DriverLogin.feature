@@ -23,6 +23,7 @@ Feature: Driver Login
 
   @sanity
   @regression
+  @sanityfailure
   Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen on driverApp
@@ -87,6 +88,7 @@ Feature: Driver Login
     When I Select "LOGOUT" from driver App menu
 
   @regression
+  @permission
   Scenario: Verify Driver Location Permission Displayed When Driver Permission Is Set Off
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
@@ -103,6 +105,7 @@ Feature: Driver Login
     Given I install Bungii Driver App again
 
   @regression
+    @permission
   Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices

@@ -71,7 +71,7 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
-    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
@@ -110,7 +110,7 @@ Feature: Admin_Trips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000001 | Testcustomertywd_appleweb CustA|
-    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
@@ -119,7 +119,7 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted |
-    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
@@ -174,7 +174,7 @@ Feature: Admin_Trips
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995001 | Testcustomertywd_appleweb CustZ|
-    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
     #And I view the Scheduled Trips list on the admin portal
     And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
