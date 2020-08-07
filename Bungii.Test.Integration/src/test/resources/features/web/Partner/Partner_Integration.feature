@@ -165,7 +165,7 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
@@ -221,14 +221,14 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
     When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
@@ -277,14 +277,14 @@ Feature: Partner Integration with Admin and Driver
     When I click "Track Deliveries" button on Partner Portal
     Then I should "see the trip in the Delivery List"
     When I navigate to "Bungii Admin Portal in new tab" URL
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status           |
       | Searching Drivers|
     When As a driver "Testdrivertywd_appledc_a_ronny James" and "Testdrivertywd_appledc_a_mate Gate" perform below action with respective "Duo Scheduled" partner portal trip
       | driver1 state | driver2 state |
       | Accepted      | Accepted      |
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
@@ -395,7 +395,7 @@ Feature: Partner Integration with Admin and Driver
     And As a driver "Testdrivertywd_appledc_a_ptner Driverone" perform below action with respective "Solo Scheduled" partner portal trip
       | driver1 state|
       | Accepted |
-    #And I view the partner portal Scheduled Trips list on the admin portal
+    And I view the partner portal Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii partner portal trip with the below status
       | Status    |
       | Scheduled |
