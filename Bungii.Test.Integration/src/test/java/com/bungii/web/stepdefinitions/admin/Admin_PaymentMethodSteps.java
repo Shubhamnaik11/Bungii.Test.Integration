@@ -15,11 +15,11 @@ public class Admin_PaymentMethodSteps extends DriverBase {
 
         Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
-        @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the Promoters grid$")
-        public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_promoters_grid(String pageName) throws Throwable {
+        @Then("^The \"([^\"]*)\" gets saved successfully and it is displayed in the grid$")
+        public void the_something_gets_saved_successfully_and_it_is_displayed_in_the_grid(String pageName) throws Throwable {
             switch(pageName)
             {
-                case "Partner Card":
+                case "Partner Cards":
                     String CardNumber =(String)cucumberContextManager.getScenarioContext("CARD_NUMBER");
                     String CardExpiryDate = (String) cucumberContextManager.getScenarioContext("CARD_EXPIRY_DATE");
                     Thread.sleep(4000);
@@ -28,7 +28,7 @@ public class Admin_PaymentMethodSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(admin_paymentMethodsPage.Label_SuccessMessageForPartner(),"Partner Payment Method added successfully.","Partner Payment Method added successfully. message should be displayed" ,"Partner Payment Method added successfully. message is displayed","Partner Payment Method added successfully. message should be displayed is not displayed");
                     cucumberContextManager.setScenarioContext("XPath",PartnerXpath);
                     break;
-                case "Bungii Card":
+                case "Bungii Cards":
                     String BungiiCardNumber =(String)cucumberContextManager.getScenarioContext("CARD_NUMBER");;
                     String BungiiCardExpiryDate = (String) cucumberContextManager.getScenarioContext("CARD_EXPIRY_DATE");
                     Thread.sleep(4000);

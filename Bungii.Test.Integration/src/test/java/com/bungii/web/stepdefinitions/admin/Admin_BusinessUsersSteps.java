@@ -413,8 +413,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Partner Cards":
-            case "Bungii Cards":
+            case "Partner Card":
+            case "Bungii Card":
                 switch(button) {
                     case "Save":
                         action.click(admin_paymentMethodsPage.Button_Save());
@@ -426,8 +426,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 break;
 
         }
-        log("I click save on Add Payment to Business user page",
-                "I have clicked save on Add Payment to Business user page", true);
+        log("I click save on "+button +" to "+Screen+" page",
+                "I have clicked save on "+button +" to "+Screen+" page", true);
     }
 
     @When("^I select user \"([^\"]*)\"$")

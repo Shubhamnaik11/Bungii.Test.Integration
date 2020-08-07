@@ -64,6 +64,9 @@ public class Partner_Payment extends DriverBase {
                 case "INVALID CARD":
                     cardNumber = PropertyUtility.getDataProperties("partner.invalid.card");
                     break;
+                case "FRAUD CARD":
+                    cardNumber = PropertyUtility.getDataProperties("payment.fraud.card");
+                    break;
                 default:
                     cardNumber = cardType;
 
@@ -125,6 +128,9 @@ public class Partner_Payment extends DriverBase {
                 break;
             case "see validation message for Postal Code":
                 testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Invalid_Postal_Code()), PropertyUtility.getMessage("Invalid_Postal_Code"));
+                break;
+            case "see validation message for fraud card number":
+                testStepVerify.isEquals(action.getText(Page_Partner_Delivery.Message_Toast()), PropertyUtility.getMessage("Fraud_Card_Number"));
                 break;
             default:break;
         }
