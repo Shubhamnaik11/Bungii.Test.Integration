@@ -50,7 +50,7 @@ Feature: Customer Login
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "Home" screen
     
-  @regression
+  @onetime
     Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
     When I am on the "LOG IN" page
@@ -79,7 +79,7 @@ Feature: Customer Login
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
   
-  @regression
+  @onetime
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
     Given I install Bungii App again
     When I am on the "LOG IN" page

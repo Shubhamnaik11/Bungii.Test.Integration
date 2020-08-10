@@ -87,8 +87,7 @@ Feature: Driver Login
     And I accept Alert message on driverApp
     When I Select "LOGOUT" from driver App menu
 
-  @regression
-  @permission
+  @onetime
   Scenario: Verify Driver Location Permission Displayed When Driver Permission Is Set Off
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
@@ -104,8 +103,7 @@ Feature: Driver Login
     Then user is alerted for "PLEASE ENABLE LOCATION SERVICES"
     Given I install Bungii Driver App again
 
-  @regression
-    @permission
+  @onetime
   Scenario: Verify Driver Location Permission Displayed Upon First Time Installation
     Given I install Bungii Driver App again
     And I Switch to "driver" application on "same" devices
