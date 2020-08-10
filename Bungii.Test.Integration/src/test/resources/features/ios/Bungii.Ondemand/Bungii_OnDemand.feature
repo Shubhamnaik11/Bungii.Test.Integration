@@ -1,4 +1,5 @@
 @ios
+@bungii
   # this will run in 	nashville 13 Scenarios
 Feature: Ondemand Bungii Scenarios - Nashville Geofence
   

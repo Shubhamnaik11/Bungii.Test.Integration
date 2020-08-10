@@ -1,4 +1,5 @@
 @ios
+@bungii
   # this will run in miami
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.

@@ -1,5 +1,6 @@
 @ios
 @scheduled
+@bungii
     # this will run in denver
 Feature: Solo Scheduled Bungii Part II
   I want to use request Scheduling Bungii with Solo type
