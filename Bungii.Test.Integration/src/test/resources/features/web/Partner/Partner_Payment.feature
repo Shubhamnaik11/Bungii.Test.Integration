@@ -8,6 +8,7 @@
       Then I should "be logged in"
 
     @regression
+    @sanity
     Scenario: Verify Customer Payment method with Valid card details for Bungii trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
