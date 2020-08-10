@@ -34,8 +34,7 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
     And I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
     And I should be navigated to "Home" screen
-
-  @sanity
+    
   @regression
   Scenario: Verify Driver Can Cancel Ondemand Bungii Request On Enroute State
     Given that ondemand bungii is in progress
