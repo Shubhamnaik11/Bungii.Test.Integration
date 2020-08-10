@@ -19,6 +19,7 @@ Feature: Customer Login
       | EMPTY PASSWORD          | {VALID}  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
+    
   @sanity
   @regression
   Scenario: Verify Customer Can Login Using Valid Credentials
@@ -48,8 +49,7 @@ Feature: Customer Login
     And I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "Home" screen
-
-  @capability
+    
   @regression
     Scenario: Verify Dismissal Of Tutorials By Tapping On Start
     Given I install Bungii App again
@@ -78,7 +78,7 @@ Feature: Customer Login
     And I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
-
+  
   @regression
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
     Given I install Bungii App again

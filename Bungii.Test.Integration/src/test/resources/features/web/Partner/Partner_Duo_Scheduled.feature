@@ -96,4 +96,5 @@ Feature: Partner Duo Scheduled Trips
     Then I should "see delivery has been cancelled message"
     And I click "OK" button on Partner Portal
     Then I should "see Canceled trip message"
+    Then I close the Trip Delivery Details page
     And I should logout from Partner Portal

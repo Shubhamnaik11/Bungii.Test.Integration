@@ -7,7 +7,7 @@ Feature: Admin_PaymentMethods
     Then I should be directed to "Partner Cards Page"
 
 
-  @ready
+  @regression
   Scenario: Verify Add Payment Method in Partner Cards
     And I select "Costco" from the "Partner Cards" dropdown
     When I click on "Add Payment Method" button on "Partner Cards" page
@@ -18,7 +18,7 @@ Feature: Admin_PaymentMethods
     Then the card is added to the user "partner Cards" page
 
 
-  @ready
+  @regression
   Scenario: Verify Add Payment Method in Partner Cards with Cancel
     When I click on "Add Payment Method" button on "Partner Cards" page
     And I select "MRFM" from the "Partner Cards" dropdown
@@ -26,7 +26,7 @@ Feature: Admin_PaymentMethods
     Then The "Add Partner Cards" details screen is removed from UI
 
 
-  @ready
+  @regression
   Scenario: Verify Add Payment Methods in Bungii Cards
     When I click on "Payment Methods  > Bungii Cards" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
@@ -37,7 +37,7 @@ Feature: Admin_PaymentMethods
     Then the card is added to the user "Bungii Cards" page
 
 
-  @ready
+  @regression
   Scenario: Verify Add Payment Method in Bungii Cards with Cancel
     When I click on "Payment Methods  > Bungii Cards" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
@@ -46,7 +46,7 @@ Feature: Admin_PaymentMethods
     Then The "Add Bungii Cards" details screen is removed from UI
 
 
-  @ready
+  @regression
   Scenario: Verify Field Validations On Add New Partner Card page Upon Blank Inputs
     When I click on "Add Payment Method" button on "Partner Cards" page
     And I click on "Save" button on "Partner Card" screen
@@ -61,7 +61,7 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Partner Cards" screen
-    Then The "Partner Card" gets saved successfully and it is displayed in the Promoters grid
+    Then The "Partner Card" gets saved successfully and it is displayed in the grid
 
 
   @ready
@@ -80,9 +80,9 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Bungii Cards" screen
-    Then The "Bungii Cards" gets saved successfully and it is displayed in the Promoters grid
+    Then The "Bungii Cards" gets saved successfully and it is displayed in the grid
 
-  @ready
+  @regression
   Scenario: Verify Field Validations Of Add New Partner Card
     When I click on "Add Payment Method" button on "Partner Cards" page
     And I click on "Save" button on "Partner Cards" screen
@@ -100,7 +100,7 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Partner Cards" screen
-    Then The "Partner Cards" gets saved successfully and it is displayed in the Promoters grid
+    Then The "Partner Cards" gets saved successfully and it is displayed in the grid
 
   @ready
   Scenario: Verify Field Validations Of Add New Bungii Card
@@ -121,4 +121,24 @@ Feature: Admin_PaymentMethods
       |Card Number | Expiration Date | CVV | Postal Code|
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Bungii Cards" screen
-    Then The "Bungii Cards" gets saved successfully and it is displayed in the Promoters grid
+    Then The "Bungii Cards" gets saved successfully and it is displayed in the grid
+  
+  @regression
+  Scenario: Verify Fraud Card detection - Bungii Cards
+    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Add Payment Method" button on "Bungii Cards" page
+    When I enter following card details on "Bungii Cards" screen
+      |Card Number | Expiration Date | CVV | Postal Code|
+      |4000111111111511 | 12/39      | 1236  |     12345|
+    And I click on "Save" button on "Bungii Card" screen
+    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
+  
+  @regression
+  Scenario: Verify Fraud Card detection - Partner Cards
+    When I click on "Payment Methods  > Partner Cards" Menu
+    When I click on "Add Payment Method" button on "Partner Cards" page
+    When I enter following card details on "Partner Cards" screen
+      |Card Number | Expiration Date | CVV | Postal Code|
+      |4000111111111511 | 12/39      | 1236  |     12345|
+    And I click on "Save" button on "Partner Card" screen
+    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed

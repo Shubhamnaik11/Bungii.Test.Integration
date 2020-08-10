@@ -60,6 +60,25 @@ Feature: Admin_Promoter
       |4111111111111111 | 11/29      | 123  |      12345|
     And I click on "Save" button on "Promoter Cards" screen
     Then the card is added to the promoter "PT<<CurrentDateTime>>"
+  
+  @sanity
+  @regression
+  Scenario: Verify Adding Payment To Promoter - Fraud Card
+    When I click on the "New Promoter" Button
+    And I enter following values in fields in "Add New Promoter" popup
+      | Promoter Name | Code Initials    | Description  | Status  |
+      | PT<<Unique>>         | PTR<<Unique>> | PTR Description | Active  |
+    When I click on the "Save" Button on "Add New Promoter" popup
+    Then the promoter "PT<<Unique>>" gets saved successfully and it is displayed in the Promoters grid
+    When I click on "Promotion  > Promoter Cards" Menu
+    And I select "PT<<Unique>> " from the "Select Promoter" dropdown
+    And I click on "Add Payment Method" button on "Promoter Cards" page
+    And I enter following card details on "Promoter Cards" screen
+      |Card Number | Expiration Date | CVV | Postal Code|
+      |4000111111111511 | 11/29      | 123  |      12345|
+    And I click on "Save" button on "Promoter Cards" screen
+    Then "There is an issue whilst processing your payment request. Please try after some time." message is displayed
+    
 
   @regression
   Scenario: Verify Promoter Grid Sort ASC DESC
