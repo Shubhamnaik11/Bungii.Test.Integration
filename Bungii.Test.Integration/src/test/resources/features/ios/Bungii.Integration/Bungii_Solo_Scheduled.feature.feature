@@ -6,6 +6,7 @@ Feature: Solo Scheduled Bungii Part I
 
   @FAILED2702
   @regression
+  @sanity
   Scenario: Verify Details Of Solo Schedule Bungii
 
     Given that solo schedule bungii is in progress
