@@ -1,4 +1,5 @@
 @ios
+@bungii
   # this will run in 	nashville 13 Scenarios
 Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
@@ -59,7 +60,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
 
   @sanity
   @regression
-  Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
+  Scenario: Verify Ondemand Bungii Flow Till Completion
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
     When I logged in Customer application using  "valid nashville" user

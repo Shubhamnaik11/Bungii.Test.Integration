@@ -8,6 +8,7 @@
       Then I should "be logged in"
 
     @regression
+    @sanity
       Scenario: Verify that Partner can scheduled Solo bungii Trip
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -64,6 +65,7 @@
       And I should logout from Partner Portal
 
     @ready
+    @sanity
     Scenario: Verify Cancellation of Solo Scheduled Trips
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

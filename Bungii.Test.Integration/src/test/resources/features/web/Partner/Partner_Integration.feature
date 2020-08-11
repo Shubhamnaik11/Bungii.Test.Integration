@@ -8,6 +8,7 @@ Feature: Partner Integration with Admin and Driver
     Then I should "be logged in"
 
   @ready
+  @sanity
   Scenario: Verify Trips List Status Updation For Solo Scheduled Pickup on Partner Portal
     When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
       | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|

@@ -1,7 +1,8 @@
 @ios
 @scheduled
+@bungii
     # this will run in miami and goa
-Feature: Solo Scheduled Bungii Part II
+Feature: Solo Scheduled Bungii Part I
 
 @failed
 @ready
