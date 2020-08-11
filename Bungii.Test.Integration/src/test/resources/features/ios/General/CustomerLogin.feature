@@ -27,7 +27,7 @@ Feature: Customer Login
     And I click "Log In" button on "Log In" screen
     Then User should be successfully logged in to the application
 
-  @regression
+  @onetime
   Scenario: Verify Customer Is Shown Terms And Condition Screen On First Time Login
     Given I install Bungii App again
     When I am on the "LOG IN" page

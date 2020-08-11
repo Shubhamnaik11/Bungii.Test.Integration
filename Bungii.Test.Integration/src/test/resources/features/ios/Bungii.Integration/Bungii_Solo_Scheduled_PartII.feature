@@ -613,23 +613,7 @@ Feature: Solo Scheduled Bungii Part II
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
-    # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
-  Scenario: Verify Trip limit (150 miles) For Solo Scheduled Bungii
-    #When I am on the "LOG IN" page
-    #And I logged in Customer application using  "valid denver" user
-    Given I login as "valid denver" customer and on Home page
-    And I enter pickup location
-      | Driver | Pickup Location |
-      | Solo   | Margoa Railway  |
-    And I enter drop location
-      | Driver | Drop Location       |
-      | Solo   | Devghali Beach road |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+
 
   @regression
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress

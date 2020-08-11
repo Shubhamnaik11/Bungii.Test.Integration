@@ -3,7 +3,27 @@
 @bungii
     # this will run in miami and goa
 Feature: Solo Scheduled Bungii Part I
-
+  
+  
+  @regression
+    # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
+  Scenario: Verify Trip limit (150 miles) For Solo Scheduled Bungii
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+	Given I login as "valid miami 2" customer and on Home page
+	And I enter pickup location
+	  | Driver | Pickup Location |
+	  | Solo   | Margoa Railway  |
+	And I enter drop location
+	  | Driver | Drop Location       |
+	  | Solo   | Devghali Beach road |
+	And I click "Get Estimate" button on "Home" screen
+	Then I should be navigated to "Estimate" screen
+	Then I cancel all bungiis of customer
+	  | Customer Phone | Customer2 Phone |
+	  | 8888889917     |                 |
+	
+	
 @failed
 @ready
 Scenario: Verify Promoter Type Promocode Is Correctly Applied After Manually Ending Bungii
