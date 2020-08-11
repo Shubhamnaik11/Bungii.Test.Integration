@@ -4,6 +4,9 @@
 Feature: OnDemandBungii_DriverActions
 Scenarios where customer requests a Bungii and driver accepts/rejects and cancels the Bungii.
   
+  Background:
+    When I clear all notification
+    
   @regression
   Scenario: Verify Driver Can Reject Ondemand Bungii Request After Viewing Trip Details
     When I Switch to "driver" application on "same" devices

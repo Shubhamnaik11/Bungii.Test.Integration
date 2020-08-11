@@ -137,7 +137,6 @@ Feature: Admin_Geofence
         #NEED TO VERIFY VALUES OF THIS PARAMETER SCHEDULED_PICKUP_MAX_PROCESSING_TIME
   #In database this value is set as 120 mins, needs to be checked.
   @regression
-    @test
   Scenario:Verify Minimum Scheduled Time For Solo Or Duo Trip Cannot Be Less Than SCHEDULED_PICKUP_MAX_PROCESSING_TIME
     When I click on the geofence "Chicago"
     And I click on the "Settings" Button on "Geofence" Screen
@@ -157,8 +156,7 @@ Feature: Admin_Geofence
     And I click on the "Save" Button on "Geofence Settings" Screen
     Then Enter value should get saved and error message is not displayed
 
-  @ready
-    @test
+  @regression
   Scenario: Verify and add new attribute in Geofence Attributes page
     When I load Geofence Attributes Page and Click on New Attributes button
     And I enter following values in "Geofence Attributes" fields
@@ -170,8 +168,7 @@ Feature: Admin_Geofence
     And I check the Searched result is displayed correctly
 #      Then I logout of Admin Portal
 
-  @ready
-    @test
+  @regression
   Scenario: Verify and check attributes are empty
     When I load Geofence Attributes Page and Click on New Attributes button
     And I enter following values in "GeofenceAttributes" fields

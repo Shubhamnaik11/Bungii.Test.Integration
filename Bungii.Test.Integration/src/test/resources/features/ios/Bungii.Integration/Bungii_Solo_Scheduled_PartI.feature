@@ -4,6 +4,8 @@
     # this will run in miami and goa
 Feature: Solo Scheduled Bungii Part I
   
+  Background:
+	When I clear all notification
   
   @regression
     # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through

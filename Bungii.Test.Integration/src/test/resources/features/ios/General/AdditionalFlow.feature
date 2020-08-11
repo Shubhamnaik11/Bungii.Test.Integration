@@ -2,7 +2,7 @@
   Feature: AdditionalFlow
 	
 	#failing due to BCKD-1103
-	@ready
+	@onetime
 	Scenario: Verify Device Token Deregistration Upon Driver Logout
 	Given I Switch to "driver" application on "same" devices
 	And I am on the "LOG IN" page on driverApp
@@ -13,7 +13,7 @@
  
 	@failed
   #failing due to BCKD-1103
-	@ready
+	@onetime
 	Scenario: Verify Device Token Deregistration Upon Customer Logout
 	  Given I am on Customer logged in Home page
 	  Then I customers active flag should be "1"
