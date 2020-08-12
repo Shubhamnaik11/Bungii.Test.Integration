@@ -42,6 +42,7 @@ Feature: Admin_DriverDetails
     When I navigate to following pages one by one
       |Page |
       | Drivers |
+    Then Set the Geofence dropdown to "ALL"
     And I search driver "Dorry Sail"
     And I click on "Profile" icon
     And I edit the Driver

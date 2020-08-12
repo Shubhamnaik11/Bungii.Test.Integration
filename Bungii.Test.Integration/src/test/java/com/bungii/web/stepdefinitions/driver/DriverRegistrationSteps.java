@@ -188,7 +188,7 @@ public class DriverRegistrationSteps extends DriverBase {
             case "Verification Successful page":
                 testStepVerify.isEquals(action.getText(Page_Driver_Reg.Header_VerificationSuccess()), PropertyUtility.getMessage("SMSVerifSuccess"),  PropertyUtility.getMessage("SMSVerifSuccess")+" should be displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is displayed", PropertyUtility.getMessage("SMSVerifSuccess")+" is not displayed");
                 break;
-            case "driver Details page":
+            case "Driver Details page":
                 testStepVerify.isEquals(action.getText(Page_Driver_Details.DriverReg_AllPagesHeader()), PropertyUtility.getMessage("DriverDetailsHeader"),  PropertyUtility.getMessage("DriverDetailsHeader")+" should be displayed", PropertyUtility.getMessage("DriverDetailsHeader")+" is displayed", PropertyUtility.getMessage("DriverDetailsHeader")+" is not displayed");
                 break;
             case "Pickup Info page":
