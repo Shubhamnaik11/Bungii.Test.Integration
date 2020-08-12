@@ -25,6 +25,7 @@ Feature: Payment page
     
     
   @regression
+  @sanity
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -53,9 +54,8 @@ Feature: Payment page
 
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
-  @sanity
-  @regression
-    @sanityfailure
+ 
+  #@regression
   Scenario Outline: Verify Customer Can Delete Payment Card
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page

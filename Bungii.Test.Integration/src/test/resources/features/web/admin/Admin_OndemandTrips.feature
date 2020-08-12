@@ -84,9 +84,7 @@ Feature: Admin_OndemandTrips
       | Bungii Completed |
     And I view the Trips list on the admin portal
     Then The Trip List page should display the trip in "Payment Successful" state
-
-
-  @sanity
+    
   @regression
   Scenario: Verify Driver Does Not receive Ondemand requests If He Is Not Assigned To Geofence In Which His Current Location Is
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence

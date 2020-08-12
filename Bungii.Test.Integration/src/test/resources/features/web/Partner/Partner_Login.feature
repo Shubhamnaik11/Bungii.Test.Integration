@@ -5,6 +5,7 @@
       Given I navigate to "Bungii Partner Portal" URL
 
     @regression
+    @sanity
     Scenario: Verify Partner portal login with Valid Credentials
       When I enter "valid" password on Partner Portal
       And I click "SIGN IN" button on Partner Portal

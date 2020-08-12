@@ -3,11 +3,9 @@ Feature: Admin_PartnerFirm
 
   Background:
     Given I am logged in as TestAdmin
-
-  @sanity
+    
   @regression
   @email
-  @failed
   Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
     When I click on "Business Users  > Bulk Trips" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
@@ -68,11 +66,9 @@ Feature: Admin_PartnerFirm
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
-
-  @sanity
+    
   @regression
   @email
-  @failed
       #test data created in base
   Scenario: Verify Partner Firm Cancellation Email - Duo Scheduled
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location

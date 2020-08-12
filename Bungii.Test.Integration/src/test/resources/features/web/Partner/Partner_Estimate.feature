@@ -8,6 +8,7 @@
       Then I should "be logged in"
 
     @regression
+    @sanity
     Scenario: Verify that correct estimate cost calculated for Solo Bungii
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
@@ -75,6 +76,7 @@
       And I should logout from Partner Portal
 
     @regression
+    @sanity
     Scenario:Verify that Get Estimate cost get recalculate on changing the Load/Unload Time
       When I request "Solo" Bungii trip in partner portal in "washingtondc" geofence
         | Driver | Pickup_Address                                                                     | Delivery_Address                                                    |Load_Unload_Time|
