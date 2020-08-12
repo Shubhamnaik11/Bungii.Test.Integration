@@ -456,6 +456,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_enter_cancellation_fee_and_comments() throws Throwable {
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(), "0");
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(), "Other");
         log("I enter cancellation fee amount and comments",
                 "I have entered cancellation fee amount and comments", true);
     }
