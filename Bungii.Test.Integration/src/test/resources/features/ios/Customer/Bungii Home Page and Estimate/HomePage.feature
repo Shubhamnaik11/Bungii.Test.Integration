@@ -97,7 +97,7 @@ Feature: Customer Home screen
       | Solo   | Margoa Railway  |
     And I enter drop location
       | Driver | Drop Location                   |
-      | Solo   | Bangalore international airport |
+      | Solo   | Gateway Of India Apollo Bandar |
     Then user is alerted for "LONG HAUL"
 
 

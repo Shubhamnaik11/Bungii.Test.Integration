@@ -7,6 +7,9 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.admin.DashBoardPage;
+import com.bungii.ios.pages.admin.LogInPage;
+import com.bungii.ios.pages.admin.PromoCodePage;
 import com.bungii.ios.pages.admin.ScheduledTripsPage;
 import com.bungii.ios.pages.customer.*;
 import com.bungii.ios.pages.driver.BungiiCompletedPage;
@@ -16,6 +19,7 @@ import com.bungii.ios.pages.driver.TripDetailsPage;
 import com.bungii.ios.pages.other.NotificationPage;
 import com.bungii.ios.stepdefinitions.customer.HomeSteps;
 import com.bungii.ios.stepdefinitions.customer.LogInSteps;
+import com.bungii.ios.stepdefinitions.driver.HomePageSteps;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -28,6 +32,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.bungii.ios.stepdefinitions.driver.*;
 
 import java.io.File;
 import java.text.DateFormat;
@@ -45,7 +50,7 @@ public class CommonSteps extends DriverBase {
     ActionManager action = new ActionManager();
     String Image_Solo = "bungii_type-solo", Image_Duo = "bungii_type-duo";
     private EstimatePage estimatePage;
-    private HomePage homePage;
+    private com.bungii.ios.pages.customer.HomePage homePage;
     private com.bungii.ios.pages.driver.HomePage driverHomePage;
     private BungiiDetails customerbungiiDetails;
     private DriverBungiiDetailsPage driverbungiiDetailspage;
@@ -66,6 +71,7 @@ public class CommonSteps extends DriverBase {
     private PaymentPage paymentPage;
     private SupportPage supportPage;
     private PromosPage promosPage;
+    private PromoCodePage promosCodePage;
     private AccountPage accountPage;
     private ScheduledBungiiPage scheduledBungiiPage;
     private InvitePage invitePage;
@@ -80,10 +86,14 @@ public class CommonSteps extends DriverBase {
     private EnableNotificationPage enableNotificationPage;
     private EnableLocationPage enableLocationPage;
     private TutorialPage tutorialPage;
+    private LogInPage logInPage;
+    DashBoardPage dashBoardPage;
     private DbUtility dbUtility = new DbUtility();
     private BungiiDetails bungiiDetails = new BungiiDetails();
+    private GeneralUtility utility = new GeneralUtility();
+    private com.bungii.ios.pages.driver.HomePage driverhomepage;
 
-    public CommonSteps(FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
+    public CommonSteps(com.bungii.ios.pages.driver.HomePage driverhomepage, DashBoardPage dashBoardPage, LogInPage logInPage, PromoCodePage promosCodePage, FaqPage faqPage, ScheduledBungiiPage scheduledBungiiPage, AccountPage accountPage,
                        PaymentPage paymentPage, SupportPage supportPage, PromosPage promosPage, EstimatePage estimatePage,
                        HomePage homePage, LoginPage loginPage, SignupPage signupPage,
                        ScheduledBungiiPage customerScheduledBungiiPage,
@@ -133,6 +143,10 @@ public class CommonSteps extends DriverBase {
         this.enableNotificationPage = enableNotificationPage;
         this.enableLocationPage = enableLocationPage;
         this.tutorialPage = tutorialPage;
+        this.promosCodePage = promosCodePage;
+        this.logInPage = logInPage;
+        this.dashBoardPage = dashBoardPage;
+        this.driverhomepage = driverhomepage;
     }
 
 
@@ -513,6 +527,13 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @Given("^I login as \"([^\"]*)\" customer and on Home page$")
+    public void i_login_as_something_customer_and_on_home_page(String key) throws Throwable {
+        i_am_on_the_something_page("LOG IN");
+        i_logged_in_customer_application_using_something_user(key);
+        iAmOnCustomerLoggedInHomePage();
+    }
+
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
@@ -584,7 +605,11 @@ public class CommonSteps extends DriverBase {
                     action.clickAlertButton("Allow");
                 }
                 homeSteps.i_selectlogout(); */
-            } else {
+            } else if (navigationBarName.equals("WANT $5?")) {
+                takeActionOnPromotion("REJECT");
+                homeSteps.i_selectlogout();
+            }
+            else {
                 homeSteps.i_selectlogout();
             }
             log("I should be on LOG IN page",
@@ -609,6 +634,160 @@ public class CommonSteps extends DriverBase {
         }
     }
 
+    @Given("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status \"([^\"]*)\" $")
+    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something(String user, String device, String driverStatus) throws Throwable {
+        try {
+
+            i_switch_to_something_application_on_something_devices("driver",device);
+        String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
+        goToDriverLogInPage(navigationBarName);
+        String phone, password;
+        boolean shouldLoginSucessful;
+        switch (user.toLowerCase()) {
+            case "valid":
+                phone = PropertyUtility.getDataProperties("ios.valid.driver.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case"valid driver 2":
+                SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
+                phone = PropertyUtility.getDataProperties("ios.valid.driver2.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_2", PropertyUtility.getDataProperties("ios.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_2_PHONE", phone);
+                break;
+            case"valid duo driver 1":
+                phone = PropertyUtility.getDataProperties("ios.valid.driver.duo.phone");
+                password = PropertyUtility.getDataProperties("ios.valid.driver.duo.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("ios.driver.duo.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid miami":
+                phone = PropertyUtility.getDataProperties("miami.driver.phone");
+                password = PropertyUtility.getDataProperties("miami.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("miami.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid nashville":
+                phone = PropertyUtility.getDataProperties("nashville.driver.phone");
+                password = PropertyUtility.getDataProperties("nashville.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("nashville.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid denver":
+                phone = PropertyUtility.getDataProperties("denver.driver.phone");
+                password = PropertyUtility.getDataProperties("denver.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "valid denver driver 2":
+                phone = PropertyUtility.getDataProperties("denver.driver2.phone");
+                password = PropertyUtility.getDataProperties("denver.driver2.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("denver.driver2.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            case "new driver":
+                phone = PropertyUtility.getDataProperties("new.driver.phone");
+                password = PropertyUtility.getDataProperties("new.driver.password");
+                shouldLoginSucessful = true;
+                cucumberContextManager.setScenarioContext("DRIVER_1", PropertyUtility.getDataProperties("new.driver.name"));
+                cucumberContextManager.setScenarioContext("DRIVER_1_PHONE", phone);
+                break;
+            default:
+                throw new Exception("Please specify valid input");
+        }
+        utility.loginToDriverApp(phone, password);
+        if (shouldLoginSucessful) {
+            //   utility.isDriverLoginSucessful();
+        }
+        else {
+            //TODO: specify failure here
+        }
+        new GeneralUtility().logDriverDeviceToken(phone);
+            switch (driverStatus.toUpperCase()) {
+                case "ONLINE":
+                    goOnline();
+                    break;
+                case "OFFLINE":
+                    goOffline();
+                    break;
+            }
+
+        log("I am logged in as"+user+"driver","I am logged in using"+phone+"/"+password,true);
+    } catch (Exception e) {
+        logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+        error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);
+    }
+    }
+    /**
+     * driver goes online
+     */
+    public void goOnline() {
+
+        String navigationHeaderName = action.getNameAttribute(driverhomepage.NavigationBar_Status());
+
+        if (navigationHeaderName.equals("ONLINE"))
+            logger.warning("driver Status is already Online");
+        else if (navigationHeaderName.equals("OFFLINE")) {
+            action.click(driverhomepage.Button_GoOnline());
+        } else if (action.isElementPresent(driverhomepage.Button_GoOnline(true)))
+            action.click(driverhomepage.Button_GoOnline());
+        else
+            logger.error("Not able to get driver status");
+    }
+
+    /**
+     * driver goes offline
+     */
+    public void goOffline() {
+        String navigationHeaderName = action.getNameAttribute(driverhomepage.NavigationBar_Status());
+
+        if (navigationHeaderName.equals("OFFLINE")) {
+            logger.warning("driver Status is already offline");
+        } else if (navigationHeaderName.equals("ONLINE")) {
+            action.click(driverhomepage.Button_GoOffline());
+        } else if (action.isElementPresent(driverhomepage.Button_GoOffline(true)))
+            action.click(driverhomepage.Button_GoOffline());
+        else if (action.isElementPresent(driverhomepage.Button_GoOnline(true)))
+            logger.warning("driver Status is already offline");
+        else
+            logger.error("Not able to get driver status");
+    }
+
+    public void goToDriverLogInPage(String navigationBarName) throws Throwable {
+        HomePageSteps homeSteps = new HomePageSteps(driverHomePage);
+        if (action.isAlertPresent()) {
+            String alertMessage = action.getAlertMessage();
+            logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+            List<String> getListOfAlertButton = action.getListOfAlertButton();
+            if (getListOfAlertButton.contains("Done"))
+                action.clickAlertButton("Done");
+
+        }
+        if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
+            action.click(driverBungiiCompletedPage.Button_NextTrip());
+            //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+        }
+
+        if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
+            if (navigationBarName.equals("LOCATION"))
+            {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+            }
+            homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
+        }
+
+
+    }
 
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
@@ -973,7 +1152,54 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+    @When("^I navigate to \"([^\"]*)\" on Admin portal$")
+    public void i_navigate_to_something_on_admin_portal(String option) throws Throwable {
+        try {
+        i_open_new_something_browser_for_something_instance("Chrome", "ADMIN");
+        SetupManager.getDriver().get(utility.GetAdminUrl());
+        logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+        logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+        logInPage.Button_LogIn().click();
 
+            switch (option.toLowerCase()) {
+                case "scheduled trip":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_ScheduledTrips());
+                    break;
+                case "promo code":
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_PromoCode());
+                    break;
+                case "referral source":
+                    action.click(dashBoardPage.Button_Marketing());
+                    action.click(dashBoardPage.Button_ReferralSource());
+                    break;
+                case "live trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    action.click(dashBoardPage.Button_LiveTrips());
+                    break;
+                case "trips":
+                    action.click(dashBoardPage.Button_Trips());
+                    break;
+                case "customers":
+                    action.click(dashBoardPage.Button_Customers());
+                    break;
+                case "drivers":
+                    action.click(dashBoardPage.Button_Drivers());
+                    break;
+                case "geofence":
+                    action.click(dashBoardPage.Menu_Geofences());
+                    break;
+                default:
+                    throw new Exception(" UNIMPLEMENTED STEP");
+            }
+            log("I should able to select "+option,"I Selected "+option+" on admin sidebar" ,true );
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
 
     @When("^I open new \"([^\"]*)\" browser for \"([^\"]*)\"$")
     public void i_open_new_something_browser_for_something_instance(String browser, String instanceName) {
@@ -991,6 +1217,81 @@ public class CommonSteps extends DriverBase {
             error("Step  Should be successful",
                     "Error performing step,Please check logs for more details", true);
         }
+    }
+
+    @Given("^I get \"([^\"]*)\" promocode from the admin portal$")
+    public void i_get_something_promocode_from_the_admin_portal(String codeType) throws Throwable {
+        i_open_new_something_browser_for_something_instance("Chrome", "ADMIN PORTAL");
+        SetupManager.getDriver().get(utility.GetAdminUrl());
+        logInPage.TextBox_Phone().sendKeys(PropertyUtility.getDataProperties("admin.user"));
+        logInPage.TextBox_Pass().sendKeys(PropertyUtility.getDataProperties("admin.password"));
+        logInPage.Button_LogIn().click();
+        action.click(dashBoardPage.Button_Marketing());
+        action.click(dashBoardPage.Button_PromoCode());
+        action.click(promosCodePage.Button_Filter());
+        action.click(promosCodePage.CheckBox_FilterPromo());
+        action.click(promosCodePage.Button_Apply());
+        Thread.sleep(2000);
+        cucumberContextManager.setFeatureContextContext("VALID", getPromoCode(codeType));
+
+    }
+    /**
+     * Find required promocode and return list of it
+     *
+     * @param key type of promocode that is to be searched
+     * @return list of promocode for input category
+     */
+    public List<String> getPromoCode(String key) throws InterruptedException {
+        List<String> codeList = new ArrayList<String>();
+        //Vishal[12042019]: Temp fixed , Duo to QA _ Auto , TODO: Remove this
+        // if (!promosPage.Text_ActivePageNumber().getText().equals("1"))
+        //      promosPage.Button_Previouspage().click();
+        //   while (codeList.size() <= 5) {
+
+        while (codeList.size() <= 1) {
+            List<WebElement> codes = new ArrayList<WebElement>();
+            switch (key.toLowerCase()) {
+                case "referral":
+                    codes = promosCodePage.Text_ReferralCode();
+                    break;
+                case "one off":
+                    codes = promosCodePage.Text_OneOffCode();
+                    break;
+                case "used one off":
+                    codes = promosCodePage.Text_UsedOneOffCode();
+                    break;
+                case "unused one off":
+                    codes = promosCodePage.Text_UnUsedOneOffCode();
+                    break;
+                case "valid":
+                case "promo":
+                    codes = promosCodePage.Text_PromoCode();
+                    break;
+                case "expired":
+                    codes = promosCodePage.Text_ExpiredPromoCode();
+                    break;
+                case "promo fixed":
+                    codes = promosCodePage.Text_PromoCodeFixed();
+                    break;
+                case "{promo percent}":
+                    codes = promosCodePage.Text_PromoCodePercent();
+                    break;
+                case"promoter_type_promo":
+                    codes = promosCodePage.Text_PromoCodePromoter();
+                    break;
+                default:
+                    break;
+            }
+            for (WebElement code : codes) {
+                codeList.add(code.getText());
+            }
+            Thread.sleep(1000);
+            //   action.click(promosPage.Button_Nextpage());
+            //   promosPage.waitForPageLoad();
+            //  action.invisibilityOfElementLocated(promosPage.Loadder());
+        }
+        logger.detail("Promo code list for key "+key+ " is "+String.join(", ", codeList));
+        return codeList;
     }
 
     @When("^I connect to \"([^\"]*)\" using \"([^\"]*)\" instance$")

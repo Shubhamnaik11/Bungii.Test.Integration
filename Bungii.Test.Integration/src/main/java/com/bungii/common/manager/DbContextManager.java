@@ -2,11 +2,15 @@ package com.bungii.common.manager;
 
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DbContextManager {
     private static LogUtility logger = new LogUtility(DbContextManager.class);
@@ -107,5 +111,33 @@ public class DbContextManager {
         }
 
         return result;
+    }
+
+    public static List<HashMap<String,Object>> getDataFromMySqlServerMap(String queryString) {
+        String result = "";
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(MYSQL_URL, MYSQL_USER, MYSQL_PASSWORD);
+            logger.detail("Connected to my sql server | "+ MYSQL_URL);
+
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(queryString);
+            ResultSetMetaData md = (ResultSetMetaData) rs.getMetaData();
+            int columns = md.getColumnCount();
+
+            while (rs.next()) {
+                HashMap<String,Object> row = new HashMap<String, Object>(columns);
+                for(int i=1; i<=columns; ++i) {
+                    row.put(md.getColumnName(i),rs.getObject(i));
+                }
+                list.add(row);
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
     }
 }

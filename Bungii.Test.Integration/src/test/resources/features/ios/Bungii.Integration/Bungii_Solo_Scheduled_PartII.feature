@@ -1,23 +1,30 @@
 @ios
 @scheduled
+@bungii
     # this will run in denver
-Feature: Solo Scheduled Bungii Part I
+Feature: Solo Scheduled Bungii Part II
   I want to use request Scheduling Bungii with Solo type
-
+  
+  Background:
+    When I clear all notification
+    
   @FAILED2702
   @regression
+  @sanity
   Scenario: Verify Details Of Solo Schedule Bungii
 
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Accepted     | NEXT_POSSIBLE |
-    When I Switch to "customer" application on "same" devices
-    Given I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I Switch to "customer" application on "same" devices
+    #Given I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
   #  And I am on Customer logged in Home page
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+   # When I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid denver" driver
+    Given I login as "valid denver" customer and on Home page
+    And I login as "valid denver" driver on "same" device and make driver status "Online"
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -118,11 +125,13 @@ Feature: Solo Scheduled Bungii Part I
 
   @regression
   Scenario: Verify Customer Can Create And Complete Schedule Solo Bungii
-    Given I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    When I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
+    #Given I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    #When I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid denver" driver
+    Given I login as "valid denver" customer and on Home page
+    And I login as "valid denver" driver on "same" device and make driver status "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -190,8 +199,9 @@ Feature: Solo Scheduled Bungii Part I
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -212,8 +222,9 @@ Feature: Solo Scheduled Bungii Part I
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+   # And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     Then Trip Information should be correctly displayed on BUNGII DETAILS screen
@@ -226,8 +237,9 @@ Feature: Solo Scheduled Bungii Part I
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
 
@@ -250,8 +262,9 @@ Feature: Solo Scheduled Bungii Part I
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   |
       | denver   | Scheduled    | NEXT_POSSIBLE |
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I Select "MY BUNGIIS" from Customer App menu
     Then trips status should be "Contacting Drivers"
     And I select already scheduled bungii
@@ -364,8 +377,9 @@ Feature: Solo Scheduled Bungii Part I
   @regression
   Scenario: Verify Customer Doesnt Receives Notification When Solo Scheduled Bungii Is Requested At A Time Outside Working Hours
 
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+   # And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -377,8 +391,9 @@ Feature: Solo Scheduled Bungii Part I
 
   @regression
   Scenario: Verify Customer Doesnt Receives Notification When Duo Scheduled Bungii Is Requested At A Time Outside Working Hours
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -392,9 +407,10 @@ Feature: Solo Scheduled Bungii Part I
   @regression
     @failed
   Scenario:  Verify Customer Can Schedule Solo Bungii Only 5 Days Ahead Including Current Date
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I Select "Home" from Customer App menu
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+   # And I Select "Home" from Customer App menu
+    Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -449,15 +465,17 @@ Feature: Solo Scheduled Bungii Part I
     And I click "Get Estimate" button on "Home" screen
     When I try to schedule bungii for "today+5"
     Then user is alerted for "SCHEDULED ONLY 5 DAYS"
+    #Cancellation not needed
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
 
   @regression
   Scenario:  Verify Customer Can Schedule Duo Bungii Only 5 Days Ahead Including Current Date
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I Select "Home" from Customer App menu
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    #And I Select "Home" from Customer App menu
+    Given I login as "valid denver" customer and on Home page
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | duo    | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -520,8 +538,10 @@ Feature: Solo Scheduled Bungii Part I
       | denver   | Scheduled    | NEXT_POSSIBLE |
 
     And I get TELET time of of the current trip
-    And I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+    #And I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+    Given I login as "valid denver" customer and on Home page
+  
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
       | Solo   | 2052 Welton Street Denver Colorado | 16th Street Mall Denver Colorado | denver   |
@@ -596,35 +616,23 @@ Feature: Solo Scheduled Bungii Part I
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @regression
-    # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
-  Scenario: Verify Trip limit (150 miles) For Solo Scheduled Bungii
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I enter pickup location
-      | Driver | Pickup Location |
-      | Solo   | Margoa Railway  |
-    And I enter drop location
-      | Driver | Drop Location       |
-      | Solo   | Devghali Beach road |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    Then I cancel all bungiis of customer
-      | Customer Phone | Customer2 Phone |
-      | 8888889917     |                 |
+
 
   @regression
   Scenario: Verify Alert Message Is Displayed When Customer Tries To Contact Driver Who Has Bungii In Progress
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time     |
       | denver   | Accepted     | 0.75 hour ahead |
-    And I Switch to "customer" application on "same" devices
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    Then I change driver status to "Online"
+    Given I login as "valid denver" customer and on Home page
+    And I login as "valid denver" driver on "same" device and make driver status "Online"
+    #And I Switch to "customer" application on "same" devices
+    #When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
+   # And I Switch to "driver" application on "same" devices
+   # And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid denver" driver
+    #Then I change driver status to "Online"
+    
     And I Switch to "customer" application on "same" devices
 
     When I request "Solo Ondemand" Bungii as a customer in "denver" geofence
@@ -650,9 +658,11 @@ Feature: Solo Scheduled Bungii Part I
     Given that solo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time  |
       | denver   | Accepted     | 1 hour ahead |
-    And I Switch to "customer" application on "same" devices
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid denver" user
+  
+    Given I login as "valid denver" customer and on Home page
+    #And I Switch to "customer" application on "same" devices
+   # When I am on the "LOG IN" page
+    #And I logged in Customer application using  "valid denver" user
     And I Select "MY BUNGIIS" from Customer App menu
     And I select already scheduled bungii
     When I try to contact driver using "sms driver1"
@@ -692,14 +702,14 @@ Feature: Solo Scheduled Bungii Part I
       | Customer Phone | Customer2 Phone |
       | 8888889917     |                 |
 
-  @FAILED2702
-  @ready
+  @regression
   Scenario:Verify Scheduled Bungii Notification Info(Estimated Earnings Date etc.)
     When I clear all notification
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    Then I change driver status to "Online"
+    #And I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid denver" driver
+    #Then I change driver status to "Online"
+    And I login as "valid denver" driver on "same" device and make driver status "Online"
     When I Switch to "customer" application on "same" devices
 
     And I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -720,10 +730,12 @@ Feature: Solo Scheduled Bungii Part I
   @regression
   Scenario:Verify If Driver Receives Scheduled Bungii Request While In Offline State
     When I clear all notification
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid denver" driver
-    Then I change driver status to "OFFLINE"
+    #And I Switch to "driver" application on "same" devices
+    #And I am on the "LOG IN" page on driverApp
+    #And I am logged in as "valid denver" driver
+    #Then I change driver status to "OFFLINE"
+    And I login as "valid denver" driver on "same" device and make driver status "OFFLINE"
+    
     When I Switch to "customer" application on "same" devices
     And I request "Solo Scheduled" Bungii as a customer in "denver" geofence
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      |
@@ -1530,7 +1542,7 @@ Feature: Solo Scheduled Bungii Part I
     And I click "Log In" button on "Log In" screen
     And I Select "MY BUNGIIS" from Customer App menu
     And I wait for Minimum duration for "current" Bungii to be in Driver not accepted state
-    Then I wait for "2" mins
+    Then I wait for "4" mins
     And I select already scheduled bungii
     When I Cancel selected Bungii
     Then correct support details should be displayed to customer on "ADMIN-SMS" app
@@ -1616,9 +1628,8 @@ Feature: Solo Scheduled Bungii Part I
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
-
-  @failed
-  @ready
+    
+  @regression
   Scenario: Verify If Customer Is Allowed To Rate Driver For Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "denver" geofence
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |

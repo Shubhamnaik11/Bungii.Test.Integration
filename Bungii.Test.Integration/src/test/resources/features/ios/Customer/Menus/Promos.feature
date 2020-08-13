@@ -6,9 +6,9 @@ Feature: Promos
 
   Background:
     Given I am on Customer logged in Home page
-  @FAILED2702
+
   @sanity
-  @ready
+  @regression
   Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
     When I logged in Customer application using  "existing app user" user
     And I Select "PROMOS" from Customer App menu
