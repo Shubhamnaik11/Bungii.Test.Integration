@@ -633,8 +633,9 @@ public class CommonSteps extends DriverBase {
             }
         }
     }
-
-    @Given("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status \"([^\"]*)\" $")
+    @When("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
+    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
+    @Given("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
     public void i_login_as_something_driver_on_something_device_and_make_driver_status_something(String user, String device, String driverStatus) throws Throwable {
         try {
 
