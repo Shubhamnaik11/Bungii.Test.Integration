@@ -489,13 +489,13 @@ public class HomeSteps extends DriverBase {
             Thread.sleep(10000);
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
-                    String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
+                    String minsValue = action.getValueAttribute(homePage.Text_EtaTime());
                     int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" minutes", ""));
                     testStepVerify.isTrue(minsValue.contains(" minutes"), "Minutes should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
                 case "not be displayed":
-                    testStepVerify.isFalse(action.isElementPresent(homePage.Text_eta_mins(true)), "Driver eta should bot be displayed", "Driver ETA is not displayed", "Driver ETA is displayed");
+                    testStepVerify.isFalse(action.isElementPresent(homePage.Text_EtaTime(true)), "Driver eta should bot be displayed", "Driver ETA is not displayed", "Driver ETA is displayed");
                     break;
                 default:
                     throw new Exception(" UN IMPLEMENTED STEP");
