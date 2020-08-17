@@ -65,6 +65,8 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 break;
 
             case "Trips search":
+                Select geoFenceDropdown = new Select(admin_tripsPage.Dropdown_Geofence());
+                geoFenceDropdown.selectByVisibleText("-- All --");
                 Select dropdown = new Select(admin_tripsPage.DropDown_SearchForPeriod());
                 dropdown.selectByVisibleText("The Beginning of Time");
                 switch (strArg2) {

@@ -806,7 +806,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
 
                 case "Save Driver Details":
-                    action.click(admin_driverVerificationPage.Button_Save());
+                    action.click(admin_driverVerificationPage.Button_SaveForDriver());
                     break;
 
                 case "APPLY":
