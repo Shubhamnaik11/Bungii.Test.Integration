@@ -20,11 +20,12 @@ Feature: Solo Scheduled Bungii Part II
     #Given I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
   #  And I am on Customer logged in Home page
-   # When I Switch to "driver" application on "same" devices
+   #When I Switch to "driver" application on "same" devices
     #And I am on the "LOG IN" page on driverApp
     #And I am logged in as "valid denver" driver
+    
     Given I login as "valid denver" customer and on Home page
-    And I login as "valid denver" driver on "same" device and make driver status "Online"
+    And I login as "valid denver" driver on "same" device and make driver status as "Online"
 
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from scheduled trip
@@ -131,7 +132,7 @@ Feature: Solo Scheduled Bungii Part II
     #And I am on the "LOG IN" page on driverApp
     #And I am logged in as "valid denver" driver
     Given I login as "valid denver" customer and on Home page
-    And I login as "valid denver" driver on "same" device and make driver status "Online"
+    And I login as "valid denver" driver on "same" device and make driver status as "Online"
     And I Switch to "customer" application on "ORIGINAL" devices
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location                    | Drop Location                    | Geofence |
@@ -624,7 +625,7 @@ Feature: Solo Scheduled Bungii Part II
       | geofence | Bungii State | Bungii Time     |
       | denver   | Accepted     | 0.75 hour ahead |
     Given I login as "valid denver" customer and on Home page
-    And I login as "valid denver" driver on "same" device and make driver status "Online"
+    And I login as "valid denver" driver on "same" device and make driver status as "Online"
     #And I Switch to "customer" application on "same" devices
     #When I am on the "LOG IN" page
     #And I logged in Customer application using  "valid denver" user
@@ -709,7 +710,7 @@ Feature: Solo Scheduled Bungii Part II
     #And I am on the "LOG IN" page on driverApp
     #And I am logged in as "valid denver" driver
     #Then I change driver status to "Online"
-    And I login as "valid denver" driver on "same" device and make driver status "Online"
+    And I login as "valid denver" driver on "same" device and make driver status as "Online"
     When I Switch to "customer" application on "same" devices
 
     And I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -734,7 +735,7 @@ Feature: Solo Scheduled Bungii Part II
     #And I am on the "LOG IN" page on driverApp
     #And I am logged in as "valid denver" driver
     #Then I change driver status to "OFFLINE"
-    And I login as "valid denver" driver on "same" device and make driver status "OFFLINE"
+    And I login as "valid denver" driver on "same" device and make driver status as "OFFLINE"
     
     When I Switch to "customer" application on "same" devices
     And I request "Solo Scheduled" Bungii as a customer in "denver" geofence

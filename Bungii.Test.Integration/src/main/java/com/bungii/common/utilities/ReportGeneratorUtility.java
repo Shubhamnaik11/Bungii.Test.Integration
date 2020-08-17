@@ -207,6 +207,7 @@ public class ReportGeneratorUtility extends DriverBase {
 		}
 
 		String path = sDumpFile.replace('\\', '/');
+		logger.detail("Screenshot Path :  "+ downloadPath );
 		return message +" <div style='color:red; font-weight: bold'> " +
 				" <img src='./"+downloadPath+"' alt='' onclick=\"showImage('"+path+"')\"/> Download screenshot here" +
 				"</div>";

@@ -4,7 +4,7 @@ Feature: Customer Home screen
 # 1 valid test case fail
 
     #test case getting failed , Known issue
-  @ready
+  @regression
   Scenario:Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     Given I am on Customer logged in Home page
     Then "Pick up" address should be displayed in text box

@@ -24,7 +24,7 @@ public class HomePage extends PageBase {
   //  public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
     public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET PICKUP LOCATION']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-    public WebElement Text_EtaTime() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaTime(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath,ignoreException); }
 
     public WebElement Scroll_SoloToDuo() {return findElement("//XCUIElementTypeStaticText[@name='1']/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther", PageBase.LocatorType.XPath); }
     public WebElement Icon_Solo() {return findElement("//XCUIElementTypeStaticText[@name='1']", PageBase.LocatorType.XPath); }
