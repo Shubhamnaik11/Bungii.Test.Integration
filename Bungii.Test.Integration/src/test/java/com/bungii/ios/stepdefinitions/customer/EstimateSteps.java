@@ -133,6 +133,7 @@ public class EstimateSteps extends DriverBase {
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
+            action.swipeDown();
             strTime = enterTime(time);
 
             String[] details = new String[4];
