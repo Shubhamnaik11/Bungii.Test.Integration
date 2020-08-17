@@ -590,7 +590,7 @@ Feature: To Test Duo - Scheduled Bungii
   #  When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
@@ -719,7 +719,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
@@ -839,7 +839,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     Then I calculate projected driver arrival time
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
@@ -925,7 +925,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -981,12 +981,12 @@ Feature: To Test Duo - Scheduled Bungii
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "driver" application on "Driver2" devices
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1043,12 +1043,12 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Driver2" devices
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1326,7 +1326,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click "Log In" button on "Log In" screen
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And I click on notification for "Customer" for "Driver accepted stack Bungii"
@@ -1355,7 +1355,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1390,7 +1390,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1430,7 +1430,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     Then "correct stack trip details" should be displayed on Bungii request screen
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message

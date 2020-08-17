@@ -1859,7 +1859,7 @@ Feature: Solo Scheduled Bungii Part II
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And I get TELET time of currrent trip of customer 2
