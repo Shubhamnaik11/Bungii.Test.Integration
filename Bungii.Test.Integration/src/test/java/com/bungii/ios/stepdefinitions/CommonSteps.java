@@ -848,7 +848,7 @@ public class CommonSteps extends DriverBase {
             pass("Switch to : " + appName + " application on above device instance",
                     "Switched to : " + appName + " application on above device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-
+            logger.detail ("Switched to : " + appName + " application");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());

@@ -568,17 +568,20 @@ public class ActionManager {
         TouchAction action = new TouchAction((AppiumDriver) SetupManager.getDriver());
         if (show) {
             action.press(top);
+            logger.detail("ACTION | Open notification tray ");
         } else {
             action.press(bottom);
+            logger.detail("ACTION | Close notification tray ");
         }
         action.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)));
         if (show) {
             action.moveTo(bottom);
+            logger.detail("ACTION | Open notification tray ");
         } else {
             action.moveTo(top);
+            logger.detail("ACTION | Close notification tray ");
         }
         action.perform();
-        logger.detail("ACTION | Open notification tray ");
     }
 
     /**
