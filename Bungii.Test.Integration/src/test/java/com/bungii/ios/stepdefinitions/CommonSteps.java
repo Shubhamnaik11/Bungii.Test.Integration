@@ -287,7 +287,8 @@ public class CommonSteps extends DriverBase {
                     if (screen.equalsIgnoreCase("SIGN UP")) {
                         action.hideKeyboard();
                         action.swipeUP();
-                        action.click(signupPage.Textfield_Phonenumber()); //added to address swipe
+                        //action.click(signupPage.Textfield_Phonenumber()); //added to address swipe
+                        action.swipeUP();
                         action.click(signupPage.Button_Signup());
                     } else
                         action.click(loginPage.Button_SignUp());
