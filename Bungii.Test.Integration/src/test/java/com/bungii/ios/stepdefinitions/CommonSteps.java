@@ -361,8 +361,10 @@ public class CommonSteps extends DriverBase {
                         action.click(promosPage.Button_Add());
                         if(action.isAlertPresent()) {
                             String alertText = SetupManager.getDriver().switchTo().alert().getText();
-                            warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
-                            SetupManager.getDriver().switchTo().alert().accept();
+                            if(alertText==PropertyUtility.getMessage("customer.select.other.than.first.time.code")) {
+                                warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
+                                SetupManager.getDriver().switchTo().alert().accept();
+                            }
                         }
                     }
                     break;
