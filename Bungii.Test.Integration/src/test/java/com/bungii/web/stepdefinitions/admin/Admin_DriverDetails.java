@@ -32,6 +32,11 @@ public class Admin_DriverDetails extends DriverBase{
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
+    @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
+    public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
+        action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+    }
+
     @When("^I search driver \"([^\"]*)\"$")
     public void i_search_driver_something(String driver) throws Throwable {
         action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driver+ Keys.ENTER);
@@ -54,6 +59,16 @@ public class Admin_DriverDetails extends DriverBase{
         action.selectElementByText(admin_Driverspage.Dropdown_SearchForPeriod(), "The Beginning of Time");
         if(!action.getPagesource().contains("No trips found."))
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
+    }
+
+    @And("^I click on \"([^\"]*)\" Link$")
+    public void i_click_on_some_link(String Linkname){
+        switch (Linkname){
+            case "View Profile":
+                action.click(admin_Driverspage.Link_ViewProfile());
+                break;
+
+        }
     }
 
     @Then("^The Trip List page should display the trip in \"([^\"]*)\" state$")

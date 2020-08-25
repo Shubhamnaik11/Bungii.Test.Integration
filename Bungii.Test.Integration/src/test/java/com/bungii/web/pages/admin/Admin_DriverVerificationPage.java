@@ -123,6 +123,8 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Button_Save () { return findElement("//*[@id='btnsave']", LocatorType.XPath); }
 
+    public WebElement Button_SaveForDriver () { return findElement("//*[@id='btnSave']", LocatorType.XPath); }
+
     public WebElement Button_Cancel () { return findElement("//*[@id='btncancel']", LocatorType.XPath); }
 
     public WebElement Popup_ConfirmCancelDriverVerificationApplication () { return findElement("//*[@id='cancelApp']//p[2]", LocatorType.XPath); }

@@ -4,7 +4,7 @@ Feature: Customer Home screen
 # 1 valid test case fail
 
     #test case getting failed , Known issue
-  @ready
+  @regression
   Scenario:Verify If ETA Bar Remains On Map When Pickup Address Is Cleared
     Given I am on Customer logged in Home page
     Then "Pick up" address should be displayed in text box
@@ -97,7 +97,7 @@ Feature: Customer Home screen
       | Solo   | Margoa Railway  |
     And I enter drop location
       | Driver | Drop Location                   |
-      | Solo   | Bangalore international airport |
+      | Solo   | Gateway Of India Apollo Bandar |
     Then user is alerted for "LONG HAUL"
 
 

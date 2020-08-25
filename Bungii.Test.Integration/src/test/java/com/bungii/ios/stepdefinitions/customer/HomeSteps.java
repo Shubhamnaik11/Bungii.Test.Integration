@@ -133,9 +133,9 @@ public class HomeSteps extends DriverBase {
             try {
                 String geofenceName = dataMap.get("Geofence");
                 cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", geofenceName.toLowerCase());
-                logger.detail("Geofence is specified as input is" + (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
+                logger.detail("Geofence specified is : " + (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
             } catch (Exception e) {
-                logger.detail("Geofence is not specified as input");
+                logger.detail("Geofence is not specified ");
             }
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
@@ -332,13 +332,14 @@ public class HomeSteps extends DriverBase {
     @Then("^\"([^\"]*)\" box header and ETA bar header should be correctly displayed$")
     public void something_box_header_and_eta_bar_header_should_be_correctly_displayed(String action) {
         try {
+            //This behavior was changed after sprint 32
             switch (action.toUpperCase()) {
                 case "DROP":
-                    testStepVerify.contains(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
+                  //  testStepVerify.contains(getEtaBarHeader("DROP"), PropertyUtility.getMessage("customer.drop.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 case "PICK UP":
-                    testStepVerify.contains(getEtaBarHeader("PICKUP"),
-                            PropertyUtility.getMessage("customer.pickup.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
+               //     testStepVerify.contains(getEtaBarHeader("PICKUP"),
+                   //         PropertyUtility.getMessage("customer.pickup.etaheader"),"ETA bar should be displayed","ETA bar is displayed","ETA bar is not displayed");
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -488,13 +489,13 @@ public class HomeSteps extends DriverBase {
             Thread.sleep(10000);
             switch (strArg1.toLowerCase()) {
                 case "less than 30 mins":
-                    String minsValue = action.getValueAttribute(homePage.Text_eta_mins());
+                    String minsValue = action.getValueAttribute(homePage.Text_EtaTime());
                     int intMinValue = Integer.parseInt(minsValue.replace("ETA at Pickup Location: ", "").replace(" minutes", ""));
                     testStepVerify.isTrue(minsValue.contains(" minutes"), "Minutes should displayed");
                     testStepVerify.isTrue(intMinValue < 31, " Mins valus should be less than 30", "Mins value is" + intMinValue, "Mins value is" + intMinValue);
                     break;
                 case "not be displayed":
-                    testStepVerify.isFalse(action.isElementPresent(homePage.Text_eta_mins(true)), "Driver eta should bot be displayed", "Driver ETA is not displayed", "Driver ETA is displayed");
+                    testStepVerify.isFalse(action.isElementPresent(homePage.Text_EtaTime(true)), "Driver eta should bot be displayed", "Driver ETA is not displayed", "Driver ETA is displayed");
                     break;
                 default:
                     throw new Exception(" UN IMPLEMENTED STEP");
@@ -736,7 +737,7 @@ public class HomeSteps extends DriverBase {
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
 
-        int offset = 70 * dragFactor;
+      /*  int offset = 70 * dragFactor;
         Point initial = homePage.Text_eta_mins().getLocation(); ///commented eta bar
         boolean isPickupLineDisplayed = action.isElementPresent(homePage.TextBox_Pickup(true));
         if (isPickupLineDisplayed) {
@@ -745,7 +746,7 @@ public class HomeSteps extends DriverBase {
 
                 if (!action.isElementPresent(homePage.TextBox_Pickup(true))) break;
             }
-        }
+        }*/
         action.click(homePage.BUTTON_Set_PickupOff());
     }
 

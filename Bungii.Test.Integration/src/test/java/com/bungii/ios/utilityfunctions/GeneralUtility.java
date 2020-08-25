@@ -597,6 +597,9 @@ public class GeneralUtility extends DriverBase {
         return isCorrectPage;
     }
 
+    public String getPageHeader() {
+        return action.getText(driverHomePage.Text_NavigationBar());
+    }
     private String getExpectedHeader(String screen, String currentApplication) {
         String expectedMessage = "";
         switch (screen.toUpperCase()) {
@@ -1310,7 +1313,7 @@ catch (Exception e)
         String emailMessage = "";
 
         try {
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\CustomerSignup.txt");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/CustomerSignup.txt");
             String s;
             try (
 
@@ -1448,7 +1451,7 @@ catch (Exception e)
         String emailMessage = "";
 
         try {
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PoorRatingEmail.txt");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PoorRatingEmail.txt");
             String s;
             try (
 

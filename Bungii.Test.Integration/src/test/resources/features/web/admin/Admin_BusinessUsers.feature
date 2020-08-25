@@ -75,7 +75,25 @@ Feature: Admin_BusinessUsers
     Then the pickup from the csv are listed down
     When I click on "Confirm" button on "Bulk Trips" page
     Then the "Trips have been requested successfully." message is displayed
-
+    
+  @regression
+  Scenario: Verify Adding Payment To Business User - Fraud Card
+    When I click on the "New Business User" Button
+    And I enter following values in "Business Users" fields
+      | Name                                              | Phone                   | Email  |
+      | Testcustomertywd_apple<<UniqueNo>>	  | <<UniquePhone>>         | test@creativecapsule.com       |
+    When I click on the "Save" Button on "Business Users" popup
+    Then the business user gets saved successfully and it is displayed in the "Business users" grid
+    When I click on "Business Users  > Business Users Payment" Menu
+    And I select "Testcustomertywd_apple<<UniqueNo>>" from the "Select Business User" dropdown
+    And I click on "Add Payment Method" button on "Business Users Payment" page
+    And I enter following card details
+      |Card Number | Expiration Date | CVV | Postal Code|
+      |4000111111111511 | 11/29      | 123  |      12345|
+    And I click on "Save" button on "Business User Cards" screen
+    Then "There was a problem processing your credit card; please double check your payment information and try again." message is displayed
+    
+    
   @sanity
   @regression
   Scenario: Verify Business User Is Not Available In Bulk Trips Until Payment Is Set

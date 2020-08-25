@@ -15,8 +15,10 @@ import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.json.JSONObject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterTest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -173,7 +175,7 @@ public class CucumberHooks {
             {
                 logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
             }
-            if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
+            else if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance
                 if (isTestcaseFailed)
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
@@ -204,6 +206,11 @@ public class CucumberHooks {
                     e.printStackTrace();
                 }
             }
+
+            if(PropertyUtility.targetPlatform.equalsIgnoreCase("WEB")){
+                JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+                js.executeScript(String.format("window.localStorage.clear();"));
+            }
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
@@ -213,6 +220,7 @@ public class CucumberHooks {
 
 
     }
+
 
     // @AfterSuite
 
@@ -227,6 +235,8 @@ public class CucumberHooks {
         //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
 
     }
+
+
 
     //for first test case after duo reinstall the apps
     @Before("@POSTDUO")

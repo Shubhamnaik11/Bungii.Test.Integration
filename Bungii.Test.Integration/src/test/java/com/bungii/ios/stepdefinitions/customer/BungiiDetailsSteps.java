@@ -14,6 +14,8 @@ import org.openqa.selenium.By;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import static com.bungii.common.manager.ResultManager.*;
 
@@ -173,6 +175,10 @@ public class BungiiDetailsSteps extends DriverBase {
             String tripTime = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_TIME")),
                     estimate = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
             String tripNoOfDriver = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_NO_DRIVER"));
+
+            if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date())) {
+                tripTime = tripTime.replace("ST","DT").replace("st","dt");
+            }
 
             String pickUpLocationLineOne = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1")).replace(",", "").trim();
             String pickUpLocationLineTwo = String.valueOf(cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2")).replace(",", "").trim();

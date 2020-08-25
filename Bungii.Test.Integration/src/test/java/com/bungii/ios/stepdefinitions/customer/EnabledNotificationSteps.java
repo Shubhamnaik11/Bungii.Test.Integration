@@ -4,7 +4,9 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
+import com.bungii.ios.pages.customer.EnableLocationPage;
 import com.bungii.ios.pages.customer.EnableNotificationPage;
+import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
@@ -13,6 +15,8 @@ import static com.bungii.common.manager.ResultManager.*;
 public class EnabledNotificationSteps extends DriverBase {
     ActionManager action = new ActionManager();
     EnableNotificationPage enableNotificationPage = new EnableNotificationPage();
+    EnableLocationPage enableLocationPage = new EnableLocationPage();
+
     private static LogUtility logger = new LogUtility(EnabledNotificationSteps.class);
 
     @Then("^I verify and allow access of Notification from Bungii application$")
@@ -64,7 +68,28 @@ public class EnabledNotificationSteps extends DriverBase {
         }
 
     }
+    @Then("^I accept \"([^\"]*)\" and \"([^\"]*)\" permission if exist$")
+    public void I_acceptNotificationAndLocationPermissionIfExist(String Notification, String Location) throws Throwable {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            String pageName = utility.getPageHeader();
+            if(action.isElementPresent(enableNotificationPage.Button_Sure())) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+               // pageName = utility.getPageHeader();
+            }
+            if(action.isElementPresent(enableLocationPage.Button_Sure())) {
+                action.click(enableLocationPage.Button_Sure());
+                action.clickAlertButton("Always Allow");
+                //pageName = utility.getPageHeader();
+            }
 
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+
+    }
     @Then("^I should see \"([^\"]*)\" on allow notifications driver screen$")
     public void i_should_see_something_on_allow_notificationsdriver_screen(String identifier) throws Throwable {
         try {

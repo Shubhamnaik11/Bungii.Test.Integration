@@ -45,6 +45,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     GeneralUtility utility = new GeneralUtility();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -102,6 +103,13 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
            case "Potential Partners > Partner Search":
                action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
+               break;
+           case "Payment Methods  > Partner Cards":
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               break;
+           case "Payment Methods  > Bungii Cards":
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
 
 
@@ -262,7 +270,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         //Date today = new Date();
       //  Date tomorrow = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+       // dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         Date today = new Date();
         CreatedDate = dateFormat.format(today).toString();
        // dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
@@ -633,6 +642,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Dollars());
+                    action.click(admin_PromoCodesPage.TextBox_PromotionExpirationDate());
                     action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
                     break;
                 case "One Off":
@@ -743,6 +753,18 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerPostalCode().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
                 //EOC
+            case "Please check your information and try again.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This card number is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This expiration date is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidExpiryDate().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This security code is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
         }
     }
 

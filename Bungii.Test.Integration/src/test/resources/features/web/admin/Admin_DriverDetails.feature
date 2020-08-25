@@ -7,7 +7,49 @@ Feature: Admin_DriverDetails
     Then I should be directed to "Drivers Page"
 
   @regression
-  @failed
+  Scenario: Verify Driver Search On Drivers Page
+    When I enter "drivers" "first name" in the "Drivers search" box
+    Then I should see "driver first name" listed on the "Drivers" page
+
+    When I enter "drivers" "last name" in the "Drivers search" box
+    Then I should see "driver last name" listed on the "Drivers" page
+
+
+
+    @regression
+    Scenario: Verify masking of SSN for Existing driver
+      When I navigate to following pages one by one
+        |Page |
+        | Drivers |
+      And I search driver "Testdrivertywd_appleks_rathree Test"
+      And I click on "Driver Trips" icon
+      And I click on "View Profile" Link
+      Then I check if driver SSN is masked
+
+      #need to create data on base for following testcase
+  @regression
+  Scenario: Verify masking of SSN for New driver
+    When I navigate to following pages one by one
+      |Page |
+      | Drivers |
+    And I search driver "Testdrivertywd_appleks_rathree Test"
+    And I click on "Driver Trips" icon
+    And I click on "View Profile" Link
+    Then I check if driver SSN is masked
+
+  @regression
+  Scenario: Verify masking of SSN for Existing driver
+    When I navigate to following pages one by one
+      |Page |
+      | Drivers |
+    Then Set the Geofence dropdown to "ALL"
+    And I search driver "Dorry Sail"
+    And I click on "Profile" icon
+    And I edit the Driver
+    And I click on "Save Driver Details" button
+    Then I check if driver SSN is masked
+
+  @regression
   Scenario: Verify Driver Trip List Status Updation for Solo Scheduled Bungii
     When I search driver "Macy Chang"
     And I click on "Driver Trips" icon
@@ -45,15 +87,6 @@ Feature: Admin_DriverDetails
       | Bungii Completed |
     Then The Driver Trip List page should display the trip in "Payment Successful" state
 
-
-  @regression
-  Scenario: Verify Driver Search On Drivers Page
-    When I enter "drivers" "first name" in the "Drivers search" box
-    Then I should see "driver first name" listed on the "Drivers" page
-
-    When I enter "drivers" "last name" in the "Drivers search" box
-    Then I should see "driver last name" listed on the "Drivers" page
-
   @regression
   Scenario: Verify Driver Search On Various Pages
     When I navigate to following pages one by one
@@ -73,33 +106,3 @@ Feature: Admin_DriverDetails
 
     When I enter "drivers" "last name" in the "Trips search" box
     Then I should see "driver last name" listed on the "Trips" page
-
-    @regression
-    Scenario: Verify masking of SSN for Existing driver
-      When I navigate to following pages one by one
-        |Page |
-        | Drivers |
-      And I search driver "Testdrivertywd_appleks_rathree Test"
-      And I click on "Driver Trips" icon
-      Then I check if driver SSN is masked
-
-      #need to create data on base for following testcase
-  @regression
-  Scenario: Verify masking of SSN for New driver
-    When I navigate to following pages one by one
-      |Page |
-      | Drivers |
-    And I search driver "Testdrivertywd_appleks_rathree Test"
-    And I click on "Driver Trips" icon
-    Then I check if driver SSN is masked
-
-  @regression
-  Scenario: Verify masking of SSN for Existing driver
-    When I navigate to following pages one by one
-      |Page |
-      | Drivers |
-    And I search driver "Dorry Sail"
-    And I click on "Profile" icon
-    And I edit the Driver
-    And I click on "Save Driver Details" button
-    Then I check if driver SSN is masked

@@ -4,6 +4,8 @@ import com.bungii.common.manager.DbContextManager;
 import com.bungii.common.utilities.LogUtility;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class DbUtility extends DbContextManager {
     private static LogUtility logger = new LogUtility(DbUtility.class);
@@ -21,6 +23,28 @@ public class DbUtility extends DbContextManager {
         logger.detail("SMS code is" + smsCode + ", query, " + queryString);
         return smsCode;
     }
+
+    public static String getScheduledTime(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String Scheduled_Time = getDataFromMySqlServer("SELECT ScheduledTimestamp FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return Scheduled_Time;
+    }
+
+    public static String getPickupRef(String customerPhone){
+        String pickupId=getPickupIdfrom_pickup_additional_info(customerPhone);
+        String pickupRef=getDataFromMySqlServer("SELECT PickupRef FROM pickupdetails WHERE pickupid = '" + pickupId + "' order by pickupid desc limit 1");
+        return pickupRef;
+    }
+
+    public static String getPickupIdfrom_pickup_additional_info(String phoneNumber) {
+        String pickupId = "";
+        //String queryString = "SELECT CustomerRef  FROM customer WHERE Phone = " + phoneNumber;
+        String queryString = "SELECT pickup_id from pickup_additional_info where customer_phone=" + phoneNumber + " order by  pickup_id desc limit 1";
+        pickupId = getDataFromMySqlServer(queryString);
+        logger.detail("For Phone Number " + phoneNumber + "latest PickupId is " + pickupId);
+        return pickupId;
+    }
+
     public static boolean isPhoneNumberUnique(String phoneNumber) {
         String id = "";
         String queryString = "SELECT Id FROM driver WHERE Phone = " + phoneNumber;
@@ -72,5 +96,71 @@ public class DbUtility extends DbContextManager {
         ondemandStartTime =getDataFromMySqlServer(queryString);
         logger.detail("Ondemand Start time  " + ondemandStartTime + " of PickupRef " + pickupref );
         return ondemandStartTime;
+    }
+
+    public static List<HashMap<String,Object>> getListOfGeoFenceIds() {
+        List<HashMap<String,Object>> listOfGeofenceIds = new ArrayList<>();
+        String queryString = "select gsv.geofenceID from geofence gf\n" +
+                "inner join geofencesettingsversions gsv on gf.Id = gsv.geofenceID\n" +
+                "group by gsv.geofenceID";
+        listOfGeofenceIds = getDataFromMySqlServerMap(queryString);
+        return listOfGeofenceIds;
+    }
+
+
+    public static int getGeofenceSettingsVersions(int geofenceId) {
+        int geoFenceRefId = 0;
+        //select *   from  geofencesettingsversions where GeofenceID = '12' and IsActive = true
+        String queryString = "select GeofenceSettingVersionID from geofencesettingsversions where geofenceID ='" + geofenceId +"' and isActive = true";
+        geoFenceRefId =Integer.parseInt(getDataFromMySqlServer(queryString));
+        logger.detail("geoFenceRefId  " + geoFenceRefId + " of geofenceId " + geofenceId );
+        return geoFenceRefId;
+    }
+
+    public static int getGeofenceSettings(int geoFenceSettingVerId) {
+        int geoFenceSettingVerRef = 0;
+        //select *   from  geofencesettingsversions where GeofenceID = '12' and IsActive = true
+        String queryString = "select count(*) from geofencesettings where GeofenceSettingVersionID ='" + geoFenceSettingVerId +"'";
+        System.out.println(queryString);
+        geoFenceSettingVerRef = Integer.parseInt(getDataFromMySqlMgmtServer(queryString));
+        logger.detail("geoFenceSettingVerRef  " + geoFenceSettingVerRef + " of geofencesettingVersionID " + geoFenceSettingVerId );
+        return geoFenceSettingVerRef;
+    }
+
+
+    public static int getGeofenceAttributes() {
+        int returnedKey = 0;
+        String queryString = "SELECT count(*) FROM geofenceattributes";
+        returnedKey =Integer.parseInt(getDataFromMySqlMgmtServer(queryString));
+        logger.detail("Value returned " + returnedKey );
+        return returnedKey;
+    }
+
+    public static List<HashMap<String,Object>> fetchAllDataForGeoFence() {
+        List<HashMap<String,Object>> listOfGeofences = new ArrayList<>();
+        String queryString = "select count(*),  gfs.GeofenceSettingVersionID from geofence gf\n" +
+                "inner join geofencesettingsversions gsv on gf.Id = gsv.geofenceID and gsv.isActive=true\n" +
+                "inner join geofencesettings gfs on gsv.GeofenceSettingVersionID = gfs.GeofenceSettingVersionID \n" +
+                "group by gfs.GeofenceSettingVersionID";
+        listOfGeofences = getDataFromMySqlServerMap(queryString);
+        return listOfGeofences;
+    }
+    
+    public static String getEstimateDistance() {
+    String Estimate_distance;
+    String queryString = "SELECT EstDistance FROM pickupdetails order by  pickupid desc limit 1";
+    Estimate_distance = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Distance=  " + Estimate_distance + " of latest trip" );
+        return Estimate_distance;
+
+    }
+
+    public static String getEstimateTime() {
+        String Estimate_time;
+        String queryString = "SELECT EstTime FROM pickupdetails order by  pickupid desc limit 1";
+        Estimate_time = getDataFromMySqlServer(queryString);
+        logger.detail("Estimate Time=  " + Estimate_time + " of latest trip" );
+        return Estimate_time;
+
     }
 }

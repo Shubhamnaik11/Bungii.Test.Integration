@@ -1,7 +1,11 @@
 @ios
-  # this will run in 	nashville
-Feature: Create on demand bungii
-  @demoportal
+@bungii
+  # this will run in 	nashville 13 Scenarios
+Feature: Ondemand Bungii Scenarios - Nashville Geofence
+  
+  Background:
+    When I clear all notification
+    
   @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
@@ -56,80 +60,7 @@ Feature: Create on demand bungii
     And I click "CLOSE BUTTON" button on "Bungii Complete" screen
     When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
 
-  @sanity
-  @regression
-  @sanityfailure
-  Scenario: Verify Ondemand Bungii State Flow When driver and customer are login in same device
-    Given I am on the "LOG IN" page
-   # When I am on Customer logged in Home page
-    When I logged in Customer application using  "valid nashville" user
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Select "HOME" from driver App menu
-    And I change driver status to "Online"
-    And I Switch to "customer" application on "same" devices
-    And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                 | Drop Location                      | geofence  |
-      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
-    And I click "Get Estimate" button on "Home" screen
-    Then I should be navigated to "Estimate" screen
-    When I confirm trip with following details
-      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
-      | 15       |           |              | Now  | Default     |
-    Then I should be navigated to "SEARCHING" screen
-    And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    Then I should be navigated to "BUNGII REQUEST" screen
-    When I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "EN ROUTE" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "BUNGII ACCEPTED" screen
-    When I click "Ok" button on "BUNGII ACCEPTED" screen
-    Then Customer should be navigated to "EN ROUTE" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "EN ROUTE" Screen
-    Then I should be navigated to "ARRIVED" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "ARRIVED" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "ARRIVED" Screen
-    Then I should be navigated to "LOADING ITEM" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "LOADING ITEM" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "LOADING ITEM" Screen
-    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "DRIVING TO DROP OFF" Screen
-    Then I should be navigated to "UNLOADING ITEM" trip status screen
-
-    When I Switch to "customer" application on "same" devices
-    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
-
-    When I Switch to "driver" application on "same" devices
-    And I slide update button on "UNLOADING ITEM" Screen
-    Then I should be navigated to "Bungii Completed" screen
-    When I click "On To The Next One" button on "Bungii Completed" screen
-
-    And I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Complete" screen
-    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
-    Then I should be navigated to "Promotion" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then I should be navigated to "Home" screen
-
+  
   @regression
   Scenario: Verify SMS Call View Item Details For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
@@ -216,8 +147,6 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
 
-
-    @failed
   @regression
   Scenario: Verify Trip information/Bungii completed page For Ongoing Ondemand Bungii
     Given that ondemand bungii is in progress
@@ -281,7 +210,46 @@ Feature: Create on demand bungii
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "Logout" from driver App menu
-
+  
+  @regression
+  Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State   |
+      | nashville | UNLOADING ITEM |
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I Switch to "customer" application on "same" devices
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    Then ratting should be correctly displayed on Bungii progress page
+    
+    Then I cancel all bungiis of customer
+      | Customer Phone  | Customer2 Phone |
+      | CUSTOMER1_PHONE |                 |
+  
+  @regression
+  Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
+    Given that ondemand bungii is in progress
+      | geofence  | Bungii State |
+      | nashville | UNLOADING ITEM      |
+    
+    When I am on the "LOG IN" page
+    And I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I slide update button on "UNLOADING ITEM" Screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    And Bungii customer should see "correct rating detail for solo" on Bungii completed page
+    When I select "3" Ratting star for solo Driver 1
+    Then "3" starts should be highlighted for solo Driver 1
+    When I click "OK" button on "BUNGII COMPLETE" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then poor driver ratting should be sent to customer
+    
   @failed
   @ready
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
@@ -353,7 +321,6 @@ Feature: Create on demand bungii
       | Promo percentage | PROMO PERCENT OFF | valid nashville            | correct details with promo | promo                   |
       | valid one off    | ONE OFF2           | valid nashville            | correct details with promo | oneoff                  |
       | First time       | FIRST TIME        | valid nashville first time | correct details with promo | promo                   |
-  @FAILED0203_02
 
   @regression
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code : Promoter Type Promocode
@@ -425,25 +392,7 @@ Feature: Create on demand bungii
       | Scenario         | Promo Code        | User                       | Expected Details           | Expected value in admin |
       | PROMOTER_TYPE_PROMO | PROMOTER TYPE PROMO | valid nashville | correct details with delivery promo | promoter |
 
-  @regression
-    @failed
-  Scenario: Verify Driver Rating Details Is Correctly Shown On Customer App When Bungii Is In Progress
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State   |
-      | nashville | UNLOADING ITEM |
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I Switch to "customer" application on "same" devices
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
-    Then ratting should be correctly displayed on Bungii progress page
-
-    Then I cancel all bungiis of customer
-      | Customer Phone  | Customer2 Phone |
-      | CUSTOMER1_PHONE |                 |
-  @FAILED2702
-
+    
   @regression
   Scenario: Verify Requesting An Ondemand Bungii With FB Share Code
     Given that ondemand bungii is in progress
@@ -515,8 +464,6 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
 
-  @FAILED2702
-
   #this scenario is moved from signup to ondemand feature as we can use test data generated in this test case
   @regression
   Scenario Outline: Verify Sign up of Customer With Referral Code
@@ -556,7 +503,6 @@ Feature: Create on demand bungii
     Examples:
       | First Name                 | Last Name       | Email ID                        | Phone Number       | Password | Promo Code    | Source   | CardNo        | Expiry | Postal Code       | Cvv       |
       | Testcustomertywd_appleREFC | {RANDOM_STRING} | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | REFERRAL CODE | facebook | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
-  @FAILED2702
 
   @ready
   Scenario: Verify Requesting Of Ondemand Bungii With Referral Code
@@ -615,7 +561,6 @@ Feature: Create on demand bungii
     And I click "On To The Next One" button on "Bungii Completed" screen
 
   @ready
-    @failed
   Scenario: Verify Requesting Of Ondemand Bungii With Received Referred Code
     Given I have customer with referral code received
     And I Switch to "driver" application on "same" devices
@@ -671,31 +616,9 @@ Feature: Create on demand bungii
     When I Switch to "driver" application on "same" devices
     Then Bungii driver should see "correct details" on Bungii completed page
     And I click "On To The Next One" button on "Bungii Completed" screen
-  @failed
-  @regression
-  Scenario: Verify Customer Is Allowed To Rate Driver For Solo Trip
-    Given that ondemand bungii is in progress
-      | geofence  | Bungii State |
-      | nashville | UNLOADING ITEM      |
 
-    When I am on the "LOG IN" page
-    And I logged in Customer application using  "valid nashville" user
-    And I Switch to "driver" application on "same" devices
-    And I am on the "LOG IN" page on driverApp
-    And I am logged in as "valid nashville" driver
-    And I slide update button on "UNLOADING ITEM" Screen
-
-    When I Switch to "customer" application on "same" devices
-    Then I should be navigated to "Bungii Complete" screen
-    And Bungii customer should see "correct rating detail for solo" on Bungii completed page
-    When I select "3" Ratting star for solo Driver 1
-    Then "3" starts should be highlighted for solo Driver 1
-    When I click "OK" button on "BUNGII COMPLETE" screen
-    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
-    Then poor driver ratting should be sent to customer
 
   @regression
-    @failed
   Scenario:Verify Driver Notification For The Tip Amount Received From Customer
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |
@@ -715,3 +638,77 @@ Feature: Create on demand bungii
     And I click on notification for "Driver" for "TIP RECEIVED 5 DOLLAR"
 
     And I click "On To The Next One" button on "Bungii Completed" screen
+  
+  @sanity
+  @regression
+  Scenario: Verify Ondemand Bungii Flow Till Completion
+    Given I am on the "LOG IN" page
+   # When I am on Customer logged in Home page
+    When I logged in Customer application using  "valid nashville" user
+    And I Switch to "driver" application on "same" devices
+    And I am on the "LOG IN" page on driverApp
+    And I am logged in as "valid nashville" driver
+    And I Select "HOME" from driver App menu
+    And I change driver status to "Online"
+    And I Switch to "customer" application on "same" devices
+    And I request for  bungii for given pickup and drop location
+      | Driver | Pickup Location                 | Drop Location                      | geofence  |
+      | Solo   | Nashville International Airport | Graylynn Drive Nashville Tennessee | nashville |
+    And I click "Get Estimate" button on "Home" screen
+    Then I should be navigated to "Estimate" screen
+    When I confirm trip with following details
+      | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
+      | 15       |           |              | Now  | Default     |
+    Then I should be navigated to "SEARCHING" screen
+    And I click on notification for "Driver" for "on demand trip"
+    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    When I click "YES" on alert message
+    Then I should be navigated to "BUNGII REQUEST" screen
+    When I click "ACCEPT" button on "Bungii Request" screen
+    Then I should be navigated to "EN ROUTE" trip status screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then I should be navigated to "BUNGII ACCEPTED" screen
+    When I click "Ok" button on "BUNGII ACCEPTED" screen
+    Then Customer should be navigated to "EN ROUTE" trip status screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "EN ROUTE" Screen
+    Then I should be navigated to "ARRIVED" trip status screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "ARRIVED" trip status screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "ARRIVED" Screen
+    Then I should be navigated to "LOADING ITEM" trip status screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "LOADING ITEM" trip status screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "LOADING ITEM" Screen
+    Then I should be navigated to "DRIVING TO DROP OFF" trip status screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "DRIVING TO DROP OFF" trip status screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    Then I should be navigated to "UNLOADING ITEM" trip status screen
+    
+    When I Switch to "customer" application on "same" devices
+    Then Customer should be navigated to "UNLOADING ITEM" trip status screen
+    
+    When I Switch to "driver" application on "same" devices
+    And I slide update button on "UNLOADING ITEM" Screen
+    Then I should be navigated to "Bungii Completed" screen
+    When I click "On To The Next One" button on "Bungii Completed" screen
+    
+    And I Switch to "customer" application on "same" devices
+    Then I should be navigated to "Bungii Complete" screen
+    When I click "CLOSE BUTTON" button on "Bungii Complete" screen
+    Then I should be navigated to "Promotion" screen
+    When I click "I DON'T LIKE FREE MONEY" button on "Promotion" screen
+    Then I should be navigated to "Home" screen
+
