@@ -507,7 +507,7 @@ public class Admin_GeofenceSteps extends DriverBase {
         testStepAssert.isEquals(action.getText(admin_geofenceAtrributesPage.Label_ErrorTextOnEmpty()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
     }
 
-    @When("I search by Name {string} in {string} page geofence")
+    @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page geofence$")
     public void iSearchByNameInPageGeofence(String arg0, String arg1) throws Throwable {
         Thread.sleep(2000);
         String Name = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");
