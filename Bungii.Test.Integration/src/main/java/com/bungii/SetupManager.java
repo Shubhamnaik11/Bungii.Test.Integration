@@ -360,7 +360,7 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             if(key.toString().equalsIgnoreCase("otherApps"))
             {
-               String[] Arrary = new String[]{"bs://eafaf9def1ce47e60eb6ba39bb0f163e3ddfb743"};
+               String[] Arrary = new String[]{jsonCaps.get(key).toString()};
                 capabilities.setCapability(key, Arrary);
             }
             else
