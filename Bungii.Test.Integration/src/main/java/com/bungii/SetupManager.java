@@ -328,7 +328,7 @@ public class SetupManager extends EventFiringWebDriver {
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-            logger.detail("Appium Driver Running at port : " + portNumber);
+            //logger.detail("Appium Driver Running at port : " + portNumber); //Not needed for browserstack
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -409,7 +409,7 @@ public class SetupManager extends EventFiringWebDriver {
             return (int) jsonCaps.get(deviceId);
         } catch (Exception e) {
 
-            logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file");
+          //  logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file"); // Not needed for Browserstack
             return 0;
         }
 
