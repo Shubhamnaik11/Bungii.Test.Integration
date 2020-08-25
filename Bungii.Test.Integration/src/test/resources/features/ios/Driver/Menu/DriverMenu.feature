@@ -63,7 +63,7 @@ Feature: DriverMenu
   @regression
   @sanity
   Scenario: Verify Driver TRIP ALERT SETTINGS Menu
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    When I Select "ALERT SETTINGS" from driver App menu
     Then I should be navigated to "TRIP ALERT SETTINGS" screen
     Then I should be able to see data on "TRIP ALERT SETTINGS" page
 
@@ -93,7 +93,7 @@ Feature: DriverMenu
   Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    When I Select "ALERT SETTINGS" from driver App menu
     When I click "SMS ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
     Then I should be able to see default data on "SMS ALERT" page
 
@@ -103,7 +103,7 @@ Feature: DriverMenu
   Scenario: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon Switching Between Trip And SMS Alerts Tabs
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    When I Select "ALERT SETTINGS" from driver App menu
     And I save "TRIP ALERT" settings data
     When I click "SMS ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
     And I update sms setting of "sunday" to "09:00 AM" to "12:00 PM"

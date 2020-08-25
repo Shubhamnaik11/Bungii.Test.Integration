@@ -75,7 +75,7 @@ public class HomePage extends PageBase {
     public WebElement Text_ScheduledBungiis() { return findElement("//XCUIElementTypeTable[@name=\"No Bungiis, You don't have any scheduled\u2028Bungiis at this time.\"]", LocatorType.XPath); }
     public WebElement Text_AvailableTripsData() { return findElement("//XCUIElementTypeStaticText[@name=\"No Bungiis Available\"]", LocatorType.XPath); }
     public WebElement Text_Earnings() { return findElement("//XCUIElementTypeStaticText[@name=\"DRIVER INFO\"]", LocatorType.XPath); }
-    public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Trip Alerts\"]", LocatorType.XPath); }
+    public WebElement Text_TripAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"Delivery Alerts\"]", LocatorType.XPath); }
     public WebElement Text_SMSAlertSettings() { return findElement("//XCUIElementTypeButton[@name=\"SMS Alerts\"]", LocatorType.XPath); }
     public WebElement Text_Feedback() { return findElement("//XCUIElementTypeStaticText[@name=\"Send us your feedback\"]", LocatorType.XPath); }
     public WebElement Text_Store() { return findElement("//XCUIElementTypeStaticText[@name=\"BUNGII STORE\"]", LocatorType.XPath); }

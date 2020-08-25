@@ -50,8 +50,8 @@ Feature: DriverMenu
   @regression
 
   Scenario:  Verify Driver TRIP ALERT SETTINGS Menu
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
-    And the "TRIP ALERT SETTINGS" page is opened
+    When I Select "ALERT SETTINGS" from driver App menu
+    And the "ALERT SETTINGS" page is opened
     Then I should be able to see data on "TRIP ALERT SETTINGS" page
 
   @regression
