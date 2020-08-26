@@ -160,7 +160,7 @@ public class HomePageSteps extends DriverBase {
         boolean notClicked = false;
         try {
             switch (appMenuItem.toUpperCase()) {
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     action.click(homepage.AppMenu_AvailableTrip());
                     break;
                 case "HOME":
@@ -363,7 +363,7 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isElementNameEquals(homepage.Text_ScheduledBungiis(), "No Bungiis, You don't have any scheduled\u2028Bungiis at this time.", "No Bungiis, You don't have any scheduled\u2028Bungiis at this time. is displayed", " is displayed", " is not displayed");
                     break;
 
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Trips Available", " is displayed", "No Trips Available is displayed", " is not displayed");
                     break;
 

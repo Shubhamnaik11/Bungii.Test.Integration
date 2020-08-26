@@ -30,17 +30,17 @@ Feature: Duo Test
 	When I click "Done" button on "Success" screen
 	And I Select "Home" from Customer App menu
 	And I Switch to "driver" application on "same" devices
-	And I Select "AVAILABLE TRIPS" from driver App menu
+	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
-	Then I should be navigated to "TRIP DETAILS" screen
-	And Trip Information should be correctly displayed on TRIP DETAILS screen
+	Then I should be navigated to "BUNGII DETAILS" screen
+	And Trip Information should be correctly displayed on BUNGII DETAILS screen
  
 	When I accept selected Bungii
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Switch to "driver" application on "Driver2" devices
-	And I Select "AVAILABLE TRIPS" from driver App menu
+	And I Select "AVAILABLE BUNGIIS" from driver App menu
 	And I Select Trip from available trip
-	Then Trip Information should be correctly displayed on TRIP DETAILS screen
+	Then Trip Information should be correctly displayed on BUNGII DETAILS screen
 	When I accept selected Bungii
 	And I Select "SCHEDULED BUNGIIS" from driver App menu
 	And I Select Trip from scheduled trip

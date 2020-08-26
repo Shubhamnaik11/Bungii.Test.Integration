@@ -33,10 +33,10 @@ Feature: DriverMenu
 
   @regression
   @sanity
-  Scenario:Verify Driver AVAILABLE TRIPS menu
-    When I Select "AVAILABLE TRIPS" from driver App menu
-    Then I should be navigated to "AVAILABLE TRIPS" screen
-    Then I should be able to see data on "AVAILABLE TRIPS" page
+  Scenario:Verify Driver AVAILABLE BUNGIIS menu
+    When I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
+    Then I should be able to see data on "AVAILABLE BUNGIIS" page
 
   @regression
   @sanity

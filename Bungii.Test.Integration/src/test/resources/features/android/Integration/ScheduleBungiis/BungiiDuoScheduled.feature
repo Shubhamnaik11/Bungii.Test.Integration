@@ -1340,7 +1340,7 @@ Feature: Duo
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
 
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
 
@@ -1373,7 +1373,7 @@ Feature: Duo
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
 
@@ -1671,7 +1671,7 @@ Feature: Duo
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu

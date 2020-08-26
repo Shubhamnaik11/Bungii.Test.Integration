@@ -20,8 +20,8 @@ Feature: Solo Scheduling Bungii
 	  And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
 	  
 	  When I Switch to "driver" application on "same" devices
-	  And I Select "AVAILABLE TRIPS" from driver App menu
-	  Then I should be navigated to "AVAILABLE TRIPS" screen
+	  And I Select "AVAILABLE BUNGIIS" from driver App menu
+	  Then I should be navigated to "AVAILABLE BUNGIIS" screen
 	  And I should able to see "zero" available trip
 	  And I Select "ALERT SETTINGS" from driver App menu
 	  And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"

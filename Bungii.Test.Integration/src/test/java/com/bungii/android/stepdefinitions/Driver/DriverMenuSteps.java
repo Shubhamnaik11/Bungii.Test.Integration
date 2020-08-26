@@ -88,7 +88,7 @@ public class DriverMenuSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(homePage.Text_ScheduledBungiis(), "No Bungiis", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     data = action.getText(homePage.Text_AvailableTrips()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_AvailableTrips(), "No Trips Available", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
@@ -104,7 +104,7 @@ public class DriverMenuSteps extends DriverBase {
                     testStepAssert.isElementTextEquals(homePage.Text_Account(), PropertyUtility.getDataProperties("driver.login.name1"), data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;
 
-                case "TRIP ALERT SETTINGS":
+                case "ALERT SETTINGS":
                     data = action.getText(homePage.Text_TripAlertSettings()).toString();
                     testStepAssert.isElementTextEquals(homePage.Text_TripAlertSettings(), "Trip Alerts", data + " is displayed", data + " is displayed", data + " is not displayed");
                     break;

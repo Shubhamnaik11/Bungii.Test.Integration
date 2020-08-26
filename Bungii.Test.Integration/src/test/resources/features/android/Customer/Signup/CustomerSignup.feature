@@ -145,7 +145,7 @@ Feature: CustomerSignup
       And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
       And I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
 
       And I Select Trip from driver available trip
       And I tap on "ACCEPT" on driver Trip details Page

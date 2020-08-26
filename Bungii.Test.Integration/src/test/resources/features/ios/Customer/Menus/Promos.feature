@@ -301,10 +301,10 @@ Feature: Promos
       And I Select "Home" from Customer App menu
 
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-      Then I should be navigated to "TRIP DETAILS" screen
-      And Trip Information should be correctly displayed on TRIP DETAILS screen
+      Then I should be navigated to "BUNGII DETAILS" screen
+      And Trip Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       Then I wait for "2" mins
 
@@ -316,10 +316,10 @@ Feature: Promos
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-      Then I should be navigated to "TRIP DETAILS" screen
-      And Trip Information should be correctly displayed on TRIP DETAILS screen
+      Then I should be navigated to "BUNGII DETAILS" screen
+      And Trip Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from scheduled trip

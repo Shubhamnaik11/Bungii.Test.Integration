@@ -121,7 +121,7 @@ public class CommonStepsDriver extends DriverBase {
                 case "GO OFFLINE":
                     action.click(driverHomePage.GoOffline_Btn());
                     break;
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     action.click(driverHomePage.Text_AvailableTrips());
                     break;
                 case "SMS ALERT":

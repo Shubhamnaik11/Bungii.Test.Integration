@@ -38,7 +38,7 @@ public class TripDetailsSteps extends DriverBase {
     }
 
 
-    @Then("^Trip Information should be correctly displayed on TRIP DETAILS screen$")
+    @Then("^Trip Information should be correctly displayed on BUNGII DETAILS screen$")
     public void trip_information_should_be_correctly_displayed_on_something_screen() {
         try {
             action.swipeUP();
@@ -61,18 +61,18 @@ public class TripDetailsSteps extends DriverBase {
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
             testStepVerify.isTrue(isTimeCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
+                    "Trip Information should be correctly displayed on BUNGII DETAILS screen",
                     "Trip Time should be correctly displayed ",
                     "Trip Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[2].trim());
 
             testStepVerify.isTrue(isDateCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
+                    "Trip Information should be correctly displayed on BUNGII DETAILS screen",
                     "Trip Time should be correctly displayed ",
                     "Trip Time is not displayed correctly displayed , expected Trip date:" + expectedDate + " actual trip date:" + actualDetails[2].trim());
 
 
             testStepVerify.isTrue(isDistanceCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
+                    "Trip Information should be correctly displayed on BUNGII DETAILS screen",
                     "Trip Distance should be correctly displayed ",
                     "Trip Distance is not displayed correctly displayed , expected Trip distance" + expectedTripDistance + " actual trip distance " + actualDetails[0]);
 

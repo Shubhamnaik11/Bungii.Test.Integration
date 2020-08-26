@@ -30,10 +30,10 @@ Feature: DriverMenu
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
 
   @regression
-  Scenario: Verify Driver AVAILABLE TRIPS Menu
-    When I Select "AVAILABLE TRIPS" from driver App menu
-    And the "AVAILABLE TRIPS" page is opened
-    Then I should be able to see data on "AVAILABLE TRIPS" page
+  Scenario: Verify Driver AVAILABLE BUNGIIS Menu
+    When I Select "AVAILABLE BUNGIIS" from driver App menu
+    And the "AVAILABLE BUNGIIS" page is opened
+    Then I should be able to see data on "AVAILABLE BUNGIIS" page
 
   @regression
   Scenario: Verify Driver EARNINGS Menu

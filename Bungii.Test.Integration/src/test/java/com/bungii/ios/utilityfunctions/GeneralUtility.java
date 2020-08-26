@@ -553,10 +553,10 @@ public class GeneralUtility extends DriverBase {
                 isCorrectPage = driverHomePage.isElementEnabled(driverHomePage.findElement("//XCUIElementTypeApplication[@name='Safari']", PageBase.LocatorType.XPath))
                         && action.getValueAttribute(driverHomePage.findElement("//*[@label='Address']", PageBase.LocatorType.XPath)).contains("bungii.com");
                 break;
-            case "AVAILABLE TRIPS":
+            case "AVAILABLE BUNGIIS":
                 if (currentApplication.equals("DRIVER")) {
 //                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE TRIPS");
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE BUNGIIS");
                     break;
                 }
             case "HOME":
@@ -609,9 +609,9 @@ public class GeneralUtility extends DriverBase {
                 else
                     expectedMessage = PropertyUtility.getMessage("driver.navigation.bungiidetails");
                 break;
-            case "TRIP DETAILS":
+         /*   case "BUN DETAILS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.details");
-                break;
+                break;*/
             case "HOME":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                 break;
