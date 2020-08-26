@@ -12,6 +12,7 @@ Feature: Bungii Geofence Based Calculation
     And I log in to admin portal
     And I Select "Geofence" from admin sidebar
     And I select "Chicago" geofence
+    And I activate "Chicago" geofence
     And I click on the "Settings" Button on "Geofence" Screen
     And I change the value of "Minimum scheduled time for Solo trip" to "30" minutes
     And I click on the "Save" Button on "GeofenceSettings" Screen
@@ -40,7 +41,8 @@ Feature: Bungii Geofence Based Calculation
     And I log in to admin portal
     And I Select "Geofence" from admin sidebar
     And I select "Chicago" geofence
-    And I click on the "Settings" Button on "Geofence" Screen
+      And I activate "Chicago" geofence
+      And I click on the "Settings" Button on "Geofence" Screen
     And I change the value of "Minimum scheduled time for Duo trip" to "45" minutes
     And I click on the "Save" Button on "GeofenceSettings" Screen
 

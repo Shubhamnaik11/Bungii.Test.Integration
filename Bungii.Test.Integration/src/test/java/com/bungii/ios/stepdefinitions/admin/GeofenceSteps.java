@@ -34,7 +34,23 @@ public class GeofenceSteps extends DriverBase {
                     true);
         }
     }
+    @And("^I activate \"([^\"]*)\" geofence$")
+    public void i_activate_something_geofence(String geofenceName) throws Throwable {
+        try{
+            switch (geofenceName) {
+                case "Chicago":
+                    action.click(geofencePage.Button_Edit());
+                    action.selectElementByText(geofencePage.Dropdown_Status(),"Active");
+                    action.click(geofencePage.Button_Save());
+                    break;
 
+            }
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     @When("^I click on the \"([^\"]*)\" Button on \"([^\"]*)\" Screen$")
     public void i_click_on_the_something_button_on_something_screen(String button,String screen)throws Throwable{
         try{
