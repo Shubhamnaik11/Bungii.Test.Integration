@@ -30,8 +30,8 @@ public class DashBoardSteps extends DriverBase {
                     action.click(dashBoardPage.Button_LiveTrips());
                     break;
                 case "promo code":
-                    action.click(dashBoardPage.Button_Marketing());
                     action.click(dashBoardPage.Button_PromoCode());
+                    action.click(dashBoardPage.Link_StandardCodes());
                     break;
                 case "referral source":
                     action.click(dashBoardPage.Button_Marketing());

@@ -85,6 +85,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be navigated to "Home" screen
     And Customer should receive signup email
 

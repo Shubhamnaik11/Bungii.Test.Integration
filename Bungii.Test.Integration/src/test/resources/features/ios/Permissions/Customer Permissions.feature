@@ -60,7 +60,7 @@ Feature: Customer App Permissions
 	
   @permission
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials - New App Install
-	Given I install Bungii App again
+	#Given I install Bungii App again
 	When I am on the "LOG IN" page
 	And I enter Username :{VALID} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen

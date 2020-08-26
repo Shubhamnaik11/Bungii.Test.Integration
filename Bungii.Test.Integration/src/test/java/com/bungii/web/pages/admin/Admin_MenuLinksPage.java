@@ -19,7 +19,9 @@ public class Admin_MenuLinksPage extends PageBase {
 
     public WebElement Menu_Marketing () { return findElement("adminmenu-marketing", LocatorType.Id); }
 
-    public WebElement Menu_Marketing_PromoCode () { return findElement("adminmenu-promocode", LocatorType.Id); }
+    public WebElement Menu_Promocodes () { return findElement("adminmenu-promocodes-menu", LocatorType.Id); }
+
+    public WebElement Menu_Standardcodes () { return findElement("adminmenu-promocode", LocatorType.Id); }
 
     public WebElement Menu_Marketing_ReferralSource () { return findElement("adminmenu-referralsource", LocatorType.Id); }
 
