@@ -127,8 +127,8 @@ public class CommonStepsDriver extends DriverBase {
                 case "SMS ALERT":
                     action.click(tripAlertSettingsPage.Button_SMSAlerts());
                     break;
-                case "TRIP ALERT":
-                    action.click(tripAlertSettingsPage.Button_TripAlerts());
+                case "DELIVERY ALERT":
+                    action.click(tripAlertSettingsPage.Button_DeliveryAlerts());
                     break;
                 case "ITEMIZED EARNINGS":
                     action.click(driverHomePage.Link_Itemized_Earnings());

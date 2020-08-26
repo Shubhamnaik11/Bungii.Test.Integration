@@ -636,7 +636,7 @@ public class GeneralUtility extends DriverBase {
             case "EARNINGS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.earnings");
                 break;
-            case "TRIP ALERT SETTINGS":
+            case "ALERT SETTINGS":
                 expectedMessage = PropertyUtility.getMessage("driver.navigation.trip.alert.settings");
                 break;
             case "STORE":

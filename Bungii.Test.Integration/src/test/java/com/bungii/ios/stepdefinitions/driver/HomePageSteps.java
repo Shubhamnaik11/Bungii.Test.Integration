@@ -178,7 +178,7 @@ public class HomePageSteps extends DriverBase {
                 case "EARNINGS":
                     action.click(homepage.AppMenu_EARNINGS());
                     break;
-                case "TRIP ALERT SETTINGS":
+                case "ALERT SETTINGS":
                     action.click(homepage.AppMenu_TripAlertSettings());
                     break;
                 case "FEEDBACK":
@@ -386,7 +386,7 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isEquals(accountName.replace("  "," "), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
                     break;
 
-                case "TRIP ALERT SETTINGS":
+                case "ALERT SETTINGS":
                     testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Trip Alerts", "Trip Alerts is displayed", "Trip Alerts is displayed", "Trip Alerts is not displayed");
                     testStepAssert.isElementNameEquals(homepage.Text_SMSAlertSettings(), "SMS Alerts", "SMS Alerts is displayed", "SMS Alerts is displayed", "SMS Alerts is not displayed");
                     break;
@@ -422,7 +422,7 @@ public class HomePageSteps extends DriverBase {
                 timeRange = timeRange.replace("S","D");
 
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
@@ -452,7 +452,7 @@ public class HomePageSteps extends DriverBase {
         try {
             int day = 0;
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
@@ -483,7 +483,7 @@ public class HomePageSteps extends DriverBase {
             List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
             int day = 0;
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
                         cucumberContextManager.setScenarioContext("TRIP_ALERT_" + day, currentRowData);

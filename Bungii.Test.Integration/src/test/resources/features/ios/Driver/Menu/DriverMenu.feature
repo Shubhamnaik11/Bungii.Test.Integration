@@ -62,10 +62,10 @@ Feature: DriverMenu
 
   @regression
   @sanity
-  Scenario: Verify Driver TRIP ALERT SETTINGS Menu
+  Scenario: Verify Driver ALERT SETTINGS Menu
     When I Select "ALERT SETTINGS" from driver App menu
-    Then I should be navigated to "TRIP ALERT SETTINGS" screen
-    Then I should be able to see data on "TRIP ALERT SETTINGS" page
+    Then I should be navigated to "ALERT SETTINGS" screen
+    Then I should be able to see data on "ALERT SETTINGS" page
 
   @regression
   @sanity
@@ -94,7 +94,7 @@ Feature: DriverMenu
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
     When I Select "ALERT SETTINGS" from driver App menu
-    When I click "SMS ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
+    When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
     Then I should be able to see default data on "SMS ALERT" page
 
 
@@ -104,14 +104,14 @@ Feature: DriverMenu
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
     When I Select "ALERT SETTINGS" from driver App menu
-    And I save "TRIP ALERT" settings data
-    When I click "SMS ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
+    And I save "DELIVERY ALERT" settings data
+    When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
     And I update sms setting of "sunday" to "09:00 AM" to "12:00 PM"
     And I save "SMS ALERT" settings data
-    When I click "TRIP ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
-    Then previous "TRIP ALERT" data should be retained
+    When I click "DELIVERY ALERT" button on "ALERT SETTINGS" screen on driverApp
+    Then previous "DELIVERY ALERT" data should be retained
     And I update trip setting of "sunday" to "05:00 AM" to "12:00 PM"
-    When I click "SMS ALERT" button on "TRIP ALERT SETTINGS" screen on driverApp
+    When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
     Then previous "SMS ALERT" data should be retained
 
 
