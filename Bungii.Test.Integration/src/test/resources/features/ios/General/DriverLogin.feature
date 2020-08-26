@@ -23,10 +23,10 @@ Feature: Driver Login
 
   @sanity
   @regression
-  @sanityfailure
   Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen on driverApp
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be successfully logged in to the application
 
 

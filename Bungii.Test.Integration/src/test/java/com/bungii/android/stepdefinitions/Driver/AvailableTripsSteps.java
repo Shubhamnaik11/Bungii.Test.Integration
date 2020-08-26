@@ -109,7 +109,7 @@ public class AvailableTripsSteps extends DriverBase {
         return isSelected;
 
     }
-    @Then("^I should be navigated to Available Trip screen on driver app$")
+    @Then("^I should be navigated to Available Nungiis screen on driver app$")
     public void i_should_be_navigated_to_something_screen_on_driver_app() throws Throwable {
         try {
             String getNaviagationText = action.getText(availableTrips.NavigationBar_Text());

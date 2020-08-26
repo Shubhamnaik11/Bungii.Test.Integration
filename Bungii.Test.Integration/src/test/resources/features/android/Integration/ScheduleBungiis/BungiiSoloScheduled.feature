@@ -1978,6 +1978,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+ 
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |

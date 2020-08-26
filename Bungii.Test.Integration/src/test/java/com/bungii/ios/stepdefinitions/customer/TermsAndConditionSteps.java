@@ -12,6 +12,8 @@ import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.List;
+
 import static com.bungii.common.manager.ResultManager.*;
 
 public class TermsAndConditionSteps extends DriverBase {
@@ -70,6 +72,15 @@ public class TermsAndConditionSteps extends DriverBase {
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.swipeLeft(tutorialPage.Image_Generictutorialstep());
                 action.click(tutorialPage.Button_Start());
+                if (action.isAlertPresent()) {
+                    String alertMessage = action.getAlertMessage();
+                    List<String> getListOfAlertButton = action.getListOfAlertButton();
+                    if (alertMessage.contains("we are not operating in your area")) {
+                        if (getListOfAlertButton.contains("Done")) {
+                            action.clickAlertButton("Done");
+                        }
+                    }
+                }
             }
 
         } catch (Exception e) {

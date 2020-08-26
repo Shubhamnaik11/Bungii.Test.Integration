@@ -29,6 +29,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
     When I switch to "ADMIN_PORTAL" instance
     And I Select "Referral Source" from admin sidebar
@@ -58,6 +60,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+      And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+      And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -86,6 +90,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
     And Customer should receive signup email
 
@@ -163,6 +168,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
     When I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
@@ -210,6 +217,8 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Then I should be navigated to "VERIFICATION" screen
     When I Get SMS CODE for new "Customer"
     And I enter "valid" Verification code
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then I should be navigated to "Home" screen
 
     Examples:

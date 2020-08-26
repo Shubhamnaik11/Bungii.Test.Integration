@@ -408,6 +408,15 @@ public class HomeSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from Customer App menu$")
     public void i_select_something_from_customer_app_menu(String menuItem) {
         try {
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+            }
             goToAppMenu();
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",

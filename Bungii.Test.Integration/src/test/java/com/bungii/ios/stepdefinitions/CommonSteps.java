@@ -3,6 +3,7 @@ package com.bungii.ios.stepdefinitions;
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
+import com.bungii.common.manager.AssertManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
@@ -243,6 +244,28 @@ public class CommonSteps extends DriverBase {
                     "Error performing step,Please check logs for more details", true);
         }
     }
+
+    @Then("^I should see \"([^\"]*)\" message$")
+    public void i_should_see_something_message(String message) throws Throwable {
+        try {
+
+            switch (message) {
+                case "No Mail Accounts":
+                    String text= action.getAlertMessage().toString();
+                    action.clickAlertButton("OK");
+                    testStepAssert.isEquals(text,"No Mail Accounts","No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
+
+            }
+            log("No Mail Accounts Popup should be displayed",
+                    "No Mail Accounts Popup is displayed", true);
+        } catch (Throwable e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            e.printStackTrace();
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+    }
+
     @And("^I click \"([^\"]*)\" button on \"([^\"]*)\" screen$")
     public void iClickButtonOnScreen(String button, String screen) {
         try {
@@ -614,6 +637,7 @@ public class CommonSteps extends DriverBase {
             }
             else {
                 homeSteps.i_selectlogout();
+
             }
             log("I should be on LOG IN page",
                     "I am on LOG IN page", true);
@@ -1683,6 +1707,7 @@ public class CommonSteps extends DriverBase {
                     break;
                 case "PROMO CODE":
                     List<String> ValueList = getRefferalCode(inputValue);
+                    action.tapByElement(promosPage.TextBox_EnterCode());
                     action.clearEnterText(promosPage.TextBox_EnterCode(), ValueList.get(0));
                     //  cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", inputValue);
                     cucumberContextManager.setScenarioContext("ADDED_PROMO_CODE", ValueList.get(0));

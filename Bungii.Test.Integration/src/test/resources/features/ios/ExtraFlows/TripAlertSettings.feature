@@ -1,7 +1,7 @@
 @ios
 @scheduled
     # this will run in denver
-Feature: Solo Scheduling Bungii
+Feature: Trip Alert Settings
   I want to use request Scheduling Bungii with Solo type
   
 	  #Always Last scenario from this feature file since it changes settings for the driver
