@@ -3,7 +3,7 @@ Feature: Admin_ReferralSource
 
   Background:
     Given I am logged in as Admin
-    When I click on "Marketing  > Referral Source" Menu
+    When I click on "Marketing  > Referral Sources" Menu
     Then I should be directed to "Referral Source Page"
 
   @sanity

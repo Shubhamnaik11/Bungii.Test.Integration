@@ -3,7 +3,7 @@ Feature: Admin_PaymentMethods
 
   Background:
     Given I am logged in as TestAdmin
-    When I click on "Payment Methods  > Partner Cards" Menu
+    When I click on "Partner Portal  > Partner Card" Menu
     Then I should be directed to "Partner Cards Page"
 
 
@@ -28,7 +28,7 @@ Feature: Admin_PaymentMethods
 
   @regression
   Scenario: Verify Add Payment Methods in Bungii Cards
-    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
     And I enter following card details on "Bungii Cards" screen
       |Card Number | Expiration Date | CVV | Postal Code|
@@ -39,7 +39,7 @@ Feature: Admin_PaymentMethods
 
   @regression
   Scenario: Verify Add Payment Method in Bungii Cards with Cancel
-    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
     And I select "MRFM" from the "Bungii Cards" dropdown
     Then I click on "Cancel" button on "Bungii Cards" screen
@@ -66,7 +66,7 @@ Feature: Admin_PaymentMethods
 
   @ready
   Scenario: Verify Field Validations On Add New Bungii Card page Upon Blank Inputs
-    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
     And I click on "Save" button on "Bungii Cards" screen
     Then the "Please check your information and try again." message is displayed
@@ -104,7 +104,7 @@ Feature: Admin_PaymentMethods
 
   @ready
   Scenario: Verify Field Validations Of Add New Bungii Card
-    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
     And I click on "Save" button on "Bungii Cards" screen
     Then the "Please check your information and try again." message is displayed
@@ -125,7 +125,7 @@ Feature: Admin_PaymentMethods
   
   @regression
   Scenario: Verify Fraud Card detection - Bungii Cards
-    When I click on "Payment Methods  > Bungii Cards" Menu
+    When I click on "Partner Portal  > Bungii Card" Menu
     When I click on "Add Payment Method" button on "Bungii Cards" page
     When I enter following card details on "Bungii Cards" screen
       |Card Number | Expiration Date | CVV | Postal Code|
@@ -135,7 +135,7 @@ Feature: Admin_PaymentMethods
   
   @regression
   Scenario: Verify Fraud Card detection - Partner Cards
-    When I click on "Payment Methods  > Partner Cards" Menu
+    When I click on "Partner Portal  > Partner Card" Menu
     When I click on "Add Payment Method" button on "Partner Cards" page
     When I enter following card details on "Partner Cards" screen
       |Card Number | Expiration Date | CVV | Postal Code|

@@ -91,7 +91,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_customerPage.Menu_Customers());
                break;
 
-           case "Trips > Trips" :
+           case "Deliveries > All Deliveries" :
                action.click(admin_TripsPage.Menu_Trips());
                break;
 
@@ -106,10 +106,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Potential Partners > Partner Search":
                action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
                break;
-           case "Payment Methods  > Partner Cards":
+           case "Partner Portal  > Partner Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
                break;
-           case "Payment Methods  > Bungii Cards":
+           case "Partner Portal  > Bungii Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;

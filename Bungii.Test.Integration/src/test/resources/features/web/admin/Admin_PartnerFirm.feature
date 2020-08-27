@@ -7,14 +7,14 @@ Feature: Admin_PartnerFirm
   @regression
   @email
   Scenario: Verify Partner Firm Scheduled Email - Ondemand Bulk Trip
-    When I click on "Business Users  > Bulk Trips" Menu
+    When I click on "Bulk Delivery Upload  > Upload Deliveries" Menu
     And I select business user "Testcustomertywd_apple-Jd1"
     And I upload image and csv file associated with the "Ondemand" trip
-    And I click on "Upload" button on "Bulk Trips" page
-    When I click on "Confirm" button on "Bulk Trips" page
-    Then the "Trips have been requested successfully." message is displayed
+    And I click on "Upload" button on "Upload Deliveries" page
+    When I click on "Confirm" button on "Upload Deliveries" page
+    Then the "Deliveries have been requested successfully." message is displayed
     And I note the Pickupref of trip
-    When As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Ondemand" trip
+    When As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -28,7 +28,7 @@ Feature: Admin_PartnerFirm
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999359 | Testcustomertywd_appleWashD Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -45,14 +45,14 @@ Feature: Admin_PartnerFirm
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999355 | Testcustomertywd_appleWashA Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundara" perform below action with respective "Duo Scheduled" Delivery
       | driver1 state|
       |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarb" perform below action with respective "Duo Scheduled" Delivery
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -62,7 +62,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarc" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -74,14 +74,14 @@ Feature: Admin_PartnerFirm
     When I request "Duo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999356 | Testcustomertywd_appleWashB Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundard" perform below action with respective "Duo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundard" perform below action with respective "Duo Scheduled" Delivery
       | driver1 state|
       |Accepted |
-    And As a driver "Testdrivertywd_appledc_a_web Sundare" perform below action with respective "Duo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundare" perform below action with respective "Duo Scheduled" Delivery
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -91,7 +91,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Canceled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
@@ -104,11 +104,11 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999358 | Testcustomertywd_appleWashC Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarg" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       |Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -118,7 +118,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarh" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Updated" email
@@ -131,10 +131,10 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999360 | Testcustomertywd_appleWashE Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundari" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundari" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -144,7 +144,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Canceled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should receive "Bungii Delivery Pickup Canceled" email
     And Admin receives "Failed On-Demand Trips" trip email for "Admin Cancelled" status
 
@@ -162,12 +162,12 @@ Feature: Admin_PartnerFirm
     When I click on "Confirm" button on "Bulk Trips" page
     Then the "Trips have been requested successfully." message is displayed
     And I note the Pickupref of trip
-    When As a driver "Testdrivertywd_appledc_a_web Sundark" perform below action with respective "Solo Scheduled" trip
+    When As a driver "Testdrivertywd_appledc_a_web Sundark" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
      ##################
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -192,7 +192,7 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999362 | Testcustomertywd_appleWashG Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarl" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarl" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
        |Accepted |
       | Enroute  |
@@ -202,7 +202,7 @@ Feature: Admin_PartnerFirm
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999363 | Testcustomertywd_appleWashI Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarl" perform below action with respective "Solo Ondemand" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarl" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -217,14 +217,14 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999357 | Testcustomertywd_appleWashJ Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted |
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Enroute  |
       | Arrived |
@@ -234,7 +234,7 @@ Feature: Admin_PartnerFirm
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999999364 | Testcustomertywd_appleWashK Shah|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarm" perform below action with respective "Solo Ondemand" Delivery
       | driver1 state|
       |Stacked Pickup Accepted |
     Then Partner firm should receive "Bungii Delivery Pickup Scheduled" email
@@ -250,10 +250,10 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
-    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state|
       | Accepted  |
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -264,7 +264,7 @@ Feature: Admin_PartnerFirm
     And I click on "Remove Driver" button
     And I click on "Research" button
     Then Pickup should be unassigned from the driver
-    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled Researched" trip
+    And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled Researched" Delivery
       | driver1 state|
       | Accepted  |
     When I wait for 2 minutes
@@ -279,7 +279,7 @@ Feature: Admin_PartnerFirm
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Admin Canceled" state
+    Then The Delivery List page should display the delivery in "Admin Canceled" state
     And Partner firm should not receive "Bungii Delivery Pickup Canceled" email
 
   @ready
@@ -287,7 +287,7 @@ Feature: Admin_PartnerFirm
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
-    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted         |
       | Enroute          |
@@ -313,10 +313,10 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
   When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence from a partner location
     | Bungii Time   | Customer Phone | Customer Name |
     | NEXT_POSSIBLE | 9766209256 | Testcustomertywd_applekrishna Hoderker|
-  And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" trip
+  And As a driver "Testdrivertywd_appledc_a_web Sundarn" perform below action with respective "Solo Scheduled" Delivery
     | driver1 state|
     | Accepted  |
-  And I view the Scheduled Trips list on the admin portal
+  And I view the Scheduled Deliveries list on the admin portal
   Then I should be able to see the respective bungii with the below status
     |  Status |
     | Scheduled |
@@ -335,11 +335,11 @@ Scenario: Verify that same trip is shown for other driver under Trips section Wh
     When I request "Solo Scheduled" Bungii as a customer in "goa" geofence
       | Bungii Time   | Customer Phone | Customer Name                      |
       | NEXT_POSSIBLE | 9999992222     | Testcustomertywd_appleand_C Android|
-    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" trip
+    And As a driver "Testdriver_goa_b Android_test" perform below action with respective "Solo Scheduled" Delivery
       | driver1 state     |
       | Accepted         |
       | Enroute          |
-    And I view the Scheduled Trips list on the admin portal
+    And I view the Scheduled Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |

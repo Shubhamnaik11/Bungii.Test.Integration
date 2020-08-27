@@ -78,7 +78,7 @@ public class Admin_TripsSteps extends DriverBase {
         log("I view the Live Trips list on the admin portal",
                 "I viewed the Live Trips list on the admin portal", true);
     }
-    @And("^I view the Scheduled Trips list on the admin portal$")
+    @And("^I view the Scheduled Deliveries list on the admin portal$")
     public void i_view_the_scheduled_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
@@ -88,7 +88,7 @@ public class Admin_TripsSteps extends DriverBase {
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
-    @And("^I view the all Scheduled Trips list on the admin portal$")
+    @And("^I view the all Scheduled Deliveries list on the admin portal$")
     public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
@@ -666,7 +666,7 @@ public class Admin_TripsSteps extends DriverBase {
                 "I have on searched " + searchString + " Client Name", true);
     }
 
-    @Then("^All the clients named \"([^\"]*)\" should be displayed on the trip list grid$")
+    @Then("^All the clients named \"([^\"]*)\" should be displayed on the delivery list grid$")
     public void all_the_clients_named_something_should_be_displayed_on_the_trip_list_grid(String searchString) throws Throwable {
         Thread.sleep(4000);
         try {
@@ -691,7 +691,7 @@ public class Admin_TripsSteps extends DriverBase {
         action.selectElementByText(admin_TripsPage.DropDown_SearchForPeriod(), "The Beginning of Time");
         action.clear(admin_TripsPage.TextBox_Search());
         switch (page) {
-            case "Trips":
+            case "All Deliveries":
                 switch (icon) {
                     case "Filter":
                         action.click(admin_TripsPage.Button_Filter());
