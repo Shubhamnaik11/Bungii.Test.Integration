@@ -70,7 +70,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                             }
                         }
                         break;
-                    case "Trips Requested":
+                    case "Deliveries Requested":
                         sort = admin_customerPage.Header_TripsRequested().getAttribute("class");
                         if (order.equals("Ascending")) {
                             if (!sort.equals("sorting_asc")) {
@@ -83,7 +83,7 @@ public class Admin_CustomerSortSteps extends DriverBase {
                             }
                         }
                         break;
-                    case "Trips Estimated":
+                    case "Deliveries Estimated":
                         sort = admin_customerPage.Header_TripsEstimated().getAttribute("class");
                         if (order.equals("Ascending")) {
                             if (!sort.equals("sorting_asc")) {

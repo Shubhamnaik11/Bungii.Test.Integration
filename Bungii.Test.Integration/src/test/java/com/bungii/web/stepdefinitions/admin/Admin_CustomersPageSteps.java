@@ -64,7 +64,8 @@ public class Admin_CustomersPageSteps extends DriverBase {
                 }
                 break;
 
-            case "Trips search":
+            case "Deliveries search":
+//            case "Trips search":
                 Select geoFenceDropdown = new Select(admin_tripsPage.Dropdown_Geofence());
                 geoFenceDropdown.selectByVisibleText("-- All --");
                 Select dropdown = new Select(admin_tripsPage.DropDown_SearchForPeriod());
@@ -163,7 +164,8 @@ public class Admin_CustomersPageSteps extends DriverBase {
                     break;
             }
         }
-        else if (page.equalsIgnoreCase("Trips"))
+        else if (page.equalsIgnoreCase("Deliveries"))
+//            else if (page.equalsIgnoreCase("Trips"))
         {
             switch (strArg1) {
                 case "customer first name":
