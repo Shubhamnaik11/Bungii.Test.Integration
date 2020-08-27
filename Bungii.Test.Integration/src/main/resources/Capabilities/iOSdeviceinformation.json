@@ -11,7 +11,8 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "39.007504,-94.529625",
-    "browserstack.idleTimeout": "3000"
+    "browserstack.idleTimeout": "3000",
+    "browserstack.timezone": "New_York"
   },
   "device1": {
     "platformName": "iOS",
@@ -24,7 +25,8 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "39.007504,-94.529625",
-    "browserstack.idleTimeout": "3000"
+    "browserstack.idleTimeout": "3000",
+    "browserstack.timezone": "New_York"
   },
 
 
