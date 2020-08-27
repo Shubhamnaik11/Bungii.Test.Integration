@@ -141,8 +141,10 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
-            if (action.isElementPresent(homePage.Button_ClearPickup(true)))
-                action.click(homePage.Button_ClearPickup());
+            if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
+                action.tapByElement(homePage.Button_ClearPickup());
+                logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
+            }
 
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
