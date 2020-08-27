@@ -510,6 +510,10 @@ public class CommonSteps extends DriverBase {
             boolean isCorrectPage = false;
 
             GeneralUtility utility = new GeneralUtility();
+
+            if (screen.equalsIgnoreCase("Home"))
+                screen = "BUNGII";
+            
             isCorrectPage = utility.verifyPageHeader(screen);
             testStepVerify.isTrue(isCorrectPage, "I should be naviagated to " + screen + " screen",
                     "I should be navigated to " + screen, "I was not navigated to " + screen + " screen ");
