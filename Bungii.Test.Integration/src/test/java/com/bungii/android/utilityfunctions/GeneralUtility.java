@@ -538,9 +538,9 @@ Thread.sleep(5000);
     public void inputOnNumberKeyBoard(String strNum) throws InterruptedException {
         for (char c : strNum.toCharArray()) {
             ((AndroidDriver) SetupManager.getDriver()).pressKey(new KeyEvent(AndroidKey.valueOf("DIGIT_" + c)));
-            System.out.println("   ENTER VALUE :" + c);
             Thread.sleep(200);
         }
+        System.out.println("ENTER VALUE :" + strNum);
         try {
             ((AndroidDriver) SetupManager.getDriver()).hideKeyboard();
         } catch (Exception e) {

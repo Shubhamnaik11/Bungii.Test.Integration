@@ -11,7 +11,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @ready
+  @regression
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
@@ -56,8 +56,7 @@ Feature: Customer Home screen
     Then drop off field should be "not be displayed"
 
 
-@failed
-  @ready
+  @regression
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -78,7 +77,7 @@ Feature: Customer Home screen
     Then driver eta should be "not be displayed"
     And I enter drop location
       | Driver | Drop Location  |
-      | Solo   | Margoa Railway |
+      | Solo   | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
@@ -94,7 +93,7 @@ Feature: Customer Home screen
 
     And I enter pickup location
       | Driver | Pickup Location |
-      | Solo   | Margoa Railway  |
+      | Solo   | Margao Railway Overbridge  |
     And I enter drop location
       | Driver | Drop Location                   |
       | Solo   | Gateway Of India Apollo Bandar |

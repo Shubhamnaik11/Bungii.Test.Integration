@@ -318,6 +318,7 @@ public class CommonStepsDriver extends DriverBase {
         try {
             //adding temp page source , can remove later
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
+
             String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
             switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
@@ -346,11 +347,12 @@ public class CommonStepsDriver extends DriverBase {
                 action.clickAlertButton("Done");
 
         }
+         navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
             action.click(driverBungiiCompletedPage.Button_NextTrip());
             //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
-
+        navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
             if (navigationBarName.equals("LOCATION"))
             {

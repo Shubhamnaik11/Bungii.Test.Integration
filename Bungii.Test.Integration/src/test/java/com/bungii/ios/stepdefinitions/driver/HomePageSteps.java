@@ -387,7 +387,7 @@ public class HomePageSteps extends DriverBase {
                     break;
 
                 case "ALERT SETTINGS":
-                    testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Trip Alerts", "Trip Alerts is displayed", "Trip Alerts is displayed", "Trip Alerts is not displayed");
+                    testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Delivery Alerts", "Delivery Alerts is displayed", "Delivery Alerts is displayed", "Delivery Alerts is not displayed");
                     testStepAssert.isElementNameEquals(homepage.Text_SMSAlertSettings(), "SMS Alerts", "SMS Alerts is displayed", "SMS Alerts is displayed", "SMS Alerts is not displayed");
                     break;
 

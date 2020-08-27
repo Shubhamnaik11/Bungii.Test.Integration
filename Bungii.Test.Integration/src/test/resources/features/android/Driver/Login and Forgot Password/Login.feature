@@ -26,7 +26,6 @@ Feature: Log In
 
   @sanity
   @regression
-
   Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app

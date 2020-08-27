@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.HomePage;
+import com.bungii.ios.pages.customer.InvitePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -26,9 +27,12 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homePage;
+    private InvitePage invitePage = new InvitePage();
+
     DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
         this.homePage = homePage;
+
     }
 
     @Then("^User should be successfully logged in to the application$")
@@ -137,6 +141,9 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
+            if (action.isElementPresent(homePage.Button_ClearPickup(true)))
+                action.click(homePage.Button_ClearPickup());
+
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
             selectBungiiLocation("DROP", drop);
@@ -149,7 +156,7 @@ public class HomeSteps extends DriverBase {
 
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
-                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
+                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
                     "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
@@ -408,6 +415,22 @@ public class HomeSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from Customer App menu$")
     public void i_select_something_from_customer_app_menu(String menuItem) {
         try {
+
+
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+            }
+            String header = getNavigationBarName();
+            if (header.equalsIgnoreCase("INVITE"))
+            {
+                action.click(invitePage.Button_Done());
+            }
             goToAppMenu();
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",

@@ -21,7 +21,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                |
-      | Duo    | Margoa Railway  | Old Goa Road, Velha Goa, Goa |
+      | Duo    | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
 
@@ -259,7 +259,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I logged in Customer application using  "customer-duo" user
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location           |
-      | Duo    | Margoa Railway  | peerbaugh Rd, Peer wadi |
+      | Duo    | Margao Railway Overbridge  | peerbaugh Rd, Peer wadi |
     And I click "Get Estimate" button on "Home" screen
 
     When I select load time as "15" mins

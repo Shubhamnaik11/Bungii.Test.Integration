@@ -8,6 +8,7 @@ Feature: DriverMenu
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid nashville" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
   @regression
    @sanity

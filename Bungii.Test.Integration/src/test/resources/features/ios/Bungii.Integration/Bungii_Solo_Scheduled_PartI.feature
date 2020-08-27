@@ -16,7 +16,7 @@ Feature: Solo Scheduled Bungii Part I
 	Given I login as "valid miami 2" customer and on Home page
 	And I enter pickup location
 	  | Driver | Pickup Location |
-	  | Solo   | Margoa Railway  |
+	  | Solo   | Margao Railway Overbridge  |
 	And I enter drop location
 	  | Driver | Drop Location       |
 	  | Solo   | Devghali Beach road |
