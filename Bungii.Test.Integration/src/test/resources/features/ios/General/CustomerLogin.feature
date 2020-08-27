@@ -25,6 +25,8 @@ Feature: Customer Login
   Scenario: Verify Customer Can Login Using Valid Credentials
     When I enter Username :{VALID} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then User should be successfully logged in to the application
 
   @onetime
