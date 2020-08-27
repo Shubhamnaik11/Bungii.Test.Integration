@@ -58,14 +58,16 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_PromoCodesPage.Menu_Marketing());
                action.click(admin_ReferralSourcePage.Menu_ReferralSource());
                break;
-           case "Business Users  > Business Users" :
+//           case "Business Users  > Business Users" :
+           case "Bulk Delivery Upload  > Partners" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                break;
-           case "Business Users  > Bulk Trips" :
+           case "Bulk Delivery Upload  > Upload Deliveries" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BulkTrips());
                break;
-           case "Business Users  > Business Users Payment" :
+//           case "Business Users  > Business Users Payment" :
+           case "Bulk Delivery Upload  > Partner Payment" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;
@@ -460,7 +462,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isNotElementDisplayed(admin_PromoCodesPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
 
-            case "Business User":
+            case "Partners":
                 testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
               //BOC
@@ -478,7 +480,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-            case "Trips have been requested successfully.":
+            case "Deliveries have been requested successfully.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -508,7 +510,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))),"This card number is not valid.", "This card number is not valid.","The message is listed in grid", "The message is not listed in grid");
                 break;
 
-            case "No Business users found.":
+            case "No Partners found.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -546,7 +548,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
             break;
-            case "Business Users":
+            case "Partner":
+//            case "Business Users":
                 switch(button) {
                     case "Cancel":
                     action.click(admin_BusinessUsersPage.Button_Cancel());

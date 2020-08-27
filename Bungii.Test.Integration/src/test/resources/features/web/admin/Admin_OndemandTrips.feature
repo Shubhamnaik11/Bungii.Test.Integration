@@ -17,73 +17,73 @@ Feature: Admin_OndemandTrips
       |Accepted |
       | Arrived |
       | Loading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Loading Items |
-    When I view the trip details
+    When I view the delivery details
     Then the Bungii details is displayed successfully
     And I click on "Manually End Bungii" link
     And Enter the End Date and Time
     And Click on "Calculate Cost" button
     Then the amount is calculated and shown to admin
     And Click on "Confirm" button
-    And I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Payment Successful" state
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the trip in "Payment Successful" state
 
   @sanity
   @regression
     @failed
     #test data created in base
     #changed to "Solo Ondemand" from "Solo Scheduled"
-  Scenario: Verify Trips List Status Updation For Solo Ondemand Pickup
+  Scenario: Verify Delivery List Status Updation For Solo Ondemand Pickup
     When I request "Solo Ondemand" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000004 | Testcustomertywd_appleweb CustD|
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Processing Confirmation|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Accepted |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Trip Started |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Arrived |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Driver(s) Arrived |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Loading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Loading Items |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Driving To Dropoff |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Driving To Dropoff |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Unloading Item |
-    And I view the Live Trips list on the admin portal
+    And I view the Live Deliveries list on the admin portal
     Then I should be able to see the respective bungii with the below status
       | Status |
       | Unloading Items |
     And As a driver "Testdrivertywd_appledc_a_web TestdriverD" perform below action with respective "Solo Ondemand" trip
       | driver1 state|
       | Bungii Completed |
-    And I view the Trips list on the admin portal
-    Then The Trip List page should display the trip in "Payment Successful" state
+    And I view the Deliveries list on the admin portal
+    Then The Delivery List page should display the trip in "Payment Successful" state
     
   @regression
   Scenario: Verify Driver Does Not receive Ondemand requests If He Is Not Assigned To Geofence In Which His Current Location Is

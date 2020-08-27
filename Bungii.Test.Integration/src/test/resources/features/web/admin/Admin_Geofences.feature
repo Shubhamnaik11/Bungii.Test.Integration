@@ -58,9 +58,9 @@ Feature: Admin_Geofence
       | Dashboard    |
       | Customers     |
       | Drivers       |
-      | Trips          |
-      | Scheduled Trips |
-      | Live Trips |
+      | All Deliveries          |
+      | Scheduled Deliveries |
+      | Live Deliveries |
       |Partners    |
     Then I should see active zone in the dropdown on the "respective" page
     And I should not see inactive zone in the dropdown on the "respective" page

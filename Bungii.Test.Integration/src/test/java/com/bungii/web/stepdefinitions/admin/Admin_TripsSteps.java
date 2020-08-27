@@ -59,7 +59,7 @@ public class Admin_TripsSteps extends DriverBase {
         SetupManager.getDriver().navigate().refresh();
         //  action.click(admin_DashboardPage.Menu_Dashboard());
     }
-    @And("^I view the Trips list on the admin portal$")
+    @And("^I view the Deliveries list on the admin portal$")
     public void i_view_the_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         Thread.sleep(5000);
@@ -69,7 +69,7 @@ public class Admin_TripsSteps extends DriverBase {
                 "I viewed the Trips list on the admin portal", true);
 
     }
-    @And("^I view the Live Trips list on the admin portal$")
+    @And("^I view the Live Deliveries list on the admin portal$")
     public void i_view_the_live_trips_list_on_the_admin_portal() throws Throwable {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_LiveTripsPage.Menu_LiveTrips());
@@ -330,7 +330,7 @@ public class Admin_TripsSteps extends DriverBase {
 
     }
 
-    @When("^I view the trip details$")
+    @When("^I view the delivery details$")
     public void i_view_the_trip_details() throws Throwable {
 
         String xpath = (String) cucumberContextManager.getScenarioContext("XPATH");
