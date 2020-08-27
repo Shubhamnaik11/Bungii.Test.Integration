@@ -4,11 +4,6 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.*;
 import com.bungii.android.pages.customer.LocationPage;
-import com.bungii.android.pages.driver.BungiiRequest;
-import com.bungii.android.pages.driver.DriverHomePage;
-import com.bungii.android.pages.driver.*;
-import com.bungii.android.utilityfunctions.*;
-import com.bungii.android.pages.driver.BungiiRequest;
 import com.bungii.android.pages.driver.*;
 import com.bungii.android.utilityfunctions.*;
 import com.bungii.common.core.DriverBase;
@@ -99,6 +94,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     //  utility.launchDriverApplication();
+                    Thread.sleep(10000);
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
@@ -106,7 +102,7 @@ public class CommonSteps extends DriverBase {
                     ((AndroidDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Customer"));
 
                     ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    Thread.sleep(10000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:
@@ -123,6 +119,7 @@ public class CommonSteps extends DriverBase {
                     case "DRIVER":
                         utility.launchDriverApplication();
                         //SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));
+                        Thread.sleep(5000);
                         isApplicationIsInForeground = utility.isDriverApplicationOpen();
                         if (!isApplicationIsInForeground) {
                             action.click(new Point(0, 0));
@@ -132,6 +129,7 @@ public class CommonSteps extends DriverBase {
                     case "CUSTOMER":
                         utility.launchCustomerApplication();
                         // SetupManager.getObject().restartApp();
+                        Thread.sleep(4000);
                         isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                         if (!isApplicationIsInForeground) {
                             action.click(new Point(0, 0));
@@ -174,12 +172,13 @@ public class CommonSteps extends DriverBase {
                     //  ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
 
                     utility.launchDriverApplication();
+                    Thread.sleep(4000);
                     isApplicationIsInForeground = utility.isDriverApplicationOpen();
                     break;
                 case "CUSTOMER":
                     utility.launchCustomerApplication();
                     // ((AndroidDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Customer"));
-
+                    Thread.sleep(4000);
                     isApplicationIsInForeground = utility.isCustomerApplicationOpen();
                     break;
                 default:

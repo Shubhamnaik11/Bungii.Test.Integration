@@ -412,6 +412,7 @@ public class ScheduledBungiiSteps extends DriverBase {
     @And("^I click \"([^\"]*)\" button on the \"([^\"]*)\" screen$")
     public void i_click_something_button_on_the_something_screen(String strArg1, String strArg2) throws Throwable {
         try {
+            Thread.sleep(2000);
             switch (strArg1) {
                 case "ACCEPT":
                     action.click(bungiiRequest.Button_Accept());
@@ -420,7 +421,6 @@ public class ScheduledBungiiSteps extends DriverBase {
                     action.click(bungiiAcceptedPage.Button_OK());
                     break;
                 case "On To The Next One":
-                    Thread.sleep(2000);
                     action.click(bungiiCompletedPage.Button_OnToTheNext());
                     break;
                 case "YES, I'LL TAKE $5":

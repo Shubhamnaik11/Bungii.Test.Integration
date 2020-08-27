@@ -160,7 +160,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
 
                 case "No free money":
-                    Thread.sleep(2000);
+                    Thread.sleep(6000);
                     action.scrollToBottom();
                     if (!action.isElementPresent(Page_WantDollar5.Button_NoFreeMoney(true)))
                         action.scrollToBottom();
