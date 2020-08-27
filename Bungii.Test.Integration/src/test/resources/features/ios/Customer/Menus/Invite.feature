@@ -14,7 +14,7 @@ Feature: Customer	Referral Invite page
     Then Invite Referral page should be properly displayed
     And I click "Done" button on "Invite" screen
   @FAILED2702
-  @regression
+  @ready
   Scenario: Verify Customer Can Share Code Using Text Message
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen
@@ -25,7 +25,7 @@ Feature: Customer	Referral Invite page
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Customer Can Share Code Using Email
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen
@@ -49,7 +49,7 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then user is alerted for "No twitter installed"
 
-  @regression
+  @ready
   Scenario: Verify Customer Is Alerted When He Tries To Share Invite Code Using Twitter Application
     Given I have "twitter" app "installed"
     When I Select "Home" from Customer App menu

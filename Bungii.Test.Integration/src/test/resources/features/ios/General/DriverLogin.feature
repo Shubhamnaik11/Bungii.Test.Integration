@@ -42,7 +42,7 @@ Feature: Driver Login
       | PENDING VERIFICATION | 9823901494 | Cci12345 | Your account registration is still under process. | LOGIN BUTTON ENABLED |
 
     #Valid failed, driver should be locked
-  @regression
+  @ready
     @failed
   Scenario Outline: Verify Driver Is Locked When He Enters Incorrect Password Five Times
     When I enter phoneNumber :<Username> and  Password :<InCorrectPassword>

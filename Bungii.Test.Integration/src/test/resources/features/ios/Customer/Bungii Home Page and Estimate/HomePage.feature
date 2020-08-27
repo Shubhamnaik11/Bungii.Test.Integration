@@ -46,7 +46,7 @@ Feature: Customer Home screen
     Then current location should be present as pickup location
     And "Drop" address should be empty
 
-  @regression
+  @ready
   Scenario:Verify That Dropoff Field Is Displayed Only When Pickup Address Is Set
     Given I am on Customer logged in Home page
     And I open "customer" application on "same" devices
@@ -87,7 +87,7 @@ Feature: Customer Home screen
     When I click "Cancel" button on "SEARCHING" screen
     Then user is alerted for "CANCEL BUNGII"
 
-  @regression
+  @ready
   Scenario: Verify Long Haul(>150 miles) Alert Is Shown When Distance between Pickup And Dropoff Should Be >150 Miles)
     Given I am on Customer logged in Home page
 
@@ -100,7 +100,7 @@ Feature: Customer Home screen
     Then user is alerted for "LONG HAUL"
 
 
-  @regression
+  @ready
   Scenario: Verify ETA Box When Geofence Is Not Active
     Given I am on Customer logged in Home page
 
