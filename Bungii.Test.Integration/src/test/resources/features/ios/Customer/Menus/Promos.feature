@@ -191,7 +191,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should see "first time only" code selected on Bungii estimate
     When I enter following details on "Estimate" screen
@@ -226,7 +226,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -250,7 +250,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |

@@ -85,7 +85,7 @@ public class EnabledNotificationSteps extends DriverBase {
             }
 
         } catch (Exception e) {
-            
+
         }
 
     }

@@ -577,7 +577,24 @@ public class GeneralUtility extends DriverBase {
                     break;
                     //Customer app
                 }
-
+            case "BUNGII":
+                if (currentApplication.equals("DRIVER")) {
+                    String naviagationBar = action.getNameAttribute(driverHomePage.Text_NavigationBar());
+                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
+                        isCorrectPage = true;
+                    } else {
+                        Thread.sleep(7000);
+                        isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                    }
+                    break;
+                } else {
+                    String expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
+                    action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                    logger.detail(" Verifying Home page , actual is|"+action.getNameAttribute(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    break;
+                    //Customer app
+                }
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {

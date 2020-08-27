@@ -15,7 +15,9 @@
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
-    "appWaitDuration": 40000
+    "appWaitDuration": 40000,
+    "language": "EN",
+    "locale": "en_US"
   },
   "extra3": {
     "platformName": "Android",
@@ -33,7 +35,9 @@
     "real_mobile": true,
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
-    "appWaitDuration": 40000
+    "appWaitDuration": 40000,
+    "language": "EN",
+    "locale": "en_US"
   },
   "extra1": {
     "platformName": "Android",
@@ -51,7 +55,9 @@
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
-    "appWaitDuration": 40000
+    "appWaitDuration": 40000,
+    "language": "EN",
+    "locale": "en_US"
   },
   "extra2": {
     "platformName": "Android",
@@ -69,7 +75,9 @@
     "real_mobile": true,
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
-    "appWaitDuration": 40000
+    "appWaitDuration": 40000,
+    "language": "EN",
+    "locale": "en_US"
   },
   "connection": {
     "device1": 0,
