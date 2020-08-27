@@ -71,7 +71,7 @@ public class Admin_DriverDetails extends DriverBase{
         }
     }
 
-    @Then("^The Trip List page should display the trip in \"([^\"]*)\" state$")
+    @Then("^The Delivery List page should display the trip in \"([^\"]*)\" state$")
     public void the_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
         String geofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
