@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.HomePage;
+import com.bungii.ios.pages.customer.InvitePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -26,9 +27,12 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homePage;
+    private InvitePage invitePage = new InvitePage();
+
     DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
         this.homePage = homePage;
+
     }
 
     @Then("^User should be successfully logged in to the application$")
@@ -408,6 +412,8 @@ public class HomeSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from Customer App menu$")
     public void i_select_something_from_customer_app_menu(String menuItem) {
         try {
+
+
             if (action.isAlertPresent()) {
                 String alertMessage = action.getAlertMessage();
                 List<String> getListOfAlertButton = action.getListOfAlertButton();
@@ -416,6 +422,11 @@ public class HomeSteps extends DriverBase {
                         action.clickAlertButton("Done");
                     }
                 }
+            }
+            String header = getNavigationBarName();
+            if (header.equalsIgnoreCase("INVITE"))
+            {
+                action.click(invitePage.Button_Done());
             }
             goToAppMenu();
             clickAppMenu(menuItem);
