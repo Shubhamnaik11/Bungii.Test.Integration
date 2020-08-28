@@ -567,6 +567,7 @@ public class CommonSteps extends DriverBase {
     @Given("^I am on the \"([^\"]*)\" page$")
     public void i_am_on_the_something_page(String screen) {
         try {
+
             if (action.isAlertPresent()) {
                // if (action.getAlertMessage().equalsIgnoreCase(PropertyUtility.getMessage("customer.alert.delay.scheduled"))) {
                     warning("I see location popup", "I accepted location popup", true);
@@ -639,6 +640,7 @@ public class CommonSteps extends DriverBase {
                 takeActionOnPromotion("REJECT");
                 homeSteps.i_selectlogout();
             }
+
             else {
                 homeSteps.i_selectlogout();
 

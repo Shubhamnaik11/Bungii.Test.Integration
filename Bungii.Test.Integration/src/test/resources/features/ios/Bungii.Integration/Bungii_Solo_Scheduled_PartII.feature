@@ -7,7 +7,8 @@ Feature: Solo Scheduled Bungii Part II
   
   Background:
     When I clear all notification
-    
+    When I Switch to "customer" application on "same" devices
+  
   @FAILED2702
   @regression
   @sanity
@@ -152,7 +153,9 @@ Feature: Solo Scheduled Bungii Part II
     And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     Then I should be navigated to "BUNGII DETAILS" screen
-    And Trip Information should be correctly displayed on BUNGII DETAILS screen
+    #And Trip Information should be correctly displayed on BUNGII DETAILS screen
+    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+    
     When I accept selected Bungii
 #    When I Switch to "driver" application on "same" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu

@@ -1,12 +1,14 @@
 @ios
 @bungii
-  @ondemand
+ 
   # this will run in 	nashville 13 Scenarios
 Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   Background:
-    When I clear all notification
-    
+    #When I clear all notification
+    When I Switch to "customer" application on "same" devices
+  
+  
   @regression
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
@@ -253,6 +255,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     
   @failed
   @ready
+
   Scenario Outline: Verify Requesting of Ondemand Bungii Requests With Promo code :<Scenario>
     Given I am on the "LOG IN" page
     When I logged in Customer application using  "<User>" user
@@ -642,6 +645,7 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
   @sanity
   @regression
+  @ondemand
   Scenario: Verify Ondemand Bungii Flow Till Completion
     Given I am on the "LOG IN" page
    # When I am on Customer logged in Home page
