@@ -290,7 +290,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
             break;
-            case "Select Promoter":
+            case "Select Partners":
                  Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
                 action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
                 log("I select element from Select Business User dropdown",
@@ -333,7 +333,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
                 }
                 break;
-            case "Promoter Cards":
+            case "Free Delivery Credit Card":
                     switch (button) {
                         case "Add Payment Method":
                             action.click(admin_BusinessUsersPage.Button_RequestPayment());

@@ -15,7 +15,7 @@ Feature: Admin_ReferralSource
   @regression
     @failed
   Scenario: Verify Referral Source Grid Sort ASC DESC
-    When I click on "Source" header "Ascending" on "Referral Source" grid
+    When I click on "Sources" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Source"
     When I click on "Source" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Source"
