@@ -5,6 +5,8 @@ Feature: EstimateBungii
   Background:
     Given I am on customer Log in page
     And I am logged in as "no promocode" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
   @regression
   Scenario: Verify if the information icons display correct information On Bungii Confirmation Screen

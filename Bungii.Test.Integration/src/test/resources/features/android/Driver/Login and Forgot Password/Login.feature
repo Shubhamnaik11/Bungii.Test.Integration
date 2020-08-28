@@ -29,12 +29,14 @@ Feature: Log In
   Scenario: Verify Driver Should be Able To Login To Application Using Valid Password
     When I enter phoneNumber :{VALID} and  Password :{VALID}
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should be navigated to Home screen on driver app
 
   @regression
   Scenario Outline: Verify Driver Cannot Login On Driver App Before Admin Verification
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     Then I should see "<Expected Message>" on Log In screen on driver app
     And I should see "<Login Button Status>" on Log In screen on driver app
     Examples:

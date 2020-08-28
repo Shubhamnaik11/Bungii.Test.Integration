@@ -6,6 +6,8 @@ Feature: CustomerMenu
 
   Background:
     Given I am on Customer logged in Home page
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
   @regression
   Scenario: Verify Customer App Menu Item Navigations

@@ -54,7 +54,6 @@
       Given I am on customer Log in page
       And I am logged in as "Testcustomertywd_appleand_B Android" customer
 
-      When I Switch to "customer" application on "same" devices
       And I enter "valid pickup and dropoff locations" on Bungii estimate
       And I tap on "Get Estimate button" on Bungii estimate
       And I tap on "Details" on Estimate screen
