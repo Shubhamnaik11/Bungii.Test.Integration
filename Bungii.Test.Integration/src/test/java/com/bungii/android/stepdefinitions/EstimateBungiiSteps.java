@@ -955,6 +955,11 @@ public class EstimateBungiiSteps extends DriverBase {
                 }
                 action.click(bungiiEstimatePage.Link_AddPhoto());
                 Thread.sleep(2000);
+                if(action.isAlertPresent()){
+                    Thread.sleep(3000);
+                    action.clickAlertButton("Allow");
+                    Thread.sleep(3000);
+                }
                 //adding most probable outcome first
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
