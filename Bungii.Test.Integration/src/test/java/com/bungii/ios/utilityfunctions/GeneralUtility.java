@@ -577,6 +577,14 @@ public class GeneralUtility extends DriverBase {
                     break;
                     //Customer app
                 }
+            case "BUNGII":{
+                    logger.detail(" CUSTOMER APP ");
+                    String expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
+                    action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
+                    logger.detail(" Verifying Home page , actual is|"+action.getNameAttribute(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
+                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    break;}
+                    //Customer app
 
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);

@@ -88,9 +88,8 @@ Feature: DriverMenu
     When I Select "FEEDBACK" from driver App menu
     Then I should be navigated to "FEEDBACK" screen
     Then I should be able to see data on "FEEDBACK" page
-
-@failed
-  @regression
+    
+  @ready
   Scenario: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "new driver" driver
@@ -98,8 +97,7 @@ Feature: DriverMenu
     When I click "SMS ALERT" button on "ALERT SETTINGS" screen on driverApp
     Then I should be able to see default data on "SMS ALERT" page
 
-
-  @FAILED2602
+    
   @regression
   Scenario: Verify Correct Data Is Displayed In Trip And Sms Alert Settings Upon Switching Between Trip And SMS Alerts Tabs
     And I am on the "LOG IN" page on driverApp

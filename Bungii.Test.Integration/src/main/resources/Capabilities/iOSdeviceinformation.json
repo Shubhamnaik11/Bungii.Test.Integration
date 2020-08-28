@@ -10,9 +10,11 @@
     "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
-    "browserstack.gpsLocation": "39.007504,-94.529625",
-    "browserstack.idleTimeout": "3000",
-    "browserstack.timezone": "New_York"
+    "browserstack.gpsLocation": "15.36413,73.9455",
+    "browserstack.idleTimeout": "5000",
+    "browserstack.timezone": "New_York",
+    "language": "EN",
+    "locale": "en_US"
   },
   "device1": {
     "platformName": "iOS",
@@ -24,9 +26,11 @@
     "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
-    "browserstack.gpsLocation": "39.007504,-94.529625",
-    "browserstack.idleTimeout": "3000",
-    "browserstack.timezone": "New_York"
+    "browserstack.gpsLocation": "15.36413,73.9455",
+    "browserstack.idleTimeout": "5000",
+    "browserstack.timezone": "New_York",
+    "language": "EN",
+    "locale": "en_US"
   },
 
 

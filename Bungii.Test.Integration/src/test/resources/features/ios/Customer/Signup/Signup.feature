@@ -7,7 +7,6 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Given I am on the "SIGN UP" page
 
   @regression
-    @testing
   Scenario Outline: Verify Referral Source Is Incremented By 1 If Customer Registers By Selecting Referral Source - Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -39,8 +38,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | Scenario      | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source |
       | Source :OTHER | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
-
-    @failed
+    
   @regression
   Scenario Outline:Verify Customer Can Submit Registration Form With Promocode
     When I open new "Chrome" browser for "ADMIN"
@@ -152,7 +150,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Examples:
       | First Name | Last Name | Email ID                        | Phone Number       | Password | Referral Code | Source   | Expected Message           |
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
-  @failed
+ 
   #promo code in example
   @regression
   Scenario Outline: Verify Text On Promos Screen When First Time Promocode Is Added
@@ -199,7 +197,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | First Name              | Last Name | Email ID                        | Phone Number       | Password | Promo Code | Source   |
       | RandomTestcustomertywd_apple  | testerr   | richa.naik@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | HECKNWWAU | facebook |
 
-  @failed
+ 
     #used one off
   #Know issue, no alert
   @regression

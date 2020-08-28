@@ -1,5 +1,6 @@
 @ios
 @bungii
+  @ondemand
   # this will run in 	nashville 13 Scenarios
 Feature: Ondemand Bungii Scenarios - Nashville Geofence
   
@@ -7,7 +8,6 @@ Feature: Ondemand Bungii Scenarios - Nashville Geofence
     When I clear all notification
     
   @regression
-  @testPOC
   Scenario: Verify Manually End Bungii Option Is Available In The Last Three States Only
     Given that ondemand bungii is in progress
       | geofence  | Bungii State |

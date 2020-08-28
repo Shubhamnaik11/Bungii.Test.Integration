@@ -116,7 +116,7 @@ Feature: Promos
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
@@ -171,7 +171,7 @@ Feature: Promos
 
 
   @regression
-    @failed
+  @testPOC
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -191,7 +191,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should see "first time only" code selected on Bungii estimate
     When I enter following details on "Estimate" screen
@@ -226,7 +226,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -250,7 +250,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |

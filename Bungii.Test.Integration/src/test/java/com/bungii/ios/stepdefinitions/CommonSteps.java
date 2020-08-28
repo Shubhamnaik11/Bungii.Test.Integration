@@ -1518,7 +1518,69 @@ public class CommonSteps extends DriverBase {
                     true);
         }
     }
+    @Given("^I am on Customer \"([^\"]*)\" logged in Home page$")
+    public void iAmOnCustomerALoggedInHomePage(String user) {
+        try {
+            LogInSteps logInSteps = new LogInSteps(new LoginPage());
+            HomeSteps homeSteps = new HomeSteps(homePage);
+            GeneralUtility utility = new GeneralUtility();
+            String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
 
+            if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
+                    || NavigationBarName.equals("SIGN UP")) {
+                if (NavigationBarName.equals("SIGN UP"))
+                    iClickButtonOnScreen("LOG IN", "sign up");
+
+                switch (user) {
+                    case "A":
+                        logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.ios.userA"),
+                                PropertyUtility.getDataProperties("customer.password"));
+                        break;
+                    case "B":
+                        logInSteps.i_enter_valid_and_as_per_below_table(PropertyUtility.getDataProperties("customer.ios.userB"),
+                                PropertyUtility.getDataProperties("customer.password"));
+                        break;
+                }
+
+                iClickButtonOnScreen("Log In", "Log In");
+                Thread.sleep(2000);
+                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+                if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
+                    //DO Nothing
+                } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                    utility.navigateFromTermToHomeScreen();
+                }
+
+                //homeSteps.user_should_be_successfully_logged_in_to_the_system();
+            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
+                // do nothing
+            } else if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
+                iClickButtonOnScreen("CANCEL", "SEARCHING");
+                iAcceptAlertMessage();
+                //iRejectAlertMessage();
+            } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
+                utility.navigateFromTermToHomeScreen();
+            } else if (NavigationBarName.equalsIgnoreCase("NOTIFICATIONS")) {
+                action.click(enableNotificationPage.Button_Sure());
+                action.clickAlertButton("Allow");
+                if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                    action.click(enableLocationPage.Button_Sure());
+                    action.clickAlertButton("Allow");
+                }
+            }else if (NavigationBarName.equalsIgnoreCase("WANT $5?")){
+                takeActionOnPromotion("REJECT");
+            } else {
+                homeSteps.i_select_something_from_customer_app_menu("HOME");
+            }
+            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+            log("Given customer is logged in as customer","Customer "+ PropertyUtility.getDataProperties("customer.name") +" ("+PropertyUtility.getDataProperties("customer.user")+") is logged in");
+        } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details",
+                    true);
+        }
+    }
     //Except first time all code is fetch on fly, first time is read from file
     @SuppressWarnings("unchecked")
     public List<String> getRefferalCode(String codeType) {

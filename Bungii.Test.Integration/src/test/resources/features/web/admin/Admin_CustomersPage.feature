@@ -27,27 +27,27 @@ Feature: Admin_CustomersPage
 
     When I navigate to following pages one by one
       |Page |
-      | Trips |
-    And I enter "customers" "first name" in the "Trips search" box
-    Then I should see "customer first name" listed on the "Trips" page
-    When I enter "customers" "last name" in the "Trips search" box
-    Then I should see "customer last name" listed on the "Trips" page
+      | All Deliveries |
+    And I enter "customers" "first name" in the "Deliveries search" box
+    Then I should see "customer first name" listed on the "Deliveries" page
+    When I enter "customers" "last name" in the "Deliveries search" box
+    Then I should see "customer last name" listed on the "All Deliveries" page
 
 
 @regression
   Scenario: Verify First and Last Name of customer and driver On Scheduled Trips and Live Trips page
     When I navigate to following pages one by one
       |Page |
-      | Scheduled Trips |
-    And I enter "customers" "first name" in the "Scheduled Trips search" box
-    Then I should see "customer first name" listed on the "Scheduled Trips" page
-    When I enter "customers" "last name" in the "Scheduled Trips search" box
-    Then I should see "customer last name" listed on the "Scheduled Trips" page
+      | Scheduled Deliveries |
+    And I enter "customers" "first name" in the "Scheduled Deliveries search" box
+    Then I should see "customer first name" listed on the "Scheduled Deliveries" page
+    When I enter "customers" "last name" in the "Scheduled Deliveries search" box
+    Then I should see "customer last name" listed on the "Scheduled Deliveries" page
 
     When I navigate to following pages one by one
       |Page |
-      | Live Trips |
-    And I enter "customers" "first name" in the "Live Trips search" box
-    Then I should see "customer first name" listed on the "Live Trips" page
-    When I enter "customers" "last name" in the "Live Trips search" box
-    Then I should see "customer last name" listed on the "Live Trips" page
+      | Live Deliveries |
+    And I enter "customers" "first name" in the "Live Deliveries search" box
+    Then I should see "customer first name" listed on the "Live Deliveries" page
+    When I enter "customers" "last name" in the "Live Deliveries search" box
+    Then I should see "customer last name" listed on the "Live Deliveries" page

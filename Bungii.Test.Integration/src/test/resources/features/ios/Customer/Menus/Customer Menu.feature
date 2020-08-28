@@ -5,7 +5,6 @@ Feature: Customer	Menu
   Background: 
     Given I am on Customer logged in Home page
   @sanity
-  @FAILED2702
   @regression
   Scenario: Verify Customer App Menu Links
     When I Select "Home" from Customer App menu

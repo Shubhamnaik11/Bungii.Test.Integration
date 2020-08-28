@@ -141,8 +141,17 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
-            if (action.isElementPresent(homePage.Button_ClearPickup(true)))
-                action.click(homePage.Button_ClearPickup());
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
+                    action.clickAlertButton("Done");
+            }
+            if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
+                action.tapByElement(homePage.Button_ClearPickup());
+                logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
+            }
 
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
@@ -156,7 +165,7 @@ public class HomeSteps extends DriverBase {
 
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
-                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
+                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
                     "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
