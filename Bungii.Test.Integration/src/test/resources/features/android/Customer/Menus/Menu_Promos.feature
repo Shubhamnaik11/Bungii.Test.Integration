@@ -4,6 +4,8 @@ Feature: Menu_SaveMoney
   @regression
   Scenario: Verify First Time Promo Code For New Users Notification For Existing Customer
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Promos" link
     And I add "first time" PromoCode
     And I tap "Add" on Save Money page

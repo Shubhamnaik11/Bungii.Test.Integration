@@ -1107,4 +1107,26 @@ public class CommonSteps extends DriverBase {
 
         return containedUrls;
     }
+
+    @Then("^I accept \"([^\"]*)\" and \"([^\"]*)\" permission if exist$")
+    public void I_acceptNotificationAndLocationPermissionIfExist(String Notification, String Location) throws Throwable {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            String pageName = utility.getPageHeader();
+            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                action.click(driverHomePage.Button_Sure(true));
+                action.clickAlertButton("Allow");
+                // pageName = utility.getPageHeader();
+            }
+            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                action.click(driverHomePage.Button_Sure(true));
+                action.clickAlertButton("Always Allow");
+                //pageName = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+
+        }
+
+    }
 }

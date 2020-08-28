@@ -25,7 +25,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Verify_Approve_DriverBirthday () { return findElement("//*[@id='btnok_9']", LocatorType.XPath); }
 
-    public WebElement Verify_Approve_DriverPickupImages () { return findElement("//*[@id='btnok_17']", LocatorType.XPath); }
+    public WebElement Verify_Approve_DriverPickupImages () { return findElement("//*[@id='btnok_16']", LocatorType.XPath); }
 
     public WebElement Verify_Approve_DriverPickupMake () { return findElement("//*[@id='btnok_10']", LocatorType.XPath); }
 
@@ -43,7 +43,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Verify_Approve_DriverInsuranceImage () { return findElement("//*[@id='btnok_22']", LocatorType.XPath); }
 
-    public WebElement Verify_Approve_DriverInsurationExpiration () { return findElement("//*[@id='btnok_23']", LocatorType.XPath); }
+    public WebElement Verify_Approve_DriverInsurationExpiration () { return findElement("//*[@id='btnok_22']", LocatorType.XPath); }
 
     public WebElement Verify_Approve_DriverRoutingNumber () { return findElement("//*[@id='btnok_15']", LocatorType.XPath); }
 
@@ -71,7 +71,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Verify_Reject_Birthday () { return findElement("//*[@id='btnremove_9']", LocatorType.XPath); }
 
-    public WebElement Verify_Reject_DriverPickupImages () { return findElement("//*[@id='btnremove_17']", LocatorType.XPath); }
+    public WebElement Verify_Reject_DriverPickupImages () { return findElement("//*[@id='btnremove_16']", LocatorType.XPath); }
 
     public WebElement Verify_Reject_PickupMake () { return findElement("//*[@id='btnremove_10']", LocatorType.XPath); }
 
@@ -89,7 +89,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Verify_Reject_InsuranceImage () { return findElement("//*[@id='btnremove_22']", LocatorType.XPath); }
 
-    public WebElement Verify_Reject_InsuranceExpiration () { return findElement("//*[@id='btnremove_23']", LocatorType.XPath); }
+    public WebElement Verify_Reject_InsuranceExpiration () { return findElement("//*[@id='btnremove_22']", LocatorType.XPath); }
 
     public WebElement Verify_Reject_RoutingNumber () { return findElement("//*[@id='btnremove_15']", LocatorType.XPath); }
 
@@ -101,7 +101,7 @@ public class Admin_DriverVerificationPage extends PageBase {
 
     public WebElement Textinput_ReasonforRejection_DriverPicture () { return findElement("//*[@id='DriverDetails_DriverVerification_DriverVerificationDetails_16__Comment']", LocatorType.XPath); }
 
-    public WebElement Textinput_ReasonforRejection_PickupImages () { return findElement("//*[@id='DriverDetails_DriverVerification_DriverVerificationDetails_17__Comment']", LocatorType.XPath); }
+    public WebElement Textinput_ReasonforRejection_PickupImages () { return findElement("//*[@id='DriverDetails_DriverVerification_DriverVerificationDetails_16__Comment']", LocatorType.XPath); }
 
     public WebElement Button_DriverResentButton () { return findElement("//*[@id='btnresend']", LocatorType.XPath, true); }
 

@@ -3,6 +3,8 @@ Feature: ReferralInvite
 
   Background:
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Home" link
     And I tap "Referral Invite link" on Home page
     Then I should see "Referral Code" on Invite Page

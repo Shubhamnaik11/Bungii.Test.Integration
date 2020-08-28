@@ -98,6 +98,7 @@ Feature: Admin_DriverApplicationVerification
     Then the status of the field resets to default
 
   @regression
+  @failedT
     #test data created in base
   Scenario: Verify Driver Application Resubmission Of Rejected Application - NonFountain
     When I click "Verify" button against the "Melvin Johnson" applicant

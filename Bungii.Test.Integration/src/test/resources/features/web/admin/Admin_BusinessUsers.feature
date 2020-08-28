@@ -75,7 +75,7 @@ Feature: Admin_BusinessUsers
     And I click on "Upload" button on "Upload Deliveries" page
     Then the pickup from the csv are listed down
     When I click on "Confirm" button on "Upload Deliveries" page
-    Then the "Deliveries have been requested successfully." message is displayed
+    Then the "Trips have been requested successfully." message is displayed
     
   @regression
   Scenario: Verify Adding Payment To Bulk Delivery Upload - Fraud Card

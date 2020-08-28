@@ -8,6 +8,8 @@
   Scenario: Verify that 'SET PICKUP TIME' page is shown when no driver accepts on demand bungii.
     Given I am on customer Log in page
     When I am logged in as "valid goa customer" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I enter "current location in pickup and dropoff fields long distance" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add "1" photos to the Bungii

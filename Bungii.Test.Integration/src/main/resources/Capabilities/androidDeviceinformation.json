@@ -9,7 +9,7 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "3000",
+    "browserstack.idleTimeout": "5000",
     "real_mobile": true,
     "app": "bs://a2d04b74bc5fb10a71a17facf3ac77735e5d4c66",
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
@@ -17,27 +17,29 @@
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra3": {
     "platformName": "Android",
-    "automationName":"UiAutomator2",
+    "automationName": "UiAutomator2",
     "deviceType": "MOTOROLA",
     "device": "Motorola Moto X 2nd Gen",
     "os_version": "6.0",
     "browserstack.appium_version": "1.17.0",
-    "browserstack.networkLogs" : true,
+    "browserstack.networkLogs": true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "2000",
+    "browserstack.idleTimeout": "5000",
     "app": "bs://a2d04b74bc5fb10a71a17facf3ac77735e5d4c66",
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
     "real_mobile": true,
     "systemPort": 8100,
-    "uiautomator2ServerLaunchTimeout":30000,
+    "uiautomator2ServerLaunchTimeout": 30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra1": {
     "platformName": "Android",
@@ -49,7 +51,7 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "3000",
+    "browserstack.idleTimeout": "5000",
     "real_mobile": true,
     "app": "bs://a2d04b74bc5fb10a71a17facf3ac77735e5d4c66",
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
@@ -57,7 +59,8 @@
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra2": {
     "platformName": "Android",
@@ -71,13 +74,14 @@
     "app": "bs://a2d04b74bc5fb10a71a17facf3ac77735e5d4c66",
     "otherApps": "bs://1738b07875d954b0fe0c17c7b87e5855efd8be4c",
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "3000",
+    "browserstack.idleTimeout": "5000",
     "real_mobile": true,
     "systemPort": 8100,
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "connection": {
     "device1": 0,

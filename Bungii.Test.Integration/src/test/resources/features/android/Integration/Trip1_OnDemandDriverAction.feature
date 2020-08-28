@@ -8,9 +8,12 @@ Scenarios where customer requests a Bungii and driver accepts/rejects and cancel
   Scenario: Verify Driver Can Reject Ondemand Bungii Request
     Given I am on customer Log in page
     When I am logged in as "valid boston" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid boston" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I tap on "Go Online button" on Driver Home page
     And I Switch to "customer" application on "same" devices
     And I enter "boston pickup and dropoff locations" on Bungii estimate

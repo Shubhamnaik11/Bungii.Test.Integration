@@ -997,7 +997,7 @@ public class EstimateBungiiSteps extends DriverBase {
 /*            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
                 //code to be added incase of "Invalid Image error"
             }*/
-
+            Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

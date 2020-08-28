@@ -198,7 +198,7 @@ public class BungiiSteps extends DriverBase {
         return phone;
     }
 
-    @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" trip$")
+    @And("^As a driver \"([^\"]*)\" perform below action with respective \"([^\"]*)\" Delivery$")
     public void as_a_driver_something_perform_below_action_with_respective_something_trip(String driverName, String bungiiType, DataTable data) {
         {
             //Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);

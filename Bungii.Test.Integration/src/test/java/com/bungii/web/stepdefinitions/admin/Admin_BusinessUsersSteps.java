@@ -256,7 +256,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @Then("^the card is added to the user \"([^\"]*)\"$")
     public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
 
-        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Business User.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Partner.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
     }
     @Then("^\"([^\"]*)\" message is displayed$")
     public void something_message_is_displayed(String message) throws Throwable {
@@ -290,7 +290,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
             break;
-            case "Select Promoter":
+            case "Select Partners":
                  Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
                 action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
                 log("I select element from Select Business User dropdown",
@@ -333,7 +333,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
                 }
                 break;
-            case "Promoter Cards":
+            case "Free Delivery Credit Card":
                     switch (button) {
                         case "Add Payment Method":
                             action.click(admin_BusinessUsersPage.Button_RequestPayment());

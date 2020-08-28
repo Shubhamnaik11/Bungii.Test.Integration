@@ -47,7 +47,7 @@ public class Admin_PromoterSteps extends DriverBase {
             int i = now.intValue() % 1000;
 
             switch (popup) {
-                case "Add New Promoter" :
+                case "Add New Partner" :
                     String id = uniqid();
                 String PromoterName = dataMap.get("Promoter Name").trim().replace("<<Unique>>", Integer.toString(i));
                 String CodeInitials = dataMap.get("Code Initials").trim().replace("<<Unique>>", id);;
@@ -64,7 +64,7 @@ public class Admin_PromoterSteps extends DriverBase {
                 cucumberContextManager.setScenarioContext("DESCRIPTION", Description);
                 cucumberContextManager.setScenarioContext("STATUS", Status);
                 break;
-                case "Add Promotion" :
+                case "Add Event" :
                     String PromotionName = dataMap.get("Promotion Name").trim().replace("<<Unique>>", Integer.toString(i));
                     String PromoStartDate = dataMap.get("Promotion Start Date").trim();
                     String PromoExpirationDate = dataMap.get("Expiration Date").trim();
@@ -152,10 +152,10 @@ public class Admin_PromoterSteps extends DriverBase {
 
         switch (page)
         {
-            case "Promotions":
+            case "Events":
 
                 switch (button) {
-                    case "New Promotion":
+                    case "New Event":
                         action.click(admin_PromoterPage.Button_NewPromotion());
                         break;
                 }
@@ -213,7 +213,7 @@ public class Admin_PromoterSteps extends DriverBase {
     @And("^I enter following card details on \"([^\"]*)\" screen$")
     public void i_enter_following_card_details_on_something_screen(String page, DataTable data) throws Throwable {
         switch (page) {
-            case "Promoter Cards":
+            case "Free Delivery Credit Card":
                 Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
                 String CardNumber = dataMap.get("Card Number").trim();
                 String ExpirationDate  = dataMap.get("Expiration Date").trim();

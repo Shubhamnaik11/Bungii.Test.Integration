@@ -11,7 +11,8 @@ public class Admin_BusinessUsersPage extends PageBase {
 
     public WebElement Menu_BulkTrips () { return findElement("adminmenu-businessusers-bulkbungii", LocatorType.Id); }
 
-    public WebElement Header_BusinessUsers () { return findElement("//h4[text()='Business Users']", LocatorType.XPath); }
+    public WebElement Header_BusinessUsers () { return findElement("adminmenu-businessuser", LocatorType.Id); }
+//    public WebElement Header_BusinessUsers () { return findElement("//h4[text()='Business Users']", LocatorType.XPath); }
 
     public WebElement Button_CreateBusinessUser ( ) { return findElement("btnCreateBusinessUser", LocatorType.Id); }
 
@@ -75,7 +76,7 @@ public class Admin_BusinessUsersPage extends PageBase {
 //BOC
     public WebElement Label_PayWithCard(){ return  findElement("//div[@class='braintree-sheet__text']", LocatorType.XPath);}
 
-    public WebElement Label_NoBusinessUsersFound(){ return findElement("//h5[@class='margintop11'][contains(text(),'No Business users found.')]", LocatorType.XPath);}
+    public WebElement Label_NoBusinessUsersFound(){ return findElement("//h5[@class='margintop11'][contains(text(),'No Partners found.')]", LocatorType.XPath);}
 
     public WebElement Label_ErrorContainerCarNumber(){ return  findElement("//div[contains(text(),'Please fill out a card number.')]", LocatorType.XPath);}
 
