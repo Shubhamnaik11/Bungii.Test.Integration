@@ -11,7 +11,7 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "3000",
+    "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
     "locale": "en_US"
@@ -27,7 +27,7 @@
     "browserstack.networkLogs" : true,
     "browserstack.local": true,
     "browserstack.gpsLocation": "15.36413,73.9455",
-    "browserstack.idleTimeout": "3000",
+    "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
     "locale": "en_US"

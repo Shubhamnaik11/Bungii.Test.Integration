@@ -26,6 +26,7 @@ Feature: Payment page
     
   @regression
   @sanity
+    @card
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen

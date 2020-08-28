@@ -242,7 +242,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
@@ -346,7 +346,7 @@ Feature: Promos
       Then I should be navigated to "Home" screen
 
 
-  @ready
+  @regression
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}
