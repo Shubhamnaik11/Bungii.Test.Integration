@@ -141,6 +141,13 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
+                    action.clickAlertButton("Done");
+            }
             if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
                 action.tapByElement(homePage.Button_ClearPickup());
                 logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
