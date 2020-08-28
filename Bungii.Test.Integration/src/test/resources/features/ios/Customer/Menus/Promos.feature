@@ -115,24 +115,7 @@ Feature: Promos
     And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
-
-  @ready
-  Scenario: Verify Referral Invite When Facebook App Is Already Installed
-    Given I have "facebook" app "installed"
-    When I Select "PROMOS" from Customer App menu
-    Then I should be navigated to "PROMOS" screen
-    When I click "GET MORE MONEY" button on "PROMOS" screen
-    Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    And I click "SHARE ON FACEBOOK" button on "INVITE" screen
-    Then I should see "popup to post" Overlay Facebook screen
-    When I enter "valid data" on Overlay Facebook screen
-  #  And I tap "Next" button on Overlay Facebook screen
-    And I tap "POST" button on Overlay Facebook screen
-#    When I tap "Share" button on Overlay Facebook screen
-    Then I should be navigated to "Invite" screen
-
+    
   @regression
   Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"

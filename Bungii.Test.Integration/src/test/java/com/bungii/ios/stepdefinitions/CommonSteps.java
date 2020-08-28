@@ -253,7 +253,7 @@ public class CommonSteps extends DriverBase {
                 case "No Mail Accounts":
                     String text= action.getAlertMessage().toString();
                     action.clickAlertButton("OK");
-                    testStepAssert.isEquals(text,"No Mail Accounts","No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
+                    testStepAssert.isTrue(text.contains("No Mail Accounts"),"No Mail Accounts Popup should be displayed", text +" is displayed",text+" is not displayed");
 
             }
             log("No Mail Accounts Popup should be displayed",
