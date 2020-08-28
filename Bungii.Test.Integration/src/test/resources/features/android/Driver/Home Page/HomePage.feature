@@ -6,6 +6,7 @@ Feature: Driver Home screen
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
   @regression
   Scenario: Verify Driver Default Status Is Set To Offline After Login

@@ -18,6 +18,7 @@ import org.testng.collections.Lists;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -625,6 +626,46 @@ public class ActionManager {
             logger.error("Error performing step | Select "+text+" in element -> " + getElementDetails(element), ExceptionUtils.getStackTrace(ex));
             error("Select "+text+" in element -> " + getElementDetails(element), "Unable to Select "+text +" in element -> " + getElementDetails(element),
                     true);
+        }
+    }
+
+    public List<String> getListOfAlertButton() {
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        wait.until(ExpectedConditions.alertIsPresent());
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("action", "getButtons");
+        List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
+        logger.detail("GET | List of alert button[s]:" + buttons.toString());
+        return buttons;
+    }
+
+    public boolean clickAlertButton(String label) {
+        List<String> buttons = getListOfAlertButton();
+
+        String buttonLabel = "";
+        for (String button : buttons) {
+            if (button.equalsIgnoreCase(label)) {
+                buttonLabel = button;
+                break;
+            }
+        }
+        if (buttonLabel.equals(""))
+            return false;
+        else {
+            HashMap<String, String> params = new HashMap<>();
+            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+            // params.put("action", "accept");
+            // params.put("buttonLabel", buttonLabel);
+            //  js.executeScript("mobile: alert", params);
+            SetupManager.getDriver().findElement(By.id(label)).click();
+            // Alert alert = SetupManager.getDriver().switchTo().alert();
+            // alert.accept();
+            logger.detail("ACTION | Accept Alert button : "+ label);
+
+            return true;
         }
     }
 }

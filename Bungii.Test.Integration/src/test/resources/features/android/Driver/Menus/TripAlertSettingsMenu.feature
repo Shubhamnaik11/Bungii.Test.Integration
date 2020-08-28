@@ -12,6 +12,7 @@ Feature: DriverMenu
   Scenario Outline: Verify Trip Alert Settings On Trip Alerts Tab (Default:7.00AM-9.00PM)
     When I enter phoneNumber :<Username> and  Password :<Password>
     And I click "Log In" button on Log In screen on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "ALERT SETTINGS" from driver App menu
     And the "ALERT SETTINGS" page is opened
     And I click on "Trip Alerts" tab

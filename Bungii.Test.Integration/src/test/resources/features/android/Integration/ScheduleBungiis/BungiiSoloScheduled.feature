@@ -13,9 +13,12 @@ Feature: SoloScheduled
       | kansas   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
    # And I wait for Minimum duration for Bungii Start Time
