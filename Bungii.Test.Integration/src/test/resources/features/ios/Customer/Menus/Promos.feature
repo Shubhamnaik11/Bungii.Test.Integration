@@ -133,7 +133,7 @@ Feature: Promos
 #    When I tap "Share" button on Overlay Facebook screen
     Then I should be navigated to "Invite" screen
 
-  @ready
+  @regression
   Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
