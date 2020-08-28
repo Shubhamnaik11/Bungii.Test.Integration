@@ -17,7 +17,8 @@
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra3": {
     "platformName": "Android",
@@ -37,7 +38,8 @@
     "uiautomator2ServerLaunchTimeout": 30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra1": {
     "platformName": "Android",
@@ -57,7 +59,8 @@
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "extra2": {
     "platformName": "Android",
@@ -77,7 +80,8 @@
     "uiautomator2ServerLaunchTimeout":30000,
     "appWaitDuration": 40000,
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : "true"
   },
   "connection": {
     "device1": 0,
