@@ -188,7 +188,7 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "New Partner":
                 action.click(admin_BusinessUsersPage.Button_CreateBusinessUser());
                 break;
-            case "New Promoter":
+            case "New Partners":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
 
