@@ -116,7 +116,7 @@ Feature: Promos
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Referral Invite When Facebook App Is Already Installed
     Given I have "facebook" app "installed"
     When I Select "PROMOS" from Customer App menu
@@ -133,7 +133,7 @@ Feature: Promos
 #    When I tap "Share" button on Overlay Facebook screen
     Then I should be navigated to "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -171,7 +171,7 @@ Feature: Promos
 
 
   @regression
-    @failed
+  @testPOC
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -242,7 +242,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
+  @ready
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
@@ -346,7 +346,7 @@ Feature: Promos
       Then I should be navigated to "Home" screen
 
 
-  @regression
+  @ready
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}

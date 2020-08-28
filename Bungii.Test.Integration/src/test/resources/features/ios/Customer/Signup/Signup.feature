@@ -6,8 +6,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
   Background:
     Given I am on the "SIGN UP" page
 
-  @regression
-    @testing
+  @ready
   Scenario Outline: Verify Referral Source Is Incremented By 1 If Customer Registers By Selecting Referral Source - Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -41,7 +40,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Source :OTHER | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 |               | OTHER  |
 
     @failed
-  @regression
+  @ready
   Scenario Outline:Verify Customer Can Submit Registration Form With Promocode
     When I open new "Chrome" browser for "ADMIN"
     And I navigate to admin portal
@@ -154,7 +153,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | Mike       | tester    | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | XX            | facebook | INVALID PROMO WHILE SIGNUP |
   @failed
   #promo code in example
-  @regression
+  @ready
   Scenario Outline: Verify Text On Promos Screen When First Time Promocode Is Added
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
@@ -202,7 +201,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
   @failed
     #used one off
   #Know issue, no alert
-  @regression
+  @ready
   Scenario Outline: Verify Validation Is Displayed On Signup If Invalid Or Used One Off Promocode Is Entered
     When I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page
     And I Enter "<Last Name>" value in "Last Name" field in "SIGN UP" Page
