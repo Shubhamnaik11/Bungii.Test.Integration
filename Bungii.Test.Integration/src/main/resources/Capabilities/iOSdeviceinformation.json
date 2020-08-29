@@ -18,7 +18,8 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "browserstack.acceptSslCerts": true
+    "browserstack.acceptSslCerts": true,
+    "newCommandTimeout":0
 
   },
   "device1": {
@@ -39,7 +40,8 @@
     "acceptInsecureCerts" : true,
     "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true,
-    "browserstack.acceptSslCerts": true
+    "browserstack.acceptSslCerts": true,
+    "newCommandTimeout":0
 
   },
 
