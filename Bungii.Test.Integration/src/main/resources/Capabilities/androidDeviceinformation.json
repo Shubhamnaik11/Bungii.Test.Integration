@@ -18,7 +18,7 @@
     "appWaitDuration": 40000,
     "language": "EN",
     "locale": "en_US",
-    "acceptInsecureCerts" : "true"
+    "acceptInsecureCerts" : true
   },
   "extra3": {
     "platformName": "Android",
@@ -39,7 +39,7 @@
     "appWaitDuration": 40000,
     "language": "EN",
     "locale": "en_US",
-    "acceptInsecureCerts" : "true"
+    "acceptInsecureCerts" : true
   },
   "extra1": {
     "platformName": "Android",
@@ -60,7 +60,7 @@
     "appWaitDuration": 40000,
     "language": "EN",
     "locale": "en_US",
-    "acceptInsecureCerts" : "true"
+    "acceptInsecureCerts" : true
   },
   "extra2": {
     "platformName": "Android",
@@ -81,7 +81,7 @@
     "appWaitDuration": 40000,
     "language": "EN",
     "locale": "en_US",
-    "acceptInsecureCerts" : "true"
+    "acceptInsecureCerts" : true
   },
   "connection": {
     "device1": 0,
