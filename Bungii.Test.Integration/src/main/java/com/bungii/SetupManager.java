@@ -61,6 +61,8 @@ public class SetupManager extends EventFiringWebDriver {
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
+            CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
+
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
@@ -87,6 +89,8 @@ public class SetupManager extends EventFiringWebDriver {
 
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+
                     }
                 }
                 catch (Exception e) {
@@ -96,6 +100,8 @@ public class SetupManager extends EventFiringWebDriver {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+
                     }
                 }
                 if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
@@ -114,6 +120,7 @@ public class SetupManager extends EventFiringWebDriver {
 
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
                     }
                 }
             }

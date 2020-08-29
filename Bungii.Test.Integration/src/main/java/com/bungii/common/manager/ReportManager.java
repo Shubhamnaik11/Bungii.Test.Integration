@@ -110,6 +110,7 @@ public class ReportManager {
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
+	public int skipped(){return htmlReportManager.skipped();}
 
 	/**
 	 *Add row in Result 

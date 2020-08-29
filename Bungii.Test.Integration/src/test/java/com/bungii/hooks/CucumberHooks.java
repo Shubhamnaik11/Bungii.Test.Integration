@@ -132,10 +132,18 @@ public class CucumberHooks {
             DriverManager.getObject().closeAllDriverInstanceExceptOriginal();
             SetupManager.getObject().useDriverInstance("ORIGINAL");
 
-            this.reportManager.endTestCase(scenario.isFailed());
+
             if (!scenario.isFailed() || !this.reportManager.isVerificationFailed())
             {
-                logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
+                String Failure = (String) CucumberContextManager.getObject().getScenarioContext("FAILURE");
+
+                if (Failure.equals("TRUE")) {
+                    logger.detail("SKIPPED TEST SCENARIO : " + scenario.getName()+" | Skipped Count : "+this.reportManager.skipped());
+                }
+
+                else
+                    logger.detail("PASSING TEST SCENARIO : " + scenario.getName());
+                CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
             }
             else if (scenario.isFailed() || this.reportManager.isVerificationFailed()) {
                 //if consecutive two case failed then create new instance
@@ -173,6 +181,7 @@ public class CucumberHooks {
                 JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
                 js.executeScript(String.format("window.localStorage.clear();"));
             }
+            this.reportManager.endTestCase(scenario.isFailed());
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
