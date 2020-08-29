@@ -38,7 +38,7 @@ public class EnableLocationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableLocationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.location.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableLocationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.location.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableLocationPage.Text_Label()), PropertyUtility.getMessage("customer.navigation.allow.location.text"));
                     break;
 
@@ -85,7 +85,7 @@ public class EnableLocationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableLocationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.location.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableLocationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.location.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableLocationPage.Text_Label()), PropertyUtility.getMessage("driver.navigation.allow.location.text"));
                     break;
 

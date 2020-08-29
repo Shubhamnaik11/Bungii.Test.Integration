@@ -558,7 +558,7 @@ public class HomeSteps extends DriverBase {
      * @return Navigation header name
      */
     public String getNavigationBarName() {
-        return action.getNameAttribute(homePage.Text_NavigationBar());
+        return action.getScreenHeader(homePage.Text_NavigationBar());
     }
 
 

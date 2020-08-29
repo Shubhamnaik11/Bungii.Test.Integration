@@ -710,7 +710,7 @@ public class UpdateStatusSteps extends DriverBase {
      */
     public boolean isUpdatePage(String pageName) {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), pageName);
-        return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(pageName);
+        return action.getScreenHeader(updateStatusPage.Text_NavigationBar()).equals(pageName);
 
     }
 

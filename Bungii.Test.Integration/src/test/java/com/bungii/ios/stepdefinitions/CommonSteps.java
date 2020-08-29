@@ -576,7 +576,7 @@ public class CommonSteps extends DriverBase {
               //  }
             }
 
-            String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
             switch (screen.toUpperCase()) {
                 case "LOG IN":
                     goToLogInPage(NavigationBarName);
@@ -671,7 +671,7 @@ public class CommonSteps extends DriverBase {
         try {
 
             i_switch_to_something_application_on_something_devices("driver",device);
-        String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
+        String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         goToDriverLogInPage(navigationBarName);
         String phone, password;
         boolean shouldLoginSucessful;
@@ -764,7 +764,7 @@ public class CommonSteps extends DriverBase {
      */
     public void goOnline() {
 
-        String navigationHeaderName = action.getNameAttribute(driverhomepage.NavigationBar_Status());
+        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
 
         if (navigationHeaderName.equals("ONLINE"))
             logger.warning("driver Status is already Online");
@@ -780,7 +780,7 @@ public class CommonSteps extends DriverBase {
      * driver goes offline
      */
     public void goOffline() {
-        String navigationHeaderName = action.getNameAttribute(driverhomepage.NavigationBar_Status());
+        String navigationHeaderName = action.getScreenHeader(driverhomepage.NavigationBar_Status());
 
         if (navigationHeaderName.equals("OFFLINE")) {
             logger.warning("driver Status is already offline");
@@ -824,6 +824,7 @@ public class CommonSteps extends DriverBase {
     @When("^I Switch to \"([^\"]*)\" application on \"([^\"]*)\" devices$")
     public void i_switch_to_something_application_on_something_devices(String appName, String device) {
         try {
+            logger.detail ("*** Switching to : " + appName + " application ****");
             String appHeader = "";
             if (!device.equalsIgnoreCase("same")) {
                 i_switch_to_something_instance(device);
@@ -848,7 +849,7 @@ public class CommonSteps extends DriverBase {
                     break;
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
-            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+            if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         ((IOSDriver) SetupManager.getDriver()).terminateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -861,7 +862,7 @@ public class CommonSteps extends DriverBase {
                 }
             }
             new GeneralUtility().handleIosUpdateMessage();
-            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+            if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 logger.error("Retrying to start app 3rd time ");//:Page source:", SetupManager.getDriver().getPageSource());
 
                 switch (appName.toUpperCase()) {
@@ -875,15 +876,14 @@ public class CommonSteps extends DriverBase {
                         break;
                 }
             }
-            pass("Switch to : " + appName + " application on above device instance",
-                    "Switched to : " + appName + " application on above device instance", true);
+            pass("Switch to : " + appName + " application on device instance",
+                    "Switched to : " + appName + " application on device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-            logger.detail ("Switched to : " + appName + " application");
         } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Error in switching tp app "+ appName, ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in switching tp app "+ appName, true);
 
         }
     }
@@ -911,7 +911,7 @@ public class CommonSteps extends DriverBase {
                     break;
             }        //temp fixed
             new GeneralUtility().handleIosUpdateMessage();
-            if (!action.getNameAttribute(homePage.Application_Name()).equals(appHeader)) {
+            if (!action.getScreenHeader(homePage.Application_Name()).equals(appHeader)) {
                 switch (appName.toUpperCase()) {
                     case "DRIVER":
                         ((IOSDriver) SetupManager.getDriver()).activateApp(PropertyUtility.getProp("bundleId_Driver"));
@@ -927,10 +927,10 @@ public class CommonSteps extends DriverBase {
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
 
         } catch (Throwable e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            logger.error("Error in Opening " + appName + " application" + device + " devices", ExceptionUtils.getStackTrace(e));
             //logger.error("Page source", SetupManager.getDriver().getPageSource());
             error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+                    "Error in Opening " + appName + " application" + device + " devices", true);
 
         }
     }
@@ -1085,7 +1085,7 @@ public class CommonSteps extends DriverBase {
     @When("^I logged in Customer application using  \"([^\"]*)\" user$")
     public void i_logged_in_customer_application_using_something_user(String key) {
         try {
-            String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
             String userName = "", password = "";
             switch (key.toLowerCase()) {
                 case "existing":
@@ -1171,7 +1171,7 @@ public class CommonSteps extends DriverBase {
             logInSteps.i_enter_valid_and_as_per_below_table(userName, password);
             iClickButtonOnScreen("Log In", "Log In");
             Thread.sleep(2000);
-            NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
                 new GeneralUtility().navigateFromTermToHomeScreen();
@@ -1470,7 +1470,7 @@ public class CommonSteps extends DriverBase {
             LogInSteps logInSteps = new LogInSteps(new LoginPage());
             HomeSteps homeSteps = new HomeSteps(homePage);
             GeneralUtility utility = new GeneralUtility();
-            String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
                     || NavigationBarName.equals("SIGN UP")) {
@@ -1483,7 +1483,7 @@ public class CommonSteps extends DriverBase {
 
                 iClickButtonOnScreen("Log In", "Log In");
                 Thread.sleep(2000);
-                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+                NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
                 if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
                     //DO Nothing
                 } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
@@ -1526,7 +1526,7 @@ public class CommonSteps extends DriverBase {
             LogInSteps logInSteps = new LogInSteps(new LoginPage());
             HomeSteps homeSteps = new HomeSteps(homePage);
             GeneralUtility utility = new GeneralUtility();
-            String NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+            String NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
 
             if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.login"))
                     || NavigationBarName.equals("SIGN UP")) {
@@ -1546,7 +1546,7 @@ public class CommonSteps extends DriverBase {
 
                 iClickButtonOnScreen("Log In", "Log In");
                 Thread.sleep(2000);
-                NavigationBarName = action.getNameAttribute(homePage.Text_NavigationBar());
+                NavigationBarName = action.getScreenHeader(homePage.Text_NavigationBar());
                 if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.home"))) {
                     //DO Nothing
                 } else if (NavigationBarName.equalsIgnoreCase(PropertyUtility.getMessage("customer.navigation.terms.condition"))) {
