@@ -279,8 +279,8 @@ public class GeneralUtility extends DriverBase {
             updateStatus();
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
@@ -289,8 +289,8 @@ public class GeneralUtility extends DriverBase {
             updateStatus();
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
@@ -298,8 +298,8 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Driver struck on UNLOADING_ITEM screen");
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
