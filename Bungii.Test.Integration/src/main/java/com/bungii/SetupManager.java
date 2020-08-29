@@ -104,8 +104,18 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
+                //System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
+                try{
                 driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                }catch (SessionNotCreatedException e) {
+                    try {
+                        // Thread.sleep(180000);
+                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+
+                    } catch (Exception e1) {
+                        ManageDevices.afterSuiteManageDevice();
+                    }
+                }
             }
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));

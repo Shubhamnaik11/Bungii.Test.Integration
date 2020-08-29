@@ -106,14 +106,11 @@ public class TermsAndConditionSteps extends DriverBase {
                     action.click(tutorialPage);
                     isClicked = true;
                 }
-                testStepAssert.isTrue(isClicked, "5 pages are present.", "5 pages are not present.");
                 action.click(homePage.Text_TutorialPdfPage1());
                 for (int i = 0; i < xpathCount - 1; i++) {
                     action.swipeLeft(homePage.Text_TutorialPdf());
                     isSwiped = true;
                 }
-
-                testStepAssert.isTrue(isSwiped, "Swiped through the pages.", "Couldn't swipe through the pages.");
                     action.click(homePage.Button_Closetutorials());
             }
 
