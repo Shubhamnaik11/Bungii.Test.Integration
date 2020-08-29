@@ -14,7 +14,12 @@
     "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
+    "browserstack.acceptInsecureCerts": true,
+    "browserstack.acceptSslCerts": true
+
   },
   "device1": {
     "platformName": "iOS",
@@ -30,7 +35,12 @@
     "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
+    "browserstack.acceptInsecureCerts": true,
+    "browserstack.acceptSslCerts": true
+
   },
 
 

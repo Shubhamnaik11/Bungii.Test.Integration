@@ -39,8 +39,8 @@ public class HomeSteps extends DriverBase {
     public void user_should_be_successfully_logged_in_to_the_system() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            boolean isHomePage = utility.verifyPageHeader("HOME");
-            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+            boolean isHomePage = utility.verifyPageHeader("BUNGII"); //Customer App Screen
+            testStepVerify.isTrue(isHomePage, "User should be loggind in", " BUNGII screen is displayed", "User was not logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
