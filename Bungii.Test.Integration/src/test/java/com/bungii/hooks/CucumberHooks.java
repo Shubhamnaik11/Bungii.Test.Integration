@@ -92,32 +92,7 @@ public class CucumberHooks {
      */
     @Before
     public void beforeTest(Scenario scenario) {
-       // try {
-            //  if (SystemUtils.IS_OS_MAC) {
-           /* if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-                //commented code to remove webdriver agent
-                String deviceInfoFileKey = "ios.capabilities.file";
-                String deviceId = System.getProperty("DEVICE");
 
-
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
-
-                ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
-                JSONObject jsonParsed, jsonCaps;
-                jsonParsed = jsonParser.getObjectFromJSON();
-                jsonCaps = jsonParsed.getJSONObject(deviceId);
-                String udid = jsonCaps.getString("udid");
-
-
-         //       Runtime.getRuntime().exec("./src/main/resources/Scripts/Mac/deleteWebDriverAgent.sh " + udid);
-
-            }
-        } catch (Exception e) {
-            // logger.error("Error removing webdriver aggent ", ExceptionUtils.getStackTrace(e));
-
-        }
-        */
         logger.detail("**********************************************************************************");
         String[] rawFeature = scenario.getId().split("features/")[1].split("/");
         String[] rawFeatureName = rawFeature[rawFeature.length - 1].split(":");
@@ -126,26 +101,13 @@ public class CucumberHooks {
         logger.detail("Feature : " + rawFeatureName[0]);
         logger.detail("Starting Scenario : " + scenario.getName());
         this.reportManager.startTestCase(scenario.getName(), rawFeatureName[0]);
-/*		if(PropertyUtility.targetPlatform.equalsIgnoreCase("IOS"))
-			new GeneralUtility().recoverScenario();*/
-        //Set original instance as default instance at start of each test case
         SetupManager.getObject().useDriverInstance("ORIGINAL");
-        // SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Customer"));
-
-        //restart driver app
-        //SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-        //SetupManager.getObject().restartApp();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //restart driver app
-        //SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
-        //Vishal[1801]: Restart app before Each test case
-        //If not first test case
         if (!isFirstTestCase) {
-
             SetupManager.getObject().restartApp();
         }
         try {
@@ -181,7 +143,7 @@ public class CucumberHooks {
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
-                    logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    //logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
 
                 } catch (Exception e) {
                 }
@@ -214,7 +176,7 @@ public class CucumberHooks {
             //clear scenario context
             CucumberContextManager.getObject().clearSecnarioContextMap();
         } catch (Exception e) {
-            logger.error("Error performing step ", ExceptionUtils.getStackTrace(e));
+            logger.error("Error in After Test Block ", ExceptionUtils.getStackTrace(e));
 
         }
 
@@ -231,9 +193,6 @@ public class CucumberHooks {
      */
     public void tearDown() throws IOException {
         this.reportManager.endSuiteFile();
-        //SetupManager.stopAppiumServer();
-        //   logger.detail("PAGE SOURCE:" + DriverManager.getObject().getDriver().getPageSource());
-
     }
 
 
@@ -242,9 +201,6 @@ public class CucumberHooks {
     @Before("@POSTDUO")
     public void afterDuoScenario() {
         if (PropertyUtility.targetPlatform.equalsIgnoreCase("IOS")) {
-            // new GeneralUtility().installDriverApp();
-            // try{ SetupManager.getObject().launchApp(PropertyUtility.getProp("bundleId_Driver"));new LogInSteps().i_am_logged_in_as_something_driver("valid");}catch (Exception e){}
-            // new GeneralUtility().installCustomerApp();
         }
     }
 
