@@ -56,7 +56,7 @@ public class SetupManager extends EventFiringWebDriver {
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
-        logger.detail("TARGET_PLATFORM : " + TARGET_PLATFORM);
+        logger.detail("TARGET PLATFORM : " + TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
@@ -400,7 +400,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("Test is running on device " + deviceId + " : " + phoneDetails);
+        logger.detail("Test Kickoff On Device " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 

@@ -1511,9 +1511,12 @@ public class CommonSteps extends DriverBase {
             } else {
                 homeSteps.i_select_something_from_customer_app_menu("HOME");
             }
-            cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
-            cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
-            log("Given customer is logged in as customer","Customer "+ PropertyUtility.getDataProperties("customer.name") +" ("+PropertyUtility.getDataProperties("customer.user")+") is logged in");
+
+           // cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer.name"));
+            //cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer.user"));
+
+            log("Given customer is logged in as customer","Customer is logged in");
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details",

@@ -225,7 +225,7 @@ public class PropertyUtility {
 
         //add login Data properties to main data properties
         data.putAll(loginData);
-        System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
+       // System.out.println("Listing merged data + login properties ("+LOGIN_PROPERTY_FILE+")");
        // data.list(System.out);
 
         resultConfig = new Properties();

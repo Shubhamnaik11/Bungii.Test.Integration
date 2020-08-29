@@ -33,7 +33,8 @@ public class LogInSteps extends DriverBase {
             cucumberContextManager.setScenarioContext("CUSTOMER_PHONE_EXTRA", strUserName);
 
             pass( "Username and Password should be entered sucessfully",
-                    "Username :"+ strUserName+", and password :"+strPassWord+" is entered successfully");
+            "Entered Customer Credentials ["+ strUserName+" / "+strPassWord+"] successfully");
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

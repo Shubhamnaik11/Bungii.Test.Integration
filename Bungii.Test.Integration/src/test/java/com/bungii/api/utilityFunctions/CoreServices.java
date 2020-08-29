@@ -182,7 +182,7 @@ public class CoreServices extends DriverBase {
         }
         else
             System.out.println("No Pickup requests found for which driver is eligible");
-        
+
         return isPickupInAvailableTrip;
     }
 
