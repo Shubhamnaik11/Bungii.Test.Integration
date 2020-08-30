@@ -23,7 +23,7 @@ public class LogInSteps extends DriverBase {
     @And("^I enter Username :(.+) and  Password :(.+)$")
     public void i_enter_valid_and_as_per_below_table(String username, String password) {
         try {
-            String strUserName = username.equals("<BLANK>") ? "" : username.trim().equals("{VALID}")? PropertyUtility.getDataProperties("customer.user"):username;
+            String strUserName = username.equals("<BLANK>") ? "" : username.trim().equals("{VALID1}")? PropertyUtility.getDataProperties("customer.NonBungiiFlow.UserA"):username;
             String strPassWord = password.equals("<BLANK>") ? "" : password.equals("{VALID}")? PropertyUtility.getDataProperties("customer.password"):password;
             strUserName =username.equalsIgnoreCase("{with no card}")? PropertyUtility.getDataProperties("no.payment.card.customer.user"):strUserName;
             strPassWord = password.equals("{with no card}") ?  PropertyUtility.getDataProperties("no.payment.card.customer.password"):strPassWord;
