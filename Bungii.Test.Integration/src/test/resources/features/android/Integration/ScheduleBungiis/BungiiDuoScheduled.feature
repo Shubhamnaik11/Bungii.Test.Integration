@@ -1,6 +1,6 @@
 @android
 @duo
-
+@bungii
   #These feature will run in atlanta geofence
 
 Feature: Duo

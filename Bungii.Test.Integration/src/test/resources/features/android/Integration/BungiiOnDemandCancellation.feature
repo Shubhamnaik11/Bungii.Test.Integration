@@ -1,4 +1,5 @@
 @android
+@bungii
   Feature: OnDemandBungii_Cancellation
   Scenarios where customer requests and cancels the Bungii.
 
