@@ -22,6 +22,7 @@ public class TermsAndConditionSteps extends DriverBase {
     DriverHomePage driverHomePage=new DriverHomePage();
     HomePage homePage=new HomePage();
     private static LogUtility logger = new LogUtility(TermsAndConditionSteps.class);
+    TermsPage Page_CustTerms = new TermsPage();
 
     public TermsAndConditionSteps(TermsPage termsAndConditionPage) {
         this.termsAndConditionPage = termsAndConditionPage;
@@ -76,20 +77,27 @@ public class TermsAndConditionSteps extends DriverBase {
                 Thread.sleep(3000);
                 // pageHeader = utility.getPageHeader();
             }
-            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
-                action.click(driverHomePage.Button_Sure(true));
+            //if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+               // action.click(driverHomePage.Button_Sure(true));
+                if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+                    action.click(Page_CustTerms.Button_PermissionsSure());
+                    action.click(Page_CustTerms.Button_PermissionsAllow());
+                }
                 Thread.sleep(3000);
-                action.clickAlertButton("Allow");
-                Thread.sleep(3000);
-                // pageHeader = utility.getPageHeader();
+            if (action.isElementPresent(Page_CustTerms.Button_PermissionsSure()) ){
+                action.click(Page_CustTerms.Button_PermissionsSure());
+                action.click(Page_CustTerms.Button_PermissionsAllow());
             }
-            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+
+
+           // }
+           /* if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
                 action.click(driverHomePage.Button_Sure(true));
                 Thread.sleep(3000);
                 action.clickAlertButton("Allow");  //Customer App alert for ios 12 and below
                 Thread.sleep(3000);
                 // pageHeader = utility.getPageHeader();
-            }
+            }*/
 
         } catch (Exception e) {
         }

@@ -650,7 +650,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", CUSTOMER_VIEW);
         Response response = ApiHelper.givenCustConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+        //response.then().log().body();
         JsonPath jsonPathEvaluator = response.jsonPath();
         ApiHelper.genericResponseValidation(response);
         return response;

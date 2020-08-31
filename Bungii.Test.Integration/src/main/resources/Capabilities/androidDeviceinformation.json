@@ -19,6 +19,7 @@
     "language": "EN",
     "locale": "en_US",
     "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true
 
   },
@@ -42,6 +43,7 @@
     "language": "EN",
     "locale": "en_US",
     "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true
 
   },
@@ -65,6 +67,7 @@
     "language": "EN",
     "locale": "en_US",
     "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true
 
   },
@@ -88,6 +91,7 @@
     "language": "EN",
     "locale": "en_US",
     "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
     "browserstack.acceptInsecureCerts": true
   },
   "connection": {

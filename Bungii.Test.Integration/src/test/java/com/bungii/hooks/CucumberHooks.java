@@ -151,7 +151,7 @@ public class CucumberHooks {
                     SetupManager.getObject().createNewAppiumInstance("ORIGINAL", "device1");
                 try {
                     logger.detail("FAILED TEST SCENARIO : " + scenario.getName());
-                    //logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
+                    logger.warning("PAGE SOURCE :" + StringUtils.normalizeSpace(DriverManager.getObject().getDriver().getPageSource()));
 
                 } catch (Exception e) {
                 }
