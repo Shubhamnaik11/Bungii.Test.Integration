@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 
 public class Admin_PromoCodesPage extends PageBase {
 
-    public WebElement Title_PromocodesPage (boolean...ignoreException) { return findElement("//h4[text()='Promo Codes']", LocatorType.XPath,ignoreException); }
+    public WebElement Title_PromocodesPage (boolean...ignoreException) { return findElement("//h4[text()='Partners']", LocatorType.XPath,ignoreException); }
 
     public WebElement Menu_Marketing (boolean... ignoreException) { return findElement("adminmenu-marketing", LocatorType.Id,ignoreException); }
 

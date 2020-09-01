@@ -71,11 +71,13 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;
-           case "Free Deliveries Codes  > Partners" :
+           case "Promo Codes > Free Deliveries Codes  > Partners" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                break;
            case "Free Deliveries Codes  > Free Delivery Credit Card" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                action.click(admin_PromoterPage.Menu_PromoterPayment());
                break;
            case "Geofences  > Geofences" :
