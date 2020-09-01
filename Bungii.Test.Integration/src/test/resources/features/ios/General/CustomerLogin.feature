@@ -15,8 +15,8 @@ Feature: Customer Login
 
     Examples:
       | Scenario                | Username | Password | Expected Message |
-      | INVALID PASSWORD        | {VALID}  | Cci1234  | INVALID_PASSWORD |
-      | EMPTY PASSWORD          | {VALID}  | <BLANK>  | EMPTY_FIELD      |
+      | INVALID PASSWORD        | {VALID1}  | Cci1234  | INVALID_PASSWORD |
+      | EMPTY PASSWORD          | {VALID1}  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME PASSWORD | <BLANK>  | <BLANK>  | EMPTY_FIELD      |
       | EMPTY USERNAME          | <BLANK>  | Cci12345 | EMPTY_FIELD      |
     

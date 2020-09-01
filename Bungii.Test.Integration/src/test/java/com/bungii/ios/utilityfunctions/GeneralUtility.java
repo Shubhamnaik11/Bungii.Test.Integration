@@ -771,6 +771,7 @@ public class GeneralUtility extends DriverBase {
                 if(navigationBarName != null && !navigationBarName.isEmpty())
                     if (navigationBarName.equals("NOTIFICATIONS")) {
                     grantPermissionToDriverApp();
+                    Thread.sleep(3000);
                         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                             action.click(enableLocationPage.Button_Sure());
                             action.clickAlertButton("Always Allow");
