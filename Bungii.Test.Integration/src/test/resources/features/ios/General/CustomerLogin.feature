@@ -23,7 +23,7 @@ Feature: Customer Login
   @sanity
   @ready
   Scenario: Verify Customer Can Login Using Valid Credentials
-    When I enter Username :{VALID1} and  Password :{VALID1}
+    When I enter Username :{VALID1} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I close "Tutorial" if exist
@@ -33,7 +33,7 @@ Feature: Customer Login
   Scenario: Verify Customer Is Shown Terms And Condition Screen On First Time Login
     Given I install Bungii App again
     When I am on the "LOG IN" page
-    And I enter Username :{VALID1} and  Password :{VALID1}
+    And I enter Username :{VALID1} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "TERMS AND CONDITION" screen
     And I should see "all details" on Term and Condition agreement
@@ -48,7 +48,7 @@ Feature: Customer Login
     Then User should be successfully logged in to the application
     And I Select "LOGOUT" from Customer App menu
     When I am on the "LOG IN" page
-    And I enter Username :{VALID1} and  Password :{VALID1}
+    And I enter Username :{VALID1} and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
     Then I should be navigated to "Home" screen
     
