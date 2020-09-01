@@ -39,8 +39,8 @@ public class HomeSteps extends DriverBase {
     public void user_should_be_successfully_logged_in_to_the_system() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            boolean isHomePage = utility.verifyPageHeader("HOME");
-            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+            boolean isHomePage = utility.verifyPageHeader("BUNGII"); //Customer App Screen
+            testStepVerify.isTrue(isHomePage, "User should be loggind in", " BUNGII screen is displayed", "User was not logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -140,6 +140,13 @@ public class HomeSteps extends DriverBase {
                 logger.detail("Geofence specified is : " + (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE"));
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
+            }
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
+                    action.clickAlertButton("Done");
             }
             if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
                 action.tapByElement(homePage.Button_ClearPickup());
@@ -551,7 +558,7 @@ public class HomeSteps extends DriverBase {
      * @return Navigation header name
      */
     public String getNavigationBarName() {
-        return action.getNameAttribute(homePage.Text_NavigationBar());
+        return action.getScreenHeader(homePage.Text_NavigationBar());
     }
 
 

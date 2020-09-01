@@ -52,5 +52,6 @@ public class DriverHomePage extends PageBase {
     public WebElement Text_ScheduledBungiisSolo(boolean ignoreException) { return findElement("com.bungii.driver:id/toolbar_main_title", LocatorType.Id);}
     public WebElement Text_BungiiCompleted(boolean ignoreException) { return findElement("com.bungii.driver:id/pickup_summary_toolbar_title", LocatorType.Id);}
 
+    public WebElement Button_Sure(boolean ignoreException){ return findElement("com.bungii.driver:id/button_location_permission_sure", LocatorType.Id,ignoreException);}
 
 }

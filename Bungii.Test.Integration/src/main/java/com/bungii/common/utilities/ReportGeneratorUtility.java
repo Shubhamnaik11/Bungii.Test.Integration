@@ -341,6 +341,10 @@ public class ReportGeneratorUtility extends DriverBase {
 	public boolean isScenarioFailed(){
 		return this.isTcVerifyFailed;
 	}
+	public int skipped(){
+		inconclusive++;
+		return inconclusive;
+	}
 
 	private String getLogDetails(ArrayList<String> strArray) {
 		String strDetails = "";

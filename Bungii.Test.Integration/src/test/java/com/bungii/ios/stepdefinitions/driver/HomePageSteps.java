@@ -232,10 +232,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -253,11 +253,11 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
                     testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), PropertyUtility.getMessage("driver.home.goonline"));
                     break;
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
                     testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), PropertyUtility.getMessage("driver.home.gooffline"));
                     break;
                 default:

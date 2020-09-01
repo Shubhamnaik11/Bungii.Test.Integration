@@ -283,12 +283,12 @@ public class PaymentSteps extends DriverBase {
                     break;
                 case "invalid card number":
                     action.click(paymentPage.Textfield_CardNumber());
-                    action.sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
+                    action.clearSendKeys(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.invalid.card"));
                     // paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
                     break;
                 case "fraud card number":
                     action.click(paymentPage.Textfield_CardNumber());
-                    action.sendKeys(PropertyUtility.getDataProperties("payment.fraud.card"));
+                    action.clearSendKeys(paymentPage.Textfield_CardNumber(),PropertyUtility.getDataProperties("payment.fraud.card"));
                     break;
                 case "valid expiry date":
                     action.click(paymentPage.Month_12());

@@ -1,4 +1,5 @@
 @android
+@bungii
     #These feature will run in Goa geofence
 Feature: VerifyBungiiDetails2
 
@@ -8,11 +9,14 @@ Feature: VerifyBungiiDetails2
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "Testdriver_goa_a Android_test" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I tap on "Go Online button" on Driver Home page
     Then I Switch to "customer" application on "same" devices
 
     When I am on customer Log in page
     And I am logged in as "Testcustomertywd_appleand_A Android" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I enter "Goa pickup and dropoff locations" on Bungii estimate screen
     And I tap on "Get Estimate button" on Bungii estimate
     And I select Bungii Time as "NEW BUNGII TIME"

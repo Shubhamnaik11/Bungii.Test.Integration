@@ -115,24 +115,7 @@ Feature: Promos
     And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
-
-  @ready
-  Scenario: Verify Referral Invite When Facebook App Is Already Installed
-    Given I have "facebook" app "installed"
-    When I Select "PROMOS" from Customer App menu
-    Then I should be navigated to "PROMOS" screen
-    When I click "GET MORE MONEY" button on "PROMOS" screen
-    Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    And I click "SHARE ON FACEBOOK" button on "INVITE" screen
-    Then I should see "popup to post" Overlay Facebook screen
-    When I enter "valid data" on Overlay Facebook screen
-  #  And I tap "Next" button on Overlay Facebook screen
-    And I tap "POST" button on Overlay Facebook screen
-#    When I tap "Share" button on Overlay Facebook screen
-    Then I should be navigated to "Invite" screen
-
+    
   @regression
   Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -242,7 +225,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @ready
+  @regression
   Scenario: Verify Promocode is deallocated After Cancellation of Bungii Having Promocode
 
     And I am on the "LOG IN" page
@@ -304,7 +287,7 @@ Feature: Promos
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I should be navigated to "BUNGII DETAILS" screen
-      And Trip Information should be correctly displayed on BUNGII DETAILS screen
+      And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       Then I wait for "2" mins
 
@@ -319,7 +302,8 @@ Feature: Promos
       And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
       Then I should be navigated to "BUNGII DETAILS" screen
-      And Trip Information should be correctly displayed on BUNGII DETAILS screen
+      And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+      #And Trip Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from scheduled trip
@@ -346,7 +330,7 @@ Feature: Promos
       Then I should be navigated to "Home" screen
 
 
-  @ready
+  @regression
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}

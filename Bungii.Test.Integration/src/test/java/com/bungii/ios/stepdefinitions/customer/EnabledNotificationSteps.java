@@ -40,7 +40,7 @@ public class EnabledNotificationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.notifications.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("customer.navigation.allow.notifications.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("customer.navigation.allow.notifications.text"));
 
                     break;
@@ -78,6 +78,7 @@ public class EnabledNotificationSteps extends DriverBase {
                 action.clickAlertButton("Allow");
                // pageName = utility.getPageHeader();
             }
+            Thread.sleep(3000);
             if(action.isElementPresent(enableLocationPage.Button_Sure())) {
                 action.click(enableLocationPage.Button_Sure());
                 action.clickAlertButton("Always Allow");
@@ -95,7 +96,7 @@ public class EnabledNotificationSteps extends DriverBase {
 
             switch (identifier.toLowerCase()) {
                 case "all details":
-                    testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.notifications.header"));
+                    testStepVerify.isEquals(action.getScreenHeader(enableNotificationPage.Text_Header()), PropertyUtility.getMessage("driver.navigation.allow.notifications.header"));
                     testStepVerify.isEquals(action.getNameAttribute(enableNotificationPage.Text_Label()), PropertyUtility.getMessage("driver.navigation.allow.notifications.text"));
 
                     break;

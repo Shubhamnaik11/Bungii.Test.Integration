@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import static com.bungii.SetupManager.getDriver;
+import static com.bungii.SetupManager.setDriver;
 import static com.bungii.common.manager.ResultManager.*;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
@@ -955,6 +956,17 @@ public class EstimateBungiiSteps extends DriverBase {
                 }
                 action.click(bungiiEstimatePage.Link_AddPhoto());
                 Thread.sleep(2000);
+                if(action.isAlertPresent()){
+                    Thread.sleep(3000);
+                    action.clickAlertButton("ALLOW");
+                    Thread.sleep(3000);
+                }
+                String page = SetupManager.getDriver().getPageSource();
+
+               /* if (action.isElementPresent(bungiiEstimatePage.Option_CameraTutorial_Next(true))) {
+                    action.click(bungiiEstimatePage.Option_CameraTutorial_Next());
+                }*/
+
                 //adding most probable outcome first
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
@@ -967,6 +979,9 @@ public class EstimateBungiiSteps extends DriverBase {
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
                     // driver.tap(1, 100, 500, 1);
+                    new TouchAction(driver)
+                            .tap(point(100, 500))
+                            .waitAction(waitOptions(Duration.ofMillis(250))).perform();
                     new TouchAction(driver)
                             .tap(point(100, 500))
                             .waitAction(waitOptions(Duration.ofMillis(250))).perform();
@@ -997,7 +1012,7 @@ public class EstimateBungiiSteps extends DriverBase {
 /*            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
                 //code to be added incase of "Invalid Image error"
             }*/
-
+            Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

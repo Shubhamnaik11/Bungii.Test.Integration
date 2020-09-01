@@ -49,14 +49,4 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then user is alerted for "No twitter installed"
 
-  @ready
-  Scenario: Verify Customer Is Alerted When He Tries To Share Invite Code Using Twitter Application
-    Given I have "twitter" app "installed"
-    When I Select "Home" from Customer App menu
-    And I click "Invite referrals" button on "HOME" screen
-    Then I should be navigated to "Invite" screen
-    When I get Invite Code
-    And I click "SHARE" button on "INVITE" screen
-    And I click "SHARE ON TWITTER" button on "INVITE" screen
-    Then I should see draft post in "twitter" application
-    And I should be navigated to "Invite" screen
+  

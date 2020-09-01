@@ -263,7 +263,7 @@ public class PaymentSteps extends DriverBase {
     public boolean clickOtherCard(String defaultCard) {
         try {
           //  action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[2][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
-            action.click(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[1][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
+            action.tapByElement(paymentPage.findElement("//XCUIElementTypeOther[@name='Other cards']/following::XCUIElementTypeCell/XCUIElementTypeStaticText[1][@name!='" + defaultCard + "']", PageBase.LocatorType.XPath));
             return true;
         } catch (Exception e) {
             return false;

@@ -5,8 +5,7 @@ Feature: Customer	Menu
   Background: 
     Given I am on Customer logged in Home page
   @sanity
-  @FAILED2702
-  @ready
+  @regression
   Scenario: Verify Customer App Menu Links
     When I Select "Home" from Customer App menu
     Then I should be navigated to "Home" screen
@@ -28,7 +27,7 @@ Feature: Customer	Menu
     When I Select "LOGOUT" from Customer App menu
     Then I should be navigated to "LOG IN" screen
 
-  @ready
+  @regression
   Scenario: Verify Customer Support Menu
     When I Select "SUPPORT" from Customer App menu
     Then I should be navigated to "SUPPORT" screen

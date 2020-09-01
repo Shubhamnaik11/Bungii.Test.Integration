@@ -263,7 +263,7 @@ public class GeneralUtility extends DriverBase {
         }*/
     if (action.isElementPresent(driverUpdateStatusPage.Text_NavigationBar(true))) {
 
-        String screen = action.getNameAttribute(driverUpdateStatusPage.Text_NavigationBar());
+        String screen = action.getScreenHeader(driverUpdateStatusPage.Text_NavigationBar());
         logger.detail("screen is " + screen);
         if (screen.equalsIgnoreCase(Status.ARRIVED.toString())) {
             logger.detail("Driver struck on arrived screen");
@@ -279,8 +279,8 @@ public class GeneralUtility extends DriverBase {
             updateStatus();
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
@@ -289,8 +289,8 @@ public class GeneralUtility extends DriverBase {
             updateStatus();
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
@@ -298,8 +298,8 @@ public class GeneralUtility extends DriverBase {
             logger.detail("Driver struck on UNLOADING_ITEM screen");
             updateStatus();
             if (action.isAlertPresent()) {
-                if (action.getListOfAlertButton().contains("INITIATE")) {
-                    action.clickAlertButton("INITIATE");
+                if (action.getListOfAlertButton().contains("Initiate")) {
+                    action.clickAlertButton("Initiate");
                 }
             }
             action.click(driverBungiiCompletedPage.Button_NextTrip());
@@ -316,7 +316,7 @@ public class GeneralUtility extends DriverBase {
         if (getListOfAlertButton.contains("OK"))
             action.clickAlertButton("OK");
     }
-    String NavigationBarName = action.getNameAttribute(customerHomePage.Text_NavigationBar());
+    String NavigationBarName = action.getScreenHeader(customerHomePage.Text_NavigationBar());
     if (NavigationBarName.equals(PropertyUtility.getMessage("customer.navigation.searching"))) {
         logger.detail("Customer struck on searching screen");
         action.click(estimatePage.Button_Cancel());
@@ -556,45 +556,36 @@ public class GeneralUtility extends DriverBase {
             case "AVAILABLE BUNGIIS":
                 if (currentApplication.equals("DRIVER")) {
 //                    driverHomePage.visibilityOf(driverHomePage.Text_AvailableTrips());
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("AVAILABLE BUNGIIS");
+                    isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("AVAILABLE BUNGIIS");
                     break;
                 }
             case "HOME":
                 if (currentApplication.equals("DRIVER")) {
-                    String naviagationBar = action.getNameAttribute(driverHomePage.Text_NavigationBar());
+                    String naviagationBar = action.getScreenHeader(driverHomePage.Text_NavigationBar());
                     if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
                         isCorrectPage = true;
                     } else {
                         Thread.sleep(7000);
-                        isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
+                        isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
                     }
                     break;
                 } else {
                     String expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                     action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                    logger.detail(" Verifying Home page , actual is|"+action.getNameAttribute(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    logger.detail(" Verifying Home page , actual is|"+action.getScreenHeader(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
+                    isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
                     break;
                     //Customer app
                 }
-            case "BUNGII":
-                if (currentApplication.equals("DRIVER")) {
-                    String naviagationBar = action.getNameAttribute(driverHomePage.Text_NavigationBar());
-                    if (naviagationBar.equals("ONLINE") || naviagationBar.equals("OFFLINE")) {
-                        isCorrectPage = true;
-                    } else {
-                        Thread.sleep(7000);
-                        isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("ONLINE") || action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals("OFFLINE");
-                    }
-                    break;
-                } else {
+            case "BUNGII":{
+                    logger.detail(" CUSTOMER APP ");
                     String expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
                     action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                    logger.detail(" Verifying Home page , actual is|"+action.getNameAttribute(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
-                    break;
+                    logger.detail(" Verifying Home page , actual is|"+action.getScreenHeader(driverHomePage.Text_NavigationBar())+"| expected is|"+expectedMessage);
+                    isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    break;}
                     //Customer app
-                }
+
             default:
                 String expectedMessage = getExpectedHeader(key.toUpperCase(), currentApplication);
                 try {
@@ -605,10 +596,10 @@ public class GeneralUtility extends DriverBase {
                     e.printStackTrace();
                 }
                 action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
                 if (!isCorrectPage) {
                     action.textToBePresentInElementName(driverHomePage.Text_NavigationBar(), expectedMessage);
-                    isCorrectPage = action.getNameAttribute(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
+                    isCorrectPage = action.getScreenHeader(driverHomePage.Text_NavigationBar()).equals(expectedMessage);
                 }
         }
         return isCorrectPage;
@@ -761,7 +752,7 @@ public class GeneralUtility extends DriverBase {
     }
 
     public void loginToDriverApp(String phone, String password) throws InterruptedException {
-        String navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
+        String navigationBarName = action.getScreenHeader(driverHomePage.NavigationBar_Status());
         if (!(navigationBarName.equalsIgnoreCase("ONLINE") || navigationBarName.equalsIgnoreCase("OFFLINE"))) {
             if (action.isAlertPresent()) {
 

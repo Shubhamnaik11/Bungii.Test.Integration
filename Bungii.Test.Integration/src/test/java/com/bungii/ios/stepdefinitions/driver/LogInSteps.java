@@ -116,7 +116,7 @@ public class LogInSteps extends DriverBase {
             action.clearEnterText(loginPage.Textfield_Password(),strPassWord);
 
             pass( "Username and Password should be added successfully",
-                    "Username :"+ strUserName+", and password :"+strPassWord+",is added successfully");
+                    "Entered Driver Credentials ["+ strUserName+" / "+strPassWord+"] successfully");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

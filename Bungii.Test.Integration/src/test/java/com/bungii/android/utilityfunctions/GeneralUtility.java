@@ -985,6 +985,10 @@ Thread.sleep(5000);
         return isDisplayed;
     }
 
+    public String getPageHeader() {
+        return action.getText(driverHomePage.Generic_HeaderElement());
+    }
+
     public String getExpectedNotification(String identifier) {
         String text = "";
         try {
