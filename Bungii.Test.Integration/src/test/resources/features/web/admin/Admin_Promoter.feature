@@ -40,7 +40,7 @@ Feature: Admin_Promoter
       | Promo Code Name     | No Of Codes  |
       | DP<<Unique>> | 5        |
     When I click on the "Save" Button
-    Then the "Delivery By Promoter" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
+    Then the "Delivery By Partner" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
     When I search by first code generated for above promocode
     Then the promocode is displayed in the Promocodes grid
 
