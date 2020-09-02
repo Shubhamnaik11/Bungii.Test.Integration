@@ -1,6 +1,7 @@
 package com.bungii.android.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.AppiumDriver;
@@ -30,6 +31,7 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
     private final long DRIVER_WAIT_TIME;
+    private static WebDriver driver=null;
 
     public ActionManager() {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
@@ -287,6 +289,23 @@ public class ActionManager {
     }
     }
 
+    public void enterText(WebElement element, String text) {
+        try{
+            click(element);
+            JavascriptExecutor js =(JavascriptExecutor) SetupManager.getDriver();
+            Map<String, Object> params = new HashMap<>();
+            params.put("text", text);
+            params.put("element", ((RemoteWebElement) element).getId());
+            js.executeScript("mobile:type", params);
+                 logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+            }
+        catch(Exception ex)
+                {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+                error("Step should be successful", "Unable to Send  " + text + " in element -> " + getElementDetails(element),
+                true);
+                }
+                }
     /**
      * SendKeys using adb shell
      *
