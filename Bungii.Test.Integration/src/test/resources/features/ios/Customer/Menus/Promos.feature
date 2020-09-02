@@ -166,6 +166,7 @@ Feature: Promos
   #  When I enter Username :8877995500 and  Password :{VALID}
     When I enter Username :8877995508 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    
     And I Select "PROMOS" from Customer App menu
     When I Enter "first time only" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
