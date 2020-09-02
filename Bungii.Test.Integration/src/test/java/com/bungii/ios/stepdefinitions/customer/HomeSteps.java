@@ -281,10 +281,12 @@ public class HomeSteps extends DriverBase {
             switch (actionToDo.toUpperCase()) {
                 case "DROP":
                     Thread.sleep(5000);
-                    selectDropLocation(1);
+                    selectPickUpLocation("9351 Todd Road");
+                    //selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    selectPickUpLocation(1);
+                    selectPickUpLocation("6800 Zoo Drive");
+                   // selectPickUpLocation(1);
                     //   action.click(homePage.BUTTON_SET());
                     break;
                 case "CURRENT PICK UP":
@@ -792,10 +794,12 @@ public class HomeSteps extends DriverBase {
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         //VISHAL[12042019]: Quick fix for QA auto
-        try {Thread.sleep(3000);}catch (Exception e){}
+        try {Thread.sleep(5000);}catch (Exception e){}
+
         if (action.isElementPresent(homePage.Button_ClearPickup(true)))
             action.click(homePage.Button_ClearPickup());
 
+        action.tapByElement(homePage.TextBox_Pickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();

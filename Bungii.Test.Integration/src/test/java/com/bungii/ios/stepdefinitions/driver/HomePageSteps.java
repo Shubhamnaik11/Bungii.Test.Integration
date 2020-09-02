@@ -69,8 +69,8 @@ public class HomePageSteps extends DriverBase {
             testStepAssert.isTrue(flag, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+            error("Step should be successful",
+                    "Not able to select " + menuItem + " from App menu" , true);
         }
     }
 
@@ -85,7 +85,7 @@ public class HomePageSteps extends DriverBase {
                     goOffline();
                     break;
             }
-            ResultManager.log("I change driver status to" + status, "I change driver status" + status, true);
+            ResultManager.log("I change driver status to" + status, "I changed driver status to " + status, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",

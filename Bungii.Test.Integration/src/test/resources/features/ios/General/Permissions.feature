@@ -6,7 +6,7 @@ Feature: Permissions
 	#Given I install Bungii App again
 	When I Switch to "customer" application on "same" devices
 	When I am on the "LOG IN" page
-	And I enter Username :{VALID1} and  Password :{VALID1}
+	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
@@ -26,7 +26,7 @@ Feature: Permissions
 	#Given I install Bungii App again
 	When I Switch to "customer" application on "customer2" devices
 	When I am on the "LOG IN" page
-	And I enter Username :{VALID1} and  Password :{VALID1}
+	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 	And I close "Tutorial" if exist
@@ -77,7 +77,7 @@ Feature: Permissions
   Scenario: Verify Dismissal Of Tutorials By Tapping On Start
 	Given I install Bungii App again
 	When I am on the "LOG IN" page
-	And I enter Username :{VALID1} and  Password :{VALID1}
+	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	Then I should be navigated to "TERMS AND CONDITION" screen
 	When I accept Term and Condition agreement
@@ -98,7 +98,7 @@ Feature: Permissions
 	Then User should be successfully logged in to the application
 	When I Select "LOGOUT" from Customer App menu
 	When I am on the "LOG IN" page
-	And I enter Username :{VALID} and  Password :{VALID}
+	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	Then User should be successfully logged in to the application
   
@@ -106,7 +106,7 @@ Feature: Permissions
   Scenario: Verify Swiping Back And Forth Between Tutorials Screen To View Tutorials
 	Given I install Bungii App again
 	When I am on the "LOG IN" page
-	And I enter Username :{VALID1} and  Password :{VALID1}
+	And I enter Username :{VALID1} and  Password :{VALID}
 	And I click "Log In" button on "Log In" screen
 	Then I should be navigated to "TERMS AND CONDITION" screen
 	When I accept Term and Condition agreement
