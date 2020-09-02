@@ -62,7 +62,7 @@ Feature: Customer Home screen
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
-    Given I am on Customer logged in Home page
+    Given I am on Customer "A" logged in Home page
     When I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     And driver eta should be "less than 30 mins"

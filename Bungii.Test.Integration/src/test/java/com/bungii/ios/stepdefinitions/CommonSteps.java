@@ -753,7 +753,7 @@ public class CommonSteps extends DriverBase {
                     break;
             }
 
-        log("I am logged in as"+user+"driver","I am logged in using"+phone+"/"+password,true);
+        log("I am logged in as "+user+" driver"," I am loggedin as driver using ["+phone+" / "+password+"]",true);
     } catch (Exception e) {
         logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
         error( "Step  Should be successful", "Error performing step,Please check logs for more details", true);

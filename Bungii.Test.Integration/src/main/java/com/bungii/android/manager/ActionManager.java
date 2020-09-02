@@ -292,13 +292,16 @@ public class ActionManager {
      *
      * @param input
      */
-    public void sendKeys(String input) {
+   /* public void sendKeys(String input) {
+
+
+
         AndroidDriver driver = (AndroidDriver) SetupManager.getDriver();
         Map<String, Object> args = new HashMap<>();
         args.put("command", "input");
         args.put("args", Lists.newArrayList("text", input));
         driver.executeScript("mobile: shell", args);
-    }
+    } */
 
     /**
      * @return boolean value according to alert existence
@@ -642,30 +645,23 @@ public class ActionManager {
     }
 
     public boolean clickAlertButton(String label) {
-        List<String> buttons = getListOfAlertButton();
 
-        String buttonLabel = "";
-        for (String button : buttons) {
-            if (button.equalsIgnoreCase(label)) {
-                buttonLabel = button;
-                break;
-            }
-        }
-        if (buttonLabel.equals(""))
+        HashMap<String, String> params = new HashMap<>();
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        if (label.equalsIgnoreCase("ALLOW")){
+            js.executeScript("mobile: acceptAlert");
+        logger.detail("ACTION | Accept Alert button : " + label);
+        return false;
+    }
+        else if (label.equalsIgnoreCase( "DENY")){
+            js.executeScript("mobile: dismissAlert");
+
+            logger.detail("ACTION | Dismiss Alert button : " + label);
             return false;
-        else {
-            HashMap<String, String> params = new HashMap<>();
-            JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
-
-            // params.put("action", "accept");
-            // params.put("buttonLabel", buttonLabel);
-            //  js.executeScript("mobile: alert", params);
-            SetupManager.getDriver().findElement(By.id(label)).click();
-            // Alert alert = SetupManager.getDriver().switchTo().alert();
-            // alert.accept();
-            logger.detail("ACTION | Accept Alert button : "+ label);
-
-            return true;
         }
+        else
+            return false;
+
     }
 }
