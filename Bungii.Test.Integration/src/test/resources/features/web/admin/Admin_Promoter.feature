@@ -3,7 +3,7 @@ Feature: Admin_Promoter
 
   Background:
     Given I am logged in as Admin
-    When I click on "Free Deliveries Codes  > Partners" Menu
+    When I click on "Promo Codes > Free Deliveries Codes  > Partners" Menu
     Then I should be directed to "Promoters Page"
 
   @sanity
@@ -20,6 +20,7 @@ Feature: Admin_Promoter
 
   @sanity
   @regression
+  @failedT
   Scenario: Verify Adding Promotion To Promoter And Adding Promocodes to Promotion
     When I click on the "New Partners" Button
     And I enter following values in fields in "Add New Partner" popup
@@ -39,7 +40,7 @@ Feature: Admin_Promoter
       | Promo Code Name     | No Of Codes  |
       | DP<<Unique>> | 5        |
     When I click on the "Save" Button
-    Then the "Delivery By Promocode" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
+    Then the "Delivery By Partner" type 5 promocodes gets saved successfully and it is displayed in the Promocodes grid
     When I search by first code generated for above promocode
     Then the promocode is displayed in the Promocodes grid
 
