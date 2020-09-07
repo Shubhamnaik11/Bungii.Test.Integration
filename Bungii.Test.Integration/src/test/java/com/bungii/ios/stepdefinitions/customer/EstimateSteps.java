@@ -133,6 +133,7 @@ public class EstimateSteps extends DriverBase {
             //  addPromoCode(promoCode);
             addBungiiPickUpImage(pickUpImage);
             clickAcceptTerms();
+            action.swipeDown();
             strTime = enterTime(time);
 
             String[] details = new String[4];
@@ -876,9 +877,9 @@ public class EstimateSteps extends DriverBase {
     @Then("^correct details next available scheduled time should be displayed$")
     public void correct_details_next_available_scheduled_time_should_be_displayed() throws Throwable {
         try {
+            String displayedTime = getElementValue("TIME");
             Date date = getNextScheduledBungiiTime();
             String strTime = bungiiTimeDisplayInTextArea(date);
-            String displayedTime = getElementValue("TIME");
             testStepVerify.isEquals(displayedTime.replace("am","AM").replace("pm","PM"),strTime.replace("am","AM").replace("pm","PM"));
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

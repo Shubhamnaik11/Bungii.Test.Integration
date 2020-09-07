@@ -413,8 +413,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Partner Card":
-            case "Bungii Card":
+            case "Partner Cards":
+            case "Bungii Cards":
                 switch(button) {
                     case "Save":
                         action.click(admin_paymentMethodsPage.Button_Save());
@@ -806,7 +806,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
 
                 case "Save Driver Details":
-                    action.click(admin_driverVerificationPage.Button_Save());
+                    action.click(admin_driverVerificationPage.Button_SaveForDriver());
                     break;
 
                 case "APPLY":

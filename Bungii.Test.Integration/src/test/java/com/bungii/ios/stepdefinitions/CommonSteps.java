@@ -287,7 +287,8 @@ public class CommonSteps extends DriverBase {
                     if (screen.equalsIgnoreCase("SIGN UP")) {
                         action.hideKeyboard();
                         action.swipeUP();
-                        action.click(signupPage.Textfield_Phonenumber()); //added to address swipe
+                        //action.click(signupPage.Textfield_Phonenumber()); //added to address swipe
+                        action.swipeUP();
                         action.click(signupPage.Button_Signup());
                     } else
                         action.click(loginPage.Button_SignUp());
@@ -360,8 +361,10 @@ public class CommonSteps extends DriverBase {
                         action.click(promosPage.Button_Add());
                         if(action.isAlertPresent()) {
                             String alertText = SetupManager.getDriver().switchTo().alert().getText();
-                            warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
-                            SetupManager.getDriver().switchTo().alert().accept();
+                            if(alertText==PropertyUtility.getMessage("customer.select.other.than.first.time.code")) {
+                                warning("Alert Displayed Incase First TIme promocode is present", "Alert Received: "+ alertText );
+                                SetupManager.getDriver().switchTo().alert().accept();
+                            }
                         }
                     }
                     break;
@@ -633,9 +636,8 @@ public class CommonSteps extends DriverBase {
             }
         }
     }
-
-    @Given("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status \"([^\"]*)\" $")
-    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something(String user, String device, String driverStatus) throws Throwable {
+    @And("^I login as \"([^\"]*)\" driver on \"([^\"]*)\" device and make driver status as \"([^\"]*)\"$")
+    public void i_login_as_something_driver_on_something_device_and_make_driver_status_something_as(String user, String device, String driverStatus) throws Throwable {
         try {
 
             i_switch_to_something_application_on_something_devices("driver",device);
@@ -846,7 +848,7 @@ public class CommonSteps extends DriverBase {
             pass("Switch to : " + appName + " application on above device instance",
                     "Switched to : " + appName + " application on above device instance", true);
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-
+            logger.detail ("Switched to : " + appName + " application");
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
