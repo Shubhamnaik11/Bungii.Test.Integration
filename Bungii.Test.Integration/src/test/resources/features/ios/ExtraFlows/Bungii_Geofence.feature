@@ -50,8 +50,8 @@ Feature: Bungii Geofence Based Calculation
     When I switch to "ORIGINAL" instance
     And I Switch to "customer" application on "same" devices
     And I request for  bungii for given pickup and drop location
-      | Driver | Pickup Location                           | Drop Location                                      | Geofence  |
-      | Solo   | Elston Playlot Park | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
+      | Driver | Pickup Location     | Drop Location                                      | Geofence  |
+      | Duo    | Elston Playlot Park | 63 East Ida B. Wells Drive, Chicago, IL 60605, USA | chicago   |
 
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
