@@ -5,7 +5,7 @@
     "os_version": "12",
     "automationName": "XCUITest",
     "app": "bs://7edc6b045fe3c38a942cde96ee51b107859749c4",
-    "otherApps": "bs://63b3dbc891152c0ed5c5b60d8931070d1d865596",
+    "otherApps": "bs://99f981102d2c94c493db3882a3d2f3c5e8b87b04",
     "deviceName": "iPhone 6s",
     "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
@@ -14,14 +14,20 @@
     "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
+    "browserstack.acceptInsecureCerts": true,
+    "browserstack.acceptSslCerts": true,
+    "newCommandTimeout":0
+
   },
   "device1": {
     "platformName": "iOS",
     "os_version": "12",
     "automationName": "XCUITest",
     "app": "bs://7edc6b045fe3c38a942cde96ee51b107859749c4",
-    "otherApps": "bs://63b3dbc891152c0ed5c5b60d8931070d1d865596",
+    "otherApps": "bs://99f981102d2c94c493db3882a3d2f3c5e8b87b04",
     "deviceName": "iPhone 6s",
     "browserstack.appium_version": "1.17.0",
     "browserstack.networkLogs" : true,
@@ -30,7 +36,13 @@
     "browserstack.idleTimeout": "5000",
     "browserstack.timezone": "New_York",
     "language": "EN",
-    "locale": "en_US"
+    "locale": "en_US",
+    "acceptInsecureCerts" : true,
+    "acceptSslCerts": true,
+    "browserstack.acceptInsecureCerts": true,
+    "browserstack.acceptSslCerts": true,
+    "newCommandTimeout":0
+
   },
 
 
