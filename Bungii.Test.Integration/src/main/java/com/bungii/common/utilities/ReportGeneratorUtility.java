@@ -77,7 +77,12 @@ public class ReportGeneratorUtility extends DriverBase {
 		//testCaseHeaderTemplate();
 		//logDetails(detailsArray);
 		//finishDetailsFile();
+		try{
 		createResultFileFromTemplate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+		}
 	}
 	
 	public void createResultFileFromTemplate(){
@@ -105,7 +110,7 @@ public class ReportGeneratorUtility extends DriverBase {
 	    fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

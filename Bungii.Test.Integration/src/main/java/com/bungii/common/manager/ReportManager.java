@@ -130,8 +130,14 @@ public class ReportManager {
 	 * Method that will be called at end of Test Suite
 	 */
 	public void endSuiteFile() {
-		htmlReportManager.endSuiteFile();
-		copyLogFile();
+		try {
+			htmlReportManager.endSuiteFile();
+			copyLogFile();
+		}
+		catch (Exception ex)
+		{
+
+		}
 	}
 	
 	/**
