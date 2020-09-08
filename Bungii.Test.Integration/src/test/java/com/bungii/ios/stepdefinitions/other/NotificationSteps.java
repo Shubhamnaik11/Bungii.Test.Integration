@@ -1,11 +1,14 @@
 package com.bungii.ios.stepdefinitions.other;
 
 import com.bungii.SetupManager;
+import com.bungii.api.stepdefinitions.BungiiSteps;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.other.NotificationPage;
+import com.bungii.api.stepdefinitions.BungiiSteps;
+import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -50,10 +53,15 @@ public class NotificationSteps extends DriverBase {
             String appHeaderName = getAppHeader(appName);
             boolean notificationClickRetry = false;
             String bunddleId = getBundleId(currentApplication);
-
+            String Customer_Phone = (String) cucumberContextManager.getScenarioContext("CUSTOMER_PHONE");
 
             cucumberContextManager.setFeatureContextContext("CURRENT_APPLICATION", appName.toUpperCase());
-            ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
+            String PickupRequest = new DbUtility().getPickupRef(Customer_Phone);
+            String driverName = (String) cucumberContextManager.getScenarioContext("DRIVER_1");
+            String bungiiType = (String) cucumberContextManager.getScenarioContext("Bungii_Type");
+
+            new BungiiSteps().ByPassNotification(driverName,bungiiType,PickupRequest);
+            /*((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
 
             log("Checking push notifications", "Checking push notifications", true);
@@ -71,7 +79,7 @@ public class NotificationSteps extends DriverBase {
             } else {
                 pass("I should be able to click on push notification : " + expectedNotification, "I clicked on push notifications with text : " + getExpectedNotification(expectedNotification), true);
 
-            }
+            }*/
 
             Thread.sleep(1000);
             //temp fixed for iOS  device
@@ -433,4 +441,6 @@ public class NotificationSteps extends DriverBase {
         return cleared;
 
     }
+
+
 }

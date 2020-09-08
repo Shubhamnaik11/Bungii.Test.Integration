@@ -643,9 +643,10 @@ Feature: Solo Scheduled Bungii Part II
       | Bungii Time | Customer Phone | Customer Password | Customer Name                      | Customer label |
       | now         | 8888889917     | Cci12345          | Testcustomertywd_appleZTDafc Stark | 2              |
     And I click on notification for "Driver" for "on demand trip"
-    And Alert message with ACCEPT BUNGII QUESTION text should be displayed
-    When I click "YES" on alert message
-    When I click "ACCEPT" button on "Bungii Request" screen
+    #bypass the notification alert
+    #And Alert message with ACCEPT BUNGII QUESTION text should be displayed
+    #When I click "YES" on alert message
+    #When I click "ACCEPT" button on "Bungii Request" screen
     And I Switch to "customer" application on "same" devices
     And I Select "MY BUNGIIS" from Customer App menu
     And I select 1st trip from scheduled bungii
