@@ -4,7 +4,7 @@ Feature: Kiosk Mode
   Background:
     Given I navigate to "Bungii Kiosk mode Partner Portal" URL
 
-  # @gs
+  @ready
   Scenario: Verify login to Partner portal configured with Kiosk mode with Valid Credentials for Admin access
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -15,7 +15,7 @@ Feature: Kiosk Mode
     Then I should "see Admin access" on Kiosk Partner Portal
     And I should logout from Kiosk Partner Portal
 
-  #   @gs
+    @ready
   Scenario: Verify login to Partner portal configured with Kiosk mode with InValid Password for Admin access
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
@@ -25,7 +25,7 @@ Feature: Kiosk Mode
     And I click on "Continue" button on Kiosk Partner Portal
     Then I should "see validations message for incorrect password field" on Kiosk Partner Portal
 
-    @gs
+    @ready
   Scenario: Verify login to Partner portal configured with Kiosk mode with Blank Password for Admin access
     When I enter "valid" password on Partner Portal
     And I click "SIGN IN" button on Partner Portal
