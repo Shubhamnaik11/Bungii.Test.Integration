@@ -49,6 +49,9 @@ public class Partner_LoginSteps extends DriverBase {
             case "Bungii Admin Portal in new tab":
                 utility.AdminLoginFromPartner();
                 break;
+            case "Bungii Kiosk mode Partner Portal"    :
+                utility.NavigateToKioskModePartnerLogin();
+                break;
             default:break;
         }
         pass("I should be navigate to " + page,

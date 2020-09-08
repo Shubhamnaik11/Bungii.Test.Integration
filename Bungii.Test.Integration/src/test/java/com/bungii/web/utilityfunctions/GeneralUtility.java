@@ -60,6 +60,14 @@ public class GeneralUtility extends DriverBase {
         return  partnerURL;
     }
 
+    private String GetkioskPartnerUrl(){
+        String partnerURL = null;
+        String environment =PropertyUtility.getProp("environment");
+        if(environment.equalsIgnoreCase("QA_AUTO"))
+            partnerURL = PropertyUtility.getDataProperties("qa.kioskpartner.url");
+        return  partnerURL;
+    }
+
     private String GetDriverUrl() {
         String driverURL = null;
         String environment = PropertyUtility.getProp("environment");
@@ -104,6 +112,12 @@ public class GeneralUtility extends DriverBase {
         String partnerURL = GetPartnerUrl();
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
+    }
+
+    public void NavigateToKioskModePartnerLogin(){
+        String kioskpartnerURL = GetkioskPartnerUrl();
+        action.deleteAllCookies();
+        action.navigateTo(kioskpartnerURL);
     }
 
     public void AdminLogin() throws InterruptedException {
