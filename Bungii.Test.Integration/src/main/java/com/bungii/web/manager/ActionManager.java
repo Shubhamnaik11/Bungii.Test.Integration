@@ -5,15 +5,23 @@ import com.bungii.common.core.PageBase;
 import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -42,6 +50,7 @@ public class ActionManager {
                     true);
         }
     }
+
     /**
      * @param element , locator of field
      * @param text    , Text value that is to be sent
@@ -101,6 +110,7 @@ public class ActionManager {
     }
     public String getText(WebElement element) {
         try {
+
          Long  DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
          Thread.sleep(3000);
        //  new WebDriverWait(DriverManager.getObject().getDriver(), DRIVER_WAIT_TIME).until((JavascriptExecutor)DriverManager.getObject().getDriver()).executeScript("return document.readyState").equals("complete") }
@@ -167,6 +177,11 @@ public class ActionManager {
     }
     }
 
+    public void JavaScriptScrolldown(){
+        JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
+        executor.executeScript("window.scrollBy(0,200)","");
+    }
+
     public void JavaScriptClear(WebElement element) {
         try{
             JavascriptExecutor executor = (JavascriptExecutor) SetupManager.getDriver();
@@ -203,6 +218,7 @@ public class ActionManager {
 
     public void navigateTo(String url) {
         SetupManager.getDriver().navigate().to(url);
+
     }
     public void refreshPage() {
         SetupManager.getDriver().navigate().refresh();
@@ -288,5 +304,43 @@ catch(Exception ex)
     private String getElementDetails(WebElement element)
     {
         return element.toString().split("->")[1].replaceFirst("(?s)(.*)\\]", "$1" + "");
+    }
+
+    public void hardWaitWithSwipeUp(int minutes) throws InterruptedException {
+        for (int i = minutes; i > 0; i--) {
+            logger.detail("Inside Hard wait , wait for " + i + " minutes");
+
+            Thread.sleep(60000);
+
+        }
+    }
+
+    public  void switchToFrame(String value){
+
+        WebDriver driver =SetupManager.getDriver();
+        driver.switchTo().frame(value);
+    }
+
+    public void switchToMainFrame(){
+        WebDriver driver =SetupManager.getDriver();
+        driver.switchTo().defaultContent();
+
+    }
+
+    public void openNewTab(){
+        ((JavascriptExecutor) SetupManager.getDriver()).executeScript("window.open('about:blank','_blank');");
+        String AdminsubWindowHandler = null;
+
+        Set<String> handles = SetupManager.getDriver().getWindowHandles();
+        Iterator<String> iterator = handles.iterator();
+        while (iterator.hasNext()) {
+            AdminsubWindowHandler = iterator.next();
+        }
+
+        SetupManager.getDriver().switchTo().window(AdminsubWindowHandler);
+
+
+
+
     }
 }

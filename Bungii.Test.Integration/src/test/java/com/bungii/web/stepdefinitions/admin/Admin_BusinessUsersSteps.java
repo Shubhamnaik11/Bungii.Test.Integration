@@ -5,7 +5,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.FileUtility;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.pages.driver.Driver_DetailsPage;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -39,14 +39,18 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     Admin_BusinessUsersPage admin_BusinessUsersPage = new Admin_BusinessUsersPage();
     Admin_PromoterPage admin_PromoterPage = new Admin_PromoterPage();
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
+    Admin_DriverVerificationPage admin_driverVerificationPage = new Admin_DriverVerificationPage();
 
     Admin_ScheduledTripsPage admin_ScheduledTripsPage= new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage =  new Admin_TripsPage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     GeneralUtility utility= new GeneralUtility();
     Admin_TripDetailsPage admin_TripDetailsPage = new Admin_TripDetailsPage();
 
     Driver_DetailsPage driver_detailsPage = new Driver_DetailsPage();
+    Admin_GeofenceAtrributesPage admin_geofenceAtrributesPage =  new Admin_GeofenceAtrributesPage();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
@@ -116,6 +120,39 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 }
 
                 break;
+            case "Geofence Attributes" :
+                try {
+                    Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
+                    String Key = dataMap.get("Key").trim();
+                    String DefaultValue = dataMap.get("Default-Value").trim();
+                    String Description = dataMap.get("Description").trim();
+                    String Label = dataMap.get("Label").trim();
+
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Key(), Key);
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_DefaultValue(), DefaultValue);
+
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Description(), Description);
+                    action.sendKeys(admin_geofenceAtrributesPage.TextBox_Label(), Label);
+//                    if(!GeofenceName.equals("")) {
+//                        action.sendKeys(admin_GeofencePage.TextBox_GeoName(), GeofenceName);
+//                        cucumberContextManager.setScenarioContext("GF_GEONAME", GeofenceName);
+//                    }
+
+                    log("I enter values on Geofence Attribute page",
+                            "I entered values on Geofence Attribute page", true);
+
+                    cucumberContextManager.setScenarioContext("GF_ATTR_KEY", Key);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_DEFAULT_VALUE",DefaultValue);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_DESCRIPTION", Description);
+                    cucumberContextManager.setScenarioContext("GF_ATTR_LABEL", Label);
+
+                } catch (Exception e) {
+                    logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+                    error("Step  Should be successful", "Error performing step, Please check logs for more details",
+                            true);
+                }
+
+                break;
         }
     }
     @When("^I enter invalid phone number and email field$")
@@ -162,8 +199,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         String Email = (String) cucumberContextManager.getScenarioContext("BO_EMAIL");
         String Status = (String) cucumberContextManager.getScenarioContext("BO_STATUS");
         action.sendKeys(admin_BusinessUsersPage.TextBox_Search(),Name + Keys.ENTER);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+        //String Xpath =String.format("//tr/td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td/span[contains(.,'%s')]/following-sibling::td/button[@id='btnEditBusinessUser']",Name,Phone,Email,Status);
+
         cucumberContextManager.setScenarioContext("XPATH", Xpath );
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     }
@@ -217,7 +256,10 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
 
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Business User.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
-
+    }
+    @Then("^\"([^\"]*)\" message is displayed$")
+    public void something_message_is_displayed(String message) throws Throwable {
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),message,message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
     }
 
     @Then("^the business user is displayed in Bulk Trips since payment is set$")
@@ -251,6 +293,17 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                 action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
+                break;
+            case "Cancellation Reason":
+                //Name = (String) cucumberContextManager.getScenarioContext("REASON_NAME");
+                action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(),strArg1);
+                log("I select element from Cancellation reason dropdown",
+                        "I have selected element from Cancellation reason dropdown", true);
+                break;
+            case "Partner Cards":
+                action.selectElementByText(admin_paymentMethodsPage.Dropdown_Partners(),strArg1);
+                log("I select element from Partner Cards dropdown",
+                        "I have selected element from Partner Cards dropdown", true);
                 break;
         }
     }
@@ -292,6 +345,20 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                             break;
                     }
                     break;
+            case "Partner Cards":
+                switch (button) {
+                    case "Add Payment Method":
+                        action.click(admin_paymentMethodsPage.Button_AddPaymentMethod());
+                        break;
+                }
+                break;
+            case "Bungii Cards":
+                switch (button) {
+                    case "Add Payment Method":
+                        action.click(admin_paymentMethodsPage.Button_AddPaymentMethod());
+                        break;
+                }
+                break;
             }
 
         log("I select "+button+" from "+page+ " page",
@@ -346,10 +413,21 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         break;
                 }
                 break;
+            case "Partner Cards":
+            case "Bungii Cards":
+                switch(button) {
+                    case "Save":
+                        action.click(admin_paymentMethodsPage.Button_Save());
+                        break;
+                    case "Cancel":
+                        action.click(admin_paymentMethodsPage.Button_Cancel());
+                        break;
+                }
+                break;
 
         }
-        log("I click save on Add Payment to Business user page",
-                "I have clicked save on Add Payment to Business user page", true);
+        log("I click save on "+button +" to "+Screen+" page",
+                "I have clicked save on "+button +" to "+Screen+" page", true);
     }
 
     @When("^I select user \"([^\"]*)\"$")
@@ -503,12 +581,12 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         errorFileName=errorFileName+"_errors";
         String home = System.getProperty("user.home");
         File file = new File(home+"/Downloads/" + errorFileName + ".csv");
-try {
-    if (file.exists()) {
-        file.delete();
-    }
-}
-catch (Exception ex){}
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+        catch (Exception ex){}
         action.click(admin_BusinessUsersPage.Link_DownloadFailedCSVFile());
         Thread.sleep(2000);
         String dirPath= home+"/Downloads/";
@@ -564,12 +642,8 @@ catch (Exception ex){}
                             testStepAssert.isTrue(line.contains(message), "Invalid no. of drivers", message + " is not displayed.");
                             break;
 
-
                     }
-
-
                 }
-
             }
             log("The "+message+" is found.",
                     "I am able to find the "+message, true);
@@ -729,6 +803,26 @@ catch (Exception ex){}
 
                 case "Update" :
                     action.click(driver_detailsPage.Button_Update());
+                    break;
+
+                case "Save Driver Details":
+                    action.click(admin_driverVerificationPage.Button_SaveForDriver());
+                    break;
+
+                case "APPLY":
+                    action.click(admin_potentialPartnersPage.Button_ApplyGeofenceFilter());
+                    break;
+
+                case "VERIFY":
+                    action.click(admin_potentialPartnersPage.Button_VerifyDriver());
+                    break;
+
+                case "SAVE CHANGES":
+                    action.click(admin_potentialPartnersPage.Button_SaveChanges());
+                    break;
+
+                case "Close":
+                    action.click(admin_potentialPartnersPage.Button_ClosePopUp());
                     break;
             }
             log("I click on the "+Name+" button",

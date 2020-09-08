@@ -19,7 +19,7 @@ import java.util.Properties;
         "pretty", "html:target/cucumber-report/single",
         "json:target/cucumber-report/single/cucumber.json",
         "rerun:target/cucumber-report/single/rerun.txt", "com.bungii.common.utilities.CustomFormatter"},
-        glue = {"com.bungii.android.stepdefinitions","com.bungii.api", "com.bungii.hooks"}
+        glue = {"com.bungii.android.stepdefinitions", "com.bungii.api", "com.bungii.hooks"}
 )
 public class RunAutoSuite extends AbstractTestNGCucumberTests {
     CucumberHooks hooks;
@@ -40,7 +40,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
             //if mutiple devices are pass from maven then get class number and use that device for running that class
             if (deviceList.length > 1) {
 
-                int threadNumber = Integer.parseInt(ClassName.substring(8, 10));
+                int threadNumber = Integer.parseInt(ClassName.substring(2, 4));
                 System.setProperty("DEVICE", deviceList[threadNumber - 1]);
             } else {
                 System.setProperty("DEVICE", device);
@@ -49,7 +49,7 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
         }
         if(multipleLoginFile.trim().equalsIgnoreCase("true")){
             // ClassName="Parallel02IT";
-            String threadNumber = ClassName.substring(8, 10);
+            String threadNumber = ClassName.substring(2, 4);
             System.setProperty("LOGIN_FILE",INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
             System.out.println("LOGIN FILE :"+INITIAL_FILE_NAME+"_"+environment.toLowerCase()+"_"+threadNumber);
         }

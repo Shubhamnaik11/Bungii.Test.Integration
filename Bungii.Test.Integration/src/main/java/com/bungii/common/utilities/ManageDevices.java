@@ -68,8 +68,8 @@ public class ManageDevices {
 
     static public void afterSuiteManageDevice(){
         String ClassName=System.getProperty("runner.class");
-        String curentThreadNumber = ClassName.substring(8, 10);
-        System.out.println(curentThreadNumber+"Available devices "+ManageDevices.readFile());
+        String curentThreadNumber = ClassName.substring(2, 4);
+       // System.out.println("***Thread Number : "+curentThreadNumber+" Available devices "+ManageDevices.readFile());
         if(curentThreadNumber.equals("01")){
             ManageDevices.write(System.getProperty("ALL_DEVICES"));
         }else {
@@ -80,7 +80,7 @@ public class ManageDevices {
                 ManageDevices.write(ManageDevices.readFile()+","+System.getProperty("DEVICE"));
             }
         }
-        System.out.println("Thread Number : "+curentThreadNumber+" | Available devices after releasing current running device : "+ManageDevices.readFile());
+       // System.out.println("***Thread Number : "+curentThreadNumber+" | Available devices after releasing current running device : "+ManageDevices.readFile());
     }
 
 }

@@ -46,7 +46,7 @@ public class BungiiSteps extends DriverBase {
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
     MessagesPage messagesPage=new MessagesPage();
-
+    EstimatePage estimatePage = new EstimatePage();
 
     @Then("^for a Bungii I should see \"([^\"]*)\"$")
     public void forABungiiIShouldSee(String arg0) throws Throwable {
@@ -682,6 +682,7 @@ public class BungiiSteps extends DriverBase {
             if(!isDuo){
             switch (arg0) {
                 case "SMS for a customer":
+                    Thread.sleep(3000);
                     action.click(Page_DriverBungiiProgress.Button_More());
                     testStepVerify.isEquals(action.getText(Page_DriverBungiiProgress.Button_Customer_SMS()).trim(),PropertyUtility.getMessage("driver.text.customer"));
                     action.click(Page_DriverBungiiProgress.Button_Customer_SMS());
@@ -874,6 +875,7 @@ public class BungiiSteps extends DriverBase {
                     }
 
                     if (DriverAppdeviceType.equalsIgnoreCase("MOTOROLA")||!DriverAppdeviceType.equalsIgnoreCase("Samsung")) {
+                        Thread.sleep(3000);
                         actualDuoNumber=action.getText(Page_OtherApps.Call_Moto_Number());
                         if(actualDuoNumber.equalsIgnoreCase(expectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(expectedDuoNumber3) ||
                         actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber2) || actualDuoNumber.equalsIgnoreCase(strExpectedDuoNumber3))
@@ -931,7 +933,8 @@ public class BungiiSteps extends DriverBase {
                     break;
                 case "tab On to Next":
                 case "completes Bungii":
-                    action.click(Page_BungiiComplete.Button_OnToTheNext(true));
+                    //action.click(Page_BungiiComplete.Button_OnToTheNext(true));
+                    action.click(estimatePage.Button_NextBungii());
                     try{
                     String currentPage = action.getText(Page_Signup.GenericHeader(true));
                     if(currentPage.equals("ONLINE")||currentPage.equals("OFFLINE") || currentPage.equals("SCHEDULED BUNGIIS")|| currentPage.equals("EN ROUTE")){

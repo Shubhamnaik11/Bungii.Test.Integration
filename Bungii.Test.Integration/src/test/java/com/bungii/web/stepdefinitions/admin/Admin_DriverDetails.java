@@ -2,7 +2,7 @@ package com.bungii.web.stepdefinitions.admin;
 
 import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_DriverVerificationPage;
 import com.bungii.web.pages.admin.Admin_DriversPage;
 import com.bungii.web.pages.admin.Admin_TripDetailsPage;
@@ -32,6 +32,11 @@ public class Admin_DriverDetails extends DriverBase{
     ActionManager action = new ActionManager();
     GeneralUtility utility = new GeneralUtility();
 
+    @Then("^Set the Geofence dropdown to \"([^\"]*)\"$")
+    public void set_the_geofence_dropdown_to_something(String strArg1) throws Throwable {
+        action.selectElementByText(admin_Driverspage.Dropdown_Geofence(), "-- All --");
+    }
+
     @When("^I search driver \"([^\"]*)\"$")
     public void i_search_driver_something(String driver) throws Throwable {
         action.clearSendKeys(admin_Driverspage.Textbox_SearchCriteria(),driver+ Keys.ENTER);
@@ -56,6 +61,16 @@ public class Admin_DriverDetails extends DriverBase{
         testStepAssert.isElementDisplayed(admin_Driverspage.Grid_TripList(),"Trip List grid should be displayed","Trip List grid is displayed", "Trip List grid is not displayed");
     }
 
+    @And("^I click on \"([^\"]*)\" Link$")
+    public void i_click_on_some_link(String Linkname){
+        switch (Linkname){
+            case "View Profile":
+                action.click(admin_Driverspage.Link_ViewProfile());
+                break;
+
+        }
+    }
+
     @Then("^The Trip List page should display the trip in \"([^\"]*)\" state$")
     public void the_trip_list_page_should_display_the_trip_in_something_state(String status) throws Throwable {
         String scheduled_time = (String) cucumberContextManager.getScenarioContext("BUNGII_TIME");
@@ -63,16 +78,20 @@ public class Admin_DriverDetails extends DriverBase{
         String timezone = utility.getTripTimezone(geofence);
         TimeZone.setDefault(TimeZone.getTimeZone(timezone));
         String XPath = "";
+      
         if (!scheduled_time.equalsIgnoreCase("NOW")) {
-            Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
+                       Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
             inputdate.setYear(new Date().getYear());
             ZoneId zoneId = TimeZone.getDefault().toZoneId();
+            //TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date());
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
-                inputdate.setHours(inputdate.getHours()+1);
-            }
 
+             /*
+             if (timezone=="EST" || timezone=="CST")
+                     inputdate.setHours(inputdate.getHours() + 1);
+            }*/
+            }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);
             XPath = String.format("//td[text()='%s']/following-sibling::td[text()='%s']", formattedDate, status);
         }
@@ -121,7 +140,7 @@ public class Admin_DriverDetails extends DriverBase{
             inputdate.setYear(new Date().getYear());
             if(TimeZone.getTimeZone("America/New_York").inDaylightTime(new Date()))
             {
-                if (timezone=="EST" || timezone=="CST")
+                if (timezone=="CST")
                     inputdate.setHours(inputdate.getHours()+1);
             }
             String formattedDate = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss a z").format(inputdate);

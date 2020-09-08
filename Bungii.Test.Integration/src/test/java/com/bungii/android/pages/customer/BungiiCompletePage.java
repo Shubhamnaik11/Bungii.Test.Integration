@@ -25,6 +25,10 @@ public class BungiiCompletePage extends PageBase {
 
     public WebElement TipAmount() { return findElement("com.bungii.customer:id/tip_value_label",LocatorType.Id); }
 
+    public WebElement TipAmount1() { return findElements("com.bungii.customer:id/tip_value_label",LocatorType.Id).get(0); }
+
+    public WebElement TipAmount2() { return findElements("com.bungii.customer:id/tip_value_label",LocatorType.Id).get(1); }
+
     public WebElement Button_IncreaseTip() { return findElement("com.bungii.customer:id/tip_increase_button",LocatorType.Id); }
 
     public WebElement Button_DecreaseTip() { return findElement("com.bungii.customer:id/tip_decrease_button",LocatorType.Id); }

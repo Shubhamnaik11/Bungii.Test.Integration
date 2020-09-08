@@ -56,7 +56,7 @@ public class NotificationSteps extends DriverBase {
             ((AppiumDriver) SetupManager.getDriver()).terminateApp(bunddleId);
             action.showNotifications();
 
-            log("Checking notifications", "Checking notifications", true);
+            log("Checking push notifications", "Checking push notifications", true);
 
             //	logger.detail(SetupManager.getDriver().getPageSource());
             boolean notificationClick = clickNotification(appHeaderName, getExpectedNotification(expectedNotification));
@@ -66,10 +66,10 @@ public class NotificationSteps extends DriverBase {
 
             }
             if (!notificationClick && !notificationClickRetry) {
-                fail("I should be able to click notification : " + expectedNotification, "I didn't click on notifications with text : " + getExpectedNotification(expectedNotification), true);
+                fail("I should be able to click on push notification : " + expectedNotification, "PUSH NOTIFICATIONS NOT RECEIVED : notifications with text : " + getExpectedNotification(expectedNotification), true);
                 action.hideNotifications();
             } else {
-                pass("I should be able to click notification : " + expectedNotification, "I clicked on notifications with text : " + getExpectedNotification(expectedNotification), true);
+                pass("I should be able to click on push notification : " + expectedNotification, "I clicked on push notifications with text : " + getExpectedNotification(expectedNotification), true);
 
             }
 

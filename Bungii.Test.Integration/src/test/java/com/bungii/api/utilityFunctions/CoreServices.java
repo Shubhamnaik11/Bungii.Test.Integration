@@ -132,7 +132,12 @@ public class CoreServices extends DriverBase {
             pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.latitude.PartnerFirm")));
             pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("washingtondc.pickup.longitude.PartnerFirm")));
         }
-
+        if (geoFence.equalsIgnoreCase("goa")) {
+            dropOffCordinate.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.latitude")));
+            dropOffCordinate.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.drop.longitude")));
+            pickupCordinates.put("Latitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.latitude")));
+            pickupCordinates.put("Longitude", Float.valueOf(PropertyUtility.getDataProperties("goa.pickup.longitude")));
+        }
         jsonObj.put("DropoffLocation", dropOffCordinate);
         jsonObj.put("PickupLocation", pickupCordinates);
 
@@ -406,6 +411,7 @@ public class CoreServices extends DriverBase {
             System.out.println("Not able to Log in" + e.getMessage());
         }
     }
+
 /*
     public void customerConfirmation(String pickRequestID, String paymentMethodID, String authToken) {
         try {
@@ -465,6 +471,34 @@ public class CoreServices extends DriverBase {
         int mnts = calendar.get(Calendar.MINUTE);
 
         calendar.set(Calendar.MINUTE, mnts + 30);
+        int unroundedMinutes = calendar.get(Calendar.MINUTE);
+        int mod = unroundedMinutes % 15;
+        calendar.add(Calendar.MINUTE, (15 - mod));
+        calendar.set(Calendar.SECOND, 0);
+        Date nextQuatter = calendar.getTime();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// create a formatter for date
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String formattedDate = sdf.format(nextQuatter);
+
+        String wait = (((15 - mod) + bufferTimeToStartTrip) * 1000 * 60) + "";
+        rtnArray[0] = formattedDate+".000";
+        rtnArray[1] = wait;
+        return rtnArray;
+
+    }
+    public String[] getScheduledBungiiTime(String teletTime) {
+        String[] rtnArray = new String[2];
+        int bufferTimeToStartTrip = 0;
+        Calendar calendar = Calendar.getInstance();
+        int mnts = calendar.get(Calendar.MINUTE);
+        String teletType=(String)cucumberContextManager.getScenarioContext("TELET_TYPE");
+            if(teletType.equalsIgnoreCase("TELET SAME TIME")) {
+                calendar.set(Calendar.MINUTE, mnts + 30);
+            }
+            else if(teletType.equalsIgnoreCase("TELET OVERLAP")){
+                calendar.set(Calendar.MINUTE, mnts + 45);
+            }
         int unroundedMinutes = calendar.get(Calendar.MINUTE);
         int mod = unroundedMinutes % 15;
         calendar.add(Calendar.MINUTE, (15 - mod));
@@ -573,6 +607,32 @@ public class CoreServices extends DriverBase {
         customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
         return waitDuraton;
     }
+
+    public int customerConfirmationScheduledForTelet(String pickRequestID, String paymentMethodID, String authToken,String teletTime) {
+        //get utc time and time for bungii to start
+        logger.detail("Customer Confirmation of Scheduled pickup request "+ pickRequestID+" | Payment Method ID: "+ paymentMethodID+" | Auth Token : "+ authToken);
+
+        String[] nextAvailableBungii = getScheduledBungiiTime(teletTime);
+        Date date = new EstimateSteps().getNextScheduledBungiiTime();
+        String strTime = new EstimateSteps().bungiiTimeDisplayInTextArea(date);
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("BUNGII_GEOFENCE");
+        cucumberContextManager.setScenarioContext("TIME",strTime);
+        if(PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID") &&currentGeofence.equalsIgnoreCase("goa")){
+            String timeLabel=" "+new com.bungii.ios.utilityfunctions.GeneralUtility().getTimeZoneBasedOnGeofence();
+            if(strTime.contains(timeLabel))
+                strTime=strTime.replace(timeLabel,"");
+        }
+
+        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime.replace("am", "AM").replace("pm","PM"));
+        //   if (PropertyUtility.targetPlatform.equalsIgnoreCase("ANDROID"))
+        //        cucumberContextManager.setScenarioContext("BUNGII_TIME", strTime);
+
+        int waitDuraton = Integer.parseInt(nextAvailableBungii[1]);
+        customerConfirmation(pickRequestID, paymentMethodID, authToken, nextAvailableBungii[0]);
+        return waitDuraton;
+    }
+
+
     public Response customerView(String pickuprequestid, String authToken) {
         logger.detail("API REQUEST : Customer View "+ pickuprequestid +" | Auth Token : "+ authToken);
 
@@ -600,7 +660,7 @@ public class CoreServices extends DriverBase {
         apiURL = UrlBuilder.createApiUrl("core", DRIVER_VIEW);
         Response response = ApiHelper.givenDriverConfig().header(header).param("pickuprequestid", pickuprequestid).when().
                 get(apiURL);
-        response.then().log().body();
+       // response.then().log().body();
         ApiHelper.genericResponseValidation(response);
         return response;
 
@@ -834,7 +894,7 @@ public class CoreServices extends DriverBase {
         Header header = new Header("AuthorizationToken", authToken);
         Response response = ApiHelper.getRequestForDriver(apiURL, header);
         ApiHelper.genericResponseValidation(response);
-        response.then().log().body();
+       // response.then().log().body();
         return response;
 
     }

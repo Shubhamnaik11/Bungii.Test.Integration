@@ -5,7 +5,7 @@ Feature: Driver Home screen
     Given I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
-  @FAILED2702
+
   @regression
   Scenario: Verify Driver Default Status Is Set To Offline After Login
     Then the status of the driver should be "Offline"

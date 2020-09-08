@@ -37,22 +37,26 @@ Feature: Admin_Trips
     @failed
   Scenario: Verify Cancellation of Scheduled Bungii As An Admin
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
-      | Bungii Time   | Customer Phone | Customer Name |
-      | NEXT_POSSIBLE | 9284000005 | Testcustomertywd_appleweb CustE|
+      | Bungii Time   | Customer Phone | Customer Name                  |
+      | NEXT_POSSIBLE | 9284000005     | Testcustomertywd_appleweb CustE|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverF" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
-    And I view the Scheduled Trips list on the admin portal
+    #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+    #And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
       When I click on "Edit" link beside scheduled bungii
       And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
       And I enter cancellation fee and Comments
+      And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
       And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
     Then The Trip List page should display the trip in "Admin Canceled" state
+
 
   @sanity
   @regression
@@ -67,7 +71,9 @@ Feature: Admin_Trips
     And As a driver "Testdrivertywd_appledc_a_web TestdriverE" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted  |
-    And I view the Scheduled Trips list on the admin portal
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+    #And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -88,6 +94,7 @@ Feature: Admin_Trips
     And I click on "Edit" link beside scheduled bungii
     And I click on "Cancel entire Bungii and notify driver(s)" radiobutton
     And I enter cancellation fee and Comments
+    And I select "Outside of delivery scope" from the "Cancellation Reason" dropdown
     And I click on "Submit" button
     Then The "Pick up has been successfully cancelled." message should be displayed
     When I view the Trips list on the admin portal
@@ -103,14 +110,18 @@ Feature: Admin_Trips
     When I request "Solo Scheduled" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9284000001 | Testcustomertywd_appleweb CustA|
-    And I view the Scheduled Trips list on the admin portal
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+    #And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|
     And As a driver "Testdrivertywd_appledc_a_web TestdriverA" perform below action with respective "Solo Scheduled" trip
       | driver1 state|
       | Accepted |
-    And I view the Scheduled Trips list on the admin portal
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+    #And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Scheduled |
@@ -163,7 +174,9 @@ Feature: Admin_Trips
     When I request "duo" Bungii as a customer in "washingtondc" geofence
       | Bungii Time   | Customer Phone | Customer Name |
       | NEXT_POSSIBLE | 9999995001 | Testcustomertywd_appleweb CustZ|
-    And I view the Scheduled Trips list on the admin portal
+   #Temperary Workaround for Today filter by commenting below steps and adding All filter steps
+    #And I view the Scheduled Trips list on the admin portal
+    And I view the all Scheduled Trips list on the admin portal
     Then I should be able to see the respective bungii with the below status
       |  Status |
       | Searching Drivers|

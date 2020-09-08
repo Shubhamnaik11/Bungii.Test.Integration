@@ -1,20 +1,20 @@
 @ios
-
+@promos
 Feature: Promos
   As a Bungii customer
   I Should able to add new promo code
 
   Background:
     Given I am on Customer logged in Home page
-  @FAILED2702
+
   @sanity
   @regression
   Scenario Outline:Verify Existing Customer Is Not Allowed To Use First Time Only Promocode
-    When I logged in Customer application using  "existing" user
+    When I logged in Customer application using  "existing app user" user
     And I Select "PROMOS" from Customer App menu
     Then I should be navigated to "PROMOS" screen
     When I Enter "<Promo>" value in "Promo Code" field in "Promo" Page
-    And I click "ADD" button on "PROMOS" screen
+    And I click "ADD" button on "PROMOS" screen for first time promocode
     Then user is alerted for "<Expected Message>"
     And I Select "LOGOUT" from Customer App menu
 
@@ -191,7 +191,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should see "first time only" code selected on Bungii estimate
     When I enter following details on "Estimate" screen
@@ -206,7 +206,7 @@ Feature: Promos
 
   
 # add promo from app menu and verify on Estimate page and vice versa
-  @regression
+  @ready
   Scenario:Verify Promos Can Be Added From Menu And Estimate Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -226,7 +226,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -250,7 +250,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margoa Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -269,7 +269,7 @@ Feature: Promos
     And I Select "PROMOS" from Customer App menu
     Then I should able to see expected promo code in available promo code
 
-  @regression
+  @ready
     @failed
   Scenario: Verify Promocode Should Automatically Gets Applied To Re-searched Trip After Re-searching Trip Having Promocode Applied To It
     Given I am on the "LOG IN" page
@@ -348,7 +348,6 @@ Feature: Promos
 
   @regression
   Scenario Outline: Verify Already Applied Expired Promocode Is Removed From The Promos Screen
-
     And I am on the "LOG IN" page
     And I enter Username :8805368850 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen

@@ -39,6 +39,7 @@ public class BungiiInProgressSteps extends DriverBase {
     GeneralUtility utility = new GeneralUtility();
     BungiiAcceptedPage bungiiAcceptedPage = new BungiiAcceptedPage();
     OtherAppsPage otherAppsPage = new OtherAppsPage();
+    InProgressBungiiPages inProgressBungiiPages=new InProgressBungiiPages();
     @Then("^Trip Information should be correctly displayed on \"([^\"]*)\" status screen for driver$")
     public void trip_information_should_be_correctly_displayed_on_something_status_screen_for_customer(String key) {
         try {
@@ -527,6 +528,22 @@ public class BungiiInProgressSteps extends DriverBase {
             }
 
         } catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
+        }
+    }
+
+    @Then("^I should not be able to see \"([^\"]*)\" on screen$")
+    public void i_should_not_be_able_to_see_something_on_screen(String option) throws Throwable {
+        try {
+            switch (option) {
+                case "Details From Home":
+                    testStepAssert.isElementDisplayed(inProgressBungiiPages.Button_DetailsFromCustomer(true),"Option should not be present.", "Option is not present.", "Option is present.");
+                    break;
+            }
+
+        }
+        catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }

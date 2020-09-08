@@ -20,9 +20,12 @@ Feature: Payment page
     Examples:
       | Scenario       | CardNo       | Expiry | Expected Message | Postal Code       | Cvv       |
       | INVALID_EXPIRY | VISA CARD    | 12/02  | "invalid expiry" | VALID POSTAL CODE | VALID CVV |
-      | INVALID_CARD   | INVALID CARD | 12/22  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
+      | INVALID_CARD   | INVALID CARD | 12/29  | "invalid card"   | VALID POSTAL CODE | VALID CVV |
+      | FRAUD_CARD     | FRAUD CARD   | 12/29  | "There was a problem processing your credit card; please double check your payment information and try again." | VALID POSTAL CODE | VALID CVV |
+    
     
   @regression
+  @sanity
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -51,8 +54,8 @@ Feature: Payment page
 
   #commented this due to base to auto data issue
     #From sprint30 , we can delete the default card
-  @sanity
-  @regression
+ 
+  #@regression
   Scenario Outline: Verify Customer Can Delete Payment Card
     Given I am on the "SIGN UP" page
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page

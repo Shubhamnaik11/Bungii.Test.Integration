@@ -8,13 +8,13 @@ Feature: EstimateBungii
 
   @regression
   Scenario: Verify if the information icons display correct information On Bungii Confirmation Screen
-  #  When I enter "current location in pickup and dropoff fields" on Bungii estimate
+    #When I enter "current location in pickup and dropoff fields" on Bungii estimate
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
     And I add loading/unloading time of "30 mins"
     Then "Load/Upload Time" information icon should display correct information
-     #removed as part of sprint 32
-  #  And "Total estimate" information icon should display correct information
+    #removed as part of sprint 32
+    #And "Total estimate" information icon should display correct information
     And "Time" information icon should display correct information
 
   @regression
@@ -42,7 +42,8 @@ Feature: EstimateBungii
     And I tap on "Get Estimate button" on Bungii estimate
     Then check if I have ability to select different load time and Estimate cost is re calculated
 
-  @regression
+  #@regression
+    @ready
   Scenario: Verify When Customer Switches From Ondemand To Scheduled Bungii On Account Of Unavailibility Of Driver Then Customer Is Taken To Estimate Screen With Prepoulated Existing Fields
     And I enter "atlanta pickup and dropoff locations" on Bungii estimate
     And I tap on "Get Estimate button" on Bungii estimate
@@ -53,14 +54,15 @@ Feature: EstimateBungii
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
     Then for a Bungii I should see "Bungii search screen"
     When I wait for SEARCHING screen to disappear
-    Then "DRIVER NOT AVAILABLE" page should be opened
-    When I tap "Ok" button on DRIVER NOT AVAILABLE screen
-    Then I should see "Schedule Bungii option" on DRIVER NOT AVAILABLE screen
+    Then "SET PICKUP TIME" page should be opened
+    #When I tap "Ok" button on DRIVER NOT AVAILABLE screen
+    And I should see "Schedule Bungii option" on DRIVER NOT AVAILABLE screen
     When I tap "Schedule Bungii" button on DRIVER NOT AVAILABLE screen
-    Then "Estimate" page should be opened
-    When I add loading/unloading time of "30 mins"
-    Then I should see "previous values" on Bungii estimate
-    And I tap on "back" on Bungii estimate
+    #Then "Estimate" page should be opened
+    #When I add loading/unloading time of "30 mins"
+    #Then I should see "previous values" on Bungii estimate
+    Then I should be navigated to "Success" screen
+    And I click "Done" button on "Success" screen
 
   @regression
   Scenario: Verify Add Promo Code On Estimate Screen
@@ -80,7 +82,8 @@ Feature: EstimateBungii
     And I add "1" photos to the Bungii
     And I add "4" photos to the Bungii
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Next Available Scheduled Time In Correct Timezone Is Selected On Estimate Screen For Duo Scheduled Bungii
     Given I am on customer Log in page
     When I enter customers "8805368840" Phone Number
@@ -94,9 +97,4 @@ Feature: EstimateBungii
 
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
-      | 8805368840 |    |
-
-
-
-
-
+      | 8805368840      |                 |

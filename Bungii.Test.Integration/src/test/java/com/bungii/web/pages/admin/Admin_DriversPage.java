@@ -23,6 +23,8 @@ public class Admin_DriversPage extends PageBase {
 
     public WebElement Label_SuccessTripCount () {return  findElement("//h1[@class='text-success']",LocatorType.XPath); }
 
+    public WebElement Link_ViewProfile() {return findElement("//a[contains(text(),'View Profile')]",LocatorType.XPath);}
+
     public WebElement Label_SuccessTripCount (String xpath) {return  findElement(xpath,LocatorType.XPath); }
 
 }

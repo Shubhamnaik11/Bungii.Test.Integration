@@ -1,14 +1,14 @@
 @ios
 @DUO
 @scheduled
+@bungii
 Feature: To Test Duo - Scheduled Bungii
   I want  request Scheduled Bungii with Duo type
 
     #this scenario also include large image test case
-  @demo
-  @regression
+
   @sanity
-  Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer
+  Scenario: Verify Scheduling Of Duo Bungii As An iOS Customer and trip completion
 
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
@@ -149,7 +149,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I click "On To The Next One" button on "Bungii Completed" screen
     And I Select "HOME" from driver App menu
 
-  @regression
+  @ready
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -245,7 +245,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then I accept Alert message for "Reminder: both driver at drop off"
     When I click "On To The Next One" button on "Bungii Completed" screen
   @FAILED2702
-  @regression
+  @ready
   Scenario Outline: Verify Customer Amount Calculation For Scheduled Duo Bungii With Promo Code
 
     When I Switch to "driver" application on "same" devices
@@ -368,7 +368,7 @@ Feature: To Test Duo - Scheduled Bungii
       | PROMO PERCENT OFF |
 
   @FAILED2702
-  @regression
+  @ready
   Scenario: Verify Driver Can Contact Customer Of A Requested Scheduled Duo Bungii
 
     Given that duo schedule bungii is in progress
@@ -561,7 +561,6 @@ Feature: To Test Duo - Scheduled Bungii
 #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
-    @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Long Stacked Bungii
 
     Given that ondemand bungii is in progress
@@ -591,7 +590,7 @@ Feature: To Test Duo - Scheduled Bungii
   #  When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
@@ -691,7 +690,6 @@ Feature: To Test Duo - Scheduled Bungii
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
   @failed
   @regression
-    @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Scheduled Bungii And Long Stacked Bungii
 
     Given that solo schedule bungii is in progress
@@ -721,7 +719,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
     When I click "OK" on alert message
@@ -812,7 +810,7 @@ Feature: To Test Duo - Scheduled Bungii
   #one valid failed , driver name 's Last name is not shown . This is verification and not assertion so test case will continue
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Decked Alert Status And Messages Of Current Ondemand Bungii And Short Stacked Bungii
 
     Given that ondemand bungii is in progress
@@ -841,7 +839,7 @@ Feature: To Test Duo - Scheduled Bungii
     When I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
     And Alert message with STACK TRIP REQUEST AVAILABLE text should be displayed
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     Then I calculate projected driver arrival time
     And Alert message with STACK TRIP REQUEST ACCEPTED text should be displayed
@@ -914,7 +912,7 @@ Feature: To Test Duo - Scheduled Bungii
 
 
     @failed
-  @regression
+  @ready
   Scenario:Verify Driver Can Receive Long Stack Request And Can Cancel Existing Bungii On Loading Item State
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -927,7 +925,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -959,7 +957,7 @@ Feature: To Test Duo - Scheduled Bungii
     #move to top
     #need to do in atlanta
   @failed
-  @regression
+  @ready
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Long Stack Request
 
     Given that duo schedule bungii is in progress
@@ -983,12 +981,12 @@ Feature: To Test Duo - Scheduled Bungii
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "driver" application on "Driver2" devices
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1018,9 +1016,8 @@ Feature: To Test Duo - Scheduled Bungii
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
-
-  @failed
-  @regression
+    
+  @ready
   @sanity
   Scenario: Verify Non Control Driver Of Ongoing Bungii Can Accept Short Stack Request
 
@@ -1046,12 +1043,12 @@ Feature: To Test Duo - Scheduled Bungii
     And I Switch to "customer" application on "Driver2" devices
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "REJECT" button on "Bungii Request" screen
 
     And I open "customer" application on "ORIGINAL" devices
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1073,7 +1070,7 @@ Feature: To Test Duo - Scheduled Bungii
       |                | CUSTOMER2_PHONE |
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Non Control Driver Doesnt Receive Long Stack Request If Started Before The Control Driver Also Non Control Driver Cannot Cancel Bungii If Control Driver Has Not Started The Bungii
 
     Given that duo schedule bungii is in progress
@@ -1095,7 +1092,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I should not get notification for "driver" for "stack trip"
     And I Switch to "driver" application on "same" devices
     And I click "Cancel" button on "update" screen
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then Alert message with TRIP CANNOT BE CANCELED AS CONTROL DRIVER NOT STARTED text should be displayed
     Then Alert should have "cancel,proceed" button
     When I click "Cancel" on alert message
@@ -1105,7 +1102,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
   @failed
-  @regression
+  @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Foreground
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1137,7 +1134,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @failed
-  @regression
+  @ready
   Scenario: Verify When Customer Cancel A Scheduled Duo Trip Accepted By One Driver Then Driver Gets Notification When App Is In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1170,7 +1167,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE |                 |
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Customer And Other Driver Is Notified When One Of The Driver Cancels The Scheduled Duo Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1192,7 +1189,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     When I switch to "ORIGINAL" instance
     #message to driver
@@ -1201,7 +1198,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click on notification for "Customer" for "DRIVER CANCELLED BUNGII"
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Other Driver Notification In Background When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1219,7 +1216,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
     Then I wait for "1" mins
 
     When I switch to "ORIGINAL" instance
@@ -1228,7 +1225,7 @@ Feature: To Test Duo - Scheduled Bungii
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
   @failed
-  @regression
+  @ready
   Scenario: Verify Other Driver Alert In Foreground When One Of The Driver Cancels Duo Scheduled Bungii
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer     | Driver1            | Driver2        |
@@ -1245,7 +1242,7 @@ Feature: To Test Duo - Scheduled Bungii
 
     And I click "Cancel" button on "update" screen
     Then Alert message with DRIVER CANCEL BUNGII text should be displayed
-    When I click "Yes" on alert message
+    When I click "YES" on alert message
 
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
@@ -1280,7 +1277,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-  @regression
+  @ready
   Scenario: Verify Driver Doesnt Receive Long Stacked Request If The Driver Location Is More Than 100 Mins From The Current Location Of Driver To The Pickup Of Requesting Trip
     Given that ondemand bungii is in progress
       | geofence | Bungii State |
@@ -1311,7 +1308,7 @@ Feature: To Test Duo - Scheduled Bungii
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
 
-  @regression
+  @ready
   Scenario:Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1329,7 +1326,7 @@ Feature: To Test Duo - Scheduled Bungii
     And I click "Log In" button on "Log In" screen
 
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And I click on notification for "Customer" for "Driver accepted stack Bungii"
@@ -1345,7 +1342,7 @@ Feature: To Test Duo - Scheduled Bungii
       | 9403960183     |                 |
 
   
-  @regression
+  @ready
   Scenario: Verify Manually Ending Bungii For A Driver That Has Stacked Bungii Should See Summary And Start Screen Of The Stacked Bungii
     Given that ondemand bungii is in progress
       | geofence | Bungii State        |
@@ -1358,7 +1355,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1380,7 +1377,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Customer Phone | Customer2 Phone |
       |                | CUSTOMER2_PHONE |
 
-  @regression
+  @ready
   Scenario:Verify Driver Can Receive Short Stack Request And Can Cancel Bungii On Unloading Item State
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1393,7 +1390,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message
     And stack trip information should be displayed on deck
@@ -1433,7 +1430,7 @@ Feature: To Test Duo - Scheduled Bungii
       | Bungii Time | Customer Phone | Customer Name | Customer label | Customer Password |
       | now         | 9403960183     | Mark Cuban    | 2              | Cci12345          |
     And I click on notification for "Driver" for "stack trip"
-    When I click "VIEW" on alert message
+    When I click "View" on alert message
     Then "correct stack trip details" should be displayed on Bungii request screen
     When I click "ACCEPT" button on "Bungii Request" screen
     When I click "OK" on alert message

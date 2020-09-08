@@ -5,15 +5,20 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.EmailUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.common.utilities.RandomGeneratorUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.Admin_LoginPage;
 import com.bungii.web.pages.driver.Driver_DashboardPage;
 import com.bungii.web.pages.driver.Driver_LoginPage;
 import com.bungii.web.pages.driver.Driver_RegistrationPage;
+import com.bungii.web.pages.partner.Partner_DashboardPage;
+import com.bungii.web.pages.partner.Partner_LoginPage;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import javax.mail.Message;
@@ -43,7 +48,17 @@ public class GeneralUtility extends DriverBase {
     ActionManager action = new ActionManager();
     Driver_DashboardPage driver_dashboardPage = new Driver_DashboardPage();
     Admin_LoginPage Page_AdminLogin = new Admin_LoginPage();
+    Partner_LoginPage Page_PartnerLogin = new Partner_LoginPage();
     EmailUtility emailUtility = new EmailUtility();
+    Partner_DashboardPage partner_dashboardPage = new Partner_DashboardPage();
+
+    private String GetPartnerUrl(){
+        String partnerURL = null;
+        String environment =PropertyUtility.getProp("environment");
+        if(environment.equalsIgnoreCase("QA_AUTO"))
+            partnerURL = PropertyUtility.getDataProperties("qa.partner.url");
+        return  partnerURL;
+    }
 
     private String GetDriverUrl() {
         String driverURL = null;
@@ -85,6 +100,12 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
+    public void NavigateToPartnerLogin(){
+        String partnerURL = GetPartnerUrl();
+        action.deleteAllCookies();
+        action.navigateTo(partnerURL);
+    }
+
     public void AdminLogin() throws InterruptedException {
         String adminURL = GetAdminUrl();
         Thread.sleep(2000);
@@ -93,6 +114,19 @@ public class GeneralUtility extends DriverBase {
         action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
         action.click(Page_AdminLogin.Button_AdminLogin());
     }
+
+    public void AdminLoginFromPartner() throws InterruptedException {
+        String adminURL = GetAdminUrl();
+        Thread.sleep(2000);
+
+
+        action.openNewTab();
+        action.navigateTo(adminURL);
+        action.sendKeys(Page_AdminLogin.TextBox_Phone(), PropertyUtility.getDataProperties("admin.user"));
+        action.sendKeys(Page_AdminLogin.TextBox_Password(), PropertyUtility.getDataProperties("admin.password"));
+        action.click(Page_AdminLogin.Button_AdminLogin());
+    }
+
     public void TestAdminLogin() {
         String adminURL = GetAdminUrl();
 
@@ -105,6 +139,9 @@ public class GeneralUtility extends DriverBase {
         action.click(driver_dashboardPage.Link_Logout());
     }
 
+    public void PartnerLogout() {
+        action.click(partner_dashboardPage.Button_Partner_Logout());
+    }
 
     public String generateMobileNumber() {
 
@@ -143,6 +180,9 @@ public class GeneralUtility extends DriverBase {
 
     public String GetUniqueLastName() {
         String Lastname = RandomGeneratorUtility.getData("{RANDOM_STRING}", 4);
+        Lastname.toLowerCase();
+        Lastname=Convert(Lastname);
+        Lastname = StringUtils.capitalize(Lastname.toLowerCase());
         return Lastname;
 
     }
@@ -363,6 +403,7 @@ public class GeneralUtility extends DriverBase {
 
         Date target;
         Date date = new Date();
+
         int minutes = ((int) Math.ceil(date.getMinutes() / 15d) * 15 + 30);
 
         if (minutes >= 60) {
@@ -372,6 +413,7 @@ public class GeneralUtility extends DriverBase {
         } else {
             target = DateUtils.setMinutes(new Date(), minutes); //set minute
         }
+
         String pickupTime = pickuptimeformatter.format(target);
         cucumberContextManager.setScenarioContext("PICKUP_TIME" , pickupTime);
         cucumberContextManager.setScenarioContext("TIMEZONE" , timezone);
@@ -400,6 +442,7 @@ public class GeneralUtility extends DriverBase {
 
         } catch (Exception ex) {
             newFilePath = null;
+            ex.printStackTrace();
         }
         return newFilePath;
     }
@@ -671,8 +714,8 @@ public class GeneralUtility extends DriverBase {
                     BufferedReader br = new BufferedReader(fr)) {
 
                 while ((s = br.readLine()) != null) {
-                    s = s.replaceAll("%DriverFullName%", driverName)
-                            .replaceAll("%DriverPhone%",driverPhone);
+                    s = s.replaceAll("%driverFullName%", driverName)
+                            .replaceAll("%driverPhone%",driverPhone);
                     emailMessage += s;
                 }
 
@@ -708,14 +751,90 @@ public class GeneralUtility extends DriverBase {
     }
     public String setDownloadLink(String message, String emailBody) {
 
-        String HTML_TAG_PATTERN = "<a href=(.+?)>";
+//String HTML_TAG_PATTERN = "<a href=(.+?)>";
+        String HTML_TAG_PATTERN = "https?:\\/\\/[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)";
         Pattern pLink = Pattern.compile(HTML_TAG_PATTERN);
         Matcher m = pLink.matcher(emailBody);
         while (m.find()) {
-                String link = m.group(1);
+                String link = m.group(0);
                message = message.replace("%Link%", link);
         }
         return message;
     }
+
+    public static String Convert(String str)
+    {
+        // Create a char array of given String
+        char ch[] = str.toCharArray();
+        for (int i = 0; i < str.length(); i++) {
+
+            // If first character of a word is found
+            if (i == 0 && ch[i] != ' ' ||
+                    ch[i] != ' ' && ch[i - 1] == ' ') {
+
+                // If it is in lower-case
+                if (ch[i] >= 'a' && ch[i] <= 'z') {
+
+                    // Convert into Upper-case
+                    ch[i] = (char)(ch[i] - 'a' + 'A');
+                }
+            }
+
+            // If apart from first character
+            // Any one is in Upper-case
+            else if (ch[i] >= 'A' && ch[i] <= 'Z')
+
+                // Convert into Lower-Case
+                ch[i] = (char)(ch[i] + 'a' - 'A');
+        }
+
+        // Convert the char array to equivalent String
+        String st = new String(ch);
+        return st;
+    }
+
+    /**
+     * Calculate estimate cost of trip check if less than minimum cost then
+     * return minimum cost
+     *
+     * @param tripDistance Trip distance
+     * @param loadTime     load / unload time
+     * @param estTime      estimate trip complete time
+     * @param Promo        Promo
+     * @return
+     */
+    public double bungiiEstimate(String tripDistance, String loadTime, String estTime, String Promo) {
+        //get bungii type and current geofence type.
+        String bungiiType = (String) cucumberContextManager.getScenarioContext("Partner_Bungii_type");
+        String currentGeofence = (String) cucumberContextManager.getScenarioContext("GEOFENCE");
+        //get minimum cost,Mile value,Minutes value of Geofence
+        double minCost = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.minimum.cost")),
+                perMileValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.miles")),
+                perMinutesValue = Double.parseDouble(getGeofenceData(currentGeofence, "geofence.dollar.per.minutes"));
+
+        //Get trip distance from db instead of screen
+        double distance = Double.parseDouble(tripDistance.trim());
+        //     double distance = Double.parseDouble(tripDistance.replace(" miles", ""));
+        double loadUnloadTime = Double.parseDouble(loadTime.replace(" mins", ""));
+        double tripTime = Double.parseDouble(estTime);
+
+        double estimateCost = distance * perMileValue + loadUnloadTime * perMinutesValue + tripTime * perMinutesValue;
+        //check if trip is duo trip , if yes then double estimate cost
+        if (bungiiType.equalsIgnoreCase("DUO"))
+            estimateCost = estimateCost * 2;
+        //Subtract discount value from estimate cost
+        Promo = Promo.contains("ADD") ? "0" : Promo;
+        double discount = 0;
+        if (Promo.contains("$"))
+            discount = Double.parseDouble(Promo.replace("-$", ""));
+        else if (Promo.contains("%"))
+            discount = estimateCost * Double.parseDouble(Promo.replace("-", "").replace("%", "")) / 100;
+        estimateCost = estimateCost - discount;
+        //Check if estimate is greater than min
+        estimateCost = estimateCost > minCost ? estimateCost : minCost;
+
+        return estimateCost;
+    }
+
 }
 

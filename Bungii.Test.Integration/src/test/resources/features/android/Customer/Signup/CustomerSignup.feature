@@ -5,8 +5,7 @@ Feature: CustomerSignup
   Background:
     Given I am on Sign up page
 
-  #@regression
-@ready
+  @regression
   Scenario: Verify Referral Source Count Upon Customer Signup
     When I open new "Chrome" browser for "ADMIN_PORTAL"
     And I navigate to admin portal
@@ -26,7 +25,6 @@ Feature: CustomerSignup
     Then account created info for "OTHER" should be "increase by 1"
 
   @regression
-
   Scenario: Verify Customer Signup With All Fields Blank
     When I enter "blank" customer phone number on Signup Page
     And I enter "blank" data in mandatory fields on Signup Page
@@ -101,7 +99,7 @@ Feature: CustomerSignup
     Then The "Info" is displayed
 
 
-  #@regression
+  @regression
   @ready
   Scenario Outline: Verify Trip completed Count On Admin Portal Is Updated When Customer Completes A Bungii.
       When I Switch to "driver" application on "same" devices
@@ -190,9 +188,9 @@ Feature: CustomerSignup
 #
 #      When I Switch to "driver" application on "same" devices
       And Bungii Driver "slides to the next state"
-      And I Switch to "customer" application on "same" devices
-      And I tap on "OK on complete" on Bungii estimate
-      And I tap on "No free money" on Bungii estimate
+      #And I Switch to "customer" application on "same" devices
+      #And I tap on "OK on complete" on Bungii estimate
+      #And I tap on "No free money" on Bungii estimate
       And I Switch to "driver" application on "same" devices
       Then Bungii Driver "completes Bungii"
       And I Select "HOME" from driver App menu
@@ -224,4 +222,3 @@ Feature: CustomerSignup
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
-

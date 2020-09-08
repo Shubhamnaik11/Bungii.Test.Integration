@@ -1025,7 +1025,6 @@ Feature: Duo
       | CUSTOMER1_PHONE |                 |
 
   @regression
-@demo1
   Scenario:  Verify Customer Notification For Stack Bungii Accepted And Stack Driver Started
     Given that ondemand bungii is in progress
       | geofence | Bungii State   |
@@ -1110,7 +1109,7 @@ Feature: Duo
     Then I am logged in as "valid atlanta" driver
 
     When I connect to "extra1" using "Driver2" instance
-    And I Switch "driver" application on "same" devices
+    And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     Then I am logged in as "valid driver 2" driver
 
@@ -1315,9 +1314,7 @@ Feature: Duo
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE | CUSTOMER2_PHONE |
 
-    #need to execute later
     @regression
-
     Scenario: Verify Minimum Scheduled Time For The Duo Trip
       Given I am on customer Log in page
       When I am logged in as "New" customer
@@ -1327,8 +1324,7 @@ Feature: Duo
       When I tap on "Get Estimate button" on Bungii estimate
       Then I should see the minimum scheduled time displayed on the Estimate page
 
-  #@regression
-  @ready
+  @regression
   Scenario: Verify When Customer Cancels Duo Trip Accepted By One Driver Then Driver Gets A Notification Though The App Remains In Background
     Given that duo schedule bungii is in progress
       | geofence | Bungii State | Bungii Time   | Customer | Driver1 | Driver2        |
@@ -1469,6 +1465,7 @@ Feature: Duo
     When I switch to "ORIGINAL" instance
     Then Alert message with OTHER DRIVER CANCELLED BUNGII text should be displayed
 
+
   #@regression
   @ready
   Scenario: Verify Customer Can View Ongoing Bungii Progress Screens When Trip Is Started By Control Driver
@@ -1481,7 +1478,7 @@ Feature: Duo
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "Kansas driver 1" driver
+    And I am logged in as "kansas driver 1" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
@@ -1495,7 +1492,7 @@ Feature: Duo
     And I connect to "extra1" using "Driver2" instance
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
-    And I am logged in as "valid driver 2" driver
+    And I am logged in as "kansas driver 2" driver
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
     And I start selected Bungii
@@ -1567,3 +1564,121 @@ Feature: Duo
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone |
       | CUSTOMER1_PHONE |                 |
+
+
+      @ready
+    Scenario: Verify that Duo scheduled Bungii can be started 1 hr before the scheduled Trip start time
+      When I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      Then I am logged in as "valid atlanta" driver
+
+      When I connect to "extra1" using "Driver2" instance
+      And I Switch "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      Then I am logged in as "valid driver 2" driver
+
+      Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+        | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
+        | atlanta  | Scheduled    | 1 hour ahead   | valid    | valid   | valid driver 2 |
+      And I Switch to "customer" application on "same" devices
+      And I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+      And I Switch to "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid atlanta" driver
+
+      And I connect to "extra1" using "Driver2" instance
+      And I Open "driver" application on "same" devices
+      And I am on the LOG IN page on driver app
+      And I am logged in as "valid driver 2" driver
+      Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP OFF" Screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      And I click "On To The Next One" button on the "Bungii Completed" screen
+
+      When I Switch to "driver" application on "ORIGINAL" devices
+      Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+      And I slide update button on "EN ROUTE" Screen
+      And I slide update button on "ARRIVED" Screen
+      And I slide update button on "LOADING ITEM" Screen
+      And I slide update button on "DRIVING TO DROP OFF" Screen
+      And I slide update button on "UNLOADING ITEM" Screen
+      And I click "On To The Next One" button on the "Bungii Completed" screen
+
+@ready
+  Scenario: Verify that Duo scheduled Bungii can be started 30mins before the scheduled Trip start time
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid atlanta" driver
+
+    When I connect to "extra1" using "Driver2" instance
+    And I Switch "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    Then I am logged in as "valid driver 2" driver
+
+    Given that duo schedule bungii is in progress for customer "Testcustomertywd_appleand_A Android"
+      | geofence | Bungii State | Bungii Time    | Customer | Driver1 | Driver2        |
+      | atlanta  | Scheduled    | 0.5 hour ahead   | valid    | valid   | valid driver 2 |
+    And I Switch to "customer" application on "same" devices
+    And I am logged in as "Testcustomertywd_appleand_A Android" customer
+
+    And I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid atlanta" driver
+
+    And I connect to "extra1" using "Driver2" instance
+    And I Open "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "valid driver 2" driver
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+    When I Switch to "driver" application on "ORIGINAL" devices
+    Then Trip Information should be correctly displayed on "EN ROUTE" status screen for driver
+    And I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I slide update button on "LOADING ITEM" Screen
+    And I slide update button on "DRIVING TO DROP OFF" Screen
+    And I slide update button on "UNLOADING ITEM" Screen
+    And I click "On To The Next One" button on the "Bungii Completed" screen
+
+@ready
+  Scenario: Verify that driver is able to correctly view all the text entered in Details field while a solo bungii is in progress.
+    When I Switch to "driver" application on "same" devices
+    And I am on the LOG IN page on driver app
+    And I am logged in as "Testdrivertywd_apple_z Android_Test" driver
+    And I tap on "Go Online button" on Driver Home page
+    And I Switch to "customer" application on "same" devices
+    And I enter "valid pickup and dropoff locations" on Bungii estimate
+    And I tap on "two drivers selector" on Bungii estimate
+    And I tap on "Get Estimate button" on Bungii estimate
+    And I select Bungii Time as "OLD BUNGII TIME"
+    And I add loading/unloading time of "15 mins"
+    Then I add "1" photos to the Bungii
+    When I tap on "Details" on Estimate screen
+    And I enter "text" in Additional Notes field
+    And I click on "ADD NOTE" button
+    Then "Estimate" page should be opened
+    When I tap on "Request Bungii" on Bungii estimate
+    And I tap on "Yes on HeadsUp pop up" on Bungii estimate
+
+    When I Switch to "driver" application on "same" devices
+    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select Trip from driver available trip
+    And I tap on "ACCEPT" on driver Trip details Page
+    And I Select "SCHEDULED BUNGIIS" from driver App menu
+    And I Select Trip from driver scheduled trip
+    Then I start selected Bungii
+    When I slide update button on "EN ROUTE" Screen
+    And I slide update button on "ARRIVED" Screen
+    And I click on "MORE" button
+    And I click on "DETAILS FROM CUSTOMER" button
+    And I should be able to see "Details From Customer" Text

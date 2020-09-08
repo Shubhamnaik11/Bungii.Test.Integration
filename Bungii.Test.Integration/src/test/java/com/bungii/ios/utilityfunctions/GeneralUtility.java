@@ -111,9 +111,9 @@ public class GeneralUtility extends DriverBase {
         int red = (clr & 0x00ff0000) >> 16;
         int green = (clr & 0x0000ff00) >> 8;
         int blue = clr & 0x000000ff;
-        logger.detail("Red Color value = " + red);
-        logger.detail("Green Color value = " + green);
-        logger.detail("Blue Color value = " + blue);
+        logger.detail("Red Color value = " + red + "| Green Color value = " + green + " | Blue Color value = " + blue);
+      //  logger.detail("Green Color value = " + green);
+       // logger.detail("Blue Color value = " + blue);
 
         int[] rgbValue = {red, green, blue};
         return rgbValue;
@@ -200,8 +200,9 @@ public class GeneralUtility extends DriverBase {
     action.hideNotifications();
     }
     public void recoverScenario() {
-        logger.detail("Inside recovery scenario");
-try {
+        logger.detail("***** RECOVERING CUSTOMER AND DRIVER STATE : UI ACTIONS *****");
+
+        try {
     if (action.isElementPresent(customerHomePage.Application_Name(true))) {
         //do nothing
     } else if (action.isElementPresent(customerHomePage.AppIcon_Phone(true))) {
@@ -251,7 +252,7 @@ try {
     }
     SetupManager.getObject().restartApp(PropertyUtility.getProp("bundleId_Driver"));
     // action.switchApplication(PropertyUtility.getProp("bundleId_Driver"));
-    logger.detail("Switched to Driver in recovery scenario");
+    logger.detail("Switched to Driver");
 
     //If we restart app then close view item page is dismissed
     //view item page
@@ -335,7 +336,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
     }
 }
@@ -352,11 +353,12 @@ try {
 
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Allow");
+            action.clickAlertButton("Always Allow");
         }
 
         action.click(tutorialPage.Button_Close());
 
+        logger.detail("***** RECOVERING STATE : UI ACTIONS COMPLETE *****");
 
     }
 
@@ -595,6 +597,9 @@ try {
         return isCorrectPage;
     }
 
+    public String getPageHeader() {
+        return action.getText(driverHomePage.Text_NavigationBar());
+    }
     private String getExpectedHeader(String screen, String currentApplication) {
         String expectedMessage = "";
         switch (screen.toUpperCase()) {
@@ -609,6 +614,9 @@ try {
                 break;
             case "HOME":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.home");
+                break;
+            case "SET PICKUP TIME":
+                expectedMessage = PropertyUtility.getMessage("customer.navigation.setPickupTime");
                 break;
             case "FAQ":
                 expectedMessage = PropertyUtility.getMessage("customer.navigation.faq");
@@ -731,7 +739,7 @@ try {
         action.clickAlertButton("Allow");
         if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
             action.click(enableLocationPage.Button_Sure());
-            action.clickAlertButton("Always Allow");
+            action.clickAlertButton("Allow");
         }
     }
 
@@ -750,17 +758,23 @@ try {
                 action.sendKeys(driverLoginPage.Textfield_Password(), password);
                 action.click(driverLoginPage.Button_Login());
                 Thread.sleep(2500);
+
                 navigationBarName = action.getNameAttribute(driverHomePage.NavigationBar_Status());
                 if(navigationBarName != null && !navigationBarName.isEmpty())
                     if (navigationBarName.equals("NOTIFICATIONS")) {
                     grantPermissionToDriverApp();
+                        if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                            action.click(enableLocationPage.Button_Sure());
+                            action.clickAlertButton("Always Allow");
+                        }
                 }
 /*                else if (action.isElementPresent(enableNotificationPage.Button_Sure(true))) {
                     action.click(enableNotificationPage.Button_Sure());
                     action.clickAlertButton("Allow");
                 }
 
-                else if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
+                else
+                 if (action.isElementPresent(enableLocationPage.Button_Sure(true))) {
                     action.click(enableLocationPage.Button_Sure());
                     action.clickAlertButton("Always Allow");
                 }*/
@@ -807,7 +821,7 @@ try {
         Color actual = new Color(actualColor[0], actualColor[1], actualColor[2]);
         Color expected = new Color(expectedRGB[0], expectedRGB[1], expectedRGB[2]);
         double diff = ColourDistance(actual, expected);
-        logger.detail("Difference between actual and expected is :" + diff);
+       // logger.detail("Difference between actual and expected is :" + diff);
 
         boolean isEqual = diff < 15;
 /*      for(int i =0;i<actualColor.length;i++){
@@ -1299,7 +1313,7 @@ catch (Exception e)
         String emailMessage = "";
 
         try {
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\CustomerSignup.txt");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/CustomerSignup.txt");
             String s;
             try (
 
@@ -1437,7 +1451,7 @@ catch (Exception e)
         String emailMessage = "";
 
         try {
-            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "\\EmailTemplate\\PoorRatingEmail.txt");
+            FileReader fr = new FileReader(new File(DriverBase.class.getProtectionDomain().getCodeSource().getLocation().getPath()) + "/EmailTemplate/PoorRatingEmail.txt");
             String s;
             try (
 
@@ -1461,25 +1475,25 @@ catch (Exception e)
     public void logCustomerDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of customer"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber));
+                logger.detail("Device token of customer ["+phoneNumber+"] is "+com.bungii.ios.utilityfunctions.DbUtility.getCustomerDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logDriverDeviceToken(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Device token of Driver"+phoneNumber+"is "+com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber));
+                logger.detail("Device token of Driver ["+phoneNumber+"] is "+com.bungii.ios.utilityfunctions.DbUtility.getDriverDeviceToken(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
     public void logCustomerRecentTrip(String phoneNumber){
         try {
             if(!phoneNumber.trim().equalsIgnoreCase(""))
-                logger.detail("Most recent trip of customer"+phoneNumber+"is with pickup ref"+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
+                logger.detail("Most recent trip of customer ["+phoneNumber+"] is with pickup ref "+com.bungii.ios.utilityfunctions.DbUtility.getCustomersMostRecentBungii(phoneNumber));
         }catch (Exception e){
-            logger.detail("Error getting deviceToken", ExceptionUtils.getStackTrace(e));
+            logger.detail("Error getting deviceToken - ", ExceptionUtils.getStackTrace(e));
         }
     }
 }

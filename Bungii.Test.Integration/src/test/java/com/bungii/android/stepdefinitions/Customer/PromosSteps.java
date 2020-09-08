@@ -25,6 +25,7 @@ public class PromosSteps extends DriverBase {
     PromosPage promoPage = new PromosPage();
     EstimatePage estimatePage=new EstimatePage();
     GeneralUtility utilities = new GeneralUtility();
+    SetPickupTimePage setPickupTimePage = new SetPickupTimePage();
 
     @And("^I add \"([^\"]*)\" PromoCode$")
     public void iAddPromoCode(String arg0) throws Throwable {
@@ -225,6 +226,11 @@ public class PromosSteps extends DriverBase {
                     }
                     action.click(promoPage.Image_InfoIcon());
                     break;
+
+                case "i info":
+                    action.click(setPickupTimePage.Icon_PickupTimeInfo());
+                    break;
+
                 default:
                     error("Implemented Step", "UnImplemented Step");
                     break;
@@ -486,6 +492,9 @@ public class PromosSteps extends DriverBase {
                 case "Promo code value":
                     Thread.sleep(3000);
                     action.click(estimatePage.Link_PromoValue(true));
+                    break;
+                case "Details":
+                    action.click(estimatePage.Button_Details(true));
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");

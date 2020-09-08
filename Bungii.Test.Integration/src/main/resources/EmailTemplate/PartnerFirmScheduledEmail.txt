@@ -57,7 +57,7 @@
     <span style="font-family: arial,helvetica,sans-serif;">For questions or assistance, please text Bungii support at: %SupportNumber%&nbsp;</span>
     <br/>
     <br/>
-    <span style="font-family: arial,helvetica,sans-serif;">Thanks again much for using Bungii. We're honored to be a resource to %FirmName% and your customers.&nbsp;</span>
+    <span style="font-family: arial,helvetica,sans-serif;">Thanks again so much for using Bungii. We're honored to be a resource to %FirmName% and your customers.&nbsp;</span>
     <br/>
     <br/>
     <span style="font-family: arial,helvetica,sans-serif;">-Team Bungii&nbsp;</span>

@@ -20,14 +20,15 @@ public class HomePage extends PageBase {
     public WebElement Button_ClearDrop() {return findElement("(//XCUIElementTypeButton[@name=\"input icon cancel\"])[2]", PageBase.LocatorType.XPath); }
 
 
-    public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaDropHeader() {return findElement("//XCUIElementTypeButton[@name='SET DROP OFF LOCATION']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
   //  public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[2]", PageBase.LocatorType.XPath); }
-    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaPickupHeader() {return findElement("//XCUIElementTypeButton[@name='SET PICKUP LOCATION']/preceding-sibling::XCUIElementTypeStaticText", PageBase.LocatorType.XPath); }
 
-    public WebElement Text_EtaTime() {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath); }
+    public WebElement Text_EtaTime(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name='SET']/preceding-sibling::XCUIElementTypeStaticText[1]", PageBase.LocatorType.XPath,ignoreException); }
 
     public WebElement Scroll_SoloToDuo() {return findElement("//XCUIElementTypeStaticText[@name='1']/parent::XCUIElementTypeOther/parent::XCUIElementTypeOther", PageBase.LocatorType.XPath); }
-
+    public WebElement Icon_Solo() {return findElement("//XCUIElementTypeStaticText[@name='1']", PageBase.LocatorType.XPath); }
+     public WebElement Icon_Duo() {return findElement("//XCUIElementTypeStaticText[@name='2']", PageBase.LocatorType.XPath); }
   //  public WebElement Button_AppMenu() {return findElement("//XCUIElementTypeNavigationBar/XCUIElementTypeButton", PageBase.LocatorType.XPath); }
  //   public WebElement AppMenu_Home() {return findElement("//XCUIElementTypeStaticText[@name='HOME']", PageBase.LocatorType.XPath); }
 //    public WebElement AppMenu_Account() {return findElement("ACCOUNT", PageBase.LocatorType.AccessibilityId); }
@@ -94,8 +95,9 @@ public class HomePage extends PageBase {
     public WebElement Button_DuoActive() {return findElement("bungii duo active", PageBase.LocatorType.AccessibilityId); }
     public WebElement Button_DuoDeActive() {return findElement("bungii duo deactive", PageBase.LocatorType.AccessibilityId); }
     public WebElement Image_Loading(boolean ...ignoreException) {return findElement("In progress", PageBase.LocatorType.AccessibilityId,ignoreException); }
-    public WebElement Image_eta_bar() {return findElement("eta_bar_bg", PageBase.LocatorType.AccessibilityId); }
-    public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Set Pickup Location\"]/following-sibling::XCUIElementTypeStaticText", LocatorType.XPath,ignoreException); }
+
+    public WebElement Image_eta_bar() {return findElement("//XCUIElementTypeStaticText[contains(@name,'ETA at Pickup Location:')]", LocatorType.XPath);}
+    public WebElement Text_eta_mins(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[contains(@name,'ETA at Pickup Location:')]", LocatorType.XPath,ignoreException); }
     public WebElement Text_OutOfOffice(boolean ...ignoreException) {return findElement("//XCUIElementTypeStaticText[@name=\"Whoops! Sorry, we’re not operating here yet.\"]", LocatorType.XPath,ignoreException); }
     public WebElement Text_OutOfOffice_RequestCity(boolean ...ignoreException) {return findElement("//XCUIElementTypeButton[@name=\"Request your city\"]", LocatorType.XPath,ignoreException); }
     public WebElement Button_Invite() {return findElement("menu icon invite referrals", PageBase.LocatorType.AccessibilityId); }

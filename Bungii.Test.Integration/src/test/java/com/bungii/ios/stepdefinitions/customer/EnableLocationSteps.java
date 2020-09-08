@@ -20,13 +20,14 @@ public class EnableLocationSteps extends DriverBase {
     public void i_allow_access_of_location_from_bungii_application() throws Throwable {
         try {
             action.click(enableLocationPage.Button_Sure());
-            testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.location.alert.text"));
-            action.clickAlertButton("Allow");
+            //testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("customer.location.alert.text"));
+            //action.clickAlertButton("Allow");
+            action.clickAlertButton("Allow While Using App");  //Customer App alert
 
             pass("I allow access of Location from Bungii application", "I clicked on allow button",
                     true);
         } catch (Exception e) {
-            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Should accept Allow While Using App permission", "Error performing step,Please check logs for more details", true);
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
         }
     }
@@ -55,7 +56,7 @@ public class EnableLocationSteps extends DriverBase {
         try {
             action.click(enableLocationPage.Button_Sure());
             testStepVerify.isEquals(action.getAlertMessage(),PropertyUtility.getMessage("driver.location.alert.text"));
-            action.clickAlertButton("Always Allow");
+            action.clickAlertButton("Allow");
 
             pass("I allow access of Location from Bungii application", "I clicked on allow button",
                     true);

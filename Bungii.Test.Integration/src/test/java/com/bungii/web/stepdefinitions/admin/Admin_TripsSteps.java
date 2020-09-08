@@ -4,7 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.DbUtility;
 import com.bungii.web.utilityfunctions.GeneralUtility;
@@ -83,18 +83,37 @@ public class Admin_TripsSteps extends DriverBase {
         action.click(admin_TripsPage.Menu_Trips());
         action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
         action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "Today");
-
+        //action.click(admin_ScheduledTripsPage.Order_Initial_Request());//change by gopal for partner portal
         // SetupManager.getDriver().navigate().refresh();
         log("I view the Scheduled Trips list on the admin portal",
                 "I viewed the Scheduled Trips list on the admin portal", true);
     }
+    @And("^I view the all Scheduled Trips list on the admin portal$")
+    public void i_view_the_all_scheduled_trips_list_on_the_admin_portal() throws Throwable {
+        action.click(admin_TripsPage.Menu_Trips());
+        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
+    }
+    @And("^I view the partner portal Scheduled Trips list on the admin portal$")
+    public void i_view_the_partner_portal_trips_on_the_admin_portal() throws Throwable{
+        action.click(admin_TripsPage.Menu_Trips());
+        action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_SearchForPeriod(), "All");
+
+        log("I view the Scheduled Trips list on the admin portal",
+                "I viewed the Scheduled Trips list on the admin portal", true);
+    }
+
     @Then("^I should be able to see the Trip Requested count incremented in Customers Grid$")
     public void i_should_be_able_to_see_the_trip_requested_count_incremented_in_customers_grid() throws Throwable {
         String[] name = cucumberContextManager.getScenarioContext("CUSTOMER_NAME").toString().split(" ");
         action.clearSendKeys(admin_CustomerPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
-        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[2]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
-        String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[3]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
+        String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[3]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
+        String XPath2 = String.format("//td[contains(.,'%s')]/following-sibling::td[4]", cucumberContextManager.getScenarioContext("CUSTOMER_NAME"));
         Thread.sleep(3000);
         String tripRequestedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath)));
         String tripEstimatedCount = action.getText(SetupManager.getDriver().findElement(By.xpath(XPath2)));
@@ -112,8 +131,8 @@ public class Admin_TripsSteps extends DriverBase {
         String[] name = customer.split(" ");
         action.clearSendKeys(admin_DashboardPage.TextBox_SearchCustomer(), name[1] + Keys.ENTER);
 
-        String XPath = String.format("//td[contains(.,\"%s\")]/following-sibling::td[2]", customer);
-        String XPath2 = String.format("//td[contains(.,\"%s\")]/following-sibling::td[3]", customer);
+        String XPath = String.format("//td[contains(.,\"%s\")]/following-sibling::td[3]", customer);
+        String XPath2 = String.format("//td[contains(.,\"%s\")]/following-sibling::td[4]", customer);
 
         String tripRequestedCount = SetupManager.getDriver().findElement(By.xpath(XPath)).getText();
         String tripEstimatedCount = SetupManager.getDriver().findElement(By.xpath(XPath2)).getText();
@@ -233,6 +252,7 @@ public class Admin_TripsSteps extends DriverBase {
             action.selectElementByText(admin_LiveTripsPage.Dropdown_Geofence(), geofenceName);
             action.click(admin_LiveTripsPage.Button_ApplyGeofenceFilter());
 
+
             cucumberContextManager.setScenarioContext("STATUS", status);
             String driver = driver1;
             if (tripType[0].equalsIgnoreCase("duo"))
@@ -268,8 +288,11 @@ public class Admin_TripsSteps extends DriverBase {
                 testStepAssert.isElementTextEquals(action.getElementByXPath(xpath), status, "Trip Status " + status + " should be updated", "Trip Status " + status + " is updated", "Trip Status " + status + " is not updated");
 
             } else {
+                //String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[3]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
                 String XPath = String.format("//td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[contains(.,'%s')]/following-sibling::td[2]", StringUtils.capitalize(tripType[0]).equalsIgnoreCase("ONDEMAND") ? "Solo" : StringUtils.capitalize(tripType[0]), driver, customer);
+
                 int retrycount = 10;
+
                 boolean retry = true;
                 while (retry == true && retrycount > 0) {
                     try {
@@ -381,7 +404,7 @@ public class Admin_TripsSteps extends DriverBase {
             formatter.setTimeZone(TimeZone.getTimeZone(utility.getTimeZoneBasedOnGeofence()));
             Date bungiiDate = formatter.parse(scheduled_time);
             Date inputdate = new SimpleDateFormat("MMM dd, hh:mm a z").parse(scheduled_time);
-            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate);
+            String formattedDate = new SimpleDateFormat("MMM dd,  hh:mm:ss a z").format(inputdate).replace("am", "AM").replace("pm", "PM");
             String xpath_scheduled_time = "//td[contains(text(),'Scheduled Time')]/following-sibling::td/strong[text()='"+ formattedDate + "']";
 
             //Verify that the time the customer scheduled the trip for is added to Trip Details page
@@ -433,6 +456,7 @@ public class Admin_TripsSteps extends DriverBase {
     public void i_enter_cancellation_fee_and_comments() throws Throwable {
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationFee(), "0");
         action.clearSendKeys(admin_ScheduledTripsPage.Textbox_CancellationComment(), "Cancelling");
+        action.selectElementByText(admin_ScheduledTripsPage.Dropdown_CancellationReason(), "Other");
         log("I enter cancellation fee amount and comments",
                 "I have entered cancellation fee amount and comments", true);
     }
@@ -496,6 +520,8 @@ public class Admin_TripsSteps extends DriverBase {
         String customerName = null;
         String customerPhone = null;
         String customerEmail = null;
+        boolean hasDST=false;
+
         if (!name.isEmpty()) {
             customerName = (String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME") + " Business User";
             customerPhone = getCustomerPhone((String) cucumberContextManager.getScenarioContext("BUSINESSUSER_NAME"), "Business User");
@@ -526,7 +552,23 @@ public class Admin_TripsSteps extends DriverBase {
                 calendar.add(Calendar.MINUTE, minutes);
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
                 Date date1 = calendar.getTime();
-                pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
+
+                TimeZone zone = TimeZone.getTimeZone("America/New_York");
+
+                hasDST = zone.observesDaylightTime();
+
+                if(hasDST){
+
+                    int hr1 = date1.getHours() + 1;
+                    date1.setHours(hr1);
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                    //pickupdate.replaceAll("EST","EDT");
+                    //emailBody.replaceAll("EST","EDT");
+                }
+                else{
+                    pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy h:mm a z").format(date1).toString();
+                }
+               // pickupdate = new SimpleDateFormat("EEEE, MMMM d, yyyy hh:mm a z").format(date1).toString();
 
             } else {
                 TimeZone.setDefault(TimeZone.getTimeZone(utility.getTripTimezone((String) cucumberContextManager.getScenarioContext("GEOFENCE"))));
@@ -540,16 +582,35 @@ public class Admin_TripsSteps extends DriverBase {
         String message = null;
         switch (emailSubject) {
             case "Bungii Delivery Pickup Scheduled":
-                message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+               // message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmScheduledEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                }
                 break;
             case "Bungii Delivery Pickup Updated":
-                message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
+                }
+              //  message = utility.getExpectedPartnerFirmUpdatedEmailContent(pickupdate, customerName, customerPhone, customerEmail, driverName, driverPhone, driverLicencePlate, supportNumber, firmName);
                 break;
             case "Bungii Delivery Pickup Canceled":
-                message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                if(hasDST){
+                    message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                    message= message.replaceAll("EST","EDT");
+                }else {
+                    message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
+                }
+                //message = utility.getExpectedPartnerFirmCanceledEmailContent(customerName, customerPhone, customerEmail, driverName, supportNumber, firmName);
                 break;
         }
         message= message.replaceAll(" ","");
+        //message= message.replaceAll("EST","EDT");
         logger.detail("Email Body (Expected): "+message);
           testStepAssert.isEquals(emailBody, message,"Email "+ message+" content should match with Actual", "Email  "+emailBody+" content matches with Expected", "Email "+emailBody+"  content doesn't match with Expected");
 
@@ -870,25 +931,29 @@ public class Admin_TripsSteps extends DriverBase {
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Solo Type":
-                    xpath = String.format("//td[3][text()='Solo']");
+                    //xpath = String.format("//td[3][text()='Solo']");
+                    xpath = String.format("//td[4][text()='Solo']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Duo Type":
-                    xpath = String.format("//td[3][text()='Duo']");
+                    //xpath = String.format("//td[3][text()='Duo']");
+                    xpath = String.format("//td[4][text()='Duo']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "On-Demand Category":
-                    xpath = String.format("//td[4][text()='On-Demand']");
+                    //xpath = String.format("//td[4][text()='On-Demand']");
+                    xpath = String.format("//td[5][text()='On-Demand']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");
                     break;
                 case "Scheduled Category":
-                    xpath = String.format("//td[4][text()='Scheduled']");
+                    //xpath = String.format("//td[4][text()='Scheduled']");
+                    xpath = String.format("//td[5][text()='Scheduled']");
                     rowswithstatus = SetupManager.getDriver().findElements(By.xpath(xpath));
                     rows = SetupManager.getDriver().findElements(By.xpath("//tr"));
                     testStepAssert.isEquals(String.valueOf(rows.size() - 1), String.valueOf(rowswithstatus.size()), filter + " records should be displayed", filter + " records is displayed", filter + " records is not displayed");

@@ -2,7 +2,8 @@
 Feature: Menu_Payment
 Scenarios on Payment Methods
 
-  @regression
+  #@regression
+  @ready
   Scenario: Verify Customer Can Change Default Payment Card Added To New One
     Given I am on customer Log in page
     And I am logged in as "valid" customer
@@ -93,4 +94,12 @@ Scenarios on Payment Methods
     And I tap on "Credit or Debit Card" on Payment page
     And I enter "valid card number" on Card Details page
     Then I should see "no option to add previous year" on Payment page
-
+  
+  @regression
+  Scenario: Verify Customer Payment Method Addition With Fraud Card Number
+    Given I am logged in as "valid" customer
+    When I tap on "Menu" > "Payment" link
+    And I tap on "Add New" on Payment page
+    And I tap on "Credit or Debit Card" on Payment page
+    And I enter "fraud card number" on Card Details page
+    Then I should see "fraud card error" on Payment page

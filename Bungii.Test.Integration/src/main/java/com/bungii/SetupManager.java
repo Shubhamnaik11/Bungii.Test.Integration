@@ -72,14 +72,19 @@ public class SetupManager extends EventFiringWebDriver {
 
                 }catch (SessionNotCreatedException e) {
                     logger.detail(getStackTrace(e));
-                    logger.detail("Initialing driver failed , removing and trying again trying again ");
-                    logger.detail("Removing WebDriver Agent ");
-                    removeWebdriverAgent();
-                    logger.detail("Restarting iPhone ");
+                    logger.detail("Initialing driver failed, removing and trying again  on "+deviceID);
+                    //logger.detail("Removing WebDriver Agent on "+deviceID);
+                    //removeWebdriverAgent();
+                    //logger.detail("Restarting iPhone on "+deviceID);
                    // restartIphone();
+
+
                     try {
                        // Thread.sleep(180000);
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                        ((IOSDriver) driver).executeScript("mobile: pressButton", ImmutableMap.of("name", "home"));
+                        ((IOSDriver) driver).runAppInBackground(Duration.ofSeconds(-1));
+
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
                     }
@@ -192,7 +197,8 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-        return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       // return "https://" + APPIUM_SERVER_IP + "/wd/hub";
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -316,13 +322,13 @@ public class SetupManager extends EventFiringWebDriver {
      */
     private static WebDriver startAppiumDriver(DesiredCapabilities capabilities, String portNumber) {
         try {
-            logger.detail("Getting Appium Driver at port : " + portNumber);
+            //logger.detail("Getting Appium Driver at port : " + portNumber);
             String appiumServerUrl = getAppiumServerURL(portNumber);
             if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-            logger.detail("Appium Driver at port : " + portNumber);
+            logger.detail("Appium Driver Running at port : " + portNumber);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -336,6 +342,7 @@ public class SetupManager extends EventFiringWebDriver {
      */
     public static DesiredCapabilities getCapabilities(String deviceId) {
         String deviceInfoFileKey = "";
+        String phoneDetails ="";
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS"))
             deviceInfoFileKey = "ios.capabilities.file";
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
@@ -353,13 +360,24 @@ public class SetupManager extends EventFiringWebDriver {
             String key = keys.next();
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
-
+            if(key.toString().equalsIgnoreCase("deviceName"))
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
+            if(key.toString().equalsIgnoreCase("platformName"))
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
+            if(key.toString().equalsIgnoreCase("platformVersion"))
+            {
+                phoneDetails += " "+ jsonCaps.get(key).toString();
+            }
         }
         if (!System.getProperty("remoteAdbHost").trim().equals("") && TARGET_PLATFORM.equalsIgnoreCase(TargetPlatform.ANDROID.toString())) {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("return DesiredCapabilities for device " + deviceId + " as " + capabilities.toString());
+        logger.detail("Test is running on device " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 
@@ -374,7 +392,7 @@ public class SetupManager extends EventFiringWebDriver {
         else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID"))
             deviceInfoFileKey = "android.capabilities.file";
 
-        logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
+        //logger.detail("deviceInfoFileKey=" + deviceInfoFileKey);
         String capabilitiesFilePath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("capabilities.folder"), PropertyUtility.getFileLocations(deviceInfoFileKey));
 
         ParseUtility jsonParser = new ParseUtility(capabilitiesFilePath);
@@ -444,7 +462,7 @@ public class SetupManager extends EventFiringWebDriver {
             ((AndroidDriver) SetupManager.getDriver()).activateApp(bundleId);
 
         }
-        System.out.println("Restarted App");
+        logger.detail("Restarted App : " + bundleId);
 
     }
 

@@ -296,14 +296,16 @@ public class ApiHelper {
     public static void genericResponseValidation(Response response) {
         JsonPath jsonPathEvaluator;
         try {
-           logger.detail(response.then().log().body());
             jsonPathEvaluator = response.jsonPath();
             HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
-            logger.detail("***API Call Pass***");
+            logger.detail("VERIFIED | API call response - Success ");
         }
-
+        else
+        {
+            logger.detail(response.then().log().body());
+        }
             response.then().statusCode(200);
         }
         catch (AssertionError ex)

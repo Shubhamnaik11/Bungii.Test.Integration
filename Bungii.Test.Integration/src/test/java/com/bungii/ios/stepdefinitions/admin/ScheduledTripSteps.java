@@ -14,6 +14,7 @@ import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import io.cucumber.datatable.DataTable;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -46,8 +47,9 @@ public class ScheduledTripSteps extends DriverBase {
 			String bungiiTime = (String)  cucumberContextManager.getScenarioContext("BUNGII_TIME");
 			tripDetails.put("CUSTOMER", custName);
 
-			action.sendKeys(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
+			action.clearEnterText(scheduledTripsPage.Text_SearchCriteria(),custName.substring(0,custName.indexOf(" ")));
 			action.click(scheduledTripsPage.Button_Search());Thread.sleep(5000);
+
 			//On admin panel CST time use to show
 		//	getPortalTime("Aug 09, 06:15 AM CDT");
 			//tripDetails.put("SCHEDULED_DATE", getCstTime(bungiiTime));
@@ -178,10 +180,20 @@ public class ScheduledTripSteps extends DriverBase {
 
 	public String getPortalTime(String bungiiTime) throws ParseException {
 		Calendar calendar = Calendar.getInstance();
-
+		String formattedDate ="";
 		int intYear=calendar.get(Calendar.YEAR);
 
-		String formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" + bungiiTime.substring(13, bungiiTime.length());
+		/*if() {
+			int intHour = Integer.parseInt(bungiiTime.substring(9, 11));
+			intHour++;
+			if (intHour >= 13) {
+				intHour = 1;
+			}
+			String hour=StringUtils.leftPad(String.valueOf(intHour), 2, "0");
+			formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 8)+hour+ bungiiTime.substring(11, 14) + ":00" + bungiiTime.substring(14, bungiiTime.length());
+		}
+		else*/
+		 formattedDate = bungiiTime.substring(0, 7)+" "+intYear+ bungiiTime.substring(7, 13) + ":00" + bungiiTime.substring(13, bungiiTime.length());
 
 		return formattedDate;
 	}
@@ -234,10 +246,10 @@ public class ScheduledTripSteps extends DriverBase {
 		boolean isFound=false;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(WebElement row:rows){
-			String rowCustName=row.findElement(By.xpath("//td[5]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[4]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[6]")).getText();
+			String rowCustName=row.findElement(By.xpath("//td[6]")).getText(),rowSchduledTime=row.findElement(By.xpath("//td[5]")).getText(),rowEstimatedDistance=row.findElement(By.xpath("//td[8]")).getText();
 
 			if(rowCustName.equals(custName) && rowEstimatedDistance.equals(estimatedDistance)){
-				WebElement tripDetailsLink=row.findElement(By.xpath("//td[4]/a"));
+				WebElement tripDetailsLink=row.findElement(By.xpath("//td[5]/a"));
 				action.click(tripDetailsLink);
 				isFound=true;
 			}
@@ -257,8 +269,8 @@ public class ScheduledTripSteps extends DriverBase {
 		int rowNumber=999;
 		List<WebElement> rows= scheduledTripsPage.Row_TripDetails();
 		for(int i=1;i<=rows.size();i++){
-			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
-			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[4]"));
+			String rowCustName= action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]"));
+			String rowSchduledTime=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[5]"));
 		//	String rowEstimatedDistance=SetupManager.getDriver().findElement(By.xpath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[6]")).getText();
 			String rowSrNumber=action.getText(action.getElementByXPath("//table[@id='tblTripList']/tbody/tr[contains(@id,'row')]["+i+"]/td[1]"));
 
@@ -278,7 +290,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public void cancelBungii(Map<String,String> tripDetails,String cancelCharge,String comments){
 		int rowNumber =getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal: Bungii Not Found "+ tripDetails);
 		WebElement editButton;
 		if(rowNumber==0){
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
@@ -291,6 +303,7 @@ public class ScheduledTripSteps extends DriverBase {
 	//	scheduledTripsPage.TextBox_CancelFee().sendKeys(cancelCharge);
 		action.clearEnterText(scheduledTripsPage.TextBox_CancelFee(),cancelCharge);
 		scheduledTripsPage.TextBox_Comments().sendKeys(comments);
+		action.selectElementByText(scheduledTripsPage.Dropdown_CancellationReason(),"Other");
 		action.click(scheduledTripsPage.Button_Submit());
 		scheduledTripsPage.waitForPageLoad();
 //		action.invisibilityOfElementLocated(scheduledTripsPage.Loader_Wrapper());
@@ -303,7 +316,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public void researchBungii(Map<String,String> tripDetails){
 		int rowNumber =getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal: Bungii Not Found "+tripDetails);
 		WebElement editButton;
 		if(rowNumber==0){
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
@@ -321,7 +334,7 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public void RemoveSoloDriverAndresearchBungii(Map<String,String> tripDetails){
 		int rowNumber =getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal: I was not able to find bungii with details "+tripDetails);
 		WebElement editButton;
 		if(rowNumber==0){
 			editButton=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//p[@id='btnEdit']"));
@@ -347,10 +360,10 @@ public class ScheduledTripSteps extends DriverBase {
 	 */
 	public void verifyTripStatus(Map<String,String> tripDetails,String status){
 		int rowNumber =getTripRowNumber(tripDetails);
-		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber," I was not able to find bungii");
+		testStepAssert.isFalse(rowNumber==999, "I should able to find bungii that is to be cancelled ","I found bungii at row number "+rowNumber,"Admin Portal:  I was not able to find bungii with details "+tripDetails);
 		WebElement tripStatus;
 
-		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[9]"));
+		tripStatus=scheduledTripsPage.TableBody_TripDetails().findElement(By.xpath("//tr[@id='row"+rowNumber+"']/td[11]"));
 		testStepVerify.isElementTextEquals(tripStatus,status);
 	}
 //tr[@id='row1']/td[9]

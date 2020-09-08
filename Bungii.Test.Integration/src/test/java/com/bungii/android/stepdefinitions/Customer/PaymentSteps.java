@@ -4,6 +4,7 @@ import com.bungii.SetupManager;
 import com.bungii.android.manager.ActionManager;
 import com.bungii.android.pages.customer.PaymentPage;
 import com.bungii.android.pages.customer.SupportPage;
+import com.bungii.android.utilityfunctions.GeneralUtility;
 import com.bungii.common.core.DriverBase;
 import com.bungii.common.core.PageBase;
 import com.bungii.common.utilities.LogUtility;
@@ -28,6 +29,7 @@ public class PaymentSteps extends DriverBase {
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(PaymentSteps.class);
     SupportPage supportPage=new SupportPage();
+    GeneralUtility utilities = new GeneralUtility();
 
     @And("^I get the number of cards present$")
     public void i_get_the_number_of_cards_present() throws Throwable {
@@ -224,6 +226,13 @@ public class PaymentSteps extends DriverBase {
                     else
                         log("Invalid card message should be displayed", "Invalid card message is not displayed", false);
                     break;
+                case "fraud card error":
+
+                    if(utilities.getCustomerSnackBarMessage().equals(PropertyUtility.getMessage("customer.payment.fraud.card")))
+                        log("Fraud card message should be displayed", "Fraud card message is displayed", false);
+                    else
+                        log("Fraud card message should be displayed", "Fraud card message is not displayed", false);
+                    break;
                 case "no option to add previous year":
                     if(!action.isElementPresent(paymentPage.Year_2018(true)))
                         log("I should not able to select previous year ","I was not able to see previous year , Expiry year starts from"+action.getText(paymentPage.Expiry_Years()),false);
@@ -236,6 +245,14 @@ public class PaymentSteps extends DriverBase {
                 case "Payment Method is already associated to a trip":
                     String message= action.getText(supportPage.Snackbar());
                     testStepVerify.isEquals(message,PropertyUtility.getMessage("payment.method.association"));
+                    break;
+                case "masked card number":
+                    String expectedCreditCardNumber=" "+PropertyUtility.getDataProperties("credit.card.masked.number");
+                    String actualCreditCardNumber=action.getText(paymentPage.PaymentCard1());
+                    System.out.println(expectedCreditCardNumber);
+                    System.out.println(actualCreditCardNumber);
+                    testStepAssert.isEquals(actualCreditCardNumber,expectedCreditCardNumber,"The card number should be masked and only last 4 digits should be displayed.",
+                            "The card number is masked and only last 4 digits are displayed.","The card number is not masked.");
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -269,19 +286,25 @@ public class PaymentSteps extends DriverBase {
                     action.sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
                     // paymentPage.Textfield_CardNumber().sendKeys(PropertyUtility.getDataProperties("payment.invalid.card"));
                     break;
-
+                case "fraud card number":
+                    action.click(paymentPage.Textfield_CardNumber());
+                    action.sendKeys(PropertyUtility.getDataProperties("payment.fraud.card"));
+                    break;
                 case "valid expiry date":
                     action.click(paymentPage.Month_12());
                     action.click(paymentPage.Year_2020());
-                    SetupManager.getDriver().navigate().back();
+                    //SetupManager.getDriver().navigate().back();
                     break;
                 case "valid cvv":
+                    Thread.sleep(4000);
                     action.click(paymentPage.Text_Cvv());
                     Thread.sleep(2000);
                     action.sendKeys(paymentPage.Text_Cvv(),PropertyUtility.getDataProperties("valid.card.cvv"));
                     Thread.sleep(2000);
                     break;
                 case "valid postal code":
+                    action.click(paymentPage.Text_PostalCode());
+                    Thread.sleep(2000);
                     action.sendKeys(paymentPage.Text_PostalCode(),PropertyUtility.getDataProperties("valid.card.postal.code"));
                     break;
                 default:

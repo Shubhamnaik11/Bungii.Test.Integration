@@ -6,7 +6,7 @@ import com.bungii.common.core.DriverBase;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.stepdefinitions.customer.EstimateSteps;
-import com.bungii.web.manager.ActionManager;
+import com.bungii.web.manager.*;
 import com.bungii.web.pages.admin.*;
 import com.bungii.web.utilityfunctions.GeneralUtility;
 import cucumber.api.PendingException;
@@ -37,6 +37,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_GeofencePage admin_GeofencePage = new Admin_GeofencePage();
     Admin_ScheduledTripsPage admin_ScheduledTripsPage = new Admin_ScheduledTripsPage();
     Admin_TripsPage admin_TripsPage = new Admin_TripsPage();
+    Admin_PotentialPartnersPage admin_potentialPartnersPage = new Admin_PotentialPartnersPage();
 
     ActionManager action = new ActionManager();
     private static LogUtility logger = new LogUtility(Admin_PromoCodesSteps.class);
@@ -44,6 +45,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
     Admin_CustomerPage admin_customerPage=new Admin_CustomerPage();
     Admin_DriversPage admin_DriverPage=new Admin_DriversPage();
     GeneralUtility utility = new GeneralUtility();
+    Admin_PaymentMethodsPage admin_paymentMethodsPage = new Admin_PaymentMethodsPage();
 
 
     @When("^I click on \"([^\"]*)\" Menu$")
@@ -94,6 +96,22 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Drivers":
                action.click(admin_DriverPage.Menu_Drivers());
                break;
+
+           case "Potential Partners > Assign Partner":
+                action.click(admin_potentialPartnersPage.Menu_AssignPartner());
+               break;
+
+           case "Potential Partners > Partner Search":
+               action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
+               break;
+           case "Payment Methods  > Partner Cards":
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               break;
+           case "Payment Methods  > Bungii Cards":
+               action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
+               action.click(admin_paymentMethodsPage.Menu_BungiiCards());
+               break;
+
 
        }
         log("I click on "+link+" menu link" ,
@@ -183,6 +201,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
 //                    action.waitUntilIsElementExistsAndDisplayed(admin_DriverPage.Icon_DriverTrips(xpath), (long) 5000);
                     action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
                     break;
+                case "Profile":
+                    driver=(String) cucumberContextManager.getScenarioContext("DRIVER");
+                    xpath= String.format("//td[contains(text(),'%s')]/following-sibling::td/a/img[@title='Profile']", driver);
+                    action.click((admin_DriverPage.Icon_DriverTrips(xpath)));
             }
             log("I click on " + button + " icon",
                     "I have clicked on " + button + " icon", true);
@@ -248,7 +270,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
         //Date today = new Date();
       //  Date tomorrow = new Date(today.getTime());
         DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+       // dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
+        dateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
         Date today = new Date();
         CreatedDate = dateFormat.format(today).toString();
        // dateFormat.setTimeZone(TimeZone.getTimeZone("PST"));
@@ -453,8 +476,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
 
         switch(message) {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
-            testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
-        break;
+                testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
+                break;
             case "Trips have been requested successfully.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
@@ -493,6 +516,26 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
                 //EOC
+            case "Your changes are good to be saved.":
+                String actualMessage=action.getText(admin_potentialPartnersPage.Text_VerifyChangesSavedMessage());
+                if(actualMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+
+            case "Bungii Saved!":
+                actualMessage=action.getText(admin_potentialPartnersPage.Text_SuccessMessage());
+                if(actualMessage.equalsIgnoreCase(message)){
+                    testStepAssert.isTrue(true,"Expected message is displayed.","Expected message is not displayed.");
+                }
+                else {
+                    testStepAssert.isFail("Expected message is not displayed.");
+                }
+                break;
+
         }
     }
 
@@ -599,6 +642,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                     admin_PromoCodesPage.TextBox_DiscountValue().sendKeys(Keys.BACK_SPACE);
                     action.sendKeys(admin_PromoCodesPage.TextBox_DiscountValue(), DiscountValue);
                     action.click(admin_PromoCodesPage.RadioButton_Dollars());
+                    action.click(admin_PromoCodesPage.TextBox_PromotionExpirationDate());
                     action.sendKeys(admin_PromoCodesPage.TextBox_PromotionExpirationDate(), dateFormatInput.format(tomorrow).toString());
                     break;
                 case "One Off":
@@ -709,6 +753,18 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainerPostalCode().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
                 break;
                 //EOC
+            case "Please check your information and try again.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerPayWithCard().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This card number is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCarNumber().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This expiration date is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidExpiryDate().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
+            case "This security code is not valid.":
+                testStepAssert.isEquals(admin_paymentMethodsPage.Label_ErrorContainerInvalidCVV().getText(),message,message+" should be displayed",message+" is displayed",message+" is not displayed");
+                break;
         }
     }
 

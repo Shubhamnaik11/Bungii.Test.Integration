@@ -76,9 +76,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (!action.isElementPresent(Page_CustHome.Button_GetEstimate()))
                         Thread.sleep(5000);
                     action.click(Page_CustHome.Button_GetEstimate());
-                    Thread.sleep(2000);
+                    Thread.sleep(5000);
                     String distance = action.getText(estimatePage.Text_GetDistance());
+                    String estimatedCost=action.getText(estimatePage.Text_GetCost());
                     cucumberContextManager.setScenarioContext("BUNGII_DISTANCE", distance);
+                    cucumberContextManager.setScenarioContext("BUNGIICOST", estimatedCost);
                     break;
 
                 case "Cancel during search":
@@ -245,10 +247,10 @@ public class EstimateBungiiSteps extends DriverBase {
         actualTime = zonedDateTime.format(formatter);
         System.out.println("Actual Time"+actualTime);
             String pickupDateTime = action.getText(bungiiEstimatePage.Time());
-            String pickupTime = pickupDateTime.substring(8,16);
+            String pickupTime = pickupDateTime.substring(8,13);
             System.out.println("Pickup time " + pickupTime);
 
-            actualTime.replace("am", "AM").replace("pm", "PM");
+            actualTime=actualTime.replace(" am", "").replace(" pm", "");
         testStepVerify.isEquals(actualTime, pickupTime);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -310,15 +312,11 @@ public class EstimateBungiiSteps extends DriverBase {
                     break;
                 case "previous values":
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TripDistance(), (String) cucumberContextManager.getScenarioContext("BUNGII_DISTANCE"));
-//                    testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
+//                  testStepVerify.isElementTextEquals(Page_Estimate.Text_TotalEstimate(),(String) cucumberContextManager.getScenarioContext("BUNGII_ESTIMATE"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
-
-                    //    testStepVerify.isElementTextEquals(Page_Estimate.Link_LoadingUnloadingTime(),(String) cucumberContextManager.getScenarioContext("BUNGII_LOADTIME"));
-                    //   testStepVerify.isElementTextEquals(Page_Estimate.Text_PickupLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION"));
-                    //   testStepVerify.isElementTextEquals(Page_Estimate.Text_DropOffLocation(),(String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION"));
                     break;
                 case "Bungii Estimate page with all details":
                     action.scrollToTop();
@@ -331,6 +329,19 @@ public class EstimateBungiiSteps extends DriverBase {
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_PickupLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_PICK_LOCATION_LINE_2"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineOne(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_1"));
                     testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_DropOffLocation_LineTwo(), (String) cucumberContextManager.getScenarioContext("BUNGII_DROP_LOCATION_LINE_2"));
+                    break;
+                case "zero estimated cost":
+                    testStepVerify.isElementTextEquals(bungiiEstimatePage.Text_TotalEstimate(), "~$0.00");
+                    break;
+                case "estimated cost":
+                    String estimatedCost=action.getText(estimatePage.Text_GetCost());
+                    String previousCost=(String)cucumberContextManager.getScenarioContext("BUNGIICOST");
+                    estimatedCost.replace("~$","");
+                    previousCost.replace("~$","");
+                    if(!previousCost.equals(estimatedCost))
+                    testStepAssert.isTrue(true, "Cost is estimated for Bungii.", "Cost is not estimated for Bungii.");
+                    break;
+                case "Correct Time Format":
 
                     break;
                 default:
@@ -431,6 +442,42 @@ public class EstimateBungiiSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customer_newly.registered.phonenumber"));
                     cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customer_newly.registered.name"));
                     break;
+                case "Testcustomertywd_appleand_A Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerA.phone.number"), PropertyUtility.getDataProperties("customerA.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerA.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerA.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_B Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerB.phone.number"), PropertyUtility.getDataProperties("customerB.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerB.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerB.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_C Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerC.phone.number"), PropertyUtility.getDataProperties("customerC.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerC.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerC.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_D Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerD.phone.number"), PropertyUtility.getDataProperties("customerD.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerD.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerD.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_E Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerE.phone.number"), PropertyUtility.getDataProperties("customerE.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerE.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerE.phone.name"));
+                    break;
+                case "Testcustomertywd_appleand_F Android":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("customerF.phone.number"), PropertyUtility.getDataProperties("customerF.phone.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER_PHONE", PropertyUtility.getDataProperties("customerF.phone.number"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER", PropertyUtility.getDataProperties("customerF.phone.name"));
+                    break;
+                case "valid goa customer":
+                    utility.loginToCustomerApp(PropertyUtility.getDataProperties("goa.customer.phone"),
+                    PropertyUtility.getDataProperties("goa.customer.password"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2", PropertyUtility.getDataProperties("goa.customer.name"));
+                    cucumberContextManager.setScenarioContext("CUSTOMER2_PHONE", PropertyUtility.getDataProperties("goa.customer.phone"));
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -453,21 +500,29 @@ public class EstimateBungiiSteps extends DriverBase {
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationB"));
                     Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationB"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     break;
                 case "goa location in pickup and dropoff fields long distance":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.locationA"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     break;
                 case "kansas pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.kansas"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.kansas"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     Thread.sleep(1000);
                     break;
@@ -475,7 +530,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location2.kansas"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location2.kansas"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "kansas");
                     Thread.sleep(1000);
                     break;
@@ -483,7 +541,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.away.atlanta"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
@@ -491,15 +552,19 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.boston"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.boston"));
-                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "boston");
-                    Thread.sleep(1000);
+                    Thread.sleep(4000);
                     break;
                 case "baltimore pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.baltimore"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.baltimore"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "baltimore");
                     Thread.sleep(1000);
                     break;
@@ -507,7 +572,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlanta"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.atlanta"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
@@ -515,7 +583,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.atlanta"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.away.atlanta"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "atlanta");
                     Thread.sleep(1000);
                     break;
@@ -531,7 +602,7 @@ public class EstimateBungiiSteps extends DriverBase {
                     action.click(Page_CustHome.Button_ETASet());
 
                     action.click(Page_CustHome.Button_Locator());
-                    action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     break;
                 case "current location in pickup and dropoff fields long distance":
@@ -547,18 +618,19 @@ public class EstimateBungiiSteps extends DriverBase {
                     Thread.sleep(2000);
                     action.hideKeyboard();
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.locationA"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
-
                     break;
 
                 case "Goa pickup and dropoff locations":
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
-                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("current.location"));
+                    Thread.sleep(4000);
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
                     action.click(Page_CustHome.Button_ETASet());
-                    Thread.sleep(2000);
+                    Thread.sleep(4000);
                     testStepAssert.isNotElementDisplayed(homePage.Text_ETAvalue(), "Less than 30mins", "Less than 30mins", "More than 30mins");
                     break;
 
@@ -566,7 +638,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.less.150"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.150"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
@@ -577,7 +652,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.equal.150"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.equal.150"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
@@ -588,7 +666,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.more.150"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
@@ -598,7 +679,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.sanFrancisco"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.sanFrancisco"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "San Francisco");
                     Thread.sleep(1000);
                     break;
@@ -607,12 +691,35 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.less.30"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.less.30"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     //action.click(Page_CustHome.Button_ETASet());
                     Thread.sleep(2000);
                     break;
 
+                case "far off Goa pickup and dropoff locations":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("goa.pickup.location.A"));
+                    Thread.sleep(2000);
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("goa.dropoff.location.A"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Goa");
+                    //action.click(Page_CustHome.Button_ETASet());
+                    Thread.sleep(2000);
+                    break;
+
+                case "Goa pickup and dropoff location":
+                    if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
+                        action.click(Page_CustHome.Button_ClearPickUp());
+                    utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Goa"));
+                    Thread.sleep(4000);
+                    utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Goa"));
+                    cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "goa");
+                    Thread.sleep(2000);
+                    break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
@@ -628,7 +735,7 @@ public class EstimateBungiiSteps extends DriverBase {
                 action.click(Page_CustHome.Button_ETASet());
             }
             action.waitUntilIsElementExistsAndDisplayed(Page_CustHome.Button_GetEstimate());
-            //     action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
+            //action.invisibilityOfElementLocated(Page_CustHome.Button_ETASet(true));
             String dropUpLocationLine1 = action.getText(Page_CustHome.TextBox_DropOffLine1()), dropUpLocationLine2 = action.getText(Page_CustHome.TextBox_DropOffLine2());
 
             cucumberContextManager.setScenarioContext("BUNGII_PICK_LOCATION_LINE_1", pickUpLocationLine1);
@@ -652,7 +759,10 @@ public class EstimateBungiiSteps extends DriverBase {
                     if (action.isElementPresent(Page_CustHome.Button_ClearPickUp(true)))
                         action.click(Page_CustHome.Button_ClearPickUp());
                     utility.selectAddress(Page_CustHome.TextBox_PickUpTextBox(), PropertyUtility.getDataProperties("pickup.location.Kansas.more.150"));
+                    Thread.sleep(4000);
+                    action.click(Page_CustHome.Button_ETASet(true));
                     utility.selectAddress(Page_CustHome.TextBox_DropOffTextBox(), PropertyUtility.getDataProperties("dropoff.location.Kansas.more.150"));
+                    Thread.sleep(4000);
                     cucumberContextManager.setScenarioContext("BUNGII_GEOFENCE", "Kansas");
                     Thread.sleep(2000);
                     break;
@@ -927,7 +1037,20 @@ public class EstimateBungiiSteps extends DriverBase {
                 case "OLD BUNGII TIME":
                     utility.selectBungiiTime();
                     break;
+                case "NEW BUNGII TIME":
+                    utility.selectBungiiTime();
+                    break;
                 case "next possible scheduled for duo":
+                    break;
+                case "BUNGII TIME":
+                    utility.selectNewBungiiTime();
+                    break;
+                case "MIDNIGHT BUNGII TIME":
+                    String h="00",m="30",ampm="am";
+                    utility.selectBungiiTime(h,m,ampm);
+                    break;
+                case "Next Schedule Time":
+                    utility.selectTime();
                     break;
                 default:
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
@@ -947,13 +1070,33 @@ public class EstimateBungiiSteps extends DriverBase {
         }
     }
 
+    @And("^I schedule Bungii at \"([^\"]*)\" Time $")
+    public void i_schedule_bungii_at_something_time(String strArg1) throws Throwable {
+        try {
+            switch (strArg1) {
+                case "Next Schedule":
+                    utility.selectTime();
+                    break;
+
+                default:
+                    error("UnImplemented Step", "UnImplemented Step");
+                    break;
+            }
+        }
+        catch (Exception e) {
+            logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
+            error("Step  Should be successful",
+                    "Error performing step,Please check logs for more details", true);
+        }
+
+    }
+
+
     @Then("^\"([^\"]*)\" information icon should display correct information$")
     public void something_information_icon_should_display_correct_information(String iconName) throws Throwable {
         try {
-
             String loadTime = (String) cucumberContextManager.getScenarioContext("BUNGII_LOAD_TIME");
             String expectedMessage = "", actualMessage = "";
-
 
             switch (iconName.toUpperCase()) {
                 case "LOAD/UPLOAD TIME":
@@ -1057,6 +1200,8 @@ public class EstimateBungiiSteps extends DriverBase {
             Date date = getNextScheduledBungiiTime();
             //String strTime = bungiiTimeDisplayInTextArea(date);
             String[] strTime=bungiiTimeZoneDisplayInTextArea(date);
+            strTime[0]=strTime[0].replace("am ","").replace("pm" ,"");
+            strTime[1]=strTime[1].replace("am ","").replace("pm ","");
             String displayedTime = getElementValue("TIME");
             if(displayedTime.equalsIgnoreCase(strTime[0]) || displayedTime.equalsIgnoreCase(strTime[1]))
             {

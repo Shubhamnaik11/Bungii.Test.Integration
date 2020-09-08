@@ -1,5 +1,5 @@
 @ios
-@FAILED2802
+@signup
 Feature: As a new customer I should be allowed to Sign up on Bungii Customer applicatrion
 
 
@@ -7,6 +7,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
     Given I am on the "SIGN UP" page
 
   @regression
+    @testing
   Scenario Outline: Verify Referral Source Is Incremented By 1 If Customer Registers By Selecting Referral Source - Scenario :<Scenario>
 
     When I open new "Chrome" browser for "ADMIN_PORTAL"
@@ -69,7 +70,7 @@ Feature: As a new customer I should be allowed to Sign up on Bungii Customer app
       | VALID    | Mike       | Test      | vishal.bagi@creativecapsule.com | {RANDOM_PHONE_NUM} | Cci12345 | Promo         | OTHER  |
   @failed
   @email
-  @regression
+  @ready
   Scenario Outline: Verify Customer Can Submit Registration Form Without Promocode
     When I Enter "<Phone Number>" value in "Phone Number" field in "SIGN UP" Page
     And I Enter "<First Name>" value in "First Name" field in "SIGN UP" Page

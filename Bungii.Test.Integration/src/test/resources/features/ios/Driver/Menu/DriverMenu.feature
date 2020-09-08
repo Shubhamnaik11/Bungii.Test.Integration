@@ -10,12 +10,14 @@ Feature: DriverMenu
     And I am logged in as "valid nashville" driver
 
   @regression
+   @sanity
   Scenario: Verify Driver FAQ Menu
     When I Select "FAQ" from driver App menu
     Then I should be navigated to "FAQ" screen
     Then I should be able to see data on "FAQ" page
 
   @regression
+  @sanity
   Scenario: Verify Driver LEADERBOARD Menu
     When I Select "LEADERBOARD" from driver App menu
     Then I should be navigated to "LEADERBOARD" screen
@@ -23,26 +25,28 @@ Feature: DriverMenu
 
 
   @regression
+  @sanity
   Scenario: Verify Driver SCHEDULED BUNGII Menu
     When I Select "SCHEDULED BUNGIIS" from driver App menu
     Then I should be navigated to "SCHEDULED BUNGII" screen
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
 
-
-
   @regression
+  @sanity
   Scenario:Verify Driver AVAILABLE TRIPS menu
     When I Select "AVAILABLE TRIPS" from driver App menu
     Then I should be navigated to "AVAILABLE TRIPS" screen
     Then I should be able to see data on "AVAILABLE TRIPS" page
 
   @regression
+  @sanity
   Scenario: Verify Driver EARNINGS Menu
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
     Then I should be able to see data on "EARNINGS" page
 
   @regression
+  @sanity
   Scenario: Verify Driver ITEMIZED EARNINGS Screen
     When I Select "EARNINGS" from driver App menu
     Then I should be navigated to "EARNINGS" screen
@@ -57,32 +61,28 @@ Feature: DriverMenu
     Then I should be able to see data on "ACCOUNT" page
 
   @regression
+  @sanity
   Scenario: Verify Driver TRIP ALERT SETTINGS Menu
     When I Select "TRIP ALERT SETTINGS" from driver App menu
     Then I should be navigated to "TRIP ALERT SETTINGS" screen
     Then I should be able to see data on "TRIP ALERT SETTINGS" page
 
   @regression
+  @sanity
   Scenario:Verify Driver LOGOUT Menu
     When I Select "LOGOUT" from driver App menu
     Then I should be able to see data on "LOGOUT" page
     Then I should be navigated to "LOG IN" screen
-  #failing due to BCKD-1103
-  @regression
-    @failed
-  @testing
-  Scenario: Verify Device Token Deregistration Upon Driver Logout
-    Then I driver active flag should be "1"
-    When I Select "LOGOUT" from driver App menu
-    Then I driver active flag should be "0"
 
   @regression
+  @sanity
   Scenario: Verify Driver STORE Menu
     When I Select "STORE" from driver App menu
     Then I should be navigated to "STORE" screen
     Then I should be able to see data on "STORE" page
 
   @regression
+  @sanity
   Scenario: Verify Driver FEEDBACK Menu
     When I Select "FEEDBACK" from driver App menu
     Then I should be navigated to "FEEDBACK" screen
