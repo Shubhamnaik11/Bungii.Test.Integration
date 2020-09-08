@@ -6,6 +6,7 @@ import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import com.bungii.ios.manager.ActionManager;
 import com.bungii.ios.pages.customer.HomePage;
+import com.bungii.ios.pages.customer.InvitePage;
 import com.bungii.ios.utilityfunctions.DbUtility;
 import com.bungii.ios.utilityfunctions.GeneralUtility;
 import cucumber.api.java.en.And;
@@ -26,17 +27,20 @@ public class HomeSteps extends DriverBase {
     private static LogUtility logger = new LogUtility(EstimateSteps.class);
     ActionManager action = new ActionManager();
     private HomePage homePage;
+    private InvitePage invitePage = new InvitePage();
+
     DbUtility dbUtility= new DbUtility();
     public HomeSteps(HomePage homePage) {
         this.homePage = homePage;
+
     }
 
     @Then("^User should be successfully logged in to the application$")
     public void user_should_be_successfully_logged_in_to_the_system() {
         try {
             GeneralUtility utility = new GeneralUtility();
-            boolean isHomePage = utility.verifyPageHeader("HOME");
-            testStepVerify.isTrue(isHomePage, "User should be loggind in", " Home screen is displayed", "User was not logged in");
+            boolean isHomePage = utility.verifyPageHeader("BUNGII"); //Customer App Screen
+            testStepVerify.isTrue(isHomePage, "User should be loggind in", " BUNGII screen is displayed", "User was not logged in");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful", "Error performing step,Please check logs for more details", true);
@@ -137,6 +141,18 @@ public class HomeSteps extends DriverBase {
             } catch (Exception e) {
                 logger.detail("Geofence is not specified ");
             }
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                logger.detail("Alert is present on screen, Alert message:" + alertMessage);
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if(alertMessage.contains("Oops! It looks like we are not operating in your area quite yet"))
+                    action.clickAlertButton("Done");
+            }
+            if (action.isElementPresent(homePage.Button_ClearPickup(true))) {
+                action.tapByElement(homePage.Button_ClearPickup());
+                logger.detail("CLEARED PICKUP ADDRESS FROM FIELD ");
+            }
+
             selectBungiiLocation("PICK UP", pickup);
             Thread.sleep(5000);
             selectBungiiLocation("DROP", drop);
@@ -149,7 +165,7 @@ public class HomeSteps extends DriverBase {
 
           //  isbungiiTypeCorrect = (tripDriverType.toUpperCase().equalsIgnoreCase("SOLO") && bungiiType.equals("1")) || (tripDriverType.toUpperCase().equalsIgnoreCase("DUO") && bungiiType.equals("2"));
             testStepVerify.isTrue(isbungiiTypeCorrect,
-                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up  address" + pickup + " and drop address " + drop + " using search dropdown",
+                    "I should request " + tripDriverType + " Bungii", tripDriverType + " Bungii was requested for Pick up address : " + pickup + " and drop address : " + drop + " using search dropdown",
                     "Driver for Bungii is not " + bungiiType);
         } catch (Exception e) {
             logger.error("Error Requesting Bungii", ExceptionUtils.getStackTrace(e));
@@ -265,10 +281,12 @@ public class HomeSteps extends DriverBase {
             switch (actionToDo.toUpperCase()) {
                 case "DROP":
                     Thread.sleep(5000);
-                    selectDropLocation(1);
+                    selectPickUpLocation("9351 Todd Road");
+                    //selectDropLocation(1);
                     break;
                 case "PICK UP":
-                    selectPickUpLocation(1);
+                    selectPickUpLocation("6800 Zoo Drive");
+                   // selectPickUpLocation(1);
                     //   action.click(homePage.BUTTON_SET());
                     break;
                 case "CURRENT PICK UP":
@@ -408,6 +426,22 @@ public class HomeSteps extends DriverBase {
     @And("^I Select \"([^\"]*)\" from Customer App menu$")
     public void i_select_something_from_customer_app_menu(String menuItem) {
         try {
+
+
+            if (action.isAlertPresent()) {
+                String alertMessage = action.getAlertMessage();
+                List<String> getListOfAlertButton = action.getListOfAlertButton();
+                if (alertMessage.contains("we are not operating in your area")) {
+                    if (getListOfAlertButton.contains("Done")) {
+                        action.clickAlertButton("Done");
+                    }
+                }
+            }
+            String header = getNavigationBarName();
+            if (header.equalsIgnoreCase("INVITE"))
+            {
+                action.click(invitePage.Button_Done());
+            }
             goToAppMenu();
             clickAppMenu(menuItem);
             log(menuItem + " must be selected sucessfully",
@@ -526,7 +560,7 @@ public class HomeSteps extends DriverBase {
      * @return Navigation header name
      */
     public String getNavigationBarName() {
-        return action.getNameAttribute(homePage.Text_NavigationBar());
+        return action.getScreenHeader(homePage.Text_NavigationBar());
     }
 
 
@@ -760,10 +794,12 @@ public class HomeSteps extends DriverBase {
         // wait for loading to disappear
         //action.invisibilityOfElementLocated(homePage.Indicator_Loading());
         //VISHAL[12042019]: Quick fix for QA auto
-        try {Thread.sleep(3000);}catch (Exception e){}
+        try {Thread.sleep(5000);}catch (Exception e){}
+
         if (action.isElementPresent(homePage.Button_ClearPickup(true)))
             action.click(homePage.Button_ClearPickup());
 
+        action.tapByElement(homePage.TextBox_Pickup());
         action.clearEnterText(homePage.TextBox_Pickup(), location);
         action.click(homePage.Link_PickUpSuggestion());
         //  action.hideKeyboard();

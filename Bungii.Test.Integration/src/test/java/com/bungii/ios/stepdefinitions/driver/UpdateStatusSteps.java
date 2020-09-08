@@ -595,7 +595,7 @@ public class UpdateStatusSteps extends DriverBase {
 
         }
         testStepVerify.isEquals(actualText, expectedText, strArg1 + "should be displayed", expectedText + " is displayed", "Expect alert text is " + expectedText + " and actual is " + actualText);
-        action.clickAlertButton("INITIATE");
+        action.clickAlertButton("Initiate");
     }
     @And("^stack trip information should be displayed on deck$")
     public void stack_trip_information_should_be_displayed_on_deck() {
@@ -710,7 +710,7 @@ public class UpdateStatusSteps extends DriverBase {
      */
     public boolean isUpdatePage(String pageName) {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), pageName);
-        return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(pageName);
+        return action.getScreenHeader(updateStatusPage.Text_NavigationBar()).equals(pageName);
 
     }
 

@@ -62,6 +62,7 @@ public class CommonSteps extends DriverBase {
     LocationPage locationPage = new LocationPage();
     SignupPage Page_Signup= new SignupPage();
     private DbUtility dbUtility = new DbUtility();
+    com.bungii.android.pages.driver.LoginPage driverLoginPage = new com.bungii.android.pages.driver.LoginPage();
 
     @Given("^I have Large image on my device$")
     public void i_have_large_image_on_my_device() throws Throwable {
@@ -1106,5 +1107,33 @@ public class CommonSteps extends DriverBase {
         }
 
         return containedUrls;
+    }
+
+    @Then("^I accept \"([^\"]*)\" and \"([^\"]*)\" permission if exist$")
+    public void I_acceptNotificationAndLocationPermissionIfExist(String Notification, String Location) throws Throwable {
+        try {
+            GeneralUtility utility = new GeneralUtility();
+            String pageName = utility.getPageHeader();
+            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                action.click(driverHomePage.Button_Sure(true));
+                //action.clickAlertButton("ALLOW");
+             //  if (currentPage.equals("LOCATION")) {
+                    action.click(driverLoginPage.Button_Sure());
+                    action.click(driverLoginPage.Button_Allow());
+                // pageName = utility.getPageHeader();
+            }
+            Thread.sleep(3000);
+            pageName = utility.getPageHeader();
+            if(action.isElementPresent(driverHomePage.Button_Sure(true))) {
+                //action.click(driverHomePage.Button_Sure(true));
+                action.click(driverLoginPage.Button_Sure());
+                action.click(driverLoginPage.Button_Allow());
+                //pageName = utility.getPageHeader();
+            }
+
+        } catch (Exception e) {
+
+        }
+
     }
 }

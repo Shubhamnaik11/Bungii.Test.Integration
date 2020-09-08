@@ -201,14 +201,25 @@ public class Admin_GeofenceSteps extends DriverBase {
                             case "Customers" :
                                 action.click(admin_CustomerPage.Menu_Customers());
                                 break;
-                            case "Trips" :
+//                            case "Trips" :
+//                                action.click(admin_TripsPage.Menu_Trips());
+//                                break;
+//                            case "Scheduled Trips" :
+//                                action.click(admin_TripsPage.Menu_Trips());
+//                                action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
+//                                break;
+//                            case "Live Trips" :
+//                                action.click(admin_TripsPage.Menu_Trips());
+//                                action.click(admin_LiveTripsPage.Menu_LiveTrips());
+//                                break;
+                            case "All Deliveries" :
                                 action.click(admin_TripsPage.Menu_Trips());
                                 break;
-                            case "Scheduled Trips" :
+                            case "Scheduled Deliveries" :
                                 action.click(admin_TripsPage.Menu_Trips());
                                 action.click(admin_ScheduledTripsPage.Menu_ScheduledTrips());
                                 break;
-                            case "Live Trips" :
+                            case "Live Deliveries" :
                                 action.click(admin_TripsPage.Menu_Trips());
                                 action.click(admin_LiveTripsPage.Menu_LiveTrips());
                                 break;
@@ -507,7 +518,7 @@ public class Admin_GeofenceSteps extends DriverBase {
         testStepAssert.isEquals(action.getText(admin_geofenceAtrributesPage.Label_ErrorTextOnEmpty()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
     }
 
-    @When("I search by Name {string} in {string} page geofence")
+    @When("^I search by Name \"([^\"]*)\" in \"([^\"]*)\" page geofence$")
     public void iSearchByNameInPageGeofence(String arg0, String arg1) throws Throwable {
         Thread.sleep(2000);
         String Name = (String) cucumberContextManager.getScenarioContext("GF_ATTR_LABEL");

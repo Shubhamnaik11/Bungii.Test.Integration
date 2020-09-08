@@ -9,7 +9,7 @@
     Scenario: Verify that Partner can create Solo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
-        | Solo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
+        | Solo   | Margao Railway Overbridge  | Patto Centre,Panjim          |15 minutes      |
       And I select <Pickup Date> and <Pickup Time>
       And I click "Get Estimate" button on "Get Estimate" screen
       Then I should see "Estimated Cost" on "Get Estimate" screen
@@ -29,7 +29,7 @@
     Scenario: Verify that Partner can create Duo ondemand bungii Trip
       When I request for  bungii for given pickup and drop location
         | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
-        | Duo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
+        | Duo   | Margao Railway Overbridge  | Patto Centre,Panjim          |15 minutes      |
       And I select <Pickup Date> and <Pickup Time>
       And I click "Get Estimate" button on "Get Estimate" screen
       Then I should see "Estimated Cost" on "Get Estimate" screen
@@ -47,7 +47,7 @@
       Scenario: Verify Start Over functionality for Bungii Trip
         When I request for  bungii for given pickup and drop location
           | Driver | Pickup Address  | Delivery Address             |Load Unload Time|
-          | Duo   | Margoa Railway  | Patto Centre,Panjim          |15 minutes      |
+          | Duo   | Margao Railway Overbridge  | Patto Centre,Panjim          |15 minutes      |
         And I click on "Start Over" button
         Then I should see all values get reset to default
 

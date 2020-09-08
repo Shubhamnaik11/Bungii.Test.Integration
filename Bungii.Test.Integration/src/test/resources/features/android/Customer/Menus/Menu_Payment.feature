@@ -7,6 +7,8 @@ Scenarios on Payment Methods
   Scenario: Verify Customer Can Change Default Payment Card Added To New One
     Given I am on customer Log in page
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Payment" link
     And I tap on "the 2nd payment method" on Payment page
     And I tap on "Set as default payment mode" on Payment page

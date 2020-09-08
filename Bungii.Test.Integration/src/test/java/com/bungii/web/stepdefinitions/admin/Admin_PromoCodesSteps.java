@@ -54,26 +54,30 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Marketing  > Promocode" :
               action.click(admin_PromoCodesPage.Menu_Marketing());
               break;
-           case "Marketing  > Referral Source" :
+           case "Marketing  > Referral Sources" :
                action.click(admin_PromoCodesPage.Menu_Marketing());
                action.click(admin_ReferralSourcePage.Menu_ReferralSource());
                break;
-           case "Business Users  > Business Users" :
+//           case "Business Users  > Business Users" :
+           case "Bulk Delivery Upload  > Partners" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                break;
-           case "Business Users  > Bulk Trips" :
+           case "Bulk Delivery Upload  > Upload Deliveries" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BulkTrips());
                break;
-           case "Business Users  > Business Users Payment" :
+//           case "Business Users  > Business Users Payment" :
+           case "Bulk Delivery Upload  > Partner Payment" :
                action.click(admin_BusinessUsersPage.Menu_BusinessUsers());
                action.click(admin_BusinessUsersPage.Menu_BusinessUsersPayment());
                break;
-           case "Promotion  > Promoters" :
+           case "Promo Codes > Free Deliveries Codes  > Partners" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                break;
-           case "Promotion  > Promoter Cards" :
+           case "Free Deliveries Codes  > Free Delivery Credit Card" :
                action.click(admin_PromoterPage.Menu_Promotion());
+               action.click(admin_PromoterPage.Menu_Promotion_Free_Delivery());
                action.click(admin_PromoterPage.Menu_PromoterPayment());
                break;
            case "Geofences  > Geofences" :
@@ -89,7 +93,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                action.click(admin_customerPage.Menu_Customers());
                break;
 
-           case "Trips > Trips" :
+           case "Deliveries > All Deliveries" :
                action.click(admin_TripsPage.Menu_Trips());
                break;
 
@@ -104,10 +108,10 @@ public class Admin_PromoCodesSteps extends DriverBase {
            case "Potential Partners > Partner Search":
                action.click(admin_potentialPartnersPage.Menu_PartnerSearch());
                break;
-           case "Payment Methods  > Partner Cards":
+           case "Partner Portal  > Partner Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
                break;
-           case "Payment Methods  > Bungii Cards":
+           case "Partner Portal  > Bungii Card":
                action.click(admin_paymentMethodsPage.Menu_PaymentMethods());
                action.click(admin_paymentMethodsPage.Menu_BungiiCards());
                break;
@@ -460,7 +464,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isNotElementDisplayed(admin_PromoCodesPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
 
-            case "Business User":
+            case "Partners":
                 testStepAssert.isNotElementDisplayed(admin_BusinessUsersPage.Button_Save(), popup + " Popup should be hidden", popup +" Popup is hidden", popup+" Popup is not hidden");
                 break;
               //BOC
@@ -478,7 +482,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Oops! It looks like you missed something. Please fill out all fields before proceeding.":
                 testStepAssert.isEquals(action.getText(admin_PromoCodesPage.Label_ErrorContainer()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
-            case "Trips have been requested successfully.":
+            case "Deliveries have been requested successfully.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_BulkTripSuccess()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -508,7 +512,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                 testStepAssert.isEquals(action.getText(SetupManager.getDriver().findElement(By.xpath(xpath))),"This card number is not valid.", "This card number is not valid.","The message is listed in grid", "The message is not listed in grid");
                 break;
 
-            case "No Business users found.":
+            case "No Partners found.":
                 testStepAssert.isEquals(action.getText(admin_BusinessUsersPage.Label_NoBusinessUsersFound()), message, message + " should be displayed", message + " is displayed", message + " is not displayed");
                 break;
 
@@ -546,7 +550,8 @@ public class Admin_PromoCodesSteps extends DriverBase {
             case "Add New Promocode":
             action.click(admin_PromoCodesPage.Button_Cancel());
             break;
-            case "Business Users":
+            case "Partner":
+//            case "Business Users":
                 switch(button) {
                     case "Cancel":
                     action.click(admin_BusinessUsersPage.Button_Cancel());
@@ -556,7 +561,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Add New Promoter":
+            case "Add New Partner":
                 switch(button) {
                     case "Cancel":
                         action.click(admin_PromoterPage.Button_Cancel());
@@ -566,7 +571,7 @@ public class Admin_PromoCodesSteps extends DriverBase {
                         break;
                 }
                 break;
-            case "Add Promotion":
+            case "Add Event":
                 switch(button) {
                     case "Cancel":
                         action.click(admin_PromoterPage.Button_Cancel());

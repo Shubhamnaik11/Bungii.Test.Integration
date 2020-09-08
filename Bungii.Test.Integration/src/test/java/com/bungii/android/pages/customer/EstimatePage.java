@@ -98,6 +98,7 @@ public class EstimatePage extends PageBase {
     public WebElement Alert_ChooseItemPhoto_Title () { return findElement("android:id/alertTitle", LocatorType.Id); }
 
     public WebElement Option_Camera (boolean ...ignoreException) { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Camera']", LocatorType.XPath,ignoreException); }
+    public WebElement Option_CameraTutorial_Next (boolean ...ignoreException) { return findElement("//*[@text=\"NEXT\"]", LocatorType.XPath,ignoreException); }
 
     public WebElement Option_Gallery () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Gallery']", LocatorType.XPath); }
     public WebElement Option_OverLayPhotos () { return findElement("//android.widget.TextView[@resource-id='android:id/text1' and @text='Photos']", LocatorType.XPath); }
@@ -111,7 +112,7 @@ public class EstimatePage extends PageBase {
     public WebElement Button_Camera_Retry () { return findElement("com.sec.android.app.camera:id/retry", LocatorType.Id); }
 
     public WebElement Button_Review (boolean ...ignoreException) { return findElement("com.motorola.camera:id/review_approve", LocatorType.Id,ignoreException); }
-    public WebElement Button_SelectedImage () { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id); }
+    public WebElement Button_SelectedImage (boolean ...ignoreException) { return findElement("com.bungii.customer:id/selected_image", LocatorType.Id,ignoreException); }
 
 
 

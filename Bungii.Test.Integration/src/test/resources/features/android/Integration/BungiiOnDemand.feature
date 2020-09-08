@@ -1,5 +1,5 @@
 @android
-
+@bungii
   @ondemand
   #These feature will run in baltimore geofence
 Feature: On Demand Bungii
@@ -13,9 +13,12 @@ Feature: On Demand Bungii
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid baltimore" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I Switch to "customer" application on "same" devices
     And I am logged in as "valid baltimore" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then for a Bungii I should see "Enroute screen"
     When I tap "SMS for a solo driver" during a Bungii
     Then correct details should be displayed on "SMS" app

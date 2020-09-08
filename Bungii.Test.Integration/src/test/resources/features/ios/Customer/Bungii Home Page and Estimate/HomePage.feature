@@ -11,7 +11,7 @@ Feature: Customer Home screen
     When I click "Pick Up Clear Text" button on "Home" screen
     And "PICK UP" box header and ETA bar header should be correctly displayed
 
-  @ready
+  @regression
   Scenario: Verify ETA And Location Textbox Header - Also Verify Clear Text Button Is Enabled Once Location Is Selected
     When I logged in Customer application using  "existing" user
 
@@ -26,7 +26,7 @@ Feature: Customer Home screen
     Then "Drop" address should be displayed in text box
     And Clear Button should be enabled for "Drop" box
 
-  @ready
+  @regression
   Scenario: Verify Clear Text Button On Pickup And Dropoff Location
     Given I am on Customer logged in Home page
     And I Select "Home" from Customer App menu
@@ -56,14 +56,13 @@ Feature: Customer Home screen
     Then drop off field should be "not be displayed"
 
 
-@failed
-  @ready
+  @regression
   Scenario:Verify If Driver ETA Is Displayed When There Are Drivers Present In 30 Min Radius Of Pickup Location
     When I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid" driver
     When I Switch to "customer" application on "same" devices
-    Given I am on Customer logged in Home page
+    Given I am on Customer "A" logged in Home page
     When I select "Pick up" location
     Then "Pick up" address should be displayed in text box
     And driver eta should be "less than 30 mins"
@@ -78,7 +77,7 @@ Feature: Customer Home screen
     Then driver eta should be "not be displayed"
     And I enter drop location
       | Driver | Drop Location  |
-      | Solo   | Margoa Railway |
+      | Solo   | Margao Railway Overbridge |
     And I click "Get Estimate" button on "Home" screen
     Then I should be navigated to "Estimate" screen
     When I confirm trip with following details
@@ -94,14 +93,14 @@ Feature: Customer Home screen
 
     And I enter pickup location
       | Driver | Pickup Location |
-      | Solo   | Margoa Railway  |
+      | Solo   | Margao Railway Overbridge  |
     And I enter drop location
       | Driver | Drop Location                   |
       | Solo   | Gateway Of India Apollo Bandar |
     Then user is alerted for "LONG HAUL"
 
 
-  @regression
+  @ready
   Scenario: Verify ETA Box When Geofence Is Not Active
     Given I am on Customer logged in Home page
 

@@ -4,6 +4,8 @@ Feature: Menu_Support
 
   Background:
     Given I am logged in as "existing" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     When I tap on "Menu" > "Support" link
 
   @regression

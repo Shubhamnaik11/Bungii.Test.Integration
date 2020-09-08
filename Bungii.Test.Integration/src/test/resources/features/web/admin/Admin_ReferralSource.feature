@@ -3,7 +3,7 @@ Feature: Admin_ReferralSource
 
   Background:
     Given I am logged in as Admin
-    When I click on "Marketing  > Referral Source" Menu
+    When I click on "Marketing  > Referral Sources" Menu
     Then I should be directed to "Referral Source Page"
 
   @sanity
@@ -15,7 +15,7 @@ Feature: Admin_ReferralSource
   @regression
     @failed
   Scenario: Verify Referral Source Grid Sort ASC DESC
-    When I click on "Source" header "Ascending" on "Referral Source" grid
+    When I click on "Sources" header "Ascending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Ascending" order of "Source"
     When I click on "Source" header "Descending" on "Referral Source" grid
     Then the "Referral Source" list should be sorted by "Descending" order of "Source"

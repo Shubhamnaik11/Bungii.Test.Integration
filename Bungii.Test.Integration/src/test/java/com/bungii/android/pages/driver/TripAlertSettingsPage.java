@@ -13,7 +13,7 @@ public class TripAlertSettingsPage extends PageBase {
     public WebElement Radio_TripAlert() { return findElement("com.bungii.driver:id/text_settings_radio_trip_alerts", LocatorType.Id); }
     public WebElement Radio_SmsAlert() { return findElement("com.bungii.driver:id/text_settings_radio_sms_alerts", LocatorType.Id); }
 
-    public WebElement Tab_TripAlerts() { return findElement("//android.widget.RadioButton[@text='Trip Alerts']", LocatorType.XPath);}
+    public WebElement Tab_TripAlerts() { return findElement("//android.widget.RadioButton[@text='Delivery Alerts']", LocatorType.XPath);}
 
     public WebElement Tab_SMSAlerts() { return findElement("//android.widget.RadioButton[@text='SMS Alerts']", LocatorType.XPath);}
 

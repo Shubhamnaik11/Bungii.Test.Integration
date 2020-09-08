@@ -55,7 +55,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @And("^I enter following values in \"([^\"]*)\" fields$")
     public void i_enter_following_values_in_something_fields(String fields, DataTable data) throws Throwable {
         switch (fields) {
-            case "Business Users" :
+//            case "Business Users" :
+            case "New Partner" :
             try {
                 Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
                 Long now = Instant.now().toEpochMilli();
@@ -191,8 +192,8 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
        }
 
-    @Then("^the business user gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
-    public void the_business_user_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
+    @Then("^the partner gets saved successfully and it is displayed in the \"([^\"]*)\" grid$")
+    public void the_partner_gets_saved_successfully_and_it_is_displayed_in_the_something_grid(String strArg1) throws Throwable {
         Thread.sleep(1000);
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
@@ -207,7 +208,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     }
 
-    @Then("^the user \"([^\"]*)\" is displayed in the Business users grid$")
+    @Then("^the user \"([^\"]*)\" is displayed in the Partners grid$")
     public void the_user_something_is_displayed_in_the_business_users_grid(String currentdatetime) throws Throwable {
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         String Phone = (String) cucumberContextManager.getScenarioContext("BO_PHONE");
@@ -220,7 +221,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         testStepAssert.isElementDisplayed(SetupManager.getDriver().findElement(By.xpath(Xpath)),"Business User should be listed in grid", "Business User is listed in grid","Business User is not listed in grid");
     }
 
-    @Then("^the business user gets updated successfully and it is displayed in the Business users grid$")
+    @Then("^the partner gets updated successfully and it is displayed in the Partners grid$")
     public void the_business_user_gets_updated_successfully_and_it_is_displayed_in_the_business_users_grid() throws Throwable {
 
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
@@ -236,7 +237,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
 
 
     }
-    @Then("^the business user is not displayed in Bulk Trips since payment is not set$")
+    @Then("^the partner is not displayed in Upload deliveries since payment is not set$")
     public void the_business_user_is_not_displayed_in_bulk_trips_since_payment_is_not_set() throws Throwable {
 
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
@@ -255,14 +256,14 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @Then("^the card is added to the user \"([^\"]*)\"$")
     public void the_card_is_added_to_the_user_something(String uniqueno) throws Throwable {
 
-        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Business User.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
+        testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_SuccessMessage(),"Payment details added successfully for Partner.","Payment details added successfully for Business User. message should be displayed" ,"Payment details added successfully for Business User. message is displayed","Payment details added successfully for Business User. message should be displayed is not displayed");
     }
     @Then("^\"([^\"]*)\" message is displayed$")
     public void something_message_is_displayed(String message) throws Throwable {
         testStepAssert.isElementTextEquals(admin_BusinessUsersPage.Label_ErrorContainer(),message,message+ " message should be displayed" ,message+ " message is displayed",message+ "  message should be displayed is not displayed");
     }
 
-    @Then("^the business user is displayed in Bulk Trips since payment is set$")
+    @Then("^the partner is displayed in Upload Deliveries since payment is set$")
     public void the_business_user_is_displayed_in_bulk_trips_since_payment_is_set() throws Throwable {
         String Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
         Select select = new Select(admin_BusinessUsersPage.DropDown_BusinessUser());
@@ -282,13 +283,14 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_select_something_from_the_something_dropdown(String strArg1, String field) throws Throwable {
         String Name = null;
         switch(field) {
-            case "Select Business User":
+//            case "Select Business User":
+            case "Select Partner":
                  Name = (String) cucumberContextManager.getScenarioContext("BO_NAME");
                 action.selectElementByText(admin_BusinessUsersPage.DropDown_AddBusinessUserPayment(),Name);
                 log("I select element from Select Business User dropdown",
                         "I have selected element from Select Business User dropdown", true);
             break;
-            case "Select Promoter":
+            case "Select Partners":
                  Name = (String) cucumberContextManager.getScenarioContext("PROMOTER_NAME");
                 action.selectElementByText(admin_PromoterPage.DropDown_SelectPromoter(),Name);
                 log("I select element from Select Business User dropdown",
@@ -311,7 +313,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     @And("^I click on \"([^\"]*)\" button on \"([^\"]*)\" page$")
     public void i_click_on_something_button(String button, String page) throws Throwable {
         switch(page) {
-            case "Business Users Payment":
+            case "Partner Payment":
             switch (button) {
                 case "Add Payment Method":
                     action.click(admin_BusinessUsersPage.Button_RequestPayment());
@@ -319,7 +321,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                     break;
             }
             break;
-            case "Bulk Trips":
+            case "Upload Deliveries":
                 switch (button) {
                     case "Upload":
                         action.click(admin_BusinessUsersPage.Button_Upload());
@@ -331,7 +333,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
                         action.click(admin_BusinessUsersPage.Button_BulkTripCancel());
                 }
                 break;
-            case "Promoter Cards":
+            case "Free Delivery Credit Card":
                     switch (button) {
                         case "Add Payment Method":
                             action.click(admin_BusinessUsersPage.Button_RequestPayment());
@@ -399,7 +401,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
     public void i_click_on_something_button_on_something_screen(String button, String Screen) throws Throwable {
         switch(Screen)
         {
-            case "Business User Cards":
+            case "Partner Payment":
                 switch(button) {
                     case "Save":
                         action.click(admin_BusinessUsersPage.Button_PaymentSave());
@@ -455,7 +457,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         log("I select "+username+" from Bulk Trips page",
                 "I have selected "+username+" from Bulk Trips page", true);
     }
-    @And("^I upload image to be associated with the trip$")
+    @And("^I upload image to be associated with the delivery$")
     public void i_upload_image_to_be_associated_with_the_trip() throws Throwable {
         String csvFile =FileUtility.getSuiteResource(PropertyUtility.getFileLocations("csv.folder"),PropertyUtility.getCsvLocations("BULK_TRIP1"));
         String imagefilepath = FileUtility.getSuiteResource(PropertyUtility.getFileLocations("image.folder"),PropertyUtility.getImageLocations("LOADING_ITEM"));
@@ -716,7 +718,7 @@ public class Admin_BusinessUsersSteps extends DriverBase {
         }
     }
 
-    @Then("^the business user does not get saved successfully$")
+    @Then("^the partner does not get saved successfully$")
     public void the_business_user_does_not_get_saved_successfully() throws Throwable {
         testStepAssert.isEquals(admin_BusinessUsersPage.Label_ErrorContainer().getText(), "Phone number already exists.", "Phone number already exists." + " should be displayed", "Phone number already exists." + " is displayed", "Need to specify message" + " is not displayed");
 

@@ -121,14 +121,14 @@ public class CommonStepsDriver extends DriverBase {
                 case "GO OFFLINE":
                     action.click(driverHomePage.GoOffline_Btn());
                     break;
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     action.click(driverHomePage.Text_AvailableTrips());
                     break;
                 case "SMS ALERT":
                     action.click(tripAlertSettingsPage.Button_SMSAlerts());
                     break;
-                case "TRIP ALERT":
-                    action.click(tripAlertSettingsPage.Button_TripAlerts());
+                case "DELIVERY ALERT":
+                    action.click(tripAlertSettingsPage.Button_DeliveryAlerts());
                     break;
                 case "ITEMIZED EARNINGS":
                     action.click(driverHomePage.Link_Itemized_Earnings());
@@ -318,7 +318,8 @@ public class CommonStepsDriver extends DriverBase {
         try {
             //adding temp page source , can remove later
           //  logger.error("Page source", SetupManager.getDriver().getPageSource());
-            String navigationBarName =  action.getNameAttribute(driverHomePage.NavigationBar_Text());
+
+            String navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
             switch (screen.trim().toUpperCase()) {
                 case "LOG IN":
                     goToDriverLogInPage(navigationBarName);
@@ -346,11 +347,12 @@ public class CommonStepsDriver extends DriverBase {
                 action.clickAlertButton("Done");
 
         }
+         navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if(navigationBarName.equalsIgnoreCase("Bungii Completed")){
             action.click(driverBungiiCompletedPage.Button_NextTrip());
             //homeSteps.i_select_something_from_driver_app_memu("LOGOUT");
         }
-
+        navigationBarName =  action.getScreenHeader(driverHomePage.NavigationBar_Text());
         if (!navigationBarName.equals(PropertyUtility.getMessage("driver.navigation.login"))) {
             if (navigationBarName.equals("LOCATION"))
             {

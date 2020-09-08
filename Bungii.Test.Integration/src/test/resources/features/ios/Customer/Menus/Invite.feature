@@ -13,7 +13,7 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then Invite Referral page should be properly displayed
     And I click "Done" button on "Invite" screen
-  @FAILED2702
+  
   @regression
   Scenario: Verify Customer Can Share Code Using Text Message
     When I Select "Home" from Customer App menu
@@ -25,7 +25,7 @@ Feature: Customer	Referral Invite page
     Then I should see draft post in "Message" application
     And I click "Done" button on "Invite" screen
 
-  @regression
+  @ready
   Scenario: Verify Customer Can Share Code Using Email
     When I Select "Home" from Customer App menu
     And I click "Invite referrals" button on "HOME" screen
@@ -33,7 +33,8 @@ Feature: Customer	Referral Invite page
     When I get Invite Code
     And I click "SHARE" button on "INVITE" screen
     And I click "SHARE BY EMAIL" button on "INVITE" screen
-    Then I should see draft post in "MAIL" application
+    Then I should see "No Mail Accounts" message
+    #Then I should see draft post in "MAIL" application #Mail account removed from browserstack
     
 # this test case is to run individually not in suite
  # @regression
@@ -48,14 +49,4 @@ Feature: Customer	Referral Invite page
     Then I should be navigated to "Invite" screen
     Then user is alerted for "No twitter installed"
 
-  @regression
-  Scenario: Verify Customer Is Alerted When He Tries To Share Invite Code Using Twitter Application
-    Given I have "twitter" app "installed"
-    When I Select "Home" from Customer App menu
-    And I click "Invite referrals" button on "HOME" screen
-    Then I should be navigated to "Invite" screen
-    When I get Invite Code
-    And I click "SHARE" button on "INVITE" screen
-    And I click "SHARE ON TWITTER" button on "INVITE" screen
-    Then I should see draft post in "twitter" application
-    And I should be navigated to "Invite" screen
+  

@@ -19,6 +19,8 @@ Feature: CustomerSignup
 #    And I tap on the "No, Continue" button on Signup Page
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in
     When I switch to "ADMIN_PORTAL" instance
     And I Select "Referral Source" from admin sidebar
@@ -48,6 +50,7 @@ Feature: CustomerSignup
     And I enter "valid" Verification code
     And I tap on the "Verification Continue" Link
     Then The user should be logged in
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     When I tap on "Menu" > "Promos" link
     Then "ValidPercent" promo code should be displayed
     When I click on "i" icon
@@ -145,7 +148,7 @@ Feature: CustomerSignup
       And I tap on "Done after requesting a Scheduled Bungii" on Bungii estimate
 
       And I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
 
       And I Select Trip from driver available trip
       And I tap on "ACCEPT" on driver Trip details Page

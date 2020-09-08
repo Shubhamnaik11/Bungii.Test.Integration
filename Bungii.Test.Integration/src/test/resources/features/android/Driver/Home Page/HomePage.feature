@@ -6,6 +6,7 @@ Feature: Driver Home screen
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
   @regression
   Scenario: Verify Driver Default Status Is Set To Offline After Login
@@ -26,5 +27,5 @@ Feature: Driver Home screen
     And Info text should be updated
     And The navigation title should change to "Online"
 
-    When I click "Available Trips" button on Home screen on driver app
-    Then I should be navigated to Available Trip screen on driver app
+    When I click "Available Bungiis" button on Home screen on driver app
+    Then I should be navigated to Available Bungiis screen on driver app

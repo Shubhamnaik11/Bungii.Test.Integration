@@ -10,9 +10,11 @@ public class DashBoardPage extends PageBase {
     }
 
     public WebElement Button_PromoCode() {
+        return findElement("adminmenu-promocodes-menu", LocatorType.Id);
+    }
+    public WebElement Link_StandardCodes() {
         return findElement("adminmenu-promocode", LocatorType.Id);
     }
-
     public WebElement Button_Marketing() {
         return findElement("adminmenu-marketing", LocatorType.Id);
     }
