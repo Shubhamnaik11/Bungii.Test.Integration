@@ -201,7 +201,13 @@ public class CucumberHooks {
      * @throws IOException
      */
     public void tearDown() throws IOException {
-        this.reportManager.endSuiteFile();
+        try {
+            this.reportManager.endSuiteFile();
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
 

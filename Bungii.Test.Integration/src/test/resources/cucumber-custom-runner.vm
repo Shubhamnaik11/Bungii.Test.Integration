@@ -176,6 +176,6 @@ public class $className extends AbstractTestNGCucumberTests {
         try {
             this.hooks.tearDown();
         } catch (IOException e1) {
-            e1.printStackTrace();
+            //e1.printStackTrace();
         }    }
 	}
