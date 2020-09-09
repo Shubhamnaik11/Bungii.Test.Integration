@@ -214,8 +214,8 @@ public class SetupManager extends EventFiringWebDriver {
     public static String getAppiumServerURL(String portNumber) {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
-       //return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
-       return "https://" + APPIUM_SERVER_IP + "/wd/hub";
+       return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
+       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
