@@ -2,7 +2,7 @@
   Feature: Patner_Login
 
     Background:
-      Given I navigate to "Bungii Partner Portal" URL
+      Given I navigate to "Partner" portal of "PP SiteA" URL
 
     @regression
     @sanity

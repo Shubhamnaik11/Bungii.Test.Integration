@@ -19,4 +19,9 @@ public class Kiosk_Page extends PageBase {
     //Incorrect Password Text
     public WebElement Text_Incorrect_Password() { return findElement("//div[@class='invalid-feedback d-block text-left']",LocatorType.XPath);}
 
+    //Admin Access toggle button
+    public WebElement Button_Admin_Access() { return findElement("//input[@name='kioskMode']",LocatorType.XPath);}
+
+
+
 }

@@ -108,16 +108,16 @@ public class GeneralUtility extends DriverBase {
         action.navigateTo(driverURL);
     }
 
-    public void NavigateToPartnerLogin(){
-        String partnerURL = GetPartnerUrl();
+    public void NavigateToPartnerLogin(String Site){
+        String partnerURL="";
+        if(Site.equalsIgnoreCase("PP SiteA")) {
+            partnerURL = GetPartnerUrl();
+        }
+        else if(Site.equalsIgnoreCase("PP SiteB")){
+            partnerURL = GetkioskPartnerUrl();
+        }
         action.deleteAllCookies();
         action.navigateTo(partnerURL);
-    }
-
-    public void NavigateToKioskModePartnerLogin(){
-        String kioskpartnerURL = GetkioskPartnerUrl();
-        action.deleteAllCookies();
-        action.navigateTo(kioskpartnerURL);
     }
 
     public void AdminLogin() throws InterruptedException {

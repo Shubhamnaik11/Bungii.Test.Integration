@@ -39,13 +39,18 @@ public class Partner_DeliveryPage extends PageBase {
     public WebElement Message_Blank_Customer_Mobile() { return findElement("//div[contains(text(),'Customer mobile is required.')]",LocatorType.XPath);}
 
     //Pickup Contact Name
-    public WebElement TextBox_Pickup_Contact_Name() { return findElement("f2bd9004-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    //public WebElement TextBox_Pickup_Contact_Name() { return findElement("f2bd9004-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);
+    public WebElement TextBox_Pickup_Contact_Name() { return findElement("//label[text()='Pickup contact name']/following::input[1]",LocatorType.XPath);}
 
     //Blank Pickup Contact Name
     public WebElement Message_Blank_Pickup_Contact_Name() { return findElement("//div[contains(text(),'Pickup contact name is required.')]",LocatorType.XPath);}
 
     //Pickup Contact Phone
-    public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    //public WebElement TextBox_Pickup_Contact_Phone() { return findElement("f2bd908c-6757-11ea-a4a3-00155d0a8706",LocatorType.Id);}
+    public WebElement TextBox_Pickup_Contact_Phone() { return findElement("//label[text()='Pickup contact phone']/following::input[1]",LocatorType.XPath);}
+
+    //Scheduled By
+    public WebElement TextBox_Scheduled_By() { return findElement("//label[text()='Scheduled By']/following::input[1]",LocatorType.XPath);}
 
     //Pickup Date Time
     public WebElement Label_Pickup_Date_Time() { return findElement("//label[contains(text(),'Pickup Date & Time:')]/following-sibling::p",LocatorType.XPath);}

@@ -8,6 +8,7 @@ import com.bungii.ios.stepdefinitions.admin.DashBoardSteps;
 import com.bungii.web.manager.ActionManager;
 import com.bungii.web.pages.partner.Partner_DashboardPage;
 import com.bungii.web.pages.partner.Partner_DeliveryPage;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
@@ -23,8 +24,8 @@ public class Partner_Delivery_Details extends DriverBase {
     Partner_DeliveryPage Page_Partner_Delivery = new Partner_DeliveryPage();
     ActionManager action = new ActionManager();
 
-    @When("^I enter following details on \"([^\"]*)\" partner screen$")
-    public void i_enter_following_details_on_some_partner_screen(String str, DataTable data){
+    @When("^I enter following details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
+    public void i_enter_following_details_on_some_partner_screen(String str,String Site, DataTable data){
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
         String Items_deliver = dataMap.get("Items_To_Deliver").trim();
@@ -37,6 +38,7 @@ public class Partner_Delivery_Details extends DriverBase {
         String PickupContactName = dataMap.get("Pickup_Contact_Name").trim();
         String PickupContactPhone = dataMap.get("Pickup_Contact_Phone").trim();
 
+        if(Site.equalsIgnoreCase("PP SiteA")) {
         switch(str){
             case "Delivery Details":
                 action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
@@ -55,12 +57,13 @@ public class Partner_Delivery_Details extends DriverBase {
 
                 break;
             default:break;
+            }
         }
 
     }
 
-    @When("^I enter all details on \"([^\"]*)\" partner screen$")
-    public void i_enter_all_details_on_some_partner_screen(String str, DataTable data){
+    @When("^I enter all details on \"([^\"]*)\" for \"([^\"]*)\" on partner screen$")
+    public void i_enter_all_details_on_some_partner_screen(String str,String Site, DataTable data){
         Map<String, String> dataMap = data.transpose().asMap(String.class, String.class);
 
         String Items_deliver = dataMap.get("Items_To_Deliver").trim();
@@ -77,32 +80,63 @@ public class Partner_Delivery_Details extends DriverBase {
         String DropOffContactPhone = dataMap.get("Drop_Contact_Phone").trim();
         String ReceiptNumber = dataMap.get("Receipt_Number").trim();
 
-
-        switch(str){
+        if(Site.equalsIgnoreCase("PP SiteA")) {
+        switch(str) {
             case "Delivery Details":
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(),Items_deliver);
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(),SpecialInstruction);
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(),CustomerName);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
                 //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
                 action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(),CustomerMobile);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
 
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(),PickupContactName);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
                 action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(),PickupContactPhone);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
 
                 String scheduled_date_time = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
-                cucumberContextManager.setScenarioContext("Schedule_Date_Time",scheduled_date_time);
+                cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time);
 
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(),DropOffContactName);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Name(), DropOffContactName);
                 action.click(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone());
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(),DropOffContactPhone);
-                action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(),ReceiptNumber);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Drop_Off_Contact_Phone(), DropOffContactPhone);
+                action.clearSendKeys(Page_Partner_Delivery.TextBox_Receipt_Number(), ReceiptNumber);
 
                 break;
-            default:break;
+            default:
+                break;
+            }
+        }
+        else if(Site.equalsIgnoreCase("PP SiteB")){
+            switch(str) {
+                case "Delivery Details":
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Item_To_Deliver(), Items_deliver);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Special_Intruction(), SpecialInstruction);
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Name(), CustomerName);
+                    //cucumberContextManager.setScenarioContext("CUSTOMER_MOBILE", CustomerMobile);
+                    action.click(Page_Partner_Delivery.TextBox_Customer_Mobile());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Customer_Mobile(), CustomerMobile);
+
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Name(), PickupContactName);
+                    action.click(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone());
+                    action.clearSendKeys(Page_Partner_Delivery.TextBox_Pickup_Contact_Phone(), PickupContactPhone);
+
+                    String scheduled_date_time1 = action.getText(Page_Partner_Delivery.Label_Pickup_Date_Time());
+                    cucumberContextManager.setScenarioContext("Schedule_Date_Time", scheduled_date_time1);
+
+                    break;
+                default:
+                    break;
+            }
+
         }
 
+    }
+
+    @And("^I enter the value \"([^\"]*)\" in Scheduled by field$")
+    public void i_enter_the_some_value_in_scheduled_by_field(String scheduled_by){
+        action.click(Page_Partner_Delivery.TextBox_Scheduled_By());
+        action.clearSendKeys(Page_Partner_Delivery.TextBox_Scheduled_By(),scheduled_by);
     }
 
     @Then("^I confirm details show in summary$")

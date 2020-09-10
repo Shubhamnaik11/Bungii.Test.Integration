@@ -39,18 +39,15 @@ public class Partner_LoginSteps extends DriverBase {
     //DbUtility dbUtility = new DbUtility();
 
 
-    @Given("^I navigate to \"([^\"]*)\" URL$")
-    public void i_navigate_to_something(String page) throws Throwable {
+    @Given("^I navigate to \"([^\"]*)\" portal of \"([^\"]*)\" URL$")
+    public void i_navigate_to_something(String page, String url) throws Throwable {
         switch (page)
         {
-            case "Bungii Partner Portal":
-                utility.NavigateToPartnerLogin();
+            case "Partner":
+                utility.NavigateToPartnerLogin(url);
                 break;
             case "Bungii Admin Portal in new tab":
                 utility.AdminLoginFromPartner();
-                break;
-            case "Bungii Kiosk mode Partner Portal"    :
-                utility.NavigateToKioskModePartnerLogin();
                 break;
             default:break;
         }

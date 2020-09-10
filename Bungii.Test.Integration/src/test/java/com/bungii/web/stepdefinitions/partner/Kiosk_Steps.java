@@ -79,4 +79,17 @@ public class Kiosk_Steps extends DriverBase {
         log("I should be logged out from Partner Portal ","I clicked ", true);
     }
 
+    @And("^I set the Admin Access mode \"([^\"]*)\" on partner portal$")
+    public void i_set_the_Admin_Access_mode_something(String value){
+        switch (value)
+        {
+            case "ON":
+                action.click(Page_Kiosk.Button_Admin_Access());
+                action.click(Page_Kiosk.Link_Setting());
+                break;
+        }
+    }
+
+
+
 }

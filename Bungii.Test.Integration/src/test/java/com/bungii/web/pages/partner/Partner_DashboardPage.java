@@ -45,6 +45,9 @@ public class Partner_DashboardPage extends PageBase {
     //Delivery Address List
     public WebElement List_Delivery_Address() { return findElement("//div[contains(@class,'pac-container pac-logo')]/div[1]/span[2]",LocatorType.XPath);}
 
+    //Driver Helper Carry checkbox
+    public WebElement Checkbox_Driver_HelperCarry() { return findElement("//input[@id='DriverHelpCarryFields']",LocatorType.XPath);}
+
     //Set Delivery Address
     public WebElement SetDeliveryAddress() { return findElement("//input[@id='dropoffAdd']",LocatorType.XPath);}
 
