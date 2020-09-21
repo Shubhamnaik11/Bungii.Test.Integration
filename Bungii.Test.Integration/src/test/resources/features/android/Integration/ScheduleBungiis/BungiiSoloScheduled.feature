@@ -1,6 +1,6 @@
 @android
 @SoloScheduled
-
+@bungii
 #These feature will run in kansas geofence
 Feature: SoloScheduled
 
@@ -13,9 +13,12 @@ Feature: SoloScheduled
       | kansas   | Accepted     | NEXT_POSSIBLE |
     When I Switch to "customer" application on "same" devices
     And I am logged in as "valid" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "SCHEDULED BUNGIIS" from driver App menu
     And I Select Trip from driver scheduled trip
    # And I wait for Minimum duration for Bungii Start Time
@@ -921,7 +924,7 @@ Feature: SoloScheduled
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
       | NEXT_POSSIBLE | 8805368840     | Testcustomertywd_appleRicha Test | Cci12345          |
 
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
 
     And As a driver "Testdrivertywd_appleks_ra_four Kent" and "Testdrivertywd_appleks_rathree Test" perform below action with respective "DUO SCHEDULED" trip
@@ -950,11 +953,11 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
-    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip
 
     And I cancel all bungiis of customer
@@ -976,11 +979,11 @@ Feature: SoloScheduled
     And I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
     And I click "ACCEPT" button on Bungii Request screen
-    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip
 
     And I cancel all bungiis of customer
@@ -1258,7 +1261,7 @@ Feature: SoloScheduled
 
     Then I wait for "1" mins
     And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I click "ACCEPT" button on Bungii Request screen
     And I Switch to "customer" application on "same" devices
@@ -1978,6 +1981,7 @@ Feature: SoloScheduled
       | CUSTOMER1_PHONE |                 |
 
   @regression
+ 
   Scenario: Verify If Re-searched Driver Can Cancel Trip After Starting The Scheduled Duo Trip
     When I request "duo" Bungii as a customer in "kansas" geofence
       | Bungii Time   | Customer Phone | Customer Name                    | Customer Password |
@@ -2099,7 +2103,7 @@ Feature: SoloScheduled
     And I am on the LOG IN page on driver app
     And I enter phoneNumber :8888881019 and  Password :Cci12345
     And I click "Log In" button on Log In screen on driver app
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
+    When I Select "ALERT SETTINGS" from driver App menu
     And I update kansas driver todays trip alert setting to outside current time
     When I Switch to "customer" application on "same" devices
     When I request "Solo Scheduled" Bungii as a customer in "denver" geofence
@@ -2108,10 +2112,10 @@ Feature: SoloScheduled
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
 
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
-    Then I should be navigated to "AVAILABLE TRIPS" screen
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
     And I should able to see "zero" available trip
-    And I Select "TRIP ALERT SETTINGS" from driver App menu
+    And I Select "ALERT SETTINGS" from driver App menu
     And I update trip setting of "TODAY" to "12:00 AM" to "11:59 PM"
     Then I cancel all bungiis of customer
       | Customer Phone | Customer2 Phone |
@@ -2153,7 +2157,7 @@ Feature: SoloScheduled
       When I am logged in as "Testcustomertywd_appleand_A Android" customer
 
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from driver available trip
       And I tap on "ACCEPT" on driver Trip details Page
       And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -2189,7 +2193,7 @@ Feature: SoloScheduled
     When I am logged in as "Testcustomertywd_appleand_A Android" customer
 
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -2299,7 +2303,7 @@ Feature: SoloScheduled
     When I am logged in as "Testcustomertywd_appleand_A Android" customer
 
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu

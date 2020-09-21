@@ -69,8 +69,8 @@ public class HomePageSteps extends DriverBase {
             testStepAssert.isTrue(flag, "I should able to click " + menuItem, "Not able to select " + menuItem + " from App menu");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
-            error("Step  Should be successful",
-                    "Error performing step,Please check logs for more details", true);
+            error("Step should be successful",
+                    "Not able to select " + menuItem + " from App menu" , true);
         }
     }
 
@@ -85,7 +85,7 @@ public class HomePageSteps extends DriverBase {
                     goOffline();
                     break;
             }
-            ResultManager.log("I change driver status to" + status, "I change driver status" + status, true);
+            ResultManager.log("I change driver status to" + status, "I changed driver status to " + status, true);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             error("Step  Should be successful",
@@ -160,7 +160,7 @@ public class HomePageSteps extends DriverBase {
         boolean notClicked = false;
         try {
             switch (appMenuItem.toUpperCase()) {
-                case "AVAILABLE TRIPS":
+                case "AVAILABLE BUNGIIS":
                     action.click(homepage.AppMenu_AvailableTrip());
                     break;
                 case "HOME":
@@ -178,7 +178,7 @@ public class HomePageSteps extends DriverBase {
                 case "EARNINGS":
                     action.click(homepage.AppMenu_EARNINGS());
                     break;
-                case "TRIP ALERT SETTINGS":
+                case "ALERT SETTINGS":
                     action.click(homepage.AppMenu_TripAlertSettings());
                     break;
                 case "FEEDBACK":
@@ -232,10 +232,10 @@ public class HomePageSteps extends DriverBase {
 
             switch (navTitle.toUpperCase()) {
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.online"));
                     break;
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.Text_NavigationBar()), PropertyUtility.getMessage("driver.home.title.offline"));
                     break;
                 default:
                     throw new Exception(" UNIMPLEMENTED STEP");
@@ -253,11 +253,11 @@ public class HomePageSteps extends DriverBase {
         try {
             switch (status.toUpperCase()) {
                 case "OFFLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.offline"));
                     testStepVerify.isEquals(action.getNameAttribute(homepage.GoOnline_Btn()), PropertyUtility.getMessage("driver.home.goonline"));
                     break;
                 case "ONLINE":
-                    testStepVerify.isEquals(action.getNameAttribute(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
+                    testStepVerify.isEquals(action.getScreenHeader(homepage.NavigationBar_Status()), PropertyUtility.getMessage("driver.home.title.online"));
                     testStepVerify.isEquals(action.getNameAttribute(homepage.GoOffline_Btn()), PropertyUtility.getMessage("driver.home.gooffline"));
                     break;
                 default:
@@ -363,8 +363,8 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isElementNameEquals(homepage.Text_ScheduledBungiis(), "No Bungiis, You don't have any scheduled\u2028Bungiis at this time.", "No Bungiis, You don't have any scheduled\u2028Bungiis at this time. is displayed", " is displayed", " is not displayed");
                     break;
 
-                case "AVAILABLE TRIPS":
-                    testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Trips Available", " is displayed", "No Trips Available is displayed", " is not displayed");
+                case "AVAILABLE BUNGIIS":
+                    testStepAssert.isElementNameEquals(homepage.Text_AvailableTripsData(), "No Bungiis Available", " is displayed", "No Bungiis Available is displayed", " is not displayed");
                     break;
 
                 case "EARNINGS":
@@ -386,8 +386,8 @@ public class HomePageSteps extends DriverBase {
                     testStepAssert.isEquals(accountName.replace("  "," "), (String) cucumberContextManager.getScenarioContext("DRIVER_1"), " is displayed", " is displayed", " is not displayed");
                     break;
 
-                case "TRIP ALERT SETTINGS":
-                    testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Trip Alerts", "Trip Alerts is displayed", "Trip Alerts is displayed", "Trip Alerts is not displayed");
+                case "ALERT SETTINGS":
+                    testStepAssert.isElementNameEquals(homepage.Text_TripAlertSettings(), "Delivery Alerts", "Delivery Alerts is displayed", "Delivery Alerts is displayed", "Delivery Alerts is not displayed");
                     testStepAssert.isElementNameEquals(homepage.Text_SMSAlertSettings(), "SMS Alerts", "SMS Alerts is displayed", "SMS Alerts is displayed", "SMS Alerts is not displayed");
                     break;
 
@@ -422,7 +422,7 @@ public class HomePageSteps extends DriverBase {
                 timeRange = timeRange.replace("S","D");
 
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
@@ -452,7 +452,7 @@ public class HomePageSteps extends DriverBase {
         try {
             int day = 0;
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
@@ -483,7 +483,7 @@ public class HomePageSteps extends DriverBase {
             List<WebElement> timeData = tripAlertSettingsPage.Row_TripTime();
             int day = 0;
             switch (strArg1) {
-                case "TRIP ALERT":
+                case "DELIVERY ALERT":
                     for (WebElement row : timeData) {
                         String currentRowData = action.getNameAttribute(row);
                         cucumberContextManager.setScenarioContext("TRIP_ALERT_" + day, currentRowData);

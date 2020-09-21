@@ -1,6 +1,6 @@
 @android
 @duo
-
+@bungii
   #These feature will run in atlanta geofence
 
 Feature: Duo
@@ -10,15 +10,19 @@ Feature: Duo
   Scenario: Verify Scheduling Of Duo Bungii As An Android Customer
   #  Given I have Large image on my device
     Given I am logged in as "valid atlanta" customer
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
 
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
     And I connect to "extra1" using "Driver2" instance
     And I Open "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid driver 2" driver
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I Select "Home" from driver App menu
 
     And I Open "customer" application on "ORIGINAL" devices
@@ -1340,7 +1344,7 @@ Feature: Duo
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
 
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
 
@@ -1373,7 +1377,7 @@ Feature: Duo
     When I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     And I am logged in as "valid atlanta" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
 
@@ -1671,7 +1675,7 @@ Feature: Duo
     And I tap on "Yes on HeadsUp pop up" on Bungii estimate
 
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from driver available trip
     And I tap on "ACCEPT" on driver Trip details Page
     And I Select "SCHEDULED BUNGIIS" from driver App menu

@@ -38,8 +38,8 @@ public class TripDetailsSteps extends DriverBase {
     }
 
 
-    @Then("^Trip Information should be correctly displayed on TRIP DETAILS screen$")
-    public void trip_information_should_be_correctly_displayed_on_something_screen() {
+    @Then("^Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen$")
+    public void driver_information_should_be_correctly_displayed_on_somethingBUNGIIDETAILS_screen() {
         try {
             action.swipeUP();
             String[] actualDetails = getTripDetails();
@@ -53,28 +53,28 @@ public class TripDetailsSteps extends DriverBase {
            // timeValue = timeValue.substring(0, 1).equals("0") ? timeValue.substring(1) : timeValue;
             String expectedDate = expectedTripTime.split(",")[0].trim();
             //earlier initial Zero was displayed , Not it is getting displayed
-/*            int leadingZero = expectedDate.indexOf(" ") + 1;
-            if (expectedDate.substring(leadingZero, leadingZero + 1).startsWith("0"))
-                expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);*/
+          //  int leadingZero = expectedDate.indexOf(" ") + 1;
+          //  if (expectedDate.substring(leadingZero, leadingZero + 1).startsWith("0"))
+              //  expectedDate = expectedDate.substring(0, leadingZero) + expectedDate.substring(leadingZero + 1);
             boolean isDateCorrect = actualDetails[2].split("\\|")[0].trim().contains(expectedDate.trim());
             boolean isTimeCorrect = timeValue.trim().equals(actualDetails[2].split("\\|")[1].trim());
             boolean isDistanceCorrect = expectedTripDistance.equals(actualDetails[0]);
 
             testStepVerify.isTrue(isTimeCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
-                    "Trip Time should be correctly displayed ",
-                    "Trip Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[2].trim());
+                    "Driver Trip Information should be correctly displayed on BUNGII DETAILS screen",
+                    "Driver Time should be correctly displayed ",
+                    "Driver Time is not displayed correctly displayed ,Expected trip time:" + timeValue + "actual trip time" + actualDetails[2].trim());
 
             testStepVerify.isTrue(isDateCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
-                    "Trip Time should be correctly displayed ",
-                    "Trip Time is not displayed correctly displayed , expected Trip date:" + expectedDate + " actual trip date:" + actualDetails[2].trim());
+                    "Driver Information should be correctly displayed on BUNGII DETAILS screen",
+                    "Driver Time should be correctly displayed ",
+                    "Driver Time is not displayed correctly displayed , expected Trip date:" + expectedDate + " actual trip date:" + actualDetails[2].trim());
 
 
             testStepVerify.isTrue(isDistanceCorrect,
-                    "Trip Information should be correctly displayed on TRIP DETAILS screen",
-                    "Trip Distance should be correctly displayed ",
-                    "Trip Distance is not displayed correctly displayed , expected Trip distance" + expectedTripDistance + " actual trip distance " + actualDetails[0]);
+                    "Driver Information should be correctly displayed on BUNGII DETAILS screen",
+                    "Driver Distance should be correctly displayed ",
+                    "Driver Distance is not displayed correctly displayed , expected Trip distance" + expectedTripDistance + " actual trip distance " + actualDetails[0]);
 
         } catch (Throwable e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

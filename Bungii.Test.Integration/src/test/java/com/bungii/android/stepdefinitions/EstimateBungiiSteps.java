@@ -13,11 +13,13 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.touch.offset.PointOption;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
@@ -38,6 +40,7 @@ import java.util.List;
 import java.util.TimeZone;
 
 import static com.bungii.SetupManager.getDriver;
+import static com.bungii.SetupManager.setDriver;
 import static com.bungii.common.manager.ResultManager.*;
 import static io.appium.java_client.touch.WaitOptions.waitOptions;
 import static io.appium.java_client.touch.offset.PointOption.point;
@@ -955,6 +958,17 @@ public class EstimateBungiiSteps extends DriverBase {
                 }
                 action.click(bungiiEstimatePage.Link_AddPhoto());
                 Thread.sleep(2000);
+                if(action.isAlertPresent()){
+                    try {
+                        Thread.sleep(3000);
+                        action.clickAlertButton("ALLOW");
+                        Thread.sleep(3000);
+                    }
+                    catch (Exception ex){
+
+                    }
+                }
+
                 //adding most probable outcome first
                 if (action.isElementPresent(bungiiEstimatePage.Option_Camera(true))) {
                     //do nothing,
@@ -963,10 +977,30 @@ public class EstimateBungiiSteps extends DriverBase {
 
                 action.click(bungiiEstimatePage.Option_Camera());
 
+                try {
+                    int x1 = 114, y1 = 1530, x2 = 117, y2 = 1579, x3 = 109, y3 = 1562;
+                    TouchAction touchAction = new TouchAction((AppiumDriver) SetupManager.getDriver());
+                    PointOption top = point(x1, y1);
+                    touchAction.tap(top).perform();
+                    Thread.sleep(6000);
+                    top = point(x2, y2);
+                    touchAction.tap(top).perform();
+                    Thread.sleep(6000);
+                    top = point(x3, y3);
+                    touchAction.tap(top).perform();
+                    Thread.sleep(6000);
+                }
+                catch (Exception e){
+
+                }
+
                 String manufacturer = driver.getCapabilities().getCapability("deviceType").toString();
                 if (manufacturer.equalsIgnoreCase("MOTOROLA")) {
                     Thread.sleep(5000);
                     // driver.tap(1, 100, 500, 1);
+                    new TouchAction(driver)
+                            .tap(point(100, 500))
+                            .waitAction(waitOptions(Duration.ofMillis(250))).perform();
                     new TouchAction(driver)
                             .tap(point(100, 500))
                             .waitAction(waitOptions(Duration.ofMillis(250))).perform();
@@ -997,7 +1031,7 @@ public class EstimateBungiiSteps extends DriverBase {
 /*            if (action.isElementPresent(Page_Estimate.Text_PickupLocation())) {
                 //code to be added incase of "Invalid Image error"
             }*/
-
+            Thread.sleep(4000);
             testStepVerify.isElementDisplayed(bungiiEstimatePage.Button_SelectedImage(), "I add " + arg0 + " photos to the Bungii", "I selected photos on estimate page", "Selected image was not displayed on Estimate page");
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));

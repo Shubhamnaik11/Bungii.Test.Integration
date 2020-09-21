@@ -12,6 +12,8 @@ Feature: Login
     When I enter customers "valid" Phone Number
     And I enter customers "valid" Password
     And I tap on the "Log in" Button on Login screen
+    And I accept "TERMS & CONDITIONS" and "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
+    And I close "Tutorial" if exist
     Then The user should be logged in
     And I tap on "Menu" > "Logout" link
 

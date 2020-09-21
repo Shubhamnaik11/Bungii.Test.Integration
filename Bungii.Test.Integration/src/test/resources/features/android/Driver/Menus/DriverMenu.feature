@@ -8,6 +8,7 @@ Feature: DriverMenu
     Given I Switch to "driver" application on "same" devices
     And I am on the LOG IN page on driver app
     Given I am on Driver logged in Home page
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
 
   @regression
 
@@ -30,10 +31,10 @@ Feature: DriverMenu
     Then I should be able to see data on "SCHEDULED BUNGIIS" page
 
   @regression
-  Scenario: Verify Driver AVAILABLE TRIPS Menu
-    When I Select "AVAILABLE TRIPS" from driver App menu
-    And the "AVAILABLE TRIPS" page is opened
-    Then I should be able to see data on "AVAILABLE TRIPS" page
+  Scenario: Verify Driver AVAILABLE BUNGIIS Menu
+    When I Select "AVAILABLE BUNGIIS" from driver App menu
+    And the "AVAILABLE BUNGIIS" page is opened
+    Then I should be able to see data on "AVAILABLE BUNGIIS" page
 
   @regression
   Scenario: Verify Driver EARNINGS Menu
@@ -49,10 +50,10 @@ Feature: DriverMenu
 
   @regression
 
-  Scenario:  Verify Driver TRIP ALERT SETTINGS Menu
-    When I Select "TRIP ALERT SETTINGS" from driver App menu
-    And the "TRIP ALERT SETTINGS" page is opened
-    Then I should be able to see data on "TRIP ALERT SETTINGS" page
+  Scenario:  Verify Driver ALERT SETTINGS Menu
+    When I Select "ALERT SETTINGS" from driver App menu
+    And the "ALERT SETTINGS" page is opened
+    Then I should be able to see data on "ALERT SETTINGS" page
 
   @regression
   Scenario:  Verify Driver STORE Menu

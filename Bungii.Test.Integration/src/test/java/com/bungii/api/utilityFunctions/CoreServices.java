@@ -174,8 +174,15 @@ public class CoreServices extends DriverBase {
                     isPickupInAvailableTrip = true;
                     break;
                 }
+                else
+                {
+                    System.out.println("Pickup requests for which driver is eligible are : "+ pickupRequest);
+                }
             }
         }
+        else
+            System.out.println("No Pickup requests found for which driver is eligible");
+
         return isPickupInAvailableTrip;
     }
 
@@ -905,17 +912,25 @@ public class CoreServices extends DriverBase {
 
         ArrayList ScheduledPickups = jsonPathEvaluator.get("ScheduledPickups");
         if (ScheduledPickups != null) {
+            logger.detail("Total scheduled deliveries found for customer : "+ ScheduledPickups.size());
             for (int i = 0; i < ScheduledPickups.size(); i++) {
                 HashMap pickupDetails = (HashMap) ScheduledPickups.get(i);
                 String pickupRequest = (String) pickupDetails.get("PickupRef");
                 boolean CanBeCancelled = (boolean) pickupDetails.get("CanBeCancelled");
                 getScheduledPickupDetails(pickupRequest,authToken);
-                if(CanBeCancelled)
-                    cancelBungiiAsCustomer(pickupRequest,authToken);
-                else
+                if(CanBeCancelled) {
+                    cancelBungiiAsCustomer(pickupRequest, authToken);
+                    logger.detail("Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequest);
+                }
+                else {
                     new WebPortal().cancelBungiiAsAdmin(pickupRequest);
+                    logger.detail("Cancelled Pickup Request as Admin | Pickup Request : "+ pickupRequest);
+                }
             }
         }
+        else
+            logger.detail("No Scheduled Bungiis Found for Customer");
+
 
     }
     public void cancelOrCompleteOngoingBungii(String custAccessToken){
@@ -933,8 +948,10 @@ public class CoreServices extends DriverBase {
             int pickupStatus = jsonPathEvaluator.get("PickupDetails.PickupStatus");
             int numberOfDriver = jsonPathEvaluator.get("PickupDetails.NoOfDrivers");
             //on demand searching
-            if (pickupStatus == 4)
+            if (pickupStatus == 4) {
                 cancelBungiiAsCustomer(pickupRequestID, custAccessToken);
+                logger.detail("Cancelled Pickup Request as Customer | Pickup Request : "+ pickupRequestID);
+            }
             else if(pickupStatus == 23 || pickupStatus == 24) {
                 //cancel Bungii as driver
                 String driverPhoneCode="1";
@@ -943,6 +960,8 @@ public class CoreServices extends DriverBase {
                 String driverAccessToken = new AuthServices().getDriverToken(driverPhoneCode, driverPhoneNum, driverPassword);
 
                 updateStatus(pickupRequestID, driverAccessToken, 66);
+                logger.detail("Pickup Status moved to 66 From either 23 or 24 | Pickup Request : "+ pickupRequestID);
+
             } else if(pickupStatus == 25 || pickupStatus == 26 ||pickupStatus == 27 ||pickupStatus == 28) {
                 //complete Bungii as driver
                 String driverPhoneCode="1";
@@ -971,9 +990,13 @@ public class CoreServices extends DriverBase {
                     rateAndTip(pickupRequestID, custAccessToken, driver1Ref, paymentMethod, 5.0, 0.0, driver2Ref, paymentMethod);
 
                 }
+                logger.detail("Completed In Progress Trip | Pickup Request : "+ pickupRequestID);
+
             }
 
         }
+        else
+            logger.detail("No Bungiis Found for Customer ");
     }
     public Response getScheduledPickupDetails(String pickuprequestid, String authToken) {
         logger.detail("API REQUEST : Get Scheduled Pickup Details | pickup Request : "+ pickuprequestid + " | Authtoken : "+ authToken);
@@ -993,7 +1016,7 @@ public class CoreServices extends DriverBase {
 
     public void cancelBungiiAsCustomer(String pickupRef, String authToken) {
         try {
-            logger.detail("API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken);
+            logger.detail("API REQUEST : Cancel Bungii As a Customer | pickup Request : "+ pickupRef + " | Authtoken : "+ authToken + " | Status : "+ 64);
 
             JSONObject jsonObj = new JSONObject();
             jsonObj.put("Status", 64);

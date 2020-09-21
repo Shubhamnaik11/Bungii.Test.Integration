@@ -237,7 +237,8 @@ public class LoginSteps extends DriverBase {
             utility.enterDriverPhoneAndPassword(strUserName, strPassWord);
 
             pass("Username and Password should be added successfully",
-                    "Username :" + strUserName + ", and password :" + strPassWord + ",is added successfully");
+            "Entered Driver Credentials ["+ strUserName+" / "+strPassWord+"] successfully");
+
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
             logger.error("Page source", SetupManager.getDriver().getPageSource());

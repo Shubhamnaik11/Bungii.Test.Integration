@@ -7,6 +7,7 @@ Feature: Solo Scheduled Bungii Part I
   
   Background:
 	When I clear all notification
+	When I Switch to "customer" application on "same" devices
   
   @regression
     # negative scenario is handle in long haul message scenario . In this scenario verify trip >140 but less than 150 go through
@@ -16,7 +17,7 @@ Feature: Solo Scheduled Bungii Part I
 	Given I login as "valid miami 2" customer and on Home page
 	And I enter pickup location
 	  | Driver | Pickup Location |
-	  | Solo   | Margoa Railway  |
+	  | Solo   | Margao Railway Overbridge  |
 	And I enter drop location
 	  | Driver | Drop Location       |
 	  | Solo   | Devghali Beach road |

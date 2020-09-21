@@ -7,7 +7,8 @@ Feature: Solo Scheduled Bungii Part II
   
   Background:
     When I clear all notification
-    
+    When I Switch to "customer" application on "same" devices
+  
   @FAILED2702
   @regression
   @sanity
@@ -149,10 +150,12 @@ Feature: Solo Scheduled Bungii Part II
     And I click "Done" button on "Success" screen
     Then I Select "Home" from Customer App menu
     When I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
-    Then I should be navigated to "TRIP DETAILS" screen
-    And Trip Information should be correctly displayed on TRIP DETAILS screen
+    Then I should be navigated to "BUNGII DETAILS" screen
+    #And Trip Information should be correctly displayed on BUNGII DETAILS screen
+    And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+    
     When I accept selected Bungii
 #    When I Switch to "driver" application on "same" devices
     And I Select "SCHEDULED BUNGIIS" from driver App menu
@@ -773,7 +776,7 @@ Feature: Solo Scheduled Bungii Part II
       | Bungii Time   | Customer Phone | Customer Name                      | Customer Password |
       | NEXT_POSSIBLE | 8888889917     | Testcustomertywd_appleZTDafc Stark | Cci12345          |
     Then I wait for "1" mins
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
 
     And As a driver "Testdrivertywd_appledv_b_matt Stark_dvOnE" and "Testdrivertywd_appledv_b_seni Stark_dvThree" perform below action with respective "DUO SCHEDULED" trip
@@ -802,11 +805,11 @@ Feature: Solo Scheduled Bungii Part II
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
     And I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip
 
     And I cancel all bungiis of customer
@@ -829,11 +832,11 @@ Feature: Solo Scheduled Bungii Part II
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "two" available trip
     And I Select Trip from available trip
     And I click "ACCEPT" button on "Bungii Request" screen
-    Then I should be navigated to "AVAILABLE TRIPS" screen
+    Then I should be navigated to "AVAILABLE BUNGIIS" screen
     Then I should able to see "zero" available trip
 
     And I cancel all bungiis of customer
@@ -853,9 +856,9 @@ Feature: Solo Scheduled Bungii Part II
 
     Then I wait for "2" mins
     And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
-    Then I should be navigated to "TRIP DETAILS" screen
+    Then I should be navigated to "BUNGII DETAILS" screen
     When I accept selected Bungii
     And I Switch to "customer" application on "same" devices
     And I click on notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
@@ -1729,7 +1732,7 @@ Feature: Solo Scheduled Bungii Part II
 
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "zero" available trip
 
     Then I cancel all bungiis of customer
@@ -1764,7 +1767,7 @@ Feature: Solo Scheduled Bungii Part II
 
     And I should not get notification for "driver" for "SCHEDULED PICKUP AVAILABLE"
     And I Switch to "driver" application on "same" devices
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     Then I should able to see "zero" available trip
     Then I cancel all bungiis of customer
       | Customer Phone  | Customer2 Phone      |
@@ -1895,7 +1898,7 @@ Feature: Solo Scheduled Bungii Part II
     And I Switch to "driver" application on "same" devices
     And I am on the "LOG IN" page on driverApp
     And I am logged in as "valid denver" driver
-    And I Select "AVAILABLE TRIPS" from driver App menu
+    And I Select "AVAILABLE BUNGIIS" from driver App menu
     And I Select Trip from available trip
     When I accept selected Bungii
     And I Switch to "customer" application on "same" devices

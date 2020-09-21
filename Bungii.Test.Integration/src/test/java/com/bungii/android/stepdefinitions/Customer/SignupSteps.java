@@ -45,7 +45,7 @@ public class SignupSteps extends DriverBase {
                     error("UnImplemented Step or incorrect button name", "UnImplemented Step");
                     break;
             }
-            action.sendKeys(Page_Signup.TextField_Phonenumber(), customerPhone);
+            action.enterText(Page_Signup.TextField_Phonenumber(), customerPhone);
             cucumberContextManager.setScenarioContext("CustomerPhoneNum", customerPhone);
         } catch (Exception e) {
             logger.error("Error performing step", ExceptionUtils.getStackTrace(e));
@@ -61,7 +61,6 @@ public class SignupSteps extends DriverBase {
 
             switch (strArg1) {
                 case "valid":
-
                     action.clearSendKeys(Page_Signup.TextField_FirstName(),PropertyUtility.getDataProperties("customer.first.name")+ RandomGeneratorUtility.getData("{RANDOM_STRING}",3));
                      firstName= Page_Signup.TextField_FirstName().getText();
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
@@ -69,10 +68,11 @@ public class SignupSteps extends DriverBase {
                     action.click(Page_Signup.TextField_Email());
                     String emailAddress="bungiiauto+"+RandomGeneratorUtility.getData("{RANDOM_STRING}",4)+"@gmail.com";
                     cucumberContextManager.setScenarioContext("NEW_USER_EMAIL_ADDRESS",emailAddress);
-                    action.sendKeys(emailAddress);
+                    action.enterText(Page_Signup.TextField_Email(),emailAddress);
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
                     action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.hideKeyboard();
                     action.click(Page_Signup.Select_ReferralSource());
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
@@ -86,10 +86,11 @@ public class SignupSteps extends DriverBase {
                     cucumberContextManager.setScenarioContext("FIRST_NAME",firstName);
                     action.clearSendKeys(Page_Signup.TextField_LastName(), PropertyUtility.getDataProperties("customer.last.name"));
                     action.click(Page_Signup.TextField_Email());
-                    action.sendKeys(PropertyUtility.getDataProperties("customer.email"));
+                    action.enterText(Page_Signup.TextField_Email(),PropertyUtility.getDataProperties("customer.email"));
                     action.hideKeyboard();
                     //    action.clearsendKeys(Page_Signup.TextField_Email(), /*PropertyUtility.getDataProperties("customer.email")*/"@cc.com");
                     action.clearSendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.new.password"));
+                    action.hideKeyboard();
                     action.click(Page_Signup.Select_ReferralSource());
                     action.click(Page_Signup.Option_ReferralSource());
                     action.click(Page_Signup.Link_ReferralSourceDone());
@@ -97,13 +98,13 @@ public class SignupSteps extends DriverBase {
                 case "blank":
                     action.clearSendKeys(Page_Signup.TextField_FirstName(), "");
                     action.clearSendKeys(Page_Signup.TextField_LastName(), "");
-                    action.clearSendKeys(Page_Signup.TextField_Email(), "");
+                    action.enterText(Page_Signup.TextField_Email(), "");
                     action.clearSendKeys(Page_Signup.TextField_Password(), "");
                     break;
 
                 case "invalid":
                     action.click(Page_Signup.TextField_Email());
-                    action.sendKeys(PropertyUtility.getDataProperties("customer.email.invalid"));
+                    action.enterText(Page_Signup.TextField_Email(),PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.hideKeyboard();
                     //action.sendKeys(Page_Signup.TextField_Email(), PropertyUtility.getDataProperties("customer.email.invalid"));
                     action.sendKeys(Page_Signup.TextField_Password(), PropertyUtility.getDataProperties("customer.password.invalid"));
@@ -133,7 +134,7 @@ public class SignupSteps extends DriverBase {
                 default:
                         error("UnImplemented Step or incorrect button name", "UnImplemented Step");
             }
-            action.sendKeys(Page_Signup.Textfield_SMSCode(), smsCode);
+            action.enterText(Page_Signup.Textfield_SMSCode(), smsCode);
 
             pass("I should able to enter verification code",
                     "I entered verification code : " + smsCode + "in sms code field", true);
@@ -257,7 +258,7 @@ public class SignupSteps extends DriverBase {
             action.click(Page_Signup.CheckBox_Promo());
         }
 
-        action.sendKeys(Page_Signup.TextField_Referral(), strPromoCode);
+        action.enterText(Page_Signup.TextField_Referral(), strPromoCode);
         log("I should able to enter Promo code in signup Page ",
                 "I entered  " + strPromoCode + " as " + strArg1 + "promoCode", true);
     } catch (Exception e) {

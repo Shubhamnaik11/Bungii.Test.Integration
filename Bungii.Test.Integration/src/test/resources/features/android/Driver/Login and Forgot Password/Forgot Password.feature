@@ -44,7 +44,6 @@ Feature: FORGOT PASSWORD
       | Invalid SMS code | {VALID USER} | Cci12345     | invalid  | INVALID SMS CODE             |
 
   @regression
-
   Scenario Outline: Verify Driver Is Able To Change Password Using Forgot Password Functionality
     When I click "Forgot Password" button on Log In screen on driver app
     Then "FORGOT PASSWORD INFORMATION" message should be displayed on FORGOT PASSWORD page on driver app
@@ -56,6 +55,7 @@ Feature: FORGOT PASSWORD
     And I Enter "<Confirm Password>" value in "confirm password" field in FORGOT PASSWORD Page on driver app
     And I click "CONTINUE" button on FORGOT PASSWORD screen on driver app
     Then I should see "PASSWORD CHANGE SUCCESS"  on FORGOT PASSWORD on driver app
+    And I accept "ALLOW NOTIFICATIONS" and "ALLOW LOCATION" permission if exist
     And I should be navigated to Home screen on driver app
 
     Examples:

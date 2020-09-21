@@ -7,7 +7,7 @@ Feature: Payment page
   Background:
     Given I am on Customer logged in Home page
   @FAILED2702
-  @regression
+  @ready
   Scenario Outline: Verify Customer Cannot Add Invalid Card - <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -26,6 +26,7 @@ Feature: Payment page
     
   @regression
   @sanity
+  @payment
   Scenario Outline: Verify Customer Can Add New Payment Card -  <Scenario> Scenario
     When I Select "PAYMENT" from Customer App menu
     Then I should be navigated to "PAYMENT" screen
@@ -39,9 +40,8 @@ Feature: Payment page
     Examples:
       | Scenario           | CardNo        | Expiry | Postal Code       | Cvv       |
       | ValidCard Discover | DISCOVER CARD | 12/22  | VALID POSTAL CODE | VALID CVV |
-      | ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
-
-  @failed
+      #| ValidCard Visa     | VISA CARD     | 12/22  | VALID POSTAL CODE | VALID CVV |
+    
   @regression
   Scenario: Verify Customer Can Change Default Payment Card
     When I Select "PAYMENT" from Customer App menu

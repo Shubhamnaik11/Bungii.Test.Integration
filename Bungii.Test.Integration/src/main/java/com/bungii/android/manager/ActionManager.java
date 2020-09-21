@@ -1,6 +1,7 @@
 package com.bungii.android.manager;
 
 import com.bungii.SetupManager;
+import com.bungii.common.manager.DriverManager;
 import com.bungii.common.utilities.LogUtility;
 import com.bungii.common.utilities.PropertyUtility;
 import io.appium.java_client.AppiumDriver;
@@ -18,6 +19,7 @@ import org.testng.collections.Lists;
 
 import java.time.Duration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.bungii.common.manager.ResultManager.error;
@@ -29,6 +31,7 @@ import static io.appium.java_client.touch.offset.PointOption.point;
 public class ActionManager {
     private static LogUtility logger = new LogUtility(ActionManager.class);
     private final long DRIVER_WAIT_TIME;
+    private static WebDriver driver=null;
 
     public ActionManager() {
         DRIVER_WAIT_TIME = Long.parseLong(PropertyUtility.getProp("WaitTime"));
@@ -286,18 +289,38 @@ public class ActionManager {
     }
     }
 
+    public void enterText(WebElement element, String text) {
+        try{
+            click(element);
+            JavascriptExecutor js =(JavascriptExecutor) SetupManager.getDriver();
+            Map<String, Object> params = new HashMap<>();
+            params.put("text", text);
+            params.put("element", ((RemoteWebElement) element).getId());
+            js.executeScript("mobile:type", params);
+                 logger.detail("Send  " + text + " in element -> " + getElementDetails(element));
+            }
+        catch(Exception ex)
+                {
+                logger.error("Error performing step", ExceptionUtils.getStackTrace(ex));
+                error("Step should be successful", "Unable to Send  " + text + " in element -> " + getElementDetails(element),
+                true);
+                }
+                }
     /**
      * SendKeys using adb shell
      *
      * @param input
      */
-    public void sendKeys(String input) {
+   /* public void sendKeys(String input) {
+
+
+
         AndroidDriver driver = (AndroidDriver) SetupManager.getDriver();
         Map<String, Object> args = new HashMap<>();
         args.put("command", "input");
         args.put("args", Lists.newArrayList("text", input));
         driver.executeScript("mobile: shell", args);
-    }
+    } */
 
     /**
      * @return boolean value according to alert existence
@@ -626,5 +649,38 @@ public class ActionManager {
             error("Select "+text+" in element -> " + getElementDetails(element), "Unable to Select "+text +" in element -> " + getElementDetails(element),
                     true);
         }
+    }
+
+    public List<String> getListOfAlertButton() {
+        WebDriverWait wait = new WebDriverWait(SetupManager.getDriver(), DRIVER_WAIT_TIME);
+        wait.until(ExpectedConditions.alertIsPresent());
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        HashMap<String, String> params = new HashMap<>();
+        params.put("action", "getButtons");
+        List<String> buttons = (List<String>) js.executeScript("mobile: alert", params);
+        logger.detail("GET | List of alert button[s]:" + buttons.toString());
+        return buttons;
+    }
+
+    public boolean clickAlertButton(String label) {
+
+        HashMap<String, String> params = new HashMap<>();
+        JavascriptExecutor js = (JavascriptExecutor) SetupManager.getDriver();
+
+        if (label.equalsIgnoreCase("ALLOW")){
+            js.executeScript("mobile: acceptAlert");
+        logger.detail("ACTION | Accept Alert button : " + label);
+        return false;
+    }
+        else if (label.equalsIgnoreCase( "DENY")){
+            js.executeScript("mobile: dismissAlert");
+
+            logger.detail("ACTION | Dismiss Alert button : " + label);
+            return false;
+        }
+        else
+            return false;
+
     }
 }

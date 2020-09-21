@@ -115,24 +115,7 @@ Feature: Promos
     And I click "SHARE ON TWITTER" button on "INVITE" screen
     Then user is alerted for "No twitter installed"
     And I should be navigated to "Invite" screen
-
-  @regression
-  Scenario: Verify Referral Invite When Facebook App Is Already Installed
-    Given I have "facebook" app "installed"
-    When I Select "PROMOS" from Customer App menu
-    Then I should be navigated to "PROMOS" screen
-    When I click "GET MORE MONEY" button on "PROMOS" screen
-    Then I should be navigated to "Invite" screen
-    Then I get Invite Code
-    When I click "SHARE" button on "INVITE" screen
-    And I click "SHARE ON FACEBOOK" button on "INVITE" screen
-    Then I should see "popup to post" Overlay Facebook screen
-    When I enter "valid data" on Overlay Facebook screen
-  #  And I tap "Next" button on Overlay Facebook screen
-    And I tap "POST" button on Overlay Facebook screen
-#    When I tap "Share" button on Overlay Facebook screen
-    Then I should be navigated to "Invite" screen
-
+    
   @regression
   Scenario: Verify Text On Hover of I On Promos Screen
     When I open new "Chrome" browser for "ADMIN PORTAL"
@@ -171,7 +154,7 @@ Feature: Promos
 
 
   @regression
-    @failed
+  @testPOC
   Scenario: Verify First Time Promocode Or Referral Code If Present Is Selected By Default
     When I open new "Chrome" browser for "ADMIN PORTAL"
     And I navigate to admin portal
@@ -183,6 +166,7 @@ Feature: Promos
   #  When I enter Username :8877995500 and  Password :{VALID}
     When I enter Username :8877995508 and  Password :{VALID}
     And I click "Log In" button on "Log In" screen
+    
     And I Select "PROMOS" from Customer App menu
     When I Enter "first time only" value in "Promo Code" field in "Promo" Page
     And I click "ADD" button on "PROMOS" screen
@@ -191,7 +175,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     Then I should see "first time only" code selected on Bungii estimate
     When I enter following details on "Estimate" screen
@@ -226,7 +210,7 @@ Feature: Promos
     And I Select "HOME" from Customer App menu
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -250,7 +234,7 @@ Feature: Promos
     And I click "Log In" button on "Log In" screen
     And I request for  bungii for given pickup and drop location
       | Driver | Pickup Location | Drop Location                | Geofence  |
-      | Solo   | Margao Railway  | Old Goa Road, Velha Goa, Goa | goa |
+      | Solo   | Margao Railway Overbridge  | Old Goa Road, Velha Goa, Goa | goa |
     And I click "Get Estimate" button on "Home" screen
     When I enter following details on "Estimate" screen
       | LoadTime | PromoCode | Payment Card | Time | PickUpImage |
@@ -301,10 +285,10 @@ Feature: Promos
       And I Select "Home" from Customer App menu
 
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-      Then I should be navigated to "TRIP DETAILS" screen
-      And Trip Information should be correctly displayed on TRIP DETAILS screen
+      Then I should be navigated to "BUNGII DETAILS" screen
+      And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       Then I wait for "2" mins
 
@@ -316,10 +300,11 @@ Feature: Promos
 
       When I switch to "ORIGINAL" instance
       When I Switch to "driver" application on "same" devices
-      And I Select "AVAILABLE TRIPS" from driver App menu
+      And I Select "AVAILABLE BUNGIIS" from driver App menu
       And I Select Trip from available trip
-      Then I should be navigated to "TRIP DETAILS" screen
-      And Trip Information should be correctly displayed on TRIP DETAILS screen
+      Then I should be navigated to "BUNGII DETAILS" screen
+      And Driver Bungii Information should be correctly displayed on BUNGII DETAILS screen
+      #And Trip Information should be correctly displayed on BUNGII DETAILS screen
       When I accept selected Bungii
       And I Select "SCHEDULED BUNGIIS" from driver App menu
       And I Select Trip from scheduled trip

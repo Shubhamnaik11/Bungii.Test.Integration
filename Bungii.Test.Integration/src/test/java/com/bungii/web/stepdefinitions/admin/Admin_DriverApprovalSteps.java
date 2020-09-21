@@ -104,7 +104,8 @@ public class Admin_DriverApprovalSteps extends DriverBase {
             case "Referral Source Page":
                 testStepAssert.isElementDisplayed(admin_ReferralSourcePage.Title_ReferralSourcePage(true), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
-            case "Business Users Page":
+//            case "Business Users Page":
+            case "Partners Page":
                 testStepAssert.isElementDisplayed(admin_BusinessUsersPage.Header_BusinessUsers(), "I should be navigate to " + screen, "I am navigate to " + screen, "I am not navigate to " + screen);
                 break;
             case "Promoters Page":
@@ -183,10 +184,11 @@ public class Admin_DriverApprovalSteps extends DriverBase {
                 Thread.sleep(5000);
                 action.click(admin_PromoCodesPage.Button_Save());
                 break;
-            case "New Business User":
+//            case "New Business User":
+            case "New Partner":
                 action.click(admin_BusinessUsersPage.Button_CreateBusinessUser());
                 break;
-            case "New Promoter":
+            case "New Partners":
                 action.click(admin_PromoterPage.Button_NewPromoter());
                 break;
 

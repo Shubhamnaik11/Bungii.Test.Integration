@@ -300,6 +300,7 @@ public class ApiHelper {
             HashMap error = jsonPathEvaluator.get("Error");
 
         if (error == null) {
+          //  logger.detail(response.then().log().body()); //temporary checkin
             logger.detail("VERIFIED | API call response - Success ");
         }
         else

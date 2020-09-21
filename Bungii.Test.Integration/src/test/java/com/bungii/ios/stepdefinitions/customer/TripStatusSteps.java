@@ -524,7 +524,7 @@ public class TripStatusSteps extends DriverBase {
      */
     public boolean isUpdatePage(String pageName) {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), pageName);
-        return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(pageName);
+        return action.getScreenHeader(updateStatusPage.Text_NavigationBar()).equals(pageName);
 
     }
 
@@ -577,7 +577,7 @@ public class TripStatusSteps extends DriverBase {
 
     public boolean isMessageAppPage() {
         action.textToBePresentInElementName(updateStatusPage.Text_NavigationBar(), PropertyUtility.getMessage("messages.navigation.new"));
-        return action.getNameAttribute(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));
+        return action.getScreenHeader(updateStatusPage.Text_NavigationBar()).equals(PropertyUtility.getMessage("messages.navigation.new"));
     }
 
 }

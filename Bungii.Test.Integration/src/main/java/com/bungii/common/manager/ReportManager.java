@@ -110,6 +110,7 @@ public class ReportManager {
 	}
 
 	public boolean isVerificationFailed(){return htmlReportManager.isScenarioFailed();}
+	public int skipped(){return htmlReportManager.skipped();}
 
 	/**
 	 *Add row in Result 
@@ -129,8 +130,14 @@ public class ReportManager {
 	 * Method that will be called at end of Test Suite
 	 */
 	public void endSuiteFile() {
-		htmlReportManager.endSuiteFile();
-		copyLogFile();
+		try {
+			htmlReportManager.endSuiteFile();
+			copyLogFile();
+		}
+		catch (Exception ex)
+		{
+
+		}
 	}
 	
 	/**

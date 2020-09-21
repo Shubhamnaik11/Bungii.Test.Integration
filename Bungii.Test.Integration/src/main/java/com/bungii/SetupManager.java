@@ -56,11 +56,13 @@ public class SetupManager extends EventFiringWebDriver {
 
     static {
         TARGET_PLATFORM = PropertyUtility.getProp("target.platform");
-        logger.detail("TARGET_PLATFORM : " + TARGET_PLATFORM);
+        logger.detail("TARGET PLATFORM : " + TARGET_PLATFORM);
         APPIUM_SERVER_IP = PropertyUtility.getProp("server");
         if (TARGET_PLATFORM.equalsIgnoreCase("IOS") || TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
             String deviceID = System.getProperty("DEVICE");
             String APPIUM_SERVER_PORT = String.valueOf(returnPortNumber(deviceID));
+            CucumberContextManager.getObject().setScenarioContext("FAILURE", "FALSE");
+
             if (TARGET_PLATFORM.equalsIgnoreCase("IOS")) {
                 try {
                     driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
@@ -87,6 +89,8 @@ public class SetupManager extends EventFiringWebDriver {
 
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+
                     }
                 }
                 catch (Exception e) {
@@ -96,6 +100,8 @@ public class SetupManager extends EventFiringWebDriver {
                         driver = (IOSDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
                     } catch (Exception e1) {
                         ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+
                     }
                 }
                 if (getCapabilities(deviceID).getCapability("app").toString().contains("customer"))
@@ -104,8 +110,19 @@ public class SetupManager extends EventFiringWebDriver {
                     CucumberContextManager.getObject().setFeatureContextContext("CURRENT_APPLICATION", "DRIVER");
 
             } else if (TARGET_PLATFORM.equalsIgnoreCase("ANDROID")) {
-                System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
+                //System.out.println("PORT :" + APPIUM_SERVER_PORT + "");
+                try{
                 driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+                }catch (SessionNotCreatedException e) {
+                    try {
+                        // Thread.sleep(180000);
+                        driver = (AndroidDriver<MobileElement>) startAppiumDriver(getCapabilities(deviceID), APPIUM_SERVER_PORT);
+
+                    } catch (Exception e1) {
+                        ManageDevices.afterSuiteManageDevice();
+                        CucumberContextManager.getObject().setScenarioContext("FAILURE", "TRUE");
+                    }
+                }
             }
         } else if (TARGET_PLATFORM.equalsIgnoreCase("WEB"))
             driver = createWebDriverInstance(PropertyUtility.getProp("default.browser"));
@@ -198,7 +215,7 @@ public class SetupManager extends EventFiringWebDriver {
         if (APPIUM_SERVER_IP.equalsIgnoreCase("localhost") || APPIUM_SERVER_IP.equals("") || APPIUM_SERVER_IP.equals("0.0.0.0"))
             APPIUM_SERVER_IP = "127.0.0.1";
        return "http://" + APPIUM_SERVER_IP + ":" + portNumber + "/wd/hub";
-       // return "https://" + APPIUM_SERVER_IP + "/wd/hub";
+       //return "https://" + APPIUM_SERVER_IP + "/wd/hub"; //browserstack
     }
 
     public static void startAppiumServer(String APPIUM_SERVER_IP, String portNumber) {
@@ -328,7 +345,7 @@ public class SetupManager extends EventFiringWebDriver {
                 driver = new AndroidDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
             else
                 driver = new IOSDriver<MobileElement>(new URL(appiumServerUrl), capabilities);
-            logger.detail("Appium Driver Running at port : " + portNumber);
+            //logger.detail("Appium Driver Running at port : " + portNumber); //Not needed for browserstack
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -358,6 +375,12 @@ public class SetupManager extends EventFiringWebDriver {
 
         while (keys.hasNext()) {
             String key = keys.next();
+            if(key.toString().equalsIgnoreCase("otherApps"))
+            {
+               String[] Arrary = new String[]{jsonCaps.get(key).toString()};
+                capabilities.setCapability(key, Arrary);
+            }
+            else
             //TODO check key type , then verify and add
             capabilities.setCapability(key, jsonCaps.get(key));
             if(key.toString().equalsIgnoreCase("deviceName"))
@@ -377,7 +400,7 @@ public class SetupManager extends EventFiringWebDriver {
             capabilities.setCapability("remoteAdbHost", System.getProperty("remoteAdbHost"));
             capabilities.setCapability("adbPort", REMOTE_ADB_PORT);
         }
-        logger.detail("Test is running on device " + deviceId + " : " + phoneDetails);
+        logger.detail("Test Kickoff On Device " + deviceId + " : " + phoneDetails);
         return capabilities;
     }
 
@@ -403,7 +426,7 @@ public class SetupManager extends EventFiringWebDriver {
             return (int) jsonCaps.get(deviceId);
         } catch (Exception e) {
 
-            logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file");
+          //  logger.error("NOT able to fetch port number from JSON file . Please  verify key " + deviceId + " in JSON file"); // Not needed for Browserstack
             return 0;
         }
 

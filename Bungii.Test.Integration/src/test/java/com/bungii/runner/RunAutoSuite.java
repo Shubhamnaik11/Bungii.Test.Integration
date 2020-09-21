@@ -101,7 +101,13 @@ public class RunAutoSuite extends AbstractTestNGCucumberTests {
      */
     @AfterSuite
     public void afterSuite() throws IOException {
-        this.hooks.tearDown();
+        try {
+            this.hooks.tearDown();
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
 }
